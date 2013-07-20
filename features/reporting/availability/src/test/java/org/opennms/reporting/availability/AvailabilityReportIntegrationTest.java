@@ -52,6 +52,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class AvailabilityReportIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -63,26 +66,41 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class AvailabilityReportIntegrationTest implements InitializingBean {
 
+    /** The calendar availability calculator. */
     @Resource
     AvailabilityCalculator calendarAvailabilityCalculator;
 
+    /** The classic availability calculator. */
     @Resource
     AvailabilityCalculator classicAvailabilityCalculator;
 
+    /** The m_db populator. */
     @Autowired
     AvailabilityDatabasePopulator m_dbPopulator;
 
+    /** The m_categories. */
     protected Categories m_categories;
 
+    /** The m_calendar. */
     protected Calendar m_calendar;
 
+    /** The m_cat factory. */
     protected MockCategoryFactory m_catFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -100,6 +118,15 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the section by name.
+     *
+     * @param category
+     *            the category
+     * @param sectionName
+     *            the section name
+     * @return the section by name
+     */
     private Section getSectionByName(Category category, String sectionName) {
 
         Section match = null;
@@ -117,6 +144,19 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
         return match;
     }
 
+    /**
+     * Gets the cal section day.
+     *
+     * @param category
+     *            the category
+     * @param title
+     *            the title
+     * @param row
+     *            the row
+     * @param col
+     *            the col
+     * @return the cal section day
+     */
     private Day getCalSectionDay(Category category, String title, int row, int col) {
 
         Section calSection = getSectionByName(category, title);
@@ -128,10 +168,20 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
     // helper method to round to 4 decimal places.
 
+    /**
+     * Four dec.
+     *
+     * @param number
+     *            the number
+     * @return the double
+     */
     private double fourDec(double number) {
         return (Math.round(number * 10000.0)) / 10000.0;
     }
 
+    /**
+     * Test built classic report.
+     */
     @Test
     @Ignore("Don't run this test (which has less coverage than the next) until I figure out why we're holding onto the previous test's dataSource.")
     public void testBuiltClassicReport() {
@@ -173,6 +223,9 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
     // TODO indigo: Spring Injection for DefaultRemoteRepositoryConfigDao
     // necessary
+    /**
+     * Test built calendar report.
+     */
     @Ignore
     @Test
     public void testBuiltCalendarReport() {

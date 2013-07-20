@@ -33,7 +33,17 @@ import java.io.InputStreamReader;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class PDFReportRendererTest.
+ */
 public class PDFReportRendererTest extends TestCase {
+
+    /**
+     * Test pdf rendering.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPdfRendering() throws Exception {
         new PDFReportRenderer().render(new InputStreamReader(
                                                              // This is a

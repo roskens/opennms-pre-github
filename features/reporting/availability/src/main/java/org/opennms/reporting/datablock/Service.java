@@ -59,9 +59,7 @@ public class Service extends StandardNamedObject {
      */
     private long m_busDownTime;
 
-    /**
-     * Total Regular Monitored Time
-     */
+    /** Total Regular Monitored Time. */
     private long m_monitoredTime;
 
     /**
@@ -173,7 +171,7 @@ public class Service extends StandardNamedObject {
     }
 
     /**
-     * Return the outages
+     * Return the outages.
      *
      * @return outages Outages to be set.
      */
@@ -235,7 +233,7 @@ public class Service extends StandardNamedObject {
     }
 
     /**
-     * Returns the Percentage Availability for the service
+     * Returns the Percentage Availability for the service.
      *
      * @param currentTime
      *            Time at the end of the Rolling Window.

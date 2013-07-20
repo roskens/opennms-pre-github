@@ -63,6 +63,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:jacinta@oculan.com">Jacinta Remedios </A>
  */
 public class AvailCalculations extends Object {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailCalculations.class);
 
     /**
@@ -76,14 +78,10 @@ public class AvailCalculations extends Object {
      */
     private static Report m_report = null;
 
-    /**
-     * End time
-     */
+    /** End time. */
     private long m_endTime;
 
-    /**
-     * Services map
-     */
+    /** Services map. */
     private Map<String, Map<IfService, OutageSvcTimesList>> m_services = null;
 
     /**
@@ -101,14 +99,10 @@ public class AvailCalculations extends Object {
      */
     private static final long ROLLING_WINDOW = 86400000l;
 
-    /**
-     * Constant
-     */
+    /** Constant. */
     private static final int THIRTY = 30;
 
-    /**
-     * Constant (Number of months)
-     */
+    /** Constant (Number of months). */
     private static final int NMONTHS = 12;
 
     /**
@@ -116,18 +110,14 @@ public class AvailCalculations extends Object {
      */
     private List<Node> m_nodes;
 
-    /**
-     * Monitored Services for the category
-     */
+    /** Monitored Services for the category. */
     private List<String> m_monitoredServices;
 
-    /**
-     * This is used for the PDF Report generation
-     */
+    /** This is used for the PDF Report generation. */
     private int m_sectionIndex;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param nodes
      *            List of nodes
@@ -142,8 +132,6 @@ public class AvailCalculations extends Object {
      *            Castor Report class.
      * @param offenders
      *            Map of all offenders -- percent/(list of node) pairs
-     * @param format
-     *            Value can be "SVG / all"
      * @param warning
      *            a double.
      * @param normal
@@ -152,6 +140,8 @@ public class AvailCalculations extends Object {
      *            a {@link java.lang.String} object.
      * @param name
      *            a {@link java.lang.String} object.
+     * @param format
+     *            Value can be "SVG / all"
      * @param monthFormat
      *            a {@link java.lang.String} object.
      * @param catIndex
@@ -440,6 +430,7 @@ public class AvailCalculations extends Object {
      * <p>
      * getSectionIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -551,7 +542,7 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Last Month To Date Daily Availability
+     * Last Month To Date Daily Availability.
      *
      * @param days
      *            Number of days for which the availability computations are
@@ -573,7 +564,7 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Last Month To Date Daily Availability
+     * Last Month To Date Daily Availability.
      *
      * @param days
      *            Number of days for which the availability computations are
@@ -685,7 +676,7 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Last Months Daily availability
+     * Last Months Daily availability.
      *
      * @param days
      *            Number of days for which the availability computations are
@@ -707,7 +698,7 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Last Months Daily availability
+     * Last Months Daily availability.
      *
      * @param days
      *            Number of days for which the availability computations are
@@ -972,7 +963,7 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Last N Months Availability
+     * Last N Months Availability.
      *
      * @param nMonths
      *            Number of months for which the availability computations are
@@ -1090,6 +1081,7 @@ public class AvailCalculations extends Object {
      *            the leap year flag.
      * @param month
      *            The month whose days count is reqd
+     * @return the days
      */
     private static synchronized int getDays(boolean isLeap, int month) {
         switch (month) {
@@ -1118,10 +1110,11 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Returns the number of Days in the month
+     * Returns the number of Days in the month.
      *
      * @param endTime
      *            The end of the month (time in milliseconds)
+     * @return the days for month
      */
     private int getDaysForMonth(long endTime) {
         GregorianCalendar calendar = new GregorianCalendar();
@@ -1135,6 +1128,8 @@ public class AvailCalculations extends Object {
     /**
      * Compute N days daily service availability.
      *
+     * @param days
+     *            the days
      * @param endTime
      *            End time
      * @param catSections
@@ -1288,7 +1283,11 @@ public class AvailCalculations extends Object {
     }
 
     /**
-     * Format the number (String) and return 6 digits of the number
+     * Format the number (String) and return 6 digits of the number.
+     *
+     * @param num
+     *            the num
+     * @return the string
      */
     private String formatNumber(String num) {
         if (num.indexOf('.') == 0) {

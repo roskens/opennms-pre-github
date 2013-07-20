@@ -54,11 +54,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * AvailabilityReport generates the Availability report in PDF format
+ * AvailabilityReport generates the Availability report in PDF format.
  *
  * @author <A HREF="mailto:jacinta@oculan.com">Jacinta Remedios </A>
  */
 public class AvailabilityReport extends Object {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityReport.class);
 
     /**
@@ -70,6 +72,7 @@ public class AvailabilityReport extends Object {
      * classic month format
      */
 
+    /** The Constant MONTH_FORMAT_CLASSIC. */
     private static final String MONTH_FORMAT_CLASSIC = "classic";
 
     /**
@@ -78,15 +81,13 @@ public class AvailabilityReport extends Object {
      */
     private Report m_report = null;
 
-    /**
-     * String of Months
-     */
+    /** String of Months. */
 
     public static String[] months = new String[] { "January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December" };
 
     /**
-     * Default constructor
+     * Default constructor.
      *
      * @param author
      *            a {@link java.lang.String} object.
@@ -156,6 +157,7 @@ public class AvailabilityReport extends Object {
      *            a {@link java.lang.String} object.
      * @param startYear
      *            a {@link java.lang.String} object.
+     * @return the report data
      */
     public void getReportData(String logourl, String categoryName, String reportFormat, String monthFormat,
             String startMonth, String startDate, String startYear) {
@@ -212,14 +214,14 @@ public class AvailabilityReport extends Object {
     /**
      * This when invoked marshals the report XML from the castor classes.
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws ValidationException
+     *             the validation exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     public void marshalReport() throws ValidationException, MarshalException, IOException, Exception {
 
@@ -246,8 +248,8 @@ public class AvailabilityReport extends Object {
      *            a {@link java.io.OutputStream} object.
      * @param format
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void generatePDF(final String xsltFileName, final OutputStream out, final String format) throws Exception {
         Logging.withPrefix(LOG4J_CATEGORY, new Runnable() {
@@ -280,7 +282,7 @@ public class AvailabilityReport extends Object {
     }
 
     /**
-     * Main method
+     * Main method.
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
@@ -324,6 +326,7 @@ public class AvailabilityReport extends Object {
      * <p>
      * generateReport
      * </p>
+     * .
      *
      * @param logourl
      *            a {@link java.lang.String} object.
@@ -339,8 +342,8 @@ public class AvailabilityReport extends Object {
      *            a {@link java.lang.String} object.
      * @param startYear
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void generateReport(String logourl, String categoryName, String format, String monthFormat,
             String startMonth, String startDate, String startYear) throws Exception {

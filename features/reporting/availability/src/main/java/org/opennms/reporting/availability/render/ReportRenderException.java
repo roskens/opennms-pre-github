@@ -35,6 +35,7 @@ package org.opennms.reporting.availability.render;
  */
 public class ReportRenderException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3345608823051705228L;
 
     /**

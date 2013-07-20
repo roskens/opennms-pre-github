@@ -45,16 +45,26 @@ import org.opennms.netmgt.config.DatabaseSchemaConfigFactory;
 import org.opennms.netmgt.mock.MockCategoryFactory;
 import org.opennms.reporting.availability.svclayer.LegacyAvailabilityDataService;
 
+/**
+ * The Class AvailabilityReportTest.
+ */
 public class AvailabilityReportTest extends TestCase {
 
+    /** The m_db. */
     protected MockDatabase m_db;
 
+    /** The m_categories. */
     protected Categories m_categories;
 
+    /** The calendar. */
     protected Calendar calendar;
 
+    /** The m_cat factory. */
     protected MockCategoryFactory m_catFactory;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -123,6 +133,15 @@ public class AvailabilityReportTest extends TestCase {
 
     }
 
+    /**
+     * Gets the section by name.
+     *
+     * @param category
+     *            the category
+     * @param sectionName
+     *            the section name
+     * @return the section by name
+     */
     private Section getSectionByName(Category category, String sectionName) {
 
         Section match = null;
@@ -140,6 +159,19 @@ public class AvailabilityReportTest extends TestCase {
         return match;
     }
 
+    /**
+     * Gets the cal section day.
+     *
+     * @param category
+     *            the category
+     * @param title
+     *            the title
+     * @param row
+     *            the row
+     * @param col
+     *            the col
+     * @return the cal section day
+     */
     private Day getCalSectionDay(Category category, String title, int row, int col) {
 
         Section calSection = getSectionByName(category, title);
@@ -151,6 +183,13 @@ public class AvailabilityReportTest extends TestCase {
 
     // helper method to round to 4 decimal places.
 
+    /**
+     * Four dec.
+     *
+     * @param number
+     *            the number
+     * @return the double
+     */
     private double fourDec(double number) {
         return (Math.round(number * 10000.0)) / 10000.0;
     }
@@ -182,6 +221,15 @@ public class AvailabilityReportTest extends TestCase {
      * }
      */
 
+    /**
+     * Builds the report.
+     *
+     * @param calendar
+     *            the calendar
+     * @param calFormat
+     *            the cal format
+     * @return the report
+     */
     private Report buildReport(Calendar calendar, String calFormat) {
 
         Report report = new Report();
@@ -204,6 +252,9 @@ public class AvailabilityReportTest extends TestCase {
         return report;
     }
 
+    /**
+     * Test my database.
+     */
     public void testMyDatabase() {
         assertEquals("node DB count", 2, m_db.countRows("select * from node"));
         assertEquals("service DB count", 3, m_db.countRows("select * from service"));
@@ -218,6 +269,9 @@ public class AvailabilityReportTest extends TestCase {
 
     }
 
+    /**
+     * Test built classic report.
+     */
     public void testBuiltClassicReport() {
 
         Report report = buildReport(calendar, "classic");
@@ -240,6 +294,9 @@ public class AvailabilityReportTest extends TestCase {
 
     }
 
+    /**
+     * Test built calendar report.
+     */
     public void testBuiltCalendarReport() {
 
         Calendar calendar = new GregorianCalendar(2005, 4, 20);
@@ -312,6 +369,9 @@ public class AvailabilityReportTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();

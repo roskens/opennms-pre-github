@@ -64,8 +64,11 @@ import org.slf4j.LoggerFactory;
  * </p>
  */
 public class LegacyAvailabilityDataService implements AvailabilityDataService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LegacyAvailabilityDataService.class);
 
+    /** The m_cat factory. */
     CatFactory m_catFactory;
 
     /**
@@ -74,10 +77,13 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
 
     private String m_commonRule;
 
+    /** The m_avail conn. */
     private Connection m_availConn;
 
+    /** The m_nodes. */
     private List<Node> m_nodes;
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
     /**
@@ -235,6 +241,28 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
     /**
      * Get all outages for this nodeid/ipaddr/service combination and add it
      * to m_nodes.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param nodeName
+     *            the node name
+     * @param ipaddr
+     *            the ipaddr
+     * @param serviceid
+     *            the serviceid
+     * @param serviceName
+     *            the service name
+     * @param outageSvcTimesList
+     *            the outage svc times list
+     * @param outagesGetStmt
+     *            the outages get stmt
+     * @param startTime
+     *            the start time
+     * @param endTime
+     *            the end time
+     * @return the outages node ip svc
+     * @throws SQLException
+     *             the sQL exception
      */
     private void getOutagesNodeIpSvc(int nodeid, String nodeName, String ipaddr, int serviceid, String serviceName,
             OutageSvcTimesList outageSvcTimesList, PreparedStatement outagesGetStmt, long startTime, long endTime)
@@ -388,6 +416,9 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
 
     /**
      * Initializes the database connection.
+     *
+     * @throws AvailabilityDataServiceException
+     *             the availability data service exception
      */
     private void initialiseConnection() throws AvailabilityDataServiceException {
 

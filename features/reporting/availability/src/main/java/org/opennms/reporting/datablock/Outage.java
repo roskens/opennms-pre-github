@@ -83,7 +83,7 @@ public class Outage extends Object {
     }
 
     /**
-     * Set the Lost time
+     * Set the Lost time.
      *
      * @param losttime
      *            Time at which the service is lost.
@@ -103,7 +103,7 @@ public class Outage extends Object {
     }
 
     /**
-     * Return the service lost time
+     * Return the service lost time.
      *
      * @return the service lost time.
      */
@@ -112,7 +112,7 @@ public class Outage extends Object {
     }
 
     /**
-     * Return the regained time
+     * Return the regained time.
      *
      * @return the service regained time.
      */
@@ -122,7 +122,7 @@ public class Outage extends Object {
 
     /**
      * Return the downtime (difference between the regained and lost times) in
-     * the last rolling window
+     * the last rolling window.
      *
      * @param curTime
      *            Time denoting end of rolling window (milliseconds).

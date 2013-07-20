@@ -58,6 +58,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:jacinta@oculan.com">Jacinta Remedios </A>
  */
 public class AvailabilityData {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityData.class);
 
     /**
@@ -85,24 +87,16 @@ public class AvailabilityData {
      */
     private long m_lastMonthEndTime;
 
-    /**
-     * Number of days in the last month
-     */
+    /** Number of days in the last month. */
     private int m_daysInLastMonth;
 
-    /**
-     * Category Factory
-     */
+    /** Category Factory. */
     CatFactory m_catFactory;
 
-    /**
-     * Section Index
-     */
+    /** Section Index. */
     private int m_sectionIndex = 0;
 
-    /**
-     * Availability Data Service
-     */
+    /** Availability Data Service. */
 
     private AvailabilityDataService m_availabilityDataService;
 
@@ -113,6 +107,7 @@ public class AvailabilityData {
      * <p>
      * fillReport
      * </p>
+     * .
      *
      * @param categoryName
      *            a {@link java.lang.String} object.
@@ -128,14 +123,14 @@ public class AvailabilityData {
      *            a {@link java.lang.String} object.
      * @param startYear
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws Exception
+     *             the exception
      */
     public void fillReport(String categoryName, Report report, String format, String monthFormat, String startMonth,
             String startDate, String startYear) throws IOException, MarshalException, ValidationException, Exception {
@@ -156,6 +151,7 @@ public class AvailabilityData {
      * <p>
      * fillReport
      * </p>
+     * .
      *
      * @param categoryName
      *            a {@link java.lang.String} object.
@@ -167,20 +163,42 @@ public class AvailabilityData {
      *            a {@link java.lang.String} object.
      * @param periodEndDate
      *            a {@link java.util.Date} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws Exception
+     *             the exception
      */
     public void fillReport(String categoryName, Report report, String format, String monthFormat, Date periodEndDate)
             throws IOException, MarshalException, ValidationException, Exception {
         generateData(categoryName, report, format, monthFormat, periodEndDate);
     }
 
+    /**
+     * Generate data.
+     *
+     * @param categoryName
+     *            the category name
+     * @param report
+     *            the report
+     * @param format
+     *            the format
+     * @param monthFormat
+     *            the month format
+     * @param periodEndDate
+     *            the period end date
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws Exception
+     *             the exception
+     */
     private void generateData(final String categoryName, final Report report, final String format,
             final String monthFormat, final Date periodEndDate) throws IOException, MarshalException,
             ValidationException, Exception {
@@ -268,6 +286,12 @@ public class AvailabilityData {
      *            Report Castor class
      * @param format
      *            SVG-specific/all reports
+     * @param monthFormat
+     *            the month format
+     * @param catIndex
+     *            the cat index
+     * @throws Exception
+     *             the exception
      */
     private void populateDataStructures(org.opennms.netmgt.config.categories.Category cat, Report report,
             String format, String monthFormat, int catIndex) throws Exception {
@@ -342,6 +366,9 @@ public class AvailabilityData {
      * Initialize the endTime, start Time, last Months end time and number of
      * days in the
      * last month.
+     *
+     * @param periodEndDate
+     *            the period end date
      */
 
     private void initializeInterval(Date periodEndDate) {
@@ -437,6 +464,7 @@ public class AvailabilityData {
      * <p>
      * setAvailabilityDataService
      * </p>
+     * .
      *
      * @param availabilityDataService
      *            a

@@ -96,46 +96,70 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class AvailabilityDatabasePopulator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityDatabasePopulator.class);
 
+    /** The m_dist poller dao. */
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_service type dao. */
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_asset record dao. */
     private AssetRecordDao m_assetRecordDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_outage dao. */
     private OutageDao m_outageDao;
 
+    /** The m_event dao. */
     private EventDao m_eventDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_notification dao. */
     private NotificationDao m_notificationDao;
 
+    /** The m_user notification dao. */
     private UserNotificationDao m_userNotificationDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_onms map dao. */
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_onms map element dao. */
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_data link interface dao. */
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_acknowledgment dao. */
     private AcknowledgmentDao m_acknowledgmentDao;
 
+    /** The m_node1. */
     private OnmsNode m_node1;
 
+    /**
+     * Populate database.
+     */
     public void populateDatabase() {
         OnmsDistPoller distPoller = getDistPoller("localhost", "127.0.0.1");
 
@@ -303,6 +327,13 @@ public class AvailabilityDatabasePopulator {
 
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param categoryName
+     *            the category name
+     * @return the category
+     */
     private OnmsCategory getCategory(String categoryName) {
         OnmsCategory cat = getCategoryDao().findByName(categoryName);
         if (cat == null) {
@@ -314,6 +345,15 @@ public class AvailabilityDatabasePopulator {
         return cat;
     }
 
+    /**
+     * Gets the dist poller.
+     *
+     * @param localhost
+     *            the localhost
+     * @param localhostIp
+     *            the localhost ip
+     * @return the dist poller
+     */
     private OnmsDistPoller getDistPoller(String localhost, String localhostIp) {
         OnmsDistPoller distPoller = getDistPollerDao().get(localhost);
         if (distPoller == null) {
@@ -324,6 +364,13 @@ public class AvailabilityDatabasePopulator {
         return distPoller;
     }
 
+    /**
+     * Gets the service type.
+     *
+     * @param name
+     *            the name
+     * @return the service type
+     */
     private OnmsServiceType getServiceType(String name) {
         OnmsServiceType serviceType = getServiceTypeDao().findByName(name);
         if (serviceType == null) {
@@ -334,154 +381,363 @@ public class AvailabilityDatabasePopulator {
         return serviceType;
     }
 
+    /**
+     * Gets the alarm dao.
+     *
+     * @return the alarm dao
+     */
     public AlarmDao getAlarmDao() {
         return m_alarmDao;
     }
 
+    /**
+     * Sets the alarm dao.
+     *
+     * @param alarmDao
+     *            the new alarm dao
+     */
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
+    /**
+     * Gets the asset record dao.
+     *
+     * @return the asset record dao
+     */
     public AssetRecordDao getAssetRecordDao() {
         return m_assetRecordDao;
     }
 
+    /**
+     * Sets the asset record dao.
+     *
+     * @param assetRecordDao
+     *            the new asset record dao
+     */
     public void setAssetRecordDao(AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
     }
 
+    /**
+     * Gets the category dao.
+     *
+     * @return the category dao
+     */
     public CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
+    /**
+     * Sets the category dao.
+     *
+     * @param categoryDao
+     *            the new category dao
+     */
     public void setCategoryDao(CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     public DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
 
+    /**
+     * Sets the dist poller dao.
+     *
+     * @param distPollerDao
+     *            the new dist poller dao
+     */
     public void setDistPollerDao(DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
 
+    /**
+     * Gets the event dao.
+     *
+     * @return the event dao
+     */
     public EventDao getEventDao() {
         return m_eventDao;
     }
 
+    /**
+     * Sets the event dao.
+     *
+     * @param eventDao
+     *            the new event dao
+     */
     public void setEventDao(EventDao eventDao) {
         m_eventDao = eventDao;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /**
+     * Gets the monitored service dao.
+     *
+     * @return the monitored service dao
+     */
     public MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
 
+    /**
+     * Sets the monitored service dao.
+     *
+     * @param monitoredServiceDao
+     *            the new monitored service dao
+     */
     public void setMonitoredServiceDao(MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Gets the notification dao.
+     *
+     * @return the notification dao
+     */
     public NotificationDao getNotificationDao() {
         return m_notificationDao;
     }
 
+    /**
+     * Sets the notification dao.
+     *
+     * @param notificationDao
+     *            the new notification dao
+     */
     public void setNotificationDao(NotificationDao notificationDao) {
         m_notificationDao = notificationDao;
     }
 
+    /**
+     * Gets the outage dao.
+     *
+     * @return the outage dao
+     */
     public OutageDao getOutageDao() {
         return m_outageDao;
     }
 
+    /**
+     * Sets the outage dao.
+     *
+     * @param outageDao
+     *            the new outage dao
+     */
     public void setOutageDao(OutageDao outageDao) {
         m_outageDao = outageDao;
     }
 
+    /**
+     * Gets the service type dao.
+     *
+     * @return the service type dao
+     */
     public ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
     }
 
+    /**
+     * Sets the service type dao.
+     *
+     * @param serviceTypeDao
+     *            the new service type dao
+     */
     public void setServiceTypeDao(ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
 
+    /**
+     * Gets the snmp interface dao.
+     *
+     * @return the snmp interface dao
+     */
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    /**
+     * Sets the snmp interface dao.
+     *
+     * @param snmpInterfaceDao
+     *            the new snmp interface dao
+     */
     public void setSnmpInterfaceDao(SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    /**
+     * Gets the user notification dao.
+     *
+     * @return the user notification dao
+     */
     public UserNotificationDao getUserNotificationDao() {
         return m_userNotificationDao;
     }
 
+    /**
+     * Sets the user notification dao.
+     *
+     * @param userNotificationDao
+     *            the new user notification dao
+     */
     public void setUserNotificationDao(UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
 
+    /**
+     * Gets the node1.
+     *
+     * @return the node1
+     */
     public OnmsNode getNode1() {
         return m_node1;
     }
 
+    /**
+     * Sets the node1.
+     *
+     * @param node1
+     *            the new node1
+     */
     private void setNode1(OnmsNode node1) {
         m_node1 = node1;
     }
 
+    /**
+     * Gets the location monitor dao.
+     *
+     * @return the location monitor dao
+     */
     public LocationMonitorDao getLocationMonitorDao() {
         return m_locationMonitorDao;
     }
 
+    /**
+     * Sets the location monitor dao.
+     *
+     * @param locationMonitorDao
+     *            the new location monitor dao
+     */
     public void setLocationMonitorDao(LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
     }
 
+    /**
+     * Gets the onms map dao.
+     *
+     * @return the onms map dao
+     */
     public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
 
+    /**
+     * Sets the onms map dao.
+     *
+     * @param onmsMapDao
+     *            the new onms map dao
+     */
     public void setOnmsMapDao(OnmsMapDao onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
     }
 
+    /**
+     * Gets the onms map element dao.
+     *
+     * @return the onms map element dao
+     */
     public OnmsMapElementDao getOnmsMapElementDao() {
         return m_onmsMapElementDao;
     }
 
+    /**
+     * Sets the onms map element dao.
+     *
+     * @param onmsMapElementDao
+     *            the new onms map element dao
+     */
     public void setOnmsMapElementDao(OnmsMapElementDao onmsMapElementDao) {
         this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
+    /**
+     * Gets the acknowledgment dao.
+     *
+     * @return the acknowledgment dao
+     */
     public AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }
 
+    /**
+     * Sets the acknowledgment dao.
+     *
+     * @param acknowledgmentDao
+     *            the new acknowledgment dao
+     */
     public void setAcknowledgmentDao(AcknowledgmentDao acknowledgmentDao) {
         m_acknowledgmentDao = acknowledgmentDao;
     }

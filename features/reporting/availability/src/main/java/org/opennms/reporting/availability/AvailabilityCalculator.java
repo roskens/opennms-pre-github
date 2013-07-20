@@ -46,9 +46,10 @@ public interface AvailabilityCalculator {
      * <p>
      * calculate
      * </p>
+     * .
      *
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     void calculate() throws AvailabilityCalculationException;
 
@@ -56,10 +57,11 @@ public interface AvailabilityCalculator {
      * <p>
      * writeXML
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     String writeXML() throws AvailabilityCalculationException;
 
@@ -67,11 +69,12 @@ public interface AvailabilityCalculator {
      * <p>
      * writeXML
      * </p>
+     * .
      *
      * @param outputFileName
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     void writeXML(String outputFileName) throws AvailabilityCalculationException;
 
@@ -79,11 +82,12 @@ public interface AvailabilityCalculator {
      * <p>
      * writeXML
      * </p>
+     * .
      *
      * @param outputStream
      *            a {@link java.io.OutputStream} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     void writeXML(OutputStream outputStream) throws AvailabilityCalculationException;
 
@@ -91,12 +95,13 @@ public interface AvailabilityCalculator {
      * <p>
      * writeLocateableXML
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     String writeLocateableXML(String id) throws AvailabilityCalculationException;
 
@@ -104,11 +109,12 @@ public interface AvailabilityCalculator {
      * <p>
      * marshal
      * </p>
+     * .
      *
      * @param outputFile
      *            a {@link java.io.File} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     void marshal(File outputFile) throws AvailabilityCalculationException;
 
@@ -116,6 +122,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getLogoURL
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -125,6 +132,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setLogoURL
      * </p>
+     * .
      *
      * @param logoURL
      *            a {@link java.lang.String} object.
@@ -135,6 +143,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getOutputFileName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -144,6 +153,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setOutputFileName
      * </p>
+     * .
      *
      * @param outputFileName
      *            a {@link java.lang.String} object.
@@ -154,6 +164,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getAuthor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +174,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setAuthor
      * </p>
+     * .
      *
      * @param author
      *            a {@link java.lang.String} object.
@@ -173,6 +185,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getCategoryName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -182,6 +195,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setCategoryName
      * </p>
+     * .
      *
      * @param categoryName
      *            a {@link java.lang.String} object.
@@ -192,6 +206,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getMonthFormat
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -201,6 +216,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setMonthFormat
      * </p>
+     * .
      *
      * @param monthFormat
      *            a {@link java.lang.String} object.
@@ -211,6 +227,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getReportFormat
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -220,6 +237,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setReportFormat
      * </p>
+     * .
      *
      * @param reportFormat
      *            a {@link java.lang.String} object.
@@ -230,6 +248,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.reporting.availability.Report} object.
      */
@@ -239,6 +258,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setCalendar
      * </p>
+     * .
      *
      * @param calendar
      *            a {@link java.util.Calendar} object.
@@ -249,6 +269,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getPeriodEndDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -258,6 +279,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setPeriodEndDate
      * </p>
+     * .
      *
      * @param periodEndDate
      *            a {@link java.util.Date} object.
@@ -268,6 +290,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setReportStoreService
      * </p>
+     * .
      *
      * @param reportStoreService
      *            a
@@ -280,6 +303,7 @@ public interface AvailabilityCalculator {
      * <p>
      * getBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -289,6 +313,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setBaseDir
      * </p>
+     * .
      *
      * @param baseDir
      *            a {@link java.lang.String} object.
@@ -299,6 +324,7 @@ public interface AvailabilityCalculator {
      * <p>
      * setAvailabilityData
      * </p>
+     * .
      *
      * @param availabilityData
      *            a {@link org.opennms.reporting.availability.AvailabilityData}

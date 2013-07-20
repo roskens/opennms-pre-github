@@ -43,6 +43,7 @@ public interface AvailabilityDataService {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @param category
      *            a {@link org.opennms.netmgt.config.categories.Category}
@@ -52,8 +53,8 @@ public interface AvailabilityDataService {
      * @param endTime
      *            a long.
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.reporting.availability.svclayer.AvailabilityDataServiceException
-     *             if any.
+     * @throws AvailabilityDataServiceException
+     *             the availability data service exception
      */
     public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime)
             throws AvailabilityDataServiceException;

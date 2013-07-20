@@ -40,18 +40,30 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class CalendarTableBuilderTest.
+ */
 public class CalendarTableBuilderTest extends TestCase {
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test locale french.
+     */
     public void testLocaleFrench() {
         Locale.setDefault(Locale.FRENCH);
         CalendarTableBuilder builder = new CalendarTableBuilder(2005, 05);
@@ -60,6 +72,9 @@ public class CalendarTableBuilderTest extends TestCase {
         assertEquals(days.getDayName(0), "lun.");
     }
 
+    /**
+     * Test locale en us.
+     */
     public void testLocaleEnUs() {
         Locale.setDefault(Locale.US);
         CalendarTableBuilder builder = new CalendarTableBuilder(2005, 05);
@@ -68,10 +83,25 @@ public class CalendarTableBuilderTest extends TestCase {
         assertEquals(days.getDayName(0), "Sun");
     }
 
+    /**
+     * Test visible days.
+     */
     public void testVisibleDays() {
         testVisibleDays(Locale.US, 2004, Calendar.FEBRUARY, 1);
     }
 
+    /**
+     * Test visible days.
+     *
+     * @param locale
+     *            the locale
+     * @param year
+     *            the year
+     * @param month
+     *            the month
+     * @param dayOfMonth
+     *            the day of month
+     */
     private void testVisibleDays(Locale locale, int year, int month, int dayOfMonth) {
         Locale.setDefault(locale);
         CalendarTableBuilder builder = new CalendarTableBuilder(year, month);
@@ -87,17 +117,44 @@ public class CalendarTableBuilderTest extends TestCase {
 
     }
 
+    /**
+     * Test get days in month.
+     */
     public void testGetDaysInMonth() {
         assertEquals(29, getDaysInMonth(Locale.US, 2004, Calendar.FEBRUARY));
         assertEquals(28, getDaysInMonth(Locale.US, 2005, Calendar.FEBRUARY));
     }
 
+    /**
+     * Gets the days in month.
+     *
+     * @param locale
+     *            the locale
+     * @param year
+     *            the year
+     * @param month
+     *            the month
+     * @return the days in month
+     */
     private int getDaysInMonth(Locale locale, int year, int month) {
         Calendar cal = Calendar.getInstance(locale);
         cal.set(year, month, 1);
         return cal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
+    /**
+     * Gets the day of week.
+     *
+     * @param locale
+     *            the locale
+     * @param year
+     *            the year
+     * @param month
+     *            the month
+     * @param dayOfMonth
+     *            the day of month
+     * @return the day of week
+     */
     private int getDayOfWeek(Locale locale, int year, int month, int dayOfMonth) {
         Calendar cal = Calendar.getInstance(locale);
         cal.set(year, month, dayOfMonth);

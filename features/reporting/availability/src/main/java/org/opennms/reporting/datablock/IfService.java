@@ -36,29 +36,19 @@ package org.opennms.reporting.datablock;
  */
 public class IfService extends Object {
 
-    /**
-     * Nodeid
-     */
+    /** Nodeid. */
     int nodeid;
 
-    /**
-     * Ipaddress
-     */
+    /** Ipaddress. */
     String ipaddr;
 
-    /**
-     * Serviceid
-     */
+    /** Serviceid. */
     int serviceid;
 
-    /**
-     * Node Name
-     */
+    /** Node Name. */
     String nodeName;
 
-    /**
-     * Service Name
-     */
+    /** Service Name. */
     String serviceName;
 
     /**
@@ -103,7 +93,7 @@ public class IfService extends Object {
     }
 
     /**
-     * Return node name
+     * Return node name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -122,7 +112,7 @@ public class IfService extends Object {
     }
 
     /**
-     * Return service name
+     * Return service name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,7 +131,7 @@ public class IfService extends Object {
     }
 
     /**
-     * Returns the Node id
+     * Returns the Node id.
      *
      * @return node id.
      */
@@ -188,7 +178,7 @@ public class IfService extends Object {
     }
 
     /**
-     * toString method
+     * toString method.
      *
      * @return a {@link java.lang.String} object.
      */

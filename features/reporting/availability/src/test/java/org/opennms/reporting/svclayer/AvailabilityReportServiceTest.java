@@ -42,32 +42,42 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+/**
+ * The Class AvailabilityReportServiceTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @ContextConfiguration(locations = { "classpath:org/opennms/reporting/availability/svclayer/AvailabilityReportServiceTest.xml" })
 public class AvailabilityReportServiceTest implements InitializingBean {
 
+    /** The m_classic calculator. */
     @Autowired
     @Qualifier("mockClassicCalculator")
     AvailabilityCalculator m_classicCalculator;
 
+    /** The m_calendar calculator. */
     @Autowired
     @Qualifier("mockCalendarCalculator")
     AvailabilityCalculator m_calendarCalculator;
 
+    /** The m_config dao. */
     @Autowired
     OnmsReportConfigDao m_configDao;
 
+    /** The m_parameter conversion service. */
     @Autowired
     ParameterConversionService m_parameterConversionService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     /**
-     * TODO: Write a test
+     * TODO: Write a test.
      */
     @Test
     public void testMe() {

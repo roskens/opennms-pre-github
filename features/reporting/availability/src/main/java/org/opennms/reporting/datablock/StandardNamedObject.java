@@ -38,9 +38,8 @@ package org.opennms.reporting.datablock;
  * @version $Id: $
  */
 public class StandardNamedObject extends Object {
-    /**
-     * The name of the object
-     */
+
+    /** The name of the object. */
     private String m_name;
 
     /**
@@ -61,7 +60,7 @@ public class StandardNamedObject extends Object {
     }
 
     /**
-     * Set the name
+     * Set the name.
      *
      * @param name
      *            The name to be set.
@@ -71,7 +70,7 @@ public class StandardNamedObject extends Object {
     }
 
     /**
-     * Return the name
+     * Return the name.
      *
      * @return the name.
      */

@@ -35,23 +35,18 @@ import java.util.Date;
  * availability report generation presented in the report.
  */
 public class OutageSince {
-    /**
-     * Node name
-     */
+
+    /** Node name. */
     private String m_nodename;
 
-    /**
-     * Down since
-     */
+    /** Down since. */
     private long m_outTime;
 
-    /**
-     * DownTime
-     */
+    /** DownTime. */
     private long m_outage;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param nodename
      *            Node Name
@@ -67,7 +62,7 @@ public class OutageSince {
     }
 
     /**
-     * Returns Node name
+     * Returns Node name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,7 +71,7 @@ public class OutageSince {
     }
 
     /**
-     * Returns Downtime
+     * Returns Downtime.
      *
      * @return a long.
      */
@@ -85,7 +80,7 @@ public class OutageSince {
     }
 
     /**
-     * Returns Down since
+     * Returns Down since.
      *
      * @return a long.
      */
@@ -94,7 +89,7 @@ public class OutageSince {
     }
 
     /**
-     * Returns the string format of this object
+     * Returns the string format of this object.
      *
      * @return a {@link java.lang.String} object.
      */

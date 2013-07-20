@@ -66,18 +66,26 @@ import org.springframework.core.io.UrlResource;
  * </p>
  */
 public class AvailabilityReportService implements ReportService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityReportService.class);
 
+    /** The m_classic calculator. */
     private AvailabilityCalculator m_classicCalculator;
 
+    /** The m_calendar calculator. */
     private AvailabilityCalculator m_calendarCalculator;
 
+    /** The m_config dao. */
     private OnmsReportConfigDao m_configDao;
 
+    /** The m_parameter conversion service. */
     private ParameterConversionService m_parameterConversionService;
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
+    /** The Constant CAL_TYPE. */
     private static final String CAL_TYPE = "calendar";
 
     /**
@@ -131,6 +139,18 @@ public class AvailabilityReportService implements ReportService {
         }
     }
 
+    /**
+     * Render.
+     *
+     * @param id
+     *            the id
+     * @param inputStream
+     *            the input stream
+     * @param format
+     *            the format
+     * @param outputStream
+     *            the output stream
+     */
     private void render(String id, InputStream inputStream, ReportFormat format, OutputStream outputStream) {
 
         Resource xsltResource;
@@ -303,6 +323,7 @@ public class AvailabilityReportService implements ReportService {
      * <p>
      * setCalendarCalculator
      * </p>
+     * .
      *
      * @param calculator
      *            a
@@ -317,6 +338,7 @@ public class AvailabilityReportService implements ReportService {
      * <p>
      * setClassicCalculator
      * </p>
+     * .
      *
      * @param calulator
      *            a
@@ -331,6 +353,7 @@ public class AvailabilityReportService implements ReportService {
      * <p>
      * setConfigDao
      * </p>
+     * .
      *
      * @param configDao
      *            a {@link org.opennms.netmgt.dao.api.OnmsReportConfigDao}
@@ -344,6 +367,7 @@ public class AvailabilityReportService implements ReportService {
      * <p>
      * setParameterConversionService
      * </p>
+     * .
      *
      * @param parameterConversionService
      *            a

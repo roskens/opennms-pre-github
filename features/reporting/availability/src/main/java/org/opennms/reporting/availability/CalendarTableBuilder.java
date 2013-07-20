@@ -44,14 +44,19 @@ import java.util.Locale;
  */
 public class CalendarTableBuilder {
 
+    /** The m_days. */
     public Day[] m_days;
 
+    /** The m_cal table. */
     public CalendarTable m_calTable;
 
+    /** The m_first day. */
     private int m_firstDay;
 
+    /** The m_working calendar. */
     Calendar m_workingCalendar;
 
+    /** The m_locale. */
     Locale m_locale;
 
     /*
@@ -105,6 +110,12 @@ public class CalendarTableBuilder {
 
     }
 
+    /**
+     * Calendar table init.
+     *
+     * @param month
+     *            the month
+     */
     private void calendarTableInit(int month) {
 
         m_calTable = new CalendarTable();
@@ -192,6 +203,7 @@ public class CalendarTableBuilder {
      * <p>
      * print
      * </p>
+     * .
      */
     public void print() {
 
@@ -213,6 +225,7 @@ public class CalendarTableBuilder {
      * <p>
      * getTable
      * </p>
+     * .
      *
      * @return a {@link org.opennms.reporting.availability.CalendarTable}
      *         object.
@@ -251,6 +264,7 @@ public class CalendarTableBuilder {
      * <p>
      * setPctValue
      * </p>
+     * .
      *
      * @param sDate
      *            a int.

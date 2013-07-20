@@ -43,22 +43,50 @@ public class Interface extends StandardNamedObject {
      */
     private ArrayList<Service> m_services;
 
+    /**
+     * The Class ServiceComparator.
+     */
     private static class ServiceComparator {
+
+        /** The m_svcname. */
         private String m_svcname;
 
+        /**
+         * Instantiates a new service comparator.
+         *
+         * @param svc
+         *            the svc
+         */
         private ServiceComparator(String svc) {
             m_svcname = svc;
         }
 
+        /**
+         * Make.
+         *
+         * @param name
+         *            the name
+         * @return the service comparator
+         */
         static ServiceComparator make(String name) {
             return new ServiceComparator(name);
         }
 
+        /**
+         * Make.
+         *
+         * @param svc
+         *            the svc
+         * @return the service comparator
+         */
         @SuppressWarnings("unused")
         static ServiceComparator make(Service svc) {
             return new ServiceComparator(svc.getName());
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object o) {
             boolean rc = false;
@@ -198,7 +226,7 @@ public class Interface extends StandardNamedObject {
     }
 
     /**
-     * Return the services
+     * Return the services.
      *
      * @return Services to be set.
      */
@@ -207,7 +235,7 @@ public class Interface extends StandardNamedObject {
     }
 
     /**
-     * Return the Service object given the service name
+     * Return the Service object given the service name.
      *
      * @param svcname
      *            The service name to lookup.
@@ -223,7 +251,7 @@ public class Interface extends StandardNamedObject {
     }
 
     /**
-     * Adds a new service object to this interface
+     * Adds a new service object to this interface.
      *
      * @param service
      *            The service to be add.
@@ -234,7 +262,7 @@ public class Interface extends StandardNamedObject {
     }
 
     /**
-     * Adds a new service to this interface
+     * Adds a new service to this interface.
      *
      * @param service
      *            The name of the service to add.

@@ -50,9 +50,7 @@ public class AvailabilityConstants {
             + "service WHERE ((ifServices.nodeid = ? ) AND (ifServices.ipaddr = ?) AND ipinterface.ipaddr = ? AND ipinterface.isManaged ='M' AND "
             + "(ifServices.serviceid = service.serviceid) AND (ifservices.status = 'A')) AND node.nodeid = ? AND node.nodetype = 'A'";
 
-    /**
-     * The sql statement for getting outage entries for a nodeid/ip/serviceid
-     */
+    /** The sql statement for getting outage entries for a nodeid/ip/serviceid. */
     public static final String DB_GET_OUTAGE_ENTRIES = "SELECT ifLostService, ifRegainedService from outages "
             + "where  (outages.nodeid = ?) AND (outages.ipaddr = ?) AND (outages.serviceid = ?)"; // and
                                                                                                   // ((ifRegainedService
@@ -78,123 +76,137 @@ public class AvailabilityConstants {
     /**
      * Constant
      * <code>LAST_30_DAYS_DAILY_DESCR="Daily average of svcs and dvcs monitore"{trunked}</code>
+     * .
      */
     public static final String LAST_30_DAYS_DAILY_DESCR = "Daily average of svcs and dvcs monitored and their availability divided by total mins for 30days";
 
     /**
      * Constant
      * <code>LAST_30_DAYS_TOTAL_LABEL="The last 30 Days Total Availability"</code>
+     * .
      */
     public static final String LAST_30_DAYS_TOTAL_LABEL = "The last 30 Days Total Availability";
 
     /**
      * Constant
      * <code>LAST_30_DAYS_TOTAL_DESCR="Average of svcs monitored and availabil"{trunked}</code>
+     * .
      */
     public static final String LAST_30_DAYS_TOTAL_DESCR = "Average of svcs monitored and availability of svcs divided by total svc minutes of the last 30 days";
 
     /**
      * Constant
      * <code>LAST_30_DAYS_SVC_AVAIL_LABEL="The last 30 days Daily Service Availabi"{trunked}</code>
+     * .
      */
     public static final String LAST_30_DAYS_SVC_AVAIL_LABEL = "The last 30 days Daily Service Availability";
 
     /**
      * Constant
      * <code>LAST_30_DAYS_SVC_AVAIL_DESCR="The last 30 days Daily Service Availabi"{trunked}</code>
+     * .
      */
     public static final String LAST_30_DAYS_SVC_AVAIL_DESCR = "The last 30 days Daily Service Availability is the daily average of services";
 
     /**
      * Constant
      * <code>LAST_MONTH_SVC_AVAIL_LABEL="The last Months Daily Service Availabil"{trunked}</code>
+     * .
      */
     public static final String LAST_MONTH_SVC_AVAIL_LABEL = "The last Months Daily Service Availability";
 
     /**
      * Constant
      * <code>LAST_MONTH_SVC_AVAIL_DESCR="The last Months Daily Service Availabil"{trunked}</code>
+     * .
      */
     public static final String LAST_MONTH_SVC_AVAIL_DESCR = "The last Months Daily Service Availability is the daily average of services and devices";
 
     /**
      * Constant
-     * <code>LAST_MTD_DAILY_LABEL="Month To Date Daily Availability"</code>
+     * <code>LAST_MTD_DAILY_LABEL="Month To Date Daily Availability"</code>.
      */
     public static final String LAST_MTD_DAILY_LABEL = "Month To Date Daily Availability";
 
     /**
      * Constant
      * <code>LAST_MTD_DAILY_DESCR="Daily Average of svc monitored and avai"{trunked}</code>
+     * .
      */
     public static final String LAST_MTD_DAILY_DESCR = "Daily Average of svc monitored and availability of svcs div by total svc minutes of month frm 1st till date";
 
     /**
      * Constant
-     * <code>LAST_MTD_TOTAL_LABEL="Month To Date Total Availability"</code>
+     * <code>LAST_MTD_TOTAL_LABEL="Month To Date Total Availability"</code>.
      */
     public static final String LAST_MTD_TOTAL_LABEL = "Month To Date Total Availability";
 
     /**
      * Constant
      * <code>LAST_MTD_TOTAL_DESCR="Average of svc monitored and availabili"{trunked}</code>
+     * .
      */
     public static final String LAST_MTD_TOTAL_DESCR = "Average of svc monitored and availability of svcs dividedby total svc minutes of month frm 1st till date";
 
     /**
      * Constant
-     * <code>LAST_MONTH_DAILY_LABEL="The last Months Daily Availability"</code>
+     * <code>LAST_MONTH_DAILY_LABEL="The last Months Daily Availability"</code>.
      */
     public static final String LAST_MONTH_DAILY_LABEL = "The last Months Daily Availability";
 
     /**
      * Constant
      * <code>LAST_MONTH_DAILY_DESCR="Daily Average of svcs monitored and ava"{trunked}</code>
+     * .
      */
     public static final String LAST_MONTH_DAILY_DESCR = "Daily Average of svcs monitored and availability of svcs divided by the total svc minutes (last month)";
 
     /**
      * Constant
-     * <code>LAST_MONTH_TOTAL_LABEL="The last Months Total Availability"</code>
+     * <code>LAST_MONTH_TOTAL_LABEL="The last Months Total Availability"</code>.
      */
     public static final String LAST_MONTH_TOTAL_LABEL = "The last Months Total Availability";
 
     /**
      * Constant
      * <code>LAST_MONTH_TOTAL_DESCR="Average of svcs monitored and availabil"{trunked}</code>
+     * .
      */
     public static final String LAST_MONTH_TOTAL_DESCR = "Average of svcs monitored and availability of svcs divided by the total svc minutes of the month";
 
-    /** Constant <code>NOFFENDERS_LABEL="Last Months Top Offenders"</code> */
+    /** Constant <code>NOFFENDERS_LABEL="Last Months Top Offenders"</code>. */
     public static final String NOFFENDERS_LABEL = "Last Months Top Offenders";
 
     /**
      * Constant
      * <code>NOFFENDERS_DESCR="This is the list of the worst available"{trunked}</code>
+     * .
      */
     public static final String NOFFENDERS_DESCR = "This is the list of the worst available devices in the category for the last month";
 
     /**
      * Constant
      * <code>TOP20_SVC_OUTAGES_LABEL="Last Month Top Service Outages for"</code>
+     * .
      */
     public static final String TOP20_SVC_OUTAGES_LABEL = "Last Month Top Service Outages for";
 
     /**
      * Constant
      * <code>TOP20_SVC_OUTAGES_DESCR="Last Month Top Service Outages for"</code>
+     * .
      */
     public static final String TOP20_SVC_OUTAGES_DESCR = "Last Month Top Service Outages for";
 
     /**
      * Constant
-     * <code>NMONTH_TOTAL_LABEL="The last 12 Months Availability"</code>
+     * <code>NMONTH_TOTAL_LABEL="The last 12 Months Availability"</code>.
      */
     public static final String NMONTH_TOTAL_LABEL = "The last 12 Months Availability";
 
     /**
      * Constant
-     * <code>NMONTH_TOTAL_DESCR="The last 12 Months Availability"</code>
+     * <code>NMONTH_TOTAL_DESCR="The last 12 Months Availability"</code>.
      */
     public static final String NMONTH_TOTAL_DESCR = "The last 12 Months Availability";
 

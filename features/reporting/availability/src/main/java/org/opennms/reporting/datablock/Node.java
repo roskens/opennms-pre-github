@@ -39,22 +39,50 @@ import java.util.List;
  */
 public class Node extends StandardNamedObject {
 
+    /**
+     * The Class InterfaceComparator.
+     */
     private static class InterfaceComparator {
+
+        /** The m_intfname. */
         private String m_intfname;
 
+        /**
+         * Instantiates a new interface comparator.
+         *
+         * @param intf
+         *            the intf
+         */
         private InterfaceComparator(String intf) {
             m_intfname = intf;
         }
 
+        /**
+         * Make.
+         *
+         * @param name
+         *            the name
+         * @return the interface comparator
+         */
         static InterfaceComparator make(String name) {
             return new InterfaceComparator(name);
         }
 
+        /**
+         * Make.
+         *
+         * @param svc
+         *            the svc
+         * @return the interface comparator
+         */
         @SuppressWarnings("unused")
         static InterfaceComparator make(Service svc) {
             return new InterfaceComparator(svc.getName());
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object o) {
             boolean rc = false;
@@ -75,14 +103,10 @@ public class Node extends StandardNamedObject {
      */
     private ArrayList<Interface> m_interfaces;
 
-    /**
-     * Flag indicating an Outage
-     */
+    /** Flag indicating an Outage. */
     private boolean m_hasOutage = false;
 
-    /**
-     * Total Outage
-     */
+    /** Total Outage. */
     long m_downTime;
 
     /**
@@ -90,9 +114,7 @@ public class Node extends StandardNamedObject {
      */
     long m_totalWindow;
 
-    /**
-     * Total Business Outage
-     */
+    /** Total Business Outage. */
     long m_busDownTime;
 
     /**
@@ -110,9 +132,7 @@ public class Node extends StandardNamedObject {
      */
     double m_percentBusAvail;
 
-    /**
-     * Number of Interface/Service combinations
-     */
+    /** Number of Interface/Service combinations. */
     int m_serviceCount;
 
     /**
@@ -262,7 +282,7 @@ public class Node extends StandardNamedObject {
     }
 
     /**
-     * Return the interfaces
+     * Return the interfaces.
      *
      * @return A list of interfaces.
      */
@@ -271,7 +291,7 @@ public class Node extends StandardNamedObject {
     }
 
     /**
-     * Return the nodeid
+     * Return the nodeid.
      *
      * @return This node's id.
      */
@@ -373,9 +393,9 @@ public class Node extends StandardNamedObject {
      * Searches the list of interfaces and returns the interface object with
      * name intfname.
      *
-     * @return Interface with name intfname
      * @param intfname
      *            a {@link java.lang.String} object.
+     * @return Interface with name intfname
      */
     public Interface getInterface(String intfname) {
         if (intfname == null)
@@ -430,9 +450,9 @@ public class Node extends StandardNamedObject {
      *
      * @param endTime
      *            End Time of the rolling window in milliseconds.
-     * @return percentage availability of node for the last week.
      * @param rollingWindow
      *            a long.
+     * @return percentage availability of node for the last week.
      */
     public double getPercentAvail(long endTime, long rollingWindow) {
         double percent = 0;
@@ -466,11 +486,11 @@ public class Node extends StandardNamedObject {
     /**
      * Get the outage for this node.
      *
-     * @return The outage time.
      * @param endTime
      *            a long.
      * @param rollingWindow
      *            a long.
+     * @return The outage time.
      */
     public long getOutage(long endTime, long rollingWindow) {
         long outage = 0;

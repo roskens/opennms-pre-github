@@ -67,49 +67,62 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  */
 public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityCalculatorImpl.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
     // String of Months
+    /** The months. */
     public static String[] months = new String[] { "January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December" };
 
     // calendar
 
+    /** The m_calendar. */
     @SuppressWarnings("unused")
     private Calendar m_calendar;
 
     // start date
 
+    /** The m_period end date. */
     private Date m_periodEndDate;
 
     // format for report (calendar or classic)
 
+    /** The m_month format. */
     private String m_monthFormat;
 
     // eventual output format
 
+    /** The m_report format. */
     private String m_reportFormat;
 
     // URL for logo
 
+    /** The m_logo url. */
     private String m_logoURL;
 
     // output base dir
 
+    /** The m_base dir. */
     private String m_baseDir;
 
     // output file name
 
+    /** The m_output file name. */
     private String m_outputFileName;
 
     // author
 
+    /** The m_author. */
     private String m_author;
 
     // category name
 
+    /** The m_category name. */
     private String m_categoryName;
 
     /**
@@ -119,8 +132,10 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
 
     private Report m_report = null;
 
+    /** The m_report store service. */
     private ReportStoreService m_reportStoreService;
 
+    /** The m_availability data. */
     private AvailabilityData m_availabilityData;
 
     /**
@@ -161,9 +176,10 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * calculate
      * </p>
+     * .
      *
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     @Override
     public void calculate() throws AvailabilityCalculationException {
@@ -213,10 +229,11 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * writeXML
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     @Override
     public String writeXML() throws AvailabilityCalculationException {
@@ -303,11 +320,12 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * writeXML
      * </p>
+     * .
      *
      * @param outputStream
      *            a {@link java.io.OutputStream} object.
-     * @throws org.opennms.reporting.availability.AvailabilityCalculationException
-     *             if any.
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
      */
     @Override
     public void writeXML(OutputStream outputStream) throws AvailabilityCalculationException {
@@ -348,6 +366,14 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
         }
     }
 
+    /**
+     * Marshal.
+     *
+     * @param outputStream
+     *            the output stream
+     * @throws AvailabilityCalculationException
+     *             the availability calculation exception
+     */
     private void marshal(OutputStream outputStream) throws AvailabilityCalculationException {
         try {
             OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");
@@ -377,6 +403,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getLogoURL
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -407,6 +434,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getOutputFileName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -436,6 +464,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getAuthor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -466,6 +495,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getCategoryName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -496,6 +526,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getMonthFormat
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -526,6 +557,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getReportFormat
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -555,6 +587,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.reporting.availability.Report} object.
      */
@@ -585,6 +618,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getPeriodEndDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -626,6 +660,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      * <p>
      * getBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

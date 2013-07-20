@@ -57,6 +57,9 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AvailabilityDatabasePopulatorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -65,38 +68,58 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AvailabilityDatabasePopulatorTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AvailabilityDatabasePopulatorTest.class);
 
+    /** The m_db populator. */
     @Autowired
     AvailabilityDatabasePopulator m_dbPopulator;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_service type dao. */
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_outage dao. */
     @Autowired
     OutageDao m_outageDao;
 
+    /** The m_template. */
     @Autowired
     SimpleJdbcTemplate m_template;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_dbPopulator.populateDatabase();
     }
 
     /**
+     * Test availability database.
+     *
      * @throws Exception
+     *             the exception
      */
     @Test
     @Transactional
