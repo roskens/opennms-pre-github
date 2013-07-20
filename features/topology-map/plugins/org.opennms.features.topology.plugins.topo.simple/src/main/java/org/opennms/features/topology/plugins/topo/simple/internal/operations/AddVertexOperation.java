@@ -38,19 +38,35 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AddVertexOperation.
+ */
 public class AddVertexOperation implements Operation {
 
+    /** The m_icon key. */
     private String m_iconKey;
 
+    /**
+     * Instantiates a new adds the vertex operation.
+     *
+     * @param iconKey
+     *            the icon key
+     */
     public AddVertexOperation(String iconKey) {
         m_iconKey = iconKey;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         if (targets.size() > 1)
@@ -58,11 +74,24 @@ public class AddVertexOperation implements Operation {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "AddVertex";
     }
 
+    /**
+     * Connect new vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param iconKey
+     *            the icon key
+     * @param graphContainer
+     *            the graph container
+     */
     void connectNewVertex(String vertexId, String iconKey, GraphContainer graphContainer) {
         Vertex vertId1 = graphContainer.getBaseTopology().addVertex(0, 0);
         // Make the new vertex a root node
@@ -71,10 +100,18 @@ public class AddVertexOperation implements Operation {
                                                                                                     vertexId), vertId1);
     }
 
+    /**
+     * Gets the icon key.
+     *
+     * @return the icon key
+     */
     public String getIconKey() {
         return m_iconKey;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         LoggerFactory.getLogger(getClass()).debug("execute()");

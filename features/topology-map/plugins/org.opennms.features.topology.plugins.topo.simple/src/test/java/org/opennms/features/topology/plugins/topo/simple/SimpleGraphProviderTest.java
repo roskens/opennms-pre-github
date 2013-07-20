@@ -69,31 +69,56 @@ import org.opennms.features.topology.plugins.topo.simple.internal.operations.Rem
 
 import com.vaadin.ui.UI;
 
+/**
+ * The Class SimpleGraphProviderTest.
+ */
 public class SimpleGraphProviderTest {
 
+    /**
+     * The Class TestOperationContext.
+     */
     private static class TestOperationContext implements OperationContext {
 
+        /** The m_graph container. */
         private GraphContainer m_graphContainer;
 
+        /**
+         * Instantiates a new test operation context.
+         *
+         * @param graphContainer
+         *            the graph container
+         */
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getMainWindow()
+         */
         @Override
         public UI getMainWindow() {
             return EasyMock.createMock(UI.class);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getGraphContainer()
+         */
         @Override
         public GraphContainer getGraphContainer() {
             return m_graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#isChecked()
+         */
         @Override
         public boolean isChecked() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getDisplayLocation()
+         */
         @Override
         public DisplayLocation getDisplayLocation() {
             return DisplayLocation.MENUBAR;
@@ -101,16 +126,32 @@ public class SimpleGraphProviderTest {
 
     }
 
+    /**
+     * Gets the operation context.
+     *
+     * @param mockedContainer
+     *            the mocked container
+     * @return the operation context
+     */
     private static TestOperationContext getOperationContext(GraphContainer mockedContainer) {
         return new TestOperationContext(mockedContainer);
     }
 
+    /**
+     * Adds the vertex to topr.
+     *
+     * @return the vertex ref
+     */
     private VertexRef addVertexToTopr() {
         return m_topologyProvider.addVertex(0, 0);
     }
 
+    /** The m_topology provider. */
     private SimpleGraphProvider m_topologyProvider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         if (m_topologyProvider == null) {
@@ -122,6 +163,9 @@ public class SimpleGraphProviderTest {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         if (m_topologyProvider != null) {
@@ -132,6 +176,9 @@ public class SimpleGraphProviderTest {
     /**
      * This test makes sure that the afterUnmarshall() functions are working on
      * the {@link WrappedVertex} class.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testUnmarshallVertex() throws Exception {
@@ -144,6 +191,12 @@ public class SimpleGraphProviderTest {
         assertEquals("blah", vertex.namespace);
     }
 
+    /**
+     * Test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void test() throws Exception {
         assertEquals(0, m_topologyProvider.getVertices().size());
@@ -223,6 +276,12 @@ public class SimpleGraphProviderTest {
         assertEquals(3, m_topologyProvider.getEdgeIdsForVertex(m_topologyProvider.getVertex(ref1)).length);
     }
 
+    /**
+     * Load sample graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void loadSampleGraph() throws Exception {
         GraphProvider topologyProvider = new SimpleGraphProvider();
@@ -232,6 +291,12 @@ public class SimpleGraphProviderTest {
         System.err.println("Edge Count: " + topologyProvider.getEdges().size());
     }
 
+    /**
+     * Test load simple graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSimpleGraph() throws Exception {
         SimpleGraphProvider topologyProvider = new SimpleGraphProvider();
@@ -276,6 +341,9 @@ public class SimpleGraphProviderTest {
         }
     }
 
+    /**
+     * Test add vertex with operation.
+     */
     @Test
     public void testAddVertexWithOperation() {
 
@@ -297,6 +365,9 @@ public class SimpleGraphProviderTest {
         assertTrue("v0".equals(vertIds.iterator().next().getId()));
     }
 
+    /**
+     * Test add vertex to another vertex operation.
+     */
     @Test
     public void testAddVertexToAnotherVertexOperation() {
 
@@ -329,6 +400,9 @@ public class SimpleGraphProviderTest {
 
     }
 
+    /**
+     * Test connect vertices.
+     */
     @Test
     public void testConnectVertices() {
         m_topologyProvider.resetContainer();
@@ -356,6 +430,9 @@ public class SimpleGraphProviderTest {
 
     }
 
+    /**
+     * Test remove vertex operation.
+     */
     @Test
     public void testRemoveVertexOperation() {
         m_topologyProvider.resetContainer();
@@ -377,6 +454,9 @@ public class SimpleGraphProviderTest {
 
     }
 
+    /**
+     * Test topo provider set parent.
+     */
     @Test
     public void testTopoProviderSetParent() {
         VertexRef vertexId1 = addVertexToTopr();

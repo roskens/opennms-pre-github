@@ -46,27 +46,47 @@ import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedServiceFactory;
 
+/**
+ * A factory for creating SimpleTopology objects.
+ */
 public class SimpleTopologyFactory implements ManagedServiceFactory {
 
+    /** The Constant TOPOLOGY_LOCATION. */
     private static final String TOPOLOGY_LOCATION = "topologyLocation";
 
+    /** The Constant LABEL. */
     private static final String LABEL = "label";
 
+    /** The m_bundle context. */
     private BundleContext m_bundleContext;
 
+    /** The m_providers. */
     private Map<String, SimpleGraphProvider> m_providers = new HashMap<String, SimpleGraphProvider>();
 
+    /** The m_registrations. */
     private Map<String, ServiceRegistration<GraphProvider>> m_registrations = new HashMap<String, ServiceRegistration<GraphProvider>>();
 
+    /**
+     * Sets the bundle context.
+     *
+     * @param bundleContext
+     *            the new bundle context
+     */
     public void setBundleContext(BundleContext bundleContext) {
         m_bundleContext = bundleContext;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedServiceFactory#getName()
+     */
     @Override
     public String getName() {
         return "This Factory creates Simple Topology Providers";
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedServiceFactory#updated(java.lang.String, java.util.Dictionary)
+     */
     @Override
     public void updated(String pid, @SuppressWarnings("unchecked")
     Dictionary properties) throws ConfigurationException {
@@ -117,6 +137,9 @@ public class SimpleTopologyFactory implements ManagedServiceFactory {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedServiceFactory#deleted(java.lang.String)
+     */
     @Override
     public void deleted(String pid) {
         ServiceRegistration<GraphProvider> registration = m_registrations.remove(pid);

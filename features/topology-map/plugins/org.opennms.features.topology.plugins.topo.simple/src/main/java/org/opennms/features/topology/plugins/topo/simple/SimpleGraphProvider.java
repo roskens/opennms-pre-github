@@ -57,18 +57,33 @@ import org.opennms.features.topology.api.topo.WrappedVertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SimpleGraphProvider.
+ */
 public class SimpleGraphProvider extends AbstractTopologyProvider implements GraphProvider {
 
+    /** The Constant TOPOLOGY_NAMESPACE_SIMPLE. */
     protected static final String TOPOLOGY_NAMESPACE_SIMPLE = "simple";
 
+    /** The Constant s_log. */
     private static final Logger s_log = LoggerFactory.getLogger(SimpleGraphProvider.class);
 
+    /** The m_topology location. */
     private URI m_topologyLocation = null;
 
+    /**
+     * Instantiates a new simple graph provider.
+     */
     public SimpleGraphProvider() {
         this(TOPOLOGY_NAMESPACE_SIMPLE);
     }
 
+    /**
+     * Instantiates a new simple graph provider.
+     *
+     * @param namespace
+     *            the namespace
+     */
     public SimpleGraphProvider(String namespace) {
         super(namespace);
         s_log.debug("Creating a new SimpleTopologyProvider with namespace {}", namespace);
@@ -78,10 +93,25 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         // setTopologyLocation(defaultGraph);
     }
 
+    /**
+     * Gets the topology location.
+     *
+     * @return the topology location
+     */
     public URI getTopologyLocation() {
         return m_topologyLocation;
     }
 
+    /**
+     * Sets the topology location.
+     *
+     * @param topologyLocation
+     *            the new topology location
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     public void setTopologyLocation(URI topologyLocation) throws MalformedURLException, JAXBException {
         m_topologyLocation = topologyLocation;
 
@@ -95,11 +125,24 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         }
     }
 
+    /**
+     * Save.
+     *
+     * @param filename
+     *            the filename
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     public void save(String filename) throws MalformedURLException, JAXBException {
         m_topologyLocation = new File(filename).toURI();
         save();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#save()
+     */
     @Override
     public void save() {
         List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
@@ -133,6 +176,14 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         }
     }
 
+    /**
+     * Load.
+     *
+     * @param source
+     *            the source
+     * @param graph
+     *            the graph
+     */
     private void load(final URI source, final WrappedGraph graph) {
         String namespace = graph.m_namespace == null ? TOPOLOGY_NAMESPACE_SIMPLE : graph.m_namespace;
         if (getVertexNamespace() != namespace) {
@@ -219,6 +270,9 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#refresh()
+     */
     @Override
     public void refresh() {
         try {
@@ -230,6 +284,16 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         }
     }
 
+    /**
+     * Load.
+     *
+     * @param url
+     *            the url
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     void load(URI url) throws JAXBException, MalformedURLException {
         JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class);
         Unmarshaller u = jc.createUnmarshaller();
@@ -237,6 +301,9 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         load(url, graph);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#load(java.lang.String)
+     */
     @Override
     public void load(String filename) throws MalformedURLException, JAXBException {
         if (filename != null) {
