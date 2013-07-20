@@ -33,21 +33,33 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class KeyBufferTest.
+ */
 public class KeyBufferTest {
 
+    /** The test string. */
     String testString = "test"; // The string value used to create Keys in the
                                 // KeyBuffer
 
-    String doubleTestString = testString + testString; // Double the string used
+    /** The double test string. */
+                                String doubleTestString = testString + testString; // Double the string used
                                                        // in testing drain
 
-    KeyBuffer k; // The KeyBuffer used for testing
+    /** The k. */
+                                                       KeyBuffer k; // The KeyBuffer used for testing
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         k = new KeyBuffer();
     }
 
+    /**
+     * Test add.
+     */
     @Test
     public void testAdd() {
         assertEquals(0, k.size()); // Empty KeyBuffer will have size zero
@@ -56,6 +68,9 @@ public class KeyBufferTest {
                                    // item
     }
 
+    /**
+     * Test to string.
+     */
     @Test
     public void testToString() {
         assertEquals(0, k.size()); // Make sure the list is empty before we
@@ -65,6 +80,9 @@ public class KeyBufferTest {
         assertEquals(testString, k.toString());
     }
 
+    /**
+     * Test free.
+     */
     @Test
     public void testFree() {
         assertEquals(0, k.size()); // Make sure the list is empty before we
@@ -81,6 +99,9 @@ public class KeyBufferTest {
         assertEquals(0, k.size());
     }
 
+    /**
+     * Test drain.
+     */
     @Test
     public void testDrain() {
         assertEquals(0, k.size()); // Make sure the list is empty before we

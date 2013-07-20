@@ -79,10 +79,14 @@ import java.io.InputStream;
  * @since JDK1.0
  */
 public class NoClosePipedInputStream extends InputStream {
+
+    /** The closed by writer. */
     boolean closedByWriter = false;
 
+    /** The closed by reader. */
     volatile boolean closedByReader = false;
 
+    /** The connected. */
     boolean connected = false;
 
     /*
@@ -91,10 +95,13 @@ public class NoClosePipedInputStream extends InputStream {
      * pipes within a thread?) or using finalization (but it may be a
      * long time until the next GC).
      */
+    /** The read side. */
     Thread readSide;
 
+    /** The write side. */
     Thread writeSide;
 
+    /** The Constant DEFAULT_PIPE_SIZE. */
     private static final int DEFAULT_PIPE_SIZE = 1024;
 
     /**
@@ -141,8 +148,8 @@ public class NoClosePipedInputStream extends InputStream {
      *
      * @param src
      *            the stream to connect to.
-     * @exception IOException
-     *                if an I/O error occurs.
+     * @throws IOException
+     *             if an I/O error occurs.
      */
     public NoClosePipedInputStream(NoClosePipedOutputStream src) throws IOException {
         this(src, DEFAULT_PIPE_SIZE);
@@ -160,10 +167,8 @@ public class NoClosePipedInputStream extends InputStream {
      *            the stream to connect to.
      * @param pipeSize
      *            the size of the pipe's buffer.
-     * @exception IOException
-     *                if an I/O error occurs.
-     * @exception IllegalArgumentException
-     *                if <code>pipeSize <= 0</code>.
+     * @throws IOException
+     *             if an I/O error occurs.
      * @since 1.6
      */
     public NoClosePipedInputStream(NoClosePipedOutputStream src, int pipeSize) throws IOException {
@@ -184,23 +189,28 @@ public class NoClosePipedInputStream extends InputStream {
     }
 
     /**
-     * Creates a <code>PipedInputStream</code> so that it is not yet
-     * {@linkplain #connect(java.io.PipedOutputStream) connected} and
-     * uses the specified pipe size for the pipe's buffer.
-     * It must be
-     * {@linkplain java.io.PipedOutputStream#connect(java.io.PipedInputStream)
-     * connected} to a <code>PipedOutputStream</code> before being used.
+     * Creates a <code>PipedInputStream</code> so that it is not yet.
      *
      * @param pipeSize
      *            the size of the pipe's buffer.
-     * @exception IllegalArgumentException
-     *                if <code>pipeSize <= 0</code>.
+     *            {@linkplain #connect(java.io.PipedOutputStream) connected} and
+     *            uses the specified pipe size for the pipe's buffer.
+     *            It must be
+     *            {@linkplain java.io.PipedOutputStream#connect(java.io.PipedInputStream)
+     *            connected} to a <code>PipedOutputStream</code> before being
+     *            used.
      * @since 1.6
      */
     public NoClosePipedInputStream(int pipeSize) {
         initPipe(pipeSize);
     }
 
+    /**
+     * Inits the pipe.
+     *
+     * @param pipeSize
+     *            the pipe size
+     */
     private void initPipe(int pipeSize) {
         if (pipeSize <= 0) {
             throw new IllegalArgumentException("Pipe Size <= 0");
@@ -234,8 +244,8 @@ public class NoClosePipedInputStream extends InputStream {
      *
      * @param src
      *            The piped output stream to connect to.
-     * @exception IOException
-     *                if an I/O error occurs.
+     * @throws IOException
+     *             if an I/O error occurs.
      */
     public void connect(NoClosePipedOutputStream src) throws IOException {
         src.connect(this);
@@ -247,10 +257,10 @@ public class NoClosePipedInputStream extends InputStream {
      *
      * @param b
      *            the byte being received
-     * @exception IOException
-     *                If the pipe is <a href=#BROKEN> <code>broken</code></a>,
-     *                {@link #connect(java.io.PipedOutputStream) unconnected},
-     *                closed, or if an I/O error occurs.
+     * @throws IOException
+     *             If the pipe is <a href=#BROKEN> <code>broken</code></a>,
+     *             {@link #connect(java.io.PipedOutputStream) unconnected},
+     *             closed, or if an I/O error occurs.
      * @since JDK1.1
      */
     protected synchronized void receive(int b) throws IOException {
@@ -278,10 +288,10 @@ public class NoClosePipedInputStream extends InputStream {
      *            the start offset of the data
      * @param len
      *            the maximum number of bytes received
-     * @exception IOException
-     *                If the pipe is <a href=#BROKEN> broken</a>,
-     *                {@link #connect(java.io.PipedOutputStream) unconnected},
-     *                closed,or if an I/O error occurs.
+     * @throws IOException
+     *             If the pipe is <a href=#BROKEN> broken</a>,
+     *             {@link #connect(java.io.PipedOutputStream) unconnected},
+     *             closed,or if an I/O error occurs.
      */
     synchronized void receive(byte[] b, int off, int len) throws IOException {
         checkStateForReceive();
@@ -314,12 +324,24 @@ public class NoClosePipedInputStream extends InputStream {
         }
     }
 
+    /**
+     * Check state for receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void checkStateForReceive() throws IOException {
         if (!connected) {
             throw new IOException("Pipe not connected");
         }
     }
 
+    /**
+     * Await space.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void awaitSpace() throws IOException {
         while (in == out) {
             checkStateForReceive();
@@ -343,11 +365,11 @@ public class NoClosePipedInputStream extends InputStream {
      *
      * @return the next byte of data, or <code>-1</code> if the end of the
      *         stream is reached.
-     * @exception IOException
-     *                if the pipe is {@link #connect(java.io.PipedOutputStream)
-     *                unconnected},
-     *                <a href=#BROKEN> <code>broken</code></a>, closed,
-     *                or if an I/O error occurs.
+     * @throws IOException
+     *             if the pipe is {@link #connect(java.io.PipedOutputStream)
+     *             unconnected},
+     *             <a href=#BROKEN> <code>broken</code></a>, closed,
+     *             or if an I/O error occurs.
      */
     @Override
     public synchronized int read() throws IOException {
@@ -394,16 +416,10 @@ public class NoClosePipedInputStream extends InputStream {
      * @return the total number of bytes read into the buffer, or
      *         <code>-1</code> if there is no more data because the end of
      *         the stream has been reached.
-     * @exception NullPointerException
-     *                If <code>b</code> is <code>null</code>.
-     * @exception IndexOutOfBoundsException
-     *                If <code>off</code> is negative, <code>len</code> is
-     *                negative, or <code>len</code> is greater than
-     *                <code>b.length - off</code>
-     * @exception IOException
-     *                if the pipe is <a href=#BROKEN> <code>broken</code></a>,
-     *                {@link #connect(java.io.PipedOutputStream) unconnected},
-     *                closed, or if an I/O error occurs.
+     * @throws IOException
+     *             if the pipe is <a href=#BROKEN> <code>broken</code></a>,
+     *             {@link #connect(java.io.PipedOutputStream) unconnected},
+     *             closed, or if an I/O error occurs.
      */
     @Override
     public synchronized int read(byte[] b, int off, int len) throws IOException {
@@ -461,8 +477,8 @@ public class NoClosePipedInputStream extends InputStream {
      *         closed by invoking its {@link #close()} method, or if the pipe
      *         is {@link #connect(java.io.PipedOutputStream) unconnected}, or
      *         <a href=#BROKEN> <code>broken</code></a>.
-     * @exception IOException
-     *                if an I/O error occurs.
+     * @throws IOException
+     *             if an I/O error occurs.
      * @since JDK1.0.2
      */
     @Override

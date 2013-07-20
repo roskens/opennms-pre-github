@@ -28,58 +28,75 @@ import com.vaadin.ui.AbstractComponent;
 
 /**
  * The SSHTerminal class is a custom Vaadin component that emulates VT100
- * terminals and connects remotely to servers via SSH
+ * terminals and connects remotely to servers via SSH.
  *
  * @author lmbell
  * @author pdgrenon
  */
 public class SSHTerminal extends AbstractComponent {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8914800725736485264L; // serialization
                                                                         // ID
 
-    private int TERM_WIDTH; // The width of the terminal
+    /**
+                                                                         * The
+                                                                         * term
+                                                                         * width.
+                                                                         */
+                                                                        private int TERM_WIDTH; // The width of the terminal
 
+    /** The term height. */
     private int TERM_HEIGHT; // The height of the terminal
 
+    /** The force update. */
     private boolean forceUpdate; // Tracks whether the client should be forced
                                  // to update
 
-    private boolean focus; // Tells the client to focus on itself
+    /** The focus. */
+                                 private boolean focus; // Tells the client to focus on itself
 
+    /** The is closed. */
     private boolean isClosed; // Tracks whether the whether is closed
 
+    /** The close client. */
     private boolean closeClient; // Boolean sent from the server to close the
                                  // client
 
-    private SessionTerminal st; // The terminal specific to the current session
+    /** The st. */
+                                 private SessionTerminal st; // The terminal specific to the current session
 
+    /** The session. */
     private ClientSession session; // The client instance used in the
                                    // authorization of user names and passwords
 
-    private String dumpContents; // The content from the server to be displayed
+    /** The dump contents. */
+                                   private String dumpContents; // The content from the server to be displayed
                                  // by the client
 
-    private SSHWindow sshWindow; // The window that holds the terminal
+    /** The ssh window. */
+                                 private SSHWindow sshWindow; // The window that holds the terminal
 
+    /** The channel. */
     private ClientChannel channel; // The connection between the client and the
                                    // server
 
     /**
-     * Constructor for the SSH Terminal
-     *
-     * @param app
-     *            The main application
-     * @param sshWindow
-     *            The window holding the terminal
-     * @param session
-     *            The client instance used in the authorization of user names
-     *            and passwords
-     * @param width
-     *            The width of the terminal
-     * @param height
-     *            The height of the terminal
-     */
+                                     * Constructor for the SSH Terminal.
+                                     *
+                                     * @param sshWindow
+                                     *            The window holding the
+                                     *            terminal
+                                     * @param session
+                                     *            The client instance used in
+                                     *            the authorization of user
+                                     *            names
+                                     *            and passwords
+                                     * @param width
+                                     *            The width of the terminal
+                                     * @param height
+                                     *            The height of the terminal
+                                     */
     public SSHTerminal(SSHWindow sshWindow, ClientSession session, int width, int height) {
         super();
         this.sshWindow = sshWindow;
@@ -99,7 +116,9 @@ public class SSHTerminal extends AbstractComponent {
     }
 
     /**
-     * Closes the client window
+     * Closes the client window.
+     *
+     * @return true, if successful
      */
     public boolean close() {
         closeClient = true;
@@ -107,6 +126,9 @@ public class SSHTerminal extends AbstractComponent {
         return closeClient;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#getState()
+     */
     @Override
     protected SSHTerminalState getState() {
         return (SSHTerminalState) super.getState();
@@ -159,20 +181,28 @@ public class SSHTerminal extends AbstractComponent {
      */
     public class SessionTerminal implements Runnable {
 
+        /** The terminal. */
         private Terminal terminal; // The terminal to be displayed
 
+        /** The in. */
         private NoClosePipedOutputStream in; // The input stream to be used by
                                              // the terminal
 
-        private NoClosePipedInputStream out; // The output stream to be used by
+        /** The out. */
+                                             private NoClosePipedInputStream out; // The output stream to be used by
                                              // the terminal
 
         /**
-         * Constructor that creates creates the terminal and
-         * connects the I/O streams to the server
-         *
-         * @throws IOException
-         */
+                                                 * Constructor that creates
+                                                 * creates the terminal and
+                                                 * connects the I/O streams to
+                                                 * the server.
+                                                 *
+                                                 * @throws IOException
+                                                 *             Signals that an
+                                                 *             I/O exception has
+                                                 *             occurred.
+                                                 */
         public SessionTerminal() throws IOException {
             try {
                 this.terminal = new Terminal(TERM_WIDTH, TERM_HEIGHT);
@@ -192,7 +222,7 @@ public class SSHTerminal extends AbstractComponent {
         }
 
         /**
-         * Handles the content recieved from the server
+         * Handles the content recieved from the server.
          *
          * @param str
          *            The content recieved
@@ -200,6 +230,7 @@ public class SSHTerminal extends AbstractComponent {
          *            Whether the terminal is forced to dump the content
          * @return The contents dumped to terminal
          * @throws IOException
+         *             Signals that an I/O exception has occurred.
          */
         public String handle(String str, boolean forceDump) throws IOException {
             try {
@@ -221,7 +252,7 @@ public class SSHTerminal extends AbstractComponent {
         }
 
         /**
-         * Runs the terminal and reads/writes when necessary
+         * Runs the terminal and reads/writes when necessary.
          */
         @Override
         public void run() {

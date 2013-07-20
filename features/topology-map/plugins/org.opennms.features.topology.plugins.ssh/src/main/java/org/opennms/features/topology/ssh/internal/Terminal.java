@@ -65,109 +65,175 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * This class provides terminal emulation and was provided
- * by the karaf gogo plugin
+ * by the karaf gogo plugin.
  */
 @SuppressWarnings("unused")
 public class Terminal {
 
+    /**
+     * The Enum State.
+     */
     enum State {
-        None, Esc, Str, Csi,
+
+        /** The None. */
+        None,
+ /** The Esc. */
+ Esc,
+ /** The Str. */
+ Str,
+ /** The Csi. */
+ Csi,
     }
 
+    /** The width. */
     private int width;
 
+    /** The height. */
     private int height;
 
+    /** The attr. */
     private int attr;
 
+    /** The eol. */
     private boolean eol;
 
+    /** The cx. */
     private int cx;
 
+    /** The cy. */
     private int cy;
 
+    /** The screen. */
     private int[] screen;
 
+    /** The screen2. */
     private int[] screen2;
 
+    /** The vt100_parse_state. */
     private State vt100_parse_state = State.None;
 
+    /** The vt100_parse_len. */
     private int vt100_parse_len;
 
+    /** The vt100_lastchar. */
     private int vt100_lastchar;
 
+    /** The vt100_parse_func. */
     private int vt100_parse_func;
 
+    /** The vt100_parse_param. */
     private String vt100_parse_param;
 
+    /** The vt100_mode_autowrap. */
     private boolean vt100_mode_autowrap;
 
+    /** The vt100_mode_insert. */
     private boolean vt100_mode_insert;
 
+    /** The vt100_charset_is_single_shift. */
     private boolean vt100_charset_is_single_shift;
 
+    /** The vt100_charset_is_graphical. */
     private boolean vt100_charset_is_graphical;
 
+    /** The vt100_mode_lfnewline. */
     private boolean vt100_mode_lfnewline;
 
+    /** The vt100_mode_origin. */
     private boolean vt100_mode_origin;
 
+    /** The vt100_mode_inverse. */
     private boolean vt100_mode_inverse;
 
+    /** The vt100_mode_cursorkey. */
     private boolean vt100_mode_cursorkey;
 
+    /** The vt100_mode_cursor. */
     private boolean vt100_mode_cursor;
 
+    /** The vt100_mode_alt_screen. */
     private boolean vt100_mode_alt_screen;
 
+    /** The vt100_mode_backspace. */
     private boolean vt100_mode_backspace;
 
+    /** The vt100_mode_column_switch. */
     private boolean vt100_mode_column_switch;
 
+    /** The vt100_keyfilter_escape. */
     private boolean vt100_keyfilter_escape;
 
+    /** The vt100_charset_graph. */
     private int[] vt100_charset_graph = new int[] { 0x25ca, 0x2026, 0x2022, 0x3f, 0xb6, 0x3f, 0xb0, 0xb1, 0x3f, 0x3f,
             0x2b, 0x2b, 0x2b, 0x2b, 0x2b, 0xaf, 0x2014, 0x2014, 0x2014, 0x5f, 0x2b, 0x2b, 0x2b, 0x2b, 0x7c, 0x2264,
             0x2265, 0xb6, 0x2260, 0xa3, 0xb7, 0x7f };
 
+    /** The vt100_charset_g_sel. */
     private int vt100_charset_g_sel;
 
+    /** The vt100_charset_g. */
     private int[] vt100_charset_g = { 0, 0 };
 
+    /** The vt100_saved. */
     private Map<String, Object> vt100_saved;
 
+    /** The vt100_saved2. */
     private Map<String, Object> vt100_saved2;
 
+    /** The vt100_saved_cx. */
     private int vt100_saved_cx;
 
+    /** The vt100_saved_cy. */
     private int vt100_saved_cy;
 
+    /** The vt100_out. */
     private String vt100_out;
 
+    /** The scroll_area_y0. */
     private int scroll_area_y0;
 
+    /** The scroll_area_y1. */
     private int scroll_area_y1;
 
+    /** The tab_stops. */
     private List<Integer> tab_stops;
 
+    /** The utf8_char. */
     private int utf8_char;
 
+    /** The utf8_units_count. */
     private int utf8_units_count;
 
+    /** The utf8_units_received. */
     private int utf8_units_received;
 
+    /** The dirty. */
     private AtomicBoolean dirty = new AtomicBoolean(true);
 
+    /**
+     * Instantiates a new terminal.
+     */
     public Terminal() {
         this(80, 24);
     }
 
+    /**
+     * Instantiates a new terminal.
+     *
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     */
     public Terminal(int width, int height) {
         this.width = width;
         this.height = height;
         reset_hard();
     }
 
+    /**
+     * Reset_hard.
+     */
     private void reset_hard() {
         // Attribute mask: 0x0XFB0000
         // X: Bit 0 - Underlined
@@ -196,6 +262,9 @@ public class Terminal {
         reset_soft();
     }
 
+    /**
+     * Reset_soft.
+     */
     private void reset_soft() {
         // Attribute mask: 0x0XFB0000
         // X: Bit 0 - Underlined
@@ -229,6 +298,9 @@ public class Terminal {
         esc_DECSC();
     }
 
+    /**
+     * Reset_screen.
+     */
     private void reset_screen() {
         // Screen
         screen = new int[width * height];
@@ -252,6 +324,13 @@ public class Terminal {
     // UTF-8 functions
     //
 
+    /**
+     * Utf8_decode.
+     *
+     * @param d
+     *            the d
+     * @return the string
+     */
     private String utf8_decode(String d) {
         StringBuilder o = new StringBuilder();
         byte[] bytes = d.getBytes();
@@ -294,6 +373,13 @@ public class Terminal {
         return o.toString();
     }
 
+    /**
+     * Utf8_charwidth.
+     *
+     * @param c
+     *            the c
+     * @return the int
+     */
     private int utf8_charwidth(int c) {
         if (c >= 0x2e80) {
             return 2;
@@ -306,6 +392,19 @@ public class Terminal {
     // Low-level terminal functions
     //
 
+    /**
+     * Peek.
+     *
+     * @param y0
+     *            the y0
+     * @param x0
+     *            the x0
+     * @param y1
+     *            the y1
+     * @param x1
+     *            the x1
+     * @return the int[]
+     */
     private int[] peek(int y0, int x0, int y1, int x1) {
         int from = width * y0 + x0;
         int to = width * (y1 - 1) + x1;
@@ -317,11 +416,35 @@ public class Terminal {
         return copy;
     }
 
+    /**
+     * Poke.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     * @param s
+     *            the s
+     */
     private void poke(int y, int x, int[] s) {
         System.arraycopy(s, 0, screen, width * y + x, s.length);
         setDirty();
     }
 
+    /**
+     * Fill.
+     *
+     * @param y0
+     *            the y0
+     * @param x0
+     *            the x0
+     * @param y1
+     *            the y1
+     * @param x1
+     *            the x1
+     * @param c
+     *            the c
+     */
     private void fill(int y0, int x0, int y1, int x1, int c) {
         int d0 = width * y0 + x0;
         int d1 = width * (y1 - 1) + x1;
@@ -331,6 +454,18 @@ public class Terminal {
         }
     }
 
+    /**
+     * Clear.
+     *
+     * @param y0
+     *            the y0
+     * @param x0
+     *            the x0
+     * @param y1
+     *            the y1
+     * @param x1
+     *            the x1
+     */
     private void clear(int y0, int x0, int y1, int x1) {
         fill(y0, x0, y1, x1, attr | 0x20);
     }
@@ -339,26 +474,70 @@ public class Terminal {
     // Scrolling functions
     //
 
+    /**
+     * Scroll_area_up.
+     *
+     * @param y0
+     *            the y0
+     * @param y1
+     *            the y1
+     */
     private void scroll_area_up(int y0, int y1) {
         scroll_area_up(y0, y1, 1);
     }
 
+    /**
+     * Scroll_area_up.
+     *
+     * @param y0
+     *            the y0
+     * @param y1
+     *            the y1
+     * @param n
+     *            the n
+     */
     private void scroll_area_up(int y0, int y1, int n) {
         n = Math.min(y1 - y0, n);
         poke(y0, 0, peek(y0 + n, 0, y1, width));
         clear(y1 - n, 0, y1, width);
     }
 
+    /**
+     * Scroll_area_down.
+     *
+     * @param y0
+     *            the y0
+     * @param y1
+     *            the y1
+     */
     private void scroll_area_down(int y0, int y1) {
         scroll_area_down(y0, y1, 1);
     }
 
+    /**
+     * Scroll_area_down.
+     *
+     * @param y0
+     *            the y0
+     * @param y1
+     *            the y1
+     * @param n
+     *            the n
+     */
     private void scroll_area_down(int y0, int y1, int n) {
         n = Math.min(y1 - y0, n);
         poke(y0 + n, 0, peek(y0, 0, y1 - n, width));
         clear(y0, 0, y0 + n, width);
     }
 
+    /**
+     * Scroll_area_set.
+     *
+     * @param y0
+     *            the y0
+     * @param y1
+     *            the y1
+     */
     private void scroll_area_set(int y0, int y1) {
         y0 = Math.max(0, Math.min(height - 1, y0));
         y1 = Math.max(1, Math.min(height, y1));
@@ -368,10 +547,28 @@ public class Terminal {
         }
     }
 
+    /**
+     * Scroll_line_right.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     */
     private void scroll_line_right(int y, int x) {
         scroll_line_right(y, x, 1);
     }
 
+    /**
+     * Scroll_line_right.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     * @param n
+     *            the n
+     */
     private void scroll_line_right(int y, int x, int n) {
         if (x < width) {
             n = Math.min(width - cx, n);
@@ -380,10 +577,28 @@ public class Terminal {
         }
     }
 
+    /**
+     * Scroll_line_left.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     */
     private void scroll_line_left(int y, int x) {
         scroll_line_left(y, x, 1);
     }
 
+    /**
+     * Scroll_line_left.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     * @param n
+     *            the n
+     */
     private void scroll_line_left(int y, int x, int n) {
         if (x < width) {
             n = Math.min(width - cx, n);
@@ -396,6 +611,13 @@ public class Terminal {
     // Cursor functions
     //
 
+    /**
+     * Cursor_line_width.
+     *
+     * @param next_char
+     *            the next_char
+     * @return the int[]
+     */
     private int[] cursor_line_width(int next_char) {
         int wx = utf8_charwidth(next_char);
         int lx = 0;
@@ -407,55 +629,111 @@ public class Terminal {
         return new int[] { wx, lx };
     }
 
+    /**
+     * Cursor_up.
+     */
     private void cursor_up() {
         cursor_up(1);
     }
 
+    /**
+     * Cursor_up.
+     *
+     * @param n
+     *            the n
+     */
     private void cursor_up(int n) {
         cy = Math.max(scroll_area_y0, cy - n);
         setDirty();
     }
 
+    /**
+     * Cursor_down.
+     */
     private void cursor_down() {
         cursor_down(1);
     }
 
+    /**
+     * Cursor_down.
+     *
+     * @param n
+     *            the n
+     */
     private void cursor_down(int n) {
         cy = Math.min(scroll_area_y1 - 1, cy + n);
         setDirty();
     }
 
+    /**
+     * Cursor_left.
+     */
     private void cursor_left() {
         cursor_left(1);
     }
 
+    /**
+     * Cursor_left.
+     *
+     * @param n
+     *            the n
+     */
     private void cursor_left(int n) {
         eol = false;
         cx = Math.max(0, cx - n);
         setDirty();
     }
 
+    /**
+     * Cursor_right.
+     */
     private void cursor_right() {
         cursor_right(1);
     }
 
+    /**
+     * Cursor_right.
+     *
+     * @param n
+     *            the n
+     */
     private void cursor_right(int n) {
         eol = cx + n >= width;
         cx = Math.min(width - 1, cx + n);
         setDirty();
     }
 
+    /**
+     * Cursor_set_x.
+     *
+     * @param x
+     *            the x
+     */
     private void cursor_set_x(int x) {
         eol = false;
         cx = Math.max(0, x);
         setDirty();
     }
 
+    /**
+     * Cursor_set_y.
+     *
+     * @param y
+     *            the y
+     */
     private void cursor_set_y(int y) {
         cy = Math.max(0, Math.min(height - 1, y));
         setDirty();
     }
 
+    /**
+     * Cursor_set.
+     *
+     * @param y
+     *            the y
+     * @param x
+     *            the x
+     */
     private void cursor_set(int y, int x) {
         cursor_set_x(x);
         cursor_set_y(y);
@@ -465,15 +743,27 @@ public class Terminal {
     // Dumb terminal
     //
 
+    /**
+     * Ctrl_ bs.
+     */
     private void ctrl_BS() {
         int dy = (cx - 1) / width;
         cursor_set(Math.max(scroll_area_y0, cy + dy), (cx - 1) % width);
     }
 
+    /**
+     * Ctrl_ ht.
+     */
     private void ctrl_HT() {
         ctrl_HT(1);
     }
 
+    /**
+     * Ctrl_ ht.
+     *
+     * @param n
+     *            the n
+     */
     private void ctrl_HT(int n) {
         if (n > 0 && cx >= width) {
             return;
@@ -495,6 +785,9 @@ public class Terminal {
         }
     }
 
+    /**
+     * Ctrl_ lf.
+     */
     private void ctrl_LF() {
         if (vt100_mode_lfnewline) {
             ctrl_CR();
@@ -506,10 +799,20 @@ public class Terminal {
         }
     }
 
+    /**
+     * Ctrl_ cr.
+     */
     private void ctrl_CR() {
         cursor_set_x(0);
     }
 
+    /**
+     * Dumb_write.
+     *
+     * @param c
+     *            the c
+     * @return true, if successful
+     */
     private boolean dumb_write(int c) {
         if (c < 32) {
             if (c == 8) {
@@ -526,6 +829,12 @@ public class Terminal {
         return false;
     }
 
+    /**
+     * Dumb_echo.
+     *
+     * @param c
+     *            the c
+     */
     private void dumb_echo(int c) {
         if (eol) {
             if (vt100_mode_autowrap) {
@@ -551,22 +860,47 @@ public class Terminal {
     // VT100
     //
 
+    /**
+     * Vt100_charset_update.
+     */
     private void vt100_charset_update() {
         vt100_charset_is_graphical = (vt100_charset_g[vt100_charset_g_sel] == 2);
     }
 
+    /**
+     * Vt100_charset_set.
+     *
+     * @param g
+     *            the g
+     */
     private void vt100_charset_set(int g) {
         // Invoke active character set
         vt100_charset_g_sel = g;
         vt100_charset_update();
     }
 
+    /**
+     * Vt100_charset_select.
+     *
+     * @param g
+     *            the g
+     * @param charset
+     *            the charset
+     */
     private void vt100_charset_select(int g, int charset) {
         // Select charset
         vt100_charset_g[g] = charset;
         vt100_charset_update();
     }
 
+    /**
+     * Vt100_setmode.
+     *
+     * @param p
+     *            the p
+     * @param state
+     *            the state
+     */
     private void vt100_setmode(String p, boolean state) {
         // Set VT100 mode
         String[] ps = vt100_parse_params(p, new String[0]);
@@ -657,62 +991,107 @@ public class Terminal {
         }
     }
 
+    /**
+     * Ctrl_ so.
+     */
     private void ctrl_SO() {
         vt100_charset_set(1);
     }
 
+    /**
+     * Ctrl_ si.
+     */
     private void ctrl_SI() {
         vt100_charset_set(0);
     }
 
+    /**
+     * Esc_ csi.
+     */
     private void esc_CSI() {
         vt100_parse_reset(State.Csi);
     }
 
+    /**
+     * Esc_ decaln.
+     */
     private void esc_DECALN() {
         fill(0, 0, height, width, 0x00fe0045);
     }
 
+    /**
+     * Esc_ g0_0.
+     */
     private void esc_G0_0() {
         vt100_charset_select(0, 0);
     }
 
+    /**
+     * Esc_ g0_1.
+     */
     private void esc_G0_1() {
         vt100_charset_select(0, 1);
     }
 
+    /**
+     * Esc_ g0_2.
+     */
     private void esc_G0_2() {
         vt100_charset_select(0, 2);
     }
 
+    /**
+     * Esc_ g0_3.
+     */
     private void esc_G0_3() {
         vt100_charset_select(0, 3);
     }
 
+    /**
+     * Esc_ g0_4.
+     */
     private void esc_G0_4() {
         vt100_charset_select(0, 4);
     }
 
+    /**
+     * Esc_ g1_0.
+     */
     private void esc_G1_0() {
         vt100_charset_select(1, 0);
     }
 
+    /**
+     * Esc_ g1_1.
+     */
     private void esc_G1_1() {
         vt100_charset_select(1, 1);
     }
 
+    /**
+     * Esc_ g1_2.
+     */
     private void esc_G1_2() {
         vt100_charset_select(1, 2);
     }
 
+    /**
+     * Esc_ g1_3.
+     */
     private void esc_G1_3() {
         vt100_charset_select(1, 3);
     }
 
+    /**
+     * Esc_ g1_4.
+     */
     private void esc_G1_4() {
         vt100_charset_select(1, 4);
     }
 
+    /**
+     * Esc_ decsc.
+     */
     private void esc_DECSC() {
         vt100_saved = new HashMap<String, Object>();
         vt100_saved.put("cx", cx);
@@ -724,6 +1103,9 @@ public class Terminal {
         vt100_saved.put("vt100_mode_origin", vt100_mode_origin);
     }
 
+    /**
+     * Esc_ decrc.
+     */
     private void esc_DECRC() {
         cx = (Integer) vt100_saved.get("cx");
         cy = (Integer) vt100_saved.get("cy");
@@ -735,19 +1117,31 @@ public class Terminal {
         vt100_mode_origin = (Boolean) vt100_saved.get("vt100_mode_origin");
     }
 
+    /**
+     * Esc_ ind.
+     */
     private void esc_IND() {
         ctrl_LF();
     }
 
+    /**
+     * Esc_ nel.
+     */
     private void esc_NEL() {
         ctrl_CR();
         ctrl_LF();
     }
 
+    /**
+     * Esc_ hts.
+     */
     private void esc_HTS() {
         csi_CTC("0");
     }
 
+    /**
+     * Esc_ ri.
+     */
     private void esc_RI() {
         if (cy == scroll_area_y0) {
             scroll_area_down(scroll_area_y0, scroll_area_y1);
@@ -756,81 +1150,162 @@ public class Terminal {
         }
     }
 
+    /**
+     * Esc_ s s2.
+     */
     private void esc_SS2() {
         vt100_charset_is_single_shift = true;
     }
 
+    /**
+     * Esc_ s s3.
+     */
     private void esc_SS3() {
         vt100_charset_is_single_shift = true;
     }
 
+    /**
+     * Esc_ dcs.
+     */
     private void esc_DCS() {
         vt100_parse_reset(State.Str);
     }
 
+    /**
+     * Esc_ sos.
+     */
     private void esc_SOS() {
         vt100_parse_reset(State.Str);
     }
 
+    /**
+     * Esc_ st.
+     */
     private void esc_ST() {
     }
 
+    /**
+     * Esc_ osc.
+     */
     private void esc_OSC() {
         vt100_parse_reset(State.Str);
     }
 
+    /**
+     * Esc_ pm.
+     */
     private void esc_PM() {
         vt100_parse_reset(State.Str);
     }
 
+    /**
+     * Esc_ apc.
+     */
     private void esc_APC() {
         vt100_parse_reset(State.Str);
     }
 
+    /**
+     * Esc_ ris.
+     */
     private void esc_RIS() {
         reset_hard();
     }
 
+    /**
+     * Csi_ ich.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_ICH(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         scroll_line_right(cy, cx, ps[0]);
     }
 
+    /**
+     * Csi_ cuu.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CUU(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_up(Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ cud.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CUD(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_down(Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ cuf.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CUF(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_right(Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ cub.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CUB(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_left(Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ cnl.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CNL(String p) {
         csi_CUD(p);
         ctrl_CR();
     }
 
+    /**
+     * Csi_ cpl.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CPL(String p) {
         csi_CUU(p);
         ctrl_CR();
     }
 
+    /**
+     * Csi_ cha.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CHA(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_set_x(ps[0] - 1);
     }
 
+    /**
+     * Csi_ cup.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CUP(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1, 1 });
         if (vt100_mode_origin) {
@@ -840,11 +1315,23 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ cht.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CHT(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         ctrl_HT(Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ ed.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_ED(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         if ("0".equals(ps[0])) {
@@ -856,6 +1343,12 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ el.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_EL(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         if ("0".equals(ps[0])) {
@@ -867,6 +1360,12 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ il.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_IL(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         if (cy >= scroll_area_y0 && cy < scroll_area_y1) {
@@ -874,6 +1373,12 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ dl.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DL(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         if (cy >= scroll_area_y0 && cy < scroll_area_y1) {
@@ -881,21 +1386,45 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ dch.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DCH(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         scroll_line_left(cy, cx, Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ su.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_SU(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         scroll_area_up(scroll_area_y0, scroll_area_y1, Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ sd.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_SD(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         scroll_area_down(scroll_area_y0, scroll_area_y1, Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ ctc.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CTC(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         for (String m : ps) {
@@ -912,26 +1441,56 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ ech.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_ECH(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         int n = Math.min(width - cx, Math.max(1, ps[0]));
         clear(cy, cx, cy + 1, cx + n);
     }
 
+    /**
+     * Csi_ cbt.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_CBT(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         ctrl_HT(1 - Math.max(1, ps[0]));
     }
 
+    /**
+     * Csi_ hpa.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_HPA(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_set_x(ps[0] - 1);
     }
 
+    /**
+     * Csi_ hpr.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_HPR(String p) {
         csi_CUF(p);
     }
 
+    /**
+     * Csi_ rep.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_REP(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         if (vt100_lastchar < 32) {
@@ -944,6 +1503,12 @@ public class Terminal {
         vt100_lastchar = 0;
     }
 
+    /**
+     * Csi_ da.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DA(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         if ("0".equals(ps[0])) {
@@ -953,19 +1518,43 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ vpa.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_VPA(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1 });
         cursor_set_y(ps[0] - 1);
     }
 
+    /**
+     * Csi_ vpr.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_VPR(String p) {
         csi_CUD(p);
     }
 
+    /**
+     * Csi_ hvp.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_HVP(String p) {
         csi_CUP(p);
     }
 
+    /**
+     * Csi_ tbc.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_TBC(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         if ("0".equals(ps[0])) {
@@ -975,14 +1564,32 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ sm.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_SM(String p) {
         vt100_setmode(p, true);
     }
 
+    /**
+     * Csi_ rm.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_RM(String p) {
         vt100_setmode(p, false);
     }
 
+    /**
+     * Csi_ sgr.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_SGR(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 0 });
         for (int m : ps) {
@@ -1014,6 +1621,12 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ dsr.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DSR(String p) {
         String[] ps = vt100_parse_params(p, new String[] { "0" });
         if ("5".equals(ps[0])) {
@@ -1040,6 +1653,12 @@ public class Terminal {
         // ?63 : Memory Checksum report
     }
 
+    /**
+     * Csi_ decstbm.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DECSTBM(String p) {
         int[] ps = vt100_parse_params(p, new int[] { 1, height });
         scroll_area_set(ps[0] - 1, ps[1]);
@@ -1050,16 +1669,34 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ scp.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_SCP(String p) {
         vt100_saved_cx = cx;
         vt100_saved_cy = cy;
     }
 
+    /**
+     * Csi_ rcp.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_RCP(String p) {
         cx = vt100_saved_cx;
         cy = vt100_saved_cy;
     }
 
+    /**
+     * Csi_ decreqtparm.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DECREQTPARM(String p) {
         String[] ps = vt100_parse_params(p, new String[0]);
         if ("0".equals(ps[0])) {
@@ -1069,6 +1706,12 @@ public class Terminal {
         }
     }
 
+    /**
+     * Csi_ decstr.
+     *
+     * @param p
+     *            the p
+     */
     private void csi_DECSTR(String p) {
         reset_soft();
     }
@@ -1077,6 +1720,15 @@ public class Terminal {
     // VT100 parser
     //
 
+    /**
+     * Vt100_parse_params.
+     *
+     * @param p
+     *            the p
+     * @param defaults
+     *            the defaults
+     * @return the string[]
+     */
     private String[] vt100_parse_params(String p, String[] defaults) {
         String prefix = "";
         if (p.length() > 0) {
@@ -1104,6 +1756,15 @@ public class Terminal {
         return values;
     }
 
+    /**
+     * Vt100_parse_params.
+     *
+     * @param p
+     *            the p
+     * @param defaults
+     *            the defaults
+     * @return the int[]
+     */
     private int[] vt100_parse_params(String p, int[] defaults) {
         String prefix = "";
         p = p == null ? "" : p;
@@ -1136,10 +1797,19 @@ public class Terminal {
         return values;
     }
 
+    /**
+     * Vt100_parse_reset.
+     */
     private void vt100_parse_reset() {
         vt100_parse_reset(State.None);
     }
 
+    /**
+     * Vt100_parse_reset.
+     *
+     * @param state
+     *            the state
+     */
     private void vt100_parse_reset(State state) {
         vt100_parse_state = state;
         vt100_parse_len = 0;
@@ -1147,6 +1817,9 @@ public class Terminal {
         vt100_parse_param = "";
     }
 
+    /**
+     * Vt100_parse_process.
+     */
     private void vt100_parse_process() {
         if (vt100_parse_state == State.Esc) {
             switch (vt100_parse_func) {
@@ -1530,6 +2203,13 @@ public class Terminal {
         }
     }
 
+    /**
+     * Vt100_write.
+     *
+     * @param c
+     *            the c
+     * @return true, if successful
+     */
     private boolean vt100_write(int c) {
         if (c < 32) {
             if (c == 27) {
@@ -1582,6 +2262,9 @@ public class Terminal {
     // Dirty
     //
 
+    /**
+     * Sets the dirty.
+     */
     private synchronized void setDirty() {
         dirty.set(true);
         notifyAll();
@@ -1591,6 +2274,15 @@ public class Terminal {
     // External interface
     //
 
+    /**
+     * Sets the size.
+     *
+     * @param w
+     *            the w
+     * @param h
+     *            the h
+     * @return true, if successful
+     */
     public synchronized boolean setSize(int w, int h) {
         if (w < 2 || w > 256 || h < 2 || h > 256) {
             return false;
@@ -1601,12 +2293,24 @@ public class Terminal {
         return true;
     }
 
+    /**
+     * Read.
+     *
+     * @return the string
+     */
     public synchronized String read() {
         String d = vt100_out;
         vt100_out = "";
         return d;
     }
 
+    /**
+     * Pipe.
+     *
+     * @param d
+     *            the d
+     * @return the string
+     */
     public synchronized String pipe(String d) {
         String o = "";
         for (char c : d.toCharArray()) {
@@ -1775,6 +2479,13 @@ public class Terminal {
         return o;
     }
 
+    /**
+     * Write.
+     *
+     * @param d
+     *            the d
+     * @return true, if successful
+     */
     public synchronized boolean write(String d) {
         d = utf8_decode(d);
         for (int c : d.toCharArray()) {
@@ -1791,6 +2502,13 @@ public class Terminal {
         return true;
     }
 
+    /**
+     * Dump.
+     *
+     * @return the string
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public synchronized String dump() throws InterruptedException {
         StringBuilder sb = new StringBuilder();
         int prev_attr = -1;
@@ -1861,6 +2579,9 @@ public class Terminal {
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

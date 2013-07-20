@@ -37,24 +37,34 @@ import org.junit.Test;
 import org.opennms.features.topology.ssh.internal.testframework.SudoKeyDownEvent;
 import org.opennms.features.topology.ssh.internal.testframework.SudoKeyPressEvent;
 
+/**
+ * The Class CodeTest.
+ */
 @Ignore("This GWT client mode code cannot be run inside a vanilla JUnit test")
 public class CodeTest {
+
+    /** The test char code false. */
     int testCharCodeFalse = 10; // The char code for the test code where all of
                                 // the options are false
 
-    int testKeyCodeFalse = 20; // The key code for the test code where all of
+    /** The test key code false. */
+                                int testKeyCodeFalse = 20; // The key code for the test code where all of
                                // the options are false
 
-    int testCharCodeTrue = 30; // The key code for the test code where all of
+    /** The test char code true. */
+                               int testCharCodeTrue = 30; // The key code for the test code where all of
                                // the options are true
 
-    int testKeyCodeTrue = 40;// The key code for the test code where all of the
+    /** The test key code true. */
+                               int testKeyCodeTrue = 40;// The key code for the test code where all of the
                              // options are true
 
-    int testKeyCodeControlChar = 17; // A control character (>=16 && <=18) to
+    /** The test key code control char. */
+                             int testKeyCodeControlChar = 17; // A control character (>=16 && <=18) to
                                      // test the isControlKey method
 
-    Code keyDownCodeAllFalse = new Code(new SudoKeyDownEvent(testKeyCodeFalse, false, false, false)); // A
+    /** The key down code all false. */
+                                     Code keyDownCodeAllFalse = new Code(new SudoKeyDownEvent(testKeyCodeFalse, false, false, false)); // A
                                                                                                       // keyDownEvent
                                                                                                       // where
                                                                                                       // all
@@ -64,7 +74,16 @@ public class CodeTest {
                                                                                                       // are
                                                                                                       // false
 
-    Code keyPressCodeAllFalse = new Code(new SudoKeyPressEvent(testCharCodeFalse, false, false, false)); // A
+    /**
+                                                                                                         * The
+                                                                                                         * key
+                                                                                                         * press
+                                                                                                         * code
+                                                                                                         * all
+                                                                                                         * false
+                                                                                                         * .
+                                                                                                         */
+                                                                                                      Code keyPressCodeAllFalse = new Code(new SudoKeyPressEvent(testCharCodeFalse, false, false, false)); // A
                                                                                                          // keyPressEvent
                                                                                                          // where
                                                                                                          // all
@@ -74,7 +93,16 @@ public class CodeTest {
                                                                                                          // are
                                                                                                          // false
 
-    Code keyDownCodeAllTrue = new Code(new SudoKeyDownEvent(testKeyCodeTrue, true, true, true)); // A
+    /**
+                                                                                                             * The
+                                                                                                             * key
+                                                                                                             * down
+                                                                                                             * code
+                                                                                                             * all
+                                                                                                             * true
+                                                                                                             * .
+                                                                                                             */
+                                                                                                         Code keyDownCodeAllTrue = new Code(new SudoKeyDownEvent(testKeyCodeTrue, true, true, true)); // A
                                                                                                  // keyDownEvent
                                                                                                  // where
                                                                                                  // all
@@ -84,7 +112,16 @@ public class CodeTest {
                                                                                                  // are
                                                                                                  // true
 
-    Code keyPressCodeAllTrue = new Code(new SudoKeyPressEvent(testCharCodeTrue, true, true, true)); // A
+    /**
+                                                                                                     * The
+                                                                                                     * key
+                                                                                                     * press
+                                                                                                     * code
+                                                                                                     * all
+                                                                                                     * true
+                                                                                                     * .
+                                                                                                     */
+                                                                                                 Code keyPressCodeAllTrue = new Code(new SudoKeyPressEvent(testCharCodeTrue, true, true, true)); // A
                                                                                                     // keyDownEvent
                                                                                                     // where
                                                                                                     // all
@@ -94,7 +131,16 @@ public class CodeTest {
                                                                                                     // are
                                                                                                     // true
 
-    Code keyDownCodeControlChar = new Code(new SudoKeyDownEvent(testKeyCodeControlChar, true, true, true)); // A
+    /**
+                                                                                                     * The
+                                                                                                     * key
+                                                                                                     * down
+                                                                                                     * code
+                                                                                                     * control
+                                                                                                     * char
+                                                                                                     * .
+                                                                                                     */
+                                                                                                    Code keyDownCodeControlChar = new Code(new SudoKeyDownEvent(testKeyCodeControlChar, true, true, true)); // A
                                                                                                             // control
                                                                                                             // Code
                                                                                                             // to
@@ -103,42 +149,67 @@ public class CodeTest {
                                                                                                             // isControlKey
                                                                                                             // method
 
-    @Test
+    /**
+                                                                                                             * Test
+                                                                                                             * get
+                                                                                                             * char
+                                                                                                             * code
+                                                                                                             * .
+                                                                                                             */
+                                                                                                            @Test
     public void testGetCharCode() {
         assertEquals(testCharCodeFalse, keyPressCodeAllFalse.getCharCode());
         assertEquals(testCharCodeTrue, keyPressCodeAllTrue.getCharCode());
     }
 
+    /**
+     * Test get key code.
+     */
     @Test
     public void testGetKeyCode() {
         assertEquals(testKeyCodeFalse, keyDownCodeAllFalse.getKeyCode());
         assertEquals(testKeyCodeTrue, keyDownCodeAllTrue.getKeyCode());
     }
 
+    /**
+     * Test is ctrl down.
+     */
     @Test
     public void testIsCtrlDown() {
         assertFalse(keyDownCodeAllFalse.isCtrlDown());
         assertTrue(keyDownCodeAllTrue.isCtrlDown());
     }
 
+    /**
+     * Test is alt down.
+     */
     @Test
     public void testIsAltDown() {
         assertFalse(keyDownCodeAllFalse.isAltDown());
         assertTrue(keyDownCodeAllTrue.isAltDown());
     }
 
+    /**
+     * Test is shift down.
+     */
     @Test
     public void testIsShiftDown() {
         assertFalse(keyDownCodeAllFalse.isShiftDown());
         assertTrue(keyDownCodeAllTrue.isShiftDown());
     }
 
+    /**
+     * Test is function key.
+     */
     @Test
     public void testIsFunctionKey() {
         assertFalse(keyDownCodeAllFalse.isFunctionKey());
         assertTrue(keyDownCodeAllTrue.isFunctionKey());
     }
 
+    /**
+     * Test is control key.
+     */
     @Test
     public void testIsControlKey() {
         assertFalse(keyDownCodeAllFalse.isControlKey());

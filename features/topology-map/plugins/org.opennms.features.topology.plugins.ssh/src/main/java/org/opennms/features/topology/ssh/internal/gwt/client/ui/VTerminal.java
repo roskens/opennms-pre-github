@@ -44,22 +44,29 @@ import com.vaadin.client.UIDL;
  */
 public class VTerminal extends GwtTerminal implements Paintable {
 
+    /** The uidl id. */
     String uidlId; // Component identifier in UIDL communications.
 
+    /** The client. */
     ApplicationConnection client; // Reference to the server connection object.
 
+    /** The term handler. */
     private TermHandler termHandler; // Key handler for VT100 codes
 
+    /** The is closed. */
     private boolean isClosed; // Lets the server know the status of the Handler
 
+    /** The is focused. */
     private boolean isFocused; // Lets the server know whether the widget is
                                // focused
 
     /**
-     * The VTerminal() constructor creates a GwtTerminal Widget and assigns the
-     * TermHandler
-     * to each of its key handlers and initializes the status of the Terminal
-     */
+                                 * The VTerminal() constructor creates a
+                                 * GwtTerminal Widget and assigns the
+                                 * TermHandler
+                                 * to each of its key handlers and initializes
+                                 * the status of the Terminal.
+                                 */
     public VTerminal() {
         super();
         termHandler = new TermHandler(this);
@@ -85,6 +92,11 @@ public class VTerminal extends GwtTerminal implements Paintable {
      * passes
      * the data along to the GwtTerminal widget which updates the client side
      * view.
+     *
+     * @param uidl
+     *            the uidl
+     * @param client
+     *            the client
      */
     @Override
     public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
@@ -123,6 +135,12 @@ public class VTerminal extends GwtTerminal implements Paintable {
         dump(uidl.getStringVariable("fromSSH"));
     }
 
+    /**
+     * Send bytes.
+     *
+     * @param inputKeys
+     *            the input keys
+     */
     public void sendBytes(String inputKeys) {
 
         // Send the server the current state of the TermHandler

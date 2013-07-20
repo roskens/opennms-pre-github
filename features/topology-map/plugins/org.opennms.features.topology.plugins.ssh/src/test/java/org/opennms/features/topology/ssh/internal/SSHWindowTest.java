@@ -40,22 +40,35 @@ import org.junit.Test;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
+/**
+ * The Class SSHWindowTest.
+ */
 public class SSHWindowTest {
 
+    /** The app. */
     UI app;
 
+    /** The ssh window. */
     SSHWindow sshWindow;
 
+    /** The ssh window2. */
     SSHWindow sshWindow2;
 
+    /** The client. */
     SshClient client;
 
+    /** The session. */
     ClientSession session;
 
+    /** The test host. */
     String testHost = "debian.opennms.org";
 
+    /** The test port. */
     int testPort = 22;
 
+    /**
+     * Setup.
+     */
     @SuppressWarnings("serial")
     @Before
     public void setup() {
@@ -78,6 +91,9 @@ public class SSHWindowTest {
 
     }
 
+    /**
+     * Test attach.
+     */
     @Test
     public void testAttach() {
         assertTrue(app.getWindows().contains(sshWindow));
@@ -85,6 +101,9 @@ public class SSHWindowTest {
         assertFalse(app.getWindows().contains(sshWindow));
     }
 
+    /**
+     * Test close.
+     */
     @Test
     public void testClose() {
         sshWindow2.close();

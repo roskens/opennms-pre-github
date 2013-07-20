@@ -37,28 +37,47 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class TerminalTest.
+ */
 public class TerminalTest {
 
+    /** The term. */
     Terminal term;
 
+    /** The term_large. */
     Terminal term_large;
 
+    /** The uc letters. */
     String[] ucLetters = { "A", "B", "C", "D", "F", "H" };
 
+    /** The lc letters. */
     String[] lcLetters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l" };
 
+    /** The esc_first4. */
     String[] esc_first4 = { "P", "Q", "R", "S" };
 
+    /** The esc_last8. */
     String[] esc_last8 = { "15~", "17~", "18~", "19~", "20~", "21~", "23~", "24~" };
 
+    /** The esc_nums. */
     String[] esc_nums = { "5~", "6~", "2~", "3~" };
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         term = new Terminal();
         term_large = new Terminal(100, 30);
     }
 
+    /**
+     * Test dump.
+     */
     @Test
     public void testDump() {
         String expected = "";
@@ -96,6 +115,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test pipe_ a.
+     */
     @Test
     public void testPipe_A() {
         String expected = "A";
@@ -104,6 +126,9 @@ public class TerminalTest {
                                                   // writing
     }
 
+    /**
+     * Test pipe_2tildas.
+     */
     @Test
     public void testPipe_2tildas() {
         String expected = "~";
@@ -112,6 +137,9 @@ public class TerminalTest {
                                                   // tilda's
     }
 
+    /**
+     * Test pipe_control_uc letters.
+     */
     @Test
     public void testPipe_control_ucLetters() {
         String expected = "\u001b[";
@@ -122,6 +150,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test pipe_control_lc letters.
+     */
     @Test
     public void testPipe_control_lcLetters() {
         String expected = "\u001bO";
@@ -142,6 +173,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test pipe_control_nums.
+     */
     @Test
     public void testPipe_control_nums() {
         String expected = "\u001b[";
@@ -157,6 +191,9 @@ public class TerminalTest {
                                                   // control sequence
     }
 
+    /**
+     * Test pipe_cm_uc letters.
+     */
     @Test
     public void testPipe_cm_ucLetters() {
         String expected = "\u001bO";
@@ -168,6 +205,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test pipe_cm_lc letters.
+     */
     @Test
     public void testPipe_cm_lcLetters() {
         String expected = "\u001bO";
@@ -189,6 +229,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test pipe_cm_nums.
+     */
     @Test
     public void testPipe_cm_nums() {
         String expected = "\u001b[";
@@ -205,6 +248,9 @@ public class TerminalTest {
                                                   // sequence
     }
 
+    /**
+     * Test pipe_cm_tilda.
+     */
     @Test
     public void testPipe_cm_tilda() {
         String expected = "~";
@@ -214,6 +260,9 @@ public class TerminalTest {
                                                   // control sequence
     }
 
+    /**
+     * Test pipe_backspace mode_on.
+     */
     @Test
     public void testPipe_backspaceMode_on() {
         String expected = "" + (char) 8;
@@ -223,6 +272,9 @@ public class TerminalTest {
         assertArrayEquals(expected.getBytes(), term.pipe(input).getBytes());
     }
 
+    /**
+     * Test pipe_backspace mode_off.
+     */
     @Test
     public void testPipe_backspaceMode_off() {
         String expected = "" + (char) 127;
@@ -231,6 +283,9 @@ public class TerminalTest {
         assertArrayEquals(expected.getBytes(), term.pipe(input).getBytes());
     }
 
+    /**
+     * Test pipe_newline mode_on.
+     */
     @Test
     public void testPipe_newlineMode_on() {
         String expected = "" + (char) 13 + (char) 10;
@@ -246,6 +301,9 @@ public class TerminalTest {
         assertArrayEquals(expected.getBytes(), term.pipe(input).getBytes());
     }
 
+    /**
+     * Test pipe_newline mode_off.
+     */
     @Test
     public void testPipe_newlineMode_off() {
         String expected = "" + (char) 13;
@@ -254,6 +312,9 @@ public class TerminalTest {
         assertArrayEquals(expected.getBytes(), term.pipe(input).getBytes());
     }
 
+    /**
+     * Test read.
+     */
     @Test
     public void testRead() {
         assertEquals("", term.read()); // testing a read from an empty term
@@ -262,6 +323,9 @@ public class TerminalTest {
                                                    // request has been made
     }
 
+    /**
+     * Test set size.
+     */
     @Test
     public void testSetSize() {
         // testing various term sizes around the boundary limits
@@ -274,6 +338,9 @@ public class TerminalTest {
         assertTrue(term.setSize(100, 100));
     }
 
+    /**
+     * Test to string.
+     */
     @Test
     public void testToString() {
         StringBuilder expected = new StringBuilder();
@@ -304,6 +371,9 @@ public class TerminalTest {
         assertArrayEquals(expected.toString().getBytes(), term.toString().getBytes());
     }
 
+    /**
+     * Test write.
+     */
     @Test
     public void testWrite() {
         term.write("\u001b[r"); // enables scrolling of entire screen
@@ -338,6 +408,9 @@ public class TerminalTest {
                                              // all the above lines successfully
     }
 
+    /**
+     * Test write_1byte modes.
+     */
     @Test
     public void testWrite_1byteModes() {
         for (int i = 0x0040; i <= 0x78; i++) {
@@ -351,6 +424,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test write_2byte modes.
+     */
     @Test
     public void testWrite_2byteModes() {
         for (int i = 0x23; i <= 0x29; i++) {
@@ -368,6 +444,9 @@ public class TerminalTest {
         }
     }
 
+    /**
+     * Test cs i_ sgr.
+     */
     @Test
     public void testCSI_SGR() {
         // testing different text colors and styles
@@ -383,6 +462,9 @@ public class TerminalTest {
         term.write("\u001b[<8;m");
     }
 
+    /**
+     * Test cs i_ dsr.
+     */
     @Test
     public void testCSI_DSR() {
         // testing different Device Status Reports (DSR)
@@ -397,6 +479,9 @@ public class TerminalTest {
         term.write("\u001b[?53n");
     }
 
+    /**
+     * Test cs i_ decreqtparm.
+     */
     @Test
     public void testCSI_DECREQTPARM() {
         // testing different Report Terminal Parameters
@@ -404,6 +489,9 @@ public class TerminalTest {
         term.write("\u001b[1x");
     }
 
+    /**
+     * Test cs i_ ed.
+     */
     @Test
     public void testCSI_ED() {
         // testing the erase display sequence
@@ -411,12 +499,18 @@ public class TerminalTest {
         term.write("\u001b[2J");
     }
 
+    /**
+     * Test cs i_ da.
+     */
     @Test
     public void testCSI_DA() {
         // testing the Device Attributes
         term.write("\u001b[>0c");
     }
 
+    /**
+     * Test cs i_ tbc.
+     */
     @Test
     public void testCSI_TBC() {
         // testing the Tabulation Clear sequence
@@ -424,6 +518,9 @@ public class TerminalTest {
         term.write("\u001b[4g");
     }
 
+    /**
+     * Test cs i_ el.
+     */
     @Test
     public void testCSI_EL() {
         // testing the erase line sequence
@@ -431,6 +528,9 @@ public class TerminalTest {
         term.write("\u001b[2K");
     }
 
+    /**
+     * Test cs i_ ctc.
+     */
     @Test
     public void testCSI_CTC() {
         // testing the Cursor Tabulation Control
@@ -438,6 +538,9 @@ public class TerminalTest {
         term.write("\u001b[6W");
     }
 
+    /**
+     * Test cs i_ decstbm.
+     */
     @Test
     public void testCSI_DECSTBM() {
         // testing the Top and Bottom margins
@@ -445,6 +548,9 @@ public class TerminalTest {
         term.write("\u001b[" + (char) 0x72);
     }
 
+    /**
+     * Test cs i_ cup.
+     */
     @Test
     public void testCSI_CUP() {
         // testing the Cursor up sequence
@@ -452,6 +558,9 @@ public class TerminalTest {
         term.write("\u001b[" + (char) 0x48);
     }
 
+    /**
+     * Test dum b_ echo.
+     */
     @Test
     public void testDUMB_ECHO() {
         // testing chars that fall through to the dumb_echo method
@@ -460,6 +569,9 @@ public class TerminalTest {
         term.write("" + (char) 9);
     }
 
+    /**
+     * Test state_ str.
+     */
     @Test
     public void testState_Str() {
         // testing different sequences that change the state to Str

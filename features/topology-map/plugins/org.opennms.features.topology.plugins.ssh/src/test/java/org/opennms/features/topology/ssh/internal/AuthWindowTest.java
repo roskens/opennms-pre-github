@@ -39,42 +39,65 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class AuthWindowTest.
+ */
 public class AuthWindowTest {
 
+    /** The test host. */
     String testHost = "debian.opennms.org";
 
+    /** The empty host. */
     String emptyHost = "";
 
+    /** The test port. */
     int testPort = 22;
 
+    /** The empty port. */
     int emptyPort = 0;
 
+    /** The invalid port. */
     String invalidPort = "-1"; // passed in to test for invalid port
 
+    /** The valid port. */
     String validPort = "22";
 
+    /** The invalid port string. */
     String invalidPortString = "abcd"; // passed in to test for error checking
 
+    /** The invalid host. */
     String invalidHost = "philip";
 
+    /** The test password. */
     String testPassword = "password";
 
+    /** The test user. */
     String testUser = "usr";
 
+    /** The normal window. */
     AuthWindow normalWindow;
 
+    /** The no port window. */
     AuthWindow noPortWindow;
 
+    /** The no host window. */
     AuthWindow noHostWindow;
 
+    /** The empty window. */
     AuthWindow emptyWindow;
 
+    /** The invalid host window. */
     AuthWindow invalidHostWindow;
 
+    /** The main window. */
     Window mainWindow;
 
+    /** The app. */
     UI app;
 
+    /**
+     * Setup.
+     */
     @SuppressWarnings("serial")
     @Before
     public void setup() {
@@ -98,6 +121,9 @@ public class AuthWindowTest {
         UI.setCurrent(app);
     }
 
+    /**
+     * Test button click.
+     */
     @Test
     public void testButtonClick() {
         normalWindow.buttonClick(null);
@@ -120,6 +146,9 @@ public class AuthWindowTest {
         assertEquals("Failed to connect to host", emptyWindow.testString);
     }
 
+    /**
+     * Test attach.
+     */
     @Test
     public void testAttach() {
         assertTrue(app.getWindows().contains(normalWindow));
@@ -127,6 +156,9 @@ public class AuthWindowTest {
         assertFalse(app.getWindows().contains(normalWindow));
     }
 
+    /**
+     * Test show ssh window.
+     */
     @Test
     public void testShowSSHWindow() {
         normalWindow.showSSHWindow();

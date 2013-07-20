@@ -54,34 +54,48 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class AuthWindow extends Window implements Button.ClickListener {
 
+    /** The ssh window. */
     SSHWindow sshWindow; // The SSH window that will arise after the auth window
                          // connects
 
-    private String m_host; // The hostname to connect to
+    /** The m_host. */
+                         private String m_host; // The hostname to connect to
 
+    /** The m_port. */
     private int m_port; // The port to connect to
 
+    /** The term width. */
     private int TERM_WIDTH = 800; // The width of the terminal
 
+    /** The term height. */
     private int TERM_HEIGHT = 520; // The height of the terminal
 
+    /** The session. */
     private ClientSession session = null; // The ClientSession object used to
                                           // track each SSH session
 
-    final SshClient client;
+    /** The client. */
+                                          final SshClient client;
 
+    /** The test string. */
     protected String testString; // used to unit test the button click event
 
+    /** The host field. */
     protected TextField hostField;
 
+    /** The port field. */
     protected TextField portField;
 
+    /** The username field. */
     protected TextField usernameField;
 
+    /** The password field. */
     protected PasswordField passwordField;
 
+    /** The show options. */
     private boolean showOptions = false;
 
+    /** The field buffer. */
     private final int FIELD_BUFFER = 20;
 
     /**
@@ -172,6 +186,9 @@ public class AuthWindow extends Window implements Button.ClickListener {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();
@@ -187,7 +204,7 @@ public class AuthWindow extends Window implements Button.ClickListener {
     }
 
     /**
-     * This methods adds (shows) the SSH Window to the main application
+     * This methods adds (shows) the SSH Window to the main application.
      */
     protected void showSSHWindow() {
         sshWindow = new SSHWindow(session, TERM_WIDTH, TERM_HEIGHT);
@@ -195,6 +212,9 @@ public class AuthWindow extends Window implements Button.ClickListener {
         this.close();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+     */
     @Override
     public void buttonClick(ClickEvent event) {
         String login = usernameField.getValue();

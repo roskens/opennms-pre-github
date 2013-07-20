@@ -38,20 +38,32 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class NoClosePipedInputStreamTest.
+ */
 public class NoClosePipedInputStreamTest {
 
+    /** The in. */
     NoClosePipedInputStream in;
 
+    /** The out. */
     NoClosePipedOutputStream out;
 
+    /** The defined pipe size. */
     NoClosePipedInputStream definedPipeSize;
 
+    /** The defined pipe and source. */
     NoClosePipedInputStream definedPipeAndSource;
 
+    /** The defined source. */
     NoClosePipedInputStream definedSource;
 
+    /** The test byte. */
     byte[] testByte = { 1, 2, 3, 4 };
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         in = new NoClosePipedInputStream();
@@ -64,6 +76,9 @@ public class NoClosePipedInputStreamTest {
         }
     }
 
+    /**
+     * Test create pipe with defined pipe size.
+     */
     @Test
     public void testCreatePipeWithDefinedPipeSize() {
         try {
@@ -75,6 +90,9 @@ public class NoClosePipedInputStreamTest {
         assertEquals(64, definedPipeSize.buffer.length);
     }
 
+    /**
+     * Test create pipe with negative pipe size.
+     */
     @Test
     public void testCreatePipeWithNegativePipeSize() {
         try {
@@ -86,6 +104,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should throw an IllegalArgument Exception. Error checking is not working correctly");
     }
 
+    /**
+     * Test create pipe with defined source.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testCreatePipeWithDefinedSource() throws IOException {
         definedSource = new NoClosePipedInputStream(out);
@@ -93,6 +117,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(NoClosePipedInputStream.PIPE_SIZE, definedSource.buffer.length);
     }
 
+    /**
+     * Test create pipe with defined pipe size and source.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testCreatePipeWithDefinedPipeSizeAndSource() throws IOException {
         definedPipeAndSource = new NoClosePipedInputStream(out, 64);
@@ -100,6 +130,9 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, definedPipeAndSource.connected);
     }
 
+    /**
+     * Test normal connect.
+     */
     @Test
     public void testNormalConnect() {
         try {
@@ -110,6 +143,9 @@ public class NoClosePipedInputStreamTest {
         // If no exception is caught, the test passes
     }
 
+    /**
+     * Test not connected pipes int receive.
+     */
     @Test
     public void testNotConnectedPipesIntReceive() {
         try {
@@ -123,6 +159,14 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown a IOException due to not connected pipes");
     }
 
+    /**
+     * Test await space int receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -153,6 +197,14 @@ public class NoClosePipedInputStreamTest {
 
     }
 
+    /**
+     * Test break out await space int receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testBreakOutAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -185,6 +237,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
 
+    /**
+     * Test interrupted await space int receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testInterruptedAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -220,6 +280,12 @@ public class NoClosePipedInputStreamTest {
         }
     }
 
+    /**
+     * Test in equal to buffer length int receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInEqualToBufferLengthIntReceive() throws IOException {
         in.connect(out);
@@ -230,6 +296,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(0, in.in);
     }
 
+    /**
+     * Test normal int receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalIntReceive() throws IOException {
         in.connect(out);
@@ -237,6 +309,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals("1", java.lang.Byte.valueOf(in.buffer[0]).toString());
     }
 
+    /**
+     * Test normal byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalByteReceive() throws IOException {
         in.in = 1;
@@ -249,6 +327,12 @@ public class NoClosePipedInputStreamTest {
         }
     }
 
+    /**
+     * Test zero length byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testZeroLengthByteReceive() throws IOException {
         in.connect(out);
@@ -259,6 +343,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(10, in.buffer[0]);
     }
 
+    /**
+     * Test out less than in byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testOutLessThanInByteReceive() throws IOException {
         in.connect(out);
@@ -272,6 +362,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(14, in.buffer[4]);
     }
 
+    /**
+     * Test in less than out byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInLessThanOutByteReceive() throws IOException {
         in.connect(out);
@@ -285,6 +381,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(15, in.buffer[5]);
     }
 
+    /**
+     * Test await space byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testAwaitSpaceByteReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -316,6 +420,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(false, latch.await(1, TimeUnit.SECONDS));
     }
 
+    /**
+     * Test break out await space byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testBreakOutAwaitSpaceByteReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -348,6 +460,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
 
+    /**
+     * Test interrupted await space byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testInterruptedAwaitSpaceByteReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -380,6 +500,12 @@ public class NoClosePipedInputStreamTest {
         }
     }
 
+    /**
+     * Test in greater than buffer length byte receive.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInGreaterThanBufferLengthByteReceive() throws IOException {
 
@@ -392,6 +518,9 @@ public class NoClosePipedInputStreamTest {
         assertEquals(0, in.in);
     }
 
+    /**
+     * Test not connected int read.
+     */
     @Test
     public void testNotConnectedIntRead() {
         try {
@@ -406,6 +535,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown an IOException");
     }
 
+    /**
+     * Test normal int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalIntRead() throws IOException {
         in.connect(out);
@@ -422,6 +557,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(0, in.read());
     }
 
+    /**
+     * Test await space int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testAwaitSpaceIntRead() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -453,6 +596,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(false, latch.await(1, TimeUnit.SECONDS));
     }
 
+    /**
+     * Test break out await space int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testBreakOutAwaitSpaceIntRead() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -485,6 +636,14 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
 
+    /**
+     * Test interrupted await space int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testInterruptedAwaitSpaceIntRead() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
@@ -520,6 +679,12 @@ public class NoClosePipedInputStreamTest {
         }
     }
 
+    /**
+     * Test out equal to buffer length int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testOutEqualToBufferLengthIntRead() throws IOException {
         in.connect(out);
@@ -532,6 +697,12 @@ public class NoClosePipedInputStreamTest {
 
     }
 
+    /**
+     * Test in equal out int read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInEqualOutIntRead() throws IOException {
         in.connect(out);
@@ -544,6 +715,9 @@ public class NoClosePipedInputStreamTest {
 
     }
 
+    /**
+     * Test null source byte read.
+     */
     @Test
     public void testNullSourceByteRead() {
         try {
@@ -561,6 +735,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown a NullPointerException");
     }
 
+    /**
+     * Test normal byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalByteRead() throws IOException {
         in.connect(out);
@@ -571,6 +751,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(1, in.read(testByte, 2, 1));
     }
 
+    /**
+     * Test negative offset byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNegativeOffsetByteRead() throws IOException {
         in.connect(out);
@@ -596,6 +782,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
+    /**
+     * Test negative read length byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNegativeReadLengthByteRead() throws IOException {
         in.connect(out);
@@ -621,6 +813,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
+    /**
+     * Test too long byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testTooLongByteRead() throws IOException {
         in.connect(out);
@@ -646,6 +844,12 @@ public class NoClosePipedInputStreamTest {
         fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
+    /**
+     * Test zero length byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testZeroLengthByteRead() throws IOException {
         in.connect(out);
@@ -655,6 +859,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(0, in.read(testByte, 0, 0));
     }
 
+    /**
+     * Test multiple character byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testMultipleCharacterByteRead() throws IOException {
         in.connect(out);
@@ -664,6 +874,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(2, in.read(testByte, 0, 2));
     }
 
+    /**
+     * Test in greater than out multiple character byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInGreaterThanOutMultipleCharacterByteRead() throws IOException {
         in.connect(out);
@@ -675,6 +891,12 @@ public class NoClosePipedInputStreamTest {
 
     }
 
+    /**
+     * Test out equal to buffer length byte read.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testOutEqualToBufferLengthByteRead() throws IOException {
         in.connect(out);
@@ -690,6 +912,12 @@ public class NoClosePipedInputStreamTest {
 
     }
 
+    /**
+     * Test negative in available.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNegativeInAvailable() throws IOException {
         in.in = -1;
@@ -698,6 +926,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(0, in.available());
     }
 
+    /**
+     * Test in equals out available.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInEqualsOutAvailable() throws IOException {
         in.in = 1;
@@ -707,6 +941,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(in.buffer.length, in.available());
     }
 
+    /**
+     * Test in greater than out available.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testInGreaterThanOutAvailable() throws IOException {
         in.in = 3;
@@ -716,6 +956,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(in.in - in.out, in.available());
     }
 
+    /**
+     * Test normal available.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalAvailable() throws IOException {
         in.in = 1;

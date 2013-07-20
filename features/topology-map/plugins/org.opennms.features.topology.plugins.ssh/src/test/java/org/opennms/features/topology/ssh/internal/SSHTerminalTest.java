@@ -43,20 +43,35 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * The Class SSHTerminalTest.
+ */
 public class SSHTerminalTest {
 
+    /** The test host. */
     String testHost = "debian.opennms.org";
 
+    /** The test port. */
     int testPort = 22;
 
+    /** The ssh term. */
     SSHTerminal sshTerm;
 
+    /** The session term. */
     SSHTerminal.SessionTerminal sessionTerm;
 
+    /** The app. */
     UI app;
 
+    /** The main window. */
     VerticalLayout mainWindow;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("serial")
     @Before
     public void setUp() throws Exception {
@@ -94,6 +109,9 @@ public class SSHTerminalTest {
     // }
     // }
 
+    /**
+     * Test change variables.
+     */
     @Test
     @SuppressWarnings("unchecked")
     public void testChangeVariables() {
@@ -108,6 +126,9 @@ public class SSHTerminalTest {
         // sshTerm.changeVariables(new Object(), map);
     }
 
+    /**
+     * Test close.
+     */
     @Test
     public void testClose() {
         assertTrue(sshTerm.close());

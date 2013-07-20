@@ -36,23 +36,28 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 /**
- * This class creates a window to hold the terminal emulator
+ * This class creates a window to hold the terminal emulator.
  *
  * @author lmbell
  * @author pdgrenon
  */
 @SuppressWarnings("serial")
 public class SSHWindow extends Window {
+
+    /** The terminal. */
     private SSHTerminal terminal; // The terminal emulator
 
+    /** The error label. */
     private Label errorLabel = new Label("Could not create session");
 
+    /** The term width. */
     private final int TERM_WIDTH = 80;
 
+    /** The term height. */
     private final int TERM_HEIGHT = 24;
 
     /**
-     * The constructor for the SSH window
+     * The constructor for the SSH window.
      *
      * @param session
      *            The current SSH session
@@ -83,6 +88,9 @@ public class SSHWindow extends Window {
         setContent(vPanel);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();
@@ -95,7 +103,7 @@ public class SSHWindow extends Window {
     }
 
     /**
-     * Overrides the window close method to instead close the terminal
+     * Overrides the window close method to instead close the terminal.
      */
     @Override
     public void close() {

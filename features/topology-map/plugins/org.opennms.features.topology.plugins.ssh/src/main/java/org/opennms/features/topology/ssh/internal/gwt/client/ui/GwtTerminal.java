@@ -39,23 +39,26 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 
 /**
- * The GwtTerminal class is a widget which emulates a VT100 terminal
+ * The GwtTerminal class is a widget which emulates a VT100 terminal.
  *
  * @author Leonardo Bell
  * @author Philip Grenon
  */
 public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 
+    /** The div. */
     private Element div; // Outer container for the Terminal <span>'s
 
+    /** The panel. */
     private FocusPanel fPanel; // A container that provides KeyHandling
                                // functionality
 
     /**
-     * The GwtTerminal() constructor sets up the layout of the widget and
-     * assigns
-     * CSS styles for HTML elements
-     */
+                                 * The GwtTerminal() constructor sets up the
+                                 * layout of the widget and
+                                 * assigns
+                                 * CSS styles for HTML elements.
+                                 */
     public GwtTerminal() {
         fPanel = new FocusPanel();
         fPanel.getElement().setClassName("focusPanel");
@@ -68,7 +71,11 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 
     /**
      * The addKeyUpHandler method allows other classes to assign KeyUpHandlers
-     * to the FocusPanel within this widget
+     * to the FocusPanel within this widget.
+     *
+     * @param handler
+     *            the handler
+     * @return the handler registration
      */
     @Override
     public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
@@ -78,7 +85,11 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
     /**
      * The addKeyDownHandler method allows other classes to assign
      * KeyDownHandlers
-     * to the FocusPanel within this widget
+     * to the FocusPanel within this widget.
+     *
+     * @param handler
+     *            the handler
+     * @return the handler registration
      */
     @Override
     public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
@@ -88,7 +99,11 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
     /**
      * The addKeyPressHandler method allows other classes to assign
      * KeyPressHandlers
-     * to the FocusPanel within this widget
+     * to the FocusPanel within this widget.
+     *
+     * @param handler
+     *            the handler
+     * @return the handler registration
      */
     @Override
     public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
@@ -101,11 +116,15 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
      * representation of the Terminal
      *
      * @param receivedBytes
+     *            the received bytes
      */
     public void dump(String receivedBytes) {
         div.setInnerHTML(receivedBytes);
     }
 
+    /**
+     * Focus.
+     */
     public void focus() {
         fPanel.getElement().focus();
     }

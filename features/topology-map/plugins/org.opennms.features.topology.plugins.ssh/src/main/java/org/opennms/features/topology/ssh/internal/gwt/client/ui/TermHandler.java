@@ -45,25 +45,32 @@ import com.google.gwt.user.client.Timer;
  */
 public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandler {
 
+    /** The keybuf. */
     private KeyBuffer keybuf; // List of all pending key presses yet to be sent
 
+    /** The code. */
     private Code code; // Object used to decipher different Key events
 
+    /** The v term. */
     private VTerminal vTerm; // Instance of the Client widget used for
                              // communication
 
-    private boolean isClosed; // Current status of the TermHandler
+    /** The is closed. */
+                             private boolean isClosed; // Current status of the TermHandler
 
+    /** The update timer. */
     private Timer updateTimer; // Used to make scheduled updates at certain
                                // intervals
 
     /**
-     * The TermHandler(VTerminal vTerm) constructor creates a Handler for all
-     * client key presses
-     *
-     * @param vTerm
-     *            Instance of the widget using this handler
-     */
+                                 * The TermHandler(VTerminal vTerm) constructor
+                                 * creates a Handler for all
+                                 * client key presses.
+                                 *
+                                 * @param vTerm
+                                 *            Instance of the widget using this
+                                 *            handler
+                                 */
     public TermHandler(VTerminal vTerm) {
         this.vTerm = vTerm;
         keybuf = new KeyBuffer();
@@ -78,7 +85,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
     }
 
     /**
-     * The getKeybuf method returns the current list of Keys
+     * The getKeybuf method returns the current list of Keys.
      *
      * @return Current KeyBuffer
      */
@@ -89,6 +96,9 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
     /**
      * The onKeyDown method handles all keys that are held down, before
      * KeyUp and KeyPress events are triggered.
+     *
+     * @param event
+     *            the event
      */
     @Override
     public void onKeyDown(KeyDownEvent event) {
@@ -105,7 +115,10 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
     /**
      * The onKeyPress method handles all keys that were held down and then
      * lifted up,
-     * after the KeyDown and KeyUp events are triggered
+     * after the KeyDown and KeyUp events are triggered.
+     *
+     * @param event
+     *            the event
      */
     @Override
     public void onKeyPress(KeyPressEvent event) {
@@ -120,7 +133,10 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
     /**
      * The onKeyUp method handles all keys that were lifted up, after the
      * KeyDown
-     * event is triggered and before the KeyPress event is triggered
+     * event is triggered and before the KeyPress event is triggered.
+     *
+     * @param event
+     *            the event
      */
     @Override
     public void onKeyUp(KeyUpEvent event) {/* Do not handle KeyUp events */
@@ -128,9 +144,10 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 
     /**
      * The queue method puts each processed key into a KeyBuffer that
-     * is eventually sent to the server when update() is called
+     * is eventually sent to the server when update() is called.
      *
      * @param keyString
+     *            the key string
      */
     private void queue(String keyString) {
         keybuf.add(keyString);
@@ -159,7 +176,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 
     /**
      * The processCode method deciphers each key press or combination of key
-     * presses and converts them into VT100 format bytes
+     * presses and converts them into VT100 format bytes.
      *
      * @param c
      *            Key/Char code
@@ -188,7 +205,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 
     /**
      * The ctrlPressed method deciphers a key/char code that
-     * was pressed while the CTRL key was held down
+     * was pressed while the CTRL key was held down.
      *
      * @param k
      *            Key/Char code to decipher
@@ -228,7 +245,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
     /**
      * The fromKeyDownSwitch method preps key codes so they can be converted
      * into
-     * VT100 format in the buildCharacter method
+     * VT100 format in the buildCharacter method.
      *
      * @param k
      *            Key code
@@ -318,7 +335,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 
     /**
      * The buildCharacter method deciphers key/char codes and converts
-     * them into VT100 format codes
+     * them into VT100 format codes.
      *
      * @param k
      *            Key/Char code to be converted

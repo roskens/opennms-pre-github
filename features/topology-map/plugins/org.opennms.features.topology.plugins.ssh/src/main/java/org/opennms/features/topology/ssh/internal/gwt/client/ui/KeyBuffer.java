@@ -37,15 +37,18 @@ package org.opennms.features.topology.ssh.internal.gwt.client.ui;
  */
 public class KeyBuffer {
 
+    /** The head. */
     private Key head; // Key at the beginning of the list
 
+    /** The tail. */
     private Key tail; // Key at the end of the list
 
+    /** The size. */
     private int size; // Size of the list
 
     /**
      * The KeyBuffer() constructor creates a linked list and initalizes the head
-     * and tail to null, and the size to 0
+     * and tail to null, and the size to 0.
      */
     public KeyBuffer() {
         this.head = null;
@@ -77,7 +80,7 @@ public class KeyBuffer {
     }
 
     /**
-     * The size method returns the current number of Keys in the list
+     * The size method returns the current number of Keys in the list.
      *
      * @return Number of Keys in List
      */
@@ -86,7 +89,9 @@ public class KeyBuffer {
     }
 
     /**
-     * The toString method appends all of the Keys into one String
+     * The toString method appends all of the Keys into one String.
+     *
+     * @return the string
      */
     @Override
     public String toString() {
@@ -101,7 +106,7 @@ public class KeyBuffer {
 
     /**
      * The drain method returns the toString representation of the List
-     * and then empties the list of all keys
+     * and then empties the list of all keys.
      *
      * @return toString represention of the List
      */

@@ -80,6 +80,7 @@ public class NoClosePipedOutputStream extends OutputStream {
      * pipes within a thread?) or using finalization (but it may be a
      * long time until the next GC).
      */
+    /** The sink. */
     private NoClosePipedInputStream sink;
 
     /**
@@ -89,8 +90,8 @@ public class NoClosePipedOutputStream extends OutputStream {
      *
      * @param snk
      *            The piped input stream to connect to.
-     * @exception IOException
-     *                if an I/O error occurs.
+     * @throws IOException
+     *             if an I/O error occurs.
      */
     public NoClosePipedOutputStream(NoClosePipedInputStream snk) throws IOException {
         connect(snk);
@@ -130,8 +131,8 @@ public class NoClosePipedOutputStream extends OutputStream {
      *
      * @param snk
      *            the piped input stream to connect to.
-     * @exception IOException
-     *                if an I/O error occurs.
+     * @throws IOException
+     *             if an I/O error occurs.
      */
     public synchronized void connect(NoClosePipedInputStream snk) throws IOException {
         if (snk == null) {
@@ -152,10 +153,10 @@ public class NoClosePipedOutputStream extends OutputStream {
      *
      * @param b
      *            the <code>byte</code> to be written.
-     * @exception IOException
-     *                if the pipe is <a href=#BROKEN> broken</a>,
-     *                {@link #connect(java.io.PipedInputStream) unconnected},
-     *                closed, or if an I/O error occurs.
+     * @throws IOException
+     *             if the pipe is <a href=#BROKEN> broken</a>,
+     *             {@link #connect(java.io.PipedInputStream) unconnected},
+     *             closed, or if an I/O error occurs.
      */
     @Override
     public void write(int b) throws IOException {
@@ -177,10 +178,10 @@ public class NoClosePipedOutputStream extends OutputStream {
      *            the start offset in the data.
      * @param len
      *            the number of bytes to write.
-     * @exception IOException
-     *                if the pipe is <a href=#BROKEN> broken</a>,
-     *                {@link #connect(java.io.PipedInputStream) unconnected},
-     *                closed, or if an I/O error occurs.
+     * @throws IOException
+     *             if the pipe is <a href=#BROKEN> broken</a>,
+     *             {@link #connect(java.io.PipedInputStream) unconnected},
+     *             closed, or if an I/O error occurs.
      */
     @Override
     public void write(byte[] b, int off, int len) throws IOException {

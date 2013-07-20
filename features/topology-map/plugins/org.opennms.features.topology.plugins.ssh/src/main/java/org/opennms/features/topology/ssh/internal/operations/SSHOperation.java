@@ -39,8 +39,14 @@ import org.opennms.features.topology.ssh.internal.AuthWindow;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 
+/**
+ * The Class SSHOperation.
+ */
 public class SSHOperation implements Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         String ipAddr = "";
@@ -63,6 +69,9 @@ public class SSHOperation implements Operation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -75,6 +84,9 @@ public class SSHOperation implements Operation {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(final List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.size() < 2)
@@ -82,6 +94,9 @@ public class SSHOperation implements Operation {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "SSH";

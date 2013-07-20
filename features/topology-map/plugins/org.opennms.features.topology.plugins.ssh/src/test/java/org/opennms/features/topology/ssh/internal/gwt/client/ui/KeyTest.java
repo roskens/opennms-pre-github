@@ -35,21 +35,35 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class KeyTest.
+ */
 public class KeyTest {
+
+    /** The test string. */
     String testString = "test";
 
+    /** The value string. */
     String valueString = "value";
 
+    /** The prev string. */
     String prevString = "prev";
 
+    /** The next string. */
     String nextString = "next";
 
+    /** The test key. */
     Key testKey;
 
+    /** The prev key. */
     Key prevKey;
 
+    /** The next key. */
     Key nextKey;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         testKey = new Key(testString);
@@ -57,6 +71,11 @@ public class KeyTest {
         nextKey = new Key(nextString);
     }
 
+    /**
+     * Gets the and set value.
+     *
+     * @return the and set value
+     */
     @Test
     public void getAndSetValue() {
         assertEquals(testString, testKey.getValue());
@@ -64,6 +83,11 @@ public class KeyTest {
         assertEquals(valueString, testKey.getValue());
     }
 
+    /**
+     * Gets the and set prev.
+     *
+     * @return the and set prev
+     */
     @Test
     public void getAndSetPrev() {
         assertNull(testKey.getPrev());
@@ -72,6 +96,11 @@ public class KeyTest {
         assertEquals(prevString, testKey.getPrev().getValue()); // Tests setPrev
     }
 
+    /**
+     * Gets the and set next.
+     *
+     * @return the and set next
+     */
     @Test
     public void getAndSetNext() {
         assertNull(testKey.getNext());

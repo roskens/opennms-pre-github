@@ -36,22 +36,35 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class NoClosePipedOutputStreamTest.
+ */
 public class NoClosePipedOutputStreamTest {
 
+    /** The defined source. */
     NoClosePipedOutputStream definedSource;
 
+    /** The null source. */
     NoClosePipedOutputStream nullSource;
 
+    /** The out. */
     NoClosePipedOutputStream out;
 
+    /** The in. */
     NoClosePipedInputStream in;
 
+    /** The test value. */
     int testValue = 25;
 
+    /** The test byte. */
     byte[] testByte = { 1, 2, 3, 4 };
 
+    /** The empty byte. */
     byte[] emptyByte = new byte[0];
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         out = new NoClosePipedOutputStream();
@@ -59,12 +72,21 @@ public class NoClosePipedOutputStreamTest {
         in = new NoClosePipedInputStream();
     }
 
+    /**
+     * Test create with defined source.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testCreateWithDefinedSource() throws IOException {
         definedSource = new NoClosePipedOutputStream(in);
         assertEquals(true, in.connected);
     }
 
+    /**
+     * Test connect to null source.
+     */
     @Test
     public void testConnectToNullSource() {
 
@@ -89,6 +111,9 @@ public class NoClosePipedOutputStreamTest {
                                                                      // properly
     }
 
+    /**
+     * Test connect when already connected.
+     */
     @Test
     public void testConnectWhenAlreadyConnected() {
         try {
@@ -111,6 +136,9 @@ public class NoClosePipedOutputStreamTest {
                                                              // properly
     }
 
+    /**
+     * Test normal connect.
+     */
     @Test
     public void testNormalConnect() {
         try {
@@ -128,6 +156,9 @@ public class NoClosePipedOutputStreamTest {
 
     }
 
+    /**
+     * Test not connected int write.
+     */
     @Test
     public void testNotConnectedIntWrite() {
         try {
@@ -148,6 +179,12 @@ public class NoClosePipedOutputStreamTest {
                                                              // properly
     }
 
+    /**
+     * Test int write.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testIntWrite() throws IOException {
         out.connect(in);
@@ -156,6 +193,9 @@ public class NoClosePipedOutputStreamTest {
 
     }
 
+    /**
+     * Test not connected byte write.
+     */
     @Test
     public void testNotConnectedByteWrite() {
         try {
@@ -178,6 +218,9 @@ public class NoClosePipedOutputStreamTest {
                                                              // reach the end
     }
 
+    /**
+     * Test null byte write.
+     */
     @Test
     public void testNullByteWrite() {
         try {
@@ -205,6 +248,9 @@ public class NoClosePipedOutputStreamTest {
                                                                      // the end
     }
 
+    /**
+     * Test negative offset byte write.
+     */
     @Test
     public void testNegativeOffsetByteWrite() {
         try {
@@ -235,6 +281,12 @@ public class NoClosePipedOutputStreamTest {
                                                                            // end
     }
 
+    /**
+     * Test normal byte write.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testNormalByteWrite() throws IOException {
         out.connect(in);
@@ -243,6 +295,9 @@ public class NoClosePipedOutputStreamTest {
         assertEquals("2", java.lang.Byte.valueOf(in.buffer[0]).toString());
     }
 
+    /**
+     * Test negative length byte write.
+     */
     @Test
     public void testNegativeLengthByteWrite() {
         try {
@@ -273,6 +328,9 @@ public class NoClosePipedOutputStreamTest {
                                                                            // end
     }
 
+    /**
+     * Test sum of offset and length larger than array byte write.
+     */
     @Test
     public void testSumOfOffsetAndLengthLargerThanArrayByteWrite() {
         try {
@@ -303,6 +361,9 @@ public class NoClosePipedOutputStreamTest {
                                                                            // end
     }
 
+    /**
+     * Test offset larger than array byte write.
+     */
     @Test
     public void testOffsetLargerThanArrayByteWrite() {
         try {
@@ -329,6 +390,9 @@ public class NoClosePipedOutputStreamTest {
                                                                            // test
     }
 
+    /**
+     * Test zero length byte write.
+     */
     @Test
     public void testZeroLengthByteWrite() {
         try {

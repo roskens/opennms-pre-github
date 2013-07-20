@@ -30,16 +30,35 @@ package org.opennms.features.topology.ssh.internal.testframework;
 
 import com.google.gwt.event.dom.client.KeyUpEvent;
 
+/**
+ * The Class SudoKeyUpEvent.
+ */
 public class SudoKeyUpEvent extends KeyUpEvent {
 
+    /** The key code. */
     private int keyCode;
 
+    /** The is ctrl down. */
     private boolean isCtrlDown;
 
+    /** The is alt down. */
     private boolean isAltDown;
 
+    /** The is shift down. */
     private boolean isShiftDown;
 
+    /**
+     * Instantiates a new sudo key up event.
+     *
+     * @param k
+     *            the k
+     * @param isCtrlDown
+     *            the is ctrl down
+     * @param isAltDown
+     *            the is alt down
+     * @param isShiftDown
+     *            the is shift down
+     */
     public SudoKeyUpEvent(int k, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown) {
         keyCode = k;
         this.isCtrlDown = isCtrlDown;
@@ -47,21 +66,33 @@ public class SudoKeyUpEvent extends KeyUpEvent {
         this.isShiftDown = isShiftDown;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyCodeEvent#getNativeKeyCode()
+     */
     @Override
     public int getNativeKeyCode() {
         return keyCode;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyEvent#isControlKeyDown()
+     */
     @Override
     public boolean isControlKeyDown() {
         return isCtrlDown;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyEvent#isAltKeyDown()
+     */
     @Override
     public boolean isAltKeyDown() {
         return isAltDown;
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.dom.client.KeyEvent#isShiftKeyDown()
+     */
     @Override
     public boolean isShiftKeyDown() {
         return isShiftDown;
