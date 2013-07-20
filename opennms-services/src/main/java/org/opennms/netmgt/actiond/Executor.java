@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- * @author <a href="http://www.opennms.org/>OpenNMS </a>
+ * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class Executor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
@@ -108,7 +108,7 @@ final class Executor implements Runnable, PausableFiber {
      *
      * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
      * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
-     * @author <a href="http://www.opennms.org/>OpenNMS </a>
+     * @author <a href="http://www.opennms.org/">OpenNMS </a>
      */
     private static final class DatedProc {
         /**
@@ -171,7 +171,7 @@ final class Executor implements Runnable, PausableFiber {
      *
      * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
      * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
-     * @author <a href="http://www.opennms.org/>OpenNMS </a>
+     * @author <a href="http://www.opennms.org/">OpenNMS </a>
      */
     private final class Reaper implements Runnable {
         /**

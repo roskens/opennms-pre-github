@@ -112,7 +112,7 @@ public interface AlarmRepository {
     public abstract void acknowledgeAll(String user, Date timestamp);
 
     /**
-     * Unacknowledge Matching Alarms</p>.
+     * Unacknowledge Matching Alarms.
      *
      * @param criteria
      *            the criteria

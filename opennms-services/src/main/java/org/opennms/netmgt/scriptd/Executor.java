@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
  * events.
  *
  * @author <a href="mailto:jim.doble@tavve.com">Jim Doble</a>
- * @author <a href="http://www.opennms.org"/>OpenNMS</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 final class Executor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);

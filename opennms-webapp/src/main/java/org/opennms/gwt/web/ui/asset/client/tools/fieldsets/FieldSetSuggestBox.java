@@ -48,7 +48,7 @@ import com.google.gwt.user.client.ui.SuggestOracle.Suggestion;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a></br> {@link FieldSet} for displaying and editing text.
+ *         Neumann</a><br/> {@link FieldSet} for displaying and editing text.
  *         Additional a suggestion box will support the user.
  */
 public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, ValueChangeHandler<String>,

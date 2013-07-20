@@ -129,7 +129,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * </p>
+     * <p>
      * Closes the current connections to the Java Message Queue if they are
      * still active. This call may be invoked more than once safely and may be
      * invoked during object finalization.

@@ -47,8 +47,8 @@ import org.springframework.core.io.Resource;
 /**
  * TODO: Make this unit test work
  *
- * @author <a href="mailto:jeffg@opennms.org>Jeff Gehlbach</a>
- * @author <a href="http://www.opennms.org/>OpenNMS</a>
+ * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 @JUnitTemporaryDatabase
 public class MicroblogNotificationStrategyTest {

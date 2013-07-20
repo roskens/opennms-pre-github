@@ -37,7 +37,7 @@ import org.opennms.core.utils.SslSocketWrapper;
 import com.novell.ldap.LDAPConnection;
 
 /**
- * <P>
+ * <p>
  * This class is designed to be used by the capabilities daemon to test for the
  * existance of an HTTPS server on remote interfaces. The class implements the
  * Plugin interface that allows it to be used along with other plugins by the
@@ -47,7 +47,8 @@ import com.novell.ldap.LDAPConnection;
  * 100 to 599 range (inclusive). This is based on the following information from
  * RFC 1945 (HTTP 1.0) HTTP 1.0 GET return codes: 1xx: Informational - Not used,
  * future use 2xx: Success 3xx: Redirection 4xx: Client error 5xx: Server error
- * </P>
+ * </p>
+ * <p>
  * This plugin generates a HTTP GET request and checks the return code returned
  * by the remote host to determine if it supports the protocol.
  * The remote host's response will be deemed valid if the return code falls in
@@ -55,7 +56,7 @@ import com.novell.ldap.LDAPConnection;
  * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
  * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
  * Redirection 4xx: Client error 5xx: Server error
- * </P>
+ * </p>
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS </A>

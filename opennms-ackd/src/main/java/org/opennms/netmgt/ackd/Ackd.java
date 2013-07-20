@@ -313,7 +313,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * contains 4 parameters:
      * ackUser: The user acknowledging the <code>OnmsAcknowledgable</code>
      * ackAction: ack, unack, esc, clear
-     * ackType: <code>AckType</code. representing either an
+     * ackType: <code>AckType</code>. representing either an
      * <code>OnmsAlarm</code>, <code>OnmsNotification</code>, etc.
      * refId: The ID of the <code>OnmsAcknowledgable</code>
      *

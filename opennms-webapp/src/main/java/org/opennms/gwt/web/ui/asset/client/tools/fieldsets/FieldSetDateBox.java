@@ -46,7 +46,7 @@ import com.google.gwt.user.datepicker.client.DateBox;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a></br> {@link FieldSet} for displaying and editing
+ *         Neumann</a><br/> {@link FieldSet} for displaying and editing
  *         {@link Dates}. It's working on stings for compatibility reasons with
  *         old db-code. Works with an internal date format of "yyyy-MM-dd".
  *         Displays the Date as i18n date format. If the given string is not in

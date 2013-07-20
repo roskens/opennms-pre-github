@@ -34,7 +34,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br>
+ *         <br/>
  *         For later use. Don't use it jet!
  */
 public class FlexTableFieldSet extends FlexTable {

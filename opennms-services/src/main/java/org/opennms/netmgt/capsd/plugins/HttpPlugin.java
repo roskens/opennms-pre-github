@@ -47,7 +47,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <P>
+ * <p>
  * This class is designed to be used by the capabilities daemon to test for the
  * existance of an HTTP server on remote interfaces. The class implements the
  * Plugin interface that allows it to be used along with other plugins by the
@@ -57,7 +57,8 @@ import org.slf4j.LoggerFactory;
  * 100 to 599 range (inclusive). This is based on the following information from
  * RFC 1945 (HTTP 1.0) HTTP 1.0 GET return codes: 1xx: Informational - Not used,
  * future use 2xx: Success 3xx: Redirection 4xx: Client error 5xx: Server error
- * </P>
+ * </p>
+ * <p>
  * This plugin generates a HTTP GET request and checks the return code returned
  * by the remote host to determine if it supports the protocol.
  * The remote host's response will be deemed valid if the return code falls in
@@ -65,7 +66,8 @@ import org.slf4j.LoggerFactory;
  * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
  * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
  * Redirection 4xx: Client error 5xx: Server error
- * </P>
+ * </p>
+ * <p>
  * This plugin generates a HTTP GET request and checks the return code returned
  * by the remote host to determine if it supports the protocol.
  * The remote host's response will be deemed valid if the return code falls in
@@ -73,7 +75,7 @@ import org.slf4j.LoggerFactory;
  * This is based on the following information from RFC 1945 (HTTP 1.0) HTTP 1.0
  * GET return codes: 1xx: Informational - Not used, future use 2xx: Success 3xx:
  * Redirection 4xx: Client error 5xx: Server error
- * </P>
+ * </p>
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya </A>

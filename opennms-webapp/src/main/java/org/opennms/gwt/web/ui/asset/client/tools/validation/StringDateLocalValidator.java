@@ -35,7 +35,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a></br> Validates if the string representation of given
+ *         Neumann</a><br/> Validates if the string representation of given
  *         object is parseable to an {@link Date}. The expected format is
  *         "yyyy-MM-dd".
  */

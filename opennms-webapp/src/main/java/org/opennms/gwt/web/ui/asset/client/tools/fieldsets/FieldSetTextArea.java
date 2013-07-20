@@ -39,7 +39,7 @@ import com.google.gwt.user.client.ui.TextArea;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> {@link FieldSet} for displaying and editing text as a textarea.
+ *         <br/> {@link FieldSet} for displaying and editing text as a textarea.
  */
 public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyUpHandler, MouseUpHandler {
 

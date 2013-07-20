@@ -33,7 +33,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
- * </p>
+ * <p>
  * This interface defines a queue that uses <em>F</em> irst <em>I</em>n,
  * <em>F</em> irst <em>O</em> ut semantics when adding and removing objects.
  * Each object that is added to the queue is effectively placed at the end of

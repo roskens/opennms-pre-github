@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.TextBox;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> {@link FieldSet} for displaying and editing text as a textbox.
+ *         <br/> {@link FieldSet} for displaying and editing text as a textbox.
  */
 public class FieldSetTextBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {
 

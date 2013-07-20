@@ -35,10 +35,8 @@ import org.opennms.core.fiber.PausableFiber;
  * parsed from events they will be put on a process queue and will be handled by
  * a class implementing this interface.
  *
- * @author <a href="mailto:jason@opennms.org">Jason Johns </a>
- * @author <a href="http://www.opennms.org/>OpenNMS </a>
- * @author <a href="mailto:jason@opennms.org">Jason Johns </a>
- * @author <a href="http://www.opennms.org/>OpenNMS </a>
+ * @author <a href="mailto:jason@opennms.org">Jason Johns</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
  * @version $Id: $
  */
 public interface NotifdQueueHandler extends Runnable, PausableFiber {

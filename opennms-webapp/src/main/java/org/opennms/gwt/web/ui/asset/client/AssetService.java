@@ -37,7 +37,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> Client side GWT Interface for remote procedure calls (RPC) at
+ *         <br/> Client side GWT Interface for remote procedure calls (RPC) at
  *         asset services.
  */
 @RemoteServiceRelativePath("asset")

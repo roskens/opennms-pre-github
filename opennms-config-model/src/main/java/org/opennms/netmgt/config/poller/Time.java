@@ -275,7 +275,7 @@ public class Time implements Serializable {
     }
 
     /**
-     * Sets the value of field 'ends'. The field 'ends' has the
+     * <p>Sets the value of field 'ends'. The field 'ends' has the
      * following description: when the outage ends.</p>
      * <p>
      * Requires format of 'dd-MMM-yyyy HH:mm:ss' or 'HH:mm:ss'.

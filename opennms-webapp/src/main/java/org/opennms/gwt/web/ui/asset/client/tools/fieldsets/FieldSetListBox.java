@@ -35,7 +35,7 @@ import com.google.gwt.user.client.ui.ListBox;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus
- *         Neumann</a></br> {@link FieldSet} for displaying and selection values
+ *         Neumann</a><br/> {@link FieldSet} for displaying and selection values
  *         from a list.
  */
 public class FieldSetListBox extends AbstractFieldSet implements FieldSet {

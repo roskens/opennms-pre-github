@@ -35,7 +35,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> Client side GWT Interface for asynchronous remote procedure
+ *         <br/> Client side GWT Interface for asynchronous remote procedure
  *         call (RPC) at asset services. Asynchronous version of
  *         {@link AssetService}. GWT requires this asynchronous version in
  *         addition to {@link AssetService}. All method signatures have an

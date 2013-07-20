@@ -56,14 +56,14 @@ public final class NtpPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(NtpPlugin.class);
 
     /**
-     * </P>
+     * <P>
      * The protocol name that is tested by this plugin.
      * </P>
      */
     private final static String PROTOCOL_NAME = "NTP";
 
     /**
-     * </P>
+     * <P>
      * The default port on which the host is checked to see if it supports NTP.
      * </P>
      */

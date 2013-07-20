@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.Label;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> {@link FieldSet} just for displaying text. No input possible.
+ *         <br/> {@link FieldSet} just for displaying text. No input possible.
  */
 public class FieldSetTextDisplay extends AbstractFieldSet implements FieldSet {
 

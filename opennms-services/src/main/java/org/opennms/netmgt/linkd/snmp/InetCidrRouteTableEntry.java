@@ -52,7 +52,7 @@ import org.opennms.core.utils.InetAddressUtils;
  * <li>ipRouteAge</li>
  * <li>ipRouteMask</li>
  * <li>ipRouteMetric5</li>
- * <li><s>ipRouteInfo</s> (not available in the inetCidr table)</li>
+ * <li><i>ipRouteInfo</i> (not available in the inetCidr table)</li>
  * </ul>
  * <p>
  * This object is used by the {@link InetCidrRouteTable} to hold information

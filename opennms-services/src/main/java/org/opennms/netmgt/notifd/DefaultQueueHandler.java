@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * long than allocated it is terminated during collection.
  *
  * @author <a href="mailto:jason@opennms.org">Jason Johns</a>
- * @author <a href="http://www.opennms.org/>OpenNMS</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 public class DefaultQueueHandler implements NotifdQueueHandler {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultQueueHandler.class);

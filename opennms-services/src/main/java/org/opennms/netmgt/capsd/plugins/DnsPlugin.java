@@ -62,16 +62,16 @@ public final class DnsPlugin extends AbstractPlugin {
     private static final Logger LOG = LoggerFactory.getLogger(DnsPlugin.class);
 
     /**
-     * </P>
+     * <p>
      * The protocol name that is tested by this plugin.
-     * </P>
+     * </p>
      */
     private final static String PROTOCOL_NAME = "DNS";
 
     /**
-     * </P>
+     * <p>
      * The default port on which the host is checked to see if it supports DNS.
-     * </P>
+     * </p>
      */
     private final static int DEFAULT_PORT = 53;
 

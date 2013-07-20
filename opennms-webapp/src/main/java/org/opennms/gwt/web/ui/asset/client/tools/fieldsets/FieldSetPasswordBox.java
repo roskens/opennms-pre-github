@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.PasswordTextBox;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> {@link FieldSet} for displaying and editing passwords as a
+ *         <br/> {@link FieldSet} for displaying and editing passwords as a
  *         PasswordTextBox.
  */
 public class FieldSetPasswordBox extends AbstractFieldSet implements FieldSet, KeyUpHandler {

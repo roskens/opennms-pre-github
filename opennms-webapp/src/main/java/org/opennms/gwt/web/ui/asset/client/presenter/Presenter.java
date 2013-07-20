@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br> Presenter interface recommended for GWT MVP design.
+ *         <br/> Presenter interface recommended for GWT MVP design.
  */
 public interface Presenter {
     /**

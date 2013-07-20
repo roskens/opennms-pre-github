@@ -35,7 +35,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- *         </br>
+ *         <br/>
  *         Command object for asset pages. Contains fields from OnmsAsset and
  *         additional values needed to show complete ui.
  */

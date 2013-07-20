@@ -407,6 +407,7 @@ public abstract class PollerConfigManager implements PollerConfig {
     }
 
     /**
+     * <p>
      * This method returns the configured value of the
      * 'pollAllIfNoCriticalServiceDefined' flag.
      * A value of true causes the poller's node outage code to poll all the

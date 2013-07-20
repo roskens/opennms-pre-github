@@ -45,8 +45,8 @@ import twitter4j.TwitterException;
  * MicroblogDMNotificationStrategy class.
  * </p>
  *
- * @author <a href="mailto:jeffg@opennms.org>Jeff Gehlbach</a>
- * @author <a href="http://www.opennms.org/>OpenNMS</a>
+ * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
+ * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogDMNotificationStrategy.class);

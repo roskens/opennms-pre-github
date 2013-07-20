@@ -74,9 +74,9 @@ import org.springframework.util.Assert;
  *         - Alarm persisting now removes oldest events by default. Use
  *         "auto-clean" attribute
  *         in eventconf files.
- * @author Sowmya Nataraj </A>
- * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
- * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
+ * @author Sowmya Nataraj
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
+ * @author <a href="http://www.opennms.org">OpenNMS</a>
  *         Changes:
  *         - Alarm persisting added (many moons ago)
  *         - Alarm persisting now removes oldest events by default. Use
