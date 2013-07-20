@@ -55,6 +55,9 @@ import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.Configuration;
 import org.ops4j.pax.exam.junit.JUnit4TestRunner;
 
+/**
+ * The Class TopologyMapIntegrationTest.
+ */
 @RunWith(JUnit4TestRunner.class)
 // @ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
 public class TopologyMapIntegrationTest extends KarafTestSupport {
@@ -62,11 +65,17 @@ public class TopologyMapIntegrationTest extends KarafTestSupport {
     // @Inject
     // private TopologyProvider<?,?,?,?> m_topologyProvider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         // MockLogAppender.setupLogging();
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.karaf.itests.KarafTestSupport#config()
+     */
     @Configuration
     @Override
     public Option[] config() {
@@ -140,6 +149,10 @@ public class TopologyMapIntegrationTest extends KarafTestSupport {
      * Note: The next time we upgrade Karaf, this should be unnecessary because
      * the configs in
      * KarafTestSupport have been changed in an identical manner.
+     *
+     * @return the jMX connector
+     * @throws Exception
+     *             the exception
      */
     @Override
     public JMXConnector getJMXConnector() throws Exception {
@@ -151,12 +164,23 @@ public class TopologyMapIntegrationTest extends KarafTestSupport {
         return connector;
     }
 
+    /**
+     * List commands.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void listCommands() throws Exception {
         System.out.println(executeCommand("list -t 0"));
     }
 
+    /**
+     * Gets the hello service.
+     *
+     * @return the hello service
+     */
     @Test
     @Ignore
     public void getHelloService() {

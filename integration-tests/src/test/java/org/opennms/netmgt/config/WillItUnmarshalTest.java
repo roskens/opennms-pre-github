@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.config;
 
 import static org.junit.Assert.assertEquals;
@@ -107,20 +134,34 @@ import org.springframework.core.io.Resource;
  */
 @RunWith(value = Parameterized.class)
 public class WillItUnmarshalTest {
+
+    /** The Constant CASTOR_LENIENT_SEQUENCE_ORDERING_PROPERTY. */
     private static final String CASTOR_LENIENT_SEQUENCE_ORDERING_PROPERTY = "org.exolab.castor.xml.lenient.sequence.order";
 
     /**
      * Possible implementations for resource loading.
      */
     public static enum Source {
-        CONFIG, EXAMPLE, SPRING, ABSOLUTE,
+
+        /** The config. */
+        CONFIG,
+ /** The example. */
+ EXAMPLE,
+ /** The spring. */
+ SPRING,
+ /** The absolute. */
+ ABSOLUTE,
     }
 
     /**
      * Possible implementation used for unmarshalling.
      */
     public static enum Impl {
-        JAXB, CASTOR
+
+        /** The jaxb. */
+        JAXB,
+ /** The castor. */
+ CASTOR
     }
 
     /**
@@ -129,21 +170,77 @@ public class WillItUnmarshalTest {
      */
     public static final ArrayList<Object[]> FILES = new ArrayList<Object[]>();
 
+    /**
+     * Adds the file.
+     *
+     * @param source
+     *            the source
+     * @param file
+     *            the file
+     * @param clazz
+     *            the clazz
+     * @param impl
+     *            the impl
+     * @param lenient
+     *            the lenient
+     * @param exceptionMessage
+     *            the exception message
+     */
     private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
             final boolean lenient, final String exceptionMessage) {
         FILES.add(new Object[] { source, file, clazz, impl, lenient, exceptionMessage });
     }
 
+    /**
+     * Adds the file.
+     *
+     * @param source
+     *            the source
+     * @param file
+     *            the file
+     * @param clazz
+     *            the clazz
+     * @param impl
+     *            the impl
+     * @param exceptionMessage
+     *            the exception message
+     */
     private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
             final String exceptionMessage) {
         addFile(source, file, clazz, impl, false, exceptionMessage);
     }
 
+    /**
+     * Adds the file.
+     *
+     * @param source
+     *            the source
+     * @param file
+     *            the file
+     * @param clazz
+     *            the clazz
+     * @param impl
+     *            the impl
+     * @param lenient
+     *            the lenient
+     */
     private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl,
             final boolean lenient) {
         addFile(source, file, clazz, impl, lenient, null);
     }
 
+    /**
+     * Adds the file.
+     *
+     * @param source
+     *            the source
+     * @param file
+     *            the file
+     * @param clazz
+     *            the clazz
+     * @param impl
+     *            the impl
+     */
     private static void addFile(final Source source, final String file, final Class<?> clazz, final Impl impl) {
         addFile(source, file, clazz, impl, false, null);
     }
@@ -305,18 +402,40 @@ public class WillItUnmarshalTest {
         return FILES;
     }
 
+    /** The source. */
     private final Source source;
 
+    /** The file. */
     private final String file;
 
+    /** The clazz. */
     private final Class<?> clazz;
 
+    /** The impl. */
     private final Impl impl;
 
+    /** The lenient. */
     private final boolean lenient;
 
+    /** The exception. */
     private final String exception;
 
+    /**
+     * Instantiates a new will it unmarshal test.
+     *
+     * @param source
+     *            the source
+     * @param file
+     *            the file
+     * @param clazz
+     *            the clazz
+     * @param impl
+     *            the impl
+     * @param lenient
+     *            the lenient
+     * @param exception
+     *            the exception
+     */
     public WillItUnmarshalTest(final Source source, final String file, final Class<?> clazz, final Impl impl,
             final boolean lenient, final String exception) {
         this.source = source;
@@ -327,6 +446,12 @@ public class WillItUnmarshalTest {
         this.exception = exception;
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Reload castor properties every time
@@ -335,6 +460,9 @@ public class WillItUnmarshalTest {
                                                                                                                "/castor.properties"));
     }
 
+    /**
+     * Test unmarshalling.
+     */
     @Test
     public void testUnmarshalling() {
         // Be conservative about what we ship, so don't be lenient
