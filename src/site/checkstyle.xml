@@ -80,16 +80,16 @@
     <module name="MissingOverride"/>
     <module name="PackageAnnotation"/>
     <module name="SuppressWarnings"/>
+    <module name="RegexpSinglelineJava">
+      <property name="format" value="\s+$"/>
+      <property name="message" value="Line has trailing spaces."/>
+    </module>
   </module>
   <module name="JavadocPackage"/>
   <module name="NewlineAtEndOfFile"/>
   <module name="Translation"/>
   <module name="FileLength"/>
   <module name="FileTabCharacter"/>
-  <module name="RegexpSinglelineJava">
-    <property name="format" value="\s+$"/>
-    <property name="message" value="Line has trailing spaces."/>
-  </module>
   <module name="Header">
     <property name="headerFile" value="${root.dir}/src/site/checkstyle-header-java.txt"/>
     <property name="fileExtensions" value="java"/>
