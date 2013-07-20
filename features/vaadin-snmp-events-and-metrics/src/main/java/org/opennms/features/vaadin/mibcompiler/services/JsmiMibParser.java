@@ -80,6 +80,8 @@ import org.slf4j.LoggerFactory;
  */
 @SuppressWarnings("serial")
 public class JsmiMibParser implements MibParser, Serializable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JsmiMibParser.class);
 
     /** The Constant MIB_SUFFIXES. */
@@ -401,6 +403,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * @param queue
      *            the queue
      * @param mibDirectoryFiles
+     *            the mib directory files
      * @return true, if successful
      */
     private boolean addDependencyToQueue(final List<URL> queue, final Map<String, File> mibDirectoryFiles) {

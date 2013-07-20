@@ -250,7 +250,7 @@ public class JsmiMibParserTest {
     }
 
     /**
-     * Test name cutter
+     * Test name cutter.
      *
      * @throws Exception
      *             the exception

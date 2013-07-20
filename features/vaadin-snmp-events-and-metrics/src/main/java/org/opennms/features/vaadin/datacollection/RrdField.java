@@ -145,6 +145,9 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         setBuffered(true);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -158,6 +161,8 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
     /**
      * Instantiates a new RRD field.
      *
+     * @param caption
+     *            the caption
      * @Param caption the field's caption
      */
     public RrdField(String caption) {
@@ -165,11 +170,17 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         setCaption(caption);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<Rrd> getType() {
         return Rrd.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     public void setPropertyDataSource(Property newDataSource) {
         Object value = newDataSource.getValue();
@@ -189,6 +200,9 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public Rrd getValue() {
         Rrd dto = new Rrd();

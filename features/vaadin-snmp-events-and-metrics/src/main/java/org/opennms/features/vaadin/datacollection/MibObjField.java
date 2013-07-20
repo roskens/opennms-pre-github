@@ -57,9 +57,13 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implements Button.ClickListener {
 
+    /**
+     * The Class MibObjArrayList.
+     */
     public static class MibObjArrayList extends ArrayList<MibObj> {
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3665919460707298011L;
 
     /** The Table. */
@@ -108,6 +112,9 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         setValidationVisible(true);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -117,11 +124,17 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<MibObjArrayList> getType() {
         return MibObjArrayList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void setPropertyDataSource(Property newDataSource) {
@@ -137,6 +150,9 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public MibObjArrayList getValue() {
         MibObjArrayList beans = new MibObjArrayList();

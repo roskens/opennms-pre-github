@@ -62,9 +62,13 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public class MaskElementField extends CustomField<MaskElementField.MaskElementArrayList> implements
         Button.ClickListener {
 
+    /**
+     * The Class MaskElementArrayList.
+     */
     public static class MaskElementArrayList extends ArrayList<Maskelement> {
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2755346278615977088L;
 
     /** The Table. */
@@ -116,6 +120,9 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         toolbar.setVisible(table.isEditable());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -125,11 +132,17 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<MaskElementArrayList> getType() {
         return MaskElementArrayList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     public void setPropertyDataSource(Property newDataSource) {
         Object value = newDataSource.getValue();
@@ -145,6 +158,9 @@ public class MaskElementField extends CustomField<MaskElementField.MaskElementAr
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public MaskElementArrayList getValue() {
         MaskElementArrayList beans = new MaskElementArrayList();

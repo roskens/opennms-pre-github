@@ -64,8 +64,8 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the OpenNMS Event Proxy.
      *
-     * @param eventConfDao
-     *            the new OpenNMS Event Proxy
+     * @param eventProxy
+     *            the new event proxy
      */
     public void setEventProxy(EventProxy eventProxy) {
         this.eventProxy = eventProxy;
@@ -94,8 +94,8 @@ public class MibCompilerApplication extends UI {
     /**
      * Sets the OpenNMS Data Collection Configuration DAO.
      *
-     * @param eventConfDao
-     *            the new OpenNMS Data Collection Configuration DAO
+     * @param dataCollectionDao
+     *            the new data collection dao
      */
     public void setDataCollectionDao(DataCollectionConfigDao dataCollectionDao) {
         this.dataCollectionDao = dataCollectionDao;

@@ -50,6 +50,9 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
     public static class DecodeList extends ArrayList<Decode> {
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#convertToModel(java.lang.Object, java.lang.Class, java.util.Locale)
+     */
     @Override
     public DecodeList convertToModel(String fieldValue, Class<? extends DecodeList> targetType, Locale locale)
             throws ConversionException {
@@ -65,6 +68,9 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#convertToPresentation(java.lang.Object, java.lang.Class, java.util.Locale)
+     */
     @Override
     public String convertToPresentation(DecodeList propertyValue, Class<? extends String> targetType, Locale locale)
             throws ConversionException {
@@ -75,11 +81,17 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
         return StringUtils.join(values, ',');
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#getModelType()
+     */
     @Override
     public Class<DecodeList> getModelType() {
         return DecodeList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#getPresentationType()
+     */
     @Override
     public Class<String> getPresentationType() {
         return String.class;

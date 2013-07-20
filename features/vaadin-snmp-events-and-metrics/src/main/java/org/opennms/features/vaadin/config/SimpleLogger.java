@@ -36,6 +36,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SimpleLogger implements Logger {
+
+    /** The Constant LOG. */
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(SimpleLogger.class);
 
     /*

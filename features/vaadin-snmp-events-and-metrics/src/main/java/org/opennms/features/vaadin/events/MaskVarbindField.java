@@ -61,6 +61,9 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayList> implements Button.ClickListener {
 
+    /**
+     * The Class VarbindArrayList.
+     */
     public static class VarbindArrayList extends ArrayList<Varbind> {
     }
 
@@ -112,6 +115,9 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         toolbar.setVisible(table.isEditable());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -121,11 +127,17 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<VarbindArrayList> getType() {
         return VarbindArrayList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     @SuppressWarnings("unchecked")
     public void setPropertyDataSource(Property newDataSource) {
@@ -141,6 +153,9 @@ public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayL
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public VarbindArrayList getValue() {
         VarbindArrayList beans = new VarbindArrayList();

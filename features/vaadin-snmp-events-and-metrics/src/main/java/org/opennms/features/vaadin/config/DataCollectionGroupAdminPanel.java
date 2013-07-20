@@ -65,8 +65,11 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 // updated.
 @SuppressWarnings("serial")
 public class DataCollectionGroupAdminPanel extends VerticalLayout {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionGroupAdminPanel.class);
 
+    /** The m_selected group. */
     private String m_selectedGroup;
 
     /**

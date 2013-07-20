@@ -64,6 +64,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  */
 @SuppressWarnings("serial")
 public class MibCompilerPanel extends Panel {
+
+    /** The Constant LOG. */
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(MibCompilerPanel.class);
 
     /** The Constant PENDING. */

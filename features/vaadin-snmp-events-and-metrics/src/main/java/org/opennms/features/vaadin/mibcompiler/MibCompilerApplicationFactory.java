@@ -54,6 +54,9 @@ public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
     /** The MIB parser. */
     private MibParser mibParser;
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUI()
+     */
     @Override
     public UI getUI() {
         if (eventProxy == null)
@@ -72,6 +75,9 @@ public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
         return app;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUIClass()
+     */
     @Override
     public Class<? extends UI> getUIClass() {
         return MibCompilerApplication.class;
@@ -100,8 +106,8 @@ public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
     /**
      * Sets the OpenNMS Event Proxy.
      *
-     * @param eventConfDao
-     *            the new OpenNMS Event Proxy
+     * @param eventProxy
+     *            the new event proxy
      */
     public void setEventProxy(EventProxy eventProxy) {
         this.eventProxy = eventProxy;
@@ -110,8 +116,8 @@ public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
     /**
      * Sets the OpenNMS Data Collection Configuration DAO.
      *
-     * @param eventConfDao
-     *            the new OpenNMS Data Collection Configuration DAO
+     * @param dataCollectionDao
+     *            the new data collection dao
      */
     public void setDataCollectionDao(DataCollectionConfigDao dataCollectionDao) {
         this.dataCollectionDao = dataCollectionDao;

@@ -48,6 +48,9 @@ public class CsvListConverter implements Converter<String, CsvListConverter.Stri
     public static class StringList extends ArrayList<String> {
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#convertToModel(java.lang.Object, java.lang.Class, java.util.Locale)
+     */
     @Override
     public StringList convertToModel(String fieldValue, Class<? extends StringList> targetType, Locale locale)
             throws ConversionException {
@@ -64,17 +67,26 @@ public class CsvListConverter implements Converter<String, CsvListConverter.Stri
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#convertToPresentation(java.lang.Object, java.lang.Class, java.util.Locale)
+     */
     @Override
     public String convertToPresentation(StringList propertyValue, Class<? extends String> targetType, Locale locale)
             throws ConversionException {
         return propertyValue == null ? null : StringUtils.join(propertyValue, ',');
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#getModelType()
+     */
     @Override
     public Class<StringList> getModelType() {
         return StringList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.converter.Converter#getPresentationType()
+     */
     @Override
     public Class<String> getPresentationType() {
         return String.class;

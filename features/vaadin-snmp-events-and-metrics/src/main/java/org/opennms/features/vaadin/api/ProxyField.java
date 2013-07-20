@@ -40,6 +40,8 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * The Proxy Field Class.
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
@@ -102,11 +104,17 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
         getField().discard();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Buffered#isBuffered()
+     */
     @Override
     public boolean isBuffered() {
         return getField().isBuffered();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Buffered#setBuffered(boolean)
+     */
     @Override
     public void setBuffered(boolean writeThrough) throws SourceException, InvalidValueException {
         getField().setBuffered(writeThrough);

@@ -59,9 +59,13 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 @SuppressWarnings("serial")
 public class IncludeCollectionField extends CustomField<IncludeCollectionField.IncludeCollectionArrayList> {
 
+    /**
+     * The Class IncludeCollectionArrayList.
+     */
     public static class IncludeCollectionArrayList extends ArrayList<IncludeCollection> {
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3677540981240383672L;
 
     /** The Include Field Table. */
@@ -146,6 +150,9 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
         setBuffered(true);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -155,11 +162,17 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<IncludeCollectionArrayList> getType() {
         return IncludeCollectionArrayList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     public void setPropertyDataSource(Property newDataSource) {
         Object value = newDataSource.getValue();
@@ -179,6 +192,9 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public IncludeCollectionArrayList getValue() {
         IncludeCollectionArrayList list = new IncludeCollectionArrayList();

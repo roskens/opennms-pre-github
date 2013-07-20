@@ -65,6 +65,9 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.VarbindsDecodeArrayList> implements
         Button.ClickListener {
 
+    /**
+     * The Class VarbindsDecodeArrayList.
+     */
     public static class VarbindsDecodeArrayList extends ArrayList<Varbindsdecode> {
     };
 
@@ -117,6 +120,9 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         toolbar.setVisible(table.isEditable());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.CustomField#initContent()
+     */
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();
@@ -126,11 +132,17 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getType()
+     */
     @Override
     public Class<VarbindsDecodeArrayList> getType() {
         return VarbindsDecodeArrayList.class;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#setPropertyDataSource(com.vaadin.data.Property)
+     */
     @Override
     public void setPropertyDataSource(Property newDataSource) {
         Object value = newDataSource.getValue();
@@ -146,6 +158,9 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
         super.setPropertyDataSource(newDataSource);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#getValue()
+     */
     @Override
     public VarbindsDecodeArrayList getValue() {
         VarbindsDecodeArrayList beans = new VarbindsDecodeArrayList();

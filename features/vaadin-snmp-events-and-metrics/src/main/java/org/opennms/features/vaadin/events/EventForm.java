@@ -173,7 +173,7 @@ public abstract class EventForm extends Form implements ClickListener {
     }
 
     /**
-     * Sets the Event Data Source
+     * Sets the Event Data Source.
      *
      * @param event
      *            the OpenNMS event
