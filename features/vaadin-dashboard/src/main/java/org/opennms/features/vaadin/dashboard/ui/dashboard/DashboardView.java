@@ -42,6 +42,8 @@ import com.vaadin.navigator.ViewChangeListener;
  */
 public class DashboardView extends DashboardLayout implements View {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Default constructor.
      */

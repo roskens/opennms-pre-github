@@ -56,6 +56,8 @@ import org.springframework.transaction.support.TransactionOperations;
  */
 public class MapWidgetComponent extends NodeMap {
 
+    private static final long serialVersionUID = 1L;
+
     private Logger m_log = LoggerFactory.getLogger(getClass());
 
     private String m_searchString;

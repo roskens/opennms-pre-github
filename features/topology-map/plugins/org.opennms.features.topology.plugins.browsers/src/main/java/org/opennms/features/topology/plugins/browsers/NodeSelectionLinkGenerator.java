@@ -83,6 +83,8 @@ public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNot
                 button.setStyleName(BaseTheme.BUTTON_LINK);
                 button.setDescription(nodeIdProperty.getValue().toString());
                 button.addClickListener(new ClickListener() {
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public void buttonClick(ClickEvent event) {
                         SelectionContext context = new DefaultSelectionContext();

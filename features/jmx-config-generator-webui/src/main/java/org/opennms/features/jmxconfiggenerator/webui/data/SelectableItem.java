@@ -60,6 +60,7 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
  */
 public class SelectableItem<T> extends PropertysetItem implements Selectable {
 
+    private static final long serialVersionUID = 1L;
     /**
      * The bean to store.
      */
@@ -128,6 +129,8 @@ public class SelectableItem<T> extends PropertysetItem implements Selectable {
             }
             // add selected property descriptor
             mpdMap.put("selected", new VaadinPropertyDescriptor<T>() {
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 public String getName() {
                     return "selected";

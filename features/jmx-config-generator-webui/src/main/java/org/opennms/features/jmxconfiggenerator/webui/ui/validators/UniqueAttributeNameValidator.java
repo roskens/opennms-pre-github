@@ -43,6 +43,8 @@ import com.vaadin.ui.Field;
  */
 public class UniqueAttributeNameValidator extends AbstractValidator<String> {
 
+    private static final long serialVersionUID = 1L;
+
     private final NameProvider provider;
 
     private final Map<Object, Field<String>> textFieldItemMap;

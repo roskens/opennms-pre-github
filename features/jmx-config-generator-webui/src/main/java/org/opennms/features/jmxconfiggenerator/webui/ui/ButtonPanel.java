@@ -32,6 +32,8 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
 public class ButtonPanel extends HorizontalLayout implements ModelChangeListener<UiState> {
+    private static final long serialVersionUID = 1L;
+
     private final Button next;
 
     private final Button previous;

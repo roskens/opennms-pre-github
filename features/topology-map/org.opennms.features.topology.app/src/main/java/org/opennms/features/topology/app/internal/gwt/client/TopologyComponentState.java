@@ -6,6 +6,8 @@ import com.vaadin.shared.AbstractComponentState;
 
 public class TopologyComponentState extends AbstractComponentState {
 
+    private static final long serialVersionUID = 1L;
+
     private int m_boundX;
 
     private int m_boundY;

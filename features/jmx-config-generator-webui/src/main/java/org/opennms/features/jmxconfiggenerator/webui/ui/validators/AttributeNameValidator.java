@@ -35,6 +35,8 @@ import com.vaadin.data.validator.RegexpValidator;
  */
 public class AttributeNameValidator extends RegexpValidator {
 
+    private static final long serialVersionUID = 1L;
+
     public AttributeNameValidator() {
         super("[a-zA-Z0-9]+", "You must specify a valid attribute name. Only characters a-z, A-Z and 0-9 are allowed.");
     }

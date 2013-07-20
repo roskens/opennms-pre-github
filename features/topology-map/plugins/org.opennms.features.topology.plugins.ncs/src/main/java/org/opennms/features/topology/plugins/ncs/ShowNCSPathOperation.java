@@ -108,6 +108,8 @@ public class ShowNCSPathOperation implements Operation {
 
         final Form promptForm = new Form() {
 
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void commit() {
                 String deviceA = (String) getField("Device A").getValue();

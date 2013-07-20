@@ -45,6 +45,8 @@ import com.vaadin.ui.Window;
  * @author Christian Pape
  */
 public class PreviewClickListener implements Button.ClickListener {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The component to use
      */
@@ -84,6 +86,8 @@ public class PreviewClickListener implements Button.ClickListener {
         final WallboardBody wallboardBody = new WallboardBody();
 
         window.setContent(new VerticalLayout() {
+            private static final long serialVersionUID = 1L;
+
             {
                 setMargin(true);
                 setSpacing(true);
@@ -92,6 +96,8 @@ public class PreviewClickListener implements Button.ClickListener {
                 addComponent(wallboardBody);
                 setExpandRatio(wallboardBody, 1.0f);
                 addComponent(new HorizontalLayout() {
+                    private static final long serialVersionUID = 1L;
+
                     {
                         setMargin(true);
                         setSpacing(true);
@@ -102,6 +108,8 @@ public class PreviewClickListener implements Button.ClickListener {
                         addComponent(closeButton);
                         setComponentAlignment(closeButton, Alignment.MIDDLE_RIGHT);
                         closeButton.addClickListener(new Button.ClickListener() {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
                             public void buttonClick(Button.ClickEvent clickEvent) {
                                 window.close();

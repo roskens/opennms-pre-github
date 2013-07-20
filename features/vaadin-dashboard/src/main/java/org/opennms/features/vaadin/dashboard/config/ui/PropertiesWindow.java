@@ -51,6 +51,8 @@ import com.vaadin.ui.Window;
  */
 public class PropertiesWindow extends DashletConfigurationWindow {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructor for instantiating a {@link PropertiesWindow} for a given
      * {@link DashletSpec}.
@@ -76,6 +78,8 @@ public class PropertiesWindow extends DashletConfigurationWindow {
         final Table table = new Table();
 
         table.setTableFieldFactory(new DefaultFieldFactory() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public Field createField(Container container, Object itemId, Object propertyId, Component uiContext) {
                 Field field = super.createField(container, itemId, propertyId, uiContext);
@@ -124,6 +128,8 @@ public class PropertiesWindow extends DashletConfigurationWindow {
          */
         Button cancel = new Button("Cancel");
         cancel.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 close();
@@ -141,6 +147,8 @@ public class PropertiesWindow extends DashletConfigurationWindow {
         Button ok = new Button("Save");
 
         ok.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 for (Map.Entry<String, String> entry : requiredParameters.entrySet()) {

@@ -35,6 +35,8 @@ import com.vaadin.data.validator.RegexpValidator;
  */
 public class NameValidator extends RegexpValidator {
 
+    private static final long serialVersionUID = 1L;
+
     public NameValidator() {
         super("[a-zA-Z0-9_]+([\\.-][a-zA-Z0-9_]+)*", true,
               "You must specify a valid name. Allowed characters: (a-z, A-Z, 0-9,. , _)");

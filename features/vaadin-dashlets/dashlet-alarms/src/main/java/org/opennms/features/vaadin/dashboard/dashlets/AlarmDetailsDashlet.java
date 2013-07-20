@@ -50,6 +50,8 @@ import com.vaadin.ui.VerticalLayout;
  * @author Christian Pape
  */
 public class AlarmDetailsDashlet extends VerticalLayout implements Dashlet {
+    private static final long serialVersionUID = 1L;
+
     /**
      * the dashlet's name
      */

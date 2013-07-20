@@ -228,6 +228,8 @@ public class CommandManager {
 
         return new MenuBar.Command() {
 
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void menuSelected(MenuItem selectedItem) {
                 List<VertexRef> targets = new ArrayList<VertexRef>(

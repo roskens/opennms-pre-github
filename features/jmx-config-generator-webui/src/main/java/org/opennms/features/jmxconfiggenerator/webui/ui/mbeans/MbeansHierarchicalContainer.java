@@ -49,6 +49,8 @@ import com.vaadin.server.Resource;
  */
 public class MbeansHierarchicalContainer extends HierarchicalContainer {
 
+    private static final long serialVersionUID = 1L;
+
     private class TreeNodeComparator implements Comparator<TreeNode> {
 
         @Override

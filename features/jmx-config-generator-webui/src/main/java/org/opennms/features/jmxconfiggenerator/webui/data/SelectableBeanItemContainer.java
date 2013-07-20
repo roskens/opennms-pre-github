@@ -55,6 +55,8 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
  */
 public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T, String, SelectableItem<T>> {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Mapping of an itemId to a <code>SelectableItem</code>
      */

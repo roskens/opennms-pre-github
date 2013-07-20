@@ -10,6 +10,7 @@ import com.vaadin.shared.ui.Connect;
 @Connect(org.opennms.features.topology.app.internal.TopologyComponent.class)
 public class TopologyComponentConnector extends AbstractComponentConnector {
 
+    private static final long serialVersionUID = 1L;
     TopologyComponentServerRpc m_rpc = RpcProxy.create(TopologyComponentServerRpc.class, this);
 
     @Override

@@ -69,6 +69,8 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
         setDescription(UIHelper.loadContentFromFile(getClass(), "/descriptions/ServiceConfiguration.html"));
         setFormFieldFactory(new com.vaadin.ui.DefaultFieldFactory() {
 
+            private static final long serialVersionUID = 1L;
+
             @Override
             public Field<?> createField(Item item, Object propertyId, Component uiContext) {
                 if (MetaConfigModel.PASSWORD.equals(propertyId)) {
@@ -133,6 +135,8 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
      */
     private void initFields() {
         getField(MetaConfigModel.AUTHENTICATE).addListener(new ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void valueChange(Property.ValueChangeEvent event) {
                 updateAuthenticationFields((Boolean) event.getProperty().getValue());

@@ -53,6 +53,8 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class MBeansContentTabSheet extends TabSheet implements ModelChangeListener<Mbean>, ViewStateChangedListener {
 
+    private static final long serialVersionUID = 1L;
+
     private AttributesLayout attributesLayout;
 
     private CompositesLayout compositesLayout;
@@ -107,6 +109,8 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 
     private class CompositesLayout extends VerticalLayout implements ViewStateChangedListener,
             ModelChangeListener<Mbean> {
+
+        private static final long serialVersionUID = 1L;
 
         private final TabSheet tabSheet = new TabSheet();
 
@@ -190,6 +194,8 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 
         private class CompositeTabLayout extends VerticalLayout implements Property.ReadOnlyStatusChangeNotifier,
                 EditControls.Callback, ViewStateChangedListener {
+
+            private static final long serialVersionUID = 1L;
 
             private final NameEditForm compositeForm;
 
@@ -313,6 +319,8 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 
     private class AttributesLayout extends VerticalLayout implements ViewStateChangedListener,
             EditControls.Callback<Table> {
+
+        private static final long serialVersionUID = 1L;
 
         private final AttributesTable attributesTable;
 

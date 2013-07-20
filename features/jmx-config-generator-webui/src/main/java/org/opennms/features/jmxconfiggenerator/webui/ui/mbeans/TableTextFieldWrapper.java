@@ -43,6 +43,7 @@ import com.vaadin.ui.TextField;
  */
 public class TableTextFieldWrapper extends HorizontalLayout implements Field<String> {
 
+    private static final long serialVersionUID = 1L;
     private TextField textField;
 
     public TableTextFieldWrapper(final TextField field) {

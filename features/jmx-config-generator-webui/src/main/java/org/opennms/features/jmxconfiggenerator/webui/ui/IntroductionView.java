@@ -38,6 +38,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public class IntroductionView extends Panel implements ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     private final Button next;
 
     private JmxConfigGeneratorApplication app;

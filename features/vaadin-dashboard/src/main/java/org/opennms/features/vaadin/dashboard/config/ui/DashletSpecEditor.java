@@ -52,6 +52,8 @@ import com.vaadin.ui.TextField;
  * @author Christian Pape
  */
 public class DashletSpecEditor extends Panel {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The {@link DashletSpec} instance this editor component is associated
      * with.
@@ -146,6 +148,8 @@ public class DashletSpecEditor extends Panel {
         m_dashletSelect.select(dashletSpec.getDashletName());
 
         m_dashletSelect.addValueChangeListener(new Property.ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                 if (m_savingDisabled) {
                     return;
@@ -184,6 +188,8 @@ public class DashletSpecEditor extends Panel {
         priorityField.setCaption("Priority");
 
         priorityField.addValidator(new AbstractStringValidator("Only numbers allowed here") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected boolean isValidValue(String s) {
                 try {
@@ -196,6 +202,8 @@ public class DashletSpecEditor extends Panel {
         });
 
         priorityField.addValueChangeListener(new Property.ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                 if (priorityField.isValid()) {
                     m_dashletSpec.setPriority(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
@@ -214,6 +222,8 @@ public class DashletSpecEditor extends Panel {
         boostPriorityField.setCaption("Boost-Priority");
 
         boostPriorityField.addValidator(new AbstractStringValidator("Only numbers allowed here") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected boolean isValidValue(String s) {
                 try {
@@ -226,6 +236,8 @@ public class DashletSpecEditor extends Panel {
         });
 
         boostPriorityField.addValueChangeListener(new Property.ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                 if (boostPriorityField.isValid()) {
                     m_dashletSpec.setBoostPriority(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
@@ -244,6 +256,8 @@ public class DashletSpecEditor extends Panel {
         durationField.setCaption("Duration");
 
         durationField.addValidator(new AbstractStringValidator("Only numbers allowed here") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected boolean isValidValue(String s) {
                 try {
@@ -256,6 +270,8 @@ public class DashletSpecEditor extends Panel {
         });
 
         durationField.addValueChangeListener(new Property.ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                 if (durationField.isValid()) {
                     m_dashletSpec.setDuration(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
@@ -274,6 +290,8 @@ public class DashletSpecEditor extends Panel {
         boostDurationField.setCaption("Boost-Duration");
 
         boostDurationField.addValidator(new AbstractStringValidator("Only numbers allowed here") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected boolean isValidValue(String s) {
                 try {
@@ -286,6 +304,8 @@ public class DashletSpecEditor extends Panel {
         });
 
         boostDurationField.addValueChangeListener(new Property.ValueChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                 if (boostDurationField.isValid()) {
                     m_dashletSpec.setBoostDuration(Integer.valueOf((String) valueChangeEvent.getProperty().getValue()));
@@ -313,6 +333,8 @@ public class DashletSpecEditor extends Panel {
         m_propertiesButton = new Button("Properties");
 
         m_propertiesButton.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
                 DashletConfigurationWindow configurationWindow = m_dashletSelector.getDashletFactoryForName(m_dashletSpec.getDashletName()).configurationWindow(m_dashletSpec);
@@ -334,6 +356,8 @@ public class DashletSpecEditor extends Panel {
         f4.addComponent(removeButton);
 
         removeButton.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             public void buttonClick(Button.ClickEvent clickEvent) {
                 m_wallboardEditor.removeDashletSpecEditor(DashletSpecEditor.this);
             }

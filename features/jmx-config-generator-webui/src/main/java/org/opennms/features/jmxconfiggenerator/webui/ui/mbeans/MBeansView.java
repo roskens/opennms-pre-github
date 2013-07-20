@@ -61,6 +61,8 @@ import com.vaadin.ui.VerticalLayout;
 
 public class MBeansView extends VerticalLayout implements ClickListener, ModelChangeListener, ViewStateChangedListener {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Handles the ui behaviour.
      */

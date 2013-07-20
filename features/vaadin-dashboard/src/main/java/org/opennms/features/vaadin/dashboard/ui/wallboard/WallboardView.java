@@ -12,6 +12,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class WallboardView extends VerticalLayout implements View {
 
+    private static final long serialVersionUID = 1L;
     private final WallboardBody dashletBoardBody;
 
     public WallboardView() {

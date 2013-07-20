@@ -42,6 +42,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
 
+    private static final long serialVersionUID = 1L;
     private Label label;
 
     public HeaderPanel() {

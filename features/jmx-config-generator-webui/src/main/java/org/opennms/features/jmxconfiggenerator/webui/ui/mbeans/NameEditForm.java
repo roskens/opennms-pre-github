@@ -52,6 +52,8 @@ import com.vaadin.ui.TextField;
 public class NameEditForm extends Form implements ModelChangeListener<Item>, ViewStateChangedListener,
         EditControls.Callback {
 
+    private static final long serialVersionUID = 1L;
+
     private final EditControls footer = new EditControls(this);
 
     private final MBeansController controller;
@@ -64,6 +66,8 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
         this.controller = controller;
         this.parameter = parameter;
         setFormFieldFactory(new FormFieldFactory() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public Field createField(Item item, Object propertyId, Component uiContext) {
                 if (propertyId.toString().equals(MetaMBeanItem.SELECTED)) {
@@ -72,6 +76,8 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
                 }
                 if (propertyId.toString().equals(parameter.getNonEditablePropertyName())) {
                     final TextField tf = new TextField(parameter.getNonEditablePropertyName()) {
+                        private static final long serialVersionUID = 1L;
+
                         @Override
                         public void setReadOnly(boolean readOnly) {
                             super.setReadOnly(true); // never ever edit me

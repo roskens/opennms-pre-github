@@ -27,6 +27,8 @@ import com.vaadin.ui.Table.CellStyleGenerator;
 
 public class NodeTableCellStyleGenerator implements CellStyleGenerator {
 
+    private static final long serialVersionUID = 1L;
+
     private final AlarmCellStyleRenderer cellStyleRenderer = new AlarmCellStyleRenderer();
 
     private AlarmDao alarmDao;

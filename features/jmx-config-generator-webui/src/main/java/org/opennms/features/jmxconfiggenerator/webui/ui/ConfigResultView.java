@@ -62,6 +62,8 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class ConfigResultView extends CustomComponent implements ModelChangeListener<UiModel>, Button.ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * The name of the downlaodable zip archive.
      */
@@ -179,6 +181,8 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
      */
     private static class DownloadResource extends StreamResource {
 
+        private static final long serialVersionUID = 1L;
+
         /**
          * @param zipContentMap
          *            key: Filename, value: File content
@@ -188,6 +192,8 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
          */
         public DownloadResource(final Map<String, String> zipContentMap, final String filename, final UI application) {
             super(new StreamSource() {
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 public InputStream getStream() {
 
@@ -245,6 +251,8 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
     }
 
     private class TabContent extends HorizontalSplitPanel {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * TextArea for the configuration content (e.g. the

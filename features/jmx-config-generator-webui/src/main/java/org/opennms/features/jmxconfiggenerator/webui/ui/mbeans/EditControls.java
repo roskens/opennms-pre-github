@@ -60,6 +60,8 @@ import com.vaadin.ui.Table;
 class EditControls<T extends Component> extends HorizontalLayout implements ReadOnlyStatusChangeListener,
         Button.ClickListener {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * This callback is implemented by any instance which uses the EditControls,
      * so on a button click this callback is invoked.

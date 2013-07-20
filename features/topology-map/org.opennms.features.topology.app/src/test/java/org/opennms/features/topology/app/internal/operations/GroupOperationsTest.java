@@ -76,6 +76,8 @@ public class GroupOperationsTest {
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
             m_window = new UI() {
+                private static final long serialVersionUID = 1L;
+
                 @Override
                 protected void init(VaadinRequest request) {
                 }

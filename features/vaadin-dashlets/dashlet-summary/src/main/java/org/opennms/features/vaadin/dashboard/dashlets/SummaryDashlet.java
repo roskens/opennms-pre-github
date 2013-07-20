@@ -49,6 +49,8 @@ import com.vaadin.ui.VerticalLayout;
  * @author Christian Pape
  */
 public class SummaryDashlet extends HorizontalLayout implements Dashlet {
+    private static final long serialVersionUID = 1L;
+
     /**
      * the dashlet's name
      */

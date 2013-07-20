@@ -57,6 +57,8 @@ import com.vaadin.ui.Window;
  */
 public class WallboardConfigView extends HorizontalLayout implements TabSheet.CloseHandler,
         DashletSelector.ServiceListChangedListener {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The {@link TabSheet.Tab} holding the overview tab
      */
@@ -101,6 +103,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         setSizeFull();
 
         m_tabSheet = new WallboardTabSheet() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void addNewTabComponent() {
                 WallboardConfigView.this.addNewTabComponent();
@@ -129,6 +133,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
          * Adding the listeners
          */
         WallboardProvider.getInstance().getBeanContainer().addItemSetChangeListener(new Container.ItemSetChangeListener() {
+                                                                                        private static final long serialVersionUID = 1L;
+
                                                                                         public void containerItemSetChange(
                                                                                                 Container.ItemSetChangeEvent itemSetChangeEvent) {
                                                                                             List<Wallboard> wallboardsToRemove = new ArrayList<Wallboard>();
@@ -188,10 +194,13 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
         getUI().addWindow(window);
 
         window.setContent(new VerticalLayout() {
+            private static final long serialVersionUID = 1L;
             TextField name = new TextField("Wallboard Name");
 
             {
                 addComponent(new FormLayout() {
+                    private static final long serialVersionUID = 1L;
+
                     {
                         setSizeUndefined();
                         setMargin(true);
@@ -210,6 +219,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
                         name.selectAll();
 
                         name.addValidator(new AbstractStringValidator("Title must be unique") {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
                             protected boolean isValidValue(String s) {
                                 return (!WallboardProvider.getInstance().containsWallboard(s) && !"".equals(s));
@@ -219,6 +230,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
                 });
 
                 addComponent(new HorizontalLayout() {
+                    private static final long serialVersionUID = 1L;
+
                     {
                         setMargin(true);
                         setSpacing(true);
@@ -226,6 +239,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
 
                         Button cancel = new Button("Cancel");
                         cancel.addClickListener(new Button.ClickListener() {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
                             public void buttonClick(Button.ClickEvent event) {
                                 window.close();
@@ -240,6 +255,8 @@ public class WallboardConfigView extends HorizontalLayout implements TabSheet.Cl
                         Button ok = new Button("Save");
 
                         ok.addClickListener(new Button.ClickListener() {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
                             public void buttonClick(Button.ClickEvent event) {
                                 if (name.isValid()) {

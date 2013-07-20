@@ -44,6 +44,8 @@ import com.vaadin.ui.Tree;
  */
 class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewStateChangedListener, Action.Handler {
 
+    private static final long serialVersionUID = 1L;
+
     private final MBeansController controller;
 
     private final MbeansHierarchicalContainer container;
@@ -63,6 +65,8 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
         setItemCaptionPropertyId(MetaMBeanItem.CAPTION);
         setItemIconPropertyId(MetaMBeanItem.ICON);
         setItemDescriptionGenerator(new ItemDescriptionGenerator() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public String generateDescription(Component source, Object itemId, Object propertyId) {
                 return getItem(itemId).getItemProperty(MetaMBeanItem.TOOLTIP).getValue().toString();
@@ -73,6 +77,8 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
         setNullSelectionAllowed(true);
         setMultiselectMode(MultiSelectMode.SIMPLE);
         addItemClickListener(new ItemClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void itemClick(ItemClickEvent event) {
                 controller.updateView(event);

@@ -58,6 +58,8 @@ import com.vaadin.ui.TextField;
  */
 public class AttributesTable extends Table {
 
+    private static final long serialVersionUID = 1L;
+
     final private Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
 
     private List<Field<?>> fields = new ArrayList<Field<?>>();
@@ -109,6 +111,8 @@ public class AttributesTable extends Table {
     }
 
     private class AttributesTableFieldFactory implements TableFieldFactory {
+
+        private static final long serialVersionUID = 1L;
 
         final private Validator nameValidator = new AttributeNameValidator();
 

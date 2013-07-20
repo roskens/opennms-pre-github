@@ -43,6 +43,7 @@ import org.vaadin.addon.portallayout.portal.StackPortalLayout;
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
 public class DashboardLayout extends PortalColumns {
+    private static final long serialVersionUID = 1L;
     /**
      * The columns to be used
      */

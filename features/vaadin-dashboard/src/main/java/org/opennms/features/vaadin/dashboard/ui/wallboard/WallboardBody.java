@@ -19,6 +19,8 @@ import com.vaadin.ui.ProgressIndicator;
 import com.vaadin.ui.VerticalLayout;
 
 public class WallboardBody extends VerticalLayout {
+    private static final long serialVersionUID = 1L;
+
     private final CssLayout contentLayout;
 
     private List<DashletSpec> dashletSpecs = new LinkedList<DashletSpec>();

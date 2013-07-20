@@ -44,6 +44,8 @@ import com.vaadin.ui.VerticalLayout;
  * @author Christian Pape
  */
 public class WallboardOverview extends VerticalLayout {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The {@link Table} this component uses to display {@link Wallboard}
      * configurations
@@ -108,10 +110,14 @@ public class WallboardOverview extends VerticalLayout {
         m_table.setSizeFull();
 
         m_table.addGeneratedColumn("Edit", new Table.ColumnGenerator() {
+            private static final long serialVersionUID = 1L;
+
             public Object generateCell(Table source, final Object itemId, Object columnId) {
                 Button button = new Button("Edit");
                 button.setStyleName("small");
                 button.addClickListener(new Button.ClickListener() {
+                    private static final long serialVersionUID = 1L;
+
                     public void buttonClick(Button.ClickEvent clickEvent) {
                         m_wallboardConfigView.openWallboardEditor((Wallboard) itemId);
                     }
@@ -121,10 +127,14 @@ public class WallboardOverview extends VerticalLayout {
         });
 
         m_table.addGeneratedColumn("Remove", new Table.ColumnGenerator() {
+            private static final long serialVersionUID = 1L;
+
             public Object generateCell(Table source, final Object itemId, Object columnId) {
                 Button button = new Button("Remove");
                 button.setStyleName("small");
                 button.addClickListener(new Button.ClickListener() {
+                    private static final long serialVersionUID = 1L;
+
                     public void buttonClick(Button.ClickEvent clickEvent) {
                         WallboardProvider.getInstance().removeWallboard((Wallboard) itemId);
                     }
@@ -134,6 +144,8 @@ public class WallboardOverview extends VerticalLayout {
         });
 
         m_table.addGeneratedColumn("Preview", new Table.ColumnGenerator() {
+            private static final long serialVersionUID = 1L;
+
             public Object generateCell(Table source, final Object itemId, Object columnId) {
                 Button button = new Button("Preview");
                 button.setStyleName("small");

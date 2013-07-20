@@ -50,6 +50,9 @@ import com.vaadin.ui.Window;
  * @author Christian Pape
  */
 public class HelpClickListener implements Button.ClickListener {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * The 'parent' component
      */
@@ -84,6 +87,8 @@ public class HelpClickListener implements Button.ClickListener {
         m_component.getUI().addWindow(window);
 
         window.setContent(new VerticalLayout() {
+            private static final long serialVersionUID = 1L;
+
             {
                 setMargin(true);
                 setSpacing(true);
@@ -127,6 +132,8 @@ public class HelpClickListener implements Button.ClickListener {
                 setExpandRatio(horizontalLayout, 1.0f);
 
                 tree.addValueChangeListener(new Property.ValueChangeListener() {
+                    private static final long serialVersionUID = 1L;
+
                     @Override
                     public void valueChange(Property.ValueChangeEvent valueChangeEvent) {
                         String itemId = String.valueOf(valueChangeEvent.getProperty().getValue());
@@ -168,6 +175,8 @@ public class HelpClickListener implements Button.ClickListener {
                 tree.select("Overview");
 
                 addComponent(new HorizontalLayout() {
+                    private static final long serialVersionUID = 1L;
+
                     {
                         setMargin(true);
                         setSpacing(true);
@@ -178,6 +187,8 @@ public class HelpClickListener implements Button.ClickListener {
                         addComponent(closeButton);
                         setComponentAlignment(closeButton, Alignment.MIDDLE_RIGHT);
                         closeButton.addClickListener(new Button.ClickListener() {
+                            private static final long serialVersionUID = 1L;
+
                             @Override
                             public void buttonClick(Button.ClickEvent clickEvent) {
                                 window.close();

@@ -39,6 +39,8 @@ import com.vaadin.ui.VerticalLayout;
  * This class implements a {@link Dashlet} for displaying an image.
  */
 public class ImageDashlet extends VerticalLayout implements Dashlet {
+    private static final long serialVersionUID = 1L;
+
     /**
      * the dashlet's name
      */

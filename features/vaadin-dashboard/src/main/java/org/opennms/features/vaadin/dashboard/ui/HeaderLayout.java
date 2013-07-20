@@ -45,6 +45,8 @@ import com.vaadin.ui.UI;
  */
 public class HeaderLayout extends HorizontalLayout {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Default constructor.
      */
@@ -87,6 +89,8 @@ public class HeaderLayout extends HorizontalLayout {
          * Adding the wallboard button
          */
         Button wallboardButton = new Button("Wallboard", new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 UI.getCurrent().getNavigator().navigateTo("wallboard/"

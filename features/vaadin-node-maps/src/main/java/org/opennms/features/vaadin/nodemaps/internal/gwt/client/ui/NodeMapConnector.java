@@ -52,6 +52,7 @@ import com.vaadin.shared.ui.Connect;
 @Connect(NodeMap.class)
 public class NodeMapConnector extends AbstractComponentConnector {
 
+    private static final long serialVersionUID = 1L;
     private Map<String, Icon> m_icons;
 
     public NodeMapConnector() {

@@ -39,6 +39,8 @@ import com.vaadin.ui.TabSheet;
  * @author
  */
 public abstract class WallboardTabSheet extends TabSheet {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The layout this component uses
      */
@@ -62,6 +64,8 @@ public abstract class WallboardTabSheet extends TabSheet {
         m_plusTab.setCaption("+");
         addTab(m_plusTab).setClosable(false);
         addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {
+
+            private static final long serialVersionUID = 1L;
 
             public void selectedTabChange(TabSheet.SelectedTabChangeEvent event) {
                 Component selectedTab = getSelectedTab();

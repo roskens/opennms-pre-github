@@ -41,6 +41,8 @@ import com.vaadin.ui.Window;
  */
 public class ProgressWindow extends Window {
 
+    private static final long serialVersionUID = 1L;
+
     private ProgressIndicator progress = new ProgressIndicator();
 
     private HorizontalLayout layout = new HorizontalLayout();

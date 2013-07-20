@@ -407,6 +407,8 @@ public class TestMenuBarBuilder {
 
         return new Command() {
 
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void menuSelected(MenuItem selectedItem) {
 
@@ -415,6 +417,8 @@ public class TestMenuBarBuilder {
     }
 
     private Command menuCommand = new Command() {
+        private static final long serialVersionUID = 1L;
+
         @Override
         public void menuSelected(MenuItem selectedItem) {
 

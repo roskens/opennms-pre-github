@@ -55,6 +55,8 @@ import com.vaadin.ui.VerticalLayout;
  * @author Christian Pape
  */
 public class WallboardEditor extends VerticalLayout {
+    private static final long serialVersionUID = 1L;
+
     /**
      * The {@link TabSheet.Tab} object used in the {@link WallboardConfigView}
      * instance to represent this view
@@ -135,6 +137,8 @@ public class WallboardEditor extends VerticalLayout {
         addButton.setStyleName("small");
 
         addButton.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             public void buttonClick(Button.ClickEvent clickEvent) {
                 addDashletSpec(new DashletSpec());
             }
@@ -144,6 +148,8 @@ public class WallboardEditor extends VerticalLayout {
         titleField.setValue(wallboard.getTitle());
         titleField.setImmediate(true);
         titleField.addValidator(new AbstractStringValidator("Title must be unique") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected boolean isValidValue(String s) {
                 return (!WallboardProvider.getInstance().containsWallboard(s) || WallboardProvider.getInstance().getWallboard(s).equals(m_wallboard))
@@ -152,6 +158,8 @@ public class WallboardEditor extends VerticalLayout {
         });
 
         titleField.addTextChangeListener(new FieldEvents.TextChangeListener() {
+            private static final long serialVersionUID = 1L;
+
             public void textChange(FieldEvents.TextChangeEvent textChangeEvent) {
                 AbstractTextField source = (AbstractTextField) textChangeEvent.getSource();
                 source.setValue(textChangeEvent.getText());
