@@ -61,21 +61,21 @@ import org.springframework.util.Assert;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalReportsDao implements LocalReportsDao {
 
-    /**
-     * Logging
-     */
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + LegacyLocalReportsDao.class.getName());
 
-    /**
-     * List of generic report definitions
-     */
+    /** List of generic report definitions. */
     private LegacyLocalReportsDefinition m_legacyLocalReportsDefinition;
 
-    /**
-     * Config resource for database reports configuration file
-     */
+    /** Config resource for database reports configuration file. */
     private Resource m_configResource;
 
+    /**
+     * Instantiates a new legacy local reports dao.
+     *
+     * @param configResource
+     *            the config resource
+     */
     public LegacyLocalReportsDao(Resource configResource) {
         m_configResource = configResource;
         Assert.notNull(m_configResource, "property configResource must be set to a non-null value");
@@ -191,9 +191,10 @@ public class LegacyLocalReportsDao implements LocalReportsDao {
      * setLegacyLocalReportsDefinition
      * </p>
      * <p/>
-     * Set list with legacy report definition
+     * Set list with legacy report definition.
      *
      * @param legacyLocalReportsDefinition
+     *            the new legacy local reports definition
      *            {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition}
      *            object
      */
@@ -206,7 +207,7 @@ public class LegacyLocalReportsDao implements LocalReportsDao {
      * getLegacyLocalReportsDefinition
      * </p>
      * <p/>
-     * Get list with legacy report definition
+     * Get list with legacy report definition.
      *
      * @return a
      *         {@link org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition}

@@ -54,12 +54,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml" })
 public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
 
-    /**
-     * Default implementation for remote repository to test
-     */
+    /** Default implementation for remote repository to test. */
     @Autowired
     private RemoteRepositoryConfigDao m_remoteRepositoryConfigDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -70,9 +71,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * tearDown
      * </p>
      * <p/>
-     * Cleanup
+     * Cleanup.
      *
      * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -84,9 +86,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testIsRepositoryActive
      * </p>
      * <p/>
-     * Test to read all as active configured repositories
+     * Test to read all as active configured repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testIsRepositoryActive() throws Exception {
@@ -99,9 +102,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetURI
      * </p>
      * <p/>
-     * Test to get repository URI for all configured remote repositories
+     * Test to get repository URI for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetURI() throws Exception {
@@ -118,9 +122,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetLoginUser
      * </p>
      * <p/>
-     * Test to get user names for all configured remote repositories
+     * Test to get user names for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetLoginUser() throws Exception {
@@ -135,9 +140,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetLoginRepoPassword
      * </p>
      * <p/>
-     * Test to get passwords for all configured remote repositories
+     * Test to get passwords for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetLoginRepoPassword() throws Exception {
@@ -152,9 +158,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetRepositoryName
      * </p>
      * <p/>
-     * Test to get all names for all configured remote repositories
+     * Test to get all names for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryName() throws Exception {
@@ -169,9 +176,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetRepositoryDescription
      * </p>
      * <p/>
-     * Test to get all descriptions for all configured remote repositories
+     * Test to get all descriptions for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryDescription() throws Exception {
@@ -186,9 +194,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetRepositoryManagementURL
      * </p>
      * <p/>
-     * Test to get all management URLs for all configured remote repositories
+     * Test to get all management URLs for all configured remote repositories.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryManagementURL() throws Exception {
@@ -203,9 +212,10 @@ public class DefaultRemoteRepositoryConfigDaoTest implements InitializingBean {
      * testGetRepositoryById
      * </p>
      * <p/>
-     * Test to get a repository by ID
+     * Test to get a repository by ID.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetRepositoryById() throws Exception {

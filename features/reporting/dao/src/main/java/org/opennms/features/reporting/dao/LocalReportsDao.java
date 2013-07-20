@@ -33,11 +33,16 @@ import java.util.List;
 import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Interface LocalReportsDao.
+ */
 public interface LocalReportsDao {
+
     /**
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object
      */
@@ -47,6 +52,7 @@ public interface LocalReportsDao {
      * <p>
      * getOnlineReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object
      */
@@ -56,6 +62,7 @@ public interface LocalReportsDao {
      * <p>
      * getReportService
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object
@@ -67,6 +74,7 @@ public interface LocalReportsDao {
      * <p>
      * getDisplayName
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.String} object
@@ -78,7 +86,10 @@ public interface LocalReportsDao {
      * <p>
      * loadConfiguration
      * </p>
-     * Load XML configuration and unmarshalling
+     * Load XML configuration and unmarshalling.
+     *
+     * @throws Exception
+     *             the exception
      */
     void loadConfiguration() throws Exception;
 
@@ -86,7 +97,7 @@ public interface LocalReportsDao {
      * <p>
      * setLocalReportConfigResource
      * </p>
-     * Set local report config resource for DAO
+     * Set local report config resource for DAO.
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object
@@ -97,7 +108,7 @@ public interface LocalReportsDao {
      * <p>
      * getConfigResource
      * </p>
-     * Get local report configuration resource for DAO
+     * Get local report configuration resource for DAO.
      *
      * @return a {@link org.springframework.core.io.Resource} object
      */

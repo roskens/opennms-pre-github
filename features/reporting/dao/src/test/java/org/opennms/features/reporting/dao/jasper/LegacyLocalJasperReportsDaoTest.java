@@ -53,12 +53,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml" })
 public class LegacyLocalJasperReportsDaoTest implements InitializingBean {
 
-    /**
-     * Local report data access object to test
-     */
+    /** Local report data access object to test. */
     @Autowired
     private LocalJasperReportsDao m_localJasperReportsDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -69,9 +70,10 @@ public class LegacyLocalJasperReportsDaoTest implements InitializingBean {
      * tearDown
      * </p>
      * <p/>
-     * Cleanup
+     * Cleanup.
      *
      * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -82,9 +84,10 @@ public class LegacyLocalJasperReportsDaoTest implements InitializingBean {
      * <p>
      * testJasperTemplateLocation
      * </p>
-     * Tests to retrieve all jasper report template locations
+     * Tests to retrieve all jasper report template locations.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testJasperTemplateLocation() throws Exception {
@@ -100,9 +103,10 @@ public class LegacyLocalJasperReportsDaoTest implements InitializingBean {
      * <p>
      * testJasperReportEngine
      * </p>
-     * Tests to retrieve all jasper report engines
+     * Tests to retrieve all jasper report engines.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testJasperReportEngine() throws Exception {
@@ -117,9 +121,10 @@ public class LegacyLocalJasperReportsDaoTest implements InitializingBean {
      * <p>
      * testTemplateStream
      * </p>
-     * Tests to retrieve all jasper report template streams
+     * Tests to retrieve all jasper report template streams.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testTemplateStream() throws Exception {

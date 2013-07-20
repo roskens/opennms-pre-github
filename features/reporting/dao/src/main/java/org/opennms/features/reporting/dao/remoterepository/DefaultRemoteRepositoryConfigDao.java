@@ -60,29 +60,25 @@ import org.springframework.util.Assert;
  */
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class DefaultRemoteRepositoryConfigDao implements RemoteRepositoryConfigDao {
-    /**
-     * Logging
-     */
+
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.Report."
             + DefaultRemoteRepositoryConfigDao.class.getName());
 
-    /**
-     * Config resource for remote repository configuration file
-     */
+    /** Config resource for remote repository configuration file. */
     private Resource m_configResource;
 
-    /**
-     * Remote repository model
-     */
+    /** Remote repository model. */
     private RemoteRepositoryConfig m_remoteRepositoryConfig;
 
-    /**
-     * Version number for jasper report
-     */
+    /** Version number for jasper report. */
     private String m_jasperReportsVersion;
 
     /**
-     * Default constructor load the configuration file
+     * Default constructor load the configuration file.
+     *
+     * @param configResource
+     *            the config resource
      */
     public DefaultRemoteRepositoryConfigDao(Resource configResource) {
         m_configResource = configResource;
@@ -254,7 +250,7 @@ public class DefaultRemoteRepositoryConfigDao implements RemoteRepositoryConfigD
      * setRemoteRepositoryConfig
      * </p>
      * <p/>
-     * Set remote repository configuration
+     * Set remote repository configuration.
      *
      * @param remoteRepositoryConfig
      *            a 
@@ -270,7 +266,7 @@ public class DefaultRemoteRepositoryConfigDao implements RemoteRepositoryConfigD
      * getRemoteRepositoryConfig
      * </p>
      * <p/>
-     * Get remote repository configuration
+     * Get remote repository configuration.
      *
      * @return a
      *         {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig}
@@ -285,7 +281,7 @@ public class DefaultRemoteRepositoryConfigDao implements RemoteRepositoryConfigD
      * setJasperReportsVersion
      * </p>
      * <p/>
-     * Set version for jasper report
+     * Set version for jasper report.
      *
      * @param jasperReportsVersion
      *            a {@link java.lang.String} object

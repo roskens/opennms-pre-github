@@ -52,7 +52,7 @@ public interface LocalJasperReportsDao {
      * getEngine
      * </p>
      * <p/>
-     * Get jasper report database engine
+     * Get jasper report database engine.
      *
      * @param id
      *            a {@link java.lang.String} object
@@ -65,11 +65,13 @@ public interface LocalJasperReportsDao {
      * getTemplateStream
      * </p>
      * <p/>
-     * Get jasper report template as input stream
+     * Get jasper report template as input stream.
      *
      * @param id
      *            a {@link java.lang.String} object
      * @return a {@link java.lang.String} object
+     * @throws FileNotFoundException
+     *             the file not found exception
      */
     InputStream getTemplateStream(String id) throws FileNotFoundException;
 
@@ -78,7 +80,7 @@ public interface LocalJasperReportsDao {
      * getTemplateLocation
      * </p>
      * <p/>
-     * Get jasper report template location
+     * Get jasper report template location.
      *
      * @param id
      *            a {@link java.lang.String} object
@@ -90,7 +92,10 @@ public interface LocalJasperReportsDao {
      * <p>
      * loadConfiguration
      * </p>
-     * Load XML configuration and unmarshalling
+     * Load XML configuration and unmarshalling.
+     *
+     * @throws Exception
+     *             the exception
      */
     void loadConfiguration() throws Exception;
 
@@ -98,7 +103,7 @@ public interface LocalJasperReportsDao {
      * <p>
      * setConfigResource
      * </p>
-     * Set configuration resource DAO for jasper reports
+     * Set configuration resource DAO for jasper reports.
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object
@@ -109,7 +114,7 @@ public interface LocalJasperReportsDao {
      * <p>
      * getConfigResource
      * </p>>
-     * Get configuration resource DAO for jasper reports
+     * Get configuration resource DAO for jasper reports.
      *
      * @return a {@link org.springframework.core.io.Resource} object
      */
@@ -119,7 +124,7 @@ public interface LocalJasperReportsDao {
      * <p>
      * setJrTemplateResource
      * </p>
-     * Set configuration resource DAO for jasper report templates
+     * Set configuration resource DAO for jasper report templates.
      *
      * @param jrTemplateResource
      *            a {@link org.springframework.core.io.Resource} object
@@ -130,7 +135,7 @@ public interface LocalJasperReportsDao {
      * <p>
      * getJrTemplateResource
      * </p>>
-     * Get configuration resource DAO for jasper report templates
+     * Get configuration resource DAO for jasper report templates.
      *
      * @return a {@link org.springframework.core.io.Resource} object
      */

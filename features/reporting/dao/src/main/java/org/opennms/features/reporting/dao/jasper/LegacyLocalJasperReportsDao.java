@@ -59,27 +59,28 @@ import org.springframework.util.Assert;
  */
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDao.xml" })
 public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
-    /**
-     * Logging
-     */
+
+    /** Logging. */
     private Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + LegacyLocalJasperReportsDao.class.getName());
 
-    /**
-     * List of generic report definitions
-     */
+    /** List of generic report definitions. */
 
     private LocalJasperReports m_LocalJasperReports;
 
-    /**
-     * Config resource for database reports configuration file
-     */
+    /** Config resource for database reports configuration file. */
     private Resource m_configResource;
 
-    /**
-     * Config resource for jasper report templates
-     */
+    /** Config resource for jasper report templates. */
     private Resource m_jrTemplateResource;
 
+    /**
+     * Instantiates a new legacy local jasper reports dao.
+     *
+     * @param configResource
+     *            the config resource
+     * @param jrTemplateResource
+     *            the jr template resource
+     */
     public LegacyLocalJasperReportsDao(Resource configResource, Resource jrTemplateResource) {
         m_configResource = configResource;
         Assert.notNull(m_configResource, "property configResource must be set to a non-null value");
@@ -216,7 +217,7 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
      * <p>
      * getLocalJasperReports
      * </p>
-     * Get local jasper reports
+     * Get local jasper reports.
      *
      * @return a
      *         {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports}
@@ -230,7 +231,7 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
      * <p>
      * setLocalJasperReports
      * </p>
-     * Set local jasper reports
+     * Set local jasper reports.
      *
      * @param localJasperReports
      *            a

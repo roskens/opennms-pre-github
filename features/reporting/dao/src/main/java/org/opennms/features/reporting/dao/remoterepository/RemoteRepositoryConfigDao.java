@@ -53,7 +53,7 @@ public interface RemoteRepositoryConfigDao {
      * isRepositoryActive
      * </p>
      * <p/>
-     * Get activity state from a specific repository by ID
+     * Get activity state from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -66,7 +66,7 @@ public interface RemoteRepositoryConfigDao {
      * getURI
      * </p>
      * <p/>
-     * Get repository URI from specific a repository by ID
+     * Get repository URI from specific a repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -79,7 +79,7 @@ public interface RemoteRepositoryConfigDao {
      * getLoginUser
      * </p>
      * <p/>
-     * Get login user name from a specific repository by ID
+     * Get login user name from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -92,7 +92,7 @@ public interface RemoteRepositoryConfigDao {
      * getLoginRepoPassword
      * </p>
      * <p/>
-     * Get login password from a specific repository by ID
+     * Get login password from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -105,7 +105,7 @@ public interface RemoteRepositoryConfigDao {
      * getRepositoryName
      * </p>
      * <p/>
-     * Get repository name from a specific repository by ID
+     * Get repository name from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -118,7 +118,7 @@ public interface RemoteRepositoryConfigDao {
      * getRepositoryDescription
      * </p>
      * <p/>
-     * Get description from a specific repository by ID
+     * Get description from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -131,7 +131,7 @@ public interface RemoteRepositoryConfigDao {
      * getRepositoryManagementURL
      * </p>
      * <p/>
-     * Get management URL from a specific repository by ID
+     * Get management URL from a specific repository by ID.
      *
      * @param repositoryID
      *            a {@link java.lang.String} object
@@ -144,7 +144,7 @@ public interface RemoteRepositoryConfigDao {
      * getAllRepositories
      * </p>
      * <p/>
-     * Get *ALL* configured repositories
+     * Get *ALL* configured repositories.
      *
      * @return a {@link java.util.List<RemoteRepositoryDefinition>} object
      */
@@ -155,13 +155,15 @@ public interface RemoteRepositoryConfigDao {
      * getActiveRepositories
      * </p>
      * <p/>
-     * Get all *ACTIVE* repositories
+     * Get all *ACTIVE* repositories.
      *
      * @return a {@link java.util.List<RemoteRepositoryDefinition>} object
      */
     public List<RemoteRepositoryDefinition> getActiveRepositories();
 
     /**
+     * Gets the jasper reports version.
+     *
      * @return a {@link java.lang.String} object
      */
     @Deprecated
@@ -172,8 +174,10 @@ public interface RemoteRepositoryConfigDao {
      * getRepositoryById
      * </p>
      * <p/>
-     * Get a repository by specific repository ID
+     * Get a repository by specific repository ID.
      *
+     * @param repositoryId
+     *            the repository id
      * @return a
      *         {@link org.opennms.features.reporting.model.remoterepository.RemoteRepositoryDefinition}
      *         object
@@ -185,7 +189,10 @@ public interface RemoteRepositoryConfigDao {
      * loadConfiguration
      * </p>
      * <p/>
-     * Load XML configuration and unmarshalling
+     * Load XML configuration and unmarshalling.
+     *
+     * @throws Exception
+     *             the exception
      */
     void loadConfiguration() throws Exception;
 
@@ -194,7 +201,7 @@ public interface RemoteRepositoryConfigDao {
      * getConfigResource
      * </p>
      * <p/>
-     * Get a resource for the remote repository configuration
+     * Get a resource for the remote repository configuration.
      *
      * @return a {@link org.springframework.core.io.Resource} object
      */
@@ -205,7 +212,7 @@ public interface RemoteRepositoryConfigDao {
      * setConfigResource
      * </p>
      * <p/>
-     * Set a resource for the remote repository configuration
+     * Set a resource for the remote repository configuration.
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object

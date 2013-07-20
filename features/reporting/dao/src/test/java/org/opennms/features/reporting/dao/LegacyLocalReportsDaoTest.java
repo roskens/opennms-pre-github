@@ -55,12 +55,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-reportingDaoTest.xml" })
 public class LegacyLocalReportsDaoTest implements InitializingBean {
 
-    /**
-     * Local report data access object to test
-     */
+    /** Local report data access object to test. */
     @Autowired
     private LocalReportsDao m_legacyLocalReportsDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -71,9 +72,10 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * tearDown
      * </p>
      * <p/>
-     * Cleanup
+     * Cleanup.
      *
      * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception {
@@ -85,9 +87,10 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * testReportDescription
      * </p>
      * <p/>
-     * Tests to retrieve all descriptions from report configuration file
+     * Tests to retrieve all descriptions from report configuration file.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportDescription() throws Exception {
@@ -104,9 +107,10 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * testReportId
      * </p>
      * <p/>
-     * Tests to retrieve all IDs from report file
+     * Tests to retrieve all IDs from report file.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportId() throws Exception {
@@ -122,9 +126,10 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * testReportDisplayName
      * </p>
      * <p/>
-     * Test to retrieve all DisplayNames from report configuration file
+     * Test to retrieve all DisplayNames from report configuration file.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportDisplayName() throws Exception {
@@ -141,9 +146,10 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * testReportService
      * </p>
      * <p/>
-     * Test to retrieve all report services from report configuration file
+     * Test to retrieve all report services from report configuration file.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportService() throws Exception {
@@ -165,6 +171,7 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * the repository ID should be NULL.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportRepositoryId() throws Exception {
@@ -183,6 +190,7 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * is set to "FALSE"
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportAllowAccess() throws Exception {
@@ -199,6 +207,7 @@ public class LegacyLocalReportsDaoTest implements InitializingBean {
      * Test to retrieve is online property.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testReportIsOnline() throws Exception {
