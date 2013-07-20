@@ -38,6 +38,7 @@ package org.opennms.api.reporting;
  */
 public class ReportException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4117625493115237316L;
 
     /**

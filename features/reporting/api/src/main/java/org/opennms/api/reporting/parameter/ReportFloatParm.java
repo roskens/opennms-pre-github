@@ -40,10 +40,13 @@ import java.io.Serializable;
  */
 public class ReportFloatParm extends ReportParm implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5242917854258286117L;
 
+    /** The m_value. */
     Float m_value;
 
+    /** The m_type. */
     String m_type;
 
     /**
@@ -59,6 +62,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return {@link java.lang.Float} object.
      */
@@ -70,6 +74,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Float} object.
@@ -82,6 +87,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
      * <p>
      * getInputType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,6 +99,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
      * <p>
      * setInputType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.

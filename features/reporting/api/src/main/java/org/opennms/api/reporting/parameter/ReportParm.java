@@ -40,16 +40,20 @@ import java.io.Serializable;
  */
 public class ReportParm implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7987984390575422836L;
 
+    /** The m_name. */
     String m_name;
 
+    /** The m_display name. */
     String m_displayName;
 
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,6 +65,7 @@ public class ReportParm implements Serializable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -73,6 +78,7 @@ public class ReportParm implements Serializable {
      * <p>
      * getDisplayName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +90,7 @@ public class ReportParm implements Serializable {
      * <p>
      * setDisplayName
      * </p>
+     * .
      *
      * @param displayName
      *            a {@link java.lang.String} object.

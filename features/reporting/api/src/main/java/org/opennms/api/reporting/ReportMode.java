@@ -37,5 +37,9 @@ package org.opennms.api.reporting;
  * @version $Id: $
  */
 public enum ReportMode {
-    IMMEDIATE, SCHEDULED
+
+    /** The immediate. */
+    IMMEDIATE,
+ /** The scheduled. */
+ SCHEDULED
 }

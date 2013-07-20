@@ -36,7 +36,7 @@ import org.opennms.api.reporting.parameter.ReportParameters;
 
 /**
  * This interface provides an API for implementing additional database reports
- * inside the opennms webapp
+ * inside the opennms webapp.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  * @version $Id: $
@@ -57,20 +57,20 @@ public interface ReportService {
     public abstract boolean validate(HashMap<String, Object> reportParms, String reportId);
 
     /**
-     * This method runs the report
+     * This method runs the report.
      *
      * @param reportParms
      *            hashmap of parameters to be provided at runtime
      * @param reportId
      *            reportId as defined in database-reports.xml
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.api.reporting.ReportException
-     *             if any.
+     * @throws ReportException
+     *             the report exception
      */
     public abstract String run(HashMap<String, Object> reportParms, String reportId) throws ReportException;
 
     /**
-     * This method provides a list of formats supported by the report
+     * This method provides a list of formats supported by the report.
      *
      * @param reportId
      *            reportId as defined in database-reports.xml
@@ -89,37 +89,39 @@ public interface ReportService {
      *            format to render the report
      * @param outputStream
      *            stream to render the resulting report
-     * @throws org.opennms.api.reporting.ReportException
-     *             if any.
+     * @throws ReportException
+     *             the report exception
      */
     public abstract void render(String ReportId, String location, ReportFormat format, OutputStream outputStream)
             throws ReportException;
 
     /**
      * This method runs the report and renders in into the given output stream
-     * with no intermediate steps
+     * with no intermediate steps.
      *
+     * @param reportParms
+     *            a {@link java.util.HashMap} object.
      * @param ReportId
      *            reportId as defined in database-reports.xml
      * @param format
      *            format to render the report
      * @param outputStream
      *            stream to render the resulting report
-     * @param reportParms
-     *            a {@link java.util.HashMap} object.
-     * @throws org.opennms.api.reporting.ReportException
-     *             if any.
+     * @throws ReportException
+     *             the report exception
      */
     public abstract void runAndRender(HashMap<String, Object> reportParms, String ReportId, ReportFormat format,
             OutputStream outputStream) throws ReportException;
 
     /**
-     * This method retrieves the runtime parameters taken by the report
+     * This method retrieves the runtime parameters taken by the report.
      *
-     * @return a ReportParameters object containing the parameters taken by
-     *         the report
      * @param ReportId
      *            a {@link java.lang.String} object.
+     * @return a ReportParameters object containing the parameters taken by
+     *         the report
+     * @throws ReportException
+     *             the report exception
      */
     public abstract ReportParameters getParameters(String ReportId) throws ReportException;
 

@@ -44,18 +44,25 @@ import org.opennms.api.reporting.ReportMode;
  */
 public class ReportDateParm extends ReportParm implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8528562178984136887L;
 
+    /** The m_date. */
     private Date m_date;
 
+    /** The m_use absolute date. */
     private Boolean m_useAbsoluteDate;
 
+    /** The m_interval. */
     private String m_interval;
 
+    /** The m_count. */
     private Integer m_count;
 
+    /** The m_hours. */
     private Integer m_hours;
 
+    /** The m_minutes. */
     private Integer m_minutes;
 
     /**
@@ -71,6 +78,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getUseAbsoluteDate
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -82,6 +90,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setUseAbsoluteDate
      * </p>
+     * .
      *
      * @param useAbsoluteDate
      *            a {@link java.lang.Boolean} object.
@@ -94,6 +103,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +115,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setInterval
      * </p>
+     * .
      *
      * @param interval
      *            a {@link java.lang.String} object.
@@ -117,6 +128,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -128,6 +140,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a {@link java.lang.Integer} object.
@@ -140,6 +153,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -151,6 +165,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setDate
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -159,6 +174,13 @@ public class ReportDateParm extends ReportParm implements Serializable {
         m_date = date;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param mode
+     *            the mode
+     * @return the value
+     */
     public Date getValue(ReportMode mode) {
         Calendar cal = Calendar.getInstance();
         if ((mode == ReportMode.SCHEDULED) && (m_useAbsoluteDate == false)) {
@@ -195,6 +217,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getHours
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -206,6 +229,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setHours
      * </p>
+     * .
      *
      * @param hour
      *            a {@link java.lang.Integer} object.
@@ -218,6 +242,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * getMinutes
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -229,6 +254,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
      * <p>
      * setMinutes
      * </p>
+     * .
      *
      * @param minute
      *            a {@link java.lang.Integer} object.

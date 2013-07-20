@@ -46,22 +46,31 @@ import org.opennms.api.reporting.ReportMode;
  */
 public class ReportParameters implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3848794546173077375L;
 
+    /** The m_report id. */
     protected String m_reportId;
 
+    /** The m_format. */
     protected ReportFormat m_format;
 
+    /** The m_display name. */
     protected String m_displayName;
 
+    /** The m_date parms. */
     protected List<ReportDateParm> m_dateParms;
 
+    /** The m_string parms. */
     protected List<ReportStringParm> m_stringParms;
 
+    /** The m_int parms. */
     protected List<ReportIntParm> m_intParms;
 
+    /** The m_float parms. */
     protected List<ReportFloatParm> m_floatParms;
 
+    /** The m_double parms. */
     protected List<ReportDoubleParm> m_doubleParms;
 
     /**
@@ -77,6 +86,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getDateParms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -88,6 +98,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setDateParms
      * </p>
+     * .
      *
      * @param dateParms
      *            a {@link java.util.List} object.
@@ -100,6 +111,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getStringParms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -111,6 +123,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setStringParms
      * </p>
+     * .
      *
      * @param strings
      *            a {@link java.util.List} object.
@@ -123,6 +136,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getIntParms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -134,6 +148,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setIntParms
      * </p>
+     * .
      *
      * @param ints
      *            a {@link java.util.List} object.
@@ -146,6 +161,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getFloatParms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -157,9 +173,10 @@ public class ReportParameters implements Serializable {
      * <p>
      * setFloatParms
      * </p>
+     * .
      *
-     * @param ints
-     *            a {@link java.util.List} object.
+     * @param floats
+     *            the new float parms
      */
     public void setFloatParms(List<ReportFloatParm> floats) {
         m_floatParms = floats;
@@ -169,6 +186,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getDoubleParms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -180,9 +198,10 @@ public class ReportParameters implements Serializable {
      * <p>
      * setDoubleParms
      * </p>
+     * .
      *
-     * @param ints
-     *            a {@link java.util.List} object.
+     * @param doubleParms
+     *            the new double parms
      */
     public void setDoubleParms(List<ReportDoubleParm> doubleParms) {
         m_doubleParms = doubleParms;
@@ -192,6 +211,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setReportId
      * </p>
+     * .
      *
      * @param reportId
      *            a {@link java.lang.String} object.
@@ -204,6 +224,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getReportId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -215,6 +236,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setDisplayName
      * </p>
+     * .
      *
      * @param displayName
      *            a {@link java.lang.String} object.
@@ -227,6 +249,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getDisplayName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -238,6 +261,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * setFormat
      * </p>
+     * .
      *
      * @param format
      *            a {@link org.opennms.api.reporting.ReportFormat} object.
@@ -250,6 +274,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getFormat
      * </p>
+     * .
      *
      * @return a {@link org.opennms.api.reporting.ReportFormat} object.
      */
@@ -263,6 +288,8 @@ public class ReportParameters implements Serializable {
      * </p>
      * * @param format a {@link org.opennms.api.reporting.ReportMode} object.
      *
+     * @param mode
+     *            the mode
      * @return a {@link java.util.HashMap} object.
      */
     public HashMap<String, Object> getReportParms(ReportMode mode) {
@@ -320,6 +347,7 @@ public class ReportParameters implements Serializable {
      * <p>
      * getReportParms
      * </p>
+     * .
      *
      * @return a {@link java.util.HashMap} object.
      */

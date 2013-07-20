@@ -37,5 +37,13 @@ package org.opennms.api.reporting;
  * @version $Id: $
  */
 public enum ReportFormat {
-    HTML, SVG, PDF, CSV
+
+    /** The html. */
+    HTML,
+ /** The svg. */
+ SVG,
+ /** The pdf. */
+ PDF,
+ /** The csv. */
+ CSV
 }
