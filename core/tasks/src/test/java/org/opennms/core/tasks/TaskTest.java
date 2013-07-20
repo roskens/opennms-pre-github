@@ -52,18 +52,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * BaseTaskTest
+ * BaseTaskTest.
  *
  * @author brozow
  */
 public class TaskTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TaskTest.class);
 
+    /** The m_executor. */
     ExecutorService m_executor;
 
+    /** The m_coordinator. */
     DefaultTaskCoordinator m_coordinator;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_executor = Executors.newFixedThreadPool(50, new LogPreservingThreadFactory(getClass().getSimpleName(), 50,
@@ -71,6 +77,12 @@ public class TaskTest {
         m_coordinator = new DefaultTaskCoordinator("TaskTest", m_executor);
     }
 
+    /**
+     * Test simple task.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimpleTask() throws Exception {
         final AtomicBoolean hasRun = new AtomicBoolean(false);
@@ -95,6 +107,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test task with single dependency.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTaskWithSingleDependency() throws Exception {
 
@@ -119,10 +137,23 @@ public class TaskTest {
 
     }
 
+    /**
+     * Creates the task.
+     *
+     * @param runnable
+     *            the runnable
+     * @return the task
+     */
     private Task createTask(final Runnable runnable) {
         return m_coordinator.createTask(null, runnable);
     }
 
+    /**
+     * Test task with completed dependencies.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTaskWithCompletedDependencies() throws Exception {
 
@@ -152,6 +183,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test task that throws exception.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 1000)
     public void testTaskThatThrowsException() throws Exception {
 
@@ -178,6 +215,12 @@ public class TaskTest {
         assertEquals(1, count.get());
     }
 
+    /**
+     * Test async that throws exception.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 1000)
     public void testAsyncThatThrowsException() throws Exception {
 
@@ -205,6 +248,12 @@ public class TaskTest {
         assertEquals(1, count.get());
     }
 
+    /**
+     * Test async.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 1000)
     public void testAsync() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
@@ -218,6 +267,12 @@ public class TaskTest {
         assertEquals(17, count.get());
     }
 
+    /**
+     * Test batch task.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBatchTask() throws Exception {
 
@@ -237,6 +292,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test sequence task.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSequenceTask() throws Exception {
 
@@ -256,6 +317,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test sequence with dependencies.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSequenceWithDependencies() throws Exception {
 
@@ -285,6 +352,13 @@ public class TaskTest {
                           sequence.toArray(new String[0]));
     }
 
+    /**
+     * Test ensure task is submitted if pre reqs complete while dependency
+     * queued.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEnsureTaskIsSubmittedIfPreReqsCompleteWhileDependencyQueued() throws Exception {
 
@@ -353,6 +427,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test large sequence.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLargeSequence() throws Exception {
 
@@ -374,10 +454,21 @@ public class TaskTest {
 
     }
 
+    /**
+     * Creates the sequence.
+     *
+     * @return the sequence task
+     */
     private SequenceTask createSequence() {
         return m_coordinator.createSequence().get();
     }
 
+    /**
+     * Test large sequence in progress.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLargeSequenceInProgress() throws Exception {
 
@@ -399,6 +490,21 @@ public class TaskTest {
 
     }
 
+    /**
+     * Scheduler.
+     *
+     * @param container
+     *            the container
+     * @param result
+     *            the result
+     * @param startIndex
+     *            the start index
+     * @param count
+     *            the count
+     * @param remaining
+     *            the remaining
+     * @return the runnable
+     */
     public Runnable scheduler(final ContainerTask<?> container, final AtomicLong result, final long startIndex,
             final long count, final long remaining) {
         return new Runnable() {
@@ -421,6 +527,12 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Test large batch.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLargeBatch() throws Exception {
 
@@ -442,6 +554,12 @@ public class TaskTest {
 
     }
 
+    /**
+     * Test large batch in progress.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLargeBatchInProgress() throws Exception {
 
@@ -463,6 +581,17 @@ public class TaskTest {
 
     }
 
+    /**
+     * Appender.
+     *
+     * @param <T>
+     *            the generic type
+     * @param list
+     *            the list
+     * @param value
+     *            the value
+     * @return the runnable
+     */
     private <T> Runnable appender(final List<T> list, final T value) {
         return new Runnable() {
             @Override
@@ -477,6 +606,13 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Incr.
+     *
+     * @param counter
+     *            the counter
+     * @return the runnable
+     */
     private Runnable incr(final AtomicInteger counter) {
         return new Runnable() {
             @Override
@@ -493,6 +629,15 @@ public class TaskTest {
 
     }
 
+    /**
+     * Addr.
+     *
+     * @param accum
+     *            the accum
+     * @param n
+     *            the n
+     * @return the runnable
+     */
     private Runnable addr(final AtomicLong accum, final long n) {
         return new Runnable() {
             @Override
@@ -521,6 +666,15 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Waiter.
+     *
+     * @param name
+     *            the name
+     * @param latch
+     *            the latch
+     * @return the runnable
+     */
     private Runnable waiter(final String name, final CountDownLatch latch) {
         return new Runnable() {
             @Override
@@ -539,6 +693,17 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Timer.
+     *
+     * @param <T>
+     *            the generic type
+     * @param millis
+     *            the millis
+     * @param value
+     *            the value
+     * @return the async
+     */
     private <T> Async<T> timer(final long millis, final T value) {
         final Timer timer = new Timer(true);
         return new Async<T>() {
@@ -561,6 +726,13 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Setter.
+     *
+     * @param keeper
+     *            the keeper
+     * @return the callback
+     */
     private Callback<Integer> setter(final AtomicInteger keeper) {
         return new Callback<Integer>() {
 
@@ -577,6 +749,12 @@ public class TaskTest {
         };
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);

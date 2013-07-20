@@ -40,6 +40,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class SequenceTask extends ContainerTask<SequenceTask> {
 
+    /** The m_last child. */
     private AtomicReference<Task> m_lastChild = new AtomicReference<Task>(null);
 
     /**
@@ -70,6 +71,7 @@ public class SequenceTask extends ContainerTask<SequenceTask> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * TaskWaiter
+ * TaskWaiter.
  *
  * @author brozow
  * @version $Id: $
@@ -44,11 +44,12 @@ public interface TaskWaiter {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
      */
     public void waitFor() throws InterruptedException, ExecutionException;
 
@@ -56,17 +57,18 @@ public interface TaskWaiter {
      * <p>
      * waitFor
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
      * @param unit
      *            a {@link java.util.concurrent.TimeUnit} object.
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
-     * @throws java.util.concurrent.TimeoutException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     * @throws TimeoutException
+     *             the timeout exception
      */
     public void waitFor(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException;
 }

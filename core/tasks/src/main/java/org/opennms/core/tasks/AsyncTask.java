@@ -35,13 +35,17 @@ import org.springframework.util.Assert;
  * AsyncTask class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public class AsyncTask<T> extends Task {
 
+    /** The m_async. */
     private final Async<T> m_async;
 
+    /** The m_callback. */
     private final Callback<T> m_callback;
 
     /**
@@ -56,8 +60,6 @@ public class AsyncTask<T> extends Task {
      *            a {@link org.opennms.core.tasks.ContainerTask} object.
      * @param async
      *            a {@link org.opennms.core.tasks.Async} object.
-     * @param <T>
-     *            a T object.
      */
     public AsyncTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent, Async<T> async) {
         this(coordinator, parent, async, null);
@@ -102,6 +104,11 @@ public class AsyncTask<T> extends Task {
         }
     }
 
+    /**
+     * Callback.
+     *
+     * @return the callback
+     */
     private Callback<T> callback() {
         return new Callback<T>() {
             @Override

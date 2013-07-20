@@ -57,6 +57,7 @@ public class BatchTask extends ContainerTask<BatchTask> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -29,7 +29,7 @@
 package org.opennms.core.tasks;
 
 /**
- * TaskMonitor
+ * TaskMonitor.
  *
  * @author brozow
  * @version $Id: $
@@ -40,6 +40,7 @@ public interface TaskMonitor {
      * <p>
      * prerequisiteAdded
      * </p>
+     * .
      *
      * @param monitored
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -52,6 +53,7 @@ public interface TaskMonitor {
      * <p>
      * prerequisiteCompleted
      * </p>
+     * .
      *
      * @param monitored
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -64,6 +66,7 @@ public interface TaskMonitor {
      * <p>
      * scheduled
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -74,6 +77,7 @@ public interface TaskMonitor {
      * <p>
      * submitted
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -84,6 +88,7 @@ public interface TaskMonitor {
      * <p>
      * started
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -94,6 +99,7 @@ public interface TaskMonitor {
      * <p>
      * completed
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -104,6 +110,7 @@ public interface TaskMonitor {
      * <p>
      * getChildTaskMonitor
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -114,7 +121,7 @@ public interface TaskMonitor {
     public TaskMonitor getChildTaskMonitor(Task task, Task child);
 
     /**
-     * This is called if an exception occurs while calling a monitor method
+     * This is called if an exception occurs while calling a monitor method.
      *
      * @param t
      *            a {@link java.lang.Throwable} object.

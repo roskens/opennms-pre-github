@@ -29,13 +29,16 @@
 package org.opennms.core.tasks;
 
 /**
- * TaskBuilder
+ * TaskBuilder.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
 public class TaskBuilder<T extends ContainerTask<?>> {
 
+    /** The m_task. */
     private T m_task;
 
     /**
@@ -44,8 +47,6 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * </p>
      *
      * @param task
-     *            a T object.
-     * @param <T>
      *            a T object.
      */
     public TaskBuilder(T task) {
@@ -56,6 +57,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * createSequence
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.TaskBuilder} object.
      */
@@ -67,6 +69,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * createBatch
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.TaskBuilder} object.
      */
@@ -78,6 +81,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param parent
      *            a {@link org.opennms.core.tasks.ContainerTask} object.
@@ -92,6 +96,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * addSequence
      * </p>
+     * .
      *
      * @param runnables
      *            a {@link java.lang.Runnable} object.
@@ -106,6 +111,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * addSequence
      * </p>
+     * .
      *
      * @param runIns
      *            a {@link org.opennms.core.tasks.RunInBatch} object.
@@ -120,6 +126,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * addBatch
      * </p>
+     * .
      *
      * @param runnables
      *            a {@link java.lang.Runnable} object.
@@ -134,6 +141,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * addBatch
      * </p>
+     * .
      *
      * @param runIns
      *            a {@link org.opennms.core.tasks.RunInBatch} object.
@@ -148,6 +156,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param runnables
      *            a {@link java.lang.Runnable} object.
@@ -164,6 +173,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param runIns
      *            a {@link org.opennms.core.tasks.RunInBatch} object.
@@ -186,6 +196,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param needers
      *            a {@link org.opennms.core.tasks.NeedsContainer} object.
@@ -207,6 +218,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * get
      * </p>
+     * .
      *
      * @return a T object.
      */
@@ -218,6 +230,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param parent
      *            a {@link org.opennms.core.tasks.ContainerTask} object.

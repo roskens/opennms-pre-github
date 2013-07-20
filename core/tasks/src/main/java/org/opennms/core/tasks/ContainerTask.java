@@ -44,36 +44,56 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Abstract ContainerTask class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
 
     /**
-     * TaskTrigger
+     * TaskTrigger.
      *
      * @author brozow
      */
     private final class TaskTrigger extends Task {
+
+        /**
+         * Instantiates a new task trigger.
+         *
+         * @param coordinator
+         *            the coordinator
+         * @param parent
+         *            the parent
+         */
         public TaskTrigger(DefaultTaskCoordinator coordinator, ContainerTask<?> parent) {
             super(coordinator, parent);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.Task#completeSubmit()
+         */
         @Override
         protected void completeSubmit() {
             getCoordinator().markTaskAsCompleted(TaskTrigger.this);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.Task#toString()
+         */
         @Override
         public String toString() {
             return "Trigger For " + ContainerTask.this;
         }
     }
 
+    /** The m_trigger task. */
     protected final Task m_triggerTask;
 
+    /** The m_children. */
     private final List<Task> m_children = Collections.synchronizedList(new ArrayList<Task>());
 
+    /** The m_builder. */
     private final TaskBuilder<T> m_builder;
 
     /**
@@ -94,6 +114,11 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
 
     }
 
+    /**
+     * Creates the builder.
+     *
+     * @return the task builder
+     */
     @SuppressWarnings("unchecked")
     private TaskBuilder<T> createBuilder() {
         return new TaskBuilder<T>((T) this);
@@ -103,6 +128,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * getBuilder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.TaskBuilder} object.
      */
@@ -117,6 +143,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         m_triggerTask.addPrerequisite(task);
     }
 
+    /** The m_child. */
     AtomicInteger m_child = new AtomicInteger(0);
 
     /** {@inheritDoc} */
@@ -138,6 +165,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param task
      *            a {@link org.opennms.core.tasks.Task} object.
@@ -165,6 +193,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param runInBatch
      *            a {@link org.opennms.core.tasks.RunInBatch} object.
@@ -177,6 +206,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param needsContainer
      *            a {@link org.opennms.core.tasks.NeedsContainer} object.
@@ -189,6 +219,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * getTriggerTask
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.Task} object.
      */
@@ -220,6 +251,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param runnable
      *            a {@link java.lang.Runnable} object.
@@ -235,6 +267,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param runnable
      *            a {@link java.lang.Runnable} object.
@@ -252,13 +285,14 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * add
      * </p>
+     * .
      *
+     * @param <S>
+     *            a S object.
      * @param async
      *            a {@link org.opennms.core.tasks.Async} object.
      * @param cb
      *            a {@link org.opennms.core.tasks.Callback} object.
-     * @param <S>
-     *            a S object.
      * @return a {@link org.opennms.core.tasks.AsyncTask} object.
      */
     public <S> AsyncTask<S> add(Async<S> async, Callback<S> cb) {
@@ -271,6 +305,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * addSequence
      * </p>
+     * .
      *
      * @param tasks
      *            a {@link java.lang.Runnable} object.
@@ -281,14 +316,41 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         return getCoordinator().createSequence(this, tasks);
     }
 
+    /**
+     * Creates the task.
+     *
+     * @param runnable
+     *            the runnable
+     * @return the sync task
+     */
     private SyncTask createTask(Runnable runnable) {
         return getCoordinator().createTask(this, runnable);
     }
 
+    /**
+     * Creates the task.
+     *
+     * @param runnable
+     *            the runnable
+     * @param schedulingHint
+     *            the scheduling hint
+     * @return the sync task
+     */
     private SyncTask createTask(Runnable runnable, String schedulingHint) {
         return getCoordinator().createTask(this, runnable, schedulingHint);
     }
 
+    /**
+     * Creates the task.
+     *
+     * @param <S>
+     *            the generic type
+     * @param async
+     *            the async
+     * @param cb
+     *            the cb
+     * @return the async task
+     */
     private <S> AsyncTask<S> createTask(Async<S> async, Callback<S> cb) {
         return getCoordinator().createTask(this, async, cb);
     }
@@ -297,6 +359,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
      * <p>
      * addChildDependencies
      * </p>
+     * .
      *
      * @param child
      *            a {@link org.opennms.core.tasks.Task} object.

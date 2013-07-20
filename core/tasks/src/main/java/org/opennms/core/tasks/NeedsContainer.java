@@ -29,16 +29,18 @@
 package org.opennms.core.tasks;
 
 /**
- * NeedsContainer
+ * NeedsContainer.
  *
  * @author brozow
  * @version $Id: $
  */
 public interface NeedsContainer {
+
     /**
      * <p>
      * run
      * </p>
+     * .
      *
      * @param container
      *            a {@link org.opennms.core.tasks.ContainerTask} object.

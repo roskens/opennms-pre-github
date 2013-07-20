@@ -41,33 +41,53 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * BaseTask
+ * BaseTask.
  *
  * @author brozow
  * @version $Id: $
  */
 public abstract class Task {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Task.class);
 
+    /**
+     * The Enum State.
+     */
     private static enum State {
-        NEW, SCHEDULED, SUBMITTED, COMPLETED
+
+        /** The new. */
+        NEW,
+ /** The scheduled. */
+ SCHEDULED,
+ /** The submitted. */
+ SUBMITTED,
+ /** The completed. */
+ COMPLETED
     }
 
+    /** The m_coordinator. */
     private final DefaultTaskCoordinator m_coordinator;
 
+    /** The m_state. */
     private final AtomicReference<State> m_state = new AtomicReference<State>(State.NEW);
 
+    /** The m_schedule called. */
     private final AtomicBoolean m_scheduleCalled = new AtomicBoolean(false);
 
+    /** The m_latch. */
     private final CountDownLatch m_latch = new CountDownLatch(1);
 
+    /** The m_pending prereqs. */
     private final AtomicInteger m_pendingPrereqs = new AtomicInteger(0);
 
+    /** The m_dependents. */
     private final Set<Task> m_dependents = new HashSet<Task>();
 
+    /** The m_prerequisites. */
     private final Set<Task> m_prerequisites = new HashSet<Task>();
 
+    /** The m_monitor. */
     private final TaskMonitor m_monitor;
 
     /**
@@ -92,6 +112,7 @@ public abstract class Task {
      * <p>
      * getCoordinator
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
@@ -103,6 +124,7 @@ public abstract class Task {
      * <p>
      * getMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.tasks.TaskMonitor} object.
      */
@@ -115,11 +137,19 @@ public abstract class Task {
      * accessed by the TaskCoordinator
      * This is for thread safety and efficiency. use 'addDependency' to update
      * these.
+     *
+     * @return the dependents
      */
     final Set<Task> getDependents() {
         return m_dependents;
     }
 
+    /**
+     * Do add dependent.
+     *
+     * @param dependent
+     *            the dependent
+     */
     final void doAddDependent(final Task dependent) {
         if (!isFinished()) {
             m_dependents.add(dependent);
@@ -131,11 +161,19 @@ public abstract class Task {
      * accessed by the TAskCoordinator
      * This is for thread safety and efficiency. use 'addDependency' to update
      * these
+     *
+     * @return the prerequisites
      */
     final Set<Task> getPrerequisites() {
         return m_prerequisites;
     }
 
+    /**
+     * Do add prerequisite.
+     *
+     * @param prereq
+     *            the prereq
+     */
     final void doAddPrerequisite(final Task prereq) {
         if (!prereq.isFinished()) {
             m_prerequisites.add(prereq);
@@ -143,6 +181,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Notify prerequiste added.
+     *
+     * @param prereq
+     *            the prereq
+     */
     private void notifyPrerequisteAdded(final Task prereq) {
         try {
             m_monitor.prerequisiteAdded(this, prereq);
@@ -151,6 +195,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Notify prerequiste completed.
+     *
+     * @param prereq
+     *            the prereq
+     */
     private void notifyPrerequisteCompleted(final Task prereq) {
         try {
             m_monitor.prerequisiteCompleted(this, prereq);
@@ -159,6 +209,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Notify scheduled.
+     */
     private void notifyScheduled() {
         try {
             m_monitor.scheduled(this);
@@ -167,6 +220,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Notify submitted.
+     */
     private void notifySubmitted() {
         try {
             m_monitor.submitted(this);
@@ -175,6 +231,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Notify completed.
+     */
     private void notifyCompleted() {
         try {
             m_monitor.completed(this);
@@ -183,20 +242,40 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Do complete prerequisite.
+     *
+     * @param prereq
+     *            the prereq
+     */
     final void doCompletePrerequisite(final Task prereq) {
         m_prerequisites.remove(prereq);
         notifyPrerequisteCompleted(prereq);
     }
 
+    /**
+     * Clear dependents.
+     */
     final void clearDependents() {
         m_dependents.clear();
     }
 
+    /**
+     * Scheduled.
+     */
     final void scheduled() {
         setState(State.NEW, State.SCHEDULED);
         notifyScheduled();
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param oldState
+     *            the old state
+     * @param newState
+     *            the new state
+     */
     private final void setState(final State oldState, final State newState) {
         if (!m_state.compareAndSet(oldState, newState)) {
             LOG.debug("Attempted to move to state {} with state not {} (actual value {})", newState, oldState,
@@ -206,6 +285,9 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Submit if ready.
+     */
     void submitIfReady() {
         if (isReady()) {
             doSubmit();
@@ -226,17 +308,23 @@ public abstract class Task {
     protected void doSubmit() {
     }
 
+    /**
+     * Submitted.
+     */
     final void submitted() {
         setState(State.SCHEDULED, State.SUBMITTED);
         notifySubmitted();
     }
 
     /**
-     * This method exists to allow a task to have no processing
+     * This method exists to allow a task to have no processing.
      */
     protected void completeSubmit() {
     }
 
+    /**
+     * Completed.
+     */
     final void completed() {
         m_state.compareAndSet(State.SUBMITTED, State.COMPLETED);
         notifyCompleted();
@@ -247,29 +335,47 @@ public abstract class Task {
      * accessed by the TaskCoordinator
      * This is for thread safety and efficiency. use 'addDependency' to update
      * these
+     *
+     * @return true, if is ready
      */
     final boolean isReady() {
         return isInReadyState() && m_prerequisites.isEmpty() && getPendingPrereqCount() == 0;
     }
 
+    /**
+     * Gets the pending prereq count.
+     *
+     * @return the pending prereq count
+     */
     private int getPendingPrereqCount() {
         return m_pendingPrereqs.get();
     }
 
+    /**
+     * Checks if is in ready state.
+     *
+     * @return true, if is in ready state
+     */
     private boolean isInReadyState() {
         return m_state.get() == State.SCHEDULED;
     }
 
+    /**
+     * Incr pending prereq count.
+     */
     final void incrPendingPrereqCount() {
         m_pendingPrereqs.incrementAndGet();
     }
 
+    /**
+     * Decr pending prereq count.
+     */
     final void decrPendingPrereqCount() {
         m_pendingPrereqs.decrementAndGet();
     }
 
     /**
-     * Called from execute after the 'body' of the task has completed
+     * Called from execute after the 'body' of the task has completed.
      */
     void onComplete() {
         completed();
@@ -278,7 +384,7 @@ public abstract class Task {
 
     /**
      * This is called to add the task to the queue of tasks that can be
-     * considered to be runnable
+     * considered to be runnable.
      */
     public void schedule() {
         m_scheduleCalled.set(true);
@@ -291,6 +397,7 @@ public abstract class Task {
      * <p>
      * preSchedule
      * </p>
+     * .
      */
     protected void preSchedule() {
     }
@@ -299,12 +406,13 @@ public abstract class Task {
      * <p>
      * postSchedule
      * </p>
+     * .
      */
     protected void postSchedule() {
     }
 
     /**
-     * This task's run method has completed
+     * This task's run method has completed.
      *
      * @return a boolean.
      */
@@ -313,7 +421,7 @@ public abstract class Task {
     }
 
     /**
-     * This task has be sent to the TaskCoordinator to be run
+     * This task has be sent to the TaskCoordinator to be run.
      *
      * @return a boolean.
      */
@@ -349,24 +457,24 @@ public abstract class Task {
      * Wait for this task to complete. The current thread will block until this
      * task has been completed.
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.util.concurrent.ExecutionException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
      */
     public void waitFor() throws InterruptedException, ExecutionException {
         m_latch.await();
     }
 
     /**
-     * Wait for this task to complete or until a timeout occurs
+     * Wait for this task to complete or until a timeout occurs.
      *
      * @param timeout
      *            a long.
      * @param unit
      *            a {@link java.util.concurrent.TimeUnit} object.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor(final long timeout, final TimeUnit unit) throws InterruptedException {
         m_latch.await(timeout, unit);
@@ -376,6 +484,7 @@ public abstract class Task {
      * <p>
      * markTaskAsCompleted
      * </p>
+     * .
      */
     protected void markTaskAsCompleted() {
         getCoordinator().markTaskAsCompleted(this);
@@ -385,6 +494,7 @@ public abstract class Task {
      * <p>
      * submitRunnable
      * </p>
+     * .
      *
      * @param runnable
      *            a {@link java.lang.Runnable} object.
@@ -399,6 +509,7 @@ public abstract class Task {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

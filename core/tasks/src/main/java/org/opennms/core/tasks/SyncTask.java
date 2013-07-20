@@ -32,23 +32,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * SyncTask
+ * SyncTask.
  *
  * @author brozow
  * @version $Id: $
  */
 public class SyncTask extends Task {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyncTask.class);
 
-    /** Constant <code>DEFAULT_EXECUTOR="default"</code> */
+    /** Constant <code>DEFAULT_EXECUTOR="default"</code>. */
     public static final String DEFAULT_EXECUTOR = "default";
 
-    /** Constant <code>ADMIN_EXECUTOR="admin"</code> */
+    /** Constant <code>ADMIN_EXECUTOR="admin"</code>. */
     public static final String ADMIN_EXECUTOR = "admin";
 
+    /** The m_action. */
     private final Runnable m_action;
 
+    /** The m_preferred executor. */
     private String m_preferredExecutor = DEFAULT_EXECUTOR;
 
     /**
@@ -111,7 +114,9 @@ public class SyncTask extends Task {
 
     /**
      * This method is used by the TaskCoordinator to create runnable that will
-     * run this task
+     * run this task.
+     *
+     * @return the runnable
      */
     final Runnable getRunnable() {
         return new Runnable() {
@@ -135,6 +140,7 @@ public class SyncTask extends Task {
      * <p>
      * getPreferredExecutor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,6 +152,7 @@ public class SyncTask extends Task {
      * <p>
      * setPreferredExecutor
      * </p>
+     * .
      *
      * @param preferredExecutor
      *            a {@link java.lang.String} object.
@@ -158,6 +165,7 @@ public class SyncTask extends Task {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

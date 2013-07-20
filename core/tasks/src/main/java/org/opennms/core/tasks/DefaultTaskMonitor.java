@@ -32,13 +32,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * DefaultTaskMonitor
+ * DefaultTaskMonitor.
  *
  * @author brozow
  * @version $Id: $
  */
 public class DefaultTaskMonitor implements TaskMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskMonitor.class);
 
     /**
