@@ -45,10 +45,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DroolsTicketerConfigDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DroolsTicketerConfigDao.class);
 
     /**
      * Retrieves the properties defined in the drools-ticketer.properties file.
+     *
+     * @return the properties
      */
     private Configuration getProperties() {
         String propsFile = new String(System.getProperty("opennms.home") + "/etc/drools-ticketer.properties");
@@ -64,6 +68,11 @@ public class DroolsTicketerConfigDao {
         return config;
     }
 
+    /**
+     * Gets the rules file.
+     *
+     * @return the rules file
+     */
     public File getRulesFile() {
         return new File(getProperties().getString("drools-ticketer.rules-file"));
     }

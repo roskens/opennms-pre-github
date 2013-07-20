@@ -50,10 +50,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DroolsTicketerServiceLayer.class);
 
+    /** The m_config dao. */
     DroolsTicketerConfigDao m_configDao;
 
+    /** The m_knowledge base. */
     KnowledgeBase m_knowledgeBase;
 
     /**
@@ -66,21 +70,40 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
         m_knowledgeBase = createKnowledgeBase();
     }
 
+    /**
+     * Instantiates a new drools ticketer service layer.
+     *
+     * @param configDao
+     *            the config dao
+     */
     public DroolsTicketerServiceLayer(DroolsTicketerConfigDao configDao) {
         m_configDao = configDao;
         m_knowledgeBase = createKnowledgeBase();
     }
 
+    /**
+     * Gets the config dao.
+     *
+     * @return the config dao
+     */
     public DroolsTicketerConfigDao getConfigDao() {
         return m_configDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#reloadTicketer()
+     */
     @Override
     public void reloadTicketer() {
         LOG.debug("reloadTicketer: Reloading ticketer");
         m_knowledgeBase = createKnowledgeBase();
     }
 
+    /**
+     * Creates the knowledge base.
+     *
+     * @return the knowledge base
+     */
     private KnowledgeBase createKnowledgeBase() {
         LOG.debug("createKnowledgeBase: Creating Drools KnowledgeBase");
         final Properties props = new Properties();

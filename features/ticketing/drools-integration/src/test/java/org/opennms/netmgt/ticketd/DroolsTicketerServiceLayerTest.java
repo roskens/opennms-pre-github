@@ -49,6 +49,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 /**
+ * The Class DroolsTicketerServiceLayerTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -56,22 +58,33 @@ import org.springframework.core.io.ResourceLoader;
  */
 public class DroolsTicketerServiceLayerTest extends TestCase {
 
+    /** The m_drools ticketer service layer. */
     private DefaultTicketerServiceLayer m_droolsTicketerServiceLayer;
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils;
 
+    /** The m_config dao. */
     private DroolsTicketerConfigDao m_configDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_ticketer plugin. */
     private Plugin m_ticketerPlugin;
 
+    /** The m_alarm. */
     private OnmsAlarm m_alarm;
 
+    /** The m_ticket. */
     private Ticket m_ticket;
 
+    /** The m_event ipc manager. */
     private MockEventIpcManager m_eventIpcManager;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -107,7 +120,10 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
+     * Expect new alarm state.
+     *
      * @param state
+     *            the state
      */
     private void expectNewAlarmState(final TroubleTicketState state) {
         m_alarmDao.saveOrUpdate(m_alarm);
@@ -122,7 +138,7 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * @param state
+     * Expect new ticket.
      */
     private void expectNewTicket() {
         try {
@@ -149,7 +165,7 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
      * .
      */
@@ -168,7 +184,7 @@ public class DroolsTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
      * .
      * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when
