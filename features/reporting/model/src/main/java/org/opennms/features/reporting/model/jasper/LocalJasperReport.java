@@ -31,38 +31,77 @@ package org.opennms.features.reporting.model.jasper;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class LocalJasperReport.
+ */
 @XmlRootElement(name = "report")
 public class LocalJasperReport {
 
+    /** The m_id. */
     private String m_id;
 
+    /** The m_template. */
     private String m_template;
 
+    /** The m_engine. */
     private String m_engine;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @XmlAttribute(name = "id")
     public String getId() {
         return m_id;
     }
 
+    /**
+     * Gets the template.
+     *
+     * @return the template
+     */
     @XmlAttribute(name = "template")
     public String getTemplate() {
         return m_template;
     }
 
+    /**
+     * Gets the engine.
+     *
+     * @return the engine
+     */
     @XmlAttribute(name = "engine")
     public String getEngine() {
         return m_engine;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(String id) {
         m_id = id;
     }
 
+    /**
+     * Sets the template.
+     *
+     * @param template
+     *            the new template
+     */
     public void setTemplate(String template) {
         m_template = template;
     }
 
+    /**
+     * Sets the engine.
+     *
+     * @param engine
+     *            the new engine
+     */
     public void setEngine(String engine) {
         m_engine = engine;
     }

@@ -40,32 +40,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "report")
 public class LegacyLocalReportDefinition implements BasicReportDefinition {
 
-    /**
-     * the name of this report as defined in engine
-     * configuration
-     */
+    /** the name of this report as defined in engine configuration. */
     private String m_id;
 
-    /**
-     * the name of this report as defined in engine
-     * configuration
-     */
+    /** the name of this report as defined in engine configuration. */
     private String m_repositoryId;
 
-    /**
-     * the name of this report as displayed in the webui
-     */
+    /** the name of this report as displayed in the webui. */
     private String m_displayName;
 
-    /**
-     * the name of the engine to use to process and
-     * render this report
-     */
+    /** the name of the engine to use to process and render this report. */
     private String m_reportService;
 
-    /**
-     * report m_description
-     */
+    /** report m_description. */
     private String m_description;
 
     /**
@@ -182,21 +169,33 @@ public class LegacyLocalReportDefinition implements BasicReportDefinition {
         this.m_description = description;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.model.basicreport.BasicReportDefinition#getAllowAccess()
+     */
     @Override
     public boolean getAllowAccess() {
         return m_allowAccess;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.model.basicreport.BasicReportDefinition#setAllowAccess(boolean)
+     */
     @Override
     public void setAllowAccess(boolean allowAccess) {
         m_allowAccess = allowAccess;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.model.basicreport.BasicReportDefinition#setOnline(boolean)
+     */
     @Override
     public void setOnline(boolean online) {
         this.m_online = online;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.reporting.model.basicreport.BasicReportDefinition#getRepositoryId()
+     */
     @Override
     public String getRepositoryId() {
         return m_repositoryId;

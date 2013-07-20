@@ -31,13 +31,19 @@ package org.opennms.features.reporting.model.jasperreport;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class LocalJasperReport.
+ */
 @XmlRootElement(name = "report")
 public class LocalJasperReport implements JasperReportDefinition {
 
+    /** The m_id. */
     private String m_id;
 
+    /** The m_template. */
     private String m_template;
 
+    /** The m_engine. */
     private String m_engine;
 
     /*

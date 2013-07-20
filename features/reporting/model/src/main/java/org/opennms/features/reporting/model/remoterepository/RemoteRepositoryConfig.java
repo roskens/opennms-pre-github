@@ -34,26 +34,53 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class RemoteRepositoryConfig.
+ */
 @XmlRootElement(name = "remoteRepositoryConfig")
 public class RemoteRepositoryConfig {
 
+    /** The m_repository list. */
     private List<RemoteRepositoryDefinition> m_repositoryList = new ArrayList<RemoteRepositoryDefinition>();
 
+    /** The jasper reports version. */
     private String jasperReportsVersion;
 
+    /**
+     * Gets the repository list.
+     *
+     * @return the repository list
+     */
     @XmlElement(name = "remoteRepository")
     public List<RemoteRepositoryDefinition> getRepositoryList() {
         return m_repositoryList;
     }
 
+    /**
+     * Sets the repository list.
+     *
+     * @param repositoryList
+     *            the new repository list
+     */
     public void setRepositoryList(List<RemoteRepositoryDefinition> repositoryList) {
         this.m_repositoryList = repositoryList;
     }
 
+    /**
+     * Gets the jasper reports version.
+     *
+     * @return the jasper reports version
+     */
     public String getJasperReportsVersion() {
         return jasperReportsVersion;
     }
 
+    /**
+     * Sets the jasper reports version.
+     *
+     * @param jasperReportsVersion
+     *            the new jasper reports version
+     */
     public void setJasperReportsVersion(String jasperReportsVersion) {
         this.jasperReportsVersion = jasperReportsVersion;
     }

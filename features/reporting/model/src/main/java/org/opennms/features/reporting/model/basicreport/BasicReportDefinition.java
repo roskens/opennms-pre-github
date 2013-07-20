@@ -28,31 +28,105 @@
 
 package org.opennms.features.reporting.model.basicreport;
 
+/**
+ * The Interface BasicReportDefinition.
+ */
 public interface BasicReportDefinition {
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public abstract String getDescription();
 
+    /**
+     * Gets the display name.
+     *
+     * @return the display name
+     */
     public abstract String getDisplayName();
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public abstract String getId();
 
+    /**
+     * Gets the repository id.
+     *
+     * @return the repository id
+     */
     public abstract String getRepositoryId();
 
+    /**
+     * Gets the online.
+     *
+     * @return the online
+     */
     public abstract boolean getOnline();
 
+    /**
+     * Gets the report service.
+     *
+     * @return the report service
+     */
     public abstract String getReportService();
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public abstract void setId(String id);
 
+    /**
+     * Sets the display name.
+     *
+     * @param displayName
+     *            the new display name
+     */
     public abstract void setDisplayName(String displayName);
 
+    /**
+     * Sets the report service.
+     *
+     * @param reportService
+     *            the new report service
+     */
     public abstract void setReportService(String reportService);
 
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the new description
+     */
     public abstract void setDescription(String description);
 
+    /**
+     * Sets the online.
+     *
+     * @param online
+     *            the new online
+     */
     public abstract void setOnline(boolean online);
 
+    /**
+     * Gets the allow access.
+     *
+     * @return the allow access
+     */
     public abstract boolean getAllowAccess();
 
+    /**
+     * Sets the allow access.
+     *
+     * @param allowAccess
+     *            the new allow access
+     */
     public abstract void setAllowAccess(boolean allowAccess);
 }

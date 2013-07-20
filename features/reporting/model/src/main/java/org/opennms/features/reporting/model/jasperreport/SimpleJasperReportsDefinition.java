@@ -35,17 +35,32 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+/**
+ * The Class SimpleJasperReportsDefinition.
+ */
 @XmlRootElement(name = "simple-jasper-reports")
 @XmlSeeAlso(SimpleJasperReportDefinition.class)
 public class SimpleJasperReportsDefinition {
 
+    /** The m_report list. */
     private List<SimpleJasperReportDefinition> m_reportList = new ArrayList<SimpleJasperReportDefinition>();
 
+    /**
+     * Gets the report list.
+     *
+     * @return the report list
+     */
     @XmlElement(name = "simple-jasper-report")
     public List<SimpleJasperReportDefinition> getReportList() {
         return m_reportList;
     }
 
+    /**
+     * Sets the report list.
+     *
+     * @param reportList
+     *            the new report list
+     */
     public void setReportList(List<SimpleJasperReportDefinition> reportList) {
         this.m_reportList = reportList;
     }

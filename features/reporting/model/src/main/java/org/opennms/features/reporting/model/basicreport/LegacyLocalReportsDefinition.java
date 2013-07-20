@@ -35,20 +35,32 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Report Configuration for local reports
+ * Report Configuration for local reports.
  *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "database-reports")
 public class LegacyLocalReportsDefinition {
 
+    /** The m_report list. */
     private List<LegacyLocalReportDefinition> m_reportList = new ArrayList<LegacyLocalReportDefinition>();
 
+    /**
+     * Gets the report list.
+     *
+     * @return the report list
+     */
     @XmlElement(name = "report")
     public List<LegacyLocalReportDefinition> getReportList() {
         return m_reportList;
     }
 
+    /**
+     * Sets the report list.
+     *
+     * @param reportList
+     *            the new report list
+     */
     public void setReportList(List<LegacyLocalReportDefinition> reportList) {
         this.m_reportList = reportList;
     }

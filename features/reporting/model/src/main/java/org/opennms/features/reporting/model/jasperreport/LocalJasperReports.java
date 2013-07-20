@@ -34,16 +34,31 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class LocalJasperReports.
+ */
 @XmlRootElement(name = "jasper-reports")
 public class LocalJasperReports {
 
+    /** The m_report list. */
     private List<LocalJasperReport> m_reportList = new ArrayList<LocalJasperReport>();
 
+    /**
+     * Gets the report list.
+     *
+     * @return the report list
+     */
     @XmlElement(name = "report")
     public List<LocalJasperReport> getReportList() {
         return m_reportList;
     }
 
+    /**
+     * Sets the report list.
+     *
+     * @param reportList
+     *            the new report list
+     */
     public void setReportList(List<LocalJasperReport> reportList) {
         this.m_reportList = reportList;
     }

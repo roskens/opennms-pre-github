@@ -40,26 +40,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "report")
 public class Report {
 
-    /**
-     * the name of this report as defined in engine
-     * configuration
-     */
+    /** the name of this report as defined in engine configuration. */
     private String id;
 
-    /**
-     * the name of this report as displayed in the webui
-     */
+    /** the name of this report as displayed in the webui. */
     private String displayName;
 
-    /**
-     * the name of the engine to use to process and
-     * render this report
-     */
+    /** the name of the engine to use to process and render this report. */
     private String reportService;
 
-    /**
-     * report description
-     */
+    /** report description. */
     private String description;
 
     /**
@@ -149,28 +139,61 @@ public class Report {
         return this.online;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Report{" + "id='" + id + '\'' + ", displayName='" + displayName + '\'' + ", reportService='"
                 + reportService + '\'' + ", description='" + description + '\'' + ", online=" + online + '}';
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Sets the display name.
+     *
+     * @param displayName
+     *            the new display name
+     */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
+    /**
+     * Sets the report service.
+     *
+     * @param reportService
+     *            the new report service
+     */
     public void setReportService(String reportService) {
         this.reportService = reportService;
     }
 
+    /**
+     * Sets the description.
+     *
+     * @param description
+     *            the new description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Sets the online.
+     *
+     * @param online
+     *            the new online
+     */
     public void setOnline(boolean online) {
         this.online = online;
     }

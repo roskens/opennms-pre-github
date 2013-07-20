@@ -30,21 +30,57 @@ package org.opennms.features.reporting.model.jasperreport;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+/**
+ * The Interface JasperReportDefinition.
+ */
 public interface JasperReportDefinition {
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     @XmlAttribute(name = "id")
     public abstract String getId();
 
+    /**
+     * Gets the template.
+     *
+     * @return the template
+     */
     @XmlAttribute(name = "template")
     public abstract String getTemplate();
 
+    /**
+     * Gets the engine.
+     *
+     * @return the engine
+     */
     @XmlAttribute(name = "engine")
     public abstract String getEngine();
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public abstract void setId(String id);
 
+    /**
+     * Sets the template.
+     *
+     * @param template
+     *            the new template
+     */
     public abstract void setTemplate(String template);
 
+    /**
+     * Sets the engine.
+     *
+     * @param engine
+     *            the new engine
+     */
     public abstract void setEngine(String engine);
 
 }
