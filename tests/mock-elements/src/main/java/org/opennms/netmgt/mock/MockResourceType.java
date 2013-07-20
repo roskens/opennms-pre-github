@@ -33,66 +33,118 @@ import java.util.List;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 
+/**
+ * The Class MockResourceType.
+ */
 public class MockResourceType implements OnmsResourceType {
+
+    /** The m_name. */
     private String m_name = "nothing but foo";
 
+    /** The m_label. */
     private String m_label = "even more foo";
 
+    /** The m_link. */
     private String m_link = "http://www.google.com/search?q=opennms";
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getLabel()
+     */
     @Override
     public String getLabel() {
         return m_label;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getLinkForResource(org.opennms.netmgt.model.OnmsResource)
+     */
     @Override
     public String getLinkForResource(OnmsResource resource) {
         return m_link;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getName()
+     */
     @Override
     public String getName() {
         return m_name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getResourcesForDomain(java.lang.String)
+     */
     @Override
     public List<OnmsResource> getResourcesForDomain(String domain) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getResourcesForNode(int)
+     */
     @Override
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#getResourcesForNodeSource(java.lang.String, int)
+     */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#isResourceTypeOnDomain(java.lang.String)
+     */
     @Override
     public boolean isResourceTypeOnDomain(String domain) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#isResourceTypeOnNode(int)
+     */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
         return false;
     }
 
+    /**
+     * Sets the link.
+     *
+     * @param link
+     *            the new link
+     */
     public void setLink(String link) {
         m_link = link;
     }
 
+    /**
+     * Sets the label.
+     *
+     * @param label
+     *            the new label
+     */
     public void setLabel(String label) {
         m_label = label;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_name = name;
     }
 
     // @Override
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.OnmsResourceType#isResourceTypeOnNodeSource(java.lang.String, int)
+     */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         return false;

@@ -40,7 +40,12 @@ import org.opennms.netmgt.model.PollStatus;
  * <li><code>P</code>: Parent type of this container</li>
  * <li><code>C</code>: Child type of this container</li>
  * </ul>
+ * .
  *
+ * @param <P>
+ *            the generic type
+ * @param <C>
+ *            the generic type
  * @author brozow
  *         TODO To change the template for this generated type comment go to
  *         Window -
@@ -49,6 +54,7 @@ import org.opennms.netmgt.model.PollStatus;
  */
 public abstract class MockContainer<P extends MockContainer<?, ?>, C extends MockElement> extends MockElement {
 
+    /** The m_members. */
     private volatile Map<Object, C> m_members = new HashMap<Object, C>();
 
     /**
@@ -76,11 +82,11 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
         visit(triggerAdder);
     }
 
-    // model
     /**
      * <p>
      * addMember
      * </p>
+     * .
      *
      * @param element
      *            a C object.
@@ -97,6 +103,7 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
      * <p>
      * getMember
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.Object} object.
@@ -106,11 +113,11 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
         return m_members.get(key);
     }
 
-    // model
     /**
      * <p>
      * getMembers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -123,6 +130,7 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
      * <p>
      * getPollCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +159,7 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
      * <p>
      * getPollStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -177,11 +186,11 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
         visit(triggerRemover);
     }
 
-    // model
     /**
      * <p>
      * removeMember
      * </p>
+     * .
      *
      * @param element
      *            a {@link org.opennms.netmgt.mock.MockElement} object.
@@ -191,11 +200,11 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
         element.setParent(null);
     }
 
-    // stats
     /**
      * <p>
      * resetPollCount
      * </p>
+     * .
      */
     @Override
     public void resetPollCount() {
@@ -210,7 +219,6 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
         visit(pollCounter);
     }
 
-    // impl
     /** {@inheritDoc} */
     @Override
     public void visit(MockVisitor v) {
@@ -223,6 +231,7 @@ public abstract class MockContainer<P extends MockContainer<?, ?>, C extends Moc
      * <p>
      * visitMembers
      * </p>
+     * .
      *
      * @param v
      *            a {@link org.opennms.netmgt.mock.MockVisitor} object.

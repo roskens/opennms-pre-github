@@ -43,14 +43,17 @@ import java.util.List;
  */
 public class PollAnticipator {
 
+    /** The m_anticipated polls. */
     List<MockService> m_anticipatedPolls = new ArrayList<MockService>();
 
+    /** The m_unanticipated polls. */
     List<MockService> m_unanticipatedPolls = new ArrayList<MockService>();
 
     /**
      * <p>
      * anticipateAllServices
      * </p>
+     * .
      *
      * @param element
      *            a {@link org.opennms.netmgt.mock.MockElement} object.
@@ -75,6 +78,7 @@ public class PollAnticipator {
      * <p>
      * anticipatePoll
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.mock.MockService} object.
@@ -87,6 +91,7 @@ public class PollAnticipator {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.netmgt.mock.MockService} object.
@@ -108,6 +113,7 @@ public class PollAnticipator {
      * <p>
      * reset
      * </p>
+     * .
      */
     public synchronized void reset() {
         m_anticipatedPolls.clear();
@@ -118,6 +124,7 @@ public class PollAnticipator {
      * <p>
      * unanticipatedPolls
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -126,7 +133,10 @@ public class PollAnticipator {
     }
 
     /**
+     * Wait for.
+     *
      * @param millis
+     *            the millis
      */
     private void waitFor(long millis) {
         try {

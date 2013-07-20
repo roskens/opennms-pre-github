@@ -30,58 +30,118 @@ package org.opennms.netmgt.mock;
 
 import java.sql.Timestamp;
 
+/**
+ * The Class Outage.
+ */
 public class Outage {
+
+    /** The m_node id. */
     int m_nodeId;
 
+    /** The m_ip addr. */
     String m_ipAddr;
 
+    /** The m_service id. */
     int m_serviceId;
 
+    /** The m_service name. */
     String m_serviceName;
 
+    /** The m_lost event id. */
     int m_lostEventId;
 
+    /** The m_regained event id. */
     int m_regainedEventId;
 
+    /** The m_lost event time. */
     Timestamp m_lostEventTime;
 
+    /** The m_regained event time. */
     Timestamp m_regainedEventTime;
 
+    /**
+     * Instantiates a new outage.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param serviceId
+     *            the service id
+     */
     public Outage(int nodeId, String ipAddr, int serviceId) {
         m_nodeId = nodeId;
         m_ipAddr = ipAddr;
         m_serviceId = serviceId;
     }
 
+    /**
+     * Instantiates a new outage.
+     *
+     * @param svc
+     *            the svc
+     */
     public Outage(MockService svc) {
         this(svc.getNodeId(), svc.getIpAddr(), svc.getId());
     }
 
+    /**
+     * Sets the lost event.
+     *
+     * @param eventId
+     *            the event id
+     * @param eventTime
+     *            the event time
+     */
     public void setLostEvent(int eventId, Timestamp eventTime) {
         m_lostEventId = eventId;
         m_lostEventTime = eventTime;
     }
 
+    /**
+     * Sets the regained event.
+     *
+     * @param eventId
+     *            the event id
+     * @param eventTime
+     *            the event time
+     */
     public void setRegainedEvent(int eventId, Timestamp eventTime) {
         m_regainedEventId = eventId;
         m_regainedEventTime = eventTime;
     }
 
+    /**
+     * Checks if is for service.
+     *
+     * @param svc
+     *            the svc
+     * @return true, if is for service
+     */
     public boolean isForService(MockService svc) {
         return m_nodeId == svc.getNodeId() && m_ipAddr.equals(svc.getIpAddr()) && m_serviceId == svc.getId();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Outage[" + m_nodeId + "/" + m_ipAddr + "/" + (m_serviceName == null ? "" + m_serviceId : m_serviceName)
                 + " cause: " + m_lostEventId + " resolution: " + m_regainedEventId + " ]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Outage))
@@ -98,17 +158,30 @@ public class Outage {
     }
 
     /**
-     * @return
+     * To detailed string.
+     *
+     * @return the string
      */
     public String toDetailedString() {
         return "Outage[" + m_nodeId + ":" + m_ipAddr + ":" + m_serviceId + ":" + m_lostEventId + ":" + m_lostEventTime
                 + ":" + m_regainedEventId + ":" + m_regainedEventTime + "]";
     }
 
+    /**
+     * Gets the service id.
+     *
+     * @return the service id
+     */
     public int getServiceId() {
         return m_serviceId;
     }
 
+    /**
+     * Sets the service name.
+     *
+     * @param svcName
+     *            the new service name
+     */
     public void setServiceName(String svcName) {
         m_serviceName = svcName;
     }

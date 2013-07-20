@@ -49,15 +49,24 @@ import org.opennms.netmgt.config.categories.Category;
 import org.opennms.netmgt.config.categories.Categorygroup;
 import org.opennms.netmgt.config.categories.Catinfo;
 
+/**
+ * A factory for creating MockCategory objects.
+ */
 public class MockCategoryFactory implements CatFactory {
+
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The m_config. */
     private Catinfo m_config;
 
+    /** The Constant CATEGORY_CONFIG. */
     private static final String CATEGORY_CONFIG = "<catinfo>" + " <header>" + "  <rev>1.3</rev>"
             + "  <created>Wednesday, February 6, 2002 10:10:00 AM EST</created>" + "  <mstation>checkers</mstation>"
             + " </header>" + " <categorygroup>" + "  <name>WebConsole</name>"
@@ -73,19 +82,47 @@ public class MockCategoryFactory implements CatFactory {
             + "    <rule><![CDATA[isHTTP | isHTTPS]]></rule>" + "   </category>" + "  </categories>"
             + " </categorygroup>" + "</catinfo>";
 
+    /**
+     * Instantiates a new mock category factory.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public MockCategoryFactory() throws MarshalException, ValidationException, IOException {
         this(CATEGORY_CONFIG);
     }
 
+    /**
+     * Instantiates a new mock category factory.
+     *
+     * @param config
+     *            the config
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public MockCategoryFactory(String config) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(Catinfo.class, new ByteArrayInputStream(config.getBytes()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -101,6 +138,9 @@ public class MockCategoryFactory implements CatFactory {
         return m_config;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getCategory(java.lang.String)
+     */
     @Override
     public synchronized Category getCategory(final String name) {
         for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
@@ -114,6 +154,9 @@ public class MockCategoryFactory implements CatFactory {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getEffectiveRule(java.lang.String)
+     */
     @Override
     public synchronized String getEffectiveRule(final String catlabel) {
         for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
@@ -127,12 +170,18 @@ public class MockCategoryFactory implements CatFactory {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getNormal(java.lang.String)
+     */
     @Override
     public double getNormal(String catlabel) {
         // TODO Auto-generated method stub
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.categories.CatFactory#getWarning(java.lang.String)
+     */
     @Override
     public double getWarning(String catlabel) {
         // TODO Auto-generated method stub

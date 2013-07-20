@@ -46,10 +46,13 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class MockNode extends MockContainer<MockNetwork, MockInterface> {
 
+    /** The m_label. */
     String m_label;
 
+    /** The m_nodeid. */
     int m_nodeid;
 
+    /** The m_next if index. */
     int m_nextIfIndex = 1;
 
     /**
@@ -75,6 +78,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * addInterface
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -89,6 +93,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * getInterface
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -99,6 +104,9 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
     }
 
     // impl
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.MockElement#getKey()
+     */
     @Override
     Object getKey() {
         return new Integer(m_nodeid);
@@ -109,6 +117,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +129,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -133,6 +143,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
@@ -146,6 +157,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -157,6 +169,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * getNextIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -169,6 +182,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * removeInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.mock.MockInterface} object.
@@ -182,6 +196,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -203,6 +218,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createUpEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -215,6 +231,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createDownEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -227,6 +244,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createDownEventWithReason
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -240,6 +258,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createNewEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -252,6 +271,7 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createDeleteEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -264,7 +284,10 @@ public class MockNode extends MockContainer<MockNetwork, MockInterface> {
      * <p>
      * createNodeLabelChangedEvent
      * </p>
+     * .
      *
+     * @param newLabel
+     *            the new label
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event createNodeLabelChangedEvent(String newLabel) {

@@ -46,6 +46,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public abstract class MockElement {
 
+    /** The m_parent. */
     private volatile MockContainer<?, ? extends MockElement> m_parent;
 
     /**
@@ -65,6 +66,7 @@ public abstract class MockElement {
      * <p>
      * addAnticipator
      * </p>
+     * .
      *
      * @param trigger
      *            a {@link org.opennms.netmgt.mock.PollAnticipator} object.
@@ -76,6 +78,7 @@ public abstract class MockElement {
      * <p>
      * bringDown
      * </p>
+     * .
      */
     public void bringDown() {
         setServicePollStatus(PollStatus.down());
@@ -86,6 +89,7 @@ public abstract class MockElement {
      * <p>
      * bringUp
      * </p>
+     * .
      */
     public void bringUp() {
         setServicePollStatus(PollStatus.up());
@@ -96,12 +100,18 @@ public abstract class MockElement {
      * <p>
      * bringUnresponsive
      * </p>
+     * .
      */
     public void bringUnresponsive() {
         setServicePollStatus(PollStatus.unresponsive());
     }
 
     // impl
+    /**
+     * Gets the key.
+     *
+     * @return the key
+     */
     abstract Object getKey();
 
     // model
@@ -109,6 +119,7 @@ public abstract class MockElement {
      * <p>
      * getParent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.mock.MockContainer} object.
      */
@@ -120,6 +131,7 @@ public abstract class MockElement {
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
@@ -137,6 +149,7 @@ public abstract class MockElement {
      * <p>
      * getPollCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -147,6 +160,7 @@ public abstract class MockElement {
      * <p>
      * getPollStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -157,6 +171,7 @@ public abstract class MockElement {
      * <p>
      * moveTo
      * </p>
+     * .
      *
      * @param newParent
      *            a {@link org.opennms.netmgt.mock.MockContainer} object.
@@ -172,6 +187,7 @@ public abstract class MockElement {
      * <p>
      * removeAnticipator
      * </p>
+     * .
      *
      * @param trigger
      *            a {@link org.opennms.netmgt.mock.PollAnticipator} object.
@@ -183,10 +199,17 @@ public abstract class MockElement {
      * <p>
      * resetPollCount
      * </p>
+     * .
      */
     public abstract void resetPollCount();
 
     // model
+    /**
+     * Sets the parent.
+     *
+     * @param parent
+     *            the parent
+     */
     void setParent(MockContainer<?, ? extends MockElement> parent) {
         m_parent = parent;
     }
@@ -196,6 +219,7 @@ public abstract class MockElement {
      * <p>
      * setServicePollStatus
      * </p>
+     * .
      *
      * @param newStatus
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -217,6 +241,7 @@ public abstract class MockElement {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param v
      *            a {@link org.opennms.netmgt.mock.MockVisitor} object.
@@ -229,6 +254,7 @@ public abstract class MockElement {
      * <p>
      * createDownEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -238,6 +264,7 @@ public abstract class MockElement {
      * <p>
      * createUpEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -247,6 +274,7 @@ public abstract class MockElement {
      * <p>
      * createUpEvent
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -262,6 +290,7 @@ public abstract class MockElement {
      * <p>
      * createDownEvent
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -277,6 +306,7 @@ public abstract class MockElement {
      * <p>
      * createNewEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -286,6 +316,7 @@ public abstract class MockElement {
      * <p>
      * createDeleteEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */

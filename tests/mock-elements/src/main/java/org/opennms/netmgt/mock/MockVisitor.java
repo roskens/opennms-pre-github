@@ -45,6 +45,7 @@ public interface MockVisitor {
      * <p>
      * visitContainer
      * </p>
+     * .
      *
      * @param c
      *            a {@link org.opennms.netmgt.mock.MockContainer} object.
@@ -55,6 +56,7 @@ public interface MockVisitor {
      * <p>
      * visitElement
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.mock.MockElement} object.
@@ -65,6 +67,7 @@ public interface MockVisitor {
      * <p>
      * visitInterface
      * </p>
+     * .
      *
      * @param i
      *            a {@link org.opennms.netmgt.mock.MockInterface} object.
@@ -75,6 +78,7 @@ public interface MockVisitor {
      * <p>
      * visitNetwork
      * </p>
+     * .
      *
      * @param n
      *            a {@link org.opennms.netmgt.mock.MockNetwork} object.
@@ -85,6 +89,7 @@ public interface MockVisitor {
      * <p>
      * visitNode
      * </p>
+     * .
      *
      * @param n
      *            a {@link org.opennms.netmgt.mock.MockNode} object.
@@ -95,6 +100,7 @@ public interface MockVisitor {
      * <p>
      * visitService
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.netmgt.mock.MockService} object.

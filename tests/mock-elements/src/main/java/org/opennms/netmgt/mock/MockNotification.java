@@ -31,25 +31,38 @@ package org.opennms.netmgt.mock;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
+ * The Class MockNotification.
+ *
  * @author david
  */
 public class MockNotification {
 
+    /** The m_subject. */
     private String m_subject;
 
+    /** The m_email. */
     private String m_email;
 
+    /** The m_pemail. */
     private String m_pemail;
 
+    /** The m_text msg. */
     private String m_textMsg;
 
+    /** The m_expected time. */
     private long m_expectedTime;
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return new HashCodeBuilder(3, 57).append(m_subject).append(m_email).append(m_pemail).append(m_textMsg).append(m_expectedTime).toHashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object o) {
 
@@ -65,6 +78,8 @@ public class MockNotification {
     }
 
     /**
+     * Gets the email.
+     *
      * @return Returns the email.
      */
     public String getEmail() {
@@ -72,6 +87,8 @@ public class MockNotification {
     }
 
     /**
+     * Sets the email.
+     *
      * @param email
      *            The email to set.
      */
@@ -80,6 +97,8 @@ public class MockNotification {
     }
 
     /**
+     * Gets the pmail.
+     *
      * @return Returns the pmail.
      */
     public String getPmail() {
@@ -87,6 +106,8 @@ public class MockNotification {
     }
 
     /**
+     * Sets the pmail.
+     *
      * @param pmail
      *            The pmail to set.
      */
@@ -95,6 +116,8 @@ public class MockNotification {
     }
 
     /**
+     * Gets the subject.
+     *
      * @return Returns the subject.
      */
     public String getSubject() {
@@ -102,6 +125,8 @@ public class MockNotification {
     }
 
     /**
+     * Sets the subject.
+     *
      * @param subject
      *            The subject to set.
      */
@@ -109,15 +134,28 @@ public class MockNotification {
         m_subject = subject;
     }
 
+    /**
+     * Gets the expected time.
+     *
+     * @return the expected time
+     */
     public long getExpectedTime() {
         return m_expectedTime;
     }
 
+    /**
+     * Sets the expected time.
+     *
+     * @param expectedTime
+     *            the new expected time
+     */
     public void setExpectedTime(final long expectedTime) {
         m_expectedTime = expectedTime;
     }
 
     /**
+     * Gets the text msg.
+     *
      * @return Returns the m_textMsg.
      */
     public String getTextMsg() {
@@ -125,6 +163,8 @@ public class MockNotification {
     }
 
     /**
+     * Sets the text msg.
+     *
      * @param textMsg
      *            The m_textMsg to set.
      */
@@ -132,6 +172,9 @@ public class MockNotification {
         m_textMsg = textMsg;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "[" + " expectedTime = '" + m_expectedTime + "'" + " subject = '" + m_subject + "'" + " email = '"

@@ -63,12 +63,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class MockEventUtil {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockEventUtil.class);
 
     /**
      * <p>
      * createNodeLostServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -86,6 +88,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeLostServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -101,6 +104,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeRegainedServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -116,6 +120,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceUnresponsiveEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -133,6 +138,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceUnresponsiveEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -150,6 +156,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceResponsiveEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -165,6 +172,7 @@ public abstract class MockEventUtil {
      * <p>
      * createDemandPollServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -184,6 +192,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeGainedServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -199,6 +208,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceDeletedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -214,6 +224,7 @@ public abstract class MockEventUtil {
      * <p>
      * createSuspendPollingServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -229,6 +240,7 @@ public abstract class MockEventUtil {
      * <p>
      * createResumePollingServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -244,6 +256,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -263,6 +276,7 @@ public abstract class MockEventUtil {
      * <p>
      * createServiceEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -282,6 +296,7 @@ public abstract class MockEventUtil {
      * <p>
      * createInterfaceDownEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -297,6 +312,7 @@ public abstract class MockEventUtil {
      * <p>
      * createInterfaceUpEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -312,6 +328,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeGainedInterfaceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -327,6 +344,7 @@ public abstract class MockEventUtil {
      * <p>
      * createInterfaceDeletedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -342,6 +360,7 @@ public abstract class MockEventUtil {
      * <p>
      * createInterfaceEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -359,6 +378,7 @@ public abstract class MockEventUtil {
      * <p>
      * createInterfaceEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -376,6 +396,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeDownEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -391,6 +412,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeDownEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -415,6 +437,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeDownEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -439,6 +462,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeDownEventWithReason
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -465,6 +489,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeUpEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -491,6 +516,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeAddedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -506,6 +532,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeDeletedEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -521,6 +548,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -538,6 +566,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -555,6 +584,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -572,6 +602,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNodeEventWithReason
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -591,6 +622,7 @@ public abstract class MockEventUtil {
      * <p>
      * createNewSuspectEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -610,6 +642,7 @@ public abstract class MockEventUtil {
      * <p>
      * createBgpBkTnEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -635,6 +668,7 @@ public abstract class MockEventUtil {
      * <p>
      * setEventTime
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -649,6 +683,7 @@ public abstract class MockEventUtil {
      * <p>
      * createEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -672,6 +707,7 @@ public abstract class MockEventUtil {
      * <p>
      * createEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -705,6 +741,7 @@ public abstract class MockEventUtil {
      * <p>
      * createEventBuilder
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -724,6 +761,7 @@ public abstract class MockEventUtil {
      * <p>
      * createReparentEvent
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -748,6 +786,7 @@ public abstract class MockEventUtil {
      * <p>
      * convertEventTimeIntoTimestamp
      * </p>
+     * .
      *
      * @param eventTime
      *            a {@link java.lang.String} object.
@@ -770,6 +809,7 @@ public abstract class MockEventUtil {
      * <p>
      * eventsMatch
      * </p>
+     * .
      *
      * @param e1
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -786,6 +826,7 @@ public abstract class MockEventUtil {
      * <p>
      * eventsMatchDeep
      * </p>
+     * .
      *
      * @param e1
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -831,6 +872,13 @@ public abstract class MockEventUtil {
         return true;
     }
 
+    /**
+     * Convert parms to map.
+     *
+     * @param parms
+     *            the parms
+     * @return the map
+     */
     private static Map<String, String> convertParmsToMap(List<Parm> parms) {
         Map<String, String> map = new HashMap<String, String>();
         for (Parm p : parms) {
@@ -845,6 +893,7 @@ public abstract class MockEventUtil {
      * <p>
      * printEvent
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -865,6 +914,7 @@ public abstract class MockEventUtil {
      * <p>
      * printEvents
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.

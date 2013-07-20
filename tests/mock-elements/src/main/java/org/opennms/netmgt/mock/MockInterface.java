@@ -49,10 +49,13 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class MockInterface extends MockContainer<MockNode, MockService> {
 
+    /** The m_if alias. */
     private String m_ifAlias;
 
+    /** The m_inet addr. */
     private final InetAddress m_inetAddr;
 
+    /** The m_if index. */
     private final int m_ifIndex;
 
     /**
@@ -79,6 +82,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * addService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -95,6 +99,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +108,9 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
     }
 
     // impl
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.MockElement#getKey()
+     */
     @Override
     Object getKey() {
         return getIpAddr();
@@ -113,6 +121,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.mock.MockNetwork} object.
      */
@@ -126,6 +135,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.mock.MockNode} object.
      */
@@ -138,6 +148,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -150,6 +161,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -162,6 +174,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getPollStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -196,6 +209,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -210,6 +224,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -222,6 +237,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * removeService
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.mock.MockService} object.
@@ -235,6 +251,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -258,6 +275,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * createDownEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -270,6 +288,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * createUpEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -282,6 +301,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * createNewEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -294,6 +314,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * createDeleteEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -306,6 +327,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param ifAlias
      *            a {@link java.lang.String} object.
@@ -319,6 +341,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return Returns the ifAlias.
      */
@@ -330,6 +353,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -341,6 +365,7 @@ public class MockInterface extends MockContainer<MockNode, MockService> {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */

@@ -38,41 +38,57 @@ import junit.framework.Assert;
 import org.opennms.test.mock.MockUtil;
 
 /**
+ * The Class NotificationAnticipator.
+ *
  * @author brozow
  */
 public class NotificationAnticipator {
 
+    /** The m_anticipated. */
     List<MockNotification> m_anticipated = new ArrayList<MockNotification>();
 
+    /** The m_unanticipated. */
     List<MockNotification> m_unanticipated = new ArrayList<MockNotification>();
 
+    /** The m_early arrival. */
     List<MockNotification[]> m_earlyArrival = new ArrayList<MockNotification[]>();
 
+    /** The m_late bloomers. */
     List<MockNotification[]> m_lateBloomers = new ArrayList<MockNotification[]>();
 
+    /** The m_expected diff. */
     long m_expectedDiff = 1000;
 
     /**
+     * Instantiates a new notification anticipator.
      */
     public NotificationAnticipator() {
     }
 
     /**
+     * Sets the expected difference.
+     *
      * @param expectedDiff
+     *            the new expected difference
      */
     public void setExpectedDifference(long expectedDiff) {
         m_expectedDiff = expectedDiff;
     }
 
     /**
-     * @return
+     * Gets the expected difference.
+     *
+     * @return the expected difference
      */
     public long getExpectedDifference() {
         return m_expectedDiff;
     }
 
     /**
-     * @param event
+     * Anticipate notification.
+     *
+     * @param mn
+     *            the mn
      */
     public void anticipateNotification(MockNotification mn) {
         MockUtil.println("Anticipating notification: " + mn);
@@ -80,7 +96,10 @@ public class NotificationAnticipator {
     }
 
     /**
-     * @param event
+     * Notification received.
+     *
+     * @param mn
+     *            the mn
      */
     public synchronized void notificationReceived(MockNotification mn) {
         int i = m_anticipated.indexOf(mn);
@@ -111,25 +130,38 @@ public class NotificationAnticipator {
         }
     }
 
+    /**
+     * Gets the anticipated notifications.
+     *
+     * @return the anticipated notifications
+     */
     public Collection<MockNotification> getAnticipatedNotifications() {
         return Collections.unmodifiableCollection(m_anticipated);
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         m_anticipated = new ArrayList<MockNotification>();
         m_unanticipated = new ArrayList<MockNotification>();
     }
 
     /**
-     * @return
+     * Gets the unanticipated.
+     *
+     * @return the unanticipated
      */
     public Collection<MockNotification> getUnanticipated() {
         return Collections.unmodifiableCollection(m_unanticipated);
     }
 
     /**
-     * @param i
-     * @return
+     * Wait for anticipated.
+     *
+     * @param millis
+     *            the millis
+     * @return the collection
      */
     public synchronized Collection<MockNotification> waitForAnticipated(long millis) {
         long waitTime = millis;
@@ -148,6 +180,16 @@ public class NotificationAnticipator {
         return getAnticipatedNotifications();
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param lastNotifyTime
+     *            the last notify time
+     * @param waitTime
+     *            the wait time
+     * @param sleepTime
+     *            the sleep time
+     */
     public void verifyAnticipated(long lastNotifyTime, long waitTime, long sleepTime) {
         StringBuffer problems = new StringBuffer();
 
@@ -188,6 +230,15 @@ public class NotificationAnticipator {
         }
     }
 
+    /**
+     * List notifications.
+     *
+     * @param prefix
+     *            the prefix
+     * @param notifications
+     *            the notifications
+     * @return the string
+     */
     private static String listNotifications(String prefix, Collection<?> notifications) {
         StringBuffer b = new StringBuffer();
 

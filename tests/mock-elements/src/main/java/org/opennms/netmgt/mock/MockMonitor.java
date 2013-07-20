@@ -36,38 +36,57 @@ import org.opennms.netmgt.poller.ServiceMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class MockMonitor.
+ */
 public class MockMonitor implements ServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockMonitor.class);
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_svc name. */
     private String m_svcName;
 
     /**
-     * Simple constructor so that the MockMonitor can be used as a placeholder
+     * Simple constructor so that the MockMonitor can be used as a placeholder.
      * {@link ServiceMonitor} inside config files.
      */
     public MockMonitor() {
     }
 
     /**
+     * Instantiates a new mock monitor.
+     *
      * @param network
+     *            the network
      * @param svcName
+     *            the svc name
      */
     public MockMonitor(MockNetwork network, String svcName) {
         m_network = network;
         m_svcName = svcName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(org.opennms.netmgt.poller.MonitoredService)
+     */
     @Override
     public void initialize(MonitoredService svc) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.ServiceMonitor#initialize(java.util.Map)
+     */
     @Override
     public void initialize(Map<String, Object> parameters) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.ServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map)
+     */
     @Override
     public PollStatus poll(MonitoredService monSvc, Map<String, Object> parameters) {
         synchronized (m_network) {
@@ -86,10 +105,16 @@ public class MockMonitor implements ServiceMonitor {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.ServiceMonitor#release()
+     */
     @Override
     public void release() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.ServiceMonitor#release(org.opennms.netmgt.poller.MonitoredService)
+     */
     @Override
     public void release(MonitoredService svc) {
     }
