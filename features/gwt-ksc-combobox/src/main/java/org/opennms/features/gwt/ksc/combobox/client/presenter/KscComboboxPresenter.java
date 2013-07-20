@@ -39,23 +39,46 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class KscComboboxPresenter.
+ */
 public class KscComboboxPresenter implements Presenter, KscComboboxView.Presenter<KscReportDetail> {
 
+    /** The m_view. */
     private KscComboboxView<KscReportDetail> m_view;
 
+    /** The m_ksc report details. */
     private List<KscReportDetail> m_kscReportDetails;
 
+    /**
+     * Instantiates a new ksc combobox presenter.
+     *
+     * @param view
+     *            the view
+     * @param kscReportDetails
+     *            the ksc report details
+     */
     public KscComboboxPresenter(KscComboboxViewImpl view, JsArray<KscReportDetail> kscReportDetails) {
         m_view = view;
         m_view.setPresenter(this);
         m_kscReportDetails = convertJsArrayToList(kscReportDetails);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView.Presenter#onSearchButtonClicked()
+     */
     @Override
     public void onSearchButtonClicked() {
         m_view.setDataList(filterResultsByName(m_view.getSearchText()));
     }
 
+    /**
+     * Filter results by name.
+     *
+     * @param searchText
+     *            the search text
+     * @return the list
+     */
     private List<KscReportDetail> filterResultsByName(String searchText) {
         List<KscReportDetail> list = new ArrayList<KscReportDetail>();
         for (KscReportDetail detail : m_kscReportDetails) {
@@ -67,11 +90,17 @@ public class KscComboboxPresenter implements Presenter, KscComboboxView.Presente
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView.Presenter#onEnterKeyEvent()
+     */
     @Override
     public void onEnterKeyEvent() {
         m_view.setDataList(filterResultsByName(m_view.getSearchText()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView.Presenter#onKscReportSelected()
+     */
     @Override
     public void onKscReportSelected() {
         StringBuilder urlBuilder = new StringBuilder();
@@ -81,12 +110,22 @@ public class KscComboboxPresenter implements Presenter, KscComboboxView.Presente
         Location.assign(urlBuilder.toString());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         container.clear();
         container.add(m_view.asWidget());
     }
 
+    /**
+     * Convert js array to list.
+     *
+     * @param kscReportDetails
+     *            the ksc report details
+     * @return the list
+     */
     private List<KscReportDetail> convertJsArrayToList(JsArray<KscReportDetail> kscReportDetails) {
         List<KscReportDetail> m_list = new ArrayList<KscReportDetail>();
 
@@ -96,6 +135,11 @@ public class KscComboboxPresenter implements Presenter, KscComboboxView.Presente
         return m_list;
     }
 
+    /**
+     * Gets the base href.
+     *
+     * @return the base href
+     */
     public final native String getBaseHref() /*-{
                                              try{
                                              return $wnd.getBaseHref();

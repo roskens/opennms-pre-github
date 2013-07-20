@@ -36,14 +36,27 @@ import org.opennms.features.gwt.ksc.combobox.client.view.KscReportDetail;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class AppController.
+ */
 public class AppController implements Presenter {
 
+    /** The m_ksc report details. */
     private JsArray<KscReportDetail> m_kscReportDetails;
 
+    /**
+     * Instantiates a new app controller.
+     *
+     * @param kscReportDetails
+     *            the ksc report details
+     */
     public AppController(JsArray<KscReportDetail> kscReportDetails) {
         m_kscReportDetails = kscReportDetails;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         new KscComboboxPresenter(new KscComboboxViewImpl(), m_kscReportDetails).go(container);

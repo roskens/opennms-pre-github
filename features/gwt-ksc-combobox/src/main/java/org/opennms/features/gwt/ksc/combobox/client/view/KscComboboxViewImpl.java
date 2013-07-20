@@ -58,10 +58,19 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class KscComboboxViewImpl.
+ */
 public class KscComboboxViewImpl extends Composite implements KscComboboxView<KscReportDetail> {
 
+    /**
+     * The Class KscReportDetailCell.
+     */
     public class KscReportDetailCell extends AbstractSafeHtmlCell<KscReportDetail> {
 
+        /**
+         * Instantiates a new ksc report detail cell.
+         */
         public KscReportDetailCell() {
             super(new SafeHtmlRenderer<KscReportDetail>() {
 
@@ -87,6 +96,9 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
             });
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.cell.client.AbstractSafeHtmlCell#render(com.google.gwt.cell.client.Cell.Context, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+         */
         @Override
         protected void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
             sb.append(value);
@@ -94,33 +106,49 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
 
     }
 
+    /** The ui binder. */
     private static KscComboboxViewImplUiBinder uiBinder = GWT.create(KscComboboxViewImplUiBinder.class);
 
+    /**
+     * The Interface KscComboboxViewImplUiBinder.
+     */
     @UiTemplate("KscComboboxViewImpl.ui.xml")
     interface KscComboboxViewImplUiBinder extends UiBinder<Widget, KscComboboxViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_text box. */
     @UiField
     TextBox m_textBox;
 
+    /** The m_search button. */
     @UiField
     Button m_searchButton;
 
+    /** The m_report list. */
     CellList<KscReportDetail> m_reportList;
 
+    /** The m_pager. */
     SimplePager m_pager;
 
+    /** The m_popup panel. */
     PopupPanel m_popupPanel;
 
+    /** The m_presenter. */
     private Presenter<KscReportDetail> m_presenter;
 
+    /** The m_data list. */
     private ListDataProvider<KscReportDetail> m_dataList;
 
+    /** The m_selection model. */
     private SingleSelectionModel<KscReportDetail> m_selectionModel;
 
+    /**
+     * Instantiates a new ksc combobox view impl.
+     */
     public KscComboboxViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -172,16 +200,25 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
         m_popupPanel.getElement().getStyle().setPadding(1, Unit.PX);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView#getSearchText()
+     */
     @Override
     public String getSearchText() {
         return m_textBox.getText();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView#setPresenter(org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<KscReportDetail> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView#setDataList(java.util.List)
+     */
     @Override
     public void setDataList(List<KscReportDetail> dataList) {
         m_dataList.setList(dataList);
@@ -196,11 +233,20 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.combobox.client.view.KscComboboxView#getSelectedReport()
+     */
     @Override
     public KscReportDetail getSelectedReport() {
         return m_selectionModel.getSelectedObject();
     }
 
+    /**
+     * Handle search button.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_searchButton")
     public void handleSearchButton(ClickEvent event) {
         m_presenter.onSearchButtonClicked();

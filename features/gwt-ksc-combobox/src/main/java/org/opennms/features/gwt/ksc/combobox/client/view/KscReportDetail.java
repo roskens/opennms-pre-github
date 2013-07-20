@@ -30,15 +30,31 @@ package org.opennms.features.gwt.ksc.combobox.client.view;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class KscReportDetail.
+ */
 public class KscReportDetail extends JavaScriptObject {
 
+    /**
+     * Instantiates a new ksc report detail.
+     */
     protected KscReportDetail() {
     };
 
+    /**
+     * Gets the label.
+     *
+     * @return the label
+     */
     public final native String getLabel() /*-{
                                           return this[1];
                                           }-*/;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native int getId() /*-{
                                     return parseInt(this[0]);
                                     }-*/;

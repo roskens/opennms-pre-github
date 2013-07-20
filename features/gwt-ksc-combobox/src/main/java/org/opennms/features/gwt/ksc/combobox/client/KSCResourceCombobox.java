@@ -67,11 +67,22 @@ public class KSCResourceCombobox implements EntryPoint {
         }
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param elem
+     *            the elem
+     */
     private void createView(Element elem) {
         AppController appView = new AppController(getKscComboboxData());
         appView.go(RootPanel.get(elem.getId()));
     }
 
+    /**
+     * Gets the ksc combobox data.
+     *
+     * @return the ksc combobox data
+     */
     public static native JsArray<KscReportDetail> getKscComboboxData() /*-{
                                                                        return $wnd.kscComboData;
                                                                        }-*/;

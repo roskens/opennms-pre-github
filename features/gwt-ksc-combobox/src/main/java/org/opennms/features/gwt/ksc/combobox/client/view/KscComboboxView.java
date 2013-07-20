@@ -32,23 +32,72 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface KscComboboxView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface KscComboboxView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On search button clicked.
+         */
         void onSearchButtonClicked();
 
+        /**
+         * On enter key event.
+         */
         void onEnterKeyEvent();
 
+        /**
+         * On ksc report selected.
+         */
         void onKscReportSelected();
     }
 
+    /**
+     * Gets the search text.
+     *
+     * @return the search text
+     */
     String getSearchText();
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(List<T> dataList);
 
+    /**
+     * As widget.
+     *
+     * @return the widget
+     */
     Widget asWidget();
 
+    /**
+     * Gets the selected report.
+     *
+     * @return the selected report
+     */
     KscReportDetail getSelectedReport();
 }
