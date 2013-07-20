@@ -47,8 +47,10 @@ import org.springframework.osgi.context.BundleContextAware;
  */
 public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleContextAware, DisposableBean {
 
+    /** The m_context. */
     private BundleContext m_context;
 
+    /** The m_registrations. */
     private final List<ServiceRegistration<GatewayGroup>> m_registrations = new ArrayList<ServiceRegistration<GatewayGroup>>();
 
     /** {@inheritDoc} */
@@ -68,9 +70,10 @@ public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleC
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {

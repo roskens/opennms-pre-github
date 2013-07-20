@@ -44,6 +44,7 @@ public interface GatewayGroupRegistrar {
      * <p>
      * registerGatewayGroup
      * </p>
+     * .
      *
      * @param gatewayGroup
      *            a {@link org.opennms.sms.reflector.smsservice.GatewayGroup}

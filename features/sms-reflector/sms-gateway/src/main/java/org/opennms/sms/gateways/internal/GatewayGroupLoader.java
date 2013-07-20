@@ -50,14 +50,20 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class GatewayGroupLoader implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GatewayGroupLoader.class);
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(GatewayGroupLoader.class);
 
+    /** The m_config properties. */
     private Properties m_configProperties;
 
+    /** The m_gateway groups. */
     private GatewayGroup[] m_gatewayGroups;
 
+    /** The m_gateway group registrar. */
     private GatewayGroupRegistrar m_gatewayGroupRegistrar;
 
     /**
@@ -67,10 +73,10 @@ public class GatewayGroupLoader implements InitializingBean {
      *
      * @param gatewayGroupRegistrar
      *            a
-     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
-     *            object.
      * @param configURL
      *            a {@link java.net.URL} object.
+     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
+     *            object.
      */
     public GatewayGroupLoader(GatewayGroupRegistrar gatewayGroupRegistrar, URL configURL) {
         this(gatewayGroupRegistrar, loadProperties(configURL));
@@ -83,10 +89,10 @@ public class GatewayGroupLoader implements InitializingBean {
      *
      * @param gatewayGroupRegistrar
      *            a
-     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
-     *            object.
      * @param configProperties
      *            a {@link java.util.Properties} object.
+     *            {@link org.opennms.sms.gateways.internal.GatewayGroupRegistrar}
+     *            object.
      */
     public GatewayGroupLoader(GatewayGroupRegistrar gatewayGroupRegistrar, Properties configProperties) {
         m_gatewayGroupRegistrar = gatewayGroupRegistrar;
@@ -97,6 +103,7 @@ public class GatewayGroupLoader implements InitializingBean {
      * <p>
      * getGatewayGroups
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.sms.reflector.smsservice.GatewayGroup}
@@ -110,6 +117,7 @@ public class GatewayGroupLoader implements InitializingBean {
      * <p>
      * load
      * </p>
+     * .
      */
     public void load() {
 
@@ -166,6 +174,13 @@ public class GatewayGroupLoader implements InitializingBean {
 
     }
 
+    /**
+     * Load properties.
+     *
+     * @param configURL
+     *            the config url
+     * @return the properties
+     */
     private static Properties loadProperties(URL configURL) {
         Properties modemProperties = new Properties();
         InputStream in = null;
@@ -187,6 +202,14 @@ public class GatewayGroupLoader implements InitializingBean {
         return modemProperties;
     }
 
+    /**
+     * Infof.
+     *
+     * @param fmt
+     *            the fmt
+     * @param args
+     *            the args
+     */
     private void infof(String fmt, Object... args) {
         if (log.isInfoEnabled()) {
             log.info(String.format(fmt, args));
@@ -197,9 +220,10 @@ public class GatewayGroupLoader implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -48,8 +48,10 @@ import org.springframework.util.Assert;
  */
 public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, DisposableBean, InitializingBean {
 
+    /** The m_registrations. */
     private final List<Registration> m_registrations = new ArrayList<Registration>();
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
     /** {@inheritDoc} */
@@ -62,9 +64,10 @@ public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, Disposa
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -77,6 +80,7 @@ public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, Disposa
      * <p>
      * setServiceRegistry
      * </p>
+     * .
      *
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
@@ -89,6 +93,7 @@ public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, Disposa
      * <p>
      * getServiceRegistry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
@@ -100,9 +105,10 @@ public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, Disposa
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
