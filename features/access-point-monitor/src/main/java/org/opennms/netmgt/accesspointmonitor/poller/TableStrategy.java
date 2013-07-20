@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.accesspointmonitor.poller;
 
 import java.io.IOException;
@@ -28,20 +55,32 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class TableStrategy implements AccessPointPoller {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TableStrategy.class);
 
+    /** The m_iface. */
     private OnmsIpInterface m_iface;
 
+    /** The m_package. */
     private Package m_package;
 
+    /** The m_parameters. */
     private Map<String, String> m_parameters;
 
+    /** The m_access point dao. */
     private AccessPointDao m_accessPointDao;
 
+    /**
+     * Instantiates a new table strategy.
+     */
     public TableStrategy() {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.Callable#call()
+     */
     @Override
     public OnmsAccessPointCollection call() throws IOException {
         OnmsAccessPointCollection apsUp = new OnmsAccessPointCollection();
@@ -110,6 +149,13 @@ public class TableStrategy implements AccessPointPoller {
         return apsUp;
     }
 
+    /**
+     * Gets the phys addr from value.
+     *
+     * @param value
+     *            the value
+     * @return the phys addr from value
+     */
     public static String getPhysAddrFromValue(SnmpValue value) {
         String hexString = value.toHexString();
         if (hexString.length() != 12) {
@@ -127,41 +173,65 @@ public class TableStrategy implements AccessPointPoller {
         return sb.toString().toUpperCase();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setInterfaceToPoll(org.opennms.netmgt.model.OnmsIpInterface)
+     */
     @Override
     public void setInterfaceToPoll(OnmsIpInterface interfaceToPoll) {
         m_iface = interfaceToPoll;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getInterfaceToPoll()
+     */
     @Override
     public OnmsIpInterface getInterfaceToPoll() {
         return m_iface;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setPackage(org.opennms.netmgt.config.accesspointmonitor.Package)
+     */
     @Override
     public void setPackage(Package pkg) {
         m_package = pkg;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getPackage()
+     */
     @Override
     public Package getPackage() {
         return m_package;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setPropertyMap(java.util.Map)
+     */
     @Override
     public void setPropertyMap(Map<String, String> parameters) {
         m_parameters = parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getPropertyMap()
+     */
     @Override
     public Map<String, String> getPropertyMap() {
         return m_parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setAccessPointDao(org.opennms.netmgt.dao.AccessPointDao)
+     */
     @Override
     public void setAccessPointDao(AccessPointDao accessPointDao) {
         m_accessPointDao = accessPointDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getAccessPointDao()
+     */
     @Override
     public AccessPointDao getAccessPointDao() {
         return m_accessPointDao;

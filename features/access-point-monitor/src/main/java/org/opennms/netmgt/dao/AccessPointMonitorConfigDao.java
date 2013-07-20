@@ -34,9 +34,16 @@ import org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig;
  * <p>
  * AccessPointMonitorConfigDao
  * </p>
+ * .
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public interface AccessPointMonitorConfigDao {
+
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public AccessPointMonitorConfig getConfig();
 }

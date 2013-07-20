@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.config.accesspointmonitor;
 
 import java.io.Serializable;
@@ -25,40 +52,62 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class Package implements Serializable, Comparable<Package> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Package.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -988483514208208854L;
 
+    /** The Constant OF_SPECIFICS. */
     private static final String[] OF_SPECIFICS = new String[0];
 
+    /** The Constant OF_INCLUDERANGES. */
     private static final IpRange[] OF_INCLUDERANGES = new IpRange[0];
 
+    /** The Constant OF_EXCLUDERANGES. */
     private static final IpRange[] OF_EXCLUDERANGES = new IpRange[0];
 
+    /** The m_name. */
     @XmlAttribute(name = "name", required = true)
     private String m_name;
 
+    /** The m_filter. */
     @XmlElement(name = "filter", required = true)
     private String m_filter;
 
+    /** The m_specifics. */
     @XmlElement(name = "specific")
     private List<String> m_specifics = new ArrayList<String>();
 
+    /** The m_include ranges. */
     @XmlElement(name = "include-range")
     private List<IpRange> m_includeRanges = new ArrayList<IpRange>();
 
+    /** The m_exclude ranges. */
     @XmlElement(name = "exclude-range")
     private List<IpRange> m_excludeRanges = new ArrayList<IpRange>();
 
+    /** The m_service. */
     @XmlElement(name = "service", required = true)
     private Service m_service;
 
+    /** The m_is dynamic. */
     private boolean m_isDynamic = false;
 
+    /**
+     * Instantiates a new package.
+     */
     public Package() {
 
     }
 
+    /**
+     * Instantiates a new package.
+     *
+     * @param copy
+     *            the copy
+     */
     public Package(Package copy) {
         if (copy.m_name != null) {
             m_name = new String(copy.m_name);
@@ -81,80 +130,179 @@ public class Package implements Serializable, Comparable<Package> {
         m_isDynamic = copy.m_isDynamic;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @XmlTransient
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_name = name;
     }
 
+    /**
+     * Name has wildcard.
+     *
+     * @return true, if successful
+     */
     public boolean nameHasWildcard() {
         return m_name.endsWith("%");
     }
 
+    /**
+     * Gets the filter.
+     *
+     * @return the filter
+     */
     @XmlTransient
     public String getFilter() {
         return m_filter;
     }
 
+    /**
+     * Gets the effective filter.
+     *
+     * @return the effective filter
+     */
     public String getEffectiveFilter() {
         return m_filter.replaceAll("%packageName%", getName());
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param filter
+     *            the new filter
+     */
     public void setFilter(String filter) {
         m_filter = filter;
     }
 
+    /**
+     * Gets the specifics.
+     *
+     * @return the specifics
+     */
     @XmlTransient
     public List<String> getSpecifics() {
         return m_specifics;
     }
 
+    /**
+     * Sets the specifics.
+     *
+     * @param specifics
+     *            the new specifics
+     */
     public void setSpecifics(List<String> specifics) {
         m_specifics = specifics;
     }
 
+    /**
+     * Adds the specific.
+     *
+     * @param specific
+     *            the specific
+     */
     public void addSpecific(String specific) {
         m_specifics.add(specific);
     }
 
+    /**
+     * Gets the include ranges.
+     *
+     * @return the include ranges
+     */
     @XmlTransient
     public List<IpRange> getIncludeRanges() {
         return m_includeRanges;
     }
 
+    /**
+     * Sets the include ranges.
+     *
+     * @param includeRanges
+     *            the new include ranges
+     */
     public void setIncludeRanges(List<IpRange> includeRanges) {
         m_includeRanges = includeRanges;
     }
 
+    /**
+     * Adds the include range.
+     *
+     * @param includeRange
+     *            the include range
+     */
     public void addIncludeRange(IpRange includeRange) {
         m_includeRanges.add(includeRange);
     }
 
+    /**
+     * Gets the exclude ranges.
+     *
+     * @return the exclude ranges
+     */
     @XmlTransient
     public List<IpRange> getExcludeRanges() {
         return m_excludeRanges;
     }
 
+    /**
+     * Sets the exclude ranges.
+     *
+     * @param excludeRanges
+     *            the new exclude ranges
+     */
     public void setExcludeRanges(List<IpRange> excludeRanges) {
         m_excludeRanges = excludeRanges;
     }
 
+    /**
+     * Adds the exclude range.
+     *
+     * @param excludeRange
+     *            the exclude range
+     */
     public void addExcludeRange(IpRange excludeRange) {
         m_excludeRanges.add(excludeRange);
     }
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     @XmlTransient
     public Service getService() {
         return m_service;
     }
 
+    /**
+     * Sets the service.
+     *
+     * @param service
+     *            the new service
+     */
     public void setService(Service service) {
         m_service = service;
     }
 
+    /**
+     * Gets the effective service.
+     *
+     * @return the effective service
+     */
     @XmlTransient
     public Service getEffectiveService() {
         // Create a deep copy of the service - the templates might change
@@ -221,15 +369,35 @@ public class Package implements Serializable, Comparable<Package> {
         return service;
     }
 
+    /**
+     * Sets the checks if is dynamic.
+     *
+     * @param isDynamic
+     *            the new checks if is dynamic
+     */
     public void setIsDynamic(boolean isDynamic) {
         m_isDynamic = isDynamic;
     }
 
+    /**
+     * Gets the checks if is dynamic.
+     *
+     * @return the checks if is dynamic
+     */
     @XmlTransient
     public boolean getIsDynamic() {
         return m_isDynamic;
     }
 
+    /**
+     * Find polling strategy class.
+     *
+     * @param monitor
+     *            the monitor
+     * @return the class<? extends access point poller>
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     private static Class<? extends AccessPointPoller> findPollingStrategyClass(final Monitor monitor)
             throws ClassNotFoundException {
         final Class<? extends AccessPointPoller> ps = Class.forName(monitor.getClassName()).asSubclass(AccessPointPoller.class);
@@ -240,6 +408,13 @@ public class Package implements Serializable, Comparable<Package> {
         return ps;
     }
 
+    /**
+     * Gets the poller.
+     *
+     * @param monitors
+     *            the monitors
+     * @return the poller
+     */
     public AccessPointPoller getPoller(List<Monitor> monitors) {
         for (Monitor monitor : monitors) {
             if (monitor.getService().compareToIgnoreCase(m_service.getName()) != 0)
@@ -261,6 +436,9 @@ public class Package implements Serializable, Comparable<Package> {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Package obj) {
         return new CompareToBuilder().append(getName(), obj.getName()).append(getFilter(), obj.getFilter()).append(getSpecifics().toArray(OF_SPECIFICS),
@@ -269,6 +447,9 @@ public class Package implements Serializable, Comparable<Package> {
                                                                                                                                                                                                                              obj.getExcludeRanges().toArray(OF_EXCLUDERANGES)).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -283,6 +464,9 @@ public class Package implements Serializable, Comparable<Package> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Package) {

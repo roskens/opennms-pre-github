@@ -32,8 +32,14 @@ import junit.framework.TestCase;
 
 import org.opennms.netmgt.snmp.SnmpInstId;
 
+/**
+ * The Class InstanceStrategyTest.
+ */
 public class InstanceStrategyTest extends TestCase {
 
+    /**
+     * Test physd addr to and from instance.
+     */
     public void testPhysdAddrToAndFromInstance() {
         SnmpInstId instanceId = new SnmpInstId(".0.0.0.0.0.0");
         assertEquals("00:00:00:00:00:00", InstanceStrategy.getPhysAddrFromInstance(instanceId));

@@ -69,15 +69,19 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("accesspoints")
 public class AccessPointRestService {
 
+    /** The m_access point dao. */
     @Autowired
     private AccessPointDao m_accessPointDao;
 
+    /** The m_uri info. */
     @Context
     private UriInfo m_uriInfo;
 
+    /** The m_security context. */
     @Context
     private SecurityContext m_securityContext;
 
+    /** The m_servlet context. */
     @Context
     private ServletContext m_servletContext;
 
@@ -85,6 +89,7 @@ public class AccessPointRestService {
      * <p>
      * getAccessPoint
      * </p>
+     * .
      *
      * @param accessPointId
      *            a {@link java.lang.String} object.
@@ -108,6 +113,7 @@ public class AccessPointRestService {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +134,7 @@ public class AccessPointRestService {
      * <p>
      * getOutages
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsOutageCollection} object.
      */
@@ -153,22 +160,34 @@ public class AccessPointRestService {
         }
     }
 
+    /** The m_global lock. */
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /**
+     * Read lock.
+     */
     protected void readLock() {
         m_readLock.lock();
     }
 
+    /**
+     * Read unlock.
+     */
     protected void readUnlock() {
         if (m_globalLock.getReadHoldCount() > 0) {
             m_readLock.unlock();
         }
     }
 
+    /**
+     * Write lock.
+     */
     protected void writeLock() {
         if (m_globalLock.getWriteHoldCount() == 0) {
             while (m_globalLock.getReadHoldCount() > 0) {
@@ -178,6 +197,9 @@ public class AccessPointRestService {
         }
     }
 
+    /**
+     * Write unlock.
+     */
     protected void writeUnlock() {
         if (m_globalLock.getWriteHoldCount() > 0) {
             m_writeLock.unlock();

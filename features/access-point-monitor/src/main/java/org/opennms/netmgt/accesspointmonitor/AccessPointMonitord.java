@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.accesspointmonitor;
 
 import java.io.IOException;
@@ -35,40 +62,54 @@ import org.slf4j.LoggerFactory;
 /**
  * Access Point Monitor daemon class: Initializes and schedules the defined
  * services Filters are compiled when the service is scheduled, interfaces are
- * to poll are matched at runtime
+ * to poll are matched at runtime.
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @EventListener(name = "AccessPointMonitor", logPrefix = "access-point-monitor")
 public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyRunnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitord.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "access-point-monitor";
 
+    /** The Constant DAEMON_NAME. */
     private static final String DAEMON_NAME = "AccessPointMonitor";
 
+    /** The m_singleton. */
     private static AccessPointMonitord m_singleton = new AccessPointMonitord();
 
+    /** The m_initialized. */
     private boolean m_initialized = false;
 
+    /** The m_scheduler. */
     private LegacyScheduler m_scheduler = null;
 
+    /** The m_event mgr. */
     private EventIpcManager m_eventMgr = null;
 
+    /** The m_poller config. */
     private AccessPointMonitorConfig m_pollerConfig;
 
+    /** The m_access point dao. */
     private AccessPointDao m_accessPointDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_active pollers. */
     private volatile Map<String, PollingContext> m_activePollers = new HashMap<String, PollingContext>();
 
     /**
      * <p>
      * isInitialized
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -80,6 +121,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getAccessPointDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.AccessPointDao} object.
      */
@@ -91,6 +133,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getAccessPointDao
      * </p>
+     * .
      *
      * @param accessPointDao
      *            a {@link org.opennms.netmgt.dao.AccessPointDao} object.
@@ -103,9 +146,9 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
-     * @param a
-     *            {@link org.opennms.netmgt.dao.api.NodeDao} object.
+     * @return the node dao {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
     public NodeDao getNodeDao() {
         return m_nodeDao;
@@ -115,6 +158,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -127,6 +171,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getIpInterfaceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -138,6 +183,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setIpInterfaceDao
      * </p>
+     * .
      *
      * @param ipInterfaceDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
@@ -150,6 +196,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
@@ -161,6 +208,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
@@ -173,6 +221,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.eventd.EventIpcManager} object.
      */
@@ -184,6 +233,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.eventd.EventIpcManager} object.
@@ -196,6 +246,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getPollerConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig}
@@ -209,6 +260,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param accesspointmonitorConfig
      *            a
@@ -223,6 +275,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -242,6 +295,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -268,6 +322,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -278,6 +333,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -288,6 +344,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param apm
      *            a
@@ -302,6 +359,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.accesspointmonitor.AccessPointMonitord}
@@ -436,6 +494,9 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * schedulePackage
      * </p>
      * Schedules packages without a wild-card in their name.
+     *
+     * @param pkg
+     *            the pkg
      */
     private void schedulePackage(Package pkg) {
         Service svc = pkg.getEffectiveService();
@@ -469,6 +530,12 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * initializeConfiguration
      * </p>
+     * .
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JAXBException
+     *             the jAXB exception
      */
     private void initializeConfiguration() throws IOException, JAXBException {
         setPollerConfig(AccessPointMonitorConfigFactory.getInstance().getConfig());
@@ -478,6 +545,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * reloadAndReStart
      * </p>
+     * .
      */
     private void reloadAndReStart() {
         EventBuilder ebldr = null;
@@ -506,6 +574,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * reloadDaemonConfig
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -523,6 +592,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * isReloadConfigEventTarget
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.

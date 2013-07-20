@@ -39,8 +39,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class AccessPointMonitorConfigDaoJaxbTest.
+ */
 public class AccessPointMonitorConfigDaoJaxbTest extends TestCase {
 
+    /**
+     * Test after properties set with no config set.
+     */
     public void testAfterPropertiesSetWithNoConfigSet() {
         AccessPointMonitorConfigDaoJaxb dao = new AccessPointMonitorConfigDaoJaxb();
 
@@ -55,6 +61,12 @@ public class AccessPointMonitorConfigDaoJaxbTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with bogus file resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         AccessPointMonitorConfigDaoJaxb dao = new AccessPointMonitorConfigDaoJaxb();
@@ -71,6 +83,12 @@ public class AccessPointMonitorConfigDaoJaxbTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with good config file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         AccessPointMonitorConfigDaoJaxb dao = new AccessPointMonitorConfigDaoJaxb();
 

@@ -34,8 +34,14 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.opennms.netmgt.snmp.mock.MockSnmpValueFactory;
 
+/**
+ * The Class TableStrategyTest.
+ */
 public class TableStrategyTest extends TestCase {
 
+    /**
+     * Test phyd addr from value.
+     */
     public void testPhydAddrFromValue() {
         SnmpValueFactory valueFactory = new MockSnmpValueFactory();
 

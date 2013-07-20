@@ -52,32 +52,50 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  */
 @XmlType(name = "service-template")
 public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7451942028852991463L;
 
+    /** The Constant OF_PARAMETERS. */
     protected static final Parameter[] OF_PARAMETERS = new Parameter[0];
 
+    /** The m_name. */
     @XmlAttribute(name = "name")
     protected String m_name;
 
+    /** The m_threads. */
     @XmlAttribute(name = "threads")
     protected Integer m_threads;
 
+    /** The m_passive service name. */
     @XmlAttribute(name = "passive-service-name")
     protected String m_passiveServiceName;
 
+    /** The m_interval. */
     @XmlAttribute(name = "interval")
     protected Long m_interval;
 
+    /** The m_status. */
     @XmlAttribute(name = "status")
     protected String m_status;
 
+    /** The m_parameters. */
     @XmlElement(name = "parameter")
     protected List<Parameter> m_parameters = new ArrayList<Parameter>();
 
+    /**
+     * Instantiates a new service template.
+     */
     public ServiceTemplate() {
 
     }
 
+    /**
+     * Instantiates a new service template.
+     *
+     * @param copy
+     *            the copy
+     */
     public ServiceTemplate(ServiceTemplate copy) {
         if (copy.m_name != null) {
             m_name = new String(copy.m_name);
@@ -99,23 +117,52 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
         }
     }
 
+    /**
+     * Gets the parameters.
+     *
+     * @return the parameters
+     */
     @XmlTransient
     public List<Parameter> getParameters() {
         return m_parameters;
     }
 
+    /**
+     * Sets the parameters.
+     *
+     * @param parameters
+     *            the new parameters
+     */
     public void setParameters(List<Parameter> parameters) {
         m_parameters = parameters;
     }
 
+    /**
+     * Adds the parameter.
+     *
+     * @param parameter
+     *            the parameter
+     */
     public void addParameter(Parameter parameter) {
         m_parameters.add(parameter);
     }
 
+    /**
+     * Removes the parameter.
+     *
+     * @param parameter
+     *            the parameter
+     */
     public void removeParameter(Parameter parameter) {
         m_parameters.remove(parameter);
     }
 
+    /**
+     * Removes the parameter by key.
+     *
+     * @param key
+     *            the key
+     */
     public void removeParameterByKey(String key) {
         for (Iterator<Parameter> itr = m_parameters.iterator(); itr.hasNext();) {
             Parameter parameter = itr.next();
@@ -126,6 +173,11 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
         }
     }
 
+    /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map
+     */
     @XmlTransient
     public Map<String, String> getParameterMap() {
         Map<String, String> parameterMap = new HashMap<String, String>();
@@ -135,51 +187,109 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
         return parameterMap;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     @XmlTransient
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the threads.
+     *
+     * @return the threads
+     */
     @XmlTransient
     public Integer getThreads() {
         return m_threads;
     }
 
+    /**
+     * Sets the threads.
+     *
+     * @param threads
+     *            the new threads
+     */
     public void setThreads(Integer threads) {
         m_threads = threads;
     }
 
+    /**
+     * Gets the passive service name.
+     *
+     * @return the passive service name
+     */
     @XmlTransient
     public String getPassiveServiceName() {
         return m_passiveServiceName;
     }
 
+    /**
+     * Sets the passive service name.
+     *
+     * @param passiveServiceName
+     *            the new passive service name
+     */
     public void setPassiveServiceName(String passiveServiceName) {
         m_passiveServiceName = passiveServiceName;
     }
 
+    /**
+     * Gets the interval.
+     *
+     * @return the interval
+     */
     @XmlTransient
     public Long getInterval() {
         return m_interval;
     }
 
+    /**
+     * Sets the interval.
+     *
+     * @param interval
+     *            the new interval
+     */
     public void setInterval(Long interval) {
         m_interval = interval;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     @XmlTransient
     public String getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(String status) {
         m_status = status;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(ServiceTemplate obj) {
         return new CompareToBuilder().append(getName(), obj.getName()).append(getThreads(), obj.getThreads()).append(getPassiveServiceName(),
@@ -189,6 +299,9 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
                                                                                                                                                                                                            obj.getParameters().toArray(OF_PARAMETERS)).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -202,6 +315,9 @@ public class ServiceTemplate implements Serializable, Comparable<ServiceTemplate
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceTemplate) {

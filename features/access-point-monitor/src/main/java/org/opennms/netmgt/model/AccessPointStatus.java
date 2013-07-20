@@ -41,12 +41,20 @@ import java.util.Map;
  */
 public enum AccessPointStatus implements Serializable {
     // Keep this ordered by ID so we can use the internal enum compareTo
-    UNKNOWN(0, "Unknown"), ONLINE(1, "Online"), OFFLINE(3, "Offline");
+    /** The unknown. */
+    UNKNOWN(0, "Unknown"),
+ /** The online. */
+ ONLINE(1, "Online"),
+ /** The offline. */
+ OFFLINE(3, "Offline");
 
+    /** The Constant ID_MAP. */
     private static final Map<Integer, AccessPointStatus> ID_MAP;
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_label. */
     private String m_label;
 
     static {
@@ -56,6 +64,14 @@ public enum AccessPointStatus implements Serializable {
         }
     }
 
+    /**
+     * Instantiates a new access point status.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     private AccessPointStatus(final int id, final String label) {
         m_id = id;
         m_label = label;
@@ -65,6 +81,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -76,6 +93,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,6 +105,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -104,6 +123,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -118,6 +138,11 @@ public enum AccessPointStatus implements Serializable {
         return AccessPointStatus.UNKNOWN;
     }
 
+    /**
+     * Names.
+     *
+     * @return the list
+     */
     public static List<String> names() {
         final List<String> names = new ArrayList<String>();
         for (final AccessPointStatus value : values()) {

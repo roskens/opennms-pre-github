@@ -74,6 +74,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * The Class InstanceStrategyIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath*:/META-INF/opennms/component-dao.xml", "classpath:META-INF/opennms/applicationContext-soa.xml",
@@ -87,53 +90,77 @@ import org.springframework.transaction.PlatformTransactionManager;
 @JUnitTemporaryDatabase(reuseDatabase = false)
 @DirtiesContext
 public class InstanceStrategyIntegrationTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InstanceStrategyIntegrationTest.class);
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_access point dao. */
     @Autowired
     private AccessPointDao m_accessPointDao;
 
+    /** The m_apm. */
     @Autowired
     AccessPointMonitord m_apm;
 
+    /** The m_adapter. */
     AnnotationBasedEventListenerAdapter m_adapter;
 
+    /** The m_apmd config factory. */
     AccessPointMonitorConfigFactory m_apmdConfigFactory;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The Constant AP1_MAC. */
     private static final String AP1_MAC = "00:01:02:03:04:05";
 
+    /** The Constant AP2_MAC. */
     private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
+    /** The Constant AP3_MAC. */
     private static final String AP3_MAC = "F0:05:BA:11:00:FF";
 
+    /** The Constant AGENT_TIMEOUT. */
     private static final int AGENT_TIMEOUT = 1000;
 
+    /** The Constant POLLING_INTERVAL. */
     private static final int POLLING_INTERVAL = 5000;
 
+    /** The Constant POLLING_INTERVAL_DELTA. */
     private static final int POLLING_INTERVAL_DELTA = POLLING_INTERVAL + 2000;
 
+    /** The Constant PASSIVE_STATUS_UEI. */
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
 
+    /** The Constant SNMP_DATA_PATH. */
     private static final String SNMP_DATA_PATH = "/org/opennms/netmgt/accesspointmonitor/poller/instancestrategy/";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() {
         assertNotNull(m_transactionManager);
@@ -144,6 +171,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         assertNotNull(m_apm);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Initialise the SNMP peer
@@ -160,6 +193,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_adapter = new AnnotationBasedEventListenerAdapter(m_apm, m_eventMgr);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         Sleeper.getInstance().setSleepTime(0);
@@ -169,6 +208,14 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         }
     }
 
+    /**
+     * Inits the apmd with config.
+     *
+     * @param config
+     *            the config
+     * @throws Exception
+     *             the exception
+     */
     private void initApmdWithConfig(String config) throws Exception {
         m_apm.setEventManager(m_eventMgr);
 
@@ -181,6 +228,16 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_apm.init();
     }
 
+    /**
+     * Update config and reload daemon.
+     *
+     * @param config
+     *            the config
+     * @param anticipateEvents
+     *            the anticipate events
+     * @throws Exception
+     *             the exception
+     */
     private void updateConfigAndReloadDaemon(String config, Boolean anticipateEvents) throws Exception {
         // Build an input stream from the string
         InputStream is = new ByteArrayInputStream(config.getBytes("UTF-8"));
@@ -210,6 +267,14 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_eventMgr.send(bldr.getEvent());
     }
 
+    /**
+     * Anticipate ap status event.
+     *
+     * @param physAddr
+     *            the phys addr
+     * @param status
+     *            the status
+     */
     public void anticipateApStatusEvent(String physAddr, String status) {
         EventBuilder newSuspectBuilder = new EventBuilder(PASSIVE_STATUS_UEI, "accesspointmonitord");
         newSuspectBuilder.setParam("physAddr", physAddr);
@@ -217,6 +282,16 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_anticipator.anticipateEvent(newSuspectBuilder.getEvent());
     }
 
+    /**
+     * Adds the new access point.
+     *
+     * @param name
+     *            the name
+     * @param mac
+     *            the mac
+     * @param pkg
+     *            the pkg
+     */
     private void addNewAccessPoint(String name, String mac, String pkg) {
         NetworkBuilder nb = new NetworkBuilder();
 
@@ -232,6 +307,16 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_accessPointDao.flush();
     }
 
+    /**
+     * Adds the new controller.
+     *
+     * @param nodeName
+     *            the node name
+     * @param ipAddress
+     *            the ip address
+     * @param pollerCategory
+     *            the poller category
+     */
     private void addNewController(String nodeName, String ipAddress, String pollerCategory) {
         NetworkBuilder nb = new NetworkBuilder();
         nb.addNode(nodeName).setForeignSource("apmd").setForeignId(nodeName).setType("A");
@@ -241,6 +326,16 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_nodeDao.flush();
     }
 
+    /**
+     * Sets the oid value for access point.
+     *
+     * @param ipAddress
+     *            the ip address
+     * @param apMac
+     *            the ap mac
+     * @param value
+     *            the value
+     */
     private void setOidValueForAccessPoint(String ipAddress, String apMac, Integer value) {
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.getInetAddress(ipAddress));
         SnmpObjId instance = InstanceStrategy.getInstanceFromPhysAddr(apMac);
@@ -252,6 +347,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * Run a series of tests with a single controller and 3 access points.
      * Verify: That the proper events are sent by the daemon. The AP state in
      * the database after the poll.
+     */
+    /**
+     * Test ap up down.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgent(host = "10.1.0.2", resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt")
@@ -340,6 +441,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * That the proper events are sent by the daemon. The AP state in the
      * database after the poll.
      */
+    /**
+     * Test agent timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgent(host = "10.1.0.2", resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt")
     public void testAgentTimeout() throws Exception {
@@ -380,6 +487,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * Test the behaviour when the configuration is modified and the daemon is
      * reloaded. Verify: That the proper events are sent by the daemon. The AP
      * state in the database after the poll.
+     */
+    /**
+     * Test reload daemon.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgent(host = "10.1.0.2", resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt")
@@ -440,6 +553,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * Test the behaviour when multiple controllers are configured in a single
      * package. Verify: That the proper events are sent by the daemon. The AP
      * state and the controller's address in the database after the poll.
+     */
+    /**
+     * Test many controllers.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -517,6 +636,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * Test the behaviour when a new controller is added after the daemon has
      * started. Verify: That the proper events are sent by the daemon.
      */
+    /**
+     * Test add controller to package.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "10.1.0.2", port = 161, resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt"),
@@ -563,6 +688,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
      * configuration file (i.e. dynamic packages) Verify: That the proper
      * events are sent by the daemon.
      */
+    /**
+     * Test dynamic package config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgent(host = "10.1.0.2", resource = SNMP_DATA_PATH + "10.1.0.2-walk.txt")
     public void testDynamicPackageConfig() throws Exception {
@@ -603,6 +734,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_anticipator.reset();
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param millis
+     *            the millis
+     */
     private void verifyAnticipated(long millis) {
         // Verify the AP UP/DOWN events
         LOG.debug("Events we're still waiting for: {}", m_anticipator.waitForAnticipated(millis));
@@ -614,6 +751,12 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         m_anticipator.reset();
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -622,6 +765,11 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
         }
     }
 
+    /**
+     * Gets the empty config.
+     *
+     * @return the empty config
+     */
     private String getEmptyConfig() {
         return "<?xml version=\"1.0\"?>\n"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
@@ -641,6 +789,11 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
                 + "</access-point-monitor-configuration>\n" + "";
     }
 
+    /**
+     * Gets the standard config.
+     *
+     * @return the standard config
+     */
     private String getStandardConfig() {
         return "<?xml version=\"1.0\"?>\n"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
@@ -664,6 +817,11 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
                 + "</access-point-monitor-configuration>\n" + "";
     }
 
+    /**
+     * Gets the multi controller config.
+     *
+     * @return the multi controller config
+     */
     private String getMultiControllerConfig() {
         return "<?xml version=\"1.0\"?>\n"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
@@ -683,6 +841,11 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
                 + "</access-point-monitor-configuration>\n" + "";
     }
 
+    /**
+     * Gets the multi controller clustered config.
+     *
+     * @return the multi controller clustered config
+     */
     private String getMultiControllerClusteredConfig() {
         return "<?xml version=\"1.0\"?>\n"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n"
@@ -702,6 +865,11 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
                 + "</access-point-monitor-configuration>\n" + "";
     }
 
+    /**
+     * Gets the dynamic package config.
+     *
+     * @return the dynamic package config
+     */
     private String getDynamicPackageConfig() {
         return "<?xml version=\"1.0\"?>"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">"

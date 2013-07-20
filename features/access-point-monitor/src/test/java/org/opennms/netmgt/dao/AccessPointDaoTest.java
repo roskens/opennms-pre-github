@@ -54,6 +54,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * <p>
  * AccessPointDaoTest
  * </p>
+ * .
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
@@ -67,32 +68,58 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AccessPointDaoTest implements InitializingBean {
+
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_access point dao. */
     @Autowired
     private AccessPointDao m_accessPointDao;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /** The Constant AP1_MAC. */
     private static final String AP1_MAC = "00:01:02:03:04:05";
 
+    /** The Constant AP2_MAC. */
     private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
+    /** The Constant AP3_MAC. */
     private static final String AP3_MAC = "0C:0D:0E:0F:01:02";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         assertNotNull(m_nodeDao);
         assertNotNull(m_accessPointDao);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
     }
 
+    /**
+     * Adds the new access point.
+     *
+     * @param name
+     *            the name
+     * @param mac
+     *            the mac
+     * @param pkg
+     *            the pkg
+     */
     private void addNewAccessPoint(String name, String mac, String pkg) {
         NetworkBuilder nb = new NetworkBuilder();
 
@@ -108,6 +135,9 @@ public class AccessPointDaoTest implements InitializingBean {
         m_accessPointDao.flush();
     }
 
+    /**
+     * Test find by phys addr.
+     */
     @Test
     @Transactional
     public void testFindByPhysAddr() {
@@ -121,6 +151,9 @@ public class AccessPointDaoTest implements InitializingBean {
         assertEquals("not-default-package", ap2.getPollingPackage());
     }
 
+    /**
+     * Test find by package.
+     */
     @Test
     @Transactional
     public void testFindByPackage() {

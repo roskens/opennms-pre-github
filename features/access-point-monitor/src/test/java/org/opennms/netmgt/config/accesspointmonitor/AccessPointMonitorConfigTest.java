@@ -55,24 +55,50 @@ import org.opennms.core.xml.JaxbUtils;
 import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class AccessPointMonitorConfigTest.
+ */
 public class AccessPointMonitorConfigTest {
+
+    /** The fa. */
     private FileAnticipator fa;
 
+    /** The apmc. */
     private AccessPointMonitorConfig apmc;
 
+    /**
+     * The Class TestOutputResolver.
+     */
     private static class TestOutputResolver extends SchemaOutputResolver {
+
+        /** The m_schema file. */
         private final File m_schemaFile;
 
+        /**
+         * Instantiates a new test output resolver.
+         *
+         * @param schemaFile
+         *            the schema file
+         */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         fa = new FileAnticipator();
@@ -117,11 +143,23 @@ public class AccessPointMonitorConfigTest {
         XMLUnit.setNormalize(true);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
 
     }
 
+    /**
+     * Generate schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateSchema() throws Exception {
         File schemaFile = fa.expecting("access-point-monitor-configuration.xsd");
@@ -132,6 +170,12 @@ public class AccessPointMonitorConfigTest {
         }
     }
 
+    /**
+     * Generate xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -165,6 +209,12 @@ public class AccessPointMonitorConfigTest {
                      myDiff.getAllDifferences().size());
     }
 
+    /**
+     * Read xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void readXML() throws Exception {
         // Retrieve the file we're parsing.
@@ -176,6 +226,12 @@ public class AccessPointMonitorConfigTest {
         assertTrue("Compare Access Point Monitor Config objects.", apmc.equals(exampleApmc));
     }
 
+    /**
+     * Test service template.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServiceTemplate() throws Exception {
         // Get the service on the first package
@@ -195,6 +251,12 @@ public class AccessPointMonitorConfigTest {
                      ParameterMap.getKeyedInteger(svc.getParameterMap(), "operand", 0));
     }
 
+    /**
+     * Test default passive service name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDefaultPassiveServiceName() throws Exception {
         // Get the service on the first package
@@ -210,6 +272,12 @@ public class AccessPointMonitorConfigTest {
                      svc.getPassiveServiceName());
     }
 
+    /**
+     * Test special values in filter.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSpecialValuesInFilter() throws Exception {
         Package pkg = new Package();
@@ -222,6 +290,19 @@ public class AccessPointMonitorConfigTest {
         assertEquals("The package name should not be replaced in the filter.", "packageName", pkg.getEffectiveFilter());
     }
 
+    /**
+     * Gets the diff.
+     *
+     * @param objectXML
+     *            the object xml
+     * @param exampleXML
+     *            the example xml
+     * @return the diff
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @SuppressWarnings("unchecked")
     private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));

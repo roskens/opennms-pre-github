@@ -51,11 +51,17 @@ public class AccessPointStatusUserType implements UserType {
     public AccessPointStatusUserType() {
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#assemble(java.io.Serializable, java.lang.Object)
+     */
     @Override
     public Object assemble(final Serializable cached, final Object owner) {
         return deepCopy(cached);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#deepCopy(java.lang.Object)
+     */
     @Override
     public Object deepCopy(final Object value) {
         if (value == null) {
@@ -69,11 +75,17 @@ public class AccessPointStatusUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#disassemble(java.lang.Object)
+     */
     @Override
     public Serializable disassemble(final Object value) {
         return (Serializable) deepCopy(value);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#equals(java.lang.Object, java.lang.Object)
+     */
     @Override
     public boolean equals(final Object x, final Object y) {
         if (x == y) {
@@ -85,21 +97,33 @@ public class AccessPointStatusUserType implements UserType {
         return x.equals(y);
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#hashCode(java.lang.Object)
+     */
     @Override
     public int hashCode(final Object x) {
         return x.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#isMutable()
+     */
     @Override
     public boolean isMutable() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
+     */
     @Override
     public Object nullSafeGet(final ResultSet rs, final String[] names, final Object owner) throws SQLException {
         return AccessPointStatus.get(rs.getInt(names[0]));
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
+     */
     @Override
     public void nullSafeSet(final PreparedStatement st, final Object value, final int index) throws SQLException {
         if (value == null) {
@@ -115,16 +139,25 @@ public class AccessPointStatusUserType implements UserType {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#replace(java.lang.Object, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object replace(final Object original, final Object target, final Object owner) {
         return original;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#returnedClass()
+     */
     @Override
     public Class<AccessPointStatus> returnedClass() {
         return AccessPointStatus.class;
     }
 
+    /* (non-Javadoc)
+     * @see org.hibernate.usertype.UserType#sqlTypes()
+     */
     @Override
     public int[] sqlTypes() {
         return new int[] { java.sql.Types.INTEGER };

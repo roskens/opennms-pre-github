@@ -48,13 +48,14 @@ import org.xml.sax.InputSource;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class AccessPointMonitorConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitorConfigFactory.class);
 
+    /** The Constant ACCESS_POINT_MONITOR_CONFIG_FILE_NAME. */
     private static final String ACCESS_POINT_MONITOR_CONFIG_FILE_NAME = "access-point-monitor-configuration.xml";
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static AccessPointMonitorConfigFactory m_singleton = null;
 
     /**
@@ -62,13 +63,17 @@ public class AccessPointMonitorConfigFactory {
      */
     private static boolean m_loaded = false;
 
-    /**
-     * Loaded version
-     */
+    /** Loaded version. */
     private long m_currentVersion = -1L;
 
+    /** The m_access point monitor config. */
     private AccessPointMonitorConfig m_accessPointMonitorConfig = null;
 
+    /**
+     * Gets the single instance of AccessPointMonitorConfigFactory.
+     *
+     * @return single instance of AccessPointMonitorConfigFactory
+     */
     public static AccessPointMonitorConfigFactory getInstance() {
         if (!m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
@@ -76,11 +81,23 @@ public class AccessPointMonitorConfigFactory {
         return m_singleton;
     }
 
+    /**
+     * Sets the instance.
+     *
+     * @param instance
+     *            the new instance
+     */
     public static synchronized void setInstance(AccessPointMonitorConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;
     }
 
+    /**
+     * Inits the.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
             // init already called - return
@@ -102,11 +119,23 @@ public class AccessPointMonitorConfigFactory {
         }
     }
 
+    /**
+     * Reload.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static synchronized void reload() throws IOException {
         init();
         getInstance().update();
     }
 
+    /**
+     * Update.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public synchronized void update() throws IOException {
         File cfgFile = ConfigFileConstants.getConfigFileByName(ACCESS_POINT_MONITOR_CONFIG_FILE_NAME);
         if (cfgFile.lastModified() > m_currentVersion) {
@@ -125,23 +154,53 @@ public class AccessPointMonitorConfigFactory {
         }
     }
 
+    /**
+     * Instantiates a new access point monitor config factory.
+     *
+     * @param currentVersion
+     *            the current version
+     * @param is
+     *            the is
+     */
     public AccessPointMonitorConfigFactory(long currentVersion, InputStream is) {
         m_accessPointMonitorConfig = unmarshall(is);
         m_currentVersion = currentVersion;
     }
 
+    /**
+     * Unmarshall.
+     *
+     * @param is
+     *            the is
+     * @return the access point monitor config
+     */
     private static AccessPointMonitorConfig unmarshall(InputStream is) {
         return JaxbUtils.unmarshal(AccessPointMonitorConfig.class, new InputSource(is));
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public AccessPointMonitorConfig getConfig() {
         return m_accessPointMonitorConfig;
     }
 
+    /**
+     * Gets the config from instance.
+     *
+     * @return the config from instance
+     */
     public static AccessPointMonitorConfig getConfigFromInstance() {
         return getInstance().getConfig();
     }
 
+    /**
+     * Gets the default config filename.
+     *
+     * @return the default config filename
+     */
     public static String getDefaultConfigFilename() {
         return ACCESS_POINT_MONITOR_CONFIG_FILE_NAME;
     }

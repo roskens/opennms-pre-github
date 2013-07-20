@@ -46,18 +46,31 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  */
 @XmlType(name = "service")
 public class Service extends ServiceTemplate implements Cloneable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7231942028852991463L;
 
+    /** The m_template name. */
     @XmlAttribute(name = "template-name")
     private String m_templateName;
 
+    /** The m_template. */
     @XmlTransient
     private ServiceTemplate m_template;
 
+    /**
+     * Instantiates a new service.
+     */
     public Service() {
         super();
     }
 
+    /**
+     * Instantiates a new service.
+     *
+     * @param copy
+     *            the copy
+     */
     public Service(Service copy) {
         super(copy);
         if (copy.m_templateName != null) {
@@ -68,24 +81,53 @@ public class Service extends ServiceTemplate implements Cloneable {
         }
     }
 
+    /**
+     * Gets the template name.
+     *
+     * @return the template name
+     */
     @XmlTransient
     public String getTemplateName() {
         return m_templateName;
     }
 
+    /**
+     * Sets the template name.
+     *
+     * @param templateName
+     *            the new template name
+     */
     public void setTemplateName(String templateName) {
         m_templateName = templateName;
     }
 
+    /**
+     * Gets the template.
+     *
+     * @return the template
+     */
     @XmlTransient
     public ServiceTemplate getTemplate() {
         return m_template;
     }
 
+    /**
+     * Sets the template.
+     *
+     * @param template
+     *            the new template
+     */
     public void setTemplate(ServiceTemplate template) {
         m_template = template;
     }
 
+    /**
+     * Compare to.
+     *
+     * @param obj
+     *            the obj
+     * @return the int
+     */
     public int compareTo(Service obj) {
         return new CompareToBuilder().append(getName(), obj.getName()).append(getThreads(), obj.getThreads()).append(getPassiveServiceName(),
                                                                                                                      obj.getPassiveServiceName()).append(getInterval(),
@@ -95,6 +137,9 @@ public class Service extends ServiceTemplate implements Cloneable {
                                                                                                                                                                                                                                          obj.getParameters().toArray(OF_PARAMETERS)).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.accesspointmonitor.ServiceTemplate#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -104,6 +149,9 @@ public class Service extends ServiceTemplate implements Cloneable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.accesspointmonitor.ServiceTemplate#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Service) {
@@ -118,6 +166,9 @@ public class Service extends ServiceTemplate implements Cloneable {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         Service cloned = new Service();

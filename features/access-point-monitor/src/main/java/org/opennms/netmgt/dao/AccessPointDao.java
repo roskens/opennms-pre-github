@@ -47,6 +47,7 @@ public interface AccessPointDao extends OnmsDao<OnmsAccessPoint, String> {
      * <p>
      * findByPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link java.lang.String} object.
@@ -59,6 +60,7 @@ public interface AccessPointDao extends OnmsDao<OnmsAccessPoint, String> {
      * <p>
      * findDistinctPackagesLike
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link java.lang.String} object.

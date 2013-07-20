@@ -34,17 +34,29 @@ import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.model.OnmsAccessPoint;
 import org.opennms.netmgt.model.OnmsNode;
 
+/**
+ * The Class AccessPointDatabasePopulator.
+ */
 public class AccessPointDatabasePopulator {
+
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_access point dao. */
     private AccessPointDao m_accessPointDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_node1. */
     private OnmsNode m_node1;
 
+    /** The m_ap1. */
     private OnmsAccessPoint m_ap1;
 
+    /**
+     * Populate database.
+     */
     public void populateDatabase() {
         m_node1 = new OnmsNode();
         m_node1.setLabel("AP1");
@@ -56,34 +68,78 @@ public class AccessPointDatabasePopulator {
         getAccessPointDao().flush();
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the access point dao.
+     *
+     * @param accessPointDao
+     *            the new access point dao
+     */
     public void setAccessPointDao(AccessPointDao accessPointDao) {
         m_accessPointDao = accessPointDao;
     }
 
+    /**
+     * Gets the access point dao.
+     *
+     * @return the access point dao
+     */
     public AccessPointDao getAccessPointDao() {
         return m_accessPointDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Gets the a p1.
+     *
+     * @return the a p1
+     */
     public OnmsAccessPoint getAP1() {
         return m_ap1;
     }
 
+    /**
+     * Sets the a p1.
+     *
+     * @param ap
+     *            the new a p1
+     */
     public void setAP1(OnmsAccessPoint ap) {
         m_ap1 = ap;
     }

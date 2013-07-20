@@ -56,16 +56,23 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "accesspoints")
 public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -52686562234234234L;
 
+    /** The m_phys addr. */
     private String m_physAddr;
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
+    /** The m_polling package. */
     private String m_pollingPackage;
 
+    /** The m_status. */
     private AccessPointStatus m_status = AccessPointStatus.UNKNOWN;
 
+    /** The m_controller ip addr. */
     private InetAddress m_controllerIpAddr;
 
     /**
@@ -73,10 +80,10 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * Constructor for OnmsAccessPoint.
      * </p>
      *
-     * @param nodeId
-     *            a {@link java.lang.Integer} object.
      * @param physAddr
      *            a {@link java.lang.String} object.
+     * @param nodeId
+     *            a {@link java.lang.Integer} object.
      * @param pollingPackage
      *            a {@link java.lang.String} object.
      */
@@ -99,6 +106,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +121,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
      * @param physaddr
      *            a {@link java.lang.String} object.
@@ -125,6 +134,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -138,6 +148,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -150,6 +161,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getPollingPackage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +175,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setPollingPackage
      * </p>
+     * .
      *
      * @param pollingpackage
      *            a {@link java.lang.String} object.
@@ -175,6 +188,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AccessPointStatus} object.
      */
@@ -190,9 +204,10 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setStatus
      * </p>
+     * .
      *
-     * @param severity
-     *            a {@link org.opennms.netmgt.model.AccessPointStatus} object.
+     * @param status
+     *            the new status
      */
     public void setStatus(AccessPointStatus status) {
         m_status = status;
@@ -202,6 +217,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getControllerIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -217,6 +233,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setControllerIpAddress
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -229,6 +246,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -243,7 +261,10 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * compareTo
      * </p>
+     * .
      *
+     * @param o
+     *            the o
      * @return a {@link java.lang.int} object.
      */
     @Override
@@ -251,6 +272,9 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
         return m_physAddr.compareTo(o.m_physAddr);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -259,6 +283,9 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

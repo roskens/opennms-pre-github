@@ -44,18 +44,31 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class Parameter implements Serializable, Comparable<Parameter>, Cloneable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9083835214208208854L;
 
+    /** The m_key. */
     @XmlAttribute(name = "key")
     private String m_key;
 
+    /** The m_value. */
     @XmlAttribute(name = "value")
     private String m_value;
 
+    /**
+     * Instantiates a new parameter.
+     */
     public Parameter() {
 
     }
 
+    /**
+     * Instantiates a new parameter.
+     *
+     * @param copy
+     *            the copy
+     */
     public Parameter(Parameter copy) {
         if (copy.m_key != null) {
             m_key = new String(copy.m_key);
@@ -65,34 +78,70 @@ public class Parameter implements Serializable, Comparable<Parameter>, Cloneable
         }
     }
 
+    /**
+     * Instantiates a new parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public Parameter(String key, String value) {
         m_key = key;
         m_value = value;
     }
 
+    /**
+     * Gets the key.
+     *
+     * @return the key
+     */
     @XmlTransient
     public String getKey() {
         return m_key;
     }
 
+    /**
+     * Sets the key.
+     *
+     * @param key
+     *            the new key
+     */
     public void setKey(String key) {
         m_key = key;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     @XmlTransient
     public String getValue() {
         return m_value;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value) {
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Parameter obj) {
         return new CompareToBuilder().append(getKey(), obj.getKey()).append(getValue(), obj.getValue()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -102,6 +151,9 @@ public class Parameter implements Serializable, Comparable<Parameter>, Cloneable
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Parameter) {
@@ -111,6 +163,9 @@ public class Parameter implements Serializable, Comparable<Parameter>, Cloneable
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     public Object clone() throws CloneNotSupportedException {
         Parameter cloned = new Parameter();

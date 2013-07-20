@@ -35,9 +35,17 @@ import org.opennms.core.test.MockLogAppender;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * The Class AccessPointRestServiceTest.
+ */
 public class AccessPointRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The m_database populator. */
     private AccessPointDatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -46,6 +54,12 @@ public class AccessPointRestServiceTest extends AbstractSpringJerseyRestTestCase
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test access points.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAccessPoints() throws Exception {
         String xml = sendRequest(GET, "/accesspoints", parseParamData("limit=1"), 200);

@@ -64,6 +64,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * The Class AccessPointMonitordTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -76,42 +79,61 @@ import org.springframework.transaction.PlatformTransactionManager;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AccessPointMonitordTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AccessPointMonitordTest.class);
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_access point dao. */
     @Autowired
     private AccessPointDao m_accessPointDao;
 
+    /** The m_apm. */
     @Autowired
     AccessPointMonitord m_apm;
 
+    /** The m_adapter. */
     AnnotationBasedEventListenerAdapter m_adapter;
 
+    /** The m_apmd config factory. */
     AccessPointMonitorConfigFactory m_apmdConfigFactory;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The Constant AP1_MAC. */
     private static final String AP1_MAC = "00:01:02:03:04:05";
 
+    /** The Constant AP2_MAC. */
     private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
+    /** The Constant AP3_MAC. */
     private static final String AP3_MAC = "F0:05:BA:11:00:FF";
 
+    /** The Constant PACKAGE_SCAN_INTERVAL. */
     private static final int PACKAGE_SCAN_INTERVAL = 1000;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() {
         assertNotNull(m_transactionManager);
@@ -121,6 +143,12 @@ public class AccessPointMonitordTest implements InitializingBean {
         assertNotNull(m_apm);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Create our event manager and anticipator
@@ -134,6 +162,12 @@ public class AccessPointMonitordTest implements InitializingBean {
         m_adapter = new AnnotationBasedEventListenerAdapter(m_apm, m_eventMgr);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_apm.getStatus() == AccessPointMonitord.RUNNING) {
@@ -142,6 +176,14 @@ public class AccessPointMonitordTest implements InitializingBean {
         }
     }
 
+    /**
+     * Inits the apmd with config.
+     *
+     * @param config
+     *            the config
+     * @throws Exception
+     *             the exception
+     */
     private void initApmdWithConfig(String config) throws Exception {
         m_apm.setEventManager(m_eventMgr);
 
@@ -154,6 +196,16 @@ public class AccessPointMonitordTest implements InitializingBean {
         m_apm.init();
     }
 
+    /**
+     * Update config and reload daemon.
+     *
+     * @param config
+     *            the config
+     * @param anticipateEvents
+     *            the anticipate events
+     * @throws Exception
+     *             the exception
+     */
     private void updateConfigAndReloadDaemon(String config, Boolean anticipateEvents) throws Exception {
         // Build an input stream from the string
         InputStream is = new ByteArrayInputStream(config.getBytes("UTF-8"));
@@ -183,6 +235,16 @@ public class AccessPointMonitordTest implements InitializingBean {
         m_eventMgr.send(bldr.getEvent());
     }
 
+    /**
+     * Adds the new access point.
+     *
+     * @param name
+     *            the name
+     * @param mac
+     *            the mac
+     * @param pkg
+     *            the pkg
+     */
     private void addNewAccessPoint(String name, String mac, String pkg) {
         NetworkBuilder nb = new NetworkBuilder();
 
@@ -198,6 +260,12 @@ public class AccessPointMonitordTest implements InitializingBean {
         m_accessPointDao.flush();
     }
 
+    /**
+     * Test dynamic packages.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDynamicPackages() throws Exception {
         // A package name that matches the mask
@@ -245,6 +313,12 @@ public class AccessPointMonitordTest implements InitializingBean {
         assertEquals(1, m_apm.getActivePackageNames().size());
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -253,6 +327,11 @@ public class AccessPointMonitordTest implements InitializingBean {
         }
     }
 
+    /**
+     * Gets the dynamic package config.
+     *
+     * @return the dynamic package config
+     */
     private String getDynamicPackageConfig() {
         return "<?xml version=\"1.0\"?>\n"
                 + "<access-point-monitor-configuration threads=\"30\" package-scan-interval=\""

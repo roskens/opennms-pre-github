@@ -46,8 +46,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "accesspoints")
 public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4989886422555152257L;
 
+    /** The m_total count. */
     private int m_totalCount;
 
     /**
@@ -75,6 +77,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getAccessPoints
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -87,6 +90,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * setAccessPoints
      * </p>
+     * .
      *
      * @param accesspoints
      *            a {@link java.util.List} object.
@@ -102,6 +106,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -114,6 +119,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getTotalCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -126,6 +132,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * setTotalCount
      * </p>
+     * .
      *
      * @param count
      *            a int.

@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.accesspointmonitor.poller;
 
 import java.io.IOException;
@@ -31,43 +58,57 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class InstanceStrategy implements AccessPointPoller {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InstanceStrategy.class);
 
-    /**
-     * Constant for less-than operand
-     */
+    /** Constant for less-than operand. */
     private static final String LESS_THAN = "<";
 
-    /** Constant <code>GREATER_THAN=">"</code> */
+    /** Constant <code>GREATER_THAN=">"</code>. */
     private static final String GREATER_THAN = ">";
 
-    /** Constant <code>LESS_THAN_EQUALS="<="</code> */
+    /** Constant <code>LESS_THAN_EQUALS="<="</code>. */
     private static final String LESS_THAN_EQUALS = "<=";
 
-    /** Constant <code>GREATER_THAN_EQUALS=">="</code> */
+    /** Constant <code>GREATER_THAN_EQUALS=">="</code>. */
     private static final String GREATER_THAN_EQUALS = ">=";
 
-    /** Constant <code>EQUALS="="</code> */
+    /** Constant <code>EQUALS="="</code>. */
     private static final String EQUALS = "=";
 
-    /** Constant <code>NOT_EQUAL="!="</code> */
+    /** Constant <code>NOT_EQUAL="!="</code>. */
     private static final String NOT_EQUAL = "!=";
 
-    /** Constant <code>MATCHES="~"</code> */
+    /** Constant <code>MATCHES="~"</code>. */
     private static final String MATCHES = "~";
 
+    /** The m_iface. */
     private OnmsIpInterface m_iface;
 
+    /** The m_package. */
     private Package m_package;
 
+    /** The m_parameters. */
     private Map<String, String> m_parameters;
 
+    /** The m_access point dao. */
     private AccessPointDao m_accessPointDao;
 
+    /**
+     * Instantiates a new instance strategy.
+     */
     public InstanceStrategy() {
 
     }
 
+    /**
+     * Gets the agent config.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the agent config
+     */
     private SnmpAgentConfig getAgentConfig(InetAddress ipaddr) {
         // Retrieve this interface's SNMP peer object
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
@@ -87,6 +128,9 @@ public class InstanceStrategy implements AccessPointPoller {
         return agentConfig;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.Callable#call()
+     */
     @Override
     public OnmsAccessPointCollection call() throws IOException {
         OnmsAccessPointCollection apsUp = new OnmsAccessPointCollection();
@@ -165,6 +209,13 @@ public class InstanceStrategy implements AccessPointPoller {
         return apsUp;
     }
 
+    /**
+     * Gets the phys addr from instance.
+     *
+     * @param instance
+     *            the instance
+     * @return the phys addr from instance
+     */
     public static String getPhysAddrFromInstance(SnmpInstId instance) {
         String[] elm;
         elm = instance.toString().split("\\.");
@@ -188,6 +239,13 @@ public class InstanceStrategy implements AccessPointPoller {
         return sb.toString().toUpperCase();
     }
 
+    /**
+     * Gets the instance from phys addr.
+     *
+     * @param physAddr
+     *            the phys addr
+     * @return the instance from phys addr
+     */
     public static SnmpInstId getInstanceFromPhysAddr(String physAddr) {
         String[] elm;
         elm = physAddr.split(":");
@@ -251,11 +309,15 @@ public class InstanceStrategy implements AccessPointPoller {
     }
 
     /**
+     * Check string criteria.
+     *
      * @param operator
+     *            the operator
      * @param operand
-     * @param retVal
+     *            the operand
      * @param value
-     * @return
+     *            the value
+     * @return the boolean
      */
     protected Boolean checkStringCriteria(final String operator, String operand, String value) {
         Boolean retVal = null;
@@ -287,11 +349,15 @@ public class InstanceStrategy implements AccessPointPoller {
     }
 
     /**
+     * Checks if is criteria null.
+     *
      * @param result
+     *            the result
      * @param operator
+     *            the operator
      * @param operand
-     * @param retVal
-     * @return
+     *            the operand
+     * @return the boolean
      */
     protected Boolean isCriteriaNull(Object result, String operator, String operand) {
 
@@ -304,41 +370,65 @@ public class InstanceStrategy implements AccessPointPoller {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setInterfaceToPoll(org.opennms.netmgt.model.OnmsIpInterface)
+     */
     @Override
     public void setInterfaceToPoll(OnmsIpInterface interfaceToPoll) {
         m_iface = interfaceToPoll;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getInterfaceToPoll()
+     */
     @Override
     public OnmsIpInterface getInterfaceToPoll() {
         return m_iface;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setPackage(org.opennms.netmgt.config.accesspointmonitor.Package)
+     */
     @Override
     public void setPackage(Package pkg) {
         m_package = pkg;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getPackage()
+     */
     @Override
     public Package getPackage() {
         return m_package;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setPropertyMap(java.util.Map)
+     */
     @Override
     public void setPropertyMap(Map<String, String> parameters) {
         m_parameters = parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getPropertyMap()
+     */
     @Override
     public Map<String, String> getPropertyMap() {
         return m_parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#setAccessPointDao(org.opennms.netmgt.dao.AccessPointDao)
+     */
     @Override
     public void setAccessPointDao(AccessPointDao accessPointDao) {
         m_accessPointDao = accessPointDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.accesspointmonitor.poller.AccessPointPoller#getAccessPointDao()
+     */
     @Override
     public AccessPointDao getAccessPointDao() {
         return m_accessPointDao;

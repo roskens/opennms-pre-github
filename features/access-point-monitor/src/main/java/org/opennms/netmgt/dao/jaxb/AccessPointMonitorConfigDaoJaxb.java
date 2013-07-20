@@ -36,6 +36,7 @@ import org.opennms.netmgt.dao.AccessPointMonitorConfigDao;
  * <p>
  * AccessPointMonitorConfigDaoJaxb
  * </p>
+ * .
  *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
@@ -43,15 +44,24 @@ public class AccessPointMonitorConfigDaoJaxb extends
         AbstractJaxbConfigDao<AccessPointMonitorConfig, AccessPointMonitorConfig> implements
         AccessPointMonitorConfigDao {
 
+    /**
+     * Instantiates a new access point monitor config dao jaxb.
+     */
     public AccessPointMonitorConfigDaoJaxb() {
         super(AccessPointMonitorConfig.class, "Access Point Monitor Configuration");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.AccessPointMonitorConfigDao#getConfig()
+     */
     @Override
     public AccessPointMonitorConfig getConfig() {
         return getContainer().getObject();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     public AccessPointMonitorConfig translateConfig(AccessPointMonitorConfig jaxbConfig) {
         return jaxbConfig;
