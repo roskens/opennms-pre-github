@@ -53,20 +53,34 @@ import org.eclipse.osgi.framework.console.CommandProvider;
 import org.ops4j.io.Pipe;
 
 /**
- * Internal implementation of our example OSGi service
+ * Internal implementation of our example OSGi service.
  *
  * @author ranger
  * @version $Id: $
  */
 public final class RxtxCommands implements CommandProvider {
 
+    /**
+     * The Class EventLogger.
+     */
     private final class EventLogger implements SerialPortEventListener {
+
+        /** The intp. */
         private final CommandInterpreter intp;
 
+        /**
+         * Instantiates a new event logger.
+         *
+         * @param intp
+         *            the intp
+         */
         private EventLogger(CommandInterpreter intp) {
             this.intp = intp;
         }
 
+        /* (non-Javadoc)
+         * @see gnu.io.SerialPortEventListener#serialEvent(gnu.io.SerialPortEvent)
+         */
         @Override
         public void serialEvent(SerialPortEvent ev) {
 
@@ -115,20 +129,23 @@ public final class RxtxCommands implements CommandProvider {
         }
     }
 
+    /** The m_open ports. */
     private Map<String, SerialPort> m_openPorts = new HashMap<String, SerialPort>();
 
+    /** The m_logging ports. */
     private Map<String, Pipe> m_loggingPorts = new HashMap<String, Pipe>();
 
     /**
      * <p>
      * _rxtxVersion
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxVersion(CommandInterpreter intp) {
 
@@ -142,12 +159,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxListPorts
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxListPorts(CommandInterpreter intp) {
 
@@ -166,12 +184,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxOpen
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxOpen(CommandInterpreter intp) {
         String id = intp.nextArgument();
@@ -222,12 +241,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxClose
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxClose(CommandInterpreter intp) {
 
@@ -263,12 +283,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxWrite
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxWrite(CommandInterpreter intp) {
 
@@ -324,12 +345,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxRead
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxRead(CommandInterpreter intp) {
 
@@ -361,12 +383,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxLog
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxLog(CommandInterpreter intp) {
 
@@ -397,12 +420,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxUnlog
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxUnlog(CommandInterpreter intp) {
         try {
@@ -427,12 +451,13 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxInfo
      * </p>
+     * .
      *
      * @param intp
      *            a
-     *            {@link org.eclipse.osgi.framework.console.CommandInterpreter}
-     *            object.
      * @return a {@link java.lang.Object} object.
+     *         {@link org.eclipse.osgi.framework.console.CommandInterpreter}
+     *         object.
      */
     public Object _rxtxInfo(CommandInterpreter intp) {
 
@@ -493,6 +518,7 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxEnableEvents
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -534,6 +560,7 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxDisableEvents
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -556,6 +583,12 @@ public final class RxtxCommands implements CommandProvider {
         }
     }
 
+    /**
+     * Removes the listener.
+     *
+     * @param port
+     *            the port
+     */
     private void removeListener(SerialPort port) {
 
         port.notifyOnRingIndicator(false);
@@ -577,6 +610,7 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * _rxtxEventTest
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -604,6 +638,7 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * getHelp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -619,6 +654,7 @@ public final class RxtxCommands implements CommandProvider {
      * <p>
      * stop
      * </p>
+     * .
      */
     public void stop() {
 
@@ -641,14 +677,36 @@ public final class RxtxCommands implements CommandProvider {
 
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param arg
+     *            the arg
+     * @param msg
+     *            the msg
+     */
     private void assertNotNull(Object arg, String msg) {
         assertFalse(arg == null, msg);
     }
 
+    /**
+     * Assert open port.
+     *
+     * @param id
+     *            the id
+     */
     private void assertOpenPort(String id) {
         assertTrue(m_openPorts.containsKey(id), "No open port with id " + id + " found.");
     }
 
+    /**
+     * Assert true.
+     *
+     * @param test
+     *            the test
+     * @param msg
+     *            the msg
+     */
     private void assertTrue(boolean test, String msg) {
 
         if (!test) {
@@ -657,6 +715,14 @@ public final class RxtxCommands implements CommandProvider {
 
     }
 
+    /**
+     * Assert false.
+     *
+     * @param test
+     *            the test
+     * @param msg
+     *            the msg
+     */
     private void assertFalse(boolean test, String msg) {
 
         if (test) {

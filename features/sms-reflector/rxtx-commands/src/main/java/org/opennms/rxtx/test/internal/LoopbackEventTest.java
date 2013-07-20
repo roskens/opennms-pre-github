@@ -51,21 +51,25 @@ import java.util.TooManyListenersException;
  */
 public class LoopbackEventTest {
 
+    /** The serial port. */
     private SerialPort serialPort;
 
+    /** The out stream. */
     private OutputStream outStream;
 
+    /** The in stream. */
     private InputStream inStream;
 
     /**
      * <p>
      * connect
      * </p>
+     * .
      *
      * @param portName
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void connect(String portName) throws IOException {
         try {
@@ -94,7 +98,7 @@ public class LoopbackEventTest {
     }
 
     /**
-     * Get the serial port input stream
+     * Get the serial port input stream.
      *
      * @return The serial port input stream
      */
@@ -103,7 +107,7 @@ public class LoopbackEventTest {
     }
 
     /**
-     * Get the serial port output stream
+     * Get the serial port output stream.
      *
      * @return The serial port output stream
      */
@@ -112,7 +116,7 @@ public class LoopbackEventTest {
     }
 
     /**
-     * Register event handler for data available event
+     * Register event handler for data available event.
      *
      * @param eventHandler
      *            Event handler
@@ -128,7 +132,7 @@ public class LoopbackEventTest {
     }
 
     /**
-     * Disconnect the serial port
+     * Disconnect the serial port.
      */
     public void disconnect() {
         if (serialPort != null) {
@@ -145,7 +149,10 @@ public class LoopbackEventTest {
     }
 
     /**
-     * Sets the serial port parameters to 57600bps-8N1
+     * Sets the serial port parameters to 57600bps-8N1.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void setSerialPortParameters() throws IOException {
         int baudRate = 57600; // 57600bps
@@ -162,30 +169,58 @@ public class LoopbackEventTest {
         }
     }
 
+    /**
+     * The Class SerialEventHandler.
+     */
     public static class SerialEventHandler implements SerialPortEventListener {
 
+        /** The in stream. */
         private InputStream inStream;
 
+        /** The read buffer len. */
         private int readBufferLen;
 
+        /** The read buffer offset. */
         private int readBufferOffset;
 
+        /** The read buffer. */
         private byte[] readBuffer;
 
+        /**
+         * Instantiates a new serial event handler.
+         *
+         * @param inStream
+         *            the in stream
+         * @param readBufferLen
+         *            the read buffer len
+         */
         public SerialEventHandler(InputStream inStream, int readBufferLen) {
             this.inStream = inStream;
             this.readBufferLen = readBufferLen;
             readBuffer = new byte[readBufferLen];
         }
 
+        /**
+         * Checks if is buffer full.
+         *
+         * @return true, if is buffer full
+         */
         public boolean isBufferFull() {
             return (readBufferOffset == readBufferLen);
         }
 
+        /**
+         * Gets the read buffer.
+         *
+         * @return the read buffer
+         */
         public String getReadBuffer() {
             return new String(readBuffer);
         }
 
+        /* (non-Javadoc)
+         * @see gnu.io.SerialPortEventListener#serialEvent(gnu.io.SerialPortEvent)
+         */
         @Override
         public void serialEvent(SerialPortEvent event) {
             switch (event.getEventType()) {
@@ -196,6 +231,9 @@ public class LoopbackEventTest {
             }
         }
 
+        /**
+         * Read serial.
+         */
         private void readSerial() {
             try {
                 int availableBytes = inStream.available();
@@ -221,6 +259,12 @@ public class LoopbackEventTest {
 
         }
 
+        /**
+         * The main method.
+         *
+         * @param args
+         *            the arguments
+         */
         public static void main(String[] args) {
             // Timeout = 1s
             final int TIMEOUT_VALUE = 10000;

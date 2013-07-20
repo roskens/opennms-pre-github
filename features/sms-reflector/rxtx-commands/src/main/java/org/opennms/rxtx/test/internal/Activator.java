@@ -34,15 +34,17 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
 /**
- * Extension of the default OSGi bundle activator
+ * Extension of the default OSGi bundle activator.
  *
  * @author ranger
  * @version $Id: $
  */
 public final class Activator implements BundleActivator {
 
+    /** The m_registration. */
     ServiceRegistration<CommandProvider> m_registration;
 
+    /** The m_commands. */
     RxtxCommands m_commands;
 
     /**
