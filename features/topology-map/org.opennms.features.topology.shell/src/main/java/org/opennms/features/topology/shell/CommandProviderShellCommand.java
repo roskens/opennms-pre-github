@@ -40,9 +40,15 @@ import org.osgi.service.blueprint.reflect.MapEntry;
 import org.osgi.service.blueprint.reflect.ServiceMetadata;
 import org.osgi.service.blueprint.reflect.ValueMetadata;
 
+/**
+ * The Class CommandProviderShellCommand.
+ */
 @Command(scope = "onms", name = "listcommands", description = "Lists the available shell commands and their providers.")
 public class CommandProviderShellCommand extends OsgiCommandSupport {
 
+    /* (non-Javadoc)
+     * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
+     */
     @Override
     protected Object doExecute() throws Exception {
         final Collection<ServiceReference<BlueprintContainer>> services = this.bundleContext.getServiceReferences(BlueprintContainer.class,

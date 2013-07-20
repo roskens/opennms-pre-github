@@ -41,6 +41,9 @@ import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.opennms.features.topology.api.Operation;
 import org.osgi.framework.ServiceReference;
 
+/**
+ * The Class OperationListShellCommand.
+ */
 @Command(scope = "topo", name = "listoperations", description = "Lists the available OpenNMS topology operations.")
 public class OperationListShellCommand extends OsgiCommandSupport {
     // public static final Comparator<Operation> OPERATION_COMPARATOR = new
@@ -52,6 +55,9 @@ public class OperationListShellCommand extends OsgiCommandSupport {
     // }
     // };
 
+    /* (non-Javadoc)
+     * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
+     */
     @Override
     protected Object doExecute() throws Exception {
 
@@ -108,6 +114,13 @@ public class OperationListShellCommand extends OsgiCommandSupport {
         return null;
     }
 
+    /**
+     * Make line.
+     *
+     * @param s
+     *            the s
+     * @return the string
+     */
     private String makeLine(final String s) {
         return new String(new char[s.length()]).replace("\0", "-");
     }

@@ -37,9 +37,15 @@ import org.apache.karaf.shell.console.OsgiCommandSupport;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.ServiceReference;
 
+/**
+ * The Class BlueprintNamespaceShellCommand.
+ */
 @Command(scope = "onms", name = "listnamespaces", description = "Lists the available blueprint namespaces and their providers.")
 public class BlueprintNamespaceShellCommand extends OsgiCommandSupport {
 
+    /* (non-Javadoc)
+     * @see org.apache.karaf.shell.console.AbstractAction#doExecute()
+     */
     @Override
     protected Object doExecute() throws Exception {
 
