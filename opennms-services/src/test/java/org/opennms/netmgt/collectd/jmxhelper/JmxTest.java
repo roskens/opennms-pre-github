@@ -28,7 +28,7 @@
 
 package org.opennms.netmgt.collectd.jmxhelper;
 
-import javax.management.openmbean.*;
+import javax.management.openmbean.CompositeData;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

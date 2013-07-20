@@ -55,11 +55,16 @@ package org.opennms.features.topology.plugins.browsers;
  *     http://www.opennms.org/
  *     http://www.opennms.com/
  *******************************************************************************/
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import org.opennms.core.criteria.Alias;
-import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.Alias.JoinType;
+import org.opennms.core.criteria.Criteria;
 import org.opennms.core.criteria.restrictions.EqRestriction;
 import org.opennms.core.criteria.restrictions.Restriction;
 import org.opennms.features.topology.api.SelectionContext;

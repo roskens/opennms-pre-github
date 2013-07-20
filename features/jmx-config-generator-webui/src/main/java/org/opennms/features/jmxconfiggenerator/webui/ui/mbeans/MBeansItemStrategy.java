@@ -28,14 +28,16 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
-import com.vaadin.data.Item;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import org.opennms.features.jmxconfiggenerator.webui.data.MetaMBeanItem;
 import org.opennms.features.jmxconfiggenerator.webui.data.StringRenderer;
 import org.opennms.features.jmxconfiggenerator.webui.ui.IconProvider;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
+
+import com.vaadin.data.Item;
 
 /**
  * @author Markus von Rüden

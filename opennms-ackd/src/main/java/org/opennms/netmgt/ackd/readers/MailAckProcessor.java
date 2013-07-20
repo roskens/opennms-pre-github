@@ -38,10 +38,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.mail.Flags.Flag;
 import javax.mail.Header;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Flags.Flag;
 import javax.mail.internet.InternetAddress;
 
 import org.opennms.core.utils.StringUtils;
@@ -55,7 +55,6 @@ import org.opennms.netmgt.dao.api.JavaMailConfigurationDao;
 import org.opennms.netmgt.model.AckAction;
 import org.opennms.netmgt.model.AckType;
 import org.opennms.netmgt.model.OnmsAcknowledgment;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

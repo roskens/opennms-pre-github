@@ -34,12 +34,19 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
+import org.opennms.sms.reflector.smsservice.MobileMsgTrackerTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.sms.reflector.smsservice.MobileMsgTrackerTest;
-import org.smslib.*;
+import org.smslib.AGateway;
+import org.smslib.GatewayException;
+import org.smslib.InboundMessage;
 import org.smslib.Message.MessageTypes;
+import org.smslib.OutboundMessage;
 import org.smslib.OutboundMessage.MessageStatuses;
+import org.smslib.Service;
+import org.smslib.TimeoutException;
+import org.smslib.USSDRequest;
+import org.smslib.USSDResponse;
 
 /**
  * TestGateway - virtual gateway to simulate sending and receiving messages to

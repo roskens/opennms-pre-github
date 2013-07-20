@@ -28,11 +28,12 @@
 
 package org.opennms.netmgt.jasper.helper;
 
+import java.util.StringTokenizer;
+
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.StringTokenizer;
 
 /**
  * <p>

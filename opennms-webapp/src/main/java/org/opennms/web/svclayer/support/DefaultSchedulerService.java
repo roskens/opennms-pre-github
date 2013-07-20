@@ -35,7 +35,6 @@ import java.util.List;
 
 import org.opennms.api.reporting.ReportMode;
 import org.opennms.api.reporting.parameter.ReportParameters;
-
 import org.opennms.reporting.core.DeliveryOptions;
 import org.opennms.reporting.core.svclayer.ReportServiceLocatorException;
 import org.opennms.reporting.core.svclayer.ReportWrapperService;

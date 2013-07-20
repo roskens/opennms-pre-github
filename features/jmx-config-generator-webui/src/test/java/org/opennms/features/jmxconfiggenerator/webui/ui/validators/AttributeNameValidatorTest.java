@@ -28,9 +28,9 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.ui.validators;
 
-import org.opennms.features.jmxconfiggenerator.webui.ui.validators.AttributeNameValidator;
-import com.vaadin.data.Validator;
 import org.junit.Test;
+
+import com.vaadin.data.Validator;
 
 /**
  * @author Markus von Rüden

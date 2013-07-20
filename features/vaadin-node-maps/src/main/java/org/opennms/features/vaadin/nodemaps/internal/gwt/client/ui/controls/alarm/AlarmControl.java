@@ -1,5 +1,15 @@
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.alarm;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.discotools.gwt.leaflet.client.controls.Control;
+import org.discotools.gwt.leaflet.client.jsobject.JSObject;
+import org.discotools.gwt.leaflet.client.map.Map;
+import org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer;
+import org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.DomEvent;
+import org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.SearchEventCallback;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -8,15 +18,6 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
-import org.discotools.gwt.leaflet.client.controls.Control;
-import org.discotools.gwt.leaflet.client.jsobject.JSObject;
-import org.discotools.gwt.leaflet.client.map.Map;
-import org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer;
-import org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.DomEvent;
-import org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.SearchEventCallback;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AlarmControl extends Control {
     Logger logger = Logger.getLogger(getClass().getName());

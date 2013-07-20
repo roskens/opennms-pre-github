@@ -34,9 +34,9 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.util.TreeMap;
 
+import org.opennms.systemreport.AbstractSystemReportPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.systemreport.AbstractSystemReportPlugin;
 import org.springframework.core.io.Resource;
 
 public class JavaReportPlugin extends AbstractSystemReportPlugin {

@@ -40,7 +40,6 @@ import org.opennms.netmgt.icmp.EchoPacket;
 import org.opennms.netmgt.icmp.PingConstants;
 import org.opennms.netmgt.icmp.PingResponseCallback;
 import org.opennms.netmgt.icmp.Pinger;
-import org.opennms.netmgt.icmp.jni6.Jni6Pinger;
 
 /**
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>

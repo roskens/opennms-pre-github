@@ -23,12 +23,11 @@ package org.opennms.nrtg.protocolcollector.tca.internal;
 import java.net.InetAddress;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Test;
-import org.opennms.nrtg.api.model.CollectionJob;
-import org.opennms.nrtg.api.model.DefaultCollectionJob;
 
 import junit.framework.Assert;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opennms.core.test.OpenNMSJUnit4ClassRunner;
 import org.opennms.core.test.snmp.annotations.JUnitSnmpAgent;
@@ -39,6 +38,8 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.nrtg.api.ProtocolCollector;
+import org.opennms.nrtg.api.model.CollectionJob;
+import org.opennms.nrtg.api.model.DefaultCollectionJob;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

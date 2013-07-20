@@ -27,17 +27,23 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.Property;
-import com.vaadin.data.validator.AbstractStringValidator;
-import com.vaadin.ui.*;
+import java.util.List;
+import java.util.Map;
+
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.DashletConfigurationWindow;
 import org.opennms.features.vaadin.dashboard.model.DashletFactory;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Map;
+import com.vaadin.data.Property;
+import com.vaadin.data.validator.AbstractStringValidator;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
 
 /**
  * The editor component used for editing a single {@link DashletSpec} entry

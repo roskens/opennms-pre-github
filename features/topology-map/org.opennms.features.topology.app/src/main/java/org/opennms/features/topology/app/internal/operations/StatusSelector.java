@@ -1,5 +1,12 @@
 package org.opennms.features.topology.app.internal.operations;
 
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
 import org.opennms.features.topology.api.AbstractCheckedOperation;
 import org.opennms.features.topology.api.CheckedOperation;
 import org.opennms.features.topology.api.GraphContainer;
@@ -9,8 +16,6 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class StatusSelector {
     private static class StatusSelectorOperation extends AbstractCheckedOperation {

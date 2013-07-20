@@ -33,8 +33,6 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.opennms.features.poller.remote.gwt.client.utils.Interval;
-
 /**
  * <p>
  * IntervalUtils class.

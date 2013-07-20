@@ -31,7 +31,6 @@ package org.opennms.netmgt.linkd.snmp;
 import org.opennms.netmgt.model.OnmsVlan;
 import org.opennms.netmgt.model.OnmsVlan.VlanStatus;
 import org.opennms.netmgt.model.OnmsVlan.VlanType;
-
 import org.opennms.netmgt.snmp.SnmpResult;
 
 /**

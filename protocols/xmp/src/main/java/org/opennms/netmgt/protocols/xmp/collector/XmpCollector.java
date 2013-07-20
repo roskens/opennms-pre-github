@@ -74,7 +74,6 @@ import org.krupczak.xmp.XmpMessage;
 import org.krupczak.xmp.XmpSession;
 import org.krupczak.xmp.XmpVar;
 import org.opennms.core.utils.ParameterMap;
-
 import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.collectd.ServiceCollector;
 import org.opennms.netmgt.config.collector.AttributeGroup;

@@ -34,6 +34,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.opennms.core.test.snmp.ProxySnmpAgentConfigFactory;
+
 /**
  * <p>
  * JUnitSnmpAgent class.

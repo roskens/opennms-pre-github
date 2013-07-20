@@ -32,14 +32,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationRemovedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.ApplicationUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler;
 import org.opennms.netmgt.model.OnmsApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.novanic.eventservice.service.EventExecutorService;
 

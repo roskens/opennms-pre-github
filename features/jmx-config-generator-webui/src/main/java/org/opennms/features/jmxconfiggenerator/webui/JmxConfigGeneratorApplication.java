@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.management.remote.JMXConnector;
+import javax.management.remote.JMXServiceURL;
 
 import org.opennms.features.jmxconfiggenerator.Starter;
 import org.opennms.features.jmxconfiggenerator.graphs.GraphConfigGenerator;
@@ -58,13 +59,11 @@ import com.vaadin.data.util.BeanItem;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import com.vaadin.ui.Notification.Type;
-
-import javax.management.remote.JMXServiceURL;
 
 @Theme(Config.STYLE_NAME)
 @SuppressWarnings("serial")

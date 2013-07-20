@@ -36,8 +36,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.features.poller.remote.gwt.client.ApplicationDetails;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import org.opennms.features.poller.remote.gwt.client.location.LocationDetails;
@@ -47,6 +45,8 @@ import org.opennms.features.poller.remote.gwt.client.remoteevents.LocationUpdate
 import org.opennms.features.poller.remote.gwt.client.remoteevents.LocationsUpdatedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.UpdateCompleteRemoteEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.novanic.eventservice.service.EventExecutorService;
 

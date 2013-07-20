@@ -28,13 +28,6 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.util.HierarchicalContainer;
-import com.vaadin.event.ItemClickEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -43,17 +36,25 @@ import java.util.Map;
 
 import org.opennms.features.jmxconfiggenerator.webui.data.JmxCollectionCloner;
 import org.opennms.features.jmxconfiggenerator.webui.data.MetaMBeanItem;
-import org.opennms.features.jmxconfiggenerator.webui.data.UiModel;
 import org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener;
 import org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeNotifier;
 import org.opennms.features.jmxconfiggenerator.webui.data.SelectableBeanItemContainer;
 import org.opennms.features.jmxconfiggenerator.webui.data.StringRenderer;
+import org.opennms.features.jmxconfiggenerator.webui.data.UiModel;
 import org.opennms.features.jmxconfiggenerator.webui.ui.ModelChangeRegistry;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Attrib;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.HierarchicalContainer;
+import com.vaadin.event.ItemClickEvent;
 
 /**
  * Controls the "MbeansView".

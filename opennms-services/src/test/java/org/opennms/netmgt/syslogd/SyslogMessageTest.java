@@ -46,9 +46,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.test.MockLogAppender;
+import org.opennms.netmgt.config.SyslogdConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.config.SyslogdConfigFactory;
 
 public class SyslogMessageTest {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogMessageTest.class);

@@ -1,9 +1,16 @@
 package org.opennms.netmgt.config;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import junit.framework.AssertionFailedError;
+
 import org.apache.commons.io.FileUtils;
 import org.exolab.castor.util.LocalConfiguration;
 import org.junit.Before;
@@ -13,17 +20,14 @@ import org.junit.runners.Parameterized;
 import org.opennms.core.test.ConfigurationTestUtils;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.core.xml.JaxbUtils;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig;
-import org.opennms.netmgt.config.actiond.ActiondConfiguration;
-import org.opennms.netmgt.config.ami.AmiConfig;
-import org.opennms.netmgt.xml.eventconf.Events;
 import org.opennms.features.reporting.model.basicreport.LegacyLocalReportsDefinition;
 import org.opennms.features.reporting.model.jasperreport.LocalJasperReports;
 import org.opennms.features.reporting.model.remoterepository.RemoteRepositoryConfig;
 import org.opennms.netmgt.alarmd.northbounder.syslog.SyslogNorthbounderConfig;
+import org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig;
 import org.opennms.netmgt.config.ackd.AckdConfiguration;
+import org.opennms.netmgt.config.actiond.ActiondConfiguration;
+import org.opennms.netmgt.config.ami.AmiConfig;
 import org.opennms.netmgt.config.archiver.events.EventsArchiverConfiguration;
 import org.opennms.netmgt.config.capsd.CapsdConfiguration;
 import org.opennms.netmgt.config.categories.Catinfo;
@@ -84,12 +88,9 @@ import org.opennms.netmgt.config.wmi.WmiConfig;
 import org.opennms.netmgt.config.wmi.WmiDatacollectionConfig;
 import org.opennms.netmgt.config.xmlrpcd.XmlrpcdConfiguration;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import static org.opennms.core.test.ConfigurationTestUtils.getDaemonEtcDirectory;
+import org.opennms.netmgt.xml.eventconf.Events;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 /**
  * This is an integration test checking if all provided example XML files can be

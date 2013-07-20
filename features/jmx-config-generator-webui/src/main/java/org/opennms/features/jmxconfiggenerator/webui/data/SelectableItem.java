@@ -28,6 +28,12 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.vaadin.data.util.AbstractBeanContainer;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
@@ -35,11 +41,6 @@ import com.vaadin.data.util.MethodPropertyDescriptor;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.PropertysetItem;
 import com.vaadin.data.util.VaadinPropertyDescriptor;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class represents a selectable item. In encapsulates any java objects

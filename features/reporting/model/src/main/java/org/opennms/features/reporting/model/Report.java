@@ -28,7 +28,8 @@
 
 package org.opennms.features.reporting.model;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class Report.

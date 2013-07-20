@@ -31,8 +31,6 @@ package org.opennms.netmgt.rtc.utils;
 import java.util.Date;
 import java.util.Iterator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.rtc.DataManager;
 import org.opennms.netmgt.rtc.RTCManager;
@@ -40,6 +38,8 @@ import org.opennms.netmgt.rtc.datablock.RTCCategory;
 import org.opennms.netmgt.xml.rtc.EuiLevel;
 import org.opennms.netmgt.xml.rtc.Header;
 import org.opennms.netmgt.xml.rtc.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This takes an object of type 'RTCCategory' and creates an XML

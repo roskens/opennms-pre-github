@@ -29,6 +29,7 @@
 package org.opennms.web.servlet;
 
 import javax.servlet.ServletContextEvent;
+
 import org.springframework.web.util.Log4jWebConfigurer;
 
 /**

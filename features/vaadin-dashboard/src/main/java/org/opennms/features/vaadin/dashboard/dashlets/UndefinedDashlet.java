@@ -27,11 +27,12 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.dashlets;
 
+import org.opennms.features.vaadin.dashboard.model.Dashlet;
+import org.opennms.features.vaadin.dashboard.model.DashletSpec;
+
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.features.vaadin.dashboard.model.Dashlet;
-import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 /**
  * This class represents a "undefined" {@link Dashlet} used for error conditions

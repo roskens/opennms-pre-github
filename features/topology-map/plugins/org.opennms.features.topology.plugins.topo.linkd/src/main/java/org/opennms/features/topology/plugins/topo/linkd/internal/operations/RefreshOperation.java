@@ -28,12 +28,12 @@
 
 package org.opennms.features.topology.plugins.topo.linkd.internal.operations;
 
+import java.util.List;
+
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 public class RefreshOperation implements Operation {
 

@@ -28,10 +28,10 @@
 
 package org.opennms.netmgt.xml.eventconf;
 
-import static org.opennms.netmgt.xml.eventconf.EventMatchers.varbind;
 import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueEqualsMatcher;
 import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueMatchesRegexMatcher;
 import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueStartsWithMatcher;
+import static org.opennms.netmgt.xml.eventconf.EventMatchers.varbind;
 
 import java.io.IOException;
 import java.io.Reader;

@@ -28,7 +28,7 @@
 
 package org.opennms.features.poller.remote.gwt.server.geocoding;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

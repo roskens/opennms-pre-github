@@ -28,7 +28,10 @@
 
 package org.opennms.netmgt.xml.eventconf;
 
-import static org.opennms.netmgt.xml.eventconf.EventMatchers.*;
+import static org.opennms.netmgt.xml.eventconf.EventMatchers.field;
+import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueEqualsMatcher;
+import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueMatchesRegexMatcher;
+import static org.opennms.netmgt.xml.eventconf.EventMatchers.valueStartsWithMatcher;
 
 import java.io.IOException;
 import java.io.Reader;

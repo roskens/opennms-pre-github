@@ -30,7 +30,7 @@ package org.opennms.sms.reflector.smsservice.internal;
 
 import org.opennms.sms.reflector.smsservice.GatewayGroup;
 import org.smslib.AGateway;
-import org.smslib.test.*;
+import org.smslib.test.TestGateway;
 
 /**
  * <p>

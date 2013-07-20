@@ -27,12 +27,13 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.dashlets;
 
+import org.opennms.features.vaadin.dashboard.model.Dashlet;
+import org.opennms.features.vaadin.dashboard.model.DashletSpec;
+
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.features.vaadin.dashboard.model.Dashlet;
-import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
 /**
  * This class implements a {@link Dashlet} for displaying an image.

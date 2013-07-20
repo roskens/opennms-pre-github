@@ -33,17 +33,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification;
 import org.smslib.AGateway;
 import org.smslib.GatewayException;
 import org.smslib.InboundBinaryMessage;
 import org.smslib.InboundMessage;
+import org.smslib.Message.MessageTypes;
 import org.smslib.OutboundMessage;
 import org.smslib.TimeoutException;
-import org.smslib.Message.MessageTypes;
 
 /**
  * SmsMessenger

@@ -32,8 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
 import org.opennms.features.jmxconfiggenerator.webui.data.Reflections;
 import org.opennms.features.jmxconfiggenerator.webui.data.SimpleEntry;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;

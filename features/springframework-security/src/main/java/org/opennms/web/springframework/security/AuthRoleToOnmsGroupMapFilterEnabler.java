@@ -49,9 +49,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.opennms.netmgt.model.FilterManager;
-
 import org.opennms.web.api.SecurityContextService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 

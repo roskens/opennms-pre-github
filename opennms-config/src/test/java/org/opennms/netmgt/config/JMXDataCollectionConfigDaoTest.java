@@ -39,7 +39,6 @@ import org.junit.Test;
 import org.opennms.core.xml.MarshallingResourceFailureException;
 import org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig;
 import org.opennms.test.ThrowableAnticipator;
-
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;

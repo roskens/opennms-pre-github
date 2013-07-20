@@ -28,12 +28,12 @@
 
 package org.opennms.netmgt.provision.service.snmp;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.snmp.AbstractSnmpStore;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.SnmpValueType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SnmpStore extends AbstractSnmpStore {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpStore.class);

@@ -34,8 +34,6 @@ import java.util.Collection;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
-import org.opennms.netmgt.config.datacollection.Parameter;
-import org.opennms.netmgt.config.datacollection.PersistenceSelectorStrategy;
 
 public class PersistenceSelectorStrategyTest extends XmlTest<PersistenceSelectorStrategy> {
 

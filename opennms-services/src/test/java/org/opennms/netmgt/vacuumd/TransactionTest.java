@@ -34,11 +34,11 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import junit.framework.TestCase;
+
 import org.easymock.EasyMock;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.test.mock.EasyMockUtils;
-
-import junit.framework.TestCase;
 
 /**
  * Tests transactional capabilities of Vacuumd

@@ -50,8 +50,7 @@ import java.util.TooManyListenersException;
 
 import org.eclipse.osgi.framework.console.CommandInterpreter;
 import org.eclipse.osgi.framework.console.CommandProvider;
-
-import org.ops4j.io.*;
+import org.ops4j.io.Pipe;
 
 /**
  * Internal implementation of our example OSGi service

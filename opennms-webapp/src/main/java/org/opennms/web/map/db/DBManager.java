@@ -34,7 +34,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -54,10 +53,8 @@ import org.opennms.core.logging.Logging;
 import org.opennms.core.resource.Vault;
 import org.opennms.core.resource.db.DbConnectionFactory;
 import org.opennms.core.resource.db.SimpleDbConnectionFactory;
-
 import org.opennms.web.map.MapsConstants;
 import org.opennms.web.map.MapsException;
-
 import org.opennms.web.map.view.VElementInfo;
 import org.opennms.web.map.view.VMapInfo;
 import org.slf4j.Logger;

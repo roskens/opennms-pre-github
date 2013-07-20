@@ -37,8 +37,8 @@ import org.opennms.api.reporting.parameter.ReportParameters;
 import org.opennms.api.reporting.parameter.ReportStringParm;
 import org.opennms.netmgt.config.reporting.DateParm;
 import org.opennms.netmgt.config.reporting.IntParm;
-import org.opennms.netmgt.config.reporting.StringParm;
 import org.opennms.netmgt.config.reporting.Parameters;
+import org.opennms.netmgt.config.reporting.StringParm;
 import org.opennms.reporting.core.svclayer.ParameterConversionService;
 
 /**

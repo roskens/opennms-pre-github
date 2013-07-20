@@ -29,8 +29,9 @@
 package org.opennms.sms.reflector.commands.internal;
 
 import java.io.PrintStream;
-import org.opennms.sms.ping.SmsPinger;
+
 import org.apache.felix.shell.Command;
+import org.opennms.sms.ping.SmsPinger;
 
 /**
  * <p>

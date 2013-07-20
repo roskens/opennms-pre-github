@@ -28,11 +28,11 @@
 
 package org.opennms.netmgt.accesspointmonitor.poller;
 
+import junit.framework.TestCase;
+
 import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.opennms.netmgt.snmp.mock.MockSnmpValueFactory;
-
-import junit.framework.TestCase;
 
 public class TableStrategyTest extends TestCase {
 

@@ -41,11 +41,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opennms.core.utils.WebSecurityUtils;
-import org.opennms.netmgt.config.WebRoleContext;
 import org.opennms.netmgt.config.BasicScheduleUtils;
 import org.opennms.netmgt.config.WebCalendar;
 import org.opennms.netmgt.config.WebGroupManager;
 import org.opennms.netmgt.config.WebRole;
+import org.opennms.netmgt.config.WebRoleContext;
 import org.opennms.netmgt.config.WebRoleManager;
 import org.opennms.netmgt.config.WebSchedEntry;
 import org.opennms.netmgt.config.WebUserManager;

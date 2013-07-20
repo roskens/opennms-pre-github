@@ -41,9 +41,9 @@ import javax.sql.DataSource;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.BaseConnectionFactory;
+import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 
 import snaq.db.DBPoolDataSource;
 

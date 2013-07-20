@@ -32,11 +32,11 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import org.apache.xmlrpc.XmlRpcClient;
-import org.apache.xmlrpc.XmlRpcException;
-
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+
+import org.apache.xmlrpc.XmlRpcClient;
+import org.apache.xmlrpc.XmlRpcException;
 
 public class XmlrpcAnticipatorTest extends TestCase {
     private static final int PORT = 9000;

@@ -34,14 +34,15 @@
  */
 package org.opennms.web.element;
 
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.sql.SQLException;
+
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
-
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.sql.SQLException;
+import org.opennms.protocols.snmp.SnmpBadConversionException;
 
 //import java.io.IOException;
 /**

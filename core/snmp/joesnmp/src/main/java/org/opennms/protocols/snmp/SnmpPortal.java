@@ -37,12 +37,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.LinkedList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.opennms.protocols.snmp.asn1.ASN1;
 import org.opennms.protocols.snmp.asn1.AsnDecodingException;
 import org.opennms.protocols.snmp.asn1.AsnEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstracts the communication related details from the SnmpSession and

@@ -29,8 +29,8 @@
 package org.opennms.netmgt.dao.jaxb;
 
 import org.opennms.core.xml.AbstractJaxbConfigDao;
-import org.opennms.netmgt.dao.AccessPointMonitorConfigDao;
 import org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig;
+import org.opennms.netmgt.dao.AccessPointMonitorConfigDao;
 
 /**
  * <p>

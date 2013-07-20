@@ -28,18 +28,19 @@
 
 package org.opennms.netmgt.poller.monitors;
 
+import java.net.MalformedURLException;
+import java.util.Map;
+
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 import jcifs.smb.SmbFilenameFilter;
+
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.MalformedURLException;
-import java.util.Map;
 
 /**
  * This class is designed to be used by the service poller framework to test the

@@ -30,8 +30,6 @@ package org.opennms.netmgt.provision.service;
 
 import java.util.Collection;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.model.events.annotations.EventHandler;
@@ -39,6 +37,8 @@ import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.provision.ProvisioningAdapter;
 import org.opennms.netmgt.provision.ProvisioningAdapterException;
 import org.opennms.netmgt.xml.event.Event;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 

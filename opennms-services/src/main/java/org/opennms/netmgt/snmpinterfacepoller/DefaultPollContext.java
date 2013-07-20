@@ -28,7 +28,8 @@
 
 package org.opennms.netmgt.snmpinterfacepoller;
 
-import static org.opennms.core.utils.InetAddressUtils.*;
+import static org.opennms.core.utils.InetAddressUtils.addr;
+import static org.opennms.core.utils.InetAddressUtils.str;
 
 import java.util.Date;
 import java.util.List;

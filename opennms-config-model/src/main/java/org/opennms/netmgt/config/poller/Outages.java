@@ -47,7 +47,6 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 import org.exolab.castor.xml.ValidationException;
 import org.exolab.castor.xml.Validator;
-
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 

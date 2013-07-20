@@ -33,12 +33,12 @@ package org.opennms.features.poller.remote.gwt.server;
 
 import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.GeocodingFinishedRemoteEvent;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.GeocodingUpdatingRemoteEvent;
 import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.novanic.eventservice.service.EventExecutorService;
 

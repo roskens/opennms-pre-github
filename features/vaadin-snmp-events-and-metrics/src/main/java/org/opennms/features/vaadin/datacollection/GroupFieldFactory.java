@@ -30,12 +30,12 @@ package org.opennms.features.vaadin.datacollection;
 import java.util.List;
 
 import com.vaadin.data.Item;
+import com.vaadin.ui.AbstractSelect.NewItemHandler;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
-import com.vaadin.ui.AbstractSelect.NewItemHandler;
 
 /**
  * A factory for creating MIB Group Field objects.

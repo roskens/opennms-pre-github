@@ -35,8 +35,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.opennms.core.utils.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.EventConstants;
 import org.opennms.netmgt.config.ThresholdingConfigFactory;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
@@ -44,6 +42,8 @@ import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author <a href="mailto:mike@opennms.org">Mike Davidson</a>

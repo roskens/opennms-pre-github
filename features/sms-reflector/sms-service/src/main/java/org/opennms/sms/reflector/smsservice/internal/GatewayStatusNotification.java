@@ -32,8 +32,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.smslib.AGateway;
-import org.smslib.IGatewayStatusNotification;
 import org.smslib.AGateway.GatewayStatuses;
+import org.smslib.IGatewayStatusNotification;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

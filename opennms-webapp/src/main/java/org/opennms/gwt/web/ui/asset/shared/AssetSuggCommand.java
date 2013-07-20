@@ -32,6 +32,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.FieldSetSuggestBox;
+
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**

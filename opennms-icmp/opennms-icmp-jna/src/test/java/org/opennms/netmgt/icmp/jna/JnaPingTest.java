@@ -39,7 +39,6 @@ import org.opennms.core.utils.CollectionMath;
 import org.opennms.netmgt.icmp.EchoPacket;
 import org.opennms.netmgt.icmp.PingConstants;
 import org.opennms.netmgt.icmp.PingResponseCallback;
-import org.opennms.netmgt.icmp.jna.JnaPinger;
 
 /**
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>

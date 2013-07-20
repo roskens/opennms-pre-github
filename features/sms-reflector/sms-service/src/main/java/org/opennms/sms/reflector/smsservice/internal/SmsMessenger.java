@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
 import org.smslib.AGateway;
 import org.smslib.IUSSDNotification;
 import org.smslib.InboundMessage;
-import org.smslib.USSDResponse;
 import org.smslib.Message.MessageTypes;
+import org.smslib.USSDResponse;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 

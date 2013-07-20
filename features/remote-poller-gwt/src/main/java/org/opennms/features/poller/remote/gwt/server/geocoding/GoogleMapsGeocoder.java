@@ -34,9 +34,9 @@ import geo.google.datamodel.GeoCoordinate;
 
 import java.util.List;
 
+import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
 /**
  * <p>

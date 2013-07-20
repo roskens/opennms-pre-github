@@ -30,8 +30,8 @@ package org.opennms.netmgt.reporting.service;
 
 import org.quartz.Job;
 import org.quartz.JobDetail;
-import org.quartz.spi.JobFactory;
 import org.quartz.SchedulerException;
+import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
 
 /**

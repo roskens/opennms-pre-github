@@ -31,8 +31,8 @@ package org.opennms.netmgt.provision.detector.sms.client;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import org.opennms.netmgt.provision.detector.sms.response.SmsResponse;
 import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
+import org.opennms.netmgt.provision.detector.sms.response.SmsResponse;
 import org.opennms.netmgt.provision.support.Client;
 
 /**

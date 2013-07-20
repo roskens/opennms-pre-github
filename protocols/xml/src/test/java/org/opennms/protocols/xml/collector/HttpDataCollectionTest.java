@@ -34,7 +34,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.easymock.EasyMock;
-
 import org.jrobin.core.Datasource;
 import org.jrobin.core.RrdDb;
 import org.junit.After;
@@ -42,7 +41,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.http.JUnitHttpServerExecutionListener;
 import org.opennms.core.test.http.annotations.JUnitHttpServer;
@@ -66,7 +64,6 @@ import org.opennms.protocols.json.collector.DefaultJsonCollectionHandler;
 import org.opennms.protocols.xml.config.XmlDataCollection;
 import org.opennms.protocols.xml.config.XmlDataCollectionConfig;
 import org.opennms.protocols.xml.config.XmlRrd;
-
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

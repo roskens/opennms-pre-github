@@ -32,20 +32,11 @@ import java.rmi.RemoteException;
 
 import javax.xml.rpc.ServiceException;
 
+import org.opennms.api.integration.ticketing.Plugin;
+import org.opennms.api.integration.ticketing.PluginException;
+import org.opennms.api.integration.ticketing.Ticket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.integration.otrs.ticketservice.Article;
-import org.opennms.integration.otrs.ticketservice.ArticleCore;
-import org.opennms.integration.otrs.ticketservice.Credentials;
-import org.opennms.integration.otrs.ticketservice.TicketCore;
-import org.opennms.integration.otrs.ticketservice.TicketIDAndNumber;
-import org.opennms.integration.otrs.ticketservice.TicketServiceLocator;
-import org.opennms.integration.otrs.ticketservice.TicketServicePort_PortType;
-import org.opennms.integration.otrs.ticketservice.TicketStateUpdate;
-import org.opennms.integration.otrs.ticketservice.TicketWithArticles;
-import org.opennms.netmgt.ticketer.otrs.common.DefaultOtrsConfigDao;
-
-import org.opennms.api.integration.ticketing.*;
 
 /**
  * OpenNMS Trouble Ticket Plugin API implementation for OTRS

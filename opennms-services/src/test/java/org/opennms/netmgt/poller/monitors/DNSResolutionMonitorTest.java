@@ -44,7 +44,6 @@ import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.mock.MockMonitoredService;
-import org.opennms.netmgt.poller.monitors.DNSResolutionMonitor;
 
 /**
  * DNSResolutionMonitorTest

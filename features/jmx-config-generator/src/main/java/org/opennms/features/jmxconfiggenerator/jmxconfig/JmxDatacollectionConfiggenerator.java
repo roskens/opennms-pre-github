@@ -54,7 +54,14 @@ import javax.xml.bind.JAXB;
 
 import org.apache.commons.lang3.StringUtils;
 import org.opennms.features.namecutter.NameCutter;
-import org.opennms.xmlns.xsd.config.jmx_datacollection.*;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Attrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxCollection;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.ObjectFactory;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Rrd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

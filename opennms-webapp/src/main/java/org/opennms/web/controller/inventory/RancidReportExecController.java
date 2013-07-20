@@ -29,21 +29,21 @@
 package org.opennms.web.controller.inventory;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.text.ParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.report.configuration.svclayer.ConfigurationReportCriteria;
 import org.opennms.report.configuration.svclayer.ConfigurationReportService;
 import org.opennms.report.inventory.svclayer.InventoryReportCriteria;
 import org.opennms.report.inventory.svclayer.InventoryReportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;

@@ -66,9 +66,9 @@ import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.builder.CompareToBuilder;
+import org.opennms.systemreport.system.PsParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.systemreport.system.PsParser;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 

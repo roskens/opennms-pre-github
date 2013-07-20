@@ -29,6 +29,7 @@
 package org.opennms.netmgt.jasper.helper;
 
 import junit.framework.Assert;
+
 import org.junit.Test;
 
 /**

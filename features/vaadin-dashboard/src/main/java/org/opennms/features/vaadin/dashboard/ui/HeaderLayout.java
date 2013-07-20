@@ -27,9 +27,15 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.ui;
 
-import com.vaadin.server.ThemeResource;
-import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.config.ui.WallboardProvider;
+
+import com.vaadin.server.ThemeResource;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
+import com.vaadin.ui.NativeSelect;
+import com.vaadin.ui.UI;
 
 /**
  * The top heading layout for the wallboard view.

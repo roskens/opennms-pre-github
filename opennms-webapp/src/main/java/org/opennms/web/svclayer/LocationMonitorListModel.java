@@ -39,8 +39,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.opennms.netmgt.model.OnmsLocationMonitor;
-import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
+import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.springframework.validation.Errors;
 
 /**

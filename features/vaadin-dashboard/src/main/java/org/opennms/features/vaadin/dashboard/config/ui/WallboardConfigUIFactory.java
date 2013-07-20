@@ -27,9 +27,10 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.ui.UI;
 import org.ops4j.pax.vaadin.AbstractApplicationFactory;
 import org.osgi.service.blueprint.container.BlueprintContainer;
+
+import com.vaadin.ui.UI;
 
 /**
  * A factory class responsible for constructing the configuration application.

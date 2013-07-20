@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
-
 import org.opennms.netmgt.dao.api.IpRouteInterfaceDao;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;

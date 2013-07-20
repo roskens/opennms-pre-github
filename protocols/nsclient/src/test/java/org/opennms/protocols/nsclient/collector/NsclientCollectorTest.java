@@ -50,7 +50,6 @@ import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.PrimaryType;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.protocols.nsclient.AbstractNsclientTest;
-import org.opennms.protocols.nsclient.collector.NSClientCollector;
 import org.opennms.protocols.nsclient.config.NSClientDataCollectionConfigFactory;
 import org.opennms.protocols.nsclient.config.NSClientPeerFactory;
 import org.springframework.transaction.PlatformTransactionManager;

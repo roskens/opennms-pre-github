@@ -1,5 +1,10 @@
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.search;
 
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.impl.SchedulerImpl;
 import com.google.gwt.dom.client.EventTarget;
@@ -7,10 +12,6 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.impl.HistoryImpl;
 import com.vaadin.client.VConsole;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ NativeEvent.class, EventTarget.class, VConsole.class, History.class, HistoryImpl.class,

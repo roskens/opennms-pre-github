@@ -28,22 +28,16 @@
 
 package org.opennms.netmgt.ticketer.otrs;
 
-import junit.framework.TestCase;
-import java.rmi.RemoteException;
-
-import org.opennms.integration.otrs.ticketservice.ArticleCore;
-import org.opennms.integration.otrs.ticketservice.Credentials;
-import org.opennms.integration.otrs.ticketservice.TicketCore;
-import org.opennms.integration.otrs.ticketservice.TicketIDAndNumber;
-import org.opennms.integration.otrs.ticketservice.TicketServiceLocator;
-import org.opennms.integration.otrs.ticketservice.TicketServicePort_PortType;
-import org.opennms.netmgt.ticketer.otrs.common.DefaultOtrsConfigDao;
-import org.opennms.api.integration.ticketing.PluginException;
-import org.opennms.api.integration.ticketing.Ticket;
 import java.io.File;
+import java.rmi.RemoteException;
 import java.util.Date;
 
 import javax.xml.rpc.ServiceException;
+
+import junit.framework.TestCase;
+
+import org.opennms.api.integration.ticketing.PluginException;
+import org.opennms.api.integration.ticketing.Ticket;
 
 public class OtrsTicketerPluginTest extends TestCase {
 

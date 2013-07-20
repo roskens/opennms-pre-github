@@ -30,8 +30,8 @@ package org.opennms.netmgt.xmlrpcd;
 
 import java.io.IOException;
 import java.lang.reflect.UndeclaredThrowableException;
-import java.util.Enumeration;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
@@ -39,11 +39,10 @@ import org.opennms.core.queue.FifoQueue;
 import org.opennms.core.queue.FifoQueueImpl;
 import org.opennms.netmgt.config.OpennmsServerConfigFactory;
 import org.opennms.netmgt.config.XmlrpcdConfigFactory;
+import org.opennms.netmgt.config.xmlrpcd.ExternalServers;
+import org.opennms.netmgt.config.xmlrpcd.XmlrpcServer;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.xml.event.Event;
-
-import org.opennms.netmgt.config.xmlrpcd.XmlrpcServer;
-import org.opennms.netmgt.config.xmlrpcd.ExternalServers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

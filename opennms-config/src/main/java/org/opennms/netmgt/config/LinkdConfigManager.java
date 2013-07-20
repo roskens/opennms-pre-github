@@ -46,9 +46,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.opennms.core.utils.ByteArrayComparator;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.IpListFromUrl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.opennms.netmgt.config.linkd.ExcludeRange;
 import org.opennms.netmgt.config.linkd.Filter;
 import org.opennms.netmgt.config.linkd.IncludeRange;
@@ -59,6 +56,8 @@ import org.opennms.netmgt.config.linkd.Vendor;
 import org.opennms.netmgt.config.linkd.Vlans;
 import org.opennms.netmgt.filter.FilterDaoFactory;
 import org.opennms.protocols.snmp.SnmpObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>

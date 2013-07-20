@@ -32,4 +32,5 @@ package org.opennms.netmgt.xml.eventconf;
 
 import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import org.opennms.core.xml.StringTrimAdapter;

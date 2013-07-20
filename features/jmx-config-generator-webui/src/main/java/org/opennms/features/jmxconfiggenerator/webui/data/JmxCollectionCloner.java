@@ -28,7 +28,14 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
-import org.opennms.xmlns.xsd.config.jmx_datacollection.*;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Attrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxCollection;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbeans;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Rrd;
 
 /**
  * Simple Helper to clone any member of <code>JmxDatacollectionConfig</code> or

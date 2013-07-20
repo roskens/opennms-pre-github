@@ -3,10 +3,10 @@ package org.opennms.netmgt.provision;
 import java.net.InetAddress;
 
 import org.opennms.core.utils.AlphaNumeric;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.model.OnmsIpInterface;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ReverseDnsRecord {
     private static final Logger LOG = LoggerFactory.getLogger(ReverseDnsRecord.class);

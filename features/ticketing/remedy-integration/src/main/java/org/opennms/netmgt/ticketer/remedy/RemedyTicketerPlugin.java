@@ -37,30 +37,12 @@ import java.util.Date;
 
 import javax.xml.rpc.ServiceException;
 
+import org.opennms.api.integration.ticketing.Plugin;
+import org.opennms.api.integration.ticketing.PluginException;
+import org.opennms.api.integration.ticketing.Ticket;
+import org.opennms.api.integration.ticketing.Ticket.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.integration.remedy.ticketservice.AuthenticationInfo;
-import org.opennms.integration.remedy.ticketservice.CreateInputMap;
-import org.opennms.integration.remedy.ticketservice.GetInputMap;
-import org.opennms.integration.remedy.ticketservice.GetOutputMap;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_Create_WSPortTypePortType;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_Create_WSServiceLocator;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_WSPortTypePortType;
-import org.opennms.integration.remedy.ticketservice.HPD_IncidentInterface_WSServiceLocator;
-import org.opennms.integration.remedy.ticketservice.ImpactType;
-import org.opennms.integration.remedy.ticketservice.Reported_SourceType;
-import org.opennms.integration.remedy.ticketservice.Service_TypeType;
-import org.opennms.integration.remedy.ticketservice.SetInputMap;
-import org.opennms.integration.remedy.ticketservice.StatusType;
-import org.opennms.integration.remedy.ticketservice.Status_ReasonType;
-import org.opennms.integration.remedy.ticketservice.UrgencyType;
-import org.opennms.integration.remedy.ticketservice.VIPType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_SourceType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_TypeType;
-import org.opennms.integration.remedy.ticketservice.Work_Info_View_AccessType;
-
-import org.opennms.api.integration.ticketing.*;
-import org.opennms.api.integration.ticketing.Ticket.State;
 
 /**
  * OpenNMS Trouble Ticket Plugin API implementation for Remedy

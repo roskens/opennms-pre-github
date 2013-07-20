@@ -59,7 +59,6 @@ package org.opennms.netmgt.protocols.xmp.collector;
 
 import org.krupczak.xmp.Xmp;
 import org.krupczak.xmp.XmpVar;
-
 import org.opennms.netmgt.config.collector.AttributeGroupType;
 import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.CollectionAttributeType;

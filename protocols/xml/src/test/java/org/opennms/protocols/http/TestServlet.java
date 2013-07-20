@@ -41,7 +41,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.io.IOUtils;
 import org.opennms.core.xml.JaxbUtils;
 import org.opennms.protocols.xml.config.Person;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

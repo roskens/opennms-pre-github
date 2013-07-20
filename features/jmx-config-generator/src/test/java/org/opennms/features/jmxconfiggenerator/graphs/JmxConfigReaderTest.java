@@ -28,11 +28,14 @@
 
 package org.opennms.features.jmxconfiggenerator.graphs;
 
-import org.opennms.features.jmxconfiggenerator.graphs.GraphConfigGenerator;
-import org.opennms.features.jmxconfiggenerator.graphs.Report;
-import org.opennms.features.jmxconfiggenerator.graphs.JmxConfigReader;
 import java.util.Collection;
-import org.junit.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * @author Simon Walter <simon.walter@hp-factory.de>

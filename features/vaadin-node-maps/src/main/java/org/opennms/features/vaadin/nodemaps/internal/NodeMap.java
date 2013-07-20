@@ -28,13 +28,21 @@
 
 package org.opennms.features.vaadin.nodemaps.internal;
 
-import com.vaadin.ui.AbstractComponent;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.MapNode;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.NodeMapState;
-import org.opennms.netmgt.model.*;
+import org.opennms.netmgt.model.OnmsAssetRecord;
+import org.opennms.netmgt.model.OnmsCategory;
+import org.opennms.netmgt.model.OnmsGeolocation;
+import org.opennms.netmgt.model.OnmsNode;
+import org.opennms.netmgt.model.OnmsSeverity;
 
-import java.util.*;
+import com.vaadin.ui.AbstractComponent;
 
 public class NodeMap extends AbstractComponent {
 

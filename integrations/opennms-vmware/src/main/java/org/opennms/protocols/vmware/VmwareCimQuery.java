@@ -1,15 +1,21 @@
 package org.opennms.protocols.vmware;
 
-import com.vmware.vim25.mo.HostSystem;
-import com.vmware.vim25.mo.ManagedEntity;
-import org.apache.commons.cli.*;
-import org.sblim.wbem.cim.CIMObject;
-
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
+import org.sblim.wbem.cim.CIMObject;
+
+import com.vmware.vim25.mo.HostSystem;
+import com.vmware.vim25.mo.ManagedEntity;
 
 public class VmwareCimQuery {
     public static HashMap<Integer, String> m_healthStates;

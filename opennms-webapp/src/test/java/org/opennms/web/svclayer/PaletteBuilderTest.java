@@ -28,9 +28,8 @@
 
 package org.opennms.web.svclayer;
 
-import junit.framework.TestCase;
-
 import static org.opennms.web.svclayer.PaletteTestUtils.assertPaletteEquals;
+import junit.framework.TestCase;
 
 public class PaletteBuilderTest extends TestCase {
 

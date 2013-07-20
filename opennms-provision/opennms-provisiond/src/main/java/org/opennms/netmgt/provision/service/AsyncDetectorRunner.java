@@ -28,15 +28,14 @@
 
 package org.opennms.netmgt.provision.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.opennms.core.tasks.Async;
 import org.opennms.core.tasks.Callback;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.provision.AsyncServiceDetector;
 import org.opennms.netmgt.provision.DetectFuture;
 import org.opennms.netmgt.provision.DetectFutureListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class AsyncDetectorRunner implements Async<Boolean> {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorRunner.class);

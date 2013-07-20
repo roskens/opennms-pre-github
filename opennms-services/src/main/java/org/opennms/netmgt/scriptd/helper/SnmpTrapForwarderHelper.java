@@ -31,12 +31,12 @@ package org.opennms.netmgt.scriptd.helper;
 import java.net.UnknownHostException;
 
 import org.opennms.core.utils.InetAddressUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.snmp.SnmpTrapBuilder;
 import org.opennms.netmgt.snmp.SnmpV2TrapBuilder;
 import org.opennms.netmgt.snmp.SnmpV3TrapBuilder;
 import org.opennms.netmgt.xml.event.Event;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder implements EventForwarder {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrapForwarderHelper.class);

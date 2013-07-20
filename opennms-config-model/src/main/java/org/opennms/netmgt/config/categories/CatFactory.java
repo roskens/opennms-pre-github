@@ -30,9 +30,6 @@ package org.opennms.netmgt.config.categories;
 
 import java.util.concurrent.locks.Lock;
 
-import org.opennms.netmgt.config.categories.Category;
-import org.opennms.netmgt.config.categories.Catinfo;
-
 /**
  * <p>
  * CatFactory interface.

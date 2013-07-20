@@ -29,7 +29,8 @@
 package org.opennms.protocols.jmx.connectors;
 
 import java.net.InetAddress;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.management.MBeanServerConnection;
 import javax.management.remote.JMXConnector;

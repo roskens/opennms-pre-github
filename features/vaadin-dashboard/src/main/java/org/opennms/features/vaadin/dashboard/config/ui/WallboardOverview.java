@@ -27,9 +27,15 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.ui.*;
 import org.opennms.features.vaadin.dashboard.model.Wallboard;
+
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * This class is used to display an brief overview about existing

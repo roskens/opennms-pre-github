@@ -37,9 +37,9 @@ import java.util.List;
 
 import org.opennms.core.utils.BeanUtils;
 import org.opennms.web.notification.filter.NotificationCriteria;
-import org.opennms.web.notification.filter.NotificationIdFilter;
 import org.opennms.web.notification.filter.NotificationCriteria.BaseNotificationCriteriaVisitor;
 import org.opennms.web.notification.filter.NotificationCriteria.NotificationCriteriaVisitor;
+import org.opennms.web.notification.filter.NotificationIdFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

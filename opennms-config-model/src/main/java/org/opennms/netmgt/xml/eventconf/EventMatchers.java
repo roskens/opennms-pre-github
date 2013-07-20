@@ -1,6 +1,16 @@
 package org.opennms.netmgt.xml.eventconf;
 
-import static org.opennms.netmgt.xml.eventconf.Maskelement.*;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_HOST;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_INTERFACE;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_NODEID;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SERVICE;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SNMPHOST;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SNMP_COMMUNITY;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SNMP_EID;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SNMP_GENERIC;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SNMP_SPECIFIC;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_SOURCE;
+import static org.opennms.netmgt.xml.eventconf.Maskelement.TAG_UEI;
 
 import java.util.List;
 import java.util.regex.Pattern;

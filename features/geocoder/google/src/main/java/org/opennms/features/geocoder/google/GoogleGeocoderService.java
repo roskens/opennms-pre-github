@@ -1,7 +1,7 @@
 package org.opennms.features.geocoder.google;
 
-import org.opennms.features.geocoder.GeocoderException;
 import org.opennms.features.geocoder.Coordinates;
+import org.opennms.features.geocoder.GeocoderException;
 import org.opennms.features.geocoder.GeocoderService;
 
 import com.google.code.geocoder.Geocoder;

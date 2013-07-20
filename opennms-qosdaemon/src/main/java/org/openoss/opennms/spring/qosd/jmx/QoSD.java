@@ -28,9 +28,9 @@
 
 package org.openoss.opennms.spring.qosd.jmx;
 
+import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.springframework.beans.factory.access.BeanFactoryLocator;
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.ApplicationContext;

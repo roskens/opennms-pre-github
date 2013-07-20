@@ -34,9 +34,6 @@
  */
 package org.opennms.netmgt.provision.adapters.link;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.net.InetAddress;
 
 import org.opennms.netmgt.icmp.PingerFactory;
@@ -44,6 +41,8 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EndPointImpl implements EndPoint {
     private static final Logger LOG = LoggerFactory.getLogger(EndPointImpl.class);

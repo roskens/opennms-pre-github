@@ -29,8 +29,8 @@
 package org.opennms.dashboard.client;
 
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * <p>

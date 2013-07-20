@@ -28,8 +28,9 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
-import com.google.common.base.Objects;
 import java.util.Map.Entry;
+
+import com.google.common.base.Objects;
 
 /**
  * Straight forward implementation of {@link java.util.Map.Entry}.<br/>

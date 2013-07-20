@@ -1,6 +1,7 @@
 package org.opennms.features.vaadin.nodemaps.ui;
 
-import com.vaadin.server.PaintTarget;
+import static org.junit.Assert.assertEquals;
+
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -15,7 +16,7 @@ import org.opennms.netmgt.model.OnmsAssetRecord;
 import org.opennms.netmgt.model.OnmsGeolocation;
 import org.opennms.netmgt.model.OnmsNode;
 
-import static org.junit.Assert.assertEquals;
+import com.vaadin.server.PaintTarget;
 
 public class OpenlayersWidgetCompontentTest {
     private NodeDao m_nodeDao;

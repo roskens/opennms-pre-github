@@ -33,9 +33,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import liquibase.statement.SqlStatement;
+
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class SetSequenceStatement implements SqlStatement {
     private final String m_sequenceName;

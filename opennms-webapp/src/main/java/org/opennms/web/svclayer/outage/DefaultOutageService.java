@@ -30,6 +30,7 @@ package org.opennms.web.svclayer.outage;
 
 import java.util.Collection;
 import java.util.Date;
+
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;

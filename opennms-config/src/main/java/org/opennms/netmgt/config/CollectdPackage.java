@@ -39,14 +39,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.opennms.core.utils.ByteArrayComparator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.opennms.netmgt.config.collectd.ExcludeRange;
 import org.opennms.netmgt.config.collectd.IncludeRange;
 import org.opennms.netmgt.config.collectd.Package;
 import org.opennms.netmgt.config.collectd.Service;
 import org.opennms.netmgt.filter.FilterDaoFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CollectdPackage {
     private static final Logger LOG = LoggerFactory.getLogger(CollectdPackage.class);

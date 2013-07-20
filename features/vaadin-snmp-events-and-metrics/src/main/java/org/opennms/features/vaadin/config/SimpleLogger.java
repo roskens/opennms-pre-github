@@ -27,8 +27,8 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.config;
 
-import org.slf4j.LoggerFactory;
 import org.opennms.features.vaadin.api.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class Simple Logger.

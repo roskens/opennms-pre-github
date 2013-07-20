@@ -42,10 +42,10 @@ import javax.sql.DataSource;
 import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.db.BaseConnectionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 import org.opennms.netmgt.config.opennmsDataSources.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TomcatJdbcPoolConnectionFactory extends BaseConnectionFactory {
     private static final Logger LOG = LoggerFactory.getLogger(TomcatJdbcPoolConnectionFactory.class);

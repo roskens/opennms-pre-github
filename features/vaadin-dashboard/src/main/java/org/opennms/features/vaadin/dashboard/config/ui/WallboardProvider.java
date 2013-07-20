@@ -27,12 +27,14 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.util.BeanItemContainer;
+import java.io.File;
+
+import javax.xml.bind.JAXB;
+
 import org.opennms.features.vaadin.dashboard.model.Wallboard;
 import org.opennms.features.vaadin.dashboard.model.Wallboards;
 
-import javax.xml.bind.JAXB;
-import java.io.File;
+import com.vaadin.data.util.BeanItemContainer;
 
 /**
  * This class is used for loading, holding and saving of {@link Wallboard}

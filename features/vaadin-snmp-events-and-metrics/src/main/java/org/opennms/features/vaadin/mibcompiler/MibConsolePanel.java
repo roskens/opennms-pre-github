@@ -29,16 +29,16 @@ package org.opennms.features.vaadin.mibcompiler;
 
 import java.util.Date;
 
-import org.slf4j.LoggerFactory;
 import org.opennms.features.vaadin.api.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.themes.Runo;
 
 /**

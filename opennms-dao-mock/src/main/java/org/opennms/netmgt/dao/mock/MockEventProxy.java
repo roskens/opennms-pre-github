@@ -31,12 +31,12 @@ package org.opennms.netmgt.dao.mock;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MockEventProxy implements EventProxy {
     private static final Logger LOG = LoggerFactory.getLogger(MockEventProxy.class);

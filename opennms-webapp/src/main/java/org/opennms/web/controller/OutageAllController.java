@@ -42,9 +42,9 @@ import org.extremecomponents.table.limit.LimitFactory;
 import org.extremecomponents.table.limit.TableLimit;
 import org.extremecomponents.table.limit.TableLimitFactory;
 import org.opennms.netmgt.model.OnmsOutage;
-import org.opennms.web.svclayer.outage.OutagesFilteringView;
 import org.opennms.web.svclayer.outage.OutageListBuilder;
 import org.opennms.web.svclayer.outage.OutageService;
+import org.opennms.web.svclayer.outage.OutagesFilteringView;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.UrlFilenameViewController;
 

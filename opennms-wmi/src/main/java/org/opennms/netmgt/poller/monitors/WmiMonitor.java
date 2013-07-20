@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import org.opennms.core.utils.InetAddressUtils;
-
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.config.WmiPeerFactory;

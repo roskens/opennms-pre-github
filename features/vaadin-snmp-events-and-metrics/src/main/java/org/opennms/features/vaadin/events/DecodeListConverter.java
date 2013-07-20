@@ -27,13 +27,14 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.events;
 
-import com.vaadin.data.util.converter.Converter;
-import org.apache.commons.lang.StringUtils;
-import org.opennms.netmgt.xml.eventconf.Decode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import org.apache.commons.lang.StringUtils;
+import org.opennms.netmgt.xml.eventconf.Decode;
+
+import com.vaadin.data.util.converter.Converter;
 
 /**
  * The Varbind's Decode List Converter.

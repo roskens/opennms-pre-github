@@ -28,14 +28,23 @@
 
 package org.opennms.features.topology.app.internal;
 
-import com.vaadin.annotations.JavaScript;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.shared.MouseEventDetails;
-import com.vaadin.ui.AbstractComponent;
-import org.opennms.features.topology.api.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
+import org.opennms.features.topology.api.BoundingBox;
+import org.opennms.features.topology.api.Graph;
+import org.opennms.features.topology.api.GraphContainer;
 import org.opennms.features.topology.api.GraphContainer.ChangeListener;
+import org.opennms.features.topology.api.GraphVisitor;
+import org.opennms.features.topology.api.MapViewManager;
+import org.opennms.features.topology.api.MapViewManagerListener;
+import org.opennms.features.topology.api.Point;
+import org.opennms.features.topology.api.SelectionContext;
+import org.opennms.features.topology.api.SelectionListener;
 import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
@@ -43,8 +52,12 @@ import org.opennms.features.topology.app.internal.gwt.client.TopologyComponentSe
 import org.opennms.features.topology.app.internal.gwt.client.TopologyComponentState;
 import org.opennms.features.topology.app.internal.support.IconRepositoryManager;
 
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArraySet;
+import com.vaadin.annotations.JavaScript;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.shared.MouseEventDetails;
+import com.vaadin.ui.AbstractComponent;
 
 @JavaScript({ "gwt/public/topologywidget/js/d3.v3.js", "gwt/public/topologywidget/js/d3.interpolate-zoom.v0.js" })
 public class TopologyComponent extends AbstractComponent implements ChangeListener, ValueChangeListener,

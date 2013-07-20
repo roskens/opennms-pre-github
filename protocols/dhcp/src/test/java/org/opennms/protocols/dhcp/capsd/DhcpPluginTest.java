@@ -40,7 +40,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dhcpd.Dhcpd;
-import org.opennms.protocols.dhcp.capsd.DhcpPlugin;
 
 /**
  * @author thedesloge

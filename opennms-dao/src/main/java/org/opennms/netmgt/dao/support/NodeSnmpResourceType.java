@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.opennms.netmgt.dao.api.ResourceDao;
-import org.opennms.netmgt.dao.support.RrdFileConstants;
 import org.opennms.netmgt.model.OnmsAttribute;
 import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;

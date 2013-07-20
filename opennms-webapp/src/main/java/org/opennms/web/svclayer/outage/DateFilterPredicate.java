@@ -28,6 +28,12 @@
 
 package org.opennms.web.svclayer.outage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Locale;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -36,12 +42,6 @@ import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.util.ExtremeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Locale;
 
 /**
  * Filter Predicate implementation which enable date comparison.

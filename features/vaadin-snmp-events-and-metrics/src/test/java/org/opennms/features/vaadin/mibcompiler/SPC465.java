@@ -38,7 +38,6 @@ import org.jsmiparser.smi.SmiModule;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.opennms.features.vaadin.mibcompiler.api.MibParser;
 import org.opennms.features.vaadin.mibcompiler.services.JsmiMibParser;
 

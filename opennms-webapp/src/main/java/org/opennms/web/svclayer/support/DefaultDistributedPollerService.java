@@ -34,8 +34,8 @@ import java.util.List;
 
 import org.opennms.netmgt.dao.api.LocationMonitorDao;
 import org.opennms.netmgt.model.OnmsLocationMonitor;
-import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.netmgt.model.OnmsLocationMonitor.MonitorStatus;
+import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import org.opennms.web.command.LocationMonitorIdCommand;
 import org.opennms.web.svclayer.DistributedPollerService;
 import org.opennms.web.svclayer.LocationMonitorListModel;

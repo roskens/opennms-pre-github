@@ -28,6 +28,14 @@
 
 package org.opennms.features.vaadin.nodemaps.internal;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.opennms.web.api.OnmsHeaderProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.wolfie.refresher.Refresher;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.StyleSheet;
@@ -37,13 +45,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import org.opennms.web.api.OnmsHeaderProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * The Class Node Maps Application.

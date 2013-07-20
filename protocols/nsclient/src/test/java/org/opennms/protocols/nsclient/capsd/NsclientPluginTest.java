@@ -34,7 +34,6 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 import org.opennms.protocols.nsclient.AbstractNsclientTest;
-import org.opennms.protocols.nsclient.capsd.NsclientPlugin;
 
 /**
  * <p>

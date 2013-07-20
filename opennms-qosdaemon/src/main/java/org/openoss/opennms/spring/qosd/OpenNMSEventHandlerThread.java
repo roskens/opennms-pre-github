@@ -28,9 +28,9 @@
 
 package org.openoss.opennms.spring.qosd;
 
+import org.openoss.opennms.spring.dao.OssDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.openoss.opennms.spring.dao.OssDao;
 
 /**
  * This class provides a thread to decouple the OpenNMS event handling from

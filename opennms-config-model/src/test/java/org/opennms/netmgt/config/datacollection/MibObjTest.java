@@ -34,7 +34,6 @@ import java.util.Collection;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
-import org.opennms.netmgt.config.datacollection.MibObj;
 
 public class MibObjTest extends XmlTest<MibObj> {
 

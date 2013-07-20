@@ -32,9 +32,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.opennms.netmgt.config.threshd.Expression;
-
 import junit.framework.TestCase;
+
+import org.opennms.netmgt.config.threshd.Expression;
 
 /**
  * A lot of these tests could be construed as checking that JEP is working

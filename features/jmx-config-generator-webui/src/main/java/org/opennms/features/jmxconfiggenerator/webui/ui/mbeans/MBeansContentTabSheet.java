@@ -28,15 +28,6 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ReadOnlyStatusChangeListener;
-import com.vaadin.ui.AbstractField;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.VerticalLayout;
 import org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener;
 import org.opennms.features.jmxconfiggenerator.webui.ui.UIHelper;
 import org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonHandler;
@@ -46,6 +37,16 @@ import org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.Tabl
 import org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.MBeansController.Callback;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
 import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
+
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ReadOnlyStatusChangeListener;
+import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  * @author Markus von Rüden

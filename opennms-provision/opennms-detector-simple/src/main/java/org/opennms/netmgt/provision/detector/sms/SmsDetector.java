@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.provision.detector.sms;
 
+import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
 import org.opennms.netmgt.provision.detector.sms.client.SmsClient;
 import org.opennms.netmgt.provision.detector.sms.response.SmsResponse;
-import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
 import org.opennms.netmgt.provision.support.BasicDetector;
 import org.opennms.netmgt.provision.support.Client;
 import org.opennms.netmgt.provision.support.ResponseValidator;

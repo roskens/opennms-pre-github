@@ -38,9 +38,9 @@ import java.util.Set;
 
 import org.apache.commons.jexl2.JexlContext;
 import org.apache.commons.jexl2.JexlEngine;
+import org.opennms.netmgt.config.threshd.Expression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.config.threshd.Expression;
 
 /**
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>

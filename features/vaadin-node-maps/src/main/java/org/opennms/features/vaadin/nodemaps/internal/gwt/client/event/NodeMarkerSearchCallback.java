@@ -1,14 +1,14 @@
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.event;
 
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.discotools.gwt.leaflet.client.jsobject.JSObject;
 import org.discotools.gwt.leaflet.client.jsobject.JSObjectWrapper;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.MarkerProvider;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.NodeMarker;
 import org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchResults;
-
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class NodeMarkerSearchCallback extends JSObjectWrapper {
     Logger logger = Logger.getLogger(getClass().getName());

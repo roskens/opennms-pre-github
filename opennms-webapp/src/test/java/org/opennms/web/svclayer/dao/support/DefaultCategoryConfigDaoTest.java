@@ -34,13 +34,13 @@ package org.opennms.web.svclayer.dao.support;
 import java.util.Collection;
 import java.util.Iterator;
 
+import junit.framework.TestCase;
+
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.config.CategoryFactory;
 import org.opennms.netmgt.config.categories.Category;
 import org.opennms.netmgt.mock.MockCategoryFactory;
 import org.opennms.test.mock.MockUtil;
-
-import junit.framework.TestCase;
 
 /**
  * @author jsartin

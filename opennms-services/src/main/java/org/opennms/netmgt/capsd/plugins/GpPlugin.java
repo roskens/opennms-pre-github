@@ -38,9 +38,9 @@ import org.apache.regexp.RESyntaxException;
 import org.opennms.core.utils.ExecRunner;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.core.utils.ParameterMap;
+import org.opennms.netmgt.capsd.AbstractPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.capsd.AbstractPlugin;
 
 /**
  * <P>

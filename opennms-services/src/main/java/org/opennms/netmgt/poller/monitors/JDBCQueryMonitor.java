@@ -28,12 +28,12 @@
 
 package org.opennms.netmgt.poller.monitors;
 
-import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.util.Map;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.opennms.core.utils.ParameterMap;
 import org.opennms.netmgt.model.PollStatus;

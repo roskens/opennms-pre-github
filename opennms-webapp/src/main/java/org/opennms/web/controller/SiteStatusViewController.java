@@ -36,11 +36,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.opennms.core.utils.WebSecurityUtils;
 import org.opennms.netmgt.model.AggregateStatusView;
 import org.opennms.web.svclayer.AggregateStatus;
-import org.opennms.web.svclayer.SiteStatusViewService;
 import org.opennms.web.svclayer.SiteStatusViewError;
+import org.opennms.web.svclayer.SiteStatusViewService;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * Controller servlet for presenting aggregate (propogated) status of nodes

@@ -28,8 +28,8 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
-import org.opennms.features.jmxconfiggenerator.webui.data.SimpleEntry;
 import junit.framework.Assert;
+
 import org.junit.Test;
 
 /**

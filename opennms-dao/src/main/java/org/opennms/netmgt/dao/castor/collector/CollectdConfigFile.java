@@ -28,8 +28,6 @@
 
 package org.opennms.netmgt.dao.castor.collector;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,6 +38,8 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
 import org.opennms.netmgt.config.collectd.Collector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
 public class CollectdConfigFile {

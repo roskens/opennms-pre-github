@@ -29,8 +29,8 @@
 package org.opennms.web.element;
 
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
-import org.opennms.netmgt.model.OnmsStpInterface.StpPortStatus;
 import org.opennms.netmgt.model.OnmsStpInterface;
+import org.opennms.netmgt.model.OnmsStpInterface.StpPortStatus;
 import org.opennms.web.api.Util;
 
 /**

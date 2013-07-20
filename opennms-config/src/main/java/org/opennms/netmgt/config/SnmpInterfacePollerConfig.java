@@ -29,7 +29,6 @@
 package org.opennms.netmgt.config;
 
 import java.io.IOException;
-
 import java.util.List;
 import java.util.Set;
 

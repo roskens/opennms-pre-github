@@ -53,7 +53,6 @@ import org.opennms.core.db.install.Constraint;
 import org.opennms.core.db.install.InstallerDb;
 import org.opennms.core.db.install.Table;
 import org.opennms.core.db.install.Trigger;
-import org.opennms.core.test.db.TemporaryDatabaseTestCase;
 import org.opennms.test.ThrowableAnticipator;
 import org.springframework.util.StringUtils;
 

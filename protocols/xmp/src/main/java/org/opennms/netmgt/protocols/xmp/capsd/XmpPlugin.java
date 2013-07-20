@@ -44,7 +44,6 @@ import org.krupczak.xmp.SocketOpts;
 import org.krupczak.xmp.Xmp;
 import org.krupczak.xmp.XmpSession;
 import org.opennms.core.utils.ParameterMap;
-
 import org.opennms.netmgt.capsd.AbstractPlugin;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 import org.opennms.netmgt.protocols.xmp.XmpUtil;

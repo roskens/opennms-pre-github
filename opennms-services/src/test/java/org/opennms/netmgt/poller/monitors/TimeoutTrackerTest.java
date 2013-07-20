@@ -31,9 +31,9 @@ package org.opennms.netmgt.poller.monitors;
 import java.util.Collections;
 import java.util.Map;
 
-import org.opennms.core.utils.TimeoutTracker;
-
 import junit.framework.TestCase;
+
+import org.opennms.core.utils.TimeoutTracker;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>

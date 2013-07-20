@@ -28,14 +28,14 @@
 
 package org.openoss.opennms.spring.qosdrx;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.dao.api.AssetRecordDao;
 import org.opennms.netmgt.dao.api.NodeDao;
-import org.openoss.ossj.fm.monitor.spring.OssBeanRunner;
 import org.openoss.ossj.fm.monitor.spring.OssBean;
+import org.openoss.ossj.fm.monitor.spring.OssBeanRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**

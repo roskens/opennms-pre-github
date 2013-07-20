@@ -28,12 +28,12 @@
 
 package org.opennms.features.jmxconfiggenerator.jmxconfig;
 
-import org.opennms.features.jmxconfiggenerator.jmxconfig.JmxDatacollectionConfiggenerator;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.management.MBeanServer;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;

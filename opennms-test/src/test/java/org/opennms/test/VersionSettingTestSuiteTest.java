@@ -28,8 +28,6 @@
 
 package org.opennms.test;
 
-import org.opennms.test.VersionSettingTestSuite;
-
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 

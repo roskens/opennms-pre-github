@@ -28,13 +28,13 @@
 
 package org.opennms.web.svclayer.support;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 import org.opennms.features.reporting.repository.ReportRepository;
 import org.opennms.features.reporting.repository.global.GlobalReportRepository;
 import org.opennms.web.svclayer.DatabaseReportListService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>

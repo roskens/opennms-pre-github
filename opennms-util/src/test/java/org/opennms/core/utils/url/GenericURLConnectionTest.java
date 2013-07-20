@@ -28,11 +28,12 @@
 
 package org.opennms.core.utils.url;
 
+import java.net.URL;
+
 import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URL;
 
 /**
  * <p>

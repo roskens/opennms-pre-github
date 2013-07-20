@@ -27,18 +27,27 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.Container;
-import com.vaadin.data.validator.AbstractStringValidator;
-import com.vaadin.event.ShortcutAction;
-import com.vaadin.ui.*;
-import org.opennms.features.vaadin.dashboard.config.DashletSelector;
-import org.opennms.features.vaadin.dashboard.model.DashletFactory;
-import org.opennms.features.vaadin.dashboard.model.Wallboard;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.opennms.features.vaadin.dashboard.config.DashletSelector;
+import org.opennms.features.vaadin.dashboard.model.DashletFactory;
+import org.opennms.features.vaadin.dashboard.model.Wallboard;
+
+import com.vaadin.data.Container;
+import com.vaadin.data.validator.AbstractStringValidator;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * This class represents the base editing component for {@link Wallboard}

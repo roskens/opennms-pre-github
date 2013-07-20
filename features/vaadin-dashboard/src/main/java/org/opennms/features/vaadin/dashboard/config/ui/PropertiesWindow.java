@@ -27,14 +27,22 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.config.ui;
 
-import com.vaadin.data.Container;
-import com.vaadin.event.ShortcutAction;
-import com.vaadin.ui.*;
-import org.opennms.features.vaadin.dashboard.model.DashletConfigurationWindow;
-import org.opennms.features.vaadin.dashboard.model.DashletFactory;
+import java.util.Map;
+
+import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 
-import java.util.Map;
+import com.vaadin.data.Container;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Table;
+import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window;
 
 /**
  * Class representing the properties window used for editing dashlet parameters.

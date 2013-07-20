@@ -30,8 +30,6 @@ package org.opennms.netmgt.snmp;
 
 import java.net.InetAddress;
 
-import org.opennms.netmgt.snmp.SnmpValue;
-
 public interface TrapProcessor {
 
     void setCommunity(String community);

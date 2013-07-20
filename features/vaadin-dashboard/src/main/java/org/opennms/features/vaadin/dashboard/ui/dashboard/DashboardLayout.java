@@ -27,14 +27,14 @@
  *******************************************************************************/
 package org.opennms.features.vaadin.dashboard.ui.dashboard;
 
+import java.util.List;
+
 import org.opennms.features.vaadin.dashboard.config.DashletSelector;
 import org.opennms.features.vaadin.dashboard.model.Dashlet;
 import org.opennms.features.vaadin.dashboard.model.DashletSelectorAccess;
 import org.opennms.features.vaadin.dashboard.model.DashletSpec;
 import org.vaadin.addon.portallayout.container.PortalColumns;
 import org.vaadin.addon.portallayout.portal.StackPortalLayout;
-
-import java.util.List;
 
 /**
  * This class implements a portal-like dashboard.

@@ -28,10 +28,17 @@ package org.opennms.features.jmxconfiggenerator.graphs;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.xml.bind.JAXB;
+
 import org.apache.commons.lang.StringUtils;
 import org.opennms.features.jmxconfiggenerator.helper.Colors;
-import org.opennms.xmlns.xsd.config.jmx_datacollection.*;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Attrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.CompMember;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxCollection;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
+import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -28,7 +28,13 @@
 
 package org.opennms.netmgt.collectd;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+
 import junit.framework.TestCase;
+
 import org.easymock.EasyMock;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.core.test.MockPlatformTransactionManager;
@@ -49,11 +55,6 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.test.FileAnticipator;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
 
 /**
  * JUnit TestCase for PersistOperationBuilder.

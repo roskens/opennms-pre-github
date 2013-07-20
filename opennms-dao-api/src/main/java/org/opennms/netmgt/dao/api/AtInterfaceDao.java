@@ -29,6 +29,7 @@
 package org.opennms.netmgt.dao.api;
 
 import java.net.InetAddress;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 

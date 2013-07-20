@@ -28,9 +28,9 @@
 
 package org.opennms.netmgt.accesspointmonitor.poller;
 
-import org.opennms.netmgt.snmp.SnmpInstId;
-
 import junit.framework.TestCase;
+
+import org.opennms.netmgt.snmp.SnmpInstId;
 
 public class InstanceStrategyTest extends TestCase {
 

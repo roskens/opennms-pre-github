@@ -30,8 +30,8 @@ package org.opennms.netmgt.dao.support;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedSet;
 import java.util.Map.Entry;
+import java.util.SortedSet;
 
 import junit.framework.TestCase;
 

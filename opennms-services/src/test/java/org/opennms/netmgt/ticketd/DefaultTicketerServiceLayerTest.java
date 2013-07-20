@@ -30,19 +30,20 @@ package org.opennms.netmgt.ticketd;
 
 import java.util.HashMap;
 
+import junit.framework.TestCase;
+
 import org.easymock.EasyMock;
 import org.easymock.IAnswer;
+import org.opennms.api.integration.ticketing.Plugin;
+import org.opennms.api.integration.ticketing.PluginException;
+import org.opennms.api.integration.ticketing.Ticket;
+import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.dao.mock.MockEventIpcManager;
 import org.opennms.netmgt.eventd.EventIpcManagerFactory;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.TroubleTicketState;
 import org.opennms.test.mock.EasyMockUtils;
-
-import org.opennms.api.integration.ticketing.*;
-import org.opennms.core.test.MockLogAppender;
-
-import junit.framework.TestCase;
 
 /**
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>

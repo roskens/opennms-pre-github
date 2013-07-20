@@ -32,9 +32,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import org.opennms.netmgt.config.RTCConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.netmgt.config.RTCConfigFactory;
 
 /**
  * List of service times. This contains a list of service lost/regained set/pair

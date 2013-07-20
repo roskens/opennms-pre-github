@@ -28,6 +28,13 @@
 
 package org.opennms.features.reporting.repository.local;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.opennms.features.reporting.dao.LocalReportsDao;
 import org.opennms.features.reporting.dao.jasper.LocalJasperReportsDao;
@@ -38,13 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.Assert;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 /**
  * <p>

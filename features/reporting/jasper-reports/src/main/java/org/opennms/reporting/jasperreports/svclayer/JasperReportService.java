@@ -28,7 +28,26 @@
 
 package org.opennms.reporting.jasperreports.svclayer;
 
-import net.sf.jasperreports.engine.*;
+import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.fill.JRParameterDefaultValuesEvaluator;
 import net.sf.jasperreports.engine.util.JRLoader;
@@ -37,18 +56,17 @@ import net.sf.jasperreports.engine.xml.JRPrintXmlLoader;
 import org.opennms.api.reporting.ReportException;
 import org.opennms.api.reporting.ReportFormat;
 import org.opennms.api.reporting.ReportService;
-import org.opennms.api.reporting.parameter.*;
+import org.opennms.api.reporting.parameter.ReportDateParm;
+import org.opennms.api.reporting.parameter.ReportDoubleParm;
+import org.opennms.api.reporting.parameter.ReportFloatParm;
+import org.opennms.api.reporting.parameter.ReportIntParm;
+import org.opennms.api.reporting.parameter.ReportParameters;
+import org.opennms.api.reporting.parameter.ReportStringParm;
 import org.opennms.core.db.DataSourceFactory;
 import org.opennms.core.logging.Logging;
+import org.opennms.features.reporting.repository.global.GlobalReportRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.opennms.features.reporting.repository.global.GlobalReportRepository;
-
-import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * <p>

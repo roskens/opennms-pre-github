@@ -28,13 +28,14 @@
 
 package org.opennms.features.jmxconfiggenerator.webui.data;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.AbstractInMemoryContainer;
 import com.vaadin.data.util.VaadinPropertyDescriptor;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * This class represents a vaadin container (data source). Therefore it extends

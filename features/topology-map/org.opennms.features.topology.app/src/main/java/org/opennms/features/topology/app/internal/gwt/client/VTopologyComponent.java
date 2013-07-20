@@ -28,6 +28,34 @@
 
 package org.opennms.features.topology.app.internal.gwt.client;
 
+import static org.opennms.features.topology.app.internal.gwt.client.d3.TransitionBuilder.fadeIn;
+import static org.opennms.features.topology.app.internal.gwt.client.d3.TransitionBuilder.fadeOut;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Drag;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler;
+import org.opennms.features.topology.app.internal.gwt.client.d3.D3Transform;
+import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
+import org.opennms.features.topology.app.internal.gwt.client.handler.DragHandlerManager;
+import org.opennms.features.topology.app.internal.gwt.client.handler.DragObject;
+import org.opennms.features.topology.app.internal.gwt.client.handler.MarqueeSelectHandler;
+import org.opennms.features.topology.app.internal.gwt.client.handler.PanHandler;
+import org.opennms.features.topology.app.internal.gwt.client.map.SVGTopologyMap;
+import org.opennms.features.topology.app.internal.gwt.client.service.ServiceRegistry;
+import org.opennms.features.topology.app.internal.gwt.client.service.support.DefaultServiceRegistry;
+import org.opennms.features.topology.app.internal.gwt.client.svg.BoundingRect;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
+import org.opennms.features.topology.app.internal.gwt.client.svg.SVGPoint;
+import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
@@ -50,28 +78,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.shared.MouseEventDetails;
-import org.opennms.features.topology.app.internal.gwt.client.d3.*;
-import org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler;
-import org.opennms.features.topology.app.internal.gwt.client.handler.DragHandlerManager;
-import org.opennms.features.topology.app.internal.gwt.client.handler.DragObject;
-import org.opennms.features.topology.app.internal.gwt.client.handler.MarqueeSelectHandler;
-import org.opennms.features.topology.app.internal.gwt.client.handler.PanHandler;
-import org.opennms.features.topology.app.internal.gwt.client.map.SVGTopologyMap;
-import org.opennms.features.topology.app.internal.gwt.client.service.ServiceRegistry;
-import org.opennms.features.topology.app.internal.gwt.client.service.support.DefaultServiceRegistry;
-import org.opennms.features.topology.app.internal.gwt.client.svg.BoundingRect;
-import org.opennms.features.topology.app.internal.gwt.client.svg.SVGGElement;
-import org.opennms.features.topology.app.internal.gwt.client.svg.SVGMatrix;
-import org.opennms.features.topology.app.internal.gwt.client.svg.SVGPoint;
-import org.opennms.features.topology.app.internal.gwt.client.view.TopologyView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.opennms.features.topology.app.internal.gwt.client.d3.TransitionBuilder.fadeIn;
-import static org.opennms.features.topology.app.internal.gwt.client.d3.TransitionBuilder.fadeOut;
 
 public class VTopologyComponent extends Composite implements SVGTopologyMap,
         TopologyView.Presenter<VTopologyComponent.TopologyViewRenderer> {

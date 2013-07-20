@@ -19,12 +19,18 @@ package org.opennms.container.web.felix.base.internal.service;
 import java.util.Dictionary;
 import java.util.HashSet;
 
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.Servlet;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextAttributeListener;
+import javax.servlet.ServletException;
 
 import org.apache.felix.http.api.ExtHttpService;
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 import org.opennms.container.web.felix.base.internal.context.ServletContextManager;
-import org.opennms.container.web.felix.base.internal.handler.*;
+import org.opennms.container.web.felix.base.internal.handler.FilterHandler;
+import org.opennms.container.web.felix.base.internal.handler.HandlerRegistry;
+import org.opennms.container.web.felix.base.internal.handler.ServletHandler;
 import org.opennms.container.web.felix.base.internal.logger.SystemLogger;
 import org.osgi.framework.Bundle;
 import org.osgi.service.http.HttpContext;

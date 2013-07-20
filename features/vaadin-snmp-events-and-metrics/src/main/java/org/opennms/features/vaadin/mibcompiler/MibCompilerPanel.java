@@ -40,6 +40,7 @@ import org.opennms.netmgt.config.EventConfDao;
 import org.opennms.netmgt.config.datacollection.DatacollectionGroup;
 import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.xml.eventconf.Events;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.event.Action;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -55,8 +56,6 @@ import com.vaadin.ui.themes.Runo;
 import de.steinwedel.vaadin.MessageBox;
 import de.steinwedel.vaadin.MessageBox.ButtonType;
 import de.steinwedel.vaadin.MessageBox.EventListener;
-
-import org.slf4j.LoggerFactory;
 
 /**
  * The Class MIB Compiler Panel.

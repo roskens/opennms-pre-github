@@ -29,8 +29,8 @@
 package org.opennms.features.topology.app.internal;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.opennms.features.topology.api.Operation;
 import org.opennms.features.topology.app.internal.TopoContextMenu.TopoContextMenuItem;

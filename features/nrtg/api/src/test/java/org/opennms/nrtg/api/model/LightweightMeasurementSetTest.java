@@ -28,11 +28,11 @@
 
 package org.opennms.nrtg.api.model;
 
-import junit.framework.Assert;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import junit.framework.Assert;
 
 /**
  * Created with IntelliJ IDEA.

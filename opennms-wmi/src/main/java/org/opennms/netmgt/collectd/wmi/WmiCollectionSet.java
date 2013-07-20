@@ -28,15 +28,15 @@
 
 package org.opennms.netmgt.collectd.wmi;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.collectd.ServiceCollector;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
-
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * <p>
