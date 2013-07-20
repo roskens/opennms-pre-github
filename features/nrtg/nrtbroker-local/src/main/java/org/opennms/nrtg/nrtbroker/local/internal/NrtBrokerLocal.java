@@ -66,7 +66,7 @@ public class NrtBrokerLocal implements NrtBroker, NrtBrokerLocalMBean {
         public void addMeasurementSets(Map<String, MeasurementSet> measurementSets) {
             for (Map.Entry<String, MeasurementSet> entry : measurementSets.entrySet()) {
 
-                String arr[] = entry.getKey().split(",");
+                String[] arr = entry.getKey().split(",");
 
                 for (String destination : arr) {
                     addMeasurementSet(destination.trim(), entry.getValue());

@@ -1019,7 +1019,7 @@ public abstract class NotificationManager {
 
         Map<String, Notification> newMap = new HashMap<String, Notification>();
 
-        Notification notices[] = m_notifications.getNotification();
+        Notification[] notices = m_notifications.getNotification();
         for (int i = 0; i < notices.length; i++) {
             newMap.put(notices[i].getName(), notices[i]);
         }
@@ -1193,7 +1193,7 @@ public abstract class NotificationManager {
             notice.setStatus(newNotice.getStatus());
             notice.setVarbind(newNotice.getVarbind());
 
-            Parameter parameters[] = newNotice.getParameter();
+            Parameter[] parameters = newNotice.getParameter();
             for (int i = 0; i < parameters.length; i++) {
                 Parameter newParam = new Parameter();
                 newParam.setName(parameters[i].getName());

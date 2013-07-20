@@ -106,7 +106,7 @@ public class WmiClient implements IWmiClient {
         try {
             // Execute the InstancesOf method on the remote SWbemServices
             // object.
-            final JIVariant results[] = m_WbemServices.callMethodA("InstancesOf", new Object[] {
+            final JIVariant[] results = m_WbemServices.callMethodA("InstancesOf", new Object[] {
                     new JIString(wmiClass), 0, JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch wOSd = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
@@ -128,7 +128,7 @@ public class WmiClient implements IWmiClient {
     public OnmsWbemObjectSet performExecQuery(final String strQuery, final String strQueryLanguage, final Integer flags)
             throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("ExecQuery", new Object[] { new JIString(strQuery),
+            final JIVariant[] results = m_WbemServices.callMethodA("ExecQuery", new Object[] { new JIString(strQuery),
                     JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch wOSd = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
@@ -151,7 +151,7 @@ public class WmiClient implements IWmiClient {
      */
     public OnmsWbemObject performWmiGet(final String strObjectPath) throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("Get", new Object[] { new JIString(strObjectPath),
+            final JIVariant[] results = m_WbemServices.callMethodA("Get", new Object[] { new JIString(strObjectPath),
                     JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch obj_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
@@ -175,7 +175,7 @@ public class WmiClient implements IWmiClient {
      */
     public OnmsWbemObjectSet performSubclassOf(final String strSuperClass) throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf", new Object[] {
+            final JIVariant[] results = m_WbemServices.callMethodA("SubclassesOf", new Object[] {
                     new JIString(strSuperClass), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM() });
             final IJIDispatch objset_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
 
@@ -197,7 +197,7 @@ public class WmiClient implements IWmiClient {
      */
     public OnmsWbemObjectSet performSubclassOf() throws WmiException {
         try {
-            final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf",
+            final JIVariant[] results = m_WbemServices.callMethodA("SubclassesOf",
                                                                    new Object[] { JIVariant.OPTIONAL_PARAM(),
                                                                            JIVariant.OPTIONAL_PARAM(),
                                                                            JIVariant.OPTIONAL_PARAM() });
@@ -275,7 +275,7 @@ public class WmiClient implements IWmiClient {
 
             // This will obtain the dispatch interface
             m_Dispatch = (IJIDispatch) JIObjectFactory.narrowObject(m_ComObject.queryInterface(IJIDispatch.IID));
-            final JIVariant results[] = m_Dispatch.callMethodA("ConnectServer",
+            final JIVariant[] results = m_Dispatch.callMethodA("ConnectServer",
                                                                new Object[] { new JIString(m_Address),
                                                                        JIVariant.OPTIONAL_PARAM(),
                                                                        JIVariant.OPTIONAL_PARAM(),

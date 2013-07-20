@@ -285,7 +285,7 @@ public class AvailabilityReport extends Object {
      * @param args
      *            an array of {@link java.lang.String} objects.
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         Logging.putPrefix(LOG4J_CATEGORY);
         LOG.debug("main() called with args: {}", StringUtils.arrayToDelimitedString(args, ", "));

@@ -146,7 +146,7 @@ public abstract class IPLike {
      * @return a boolean.
      */
     public static boolean matchNumericListOrRange(final String value, final String patterns, final RangeMatcher matcher) {
-        final String patternList[] = patterns.split(",", 0);
+        final String[] patternList = patterns.split(",", 0);
         for (final String element : patternList) {
             if (matcher.match(value, element)) {
                 return true;
@@ -174,7 +174,7 @@ public abstract class IPLike {
         } else if (dashCount > 1) {
             return false;
         } else if (dashCount == 1) {
-            final String ar[] = pattern.split("-");
+            final String[] ar = pattern.split("-");
             final long rangeBegin = Long.parseLong(ar[0]);
             final long rangeEnd = Long.parseLong(ar[1]);
             final long ip = Long.parseLong(value);
@@ -203,7 +203,7 @@ public abstract class IPLike {
         } else if (dashCount > 1) {
             return false;
         } else if (dashCount == 1) {
-            final String ar[] = pattern.split("-");
+            final String[] ar = pattern.split("-");
             final long rangeBegin = Long.parseLong(ar[0], 16);
             final long rangeEnd = Long.parseLong(ar[1], 16);
             final long ip = Long.parseLong(value, 16);

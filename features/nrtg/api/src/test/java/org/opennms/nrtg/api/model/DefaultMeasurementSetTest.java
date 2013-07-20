@@ -48,7 +48,7 @@ public class DefaultMeasurementSetTest {
     public void testGetMeasurements() throws Exception {
 
         final int numberOfMetrics = 10;
-        Date dates[] = new Date[numberOfMetrics];
+        Date[] dates = new Date[numberOfMetrics];
 
         DefaultMeasurementSet defaultMeasurementSet = new DefaultMeasurementSet();
 

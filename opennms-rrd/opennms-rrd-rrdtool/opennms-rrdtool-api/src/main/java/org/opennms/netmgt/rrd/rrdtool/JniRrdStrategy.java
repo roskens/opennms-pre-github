@@ -535,7 +535,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
             try {
-                String s[] = reader.readLine().split("x");
+                String[] s = reader.readLine().split("x");
                 width = Integer.parseInt(s[0]);
                 height = Integer.parseInt(s[1]);
 

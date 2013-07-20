@@ -59,7 +59,7 @@ public interface Fiber {
     /**
      * The string names that correspond to the states of the fiber.
      */
-    public static final String STATUS_NAMES[] = { "START_PENDING", // 0
+    public static final String[] STATUS_NAMES = { "START_PENDING", // 0
             "STARTING", // 1
             "RUNNING", // 2
             "STOP_PENDING", // 3

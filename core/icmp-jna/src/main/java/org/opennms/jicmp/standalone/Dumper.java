@@ -72,7 +72,7 @@ public class Dumper {
 
     }
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         new Dumper().dump();
     }
 

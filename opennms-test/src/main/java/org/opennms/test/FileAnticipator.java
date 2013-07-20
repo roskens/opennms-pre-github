@@ -221,7 +221,7 @@ public class FileAnticipator extends Assert {
          * }
          */
 
-        byte bytes[] = new byte[length];
+        byte[] bytes = new byte[length];
         random.nextBytes(bytes);
 
         StringBuffer sb = new StringBuffer();

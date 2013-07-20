@@ -170,7 +170,7 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
     }
 
     public final void testGetIfAddressAndMask() {
-        InetAddress addrMask[] = m_ifSnmpc.getIfAddressAndMask(1);
+        InetAddress[] addrMask = m_ifSnmpc.getIfAddressAndMask(1);
         assertNotNull("address mask should not be null", addrMask);
         assertEquals("localhost address", DEFAULT_HOST, InetAddressUtils.str(addrMask[0]));
         assertEquals("localhost mask... mmm... class A.... yummy", "255.0.0.0", InetAddressUtils.str(addrMask[1]));

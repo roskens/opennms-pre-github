@@ -679,14 +679,14 @@ public class PropertiesGraphDaoTest {
         assertNotNull(mib2Bits);
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns1[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns1 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns1, mib2Bits.getColumns());
 
         PrefabGraph mib2HCBits = dao.getPrefabGraph("mib2.HCbits");
         assertNotNull(mib2HCBits);
         assertEquals("mib2.HCbits", mib2HCBits.getName());
         assertEquals("Bits In/Out", mib2HCBits.getTitle());
-        String columns2[] = { "ifHCInOctets", "ifHCOutOctets" };
+        String[] columns2 = { "ifHCInOctets", "ifHCOutOctets" };
         Assert.assertArrayEquals(columns2, mib2HCBits.getColumns());
     }
 
@@ -735,28 +735,28 @@ public class PropertiesGraphDaoTest {
         assertNotNull(mib2Bits);
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns1[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns1 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns1, mib2Bits.getColumns());
 
         PrefabGraph mib2HCBits = dao.getPrefabGraph("mib2.HCbits");
         assertNotNull(mib2HCBits);
         assertEquals("mib2.HCbits", mib2HCBits.getName());
         assertEquals("Bits In/Out", mib2HCBits.getTitle());
-        String columns2[] = { "ifHCInOctets", "ifHCOutOctets" };
+        String[] columns2 = { "ifHCInOctets", "ifHCOutOctets" };
         Assert.assertArrayEquals(columns2, mib2HCBits.getColumns());
 
         PrefabGraph mib2Discards = dao.getPrefabGraph("mib2.discards");
         assertNotNull(mib2Discards);
         assertEquals("mib2.discards", mib2Discards.getName());
         assertEquals("Discards In/Out", mib2Discards.getTitle());
-        String columns3[] = { "ifInDiscards", "ifOutDiscards" };
+        String[] columns3 = { "ifInDiscards", "ifOutDiscards" };
         Assert.assertArrayEquals(columns3, mib2Discards.getColumns());
 
         PrefabGraph mib2Errors = dao.getPrefabGraph("mib2.errors");
         assertNotNull(mib2Errors);
         assertEquals("mib2.errors", mib2Errors.getName());
         assertEquals("Errors In/Out", mib2Errors.getTitle());
-        String columns4[] = { "ifInErrors", "ifOutErrors" };
+        String[] columns4 = { "ifInErrors", "ifOutErrors" };
         Assert.assertArrayEquals(columns4, mib2Errors.getColumns());
     }
 
@@ -814,28 +814,28 @@ public class PropertiesGraphDaoTest {
         assertNotNull(mib2Bits);
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns1[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns1 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns1, mib2Bits.getColumns());
 
         PrefabGraph mib2HCBits = dao.getPrefabGraph("mib2.HCbits");
         assertNotNull(mib2HCBits);
         assertEquals("mib2.HCbits", mib2HCBits.getName());
         assertEquals("Bits In/Out", mib2HCBits.getTitle());
-        String columns2[] = { "ifHCInOctets", "ifHCOutOctets" };
+        String[] columns2 = { "ifHCInOctets", "ifHCOutOctets" };
         Assert.assertArrayEquals(columns2, mib2HCBits.getColumns());
 
         PrefabGraph mib2Discards = dao.getPrefabGraph("mib2.discards");
         assertNotNull(mib2Discards);
         assertEquals("mib2.discards", mib2Discards.getName());
         assertEquals("Discards In/Out", mib2Discards.getTitle());
-        String columns3[] = { "ifInDiscards", "ifOutDiscards" };
+        String[] columns3 = { "ifInDiscards", "ifOutDiscards" };
         Assert.assertArrayEquals(columns3, mib2Discards.getColumns());
 
         PrefabGraph mib2Errors = dao.getPrefabGraph("mib2.errors");
         assertNotNull(mib2Errors);
         assertEquals("mib2.errors", mib2Errors.getName());
         assertEquals("Errors In/Out", mib2Errors.getTitle());
-        String columns4[] = { "ifInErrors", "ifOutErrors" };
+        String[] columns4 = { "ifInErrors", "ifOutErrors" };
         Assert.assertArrayEquals(columns4, mib2Errors.getColumns());
     }
 
@@ -885,14 +885,14 @@ public class PropertiesGraphDaoTest {
         // We check that the overridden graph has the correct details in it
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns1[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns1 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns1, mib2Bits.getColumns());
 
         PrefabGraph mib2HCBits = dao.getPrefabGraph("mib2.HCbits");
         assertNotNull(mib2HCBits);
         assertEquals("mib2.HCbits", mib2HCBits.getName());
         assertEquals("Bits In/Out", mib2HCBits.getTitle());
-        String columns2[] = { "ifHCInOctets", "ifHCOutOctets" };
+        String[] columns2 = { "ifHCInOctets", "ifHCOutOctets" };
         Assert.assertArrayEquals(columns2, mib2HCBits.getColumns());
 
         // Now, having proven that the override works, rewrite the base file
@@ -916,7 +916,7 @@ public class PropertiesGraphDaoTest {
         assertNotNull(mib2Bits);
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns3[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns3 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns3, mib2Bits.getColumns());
     }
 
@@ -1340,21 +1340,21 @@ public class PropertiesGraphDaoTest {
         assertNotNull(mib2Bits);
         assertEquals("mib2.bits", mib2Bits.getName());
         assertEquals("Bits In/Out", mib2Bits.getTitle());
-        String columns1[] = { "ifInOctets", "ifOutOctets" };
+        String[] columns1 = { "ifInOctets", "ifOutOctets" };
         Assert.assertArrayEquals(columns1, mib2Bits.getColumns());
 
         PrefabGraph mib2HCBits = dao.getPrefabGraph("mib2.HCbits");
         assertNotNull(mib2HCBits);
         assertEquals("mib2.HCbits", mib2HCBits.getName());
         assertEquals("Bits In/Out", mib2HCBits.getTitle());
-        String columns2[] = { "ifHCInOctets", "ifHCOutOctets" };
+        String[] columns2 = { "ifHCInOctets", "ifHCOutOctets" };
         Assert.assertArrayEquals(columns2, mib2HCBits.getColumns());
 
         PrefabGraph mib2Discards = dao.getPrefabGraph("mib2.discards");
         assertNotNull(mib2Discards);
         assertEquals("mib2.discards", mib2Discards.getName());
         assertEquals("Discards In/Out", mib2Discards.getTitle());
-        String columns3[] = { "ifInDiscards", "ifOutDiscards" };
+        String[] columns3 = { "ifInDiscards", "ifOutDiscards" };
         Assert.assertArrayEquals(columns3, mib2Discards.getColumns());
 
         try {

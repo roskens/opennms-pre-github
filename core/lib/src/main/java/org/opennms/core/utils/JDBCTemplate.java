@@ -93,7 +93,7 @@ public abstract class JDBCTemplate {
         return sb.toString();
     }
 
-    private void doExecute(final Object values[]) throws SQLException {
+    private void doExecute(final Object[] values) throws SQLException {
         final DBUtils d = new DBUtils(getClass());
         try {
             final Connection conn = m_db.getConnection();
@@ -118,7 +118,7 @@ public abstract class JDBCTemplate {
      *            an array of {@link java.lang.Object} objects.
      * @return a {@link java.lang.String} object.
      */
-    public String reproduceStatement(final Object values[]) {
+    public String reproduceStatement(final Object[] values) {
         return m_sql + ": with vals " + argsToString(values);
     }
 

@@ -420,7 +420,7 @@ public class DefaultQueryManager implements QueryManager {
                 String sql = "insert into outages (outageId, svcLostEventId, nodeId, ipAddr, serviceId, ifLostService) values ("
                         + outageId + ", ?, ?, ?, ?, ?)";
 
-                Object values[] = { Integer.valueOf(dbId), Integer.valueOf(nodeId), ipAddr, Integer.valueOf(serviceId),
+                Object[] values = { Integer.valueOf(dbId), Integer.valueOf(nodeId), ipAddr, Integer.valueOf(serviceId),
                         convertEventTimeToTimeStamp(time), };
 
                 Updater updater = new Updater(getDataSource(), sql);
@@ -451,7 +451,7 @@ public class DefaultQueryManager implements QueryManager {
 
                 String sql = "update outages set svcRegainedEventId=?, ifRegainedService=? where nodeId = ? and ipAddr = ? and serviceId = ? and ifRegainedService is null";
 
-                Object values[] = { Integer.valueOf(dbId), convertEventTimeToTimeStamp(time), Integer.valueOf(nodeId),
+                Object[] values = { Integer.valueOf(dbId), convertEventTimeToTimeStamp(time), Integer.valueOf(nodeId),
                         ipAddr, Integer.valueOf(serviceId), };
 
                 Updater updater = new Updater(getDataSource(), sql);
@@ -541,7 +541,7 @@ public class DefaultQueryManager implements QueryManager {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
 
-                String row[] = new String[2];
+                String[] row = new String[2];
                 row[0] = rs.getString(1);
                 row[1] = rs.getString(2);
 

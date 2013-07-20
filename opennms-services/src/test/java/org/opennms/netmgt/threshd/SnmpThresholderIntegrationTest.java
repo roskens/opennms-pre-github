@@ -100,7 +100,7 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     public void testRearm() throws Exception {
-        double values[] = { 99.0, 91.0, 93.0, // expect exceeded
+        double[] values = { 99.0, 91.0, 93.0, // expect exceeded
                 96.0, 15.0, // expect rearm
                 98.0, 98.0, 98.0 // expect exceeded
         };

@@ -98,7 +98,7 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
      * @throws java.lang.Exception
      *             if any.
      */
-    public static void main(final String args[]) throws Exception {
+    public static void main(final String[] args) throws Exception {
         // XmlRpc.setDebug (true);
         try {
             String url = args[0];

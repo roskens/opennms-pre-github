@@ -388,7 +388,7 @@ public abstract class PollableContainer extends PollableElement {
     /** {@inheritDoc} */
     @Override
     protected PollStatus poll(final PollableElement elem) {
-        final PollStatus retVal[] = new PollStatus[1];
+        final PollStatus[] retVal = new PollStatus[1];
         Runnable r = new Runnable() {
             @Override
             public void run() {

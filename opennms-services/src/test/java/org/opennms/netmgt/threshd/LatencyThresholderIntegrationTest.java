@@ -95,7 +95,7 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
     }
 
     public void testRearm() throws Exception {
-        double values[] = { 79000.0, 80000.0, 84999.0, // expect exceeded
+        double[] values = { 79000.0, 80000.0, 84999.0, // expect exceeded
                 84998.0, 15000.0, // expect rearm
                 77000.0, 77000.0, 77000.0 // expect exceeded
         };
