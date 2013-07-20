@@ -54,49 +54,93 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class TicketNotificationStrategyTest extends TestCase {
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils;
 
+    /** The m_event ipc manager. */
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_ticket notification strategy. */
     private MockTicketNotificationStrategy m_ticketNotificationStrategy;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
+    /**
+     * The Class MockTicketNotificationStrategy.
+     */
     private class MockTicketNotificationStrategy extends TicketNotificationStrategy {
+
+        /** The m_alarm state. */
         AlarmState m_alarmState;
 
+        /** The m_alarm type. */
         AlarmType m_alarmType;
 
+        /**
+         * Instantiates a new mock ticket notification strategy.
+         */
         public MockTicketNotificationStrategy() {
             m_alarmState = new AlarmState(0, "", 0);
             m_alarmType = AlarmType.NOT_AN_ALARM;
         }
 
+        /**
+         * Sets the alarm state.
+         *
+         * @param alarmState
+         *            the new alarm state
+         */
         public void setAlarmState(AlarmState alarmState) {
             m_alarmState = alarmState;
         }
 
+        /**
+         * Gets the alarm state.
+         *
+         * @return the alarm state
+         */
         @SuppressWarnings("unused")
         public AlarmState getAlarmState() {
             return m_alarmState;
         }
 
+        /**
+         * Sets the alarm type.
+         *
+         * @param alarmType
+         *            the new alarm type
+         */
         public void setAlarmType(AlarmType alarmType) {
             m_alarmType = alarmType;
         }
 
+        /**
+         * Gets the alarm type.
+         *
+         * @param alarmType
+         *            the alarm type
+         * @return the alarm type
+         */
         @SuppressWarnings("unused")
         public AlarmType getAlarmType(AlarmType alarmType) {
             return m_alarmType;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.notifd.TicketNotificationStrategy#getAlarmStateFromEvent(int)
+         */
         @Override
         protected AlarmState getAlarmStateFromEvent(int eventID) {
             return m_alarmState;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.notifd.TicketNotificationStrategy#getAlarmTypeFromUEI(java.lang.String)
+         */
         @Override
         protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
             return m_alarmType;
@@ -125,11 +169,17 @@ public class TicketNotificationStrategyTest extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Test notice with no event id.
+     */
     public void testNoticeWithNoEventID() {
         assertEquals("Strategy should fail if no event id is given.", 1,
                      m_ticketNotificationStrategy.send(new ArrayList<Argument>()));
     }
 
+    /**
+     * Test notice with no alarm id.
+     */
     public void testNoticeWithNoAlarmID() {
         m_ticketNotificationStrategy.setAlarmState(new TicketNotificationStrategy.AlarmState(0));
         m_ticketNotificationStrategy.setAlarmType(AlarmType.NOT_AN_ALARM);
@@ -140,6 +190,9 @@ public class TicketNotificationStrategyTest extends TestCase {
                    !MockLogAppender.noWarningsOrHigherLogged());
     }
 
+    /**
+     * Test create ticket.
+     */
     public void testCreateTicket() {
         // Setup the event anticipator
         EventBuilder newSuspectBuilder = new EventBuilder(EventConstants.TROUBLETICKET_CREATE_UEI,
@@ -158,6 +211,15 @@ public class TicketNotificationStrategyTest extends TestCase {
         assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
     }
 
+    /**
+     * Builds the arguments.
+     *
+     * @param eventID
+     *            the event id
+     * @param eventUEI
+     *            the event uei
+     * @return the list
+     */
     protected List<Argument> buildArguments(String eventID, String eventUEI) {
         List<Argument> arguments = new ArrayList<Argument>();
         arguments.add(new Argument("eventID", null, eventID, false));

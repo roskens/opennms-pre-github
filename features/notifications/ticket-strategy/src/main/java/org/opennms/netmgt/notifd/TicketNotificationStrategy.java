@@ -58,67 +58,137 @@ import org.springframework.jdbc.core.RowCallbackHandler;
  */
 public class TicketNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TicketNotificationStrategy.class);
 
+    /** The m_event manager. */
     private EventIpcManager m_eventManager;
 
+    /** The m_arguments. */
     private List<Argument> m_arguments;
 
+    /** The m_event conf dao. */
     private DefaultEventConfDao m_eventConfDao;
 
+    /**
+     * The Enum AlarmType.
+     */
     enum AlarmType {
-        NOT_AN_ALARM, PROBLEM, RESULTION
+
+        /** The not an alarm. */
+        NOT_AN_ALARM,
+ /** The problem. */
+ PROBLEM,
+ /** The resultion. */
+ RESULTION
     };
 
+    /**
+     * The Class AlarmState.
+     */
     public static class AlarmState {
+
+        /** The m_alarm id. */
         int m_alarmID;
 
+        /** The m_tticket id. */
         String m_tticketID;
 
+        /** The m_tticket state. */
         int m_tticketState;
 
+        /**
+         * Instantiates a new alarm state.
+         *
+         * @param alarmID
+         *            the alarm id
+         */
         AlarmState(int alarmID) {
             m_alarmID = alarmID;
             m_tticketID = "";
             m_tticketState = 0;
         }
 
+        /**
+         * Instantiates a new alarm state.
+         *
+         * @param alarmID
+         *            the alarm id
+         * @param tticketID
+         *            the tticket id
+         * @param tticketState
+         *            the tticket state
+         */
         AlarmState(int alarmID, String tticketID, int tticketState) {
             m_alarmID = alarmID;
             m_tticketID = tticketID;
             m_tticketState = tticketState;
         }
 
+        /**
+         * Gets the alarm id.
+         *
+         * @return the alarm id
+         */
         public int getAlarmID() {
             return m_alarmID;
         }
 
+        /**
+         * Gets the tticket id.
+         *
+         * @return the tticket id
+         */
         public String getTticketID() {
             return m_tticketID;
         }
 
+        /**
+         * Gets the tticket state.
+         *
+         * @return the tticket state
+         */
         public int getTticketState() {
             return m_tticketState;
         }
     }
 
+    /**
+     * The Class AlarmStateRowCallbackHandler.
+     */
     protected class AlarmStateRowCallbackHandler implements RowCallbackHandler {
+
+        /** The m_alarm state. */
         AlarmState m_alarmState;
 
+        /**
+         * Instantiates a new alarm state row callback handler.
+         */
         public AlarmStateRowCallbackHandler() {
             m_alarmState = null;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.jdbc.core.RowCallbackHandler#processRow(java.sql.ResultSet)
+         */
         @Override
         public void processRow(ResultSet rs) throws SQLException {
             m_alarmState = new AlarmState(rs.getInt(1), rs.getString(2), rs.getInt(3));
         }
 
+        /**
+         * Gets the alarm state.
+         *
+         * @return the alarm state
+         */
         public AlarmState getAlarmState() {
             return m_alarmState;
         }
     }
 
+    /**
+     * Instantiates a new ticket notification strategy.
+     */
     public TicketNotificationStrategy() {
         m_eventManager = EventIpcManagerFactory.getIpcManager();
     }
@@ -187,7 +257,10 @@ public class TicketNotificationStrategy implements NotificationStrategy {
      * <p>
      * Helper function that gets the alarmid from the eventid
      * </p>
+     * .
      *
+     * @param eventID
+     *            the event id
      * @return 0 if alarmid is null
      */
     protected AlarmState getAlarmStateFromEvent(int eventID) {
@@ -207,6 +280,8 @@ public class TicketNotificationStrategy implements NotificationStrategy {
      * Helper function that determines the alarm type for a given UEI.
      * </p>
      *
+     * @param eventUEI
+     *            the event uei
      * @return 0 if alarmid is null
      */
     protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
@@ -230,8 +305,12 @@ public class TicketNotificationStrategy implements NotificationStrategy {
      * <p>
      * Helper function that sends the create ticket event
      * </p>
+     * .
      *
-     * @return
+     * @param alarmID
+     *            the alarm id
+     * @param alarmUEI
+     *            the alarm uei
      */
     public void sendCreateTicketEvent(int alarmID, String alarmUEI) {
         LOG.debug("Sending create ticket for alarm '{}' with id={}", alarmUEI, alarmID);
@@ -247,6 +326,7 @@ public class TicketNotificationStrategy implements NotificationStrategy {
      * <p>
      * Return an id for this notification strategy
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
