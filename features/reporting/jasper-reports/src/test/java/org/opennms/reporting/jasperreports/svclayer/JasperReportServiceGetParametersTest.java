@@ -38,11 +38,18 @@ import org.opennms.api.reporting.ReportException;
 import org.opennms.api.reporting.parameter.ReportParameters;
 
 //TODO tak: In JasperReportService we use a DefaultGlobalRepository. Tests have to mockup the GlobalReportRepository
+/**
+ * The Class JasperReportServiceGetParametersTest.
+ */
 @Ignore
 public class JasperReportServiceGetParametersTest {
 
+    /** The service. */
     private JasperReportService service;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.setProperty("opennms.home", "features/reporting/jasper-reports/src/test/resources");
@@ -50,6 +57,12 @@ public class JasperReportServiceGetParametersTest {
         // service.setReportRepository(new GlobalReportRepository());
     }
 
+    /**
+     * Read properties of trivial test report from rest repo test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfTrivialTestReportFromRESTRepoTest() throws ReportException {
         String id = "REMOTE_trivialJasperReport";
@@ -58,6 +71,12 @@ public class JasperReportServiceGetParametersTest {
         assertEquals(0, params.getReportParms().size());
     }
 
+    /**
+     * Read properties of property test report from rest repo test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfPropertyTestReportFromRESTRepoTest() throws ReportException {
         String id = "REMOTE_parameterTestJasperReport";
@@ -66,6 +85,12 @@ public class JasperReportServiceGetParametersTest {
         assertEquals(7, params.getReportParms().size());
     }
 
+    /**
+     * Read properties of trivial test report test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfTrivialTestReportTest() throws ReportException {
         String id = "trivial-report";
@@ -74,6 +99,12 @@ public class JasperReportServiceGetParametersTest {
         assertEquals(0, params.getReportParms().size());
     }
 
+    /**
+     * Read properties of property test report test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfPropertyTestReportTest() throws ReportException {
         String id = "parameter-test";
@@ -82,6 +113,12 @@ public class JasperReportServiceGetParametersTest {
         assertEquals(7, params.getReportParms().size());
     }
 
+    /**
+     * Read properties of jasper uri test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfJasperUriTest() throws ReportException {
         String id = "REMOTE_jasper-uri-test";
@@ -90,6 +127,12 @@ public class JasperReportServiceGetParametersTest {
         assertEquals(1, params.getReportParms().size());
     }
 
+    /**
+     * Read properties of jasper resource input stream uri test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Test
     public void readPropertiesOfJasperResourceInputStreamURITest() throws ReportException {
         String id = "REMOTE_jasper-resource-inputstream-uri-test";

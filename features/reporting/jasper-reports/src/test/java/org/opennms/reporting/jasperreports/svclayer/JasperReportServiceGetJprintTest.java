@@ -42,21 +42,37 @@ import org.opennms.api.reporting.ReportException;
 import org.opennms.api.reporting.ReportFormat;
 
 //TODO tak: Build tests to run in src/test/resources and not in local specific tmp directories
+/**
+ * The Class JasperReportServiceGetJprintTest.
+ */
 public class JasperReportServiceGetJprintTest {
 
+    /** The service. */
     private JasperReportService service;
 
+    /**
+     * Sets the up.
+     */
     @BeforeClass
     public static void setUp() {
         System.setProperty("opennms.home", "src/test/resources");
         System.setProperty("opennms.report.dir", "/tmp");
     }
 
+    /**
+     * Initialize.
+     */
     @Before
     public void initialize() {
         service = new JasperReportService();
     }
 
+    /**
+     * Run and render trivial report test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Ignore
     @Test
     public void runAndRenderTrivialReportTest() throws ReportException {
@@ -69,6 +85,12 @@ public class JasperReportServiceGetJprintTest {
         }
     }
 
+    /**
+     * Run and render subreport test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Ignore
     @Test
     public void runAndRenderSubreportTest() throws ReportException {
@@ -81,6 +103,12 @@ public class JasperReportServiceGetJprintTest {
         }
     }
 
+    /**
+     * Run report from remote repo test.
+     *
+     * @throws ReportException
+     *             the report exception
+     */
     @Ignore
     @Test
     public void runReportFromRemoteRepoTest() throws ReportException {

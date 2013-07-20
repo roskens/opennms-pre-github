@@ -77,12 +77,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JasperReportService implements ReportService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JasperReportService.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
+    /** The Constant STRING_INPUT_TYPE. */
     private static final String STRING_INPUT_TYPE = "org.opennms.report.stringInputType";
 
+    /** The m_global report repository. */
     private GlobalReportRepository m_globalReportRepository;
 
     /**
@@ -344,6 +349,15 @@ public class JasperReportService implements ReportService {
         }
     }
 
+    /**
+     * Gets the jasper print.
+     *
+     * @param location
+     *            the location
+     * @return the jasper print
+     * @throws JRException
+     *             the jR exception
+     */
     private JasperPrint getJasperPrint(String location) throws JRException {
         if (location.contains("jrpxml")) {
             return JRPrintXmlLoader.load(location);
@@ -501,6 +515,18 @@ public class JasperReportService implements ReportService {
 
     }
 
+    /**
+     * Export report.
+     *
+     * @param format
+     *            the format
+     * @param jasperPrint
+     *            the jasper print
+     * @param outputStream
+     *            the output stream
+     * @throws JRException
+     *             the jR exception
+     */
     private void exportReport(ReportFormat format, JasperPrint jasperPrint, OutputStream outputStream)
             throws JRException {
         switch (format) {
@@ -518,10 +544,30 @@ public class JasperReportService implements ReportService {
 
     }
 
+    /**
+     * Export report to pdf.
+     *
+     * @param jasperPrint
+     *            the jasper print
+     * @param outputStream
+     *            the output stream
+     * @throws JRException
+     *             the jR exception
+     */
     private void exportReportToPdf(JasperPrint jasperPrint, OutputStream outputStream) throws JRException {
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
     }
 
+    /**
+     * Export report to csv.
+     *
+     * @param jasperPrint
+     *            the jasper print
+     * @param outputStream
+     *            the output stream
+     * @throws JRException
+     *             the jR exception
+     */
     private void exportReportToCsv(JasperPrint jasperPrint, OutputStream outputStream) throws JRException {
         JRCsvExporter exporter = new JRCsvExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
@@ -530,6 +576,17 @@ public class JasperReportService implements ReportService {
         exporter.exportReport();
     }
 
+    /**
+     * Builds the j rparameters.
+     *
+     * @param onmsReportParms
+     *            the onms report parms
+     * @param reportParms
+     *            the report parms
+     * @return the hash map
+     * @throws ReportException
+     *             the report exception
+     */
     private HashMap<String, Object> buildJRparameters(HashMap<String, Object> onmsReportParms, JRParameter[] reportParms)
             throws ReportException {
 
@@ -606,6 +663,12 @@ public class JasperReportService implements ReportService {
         return true;
     }
 
+    /**
+     * Sets the global report repository.
+     *
+     * @param globalReportRepository
+     *            the new global report repository
+     */
     public void setGlobalReportRepository(GlobalReportRepository globalReportRepository) {
         m_globalReportRepository = globalReportRepository;
     }

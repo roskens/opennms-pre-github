@@ -56,6 +56,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+/**
+ * The Class JasperReportServiceTest.
+ */
 @Ignore
 // TODO tak: We have replaced the jasperReportConfigDao is replaced by a
 // GlobalReportRepository. Test has to mockup the GlobalReportRepository
@@ -64,24 +67,36 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 @ContextConfiguration(locations = { "classpath:org/opennms/reporting/jasperreports/svclayer/JasperReportServiceTest.xml" })
 public class JasperReportServiceTest implements InitializingBean {
 
+    /** The m_config dao. */
     @Autowired
     JasperReportConfigDao m_configDao;
 
+    /** The m_report service. */
     @Autowired
     JasperReportService m_reportService;
 
+    /** The Constant REPORTID. */
     private static final String REPORTID = "parameter-test";
 
+    /**
+     * Setup onms home.
+     */
     @BeforeClass
     public static void setupOnmsHome() {
         System.setProperty("opennms.home", "src/test/resources");
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test get parmeters.
+     */
     @Test
     public void testGetParmeters() {
         ReportParameters reportParameters;
@@ -99,12 +114,18 @@ public class JasperReportServiceTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test validate.
+     */
     @Test
     public void testValidate() {
         HashMap<String, Object> reportParms = new HashMap<String, Object>();
         Assert.assertTrue(m_reportService.validate(reportParms, REPORTID));
     }
 
+    /**
+     * Test descriptions.
+     */
     @Test
     public void testDescriptions() {
         ReportParameters reportParameters;
@@ -121,6 +142,9 @@ public class JasperReportServiceTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test string input type.
+     */
     @Test
     public void testStringInputType() {
         ReportParameters reportParameters;
@@ -135,7 +159,7 @@ public class JasperReportServiceTest implements InitializingBean {
     }
 
     /**
-     * Using a test date of -112426200000L ( Thu, 09 Jun 1966 18:30:00)
+     * Using a test date of -112426200000L ( Thu, 09 Jun 1966 18:30:00).
      */
     @Test
     public void testDefaults() {
@@ -165,6 +189,9 @@ public class JasperReportServiceTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test run and render.
+     */
     @Test
     public void testRunAndRender() {
         HashMap<String, Object> reportParms;
@@ -186,6 +213,9 @@ public class JasperReportServiceTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test run and render csv.
+     */
     @Test
     public void testRunAndRenderCSV() {
         HashMap<String, Object> reportParms;
@@ -207,8 +237,14 @@ public class JasperReportServiceTest implements InitializingBean {
         }
     }
 
-    /** Writes to nowhere */
+    /**
+     * Writes to nowhere.
+     */
     private class NullOutputStream extends OutputStream {
+
+        /* (non-Javadoc)
+         * @see java.io.OutputStream#write(int)
+         */
         @Override
         public void write(int b) throws IOException {
         }
