@@ -71,26 +71,27 @@ import org.springframework.util.StringUtils;
  */
 public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthenticationProvider.class);
 
+    /** The secret. */
     private String server, secret;
 
+    /** The retries. */
     private int port = 1812, timeout = 5, retries = 3;
 
     /**
-     * There is a bug in
+     * There is a bug in.
      * {@link net.jradius.client.auth.PAPAuthenticator#processRequest(RadiusPacket)}
-     * that prevents
-     * instances of the class from being reused. Set the authenticator class to
-     * null to work
-     * around this problem (while still using the
-     * {@link net.jradius.client.auth.PAPAuthenticator} class).
-     *
-     * @see net.jradius.client.RadiusClient#authenticate(AccessRequest,
-     *      RadiusAuthenticator, int)
+     * that prevents instances of the class from being reused. Set the
+     * authenticator class to null to work around this problem (while still
+     * using the {@link net.jradius.client.auth.PAPAuthenticator} class). @see
+     * net.jradius.client.RadiusClient#authenticate(AccessRequest,
+     * RadiusAuthenticator, int)
      */
     private RadiusAuthenticator authTypeClass = null;
 
+    /** The roles attribute. */
     private String defaultRoles = Authentication.ROLE_USER, rolesAttribute;
 
     /**
@@ -112,9 +113,10 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
      * <p>
      * doAfterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     protected void doAfterPropertiesSet() throws Exception {
@@ -127,7 +129,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
     }
 
     /**
-     * Sets the port number the radius server is listening on
+     * Sets the port number the radius server is listening on.
      *
      * @param port
      *            (defaults to 1812)
@@ -137,7 +139,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
     }
 
     /**
-     * Sets the authentication timeout (in seconds)
+     * Sets the authentication timeout (in seconds).
      *
      * @param timeout
      *            (defaults to 5)
@@ -147,7 +149,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
     }
 
     /**
-     * Sets the number of times to retry a timed-out authentication request
+     * Sets the number of times to retry a timed-out authentication request.
      *
      * @param retries
      *            (defaults to 3)
@@ -158,7 +160,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
 
     /**
      * Sets the authenticator, which determines the authentication type (PAP,
-     * CHAP, etc)
+     * CHAP, etc).
      *
      * @param authTypeClass
      *            An instance of net.jradius.client.auth.RadiusAuthenticator
@@ -179,7 +181,7 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
 
     /**
      * Sets the default authorities (roles) that should be assigned to
-     * authenticated users
+     * authenticated users.
      *
      * @param defaultRoles
      *            comma-separated list of roles (defaults to "ROLE_USER")
@@ -196,7 +198,8 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
      * reply
      * from the radius server, defaultRoles will be used to assign roles
      * If JRadius's built-in attribute dictionary does not contain the desired
-     * attribute name, use "Unknown-VSAttribute(<Vendor ID>:<Attribute Number>)"
+     * attribute name, use
+     * "Unknown-VSAttribute(<Vendor ID>:<Attribute Number>)".
      *
      * @param rolesAttribute
      *            a {@link java.lang.String} object.

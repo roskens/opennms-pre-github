@@ -48,16 +48,31 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class RadiusAuthMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class RadiusAuthMonitorTest {
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("have to have a radius server set up")
     public void testResponse() throws Exception {

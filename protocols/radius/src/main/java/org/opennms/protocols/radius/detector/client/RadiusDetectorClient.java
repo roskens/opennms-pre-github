@@ -50,53 +50,72 @@ import org.opennms.netmgt.provision.support.Client;
  * @version $Id: $
  */
 public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket> {
-    /**
-     * Default radius authentication port
-     */
+
+    /** Default radius authentication port. */
     public static final int DEFAULT_AUTH_PORT = 1812;
 
-    /**
-     * Default radius accounting port
-     */
+    /** Default radius accounting port. */
     public static final int DEFAULT_ACCT_PORT = 1813;
 
-    /**
-     * Default secret
-     */
+    /** Default secret. */
     public static final String DEFAULT_SECRET = "secret123"; // "secret";
 
+    /** The m_radius client. */
     private RadiusClient m_radiusClient;
 
+    /** The m_authport. */
     private int m_authport = DEFAULT_AUTH_PORT;
 
+    /** The m_acctport. */
     private int m_acctport = DEFAULT_ACCT_PORT;
 
+    /** The m_secret. */
     private String m_secret = DEFAULT_SECRET;
 
+    /** The m_authenticator. */
     private RadiusAuthenticator m_authenticator = new MSCHAPv2Authenticator();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#connect(java.net.InetAddress, int, int)
+     */
     @Override
     public void connect(final InetAddress address, final int port, final int timeout) throws IOException, Exception {
         AttributeFactory.loadAttributeDictionary("net.jradius.dictionary.AttributeDictionaryImpl");
         m_radiusClient = new RadiusClient(address, getSecret(), getAuthPort(), getAcctPort(), convertTimeout(timeout));
     }
 
+    /**
+     * Convert timeout.
+     *
+     * @param timeout
+     *            the timeout
+     * @return the int
+     */
     private int convertTimeout(int timeout) {
 
         return timeout / 1000 > 0 ? timeout / 1000 : 1;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#close()
+     */
     @Override
     public void close() {
         m_radiusClient.close();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#receiveBanner()
+     */
     @Override
     public RadiusPacket receiveBanner() throws IOException {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#sendRequest(java.lang.Object)
+     */
     @Override
     public RadiusPacket sendRequest(final AttributeList attributes) throws Exception {
         final AccessRequest request = new AccessRequest(m_radiusClient, attributes);
@@ -107,6 +126,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * setAuthport
      * </p>
+     * .
      *
      * @param authport
      *            a int.
@@ -119,6 +139,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * getAuthPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -130,6 +151,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * setAcctPort
      * </p>
+     * .
      *
      * @param acctport
      *            a int.
@@ -142,6 +164,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * getAcctPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -153,6 +176,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * setSecret
      * </p>
+     * .
      *
      * @param secret
      *            a {@link java.lang.String} object.
@@ -165,6 +189,7 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
      * <p>
      * getSecret
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -172,10 +197,21 @@ public class RadiusDetectorClient implements Client<AttributeList, RadiusPacket>
         return m_secret;
     }
 
+    /**
+     * Sets the authenticator.
+     *
+     * @param authenticator
+     *            the new authenticator
+     */
     public void setAuthenticator(final RadiusAuthenticator authenticator) {
         m_authenticator = authenticator;
     }
 
+    /**
+     * Gets the authenticator.
+     *
+     * @return the authenticator
+     */
     public RadiusAuthenticator getAuthenticator() {
         return m_authenticator;
     }

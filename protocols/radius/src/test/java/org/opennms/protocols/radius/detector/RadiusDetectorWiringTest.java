@@ -43,6 +43,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class RadiusDetectorWiringTest.
+ *
  * @author Donald Desloge
  */
 
@@ -50,24 +52,40 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class RadiusDetectorWiringTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test wired detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     */
     private void testWiredDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
 
+    /**
+     * Test radius detector wiring.
+     */
     @Test
     public void testRadiusDetectorWiring() {
         testWiredDetector(RadiusAuthDetector.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

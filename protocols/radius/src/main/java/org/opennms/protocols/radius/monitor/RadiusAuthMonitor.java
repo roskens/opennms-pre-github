@@ -72,63 +72,46 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class RadiusAuthMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthMonitor.class);
 
-    /**
-     * Number of milliseconds to wait before timing out a radius AUTH request
-     */
+    /** Number of milliseconds to wait before timing out a radius AUTH request. */
     public static final int DEFAULT_TIMEOUT = 5000;
 
-    /**
-     * Default number of times to retry a test
-     */
+    /** Default number of times to retry a test. */
     public static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default radius authentication port
-     */
+    /** Default radius authentication port. */
     public static final int DEFAULT_AUTH_PORT = 1812;
 
-    /**
-     * Default radius accounting port
-     */
+    /** Default radius accounting port. */
     public static final int DEFAULT_ACCT_PORT = 1813;
 
-    /**
-     * Default radius authentication type
-     */
+    /** Default radius authentication type. */
     public static final String DEFAULT_AUTH_TYPE = "pap";
 
-    /**
-     * Default user
-     */
+    /** Default user. */
     public static final String DEFAULT_USER = "OpenNMS";
 
-    /**
-     * Default pasword
-     */
+    /** Default pasword. */
     public static final String DEFAULT_PASSWORD = "OpenNMS";
 
-    /**
-     * Default secret
-     */
+    /** Default secret. */
     public static final String DEFAULT_SECRET = "secret";
 
-    /**
-     * Default NAS-ID
-     */
+    /** Default NAS-ID. */
 
     public static final String DEFAULT_NASID = "opennms";
 
     /**
      * Class constructor.
      *
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
      */
     public RadiusAuthMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         LOG.info("RadiusAuthMonitor class loaded");
@@ -232,6 +215,13 @@ public final class RadiusAuthMonitor extends AbstractServiceMonitor {
         return status;
     }
 
+    /**
+     * Convert timeout to seconds.
+     *
+     * @param timeout
+     *            the timeout
+     * @return the int
+     */
     private int convertTimeoutToSeconds(int timeout) {
         return timeout / 1000 > 0 ? timeout / 1000 : 1;
     }

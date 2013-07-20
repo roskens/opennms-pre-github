@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class RadiusAuthPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthPlugin.class);
 
     /**
@@ -74,52 +75,36 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      */
     private static final String PROTOCOL_NAME = "RadiusAuth";
 
-    /**
-     * Number of milliseconds to wait before timing out a radius AUTH request
-     */
+    /** Number of milliseconds to wait before timing out a radius AUTH request. */
     public static final int DEFAULT_TIMEOUT = 5000;
 
-    /**
-     * Default number of times to retry a test
-     */
+    /** Default number of times to retry a test. */
     public static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default radius authentication port
-     */
+    /** Default radius authentication port. */
     public static final int DEFAULT_AUTH_PORT = 1812;
 
-    /**
-     * Default radius accounting port
-     */
+    /** Default radius accounting port. */
     public static final int DEFAULT_ACCT_PORT = 1813;
 
-    /**
-     * Default radius authentication type
-     */
+    /** Default radius authentication type. */
     public static final String DEFAULT_AUTH_TYPE = "pap";
 
-    /**
-     * Default user
-     */
+    /** Default user. */
     public static final String DEFAULT_USER = "OpenNMS";
 
-    /**
-     * Default password
-     */
+    /** Default password. */
     public static final String DEFAULT_PASSWORD = "OpenNMS";
 
-    /**
-     * Default secret
-     */
+    /** Default secret. */
     public static final String DEFAULT_SECRET = "secret";
 
-    /**
-     * Default NAS_ID
-     */
+    /** Default NAS_ID. */
     public static final String DEFAULT_NAS_ID = "opennms";
 
     /**
+     * Checks if is radius.
+     *
      * @param host
      *            The address for the radius server test.
      * @param authport
@@ -135,12 +120,12 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      *            password for Radius authentication
      * @param secret
      *            Radius shared secret
-     * @param timeout
-     *            Timeout in milliseconds
-     * @param retry
-     *            Number of times to retry
      * @param nasid
      *            NAS Identifier to use
+     * @param retry
+     *            Number of times to retry
+     * @param timeout
+     *            Timeout in milliseconds
      * @return True if server, false if not.
      */
     private boolean isRadius(final InetAddress host, final int authport, final int acctport, final String authType,
@@ -252,6 +237,13 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
         return isRadius(address, authport, acctport, authType, user, password, secret, nasid, retry, timeout);
     }
 
+    /**
+     * Convert timeout to seconds.
+     *
+     * @param timeout
+     *            the timeout
+     * @return the int
+     */
     private int convertTimeoutToSeconds(int timeout) {
         return timeout / 1000 > 0 ? timeout / 1000 : 1;
     }

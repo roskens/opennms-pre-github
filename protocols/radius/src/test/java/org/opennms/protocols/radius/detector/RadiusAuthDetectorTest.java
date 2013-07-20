@@ -48,23 +48,39 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class RadiusAuthDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class RadiusAuthDetectorTest implements ApplicationContextAware, InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public RadiusAuthDetector m_detector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test detector fail.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFail() throws UnknownHostException {
         m_detector.setTimeout(1);
@@ -77,6 +93,12 @@ public class RadiusAuthDetectorTest implements ApplicationContextAware, Initiali
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.100")));
     }
 
+    /**
+     * Test run detector in temp thread.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test(timeout = 90000)
     @Ignore
     public void testRunDetectorInTempThread() throws InterruptedException {
@@ -97,6 +119,12 @@ public class RadiusAuthDetectorTest implements ApplicationContextAware, Initiali
         }
     }
 
+    /**
+     * Test detector pass.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     @Ignore("have to have a radius server set up")
     public void testDetectorPass() throws UnknownHostException {
@@ -110,6 +138,9 @@ public class RadiusAuthDetectorTest implements ApplicationContextAware, Initiali
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.211.11")));
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 

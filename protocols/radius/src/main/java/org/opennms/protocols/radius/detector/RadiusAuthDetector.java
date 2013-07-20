@@ -54,6 +54,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class RadiusAuthDetector.
+ */
 @Component
 /**
  * <p>RadiusAuthDetector class.</p>
@@ -64,68 +67,63 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthDetector.class);
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "RadiusAuth";
 
-    /**
-     * Default radius authentication port
-     */
+    /** Default radius authentication port. */
     public static final int DEFAULT_AUTH_PORT = 1812;
 
-    /**
-     * Default radius accounting port
-     */
+    /** Default radius accounting port. */
     public static final int DEFAULT_ACCT_PORT = 1813;
 
-    /**
-     * Default radius authentication type
-     */
+    /** Default radius authentication type. */
     public static final String DEFAULT_AUTH_TYPE = "pap";
 
-    /**
-     * Default user
-     */
+    /** Default user. */
     public static final String DEFAULT_USER = "OpenNMS";
 
-    /**
-     * Default password
-     */
+    /** Default password. */
     public static final String DEFAULT_PASSWORD = "OpenNMS";
 
-    /**
-     * Default secret
-     */
+    /** Default secret. */
     public static final String DEFAULT_SECRET = "secret";
 
-    /**
-     * Default NAS_ID
-     */
+    /** Default NAS_ID. */
     public static final String DEFAULT_NAS_ID = "opennms";
 
+    /** The m_authport. */
     private int m_authport = DEFAULT_AUTH_PORT;
 
+    /** The m_acctport. */
     private int m_acctport = DEFAULT_ACCT_PORT;
 
+    /** The m_secret. */
     private String m_secret = DEFAULT_SECRET;
 
+    /** The m_auth type. */
     private String m_authType = DEFAULT_AUTH_TYPE;
 
+    /** The m_nasid. */
     private String m_nasid = DEFAULT_NAS_ID;
 
+    /** The m_user. */
     private String m_user = DEFAULT_USER;
 
+    /** The m_password. */
     private String m_password = DEFAULT_PASSWORD;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     protected RadiusAuthDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_AUTH_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -144,7 +142,15 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     }
 
     /**
-     * @return
+     * Expect valid response.
+     *
+     * @param accept
+     *            the accept
+     * @param challenge
+     *            the challenge
+     * @param reject
+     *            the reject
+     * @return the response validator
      */
     private static ResponseValidator<RadiusPacket> expectValidResponse(final Class<?> accept, final Class<?> challenge,
             final Class<?> reject) {
@@ -159,6 +165,17 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
         };
     }
 
+    /**
+     * Request.
+     *
+     * @param nasID
+     *            the nas id
+     * @param user
+     *            the user
+     * @param password
+     *            the password
+     * @return the request builder
+     */
     private static RequestBuilder<AttributeList> request(final String nasID, final String user, final String password) {
         LOG.debug("request: nasID = {}, user = {}, password = {}", nasID, user, password);
 
@@ -191,6 +208,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setAuthPort
      * </p>
+     * .
      *
      * @param authport
      *            a int.
@@ -203,6 +221,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getAuthPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -214,6 +233,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setAcctPort
      * </p>
+     * .
      *
      * @param acctport
      *            a int.
@@ -226,6 +246,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getAcctPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -237,6 +258,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setSecret
      * </p>
+     * .
      *
      * @param secret
      *            a {@link java.lang.String} object.
@@ -249,6 +271,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getSecret
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -260,6 +283,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setAuthType
      * </p>
+     * .
      *
      * @param authType
      *            a {@link java.lang.String} object.
@@ -272,6 +296,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getAuthType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -279,6 +304,11 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
         return m_authType;
     }
 
+    /**
+     * Gets the authenticator.
+     *
+     * @return the authenticator
+     */
     public RadiusAuthenticator getAuthenticator() {
         final RadiusAuthenticator auth;
         final String authType = getAuthType();
@@ -304,6 +334,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setNasID
      * </p>
+     * .
      *
      * @param nasid
      *            a {@link java.lang.String} object.
@@ -316,6 +347,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getNasID
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -327,6 +359,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -339,6 +372,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -350,6 +384,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -362,6 +397,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -43,19 +43,31 @@ import org.junit.Test;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
+ * The Class RadiusAuthenticationProviderTest.
  */
 public class RadiusAuthenticationProviderTest {
 
+    /** The m_radius server. */
     private String m_radiusServer = "127.0.0.1";
 
+    /** The m_shared secret. */
     private String m_sharedSecret = "testing123";
 
+    /** The m_principal. */
     private Object m_principal = "test";
 
+    /** The m_username. */
     private final String m_username = "test";
 
+    /** The m_credentials. */
     private Object m_credentials = "opennms";
 
+    /**
+     * Test retrieve user default.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserDefault() throws IOException {
@@ -69,6 +81,12 @@ public class RadiusAuthenticationProviderTest {
         provider.retrieveUser(m_username, token);
     }
 
+    /**
+     * Test retrieve user pap.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserPap() throws IOException {
@@ -82,6 +100,12 @@ public class RadiusAuthenticationProviderTest {
         provider.retrieveUser(m_username, token);
     }
 
+    /**
+     * Test retrieve user chap.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserChap() throws IOException {
@@ -99,6 +123,9 @@ public class RadiusAuthenticationProviderTest {
      * This test will use null as the authenticator value, which will default to
      * using
      * PAP authentication.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
@@ -106,42 +133,84 @@ public class RadiusAuthenticationProviderTest {
         doTestRetrieveUserMultipleTimes(null);
     }
 
+    /**
+     * Test retrieve user multiple times pap.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesPAP() throws IOException {
         doTestRetrieveUserMultipleTimes(new PAPAuthenticator());
     }
 
+    /**
+     * Test retrieve user multiple times chap.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesCHAP() throws IOException {
         doTestRetrieveUserMultipleTimes(new CHAPAuthenticator());
     }
 
+    /**
+     * Test retrieve user multiple times eapm d5.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesEAPMD5() throws IOException {
         doTestRetrieveUserMultipleTimes(new EAPMD5Authenticator());
     }
 
+    /**
+     * Test retrieve user multiple times eapmscha pv2.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesEAPMSCHAPv2() throws IOException {
         doTestRetrieveUserMultipleTimes(new EAPMSCHAPv2Authenticator());
     }
 
+    /**
+     * Test retrieve user multiple times mscha pv1.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesMSCHAPv1() throws IOException {
         doTestRetrieveUserMultipleTimes(new MSCHAPv1Authenticator());
     }
 
+    /**
+     * Test retrieve user multiple times mscha pv2.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @Ignore("Need to have a RADIUS server running on localhost")
     public void testRetrieveUserMultipleTimesMSCHAPv2() throws IOException {
         doTestRetrieveUserMultipleTimes(new MSCHAPv2Authenticator());
     }
 
+    /**
+     * Do test retrieve user multiple times.
+     *
+     * @param authenticator
+     *            the authenticator
+     */
     public void doTestRetrieveUserMultipleTimes(RadiusAuthenticator authenticator) {
         RadiusAuthenticationProvider provider = new RadiusAuthenticationProvider(m_radiusServer, m_sharedSecret);
         RadiusAuthenticator authTypeClass = authenticator;
