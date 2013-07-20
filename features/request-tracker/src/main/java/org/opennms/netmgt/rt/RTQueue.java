@@ -32,44 +32,89 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class RTQueue.
+ */
 public class RTQueue implements Serializable {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 875365658091878358L;
 
+    /** The m_id. */
     private long m_id;
 
+    /** The m_name. */
     private String m_name;
 
+    /**
+     * Instantiates a new rT queue.
+     */
     public RTQueue() {
     }
 
+    /**
+     * Instantiates a new rT queue.
+     *
+     * @param id
+     *            the id
+     * @param name
+     *            the name
+     */
     public RTQueue(final long id, final String name) {
         m_id = id;
         m_name = name;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public long getId() {
         return m_id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(final long id) {
         m_id = id;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(final String name) {
         m_name = name;
     }
 
+    /**
+     * Checks if is accessible.
+     *
+     * @return true, if is accessible
+     */
     public boolean isAccessible() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", m_id).append("name", m_name).append("accessible", isAccessible()).toString();

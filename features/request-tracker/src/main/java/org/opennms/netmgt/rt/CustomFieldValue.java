@@ -30,30 +30,56 @@ package org.opennms.netmgt.rt;
 
 import java.io.Serializable;
 
+/**
+ * The Class CustomFieldValue.
+ */
 public class CustomFieldValue implements Serializable {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1023360304505747481L;
 
+    /** The m_value. */
     private String m_value;
 
+    /**
+     * Instantiates a new custom field value.
+     */
     public CustomFieldValue() {
         // Empty default constructor
     }
 
+    /**
+     * Instantiates a new custom field value.
+     *
+     * @param value
+     *            the value
+     */
     public CustomFieldValue(final String value) {
         setValue(value);
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value) {
         m_value = value;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return m_value;

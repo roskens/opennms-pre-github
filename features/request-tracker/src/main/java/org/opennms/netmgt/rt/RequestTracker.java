@@ -62,31 +62,61 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RequestTracker.
+ */
 public class RequestTracker {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RequestTracker.class);
 
+    /** The m_base url. */
     private final String m_baseURL;
 
+    /** The m_user. */
     private String m_user;
 
+    /** The m_password. */
     private String m_password;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_retries. */
     private int m_retries;
 
+    /** The m_in tokens pattern. */
     private Pattern m_inTokensPattern = Pattern.compile("^(\\w+):\\s*(.*?)\\s*$", Pattern.MULTILINE);
 
+    /** The m_ticket created pattern. */
     private Pattern m_ticketCreatedPattern = Pattern.compile("(?s) Ticket (\\d+) created");
 
+    /** The m_ticket updated pattern. */
     private Pattern m_ticketUpdatedPattern = Pattern.compile("(?s) Ticket (\\d+) updated");
 
+    /** The m_custom field pattern old. */
     private Pattern m_customFieldPatternOld = Pattern.compile("^C(?:ustom)?F(?:ield)?-(.*?):\\s*(.*?)\\s*$");
 
+    /** The m_custom field pattern new. */
     private Pattern m_customFieldPatternNew = Pattern.compile("^CF\\.\\{(.*?)\\}:\\s*(.*?)\\s*$");
 
+    /** The m_client. */
     private DefaultHttpClient m_client;
 
+    /**
+     * Instantiates a new request tracker.
+     *
+     * @param baseURL
+     *            the base url
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     */
     public RequestTracker(final String baseURL, final String username, final String password, int timeout, int retries) {
         m_baseURL = baseURL;
         m_user = username;
@@ -95,16 +125,49 @@ public class RequestTracker {
         m_retries = retries;
     }
 
+    /**
+     * Creates the ticket.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the long
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public Long createTicket(final RTTicket ticket) throws RequestTrackerException {
         final HttpPost post = new HttpPost(m_baseURL + "/REST/1.0/edit");
         return postEdit(post, ticket.toContent(), m_ticketCreatedPattern);
     }
 
+    /**
+     * Update ticket.
+     *
+     * @param id
+     *            the id
+     * @param content
+     *            the content
+     * @return the long
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public Long updateTicket(final Long id, final String content) throws RequestTrackerException {
         HttpPost post = new HttpPost(m_baseURL + "/REST/1.0/ticket/" + id + "/edit");
         return postEdit(post, content, m_ticketUpdatedPattern);
     }
 
+    /**
+     * Post edit.
+     *
+     * @param post
+     *            the post
+     * @param content
+     *            the content
+     * @param pattern
+     *            the pattern
+     * @return the long
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public Long postEdit(final HttpPost post, final String content, final Pattern pattern)
             throws RequestTrackerException {
         String rtTicketNumber = null;
@@ -148,6 +211,13 @@ public class RequestTracker {
         return Long.valueOf(rtTicketNumber);
     }
 
+    /**
+     * Gets the user info.
+     *
+     * @param username
+     *            the username
+     * @return the user info
+     */
     public RTUser getUserInfo(final String username) {
         getSession();
 
@@ -181,6 +251,17 @@ public class RequestTracker {
         return new RTUser(Long.parseLong(id.replace("user/", "")), username, realname, email);
     }
 
+    /**
+     * Gets the ticket.
+     *
+     * @param ticketId
+     *            the ticket id
+     * @param getTextAttachment
+     *            the get text attachment
+     * @return the ticket
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public RTTicket getTicket(final Long ticketId, boolean getTextAttachment) throws RequestTrackerException {
         getSession();
 
@@ -241,6 +322,15 @@ public class RequestTracker {
         return ticket;
     }
 
+    /**
+     * Gets the tickets for queue.
+     *
+     * @param queueName
+     *            the queue name
+     * @param limit
+     *            the limit
+     * @return the tickets for queue
+     */
     public List<RTTicket> getTicketsForQueue(final String queueName, long limit) {
         getSession();
 
@@ -302,6 +392,15 @@ public class RequestTracker {
         return tickets;
     }
 
+    /**
+     * Gets the first public queue for user.
+     *
+     * @param username
+     *            the username
+     * @return the first public queue for user
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public RTQueue getFirstPublicQueueForUser(final String username) throws RequestTrackerException {
         if (username == null) {
             LOG.error("User name cannot be null.");
@@ -316,6 +415,15 @@ public class RequestTracker {
         return null;
     }
 
+    /**
+     * Gets the queues for user.
+     *
+     * @param username
+     *            the username
+     * @return the queues for user
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public List<RTQueue> getQueuesForUser(final String username) throws RequestTrackerException {
         if (username == null) {
             LOG.error("User name cannot be null.");
@@ -347,6 +455,15 @@ public class RequestTracker {
         return queues;
     }
 
+    /**
+     * Gets the queue.
+     *
+     * @param id
+     *            the id
+     * @return the queue
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     public RTQueue getQueue(long id) throws RequestTrackerException {
         getSession();
 
@@ -388,6 +505,15 @@ public class RequestTracker {
         }
     }
 
+    /**
+     * Gets the ticket attributes.
+     *
+     * @param ticketQuery
+     *            the ticket query
+     * @return the ticket attributes
+     * @throws RequestTrackerException
+     *             the request tracker exception
+     */
     private Map<String, String> getTicketAttributes(final String ticketQuery) throws RequestTrackerException {
         // don't try to get ticket if it's marked as not available
 
@@ -425,6 +551,15 @@ public class RequestTracker {
         return ticketAttributes;
     }
 
+    /**
+     * Parses the response stream.
+     *
+     * @param responseStream
+     *            the response stream
+     * @return the map
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected Map<String, String> parseResponseStream(final InputStream responseStream) throws IOException {
         final Map<String, String> ticketAttributes = new HashMap<String, String>();
 
@@ -460,6 +595,11 @@ public class RequestTracker {
         return ticketAttributes;
     }
 
+    /**
+     * Gets the session.
+     *
+     * @return the session
+     */
     private void getSession() {
         if (m_client == null) {
             // we need to log in at least once with a POST method before we can
@@ -496,6 +636,11 @@ public class RequestTracker {
         }
     }
 
+    /**
+     * Gets the client.
+     *
+     * @return the client
+     */
     public synchronized HttpClient getClient() {
         if (m_client == null) {
             m_client = new DefaultHttpClient();
@@ -513,18 +658,39 @@ public class RequestTracker {
         return m_client;
     }
 
+    /**
+     * Sets the client.
+     *
+     * @param client
+     *            the new client
+     */
     public synchronized void setClient(final DefaultHttpClient client) {
         m_client = client;
     }
 
+    /**
+     * Sets the user.
+     *
+     * @param user
+     *            the new user
+     */
     public void setUser(final String user) {
         m_user = user;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(final String password) {
         m_password = password;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("base-url", m_baseURL).append("username", m_user).append("password",
@@ -534,6 +700,11 @@ public class RequestTracker {
                                                                                                                                                               m_retries).toString();
     }
 
+    /**
+     * Gets the username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return m_user;
     }

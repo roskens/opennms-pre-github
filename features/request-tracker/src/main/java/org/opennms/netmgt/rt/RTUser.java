@@ -32,20 +32,38 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class RTUser.
+ */
 public class RTUser implements Serializable {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4830811460415894277L;
 
+    /** The m_id. */
     private long m_id;
 
+    /** The m_username. */
     private String m_username;
 
+    /** The m_realname. */
     private String m_realname;
 
+    /** The m_email. */
     private String m_email;
 
+    /**
+     * Instantiates a new rT user.
+     *
+     * @param id
+     *            the id
+     * @param username
+     *            the username
+     * @param realname
+     *            the realname
+     * @param email
+     *            the email
+     */
     public RTUser(final long id, String username, String realname, String email) {
         m_id = id;
         m_username = username;
@@ -53,22 +71,45 @@ public class RTUser implements Serializable {
         m_email = email;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public long getId() {
         return m_id;
     }
 
+    /**
+     * Gets the username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return m_username;
     }
 
+    /**
+     * Gets the realname.
+     *
+     * @return the realname
+     */
     public String getRealname() {
         return m_realname;
     }
 
+    /**
+     * Gets the email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return m_email;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", m_id).append("username", m_username).append("realname",

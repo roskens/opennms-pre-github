@@ -28,16 +28,27 @@
 
 package org.opennms.netmgt.rt;
 
+/**
+ * The Class RTInaccessibleQueue.
+ */
 public class RTInaccessibleQueue extends RTQueue {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3834736202776385557L;
 
+    /**
+     * Instantiates a new rT inaccessible queue.
+     *
+     * @param id
+     *            the id
+     */
     public RTInaccessibleQueue(final long id) {
         setId(id);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rt.RTQueue#isAccessible()
+     */
     @Override
     public boolean isAccessible() {
         return false;

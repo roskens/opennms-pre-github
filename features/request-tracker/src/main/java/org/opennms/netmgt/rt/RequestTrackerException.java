@@ -28,24 +28,49 @@
 
 package org.opennms.netmgt.rt;
 
+/**
+ * The Class RequestTrackerException.
+ */
 public class RequestTrackerException extends Exception {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7053842982537938474L;
 
+    /**
+     * Instantiates a new request tracker exception.
+     */
     public RequestTrackerException() {
         super();
     }
 
+    /**
+     * Instantiates a new request tracker exception.
+     *
+     * @param message
+     *            the message
+     */
     public RequestTrackerException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new request tracker exception.
+     *
+     * @param t
+     *            the t
+     */
     public RequestTrackerException(Throwable t) {
         super(t);
     }
 
+    /**
+     * Instantiates a new request tracker exception.
+     *
+     * @param message
+     *            the message
+     * @param t
+     *            the t
+     */
     public RequestTrackerException(String message, Throwable t) {
         super(message, t);
     }

@@ -38,41 +38,86 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RTTicket.
+ */
 public class RTTicket implements Serializable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RTTicket.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 445141747501076112L;
 
+    /** The m_trim. */
     private static Pattern m_trim = Pattern.compile("\\s*\\n*$");
 
+    /** The m_id. */
     private Long m_id;
 
+    /** The m_status. */
     private String m_status;
 
+    /** The m_queue. */
     private String m_queue;
 
+    /** The m_created. */
     private String m_created;
 
+    /** The m_requestors. */
     private List<String> m_requestors = new ArrayList<String>();
 
+    /** The m_subject. */
     private String m_subject;
 
+    /** The m_text. */
     private String m_text;
 
+    /** The m_custom fields. */
     private List<CustomField> m_customFields;
 
+    /**
+     * Instantiates a new rT ticket.
+     */
     public RTTicket() {
         m_customFields = new ArrayList<CustomField>();
     }
 
+    /**
+     * Instantiates a new rT ticket.
+     *
+     * @param queue
+     *            the queue
+     * @param requestor
+     *            the requestor
+     * @param subject
+     *            the subject
+     * @param text
+     *            the text
+     * @param customFields
+     *            the custom fields
+     */
     public RTTicket(final String queue, final String requestor, final String subject, final String text,
             final List<CustomField> customFields) {
         this(null, queue, requestor, subject, text, customFields);
     }
 
+    /**
+     * Instantiates a new rT ticket.
+     *
+     * @param id
+     *            the id
+     * @param queue
+     *            the queue
+     * @param requestor
+     *            the requestor
+     * @param subject
+     *            the subject
+     * @param text
+     *            the text
+     * @param customFields
+     *            the custom fields
+     */
     public RTTicket(final Long id, final String queue, final String requestor, final String subject, final String text,
             final List<CustomField> customFields) {
         m_id = id;
@@ -83,38 +128,87 @@ public class RTTicket implements Serializable {
         m_customFields = customFields;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return m_id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(final Long id) {
         m_id = id;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public String getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(final String status) {
         m_status = status;
     }
 
+    /**
+     * Gets the queue.
+     *
+     * @return the queue
+     */
     public String getQueue() {
         return m_queue;
     }
 
+    /**
+     * Sets the queue.
+     *
+     * @param queue
+     *            the new queue
+     */
     public void setQueue(final String queue) {
         m_queue = queue;
     }
 
+    /**
+     * Gets the created.
+     *
+     * @return the created
+     */
     public String getCreated() {
         return m_created;
     }
 
+    /**
+     * Sets the created.
+     *
+     * @param created
+     *            the new created
+     */
     public void setCreated(final String created) {
         m_created = created;
     }
 
+    /**
+     * Gets the requestor.
+     *
+     * @return the requestor
+     */
     public String getRequestor() {
         synchronized (m_requestors) {
             if (m_requestors.size() > 0) {
@@ -124,10 +218,21 @@ public class RTTicket implements Serializable {
         return null;
     }
 
+    /**
+     * Gets the requestors.
+     *
+     * @return the requestors
+     */
     public List<String> getRequestors() {
         return m_requestors;
     }
 
+    /**
+     * Sets the requestors.
+     *
+     * @param requestors
+     *            the new requestors
+     */
     public void setRequestors(final List<String> requestors) {
         synchronized (m_requestors) {
             if (m_requestors == requestors)
@@ -137,6 +242,12 @@ public class RTTicket implements Serializable {
         }
     }
 
+    /**
+     * Sets the requestor.
+     *
+     * @param requestor
+     *            the new requestor
+     */
     public void setRequestor(final String requestor) {
         synchronized (m_requestors) {
             m_requestors.clear();
@@ -144,38 +255,86 @@ public class RTTicket implements Serializable {
         }
     }
 
+    /**
+     * Adds the requestor.
+     *
+     * @param requestor
+     *            the requestor
+     */
     public void addRequestor(final String requestor) {
         m_requestors.add(requestor);
     }
 
+    /**
+     * Gets the subject.
+     *
+     * @return the subject
+     */
     public String getSubject() {
         return m_subject;
     }
 
+    /**
+     * Sets the subject.
+     *
+     * @param subject
+     *            the new subject
+     */
     public void setSubject(final String subject) {
         m_subject = subject;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     public String getText() {
         return m_text;
     }
 
+    /**
+     * Sets the text.
+     *
+     * @param text
+     *            the new text
+     */
     public void setText(final String text) {
         m_text = text;
     }
 
+    /**
+     * Gets the custom fields.
+     *
+     * @return the custom fields
+     */
     public List<CustomField> getCustomFields() {
         return m_customFields;
     }
 
+    /**
+     * Sets the custom fields.
+     *
+     * @param customFields
+     *            the new custom fields
+     */
     public void setCustomFields(List<CustomField> customFields) {
         m_customFields = customFields;
     }
 
+    /**
+     * Adds the custom field.
+     *
+     * @param customField
+     *            the custom field
+     */
     public void addCustomField(CustomField customField) {
         m_customFields.add(customField);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder customFields = new StringBuilder();
@@ -191,6 +350,11 @@ public class RTTicket implements Serializable {
                                                                                                                                                                                                           customFields.toString()).toString();
     }
 
+    /**
+     * To content.
+     *
+     * @return the string
+     */
     public String toContent() {
         final StringBuilder contentBuilder = new StringBuilder();
         if (m_id == null) {
@@ -223,6 +387,11 @@ public class RTTicket implements Serializable {
         return m_trim.matcher(contentBuilder.toString()).replaceAll("");
     }
 
+    /**
+     * Copy.
+     *
+     * @return the rT ticket
+     */
     public RTTicket copy() {
         final RTTicket newTicket = new RTTicket();
         newTicket.setId(m_id);
