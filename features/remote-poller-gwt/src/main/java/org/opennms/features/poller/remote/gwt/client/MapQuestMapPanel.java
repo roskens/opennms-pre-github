@@ -90,38 +90,69 @@ import com.googlecode.gwtmapquest.transaction.event.ZoomEndHandler;
 public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleClickHandlers, HasClickHandlers,
         RequiresResize {
 
+    /** The m_current info window lat lng. */
     public GWTLatLng m_currentInfoWindowLatLng = null;
 
+    /**
+     * The Class DefaultMarkerClickHandler.
+     */
     private class DefaultMarkerClickHandler implements ClickHandler {
 
+        /** The m_marker state. */
         private GWTMarkerState m_markerState;
 
+        /**
+         * Instantiates a new default marker click handler.
+         *
+         * @param markerState
+         *            the marker state
+         */
         public DefaultMarkerClickHandler(final GWTMarkerState markerState) {
             setMarkerState(markerState);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.dom.client.ClickHandler#onClick(com.google.gwt.event.dom.client.ClickEvent)
+         */
         @Override
         public void onClick(final ClickEvent event) {
             m_currentInfoWindowLatLng = getMarkerState().getLatLng();
             m_eventBus.fireEvent(new GWTMarkerClickedEvent(getMarkerState()));
         }
 
+        /**
+         * Sets the marker state.
+         *
+         * @param markerState
+         *            the new marker state
+         */
         public void setMarkerState(final GWTMarkerState markerState) {
             m_markerState = markerState;
         }
 
+        /**
+         * Gets the marker state.
+         *
+         * @return the marker state
+         */
         public GWTMarkerState getMarkerState() {
             return m_markerState;
         }
 
     }
 
+    /**
+     * The Class ClickCounter.
+     */
     private class ClickCounter {
 
+        /** The m_incr. */
         private int m_incr = 0;
 
+        /** The m_latlng. */
         private MQALatLng m_latlng = null;
 
+        /** The m_timer. */
         private Timer m_timer = new Timer() {
 
             @Override
@@ -138,6 +169,12 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
         };
 
+        /**
+         * Increment counter.
+         *
+         * @param latLng
+         *            the lat lng
+         */
         public void incrementCounter(MQALatLng latLng) {
             m_incr++;
             m_latlng = latLng;
@@ -147,22 +184,37 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
     }
 
+    /** The ui binder. */
     private static MapQuestMapPanelUiBinder uiBinder = GWT.create(MapQuestMapPanelUiBinder.class);
 
+    /** The m_map holder. */
     @UiField
     SimplePanel m_mapHolder;
 
+    /** The m_map. */
     private MQATileMap m_map;
 
+    /** The m_markers. */
     private Map<String, MQAPoi> m_markers = new HashMap<String, MQAPoi>();
 
+    /** The m_event bus. */
     private HandlerManager m_eventBus;
 
+    /** The m_click counter. */
     private ClickCounter m_clickCounter = new ClickCounter();
 
+    /**
+     * The Interface MapQuestMapPanelUiBinder.
+     */
     interface MapQuestMapPanelUiBinder extends UiBinder<Widget, MapQuestMapPanel> {
     }
 
+    /**
+     * Instantiates a new map quest map panel.
+     *
+     * @param eventBus
+     *            the event bus
+     */
     public MapQuestMapPanel(final HandlerManager eventBus) {
         m_eventBus = eventBus;
 
@@ -182,6 +234,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
      * <p>
      * initializeMap
      * </p>
+     * .
      */
     private void initializeMap() {
 
@@ -261,6 +314,13 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         }
     }
 
+    /**
+     * Creates the marker.
+     *
+     * @param marker
+     *            the marker
+     * @return the mQA poi
+     */
     private MQAPoi createMarker(final GWTMarkerState marker) {
         final MQALatLng latLng = toMQALatLng(marker.getLatLng());
         final MQAPoi point = (MQAPoi) MQAPoi.newInstance(latLng);
@@ -279,6 +339,13 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         return point;
     }
 
+    /**
+     * Creates the icon.
+     *
+     * @param marker
+     *            the marker
+     * @return the mQA icon
+     */
     private MQAIcon createIcon(final GWTMarkerState marker) {
         return MQAIcon.newInstance(marker.getImageURL(), 32, 32);
     }
@@ -287,6 +354,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
      * <p>
      * getBounds
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
      *         object.
@@ -302,10 +370,24 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         m_map.zoomToRect(toMQARectLL(b));
     }
 
+    /**
+     * To mqa lat lng.
+     *
+     * @param latLng
+     *            the lat lng
+     * @return the mQA lat lng
+     */
     private static MQALatLng toMQALatLng(final GWTLatLng latLng) {
         return MQALatLng.newInstance(latLng.getLatitude(), latLng.getLongitude());
     }
 
+    /**
+     * To gwt bounds.
+     *
+     * @param bounds
+     *            the bounds
+     * @return the gWT bounds
+     */
     private static GWTBounds toGWTBounds(final MQARectLL bounds) {
         final BoundsBuilder bldr = new BoundsBuilder();
         bldr.extend(bounds.getUpperLeft().getLatitude(), bounds.getUpperLeft().getLongitude());
@@ -313,6 +395,13 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         return bldr.getBounds();
     }
 
+    /**
+     * To mqa rect ll.
+     *
+     * @param bounds
+     *            the bounds
+     * @return the mQA rect ll
+     */
     private static MQARectLL toMQARectLL(final GWTBounds bounds) {
         final MQALatLng ne = toMQALatLng(bounds.getNorthEastCorner());
         final MQALatLng sw = toMQALatLng(bounds.getSouthWestCorner());
@@ -320,6 +409,9 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         return mqBounds;
     }
 
+    /**
+     * Sync map size with parent.
+     */
     private void syncMapSizeWithParent() {
         m_map.setSize();
     }
@@ -343,11 +435,26 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
     }
 
+    /**
+     * Update marker.
+     *
+     * @param m
+     *            the m
+     * @param marker
+     *            the marker
+     */
     private void updateMarker(final MQAPoi m, final GWTMarkerState marker) {
         m.setIcon(createIcon(marker));
         m.setVisible(marker.isVisible());
     }
 
+    /**
+     * Gets the marker.
+     *
+     * @param name
+     *            the name
+     * @return the marker
+     */
     private MQAPoi getMarker(final String name) {
         return m_markers.get(name);
     }
@@ -356,6 +463,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
      * <p>
      * getWidget
      * </p>
+     * .
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */
@@ -376,17 +484,29 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         return addDomHandler(handler, ClickEvent.getType());
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#fireEvent(com.google.gwt.event.shared.GwtEvent)
+     */
     @Override
     public void fireEvent(GwtEvent<?> event) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.RequiresResize#onResize()
+     */
     @Override
     public void onResize() {
         syncMapSizeWithParent();
     }
 
+    /**
+     * Update poi layer.
+     *
+     * @param markerElement
+     *            the marker element
+     */
     private void updatePOILayer(Element markerElement) {
         String markerImageSrc = Element.as(markerElement.getFirstChild()).getAttribute("src");
         String currentStyles = markerElement.getAttribute("style");

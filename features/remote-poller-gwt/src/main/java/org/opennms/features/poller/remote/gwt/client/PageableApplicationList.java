@@ -60,41 +60,77 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class PageableApplicationList extends PageableList implements ApplicationDetailsRetrievedEventHandler {
 
+    /** The m_applications. */
     private ArrayList<ApplicationInfo> m_applications;
 
+    /** The m_event bus. */
     private HandlerManager m_eventBus;
 
+    /** The m_selected. */
     private Set<ApplicationInfo> m_selected = null;
 
+    /** The m_selected app details. */
     private Map<String, ApplicationDetails> m_selectedAppDetails = new HashMap<String, ApplicationDetails>();
 
+    /**
+     * The Interface ApplicationDetailStyle.
+     */
     interface ApplicationDetailStyle extends LocationDetailStyle {
+
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#detailContainerStyle()
+         */
         @Override
         String detailContainerStyle();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#iconStyle()
+         */
         @Override
         String iconStyle();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#nameStyle()
+         */
         @Override
         String nameStyle();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#areaStyle()
+         */
         @Override
         String areaStyle();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#statusStyle()
+         */
         @Override
         String statusStyle();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.PageableList.LocationDetailStyle#alternateRowStyle()
+         */
         @Override
         String alternateRowStyle();
     }
 
+    /**
+     * The Class ApplicationDetailView.
+     */
     private class ApplicationDetailView extends Widget {
+
+        /** The m_icon. */
         final Image m_icon = new Image();
 
+        /** The m_name label. */
         final Label m_nameLabel = new Label();
 
+        /** The m_status label. */
         final HTML m_statusLabel = new HTML();
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.Widget#doAttachChildren()
+         */
         @Override
         protected void doAttachChildren() {
             super.doAttachChildren();
@@ -103,18 +139,30 @@ public class PageableApplicationList extends PageableList implements Application
             DOM.appendChild(this.getElement(), m_statusLabel.getElement());
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.Widget#onLoad()
+         */
         @Override
         protected void onLoad() {
             super.onLoad();
             resizeToFit();
         }
 
+        /**
+         * Resize to fit.
+         */
         private void resizeToFit() {
             final int calculatedHeight = m_nameLabel.getOffsetHeight() + m_statusLabel.getOffsetHeight();
             final int newHeight = calculatedHeight > 60 ? calculatedHeight : 60;
             setHeight(Integer.toString(newHeight + 2));
         }
 
+        /**
+         * Instantiates a new application detail view.
+         *
+         * @param applicationInfo
+         *            the application info
+         */
         public ApplicationDetailView(final ApplicationInfo applicationInfo) {
             setElement(Document.get().createDivElement());
             setStyles();
@@ -124,6 +172,13 @@ public class PageableApplicationList extends PageableList implements Application
             m_statusLabel.setHTML(getApplicationStatusHTML(applicationInfo));
         }
 
+        /**
+         * Gets the application status html.
+         *
+         * @param applicationInfo
+         *            the application info
+         * @return the application status html
+         */
         private String getApplicationStatusHTML(final ApplicationInfo applicationInfo) {
             if (m_selected != null && checkIfApplicationIsSelected(applicationInfo.getName())) {
                 return getSelectedApplicationDetailsAsString(applicationInfo.getName()) != null ? getSelectedApplicationDetailsAsString(applicationInfo.getName())
@@ -133,6 +188,9 @@ public class PageableApplicationList extends PageableList implements Application
             }
         }
 
+        /**
+         * Sets the styles.
+         */
         private void setStyles() {
             setStyleName(locationDetailStyle.detailContainerStyle());
             final String iconStyle = locationDetailStyle.iconStyle();
@@ -155,6 +213,7 @@ public class PageableApplicationList extends PageableList implements Application
      * <p>
      * getSelectedApplicationDetailsAsString
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -173,6 +232,7 @@ public class PageableApplicationList extends PageableList implements Application
      * <p>
      * checkIfApplicationIsSelected
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -182,6 +242,13 @@ public class PageableApplicationList extends PageableList implements Application
         return findSelectedApplication(name) != null ? true : false;
     }
 
+    /**
+     * Find selected application.
+     *
+     * @param name
+     *            the name
+     * @return the application info
+     */
     private ApplicationInfo findSelectedApplication(String name) {
         for (ApplicationInfo appInfo : m_selected) {
             if (appInfo.getName().equals(name)) {
@@ -193,7 +260,7 @@ public class PageableApplicationList extends PageableList implements Application
 
     /**
      * TODO: Maybe enhance this so that it only adds/updates/deletes individual
-     * items TODO: Don't skip to the front page on every update
+     * items TODO: Don't skip to the front page on every update.
      *
      * @param applications
      *            a {@link java.util.ArrayList} object.
@@ -209,10 +276,21 @@ public class PageableApplicationList extends PageableList implements Application
         return new ApplicationDetailView(getApplications().get(index));
     }
 
+    /**
+     * Sets the applications.
+     *
+     * @param applications
+     *            the new applications
+     */
     private void setApplications(final ArrayList<ApplicationInfo> applications) {
         m_applications = applications;
     }
 
+    /**
+     * Gets the applications.
+     *
+     * @return the applications
+     */
     private ArrayList<ApplicationInfo> getApplications() {
         return m_applications;
     }
@@ -239,6 +317,7 @@ public class PageableApplicationList extends PageableList implements Application
      * <p>
      * setEventBus
      * </p>
+     * .
      *
      * @param eventBus
      *            a {@link com.google.gwt.event.shared.HandlerManager} object.
@@ -248,6 +327,9 @@ public class PageableApplicationList extends PageableList implements Application
         registerHandlers();
     }
 
+    /**
+     * Register handlers.
+     */
     private void registerHandlers() {
         m_eventBus.addHandler(ApplicationDetailsRetrievedEvent.TYPE, this);
 
@@ -274,6 +356,7 @@ public class PageableApplicationList extends PageableList implements Application
      * <p>
      * refreshApplicationListResize
      * </p>
+     * .
      */
     public void refreshApplicationListResize() {
         for (int i = 0; i < getDataList().getRowCount(); i++) {
@@ -287,6 +370,7 @@ public class PageableApplicationList extends PageableList implements Application
      * <p>
      * updateSelectedApplications
      * </p>
+     * .
      *
      * @param selectedApplications
      *            a {@link java.util.Set} object.

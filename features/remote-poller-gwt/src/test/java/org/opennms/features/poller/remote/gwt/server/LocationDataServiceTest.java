@@ -77,6 +77,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class LocationDataServiceTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -88,51 +91,76 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 @Transactional
 public class LocationDataServiceTest implements TemporaryDatabaseAware<TemporaryDatabase>, InitializingBean {
+
+    /** The m_location data service. */
     @Autowired
     private LocationDataService m_locationDataService;
 
+    /** The m_location monitor dao. */
     @Autowired
     private LocationMonitorDaoHibernate m_locationMonitorDao;
 
+    /** The m_application dao. */
     @Autowired
     private ApplicationDao m_applicationDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_poller back end. */
     @Autowired
     private PollerBackEnd m_pollerBackEnd;
 
+    /** The m_rdu monitor1. */
     private OnmsLocationMonitor m_rduMonitor1;
 
+    /** The m_rdu monitor2. */
     private OnmsLocationMonitor m_rduMonitor2;
 
+    /** The m_localhost http service. */
     private OnmsMonitoredService m_localhostHttpService;
 
+    /** The m_google http service. */
     private OnmsMonitoredService m_googleHttpService;
 
     // private Date m_pollingEnd = getMidnight();
+    /** The m_polling end. */
     private Date m_pollingEnd = new Date();
 
+    /** The m_polling start. */
     private Date m_pollingStart = new Date(m_pollingEnd.getTime() - (1000 * 60 * 60 * 24));
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -197,23 +225,60 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         m_pollingStart = new Date(m_pollingEnd.getTime() - (1000 * 60 * 60 * 24));
     }
 
+    /**
+     * Days.
+     *
+     * @param numDays
+     *            the num days
+     * @return the long
+     */
     private long days(int numDays) {
         return 86400000 * numDays;
     }
 
+    /**
+     * Hours.
+     *
+     * @param numHours
+     *            the num hours
+     * @return the long
+     */
     private long hours(int numHours) {
         return 3600000 * numHours;
     }
 
+    /**
+     * Minutes.
+     *
+     * @param numMinutes
+     *            the num minutes
+     * @return the long
+     */
     @SuppressWarnings("unused")
     private long minutes(int numMinutes) {
         return 60000 * numMinutes;
     }
 
+    /**
+     * Now.
+     *
+     * @return the long
+     */
     private long now() {
         return System.currentTimeMillis();
     }
 
+    /**
+     * Creates the service.
+     *
+     * @param app
+     *            the app
+     * @param localhostIpInterface
+     *            the localhost ip interface
+     * @param httpServiceType
+     *            the http service type
+     * @return the onms monitored service
+     */
     private OnmsMonitoredService createService(OnmsApplication app, OnmsIpInterface localhostIpInterface,
             OnmsServiceType httpServiceType) {
         OnmsMonitoredService service = new OnmsMonitoredService();
@@ -231,6 +296,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         return service;
     }
 
+    /**
+     * Test location info.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLocationInfo() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
@@ -251,6 +322,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(Status.DOWN, li.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test location details.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLocationDetails() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
@@ -270,6 +347,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(Status.DOWN, ld.getLocationMonitorState().getStatusDetails().getStatus());
     }
 
+    /**
+     * Test location monitor state.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLocationMonitorState() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
@@ -296,6 +379,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
     }
 
+    /**
+     * Test application info.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationInfo() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now()
@@ -315,6 +404,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(Status.DOWN, ai.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application details fully available one monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsFullyAvailableOneMonitor() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(),
@@ -326,6 +421,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(StatusDetails.up(), ad.getStatusDetails());
     }
 
+    /**
+     * Test application details half available one monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsHalfAvailableOneMonitor() throws Exception {
         // first, everything's up
@@ -347,6 +448,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals("currently available", StatusDetails.up(), ad.getStatusDetails());
     }
 
+    /**
+     * Test application details down one monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsDownOneMonitor() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(m_pollingStart));
@@ -357,6 +464,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals("down for 24 hours", StatusDetails.down("foo"), ad.getStatusDetails());
     }
 
+    /**
+     * Test application details two monitors marginal.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsTwoMonitorsMarginal() throws Exception {
         // first, everything's up
@@ -380,6 +493,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals("currently available", StatusDetails.up(), ad.getStatusDetails());
     }
 
+    /**
+     * Test application details two monitors outage contained in other.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsTwoMonitorsOutageContainedInOther() throws Exception {
         // first, everything's up
@@ -410,6 +529,12 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals("currently available", StatusDetails.up(), ad.getStatusDetails());
     }
 
+    /**
+     * Test application details two monitors outages overlap.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationDetailsTwoMonitorsOutagesOverlap() throws Exception {
         // first, everything's up
@@ -443,6 +568,9 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertTrue(detailString.contains(""));
     }
 
+    /**
+     * Test interval manipulation.
+     */
     @Test
     public void testIntervalManipulation() {
         Set<Interval> intervals = IntervalUtils.getIntervalSet();
@@ -486,18 +614,35 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(normalizedMatch, normalized);
     }
 
+    /**
+     * Gets the down.
+     *
+     * @param date
+     *            the date
+     * @return the down
+     */
     private PollStatus getDown(final Date date) {
         final PollStatus ps = PollStatus.down("butt itches");
         ps.setTimestamp(date);
         return ps;
     }
 
+    /**
+     * Gets the available.
+     *
+     * @param date
+     *            the date
+     * @return the available
+     */
     private PollStatus getAvailable(final Date date) {
         final PollStatus ps = PollStatus.available();
         ps.setTimestamp(date);
         return ps;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseAware#setTemporaryDatabase(org.opennms.core.test.db.TemporaryDatabase)
+     */
     @Override
     public void setTemporaryDatabase(TemporaryDatabase database) {
         FilterDaoFactory.setInstance(null);

@@ -41,8 +41,10 @@ import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
  */
 public class GWTBounds {
 
+    /** The m_north east corner. */
     GWTLatLng m_northEastCorner;
 
+    /** The m_south west corner. */
     GWTLatLng m_southWestCorner;
 
     /**
@@ -52,10 +54,10 @@ public class GWTBounds {
      *
      * @param southWestCorner
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
-     *            object.
      * @param northEastCorner
      *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *            object.
      *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *            object.
      */
@@ -86,17 +88,25 @@ public class GWTBounds {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param coords
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *         object.
      */
     public boolean contains(GWTLatLng coords) {
         return containsLongitude(coords.getLongitude()) && containsLatitude(coords.getLatitude());
     }
 
+    /**
+     * Contains longitude.
+     *
+     * @param longitude
+     *            the longitude
+     * @return true, if successful
+     */
     private boolean containsLongitude(Double longitude) {
         if (m_southWestCorner.getLongitude() <= m_northEastCorner.getLongitude()) {
             return m_southWestCorner.getLongitude() <= longitude && longitude <= m_northEastCorner.getLongitude();
@@ -105,6 +115,13 @@ public class GWTBounds {
         }
     }
 
+    /**
+     * Contains latitude.
+     *
+     * @param latitude
+     *            the latitude
+     * @return true, if successful
+     */
     private boolean containsLatitude(Double latitude) {
         return m_southWestCorner.getLatitude() <= latitude && latitude <= m_northEastCorner.getLatitude();
     }
@@ -113,12 +130,13 @@ public class GWTBounds {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param bounds
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     public boolean contains(GWTBounds bounds) {
         return contains(bounds.getNorthEastCorner()) && contains(bounds.getSouthWestCorner());
@@ -128,6 +146,7 @@ public class GWTBounds {
      * <p>
      * getSouthWestCorner
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
@@ -140,6 +159,7 @@ public class GWTBounds {
      * <p>
      * getNorthEastCorner
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
@@ -162,6 +182,7 @@ public class GWTBounds {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -174,6 +195,7 @@ public class GWTBounds {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

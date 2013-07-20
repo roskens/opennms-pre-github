@@ -43,9 +43,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<ApplicationDeselectedEventHandler> TYPE = new Type<ApplicationDeselectedEventHandler>();
 
+    /** The m_app info. */
     private ApplicationInfo m_appInfo;
 
     /**
@@ -78,6 +79,7 @@ public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEv
      * <p>
      * setAppInfo
      * </p>
+     * .
      *
      * @param appInfo
      *            a
@@ -92,6 +94,7 @@ public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEv
      * <p>
      * getAppInfo
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}

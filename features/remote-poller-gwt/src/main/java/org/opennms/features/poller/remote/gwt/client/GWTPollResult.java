@@ -46,14 +46,19 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class GWTPollResult implements Serializable, IsSerializable, Comparable<GWTPollResult> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5776838083982296014L;
 
+    /** The m_status. */
     private String m_status;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
+    /** The m_reason. */
     private String m_reason;
 
+    /** The m_response time. */
     private Double m_responseTime;
 
     /**
@@ -89,6 +94,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * getReason
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +106,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * setReason
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -112,6 +119,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * getResponseTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -123,6 +131,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * setResponseTime
      * </p>
+     * .
      *
      * @param responseTime
      *            a {@link java.lang.Double} object.
@@ -135,6 +144,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,6 +156,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a {@link java.lang.String} object.
@@ -158,6 +169,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * getTimestamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -169,6 +181,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * setTimestamp
      * </p>
+     * .
      *
      * @param timestamp
      *            a {@link java.util.Date} object.
@@ -181,6 +194,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * isDown
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -192,6 +206,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * available
      * </p>
+     * .
      *
      * @param responseTime
      *            a int.
@@ -211,6 +226,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * down
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -230,6 +246,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -243,12 +260,13 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTPollResult}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTPollResult}
+     *         object.
      */
     @Override
     public int compareTo(GWTPollResult that) {

@@ -88,22 +88,38 @@ import org.springframework.transaction.annotation.Transactional;
  * </p>
  */
 public class DefaultLocationDataService implements LocationDataService, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLocationDataService.class);
 
     /**
-     * MonitorTracker
+     * MonitorTracker.
      *
      * @author brozow
      */
     public class MonitorTracker {
 
+        /** The m_monitors. */
         Map<String, List<OnmsLocationMonitor>> m_monitors = new HashMap<String, List<OnmsLocationMonitor>>();
 
+        /**
+         * On monitor.
+         *
+         * @param locationMon
+         *            the location mon
+         */
         public void onMonitor(OnmsLocationMonitor locationMon) {
             List<OnmsLocationMonitor> monitors = getMonitorList(locationMon.getDefinitionName());
             monitors.add(locationMon);
         }
 
+        /**
+         * Gets the monitor list.
+         *
+         * @param definitionName
+         *            the definition name
+         * @return the monitor list
+         */
         private List<OnmsLocationMonitor> getMonitorList(String definitionName) {
             List<OnmsLocationMonitor> monitors = m_monitors.get(definitionName);
             if (monitors == null) {
@@ -113,6 +129,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             return monitors;
         }
 
+        /**
+         * Drain.
+         *
+         * @param defName
+         *            the def name
+         * @return the collection
+         */
         public Collection<GWTLocationMonitor> drain(String defName) {
             final Collection<GWTLocationMonitor> gwtMonitors = new ArrayList<GWTLocationMonitor>();
             if (!m_monitors.containsKey(defName))
@@ -129,17 +152,22 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
 
     }
 
+    /** The Constant AVAILABILITY_MS. */
     private static final int AVAILABILITY_MS = 1000 * 60 * 60 * 24; // 1 day
 
+    /** The m_location dao. */
     @Autowired
     private LocationMonitorDao m_locationDao;
 
+    /** The m_application dao. */
     @Autowired
     private ApplicationDao m_applicationDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_geocoder. */
     @Autowired
     private Geocoder m_geocoder;
 
@@ -147,6 +175,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
@@ -160,6 +189,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * setApplicationDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.ApplicationDao} object.
@@ -172,6 +202,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -185,6 +216,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * setGeocoder
      * </p>
+     * .
      *
      * @param geocoder
      *            a
@@ -195,11 +227,14 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         m_geocoder = geocoder;
     }
 
+    /** The m_initialization latch. */
     private CountDownLatch m_initializationLatch = new CountDownLatch(1);
 
+    /** The m_monitor statuses. */
     private volatile Map<String, MonitorStatus> m_monitorStatuses = new HashMap<String, MonitorStatus>();
 
     // whether to save monitoring-locations.xml changes
+    /** The m_save. */
     public boolean m_save = true;
 
     /**
@@ -214,6 +249,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * setSave
      * </p>
+     * .
      *
      * @param save
      *            a boolean.
@@ -226,6 +262,10 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -237,15 +277,26 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * initialize
      * </p>
+     * .
      */
     public void initialize() {
         new InitializationThread().start();
     }
 
+    /**
+     * The Class InitializationThread.
+     */
     private class InitializationThread extends Thread {
+
+        /**
+         * Instantiates a new initialization thread.
+         */
         public InitializationThread() {
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             updateGeolocations();
@@ -270,12 +321,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getLocationInfo
      * </p>
+     * .
      *
      * @param def
      *            a
-     *            {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
+     *         object.
      *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
      *         object.
      */
@@ -294,6 +346,15 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return getLocationInfo(def, monitorStatus);
     }
 
+    /**
+     * Gets the location info.
+     *
+     * @param def
+     *            the def
+     * @param monitorStatus
+     *            the monitor status
+     * @return the location info
+     */
     private LocationInfo getLocationInfo(final OnmsMonitoringLocationDefinition def, final StatusDetails monitorStatus) {
         GWTLatLng latLng = getLatLng(def, false);
 
@@ -380,6 +441,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getApplicationInfo
      * </p>
+     * .
      *
      * @param app
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
@@ -436,6 +498,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getStatusDetailsForApplicationOld
      * </p>
+     * .
      *
      * @param app
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
@@ -523,12 +586,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getLocationDetails
      * </p>
+     * .
      *
      * @param def
      *            a
-     *            {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition}
+     *         object.
      *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}
      *         object.
      */
@@ -597,6 +661,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getApplicationDetails
      * </p>
+     * .
      *
      * @param app
      *            a {@link org.opennms.netmgt.model.OnmsApplication} object.
@@ -770,6 +835,12 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return apps.values();
     }
 
+    /**
+     * Wait for geocoding.
+     *
+     * @param method
+     *            the method
+     */
     void waitForGeocoding(final String method) {
         if (m_initializationLatch.getCount() > 0) {
             LOG.warn("{}() waiting for geocoding to finish", method);
@@ -786,6 +857,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * updateGeolocations
      * </p>
+     * .
      */
     public void updateGeolocations() {
         LOG.info("geolocating monitoring location definitions");
@@ -808,11 +880,19 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * updateGeolocationsComplete
      * </p>
+     * .
      */
     public void updateGeolocationsComplete() {
         m_initializationLatch.countDown();
     }
 
+    /**
+     * Transform poll result.
+     *
+     * @param pollStatus
+     *            the poll status
+     * @return the gWT poll result
+     */
     private static GWTPollResult transformPollResult(final PollStatus pollStatus) {
         final GWTPollResult gResult = new GWTPollResult();
         gResult.setReason(pollStatus.getReason());
@@ -822,6 +902,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return gResult;
     }
 
+    /**
+     * Transform monitored service.
+     *
+     * @param monitoredService
+     *            the monitored service
+     * @return the gWT monitored service
+     */
     private static GWTMonitoredService transformMonitoredService(final OnmsMonitoredService monitoredService) {
         final GWTMonitoredService service = new GWTMonitoredService();
         service.setId(monitoredService.getId());
@@ -842,6 +929,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return service;
     }
 
+    /**
+     * Transform location specific status.
+     *
+     * @param status
+     *            the status
+     * @return the gWT location specific status
+     */
     private static GWTLocationSpecificStatus transformLocationSpecificStatus(final OnmsLocationSpecificStatus status) {
         final GWTLocationSpecificStatus gStatus = new GWTLocationSpecificStatus();
         gStatus.setId(status.getId());
@@ -851,6 +945,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return gStatus;
     }
 
+    /**
+     * Transform location monitor.
+     *
+     * @param monitor
+     *            the monitor
+     * @return the gWT location monitor
+     */
     private static GWTLocationMonitor transformLocationMonitor(final OnmsLocationMonitor monitor) {
         final GWTLocationMonitor gMonitor = new GWTLocationMonitor();
         gMonitor.setId(monitor.getId());
@@ -861,6 +962,15 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return gMonitor;
     }
 
+    /**
+     * Transform application.
+     *
+     * @param services
+     *            the services
+     * @param application
+     *            the application
+     * @return the application info
+     */
     private static ApplicationInfo transformApplication(final Collection<OnmsMonitoredService> services,
             final OnmsApplication application) {
         final ApplicationInfo app = new ApplicationInfo();
@@ -879,13 +989,31 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return app;
     }
 
+    /**
+     * The Interface StatusTracker.
+     */
     private static interface StatusTracker {
+
+        /**
+         * On status.
+         *
+         * @param status
+         *            the status
+         */
         public void onStatus(final OnmsLocationSpecificStatus status);
     }
 
+    /**
+     * The Class AllMonitorStatusTracker.
+     */
     private static class AllMonitorStatusTracker implements StatusTracker {
+
+        /** The m_trackers. */
         private final Map<String, MonitorStatusTracker> m_trackers = new HashMap<String, MonitorStatusTracker>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.server.DefaultLocationDataService.StatusTracker#onStatus(org.opennms.netmgt.model.OnmsLocationSpecificStatus)
+         */
         @Override
         public void onStatus(final OnmsLocationSpecificStatus status) {
             String defName = status.getLocationMonitor().getDefinitionName();
@@ -894,6 +1022,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             t.onStatus(status);
         }
 
+        /**
+         * Gets the monitor status tracker.
+         *
+         * @param defName
+         *            the def name
+         * @return the monitor status tracker
+         */
         MonitorStatusTracker getMonitorStatusTracker(String defName) {
             MonitorStatusTracker t = m_trackers.get(defName);
             if (t == null) {
@@ -903,6 +1038,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             return t;
         }
 
+        /**
+         * Drain.
+         *
+         * @param defName
+         *            the def name
+         * @return the collection
+         */
         public Collection<GWTLocationSpecificStatus> drain(String defName) {
             if (!m_trackers.containsKey(defName)) {
                 return Collections.emptyList();
@@ -913,15 +1055,30 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         }
     }
 
+    /**
+     * The Class MonitorStatusTracker.
+     */
     private static class MonitorStatusTracker implements StatusTracker {
+
+        /** The m_statuses. */
         private final transient Map<Integer, OnmsLocationSpecificStatus> m_statuses = new HashMap<Integer, OnmsLocationSpecificStatus>();
 
+        /** The m_location name. */
         private final transient String m_locationName;
 
+        /**
+         * Instantiates a new monitor status tracker.
+         *
+         * @param locationName
+         *            the location name
+         */
         public MonitorStatusTracker(final String locationName) {
             m_locationName = locationName;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.server.DefaultLocationDataService.StatusTracker#onStatus(org.opennms.netmgt.model.OnmsLocationSpecificStatus)
+         */
         @Override
         public void onStatus(final OnmsLocationSpecificStatus status) {
             if (status.getLocationMonitor().getDefinitionName().equals(m_locationName)) {
@@ -934,6 +1091,11 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             }
         }
 
+        /**
+         * Drain.
+         *
+         * @return the collection
+         */
         public Collection<GWTLocationSpecificStatus> drain() {
             final Collection<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
             synchronized (m_statuses) {
@@ -946,15 +1108,30 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         }
     }
 
+    /**
+     * The Class ApplicationStatusTracker.
+     */
     private static class ApplicationStatusTracker implements StatusTracker {
+
+        /** The m_name. */
         private String m_name;
 
+        /** The m_statuses. */
         private Map<String, Collection<OnmsLocationSpecificStatus>> m_statuses = new HashMap<String, Collection<OnmsLocationSpecificStatus>>();
 
+        /**
+         * Instantiates a new application status tracker.
+         *
+         * @param name
+         *            the name
+         */
         public ApplicationStatusTracker(final String name) {
             m_name = name;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.server.DefaultLocationDataService.StatusTracker#onStatus(org.opennms.netmgt.model.OnmsLocationSpecificStatus)
+         */
         @Override
         public void onStatus(final OnmsLocationSpecificStatus status) {
             if (status.getLocationMonitor().getDefinitionName().equals(m_name)) {
@@ -974,6 +1151,11 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             }
         }
 
+        /**
+         * Drain statuses.
+         *
+         * @return the map
+         */
         public Map<String, List<GWTLocationSpecificStatus>> drainStatuses() {
             final Map<String, List<GWTLocationSpecificStatus>> statuses = new HashMap<String, List<GWTLocationSpecificStatus>>();
             synchronized (m_statuses) {
@@ -995,6 +1177,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -1006,6 +1189,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getInfoForAllLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -1029,6 +1213,9 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return locations;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.server.LocationDataService#getStatusDetailsForAllLocations()
+     */
     @Override
     public Map<String, StatusDetails> getStatusDetailsForAllLocations() {
         final Collection<OnmsMonitoringLocationDefinition> definitions = getLocationMonitorDao().findAllMonitoringLocationDefinitions();
@@ -1058,6 +1245,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * <p>
      * getInfoForAllApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -1076,6 +1264,11 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         return appInfos;
     }
 
+    /**
+     * Gets the status details for all applications.
+     *
+     * @return the status details for all applications
+     */
     private Map<OnmsApplication, StatusDetails> getStatusDetailsForAllApplications() {
         final Collection<OnmsApplication> apps = m_applicationDao.findAll();
 

@@ -39,11 +39,16 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The Class StringUtils.
+ */
 public abstract class StringUtils {
+
     /**
      * <p>
      * join
      * </p>
+     * .
      *
      * @param s
      *            a {@link java.util.Collection} object.
@@ -71,6 +76,7 @@ public abstract class StringUtils {
      * <p>
      * join
      * </p>
+     * .
      *
      * @param s
      *            a {@link java.util.List} object.

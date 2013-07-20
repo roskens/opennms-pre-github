@@ -45,13 +45,14 @@ public interface Geocoder {
      * <p>
      * geocode
      * </p>
+     * .
      *
      * @param geolocation
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
-     * @throws org.opennms.features.poller.remote.gwt.server.geocoding.GeocoderException
-     *             if any.
+     * @throws GeocoderException
+     *             the geocoder exception
      */
     public GWTLatLng geocode(String geolocation) throws GeocoderException;
 

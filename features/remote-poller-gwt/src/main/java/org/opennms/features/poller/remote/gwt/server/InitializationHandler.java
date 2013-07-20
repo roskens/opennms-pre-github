@@ -33,20 +33,22 @@ package org.opennms.features.poller.remote.gwt.server;
  * InitializationHandler interface.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
  */
 public interface InitializationHandler<T> {
+
     /**
      * <p>
      * start
      * </p>
+     * .
      *
      * @param size
      *            a int.
-     * @param <T>
-     *            a T object.
      */
     public void start(final int size);
 
@@ -54,6 +56,7 @@ public interface InitializationHandler<T> {
      * <p>
      * handle
      * </p>
+     * .
      *
      * @param item
      *            a T object.
@@ -64,6 +67,7 @@ public interface InitializationHandler<T> {
      * <p>
      * finish
      * </p>
+     * .
      */
     public void finish();
 }

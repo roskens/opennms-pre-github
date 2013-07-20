@@ -36,9 +36,12 @@ import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 import de.novanic.eventservice.client.event.domain.Domain;
 import de.novanic.eventservice.client.event.domain.DomainFactory;
 
+/**
+ * The Interface MapRemoteEventHandler.
+ */
 public interface MapRemoteEventHandler {
 
-    /** Constant <code>LOCATION_EVENT_DOMAIN</code> */
+    /** Constant <code>LOCATION_EVENT_DOMAIN</code>. */
     public static final Domain LOCATION_EVENT_DOMAIN = DomainFactory.getDomain("location_event");
 
     /**
@@ -52,12 +55,19 @@ public interface MapRemoteEventHandler {
      */
     public abstract void updateLocation(final LocationInfo locationInfo);
 
+    /**
+     * Update locations.
+     *
+     * @param locations
+     *            the locations
+     */
     public abstract void updateLocations(Collection<LocationInfo> locations);
 
     /**
      * <p>
      * removeApplication
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
@@ -68,6 +78,7 @@ public interface MapRemoteEventHandler {
      * <p>
      * updateApplication
      * </p>
+     * .
      *
      * @param applicationInfo
      *            a

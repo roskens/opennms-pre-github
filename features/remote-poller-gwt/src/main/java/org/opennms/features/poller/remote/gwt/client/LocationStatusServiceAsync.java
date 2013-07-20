@@ -43,10 +43,12 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @since 1.8.1
  */
 public interface LocationStatusServiceAsync {
+
     /**
      * <p>
      * start
      * </p>
+     * .
      *
      * @param anAsyncCallback
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
@@ -57,11 +59,13 @@ public interface LocationStatusServiceAsync {
      * <p>
      * getLocationInfo
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
      * @param callback
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @return the location info
      */
     void getLocationInfo(final String locationName, final AsyncCallback<LocationInfo> callback);
 
@@ -69,11 +73,13 @@ public interface LocationStatusServiceAsync {
      * <p>
      * getLocationDetails
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
      * @param callback
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @return the location details
      */
     void getLocationDetails(final String locationName, final AsyncCallback<LocationDetails> callback);
 
@@ -81,11 +87,13 @@ public interface LocationStatusServiceAsync {
      * <p>
      * getApplicationInfo
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
      * @param callback
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @return the application info
      */
     void getApplicationInfo(final String applicationName, final AsyncCallback<ApplicationInfo> callback);
 
@@ -93,11 +101,13 @@ public interface LocationStatusServiceAsync {
      * <p>
      * getApplicationDetails
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
      * @param callback
      *            a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
+     * @return the application details
      */
     void getApplicationDetails(final String applicationName, final AsyncCallback<ApplicationDetails> callback);
 }

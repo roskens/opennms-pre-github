@@ -48,6 +48,7 @@ public abstract class IntervalUtils {
      * <p>
      * invert
      * </p>
+     * .
      *
      * @param beginning
      *            a {@link java.util.Date} object.
@@ -102,6 +103,7 @@ public abstract class IntervalUtils {
      * <p>
      * normalize
      * </p>
+     * .
      *
      * @param intervals
      *            a {@link java.util.Set} object.
@@ -136,6 +138,7 @@ public abstract class IntervalUtils {
      * <p>
      * getIntervalSet
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */

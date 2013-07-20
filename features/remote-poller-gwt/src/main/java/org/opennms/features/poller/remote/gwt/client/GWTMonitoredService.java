@@ -46,22 +46,31 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class GWTMonitoredService implements Serializable, IsSerializable, Comparable<GWTMonitoredService> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8529053406347958362L;
 
+    /** The m_id. */
     private int m_id;
 
+    /** The m_if index. */
     private int m_ifIndex;
 
+    /** The m_ip interface id. */
     private int m_ipInterfaceId;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
+    /** The m_hostname. */
     private String m_hostname;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_applications. */
     private Set<String> m_applications;
 
     /**
@@ -76,6 +85,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -88,6 +98,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -99,6 +110,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a {@link java.lang.Integer} object.
@@ -111,6 +123,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -122,6 +135,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setIpInterfaceId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -134,6 +148,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getIpInterfaceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -145,6 +160,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -157,6 +173,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -168,6 +185,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setHostname
      * </p>
+     * .
      *
      * @param hostname
      *            a {@link java.lang.String} object.
@@ -180,6 +198,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getHostname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -191,6 +210,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
@@ -203,6 +223,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -214,6 +235,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -226,6 +248,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -237,6 +260,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * getApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -248,6 +272,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * setApplications
      * </p>
+     * .
      *
      * @param applications
      *            a {@link java.util.Set} object.
@@ -260,6 +285,7 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -273,12 +299,13 @@ public class GWTMonitoredService implements Serializable, IsSerializable, Compar
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
+     *         object.
      */
     @Override
     public int compareTo(GWTMonitoredService that) {

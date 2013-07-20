@@ -46,10 +46,13 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class LocationDetails implements Serializable, IsSerializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3516138717790564429L;
 
+    /** The m_location monitor state. */
     private LocationMonitorState m_locationMonitorState;
 
+    /** The m_application state. */
     private ApplicationState m_applicationState;
 
     /**
@@ -64,6 +67,7 @@ public class LocationDetails implements Serializable, IsSerializable {
      * <p>
      * getLocationMonitorState
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.LocationMonitorState}
@@ -77,6 +81,7 @@ public class LocationDetails implements Serializable, IsSerializable {
      * <p>
      * setLocationMonitorState
      * </p>
+     * .
      *
      * @param lms
      *            a
@@ -91,6 +96,7 @@ public class LocationDetails implements Serializable, IsSerializable {
      * <p>
      * getApplicationState
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationState}
@@ -104,6 +110,7 @@ public class LocationDetails implements Serializable, IsSerializable {
      * <p>
      * setApplicationState
      * </p>
+     * .
      *
      * @param applicationState
      *            a
@@ -118,6 +125,7 @@ public class LocationDetails implements Serializable, IsSerializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -35,37 +35,114 @@ import java.util.TreeSet;
 
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Interface ApplicationView.
+ */
 public interface ApplicationView {
 
     /**
      * <p>
      * updateTimestamp
      * </p>
+     * .
      */
     public abstract void updateTimestamp();
 
+    /**
+     * Sets the status message.
+     *
+     * @param statusMessage
+     *            the new status message
+     */
     public abstract void setStatusMessage(String statusMessage);
 
+    /**
+     * Gets the selected statuses.
+     *
+     * @return the selected statuses
+     */
     public abstract Set<Status> getSelectedStatuses();
 
+    /**
+     * Initialize.
+     */
     public abstract void initialize();
 
+    /**
+     * Update selected applications.
+     *
+     * @param applications
+     *            the applications
+     */
     public abstract void updateSelectedApplications(Set<ApplicationInfo> applications);
 
+    /**
+     * Update location list.
+     *
+     * @param locationsForLocationPanel
+     *            the locations for location panel
+     */
     public abstract void updateLocationList(ArrayList<LocationInfo> locationsForLocationPanel);
 
+    /**
+     * Sets the selected tag.
+     *
+     * @param selectedTag
+     *            the selected tag
+     * @param allTags
+     *            the all tags
+     */
     public abstract void setSelectedTag(String selectedTag, List<String> allTags);
 
+    /**
+     * Update application list.
+     *
+     * @param applications
+     *            the applications
+     */
     public abstract void updateApplicationList(ArrayList<ApplicationInfo> applications);
 
+    /**
+     * Update application names.
+     *
+     * @param allApplicationNames
+     *            the all application names
+     */
     public abstract void updateApplicationNames(TreeSet<String> allApplicationNames);
 
+    /**
+     * Fit map to locations.
+     *
+     * @param locationBounds
+     *            the location bounds
+     */
     public abstract void fitMapToLocations(GWTBounds locationBounds);
 
+    /**
+     * Gets the map bounds.
+     *
+     * @return the map bounds
+     */
     public abstract GWTBounds getMapBounds();
 
+    /**
+     * Show location details.
+     *
+     * @param locationName
+     *            the location name
+     * @param htmlTitle
+     *            the html title
+     * @param htmlContent
+     *            the html content
+     */
     public abstract void showLocationDetails(final String locationName, String htmlTitle, String htmlContent);
 
+    /**
+     * Place marker.
+     *
+     * @param markerState
+     *            the marker state
+     */
     public abstract void placeMarker(final GWTMarkerState markerState);
 
 }

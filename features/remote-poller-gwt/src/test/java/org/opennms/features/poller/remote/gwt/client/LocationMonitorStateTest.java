@@ -38,9 +38,17 @@ import java.util.Date;
 
 import org.junit.Test;
 
+/**
+ * The Class LocationMonitorStateTest.
+ */
 public class LocationMonitorStateTest {
+
+    /** The count. */
     private static int count = 0;
 
+    /**
+     * Test all monitors started.
+     */
     @Test
     public void testAllMonitorsStarted() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -59,6 +67,9 @@ public class LocationMonitorStateTest {
         assertFalse("at least one monitor is not STARTED or CONFIG_CHANGED", lms.allMonitorsStarted());
     }
 
+    /**
+     * Test at least one monitor started.
+     */
     @Test
     public void testAtLeastOneMonitorStarted() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -74,6 +85,9 @@ public class LocationMonitorStateTest {
         assertTrue("at least one monitor is CONFIG_CHANGED or STARTED", lms.atLeastOneMonitorStarted());
     }
 
+    /**
+     * Test all but one monitors disconnected.
+     */
     @Test
     public void testAllButOneMonitorsDisconnected() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -92,6 +106,9 @@ public class LocationMonitorStateTest {
         assertFalse("more than one monitor is STARTED or CONFIG_CHANGED", lms.allButOneMonitorsDisconnected());
     }
 
+    /**
+     * Test marker status green.
+     */
     @Test
     public void testMarkerStatusGreen() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -119,6 +136,9 @@ public class LocationMonitorStateTest {
         assertEquals("status should be up", Status.UP, lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status all but one non stopped disconnected.
+     */
     @Test
     public void testMarkerStatusAllButOneNonStoppedDisconnected() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -142,6 +162,9 @@ public class LocationMonitorStateTest {
                      Status.MARGINAL, lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status some report down status.
+     */
     @Test
     public void testMarkerStatusSomeReportDownStatus() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -189,6 +212,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status one of two services down.
+     */
     @Test
     public void testMarkerStatusOneOfTwoServicesDown() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -217,6 +243,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status one service down.
+     */
     @Test
     public void testMarkerStatusOneServiceDown() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -238,6 +267,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status two of two services down.
+     */
     @Test
     public void testMarkerStatusTwoOfTwoServicesDown() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -266,6 +298,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status all non stopped monitors disconnected.
+     */
     @Test
     public void testMarkerStatusAllNonStoppedMonitorsDisconnected() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -280,6 +315,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status all registered monitors disconnected.
+     */
     @Test
     public void testMarkerStatusAllRegisteredMonitorsDisconnected() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -292,6 +330,9 @@ public class LocationMonitorStateTest {
                      lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test marker status only one registered monitor is stopped.
+     */
     @Test
     public void testMarkerStatusOnlyOneRegisteredMonitorIsStopped() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -301,6 +342,13 @@ public class LocationMonitorStateTest {
         assertEquals("single stopped monitor should be unknown", Status.UNKNOWN, lms.getStatusDetails().getStatus());
     }
 
+    /**
+     * Gets the monitor.
+     *
+     * @param status
+     *            the status
+     * @return the monitor
+     */
     private GWTLocationMonitor getMonitor(String status) {
         GWTLocationMonitor monitor = new GWTLocationMonitor();
         monitor.setDefinitionName("RDU");
@@ -310,6 +358,15 @@ public class LocationMonitorStateTest {
         return monitor;
     }
 
+    /**
+     * Gets the service.
+     *
+     * @param id
+     *            the id
+     * @param serviceName
+     *            the service name
+     * @return the service
+     */
     private GWTMonitoredService getService(int id, String serviceName) {
         GWTMonitoredService service = new GWTMonitoredService();
         service.setId(id);

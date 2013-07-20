@@ -70,33 +70,46 @@ import com.google.gwt.user.client.ui.Widget;
 public class LocationPanel extends Composite implements LocationPanelSelectEventHandler, TagResizeEventHandler,
         RequiresResize, ResizeHandler {
 
+    /**
+     * The Interface Binder.
+     */
     interface Binder extends UiBinder<Widget, LocationPanel> {
     }
 
+    /** The Constant BINDER. */
     private static final Binder BINDER = GWT.create(Binder.class);
 
+    /** The m_event bus. */
     private transient HandlerManager m_eventBus;
 
+    /** The event registrations. */
     private transient List<HandlerRegistration> eventRegistrations = new ArrayList<HandlerRegistration>();
 
+    /** The location panel. */
     @UiField
     FlowPanel locationPanel;
 
+    /** The location list. */
     @UiField
     PageableLocationList locationList;
 
+    /** The application list. */
     @UiField
     PageableApplicationList applicationList;
 
+    /** The filter panel. */
     @UiField
     FilterPanel filterPanel;
 
+    /** The tag panel. */
     @UiField
     TagPanel tagPanel;
 
+    /** The filter options panel. */
     @UiField
     HTMLPanel filterOptionsPanel;
 
+    /** The lists panel. */
     @UiField
     FlowPanel listsPanel;
 
@@ -123,6 +136,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * setEventBus
      * </p>
+     * .
      *
      * @param eventBus
      *            a {@link com.google.gwt.event.shared.HandlerManager} object.
@@ -152,7 +166,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * Switches view to Pageable Location List
+     * Switches view to Pageable Location List.
      */
     public void showLocationList() {
         setVisible(locationList.getElement(), true);
@@ -161,7 +175,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     }
 
     /**
-     * Switches view to the Pageable Application List
+     * Switches view to the Pageable Application List.
      */
     public void showApplicationList() {
         setVisible(locationList.getElement(), false);
@@ -173,6 +187,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * updateSelectedApplications
      * </p>
+     * .
      *
      * @param selectedApplications
      *            a {@link java.util.Set} object.
@@ -188,6 +203,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * updateApplicationNames
      * </p>
+     * .
      *
      * @param allApplicationNames
      *            a {@link java.util.Set} object.
@@ -200,6 +216,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * updateApplicationList
      * </p>
+     * .
      *
      * @param appList
      *            a {@link java.util.ArrayList} object.
@@ -221,6 +238,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * updateLocationList
      * </p>
+     * .
      *
      * @param visibleLocations
      *            a {@link java.util.ArrayList} object.
@@ -241,6 +259,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * selectTag
      * </p>
+     * .
      *
      * @param tag
      *            a {@link java.lang.String} object.
@@ -253,6 +272,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * clearTagPanel
      * </p>
+     * .
      */
     public void clearTagPanel() {
         tagPanel.clear();
@@ -262,6 +282,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * addAllTags
      * </p>
+     * .
      *
      * @param tags
      *            a {@link java.util.Collection} object.
@@ -275,6 +296,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * showApplicationFilters
      * </p>
+     * .
      *
      * @param isApplicationView
      *            a boolean.
@@ -287,6 +309,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * resizeDockPanel
      * </p>
+     * .
      */
     public void resizeDockPanel() {
         int verticalSpacer = 3;
@@ -312,6 +335,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * onTagPanelResize
      * </p>
+     * .
      */
     @Override
     public void onTagPanelResize() {
@@ -322,6 +346,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
      * <p>
      * onResize
      * </p>
+     * .
      */
     @Override
     public void onResize() {
@@ -332,11 +357,19 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google.gwt.event.logical.shared.ResizeEvent)
+     */
     @Override
     public void onResize(ResizeEvent event) {
         resizeDockPanel();
     }
 
+    /**
+     * Gets the user agent.
+     *
+     * @return the user agent
+     */
     public static native String getUserAgent() /*-{
                                                return navigator.userAgent.toLowerCase();
                                                }-*/;

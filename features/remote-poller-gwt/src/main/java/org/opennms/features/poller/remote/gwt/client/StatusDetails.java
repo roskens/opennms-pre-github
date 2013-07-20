@@ -47,10 +47,13 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class StatusDetails implements Serializable, IsSerializable, Comparable<StatusDetails> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7627737910294456042L;
 
+    /** The m_status. */
     private Status m_status;
 
+    /** The m_reason. */
     private String m_reason;
 
     /**
@@ -81,6 +84,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.Status}
      *         object.
@@ -96,6 +100,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * getReason
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +112,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +125,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -140,12 +147,13 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
+     *         object.
      */
     @Override
     public int compareTo(final StatusDetails that) {
@@ -159,6 +167,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * up
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -172,6 +181,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * marginal
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -187,6 +197,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * down
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.
@@ -202,7 +213,10 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * disconnected
      * </p>
+     * .
      *
+     * @param reason
+     *            the reason
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
      *         object.
@@ -215,7 +229,10 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * stopped
      * </p>
+     * .
      *
+     * @param reason
+     *            the reason
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
      *         object.
@@ -228,6 +245,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * unknown
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -241,6 +259,7 @@ public class StatusDetails implements Serializable, IsSerializable, Comparable<S
      * <p>
      * unknown
      * </p>
+     * .
      *
      * @param reason
      *            a {@link java.lang.String} object.

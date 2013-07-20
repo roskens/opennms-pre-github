@@ -98,18 +98,37 @@ import de.novanic.eventservice.client.event.RemoteEventService;
  */
 public class DefaultLocationManager implements LocationManager, RemotePollerPresenter {
 
+    /**
+     * The Class ApplicationUpdater.
+     */
     public class ApplicationUpdater implements Command {
 
+        /** The m_application info. */
         private ApplicationInfo m_applicationInfo;
 
+        /**
+         * Instantiates a new application updater.
+         *
+         * @param applicationInfo
+         *            the application info
+         */
         public ApplicationUpdater(ApplicationInfo applicationInfo) {
             m_applicationInfo = applicationInfo;
         }
 
+        /**
+         * Schedule.
+         *
+         * @param executor
+         *            the executor
+         */
         public void schedule(CommandExecutor executor) {
             executor.schedule(this);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.Command#execute()
+         */
         @Override
         public void execute() {
             doApplicationUpdate(m_applicationInfo);
@@ -117,23 +136,44 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
 
     }
 
+    /**
+     * The Class LocationUpdater.
+     */
     public class LocationUpdater implements Scheduler.RepeatingCommand {
 
+        /** The m_locations. */
         private Queue<LocationInfo> m_locations;
 
+        /** The m_count. */
         private int m_count = 0;
 
+        /** The m_updated. */
         private int m_updated = 0;
 
+        /**
+         * Instantiates a new location updater.
+         *
+         * @param locations
+         *            the locations
+         */
         public LocationUpdater(Collection<LocationInfo> locations) {
             m_locations = new LinkedList<LocationInfo>(locations);
             m_count = m_locations.size();
         }
 
+        /**
+         * Schedule.
+         *
+         * @param executor
+         *            the executor
+         */
         public void schedule(CommandExecutor executor) {
             executor.schedule(this);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.core.client.Scheduler.RepeatingCommand#execute()
+         */
         @Override
         public boolean execute() {
             if (m_locations.isEmpty()) {
@@ -150,34 +190,49 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
 
     }
 
+    /** The m_data manager. */
     private final DataManager m_dataManager = new DataManager();
 
+    /** The m_application filter. */
     private final ApplicationFilter m_applicationFilter = new ApplicationFilter();
 
+    /** The m_status filter. */
     private final StatusFilter m_statusFilter = new StatusFilter();
 
+    /** The m_tag filter. */
     private final TagFilter m_tagFilter = new TagFilter();
 
+    /** The m_location view filter. */
     private final LocationFilter m_locationViewFilter = m_tagFilter;
 
+    /** The m_application view filter. */
     private final LocationFilter m_applicationViewFilter = new AndFilter(m_applicationFilter, m_tagFilter);
 
+    /** The m_selected filter. */
     private LocationFilter m_selectedFilter = m_locationViewFilter;
 
+    /** The m_event bus. */
     private final HandlerManager m_eventBus;
 
+    /** The m_handler manager. */
     private final HandlerManager m_handlerManager = new HandlerManager(this);
 
+    /** The m_remote service. */
     private final LocationStatusServiceAsync m_remoteService;
 
+    /** The m_remote event service. */
     private final RemoteEventService m_remoteEventService;
 
+    /** The m_updated. */
     private boolean m_updated = false;
 
+    /** The m_view. */
     private final ApplicationView m_view;
 
+    /** The m_executor. */
     private final CommandExecutor m_executor;
 
+    /** The m_selected visible filter. */
     private final AndFilter m_selectedVisibleFilter = new AndFilter(m_selectedFilter, m_statusFilter);
 
     /**
@@ -188,15 +243,15 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * @param eventBus
      *            a {@link com.google.gwt.event.shared.HandlerManager} object.
      * @param view
-     * @param mapPanel
-     *            a
+     *            the view
+     * @param remoteService
+     *            the remote service
+     * @param remoteEventService
+     *            the remote event service
+     * @param commandExecutor
+     *            the command executor
      *            {@link org.opennms.features.poller.remote.gwt.client.MapPanel}
      *            object.
-     * @param panel
-     *            a {@link com.google.gwt.user.client.ui.SplitLayoutPanel}
-     *            object.
-     * @param locationPanel
-     *            a
      *            {@link org.opennms.features.poller.remote.gwt.client.LocationPanel}
      *            object.
      */
@@ -224,6 +279,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         initialize(view.getSelectedStatuses());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.LocationManager#initialize(java.util.Set)
+     */
     @Override
     public void initialize(Set<Status> statuses) {
         m_statusFilter.setStatuses(statuses);
@@ -233,6 +291,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         startStatusEvents();
     }
 
+    /**
+     * Initialize event service.
+     */
     private void initializeEventService() {
         LocationListener locationListener = new DefaultLocationListener(this);
 
@@ -241,6 +302,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         eventService.addListener(null, locationListener);
     }
 
+    /**
+     * Start status events.
+     */
     private void startStatusEvents() {
         getRemoteService().start(new AsyncCallback<Void>() {
             @Override
@@ -262,6 +326,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * initializationComplete
      * </p>
+     * .
      */
     protected void initializationComplete() {
         m_handlerManager.fireEvent(new LocationManagerInitializationCompleteEvent());
@@ -271,6 +336,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * getRemoteService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.LocationStatusServiceAsync}
@@ -291,6 +357,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * displayDialog
      * </p>
+     * .
      *
      * @param title
      *            a {@link java.lang.String} object.
@@ -310,6 +377,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * getAllLocationNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -326,6 +394,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * fitMapToLocations
      * </p>
+     * .
      */
     public void fitMapToLocations() {
         m_view.fitMapToLocations(m_dataManager.getLocationBounds());
@@ -367,6 +436,9 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         return inBounds;
     }
 
+    /**
+     * Update all marker states.
+     */
     private void updateAllMarkerStates() {
         for (final LocationInfo location : m_dataManager.getLocations()) {
             placeMarker(location);
@@ -382,6 +454,12 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         showLocationDetails(event.getLocationName());
     }
 
+    /**
+     * Show location details.
+     *
+     * @param locationName
+     *            the location name
+     */
     private void showLocationDetails(final String locationName) {
         // TODO: this needs a callback to get the location details, and fill
         // in the content
@@ -448,6 +526,12 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         }
     }
 
+    /**
+     * Place marker.
+     *
+     * @param info
+     *            the info
+     */
     private void placeMarker(final LocationInfo info) {
         final GWTMarkerState markerState = info.getMarkerState();
 
@@ -470,6 +554,12 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         appUpdater.schedule(m_executor);
     }
 
+    /**
+     * Do application update.
+     *
+     * @param applicationInfo
+     *            the application info
+     */
     private void doApplicationUpdate(final ApplicationInfo applicationInfo) {
         if (applicationInfo == null)
             return;
@@ -547,6 +637,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * onTagCleared
      * </p>
+     * .
      */
     @Override
     public void onTagCleared() {
@@ -588,11 +679,20 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         showLocationDetails(markerState.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.events.GWTMarkerInfoWindowRefreshHandler#onGWTMarkerInfoWindowRefresh(org.opennms.features.poller.remote.gwt.client.events.GWTMarkerInfoWindowRefreshEvent)
+     */
     @Override
     public void onGWTMarkerInfoWindowRefresh(GWTMarkerInfoWindowRefreshEvent event) {
         refreshLocationInfoWindowDetails(event.getMarkerState().getName());
     }
 
+    /**
+     * Refresh location info window details.
+     *
+     * @param name
+     *            the name
+     */
     private void refreshLocationInfoWindowDetails(String name) {
         showLocationDetails(name);
     }
@@ -658,6 +758,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * locationClicked
      * </p>
+     * .
      */
     @Override
     public void locationClicked() {
@@ -669,6 +770,7 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * applicationClicked
      * </p>
+     * .
      */
     @Override
     public void applicationClicked() {
@@ -680,16 +782,17 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
      * <p>
      * getLocationInfoDetails
      * </p>
+     * .
      *
      * @param locationInfo
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
-     *            object.
      * @param locationDetails
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}
-     *            object.
      * @return a {@link java.lang.String} object.
+     *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
+     *         object.
+     *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}
+     *         object.
      */
     public static String getLocationInfoDetails(final LocationInfo locationInfo, final LocationDetails locationDetails) {
         final LocationMonitorState state = locationDetails.getLocationMonitorState();
@@ -735,12 +838,20 @@ public class DefaultLocationManager implements LocationManager, RemotePollerPres
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#updateLocations(java.util.Collection)
+     */
     @Override
     public void updateLocations(Collection<LocationInfo> locations) {
         LocationUpdater locUpdater = new LocationUpdater(locations);
         locUpdater.schedule(m_executor);
     }
 
+    /**
+     * Gets the remote event service.
+     *
+     * @return the remote event service
+     */
     private RemoteEventService getRemoteEventService() {
         return m_remoteEventService;
     }

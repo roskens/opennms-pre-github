@@ -34,8 +34,14 @@ import org.junit.Test;
 import org.opennms.features.poller.remote.gwt.client.GWTBounds;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
+/**
+ * The Class BoundsBuilderTest.
+ */
 public class BoundsBuilderTest {
 
+    /**
+     * Test add no points.
+     */
     @Test
     public void testAddNoPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -43,6 +49,9 @@ public class BoundsBuilderTest {
         assertEquals(new GWTBounds(-90, -180, 90, 180), bldr.getBounds());
     }
 
+    /**
+     * Test add one point.
+     */
     @Test
     public void testAddOnePoint() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -53,6 +62,9 @@ public class BoundsBuilderTest {
         assertEquals(new GWTBounds(origin, origin), bldr.getBounds());
     }
 
+    /**
+     * Test add two corner points.
+     */
     @Test
     public void testAddTwoCornerPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -64,6 +76,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test add opposite corner points.
+     */
     @Test
     public void testAddOppositeCornerPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -75,6 +90,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test add interior point.
+     */
     @Test
     public void testAddInteriorPoint() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -91,6 +109,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test add many points.
+     */
     @Test
     public void testAddManyPoints() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -104,6 +125,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test dateline points.
+     */
     @Test
     public void testDatelinePoints() {
 
@@ -116,6 +140,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test extend east then west.
+     */
     @Test
     public void testExtendEastThenWest() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -131,6 +158,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test extend east and wrap.
+     */
     @Test
     public void testExtendEastAndWrap() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -146,6 +176,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test extend west then east.
+     */
     @Test
     public void testExtendWestThenEast() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -161,6 +194,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test extend west and wrap.
+     */
     @Test
     public void testExtendWestAndWrap() {
         BoundsBuilder bldr = new BoundsBuilder();
@@ -176,6 +212,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test distance from eastern hemi.
+     */
     @Test
     public void testDistanceFromEasternHemi() {
 
@@ -192,6 +231,9 @@ public class BoundsBuilderTest {
 
     }
 
+    /**
+     * Test distance from western hemi.
+     */
     @Test
     public void testDistanceFromWesternHemi() {
 

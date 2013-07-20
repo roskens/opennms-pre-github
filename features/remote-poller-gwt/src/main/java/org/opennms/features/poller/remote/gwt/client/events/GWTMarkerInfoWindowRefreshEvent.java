@@ -39,28 +39,53 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class GWTMarkerInfoWindowRefreshEvent extends GwtEvent<GWTMarkerInfoWindowRefreshHandler> {
 
+    /** The Constant TYPE. */
     public static final Type<GWTMarkerInfoWindowRefreshHandler> TYPE = new Type<GWTMarkerInfoWindowRefreshHandler>();
 
+    /** The m_marker. */
     private GWTMarkerState m_marker;
 
+    /**
+     * Instantiates a new gWT marker info window refresh event.
+     *
+     * @param markerState
+     *            the marker state
+     */
     public GWTMarkerInfoWindowRefreshEvent(GWTMarkerState markerState) {
         setMarkerState(markerState);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+     */
     @Override
     protected void dispatch(GWTMarkerInfoWindowRefreshHandler handler) {
         handler.onGWTMarkerInfoWindowRefresh(this);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+     */
     @Override
     public com.google.gwt.event.shared.GwtEvent.Type<GWTMarkerInfoWindowRefreshHandler> getAssociatedType() {
         return TYPE;
     }
 
+    /**
+     * Sets the marker state.
+     *
+     * @param m_marker
+     *            the new marker state
+     */
     public void setMarkerState(GWTMarkerState m_marker) {
         this.m_marker = m_marker;
     }
 
+    /**
+     * Gets the marker state.
+     *
+     * @return the marker state
+     */
     public GWTMarkerState getMarkerState() {
         return m_marker;
     }

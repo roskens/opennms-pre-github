@@ -39,18 +39,25 @@ import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * The Class GWTLatLng.
+ */
 public class GWTLatLng implements IsSerializable, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7197792607157902176L;
 
+    /** The m_latitude. */
     private Double m_latitude;
 
+    /** The m_longitude. */
     private Double m_longitude;
 
     /**
      * <p>
      * getDefault
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
@@ -87,6 +94,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * <p>
      * fromCoordinates
      * </p>
+     * .
      *
      * @param coordinates
      *            a {@link java.lang.String} object.
@@ -102,6 +110,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * <p>
      * getLatitude
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -113,6 +122,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * <p>
      * getLongitude
      * </p>
+     * .
      *
      * @return a {@link java.lang.Double} object.
      */
@@ -124,6 +134,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * <p>
      * getCoordinates
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +146,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

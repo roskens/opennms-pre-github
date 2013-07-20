@@ -35,12 +35,20 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.novanic.eventservice.client.event.domain.Domain;
 import de.novanic.eventservice.client.event.listener.RemoteEventListener;
 
+/**
+ * The Class TestServer.
+ */
 public class TestServer extends AbstractTestServer {
 
+    /** The m_user specific listener. */
     private RemoteEventListener m_userSpecificListener;
 
+    /** The m_domain listener. */
     private RemoteEventListener m_domainListener;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.AbstractTestServer#addListener(de.novanic.eventservice.client.event.domain.Domain, de.novanic.eventservice.client.event.listener.RemoteEventListener)
+     */
     @Override
     public void addListener(Domain aDomain, RemoteEventListener aRemoteListener) {
         if (aDomain == null) {
@@ -50,15 +58,30 @@ public class TestServer extends AbstractTestServer {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.AbstractTestServer#start(com.google.gwt.user.client.rpc.AsyncCallback)
+     */
     @Override
     public void start(AsyncCallback<Void> anAsyncCallback) {
         anAsyncCallback.onSuccess(null);
     }
 
+    /**
+     * Send user specific event.
+     *
+     * @param remoteEvent
+     *            the remote event
+     */
     public void sendUserSpecificEvent(MapRemoteEvent remoteEvent) {
         m_userSpecificListener.apply(remoteEvent);
     }
 
+    /**
+     * Send domain event.
+     *
+     * @param remoteEvent
+     *            the remote event
+     */
     public void sendDomainEvent(MapRemoteEvent remoteEvent) {
         m_domainListener.apply(remoteEvent);
     }

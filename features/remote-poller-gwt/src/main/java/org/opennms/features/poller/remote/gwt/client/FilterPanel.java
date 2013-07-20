@@ -66,39 +66,79 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class FilterPanel extends Composite {
 
+    /**
+     * The Interface Binder.
+     */
     interface Binder extends UiBinder<Widget, FilterPanel> {
     }
 
+    /** The Constant BINDER. */
     private static final Binder BINDER = GWT.create(Binder.class);
 
+    /** The m_event bus. */
     private transient HandlerManager m_eventBus;
 
+    /**
+     * The Interface FilterStyles.
+     */
     interface FilterStyles extends CssResource {
+
+        /**
+         * Panel caption.
+         *
+         * @return the string
+         */
         String panelCaption();
 
+        /**
+         * Panel entry.
+         *
+         * @return the string
+         */
         String panelEntry();
 
+        /**
+         * Panel icon.
+         *
+         * @return the string
+         */
         String panelIcon();
     }
 
+    /** The filter styles. */
     @UiField
     FilterStyles filterStyles;
 
+    /** The application name suggest box. */
     @UiField(provided = true)
     SuggestBox applicationNameSuggestBox;
 
+    /** The application tray. */
     @UiField
     Panel applicationTray;
 
+    /** The no applications caption. */
     @UiField
     Label noApplicationsCaption;
 
+    /** The application filters. */
     @UiField
     Panel applicationFilters;
 
+    /** The application names. */
     private final MultiWordSuggestOracle applicationNames = new MultiWordSuggestOracle();
 
+    /**
+     * The Class ApplicationFilter.
+     */
     private class ApplicationFilter extends HorizontalPanel {
+
+        /**
+         * Instantiates a new application filter.
+         *
+         * @param app
+         *            the app
+         */
         public ApplicationFilter(final ApplicationInfo app) {
             Image appIcon = new Image(
                                       new GWTMarkerState("filter", null, app.getStatusDetails().getStatus()).getImageURL());
@@ -119,54 +159,118 @@ public class FilterPanel extends Composite {
         }
     }
 
+    /**
+     * The Interface FiltersChangedEventHandler.
+     */
     public interface FiltersChangedEventHandler extends EventHandler {
+
+        /**
+         * On filters changed.
+         *
+         * @param filters
+         *            the filters
+         */
         public void onFiltersChanged(Filters filters);
     }
 
+    /**
+     * The Class Filters.
+     */
     public static class Filters {
     }
 
+    /**
+     * The Class FiltersChangedEvent.
+     */
     public static class FiltersChangedEvent extends GwtEvent<FiltersChangedEventHandler> {
+
+        /** The type. */
         public static Type<FiltersChangedEventHandler> TYPE = new Type<FiltersChangedEventHandler>();
 
+        /** The m_filters. */
         private final Filters m_filters;
 
+        /**
+         * Instantiates a new filters changed event.
+         *
+         * @param filters
+         *            the filters
+         */
         public FiltersChangedEvent(Filters filters) {
             m_filters = filters;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+         */
         @Override
         protected void dispatch(FiltersChangedEventHandler handler) {
             handler.onFiltersChanged(m_filters);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+         */
         @Override
         public GwtEvent.Type<FiltersChangedEventHandler> getAssociatedType() {
             return TYPE;
         }
     }
 
+    /**
+     * The Interface StatusSelectionChangedEventHandler.
+     */
     public interface StatusSelectionChangedEventHandler extends EventHandler {
+
+        /**
+         * On status selection changed.
+         *
+         * @param status
+         *            the status
+         * @param selected
+         *            the selected
+         */
         public void onStatusSelectionChanged(Status status, boolean selected);
     }
 
+    /**
+     * The Class StatusSelectionChangedEvent.
+     */
     public static class StatusSelectionChangedEvent extends GwtEvent<StatusSelectionChangedEventHandler> {
+
+        /** The type. */
         public static Type<StatusSelectionChangedEventHandler> TYPE = new Type<StatusSelectionChangedEventHandler>();
 
+        /** The m_status. */
         private final Status m_status;
 
+        /** The m_selected. */
         private final boolean m_selected;
 
+        /**
+         * Instantiates a new status selection changed event.
+         *
+         * @param status
+         *            the status
+         * @param selected
+         *            the selected
+         */
         public StatusSelectionChangedEvent(Status status, boolean selected) {
             m_status = status;
             m_selected = selected;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+         */
         @Override
         protected void dispatch(StatusSelectionChangedEventHandler handler) {
             handler.onStatusSelectionChanged(m_status, m_selected);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+         */
         @Override
         public GwtEvent.Type<StatusSelectionChangedEventHandler> getAssociatedType() {
             return TYPE;
@@ -188,6 +292,7 @@ public class FilterPanel extends Composite {
      * <p>
      * onApplicationSelect
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.logical.shared.SelectionEvent}
@@ -203,6 +308,7 @@ public class FilterPanel extends Composite {
      * <p>
      * updateApplicationNames
      * </p>
+     * .
      *
      * @param names
      *            a {@link java.util.Collection} object.
@@ -219,6 +325,7 @@ public class FilterPanel extends Composite {
      * <p>
      * updateSelectedApplications
      * </p>
+     * .
      *
      * @param apps
      *            a {@link java.util.Collection} object.
@@ -240,6 +347,7 @@ public class FilterPanel extends Composite {
      * <p>
      * showApplicationFilters
      * </p>
+     * .
      *
      * @param showMe
      *            a boolean.
@@ -252,6 +360,7 @@ public class FilterPanel extends Composite {
      * <p>
      * setEventBus
      * </p>
+     * .
      *
      * @param eventBus
      *            a {@link com.google.gwt.event.shared.HandlerManager} object.

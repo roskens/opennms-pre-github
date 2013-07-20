@@ -74,18 +74,26 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class GoogleMapsPanel extends Composite implements MapPanel {
 
+    /** The ui binder. */
     private static GoogleMapsPanelUiBinder uiBinder = GWT.create(GoogleMapsPanelUiBinder.class);
 
+    /**
+     * The Interface GoogleMapsPanelUiBinder.
+     */
     interface GoogleMapsPanelUiBinder extends UiBinder<Widget, GoogleMapsPanel> {
     }
 
+    /** The m_map widget. */
     @UiField
     MapWidget m_mapWidget;
 
+    /** The m_markers. */
     private Map<String, Marker> m_markers = new HashMap<String, Marker>();
 
+    /** The m_marker states. */
     private Map<String, GWTMarkerState> m_markerStates = new HashMap<String, GWTMarkerState>();
 
+    /** The m_event bus. */
     private HandlerManager m_eventBus;
 
     /**
@@ -110,6 +118,11 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         });
     }
 
+    /**
+     * Gets the map widget.
+     *
+     * @return the map widget
+     */
     private MapWidget getMapWidget() {
         return m_mapWidget;
     }
@@ -139,6 +152,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
      * <p>
      * getBounds
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
      *         object.
@@ -155,6 +169,9 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         getMapWidget().setCenter(bounds.getCenter(), getMapWidget().getBoundsZoomLevel(bounds));
     }
 
+    /**
+     * Initialize map panel.
+     */
     private void initializeMapPanel() {
         getMapWidget().setSize("100%", "100%");
         getMapWidget().setUIToDefault();
@@ -171,10 +188,23 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         });
     }
 
+    /**
+     * Adds the overlay.
+     *
+     * @param newMarker
+     *            the new marker
+     */
     private void addOverlay(final Marker newMarker) {
         getMapWidget().addOverlay(newMarker);
     }
 
+    /**
+     * Creates the marker.
+     *
+     * @param marker
+     *            the marker
+     * @return the marker
+     */
     private Marker createMarker(final GWTMarkerState marker) {
         final Icon icon = Icon.newInstance();
         icon.setIconSize(Size.newInstance(32, 32));
@@ -208,18 +238,40 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         updateMarkerFromState(m, marker);
     }
 
+    /**
+     * Update marker from state.
+     *
+     * @param m
+     *            the m
+     * @param marker
+     *            the marker
+     */
     private void updateMarkerFromState(Marker m, GWTMarkerState marker) {
         m.setImage(marker.getImageURL());
         m.setVisible(marker.isVisible());
     }
 
+    /**
+     * The Class DefaultMarkerClickHandler.
+     */
     private final class DefaultMarkerClickHandler implements MarkerClickHandler {
+
+        /** The m_marker. */
         private final GWTMarkerState m_marker;
 
+        /**
+         * Instantiates a new default marker click handler.
+         *
+         * @param marker
+         *            the marker
+         */
         DefaultMarkerClickHandler(GWTMarkerState marker) {
             m_marker = marker;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.maps.client.event.MarkerClickHandler#onClick(com.google.gwt.maps.client.event.MarkerClickHandler.MarkerClickEvent)
+         */
         @Override
         public void onClick(final MarkerClickEvent mke) {
             // showLocationDetails(m_marker);
@@ -231,6 +283,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
      * <p>
      * getWidget
      * </p>
+     * .
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */

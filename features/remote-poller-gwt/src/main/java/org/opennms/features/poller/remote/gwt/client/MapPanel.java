@@ -45,6 +45,7 @@ public interface MapPanel {
      * <p>
      * getWidget
      * </p>
+     * .
      *
      * @return a {@link com.google.gwt.user.client.ui.Widget} object.
      */
@@ -54,6 +55,7 @@ public interface MapPanel {
      * <p>
      * showLocationDetails
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -68,6 +70,7 @@ public interface MapPanel {
      * <p>
      * getBounds
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
      *         object.
@@ -78,6 +81,7 @@ public interface MapPanel {
      * <p>
      * setBounds
      * </p>
+     * .
      *
      * @param locationBounds
      *            a
@@ -90,6 +94,7 @@ public interface MapPanel {
      * <p>
      * placeMarker
      * </p>
+     * .
      *
      * @param marker
      *            a

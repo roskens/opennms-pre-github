@@ -41,9 +41,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class LocationsUpdatedEvent extends GwtEvent<LocationsUpdatedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<LocationsUpdatedEventHandler> TYPE = new Type<LocationsUpdatedEventHandler>();
 
+    /** The m_event string. */
     private String m_eventString = "You have got the event String";
 
     /**
@@ -70,6 +71,7 @@ public class LocationsUpdatedEvent extends GwtEvent<LocationsUpdatedEventHandler
      * <p>
      * setEventString
      * </p>
+     * .
      *
      * @param eventString
      *            a {@link java.lang.String} object.
@@ -82,6 +84,7 @@ public class LocationsUpdatedEvent extends GwtEvent<LocationsUpdatedEventHandler
      * <p>
      * getEventString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

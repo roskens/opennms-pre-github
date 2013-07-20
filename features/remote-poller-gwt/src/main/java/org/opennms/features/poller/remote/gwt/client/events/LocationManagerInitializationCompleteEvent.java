@@ -42,7 +42,7 @@ import com.google.gwt.event.shared.GwtEvent;
 public class LocationManagerInitializationCompleteEvent extends
         GwtEvent<LocationManagerInitializationCompleteEventHander> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<LocationManagerInitializationCompleteEventHander> TYPE = new Type<LocationManagerInitializationCompleteEventHander>();
 
     /** {@inheritDoc} */

@@ -41,9 +41,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<LocationPanelSelectEventHandler> TYPE = new Type<LocationPanelSelectEventHandler>();
 
+    /** The m_location name. */
     private String m_locationName;
 
     /**
@@ -75,6 +76,7 @@ public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventH
      * <p>
      * getLocationName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

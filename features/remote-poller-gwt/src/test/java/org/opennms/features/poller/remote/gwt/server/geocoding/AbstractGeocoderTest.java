@@ -30,8 +30,16 @@ package org.opennms.features.poller.remote.gwt.server.geocoding;
 
 import org.junit.Test;
 
+/**
+ * The Class AbstractGeocoderTest.
+ */
 public class AbstractGeocoderTest {
 
+    /**
+     * Should run.
+     *
+     * @return true, if successful
+     */
     protected boolean shouldRun() {
         if (getApiKey() != null) {
             return true;
@@ -41,10 +49,21 @@ public class AbstractGeocoderTest {
         }
     }
 
+    /**
+     * Gets the api key.
+     *
+     * @return the api key
+     */
     protected String getApiKey() {
         return System.getProperty("gwt.apikey");
     }
 
+    /**
+     * Test nothing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNothing() throws Exception {
     }

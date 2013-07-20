@@ -33,5 +33,8 @@ package org.opennms.features.poller.remote.gwt.server;
 
 import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 
+/**
+ * The Interface LocationDefHandler.
+ */
 interface LocationDefHandler extends InitializationHandler<OnmsMonitoringLocationDefinition> {
 }

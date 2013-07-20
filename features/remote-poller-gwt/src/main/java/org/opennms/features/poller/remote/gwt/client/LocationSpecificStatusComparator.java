@@ -35,21 +35,26 @@ import java.util.Comparator;
 
 import org.opennms.features.poller.remote.gwt.client.utils.CompareToBuilder;
 
+/**
+ * The Class LocationSpecificStatusComparator.
+ */
 class LocationSpecificStatusComparator implements Comparator<GWTLocationSpecificStatus> {
+
     /**
      * <p>
      * compare
      * </p>
+     * .
      *
      * @param a
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationSpecificStatus}
-     *            object.
      * @param b
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationSpecificStatus}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationSpecificStatus}
+     *         object.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationSpecificStatus}
+     *         object.
      */
     @Override
     public int compare(final GWTLocationSpecificStatus a, final GWTLocationSpecificStatus b) {

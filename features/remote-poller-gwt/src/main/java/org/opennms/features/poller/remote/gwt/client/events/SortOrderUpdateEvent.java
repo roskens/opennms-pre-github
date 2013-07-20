@@ -41,9 +41,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<SortOrderUpdateHandler> TYPE = new Type<SortOrderUpdateHandler>();
 
+    /** The m_sort order. */
     private String m_sortOrder;
 
     /**
@@ -75,6 +76,7 @@ public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
      * <p>
      * setSortOrder
      * </p>
+     * .
      *
      * @param sortOrder
      *            a {@link java.lang.String} object.
@@ -87,6 +89,7 @@ public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
      * <p>
      * getSortOrder
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

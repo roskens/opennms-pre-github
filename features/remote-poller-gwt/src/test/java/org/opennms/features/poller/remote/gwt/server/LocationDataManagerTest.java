@@ -77,6 +77,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.novanic.eventservice.service.EventExecutorService;
 
+/**
+ * The Class LocationDataManagerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -90,27 +93,39 @@ import de.novanic.eventservice.service.EventExecutorService;
 @Ignore("requires custom database")
 public class LocationDataManagerTest implements InitializingBean {
 
+    /** The Constant s_format. */
     private static final DateFormat s_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
 
+    /** The m_location monitor dao. */
     @Autowired
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_location data manager. */
     @Autowired
     private LocationDataManager m_locationDataManager;
 
+    /** The m_location data service. */
     @Autowired
     private LocationDataService m_locationDataService;
 
+    /** The m_application dao. */
     @Autowired
     private ApplicationDao m_applicationDao;
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         Properties p = new Properties();
@@ -119,6 +134,9 @@ public class LocationDataManagerTest implements InitializingBean {
         MockLogAppender.setupLogging(p);
     }
 
+    /**
+     * Test handle all monitoring location definitions.
+     */
     @Test
     public void testHandleAllMonitoringLocationDefinitions() {
         LocationDefHandler handler = m_easyMockUtils.createMock(LocationDefHandler.class);
@@ -134,6 +152,9 @@ public class LocationDataManagerTest implements InitializingBean {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test get info for all locations.
+     */
     @Test
     public void testGetInfoForAllLocations() {
         long count = 10;
@@ -147,6 +168,9 @@ public class LocationDataManagerTest implements InitializingBean {
         System.err.printf("Avg getInfoForAllLocations: %d\n", (System.currentTimeMillis() - start) / count);
     }
 
+    /**
+     * Test get status details for all locations.
+     */
     @Test
     public void testGetStatusDetailsForAllLocations() {
         Map<String, StatusDetails> statusDetails = m_locationDataService.getStatusDetailsForAllLocations();
@@ -162,6 +186,15 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Count status.
+     *
+     * @param status
+     *            the status
+     * @param statusDetails
+     *            the status details
+     * @return the int
+     */
     private int countStatus(Status status, Map<String, StatusDetails> statusDetails) {
         int count = 0;
         for (Entry<String, StatusDetails> entry : statusDetails.entrySet()) {
@@ -172,6 +205,9 @@ public class LocationDataManagerTest implements InitializingBean {
         return count;
     }
 
+    /**
+     * Test get info for all applications.
+     */
     @Test
     public void testGetInfoForAllApplications() {
         long count = 10;
@@ -185,6 +221,9 @@ public class LocationDataManagerTest implements InitializingBean {
         System.err.printf("Avg getInfoForAllApplications: %d\n", (System.currentTimeMillis() - start) / count);
     }
 
+    /**
+     * Test get satus details for location.
+     */
     @Test
     public void testGetSatusDetailsForLocation() {
 
@@ -193,6 +232,9 @@ public class LocationDataManagerTest implements InitializingBean {
         m_locationDataService.getStatusDetailsForLocation(def);
     }
 
+    /**
+     * Test get satus details for application.
+     */
     @Test
     public void testGetSatusDetailsForApplication() {
         String appName = "Domain Controllers";
@@ -215,6 +257,9 @@ public class LocationDataManagerTest implements InitializingBean {
                                          (System.currentTimeMillis() - start) / count));
     }
 
+    /**
+     * Test get application info.
+     */
     @Test
     public void testGetApplicationInfo() {
         String appName = "Domain Controllers";
@@ -226,6 +271,9 @@ public class LocationDataManagerTest implements InitializingBean {
         m_locationDataService.getApplicationInfo(app, new StatusDetails());
     }
 
+    /**
+     * Test location monitor dao find by application.
+     */
     @Test
     public void testLocationMonitorDaoFindByApplication() {
 
@@ -237,6 +285,9 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get all status changes at.
+     */
     @Test
     public void testGetAllStatusChangesAt() {
 
@@ -246,6 +297,12 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get status changes for application between.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     @Test
     @Ignore
     public void testGetStatusChangesForApplicationBetween() throws ParseException {
@@ -259,6 +316,9 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test start.
+     */
     @Test
     public void testStart() {
         EventExecutorService service = m_easyMockUtils.createMock(EventExecutorService.class);
@@ -286,6 +346,12 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test june.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     @Test
     public void testJune() throws ParseException {
         Date d = june(1, 2009);
@@ -294,11 +360,27 @@ public class LocationDataManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * June.
+     *
+     * @param day
+     *            the day
+     * @param year
+     *            the year
+     * @return the date
+     */
     Date june(int day, int year) {
         Calendar cal = new GregorianCalendar(year, Calendar.JUNE, day);
         return cal.getTime();
     }
 
+    /**
+     * Checks for status.
+     *
+     * @param status
+     *            the status
+     * @return the location updated remote event
+     */
     public static LocationUpdatedRemoteEvent hasStatus(final Status status) {
         reportMatcher(new IArgumentMatcher() {
 

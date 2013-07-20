@@ -41,12 +41,15 @@ import java.util.Set;
  * @since 1.8.1
  */
 public class CompareToBuilder {
+
+    /** The comparison. */
     private int comparison = 0;
 
     /**
      * <p>
      * append
      * </p>
+     * .
      *
      * @param a
      *            a {@link java.lang.Object} object.
@@ -86,6 +89,7 @@ public class CompareToBuilder {
      * <p>
      * append
      * </p>
+     * .
      *
      * @param a
      *            an array of {@link java.lang.Object} objects.
@@ -120,6 +124,7 @@ public class CompareToBuilder {
      * <p>
      * toComparison
      * </p>
+     * .
      *
      * @return a int.
      */

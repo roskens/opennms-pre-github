@@ -63,108 +63,243 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TagPanel extends Composite implements Collection<String> {
 
+    /** The m_delegate. */
     private final List<String> m_delegate = new ArrayList<String>();
 
+    /**
+     * The Interface Binder.
+     */
     interface Binder extends UiBinder<Widget, TagPanel> {
     }
 
+    /** The Constant BINDER. */
     private static final Binder BINDER = GWT.create(Binder.class);
 
+    /**
+     * The Interface TagStyles.
+     */
     interface TagStyles extends CssResource {
+
+        /** The Constant COUNT. */
         public static final double COUNT = 10.0;
 
+        /**
+         * Selected tag.
+         *
+         * @return the string
+         */
         String selectedTag();
 
+        /**
+         * Tag0.
+         *
+         * @return the string
+         */
         String tag0();
 
+        /**
+         * Tag1.
+         *
+         * @return the string
+         */
         String tag1();
 
+        /**
+         * Tag2.
+         *
+         * @return the string
+         */
         String tag2();
 
+        /**
+         * Tag3.
+         *
+         * @return the string
+         */
         String tag3();
 
+        /**
+         * Tag4.
+         *
+         * @return the string
+         */
         String tag4();
 
+        /**
+         * Tag5.
+         *
+         * @return the string
+         */
         String tag5();
 
+        /**
+         * Tag6.
+         *
+         * @return the string
+         */
         String tag6();
 
+        /**
+         * Tag7.
+         *
+         * @return the string
+         */
         String tag7();
 
+        /**
+         * Tag8.
+         *
+         * @return the string
+         */
         String tag8();
 
+        /**
+         * Tag9.
+         *
+         * @return the string
+         */
         String tag9();
     }
 
+    /** The m_event bus. */
     private transient HandlerManager m_eventBus;
 
+    /** The tag panel. */
     @UiField
     FlowPanel tagPanel;
 
+    /** The tag styles. */
     @UiField
     TagStyles tagStyles;
 
+    /** The clear tags. */
     @UiField
     Hyperlink clearTags;
 
+    /**
+     * The Interface TagSelectedEventHandler.
+     */
     public interface TagSelectedEventHandler extends EventHandler {
+
+        /**
+         * On tag selected.
+         *
+         * @param tagName
+         *            the tag name
+         */
         public void onTagSelected(String tagName);
     }
 
+    /**
+     * The Interface TagClearedEventHandler.
+     */
     public interface TagClearedEventHandler extends EventHandler {
+
+        /**
+         * On tag cleared.
+         */
         public void onTagCleared();
     }
 
+    /**
+     * The Interface TagResizeEventHandler.
+     */
     public interface TagResizeEventHandler extends EventHandler {
+
+        /**
+         * On tag panel resize.
+         */
         public void onTagPanelResize();
     }
 
+    /**
+     * The Class TagSelectedEvent.
+     */
     public static class TagSelectedEvent extends GwtEvent<TagSelectedEventHandler> {
+
+        /** The type. */
         public static Type<TagSelectedEventHandler> TYPE = new Type<TagSelectedEventHandler>();
 
+        /** The m_tag name. */
         private final String m_tagName;
 
+        /**
+         * Instantiates a new tag selected event.
+         *
+         * @param tagName
+         *            the tag name
+         */
         public TagSelectedEvent(String tagName) {
             m_tagName = tagName;
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+         */
         @Override
         protected void dispatch(TagSelectedEventHandler handler) {
             handler.onTagSelected(m_tagName);
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+         */
         @Override
         public GwtEvent.Type<TagSelectedEventHandler> getAssociatedType() {
             return TYPE;
         }
     }
 
+    /**
+     * The Class TagClearedEvent.
+     */
     public static class TagClearedEvent extends GwtEvent<TagClearedEventHandler> {
+
+        /** The type. */
         public static Type<TagClearedEventHandler> TYPE = new Type<TagClearedEventHandler>();
 
+        /**
+         * Instantiates a new tag cleared event.
+         */
         public TagClearedEvent() {
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+         */
         @Override
         protected void dispatch(TagClearedEventHandler handler) {
             handler.onTagCleared();
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+         */
         @Override
         public GwtEvent.Type<TagClearedEventHandler> getAssociatedType() {
             return TYPE;
         }
     }
 
+    /**
+     * The Class TagResizeEvent.
+     */
     public static class TagResizeEvent extends GwtEvent<TagResizeEventHandler> {
 
+        /** The type. */
         public static Type<TagResizeEventHandler> TYPE = new Type<TagResizeEventHandler>();
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+         */
         @Override
         protected void dispatch(TagResizeEventHandler handler) {
             handler.onTagPanelResize();
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+         */
         @Override
         public com.google.gwt.event.shared.GwtEvent.Type<TagResizeEventHandler> getAssociatedType() {
             return TYPE;
@@ -186,6 +321,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * setEventBus
      * </p>
+     * .
      *
      * @param eventBus
      *            a {@link com.google.gwt.event.shared.HandlerManager} object.
@@ -198,6 +334,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * onClearTagsClick
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -215,6 +352,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param e
      *            a {@link java.lang.String} object.
@@ -240,6 +378,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * clear
      * </p>
+     * .
      */
     @Override
     public void clear() {
@@ -263,6 +402,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * isEmpty
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -275,6 +415,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -311,6 +452,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * size
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -323,6 +465,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * toArray
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.Object} objects.
      */
@@ -335,11 +478,12 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * toArray
      * </p>
+     * .
      *
-     * @param a
-     *            an array of T objects.
      * @param <T>
      *            a T object.
+     * @param a
+     *            an array of T objects.
      * @return an array of T objects.
      */
     @Override
@@ -351,6 +495,7 @@ public class TagPanel extends Composite implements Collection<String> {
      * <p>
      * selectTag
      * </p>
+     * .
      *
      * @param tag
      *            a {@link java.lang.String} object.
@@ -368,6 +513,9 @@ public class TagPanel extends Composite implements Collection<String> {
         }
     }
 
+    /**
+     * Update panel.
+     */
     private void updatePanel() {
         int minCount = Integer.MAX_VALUE, maxCount = Integer.MIN_VALUE;
         Map<String, Integer> tagCounts = new TreeMap<String, Integer>();

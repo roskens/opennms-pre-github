@@ -33,8 +33,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * The Class GWTBoundsTest.
+ */
 public class GWTBoundsTest {
 
+    /**
+     * Test eastern hemi contains.
+     */
     @Test
     public void testEasternHemiContains() {
 
@@ -45,6 +51,9 @@ public class GWTBoundsTest {
         assertTrue(bounds.contains(coords));
     }
 
+    /**
+     * Test western hemi contains.
+     */
     @Test
     public void testWesternHemiContains() {
         GWTBounds bounds = new GWTBounds(new GWTLatLng(30.0, -80.0), new GWTLatLng(40.0, -70.0));
@@ -55,6 +64,9 @@ public class GWTBoundsTest {
 
     }
 
+    /**
+     * Test southern hemi contains.
+     */
     @Test
     public void testSouthernHemiContains() {
         GWTBounds bounds = new GWTBounds(new GWTLatLng(-40.0, -80.0), new GWTLatLng(30.0, 70.0));
@@ -65,6 +77,9 @@ public class GWTBoundsTest {
 
     }
 
+    /**
+     * Test dateline contains.
+     */
     @Test
     public void testDatelineContains() {
         GWTBounds bounds = new GWTBounds(new GWTLatLng(-40.0, 80.0), new GWTLatLng(30.0, -70.0));
@@ -75,6 +90,9 @@ public class GWTBoundsTest {
 
     }
 
+    /**
+     * Test equals.
+     */
     @Test
     public void testEquals() {
         GWTBounds b1 = new GWTBounds(1.0, 2.0, 3.0, 4.0);

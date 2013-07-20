@@ -50,6 +50,7 @@ public interface Location extends Event, IsSerializable, Comparable<Location> {
      * <p>
      * getImageURL
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -59,6 +60,7 @@ public interface Location extends Event, IsSerializable, Comparable<Location> {
      * <p>
      * getLocationInfo
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
@@ -70,6 +72,7 @@ public interface Location extends Event, IsSerializable, Comparable<Location> {
      * <p>
      * getLocationDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationDetails}

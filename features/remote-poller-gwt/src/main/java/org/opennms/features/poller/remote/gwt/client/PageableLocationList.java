@@ -51,18 +51,29 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class PageableLocationList extends PageableList {
 
+    /** The m_locations. */
     private ArrayList<? extends LocationInfo> m_locations;
 
+    /**
+     * The Class LocationInfoDisplay.
+     */
     private class LocationInfoDisplay extends Widget {
 
+        /** The m_icon. */
         Image m_icon = new Image();
 
+        /** The m_name label. */
         Label m_nameLabel = new Label();
 
+        /** The m_area label. */
         Label m_areaLabel = new Label();
 
+        /** The m_status label. */
         Label m_statusLabel = new Label();
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.Widget#doAttachChildren()
+         */
         @Override
         protected void doAttachChildren() {
             super.doAttachChildren();
@@ -72,17 +83,29 @@ public class PageableLocationList extends PageableList {
             DOM.appendChild(this.getElement(), m_statusLabel.getElement());
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.user.client.ui.Widget#onLoad()
+         */
         @Override
         protected void onLoad() {
             resizeToFit();
         }
 
+        /**
+         * Resize to fit.
+         */
         protected void resizeToFit() {
             int calculatedHeight = m_nameLabel.getOffsetHeight() + m_statusLabel.getOffsetHeight();
             int newHeight = calculatedHeight > 60 ? calculatedHeight : 60;
             setHeight(Integer.toString(newHeight + 2));
         }
 
+        /**
+         * Instantiates a new location info display.
+         *
+         * @param locationInfo
+         *            the location info
+         */
         public LocationInfoDisplay(final LocationInfo locationInfo) {
             setElement(DOM.createDiv());
 
@@ -94,6 +117,9 @@ public class PageableLocationList extends PageableList {
             m_statusLabel.setText(locationInfo.getStatusDetails().getReason());
         }
 
+        /**
+         * Sets the styles.
+         */
         private void setStyles() {
             setStyleName(locationDetailStyle.detailContainerStyle());
             m_icon.addStyleName(locationDetailStyle.iconStyle());
@@ -114,7 +140,7 @@ public class PageableLocationList extends PageableList {
     /**
      * TODO: Maybe enhance this so that it only adds/updates/deletes individual
      * items
-     * TODO: Don't skip to the front page on every update
+     * TODO: Don't skip to the front page on every update.
      *
      * @param locations
      *            a {@link java.util.ArrayList} object.
@@ -125,10 +151,21 @@ public class PageableLocationList extends PageableList {
         // refresh();
     }
 
+    /**
+     * Gets the locations.
+     *
+     * @return the locations
+     */
     private ArrayList<? extends LocationInfo> getLocations() {
         return m_locations;
     }
 
+    /**
+     * Sets the locations.
+     *
+     * @param locations
+     *            the new locations
+     */
     private void setLocations(final ArrayList<? extends LocationInfo> locations) {
         m_locations = locations;
     }
@@ -155,6 +192,7 @@ public class PageableLocationList extends PageableList {
      * <p>
      * refreshLocationListResize
      * </p>
+     * .
      */
     public void refreshLocationListResize() {
         for (int i = 0; i < getDataList().getRowCount(); i++) {

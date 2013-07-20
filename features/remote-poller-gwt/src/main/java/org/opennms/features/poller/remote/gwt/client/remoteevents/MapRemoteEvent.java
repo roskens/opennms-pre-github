@@ -44,10 +44,12 @@ import de.novanic.eventservice.client.event.Event;
  * @since 1.8.1
  */
 public interface MapRemoteEvent extends Event, Serializable, IsSerializable {
+
     /**
      * <p>
      * dispatch
      * </p>
+     * .
      *
      * @param locationManager
      *            a

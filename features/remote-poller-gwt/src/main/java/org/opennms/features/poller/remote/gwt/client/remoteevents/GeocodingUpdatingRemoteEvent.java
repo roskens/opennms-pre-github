@@ -39,10 +39,13 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class GeocodingUpdatingRemoteEvent implements MapRemoteEvent {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5381040379698780108L;
 
+    /** The m_count. */
     private int m_count = 0;
 
+    /** The m_size. */
     private int m_size = 0;
 
     /**
@@ -78,6 +81,7 @@ public class GeocodingUpdatingRemoteEvent implements MapRemoteEvent {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

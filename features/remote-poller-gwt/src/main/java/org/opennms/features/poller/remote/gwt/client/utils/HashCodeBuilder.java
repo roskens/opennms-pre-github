@@ -38,8 +38,11 @@ package org.opennms.features.poller.remote.gwt.client.utils;
  * @since 1.8.1
  */
 public class HashCodeBuilder {
+
+    /** The m_constant. */
     private int m_constant = 0;
 
+    /** The m_total. */
     private int m_total = 0;
 
     /**
@@ -71,6 +74,7 @@ public class HashCodeBuilder {
      * <p>
      * append
      * </p>
+     * .
      *
      * @param o
      *            a {@link java.lang.Object} object.
@@ -91,6 +95,7 @@ public class HashCodeBuilder {
      * <p>
      * toHashcode
      * </p>
+     * .
      *
      * @return a int.
      */

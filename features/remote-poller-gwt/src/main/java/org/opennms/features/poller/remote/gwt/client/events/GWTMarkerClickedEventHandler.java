@@ -45,6 +45,7 @@ public interface GWTMarkerClickedEventHandler extends EventHandler {
      * <p>
      * onGWTMarkerClicked
      * </p>
+     * .
      *
      * @param event
      *            a

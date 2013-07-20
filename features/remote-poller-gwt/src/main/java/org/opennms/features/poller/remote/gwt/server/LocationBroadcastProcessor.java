@@ -65,28 +65,37 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @EventListener(name = "LocationStatusService")
 public class LocationBroadcastProcessor implements InitializingBean, DisposableBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LocationBroadcastProcessor.class);
 
+    /** The m_location data service. */
     @Autowired
     private LocationDataService m_locationDataService;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The Constant UPDATE_PERIOD. */
     @SuppressWarnings("unused")
     private static final long UPDATE_PERIOD = 1000 * 60;
 
+    /** The m_timer. */
     @SuppressWarnings("unused")
     private static volatile Timer m_timer;
 
+    /** The m_events. */
     private String[] m_events = new String[] { EventConstants.LOCATION_MONITOR_STARTED_UEI,
             EventConstants.LOCATION_MONITOR_STOPPED_UEI, EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI,
             EventConstants.LOCATION_MONITOR_RECONNECTED_UEI, EventConstants.LOCATION_MONITOR_REGISTERED_UEI,
             EventConstants.LOCATION_MONITOR_PAUSED_UEI, EventConstants.REMOTE_NODE_LOST_SERVICE_UEI,
             EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI };
 
+    /** The m_event handler. */
     public LocationEventHandler m_eventHandler;
 
+    /** The m_task. */
     private TimerTask m_task;
 
     /**
@@ -102,9 +111,10 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -132,6 +142,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {
@@ -145,6 +156,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorStarted
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -158,6 +170,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorStopped
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -171,6 +184,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorDisconnected
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -184,6 +198,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorReconnected
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -197,6 +212,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorRegistered
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -210,6 +226,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * locationMonitorPaused
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -223,6 +240,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * nodeLostService
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -236,6 +254,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * nodeRegainedService
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -249,6 +268,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
      * <p>
      * setEventHandler
      * </p>
+     * .
      *
      * @param handler
      *            a
@@ -259,6 +279,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         m_eventHandler = handler;
     }
 
+    /**
+     * Handle location event.
+     *
+     * @param event
+     *            the event
+     */
     private void handleLocationEvent(final OnmsEvent event) {
         if (m_eventHandler == null) {
             LOG.warn("handleLocationEvent called, but no eventHandler is registered");
@@ -267,6 +293,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         handleEventParms(Parameter.decode(event.getEventParms()));
     }
 
+    /**
+     * Handle location event.
+     *
+     * @param event
+     *            the event
+     */
     private void handleLocationEvent(final Event event) {
         if (m_eventHandler == null) {
             LOG.warn("handleLocationEvent called, but no eventHandler is registered");
@@ -275,6 +307,12 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         handleEventParms(event.getParmCollection());
     }
 
+    /**
+     * Handle event parms.
+     *
+     * @param parms
+     *            the parms
+     */
     private void handleEventParms(final List<Parm> parms) {
         for (final Parm p : parms) {
             if (p.getParmName().equals(EventConstants.PARM_LOCATION_MONITOR_ID)) {

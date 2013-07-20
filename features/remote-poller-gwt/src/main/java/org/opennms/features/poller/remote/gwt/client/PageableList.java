@@ -47,7 +47,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * The Basic building blocks for a simple Pageable List
+ * The Basic building blocks for a simple Pageable List.
  *
  * @author Donald Desloge
  * @version $Id: $
@@ -55,49 +55,97 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class PageableList extends Composite {
 
+    /** The ui binder. */
     private static PageableListUiBinder uiBinder = GWT.create(PageableListUiBinder.class);
 
+    /**
+     * The Interface PageableListUiBinder.
+     */
     interface PageableListUiBinder extends UiBinder<Widget, PageableList> {
     }
 
+    /**
+     * The Interface LocationDetailStyle.
+     */
     interface LocationDetailStyle extends CssResource {
+
+        /**
+         * Detail container style.
+         *
+         * @return the string
+         */
         String detailContainerStyle();
 
+        /**
+         * Icon style.
+         *
+         * @return the string
+         */
         String iconStyle();
 
+        /**
+         * Name style.
+         *
+         * @return the string
+         */
         String nameStyle();
 
+        /**
+         * Area style.
+         *
+         * @return the string
+         */
         String areaStyle();
 
+        /**
+         * Status style.
+         *
+         * @return the string
+         */
         String statusStyle();
 
+        /**
+         * Alternate row style.
+         *
+         * @return the string
+         */
         String alternateRowStyle();
     }
 
+    /** The Constant TOTAL_LOCATIONS. */
     private static final int TOTAL_LOCATIONS = 10;
 
+    /** The data list. */
     @UiField
     FlexTable dataList;
 
+    /** The paging controls. */
     @UiField
     Panel pagingControls;
 
+    /** The next btn. */
     @UiField
     Hyperlink nextBtn;
 
+    /** The page stats label. */
     @UiField
     Label pageStatsLabel;
 
+    /** The prev btn. */
     @UiField
     Hyperlink prevBtn;
 
+    /** The location detail style. */
     @UiField
     LocationDetailStyle locationDetailStyle;
 
+    /** The m_needs refresh. */
     private volatile boolean m_needsRefresh = true;
 
+    /** The m_current page index. */
     private int m_currentPageIndex = 0;
 
+    /** The m_total pages. */
     private int m_totalPages = 0;
 
     /**
@@ -130,6 +178,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * refresh
      * </p>
+     * .
      */
     public void refresh() {
         m_needsRefresh = true;
@@ -139,6 +188,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * showFirstPage
      * </p>
+     * .
      */
     protected void showFirstPage() {
         setCurrentPageIndex(0);
@@ -149,6 +199,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * updateListDisplay
      * </p>
+     * .
      *
      * @param currentPageIndex
      *            a int.
@@ -176,6 +227,12 @@ public abstract class PageableList extends Composite {
         updatePageStatsDisplay(startIndex + 1, showableLocations, getListSize());
     }
 
+    /**
+     * Calculate and set total pages.
+     *
+     * @param size
+     *            the size
+     */
     protected void calculateAndSetTotalPages(final int size) {
         if (size > getTotalListItemsPerPage()) {
             int totalPages = (int) Math.ceil(size / getTotalListItemsPerPage());
@@ -193,6 +250,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getAlternateRowStyle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -204,6 +262,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getListSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -213,6 +272,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getListItemWidget
      * </p>
+     * .
      *
      * @param rowIndex
      *            a int.
@@ -224,6 +284,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * onItemClickHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -235,6 +296,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * onPrevBtnClick
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -250,6 +312,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * onNextBtnClick
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -265,6 +328,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * addLocationPanelSelectEventHandler
      * </p>
+     * .
      *
      * @param handler
      *            a
@@ -275,6 +339,12 @@ public abstract class PageableList extends Composite {
         addHandler(handler, LocationPanelSelectEvent.TYPE);
     }
 
+    /**
+     * Sets the current page index.
+     *
+     * @param currentPageIndex
+     *            the new current page index
+     */
     protected void setCurrentPageIndex(final int currentPageIndex) {
         calculateAndSetTotalPages(getListSize());
         if (currentPageIndex == 0) {
@@ -291,6 +361,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getCurrentPageIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -298,10 +369,26 @@ public abstract class PageableList extends Composite {
         return m_currentPageIndex;
     }
 
+    /**
+     * Sets the total pages.
+     *
+     * @param totalPages
+     *            the new total pages
+     */
     private void setTotalPages(final int totalPages) {
         m_totalPages = totalPages;
     }
 
+    /**
+     * Update page stats display.
+     *
+     * @param startIndex
+     *            the start index
+     * @param endIndex
+     *            the end index
+     * @param total
+     *            the total
+     */
     private void updatePageStatsDisplay(final int startIndex, final int endIndex, final int total) {
         if (endIndex > 0) {
             pageStatsLabel.setText(startIndex + "-" + endIndex + " of " + total);
@@ -310,6 +397,11 @@ public abstract class PageableList extends Composite {
         }
     }
 
+    /**
+     * Gets the total pages.
+     *
+     * @return the total pages
+     */
     private int getTotalPages() {
         return m_totalPages;
     }
@@ -318,6 +410,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getTotalListItemsPerPage
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -325,10 +418,21 @@ public abstract class PageableList extends Composite {
         return TOTAL_LOCATIONS;
     }
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(final FlexTable dataList) {
         this.dataList = dataList;
     }
 
+    /**
+     * Gets the data list.
+     *
+     * @return the data list
+     */
     FlexTable getDataList() {
         return dataList;
     }
@@ -337,6 +441,7 @@ public abstract class PageableList extends Composite {
      * <p>
      * getCellForEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.

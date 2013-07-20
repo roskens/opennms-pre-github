@@ -43,9 +43,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static final Type<GWTMarkerClickedEventHandler> TYPE = new Type<GWTMarkerClickedEventHandler>();
 
+    /** The m_marker. */
     private GWTMarkerState m_marker;
 
     /**
@@ -75,6 +76,12 @@ public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler
         return TYPE;
     }
 
+    /**
+     * Sets the marker.
+     *
+     * @param marker
+     *            the new marker
+     */
     private void setMarker(GWTMarkerState marker) {
         m_marker = marker;
     }
@@ -83,6 +90,7 @@ public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler
      * <p>
      * getMarkerState
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState}

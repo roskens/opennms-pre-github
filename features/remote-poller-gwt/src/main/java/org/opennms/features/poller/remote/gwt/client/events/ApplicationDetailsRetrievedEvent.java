@@ -43,9 +43,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ApplicationDetailsRetrievedEvent extends GwtEvent<ApplicationDetailsRetrievedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static final Type<ApplicationDetailsRetrievedEventHandler> TYPE = new Type<ApplicationDetailsRetrievedEventHandler>();
 
+    /** The m_application details. */
     private ApplicationDetails m_applicationDetails;
 
     /**
@@ -75,6 +76,12 @@ public class ApplicationDetailsRetrievedEvent extends GwtEvent<ApplicationDetail
         return TYPE;
     }
 
+    /**
+     * Sets the application details.
+     *
+     * @param applicationDetails
+     *            the new application details
+     */
     private void setApplicationDetails(final ApplicationDetails applicationDetails) {
         m_applicationDetails = applicationDetails;
     }
@@ -83,6 +90,7 @@ public class ApplicationDetailsRetrievedEvent extends GwtEvent<ApplicationDetail
      * <p>
      * getApplicationDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationDetails}

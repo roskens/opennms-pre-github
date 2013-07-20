@@ -30,14 +30,27 @@ package org.opennms.features.poller.remote.gwt.client.data;
 
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Class AndFilter.
+ */
 public class AndFilter implements LocationFilter {
 
+    /** The m_filters. */
     private LocationFilter[] m_filters;
 
+    /**
+     * Instantiates a new and filter.
+     *
+     * @param filters
+     *            the filters
+     */
     public AndFilter(LocationFilter... filters) {
         m_filters = filters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.data.LocationFilter#matches(org.opennms.features.poller.remote.gwt.client.location.LocationInfo)
+     */
     @Override
     public boolean matches(LocationInfo location) {
         for (LocationFilter filter : m_filters) {

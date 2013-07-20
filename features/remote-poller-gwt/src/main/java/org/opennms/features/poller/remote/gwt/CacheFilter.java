@@ -50,6 +50,8 @@ import javax.servlet.http.HttpServletResponse;
  * @since 1.8.1
  */
 public class CacheFilter implements Filter {
+
+    /** The Constant ONE_DAY. */
     private static final long ONE_DAY = 1000 * 60 * 60 * 24;
 
     /** {@inheritDoc} */
@@ -61,6 +63,7 @@ public class CacheFilter implements Filter {
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {

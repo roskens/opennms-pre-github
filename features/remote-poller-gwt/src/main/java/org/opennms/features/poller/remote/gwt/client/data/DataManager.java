@@ -42,20 +42,38 @@ import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 import org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler;
 import org.opennms.features.poller.remote.gwt.client.utils.BoundsBuilder;
 
+/**
+ * The Class DataManager.
+ */
 public class DataManager implements MapRemoteEventHandler {
 
+    /** The m_locations. */
     private final Map<String, LocationInfo> m_locations = new HashMap<String, LocationInfo>();
 
+    /** The m_applications. */
     private final Map<String, ApplicationInfo> m_applications = new HashMap<String, ApplicationInfo>();
 
+    /**
+     * Gets the locations map.
+     *
+     * @return the locations map
+     */
     public Map<String, LocationInfo> getLocationsMap() {
         return m_locations;
     }
 
+    /**
+     * Gets the applications map.
+     *
+     * @return the applications map
+     */
     public Map<String, ApplicationInfo> getApplicationsMap() {
         return m_applications;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#updateApplication(org.opennms.features.poller.remote.gwt.client.ApplicationInfo)
+     */
     @Override
     public void updateApplication(final ApplicationInfo applicationInfo) {
         if (applicationInfo.getLocations().size() == 0) {
@@ -72,19 +90,37 @@ public class DataManager implements MapRemoteEventHandler {
         getApplicationsMap().put(applicationInfo.getName(), applicationInfo);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#updateLocation(org.opennms.features.poller.remote.gwt.client.location.LocationInfo)
+     */
     @Override
     public void updateLocation(final LocationInfo locationInfo) {
         getLocationsMap().put(locationInfo.getName(), locationInfo);
     }
 
+    /**
+     * Gets the all application names.
+     *
+     * @return the all application names
+     */
     public TreeSet<String> getAllApplicationNames() {
         return new TreeSet<String>(getApplicationsMap().keySet());
     }
 
+    /**
+     * Gets the all location names.
+     *
+     * @return the all location names
+     */
     public TreeSet<String> getAllLocationNames() {
         return new TreeSet<String>(getLocationsMap().keySet());
     }
 
+    /**
+     * Gets the all tags.
+     *
+     * @return the all tags
+     */
     public List<String> getAllTags() {
         final List<String> retval = new ArrayList<String>();
 
@@ -118,6 +154,11 @@ public class DataManager implements MapRemoteEventHandler {
         return getLocationsMap().get(locationName);
     }
 
+    /**
+     * Gets the location bounds.
+     *
+     * @return the location bounds
+     */
     public GWTBounds getLocationBounds() {
         BoundsBuilder bldr = new BoundsBuilder();
 
@@ -127,10 +168,20 @@ public class DataManager implements MapRemoteEventHandler {
         return bldr.getBounds();
     }
 
+    /**
+     * Gets the locations.
+     *
+     * @return the locations
+     */
     public Collection<LocationInfo> getLocations() {
         return getLocationsMap().values();
     }
 
+    /**
+     * Gets the applications.
+     *
+     * @return the applications
+     */
     public ArrayList<ApplicationInfo> getApplications() {
         ArrayList<ApplicationInfo> applicationList = new ArrayList<ApplicationInfo>();
 
@@ -139,11 +190,21 @@ public class DataManager implements MapRemoteEventHandler {
         return applicationList;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#removeApplication(java.lang.String)
+     */
     @Override
     public void removeApplication(final String applicationName) {
         getApplicationsMap().remove(applicationName);
     }
 
+    /**
+     * Gets the matching locations.
+     *
+     * @param filter
+     *            the filter
+     * @return the matching locations
+     */
     public List<LocationInfo> getMatchingLocations(LocationFilter filter) {
         final ArrayList<LocationInfo> locations = new ArrayList<LocationInfo>();
 
@@ -156,6 +217,9 @@ public class DataManager implements MapRemoteEventHandler {
         return locations;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#updateLocations(java.util.Collection)
+     */
     @Override
     public void updateLocations(Collection<LocationInfo> locations) {
         for (LocationInfo location : locations) {
@@ -164,12 +228,20 @@ public class DataManager implements MapRemoteEventHandler {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.remoteevents.MapRemoteEventHandler#updateComplete()
+     */
     @Override
     public void updateComplete() {
         // TODO Auto-generated method stub
 
     }
 
+    /**
+     * Gets the location count.
+     *
+     * @return the location count
+     */
     public int getLocationCount() {
         return m_locations.size();
     }

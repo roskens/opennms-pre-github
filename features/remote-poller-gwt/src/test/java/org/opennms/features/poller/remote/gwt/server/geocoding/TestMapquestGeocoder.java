@@ -34,13 +34,25 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
+/**
+ * The Class TestMapquestGeocoder.
+ */
 public class TestMapquestGeocoder extends AbstractGeocoderTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.setProperty("gwt.geocoder.referer", "http://localhost/");
     }
 
+    /**
+     * Test successful lookup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSuccessfulLookup() throws Exception {
         if (shouldRun()) {
@@ -52,6 +64,12 @@ public class TestMapquestGeocoder extends AbstractGeocoderTest {
         }
     }
 
+    /**
+     * Test successful lookup fails minimum quality.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSuccessfulLookupFailsMinimumQuality() throws Exception {
         if (shouldRun()) {
@@ -65,6 +83,12 @@ public class TestMapquestGeocoder extends AbstractGeocoderTest {
         }
     }
 
+    /**
+     * Test bad api key.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBadApiKey() throws Exception {
         if (shouldRun()) {

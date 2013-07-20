@@ -44,16 +44,37 @@ import de.novanic.eventservice.client.event.RemoteEventService;
  */
 public class Application implements LocationsUpdatedEventHandler {
 
+    /** The m_location manager. */
     private LocationManager m_locationManager;
 
+    /** The m_event bus. */
     private final HandlerManager m_eventBus;
 
+    /** The m_view. */
     ApplicationView m_view;
 
+    /**
+     * Instantiates a new application.
+     *
+     * @param eventBus
+     *            the event bus
+     */
     public Application(HandlerManager eventBus) {
         m_eventBus = eventBus;
     }
 
+    /**
+     * Initialize.
+     *
+     * @param view
+     *            the view
+     * @param remoteService
+     *            the remote service
+     * @param remoteEventService
+     *            the remote event service
+     * @param executor
+     *            the executor
+     */
     public void initialize(ApplicationView view, LocationStatusServiceAsync remoteService,
             RemoteEventService remoteEventService, CommandExecutor executor) {
         // Register for all relevant events thrown by the UI components
@@ -69,10 +90,16 @@ public class Application implements LocationsUpdatedEventHandler {
 
     }
 
+    /**
+     * On application view selected.
+     */
     public void onApplicationViewSelected() {
         m_locationManager.applicationClicked();
     }
 
+    /**
+     * On location view selected.
+     */
     public void onLocationViewSelected() {
         m_locationManager.locationClicked();
     }
@@ -83,6 +110,11 @@ public class Application implements LocationsUpdatedEventHandler {
         m_view.updateTimestamp();
     }
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     private HandlerManager getEventBus() {
         return m_eventBus;
     }

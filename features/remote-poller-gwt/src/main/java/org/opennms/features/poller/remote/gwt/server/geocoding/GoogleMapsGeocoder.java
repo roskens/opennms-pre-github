@@ -48,10 +48,14 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class GoogleMapsGeocoder implements Geocoder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GoogleMapsGeocoder.class);
 
+    /** The Constant DEFAULT_RATE. */
     private static final long DEFAULT_RATE = 10;
 
+    /** The m_standardizer. */
     private final GeoAddressStandardizer m_standardizer;
 
     /**
@@ -88,6 +92,13 @@ public class GoogleMapsGeocoder implements Geocoder {
         }
     }
 
+    /**
+     * Gets the lat lng.
+     *
+     * @param geoCoordinate
+     *            the geo coordinate
+     * @return the lat lng
+     */
     private GWTLatLng getLatLng(final GeoCoordinate geoCoordinate) {
         return new GWTLatLng(geoCoordinate.getLatitude(), geoCoordinate.getLongitude());
     }

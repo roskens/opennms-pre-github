@@ -39,13 +39,21 @@ import org.slf4j.LoggerFactory;
 
 import de.novanic.eventservice.service.EventExecutorService;
 
+/**
+ * The Class UpdateTask.
+ */
 final class UpdateTask extends TimerTask {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UpdateTask.class);
 
+    /** The m_service. */
     private final EventExecutorService m_service;
 
+    /** The m_location data manager. */
     private final LocationDataManager m_locationDataManager;
 
+    /** The m_last updated. */
     private Date m_lastUpdated;
 
     /**

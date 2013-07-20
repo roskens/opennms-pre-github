@@ -49,6 +49,7 @@ public abstract class GoogleMapsUtils {
      * <p>
      * toGWTBounds
      * </p>
+     * .
      *
      * @param bounds
      *            a {@link com.google.gwt.maps.client.geom.LatLngBounds} object.
@@ -64,12 +65,13 @@ public abstract class GoogleMapsUtils {
      * <p>
      * toLatLngBounds
      * </p>
+     * .
      *
      * @param bounds
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
-     *            object.
      * @return a {@link com.google.gwt.maps.client.geom.LatLngBounds} object.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     public static LatLngBounds toLatLngBounds(GWTBounds bounds) {
         return LatLngBounds.newInstance(toLatLng(bounds.getSouthWestCorner()), toLatLng(bounds.getNorthEastCorner()));
@@ -79,12 +81,13 @@ public abstract class GoogleMapsUtils {
      * <p>
      * toLatLng
      * </p>
+     * .
      *
      * @param latLng
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
-     *            object.
      * @return a {@link com.google.gwt.maps.client.geom.LatLng} object.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
+     *         object.
      */
     public static LatLng toLatLng(final GWTLatLng latLng) {
         return LatLng.newInstance(latLng.getLatitude(), latLng.getLongitude());
@@ -94,6 +97,7 @@ public abstract class GoogleMapsUtils {
      * <p>
      * toGWTLatLng
      * </p>
+     * .
      *
      * @param latLng
      *            a {@link com.google.gwt.maps.client.geom.LatLng} object.

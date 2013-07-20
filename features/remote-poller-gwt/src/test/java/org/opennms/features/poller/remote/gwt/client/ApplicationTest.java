@@ -45,25 +45,41 @@ import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class ApplicationTest.
+ */
 public class ApplicationTest {
+
+    /** The m_to. */
     final Date m_to = new Date();
 
+    /** The m_from. */
     final Date m_from = new Date(m_to.getTime() - (1000 * 60 * 60 * 24));
 
+    /** The Constant FIVE_MINUTES. */
     static final long FIVE_MINUTES = 1000 * 60 * 5;
 
+    /** The count. */
     static int count = 0;
 
+    /** The monitor offset. */
     static int monitorOffset = 0;
 
+    /** The Constant m_random. */
     static final Random m_random = new Random();
 
+    /** The m_applications. */
     Map<String, ApplicationInfo> m_applications = null;
 
+    /** The m_services. */
     Map<String, GWTMonitoredService> m_services = null;
 
+    /** The m_monitors. */
     Map<String, GWTLocationMonitor> m_monitors = null;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         m_applications = new HashMap<String, ApplicationInfo>();
@@ -73,12 +89,18 @@ public class ApplicationTest {
         monitorOffset = 0;
     }
 
+    /**
+     * Test application status unknown.
+     */
     @Test
     public void testApplicationStatusUnknown() {
         ApplicationDetails appStatus = new ApplicationDetails(getApplication("TestApp1"), m_from, m_to, null, null);
         assertEquals(Status.UNKNOWN, appStatus.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application status up.
+     */
     @Test
     public void testApplicationStatusUp() {
         ApplicationDetails status = getUpApplicationStatus("TestApp1");
@@ -87,6 +109,9 @@ public class ApplicationTest {
         assertEquals(Double.valueOf(100.0), status.getAvailability());
     }
 
+    /**
+     * Test application status marginal.
+     */
     @Test
     public void testApplicationStatusMarginal() {
         ApplicationDetails status = getMarginalApplicationStatus("TestApp1");
@@ -94,6 +119,9 @@ public class ApplicationTest {
         assertEquals(Status.MARGINAL, status.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application status down.
+     */
     @Test
     public void testApplicationStatusDown() {
         ApplicationDetails status = getDownApplicationStatus("TestApp1");
@@ -101,6 +129,9 @@ public class ApplicationTest {
         assertEquals(Status.DOWN, status.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application state unknown.
+     */
     @Test
     public void testApplicationStateUnknown() {
         Collection<ApplicationInfo> applications = new ArrayList<ApplicationInfo>();
@@ -116,6 +147,9 @@ public class ApplicationTest {
         assertEquals(Status.UNKNOWN, appState.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application state marginal.
+     */
     @Test
     public void testApplicationStateMarginal() {
         Collection<ApplicationInfo> applications = new ArrayList<ApplicationInfo>();
@@ -131,6 +165,9 @@ public class ApplicationTest {
         assertEquals(Status.MARGINAL, appState.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test application state down.
+     */
     @Test
     public void testApplicationStateDown() {
         Collection<ApplicationInfo> applications = new ArrayList<ApplicationInfo>();
@@ -146,6 +183,9 @@ public class ApplicationTest {
         assertEquals(Status.DOWN, appState.getStatusDetails().getStatus());
     }
 
+    /**
+     * Test set.
+     */
     @Test
     public void testSet() {
         final Set<ApplicationInfo> applicationSet = new HashSet<ApplicationInfo>();
@@ -168,6 +208,13 @@ public class ApplicationTest {
         assertEquals(2, applicationSet.size());
     }
 
+    /**
+     * Gets the down application status.
+     *
+     * @param appName
+     *            the app name
+     * @return the down application status
+     */
     private ApplicationDetails getDownApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getDownStatusList();
         ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
@@ -175,6 +222,13 @@ public class ApplicationTest {
         return status;
     }
 
+    /**
+     * Gets the monitors.
+     *
+     * @param statuseses
+     *            the statuseses
+     * @return the monitors
+     */
     private List<GWTLocationMonitor> getMonitors(final Collection<List<GWTLocationSpecificStatus>> statuseses) {
         final List<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
         for (final List<GWTLocationSpecificStatus> statuses : statuseses) {
@@ -187,10 +241,22 @@ public class ApplicationTest {
         return monitors;
     }
 
+    /**
+     * Gets the monitors.
+     *
+     * @param statuses
+     *            the statuses
+     * @return the monitors
+     */
     private List<GWTLocationMonitor> getMonitors(final List<GWTLocationSpecificStatus> statuses) {
         return getMonitors(Collections.singletonList(statuses));
     }
 
+    /**
+     * Gets the down status list.
+     *
+     * @return the down status list
+     */
     private List<GWTLocationSpecificStatus> getDownStatusList() {
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
 
@@ -220,6 +286,13 @@ public class ApplicationTest {
         return statuses;
     }
 
+    /**
+     * Gets the up application status.
+     *
+     * @param appName
+     *            the app name
+     * @return the up application status
+     */
     private ApplicationDetails getUpApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getUpStatusList();
         ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
@@ -227,6 +300,11 @@ public class ApplicationTest {
         return status;
     }
 
+    /**
+     * Gets the up status list.
+     *
+     * @return the up status list
+     */
     private List<GWTLocationSpecificStatus> getUpStatusList() {
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
         Date date = m_from;
@@ -238,6 +316,13 @@ public class ApplicationTest {
         return statuses;
     }
 
+    /**
+     * Gets the marginal application status.
+     *
+     * @param appName
+     *            the app name
+     * @return the marginal application status
+     */
     private ApplicationDetails getMarginalApplicationStatus(final String appName) {
         List<GWTLocationSpecificStatus> statuses = getMarginalStatusList();
         ApplicationDetails status = new ApplicationDetails(getApplication(appName), m_from, m_to,
@@ -245,6 +330,11 @@ public class ApplicationTest {
         return status;
     }
 
+    /**
+     * Gets the marginal status list.
+     *
+     * @return the marginal status list
+     */
     private List<GWTLocationSpecificStatus> getMarginalStatusList() {
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
         Date date = m_from;
@@ -261,22 +351,67 @@ public class ApplicationTest {
         return statuses;
     }
 
+    /**
+     * Gets the up status.
+     *
+     * @param date
+     *            the date
+     * @param monitorName
+     *            the monitor name
+     * @param monitorId
+     *            the monitor id
+     * @return the up status
+     */
     private GWTLocationSpecificStatus getUpStatus(Date date, String monitorName, Integer monitorId) {
         return getStatus(date, monitorName, monitorId, up(date));
     }
 
+    /**
+     * Gets the down status.
+     *
+     * @param date
+     *            the date
+     * @param monitorName
+     *            the monitor name
+     * @param monitorId
+     *            the monitor id
+     * @return the down status
+     */
     private GWTLocationSpecificStatus getDownStatus(Date date, String monitorName, Integer monitorId) {
         return getStatus(date, monitorName, monitorId, down(date, "Stuff be broke, yo!"));
     }
 
+    /**
+     * Up.
+     *
+     * @param date
+     *            the date
+     * @return the gWT poll result
+     */
     private GWTPollResult up(Date date) {
         return new GWTPollResult("Up", date, "Everything is A-OK", m_random.nextDouble() * 300);
     }
 
+    /**
+     * Down.
+     *
+     * @param date
+     *            the date
+     * @param reason
+     *            the reason
+     * @return the gWT poll result
+     */
     private GWTPollResult down(Date date, String reason) {
         return new GWTPollResult("Down", date, reason, null);
     }
 
+    /**
+     * Gets the application.
+     *
+     * @param name
+     *            the name
+     * @return the application
+     */
     private ApplicationInfo getApplication(String name) {
         ApplicationInfo app = m_applications.get(name);
         if (app == null) {
@@ -290,6 +425,19 @@ public class ApplicationTest {
         return app;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @param date
+     *            the date
+     * @param monitorName
+     *            the monitor name
+     * @param monitorId
+     *            the monitor id
+     * @param result
+     *            the result
+     * @return the status
+     */
     private GWTLocationSpecificStatus getStatus(Date date, String monitorName, int monitorId, GWTPollResult result) {
         GWTLocationSpecificStatus status = new GWTLocationSpecificStatus();
         status.setId(count++);
@@ -299,10 +447,22 @@ public class ApplicationTest {
         return status;
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @return the monitored service
+     */
     private GWTMonitoredService getMonitoredService() {
         return getMonitoredService("HTTP");
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the monitored service
+     */
     private GWTMonitoredService getMonitoredService(String serviceName) {
         GWTMonitoredService service = m_services.get(serviceName);
         if (service == null) {
@@ -323,6 +483,19 @@ public class ApplicationTest {
         return service;
     }
 
+    /**
+     * Gets the location monitor.
+     *
+     * @param checkinTime
+     *            the checkin time
+     * @param name
+     *            the name
+     * @param id
+     *            the id
+     * @param status
+     *            the status
+     * @return the location monitor
+     */
     private GWTLocationMonitor getLocationMonitor(Date checkinTime, String name, int id, String status) {
         final String monitorName = name + "-" + id;
         GWTLocationMonitor monitor = m_monitors.get(monitorName);

@@ -39,15 +39,27 @@ import com.google.gwt.user.client.Window;
 import de.novanic.eventservice.client.event.RemoteEventService;
 import de.novanic.eventservice.client.event.RemoteEventServiceFactory;
 
+/**
+ * The Class Main.
+ */
 public class Main implements EntryPoint {
 
+    /**
+     * The Class DeferredCommandExecutor.
+     */
     private class DeferredCommandExecutor implements CommandExecutor {
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.CommandExecutor#schedule(com.google.gwt.core.client.Scheduler.RepeatingCommand)
+         */
         @Override
         public void schedule(Scheduler.RepeatingCommand command) {
             Scheduler.get().scheduleIncremental(command);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.poller.remote.gwt.client.CommandExecutor#schedule(com.google.gwt.user.client.Command)
+         */
         @Override
         public void schedule(Command command) {
             DeferredCommand.addCommand(command);
@@ -55,8 +67,12 @@ public class Main implements EntryPoint {
 
     }
 
+    /** The m_event bus. */
     private HandlerManager m_eventBus;
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+     */
     @Override
     public void onModuleLoad() {
         m_eventBus = new HandlerManager(null);
@@ -70,6 +86,13 @@ public class Main implements EntryPoint {
 
     }
 
+    /**
+     * Creates the map.
+     *
+     * @param application
+     *            the application
+     * @return the map panel
+     */
     private MapPanel createMap(Application application) {
         MapPanel mapPanel;
         if (getMapType().equals("Mapquest")) {
@@ -89,6 +112,7 @@ public class Main implements EntryPoint {
      * <p>
      * getMapImplementationType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +120,11 @@ public class Main implements EntryPoint {
                                       return $wnd.mapImplementation;
                                       }-*/;
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     public HandlerManager getEventBus() {
         return m_eventBus;
     }

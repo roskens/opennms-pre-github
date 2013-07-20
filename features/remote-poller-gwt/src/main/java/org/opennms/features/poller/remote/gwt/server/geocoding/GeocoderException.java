@@ -39,6 +39,7 @@ package org.opennms.features.poller.remote.gwt.server.geocoding;
  */
 public class GeocoderException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4375009213100201730L;
 
     /**

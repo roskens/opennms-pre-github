@@ -31,10 +31,17 @@ package org.opennms.features.poller.remote.gwt.server;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.monitoringLocations.MonitoringLocationsConfiguration;
 
+/**
+ * The Class TestMonitoringLocationsConfiguration.
+ */
 public class TestMonitoringLocationsConfiguration extends MonitoringLocationsConfiguration {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3008390415267170754L;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.monitoringLocations.MonitoringLocationsConfiguration#validate()
+     */
     @Override
     public void validate() throws ValidationException {
     }

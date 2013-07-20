@@ -42,18 +42,27 @@ import org.slf4j.LoggerFactory;
 import de.novanic.eventservice.service.EventExecutorService;
 import de.novanic.eventservice.service.EventExecutorServiceFactory;
 
+/**
+ * The Class InitializeTask.
+ */
 final class InitializeTask extends TimerTask {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InitializeTask.class);
 
-    /** Constant <code>m_updateTaskScheduled</code> */
+    /** Constant <code>m_updateTaskScheduled</code>. */
     public static AtomicBoolean m_updateTaskScheduled = new AtomicBoolean(false);
 
+    /** The m_service. */
     private final EventExecutorService m_service;
 
+    /** The m_location data manager. */
     final LocationDataManager m_locationDataManager;
 
+    /** The m_timer. */
     private final Timer m_timer;
 
+    /** The Constant UPDATE_PERIOD. */
     static final int UPDATE_PERIOD = 1000 * 60; // 1 minute
 
     /**
@@ -66,10 +75,10 @@ final class InitializeTask extends TimerTask {
      *            object.
      * @param locationDataManager
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataManager}
-     *            object.
      * @param timer
      *            a {@link java.util.Timer} object.
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataManager}
+     *            object.
      */
     public InitializeTask(EventExecutorService service, LocationDataManager locationDataManager, Timer timer) {
         m_service = service;
@@ -90,6 +99,12 @@ final class InitializeTask extends TimerTask {
         }
     }
 
+    /**
+     * Start update task if necessary.
+     *
+     * @param lastUpdated
+     *            the last updated
+     */
     void startUpdateTaskIfNecessary(final Date lastUpdated) {
         if (!m_updateTaskScheduled.getAndSet(true)) {
             m_timer.schedule(new UpdateTask(

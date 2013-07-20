@@ -30,6 +30,16 @@ package org.opennms.features.poller.remote.gwt.client.events;
 
 import com.google.gwt.event.shared.EventHandler;
 
+/**
+ * The Interface GWTMarkerInfoWindowRefreshHandler.
+ */
 public interface GWTMarkerInfoWindowRefreshHandler extends EventHandler {
+
+    /**
+     * On gwt marker info window refresh.
+     *
+     * @param event
+     *            the event
+     */
     public void onGWTMarkerInfoWindowRefresh(GWTMarkerInfoWindowRefreshEvent event);
 }

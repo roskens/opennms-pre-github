@@ -42,7 +42,7 @@ import java.util.TreeSet;
 import org.opennms.features.poller.remote.gwt.client.utils.StringUtils;
 
 /**
- * ComputeStatusDetails
+ * ComputeStatusDetails.
  *
  * @author brozow
  * @version $Id: $
@@ -50,14 +50,19 @@ import org.opennms.features.poller.remote.gwt.client.utils.StringUtils;
  */
 public class AppStatusDetailsComputer {
 
+    /** The m_start time. */
     final Date m_startTime;
 
+    /** The m_end time. */
     final Date m_endTime;
 
+    /** The m_monitors. */
     final Collection<GWTLocationMonitor> m_monitors;
 
+    /** The m_services. */
     final Collection<GWTMonitoredService> m_services;
 
+    /** The m_statuses. */
     final Collection<GWTLocationSpecificStatus> m_statuses;
 
     /**
@@ -89,6 +94,7 @@ public class AppStatusDetailsComputer {
      * <p>
      * compute
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -214,6 +220,11 @@ public class AppStatusDetailsComputer {
         return StatusDetails.up();
     }
 
+    /**
+     * Gets the all services.
+     *
+     * @return the all services
+     */
     private Collection<GWTMonitoredService> getAllServices() {
         final Set<GWTMonitoredService> services = new HashSet<GWTMonitoredService>();
         if (getLocationSpecificStatuses() != null) {
@@ -224,10 +235,20 @@ public class AppStatusDetailsComputer {
         return services;
     }
 
+    /**
+     * Gets the location specific statuses.
+     *
+     * @return the location specific statuses
+     */
     private Collection<GWTLocationSpecificStatus> getLocationSpecificStatuses() {
         return m_statuses;
     }
 
+    /**
+     * Gets the outages.
+     *
+     * @return the outages
+     */
     private Map<Integer, Map<Integer, List<GWTServiceOutage>>> getOutages() {
         // service id -> location id -> outages
         final Map<Integer, Map<Integer, List<GWTServiceOutage>>> outages = new HashMap<Integer, Map<Integer, List<GWTServiceOutage>>>();
@@ -298,10 +319,20 @@ public class AppStatusDetailsComputer {
         return outages;
     }
 
+    /**
+     * Gets the start time.
+     *
+     * @return the start time
+     */
     private Date getStartTime() {
         return m_startTime;
     }
 
+    /**
+     * Gets the end time.
+     *
+     * @return the end time
+     */
     private Date getEndTime() {
         return m_endTime;
     }

@@ -34,8 +34,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
 
+/**
+ * The Class TestNominatimGeocoder.
+ */
 public class TestNominatimGeocoder extends AbstractGeocoderTest {
 
+    /**
+     * Test lookup success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLookupSuccess() throws Exception {
         if (shouldRun()) {
@@ -47,6 +56,12 @@ public class TestNominatimGeocoder extends AbstractGeocoderTest {
         }
     }
 
+    /**
+     * Test lookup failure.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLookupFailure() throws Exception {
         if (shouldRun()) {

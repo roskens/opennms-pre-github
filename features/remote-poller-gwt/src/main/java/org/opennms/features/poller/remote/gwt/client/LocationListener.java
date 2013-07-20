@@ -38,11 +38,24 @@ package org.opennms.features.poller.remote.gwt.client;
 import de.novanic.eventservice.client.event.Event;
 import de.novanic.eventservice.client.event.listener.RemoteEventListener;
 
+/**
+ * The listener interface for receiving location events.
+ * The class that is interested in processing a location
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addLocationListener<code> method. When
+ * the location event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see LocationEvent
+ */
 public interface LocationListener extends RemoteEventListener {
+
     /**
      * <p>
      * onEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link de.novanic.eventservice.client.event.Event} object.

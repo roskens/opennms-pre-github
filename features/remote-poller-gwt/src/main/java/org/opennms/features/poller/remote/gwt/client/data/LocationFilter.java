@@ -30,8 +30,18 @@ package org.opennms.features.poller.remote.gwt.client.data;
 
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Interface LocationFilter.
+ */
 public interface LocationFilter {
 
+    /**
+     * Matches.
+     *
+     * @param location
+     *            the location
+     * @return true, if successful
+     */
     public abstract boolean matches(LocationInfo location);
 
 }

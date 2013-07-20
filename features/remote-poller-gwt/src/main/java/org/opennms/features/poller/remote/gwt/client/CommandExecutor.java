@@ -31,10 +31,25 @@ package org.opennms.features.poller.remote.gwt.client;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
+/**
+ * The Interface CommandExecutor.
+ */
 public interface CommandExecutor {
 
+    /**
+     * Schedule.
+     *
+     * @param command
+     *            the command
+     */
     public void schedule(Scheduler.RepeatingCommand command);
 
+    /**
+     * Schedule.
+     *
+     * @param command
+     *            the command
+     */
     public void schedule(Command command);
 
 }

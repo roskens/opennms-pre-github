@@ -43,8 +43,10 @@ import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
  */
 public class LocationsUpdatedRemoteEvent implements MapRemoteEvent {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7235016593748265464L;
 
+    /** The m_locations. */
     private Collection<LocationInfo> m_locations;
 
     /**
@@ -71,6 +73,7 @@ public class LocationsUpdatedRemoteEvent implements MapRemoteEvent {
      * <p>
      * getLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -82,6 +85,7 @@ public class LocationsUpdatedRemoteEvent implements MapRemoteEvent {
      * <p>
      * setLocations
      * </p>
+     * .
      *
      * @param locations
      *            a {@link java.util.Collection} object.
@@ -100,6 +104,7 @@ public class LocationsUpdatedRemoteEvent implements MapRemoteEvent {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

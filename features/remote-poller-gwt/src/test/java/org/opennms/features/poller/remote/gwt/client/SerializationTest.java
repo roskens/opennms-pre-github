@@ -51,40 +51,81 @@ import org.opennms.features.poller.remote.gwt.client.remoteevents.UpdateComplete
 import com.google.gwt.user.server.rpc.impl.LegacySerializationPolicy;
 import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamWriter;
 
+/**
+ * The Class SerializationTest.
+ */
 public class SerializationTest {
+
+    /** The Constant writer. */
     private static final ServerSerializationStreamWriter writer = new ServerSerializationStreamWriter(
                                                                                                       LegacySerializationPolicy.getInstance());
 
+    /**
+     * Test gwt lat lng.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGWTLatLng() throws Exception {
         GWTLatLng point = new GWTLatLng(1D, 1D);
         writer.writeObject(point);
     }
 
+    /**
+     * Test gwt location monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGWTLocationMonitor() throws Exception {
         GWTLocationMonitor monitor = getMonitor();
         writer.writeObject(monitor);
     }
 
+    /**
+     * Test gwt monitored service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGWTMonitoredService() throws Exception {
         GWTMonitoredService service = getMonitoredService();
         writer.writeObject(service);
     }
 
+    /**
+     * Test gwt location specific status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGWTLocationSpecificStatus() throws Exception {
         GWTLocationSpecificStatus status = getLocationSpecificStatus();
         writer.writeObject(status);
     }
 
+    /**
+     * Test location info.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLocationInfo() throws Exception {
         LocationInfo location = getLocationInfo();
         writer.writeObject(location);
     }
 
+    /**
+     * Test location details.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLocationDetails() throws Exception {
         LocationDetails l = new LocationDetails();
@@ -92,18 +133,36 @@ public class SerializationTest {
         writer.writeObject(l);
     }
 
+    /**
+     * Test application status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationStatus() throws Exception {
         ApplicationState state = getApplicationState();
         writer.writeObject(state);
     }
 
+    /**
+     * Test application info.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testApplicationInfo() throws Exception {
         final ApplicationInfo info = getApplicationInfo();
         writer.writeObject(info);
     }
 
+    /**
+     * Test events.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEvents() throws Exception {
         final ApplicationUpdatedRemoteEvent aure = new ApplicationUpdatedRemoteEvent(getApplicationInfo());
@@ -122,6 +181,11 @@ public class SerializationTest {
         writer.writeObject(ucre);
     }
 
+    /**
+     * Gets the location info.
+     *
+     * @return the location info
+     */
     private LocationInfo getLocationInfo() {
         LocationInfo location = new LocationInfo();
         location.setName("Bob");
@@ -133,12 +197,24 @@ public class SerializationTest {
         return location;
     }
 
+    /**
+     * Gets the marker.
+     *
+     * @param info
+     *            the info
+     * @return the marker
+     */
     private GWTMarkerState getMarker(LocationInfo info) {
         GWTMarkerState marker = new GWTMarkerState(info.getName(), info.getLatLng(),
                                                    info.getStatusDetails().getStatus());
         return marker;
     }
 
+    /**
+     * Gets the application info.
+     *
+     * @return the application info
+     */
     private ApplicationInfo getApplicationInfo() {
         final Set<GWTMonitoredService> services = new HashSet<GWTMonitoredService>();
         final Set<String> locationNames = new TreeSet<String>();
@@ -150,6 +226,11 @@ public class SerializationTest {
         return info;
     }
 
+    /**
+     * Gets the application state.
+     *
+     * @return the application state
+     */
     private ApplicationState getApplicationState() {
         final Collection<ApplicationInfo> applications = new ArrayList<ApplicationInfo>();
         final List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
@@ -169,6 +250,11 @@ public class SerializationTest {
         return new ApplicationState(to, from, applications, monitors, applicationStatuses);
     }
 
+    /**
+     * Gets the location monitor state.
+     *
+     * @return the location monitor state
+     */
     private LocationMonitorState getLocationMonitorState() {
         Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
         Collection<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
@@ -177,6 +263,11 @@ public class SerializationTest {
         return new LocationMonitorState(monitors, statuses);
     }
 
+    /**
+     * Gets the location specific status.
+     *
+     * @return the location specific status
+     */
     private GWTLocationSpecificStatus getLocationSpecificStatus() {
         GWTLocationSpecificStatus status = new GWTLocationSpecificStatus();
         status.setId(1);
@@ -186,6 +277,11 @@ public class SerializationTest {
         return status;
     }
 
+    /**
+     * Gets the poll result.
+     *
+     * @return the poll result
+     */
     private GWTPollResult getPollResult() {
         GWTPollResult result = new GWTPollResult();
         result.setReason("because!");
@@ -195,6 +291,11 @@ public class SerializationTest {
         return result;
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @return the monitored service
+     */
     private GWTMonitoredService getMonitoredService() {
         GWTMonitoredService service = new GWTMonitoredService();
         service.setHostname("localhost");
@@ -208,6 +309,11 @@ public class SerializationTest {
         return service;
     }
 
+    /**
+     * Gets the app names.
+     *
+     * @return the app names
+     */
     private Set<String> getAppNames() {
         Set<String> appNames = new TreeSet<String>();
         appNames.add("TestApp1");
@@ -215,6 +321,11 @@ public class SerializationTest {
         return appNames;
     }
 
+    /**
+     * Gets the monitor.
+     *
+     * @return the monitor
+     */
     private GWTLocationMonitor getMonitor() {
         GWTLocationMonitor monitor = new GWTLocationMonitor();
         monitor.setDefinitionName("blah");

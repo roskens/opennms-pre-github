@@ -46,6 +46,7 @@ import de.novanic.eventservice.client.event.Event;
  */
 public class DefaultLocationListener implements LocationListener {
 
+    /** The m_location manager. */
     private final MapRemoteEventHandler m_locationManager;
 
     /** {@inheritDoc} */

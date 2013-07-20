@@ -51,10 +51,13 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class ApplicationState implements Serializable, IsSerializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3635173624296588109L;
 
+    /** The m_statuses. */
     private Map<String, ApplicationDetails> m_statuses = new HashMap<String, ApplicationDetails>();
 
+    /** The m_status details. */
     private StatusDetails m_statusDetails;
 
     /**
@@ -92,6 +95,7 @@ public class ApplicationState implements Serializable, IsSerializable {
      * <p>
      * getStatusDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -104,6 +108,11 @@ public class ApplicationState implements Serializable, IsSerializable {
         return m_statusDetails;
     }
 
+    /**
+     * Gets the status details uncached.
+     *
+     * @return the status details uncached
+     */
     private StatusDetails getStatusDetailsUncached() {
         if (m_statuses.size() == 0) {
             return StatusDetails.unknown("No applications are currently defined.");

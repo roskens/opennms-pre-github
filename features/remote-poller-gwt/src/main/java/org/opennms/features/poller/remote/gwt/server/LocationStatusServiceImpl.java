@@ -54,19 +54,29 @@ import de.novanic.eventservice.service.RemoteEventServiceServlet;
  * @since 1.8.1
  */
 public class LocationStatusServiceImpl extends RemoteEventServiceServlet implements LocationStatusService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LocationStatusServiceImpl.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7152723329766982720L;
 
+    /** The m_active applications. */
     volatile Set<String> m_activeApplications = new HashSet<String>();
 
+    /** The m_context. */
     private ApplicationContext m_context;
 
+    /** The m_location broadcast processor. */
     @SuppressWarnings("unused")
     private LocationBroadcastProcessor m_locationBroadcastProcessor;
 
+    /** The m_location data manager. */
     private LocationDataManager m_locationDataManager;
 
+    /**
+     * Initialize.
+     */
     private void initialize() {
         if (m_context == null) {
             LOG.info("initializing context");
@@ -96,6 +106,7 @@ public class LocationStatusServiceImpl extends RemoteEventServiceServlet impleme
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {

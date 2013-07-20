@@ -30,18 +30,36 @@ package org.opennms.features.poller.remote.gwt.client.data;
 
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Class TagFilter.
+ */
 public class TagFilter implements LocationFilter {
 
+    /** The m_selected tag. */
     private String m_selectedTag = null;
 
+    /**
+     * Sets the selected tag.
+     *
+     * @param selectedTag
+     *            the new selected tag
+     */
     public void setSelectedTag(String selectedTag) {
         m_selectedTag = selectedTag;
     }
 
+    /**
+     * Gets the selected tag.
+     *
+     * @return the selected tag
+     */
     public String getSelectedTag() {
         return m_selectedTag;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.data.LocationFilter#matches(org.opennms.features.poller.remote.gwt.client.location.LocationInfo)
+     */
     @Override
     public boolean matches(final LocationInfo location) {
         return getSelectedTag() == null ? true : location.hasTag(getSelectedTag());

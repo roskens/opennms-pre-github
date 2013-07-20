@@ -37,9 +37,15 @@ import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
 import de.novanic.eventservice.client.event.Event;
 import de.novanic.eventservice.service.EventExecutorService;
 
+/**
+ * The Class DefaultLocationDefHandler.
+ */
 class DefaultLocationDefHandler implements LocationDefHandler {
+
+    /** The m_location data service. */
     private LocationDataService m_locationDataService;
 
+    /** The m_event service. */
     private EventExecutorService m_eventService;
 
     /**
@@ -49,10 +55,10 @@ class DefaultLocationDefHandler implements LocationDefHandler {
      *
      * @param locationDataService
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
-     *            object.
      * @param eventService
      *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
      *            object.
      */
     public DefaultLocationDefHandler(final LocationDataService locationDataService,
@@ -70,6 +76,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
      * <p>
      * handle
      * </p>
+     * .
      *
      * @param def
      *            a
@@ -87,6 +94,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
      * <p>
      * finish
      * </p>
+     * .
      */
     @Override
     public void finish() {
@@ -96,6 +104,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
      * <p>
      * sendEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link de.novanic.eventservice.client.event.Event} object.
@@ -108,6 +117,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
      * <p>
      * getEventService
      * </p>
+     * .
      *
      * @return a {@link de.novanic.eventservice.service.EventExecutorService}
      *         object.

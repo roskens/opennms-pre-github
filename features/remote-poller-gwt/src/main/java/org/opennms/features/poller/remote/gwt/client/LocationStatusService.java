@@ -45,10 +45,12 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("locationStatus")
 public interface LocationStatusService extends RemoteService {
+
     /**
      * <p>
      * start
      * </p>
+     * .
      */
     void start();
 
@@ -56,6 +58,7 @@ public interface LocationStatusService extends RemoteService {
      * <p>
      * getLocationInfo
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
@@ -69,6 +72,7 @@ public interface LocationStatusService extends RemoteService {
      * <p>
      * getLocationDetails
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
@@ -82,6 +86,7 @@ public interface LocationStatusService extends RemoteService {
      * <p>
      * getApplicationInfo
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
@@ -95,6 +100,7 @@ public interface LocationStatusService extends RemoteService {
      * <p>
      * getApplicationDetails
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.

@@ -39,13 +39,29 @@ import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * The Enum Status.
+ */
 public enum Status implements Serializable, IsSerializable {
-    DOWN, DISCONNECTED, MARGINAL, UP, STOPPED, UNKNOWN;
+
+    /** The down. */
+    DOWN,
+ /** The disconnected. */
+ DISCONNECTED,
+ /** The marginal. */
+ MARGINAL,
+ /** The up. */
+ UP,
+ /** The stopped. */
+ STOPPED,
+ /** The unknown. */
+ UNKNOWN;
 
     /**
      * <p>
      * getColor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -71,6 +87,7 @@ public enum Status implements Serializable, IsSerializable {
      * <p>
      * getStyle
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

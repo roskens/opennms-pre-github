@@ -43,6 +43,7 @@ public interface SmartMapFit {
      * <p>
      * fitToBounds
      * </p>
+     * .
      */
     void fitToBounds();
 

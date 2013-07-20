@@ -38,10 +38,12 @@ package org.opennms.features.poller.remote.gwt.client.utils;
  * @since 1.8.1
  */
 public class EqualsUtil {
+
     /**
      * <p>
      * areEqual
      * </p>
+     * .
      *
      * @param aThis
      *            a boolean.
@@ -57,6 +59,7 @@ public class EqualsUtil {
      * <p>
      * areEqual
      * </p>
+     * .
      *
      * @param aThis
      *            a char.
@@ -72,6 +75,7 @@ public class EqualsUtil {
      * <p>
      * areEqual
      * </p>
+     * .
      *
      * @param aThis
      *            a long.
@@ -92,6 +96,7 @@ public class EqualsUtil {
      * <p>
      * areEqual
      * </p>
+     * .
      *
      * @param aThis
      *            a float.
@@ -107,6 +112,7 @@ public class EqualsUtil {
      * <p>
      * areEqual
      * </p>
+     * .
      *
      * @param aThis
      *            a double.

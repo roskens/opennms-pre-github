@@ -43,9 +43,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<MapPanelBoundsChangedEventHandler> TYPE = new Type<MapPanelBoundsChangedEventHandler>();
 
+    /** The m_new bounds. */
     private GWTBounds m_newBounds;
 
     /**
@@ -75,6 +76,12 @@ public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEv
         return TYPE;
     }
 
+    /**
+     * Sets the bounds.
+     *
+     * @param bounds
+     *            the new bounds
+     */
     private void setBounds(GWTBounds bounds) {
         m_newBounds = bounds;
     }
@@ -83,6 +90,7 @@ public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEv
      * <p>
      * getBounds
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
      *         object.

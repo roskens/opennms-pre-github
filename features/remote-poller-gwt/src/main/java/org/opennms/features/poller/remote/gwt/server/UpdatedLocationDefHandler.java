@@ -51,10 +51,10 @@ public class UpdatedLocationDefHandler extends DefaultLocationDefHandler {
      *
      * @param locationDataService
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
-     *            object.
      * @param eventService
      *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
      *            object.
      */
     public UpdatedLocationDefHandler(final LocationDataService locationDataService,

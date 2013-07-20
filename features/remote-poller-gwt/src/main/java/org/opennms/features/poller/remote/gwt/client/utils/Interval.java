@@ -38,8 +38,11 @@ package org.opennms.features.poller.remote.gwt.client.utils;
  * @since 1.8.1
  */
 public class Interval implements Comparable<Interval> {
+
+    /** The m_start. */
     private long m_start;
 
+    /** The m_end. */
     private long m_end;
 
     /**
@@ -61,6 +64,7 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * getStartMillis
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -72,6 +76,7 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * setStartMillis
      * </p>
+     * .
      *
      * @param start
      *            a long.
@@ -84,6 +89,7 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * getEndMillis
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -95,6 +101,7 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * setEndMillis
      * </p>
+     * .
      *
      * @param end
      *            a long.
@@ -107,12 +114,13 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * overlaps
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
+     *         object.
      */
     public boolean overlaps(final Interval that) {
         if (this.getStartMillis() <= that.getStartMillis() && this.getEndMillis() >= that.getEndMillis()) {
@@ -135,12 +143,13 @@ public class Interval implements Comparable<Interval> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.utils.Interval}
+     *         object.
      */
     @Override
     public int compareTo(final Interval that) {

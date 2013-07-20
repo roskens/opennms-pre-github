@@ -48,18 +48,26 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class ApplicationInfo implements Serializable, IsSerializable, Comparable<ApplicationInfo> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9015282422845077117L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_services. */
     private Set<GWTMonitoredService> m_services;
 
+    /** The m_locations. */
     private Set<String> m_locations;
 
+    /** The m_status details. */
     private StatusDetails m_statusDetails = StatusDetails.unknown();
 
+    /** The m_priority. */
     private Long m_priority = null;
 
     /**
@@ -101,6 +109,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -112,6 +121,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -124,6 +134,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +146,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -147,6 +159,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -158,6 +171,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setServices
      * </p>
+     * .
      *
      * @param services
      *            a {@link java.util.Set} object.
@@ -170,6 +184,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -181,6 +196,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setLocations
      * </p>
+     * .
      *
      * @param locations
      *            a {@link java.util.Set} object.
@@ -193,6 +209,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * addLocation
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -205,6 +222,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getStatusDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -218,6 +236,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setStatusDetails
      * </p>
+     * .
      *
      * @param statusDetails
      *            a
@@ -232,6 +251,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getPriority
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -243,6 +263,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * setPriority
      * </p>
+     * .
      *
      * @param priority
      *            a {@link java.lang.Long} object.
@@ -255,6 +276,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * getMarkerState
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState}
@@ -279,6 +301,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -291,12 +314,13 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.ApplicationInfo}
+     *         object.
      */
     @Override
     public int compareTo(final ApplicationInfo that) {
@@ -310,6 +334,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * summary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -321,6 +346,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

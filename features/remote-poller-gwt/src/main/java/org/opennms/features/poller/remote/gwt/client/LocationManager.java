@@ -47,9 +47,10 @@ public interface LocationManager {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param statuses
-     * @param application
+     *            the statuses
      */
     public abstract void initialize(Set<Status> statuses);
 
@@ -57,6 +58,7 @@ public interface LocationManager {
      * <p>
      * addLocationManagerInitializationCompleteEventHandler
      * </p>
+     * .
      *
      * @param handler
      *            a
@@ -70,6 +72,7 @@ public interface LocationManager {
      * <p>
      * locationClicked
      * </p>
+     * .
      */
     public void locationClicked();
 
@@ -77,6 +80,7 @@ public interface LocationManager {
      * <p>
      * applicationClicked
      * </p>
+     * .
      */
     public void applicationClicked();
 }

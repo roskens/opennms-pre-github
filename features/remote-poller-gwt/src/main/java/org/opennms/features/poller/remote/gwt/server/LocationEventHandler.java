@@ -45,6 +45,7 @@ public interface LocationEventHandler {
      * <p>
      * sendEvent
      * </p>
+     * .
      *
      * @param event
      *            a

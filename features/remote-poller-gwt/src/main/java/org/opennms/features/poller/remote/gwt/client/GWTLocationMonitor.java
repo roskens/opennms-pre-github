@@ -46,22 +46,29 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class GWTLocationMonitor implements Serializable, IsSerializable, Comparable<GWTLocationMonitor> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4018139006210721415L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_status. */
     private String m_status;
 
+    /** The m_definition name. */
     private String m_definitionName;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_last check in time. */
     private Date m_lastCheckInTime;
 
     /**
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -73,6 +80,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -85,6 +93,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +105,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param string
      *            a {@link java.lang.String} object.
@@ -108,6 +118,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * getDefinitionName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +130,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * setDefinitionName
      * </p>
+     * .
      *
      * @param definitionName
      *            a {@link java.lang.String} object.
@@ -131,6 +143,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +155,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -154,6 +168,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * getLastCheckInTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -165,6 +180,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * setLastCheckInTime
      * </p>
+     * .
      *
      * @param lastCheckInTime
      *            a {@link java.util.Date} object.
@@ -177,6 +193,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -203,6 +220,7 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -215,12 +233,13 @@ public class GWTLocationMonitor implements Serializable, IsSerializable, Compara
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
+     *         object.
      */
     @Override
     public int compareTo(GWTLocationMonitor that) {

@@ -43,22 +43,33 @@ import java.util.TreeSet;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * The Class LocationMonitorState.
+ */
 public class LocationMonitorState implements Serializable, IsSerializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7846127073655210004L;
 
+    /** The m_monitors started. */
     private Set<GWTLocationMonitor> m_monitorsStarted = new HashSet<GWTLocationMonitor>();
 
+    /** The m_monitors stopped. */
     private Set<GWTLocationMonitor> m_monitorsStopped = new HashSet<GWTLocationMonitor>();
 
+    /** The m_monitors disconnected. */
     private Set<GWTLocationMonitor> m_monitorsDisconnected = new HashSet<GWTLocationMonitor>();
 
+    /** The m_location statuses. */
     private Collection<GWTLocationSpecificStatus> m_locationStatuses;
 
+    /** The m_service names. */
     private Set<String> m_serviceNames = new HashSet<String>();
 
+    /** The m_service ids. */
     private Set<Integer> m_serviceIds = new HashSet<Integer>();
 
+    /** The m_status details. */
     private StatusDetails m_statusDetails;
 
     /**
@@ -100,6 +111,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getStatusDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -112,12 +124,24 @@ public class LocationMonitorState implements Serializable, IsSerializable {
         return m_statusDetails;
     }
 
+    /**
+     * Initialize monitors.
+     *
+     * @param monitors
+     *            the monitors
+     */
     private void initializeMonitors(Collection<GWTLocationMonitor> monitors) {
         for (GWTLocationMonitor monitor : monitors) {
             handleMonitor(monitor);
         }
     }
 
+    /**
+     * Initialize statuses.
+     *
+     * @param statuses
+     *            the statuses
+     */
     private void initializeStatuses(Collection<GWTLocationSpecificStatus> statuses) {
         if (statuses != null) {
             for (final GWTLocationSpecificStatus status : statuses) {
@@ -129,6 +153,12 @@ public class LocationMonitorState implements Serializable, IsSerializable {
         }
     }
 
+    /**
+     * Handle monitor.
+     *
+     * @param monitor
+     *            the monitor
+     */
     private void handleMonitor(final GWTLocationMonitor monitor) {
         if (m_monitorsStarted.contains(monitor) || m_monitorsStopped.contains(monitor)
                 || m_monitorsDisconnected.contains(monitor)) {
@@ -151,6 +181,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * allMonitorsStarted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -171,6 +202,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * atLeastOneMonitorStarted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -185,6 +217,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * allButOneMonitorsDisconnected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -205,6 +238,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * allMonitorsDisconnected
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -225,6 +259,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * noMonitorsStarted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -239,6 +274,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getMonitorsStarted
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -250,6 +286,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getMonitorsStopped
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -261,6 +298,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getMonitorsDisconnected
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -272,6 +310,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -287,6 +326,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getServicesDown
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -306,6 +346,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * getMonitorsWithServicesDown
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -320,10 +361,20 @@ public class LocationMonitorState implements Serializable, IsSerializable {
         return monitors;
     }
 
+    /**
+     * No monitors exist.
+     *
+     * @return true, if successful
+     */
     public boolean noMonitorsExist() {
         return (m_monitorsStopped.size() == 0 && m_monitorsDisconnected.size() == 0 && m_monitorsStarted.size() == 0);
     }
 
+    /**
+     * Gets the status details uncached.
+     *
+     * @return the status details uncached
+     */
     private StatusDetails getStatusDetailsUncached() {
         // white/uninitialized: If no monitors exist for a location
         if (noMonitorsExist()) {
@@ -402,6 +453,13 @@ public class LocationMonitorState implements Serializable, IsSerializable {
         return StatusDetails.up();
     }
 
+    /**
+     * Gets the service names.
+     *
+     * @param serviceIds
+     *            the service ids
+     * @return the service names
+     */
     private String getServiceNames(Set<Integer> serviceIds) {
         StringBuilder buf = new StringBuilder();
 
@@ -417,6 +475,13 @@ public class LocationMonitorState implements Serializable, IsSerializable {
         return buf.toString();
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @param serviceId
+     *            the service id
+     * @return the service name
+     */
     private String getServiceName(Integer serviceId) {
         for (GWTLocationSpecificStatus status : m_locationStatuses) {
             if (serviceId.equals(status.getMonitoredService().getId())) {
@@ -430,6 +495,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

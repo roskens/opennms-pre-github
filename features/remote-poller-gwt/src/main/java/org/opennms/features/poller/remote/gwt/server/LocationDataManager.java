@@ -60,21 +60,26 @@ import de.novanic.eventservice.service.EventExecutorService;
  * @since 1.8.1
  */
 public class LocationDataManager { // implements LocationStatusService {
-    private static final Logger LOG = LoggerFactory.getLogger(LocationDataManager.class);
+    /** The Constant LOG. */
+ private static final Logger LOG = LoggerFactory.getLogger(LocationDataManager.class);
 
+    /** The m_location data service. */
     private LocationDataService m_locationDataService;
 
+    /** The m_active applications. */
     private Set<String> m_activeApplications = new HashSet<String>();
 
+    /** The m_timer. */
     private Timer m_timer = new Timer();
 
-    /** Constant <code>PADDING_TIME=2000</code> */
+    /** Constant <code>PADDING_TIME=2000</code>. */
     public static final int PADDING_TIME = 2000;
 
     /**
      * <p>
      * setLocationDataService
      * </p>
+     * .
      *
      * @param locationDataService
      *            a
@@ -89,6 +94,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getLocationDataService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
@@ -102,6 +108,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getLocationInfo
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
@@ -117,6 +124,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getLocationDetails
      * </p>
+     * .
      *
      * @param locationName
      *            a {@link java.lang.String} object.
@@ -132,6 +140,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getApplicationInfo
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
@@ -147,6 +156,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getApplicationDetails
      * </p>
+     * .
      *
      * @param applicationName
      *            a {@link java.lang.String} object.
@@ -162,6 +172,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * setActiveApplications
      * </p>
+     * .
      *
      * @param activeApplications
      *            a {@link java.util.Set} object.
@@ -179,6 +190,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getTimer
      * </p>
+     * .
      *
      * @return a {@link java.util.Timer} object.
      */
@@ -190,6 +202,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * setTimer
      * </p>
+     * .
      *
      * @param timer
      *            a {@link java.util.Timer} object.
@@ -202,6 +215,7 @@ public class LocationDataManager { // implements LocationStatusService {
      * <p>
      * getActiveApplications
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -209,6 +223,12 @@ public class LocationDataManager { // implements LocationStatusService {
         return m_activeApplications;
     }
 
+    /**
+     * Push application data.
+     *
+     * @param service
+     *            the service
+     */
     private void pushApplicationData(final EventExecutorService service) {
         LOG.debug("pushing initialized applications");
 
@@ -221,6 +241,12 @@ public class LocationDataManager { // implements LocationStatusService {
         LOG.debug("finished pushing initialized applications");
     }
 
+    /**
+     * Push location data.
+     *
+     * @param service
+     *            the service
+     */
     private void pushLocationData(final EventExecutorService service) {
         LOG.debug("pushing initialized locations");
 
@@ -234,12 +260,28 @@ public class LocationDataManager { // implements LocationStatusService {
         LOG.debug("finished pushing initialized locations");
     }
 
+    /**
+     * Do initialize.
+     *
+     * @param service
+     *            the service
+     */
     void doInitialize(EventExecutorService service) {
         pushLocationData(service);
         pushApplicationData(service);
         service.addEventUserSpecific(new UpdateCompleteRemoteEvent());
     }
 
+    /**
+     * Do update.
+     *
+     * @param startDate
+     *            the start date
+     * @param endDate
+     *            the end date
+     * @param service
+     *            the service
+     */
     void doUpdate(final Date startDate, final Date endDate, final EventExecutorService service) {
         LOG.debug("pushing monitor status updates");
         service.addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN,
@@ -259,6 +301,12 @@ public class LocationDataManager { // implements LocationStatusService {
         LOG.debug("finished pushing application updates");
     }
 
+    /**
+     * Start.
+     *
+     * @param service
+     *            the service
+     */
     void start(final EventExecutorService service) {
         getTimer().schedule(new InitializeTask(service, this, getTimer()), LocationDataManager.PADDING_TIME);
     }

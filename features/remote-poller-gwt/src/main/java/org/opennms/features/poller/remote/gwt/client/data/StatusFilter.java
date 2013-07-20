@@ -34,27 +34,59 @@ import java.util.Set;
 import org.opennms.features.poller.remote.gwt.client.Status;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Class StatusFilter.
+ */
 public class StatusFilter implements LocationFilter {
 
+    /** The m_selected statuses. */
     private final Set<Status> m_selectedStatuses = new HashSet<Status>();
 
+    /**
+     * Gets the selected statuses.
+     *
+     * @return the selected statuses
+     */
     public Set<Status> getSelectedStatuses() {
         return m_selectedStatuses;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.data.LocationFilter#matches(org.opennms.features.poller.remote.gwt.client.location.LocationInfo)
+     */
     @Override
     public boolean matches(final LocationInfo location) {
         return getSelectedStatuses().contains(location.getStatus());
     }
 
+    /**
+     * Adds the status.
+     *
+     * @param status
+     *            the status
+     * @return true, if successful
+     */
     public boolean addStatus(Status status) {
         return getSelectedStatuses().add(status);
     }
 
+    /**
+     * Removes the status.
+     *
+     * @param status
+     *            the status
+     * @return true, if successful
+     */
     public boolean removeStatus(Status status) {
         return getSelectedStatuses().remove(status);
     }
 
+    /**
+     * Sets the statuses.
+     *
+     * @param statuses
+     *            the new statuses
+     */
     public void setStatuses(Set<Status> statuses) {
         if (m_selectedStatuses == statuses)
             return;

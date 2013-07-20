@@ -41,9 +41,10 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventHandler> {
 
-    /** Constant <code>TYPE</code> */
+    /** Constant <code>TYPE</code>. */
     public static Type<ApplicationSelectedEventHandler> TYPE = new Type<ApplicationSelectedEventHandler>();
 
+    /** The m_application name. */
     private String m_applicationName;
 
     /**
@@ -74,6 +75,7 @@ public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventH
      * <p>
      * getApplicationname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

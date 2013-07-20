@@ -44,14 +44,19 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3244726263014312000L;
 
+    /** The m_id. */
     private Integer m_id;
 
+    /** The m_location monitor. */
     private GWTLocationMonitor m_locationMonitor;
 
+    /** The m_poll result. */
     private GWTPollResult m_pollResult;
 
+    /** The m_monitored service. */
     private GWTMonitoredService m_monitoredService;
 
     /**
@@ -66,6 +71,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -77,6 +83,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -89,6 +96,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * getLocationMonitor
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
@@ -102,6 +110,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * setLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a
@@ -116,6 +125,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
@@ -129,6 +139,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a
@@ -143,6 +154,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * getPollResult
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTPollResult}
@@ -156,6 +168,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * setPollResult
      * </p>
+     * .
      *
      * @param pollResult
      *            a
@@ -170,6 +183,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * getPollTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -181,6 +195,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

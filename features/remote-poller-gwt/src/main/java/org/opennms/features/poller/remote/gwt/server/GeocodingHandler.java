@@ -42,17 +42,27 @@ import org.slf4j.LoggerFactory;
 
 import de.novanic.eventservice.service.EventExecutorService;
 
+/**
+ * The Class GeocodingHandler.
+ */
 class GeocodingHandler implements LocationDefHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GeocodingHandler.class);
 
+    /** The m_location data service. */
     private final LocationDataService m_locationDataService;
 
+    /** The m_event service. */
     private final EventExecutorService m_eventService;
 
+    /** The m_size. */
     private int m_size;
 
+    /** The m_date. */
     private Date m_date;
 
+    /** The m_count. */
     private int m_count;
 
     /**
@@ -62,10 +72,10 @@ class GeocodingHandler implements LocationDefHandler {
      *
      * @param locationDataService
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
-     *            object.
      * @param eventService
      *            a {@link de.novanic.eventservice.service.EventExecutorService}
+     *            object.
+     *            {@link org.opennms.features.poller.remote.gwt.server.LocationDataService}
      *            object.
      */
     public GeocodingHandler(final LocationDataService locationDataService, final EventExecutorService eventService) {
@@ -86,6 +96,7 @@ class GeocodingHandler implements LocationDefHandler {
      * <p>
      * handle
      * </p>
+     * .
      *
      * @param def
      *            a
@@ -111,6 +122,7 @@ class GeocodingHandler implements LocationDefHandler {
      * <p>
      * finish
      * </p>
+     * .
      */
     @Override
     public void finish() {

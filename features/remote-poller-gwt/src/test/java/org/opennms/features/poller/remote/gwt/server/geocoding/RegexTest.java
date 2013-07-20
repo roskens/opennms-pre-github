@@ -32,8 +32,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * The Class RegexTest.
+ */
 public class RegexTest {
 
+    /**
+     * Test regexes.
+     */
     @Test
     public void testRegexes() {
         final String regexString = "^\\s*[\\-\\d\\.]+\\s*,\\s*[\\-\\d\\.]+\\s*$";

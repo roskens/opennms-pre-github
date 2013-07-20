@@ -34,14 +34,26 @@ import java.util.Set;
 import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
+/**
+ * The Class ApplicationFilter.
+ */
 public class ApplicationFilter implements LocationFilter {
 
+    /** The m_applications. */
     private final Set<ApplicationInfo> m_applications = new HashSet<ApplicationInfo>();
 
+    /**
+     * Gets the applications.
+     *
+     * @return the applications
+     */
     public Set<ApplicationInfo> getApplications() {
         return m_applications;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.data.LocationFilter#matches(org.opennms.features.poller.remote.gwt.client.location.LocationInfo)
+     */
     @Override
     public boolean matches(final LocationInfo location) {
         if (getApplications().size() == 0) {
@@ -56,10 +68,23 @@ public class ApplicationFilter implements LocationFilter {
         return false;
     }
 
+    /**
+     * Removes the application.
+     *
+     * @param appInfo
+     *            the app info
+     */
     public void removeApplication(ApplicationInfo appInfo) {
         getApplications().remove(appInfo);
     }
 
+    /**
+     * Adds the application.
+     *
+     * @param app
+     *            the app
+     * @return true, if successful
+     */
     public boolean addApplication(final ApplicationInfo app) {
         return getApplications().add(app);
     }

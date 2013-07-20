@@ -58,67 +58,111 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class DefaultApplicationView.
+ */
 public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
+    /**
+     * The Interface Binder.
+     */
     interface Binder extends UiBinder<DockLayoutPanel, DefaultApplicationView> {
     }
 
+    /** The Constant BINDER. */
     private static final Binder BINDER = GWT.create(Binder.class);
 
+    /**
+     * The Interface LinkStyles.
+     */
     interface LinkStyles extends CssResource {
+
+        /**
+         * Active link.
+         *
+         * @return the string
+         */
         String activeLink();
     }
 
+    /** The location panel. */
     @UiField
     protected LocationPanel locationPanel;
 
+    /** The main panel. */
     @UiField
     protected DockLayoutPanel mainPanel;
 
+    /** The split panel. */
     @UiField
     protected SplitLayoutPanel splitPanel;
 
+    /** The location link. */
     @UiField
     protected Hyperlink locationLink;
 
+    /** The application link. */
     @UiField
     protected Hyperlink applicationLink;
 
+    /** The update timestamp. */
     @UiField
     protected Label updateTimestamp;
 
+    /** The link styles. */
     @UiField
     protected LinkStyles linkStyles;
 
+    /** The statuses panel. */
     @UiField
     protected HorizontalPanel statusesPanel;
 
+    /** The status down. */
     @UiField
     protected CheckBox statusDown;
 
+    /** The status disconnected. */
     @UiField
     protected CheckBox statusDisconnected;
 
+    /** The status marginal. */
     @UiField
     protected CheckBox statusMarginal;
 
+    /** The status up. */
     @UiField
     protected CheckBox statusUp;
 
+    /** The status stopped. */
     @UiField
     protected CheckBox statusStopped;
 
+    /** The status unknown. */
     @UiField
     protected CheckBox statusUnknown;
 
+    /** The m_map panel. */
     private final MapPanel m_mapPanel;
 
+    /** The m_event bus. */
     private final HandlerManager m_eventBus;
 
+    /** The m_presenter. */
     private Application m_presenter;
 
+    /** The Constant UPDATE_TIMESTAMP_FORMAT. */
     static final DateTimeFormat UPDATE_TIMESTAMP_FORMAT = DateTimeFormat.getMediumDateTimeFormat();
 
+    /**
+     * Instantiates a new default application view.
+     *
+     * @param presenter
+     *            the presenter
+     * @param eventBus
+     *            the event bus
+     * @param mapPanel
+     *            the map panel
+     */
     public DefaultApplicationView(Application presenter, HandlerManager eventBus, MapPanel mapPanel) {
         m_presenter = presenter;
         m_eventBus = eventBus;
@@ -130,96 +174,212 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
     }
 
+    /**
+     * On down clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusDown")
     public void onDownClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.DOWN, getStatusDown().getValue()));
     }
 
+    /**
+     * On disconnected clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusDisconnected")
     public void onDisconnectedClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.DISCONNECTED, getStatusDisconnected().getValue()));
     }
 
+    /**
+     * On marginal clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusMarginal")
     public void onMarginalClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.MARGINAL, getStatusMarginal().getValue()));
     }
 
+    /**
+     * On up clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusUp")
     public void onUpClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.UP, getStatusUp().getValue()));
     }
 
+    /**
+     * On stopped clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusStopped")
     public void onStoppedClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.STOPPED, getStatusStopped().getValue()));
     }
 
+    /**
+     * On unknown clicked.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("statusUnknown")
     public void onUnknownClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.UNKNOWN, getStatusUnknown().getValue()));
     }
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     private HandlerManager getEventBus() {
         return m_eventBus;
     }
 
+    /**
+     * Gets the main panel.
+     *
+     * @return the main panel
+     */
     private DockLayoutPanel getMainPanel() {
         return mainPanel;
     }
 
+    /**
+     * Gets the split panel.
+     *
+     * @return the split panel
+     */
     private SplitLayoutPanel getSplitPanel() {
         return splitPanel;
     }
 
+    /**
+     * Gets the statuses panel.
+     *
+     * @return the statuses panel
+     */
     private HorizontalPanel getStatusesPanel() {
         return statusesPanel;
     }
 
+    /**
+     * Gets the status down.
+     *
+     * @return the status down
+     */
     private CheckBox getStatusDown() {
         return statusDown;
     }
 
+    /**
+     * Gets the status disconnected.
+     *
+     * @return the status disconnected
+     */
     private CheckBox getStatusDisconnected() {
         return statusDisconnected;
     }
 
+    /**
+     * Gets the status marginal.
+     *
+     * @return the status marginal
+     */
     private CheckBox getStatusMarginal() {
         return statusMarginal;
     }
 
+    /**
+     * Gets the status up.
+     *
+     * @return the status up
+     */
     private CheckBox getStatusUp() {
         return statusUp;
     }
 
+    /**
+     * Gets the status stopped.
+     *
+     * @return the status stopped
+     */
     private CheckBox getStatusStopped() {
         return statusStopped;
     }
 
+    /**
+     * Gets the status unknown.
+     *
+     * @return the status unknown
+     */
     private CheckBox getStatusUnknown() {
         return statusUnknown;
     }
 
+    /**
+     * Gets the location panel.
+     *
+     * @return the location panel
+     */
     private LocationPanel getLocationPanel() {
         return locationPanel;
     }
 
+    /**
+     * Gets the location link.
+     *
+     * @return the location link
+     */
     private Hyperlink getLocationLink() {
         return locationLink;
     }
 
+    /**
+     * Gets the application link.
+     *
+     * @return the application link
+     */
     private Hyperlink getApplicationLink() {
         return applicationLink;
     }
 
+    /**
+     * Gets the link styles.
+     *
+     * @return the link styles
+     */
     private LinkStyles getLinkStyles() {
         return linkStyles;
     }
 
+    /**
+     * Gets the update timestamp.
+     *
+     * @return the update timestamp
+     */
     private Label getUpdateTimestamp() {
         return updateTimestamp;
     }
 
+    /**
+     * Gets the presenter.
+     *
+     * @return the presenter
+     */
     private Application getPresenter() {
         return m_presenter;
     }
@@ -228,6 +388,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
      * <p>
      * onApplicationClick
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -250,6 +411,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
      * <p>
      * onLocationClick
      * </p>
+     * .
      *
      * @param event
      *            a {@link com.google.gwt.event.dom.client.ClickEvent} object.
@@ -279,6 +441,11 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         getUpdateTimestamp().setText("Last update: " + UPDATE_TIMESTAMP_FORMAT.format(new Date()));
     }
 
+    /**
+     * Gets the app height.
+     *
+     * @return the app height
+     */
     private Integer getAppHeight() {
         final com.google.gwt.user.client.Element e = getMainPanel().getElement();
         int extraHeight = e.getAbsoluteTop();
@@ -305,6 +472,9 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         return statuses;
     }
 
+    /**
+     * Setup window.
+     */
     private void setupWindow() {
         Window.setTitle("OpenNMS - Remote Monitor");
         Window.enableScrolling(false);
@@ -384,6 +554,11 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         getLocationPanel().updateApplicationNames(allApplicationNames);
     }
 
+    /**
+     * Gets the map panel.
+     *
+     * @return the map panel
+     */
     private MapPanel getMapPanel() {
         return m_mapPanel;
     }
@@ -437,11 +612,17 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         getMapPanel().placeMarker(markerState);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.poller.remote.gwt.client.ApplicationView#setStatusMessage(java.lang.String)
+     */
     @Override
     public void setStatusMessage(String statusMessage) {
         // getUpdateTimestamp().setText(statusMessage);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.event.logical.shared.ResizeHandler#onResize(com.google.gwt.event.logical.shared.ResizeEvent)
+     */
     @Override
     public void onResize(ResizeEvent event) {
         getMainPanel().setHeight(getAppHeight().toString());

@@ -40,10 +40,12 @@ import com.google.gwt.event.shared.EventHandler;
  * @since 1.8.1
  */
 public interface LocationPanelSelectEventHandler extends EventHandler {
+
     /**
      * <p>
      * onLocationSelected
      * </p>
+     * .
      *
      * @param event
      *            a

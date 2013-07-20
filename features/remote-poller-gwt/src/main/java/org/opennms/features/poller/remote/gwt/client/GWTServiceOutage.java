@@ -44,16 +44,24 @@ import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/**
+ * The Class GWTServiceOutage.
+ */
 public class GWTServiceOutage implements Serializable, IsSerializable, Comparable<GWTServiceOutage> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -569168075556078550L;
 
+    /** The m_monitor. */
     private GWTLocationMonitor m_monitor;
 
+    /** The m_service. */
     private GWTMonitoredService m_service;
 
+    /** The m_from. */
     private Date m_from;
 
+    /** The m_to. */
     private Date m_to;
 
     /**
@@ -71,10 +79,10 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      *
      * @param monitor
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
-     *            object.
      * @param service
      *            a
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
+     *            object.
      *            {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
      *            object.
      */
@@ -87,6 +95,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * getFrom
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -98,6 +107,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * setFrom
      * </p>
+     * .
      *
      * @param from
      *            a {@link java.util.Date} object.
@@ -110,6 +120,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * getTo
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -121,6 +132,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * setTo
      * </p>
+     * .
      *
      * @param to
      *            a {@link java.util.Date} object.
@@ -133,6 +145,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * getMonitor
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTLocationMonitor}
@@ -146,6 +159,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * setMonitor
      * </p>
+     * .
      *
      * @param monitor
      *            a
@@ -160,6 +174,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * getService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTMonitoredService}
@@ -173,6 +188,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param service
      *            a
@@ -205,6 +221,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -217,6 +234,7 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,12 +248,13 @@ public class GWTServiceOutage implements Serializable, IsSerializable, Comparabl
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTServiceOutage}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTServiceOutage}
+     *         object.
      */
     @Override
     public int compareTo(final GWTServiceOutage that) {

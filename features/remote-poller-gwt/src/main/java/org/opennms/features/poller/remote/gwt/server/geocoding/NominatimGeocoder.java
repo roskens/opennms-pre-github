@@ -53,14 +53,20 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class NominatimGeocoder implements Geocoder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NominatimGeocoder.class);
 
+    /** The Constant GEOCODE_URL. */
     private static final String GEOCODE_URL = "http://open.mapquestapi.com/nominatim/v1/search?format=xml";
 
+    /** The Constant m_httpClient. */
     private static final HttpClient m_httpClient = new DefaultHttpClient();
 
+    /** The m_email address. */
     private String m_emailAddress;
 
+    /** The m_referer. */
     private String m_referer = null;
 
     /**
@@ -68,8 +74,8 @@ public class NominatimGeocoder implements Geocoder {
      * Constructor for NominatimGeocoder.
      * </p>
      *
-     * @throws org.opennms.features.poller.remote.gwt.server.geocoding.GeocoderException
-     *             if any.
+     * @throws GeocoderException
+     *             the geocoder exception
      */
     public NominatimGeocoder() throws GeocoderException {
         this(System.getProperty("gwt.geocoder.email"));
@@ -82,8 +88,8 @@ public class NominatimGeocoder implements Geocoder {
      *
      * @param emailAddress
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.features.poller.remote.gwt.server.geocoding.GeocoderException
-     *             if any.
+     * @throws GeocoderException
+     *             the geocoder exception
      */
     public NominatimGeocoder(final String emailAddress) throws GeocoderException {
         m_emailAddress = emailAddress;
@@ -130,6 +136,15 @@ public class NominatimGeocoder implements Geocoder {
         }
     }
 
+    /**
+     * Gets the url.
+     *
+     * @param geolocation
+     *            the geolocation
+     * @return the url
+     * @throws GeocoderException
+     *             the geocoder exception
+     */
     private String getUrl(String geolocation) throws GeocoderException {
         try {
             return GEOCODE_URL + "&q=" + URLEncoder.encode(geolocation, "UTF-8");

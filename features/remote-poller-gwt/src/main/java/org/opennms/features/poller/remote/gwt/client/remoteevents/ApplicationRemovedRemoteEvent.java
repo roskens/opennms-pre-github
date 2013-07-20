@@ -39,8 +39,10 @@ package org.opennms.features.poller.remote.gwt.client.remoteevents;
  */
 public class ApplicationRemovedRemoteEvent implements MapRemoteEvent {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3983688320772535953L;
 
+    /** The m_application name. */
     private String m_applicationName;
 
     /**
@@ -73,6 +75,7 @@ public class ApplicationRemovedRemoteEvent implements MapRemoteEvent {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -53,20 +53,50 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class MapquestGeocoder implements Geocoder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapquestGeocoder.class);
 
+    /**
+     * The Enum Quality.
+     */
     public enum Quality {
-        COUNTRY, STATE, ZIP, COUNTY, ZIP_EXTENDED, CITY, STREET, INTERSECTION, ADDRESS, POINT
+
+        /** The country. */
+        COUNTRY,
+ /** The state. */
+ STATE,
+ /** The zip. */
+ ZIP,
+ /** The county. */
+ COUNTY,
+ /** The zip extended. */
+ ZIP_EXTENDED,
+ /** The city. */
+ CITY,
+ /** The street. */
+ STREET,
+ /** The intersection. */
+ INTERSECTION,
+ /** The address. */
+ ADDRESS,
+ /** The point. */
+ POINT
     }
 
+    /** The Constant GEOCODE_URL. */
     private static final String GEOCODE_URL = "http://www.mapquestapi.com/geocoding/v1/address?callback=renderGeocode&outFormat=xml";
 
+    /** The Constant m_httpClient. */
     private static final HttpClient m_httpClient = new DefaultHttpClient();
 
+    /** The m_api key. */
     private String m_apiKey;
 
+    /** The m_minimum quality. */
     private Quality m_minimumQuality;
 
+    /** The m_referer. */
     private String m_referer;
 
     /**
@@ -149,6 +179,15 @@ public class MapquestGeocoder implements Geocoder {
         }
     }
 
+    /**
+     * Gets the url.
+     *
+     * @param geolocation
+     *            the geolocation
+     * @return the url
+     * @throws GeocoderException
+     *             the geocoder exception
+     */
     private String getUrl(String geolocation) throws GeocoderException {
         try {
             return GEOCODE_URL + "&key=" + m_apiKey + "&location=" + URLEncoder.encode(geolocation, "UTF-8");

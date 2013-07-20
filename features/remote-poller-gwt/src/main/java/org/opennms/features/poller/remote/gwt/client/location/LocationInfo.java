@@ -54,22 +54,31 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class LocationInfo implements IsSerializable, Serializable, Comparable<LocationInfo> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2001265865152467286L;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_area. */
     private String m_area;
 
+    /** The m_geolocation. */
     private String m_geolocation;
 
+    /** The m_coordinates. */
     private String m_coordinates;
 
+    /** The m_priority. */
     private Long m_priority = 100L;
 
+    /** The m_marker state. */
     private GWTMarkerState m_markerState;
 
+    /** The m_status details. */
     private StatusDetails m_statusDetails;
 
+    /** The m_tags. */
     private Set<String> m_tags;
 
     /**
@@ -112,14 +121,14 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      *            a {@link java.lang.Long} object.
      * @param marker
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState}
-     *            object.
      * @param statusDetails
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
-     *            object.
      * @param tags
      *            a {@link java.util.Set} object.
+     *            {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState}
+     *            object.
+     *            {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
+     *            object.
      */
     public LocationInfo(final String name, final String area, final String geolocation, final String coordinates,
             final Long priority, final GWTMarkerState marker, final StatusDetails statusDetails, final Set<String> tags) {
@@ -137,6 +146,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,6 +158,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -160,6 +171,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getArea
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,6 +183,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setArea
      * </p>
+     * .
      *
      * @param area
      *            a {@link java.lang.String} object.
@@ -183,6 +196,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getGeolocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -194,6 +208,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setGeolocation
      * </p>
+     * .
      *
      * @param geolocation
      *            a {@link java.lang.String} object.
@@ -206,6 +221,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getCoordinates
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -217,6 +233,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setCoordinates
      * </p>
+     * .
      *
      * @param coordinates
      *            a {@link java.lang.String} object.
@@ -229,6 +246,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getPriority
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -240,6 +258,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setPriority
      * </p>
+     * .
      *
      * @param priority
      *            a {@link java.lang.Long} object.
@@ -252,6 +271,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getTags
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -263,6 +283,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setTags
      * </p>
+     * .
      *
      * @param tags
      *            a {@link java.util.Set} object.
@@ -275,6 +296,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getStatusDetails
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.StatusDetails}
@@ -291,6 +313,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setStatusDetails
      * </p>
+     * .
      *
      * @param status
      *            a
@@ -308,6 +331,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getMarkerState
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState}
@@ -321,6 +345,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * setMarkerState
      * </p>
+     * .
      *
      * @param markerState
      *            a
@@ -335,6 +360,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getLatLng
      * </p>
+     * .
      *
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
@@ -347,12 +373,13 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * isVisible
      * </p>
+     * .
      *
      * @param bounds
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.features.poller.remote.gwt.client.GWTBounds}
+     *         object.
      */
     public boolean isVisible(final GWTBounds bounds) {
         return bounds.contains(getLatLng());
@@ -373,6 +400,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -385,12 +413,13 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a
-     *            {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.features.poller.remote.gwt.client.location.LocationInfo}
+     *         object.
      */
     @Override
     public int compareTo(final LocationInfo that) {
@@ -403,6 +432,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -417,6 +447,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
      * <p>
      * getMarkerImageURL
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -424,10 +455,22 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
         return m_markerState.getImageURL();
     }
 
+    /**
+     * Checks for tag.
+     *
+     * @param selectedTag
+     *            the selected tag
+     * @return true, if successful
+     */
     public boolean hasTag(String selectedTag) {
         return getTags() != null && getTags().contains(selectedTag);
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return the status
+     */
     public Status getStatus() {
         return getStatusDetails().getStatus();
     }
