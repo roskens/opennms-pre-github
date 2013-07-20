@@ -32,42 +32,90 @@ import org.junit.runner.Computer;
 import org.junit.runner.Runner;
 import org.junit.runners.model.RunnerBuilder;
 
+/**
+ * The Class SeleniumComputer.
+ */
 public class SeleniumComputer extends Computer {
+
+    /** The m_base url. */
     private String m_baseUrl = "";
 
+    /** The m_timeout. */
     private int m_timeout = 3;
 
+    /**
+     * Instantiates a new selenium computer.
+     */
     public SeleniumComputer() {
 
     }
 
+    /**
+     * Instantiates a new selenium computer.
+     *
+     * @param baseUrl
+     *            the base url
+     */
     public SeleniumComputer(String baseUrl) {
         this(baseUrl, 3);
     }
 
+    /**
+     * Instantiates a new selenium computer.
+     *
+     * @param baseUrl
+     *            the base url
+     * @param timeoutInSeconds
+     *            the timeout in seconds
+     */
     public SeleniumComputer(String baseUrl, int timeoutInSeconds) {
         setBaseUrl(baseUrl);
         setTimeout(timeoutInSeconds);
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runner.Computer#getRunner(org.junit.runners.model.RunnerBuilder, java.lang.Class)
+     */
     @Override
     protected Runner getRunner(RunnerBuilder builder, Class<?> testClass) throws Throwable {
         TestClassRunnerForSelenium runner = new TestClassRunnerForSelenium(testClass, getBaseUrl(), getTimeout());
         return runner;
     }
 
+    /**
+     * Gets the base url.
+     *
+     * @return the base url
+     */
     public String getBaseUrl() {
         return m_baseUrl;
     }
 
+    /**
+     * Sets the base url.
+     *
+     * @param baseUrl
+     *            the new base url
+     */
     public void setBaseUrl(String baseUrl) {
         m_baseUrl = baseUrl;
     }
 
+    /**
+     * Gets the timeout.
+     *
+     * @return the timeout
+     */
     public int getTimeout() {
         return m_timeout;
     }
 
+    /**
+     * Sets the timeout.
+     *
+     * @param timeout
+     *            the new timeout
+     */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }

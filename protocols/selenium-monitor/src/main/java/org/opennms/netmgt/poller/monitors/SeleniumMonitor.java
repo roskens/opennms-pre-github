@@ -48,12 +48,31 @@ import org.opennms.netmgt.poller.MonitoredService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SeleniumMonitor.
+ */
 public class SeleniumMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SeleniumMonitor.class);
 
+    /**
+     * The Class BaseUrlUtils.
+     */
     public static class BaseUrlUtils {
+
+        /** The s_ip addr pattern. */
         private static Pattern s_ipAddrPattern = Pattern.compile("\\$\\{ipAddr\\}");
 
+        /**
+         * Replace ip addr.
+         *
+         * @param baseUrl
+         *            the base url
+         * @param monSvcIpAddr
+         *            the mon svc ip addr
+         * @return the string
+         */
         public static String replaceIpAddr(String baseUrl, String monSvcIpAddr) {
             if (!baseUrl.contains("${ipAddr}")) {
                 return baseUrl;
@@ -67,10 +86,15 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
         }
     }
 
+    /** The Constant DEFAULT_SEQUENCE_RETRY. */
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.monitors.AbstractServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map)
+     */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         PollStatus serviceStatus = PollStatus.unavailable("Poll not completed yet");
@@ -119,6 +143,13 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
+    /**
+     * Gets the timeout.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the timeout
+     */
     private int getTimeout(Map<String, Object> parameters) {
         if (parameters.containsKey("timeout")) {
             return Integer.parseInt("" + parameters.get("timeout"));
@@ -127,6 +158,15 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
         }
     }
 
+    /**
+     * Gets the base url.
+     *
+     * @param parameters
+     *            the parameters
+     * @param svc
+     *            the svc
+     * @return the base url
+     */
     private String getBaseUrl(Map<String, Object> parameters, MonitoredService svc) {
         if (parameters.containsKey("base-url")) {
             String baseUrl = (String) parameters.get("base-url");
@@ -151,6 +191,15 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
 
     }
 
+    /**
+     * Gets the failure message.
+     *
+     * @param result
+     *            the result
+     * @param svc
+     *            the svc
+     * @return the failure message
+     */
     private String getFailureMessage(Result result, MonitoredService svc) {
         StringBuffer stringBuilder = new StringBuffer();
         stringBuilder.append("Failed: ");
@@ -164,10 +213,28 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
         return stringBuilder.toString();
     }
 
+    /**
+     * Run test.
+     *
+     * @param baseUrl
+     *            the base url
+     * @param timeoutInSeconds
+     *            the timeout in seconds
+     * @param clazz
+     *            the clazz
+     * @return the result
+     */
     private Result runTest(String baseUrl, int timeoutInSeconds, Class<?> clazz) {
         return JUnitCore.runClasses(new SeleniumComputer(baseUrl, timeoutInSeconds), clazz);
     }
 
+    /**
+     * Gets the groovy filename.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the groovy filename
+     */
     private String getGroovyFilename(Map<String, Object> parameters) {
         if (parameters.containsKey("selenium-test")) {
             return (String) parameters.get("selenium-test");
@@ -177,6 +244,17 @@ public class SeleniumMonitor extends AbstractServiceMonitor {
 
     }
 
+    /**
+     * Creates the groovy class.
+     *
+     * @param filename
+     *            the filename
+     * @return the class
+     * @throws CompilationFailedException
+     *             the compilation failed exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private Class<?> createGroovyClass(String filename) throws CompilationFailedException, IOException {
         GroovyClassLoader gcl = new GroovyClassLoader();
 

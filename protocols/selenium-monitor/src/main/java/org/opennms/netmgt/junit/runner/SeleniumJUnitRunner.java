@@ -38,26 +38,63 @@ import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
+/**
+ * The Class SeleniumJUnitRunner.
+ */
 public class SeleniumJUnitRunner extends Suite {
 
+    /**
+     * The Interface BaseUrl.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface BaseUrl {
+
+        /**
+         * Url.
+         *
+         * @return the string
+         */
         String url();
     }
 
+    /**
+     * The Interface TimeoutInSeconds.
+     */
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface TimeoutInSeconds {
+
+        /**
+         * Timeout.
+         *
+         * @return the int
+         */
         int timeout();
     }
 
+    /** The m_runners. */
     private final List<Runner> m_runners = new ArrayList<Runner>();
 
+    /**
+     * Instantiates a new selenium j unit runner.
+     *
+     * @param testClass
+     *            the test class
+     * @throws InitializationError
+     *             the initialization error
+     */
     public SeleniumJUnitRunner(Class<?> testClass) throws InitializationError {
         super(testClass, Collections.<Runner> emptyList());
         m_runners.add(new TestClassRunnerForSelenium(getTestClass().getJavaClass(), getBaseUrlAnnotation(testClass),
                                                      getTimeoutAnnotation(testClass)));
     }
 
+    /**
+     * Gets the timeout annotation.
+     *
+     * @param testClass
+     *            the test class
+     * @return the timeout annotation
+     */
     private int getTimeoutAnnotation(Class<?> testClass) {
         SeleniumJUnitRunner.TimeoutInSeconds timeout = testClass.getAnnotation(SeleniumJUnitRunner.TimeoutInSeconds.class);
         if (timeout == null) {
@@ -67,6 +104,13 @@ public class SeleniumJUnitRunner extends Suite {
         }
     }
 
+    /**
+     * Gets the base url annotation.
+     *
+     * @param klass
+     *            the klass
+     * @return the base url annotation
+     */
     private String getBaseUrlAnnotation(Class<?> klass) {
         SeleniumJUnitRunner.BaseUrl baseUrl = klass.getAnnotation(SeleniumJUnitRunner.BaseUrl.class);
         if (baseUrl == null) {
@@ -76,6 +120,9 @@ public class SeleniumJUnitRunner extends Suite {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.junit.runners.Suite#getChildren()
+     */
     @Override
     protected List<Runner> getChildren() {
         return m_runners;

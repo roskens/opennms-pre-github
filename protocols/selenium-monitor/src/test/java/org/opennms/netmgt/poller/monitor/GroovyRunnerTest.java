@@ -43,8 +43,19 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.opennms.netmgt.junit.runner.SeleniumComputer;
 
+/**
+ * The Class GroovyRunnerTest.
+ */
 public class GroovyRunnerTest {
 
+    /**
+     * Test groovy class loader fail constructor error.
+     *
+     * @throws CompilationFailedException
+     *             the compilation failed exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testGroovyClassLoaderFailConstructorError() throws CompilationFailedException, IOException {
         String filename = "src/test/resources/groovy/SeleniumGroovyTest.groovy";
@@ -52,6 +63,12 @@ public class GroovyRunnerTest {
         assertEquals(1, result.getFailureCount());
     }
 
+    /**
+     * Test annotated groovy class with base url.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testAnnotatedGroovyClassWithBaseUrl() throws IOException {
         String filename = "src/test/resources/groovy/AnnotatedGroovyTest.groovy";
@@ -60,6 +77,14 @@ public class GroovyRunnerTest {
         assertEquals(0, result.getFailureCount());
     }
 
+    /**
+     * Test custom j unit runner with computer.
+     *
+     * @throws CompilationFailedException
+     *             the compilation failed exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testCustomJUnitRunnerWithComputer() throws CompilationFailedException, IOException {
         String filename = "src/test/resources/groovy/GroovyRunnerTest.groovy";
@@ -71,6 +96,15 @@ public class GroovyRunnerTest {
         assertEquals(0, result.getFailureCount());
     }
 
+    /**
+     * Run junit test with computer.
+     *
+     * @param computer
+     *            the computer
+     * @param clazz
+     *            the clazz
+     * @return the result
+     */
     private Result runJunitTestWithComputer(Computer computer, Class<?> clazz) {
         Result result = JUnitCore.runClasses(computer, clazz);
 
@@ -81,12 +115,28 @@ public class GroovyRunnerTest {
         return result;
     }
 
+    /**
+     * Gets the groovy class.
+     *
+     * @param filename
+     *            the filename
+     * @return the groovy class
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private Class<?> getGroovyClass(String filename) throws IOException {
         GroovyClassLoader gcl = new GroovyClassLoader();
         Class<?> clazz = gcl.parseClass(new File(filename));
         return clazz;
     }
 
+    /**
+     * Run j unit tests.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the result
+     */
     private Result runJUnitTests(Class<?> clazz) {
         Result result = JUnitCore.runClasses(clazz);
         List<Failure> failures = result.getFailures();

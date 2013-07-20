@@ -39,20 +39,42 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+/**
+ * The Class OpennmsSeleniumExample.
+ */
 public class OpennmsSeleniumExample {
+
+    /** The driver. */
     private WebDriver driver;
 
+    /** The base url. */
     private String baseUrl = "";
 
+    /** The timeout. */
     private int timeout = 3;
 
+    /** The verification errors. */
     private StringBuffer verificationErrors = new StringBuffer();
 
+    /**
+     * Instantiates a new opennms selenium example.
+     *
+     * @param url
+     *            the url
+     * @param timeoutInSeconds
+     *            the timeout in seconds
+     */
     public OpennmsSeleniumExample(String url, int timeoutInSeconds) {
         baseUrl = url;
         timeout = timeoutInSeconds;
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         System.err.println("Before is being called in Groovy Script: " + this.hashCode());
@@ -60,6 +82,12 @@ public class OpennmsSeleniumExample {
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
     }
 
+    /**
+     * Test selenium.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSelenium() throws Exception {
         System.err.println("Test is being called in Groovy Script: " + this.hashCode());
@@ -75,6 +103,12 @@ public class OpennmsSeleniumExample {
         assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         System.err.println("After is being called in Groovy Script: " + this.hashCode());

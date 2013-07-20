@@ -31,7 +31,16 @@ package org.opennms.netmgt.poller.monitor.annotations;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * The Interface ConfigParameter.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigParameter {
+
+    /**
+     * Name.
+     *
+     * @return the string
+     */
     String name();
 }

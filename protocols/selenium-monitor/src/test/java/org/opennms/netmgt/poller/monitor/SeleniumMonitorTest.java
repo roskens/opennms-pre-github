@@ -53,23 +53,48 @@ import org.opennms.netmgt.poller.monitors.SeleniumMonitor;
 import org.opennms.netmgt.poller.monitors.SeleniumMonitor.BaseUrlUtils;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SeleniumMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/opennms/emptyContext.xml")
 @JUnitHttpServer(port = 10342)
 public class SeleniumMonitorTest {
 
+    /**
+     * The Class MockMonService.
+     */
     public static class MockMonService implements MonitoredService {
 
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_node label. */
         private String m_nodeLabel;
 
+        /** The m_inet addr. */
         private InetAddress m_inetAddr;
 
+        /** The m_svc name. */
         private String m_svcName;
 
+        /** The m_ip addr. */
         private String m_ipAddr;
 
+        /**
+         * Instantiates a new mock mon service.
+         *
+         * @param nodeId
+         *            the node id
+         * @param nodeLabel
+         *            the node label
+         * @param inetAddress
+         *            the inet address
+         * @param svcName
+         *            the svc name
+         * @throws UnknownHostException
+         *             the unknown host exception
+         */
         public MockMonService(int nodeId, String nodeLabel, InetAddress inetAddress, String svcName)
                 throws UnknownHostException {
             m_nodeId = nodeId;
@@ -79,36 +104,57 @@ public class SeleniumMonitorTest {
             m_ipAddr = InetAddressUtils.str(m_inetAddr);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getSvcUrl()
+         */
         @Override
         public String getSvcUrl() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getSvcName()
+         */
         @Override
         public String getSvcName() {
             return m_svcName;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getIpAddr()
+         */
         @Override
         public String getIpAddr() {
             return m_ipAddr;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getNodeId()
+         */
         @Override
         public int getNodeId() {
             return m_nodeId;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getNodeLabel()
+         */
         @Override
         public String getNodeLabel() {
             return m_nodeLabel;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getNetInterface()
+         */
         @Override
         public NetworkInterface<InetAddress> getNetInterface() {
             return new InetNetworkInterface(m_inetAddr);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.MonitoredService#getAddress()
+         */
         @Override
         public InetAddress getAddress() {
             return m_inetAddr;
@@ -116,6 +162,12 @@ public class SeleniumMonitorTest {
 
     }
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -123,6 +175,12 @@ public class SeleniumMonitorTest {
     }
 
     // Requires Firefox to be installed to run
+    /**
+     * Test poll status not null.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/testWar"))
     public void testPollStatusNotNull() throws UnknownHostException {
@@ -144,6 +202,9 @@ public class SeleniumMonitorTest {
 
     }
 
+    /**
+     * Test base url utils.
+     */
     @Test
     public void testBaseUrlUtils() {
 
@@ -156,6 +217,9 @@ public class SeleniumMonitorTest {
         assertEquals("http://192.168.1.1:8080", finalUrl);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
 
