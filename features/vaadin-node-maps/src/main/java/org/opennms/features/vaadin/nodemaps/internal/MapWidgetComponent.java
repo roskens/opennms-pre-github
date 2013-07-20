@@ -52,50 +52,98 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionOperations;
 
 /**
+ * The Class MapWidgetComponent.
+ *
  * @author Marcus Hellberg (marcus@vaadin.com)
  */
 public class MapWidgetComponent extends NodeMap {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The m_log. */
     private Logger m_log = LoggerFactory.getLogger(getClass());
 
+    /** The m_search string. */
     private String m_searchString;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_asset dao. */
     private AssetRecordDao m_assetDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_geocoder service. */
     private GeocoderService m_geocoderService;
 
+    /** The m_transaction. */
     private TransactionOperations m_transaction;
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Sets the asset record dao.
+     *
+     * @param assetDao
+     *            the new asset record dao
+     */
     public void setAssetRecordDao(final AssetRecordDao assetDao) {
         m_assetDao = assetDao;
     }
 
+    /**
+     * Sets the alarm dao.
+     *
+     * @param alarmDao
+     *            the new alarm dao
+     */
     public void setAlarmDao(final AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
+    /**
+     * Sets the geocoder service.
+     *
+     * @param geocoderService
+     *            the new geocoder service
+     */
     public void setGeocoderService(final GeocoderService geocoderService) {
         m_geocoderService = geocoderService;
     }
 
+    /**
+     * Sets the transaction operations.
+     *
+     * @param tx
+     *            the new transaction operations
+     */
     public void setTransactionOperations(final TransactionOperations tx) {
         m_transaction = tx;
     }
 
+    /**
+     * Inits the.
+     */
     public void init() {
         showNodes(getNodeData());
     }
 
+    /**
+     * Gets the node data.
+     *
+     * @return the node data
+     */
     private Map<Integer, NodeEntry> getNodeData() {
         if (m_nodeDao == null)
             return new HashMap<Integer, NodeEntry>();
@@ -229,6 +277,12 @@ public class MapWidgetComponent extends NodeMap {
         return coordinates;
     }
 
+    /**
+     * Sets the search string.
+     *
+     * @param searchString
+     *            the new search string
+     */
     public void setSearchString(final String searchString) {
         m_searchString = searchString;
     }

@@ -41,20 +41,36 @@ import com.vaadin.ui.UI;
  */
 public class NodeMapsApplicationFactory extends AbstractApplicationFactory {
 
+    /** The m_blueprint container. */
     private final BlueprintContainer m_blueprintContainer;
 
+    /** The m_bean name. */
     private final String m_beanName;
 
+    /**
+     * Instantiates a new node maps application factory.
+     *
+     * @param container
+     *            the container
+     * @param beanName
+     *            the bean name
+     */
     public NodeMapsApplicationFactory(BlueprintContainer container, String beanName) {
         m_blueprintContainer = container;
         m_beanName = beanName;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUIClass()
+     */
     @Override
     public Class<? extends UI> getUIClass() {
         return NodeMapsApplication.class;
     }
 
+    /* (non-Javadoc)
+     * @see org.ops4j.pax.vaadin.AbstractApplicationFactory#getUI()
+     */
     @Override
     public UI getUI() {
         NodeMapsApplication application = (NodeMapsApplication) m_blueprintContainer.getComponentInstance(m_beanName);

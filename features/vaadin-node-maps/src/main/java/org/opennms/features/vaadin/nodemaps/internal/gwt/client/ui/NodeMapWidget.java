@@ -50,32 +50,51 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class NodeMapWidget.
+ */
 @SuppressWarnings("NonJREEmulationClassesInClientCode")
 public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsumer {
+
+    /** The m_div. */
     private final DivElement m_div;
 
+    /** The m_map. */
     private Map m_map;
 
+    /** The m_layer. */
     private ILayer m_layer;
 
+    /** The m_markers. */
     private MarkerContainer m_markers;
 
+    /** The m_marker cluster group. */
     private MarkerClusterGroup m_markerClusterGroup;
 
+    /** The m_state cluster groups. */
     private MarkerClusterGroup[] m_stateClusterGroups;
 
+    /** The m_first update. */
     private boolean m_firstUpdate = true;
 
+    /** The m_minimum severity. */
     private int m_minimumSeverity = 0;
 
+    /** The m_search string. */
     private String m_searchString = "";
 
+    /** The m_search control. */
     private SearchControl m_searchControl;
 
+    /** The m_filter. */
     private MarkerFilter m_filter;
 
+    /** The logger. */
     private Logger logger = Logger.getLogger(getClass().getName());
 
+    /**
+     * Instantiates a new node map widget.
+     */
     public NodeMapWidget() {
         m_div = Document.get().createDivElement();
         m_div.setId("gwt-map");
@@ -168,6 +187,9 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         logger.log(Level.INFO, "NodeMapWidget initialized");
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#onLoad()
+     */
     @Override
     protected void onLoad() {
         super.onLoad();
@@ -179,12 +201,21 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         });
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.Widget#onUnload()
+     */
     @Override
     protected void onUnload() {
         destroyMap();
         super.onUnload();
     }
 
+    /**
+     * Initialize map.
+     *
+     * @param divId
+     *            the div id
+     */
     private void initializeMap(final String divId) {
         logger.log(Level.INFO, "initializing map");
 
@@ -203,6 +234,9 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         logger.log(Level.INFO, "finished initializing map");
     }
 
+    /**
+     * Creates the google layer.
+     */
     @SuppressWarnings("unused")
     private void createGoogleLayer() {
         final EPSG3857 projection = new EPSG3857();
@@ -214,6 +248,12 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         m_map.addLayer(m_layer, true);
     }
 
+    /**
+     * Creates the map.
+     *
+     * @param divId
+     *            the div id
+     */
     private void createMap(final String divId) {
         final MapOptions options = new MapOptions();
         options.setCenter(new LatLng(0, 0));
@@ -223,6 +263,9 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         m_map = new Map(divId, options);
     }
 
+    /**
+     * Adds the tile layer.
+     */
     private void addTileLayer() {
         logger.log(Level.INFO, "adding tile layer");
         final String attribution = "Map data &copy; <a tabindex=\"-1\" href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a tabindex=\"-1\" href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Tiles &copy; <a tabindex=\"-1\" href=\"http://www.mapquest.com/\" target=\"_blank\">MapQuest</a> <img src=\"http://developer.mapquest.com/content/osm/mq_logo.png\" />";
@@ -238,11 +281,22 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
     // this class wraps javascript helper methods and also return JSObject
     // objects for state data
     // US state data from United States Census Cartographic Boundary Files
+    /**
+     * The Class StatesData.
+     */
     private static class StatesData {
 
+        /**
+         * Instantiates a new states data.
+         */
         protected StatesData() {
         }
 
+        /**
+         * Gets the single instance of StatesData.
+         *
+         * @return single instance of StatesData
+         */
         public static native JSObject getInstance()
         /*-{
          return {
@@ -356,6 +410,11 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
 				};
          }-*/;
 
+        /**
+         * Gets the us shape.
+         *
+         * @return the us shape
+         */
         public static native JSObject getUsShape()
         /*-{
          return {"type":"FeatureCollection","features":[
@@ -363,12 +422,30 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
 		]};
          }-*/;
 
+        /**
+         * Gets the state options.
+         *
+         * @param i
+         *            the i
+         * @return the state options
+         */
         public static native JSObject getStateOptions(int i)
         /*-{
         return {inUs: true, stateId: i};
 
         }-*/;
 
+        /**
+         * Gets the state id.
+         *
+         * @param lat
+         *            the lat
+         * @param lng
+         *            the lng
+         * @param statesDataLarge
+         *            the states data large
+         * @return the state id
+         */
         public static native int getStateId(double lat, double lng, JSObject statesDataLarge)
         /*-{
 
@@ -423,6 +500,17 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
             return state;
          }-*/;
 
+        /**
+         * In us.
+         *
+         * @param lat
+         *            the lat
+         * @param lng
+         *            the lng
+         * @param usShape
+         *            the us shape
+         * @return true, if successful
+         */
         public static native boolean inUs(double lat, double lng, JSObject usShape)
         /*-{
 		var x = lng;
@@ -446,11 +534,29 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         return inUs;
         }-*/;
 
+        /**
+         * Gets the polygon info.
+         *
+         * @param k
+         *            the k
+         * @param statesDataLarge
+         *            the states data large
+         * @return the polygon info
+         */
         public static native JSObject getPolygonInfo(int k, JSObject statesDataLarge)
         /*-{
 		return statesDataLarge.features[k];
          }-*/;
 
+        /**
+         * Gets the length.
+         *
+         * @param k
+         *            the k
+         * @param statesDataLarge
+         *            the states data large
+         * @return the length
+         */
         public static native int getLength(int k, JSObject statesDataLarge)
         /*-{
 		return statesDataLarge.features[k].geometry.coordinates.length;
@@ -458,6 +564,9 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
 
     }
 
+    /**
+     * Adds the marker layer.
+     */
     private void addMarkerLayer() {
         logger.log(Level.INFO, "adding marker cluster layer");
         final Options markerClusterOptions = new Options();
@@ -488,12 +597,18 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
 
     }
 
+    /**
+     * Adds the search control.
+     */
     private void addSearchControl() {
         logger.log(Level.INFO, "adding search control");
         m_searchControl = new SearchControl(this, m_markers);
         m_map.addControl(m_searchControl);
     }
 
+    /**
+     * Adds the alarm control.
+     */
     private void addAlarmControl() {
         logger.log(Level.INFO, "adding alarm control");
         final AlarmControlOptions options = new AlarmControlOptions();
@@ -502,20 +617,36 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         m_map.addControl(alarmControl);
     }
 
+    /**
+     * Adds the zoom control.
+     */
     private void addZoomControl() {
         logger.log(Level.INFO, "adding zoom control");
         m_map.addControl(new Zoom(new Options()));
     }
 
+    /**
+     * Marker should be visible.
+     *
+     * @param marker
+     *            the marker
+     * @return true, if successful
+     */
     public boolean markerShouldBeVisible(final NodeMarker marker) {
         return m_filter.matches(marker);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#isSearching()
+     */
     @Override
     public boolean isSearching() {
         return m_searchString != null && !"".equals(m_searchString);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#refresh()
+     */
     @Override
     public void refresh() {
         if (m_markers == null) {
@@ -623,6 +754,9 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         });
     }
 
+    /**
+     * Update marker cluster layer.
+     */
     public void updateMarkerClusterLayer() {
         if (m_markerClusterGroup == null) {
             logger.log(Level.INFO, "marker cluster not initialized yet, skipping update");
@@ -638,11 +772,20 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         refresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.MarkerProvider#getMarkers()
+     */
     @Override
     public List<NodeMarker> getMarkers() {
         return m_markers.getMarkers();
     }
 
+    /**
+     * Sets the markers.
+     *
+     * @param markers
+     *            the new markers
+     */
     public void setMarkers(final List<NodeMarker> markers) {
         m_markers.setMarkers(markers);
 
@@ -654,32 +797,50 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#getMinimumSeverity()
+     */
     @Override
     public int getMinimumSeverity() {
         return m_minimumSeverity;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#setMinimumSeverity(int)
+     */
     @Override
     public void setMinimumSeverity(final int minSeverity) {
         m_minimumSeverity = minSeverity;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#getSearchString()
+     */
     @Override
     public String getSearchString() {
         return m_searchString;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#setSearchString(java.lang.String)
+     */
     @Override
     public void setSearchString(final String searchString) {
         m_searchString = searchString;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.SearchConsumer#clearSearch()
+     */
     @Override
     public void clearSearch() {
         m_minimumSeverity = 0;
         m_searchString = "";
     }
 
+    /**
+     * Destroy map.
+     */
     private final void destroyMap() {
         if (m_markerClusterGroup != null) {
             m_markerClusterGroup.clearLayers();
@@ -694,7 +855,16 @@ public class NodeMapWidget extends Widget implements MarkerProvider, SearchConsu
         }
     }
 
+    /**
+     * The Enum MatchType.
+     */
     private enum MatchType {
-        NONE, SUBSTRING, EXACT
+
+        /** The none. */
+        NONE,
+ /** The substring. */
+ SUBSTRING,
+ /** The exact. */
+ EXACT
     };
 }

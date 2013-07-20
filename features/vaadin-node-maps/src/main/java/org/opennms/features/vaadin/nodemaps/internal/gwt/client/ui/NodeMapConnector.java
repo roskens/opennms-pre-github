@@ -49,20 +49,37 @@ import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.shared.ui.Connect;
 
+/**
+ * The Class NodeMapConnector.
+ */
 @Connect(NodeMap.class)
 public class NodeMapConnector extends AbstractComponentConnector {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+
+    /** The m_icons. */
     private Map<String, Icon> m_icons;
 
+    /**
+     * Instantiates a new node map connector.
+     */
     public NodeMapConnector() {
         initializeIcons();
     }
 
+    /**
+     * Checks if is retina.
+     *
+     * @return true, if is retina
+     */
     private static final native boolean isRetina() /*-{
                                                    return $wnd.L.Browser.retina;
                                                    }-*/;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.client.ui.AbstractComponentConnector#onStateChanged(com.vaadin.client.communication.StateChangeEvent)
+     */
     @Override
     public void onStateChanged(StateChangeEvent stateChangeEvent) {
         // Handle all common Vaadin features first
@@ -78,6 +95,9 @@ public class NodeMapConnector extends AbstractComponentConnector {
 
     }
 
+    /**
+     * Update nodes.
+     */
     private void updateNodes() {
         if (getState().nodes.isEmpty()) {
             return;
@@ -117,21 +137,33 @@ public class NodeMapConnector extends AbstractComponentConnector {
         getWidget().setMarkers(featureCollection);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.client.ui.AbstractComponentConnector#getState()
+     */
     @Override
     public NodeMapState getState() {
         return (NodeMapState) super.getState();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.client.ui.AbstractComponentConnector#createWidget()
+     */
     @Override
     protected Widget createWidget() {
         return GWT.create(NodeMapWidget.class);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.client.ui.AbstractComponentConnector#getWidget()
+     */
     @Override
     public NodeMapWidget getWidget() {
         return (NodeMapWidget) super.getWidget();
     }
 
+    /**
+     * Initialize icons.
+     */
     private void initializeIcons() {
         if (m_icons == null) {
             m_icons = new HashMap<String, Icon>();

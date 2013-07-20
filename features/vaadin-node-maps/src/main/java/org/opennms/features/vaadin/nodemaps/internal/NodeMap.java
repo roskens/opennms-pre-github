@@ -44,13 +44,26 @@ import org.opennms.netmgt.model.OnmsSeverity;
 
 import com.vaadin.ui.AbstractComponent;
 
+/**
+ * The Class NodeMap.
+ */
 public class NodeMap extends AbstractComponent {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2L;
 
+    /**
+     * Instantiates a new node map.
+     */
     public NodeMap() {
     }
 
+    /**
+     * Show nodes.
+     *
+     * @param nodeEntries
+     *            the node entries
+     */
     public void showNodes(final Map<Integer, NodeEntry> nodeEntries) {
         List<MapNode> nodes = new LinkedList<MapNode>();
         for (final NodeEntry node : nodeEntries.values()) {
@@ -59,42 +72,72 @@ public class NodeMap extends AbstractComponent {
         getState().nodes = nodes;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#getState()
+     */
     @Override
     protected NodeMapState getState() {
         return (NodeMapState) super.getState();
     }
 
+    /**
+     * Sets the initial search string.
+     *
+     * @param searchString
+     *            the new initial search string
+     */
     public void setInitialSearchString(String searchString) {
         getState().initialSearch = searchString;
     }
 
     // TODO: combine this class and MapNode?
+    /**
+     * The Class NodeEntry.
+     */
     protected static final class NodeEntry {
 
+        /** The m_longitude. */
         private Float m_longitude;
 
+        /** The m_latitude. */
         private Float m_latitude;
 
+        /** The m_node id. */
         private Integer m_nodeId;
 
+        /** The m_node label. */
         private String m_nodeLabel;
 
+        /** The m_foreign source. */
         private String m_foreignSource;
 
+        /** The m_foreign id. */
         private String m_foreignId;
 
+        /** The m_description. */
         private String m_description;
 
+        /** The m_maintcontract. */
         private String m_maintcontract;
 
+        /** The m_ip address. */
         private String m_ipAddress;
 
+        /** The m_severity. */
         private OnmsSeverity m_severity = OnmsSeverity.NORMAL;
 
+        /** The m_categories. */
         private List<String> m_categories = new ArrayList<String>();
 
+        /** The m_unacked count. */
         private int m_unackedCount = 0;
 
+        /**
+         * Instantiates a new node entry.
+         *
+         * @param node
+         *            the node
+         */
         public NodeEntry(final OnmsNode node) {
             final OnmsAssetRecord assetRecord = node.getAssetRecord();
             if (assetRecord != null && assetRecord.getGeolocation() != null) {
@@ -124,10 +167,21 @@ public class NodeMap extends AbstractComponent {
             }
         }
 
+        /**
+         * Sets the severity.
+         *
+         * @param severity
+         *            the new severity
+         */
         public void setSeverity(final OnmsSeverity severity) {
             m_severity = severity;
         }
 
+        /**
+         * Creates the node.
+         *
+         * @return the map node
+         */
         public MapNode createNode() {
             MapNode node = new MapNode();
             node.setLatitude(m_latitude);
@@ -150,6 +204,12 @@ public class NodeMap extends AbstractComponent {
             return node;
         }
 
+        /**
+         * Sets the unacked count.
+         *
+         * @param unackedCount
+         *            the new unacked count
+         */
         public void setUnackedCount(final int unackedCount) {
             m_unackedCount = unackedCount;
         }

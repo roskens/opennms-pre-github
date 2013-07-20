@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.alarm;
 
 import java.util.logging.Level;
@@ -19,19 +46,41 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class AlarmControl.
+ */
 public class AlarmControl extends Control {
+
+    /** The logger. */
     Logger logger = Logger.getLogger(getClass().getName());
 
+    /** The m_severity box. */
     private ListBox m_severityBox;
 
+    /** The m_search consumer. */
     private final SearchConsumer m_searchConsumer;
 
+    /** The m_on change. */
     private SearchEventCallback m_onChange;
 
+    /**
+     * Instantiates a new alarm control.
+     *
+     * @param searchConsumer
+     *            the search consumer
+     */
     public AlarmControl(final SearchConsumer searchConsumer) {
         this(searchConsumer, new AlarmControlOptions());
     }
 
+    /**
+     * Instantiates a new alarm control.
+     *
+     * @param searchConsumer
+     *            the search consumer
+     * @param options
+     *            the options
+     */
     public AlarmControl(final SearchConsumer searchConsumer, final AlarmControlOptions options) {
         super(JSObject.createJSObject());
         setJSObject(AlarmControlImpl.create(this, options.getJSObject()));
@@ -39,6 +88,13 @@ public class AlarmControl extends Control {
         m_searchConsumer = searchConsumer;
     }
 
+    /**
+     * Do on add.
+     *
+     * @param map
+     *            the map
+     * @return the element
+     */
     public Element doOnAdd(final JavaScriptObject map) {
         logger.log(Level.INFO, "doOnAdd() called");
         final AlarmControlCss css = AlarmControlBundle.INSTANCE.css();
@@ -94,6 +150,12 @@ public class AlarmControl extends Control {
         return element;
     }
 
+    /**
+     * Do on remove.
+     *
+     * @param map
+     *            the map
+     */
     public void doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "doOnRemove() called");
         DomEvent.removeListener(m_onChange);
@@ -101,16 +163,25 @@ public class AlarmControl extends Control {
             m_searchConsumer.clearSearch();
     }
 
+    /* (non-Javadoc)
+     * @see org.discotools.gwt.leaflet.client.controls.Control#addTo(org.discotools.gwt.leaflet.client.map.Map)
+     */
     @Override
     public AlarmControl addTo(final Map map) {
         return (AlarmControl) super.addTo(map);
     }
 
+    /* (non-Javadoc)
+     * @see org.discotools.gwt.leaflet.client.controls.Control#setPosition(java.lang.String)
+     */
     @Override
     public AlarmControl setPosition(final String position) {
         return (AlarmControl) super.setPosition(position);
     }
 
+    /* (non-Javadoc)
+     * @see org.discotools.gwt.leaflet.client.controls.Control#removeFrom(org.discotools.gwt.leaflet.client.map.Map)
+     */
     @Override
     public AlarmControl removeFrom(final Map map) {
         return (AlarmControl) super.removeFrom(map);

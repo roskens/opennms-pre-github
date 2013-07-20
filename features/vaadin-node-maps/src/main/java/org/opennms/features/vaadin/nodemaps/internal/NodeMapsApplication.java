@@ -95,28 +95,53 @@ import com.vaadin.ui.VerticalLayout;
         "gwt/public/node-maps.css" })
 public class NodeMapsApplication extends UI {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeMapsApplication.class);
 
+    /** The Constant REFRESH_INTERVAL. */
     private static final int REFRESH_INTERVAL = 5 * 60 * 1000;
 
+    /** The m_root layout. */
     private VerticalLayout m_rootLayout;
 
+    /** The m_log. */
     private Logger m_log = LoggerFactory.getLogger(getClass());
 
+    /** The m_map widget component. */
     private MapWidgetComponent m_mapWidgetComponent;
 
+    /** The m_header provider. */
     private OnmsHeaderProvider m_headerProvider;
 
+    /** The m_header html. */
     private String m_headerHtml;
 
+    /**
+     * Sets the header provider.
+     *
+     * @param headerProvider
+     *            the new header provider
+     */
     public void setHeaderProvider(final OnmsHeaderProvider headerProvider) {
         m_headerProvider = headerProvider;
     }
 
+    /**
+     * Sets the map widget component.
+     *
+     * @param m_mapWidgetComponent
+     *            the new map widget component
+     */
     public void setMapWidgetComponent(MapWidgetComponent m_mapWidgetComponent) {
         this.m_mapWidgetComponent = m_mapWidgetComponent;
     }
 
+    /**
+     * Sets the header html.
+     *
+     * @param headerHtml
+     *            the new header html
+     */
     public void setHeaderHtml(final String headerHtml) {
         m_headerHtml = headerHtml;
 
@@ -127,6 +152,9 @@ public class NodeMapsApplication extends UI {
         m_headerHtml += "<script type='text/javascript'>if (window.location != window.parent.location) { document.getElementById('header').style.display = 'none'; var style = document.createElement(\"style\"); style.type = 'text/css'; style.innerHTML = '.leaflet-control-container { display: none; }'; document.body.appendChild(style); }</script>";
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+     */
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         m_log.debug("initializing");
@@ -135,11 +163,23 @@ public class NodeMapsApplication extends UI {
         addRefresher();
     }
 
+    /**
+     * Creates the map panel.
+     *
+     * @param searchString
+     *            the search string
+     */
     private void createMapPanel(String searchString) {
         m_mapWidgetComponent.setSearchString(searchString);
         m_mapWidgetComponent.setSizeFull();
     }
 
+    /**
+     * Creates the root layout.
+     *
+     * @param request
+     *            the request
+     */
     private void createRootLayout(VaadinRequest request) {
         m_rootLayout = new VerticalLayout();
         m_rootLayout.setSizeFull();
@@ -150,6 +190,12 @@ public class NodeMapsApplication extends UI {
         m_rootLayout.setExpandRatio(m_mapWidgetComponent, 1.0f);
     }
 
+    /**
+     * Adds the header.
+     *
+     * @param request
+     *            the request
+     */
     private void addHeader(VaadinRequest request) {
         if (m_headerProvider != null) {
             try {
@@ -178,6 +224,9 @@ public class NodeMapsApplication extends UI {
         }
     }
 
+    /**
+     * Adds the refresher.
+     */
     private void addRefresher() {
         final Refresher refresher = new Refresher();
         refresher.setRefreshInterval(REFRESH_INTERVAL);

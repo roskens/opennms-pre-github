@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.search;
 
 import java.util.HashMap;
@@ -36,9 +63,15 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class SearchControl.
+ */
 public class SearchControl extends Control {
+
+    /** The logger. */
     Logger logger = Logger.getLogger(getClass().getName());
 
+    /** The Constant m_labels. */
     private static final HashMap<String, String> m_labels;
     static {
         m_labels = new HashMap<String, String>();
@@ -50,32 +83,61 @@ public class SearchControl extends Control {
         m_labels.put("foreignid", "Foreign&nbsp;ID");
     }
 
+    /** The m_container. */
     private HTMLPanel m_container;
 
+    /** The m_input box. */
     private SearchTextBox m_inputBox;
 
+    /** The m_history wrapper. */
     private HistoryWrapper m_historyWrapper;
 
+    /** The m_submit icon. */
     private HTML m_submitIcon;
 
+    /** The m_search consumer. */
     private SearchConsumer m_searchConsumer;
 
+    /** The m_marker container. */
     private MarkerContainer m_markerContainer;
 
+    /** The m_change callback. */
     private SearchEventCallback m_changeCallback;
 
+    /** The m_auto complete. */
     private CellList<NodeMarker> m_autoComplete;
 
+    /** The m_state manager. */
     private SearchStateManager m_stateManager;
 
+    /** The m_selection model. */
     private SingleSelectionModel<NodeMarker> m_selectionModel;
 
+    /** The m_updated. */
     private Set<Widget> m_updated = new HashSet<Widget>();
 
+    /**
+     * Instantiates a new search control.
+     *
+     * @param searchConsumer
+     *            the search consumer
+     * @param markerContainer
+     *            the marker container
+     */
     public SearchControl(final SearchConsumer searchConsumer, final MarkerContainer markerContainer) {
         this(searchConsumer, markerContainer, new SearchOptions());
     }
 
+    /**
+     * Instantiates a new search control.
+     *
+     * @param searchConsumer
+     *            the search consumer
+     * @param markerContainer
+     *            the marker container
+     * @param options
+     *            the options
+     */
     public SearchControl(final SearchConsumer searchConsumer, final MarkerContainer markerContainer,
             final SearchOptions options) {
         super(JSObject.createJSObject());
@@ -94,10 +156,20 @@ public class SearchControl extends Control {
         initializeSearchStateManager();
     }
 
+    /**
+     * Focus.
+     */
     public void focus() {
         m_inputBox.setFocus(true);
     }
 
+    /**
+     * Do on add.
+     *
+     * @param map
+     *            the map
+     * @return the element
+     */
     public Element doOnAdd(final JavaScriptObject map) {
         logger.log(Level.INFO, "onAdd() called");
 
@@ -108,6 +180,13 @@ public class SearchControl extends Control {
         return m_container.getElement();
     }
 
+    /**
+     * Do on remove.
+     *
+     * @param map
+     *            the map
+     * @return the search control
+     */
     public SearchControl doOnRemove(final JavaScriptObject map) {
         logger.log(Level.INFO, "onRemove() called");
         if (m_changeCallback != null)
@@ -115,11 +194,20 @@ public class SearchControl extends Control {
         return this;
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         final List<NodeMarker> markers = m_markerContainer.getMarkers();
         m_autoComplete.setRowData(markers);
     }
 
+    /**
+     * Update autocomplete style.
+     *
+     * @param widget
+     *            the widget
+     */
     protected void updateAutocompleteStyle(final Widget widget) {
         // we only need to do this once
         if (m_updated.contains(widget)) {
@@ -136,6 +224,9 @@ public class SearchControl extends Control {
         m_updated.add(widget);
     }
 
+    /**
+     * Initialize search state manager.
+     */
     private void initializeSearchStateManager() {
         m_stateManager = new SearchStateManager(m_inputBox, m_historyWrapper) {
             @Override
@@ -209,11 +300,17 @@ public class SearchControl extends Control {
         };
     }
 
+    /**
+     * Initialize container widget.
+     */
     private void initializeContainerWidget() {
         m_container = new HTMLPanel("<div class\"leaflet-control-search\"></div>");
         m_container.addStyleName("leaflet-control");
     }
 
+    /**
+     * Initialize input widget.
+     */
     private void initializeInputWidget() {
         m_inputBox = new SearchTextBox();
         m_inputBox.addStyleName("search-input");
@@ -235,6 +332,9 @@ public class SearchControl extends Control {
         DomEvent.addListener(m_changeCallback);
     }
 
+    /**
+     * Initialize submit widget.
+     */
     private void initializeSubmitWidget() {
         m_submitIcon = new HTML();
         m_submitIcon.addStyleName("search-button");
@@ -250,6 +350,9 @@ public class SearchControl extends Control {
         });
     }
 
+    /**
+     * Initialize cell autocomplete widget.
+     */
     private void initializeCellAutocompleteWidget() {
         final AbstractSafeHtmlRenderer<NodeMarker> renderer = new AbstractSafeHtmlRenderer<NodeMarker>() {
             @Override
@@ -318,12 +421,22 @@ public class SearchControl extends Control {
         m_autoComplete.addStyleName("search-autocomplete");
     }
 
+    /**
+     * The Class HistoryWrapper.
+     */
     private class HistoryWrapper implements ValueItem {
+
+        /* (non-Javadoc)
+         * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.search.ValueItem#getValue()
+         */
         @Override
         public String getValue() {
             return History.getToken();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.search.ValueItem#setValue(java.lang.String)
+         */
         @Override
         public void setValue(final String value) {
             History.newItem(value);

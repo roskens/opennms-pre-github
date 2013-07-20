@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.vaadin.nodemaps.internal.gwt.client.event;
 
 import java.util.Collections;
@@ -13,18 +40,34 @@ import org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.MarkerCluster
 
 import com.vaadin.client.VConsole;
 
+/**
+ * The Class NodeMarkerClusterCallback.
+ */
 public class NodeMarkerClusterCallback implements MarkerClusterEventCallback {
+
+    /** The Constant TARGET_NONE. */
     private static final String TARGET_NONE = "";
 
+    /** The Constant TARGET_BLANK. */
     private static final String TARGET_BLANK = "target=\"_blank\"";
 
+    /**
+     * The Class NodeMarkerComparator.
+     */
     private static final class NodeMarkerComparator implements Comparator<NodeMarker> {
+
+        /** The Constant BEFORE. */
         static final int BEFORE = -1;
 
+        /** The Constant EQUAL. */
         static final int EQUAL = 0;
 
+        /** The Constant AFTER. */
         static final int AFTER = 1;
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(final NodeMarker left, final NodeMarker right) {
             if (left == right)
@@ -50,9 +93,15 @@ public class NodeMarkerClusterCallback implements MarkerClusterEventCallback {
         }
     }
 
+    /**
+     * Instantiates a new node marker cluster callback.
+     */
     public NodeMarkerClusterCallback() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.MarkerClusterEventCallback#run(org.opennms.features.vaadin.nodemaps.internal.gwt.client.event.MarkerClusterEvent)
+     */
     @Override
     public final void run(final MarkerClusterEvent event) {
         final StringBuilder sb = new StringBuilder();
@@ -120,6 +169,13 @@ public class NodeMarkerClusterCallback implements MarkerClusterEventCallback {
         }
     }
 
+    /**
+     * Gets the popup text for marker.
+     *
+     * @param marker
+     *            the marker
+     * @return the popup text for marker
+     */
     public static String getPopupTextForMarker(final NodeMarker marker) {
         // TODO: THIS IS AWFUL
         final StringBuilder sb = new StringBuilder();
