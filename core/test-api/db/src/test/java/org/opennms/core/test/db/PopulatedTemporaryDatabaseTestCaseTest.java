@@ -30,28 +30,47 @@ package org.opennms.core.test.db;
 
 import java.util.Date;
 
+/**
+ * The Class PopulatedTemporaryDatabaseTestCaseTest.
+ */
 public class PopulatedTemporaryDatabaseTestCaseTest extends PopulatedTemporaryDatabaseTestCase {
 
     /**
-     * Can we properly initialize the TestCase (including loading the database)?
+     * Can we properly initialize the TestCase (including loading the
+     * database)?.
      */
     @Override
     public void testNothing() {
         // nothing... this class mainly tests our super's setUp()
     }
 
+    /**
+     * Test execute sql.
+     */
     public void testExecuteSQL() {
         executeSQL("SELECT now()");
     }
 
+    /**
+     * Test execute sql from jdbc template.
+     */
     public void testExecuteSQLFromJdbcTemplate() {
         jdbcTemplate.queryForObject("SELECT now()", Date.class);
     }
 
+    /**
+     * Test execute sql from get jdbc template.
+     */
     public void testExecuteSQLFromGetJdbcTemplate() {
         getJdbcTemplate().queryForObject("SELECT now()", Date.class);
     }
 
+    /**
+     * Test update iplike.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpdateIplike() throws Exception {
         getInstallerDb().setPostgresIpLikeLocation(null);
         getInstallerDb().updateIplike();

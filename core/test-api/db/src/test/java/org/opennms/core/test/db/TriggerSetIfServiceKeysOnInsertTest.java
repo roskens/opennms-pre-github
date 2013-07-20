@@ -36,8 +36,17 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
+/**
+ * The Class TriggerSetIfServiceKeysOnInsertTest.
+ */
 public class TriggerSetIfServiceKeysOnInsertTest extends PopulatedTemporaryDatabaseTestCase {
 
+    /**
+     * Test set if service id in outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIfServiceIdInOutage() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -60,6 +69,12 @@ public class TriggerSetIfServiceKeysOnInsertTest extends PopulatedTemporaryDatab
         }
     }
 
+    /**
+     * Test set if service id in outage null node id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIfServiceIdInOutageNullNodeId() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -80,6 +95,12 @@ public class TriggerSetIfServiceKeysOnInsertTest extends PopulatedTemporaryDatab
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test set if service id in outage null service id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIfServiceIdInOutageNullServiceId() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");

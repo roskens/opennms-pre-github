@@ -55,51 +55,95 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.util.StringUtils;
 
 /**
+ * The Class TemporaryDatabasePostgreSQL.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
+
+    /** The Constant MAX_DATABASE_DROP_ATTEMPTS. */
     protected static final int MAX_DATABASE_DROP_ATTEMPTS = 10;
 
+    /** The Constant DRIVER_PROPERTY. */
     protected static final String DRIVER_PROPERTY = "mock.db.driver";
 
+    /** The Constant TEMPLATE1_MUTEX. */
     private static final Object TEMPLATE1_MUTEX = new Object();
 
+    /** The m_test database. */
     private final String m_testDatabase;
 
+    /** The m_driver. */
     private final String m_driver;
 
+    /** The m_url. */
     private final String m_url;
 
+    /** The m_admin user. */
     private final String m_adminUser;
 
+    /** The m_admin password. */
     private final String m_adminPassword;
 
+    /** The m_use existing. */
     private final boolean m_useExisting;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
+    /** The m_admin data source. */
     private DataSource m_adminDataSource;
 
+    /** The m_installer db. */
     private InstallerDb m_installerDb;
 
+    /** The m_output stream. */
     private ByteArrayOutputStream m_outputStream;
 
+    /** The m_setup ip like. */
     private boolean m_setupIpLike = true;
 
+    /** The m_populate schema. */
     private boolean m_populateSchema = false;
 
+    /** The m_destroyed. */
     private boolean m_destroyed = false;
 
+    /** The m_jdbc template. */
     private SimpleJdbcTemplate m_jdbcTemplate;
 
+    /**
+     * Instantiates a new temporary database postgre sql.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public TemporaryDatabasePostgreSQL() throws Exception {
         this(TEST_DB_NAME_PREFIX + System.currentTimeMillis());
     }
 
+    /**
+     * Instantiates a new temporary database postgre sql.
+     *
+     * @param testDatabase
+     *            the test database
+     * @throws Exception
+     *             the exception
+     */
     public TemporaryDatabasePostgreSQL(String testDatabase) throws Exception {
         this(testDatabase, false);
     }
 
+    /**
+     * Instantiates a new temporary database postgre sql.
+     *
+     * @param testDatabase
+     *            the test database
+     * @param useExisting
+     *            the use existing
+     * @throws Exception
+     *             the exception
+     */
     public TemporaryDatabasePostgreSQL(String testDatabase, boolean useExisting) throws Exception {
         this(testDatabase, System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER), System.getProperty(URL_PROPERTY,
                                                                                                    DEFAULT_URL),
@@ -108,11 +152,45 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
              useExisting);
     }
 
+    /**
+     * Instantiates a new temporary database postgre sql.
+     *
+     * @param testDatabase
+     *            the test database
+     * @param driver
+     *            the driver
+     * @param url
+     *            the url
+     * @param adminUser
+     *            the admin user
+     * @param adminPassword
+     *            the admin password
+     * @throws Exception
+     *             the exception
+     */
     public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url, String adminUser,
             String adminPassword) throws Exception {
         this(testDatabase, driver, url, adminUser, adminPassword, false);
     }
 
+    /**
+     * Instantiates a new temporary database postgre sql.
+     *
+     * @param testDatabase
+     *            the test database
+     * @param driver
+     *            the driver
+     * @param url
+     *            the url
+     * @param adminUser
+     *            the admin user
+     * @param adminPassword
+     *            the admin password
+     * @param useExisting
+     *            the use existing
+     * @throws Exception
+     *             the exception
+     */
     public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url, String adminUser,
             String adminPassword, boolean useExisting) throws Exception {
         // Append the current object's hashcode to make this value truly unique
@@ -124,10 +202,16 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         m_useExisting = useExisting;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#setPopulateSchema(boolean)
+     */
     public void setPopulateSchema(boolean populateSchema) {
         m_populateSchema = populateSchema;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#create()
+     */
     public void create() throws TemporaryDatabaseException {
         setupDatabase();
 
@@ -136,6 +220,12 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         }
     }
 
+    /**
+     * Initialize database.
+     *
+     * @throws TemporaryDatabaseException
+     *             the temporary database exception
+     */
     private void initializeDatabase() throws TemporaryDatabaseException {
         m_installerDb = new InstallerDb();
         try {
@@ -182,22 +272,48 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
     }
 
+    /**
+     * Gets the stored proc directory.
+     *
+     * @return the stored proc directory
+     */
     protected String getStoredProcDirectory() {
         return ConfigurationTestUtils.getFileForConfigFile("create.sql").getParentFile().getAbsolutePath();
     }
 
+    /**
+     * Gets the creates the sql location.
+     *
+     * @return the creates the sql location
+     */
     protected String getCreateSqlLocation() {
         return ConfigurationTestUtils.getFileForConfigFile("create.sql").getAbsolutePath();
     }
 
+    /**
+     * Checks if is setup ip like.
+     *
+     * @return true, if is setup ip like
+     */
     public boolean isSetupIpLike() {
         return m_setupIpLike;
     }
 
+    /**
+     * Sets the setup ip like.
+     *
+     * @param setupIpLike
+     *            the new setup ip like
+     */
     public void setSetupIpLike(boolean setupIpLike) {
         m_setupIpLike = setupIpLike;
     }
 
+    /**
+     * Find ip like library.
+     *
+     * @return the file
+     */
     protected File findIpLikeLibrary() {
         File topDir = ConfigurationTestUtils.getTopProjectDirectory();
 
@@ -254,29 +370,62 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         return ipLikeFile;
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param string
+     *            the string
+     * @param o
+     *            the o
+     */
     private void assertNotNull(String string, Object o) {
         if (o == null) {
             throw new IllegalStateException(string);
         }
     }
 
+    /**
+     * Assert false.
+     *
+     * @param string
+     *            the string
+     * @param b
+     *            the b
+     */
     private void assertFalse(String string, boolean b) {
         if (b) {
             throw new IllegalStateException(string);
         }
     }
 
+    /**
+     * Assert true.
+     *
+     * @param string
+     *            the string
+     * @param b
+     *            the b
+     */
     private void assertTrue(String string, boolean b) {
         if (!b) {
             throw new IllegalStateException(string);
         }
     }
 
+    /**
+     * Reset output stream.
+     */
     private void resetOutputStream() {
         m_outputStream = new ByteArrayOutputStream();
         m_installerDb.setOutputStream(new PrintStream(m_outputStream));
     }
 
+    /**
+     * Setup database.
+     *
+     * @throws TemporaryDatabaseException
+     *             the temporary database exception
+     */
     public void setupDatabase() throws TemporaryDatabaseException {
 
         try {
@@ -303,6 +452,12 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         setJdbcTemplate(new SimpleJdbcTemplate(this));
     }
 
+    /**
+     * Creates the test database.
+     *
+     * @throws TemporaryDatabaseException
+     *             the temporary database exception
+     */
     private void createTestDatabase() throws TemporaryDatabaseException {
         Connection adminConnection;
         try {
@@ -352,12 +507,21 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#drop()
+     */
     public void drop() throws TemporaryDatabaseException {
         if (!m_useExisting) {
             destroyTestDatabase();
         }
     }
 
+    /**
+     * Destroy test database.
+     *
+     * @throws TemporaryDatabaseException
+     *             the temporary database exception
+     */
     private void destroyTestDatabase() throws TemporaryDatabaseException {
         if (m_useExisting) {
             return;
@@ -454,6 +618,9 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         m_destroyed = true;
     }
 
+    /**
+     * Dump threads.
+     */
     public static void dumpThreads() {
         Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
         int daemons = 0;
@@ -485,11 +652,22 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         System.err.println("Thread dump completed.");
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.DataSource#getConnection()
+     */
     @Override
     public Connection getConnection() throws SQLException {
         return m_dataSource.getConnection();
     }
 
+    /**
+     * Update.
+     *
+     * @param stmt
+     *            the stmt
+     * @param values
+     *            the values
+     */
     public void update(String stmt, Object... values) {
         // StringBuffer buf = new StringBuffer("[");
         // for(int i = 0; i < values.length; i++) {
@@ -503,40 +681,72 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         getJdbcTemplate().update(stmt, values);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#countRows(java.lang.String, java.lang.Object[])
+     */
     public int countRows(String sql, Object... values) {
         RowCountCallbackHandler counter = new RowCountCallbackHandler();
         getJdbcTemplate().getJdbcOperations().query(sql, values, counter);
         return counter.getRowCount();
     }
 
+    /**
+     * Gets the next sequence val statement.
+     *
+     * @param seqName
+     *            the seq name
+     * @return the next sequence val statement
+     */
     public String getNextSequenceValStatement(String seqName) {
         return "select nextval('" + seqName + "')";
     }
 
+    /**
+     * Gets the next id.
+     *
+     * @param nxtIdStmt
+     *            the nxt id stmt
+     * @return the next id
+     */
     protected Integer getNextId(String nxtIdStmt) {
         return getJdbcTemplate().queryForInt(nxtIdStmt);
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.DataSource#getConnection(java.lang.String, java.lang.String)
+     */
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
         return m_dataSource.getConnection(username, password);
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#getLogWriter()
+     */
     @Override
     public PrintWriter getLogWriter() throws SQLException {
         return m_dataSource.getLogWriter();
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#setLogWriter(java.io.PrintWriter)
+     */
     @Override
     public void setLogWriter(PrintWriter out) throws SQLException {
         m_dataSource.setLogWriter(out);
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#setLoginTimeout(int)
+     */
     @Override
     public void setLoginTimeout(int seconds) throws SQLException {
         m_dataSource.setLoginTimeout(seconds);
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#getLoginTimeout()
+     */
     @Override
     public int getLoginTimeout() throws SQLException {
         return m_dataSource.getLoginTimeout();
@@ -547,30 +757,64 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         throw new SQLFeatureNotSupportedException("getParentLogger not supported");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#getJdbcTemplate()
+     */
     public SimpleJdbcTemplate getJdbcTemplate() {
         return m_jdbcTemplate;
     }
 
+    /**
+     * Sets the jdbc template.
+     *
+     * @param jdbcTemplate
+     *            the new jdbc template
+     */
     public void setJdbcTemplate(SimpleJdbcTemplate jdbcTemplate) {
         m_jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Gets the admin data source.
+     *
+     * @return the admin data source
+     */
     public DataSource getAdminDataSource() {
         return m_adminDataSource;
     }
 
+    /**
+     * Sets the admin data source.
+     *
+     * @param adminDataSource
+     *            the new admin data source
+     */
     public void setAdminDataSource(DataSource adminDataSource) {
         m_adminDataSource = adminDataSource;
     }
 
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
     public DataSource getDataSource() {
         return m_dataSource;
     }
 
+    /**
+     * Sets the data source.
+     *
+     * @param dataSource
+     *            the new data source
+     */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabase#getTestDatabase()
+     */
     public String getTestDatabase() {
         return m_testDatabase;
     }
@@ -587,12 +831,14 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
      * for that result. If the receiver is not a wrapper and does not implement
      * the interface, then an <code>SQLException</code> is thrown.
      *
+     * @param <T>
+     *            the generic type
      * @param iface
      *            A Class defining an interface that the result must implement.
      * @return an object that implements the interface. May be a proxy for the
      *         actual implementing object.
-     * @throws java.sql.SQLException
-     *             If no object found that implements the interface
+     * @throws SQLException
+     *             the sQL exception
      * @since 1.6
      */
     @Override
@@ -620,10 +866,8 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
      *            a Class defining an interface.
      * @return true if this implements the interface or directly or indirectly
      *         wraps an object that does.
-     * @throws java.sql.SQLException
-     *             if an error occurs while determining whether this is a
-     *             wrapper
-     *             for an object with the given interface.
+     * @throws SQLException
+     *             the sQL exception
      * @since 1.6
      */
     @Override
@@ -631,14 +875,27 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
         return false; // TODO
     }
 
+    /**
+     * Gets the driver.
+     *
+     * @return the driver
+     */
     public String getDriver() {
         return m_driver;
     }
 
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     */
     public String getUrl() {
         return m_url;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("driver", m_driver).append("url", m_url).append("testDatabase",

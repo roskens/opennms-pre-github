@@ -32,8 +32,17 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
+/**
+ * The Class TriggerTest.
+ */
 public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
 
+    /**
+     * Test set ip interface if index like capsd does.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdDoes() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
@@ -50,6 +59,12 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
+    /**
+     * Test set ip interface if index like capsd does bad if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdDoesBadIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
@@ -68,6 +83,12 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         }
     }
 
+    /**
+     * Test set ip interface if index like capsd but opposite order.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrder() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -77,6 +98,13 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
+    /**
+     * Test set ip interface if index like capsd but opposite order update with
+     * bad if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrderUpdateWithBadIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");

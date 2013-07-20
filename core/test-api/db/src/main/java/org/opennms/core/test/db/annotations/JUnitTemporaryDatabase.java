@@ -38,7 +38,7 @@ import org.opennms.core.test.db.TemporaryDatabase;
 import org.opennms.core.test.db.TemporaryDatabasePostgreSQL;
 
 /**
- * JUnitTemporaryDatabase
+ * JUnitTemporaryDatabase.
  *
  * @author brozow
  */
@@ -46,13 +46,39 @@ import org.opennms.core.test.db.TemporaryDatabasePostgreSQL;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitTemporaryDatabase {
+
+    /**
+     * Creates the schema.
+     *
+     * @return true, if successful
+     */
     boolean createSchema() default true;
 
+    /**
+     * Use existing database.
+     *
+     * @return the string
+     */
     String useExistingDatabase() default "";
 
+    /**
+     * Temp db class.
+     *
+     * @return the class<? extends temporary database>
+     */
     Class<? extends TemporaryDatabase> tempDbClass() default TemporaryDatabasePostgreSQL.class;
 
+    /**
+     * Reuse database.
+     *
+     * @return true, if successful
+     */
     boolean reuseDatabase() default true;
 
+    /**
+     * Dirties context.
+     *
+     * @return true, if successful
+     */
     boolean dirtiesContext() default true;
 }

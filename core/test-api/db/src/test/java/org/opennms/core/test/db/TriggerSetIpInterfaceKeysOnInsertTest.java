@@ -36,8 +36,17 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
+/**
+ * The Class TriggerSetIpInterfaceKeysOnInsertTest.
+ */
 public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDatabaseTestCase {
 
+    /**
+     * Test set ip interface id in if service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIdInIfService() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -58,6 +67,12 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDat
         }
     }
 
+    /**
+     * Test set ip interface id in if service all zeroes ip address.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIdInIfServiceAllZeroesIpAddress() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -75,6 +90,12 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDat
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test set ip interface id in if service null if index both.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIdInIfServiceNullIfIndexBoth() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
@@ -94,6 +115,12 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDat
         }
     }
 
+    /**
+     * Test set ip interface id in if service null if index in if services.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIdInIfServiceNullIfIndexInIfServices() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -112,6 +139,12 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends PopulatedTemporaryDat
         }
     }
 
+    /**
+     * Test set ip interface id in if service null if index in ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIdInIfServiceNullIfIndexInIpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");

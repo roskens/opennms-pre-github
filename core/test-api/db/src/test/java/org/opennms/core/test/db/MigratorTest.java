@@ -60,24 +60,38 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class MigratorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/migratorTest.xml" })
 @JUnitTemporaryDatabase
 public class MigratorTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MigratorTest.class);
 
+    /** The m_data source. */
     @Autowired
     DataSource m_dataSource;
 
+    /** The m_resource loader. */
     @Autowired
     ResourceLoader m_resourceLoader;
 
+    /** The m_context. */
     @Autowired
     ApplicationContext m_context;
 
+    /** The m_migration. */
     private Migration m_migration;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -99,6 +113,9 @@ public class MigratorTest {
      * changelog.xml will
      * be located in the classpath before the schema.a and schema.b test
      * migrations.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitTemporaryDatabase(createSchema = false)
@@ -201,6 +218,12 @@ public class MigratorTest {
         }
     }
 
+    /**
+     * Test multiple changelogs.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase(createSchema = false)
     public void testMultipleChangelogs() throws Exception {
@@ -245,6 +268,12 @@ public class MigratorTest {
         assertTrue(ids.contains("test-api.schema.b"));
     }
 
+    /**
+     * Test update twice.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase(createSchema = false)
     public void testUpdateTwice() throws Exception {

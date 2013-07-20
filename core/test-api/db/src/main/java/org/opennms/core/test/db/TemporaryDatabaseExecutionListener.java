@@ -66,14 +66,22 @@ import com.mchange.v2.c3p0.PooledDataSource;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TemporaryDatabaseExecutionListener.class);
 
+    /** The m_create new databases. */
     private boolean m_createNewDatabases = false;
 
+    /** The m_database. */
     private TemporaryDatabase m_database;
 
+    /** The m_databases. */
     private final Queue<TemporaryDatabase> m_databases = new ConcurrentLinkedQueue<TemporaryDatabase>();
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#afterTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void afterTestMethod(final TestContext testContext) throws Exception {
         System.err.println(String.format("TemporaryDatabaseExecutionListener.afterTestMethod(%s)", testContext));
@@ -129,6 +137,13 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         }
     }
 
+    /**
+     * Find temporary database.
+     *
+     * @param dataSource
+     *            the data source
+     * @return the temporary database
+     */
     private static TemporaryDatabase findTemporaryDatabase(final DataSource dataSource) {
         if (dataSource instanceof TemporaryDatabase) {
             return (TemporaryDatabase) dataSource;
@@ -139,6 +154,13 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         }
     }
 
+    /**
+     * Find annotation.
+     *
+     * @param testContext
+     *            the test context
+     * @return the j unit temporary database
+     */
     private static JUnitTemporaryDatabase findAnnotation(final TestContext testContext) {
         JUnitTemporaryDatabase jtd = null;
         final Method testMethod = testContext.getTestMethod();
@@ -152,6 +174,9 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         return jtd;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#beforeTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void beforeTestMethod(final TestContext testContext) throws Exception {
         System.err.println(String.format("TemporaryDatabaseExecutionListener.beforeTestMethod(%s)", testContext));
@@ -166,11 +191,20 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         }
     }
 
+    /**
+     * Inject temporary database.
+     *
+     * @param testContext
+     *            the test context
+     */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private void injectTemporaryDatabase(final TestContext testContext) {
         ((TemporaryDatabaseAware) testContext.getTestInstance()).setTemporaryDatabase(m_database);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#beforeTestClass(org.springframework.test.context.TestContext)
+     */
     @Override
     public void beforeTestClass(final TestContext testContext) throws Exception {
         // Fire up a thread pool for each CPU to create test databases
@@ -227,6 +261,9 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#prepareTestInstance(org.springframework.test.context.TestContext)
+     */
     @Override
     public void prepareTestInstance(final TestContext testContext) throws Exception {
         System.err.println(String.format("TemporaryDatabaseExecutionListener.prepareTestInstance(%s)", testContext));
@@ -260,14 +297,27 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         System.err.println("Temporary Database Name: " + m_database.getTestDatabase());
     }
 
+    /**
+     * The Class CreateNewDatabaseCallable.
+     */
     private static class CreateNewDatabaseCallable implements Callable<TemporaryDatabase> {
 
+        /** The m_jtd. */
         private final JUnitTemporaryDatabase m_jtd;
 
+        /**
+         * Instantiates a new creates the new database callable.
+         *
+         * @param jtd
+         *            the jtd
+         */
         public CreateNewDatabaseCallable(JUnitTemporaryDatabase jtd) {
             m_jtd = jtd;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.concurrent.Callable#call()
+         */
         @Override
         public TemporaryDatabase call() throws Exception {
             return createNewDatabase(m_jtd);
@@ -275,6 +325,15 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
 
     }
 
+    /**
+     * Creates the new database.
+     *
+     * @param jtd
+     *            the jtd
+     * @return the temporary database
+     * @throws Exception
+     *             the exception
+     */
     private static TemporaryDatabase createNewDatabase(JUnitTemporaryDatabase jtd) throws Exception {
         boolean useExisting = false;
         if (jtd.useExistingDatabase() != null) {
@@ -290,6 +349,13 @@ public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionLis
         return retval;
     }
 
+    /**
+     * Gets the database name.
+     *
+     * @param hashMe
+     *            the hash me
+     * @return the database name
+     */
     private static String getDatabaseName(Object hashMe) {
         // Append the current object's hashcode to make this value truly unique
         return String.format("opennms_test_%s_%s", System.nanoTime(), Math.abs(hashMe.hashCode()));

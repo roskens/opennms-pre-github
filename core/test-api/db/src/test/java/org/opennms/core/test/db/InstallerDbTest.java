@@ -56,15 +56,26 @@ import org.opennms.core.db.install.Trigger;
 import org.opennms.test.ThrowableAnticipator;
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class InstallerDbTest.
+ */
 public class InstallerDbTest extends TemporaryDatabaseTestCase {
+
+    /** The Constant s_constraint. */
     private static final String s_constraint = "fk_nodeid6";
 
+    /** The m_installer db. */
     private InstallerDb m_installerDb;
 
+    /** The m_connection. */
     private Connection m_connection;
 
+    /** The m_output stream. */
     private ByteArrayOutputStream m_outputStream;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -94,6 +105,9 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         m_connection = getInstallerDb().getDataSource().getConnection();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseTestCase#tearDown()
+     */
     @Override
     public void tearDown() throws Exception {
         if (isEnabled()) {
@@ -105,6 +119,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     // XXX this should be an integration test
+    /**
+     * Test parse sql tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParseSQLTables() throws Exception {
         for (String table : getInstallerDb().getTableNames()) {
             getInstallerDb().getTableFromSQL(table);
@@ -112,11 +132,23 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     // XXX this should be an integration test
+    /**
+     * Test create sequences.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCreateSequences() throws Exception {
         getInstallerDb().createSequences();
     }
 
     // XXX this should be an integration test
+    /**
+     * Test create tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCreateTables() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -126,6 +158,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
     }
 
     // XXX this should be an integration test
+    /**
+     * Test create tables twice.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCreateTablesTwice() throws Exception {
         // First pass.
         getInstallerDb().createSequences();
@@ -154,6 +192,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertNoTablesHaveChanged();
     }
 
+    /**
+     * Test insert criteria.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInsertCriteria() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -168,6 +212,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test upgrade revision3952 to current.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeRevision3952ToCurrent() throws Exception {
         String newCreate = getInstallerDb().getCreateSqlLocation();
 
@@ -195,6 +245,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test upgrade revision3952 to current with data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeRevision3952ToCurrentWithData() throws Exception {
         String newCreate = getInstallerDb().getCreateSqlLocation();
 
@@ -264,6 +320,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals(utcFailureMessage, eventTime, utcEventTime);
     }
 
+    /**
+     * Test upgrade column add not null constraint.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeColumnAddNotNullConstraint() throws Exception {
         Table oldTable = new Table();
         oldTable.setName("node");
@@ -322,6 +384,9 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
      * because we have created a table matching "_old_". We check the
      * exception message to ensure that it is the exception we are expecting,
      * and fail otherwise.
+     *
+     * @throws SQLException
+     *             the sQL exception
      */
     public void testBug1006HasOldTables() throws SQLException {
         // final String errorSubstring = "One or more backup tables from a
@@ -347,10 +412,32 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Setup bug931.
+     *
+     * @param breakConstraint
+     *            the break constraint
+     * @param dropForeignTable
+     *            the drop foreign table
+     * @throws Exception
+     *             the exception
+     */
     public void setupBug931(boolean breakConstraint, boolean dropForeignTable) throws Exception {
         setupBug931(breakConstraint, dropForeignTable, true);
     }
 
+    /**
+     * Setup bug931.
+     *
+     * @param breakConstraint
+     *            the break constraint
+     * @param dropForeignTable
+     *            the drop foreign table
+     * @param useOwnCreateSql
+     *            the use own create sql
+     * @throws Exception
+     *             the exception
+     */
     public void setupBug931(boolean breakConstraint, boolean dropForeignTable, boolean useOwnCreateSql)
             throws Exception {
         final String[] commands = { "CREATE TABLE events ( nodeID integer )", "CREATE TABLE node ( nodeID integer )",
@@ -377,55 +464,127 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         }
     }
 
+    /**
+     * Test bug931 constraints okay two tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBug931ConstraintsOkayTwoTables() throws Exception {
         doTestBug931(false, 0, false, false);
     }
 
+    /**
+     * Test bug931 constraints okay one table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBug931ConstraintsOkayOneTable() throws Exception {
         doTestBug931(true, 0, false, false);
     }
 
+    /**
+     * Test bug931 constraints bad two tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBug931ConstraintsBadTwoTables() throws Exception {
         doTestBug931(false, 1, false, false);
     }
 
+    /**
+     * Test bug931 constraints bad one table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBug931ConstraintsBadOneTable() throws Exception {
         doTestBug931(true, 2, false, false);
     }
 
+    /**
+     * Test constraints fixed null two tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintsFixedNullTwoTables() throws Exception {
         doTestBug931(false, 0, true, false);
     }
 
+    /**
+     * Test constraints fixed null one table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintsFixedNullOneTable() throws Exception {
         doTestBug931(true, 0, true, false);
     }
 
+    /**
+     * Test constraints fixed del two tables.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintsFixedDelTwoTables() throws Exception {
         doTestBug931(false, 0, true, true);
     }
 
+    /**
+     * Test constraints fixed del one table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintsFixedDelOneTable() throws Exception {
         doTestBug931(true, 0, true, true);
     }
 
+    /**
+     * Test bogus constraint name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBogusConstraintName() throws Exception {
         String constraint = "bogus_test_" + System.currentTimeMillis();
         doTestBogusConstraint(constraint, "Did not find constraint " + constraint + " in the database.");
     }
 
+    /**
+     * Test bogus constraint table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBogusConstraintTable() throws Exception {
         String constraint = "fk_nodeid1";
         doTestBogusConstraint(constraint, "Constraint " + constraint + " is on table "
                 + "ipinterface, but table does not exist (so fixing this constraint does nothing).");
     }
 
+    /**
+     * Test bogus constraint column.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBogusConstraintColumn() throws Exception {
         String constraint = "fk_dpname";
         doTestBogusConstraint(constraint, "Constraint " + constraint + " constrains column "
                 + "dpname of table node, but column does not " + "exist (so fixing this constraint does nothing).");
     }
 
+    /**
+     * Test constraint after constrained column.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintAfterConstrainedColumn() throws Exception {
         String s_create_sql = "            create table distPoller (\n"
                 + "                    dpName            varchar(12),\n"
@@ -443,6 +602,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableColumnsFromSQL("distpoller");
     }
 
+    /**
+     * Test constraint at end of table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintAtEndOfTable() throws Exception {
         String s_create_sql = "            create table distPoller (\n"
                 + "                    dpName            varchar(12),\n"
@@ -460,6 +625,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableColumnsFromSQL("distpoller");
     }
 
+    /**
+     * Test constraint ip interface snmp interface valid data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintIpInterfaceSnmpInterfaceValidData() throws Exception {
         String newCreate = getInstallerDb().getCreateSqlLocation();
 
@@ -497,6 +668,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
          */
     }
 
+    /**
+     * Test constraint ip interface snmp interface invalid data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintIpInterfaceSnmpInterfaceInvalidData() throws Exception {
         String newCreate = getInstallerDb().getCreateSqlLocation();
 
@@ -533,6 +710,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
          */
     }
 
+    /**
+     * Test constraint on bogus column.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstraintOnBogusColumn() throws Exception {
         String s_create_sql = "            create table distPoller (\n"
                 + "                    dpName            varchar(12),\n"
@@ -560,6 +743,16 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Do test bogus constraint.
+     *
+     * @param constraint
+     *            the constraint
+     * @param exceptionMessage
+     *            the exception message
+     * @throws Exception
+     *             the exception
+     */
     public void doTestBogusConstraint(String constraint, String exceptionMessage) throws Exception {
         // m_installer.m_fix_constraint_name = constraint;
 
@@ -577,6 +770,20 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Do test bug931.
+     *
+     * @param dropForeignTable
+     *            the drop foreign table
+     * @param badRows
+     *            the bad rows
+     * @param fixConstraint
+     *            the fix constraint
+     * @param removeRows
+     *            the remove rows
+     * @throws Exception
+     *             the exception
+     */
     public void doTestBug931(boolean dropForeignTable, int badRows, boolean fixConstraint, boolean removeRows)
             throws Exception {
         final String errorSubstring;
@@ -615,6 +822,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test parse constraint with on update cascade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParseConstraintWithOnUpdateCascade() throws Exception {
         /*
          * Make sure that every table, column, and key ID listed below has
@@ -630,6 +843,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableFromSQL("b");
     }
 
+    /**
+     * Test get from db constraint with on update cascade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetFromDbConstraintWithOnUpdateCascade() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -647,6 +866,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                 + "on update cascade", constraints.get(0).toString());
     }
 
+    /**
+     * Test parse constraint with on delete restrict.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParseConstraintWithOnDeleteRestrict() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -658,6 +883,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableFromSQL("b");
     }
 
+    /**
+     * Test get from db constraint with on delete restrict.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetFromDbConstraintWithOnDeleteRestrict() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -675,6 +906,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                 + "on delete restrict", constraints.get(0).toString());
     }
 
+    /**
+     * Test parse constraint with on delete set default.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParseConstraintWithOnDeleteSetDefault() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -686,6 +923,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableFromSQL("b");
     }
 
+    /**
+     * Test get from db constraint with on delete set default.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetFromDbConstraintWithOnDeleteSetDefault() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -703,6 +946,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                 + "on delete set default", constraints.get(0).toString());
     }
 
+    /**
+     * Test parse constraint with on delete set null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParseConstraintWithOnDeleteSetNull() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -714,6 +963,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableFromSQL("b");
     }
 
+    /**
+     * Test get from db constraint with on delete set null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetFromDbConstraintWithOnDeleteSetNull() throws Exception {
         final String createSQL = "create table a (\n" + "    a1           integer,\n"
                 + "    constraint pk_a primary key (a1)\n" + ");\n" + "create table b (\n"
@@ -731,6 +986,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                 + "on delete set null", constraints.get(0).toString());
     }
 
+    /**
+     * Test parse primary key multiple columns.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParsePrimaryKeyMultipleColumns() throws Exception {
         // Make sure that every table, column, and key ID has at least one
         // upper case character
@@ -758,6 +1019,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals("constraint zero toString()", "constraint pk_element primary key (mapid, elementid)", f.toString());
     }
 
+    /**
+     * Test insert multiple columns.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     public void testInsertMultipleColumns() throws SQLException {
         String command = "CREATE TABLE qrtz_job_details (\n" + "  JOB_NAME  VARCHAR(80) NOT NULL,\n"
                 + "  JOB_GROUP VARCHAR(80) NOT NULL,\n"
@@ -765,6 +1032,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         executeSQL(command);
     }
 
+    /**
+     * Test insert multiple columns get from db.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInsertMultipleColumnsGetFromDB() throws Exception {
         String command = "CREATE TABLE qrtz_job_details (\n" + "  JOB_NAME  VARCHAR(80) NOT NULL,\n"
                 + "  JOB_GROUP VARCHAR(80) NOT NULL,\n"
@@ -774,6 +1047,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().getTableColumnsFromDB("qrtz_job_details");
     }
 
+    /**
+     * Test insert multiple columns get from db compare.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInsertMultipleColumnsGetFromDBCompare() throws Exception {
         String command = "CREATE TABLE qrtz_job_details (\n" + "  JOB_NAME  VARCHAR(80) NOT NULL,\n"
                 + "  JOB_GROUP VARCHAR(80) NOT NULL,\n"
@@ -790,6 +1069,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      constraints.get(0).toString());
     }
 
+    /**
+     * Test get columns from db.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetColumnsFromDB() throws Exception {
         String command = "CREATE TABLE qrtz_job_details (\n" + "  JOB_NAME  VARCHAR(80) NOT NULL,\n"
                 + "  JOB_GROUP VARCHAR(80) NOT NULL,\n"
@@ -803,6 +1088,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals("column one toString()", "job_group character varying(80) NOT NULL", columns.get(1).toString());
     }
 
+    /**
+     * Test get columns from db with default integer constant.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetColumnsFromDBWithDefaultIntegerConstant() throws Exception {
         String command = "CREATE TABLE alarms (\n" + "  x733ProbableCause INTEGER DEFAULT 17 NOT NULL\n" + ")";
         executeSQL(command);
@@ -814,6 +1105,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      columns.get(0).toString());
     }
 
+    /**
+     * Test get columns from db with default text constant.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetColumnsFromDBWithDefaultTextConstant() throws Exception {
         String command = "CREATE TABLE alarms (\n" + "  someColumn VARCHAR(20) DEFAULT 'HeLlO!' NOT NULL\n" + ")";
         executeSQL(command);
@@ -825,6 +1122,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      columns.get(0).toString());
     }
 
+    /**
+     * Test get columns from db with default next val.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetColumnsFromDBWithDefaultNextVal() throws Exception {
         executeSQL("create sequence opennmsNxtId minvalue 1");
         String command = "CREATE TABLE alarms (\n"
@@ -838,6 +1141,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      columns.get(0).toString());
     }
 
+    /**
+     * Test get constraints from db.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetConstraintsFromDB() throws Exception {
         String command = "CREATE TABLE qrtz_job_details (\n" + "  JOB_NAME  VARCHAR(80) NOT NULL,\n"
                 + "  JOB_GROUP VARCHAR(80) NOT NULL,\n"
@@ -853,6 +1162,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      constraints.get(0).toString());
     }
 
+    /**
+     * Test set event source on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetEventSourceOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -879,6 +1194,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test set outage id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetOutageIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -919,6 +1240,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test something unknown.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSomethingUnknown() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -954,6 +1281,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test set users notified id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetUsersNotifiedIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -986,6 +1319,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test set snmp interface id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetSnmpInterfaceIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1013,6 +1352,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test catch snmp interface null node id column on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCatchSnmpInterfaceNullNodeIdColumnOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1038,6 +1383,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertFalse("Too many entries", rs.next());
     }
 
+    /**
+     * Test catch snmp interface has null node id value on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCatchSnmpInterfaceHasNullNodeIdValueOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1063,6 +1414,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test catch ip interface null ip addr column on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCatchIpInterfaceNullIpAddrColumnOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1080,6 +1437,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test catch ip interface has null ip addr value on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCatchIpInterfaceHasNullIpAddrValueOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1107,6 +1470,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test assets id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAssetsIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1136,6 +1505,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test triggers after update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTriggersAfterUpdate() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1150,6 +1525,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         verifyTriggers(false);
     }
 
+    /**
+     * Test triggers after update with change.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTriggersAfterUpdateWithChange() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1194,6 +1575,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         verifyTriggers(false);
     }
 
+    /**
+     * Test ip interface foreign key snmp interface id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIpInterfaceForeignKeySnmpInterfaceIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1279,6 +1666,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
          */
     }
 
+    /**
+     * Test if services foreign key ip interface id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIfServicesForeignKeyIpInterfaceIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1346,6 +1739,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertFalse("too many rows: only expecting one", rs.next());
     }
 
+    /**
+     * Test outages foreign key if service id on upgrade.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testOutagesForeignKeyIfServiceIdOnUpgrade() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1408,6 +1807,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals("expected column count", 1, count);
     }
 
+    /**
+     * Test add stored procedures.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddStoredProcedures() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1418,6 +1823,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         verifyTriggers(true);
     }
 
+    /**
+     * Test add stored procedures twice.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddStoredProceduresTwice() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1430,6 +1841,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         verifyTriggers(true);
     }
 
+    /**
+     * Test snmp interface node id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSnmpInterfaceNodeIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1443,6 +1860,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test snmp interface snmp if index column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSnmpInterfaceSnmpIfIndexColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1456,6 +1879,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test ip interface node id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIpInterfaceNodeIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1470,6 +1899,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test if services node id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIfServicesNodeIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1486,6 +1921,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test if services ip addr column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIfServicesIpAddrColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1502,6 +1943,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test if services service id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIfServicesServiceIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1518,6 +1965,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test outages node id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testOutagesNodeIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1536,6 +1989,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test outages service id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testOutagesServiceIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1554,6 +2013,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test outages if service id column convert to not null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testOutagesIfServiceIdColumnConvertToNotNull() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1572,6 +2037,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().createTables();
     }
 
+    /**
+     * Test snmp interface non unique keys.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSnmpInterfaceNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1608,6 +2079,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test ip interface non unique keys.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIpInterfaceNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1656,6 +2133,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test if services non unique keys.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testIfServicesNonUniqueKeys() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1719,6 +2202,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check index uniqueness with table but missing column bug2325.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCheckIndexUniquenessWithTableButMissingColumnBug2325() throws Exception {
         addTableFromSQL("distpoller");
 
@@ -1731,6 +2220,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().checkIndexUniqueness();
     }
 
+    /**
+     * Test bug1574.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBug1574() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1747,6 +2242,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableFromSQL("ipinterface");
     }
 
+    /**
+     * Test upgrade existing do not add column bug1685.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeExistingDoNotAddColumnBug1685() throws Exception {
         getInstallerDb().createSequences();
         getInstallerDb().updatePlPgsql();
@@ -1771,6 +2272,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertEquals("id before upgrade should equal id after upgrade", id, id2);
     }
 
+    /**
+     * Test upgrade column to not null with default.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeColumnToNotNullWithDefault() throws Exception {
 
         final String[] commands = { "CREATE TABLE alarms ( id integer, x733ProbableCause integer )",
@@ -1790,6 +2297,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
 
     }
 
+    /**
+     * Test column no change with default.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testColumnNoChangeWithDefault() throws Exception {
         final String sql = "CREATE TABLE alarms ( id integer, x733ProbableCause integer DEFAULT 0 NOT NULL );\n";
 
@@ -1801,6 +2314,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertNoTablesHaveChanged();
     }
 
+    /**
+     * Test update iplike pg sql.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     public void testUpdateIplikePgSql() throws Throwable {
         getInstallerDb().updatePlPgsql();
         getInstallerDb().setPostgresIpLikeLocation(null); // Ensure that we
@@ -1810,6 +2329,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().closeConnection();
     }
 
+    /**
+     * Test create table with check constraint.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     public void testCreateTableWithCheckConstraint() throws Throwable {
         final String cname = "setfilter_type_valid";
         final String checkexpression = "(((type >= 0) AND (type <= 2)))";
@@ -1824,6 +2349,12 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         assertTrue(checkexpression.equals("(" + constraint.getCheckExpression() + ")"));
     }
 
+    /**
+     * Test upgrade add check constraint.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpgradeAddCheckConstraint() throws Exception {
         final String cname = "setfilter_type_valid";
         final String checkexpression = "(((type >= 0) AND (type <= 2)))";
@@ -1848,6 +2379,14 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
                      "(" + constraint.getCheckExpression().replaceAll("\"type\"", "type") + ")");
     }
 
+    /**
+     * Adds the table from sql.
+     *
+     * @param tableName
+     *            the table name
+     * @throws SQLException
+     *             the sQL exception
+     */
     public void addTableFromSQL(String tableName) throws SQLException {
         String partialSQL = null;
         try {
@@ -1859,10 +2398,32 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableWithSQL(tableName, partialSQL, true);
     }
 
+    /**
+     * Adds the table from sql with replacements.
+     *
+     * @param tableName
+     *            the table name
+     * @param replacements
+     *            the replacements
+     * @throws SQLException
+     *             the sQL exception
+     */
     public void addTableFromSQLWithReplacements(String tableName, String[][] replacements) throws SQLException {
         addTableFromSQLWithReplacements(tableName, replacements, true);
     }
 
+    /**
+     * Adds the table from sql with replacements.
+     *
+     * @param tableName
+     *            the table name
+     * @param replacements
+     *            the replacements
+     * @param addTriggers
+     *            the add triggers
+     * @throws SQLException
+     *             the sQL exception
+     */
     public void addTableFromSQLWithReplacements(String tableName, String[][] replacements, boolean addTriggers)
             throws SQLException {
         String partialSQL = null;
@@ -1890,6 +2451,18 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         addTableWithSQL(tableName, partialSQL, addTriggers);
     }
 
+    /**
+     * Adds the table with sql.
+     *
+     * @param table
+     *            the table
+     * @param sql
+     *            the sql
+     * @param addTriggers
+     *            the add triggers
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void addTableWithSQL(String table, String sql, boolean addTriggers) throws SQLException {
         executeSQL("CREATE TABLE " + table + " ( " + sql + " )");
 
@@ -1901,24 +2474,55 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         getInstallerDb().addTriggersForTable(table);
     }
 
+    /**
+     * Contains unescaped parens.
+     *
+     * @param str
+     *            the str
+     * @return true, if successful
+     */
     public boolean containsUnescapedParens(String str) {
         Pattern p = Pattern.compile("[^\\\\]\\(");
         Matcher m = p.matcher(str);
         return m.find();
     }
 
+    /**
+     * Assert stored procedure for trigger exists.
+     *
+     * @param trigger
+     *            the trigger
+     * @throws Exception
+     *             the exception
+     */
     public void assertStoredProcedureForTriggerExists(Trigger trigger) throws Exception {
 
         assertTrue("Function '" + trigger.getStoredProcedure() + "' does not exist",
                    getInstallerDb().functionExists(trigger.getStoredProcedure(), "", "trigger"));
     }
 
+    /**
+     * Assert trigger exists.
+     *
+     * @param trigger
+     *            the trigger
+     * @throws Exception
+     *             the exception
+     */
     public void assertTriggerExists(Trigger trigger) throws Exception {
 
         assertTrue("Trigger '" + trigger.getName() + "' does not exist on table '" + trigger.getTable()
                 + "' to execute '" + trigger.getStoredProcedure() + "' function", trigger.isOnDatabase(m_connection));
     }
 
+    /**
+     * Verify triggers.
+     *
+     * @param onlyStoredProcedures
+     *            the only stored procedures
+     * @throws Exception
+     *             the exception
+     */
     public void verifyTriggers(boolean onlyStoredProcedures) throws Exception {
         Trigger[] triggers = new Trigger[] {
                 new Trigger("setIfServiceKeysOnInsertTrigger", "outages", "setIfServiceKeysOnInsert", "NO SQL"),
@@ -1938,15 +2542,29 @@ public class InstallerDbTest extends TemporaryDatabaseTestCase {
         }
     }
 
+    /**
+     * Gets the installer db.
+     *
+     * @return the installer db
+     */
     public InstallerDb getInstallerDb() {
         return m_installerDb;
     }
 
+    /**
+     * Reset output stream.
+     */
     public void resetOutputStream() {
         m_outputStream = new ByteArrayOutputStream();
         getInstallerDb().setOutputStream(new PrintStream(m_outputStream));
     }
 
+    /**
+     * Assert no tables have changed.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void assertNoTablesHaveChanged() throws IOException {
         ByteArrayInputStream in = new ByteArrayInputStream(m_outputStream.toByteArray());
         BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));

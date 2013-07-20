@@ -60,62 +60,102 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  */
 public class TemporaryDatabaseTestCase extends TestCase {
 
+    /** The jdbc template. */
     protected SimpleJdbcTemplate jdbcTemplate;
 
+    /** The Constant TEST_DB_NAME_PREFIX. */
     private static final String TEST_DB_NAME_PREFIX = "opennms_test_";
 
+    /** The Constant RUN_PROPERTY. */
     private static final String RUN_PROPERTY = "mock.rundbtests";
 
+    /** The Constant LEAVE_PROPERTY. */
     private static final String LEAVE_PROPERTY = "mock.leaveDatabase";
 
+    /** The Constant LEAVE_ON_FAILURE_PROPERTY. */
     private static final String LEAVE_ON_FAILURE_PROPERTY = "mock.leaveDatabaseOnFailure";
 
+    /** The Constant DRIVER_PROPERTY. */
     private static final String DRIVER_PROPERTY = "mock.db.driver";
 
+    /** The Constant URL_PROPERTY. */
     private static final String URL_PROPERTY = "mock.db.url";
 
+    /** The Constant ADMIN_USER_PROPERTY. */
     private static final String ADMIN_USER_PROPERTY = "mock.db.adminUser";
 
+    /** The Constant ADMIN_PASSWORD_PROPERTY. */
     private static final String ADMIN_PASSWORD_PROPERTY = "mock.db.adminPassword";
 
+    /** The Constant DEFAULT_DRIVER. */
     private static final String DEFAULT_DRIVER = "org.postgresql.Driver";
 
+    /** The Constant DEFAULT_URL. */
     private static final String DEFAULT_URL = "jdbc:postgresql://localhost:5432/";
 
+    /** The Constant DEFAULT_ADMIN_USER. */
     private static final String DEFAULT_ADMIN_USER = "postgres";
 
+    /** The Constant DEFAULT_ADMIN_PASSWORD. */
     private static final String DEFAULT_ADMIN_PASSWORD = "";
 
+    /** The Constant MAX_DATABASE_DROP_ATTEMPTS. */
     private static final int MAX_DATABASE_DROP_ATTEMPTS = 10;
 
+    /** The m_test database. */
     private String m_testDatabase;
 
+    /** The m_leave database. */
     private boolean m_leaveDatabase = false;
 
+    /** The m_leave database on failure. */
     private boolean m_leaveDatabaseOnFailure = false;
 
+    /** The m_throwable. */
     private Throwable m_throwable = null;
 
+    /** The m_destroyed. */
     private boolean m_destroyed = false;
 
+    /** The m_driver. */
     private String m_driver;
 
+    /** The m_url. */
     private String m_url;
 
+    /** The m_admin user. */
     private String m_adminUser;
 
+    /** The m_admin password. */
     private String m_adminPassword;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
+    /** The m_admin data source. */
     private DataSource m_adminDataSource;
 
+    /**
+     * Instantiates a new temporary database test case.
+     */
     public TemporaryDatabaseTestCase() {
         this(System.getProperty(DRIVER_PROPERTY, DEFAULT_DRIVER), System.getProperty(URL_PROPERTY, DEFAULT_URL),
              System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER), System.getProperty(ADMIN_PASSWORD_PROPERTY,
                                                                                              DEFAULT_ADMIN_PASSWORD));
     }
 
+    /**
+     * Instantiates a new temporary database test case.
+     *
+     * @param driver
+     *            the driver
+     * @param url
+     *            the url
+     * @param adminUser
+     *            the admin user
+     * @param adminPassword
+     *            the admin password
+     */
     public TemporaryDatabaseTestCase(String driver, String url, String adminUser, String adminPassword) {
         m_driver = driver;
         m_url = url;
@@ -126,6 +166,9 @@ public class TemporaryDatabaseTestCase extends TestCase {
     /*
      * TODO: Should we make this final, and let extending classes override
      * something like afterSetUp() (like the Spring transactional tests do)
+     */
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
      */
     @Override
     protected void setUp() throws Exception {
@@ -153,10 +196,19 @@ public class TemporaryDatabaseTestCase extends TestCase {
         connection.close();
     }
 
+    /**
+     * Sets the test database.
+     *
+     * @param testDatabase
+     *            the new test database
+     */
     private void setTestDatabase(String testDatabase) {
         m_testDatabase = testDatabase;
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         if (!isEnabled()) {
@@ -172,6 +224,9 @@ public class TemporaryDatabaseTestCase extends TestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         if (isEnabled()) {
@@ -201,62 +256,140 @@ public class TemporaryDatabaseTestCase extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Test nothing.
+     */
     public void testNothing() {
     }
 
+    /**
+     * Gets the test database name.
+     *
+     * @return the test database name
+     */
     protected String getTestDatabaseName() {
         return TEST_DB_NAME_PREFIX + System.currentTimeMillis();
     }
 
+    /**
+     * Gets the test database.
+     *
+     * @return the test database
+     */
     public String getTestDatabase() {
         return m_testDatabase;
     }
 
+    /**
+     * Sets the data source.
+     *
+     * @param dataSource
+     *            the new data source
+     */
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;
         jdbcTemplate = new SimpleJdbcTemplate(dataSource);
     }
 
+    /**
+     * Gets the data source.
+     *
+     * @return the data source
+     */
     public DataSource getDataSource() {
         return m_dataSource;
     }
 
+    /**
+     * Sets the admin data source.
+     *
+     * @param dataSource
+     *            the new admin data source
+     */
     private void setAdminDataSource(DataSource dataSource) {
         m_adminDataSource = dataSource;
     }
 
+    /**
+     * Gets the admin data source.
+     *
+     * @return the admin data source
+     */
     protected DataSource getAdminDataSource() {
         return m_adminDataSource;
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws SQLException
+     *             the sQL exception
+     */
     public Connection getConnection() throws SQLException {
         return getDataSource().getConnection();
     }
 
+    /**
+     * Gets the driver.
+     *
+     * @return the driver
+     */
     public String getDriver() {
         return m_driver;
     }
 
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     */
     public String getUrl() {
         return m_url;
     }
 
+    /**
+     * Gets the admin user.
+     *
+     * @return the admin user
+     */
     public String getAdminUser() {
         return m_adminUser;
     }
 
+    /**
+     * Gets the admin password.
+     *
+     * @return the admin password
+     */
     public String getAdminPassword() {
         return m_adminPassword;
     }
 
+    /**
+     * Sets the test failure throwable.
+     *
+     * @param t
+     *            the new test failure throwable
+     */
     public void setTestFailureThrowable(Throwable t) {
         m_throwable = t;
     }
 
+    /**
+     * Gets the test failure throwable.
+     *
+     * @return the test failure throwable
+     */
     public Throwable getTestFailureThrowable() {
         return m_throwable;
     }
 
+    /**
+     * Checks for test failed.
+     *
+     * @return true, if successful
+     */
     public boolean hasTestFailed() {
         return m_throwable != null;
     }
@@ -271,11 +404,23 @@ public class TemporaryDatabaseTestCase extends TestCase {
         return "true".equals(property);
     }
 
+    /**
+     * Notify test disabled.
+     *
+     * @param testMethodName
+     *            the test method name
+     */
     public static void notifyTestDisabled(String testMethodName) {
         System.out.println("Test '" + testMethodName + "' disabled.  Set '" + RUN_PROPERTY
                 + "' property from 'false' to 'true' to enable.");
     }
 
+    /**
+     * Creates the test database.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createTestDatabase() throws Exception {
         Connection adminConnection = getAdminDataSource().getConnection();
         Statement st = null;
@@ -303,6 +448,12 @@ public class TemporaryDatabaseTestCase extends TestCase {
         });
     }
 
+    /**
+     * Destroy test database.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void destroyTestDatabase() throws Exception {
         if (m_destroyed) {
             // database already destroyed
@@ -380,10 +531,22 @@ public class TemporaryDatabaseTestCase extends TestCase {
         m_destroyed = true;
     }
 
+    /**
+     * Execute sql.
+     *
+     * @param command
+     *            the command
+     */
     public void executeSQL(String command) {
         executeSQL(new String[] { command });
     }
 
+    /**
+     * Execute sql.
+     *
+     * @param commands
+     *            the commands
+     */
     public void executeSQL(String[] commands) {
         Connection connection = null;
         Statement st = null;
@@ -433,6 +596,16 @@ public class TemporaryDatabaseTestCase extends TestCase {
         }
     }
 
+    /**
+     * Fail.
+     *
+     * @param message
+     *            the message
+     * @param t
+     *            the t
+     * @throws AssertionFailedError
+     *             the assertion failed error
+     */
     public void fail(String message, Throwable t) throws AssertionFailedError {
         AssertionFailedError e = new AssertionFailedError(message + ": " + t.getMessage());
         e.initCause(t);
@@ -446,21 +619,40 @@ public class TemporaryDatabaseTestCase extends TestCase {
      * @author djgregor
      */
     public class TestFailureAndTearDownErrorException extends Exception {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -5664844942506660064L;
 
+        /** The m_tear down error. */
         private Throwable m_tearDownError;
 
+        /**
+         * Instantiates a new test failure and tear down error exception.
+         *
+         * @param testFailure
+         *            the test failure
+         * @param tearDownError
+         *            the tear down error
+         */
         public TestFailureAndTearDownErrorException(Throwable testFailure, Throwable tearDownError) {
             super(testFailure);
             m_tearDownError = tearDownError;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Throwable#toString()
+         */
         @Override
         public String toString() {
             return super.toString() + "\nAlso received error on tearDown: " + m_tearDownError.toString();
         }
     }
 
+    /**
+     * Gets the jdbc template.
+     *
+     * @return the jdbc template
+     */
     public SimpleJdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
     }

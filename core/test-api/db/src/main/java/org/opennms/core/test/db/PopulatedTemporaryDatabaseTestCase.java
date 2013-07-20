@@ -39,6 +39,8 @@ import org.opennms.core.test.db.annotations.JUnitTemporaryDatabase;
 import org.springframework.util.StringUtils;
 
 /**
+ * The Class PopulatedTemporaryDatabaseTestCase.
+ *
  * @deprecated Use an annotation-based temporary database with
  *             {@link JUnitTemporaryDatabase} and autowire a
  *             DatabasePopulator to insert a standard set of content into the
@@ -49,14 +51,21 @@ import org.springframework.util.StringUtils;
  */
 public class PopulatedTemporaryDatabaseTestCase extends TemporaryDatabaseTestCase {
 
+    /** The m_installer db. */
     private InstallerDb m_installerDb = new InstallerDb();
 
+    /** The m_output stream. */
     private ByteArrayOutputStream m_outputStream;
 
+    /** The m_setup ip like. */
     private boolean m_setupIpLike = false;
 
+    /** The m_insert data. */
     private boolean m_insertData = false;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -68,6 +77,12 @@ public class PopulatedTemporaryDatabaseTestCase extends TemporaryDatabaseTestCas
         }
     }
 
+    /**
+     * Initialize database.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void initializeDatabase() throws Exception {
         if (!isEnabled()) {
             return;
@@ -112,6 +127,11 @@ public class PopulatedTemporaryDatabaseTestCase extends TemporaryDatabaseTestCas
 
     }
 
+    /**
+     * Find ip like library.
+     *
+     * @return the file
+     */
     protected File findIpLikeLibrary() {
         File topDir = ConfigurationTestUtils.getTopProjectDirectory();
 
@@ -168,23 +188,50 @@ public class PopulatedTemporaryDatabaseTestCase extends TemporaryDatabaseTestCas
         return ipLikeFile;
     }
 
+    /**
+     * Gets the output stream.
+     *
+     * @return the output stream
+     */
     public ByteArrayOutputStream getOutputStream() {
         return m_outputStream;
     }
 
+    /**
+     * Reset output stream.
+     */
     public void resetOutputStream() {
         m_outputStream = new ByteArrayOutputStream();
         m_installerDb.setOutputStream(new PrintStream(m_outputStream));
     }
 
+    /**
+     * Sets the insert data.
+     *
+     * @param insertData
+     *            the new insert data
+     * @throws Exception
+     *             the exception
+     */
     public void setInsertData(boolean insertData) throws Exception {
         m_insertData = insertData;
     }
 
+    /**
+     * Sets the setup ip like.
+     *
+     * @param setupIpLike
+     *            the new setup ip like
+     */
     public void setSetupIpLike(boolean setupIpLike) {
         m_setupIpLike = setupIpLike;
     }
 
+    /**
+     * Gets the installer db.
+     *
+     * @return the installer db
+     */
     protected InstallerDb getInstallerDb() {
         return m_installerDb;
     }

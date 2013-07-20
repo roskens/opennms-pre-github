@@ -43,16 +43,24 @@ import org.opennms.netmgt.mock.MockService.SvcMgmtStatus;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
+ * The Class MockDatabaseTest.
+ *
  * @author brozow
  */
 public class MockDatabaseTest extends TestCase {
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_second db. */
     private MockDatabase m_secondDb;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -78,6 +86,9 @@ public class MockDatabaseTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -87,6 +98,9 @@ public class MockDatabaseTest extends TestCase {
             m_secondDb.drop();
     }
 
+    /**
+     * Test node query.
+     */
     public void testNodeQuery() {
         Querier querier = new Querier(m_db, "select * from node") {
             @Override
@@ -103,6 +117,12 @@ public class MockDatabaseTest extends TestCase {
         assertEquals(m_network.getNodeCount(), querier.getCount());
     }
 
+    /**
+     * Test multiple databases.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMultipleDatabases() throws Exception {
         m_secondDb = new MockDatabase(m_db.getTestDatabase() + "_test2");
 
@@ -120,6 +140,9 @@ public class MockDatabaseTest extends TestCase {
 
     }
 
+    /**
+     * Test if query.
+     */
     public void testIFQuery() {
         Querier querier = new Querier(m_db, "select * from ipInterface") {
             @Override
@@ -136,6 +159,9 @@ public class MockDatabaseTest extends TestCase {
         assertEquals(m_network.getInterfaceCount(), querier.getCount());
     }
 
+    /**
+     * Test service query.
+     */
     public void testServiceQuery() {
         Querier querier = new Querier(
                                       m_db,
@@ -160,6 +186,9 @@ public class MockDatabaseTest extends TestCase {
         assertEquals(m_network.getServiceCount(), querier.getCount());
     }
 
+    /**
+     * Test cascade.
+     */
     public void testCascade() {
         m_db.update("delete from node where nodeid = '1'");
         assertEquals(0, m_db.countRows("select * from node where nodeid = '1'"));
@@ -167,6 +196,9 @@ public class MockDatabaseTest extends TestCase {
         assertEquals(0, m_db.countRows("select * from ifServices where nodeid = '1'"));
     }
 
+    /**
+     * Test outage.
+     */
     public void testOutage() {
         final MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
         Event svcLostEvent = MockEventUtil.createNodeLostServiceEvent("TEST", svc);
@@ -191,6 +223,9 @@ public class MockDatabaseTest extends TestCase {
 
     }
 
+    /**
+     * Test update node sequence.
+     */
     public void testUpdateNodeSequence() {
         int maxNodeId = m_db.getJdbcTemplate().queryForInt("select max(nodeid) from node");
         int nextSeqNum = m_db.getJdbcTemplate().queryForInt("select nextval('nodeNxtId')");
@@ -198,6 +233,9 @@ public class MockDatabaseTest extends TestCase {
 
     }
 
+    /**
+     * Test set service status.
+     */
     public void testSetServiceStatus() {
         MockService svc = m_network.getService(1, "192.168.1.1", "SMTP");
         assertEquals('A', m_db.getServiceStatus(svc));

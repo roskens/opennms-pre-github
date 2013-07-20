@@ -47,6 +47,9 @@ import org.opennms.test.ThrowableAnticipator;
  */
 public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryDatabaseTestCase {
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.PopulatedTemporaryDatabaseTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -54,6 +57,9 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
     }
 
+    /**
+     * Test same snmp interface id different node id.
+     */
     public void testSameSnmpInterfaceIdDifferentNodeId() {
         executeSQL("INSERT INTO snmpInterface (id, nodeId, snmpIfIndex) VALUES ( 1, 1, 1 )");
         executeSQL("INSERT INTO ipInterface (id, nodeId, ipAddr, ifIndex, snmpInterfaceId) VALUES ( 1, 1, '1.1.1.1', 1, 1 )");
@@ -72,6 +78,9 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface"));
     }
 
+    /**
+     * Test same snmp interface id different if index.
+     */
     public void testSameSnmpInterfaceIdDifferentIfIndex() {
         executeSQL("INSERT INTO snmpInterface (id, nodeId, snmpIfIndex) VALUES ( 1, 1, 1 )");
         executeSQL("INSERT INTO ipInterface (id, nodeId, ipAddr, ifIndex, snmpInterfaceId) VALUES ( 1, 1, '1.1.1.1', 1, 1 )");
@@ -90,6 +99,9 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface"));
     }
 
+    /**
+     * Test same snmp interface id different if index null.
+     */
     public void testSameSnmpInterfaceIdDifferentIfIndexNull() {
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex, snmpInterfaceId) VALUES ( 1, '1.1.1.1', 1, 1 )");
@@ -108,6 +120,12 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface"));
     }
 
+    /**
+     * Test set ip interface if index like capsd does.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdDoes() throws Exception {
         executeSQL("INSERT INTO ipInterface (id, nodeId, ipAddr, ifIndex) VALUES ( 1, 1, '1.1.1.1', null )");
         executeSQL("INSERT INTO snmpInterface (id, nodeId, snmpIfIndex) VALUES ( 1, 1, 1)");
@@ -120,6 +138,12 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
+    /**
+     * Test set ip interface if index like capsd does bad if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdDoesBadIfIndex() throws Exception {
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.1.1.1', null )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -137,6 +161,12 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
         }
     }
 
+    /**
+     * Test set ip interface if index like capsd but opposite order.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrder() throws Exception {
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.1.1.1', 1 )");
@@ -145,6 +175,13 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
                      jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
+    /**
+     * Test set ip interface if index like capsd but opposite order update with
+     * bad if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrderUpdateWithBadIfIndex() throws Exception {
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.1.1.1', 1 )");
@@ -163,6 +200,12 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
         }
     }
 
+    /**
+     * Test set ip interface to new node with node snmp interfaces.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetIpInterfaceToNewNodeWithNodeSnmpInterfaces() throws Exception {
         executeSQL("INSERT INTO ipInterface (id, nodeId, ipAddr) VALUES ( 1, 1, '1.1.1.1')");
 
@@ -180,6 +223,9 @@ public class TriggerSetSnmpInterfaceKeysOnUpdateTest extends PopulatedTemporaryD
 
     }
 
+    /**
+     * Test bug nm s1881.
+     */
     public void testBugNMS1881() {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 100, now() )");
         executeSQL("INSERT INTO snmpInterface (id, nodeId, snmpIfIndex) VALUES ( 100, 100, 1 )");

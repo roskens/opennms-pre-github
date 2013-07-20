@@ -36,8 +36,17 @@ import junit.framework.AssertionFailedError;
 
 import org.opennms.test.ThrowableAnticipator;
 
+/**
+ * The Class TriggerSetSnmpInterfaceKeysOnInsertTest.
+ */
 public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryDatabaseTestCase {
 
+    /**
+     * Test set snmp interface id in ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetSnmpInterfaceIdInIpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -62,6 +71,9 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
     /**
      * Test adding an entry to ipInterface with an ifIndex >= 1 that *does not*
      * point to an entry in snmpInterface. This should be an error.
+     *
+     * @throws Exception
+     *             the exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceNoSnmpInterfaceEntry() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -77,6 +89,12 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test set snmp interface id in ip interface null if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -99,6 +117,13 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
         }
     }
 
+    /**
+     * Test set snmp interface id in ip interface null if index no snmp
+     * interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetSnmpInterfaceIdInIpInterfaceNullIfIndexNoSnmpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
@@ -118,6 +143,12 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
         }
     }
 
+    /**
+     * Test set snmp interface id in ip interface less than one if index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -136,6 +167,9 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
      * entry exists in snmpInterface for the same ifIndex. The relationship
      * *should* be setup (previously, it would not have been set up for this
      * case).
+     *
+     * @throws Exception
+     *             the exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceLessThanOneIfIndexWithSnmpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -158,7 +192,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
 
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with nodeId
-     * and ifIndex set
+     * and ifIndex set.
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceId() {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -168,9 +202,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
 
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with nodeId
-     * set but null ifIndex
+     * set but null ifIndex.
      *
      * @throws Exception
+     *             the exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -193,9 +228,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
 
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with ifIndex
-     * set but null nodeId
+     * set but null nodeId.
      *
      * @throws Exception
+     *             the exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeId() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -218,9 +254,10 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends PopulatedTemporaryD
 
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with null nodeId
-     * and ifIndex
+     * and ifIndex.
      *
      * @throws Exception
+     *             the exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeIdAndIpAddr() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
