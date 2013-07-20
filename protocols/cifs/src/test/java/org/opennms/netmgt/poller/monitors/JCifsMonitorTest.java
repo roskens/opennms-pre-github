@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.poller.monitors;
 
 import static org.easymock.EasyMock.anyObject;
@@ -30,23 +57,40 @@ import org.opennms.netmgt.poller.mock.MonitorTestUtils;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+/**
+ * The Class JCifsMonitorTest.
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ SmbFile.class, JCifsMonitor.class })
 public class JCifsMonitorTest {
+
+    /** The mock smb file valid path. */
     private SmbFile mockSmbFileValidPath;
 
+    /** The mock smb file invalid path. */
     private SmbFile mockSmbFileInvalidPath;
 
+    /** The mock smb folder not empty. */
     private SmbFile mockSmbFolderNotEmpty;
 
+    /** The mock smb folder empty. */
     private SmbFile mockSmbFolderEmpty;
 
+    /** The mock smb file smb exception. */
     private SmbFile mockSmbFileSmbException;
 
+    /** The mock smb file malformed url exception. */
     private SmbFile mockSmbFileMalformedUrlException;
 
+    /** The mock smb file smb host. */
     private SmbFile mockSmbFileSmbHost;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         mockSmbFileValidPath = createNiceMock(SmbFile.class);
@@ -89,6 +133,12 @@ public class JCifsMonitorTest {
                   eq("smb://192.168.0.123/smbException"), isA(NtlmPasswordAuthentication.class)).andReturn(mockSmbFileSmbHost).anyTimes();
     }
 
+    /**
+     * Test poll.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testPoll() throws UnknownHostException {
 

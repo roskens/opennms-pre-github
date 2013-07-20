@@ -59,13 +59,16 @@ public class JCifsMonitor extends AbstractServiceMonitor {
     /*
      * default retries
      */
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 0;
 
     /*
      * default timeout
      */
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
+    /** The mode candidates. */
     private static String modeCandidates;
 
     static {
@@ -78,9 +81,7 @@ public class JCifsMonitor extends AbstractServiceMonitor {
         }
     }
 
-    /**
-     * logging for JCifs monitor
-     */
+    /** logging for JCifs monitor. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.Poller." + JCifsMonitor.class.getName());
 
     /**
@@ -224,9 +225,17 @@ public class JCifsMonitor extends AbstractServiceMonitor {
     }
 
     /**
-     * Supported modes for CIFS monitor
+     * Supported modes for CIFS monitor.
      */
     private enum Mode {
-        PATH_EXIST, PATH_NOT_EXIST, FOLDER_EMPTY, FOLDER_NOT_EMPTY
+
+        /** The path exist. */
+        PATH_EXIST,
+ /** The path not exist. */
+ PATH_NOT_EXIST,
+ /** The folder empty. */
+ FOLDER_EMPTY,
+ /** The folder not empty. */
+ FOLDER_NOT_EMPTY
     }
 }
