@@ -40,11 +40,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class OSReportPlugin.
+ */
 public class OSReportPlugin extends AbstractSystemReportPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OSReportPlugin.class);
 
+    /** The Constant m_oses. */
     private static final Map<String, String> m_oses = new LinkedHashMap<String, String>();
 
+    /**
+     * Instantiates a new oS report plugin.
+     */
     public OSReportPlugin() {
         if (m_oses.size() == 0) {
             m_oses.put("/etc/SUSE-release", "SuSE");
@@ -63,21 +72,33 @@ public class OSReportPlugin extends AbstractSystemReportPlugin {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "OS";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Kernel, OS, and Distribution";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 2;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();

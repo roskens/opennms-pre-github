@@ -43,12 +43,21 @@ import org.opennms.netmgt.model.OnmsEvent;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 
+/**
+ * The Class EventCountDaoHibernate.
+ */
 public class EventCountDaoHibernate extends AbstractDaoHibernate<OnmsEvent, Integer> implements EventCountDao {
 
+    /**
+     * Instantiates a new event count dao hibernate.
+     */
     public EventCountDaoHibernate() {
         super(OnmsEvent.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.EventCountDao#getUeiCounts(java.lang.Integer)
+     */
     @Override
     public Set<CountedObject<String>> getUeiCounts(final Integer limit) {
         Set<CountedObject<String>> ueis = new TreeSet<CountedObject<String>>();

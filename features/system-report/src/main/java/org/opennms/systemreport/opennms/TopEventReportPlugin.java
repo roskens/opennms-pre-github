@@ -40,30 +40,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class TopEventReportPlugin.
+ */
 public class TopEventReportPlugin extends AbstractSystemReportPlugin implements InitializingBean {
+
+    /** The m_event count dao. */
     @Autowired
     public EventCountDao m_eventCountDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "TopEvent";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Top 20 most reported events";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 4;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();

@@ -72,28 +72,47 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class AbstractSystemReportPlugin.
+ */
 public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSystemReportPlugin.class);
 
+    /** The Constant MAX_PROCESS_WAIT. */
     protected static final long MAX_PROCESS_WAIT = 10000; // milliseconds
 
+    /** The m_connection. */
     private MBeanServerConnection m_connection = null;
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 99;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         throw new UnsupportedOperationException("You must override getEntries()!");
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("%s[%d]", getName(), getPriority());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final SystemReportPlugin o) {
         return new CompareToBuilder().append(this.getPriority(), (o == null ? Integer.MIN_VALUE : o.getPriority())).append(this.getName(),
@@ -101,6 +120,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                                                                                                                                : o.getName())).toComparison();
     }
 
+    /**
+     * Slurp.
+     *
+     * @param lsb
+     *            the lsb
+     * @return the string
+     */
     protected String slurp(final File lsb) {
         if (lsb != null && lsb.exists()) {
             FileInputStream stream = null;
@@ -118,6 +144,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return null;
     }
 
+    /**
+     * Slurp command.
+     *
+     * @param command
+     *            the command
+     * @return the string
+     */
     protected String slurpCommand(final String[] command) {
         Process p = null;
         InputStream is = null;
@@ -149,6 +182,15 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return sb.toString();
     }
 
+    /**
+     * Split multiline string.
+     *
+     * @param regex
+     *            the regex
+     * @param text
+     *            the text
+     * @return the map
+     */
     protected Map<String, String> splitMultilineString(final String regex, final String text) {
         final Map<String, String> map = new HashMap<String, String>();
 
@@ -176,16 +218,37 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return map;
     }
 
+    /**
+     * Gets the resource from property.
+     *
+     * @param propertyName
+     *            the property name
+     * @return the resource from property
+     */
     protected Resource getResourceFromProperty(final String propertyName) {
         return getResource(System.getProperty(propertyName));
     }
 
+    /**
+     * Gets the resource.
+     *
+     * @param text
+     *            the text
+     * @return the resource
+     */
     protected Resource getResource(final String text) {
         if (text == null)
             return new ByteArrayResource(new byte[0]);
         return new ByteArrayResource(text.getBytes());
     }
 
+    /**
+     * Find binary.
+     *
+     * @param name
+     *            the name
+     * @return the string
+     */
     protected String findBinary(final String name) {
         List<String> pathEntries = new ArrayList<String>();
         final String path = System.getenv().get("PATH");
@@ -213,6 +276,15 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return null;
     }
 
+    /**
+     * Slurp output.
+     *
+     * @param command
+     *            the command
+     * @param ignoreExitCode
+     *            the ignore exit code
+     * @return the string
+     */
     protected String slurpOutput(CommandLine command, boolean ignoreExitCode) {
         LOG.debug("running: {}", command);
 
@@ -255,6 +327,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return topOutput;
     }
 
+    /**
+     * Creates the temporary file from string.
+     *
+     * @param text
+     *            the text
+     * @return the file
+     */
     protected File createTemporaryFileFromString(final String text) {
         File tempFile = null;
         FileWriter fw = null;
@@ -272,6 +351,11 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return tempFile;
     }
 
+    /**
+     * Gets the open nms processes.
+     *
+     * @return the open nms processes
+     */
     protected Set<Integer> getOpenNMSProcesses() {
         LOG.debug("getOpenNMSProcesses()");
         final Set<Integer> processes = new HashSet<Integer>();
@@ -388,6 +472,11 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return processes;
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     private MBeanServerConnection getConnection() {
         final List<Integer> ports = new ArrayList<Integer>();
         Integer p = Integer.getInteger("com.sun.management.jmxremote.port");
@@ -410,6 +499,14 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return null;
     }
 
+    /**
+     * Adds the getters.
+     *
+     * @param o
+     *            the o
+     * @param map
+     *            the map
+     */
     protected void addGetters(final Object o, final Map<String, Resource> map) {
         if (o != null) {
             for (Method method : o.getClass().getDeclaredMethods()) {
@@ -430,6 +527,17 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         }
     }
 
+    /**
+     * Gets the beans.
+     *
+     * @param <T>
+     *            the generic type
+     * @param mxBeanName
+     *            the mx bean name
+     * @param clazz
+     *            the clazz
+     * @return the beans
+     */
     protected <T> List<T> getBeans(final String mxBeanName, final Class<T> clazz) {
         initializeConnection();
         List<T> beans = new ArrayList<T>();
@@ -446,12 +554,34 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return beans;
     }
 
+    /**
+     * Gets the bean.
+     *
+     * @param <T>
+     *            the generic type
+     * @param mxBeanName
+     *            the mx bean name
+     * @param clazz
+     *            the clazz
+     * @return the bean
+     */
     protected <T> T getBean(final String mxBeanName, final Class<T> clazz) {
         final List<Class<T>> classes = new ArrayList<Class<T>>();
         classes.add(clazz);
         return getBean(mxBeanName, classes);
     }
 
+    /**
+     * Gets the bean.
+     *
+     * @param <T>
+     *            the generic type
+     * @param mxBeanName
+     *            the mx bean name
+     * @param classes
+     *            the classes
+     * @return the bean
+     */
     protected <T> T getBean(final String mxBeanName, final List<? extends Class<T>> classes) {
         initializeConnection();
         if (m_connection == null || mxBeanName == null || classes == null || classes.size() == 0) {
@@ -470,6 +600,9 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         return bean;
     }
 
+    /**
+     * Initialize connection.
+     */
     private void initializeConnection() {
         if (m_connection == null) {
             m_connection = getConnection();

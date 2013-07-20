@@ -36,34 +36,57 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class TextSystemReportFormatter.
+ */
 public class TextSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TextSystemReportFormatter.class);
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getName()
+     */
     @Override
     public String getName() {
         return "text";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Simple human-readable indented text";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getContentType()
+     */
     @Override
     public String getContentType() {
         return "text/plain";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getExtension()
+     */
     @Override
     public String getExtension() {
         return "txt";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#canStdout()
+     */
     @Override
     public boolean canStdout() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#write(org.opennms.systemreport.SystemReportPlugin)
+     */
     @Override
     public void write(final SystemReportPlugin plugin) {
         if (!hasDisplayable(plugin))

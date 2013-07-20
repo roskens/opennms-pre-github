@@ -46,56 +46,97 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class AbstractSystemReportFormatter.
+ */
 public abstract class AbstractSystemReportFormatter implements SystemReportFormatter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSystemReportFormatter.class);
 
+    /** The m_output stream. */
     protected OutputStream m_outputStream = null;
 
+    /** The m_output. */
     private String m_output;
 
+    /**
+     * Instantiates a new abstract system report formatter.
+     */
     public AbstractSystemReportFormatter() {
     }
 
+    /**
+     * Gets the output.
+     *
+     * @return the output
+     */
     protected String getOutput() {
         return m_output;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#setOutput(java.lang.String)
+     */
     @Override
     public void setOutput(final String output) {
         m_output = output;
     }
 
+    /**
+     * Gets the output stream.
+     *
+     * @return the output stream
+     */
     protected OutputStream getOutputStream() {
         return m_outputStream;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#setOutputStream(java.io.OutputStream)
+     */
     @Override
     public void setOutputStream(final OutputStream stream) {
         m_outputStream = stream;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#needsOutputStream()
+     */
     @Override
     public boolean needsOutputStream() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getName()
+     */
     @Override
     public String getName() {
         LOG.warn("Plugin did not implement getFormatName()! Using the class name: {}", this.getClass().getName());
         return this.getClass().getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getDescription()
+     */
     @Override
     public String getDescription() {
         LOG.warn("Plugin {} did not implement getDescription()! Using the format name.", getName());
         return this.getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#write(org.opennms.systemreport.SystemReportPlugin)
+     */
     @Override
     public void write(final SystemReportPlugin plugin) {
         LOG.warn("Plugin {} did not implement write()! No data was written.", getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#begin()
+     */
     @Override
     public void begin() {
         if (needsOutputStream() && m_outputStream == null) {
@@ -103,10 +144,16 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#end()
+     */
     @Override
     public void end() {
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public final int compareTo(final SystemReportFormatter o) {
         return new CompareToBuilder().append(this.getName(), (o == null ? null : o.getName())).append(this.getDescription(),
@@ -114,14 +161,35 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
                                                                                                           : o.getDescription())).toComparison();
     }
 
+    /**
+     * Checks if is displayable.
+     *
+     * @param r
+     *            the r
+     * @return true, if is displayable
+     */
     protected boolean isDisplayable(final Resource r) {
         return (r instanceof ByteArrayResource);
     }
 
+    /**
+     * Checks if is file.
+     *
+     * @param r
+     *            the r
+     * @return true, if is file
+     */
     protected boolean isFile(final Resource r) {
         return (r instanceof FileSystemResource);
     }
 
+    /**
+     * Gets the resource text.
+     *
+     * @param r
+     *            the r
+     * @return the resource text
+     */
     protected String getResourceText(final Resource r) {
         if (r instanceof ByteArrayResource) {
             return new String(((ByteArrayResource) r).getByteArray());
@@ -154,6 +222,13 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
         return null;
     }
 
+    /**
+     * Checks for displayable.
+     *
+     * @param plugin
+     *            the plugin
+     * @return true, if successful
+     */
     protected boolean hasDisplayable(final SystemReportPlugin plugin) {
         for (final Map.Entry<String, Resource> entry : plugin.getEntries().entrySet()) {
             if (isDisplayable(entry.getValue())) {

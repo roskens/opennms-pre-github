@@ -32,6 +32,9 @@ import java.util.TreeMap;
 
 import org.springframework.core.io.Resource;
 
+/**
+ * The Interface SystemReportPlugin.
+ */
 public interface SystemReportPlugin extends Comparable<SystemReportPlugin> {
     /**
      * Get the name of this report plugin.

@@ -44,45 +44,74 @@ import org.opennms.systemreport.SystemReportPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class FtpSystemReportFormatter.
+ */
 public class FtpSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FtpSystemReportFormatter.class);
 
+    /** The m_url. */
     private URL m_url;
 
+    /** The m_zip formatter. */
     private ZipSystemReportFormatter m_zipFormatter;
 
+    /** The m_zip file. */
     private File m_zipFile;
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getName()
+     */
     @Override
     public String getName() {
         return "ftp";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getDescription()
+     */
     @Override
     public String getDescription() {
         return "FTP to the URL specified in the output option (eg. ftp://username:password@ftp.example.com/incoming/my-file.zip) (full output)";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getContentType()
+     */
     @Override
     public String getContentType() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getExtension()
+     */
     @Override
     public String getExtension() {
         return "zip";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#canStdout()
+     */
     @Override
     public boolean canStdout() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#needsOutputStream()
+     */
     @Override
     public boolean needsOutputStream() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#begin()
+     */
     @Override
     public void begin() {
         super.begin();
@@ -110,6 +139,9 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#write(org.opennms.systemreport.SystemReportPlugin)
+     */
     @Override
     public void write(final SystemReportPlugin plugin) {
         if (m_url == null)
@@ -118,6 +150,9 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
         m_zipFormatter.write(plugin);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#end()
+     */
     @Override
     public void end() {
         m_zipFormatter.end();

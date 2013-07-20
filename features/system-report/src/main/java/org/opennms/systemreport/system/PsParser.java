@@ -39,19 +39,41 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class PsParser.
+ */
 public final class PsParser extends Thread {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PsParser.class);
 
+    /** The m_processes. */
     private final Set<Integer> m_processes = Collections.synchronizedSet(new HashSet<Integer>());
 
+    /** The m_input. */
     private DataInputStream m_input;
 
+    /** The m_match text. */
     private final String m_matchText;
 
+    /** The m_skip text. */
     private final String m_skipText;
 
+    /** The m_match field. */
     private final int m_matchField;
 
+    /**
+     * Instantiates a new ps parser.
+     *
+     * @param input
+     *            the input
+     * @param matchText
+     *            the match text
+     * @param skipText
+     *            the skip text
+     * @param matchField
+     *            the match field
+     */
     public PsParser(final DataInputStream input, final String matchText, String skipText, final int matchField) {
         m_input = input;
         m_matchText = matchText;
@@ -59,6 +81,9 @@ public final class PsParser extends Thread {
         m_matchField = matchField;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
         final InputStreamReader isr = new InputStreamReader(m_input);
@@ -95,6 +120,11 @@ public final class PsParser extends Thread {
         }
     }
 
+    /**
+     * Gets the processes.
+     *
+     * @return the processes
+     */
     public Set<Integer> getProcesses() {
         return m_processes;
     }

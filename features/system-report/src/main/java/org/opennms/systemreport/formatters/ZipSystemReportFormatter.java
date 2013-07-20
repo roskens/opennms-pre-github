@@ -47,15 +47,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ZipSystemReportFormatter.
+ */
 public class ZipSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ZipSystemReportFormatter.class);
 
+    /** The m_temp file. */
     private File m_tempFile;
 
+    /** The m_zip output stream. */
     private ZipOutputStream m_zipOutputStream;
 
+    /** The m_directories. */
     private Set<String> m_directories = new HashSet<String>();
 
+    /**
+     * Instantiates a new zip system report formatter.
+     */
     public ZipSystemReportFormatter() {
         super();
         try {
@@ -66,31 +77,49 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getName()
+     */
     @Override
     public String getName() {
         return "zip";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Compressed file of all resources (full output)";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getContentType()
+     */
     @Override
     public String getContentType() {
         return "application/zip";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getExtension()
+     */
     @Override
     public String getExtension() {
         return "zip";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#canStdout()
+     */
     @Override
     public boolean canStdout() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#begin()
+     */
     @Override
     public void begin() {
         super.begin();
@@ -103,6 +132,9 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#write(org.opennms.systemreport.SystemReportPlugin)
+     */
     @Override
     public void write(final SystemReportPlugin plugin) {
         final String name = plugin.getName() + ".txt";
@@ -163,6 +195,9 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#end()
+     */
     @Override
     public void end() {
         try {
@@ -188,11 +223,27 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /**
+     * Creates the entry.
+     *
+     * @param name
+     *            the name
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void createEntry(final String name) throws IOException {
         LOG.info("adding to zip: opennms-system-report/{}", name);
         m_zipOutputStream.putNextEntry(new ZipEntry("opennms-system-report/" + name));
     }
 
+    /**
+     * Creates the directory.
+     *
+     * @param name
+     *            the name
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void createDirectory(final String name) throws IOException {
         if (m_directories.contains(name))
             return;

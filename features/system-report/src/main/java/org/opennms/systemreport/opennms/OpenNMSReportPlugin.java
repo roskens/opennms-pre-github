@@ -46,44 +46,69 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class OpenNMSReportPlugin.
+ */
 public class OpenNMSReportPlugin extends AbstractSystemReportPlugin implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSReportPlugin.class);
 
+    /** The m_node dao. */
     @Autowired
     public NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     public IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     public SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_event dao. */
     @Autowired
     public EventDao m_eventDao;
 
+    /** The m_alarm dao. */
     @Autowired
     public AlarmDao m_alarmDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "OpenNMS";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "OpenNMS core information, version, and basic configuration";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 3;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();

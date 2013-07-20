@@ -36,17 +36,33 @@ import java.io.InputStreamReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class OutputSuckingParser.
+ */
 public class OutputSuckingParser extends Thread {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OutputSuckingParser.class);
 
+    /** The m_buffer. */
     private StringBuffer m_buffer = new StringBuffer();
 
+    /** The m_input. */
     private DataInputStream m_input;
 
+    /**
+     * Instantiates a new output sucking parser.
+     *
+     * @param input
+     *            the input
+     */
     public OutputSuckingParser(final DataInputStream input) {
         m_input = input;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Thread#run()
+     */
     @Override
     public void run() {
         final InputStreamReader isr = new InputStreamReader(m_input);
@@ -72,6 +88,11 @@ public class OutputSuckingParser extends Thread {
         }
     }
 
+    /**
+     * Gets the output.
+     *
+     * @return the output
+     */
     public String getOutput() {
         return m_buffer.toString();
     }

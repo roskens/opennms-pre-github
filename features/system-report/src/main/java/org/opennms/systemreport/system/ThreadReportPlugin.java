@@ -44,24 +44,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ThreadReportPlugin.
+ */
 public class ThreadReportPlugin extends AbstractSystemReportPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThreadReportPlugin.class);
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "Threads";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Java thread dump (full output only)";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 10;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
@@ -127,6 +144,9 @@ public class ThreadReportPlugin extends AbstractSystemReportPlugin {
         return map;
     }
 
+    /**
+     * Trigger thread dump.
+     */
     private void triggerThreadDump() {
         String kill = findBinary("kill");
 

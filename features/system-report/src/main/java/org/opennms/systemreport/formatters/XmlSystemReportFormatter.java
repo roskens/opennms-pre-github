@@ -43,36 +43,60 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.xml.sax.helpers.AttributesImpl;
 
+/**
+ * The Class XmlSystemReportFormatter.
+ */
 public class XmlSystemReportFormatter extends AbstractSystemReportFormatter implements SystemReportFormatter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlSystemReportFormatter.class);
 
+    /** The m_handler. */
     private TransformerHandler m_handler = null;
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getName()
+     */
     @Override
     public String getName() {
         return "xml";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Simple output in XML text format";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getContentType()
+     */
     @Override
     public String getContentType() {
         return "text/xml";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#getExtension()
+     */
     @Override
     public String getExtension() {
         return "xml";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportFormatter#canStdout()
+     */
     @Override
     public boolean canStdout() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#write(org.opennms.systemreport.SystemReportPlugin)
+     */
     @Override
     public void write(final SystemReportPlugin plugin) {
         if (!hasDisplayable(plugin))
@@ -136,6 +160,9 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.formatters.AbstractSystemReportFormatter#end()
+     */
     @Override
     public void end() {
         if (m_handler != null) {

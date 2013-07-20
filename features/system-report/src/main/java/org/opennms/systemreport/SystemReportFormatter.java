@@ -30,6 +30,9 @@ package org.opennms.systemreport;
 
 import java.io.OutputStream;
 
+/**
+ * The Interface SystemReportFormatter.
+ */
 public interface SystemReportFormatter extends Comparable<SystemReportFormatter> {
     /**
      * A short name for this format for use by UIs when presenting
@@ -65,11 +68,16 @@ public interface SystemReportFormatter extends Comparable<SystemReportFormatter>
 
     /**
      * Whether or not this formatter needs to be given an output stream.
+     *
+     * @return true, if successful
      */
     public boolean needsOutputStream();
 
     /**
      * The output string as passed on the command-line.
+     *
+     * @param output
+     *            the new output
      */
     public void setOutput(final String output);
 
@@ -77,6 +85,7 @@ public interface SystemReportFormatter extends Comparable<SystemReportFormatter>
      * The output stream to use when writing data.
      *
      * @param stream
+     *            the new output stream
      */
     public void setOutputStream(final OutputStream stream);
 
@@ -100,6 +109,8 @@ public interface SystemReportFormatter extends Comparable<SystemReportFormatter>
 
     /**
      * Whether this formatter should be allowed to write to STDOUT.
+     *
+     * @return true, if successful
      */
     public boolean canStdout();
 

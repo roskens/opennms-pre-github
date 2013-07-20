@@ -36,22 +36,38 @@ import org.opennms.systemreport.AbstractSystemReportPlugin;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class LsofReportPlugin.
+ */
 public class LsofReportPlugin extends AbstractSystemReportPlugin {
+
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "lsof";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Output of the 'lsof' command (full output only)";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 12;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();

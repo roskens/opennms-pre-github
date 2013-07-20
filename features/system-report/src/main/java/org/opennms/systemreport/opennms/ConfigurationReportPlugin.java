@@ -36,23 +36,38 @@ import org.opennms.systemreport.AbstractSystemReportPlugin;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ConfigurationReportPlugin.
+ */
 public class ConfigurationReportPlugin extends AbstractSystemReportPlugin {
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getName()
+     */
     @Override
     public String getName() {
         return "Configuration";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.SystemReportPlugin#getDescription()
+     */
     @Override
     public String getDescription() {
         return "Append all OpenNMS configuration files (full output only)";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getPriority()
+     */
     @Override
     public int getPriority() {
         return 20;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.systemreport.AbstractSystemReportPlugin#getEntries()
+     */
     @Override
     public TreeMap<String, Resource> getEntries() {
         final TreeMap<String, Resource> map = new TreeMap<String, Resource>();
@@ -61,6 +76,14 @@ public class ConfigurationReportPlugin extends AbstractSystemReportPlugin {
         return map;
     }
 
+    /**
+     * Process file.
+     *
+     * @param file
+     *            the file
+     * @param map
+     *            the map
+     */
     public void processFile(final File file, final Map<String, Resource> map) {
         if (file.isDirectory()) {
             for (final File f : file.listFiles()) {

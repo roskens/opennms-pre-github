@@ -49,6 +49,9 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class JavaReportPluginTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -56,21 +59,32 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/applicationContext-test-systemReport.xml" })
 @JUnitConfigurationEnvironment
 public class JavaReportPluginTest {
+
+    /** The m_default service registry. */
     @Resource(name = "serviceRegistry")
     private ServiceRegistry m_defaultServiceRegistry;
 
+    /** The m_java report plugin. */
     @Resource(name = "javaReportPlugin")
     private SystemReportPlugin m_javaReportPlugin;
 
+    /** The m_os report plugin. */
     @Resource(name = "osReportPlugin")
     private SystemReportPlugin m_osReportPlugin;
 
+    /** The m_plugins. */
     private List<SystemReportPlugin> m_plugins;
 
+    /**
+     * Instantiates a new java report plugin test.
+     */
     public JavaReportPluginTest() {
         MockLogAppender.setupLogging(false, "ERROR");
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.err.println("---");
@@ -84,6 +98,9 @@ public class JavaReportPluginTest {
         }
     }
 
+    /**
+     * Test java report plugin.
+     */
     @Test
     public void testJavaReportPlugin() {
         assertTrue(listContains(JavaReportPlugin.class));
@@ -92,6 +109,9 @@ public class JavaReportPluginTest {
         assertTrue(classVer >= 49.0);
     }
 
+    /**
+     * Test os plugin.
+     */
     @Test
     public void testOSPlugin() {
         assertTrue(listContains(OSReportPlugin.class));
@@ -101,6 +121,13 @@ public class JavaReportPluginTest {
         assertTrue(entries.containsKey("Distribution"));
     }
 
+    /**
+     * List contains.
+     *
+     * @param clazz
+     *            the clazz
+     * @return true, if successful
+     */
     private boolean listContains(Class<? extends SystemReportPlugin> clazz) {
         for (final SystemReportPlugin p : m_plugins) {
             if (p.getClass().isAssignableFrom(clazz)) {
@@ -110,6 +137,13 @@ public class JavaReportPluginTest {
         return false;
     }
 
+    /**
+     * Gets the resource text.
+     *
+     * @param r
+     *            the r
+     * @return the resource text
+     */
     private String getResourceText(final org.springframework.core.io.Resource r) {
         if (r instanceof ByteArrayResource) {
             return new String(((ByteArrayResource) r).getByteArray());

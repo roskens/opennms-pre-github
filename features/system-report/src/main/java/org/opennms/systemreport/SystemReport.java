@@ -55,18 +55,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The Class SystemReport.
+ */
 public class SystemReport extends Bootstrap {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SystemReport.class);
 
+    /** The Constant m_pattern. */
     static final Pattern m_pattern = Pattern.compile("^-D(.*?)=(.*)$");
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws Exception
+     *             the exception
+     */
     public static void main(String[] args) throws Exception {
         loadDefaultProperties();
         executeClass("org.opennms.systemreport.SystemReport", "report", args, true, true);
     }
 
     /**
+     * Report.
+     *
      * @param args
+     *            the args
+     * @throws Exception
+     *             the exception
      */
     public static void report(String[] args) throws Exception {
         final String tempdir = System.getProperty("java.io.tmpdir");
@@ -139,20 +158,41 @@ public class SystemReport extends Bootstrap {
         }
     }
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_output. */
     private String m_output = "-";
 
+    /** The m_format. */
     private String m_format = "text";
 
+    /**
+     * Sets the output.
+     *
+     * @param file
+     *            the new output
+     */
     private void setOutput(final String file) {
         m_output = file;
     }
 
+    /**
+     * Sets the format.
+     *
+     * @param format
+     *            the new format
+     */
     private void setFormat(final String format) {
         m_format = format;
     }
 
+    /**
+     * Write plugin data.
+     *
+     * @param plugins
+     *            the plugins
+     */
     private void writePluginData(final Collection<String> plugins) {
         initializeSpring();
 
@@ -231,18 +271,29 @@ public class SystemReport extends Bootstrap {
         IOUtils.closeQuietly(stream);
     }
 
+    /**
+     * List plugins.
+     */
     private void listPlugins() {
         for (final SystemReportPlugin plugin : getPlugins()) {
             System.err.println(plugin.getName() + ": " + plugin.getDescription());
         }
     }
 
+    /**
+     * List formats.
+     */
     private void listFormats() {
         for (final SystemReportFormatter formatter : getFormatters()) {
             System.err.println(formatter.getName() + ": " + formatter.getDescription());
         }
     }
 
+    /**
+     * Gets the plugins.
+     *
+     * @return the plugins
+     */
     public List<SystemReportPlugin> getPlugins() {
         initializeSpring();
         final List<SystemReportPlugin> plugins = new ArrayList<SystemReportPlugin>(
@@ -251,6 +302,11 @@ public class SystemReport extends Bootstrap {
         return plugins;
     }
 
+    /**
+     * Gets the formatters.
+     *
+     * @return the formatters
+     */
     public List<SystemReportFormatter> getFormatters() {
         initializeSpring();
         final List<SystemReportFormatter> formatters = new ArrayList<SystemReportFormatter>(
@@ -259,6 +315,9 @@ public class SystemReport extends Bootstrap {
         return formatters;
     }
 
+    /**
+     * Initialize spring.
+     */
     private void initializeSpring() {
         if (m_serviceRegistry == null) {
             List<String> configs = new ArrayList<String>();
@@ -272,6 +331,12 @@ public class SystemReport extends Bootstrap {
         }
     }
 
+    /**
+     * Sets the service registry.
+     *
+     * @param registry
+     *            the new service registry
+     */
     public void setServiceRegistry(final ServiceRegistry registry) {
         m_serviceRegistry = registry;
     }
