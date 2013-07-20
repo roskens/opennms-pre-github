@@ -39,8 +39,14 @@ import org.opennms.test.ThrowableAnticipator;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * The Class OpenNMSUserDetailsServiceTest.
+ */
 public class OpenNMSUserDetailsServiceTest extends TestCase {
 
+    /**
+     * Test dao setter.
+     */
     public void testDaoSetter() {
         SpringSecurityUserDao userDao = createMock(SpringSecurityUserDao.class);
         OpenNMSUserDetailsService detailsService = new OpenNMSUserDetailsService();
@@ -48,6 +54,9 @@ public class OpenNMSUserDetailsServiceTest extends TestCase {
         detailsService.setUserDao(userDao);
     }
 
+    /**
+     * Test dao getter.
+     */
     public void testDaoGetter() {
         SpringSecurityUserDao userDao = createMock(SpringSecurityUserDao.class);
         OpenNMSUserDetailsService detailsService = new OpenNMSUserDetailsService();
@@ -55,6 +64,9 @@ public class OpenNMSUserDetailsServiceTest extends TestCase {
         assertEquals("getUsersDao returned what we passed to setUsersDao", userDao, detailsService.getUserDao());
     }
 
+    /**
+     * Test get user.
+     */
     public void testGetUser() {
         SpringSecurityUserDao userDao = createMock(SpringSecurityUserDao.class);
         OpenNMSUserDetailsService detailsService = new OpenNMSUserDetailsService();
@@ -73,6 +85,9 @@ public class OpenNMSUserDetailsServiceTest extends TestCase {
         assertEquals("user objects", user, userDetails);
     }
 
+    /**
+     * Test get unknown user.
+     */
     public void testGetUnknownUser() {
         SpringSecurityUserDao userDao = createMock(SpringSecurityUserDao.class);
         OpenNMSUserDetailsService detailsService = new OpenNMSUserDetailsService();

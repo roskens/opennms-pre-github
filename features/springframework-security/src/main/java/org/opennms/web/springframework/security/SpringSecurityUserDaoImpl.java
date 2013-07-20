@@ -68,14 +68,20 @@ import org.springframework.util.Assert;
  * @author <A HREF="mailto:eric@tuxbot.com">Eric Molitor</A>
  */
 public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SpringSecurityUserDaoImpl.class);
 
+    /** The m_user manager. */
     private UserManager m_userManager;
 
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
+    /** The m_users configuration file. */
     private String m_usersConfigurationFile;
 
+    /** The m_groups configuration file. */
     private String m_groupsConfigurationFile;
 
     /**
@@ -83,10 +89,13 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      */
     private Map<String, OnmsUser> m_users = null;
 
+    /** The m_users last modified. */
     private long m_usersLastModified;
 
+    /** The m_user file size. */
     private long m_userFileSize;
 
+    /** The m_magic users configuration file. */
     private String m_magicUsersConfigurationFile;
 
     /**
@@ -94,12 +103,16 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      */
     private Map<String, OnmsUser> m_magicUsers = null;
 
+    /** The m_roles. */
     private Map<String, Collection<? extends GrantedAuthority>> m_roles = null;
 
+    /** The m_magic users last modified. */
     private long m_magicUsersLastModified;
 
+    /** The m_groups last modified. */
     private long m_groupsLastModified;
 
+    /** The m_use groups. */
     private boolean m_useGroups;
 
     /**
@@ -117,6 +130,9 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * This method is synchronized so only one thread at a time can parse the
      * users.xml file and create the <code>principal</code> instance variable.
      * </p>
+     *
+     * @throws DataRetrievalFailureException
+     *             the data retrieval failure exception
      */
     private void parseUsers() throws DataRetrievalFailureException {
         final HashMap<String, OnmsUser> users = new HashMap<String, OnmsUser>();
@@ -139,6 +155,10 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
     /**
      * Parses the groups.xml file into mapping roles to users of that role
      * through group membership.
+     *
+     * @return the map
+     * @throws DataRetrievalFailureException
+     *             the data retrieval failure exception
      */
     private Map<String, LinkedList<String>> parseGroupRoles() throws DataRetrievalFailureException {
         long lastModified = new File(m_groupsConfigurationFile).lastModified();
@@ -179,6 +199,9 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * Parses the magic-users.properties file into two mappings: from magic
      * username to password, and from magic role to authorized users of that
      * role.
+     *
+     * @throws DataRetrievalFailureException
+     *             the data retrieval failure exception
      */
     private void parseMagicUsers() throws DataRetrievalFailureException {
         HashMap<String, OnmsUser> magicUsers = new HashMap<String, OnmsUser>();
@@ -274,6 +297,15 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         m_roles = roles;
     }
 
+    /**
+     * Gets the authority list from role list.
+     *
+     * @param roleList
+     *            the role list
+     * @param roleAddDefaultMap
+     *            the role add default map
+     * @return the authority list from role list
+     */
     private Collection<? extends GrantedAuthority> getAuthorityListFromRoleList(LinkedList<String> roleList,
             Map<String, Boolean> roleAddDefaultMap) {
         boolean addToDefaultGroup = false;
@@ -301,6 +333,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getAuthoritiesByUsername
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -326,6 +359,8 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * until the file changes again. Instead, when we see the file changes, we
      * continue parsing attempts until the parsing succeeds.
      * </p>
+     *
+     * @return true, if is users parse necessary
      */
     private boolean isUsersParseNecessary() {
         if (m_users == null) {
@@ -346,6 +381,8 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * until the file changes again. Instead, when we see the file changes, we
      * continue parsing attempts until the parsing succeeds.
      * </p>
+     *
+     * @return true, if is groups parse necessary
      */
     private boolean isGroupsParseNecessary() {
         if (m_groupsLastModified != new File(m_groupsConfigurationFile).lastModified()) {
@@ -366,6 +403,8 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * until the file changes again. Instead, when we see the file changes, we
      * continue parsing attempts until the parsing succeeds.
      * </p>
+     *
+     * @return true, if is magic users parse necessary
      */
     private boolean isMagicUsersParseNecessary() {
         if (m_magicUsers == null) {
@@ -381,6 +420,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * setUsersConfigurationFile
      * </p>
+     * .
      *
      * @param usersConfigurationFile
      *            a {@link java.lang.String} object.
@@ -394,6 +434,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * setGroupsConfigurationFile
      * </p>
+     * .
      *
      * @param groupsConfigurationFile
      *            a {@link java.lang.String} object.
@@ -407,6 +448,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * setUseGroups
      * </p>
+     * .
      *
      * @param useGroups
      *            a boolean.
@@ -419,6 +461,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getUsersConfigurationFile
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -430,6 +473,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * setMagicUsersConfigurationFile
      * </p>
+     * .
      *
      * @param magicUsersConfigurationFile
      *            a {@link java.lang.String} object.
@@ -442,6 +486,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getMagicUsersConfigurationFile
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -470,6 +515,9 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         return user;
     }
 
+    /**
+     * Reload if necessary.
+     */
     private void reloadIfNecessary() {
         if (isUsersParseNecessary()) {
             parseUsers();
@@ -484,6 +532,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getMagicUsersLastModified
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -495,6 +544,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getUsersLastModified
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -506,6 +556,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * getGroupsLastModified
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -517,6 +568,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * isUseGroups
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -524,18 +576,40 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
         return m_useGroups;
     }
 
+    /**
+     * Gets the user manager.
+     *
+     * @return the user manager
+     */
     public UserManager getUserManager() {
         return m_userManager;
     }
 
+    /**
+     * Sets the user manager.
+     *
+     * @param mgr
+     *            the new user manager
+     */
     public void setUserManager(final UserManager mgr) {
         m_userManager = mgr;
     }
 
+    /**
+     * Gets the group manager.
+     *
+     * @return the group manager
+     */
     public GroupManager getGroupManager() {
         return m_groupManager;
     }
 
+    /**
+     * Sets the group manager.
+     *
+     * @param mgr
+     *            the new group manager
+     */
     public void setGroupManager(final GroupManager mgr) {
         m_groupManager = mgr;
     }
@@ -544,6 +618,7 @@ public class SpringSecurityUserDaoImpl implements SpringSecurityUserDao, Initial
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

@@ -59,6 +59,8 @@ import org.springframework.web.context.support.ServletRequestHandledEvent;
  */
 public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationListener<ApplicationEvent>,
         InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SecurityAuthenticationEventOnmsEventBuilder.class);
 
     /**
@@ -73,6 +75,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
      */
     public static final String FAILURE_UEI = "uei.opennms.org/internal/authentication/failure";
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
     /** {@inheritDoc} */
@@ -125,6 +128,15 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
 
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @param authEvent
+     *            the auth event
+     * @return the event builder
+     */
     private EventBuilder createEvent(String uei, AbstractAuthenticationEvent authEvent) {
         EventBuilder builder = new EventBuilder(uei, "OpenNMS.WebUI");
         builder.setTime(new Date(authEvent.getTimestamp()));
@@ -141,6 +153,12 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
         return builder;
     }
 
+    /**
+     * Send event.
+     *
+     * @param onmsEvent
+     *            the onms event
+     */
     private void sendEvent(Event onmsEvent) {
         try {
             m_eventProxy.send(onmsEvent);
@@ -157,6 +175,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param eventProxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
@@ -169,6 +188,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

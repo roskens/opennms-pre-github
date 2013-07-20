@@ -53,6 +53,8 @@ import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.web.FilterChainProxy;
 
 /**
+ * The Class LdapAuthTest.
+ *
  * @author brozow
  */
 /*
@@ -64,45 +66,76 @@ import org.springframework.security.web.FilterChainProxy;
 public class LdapAuthTest implements InitializingBean {
 
     /**
+     * The Class AccesAnticipator.
+     *
      * @author brozow
      */
     private static class AccesAnticipator implements FilterChain {
+
+        /** The m_called. */
         private boolean m_called = false;
 
+        /* (non-Javadoc)
+         * @see javax.servlet.FilterChain#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse)
+         */
         @Override
         public void doFilter(ServletRequest arg0, ServletResponse arg1) throws IOException, ServletException {
             m_called = true;
         }
 
+        /**
+         * Assert access denied.
+         */
         public void assertAccessDenied() {
             assertFalse("Expected access to be denied", m_called);
         }
 
+        /**
+         * Assert access allowed.
+         */
         public void assertAccessAllowed() {
             assertTrue("Expected access to be allowed", m_called);
         }
     }
 
+    /** The m_auth filter chain. */
     @Autowired
     FilterChainProxy m_authFilterChain;
 
+    /** The m_servlet context. */
     MockServletContext m_servletContext;
 
+    /** The m_chain. */
     AccesAnticipator m_chain = new AccesAnticipator();
 
+    /** The m_context path. */
     String m_contextPath = "/opennms";
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_servletContext = new MockServletContext();
         m_servletContext.setContextPath(m_contextPath);
     }
 
+    /**
+     * Test no auth.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     @Ignore
     public void testNoAuth() throws IOException, ServletException {
@@ -112,6 +145,14 @@ public class LdapAuthTest implements InitializingBean {
         assertAccessDenied(request);
     }
 
+    /**
+     * Test basic auth.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     @Ignore
     public void testBasicAuth() throws IOException, ServletException {
@@ -122,6 +163,14 @@ public class LdapAuthTest implements InitializingBean {
 
     }
 
+    /**
+     * Test basic auth invalid password.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ServletException
+     *             the servlet exception
+     */
     @Test
     @Ignore
     public void testBasicAuthInvalidPassword() throws IOException, ServletException {
@@ -133,9 +182,14 @@ public class LdapAuthTest implements InitializingBean {
     }
 
     /**
+     * Assert access allowed.
+     *
      * @param request
+     *            the request
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws ServletException
+     *             the servlet exception
      */
     private void assertAccessAllowed(MockHttpServletRequest request) throws IOException, ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -147,9 +201,14 @@ public class LdapAuthTest implements InitializingBean {
     }
 
     /**
+     * Assert access denied.
+     *
      * @param request
+     *            the request
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws ServletException
+     *             the servlet exception
      */
     private void assertAccessDenied(MockHttpServletRequest request) throws IOException, ServletException {
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -160,6 +219,15 @@ public class LdapAuthTest implements InitializingBean {
         m_chain.assertAccessDenied();
     }
 
+    /**
+     * Creates the request.
+     *
+     * @param requestType
+     *            the request type
+     * @param urlPath
+     *            the url path
+     * @return the mock http servlet request
+     */
     protected MockHttpServletRequest createRequest(String requestType, String urlPath) {
         MockHttpServletRequest request = new MockHttpServletRequest(m_servletContext, requestType, m_contextPath
                 + urlPath);
@@ -168,6 +236,21 @@ public class LdapAuthTest implements InitializingBean {
         return request;
     }
 
+    /**
+     * Creates the request.
+     *
+     * @param requestType
+     *            the request type
+     * @param urlPath
+     *            the url path
+     * @param user
+     *            the user
+     * @param passwd
+     *            the passwd
+     * @return the mock http servlet request
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     private MockHttpServletRequest createRequest(String requestType, String urlPath, String user, String passwd)
             throws UnsupportedEncodingException {
         MockHttpServletRequest request = createRequest(requestType, urlPath);

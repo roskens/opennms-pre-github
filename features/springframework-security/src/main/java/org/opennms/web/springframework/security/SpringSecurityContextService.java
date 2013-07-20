@@ -36,24 +36,42 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * The Class SpringSecurityContextService.
+ */
 public class SpringSecurityContextService implements SecurityContextService {
 
+    /** The m_context. */
     private SecurityContext m_context;
 
+    /**
+     * Instantiates a new spring security context service.
+     */
     public SpringSecurityContextService() {
         this.m_context = SecurityContextHolder.getContext();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.api.SecurityContextService#getUsername()
+     */
     @Override
     public String getUsername() {
         return getUserDetails().getUsername();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.api.SecurityContextService#getPassword()
+     */
     @Override
     public String getPassword() {
         return getUserDetails().getPassword();
     }
 
+    /**
+     * Gets the user details.
+     *
+     * @return the user details
+     */
     private UserDetails getUserDetails() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -63,6 +81,9 @@ public class SpringSecurityContextService implements SecurityContextService {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.api.SecurityContextService#hasRole(java.lang.String)
+     */
     @Override
     public boolean hasRole(String role) {
         boolean hasRole = false;
@@ -77,6 +98,9 @@ public class SpringSecurityContextService implements SecurityContextService {
         return hasRole;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.web.api.SecurityContextService#isAuthenticated()
+     */
     @Override
     public boolean isAuthenticated() {
         return this.m_context.getAuthentication().isAuthenticated();
@@ -84,7 +108,7 @@ public class SpringSecurityContextService implements SecurityContextService {
 
     /**
      * Check if the currently logged in user is present in authorities of
-     * current user
+     * current user.
      *
      * @param authorities
      *            - all assigned authorities

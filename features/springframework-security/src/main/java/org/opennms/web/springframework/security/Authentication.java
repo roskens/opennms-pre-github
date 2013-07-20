@@ -38,22 +38,32 @@ import java.util.Map;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public final class Authentication extends Object {
+
+    /** The Constant ROLE_USER. */
     public static final String ROLE_USER = "ROLE_USER";
 
+    /** The Constant ROLE_ADMIN. */
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
+    /** The Constant ROLE_READONLY. */
     public static final String ROLE_READONLY = "ROLE_READONLY";
 
+    /** The Constant ROLE_DASHBOARD. */
     public static final String ROLE_DASHBOARD = "ROLE_DASHBOARD";
 
+    /** The Constant ROLE_RTC. */
     public static final String ROLE_RTC = "ROLE_RTC";
 
+    /** The Constant ROLE_PROVISION. */
     public static final String ROLE_PROVISION = "ROLE_PROVISION";
 
+    /** The Constant ROLE_REMOTING. */
     public static final String ROLE_REMOTING = "ROLE_REMOTING";
 
+    /** The Constant ROLE_REST. */
     public static final String ROLE_REST = "ROLE_REST";
 
+    /** The s_old to new map. */
     private static Map<String, String> s_oldToNewMap = new HashMap<String, String>();
 
     static {
@@ -77,6 +87,7 @@ public final class Authentication extends Object {
      * <p>
      * getSpringSecuirtyRoleFromOldRoleName
      * </p>
+     * .
      *
      * @param oldRole
      *            a {@link java.lang.String} object.

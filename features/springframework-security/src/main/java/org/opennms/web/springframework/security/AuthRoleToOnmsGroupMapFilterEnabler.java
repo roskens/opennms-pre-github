@@ -63,21 +63,41 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
 
+    /** The m_filter manager. */
     private FilterManager m_filterManager;
 
+    /** The role to onms group map. */
     private Map<String, List<String>> roleToOnmsGroupMap = new HashMap<String, List<String>>();
 
+    /** The m_context service. */
     private SecurityContextService m_contextService;
 
+    /**
+     * Gets the context service.
+     *
+     * @return the context service
+     */
     public SecurityContextService getContextService() {
         return m_contextService;
     }
 
+    /**
+     * Sets the context service.
+     *
+     * @param contextService
+     *            the new context service
+     */
     @Autowired
     public void setContextService(SecurityContextService contextService) {
         m_contextService = contextService;
     }
 
+    /**
+     * Sets the role to onms group map.
+     *
+     * @param roleToOnmsGroupMap
+     *            the role to onms group map
+     */
     public void setRoleToOnmsGroupMap(Map<String, List<String>> roleToOnmsGroupMap) {
         this.roleToOnmsGroupMap = roleToOnmsGroupMap;
     }
@@ -86,6 +106,7 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
      * <p>
      * setFilterManager
      * </p>
+     * .
      *
      * @param filterManager
      *            a {@link org.opennms.netmgt.model.FilterManager} object.
@@ -139,14 +160,27 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
 
     }
 
+    /**
+     * User has authority.
+     *
+     * @param role
+     *            the role
+     * @return true, if successful
+     */
     private boolean userHasAuthority(String role) {
         return getContextService().hasRole(role);
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
     @Override
     public void destroy() {
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     @Override
     public void init(FilterConfig arg0) throws ServletException {
     }

@@ -50,14 +50,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class AuthFilterEnabler implements Filter {
 
+    /** The m_filter manager. */
     private FilterManager m_filterManager;
 
+    /** The m_group dao. */
     private GroupDao m_groupDao;
 
     /**
      * <p>
      * setFilterManager
      * </p>
+     * .
      *
      * @param filterManager
      *            a {@link org.opennms.netmgt.model.FilterManager} object.
@@ -70,6 +73,7 @@ public class AuthFilterEnabler implements Filter {
      * <p>
      * setGroupDao
      * </p>
+     * .
      *
      * @param groupDao
      *            a {@link org.opennms.netmgt.config.GroupDao} object.
@@ -116,10 +120,16 @@ public class AuthFilterEnabler implements Filter {
 
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
     @Override
     public void destroy() {
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }

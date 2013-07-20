@@ -55,10 +55,14 @@ import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
  */
 public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPopulator implements
         LdapAuthoritiesPopulator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UserGroupLdapAuthoritiesPopulator.class);
 
+    /** The search controls. */
     private final SearchControls searchControls = new SearchControls();
 
+    /** The ldap template. */
     private final SpringSecurityLdapTemplate ldapTemplate;
 
     /**
@@ -76,6 +80,14 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
      */
     private Map<String, List<String>> groupToRoleMap = new HashMap<String, List<String>>();
 
+    /**
+     * Instantiates a new user group ldap authorities populator.
+     *
+     * @param contextSource
+     *            the context source
+     * @param groupSearchBase
+     *            the group search base
+     */
     public UserGroupLdapAuthoritiesPopulator(ContextSource contextSource, String groupSearchBase) {
         super(contextSource, groupSearchBase);
         this.ldapTemplate = new SpringSecurityLdapTemplate(contextSource);
@@ -86,6 +98,10 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
      * This function returns a list of roles from the given set of groups
      * based on the value of the <code>groupToRoleMap</code> property.
      *
+     * @param user
+     *            the user
+     * @param username
+     *            the username
      * @return a {@link java.util.Set} object.
      */
     @Override
@@ -119,12 +135,18 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
         return authorities;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator#setGroupRoleAttribute(java.lang.String)
+     */
     @Override
     public void setGroupRoleAttribute(final String groupRoleAttribute) {
         super.setGroupRoleAttribute(groupRoleAttribute);
         this.groupRoleAttribute = groupRoleAttribute;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator#setGroupSearchFilter(java.lang.String)
+     */
     @Override
     public void setGroupSearchFilter(final String groupSearchFilter) {
         super.setGroupSearchFilter(groupSearchFilter);
@@ -143,22 +165,28 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
      * <pre>
      * <code>
      * &lt;property xmlns="http://www.springframework.org/schema/beans" name="groupToRoleMap"&gt;
-     *   &lt;map&gt;
-     *     &lt;entry&gt;
-     *       &lt;key&gt;&lt;value&gt;CompanyX_OpenNMS_User_Group&lt;/value&gt;&lt;/key&gt;
-     *       &lt;list&gt;
-     *         &lt;value&gt;ROLE_USER&lt;/value&gt;
-     *       &lt;/list&gt;
-     *     &lt;/entry&gt;
-     *   &lt;/map&gt;
+     * &lt;map&gt;
+     * &lt;entry&gt;
+     * &lt;key&gt;&lt;value&gt;CompanyX_OpenNMS_User_Group&lt;/value&gt;&lt;/key&gt;
+     * &lt;list&gt;
+     * &lt;value&gt;ROLE_USER&lt;/value&gt;
+     * &lt;/list&gt;
+     * &lt;/entry&gt;
+     * &lt;/map&gt;
      * &lt;/property&gt;
      * </code>
      * </pre>
+     *
+     * @param groupToRoleMap
+     *            the group to role map
      */
     public void setGroupToRoleMap(final Map<String, List<String>> groupToRoleMap) {
         this.groupToRoleMap = groupToRoleMap;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.ldap.userdetails.DefaultLdapAuthoritiesPopulator#setSearchSubtree(boolean)
+     */
     @Override
     public void setSearchSubtree(boolean searchSubtree) {
         super.setSearchSubtree(searchSubtree);

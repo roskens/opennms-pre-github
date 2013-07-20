@@ -54,6 +54,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class AuthenticationIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -66,17 +69,25 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class AuthenticationIntegrationTest implements InitializingBean {
 
+    /** The m_user manager. */
     @Autowired
     private UserManager m_userManager;
 
+    /** The m_provider. */
     @Autowired
     private AuthenticationProvider m_provider;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true, "DEBUG");
     }
 
+    /**
+     * Test authenticate admin.
+     */
     @Test
     public void testAuthenticateAdmin() {
         org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -92,6 +103,9 @@ public class AuthenticationIntegrationTest implements InitializingBean {
         assertEquals("GrantedAuthorities two name", Authentication.ROLE_ADMIN, itr.next().getAuthority());
     }
 
+    /**
+     * Test authenticate rtc.
+     */
     @Test
     public void testAuthenticateRtc() {
         org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -106,6 +120,12 @@ public class AuthenticationIntegrationTest implements InitializingBean {
                      authorities.iterator().next().getAuthority());
     }
 
+    /**
+     * Test authenticate temp user.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAuthenticateTempUser() throws Exception {
         OnmsUser user = new OnmsUser("tempuser");
@@ -126,6 +146,9 @@ public class AuthenticationIntegrationTest implements InitializingBean {
                      authorities.iterator().next().getAuthority());
     }
 
+    /**
+     * Test authenticate bad username.
+     */
     @Test
     public void testAuthenticateBadUsername() {
         org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -142,6 +165,9 @@ public class AuthenticationIntegrationTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test authenticate bad password.
+     */
     @Test
     public void testAuthenticateBadPassword() {
         org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -158,6 +184,9 @@ public class AuthenticationIntegrationTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

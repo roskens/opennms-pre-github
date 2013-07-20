@@ -56,11 +56,23 @@ import org.springframework.security.authentication.event.AuthenticationSuccessEv
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
+/**
+ * The Class SecurityAuthenticationEventOnmsEventBuilderTest.
+ */
 public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy = m_mocks.createMock(EventProxy.class);
 
+    /**
+     * Test authentication success event with everything.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAuthenticationSuccessEventWithEverything() throws Exception {
         String userName = "bar";
         String ip = "1.2.3.4";
@@ -99,6 +111,12 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test authentication failure event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAuthenticationFailureEvent() throws Exception {
         String userName = "bar";
         String ip = "1.2.3.4";
@@ -144,6 +162,9 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
 
     /**
      * This shouldn't trigger an OpenNMS event.
+     *
+     * @throws Exception
+     *             the exception
      */
     public void testRandomEvent() throws Exception {
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
@@ -155,13 +176,27 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * The Class EventEquals.
+     */
     public static class EventEquals implements IArgumentMatcher {
+
+        /** The m_expected. */
         private Event m_expected;
 
+        /**
+         * Instantiates a new event equals.
+         *
+         * @param expected
+         *            the expected
+         */
         public EventEquals(Event expected) {
             m_expected = expected;
         }
 
+        /* (non-Javadoc)
+         * @see org.easymock.IArgumentMatcher#matches(java.lang.Object)
+         */
         @Override
         public boolean matches(Object actual) {
             if (!(actual instanceof Event)) {
@@ -172,6 +207,9 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             return MockEventUtil.eventsMatchDeep(m_expected, actualEvent);
         }
 
+        /* (non-Javadoc)
+         * @see org.easymock.IArgumentMatcher#appendTo(java.lang.StringBuffer)
+         */
         @Override
         public void appendTo(StringBuffer buffer) {
             buffer.append("eqEvent(");
@@ -179,24 +217,48 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             buffer.append(")");
         }
 
+        /**
+         * Eq event.
+         *
+         * @param in
+         *            the in
+         * @return the event
+         */
         public static Event eqEvent(Event in) {
             EasyMock.reportMatcher(new EventEquals(in));
             return null;
         }
     }
 
+    /**
+     * The Class TestingDetailsAuthenticationToken.
+     */
     public static class TestingDetailsAuthenticationToken extends AbstractAuthenticationToken {
-        /**
-		 *
-		 */
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -6197934198093164407L;
 
+        /** The m_principal. */
         private Object m_principal;
 
+        /** The m_credentials. */
         private Object m_credentials;
 
+        /** The m_details. */
         private Object m_details;
 
+        /**
+         * Instantiates a new testing details authentication token.
+         *
+         * @param principal
+         *            the principal
+         * @param credentials
+         *            the credentials
+         * @param authorities
+         *            the authorities
+         * @param details
+         *            the details
+         */
         public TestingDetailsAuthenticationToken(Object principal, Object credentials, GrantedAuthority[] authorities,
                 Object details) {
             super(Arrays.asList(authorities));
@@ -205,29 +267,45 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             m_details = details;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.security.authentication.AbstractAuthenticationToken#getDetails()
+         */
         @Override
         public Object getDetails() {
             return m_details;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.security.core.Authentication#getCredentials()
+         */
         @Override
         public Object getCredentials() {
             return m_credentials;
         }
 
+        /* (non-Javadoc)
+         * @see org.springframework.security.core.Authentication#getPrincipal()
+         */
         @Override
         public Object getPrincipal() {
             return m_principal;
         }
     }
 
+    /**
+     * The Class TestApplicationEvent.
+     */
     public static class TestApplicationEvent extends ApplicationEvent {
 
-        /**
-		 *
-		 */
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 7573808524408766331L;
 
+        /**
+         * Instantiates a new test application event.
+         *
+         * @param obj
+         *            the obj
+         */
         public TestApplicationEvent(Object obj) {
             super(obj);
         }

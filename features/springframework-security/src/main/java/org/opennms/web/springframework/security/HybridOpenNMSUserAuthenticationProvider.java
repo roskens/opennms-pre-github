@@ -41,35 +41,70 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.Assert;
 
+/**
+ * The Class HybridOpenNMSUserAuthenticationProvider.
+ */
 public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationProvider, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HybridOpenNMSUserAuthenticationProvider.class);
 
+    /** The m_user manager. */
     private UserManager m_userManager = null;
 
+    /** The m_user dao. */
     private SpringSecurityUserDao m_userDao = null;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_userManager);
         Assert.notNull(m_userDao);
     }
 
+    /**
+     * Gets the user manager.
+     *
+     * @return the user manager
+     */
     public UserManager getUserManager() {
         return m_userManager;
     }
 
+    /**
+     * Sets the user manager.
+     *
+     * @param userManager
+     *            the new user manager
+     */
     public void setUserManager(final UserManager userManager) {
         m_userManager = userManager;
     }
 
+    /**
+     * Gets the user dao.
+     *
+     * @return the user dao
+     */
     public SpringSecurityUserDao getUserDao() {
         return m_userDao;
     }
 
+    /**
+     * Sets the user dao.
+     *
+     * @param userDao
+     *            the new user dao
+     */
     public void setUserDao(final SpringSecurityUserDao userDao) {
         m_userDao = userDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+     */
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String authUsername = authentication.getPrincipal().toString();
@@ -99,6 +134,18 @@ public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationPr
         return new OnmsAuthenticationToken(user);
     }
 
+    /**
+     * Check user password.
+     *
+     * @param authUsername
+     *            the auth username
+     * @param authPassword
+     *            the auth password
+     * @param user
+     *            the user
+     * @throws AuthenticationException
+     *             the authentication exception
+     */
     protected void checkUserPassword(final String authUsername, final String authPassword, final OnmsUser user)
             throws AuthenticationException {
         final String existingPassword = user.getPassword();
@@ -121,6 +168,9 @@ public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationPr
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.authentication.AuthenticationProvider#supports(java.lang.Class)
+     */
     @Override
     public boolean supports(final Class<?> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));

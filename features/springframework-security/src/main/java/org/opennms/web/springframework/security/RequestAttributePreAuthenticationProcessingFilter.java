@@ -47,8 +47,10 @@ import org.springframework.util.Assert;
  */
 public class RequestAttributePreAuthenticationProcessingFilter extends AbstractPreAuthenticatedProcessingFilter {
 
+    /** The m_principal request attribute. */
     private String m_principalRequestAttribute = "REMOTE_USER";
 
+    /** The m_credentials request attribute. */
     private String m_credentialsRequestAttribute;
 
     /** {@inheritDoc} */
@@ -81,6 +83,7 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
      * <p>
      * setPrincipalRequestHeader
      * </p>
+     * .
      *
      * @param principalRequestAttribute
      *            a {@link java.lang.String} object.
@@ -94,6 +97,7 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
      * <p>
      * setCredentialsRequestHeader
      * </p>
+     * .
      *
      * @param credentialsRequestAttribute
      *            a {@link java.lang.String} object.

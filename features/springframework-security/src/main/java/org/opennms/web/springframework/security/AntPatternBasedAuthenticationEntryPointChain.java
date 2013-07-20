@@ -43,20 +43,24 @@ import org.springframework.security.web.util.RequestMatcher;
 import org.springframework.util.Assert;
 
 /**
- * PatternBasedAuthenticationEntryPointWrapper
+ * PatternBasedAuthenticationEntryPointWrapper.
  */
 public class AntPatternBasedAuthenticationEntryPointChain implements AuthenticationEntryPoint, InitializingBean {
 
+    /** The m_patterns. */
     private List<String> m_patterns;
 
+    /** The m_matching entry point. */
     private AuthenticationEntryPoint m_matchingEntryPoint;
 
+    /** The m_non matching entry point. */
     private AuthenticationEntryPoint m_nonMatchingEntryPoint;
 
     /**
      * <p>
      * setPatterns
      * </p>
+     * .
      *
      * @param patterns
      *            the patterns to set
@@ -69,6 +73,7 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
      * <p>
      * setMatchingEntryPoint
      * </p>
+     * .
      *
      * @param matchedEntryPoint
      *            the matchedEntryPoint to set
@@ -81,6 +86,7 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
      * <p>
      * setNonMatchingEntryPoint
      * </p>
+     * .
      *
      * @param unmatchedEntryPoint
      *            the unmatchedEntryPoint to set
@@ -93,9 +99,10 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -114,6 +121,13 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
         entryPoint.commence(request, response, authException);
     }
 
+    /**
+     * Gets the appropriate entry point.
+     *
+     * @param request
+     *            the request
+     * @return the appropriate entry point
+     */
     private AuthenticationEntryPoint getAppropriateEntryPoint(HttpServletRequest request) {
         for (String pattern : m_patterns) {
             RequestMatcher matcher = new AntPathRequestMatcher(pattern);

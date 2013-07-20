@@ -35,9 +35,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 
+/**
+ * The Class OpenNMSUserDetailsService.
+ */
 public class OpenNMSUserDetailsService implements UserDetailsService, InitializingBean {
+
+    /** The m_user dao. */
     private SpringSecurityUserDao m_userDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_userDao);
@@ -55,11 +63,22 @@ public class OpenNMSUserDetailsService implements UserDetailsService, Initializi
         return userDetails;
     }
 
+    /**
+     * Sets the user dao.
+     *
+     * @param userDao
+     *            the new user dao
+     */
     public void setUserDao(final SpringSecurityUserDao userDao) {
         m_userDao = userDao;
 
     }
 
+    /**
+     * Gets the user dao.
+     *
+     * @return the user dao
+     */
     public SpringSecurityUserDao getUserDao() {
         return m_userDao;
     }

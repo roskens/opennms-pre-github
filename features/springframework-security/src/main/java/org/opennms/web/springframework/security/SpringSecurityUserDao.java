@@ -38,12 +38,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
  * </p>
  */
 public interface SpringSecurityUserDao {
+
+    /** The Constant ROLE_USER. */
     public static final GrantedAuthority ROLE_USER = new SimpleGrantedAuthority(Authentication.ROLE_USER);
 
     /**
      * <p>
      * getByUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.

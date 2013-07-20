@@ -60,6 +60,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SpringSecurityUserDaoImplTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -72,30 +75,44 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class SpringSecurityUserDaoImplTest extends TestCase implements InitializingBean {
 
+    /** The Constant MAGIC_USERS_FILE. */
     private static final String MAGIC_USERS_FILE = "src/test/resources/org/opennms/web/springframework/security/magic-users.properties";
 
+    /** The Constant USERS_XML_FILE. */
     private static final String USERS_XML_FILE = "src/test/resources/org/opennms/web/springframework/security/users.xml";
 
+    /** The m_spring security dao. */
     @Autowired
     SpringSecurityUserDao m_springSecurityDao;
 
+    /** The m_user manager. */
     @Autowired
     UserManager m_userManager;
 
+    /** The m_group manager. */
     @Autowired
     GroupManager m_groupManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() {
         MockLogAppender.setupLogging(true, "DEBUG");
     }
 
+    /**
+     * Test get by username admin.
+     */
     @Test
     public void testGetByUsernameAdmin() {
         OnmsUser user = ((SpringSecurityUserDao) m_springSecurityDao).getByUsername("admin");
@@ -113,11 +130,17 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 2 name", Authentication.ROLE_ADMIN, itr.next().getAuthority());
     }
 
+    /**
+     * Test get by username bogus.
+     */
     @Test
     public void testGetByUsernameBogus() {
         assertNull("user object should be null", m_springSecurityDao.getByUsername("bogus"));
     }
 
+    /**
+     * Test get by username rtc.
+     */
     @Test
     public void testGetByUsernameRtc() {
         OnmsUser user = m_springSecurityDao.getByUsername("rtc");
@@ -133,6 +156,12 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 0 name", Authentication.ROLE_RTC, authorities.iterator().next().getAuthority());
     }
 
+    /**
+     * Test get by username temp user.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testGetByUsernameTempUser() throws Exception {
@@ -153,6 +182,12 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 0 name", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
     }
 
+    /**
+     * Test get by username dashboard.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testGetByUsernameDashboard() throws Exception {
@@ -173,6 +208,12 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         assertEquals("authorities 0 name", Authentication.ROLE_DASHBOARD, authorities.iterator().next().getAuthority());
     }
 
+    /**
+     * Test magic users reload.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMagicUsersReload() throws Exception {
@@ -243,9 +284,8 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
      * reloaded</li>
      * </ol>
      *
-     * @param file
-     * @param content
-     * @throws IOException
+     * @throws Exception
+     *             the exception
      */
     @Test
     @DirtiesContext
@@ -312,20 +352,55 @@ public class SpringSecurityUserDaoImplTest extends TestCase implements Initializ
         }
     }
 
+    /**
+     * Write temporary file.
+     *
+     * @param file
+     *            the file
+     * @param content
+     *            the content
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void writeTemporaryFile(File file, String content) throws IOException {
         Writer writer = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         writer.write(content);
         writer.close();
     }
 
+    /**
+     * Gets the users xml contents.
+     *
+     * @return the users xml contents
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getUsersXmlContents() throws IOException {
         return getFileContents(new File(USERS_XML_FILE));
     }
 
+    /**
+     * Gets the magic users contents.
+     *
+     * @return the magic users contents
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getMagicUsersContents() throws IOException {
         return getFileContents(new File(MAGIC_USERS_FILE));
     }
 
+    /**
+     * Gets the file contents.
+     *
+     * @param file
+     *            the file
+     * @return the file contents
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String getFileContents(File file) throws FileNotFoundException, IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 

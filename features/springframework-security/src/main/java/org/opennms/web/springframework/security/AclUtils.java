@@ -42,7 +42,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * AclUtils
+ * AclUtils.
  */
 public abstract class AclUtils {
 
@@ -50,7 +50,10 @@ public abstract class AclUtils {
      * <p>
      * shouldFilter
      * </p>
+     * .
      *
+     * @param authorities
+     *            the authorities
      * @return a boolean.
      */
     public static boolean shouldFilter(Collection<? extends GrantedAuthority> authorities) {
@@ -63,7 +66,18 @@ public abstract class AclUtils {
         return System.getProperty("org.opennms.web.aclsEnabled", "false").equalsIgnoreCase("true");
     }
 
+    /**
+     * The Interface NodeAccessChecker.
+     */
     public static interface NodeAccessChecker {
+
+        /**
+         * Checks if is node accessible.
+         *
+         * @param nodeId
+         *            the node id
+         * @return true, if is node accessible
+         */
         public boolean isNodeAccessible(int nodeId);
     }
 
@@ -71,6 +85,7 @@ public abstract class AclUtils {
      * <p>
      * getNodeAccessChecker
      * </p>
+     * .
      *
      * @param sc
      *            a {@link javax.servlet.ServletContext} object.
@@ -92,12 +107,15 @@ public abstract class AclUtils {
     }
 
     /**
-     * NonFilteringNodeAccessChecker
+     * NonFilteringNodeAccessChecker.
      *
      * @author brozow
      */
     private static class NonFilteringNodeAccessChecker implements NodeAccessChecker {
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.springframework.security.AclUtils.NodeAccessChecker#isNodeAccessible(int)
+         */
         @Override
         public boolean isNodeAccessible(int nodeId) {
             return true;
@@ -105,13 +123,27 @@ public abstract class AclUtils {
 
     }
 
+    /**
+     * The Class SetBasedNodeAccessChecker.
+     */
     private static class SetBasedNodeAccessChecker implements NodeAccessChecker {
+
+        /** The m_node ids. */
         private Set<Integer> m_nodeIds;
 
+        /**
+         * Instantiates a new sets the based node access checker.
+         *
+         * @param nodeIds
+         *            the node ids
+         */
         public SetBasedNodeAccessChecker(Collection<Integer> nodeIds) {
             m_nodeIds = nodeIds == null ? Collections.<Integer> emptySet() : new HashSet<Integer>(nodeIds);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.web.springframework.security.AclUtils.NodeAccessChecker#isNodeAccessible(int)
+         */
         @Override
         public boolean isNodeAccessible(int nodeId) {
             return m_nodeIds.contains(nodeId);
