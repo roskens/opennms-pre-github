@@ -57,6 +57,7 @@ public class TcaCollectionAttributeType implements CollectionAttributeType {
     /** The Attribute Group Type. */
     private final AttributeGroupType m_groupType;
 
+    /** The m_attribute object id. */
     private final SnmpObjId m_attributeObjectId;
 
     /** The m_name. */
@@ -67,6 +68,8 @@ public class TcaCollectionAttributeType implements CollectionAttributeType {
      *
      * @param groupType
      *            the group type
+     * @param atributeObjectId
+     *            the atribute object id
      * @param name
      *            the name
      */
@@ -118,6 +121,11 @@ public class TcaCollectionAttributeType implements CollectionAttributeType {
         persister.persistNumericAttribute(attribute);
     }
 
+    /**
+     * Gets the attribute object id.
+     *
+     * @return the attribute object id
+     */
     public SnmpObjId getAttributeObjectId() {
         return m_attributeObjectId;
     }

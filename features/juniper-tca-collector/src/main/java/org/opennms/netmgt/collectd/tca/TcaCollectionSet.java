@@ -56,6 +56,8 @@ import org.slf4j.LoggerFactory;
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollectionSet implements CollectionSet {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcaCollectionSet.class);
 
     /** The Constant LAST_TIMESTAMP. */

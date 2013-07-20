@@ -50,16 +50,25 @@ public final class TcaDataEntry extends SnmpStore {
             new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_PEER_ADDRESS, ".1.3.6.1.4.1.27091.3.1.6.1.1", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_RAW_DATA, ".1.3.6.1.4.1.27091.3.1.6.1.2", 2), };
 
+    /** The m_instance. */
     private final SnmpInstId m_instance;
 
     /**
      * Instantiates a new TCA data entry.
+     *
+     * @param instance
+     *            the instance
      */
     public TcaDataEntry(SnmpInstId instance) {
         super(tca_elemList);
         m_instance = instance;
     }
 
+    /**
+     * Gets the single instance of TcaDataEntry.
+     *
+     * @return single instance of TcaDataEntry
+     */
     public SnmpInstId getInstance() {
         return m_instance;
     }

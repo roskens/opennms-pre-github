@@ -59,6 +59,8 @@ import org.slf4j.LoggerFactory;
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollector implements ServiceCollector {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcaCollector.class);
 
     /** The service name. */

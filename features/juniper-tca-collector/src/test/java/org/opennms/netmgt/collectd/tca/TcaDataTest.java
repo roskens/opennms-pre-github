@@ -58,14 +58,19 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitSnmpAgent(port = TcaDataTest.TEST_SNMP_PORT, host = TcaDataTest.TEST_IP_ADDRESS, resource = "classpath:juniperTcaSample.properties")
 public class TcaDataTest implements InitializingBean {
 
+    /** The Constant TEST_SNMP_PORT. */
     static final int TEST_SNMP_PORT = 9161;
 
+    /** The Constant TEST_IP_ADDRESS. */
     static final String TEST_IP_ADDRESS = "127.0.0.1";
 
     /** The SNMP peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

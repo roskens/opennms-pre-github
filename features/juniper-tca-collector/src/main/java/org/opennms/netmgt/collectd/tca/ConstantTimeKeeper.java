@@ -46,7 +46,7 @@ public class ConstantTimeKeeper implements TimeKeeper {
     /**
      * Instantiates a new constant time keeper.
      *
-     * @param timestamp
+     * @param timestampInSeconds
      *            the timestamp in seconds
      */
     public ConstantTimeKeeper(long timestampInSeconds) {

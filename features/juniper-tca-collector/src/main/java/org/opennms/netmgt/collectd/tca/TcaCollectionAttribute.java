@@ -152,6 +152,9 @@ public class TcaCollectionAttribute extends AbstractCollectionAttribute implemen
         return "TcaCollectionAttribute " + m_name + "=" + m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "TCA_" + m_attribType.getAttributeObjectId() + '_' + getName();

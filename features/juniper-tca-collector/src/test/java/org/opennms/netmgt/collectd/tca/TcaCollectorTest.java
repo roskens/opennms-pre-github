@@ -120,9 +120,13 @@ public class TcaCollectorTest implements InitializingBean {
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_config dao. */
     @Autowired
     private TcaDataCollectionConfigDao m_configDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
