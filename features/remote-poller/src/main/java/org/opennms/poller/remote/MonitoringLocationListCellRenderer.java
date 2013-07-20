@@ -45,9 +45,7 @@ import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
  */
 public class MonitoringLocationListCellRenderer extends DefaultListCellRenderer {
 
-    /**
-	 *
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6166605236770433826L;
 
     /** {@inheritDoc} */

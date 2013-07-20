@@ -28,6 +28,15 @@
 
 package org.opennms.poller.remote;
 
+/**
+ * The Interface SimpleBackEnd.
+ */
 public interface SimpleBackEnd {
+
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
     public int getCount();
 }

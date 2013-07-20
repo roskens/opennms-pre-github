@@ -46,21 +46,36 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SimpleBackEndTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/applicationContext-client.xml")
 public class SimpleBackEndTest {
+
+    /** The m_no auth back end. */
     @Resource(name = "noAuthBean")
     private SimpleBackEnd m_noAuthBackEnd;
 
+    /** The m_auth back end. */
     @Resource(name = "authBean")
     private SimpleBackEnd m_authBackEnd;
 
+    /**
+     * Setup.
+     */
     @BeforeClass
     public static void setup() {
         MockLogAppender.setupLogging();
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
     }
 
+    /**
+     * Test backend.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, webapps = @Webapp(context = "/", path = "src/test/resources/simple-test-webapp"))
     public void testBackend() throws Exception {
@@ -69,6 +84,12 @@ public class SimpleBackEndTest {
         assertEquals("second should be 1", 1, m_noAuthBackEnd.getCount());
     }
 
+    /**
+     * Test backend with basic auth.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, basicAuth = true, webapps = @Webapp(context = "/", path = "src/test/resources/simple-test-webapp"))
     public void testBackendWithBasicAuth() throws Exception {
@@ -79,6 +100,12 @@ public class SimpleBackEndTest {
         assertEquals("second should be 1", 1, m_authBackEnd.getCount());
     }
 
+    /**
+     * Test backend with basic auth in different thread.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, basicAuth = true, webapps = @Webapp(context = "/", path = "src/test/resources/simple-test-webapp"))
     public void testBackendWithBasicAuthInDifferentThread() throws Exception {

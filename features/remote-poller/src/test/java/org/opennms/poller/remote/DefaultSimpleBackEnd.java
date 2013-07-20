@@ -28,9 +28,17 @@
 
 package org.opennms.poller.remote;
 
+/**
+ * The Class DefaultSimpleBackEnd.
+ */
 public class DefaultSimpleBackEnd implements SimpleBackEnd {
+
+    /** The m_count. */
     private int m_count = 0;
 
+    /* (non-Javadoc)
+     * @see org.opennms.poller.remote.SimpleBackEnd#getCount()
+     */
     @Override
     public int getCount() {
         return m_count++;

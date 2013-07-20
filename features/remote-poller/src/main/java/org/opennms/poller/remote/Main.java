@@ -60,30 +60,50 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class Main {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
 
+    /** The m_args. */
     String[] m_args;
 
+    /** The m_context. */
     ClassPathXmlApplicationContext m_context;
 
+    /** The m_front end. */
     PollerFrontEnd m_frontEnd;
 
+    /** The m_uri. */
     URI m_uri;
 
+    /** The m_location name. */
     String m_locationName;
 
+    /** The m_username. */
     String m_username = null;
 
+    /** The m_password. */
     String m_password = null;
 
+    /** The m_poller home. */
     String m_pollerHome = null;
 
+    /** The m_shutting down. */
     boolean m_shuttingDown = false;
 
+    /** The m_gui. */
     boolean m_gui = false;
 
+    /** The m_cl. */
     CommandLine m_cl;
 
+    /**
+     * Instantiates a new main.
+     *
+     * @param args
+     *            the args
+     * @throws Exception
+     *             the exception
+     */
     private Main(String[] args) throws Exception {
         m_args = args;
         m_pollerHome = System.getProperty("poller.home");
@@ -103,9 +123,20 @@ public class Main {
         }
     }
 
+    /**
+     * Initialize logging.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void initializeLogging() throws Exception {
     }
 
+    /**
+     * Gets the authentication info.
+     *
+     * @return the authentication info
+     */
     private void getAuthenticationInfo() {
         if (m_uri == null || m_uri.getScheme() == null) {
             throw new RuntimeException("no URI specified!");
@@ -130,6 +161,11 @@ public class Main {
         }
     }
 
+    /**
+     * Creates the gui.
+     *
+     * @return the groovy gui
+     */
     private GroovyGui createGui() {
         try {
             return (GroovyGui) Class.forName("org.opennms.groovy.poller.remote.ConfigurationGui").newInstance();
@@ -138,6 +174,9 @@ public class Main {
         }
     }
 
+    /**
+     * Run.
+     */
     private void run() {
 
         try {
@@ -164,6 +203,12 @@ public class Main {
 
     }
 
+    /**
+     * Parses the arguments.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     private void parseArguments() throws ParseException {
         Options options = new Options();
 
@@ -217,11 +262,20 @@ public class Main {
         }
     }
 
+    /**
+     * Usage.
+     *
+     * @param o
+     *            the o
+     */
     private void usage(Options o) {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(getClass().getName() + " -u [URL] [options]", o);
     }
 
+    /**
+     * Register shut down hook.
+     */
     private void registerShutDownHook() {
         Thread shutdownHook = new Thread() {
             @Override
@@ -233,6 +287,9 @@ public class Main {
         Runtime.getRuntime().addShutdownHook(shutdownHook);
     }
 
+    /**
+     * Creates the app context.
+     */
     private void createAppContext() {
         File homeDir = new File(System.getProperty("user.home"));
         String homeUrl = homeDir.toURI().toString();
@@ -299,11 +356,12 @@ public class Main {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(String[] args) throws Exception {
         String killSwitchFileName = System.getProperty("opennms.poller.killSwitch.resource");

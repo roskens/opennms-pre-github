@@ -37,14 +37,18 @@ package org.opennms.poller.remote;
  * @version $Id: $
  */
 public class AuthenticationBean {
+
+    /** The m_username. */
     private String m_username;
 
+    /** The m_password. */
     private String m_password;
 
     /**
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -57,6 +61,7 @@ public class AuthenticationBean {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,6 +73,7 @@ public class AuthenticationBean {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -80,6 +86,7 @@ public class AuthenticationBean {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
