@@ -30,32 +30,74 @@ package org.opennms.netmgt.collectd.jdbc;
 
 import java.util.Date;
 
+/**
+ * The Class JdbcGroupState.
+ */
 public class JdbcGroupState {
+
+    /** The available. */
     private boolean available = false;
 
+    /** The last checked. */
     private Date lastChecked;
 
+    /**
+     * Instantiates a new jdbc group state.
+     *
+     * @param isAvailable
+     *            the is available
+     */
     public JdbcGroupState(boolean isAvailable) {
         this(isAvailable, new Date());
     }
 
+    /**
+     * Instantiates a new jdbc group state.
+     *
+     * @param isAvailable
+     *            the is available
+     * @param lastChecked
+     *            the last checked
+     */
     public JdbcGroupState(boolean isAvailable, Date lastChecked) {
         this.available = isAvailable;
         this.lastChecked = lastChecked;
     }
 
+    /**
+     * Checks if is available.
+     *
+     * @return true, if is available
+     */
     public boolean isAvailable() {
         return available;
     }
 
+    /**
+     * Gets the last checked.
+     *
+     * @return the last checked
+     */
     public Date getLastChecked() {
         return lastChecked;
     }
 
+    /**
+     * Sets the last checked.
+     *
+     * @param lastChecked
+     *            the new last checked
+     */
     public void setLastChecked(Date lastChecked) {
         this.lastChecked = lastChecked;
     }
 
+    /**
+     * Sets the available.
+     *
+     * @param available
+     *            the new available
+     */
     public void setAvailable(boolean available) {
         this.available = available;
     }

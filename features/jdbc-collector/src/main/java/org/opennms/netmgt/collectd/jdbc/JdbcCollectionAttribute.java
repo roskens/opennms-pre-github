@@ -34,15 +34,35 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
+/**
+ * The Class JdbcCollectionAttribute.
+ */
 public class JdbcCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
+
+    /** The m_alias. */
     String m_alias;
 
+    /** The m_value. */
     String m_value;
 
+    /** The m_resource. */
     JdbcCollectionResource m_resource;
 
+    /** The m_attrib type. */
     CollectionAttributeType m_attribType;
 
+    /**
+     * Instantiates a new jdbc collection attribute.
+     *
+     * @param resource
+     *            the resource
+     * @param attribType
+     *            the attrib type
+     * @param alias
+     *            the alias
+     * @param value
+     *            the value
+     */
     public JdbcCollectionAttribute(JdbcCollectionResource resource, CollectionAttributeType attribType, String alias,
             String value) {
         m_resource = resource;
@@ -51,46 +71,73 @@ public class JdbcCollectionAttribute extends AbstractCollectionAttribute impleme
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType()
+     */
     @Override
     public CollectionAttributeType getAttributeType() {
         return m_attribType;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getName()
+     */
     @Override
     public String getName() {
         return m_alias;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
+     */
     @Override
     public String getNumericValue() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
+     */
     @Override
     public CollectionResource getResource() {
         return m_resource;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
+     */
     @Override
     public String getStringValue() {
         return m_value; // Should this be null instead?
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+     */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getType()
+     */
     @Override
     public String getType() {
         return m_attribType.getType();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "JdbcCollectionAttribute " + m_alias + "=" + m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "Not supported yet._" + "JDBC_" + getName();

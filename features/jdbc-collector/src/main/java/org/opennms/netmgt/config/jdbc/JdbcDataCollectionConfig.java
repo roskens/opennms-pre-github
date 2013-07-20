@@ -43,48 +43,99 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.opennms.netmgt.model.RrdRepository;
 
+/**
+ * The Class JdbcDataCollectionConfig.
+ */
 @XmlRootElement(name = "jdbc-datacollection-config")
 public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDataCollectionConfig> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7884808717236892997L;
 
+    /** The Constant OF_DATA_COLLECTIONS. */
     private static final JdbcDataCollection[] OF_DATA_COLLECTIONS = new JdbcDataCollection[0];
 
+    /** The m_jdbc data collections. */
     @XmlElement(name = "jdbc-collection")
     private List<JdbcDataCollection> m_jdbcDataCollections = new ArrayList<JdbcDataCollection>();
 
+    /** The m_rrd repository. */
     @XmlAttribute(name = "rrdRepository")
     private String m_rrdRepository;
 
+    /**
+     * Instantiates a new jdbc data collection config.
+     */
     public JdbcDataCollectionConfig() {
 
     }
 
+    /**
+     * Gets the jdbc data collections.
+     *
+     * @return the jdbc data collections
+     */
     @XmlTransient
     public List<JdbcDataCollection> getJdbcDataCollections() {
         return m_jdbcDataCollections;
     }
 
+    /**
+     * Sets the jdbc data collections.
+     *
+     * @param jdbcDataCollections
+     *            the new jdbc data collections
+     */
     public void setJdbcDataCollections(List<JdbcDataCollection> jdbcDataCollections) {
         m_jdbcDataCollections = jdbcDataCollections;
     }
 
+    /**
+     * Gets the rrd repository.
+     *
+     * @return the rrd repository
+     */
     @XmlTransient
     public String getRrdRepository() {
         return m_rrdRepository;
     }
 
+    /**
+     * Sets the rrd repository.
+     *
+     * @param rrdRepository
+     *            the new rrd repository
+     */
     public void setRrdRepository(String rrdRepository) {
         m_rrdRepository = rrdRepository;
     }
 
+    /**
+     * Adds the data collection.
+     *
+     * @param dataCollection
+     *            the data collection
+     */
     public void addDataCollection(JdbcDataCollection dataCollection) {
         m_jdbcDataCollections.add(dataCollection);
     }
 
+    /**
+     * Removes the data collection.
+     *
+     * @param dataCollection
+     *            the data collection
+     */
     public void removeDataCollection(JdbcDataCollection dataCollection) {
         m_jdbcDataCollections.remove(dataCollection);
     }
 
+    /**
+     * Removes the data collection by name.
+     *
+     * @param name
+     *            the name
+     */
     public void removeDataCollectionByName(String name) {
         for (Iterator<JdbcDataCollection> itr = m_jdbcDataCollections.iterator(); itr.hasNext();) {
             JdbcDataCollection dataCollection = itr.next();
@@ -95,6 +146,13 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
         }
     }
 
+    /**
+     * Gets the data collection by name.
+     *
+     * @param name
+     *            the name
+     * @return the data collection by name
+     */
     public JdbcDataCollection getDataCollectionByName(String name) {
         for (JdbcDataCollection dataCol : m_jdbcDataCollections) {
             if (dataCol.getName().equals(name)) {
@@ -105,6 +163,13 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
         return null;
     }
 
+    /**
+     * Builds the rrd repository.
+     *
+     * @param collectionName
+     *            the collection name
+     * @return the rrd repository
+     */
     public RrdRepository buildRrdRepository(String collectionName) {
         JdbcRrd rrd = getDataCollectionByName(collectionName).getJdbcRrd();
         RrdRepository repo = new RrdRepository();
@@ -115,12 +180,18 @@ public class JdbcDataCollectionConfig implements Serializable, Comparable<JdbcDa
         return repo;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(JdbcDataCollectionConfig obj) {
         return new CompareToBuilder().append(getRrdRepository(), obj.getRrdRepository()).append(getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS),
                                                                                                 obj.getJdbcDataCollections().toArray(OF_DATA_COLLECTIONS)).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcDataCollectionConfig) {

@@ -45,31 +45,55 @@ import org.opennms.netmgt.config.jdbc.JdbcQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JdbcAgentState.
+ */
 public class JdbcAgentState {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcAgentState.class);
 
+    /** The Constant JAS_NO_DATASOURCE_FOUND. */
     private static final String JAS_NO_DATASOURCE_FOUND = "NO_DATASOURCE_FOUND";
 
+    /** The m_use data source name. */
     private boolean m_useDataSourceName;
 
+    /** The m_data source name. */
     private String m_dataSourceName;
 
+    /** The m_driver class. */
     private String m_driverClass;
 
+    /** The m_db user. */
     private String m_dbUser;
 
+    /** The m_db pass. */
     private String m_dbPass;
 
+    /** The m_db url. */
     private String m_dbUrl;
 
+    /** The m_driver. */
     Driver m_driver = null;
 
+    /** The m_db props. */
     Properties m_dbProps = null;
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_group states. */
     private HashMap<String, JdbcGroupState> m_groupStates = new HashMap<String, JdbcGroupState>();
 
+    /**
+     * Instantiates a new jdbc agent state.
+     *
+     * @param address
+     *            the address
+     * @param parameters
+     *            the parameters
+     */
     public JdbcAgentState(InetAddress address, Map<String, Object> parameters) {
         // Save the target's address or hostname.
         m_address = address.getCanonicalHostName();
@@ -82,6 +106,12 @@ public class JdbcAgentState {
         // setupDatabaseConnections(parameters);
     }
 
+    /**
+     * Setup database connections.
+     *
+     * @param parameters
+     *            the parameters
+     */
     public void setupDatabaseConnections(Map<String, Object> parameters) {
         String dataSourceName = ParameterMap.getKeyedString(parameters, "data-source", JAS_NO_DATASOURCE_FOUND);
         if (dataSourceName.equals(JAS_NO_DATASOURCE_FOUND)) {
@@ -95,6 +125,12 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Setup jdbc url.
+     *
+     * @param parameters
+     *            the parameters
+     */
     protected void setupJdbcUrl(Map<String, Object> parameters) {
         m_useDataSourceName = false;
 
@@ -120,6 +156,13 @@ public class JdbcAgentState {
         m_dbProps.setProperty("password", m_dbPass);
     }
 
+    /**
+     * Gets the jdbc connection.
+     *
+     * @return the jdbc connection
+     * @throws JdbcCollectorException
+     *             the jdbc collector exception
+     */
     public Connection getJdbcConnection() throws JdbcCollectorException {
         if (m_useDataSourceName) {
             throw new JdbcCollectorException(
@@ -133,6 +176,13 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Creates the statement.
+     *
+     * @param con
+     *            the con
+     * @return the statement
+     */
     public Statement createStatement(Connection con) {
         try {
             return con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -142,6 +192,15 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Execute jdbc query.
+     *
+     * @param stmt
+     *            the stmt
+     * @param query
+     *            the query
+     * @return the result set
+     */
     public ResultSet executeJdbcQuery(Statement stmt, JdbcQuery query) {
         try {
             return stmt.executeQuery(query.getJdbcStatement().getJdbcQuery());
@@ -153,6 +212,12 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Close connection.
+     *
+     * @param con
+     *            the con
+     */
     public void closeConnection(Connection con) {
         if (con == null)
             return;
@@ -163,6 +228,12 @@ public class JdbcAgentState {
 
     }
 
+    /**
+     * Close stmt.
+     *
+     * @param statement
+     *            the statement
+     */
     public void closeStmt(Statement statement) {
         if (statement != null) {
             try {
@@ -172,6 +243,12 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Close result set.
+     *
+     * @param resultset
+     *            the resultset
+     */
     public void closeResultSet(ResultSet resultset) {
         if (resultset != null) {
             try {
@@ -181,14 +258,32 @@ public class JdbcAgentState {
         }
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     public String getAddress() {
         return m_address;
     }
 
+    /**
+     * Sets the address.
+     *
+     * @param address
+     *            the new address
+     */
     public void setAddress(String address) {
         m_address = address;
     }
 
+    /**
+     * Group is available.
+     *
+     * @param groupName
+     *            the group name
+     * @return true, if successful
+     */
     public boolean groupIsAvailable(String groupName) {
         JdbcGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
@@ -198,6 +293,14 @@ public class JdbcAgentState {
         return groupState.isAvailable();
     }
 
+    /**
+     * Sets the group is available.
+     *
+     * @param groupName
+     *            the group name
+     * @param available
+     *            the available
+     */
     public void setGroupIsAvailable(String groupName, boolean available) {
         JdbcGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
@@ -207,6 +310,15 @@ public class JdbcAgentState {
         m_groupStates.put(groupName, groupState);
     }
 
+    /**
+     * Should check availability.
+     *
+     * @param groupName
+     *            the group name
+     * @param recheckInterval
+     *            the recheck interval
+     * @return true, if successful
+     */
     public boolean shouldCheckAvailability(String groupName, int recheckInterval) {
         JdbcGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
@@ -220,6 +332,12 @@ public class JdbcAgentState {
         return (now.getTime() - lastchecked.getTime() > recheckInterval);
     }
 
+    /**
+     * Did check group availability.
+     *
+     * @param groupName
+     *            the group name
+     */
     public void didCheckGroupAvailability(String groupName) {
         JdbcGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
@@ -230,18 +348,40 @@ public class JdbcAgentState {
         groupState.setLastChecked(new Date());
     }
 
+    /**
+     * Gets the data source name.
+     *
+     * @return the data source name
+     */
     public String getDataSourceName() {
         return m_dataSourceName;
     }
 
+    /**
+     * Sets the data source name.
+     *
+     * @param dataSourceName
+     *            the new data source name
+     */
     public void setDataSourceName(String dataSourceName) {
         m_dataSourceName = dataSourceName;
     }
 
+    /**
+     * Gets the use data source name.
+     *
+     * @return the use data source name
+     */
     public boolean getUseDataSourceName() {
         return m_useDataSourceName;
     }
 
+    /**
+     * Sets the use data source name.
+     *
+     * @param useDataSourceName
+     *            the new use data source name
+     */
     public void setUseDataSourceName(boolean useDataSourceName) {
         m_useDataSourceName = useDataSourceName;
     }

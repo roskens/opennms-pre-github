@@ -41,8 +41,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class AbstractJaxbConfigDaoTest.
+ */
 public class AbstractJaxbConfigDaoTest extends TestCase {
 
+    /**
+     * Test after properties set with no config set.
+     */
     public void testAfterPropertiesSetWithNoConfigSet() {
         TestJaxbConfigDao dao = new TestJaxbConfigDao();
 
@@ -57,6 +63,12 @@ public class AbstractJaxbConfigDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with bogus file resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         TestJaxbConfigDao dao = new TestJaxbConfigDao();
@@ -73,6 +85,12 @@ public class AbstractJaxbConfigDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with good config file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         TestJaxbConfigDao dao = new TestJaxbConfigDao();
 
@@ -83,17 +101,32 @@ public class AbstractJaxbConfigDaoTest extends TestCase {
         assertNotNull("jdbc data collection should not be null", dao.getDataCollectionConfig());
     }
 
+    /**
+     * The Class TestJaxbConfigDao.
+     */
     public static class TestJaxbConfigDao extends
             AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> {
+
+        /**
+         * Instantiates a new test jaxb config dao.
+         */
         public TestJaxbConfigDao() {
             super(JdbcDataCollectionConfig.class, "jdbc data collection configuration");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+         */
         @Override
         protected JdbcDataCollectionConfig translateConfig(JdbcDataCollectionConfig jaxbConfig) {
             return jaxbConfig;
         }
 
+        /**
+         * Gets the data collection config.
+         *
+         * @return the data collection config
+         */
         public JdbcDataCollectionConfig getDataCollectionConfig() {
             return getContainer().getObject();
         }

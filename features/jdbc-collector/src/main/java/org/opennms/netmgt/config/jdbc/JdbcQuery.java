@@ -41,69 +41,132 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+/**
+ * The Class JdbcQuery.
+ */
 public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9083835215058208854L;
 
+    /** The Constant OF_JDBC_COLUMNS. */
     private static final JdbcColumn[] OF_JDBC_COLUMNS = new JdbcColumn[0];
 
+    /** The m_query name. */
     @XmlAttribute(name = "name", required = true)
     private String m_queryName;
 
+    /** The m_recheck interval. */
     @XmlAttribute(name = "recheckInterval")
     private int m_recheckInterval;
 
+    /** The m_if type. */
     @XmlAttribute(name = "ifType", required = true)
     private String m_ifType;
 
+    /** The m_resource type. */
     @XmlAttribute(name = "resourceType", required = true)
     private String m_resourceType;
 
+    /** The m_jdbc statement. */
     @XmlElement(name = "statement", required = true)
     private JdbcStatement m_jdbcStatement;
 
+    /** The m_instance column. */
     @XmlAttribute(name = "instance-column", required = false)
     private String m_instanceColumn;
 
+    /** The m_jdbc columns. */
     @XmlElementWrapper(name = "columns")
     @XmlElement(name = "column")
     private List<JdbcColumn> m_jdbcColumns = new ArrayList<JdbcColumn>();
 
+    /**
+     * Gets the query name.
+     *
+     * @return the query name
+     */
     @XmlTransient
     public String getQueryName() {
         return m_queryName;
     }
 
+    /**
+     * Sets the query name.
+     *
+     * @param queryName
+     *            the new query name
+     */
     public void setQueryName(String queryName) {
         m_queryName = queryName;
     }
 
+    /**
+     * Gets the jdbc statement.
+     *
+     * @return the jdbc statement
+     */
     @XmlTransient
     public JdbcStatement getJdbcStatement() {
         return m_jdbcStatement;
     }
 
+    /**
+     * Sets the jdbc statement.
+     *
+     * @param jdbcStatement
+     *            the new jdbc statement
+     */
     public void setJdbcStatement(JdbcStatement jdbcStatement) {
         m_jdbcStatement = jdbcStatement;
     }
 
+    /**
+     * Gets the jdbc columns.
+     *
+     * @return the jdbc columns
+     */
     @XmlTransient
     public List<JdbcColumn> getJdbcColumns() {
         return m_jdbcColumns;
     }
 
+    /**
+     * Sets the jdbc columns.
+     *
+     * @param jdbcColumns
+     *            the new jdbc columns
+     */
     public void setJdbcColumns(List<JdbcColumn> jdbcColumns) {
         m_jdbcColumns = jdbcColumns;
     }
 
+    /**
+     * Adds the jdbc column.
+     *
+     * @param column
+     *            the column
+     */
     public void addJdbcColumn(JdbcColumn column) {
         m_jdbcColumns.add(column);
     }
 
+    /**
+     * Removes the jdbc column.
+     *
+     * @param column
+     *            the column
+     */
     public void removeJdbcColumn(JdbcColumn column) {
         m_jdbcColumns.remove(column);
     }
 
+    /**
+     * Removes the column by name.
+     *
+     * @param name
+     *            the name
+     */
     public void removeColumnByName(String name) {
         for (Iterator<JdbcColumn> itr = m_jdbcColumns.iterator(); itr.hasNext();) {
             JdbcColumn column = itr.next();
@@ -114,42 +177,89 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
         }
     }
 
+    /**
+     * Gets the recheck interval.
+     *
+     * @return the recheck interval
+     */
     @XmlTransient
     public int getRecheckInterval() {
         return m_recheckInterval;
     }
 
+    /**
+     * Sets the recheck interval.
+     *
+     * @param recheckInterval
+     *            the new recheck interval
+     */
     public void setRecheckInterval(int recheckInterval) {
         m_recheckInterval = recheckInterval;
     }
 
+    /**
+     * Gets the if type.
+     *
+     * @return the if type
+     */
     @XmlTransient
     public String getIfType() {
         return m_ifType;
     }
 
+    /**
+     * Sets the if type.
+     *
+     * @param ifType
+     *            the new if type
+     */
     public void setIfType(String ifType) {
         m_ifType = ifType;
     }
 
+    /**
+     * Gets the resource type.
+     *
+     * @return the resource type
+     */
     @XmlTransient
     public String getResourceType() {
         return m_resourceType;
     }
 
+    /**
+     * Sets the resource type.
+     *
+     * @param resourceType
+     *            the new resource type
+     */
     public void setResourceType(String resourceType) {
         m_resourceType = resourceType;
     }
 
+    /**
+     * Gets the instance column.
+     *
+     * @return the instance column
+     */
     @XmlTransient
     public String getInstanceColumn() {
         return m_instanceColumn;
     }
 
+    /**
+     * Sets the instance column.
+     *
+     * @param instanceColumn
+     *            the new instance column
+     */
     public void setInstanceColumn(String instanceColumn) {
         m_instanceColumn = instanceColumn;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(JdbcQuery obj) {
         return new CompareToBuilder().append(getQueryName(), obj.getQueryName()).append(getJdbcStatement(),
@@ -159,6 +269,9 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
                                                                                                                                                                                                               obj.getIfType()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcQuery) {

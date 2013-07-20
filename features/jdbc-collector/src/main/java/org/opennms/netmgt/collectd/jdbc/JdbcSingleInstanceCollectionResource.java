@@ -30,22 +30,40 @@ package org.opennms.netmgt.collectd.jdbc;
 
 import org.opennms.netmgt.collectd.CollectionAgent;
 
+/**
+ * The Class JdbcSingleInstanceCollectionResource.
+ */
 public class JdbcSingleInstanceCollectionResource extends JdbcCollectionResource {
 
+    /**
+     * Instantiates a new jdbc single instance collection resource.
+     *
+     * @param agent
+     *            the agent
+     */
     public JdbcSingleInstanceCollectionResource(CollectionAgent agent) {
         super(agent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jdbc.JdbcCollectionResource#getResourceTypeName()
+     */
     @Override
     public String getResourceTypeName() {
         return "node";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jdbc.JdbcCollectionResource#getInstance()
+     */
     @Override
     public String getInstance() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Node[" + m_agent.getNodeId() + "]/type[node]";

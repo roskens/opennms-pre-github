@@ -60,25 +60,51 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JdbcCollector.
+ */
 public class JdbcCollector implements ServiceCollector {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcCollector.class);
 
+    /** The m_jdbc collection dao. */
     private JdbcDataCollectionConfigDao m_jdbcCollectionDao;
 
+    /** The m_scheduled nodes. */
     private final HashMap<Integer, JdbcAgentState> m_scheduledNodes = new HashMap<Integer, JdbcAgentState>();
 
+    /** The m_group type list. */
     private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
 
+    /** The m_attrib type list. */
     private HashMap<String, JdbcCollectionAttributeType> m_attribTypeList = new HashMap<String, JdbcCollectionAttributeType>();
 
+    /**
+     * Gets the jdbc collection dao.
+     *
+     * @return the jdbc collection dao
+     */
     public JdbcDataCollectionConfigDao getJdbcCollectionDao() {
         return m_jdbcCollectionDao;
     }
 
+    /**
+     * Sets the jdbc collection dao.
+     *
+     * @param jdbcCollectionDao
+     *            the new jdbc collection dao
+     */
     public void setJdbcCollectionDao(JdbcDataCollectionConfigDao jdbcCollectionDao) {
         m_jdbcCollectionDao = jdbcCollectionDao;
     }
 
+    /**
+     * Load attribute group list.
+     *
+     * @param collection
+     *            the collection
+     */
     private void loadAttributeGroupList(JdbcDataCollection collection) {
         for (JdbcQuery query : collection.getQueries()) {
             AttributeGroupType attribGroupType1 = new AttributeGroupType(query.getQueryName(), query.getIfType());
@@ -86,6 +112,12 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Load attribute type list.
+     *
+     * @param collection
+     *            the collection
+     */
     private void loadAttributeTypeList(JdbcDataCollection collection) {
         for (JdbcQuery query : collection.getQueries()) {
             for (JdbcColumn column : query.getJdbcColumns()) {
@@ -96,6 +128,9 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
+     */
     @Override
     public void initialize(Map<String, String> parameters) {
         LOG.debug("initialize: Initializing JdbcCollector.");
@@ -110,6 +145,9 @@ public class JdbcCollector implements ServiceCollector {
         initDatabaseConnectionFactory();
     }
 
+    /**
+     * Initialize rrd dirs.
+     */
     private void initializeRrdDirs() {
         /*
          * If the RRD file repository directory does NOT already exist, create
@@ -126,6 +164,9 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the database connection factory.
+     */
     private void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -150,6 +191,12 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the database connection factory.
+     *
+     * @param dataSourceName
+     *            the data source name
+     */
     private void initDatabaseConnectionFactory(String dataSourceName) {
         try {
             DataSourceFactory.init(dataSourceName);
@@ -174,11 +221,17 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#release()
+     */
     @Override
     public void release() {
         m_scheduledNodes.clear();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt.collectd.CollectionAgent, java.util.Map)
+     */
     @Override
     public void initialize(CollectionAgent agent, Map<String, Object> parameters) {
         LOG.debug("initialize: Initializing JDBC collection for agent: {}", agent);
@@ -204,6 +257,9 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt.collectd.CollectionAgent)
+     */
     @Override
     public void release(CollectionAgent agent) {
         Integer scheduledNodeKey = new Integer(agent.getNodeId());
@@ -213,6 +269,9 @@ public class JdbcCollector implements ServiceCollector {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)
+     */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
             throws CollectionException {
@@ -343,6 +402,15 @@ public class JdbcCollector implements ServiceCollector {
 
     // Simply check the database the query is supposed to connect to to see if
     // it is available.
+    /**
+     * Checks if is group available.
+     *
+     * @param agentState
+     *            the agent state
+     * @param query
+     *            the query
+     * @return true, if is group available
+     */
     private boolean isGroupAvailable(JdbcAgentState agentState, JdbcQuery query) {
         LOG.debug("Checking availability of group {}", query.getQueryName());
         boolean status = false;
@@ -380,6 +448,9 @@ public class JdbcCollector implements ServiceCollector {
         return status;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang.String)
+     */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {
         return m_jdbcCollectionDao.getConfig().buildRrdRepository(collectionName);

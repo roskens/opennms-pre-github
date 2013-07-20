@@ -31,10 +31,33 @@ package org.opennms.netmgt.dao;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollection;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollectionConfig;
 
+/**
+ * The Interface JdbcDataCollectionConfigDao.
+ */
 public interface JdbcDataCollectionConfigDao {
+
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public JdbcDataCollectionConfig getConfig();
 
+    /**
+     * Gets the data collection by name.
+     *
+     * @param name
+     *            the name
+     * @return the data collection by name
+     */
     public JdbcDataCollection getDataCollectionByName(String name);
 
+    /**
+     * Gets the data collection by index.
+     *
+     * @param idx
+     *            the idx
+     * @return the data collection by index
+     */
     public JdbcDataCollection getDataCollectionByIndex(int idx);
 }

@@ -38,35 +38,71 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
+/**
+ * The Class JdbcCollectionSet.
+ */
 public class JdbcCollectionSet implements CollectionSet {
+
+    /** The m_status. */
     private int m_status;
 
+    /** The m_collection resources. */
     private List<JdbcCollectionResource> m_collectionResources;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
+    /**
+     * Instantiates a new jdbc collection set.
+     *
+     * @param agent
+     *            the agent
+     */
     public JdbcCollectionSet(CollectionAgent agent) {
         m_status = ServiceCollector.COLLECTION_FAILED;
         m_collectionResources = new ArrayList<JdbcCollectionResource>();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
+     */
     @Override
     public int getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(int status) {
         m_status = status;
     }
 
+    /**
+     * Gets the collection resources.
+     *
+     * @return the collection resources
+     */
     public List<JdbcCollectionResource> getCollectionResources() {
         return m_collectionResources;
     }
 
+    /**
+     * Sets the collection resources.
+     *
+     * @param collectionResources
+     *            the new collection resources
+     */
     public void setCollectionResources(List<JdbcCollectionResource> collectionResources) {
         m_collectionResources = collectionResources;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+     */
     @Override
     public void visit(CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
@@ -77,16 +113,28 @@ public class JdbcCollectionSet implements CollectionSet {
         visitor.completeCollectionSet(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
+     */
     @Override
     public boolean ignorePersist() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+     */
     @Override
     public Date getCollectionTimestamp() {
         return m_timestamp;
     }
 
+    /**
+     * Sets the collection timestamp.
+     *
+     * @param timestamp
+     *            the new collection timestamp
+     */
     public void setCollectionTimestamp(Date timestamp) {
         this.m_timestamp = timestamp;
     }

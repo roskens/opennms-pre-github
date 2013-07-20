@@ -36,27 +36,49 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+/**
+ * The Class JdbcStatement.
+ */
 public class JdbcStatement implements Serializable, Comparable<JdbcStatement> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 883422287764280313L;
 
+    /** The m_jdbc query. */
     @XmlElement(name = "queryString", required = true)
     private String m_jdbcQuery;
 
+    /**
+     * Gets the jdbc query.
+     *
+     * @return the jdbc query
+     */
     @XmlTransient
     public String getJdbcQuery() {
         return m_jdbcQuery;
     }
 
+    /**
+     * Sets the jdbc query.
+     *
+     * @param jdbcQuery
+     *            the new jdbc query
+     */
     public void setJdbcQuery(String jdbcQuery) {
         m_jdbcQuery = jdbcQuery;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(JdbcStatement obj) {
         return new CompareToBuilder().append(getJdbcQuery(), obj.getJdbcQuery()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcStatement) {

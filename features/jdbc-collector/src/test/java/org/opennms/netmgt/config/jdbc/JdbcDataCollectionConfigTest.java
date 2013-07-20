@@ -54,24 +54,50 @@ import org.opennms.core.xml.JaxbUtils;
 import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class JdbcDataCollectionConfigTest.
+ */
 public class JdbcDataCollectionConfigTest {
+
+    /** The fa. */
     private FileAnticipator fa;
 
+    /** The jdcc. */
     private JdbcDataCollectionConfig jdcc;
 
+    /**
+     * The Class TestOutputResolver.
+     */
     private static class TestOutputResolver extends SchemaOutputResolver {
+
+        /** The m_schema file. */
         private final File m_schemaFile;
 
+        /**
+         * Instantiates a new test output resolver.
+         *
+         * @param schemaFile
+         *            the schema file
+         */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         fa = new FileAnticipator();
@@ -117,11 +143,23 @@ public class JdbcDataCollectionConfigTest {
         XMLUnit.setNormalize(true);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
 
     }
 
+    /**
+     * Generate schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateSchema() throws Exception {
         File schemaFile = fa.expecting("jdbc-datacollection-config.xsd");
@@ -132,6 +170,12 @@ public class JdbcDataCollectionConfigTest {
         }
     }
 
+    /**
+     * Generate xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -166,6 +210,12 @@ public class JdbcDataCollectionConfigTest {
                      myDiff.getAllDifferences().size());
     }
 
+    /**
+     * Read xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void readXML() throws Exception {
         // Retrieve the file we're parsing.
@@ -177,6 +227,19 @@ public class JdbcDataCollectionConfigTest {
         assertTrue("Compare JDBC Data Collection Config objects.", jdcc.equals(exampleJdcc));
     }
 
+    /**
+     * Gets the diff.
+     *
+     * @param objectXML
+     *            the object xml
+     * @param exampleXML
+     *            the example xml
+     * @return the diff
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @SuppressWarnings("unchecked")
     private DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException, IOException {
         DetailedDiff myDiff = new DetailedDiff(XMLUnit.compareXML(exampleXML.toString(), objectXML.toString()));

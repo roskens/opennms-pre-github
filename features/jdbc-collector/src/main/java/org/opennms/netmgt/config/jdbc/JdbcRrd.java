@@ -40,53 +40,102 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+/**
+ * The Class JdbcRrd.
+ */
 @XmlRootElement(name = "rrd")
 public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 143526958273169546L;
 
+    /** The m_step. */
     @XmlAttribute(name = "step")
     private Integer m_step;
 
+    /** The m_jdbc rras. */
     @XmlElement(name = "rra")
     private List<String> m_jdbcRras = new ArrayList<String>();
 
+    /**
+     * Instantiates a new jdbc rrd.
+     */
     public JdbcRrd() {
 
     }
 
+    /**
+     * Gets the step.
+     *
+     * @return the step
+     */
     @XmlTransient
     public Integer getStep() {
         return m_step;
     }
 
+    /**
+     * Sets the step.
+     *
+     * @param step
+     *            the new step
+     */
     public void setStep(Integer step) {
         m_step = step;
     }
 
+    /**
+     * Gets the jdbc rras.
+     *
+     * @return the jdbc rras
+     */
     @XmlTransient
     public List<String> getJdbcRras() {
         return m_jdbcRras;
     }
 
+    /**
+     * Sets the jdbc rras.
+     *
+     * @param jdbcRras
+     *            the new jdbc rras
+     */
     public void setJdbcRras(List<String> jdbcRras) {
         m_jdbcRras = jdbcRras;
     }
 
+    /**
+     * Adds the rra.
+     *
+     * @param rra
+     *            the rra
+     */
     public void addRra(String rra) {
         m_jdbcRras.add(rra);
     }
 
+    /**
+     * Removes the rra.
+     *
+     * @param rra
+     *            the rra
+     */
     public void removeRra(String rra) {
         m_jdbcRras.remove(rra);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(JdbcRrd obj) {
         return new CompareToBuilder().append(getStep(), obj.getStep()).append(getJdbcRras().toArray(),
                                                                               obj.getJdbcRras().toArray()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcRrd) {

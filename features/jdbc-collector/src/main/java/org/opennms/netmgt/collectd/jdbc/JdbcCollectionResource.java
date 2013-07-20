@@ -34,44 +34,82 @@ import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
+/**
+ * The Class JdbcCollectionResource.
+ */
 public abstract class JdbcCollectionResource extends AbstractCollectionResource {
 
+    /**
+     * Instantiates a new jdbc collection resource.
+     *
+     * @param agent
+     *            the agent
+     */
     public JdbcCollectionResource(CollectionAgent agent) {
         super(agent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+     */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#rescanNeeded()
+     */
     @Override
     public boolean rescanNeeded() {
         // A rescan is never needed for the JdbcCollector, at least on resources
         return false;
     }
 
+    /**
+     * Sets the attribute value.
+     *
+     * @param type
+     *            the type
+     * @param value
+     *            the value
+     */
     public void setAttributeValue(CollectionAttributeType type, String value) {
         JdbcCollectionAttribute attr = new JdbcCollectionAttribute(this, type, type.getName(), value);
         addAttribute(attr);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getType()
+     */
     @Override
     public int getType() {
         return -1; // Is this right?
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+     */
     @Override
     public abstract String getResourceTypeName();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
+     */
     @Override
     public abstract String getInstance();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

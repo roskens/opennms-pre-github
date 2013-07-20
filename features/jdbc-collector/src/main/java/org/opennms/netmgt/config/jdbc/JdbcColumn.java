@@ -37,59 +37,114 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
+/**
+ * The Class JdbcColumn.
+ */
 @XmlRootElement(name = "column")
 public class JdbcColumn implements Serializable, Comparable<JdbcColumn> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2519632811400677757L;
 
+    /** The m_column name. */
     @XmlAttribute(name = "name", required = true)
     private String m_columnName;
 
+    /** The m_data source name. */
     @XmlAttribute(name = "data-source-name", required = false)
     private String m_dataSourceName;
 
+    /** The m_data type. */
     @XmlAttribute(name = "type", required = true)
     private String m_dataType;
 
+    /** The m_alias. */
     @XmlAttribute(name = "alias", required = true)
     private String m_alias;
 
+    /**
+     * Gets the column name.
+     *
+     * @return the column name
+     */
     @XmlTransient
     public String getColumnName() {
         return m_columnName;
     }
 
+    /**
+     * Sets the column name.
+     *
+     * @param columnName
+     *            the new column name
+     */
     public void setColumnName(String columnName) {
         m_columnName = columnName;
     }
 
+    /**
+     * Gets the data source name.
+     *
+     * @return the data source name
+     */
     @XmlTransient
     public String getDataSourceName() {
         return m_dataSourceName;
     }
 
+    /**
+     * Sets the data source name.
+     *
+     * @param dataSourceName
+     *            the new data source name
+     */
     public void setDataSourceName(String dataSourceName) {
         m_dataSourceName = dataSourceName;
     }
 
+    /**
+     * Gets the data type.
+     *
+     * @return the data type
+     */
     @XmlTransient
     public String getDataType() {
         return m_dataType;
     }
 
+    /**
+     * Sets the data type.
+     *
+     * @param dataType
+     *            the new data type
+     */
     public void setDataType(String dataType) {
         m_dataType = dataType;
     }
 
+    /**
+     * Gets the alias.
+     *
+     * @return the alias
+     */
     @XmlTransient
     public String getAlias() {
         return m_alias;
     }
 
+    /**
+     * Sets the alias.
+     *
+     * @param alias
+     *            the new alias
+     */
     public void setAlias(String alias) {
         m_alias = alias;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(JdbcColumn obj) {
         return new CompareToBuilder().append(getColumnName(), obj.getColumnName()).append(getDataSourceName(),
@@ -98,6 +153,9 @@ public class JdbcColumn implements Serializable, Comparable<JdbcColumn> {
                                                                                                                                                     obj.getAlias()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcColumn) {

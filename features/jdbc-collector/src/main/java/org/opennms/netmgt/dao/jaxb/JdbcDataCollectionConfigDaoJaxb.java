@@ -33,14 +33,23 @@ import org.opennms.netmgt.config.jdbc.JdbcDataCollection;
 import org.opennms.netmgt.config.jdbc.JdbcDataCollectionConfig;
 import org.opennms.netmgt.dao.JdbcDataCollectionConfigDao;
 
+/**
+ * The Class JdbcDataCollectionConfigDaoJaxb.
+ */
 public class JdbcDataCollectionConfigDaoJaxb extends
         AbstractJaxbConfigDao<JdbcDataCollectionConfig, JdbcDataCollectionConfig> implements
         JdbcDataCollectionConfigDao {
 
+    /**
+     * Instantiates a new jdbc data collection config dao jaxb.
+     */
     public JdbcDataCollectionConfigDaoJaxb() {
         super(JdbcDataCollectionConfig.class, "JDBC Data Collection Configuration");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.JdbcDataCollectionConfigDao#getDataCollectionByName(java.lang.String)
+     */
     @Override
     public JdbcDataCollection getDataCollectionByName(String name) {
         JdbcDataCollectionConfig jdcc = getContainer().getObject();
@@ -53,17 +62,26 @@ public class JdbcDataCollectionConfigDaoJaxb extends
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.JdbcDataCollectionConfigDao#getDataCollectionByIndex(int)
+     */
     @Override
     public JdbcDataCollection getDataCollectionByIndex(int idx) {
         JdbcDataCollectionConfig jdcc = getContainer().getObject();
         return jdcc.getJdbcDataCollections().get(idx);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.JdbcDataCollectionConfigDao#getConfig()
+     */
     @Override
     public JdbcDataCollectionConfig getConfig() {
         return getContainer().getObject();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected JdbcDataCollectionConfig translateConfig(JdbcDataCollectionConfig jaxbConfig) {
         return jaxbConfig;

@@ -39,8 +39,14 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class JdbcDataCollectionConfigDaoJaxbTest.
+ */
 public class JdbcDataCollectionConfigDaoJaxbTest extends TestCase {
 
+    /**
+     * Test after properties set with no config set.
+     */
     public void testAfterPropertiesSetWithNoConfigSet() {
         JdbcDataCollectionConfigDaoJaxb dao = new JdbcDataCollectionConfigDaoJaxb();
 
@@ -55,6 +61,12 @@ public class JdbcDataCollectionConfigDaoJaxbTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with bogus file resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         JdbcDataCollectionConfigDaoJaxb dao = new JdbcDataCollectionConfigDaoJaxb();
@@ -71,6 +83,12 @@ public class JdbcDataCollectionConfigDaoJaxbTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with good config file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         JdbcDataCollectionConfigDaoJaxb dao = new JdbcDataCollectionConfigDaoJaxb();
 

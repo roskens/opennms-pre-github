@@ -28,13 +28,32 @@
 
 package org.opennms.netmgt.collectd.jdbc;
 
+/**
+ * The Class JdbcCollectorException.
+ */
 public class JdbcCollectorException extends RuntimeException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1315895761910431343L;
 
+    /**
+     * Instantiates a new jdbc collector exception.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public JdbcCollectorException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /**
+     * Instantiates a new jdbc collector exception.
+     *
+     * @param message
+     *            the message
+     */
     public JdbcCollectorException(String message) {
         super(message);
     }
