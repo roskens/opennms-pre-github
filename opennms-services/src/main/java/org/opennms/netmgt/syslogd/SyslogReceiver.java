@@ -54,7 +54,6 @@ import org.slf4j.LoggerFactory;
  * @deprecated This class should be combined with {@link SyslogHandler}
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  * @author <a href="http://www.oculan.com">Oculan Corporation</a>
- * @fiddler joed
  */
 class SyslogReceiver implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogReceiver.class);

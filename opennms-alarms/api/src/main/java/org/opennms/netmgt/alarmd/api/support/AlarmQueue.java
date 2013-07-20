@@ -48,8 +48,8 @@ import org.slf4j.LoggerFactory;
  * just-in-case
  * the NBI implementations don't set the batch size, etc.
  *
- * @auther <a mailto:brozow@opennms.org>Matt Brozowski</a>
- * @author <a mailto:david@opennms.org>David Hustace</a>
+ * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
+ * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 class AlarmQueue<T extends Preservable> {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmQueue.class);
