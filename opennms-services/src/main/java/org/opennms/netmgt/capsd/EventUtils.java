@@ -83,7 +83,7 @@ public abstract class EventUtils {
      * @throws org.opennms.netmgt.capsd.InsufficientInformationException
      *             if an event id is not evailable
      */
-    static public void checkEventId(Event e) throws InsufficientInformationException {
+    public static void checkEventId(Event e) throws InsufficientInformationException {
         if (e == null)
             throw new NullPointerException("e is null");
 
@@ -99,7 +99,7 @@ public abstract class EventUtils {
      * @throws org.opennms.netmgt.capsd.InsufficientInformationException
      *             if an interface is not available
      */
-    static public void checkInterface(Event e) throws InsufficientInformationException {
+    public static void checkInterface(Event e) throws InsufficientInformationException {
         if (e == null) {
             throw new NullPointerException("e is null");
         } else if (e.getInterface() == null) {
@@ -114,7 +114,7 @@ public abstract class EventUtils {
      *            the interface
      * @return true/false
      */
-    static public boolean isNonIpInterface(String intf) {
+    public static boolean isNonIpInterface(String intf) {
         if (intf == null || intf.length() == 0 || "0.0.0.0".equals(intf)) {
             return true;
         } else {
@@ -130,7 +130,7 @@ public abstract class EventUtils {
      * @throws org.opennms.netmgt.capsd.InsufficientInformationException
      *             if neither an interface nor an ifIndex is available
      */
-    static public void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
+    public static void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
         if (e == null) {
             throw new NullPointerException("event is null");
         } else if (e.getInterface() == null) {
@@ -148,7 +148,7 @@ public abstract class EventUtils {
      * @throws org.opennms.netmgt.capsd.InsufficientInformationException
      *             if an interface is not available
      */
-    static public void checkHost(Event e) throws InsufficientInformationException {
+    public static void checkHost(Event e) throws InsufficientInformationException {
         if (e == null) {
             throw new NullPointerException("e is null");
         } else if (e.getHost() == null || e.getHost().length() == 0) {
@@ -164,7 +164,7 @@ public abstract class EventUtils {
      * @throws org.opennms.netmgt.capsd.InsufficientInformationException
      *             if a node id is not available
      */
-    static public void checkNodeId(Event e) throws InsufficientInformationException {
+    public static void checkNodeId(Event e) throws InsufficientInformationException {
         if (e == null) {
             throw new NullPointerException("e is null");
         } else if (!e.hasNodeid()) {

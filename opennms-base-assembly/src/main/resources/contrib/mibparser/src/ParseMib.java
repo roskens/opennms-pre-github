@@ -4002,13 +4002,13 @@ class ParseMib/*@bgen(jjtree)*/implements ParseMibTreeConstants, ParseMibConstan
   }
 
   static private boolean jj_initialized_once = false;
-  static public ParseMibTokenManager token_source;
+  public static ParseMibTokenManager token_source;
   static SimpleCharStream jj_input_stream;
-  static public Token token, jj_nt;
+  public static Token token, jj_nt;
   static private int jj_ntk;
   static private Token jj_scanpos, jj_lastpos;
   static private int jj_la;
-  static public boolean lookingAhead = false;
+  public static boolean lookingAhead = false;
   static private boolean jj_semLA;
   static private int jj_gen;
   static final private int[] jj_la1 = new int[0];
@@ -4050,7 +4050,7 @@ class ParseMib/*@bgen(jjtree)*/implements ParseMibTreeConstants, ParseMibConstan
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  static public void ReInit(java.io.InputStream stream) {
+  public static void ReInit(java.io.InputStream stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -4078,7 +4078,7 @@ class ParseMib/*@bgen(jjtree)*/implements ParseMibTreeConstants, ParseMibConstan
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
-  static public void ReInit(java.io.Reader stream) {
+  public static void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -4220,7 +4220,7 @@ class ParseMib/*@bgen(jjtree)*/implements ParseMibTreeConstants, ParseMibConstan
     }
   }
 
-  static public ParseException generateParseException() {
+  public static ParseException generateParseException() {
     jj_expentries.removeAllElements();
     boolean[] la1tokens = new boolean[70];
     for (int i = 0; i < 70; i++) {

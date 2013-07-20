@@ -38,7 +38,7 @@ public class SimpleCharStream
   static int bufsize;
   static int available;
   static int tokenBegin;
-  static public int bufpos = -1;
+  public static int bufpos = -1;
   static protected int bufline[];
   static protected int bufcolumn[];
 
@@ -149,7 +149,7 @@ public class SimpleCharStream
      }
   }
 
-  static public char BeginToken() throws java.io.IOException
+  public static char BeginToken() throws java.io.IOException
   {
      tokenBegin = -1;
      char c = readChar();
@@ -198,7 +198,7 @@ public class SimpleCharStream
      bufcolumn[bufpos] = column;
   }
 
-  static public char readChar() throws java.io.IOException
+  public static char readChar() throws java.io.IOException
   {
      if (inBuf > 0)
      {
@@ -224,7 +224,7 @@ public class SimpleCharStream
    * @see #getEndColumn
    */
 
-  static public int getColumn() {
+  public static int getColumn() {
      return bufcolumn[bufpos];
   }
 
@@ -233,27 +233,27 @@ public class SimpleCharStream
    * @see #getEndLine
    */
 
-  static public int getLine() {
+  public static int getLine() {
      return bufline[bufpos];
   }
 
-  static public int getEndColumn() {
+  public static int getEndColumn() {
      return bufcolumn[bufpos];
   }
 
-  static public int getEndLine() {
+  public static int getEndLine() {
      return bufline[bufpos];
   }
 
-  static public int getBeginColumn() {
+  public static int getBeginColumn() {
      return bufcolumn[tokenBegin];
   }
 
-  static public int getBeginLine() {
+  public static int getBeginLine() {
      return bufline[tokenBegin];
   }
 
-  static public void backup(int amount) {
+  public static void backup(int amount) {
 
     inBuf += amount;
     if ((bufpos -= amount) < 0)
@@ -348,7 +348,7 @@ public class SimpleCharStream
   {
      ReInit(dstream, startline, startcolumn, 4096);
   }
-  static public String GetImage()
+  public static String GetImage()
   {
      if (bufpos >= tokenBegin)
         return new String(buffer, tokenBegin, bufpos - tokenBegin + 1);
@@ -357,7 +357,7 @@ public class SimpleCharStream
                               new String(buffer, 0, bufpos + 1);
   }
 
-  static public char[] GetSuffix(int len)
+  public static char[] GetSuffix(int len)
   {
      char[] ret = new char[len];
 
@@ -373,7 +373,7 @@ public class SimpleCharStream
      return ret;
   }
 
-  static public void Done()
+  public static void Done()
   {
      buffer = null;
      bufline = null;
@@ -383,7 +383,7 @@ public class SimpleCharStream
   /**
    * Method to adjust line and column numbers for the start of a token.
    */
-  static public void adjustBeginLineColumn(int newLine, int newCol)
+  public static void adjustBeginLineColumn(int newLine, int newCol)
   {
      int start = tokenBegin;
      int len;

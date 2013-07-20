@@ -52,7 +52,7 @@ public class SyslogTimeStamp extends Format {
     private static final long serialVersionUID = -6116771489369028204L;
 
     /** Constant <code>DEFAULT_GMT_TZID="GMT+00"</code> */
-    static public final String DEFAULT_GMT_TZID = "GMT+00";
+    public static final String DEFAULT_GMT_TZID = "GMT+00";
 
     /**
      * <p>
@@ -61,7 +61,7 @@ public class SyslogTimeStamp extends Format {
      *
      * @return a {@link org.opennms.netmgt.syslogd.SyslogTimeStamp} object.
      */
-    static public final SyslogTimeStamp getInstance() {
+    public static final SyslogTimeStamp getInstance() {
         return new SyslogTimeStamp();
     }
 

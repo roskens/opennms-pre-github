@@ -1294,7 +1294,7 @@ public ParseMibTokenManager(SimpleCharStream stream, int lexState)
    this(stream);
    SwitchTo(lexState);
 }
-static public void ReInit(SimpleCharStream stream)
+public static void ReInit(SimpleCharStream stream)
 {
    jjmatchedPos = jjnewStateCnt = 0;
    curLexState = defaultLexState;
@@ -1308,12 +1308,12 @@ static private final void ReInitRounds()
    for (i = 24; i-- > 0;)
       jjrounds[i] = 0x80000000;
 }
-static public void ReInit(SimpleCharStream stream, int lexState)
+public static void ReInit(SimpleCharStream stream, int lexState)
 {
    ReInit(stream);
    SwitchTo(lexState);
 }
-static public void SwitchTo(int lexState)
+public static void SwitchTo(int lexState)
 {
    if (lexState >= 1 || lexState < 0)
       throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);

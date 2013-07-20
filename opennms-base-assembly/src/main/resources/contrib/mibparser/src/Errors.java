@@ -39,7 +39,7 @@ public class Errors {
     // these int values are to be used by System.exit on fatal parser errors.
     // register new errors at any time. this is just to supply meaning to exit
 
-    static public final int UNKNOWN_FATAL = 1;
-    static public final int INCLUDE_MIB_MISSING = 2;
-    static public final int FILE_NOT_FOUND = 3;
+    public static final int UNKNOWN_FATAL = 1;
+    public static final int INCLUDE_MIB_MISSING = 2;
+    public static final int FILE_NOT_FOUND = 3;
 }

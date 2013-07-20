@@ -72,7 +72,7 @@ public class DnsRequisitionUrlConnectionTest {
     private static final String TEST_URL = "dns://localhost:9153/example.com";
 
     @BeforeClass
-    static public void setUp() {
+    public static void setUp() {
         MockLogAppender.setupLogging();
     }
 

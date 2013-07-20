@@ -47,10 +47,10 @@ public class Version {
      * This is because the MACROS do not have any information to be
      * output in the XML.
      */
-    static public final String versionString = "1.0";
+    public static final String versionString = "1.0";
 
     /**
      * This version has (describe your changes)+
      */
-    // static public final String versionString = ...
+    // public static final String versionString = ...
 }

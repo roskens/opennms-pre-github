@@ -47,7 +47,7 @@ public final class EventUtils {
      * @throws org.opennms.netmgt.linkd.InsufficientInformationException
      *             if neither an interface nor an ifIndex is available
      */
-    static public void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
+    public static void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
         if (e == null)
             throw new NullPointerException("e is null");
 
@@ -66,7 +66,7 @@ public final class EventUtils {
      * @throws org.opennms.netmgt.linkd.InsufficientInformationException
      *             if a node id is not available
      */
-    static public void checkNodeId(Event e) throws InsufficientInformationException {
+    public static void checkNodeId(Event e) throws InsufficientInformationException {
         if (e == null) {
             throw new NullPointerException("e is null");
         }
