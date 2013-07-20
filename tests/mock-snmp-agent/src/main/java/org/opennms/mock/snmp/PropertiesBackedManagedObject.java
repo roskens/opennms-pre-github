@@ -73,12 +73,16 @@ import org.snmp4j.smi.VariableBinding;
  */
 public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOLoader, Updatable, MOAccess {
 
+    /** The Constant s_log. */
     private static final LogAdapter s_log = LogFactory.getLogger(PropertiesBackedManagedObject.class);
 
+    /** The m_vars. */
     private TreeMap<OID, Object> m_vars = null;
 
+    /** The m_scope. */
     private MOScope m_scope = null;
 
+    /** The m_old value. */
     private Object m_oldValue;
 
     /*
@@ -86,6 +90,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * This removes the need to search the class-path and use reflection at
      * every call.
      */
+    /** The m_dynamic variable cache. */
     HashMap<String, DynamicVariable> m_dynamicVariableCache = new HashMap<String, DynamicVariable>();
 
     /** {@inheritDoc} */
@@ -123,6 +128,13 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
         return Collections.singletonList((ManagedObject) this);
     }
 
+    /**
+     * Load properties.
+     *
+     * @param moFile
+     *            the mo file
+     * @return the properties
+     */
     private Properties loadProperties(URL moFile) {
         final Properties moProps = new Properties();
         InputStream inStream = null;
@@ -138,6 +150,12 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
         return moProps;
     }
 
+    /**
+     * Close quietly.
+     *
+     * @param in
+     *            the in
+     */
     private void closeQuietly(InputStream in) {
         try {
             in.close();
@@ -170,6 +188,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * findNextOid
      * </p>
+     * .
      *
      * @param given
      *            a {@link org.snmp4j.smi.OID} object.
@@ -186,6 +205,13 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
         return tail.firstKey();
     }
 
+    /**
+     * Find value for oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the variable
+     */
     private Variable findValueForOID(final OID oid) {
         final Object val = m_vars.get(oid);
         if (val == null) {
@@ -202,6 +228,15 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
         getVariable(request, request.getVariableBinding().getOid());
     }
 
+    /**
+     * Gets the variable.
+     *
+     * @param request
+     *            the request
+     * @param oid
+     *            the oid
+     * @return the variable
+     */
     private void getVariable(final SubRequest request, final OID oid) {
         Variable value = findValueForOID(oid);
         VariableBinding vb = request.getVariableBinding();
@@ -214,6 +249,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * getScope
      * </p>
+     * .
      *
      * @return a {@link org.snmp4j.agent.MOScope} object.
      */
@@ -282,6 +318,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * isAccessibleForCreate
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -294,6 +331,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * isAccessibleForNotify
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -306,6 +344,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * isAccessibleForRead
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -318,6 +357,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * isAccessibleForWrite
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -330,6 +370,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * getVariableFromValueString
      * </p>
+     * .
      *
      * @param oidStr
      *            a {@link java.lang.String} object.
@@ -400,6 +441,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * <p>
      * handleDynamicVariable
      * </p>
+     * .
      *
      * @param oidStr
      *            a {@link java.lang.String} object.

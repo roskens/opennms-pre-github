@@ -45,10 +45,12 @@ import org.snmp4j.agent.ManagedObject;
  * @version $Id: $
  */
 public interface MockSnmpMOLoader {
+
     /**
      * <p>
      * loadMOs
      * </p>
+     * .
      *
      * @param moFile
      *            a {@link org.springframework.core.io.Resource} object.

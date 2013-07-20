@@ -99,6 +99,8 @@ import org.snmp4j.util.ThreadPool;
  * @version $Id: $
  */
 public class MockSnmpAgent extends BaseAgent implements Runnable {
+
+    /** The Constant PROPERTY_SLEEP_ON_CREATE. */
     private static final String PROPERTY_SLEEP_ON_CREATE = "mockSnmpAgent.sleepOnCreate";
 
     // initialize Log4J logging
@@ -112,24 +114,34 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
     }
 
+    /** The Constant s_log. */
     private static final LogAdapter s_log = LogFactory.getLogger(MockSnmpAgent.class);
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_mo file. */
     private URL m_moFile;
 
+    /** The m_running. */
     private boolean m_running;
 
+    /** The m_stopped. */
     private boolean m_stopped;
 
+    /** The m_mo list. */
     private List<ManagedObject> m_moList;
 
+    /** The m_mo loader. */
     private MockSnmpMOLoader m_moLoader;
 
+    /** The m_failure. */
     private IOException m_failure;
 
+    /** The boot count file. */
     private static File BOOT_COUNT_FILE;
 
+    /** The allow set on missing oid. */
     public static boolean allowSetOnMissingOid = false;
 
     static {
@@ -147,6 +159,14 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         BOOT_COUNT_FILE = bootCountFile;
     }
 
+    /**
+     * Instantiates a new mock snmp agent.
+     *
+     * @param confFile
+     *            the conf file
+     * @param moFile
+     *            the mo file
+     */
     public MockSnmpAgent(final File confFile, final URL moFile) {
         super(BOOT_COUNT_FILE, confFile,
               new CommandProcessor(new OctetString(MPv3.createLocalEngineID(new OctetString("MOCKAGENT")))));
@@ -177,15 +197,12 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * Constructor for MockSnmpAgent.
      * </p>
      *
-     * @param bootFile
-     *            a {@link java.io.File} object.
      * @param confFile
      *            a {@link java.io.File} object.
      * @param moFile
      *            a {@link org.springframework.core.io.Resource} object.
      * @param bindAddress
      *            a {@link java.lang.String} object.
-     * @throws IOException
      */
     public MockSnmpAgent(final File confFile, final URL moFile, final String bindAddress) {
         this(confFile, moFile);
@@ -196,14 +213,15 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * createAgentAndRun
      * </p>
+     * .
      *
      * @param moFile
      *            a {@link org.springframework.core.io.Resource} object.
      * @param bindAddress
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.mock.snmp.MockSnmpAgent} object.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public static MockSnmpAgent createAgentAndRun(URL moFile, String bindAddress) throws InterruptedException {
         setupLogging();
@@ -248,6 +266,9 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         return agent;
     }
 
+    /**
+     * Setup logging.
+     */
     private static void setupLogging() {
         if (LogFactory.getLogFactory() == null) {
             LogFactory.setLogFactory(new ConsoleLogFactory());
@@ -258,11 +279,14 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
-     * @throws MalformedURLException
      * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     public static void main(String[] args) throws UnknownHostException, MalformedURLException {
         LogFactory.setLogFactory(new ConsoleLogFactory());
@@ -284,12 +308,15 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * parseCli
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
      * @return a {@link org.opennms.mock.snmp.AgentConfigData} object.
-     * @throws MalformedURLException
      * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     public static AgentConfigData parseCli(String[] args) throws UnknownHostException, MalformedURLException {
 
@@ -328,6 +355,12 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
 
     }
 
+    /**
+     * Usage.
+     *
+     * @param why
+     *            the why
+     */
     private static void usage(String why) {
         System.err.println(why);
         System.err.println("java -jar mock-snmp-agent-jar-with-dependencies.jar -d dump-file [other options]");
@@ -357,9 +390,10 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * shutDownAndWait
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void shutDownAndWait() throws InterruptedException {
         if (!isRunning()) {
@@ -387,6 +421,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -437,6 +472,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * shutDown
      * </p>
+     * .
      */
     public void shutDown() {
         m_running = false;
@@ -447,6 +483,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * isRunning
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -458,6 +495,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * isStopped
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -620,6 +658,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * createMockMOs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -627,6 +666,13 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         return m_moLoader.loadMOs(m_moFile);
     }
 
+    /**
+     * Find mo for oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the managed object
+     */
     private ManagedObject findMOForOid(OID oid) {
         for (ManagedObject mo : m_moList) {
             if (mo.getScope().covers(oid)) {
@@ -640,6 +686,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateValue
      * </p>
+     * .
      *
      * @param oid
      *            a {@link org.snmp4j.smi.OID} object.
@@ -654,6 +701,14 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
         }
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param string
+     *            the string
+     * @param o
+     *            the o
+     */
     private void assertNotNull(final String string, final Object o) {
         if (!allowSetOnMissingOid && o == null) {
             throw new IllegalStateException(string);
@@ -664,6 +719,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateValue
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -678,6 +734,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateIntValue
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -692,6 +749,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateStringValue
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -706,6 +764,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateCounter32Value
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -720,6 +779,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateCounter64Value
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -734,6 +794,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * updateValuesFromResource
      * </p>
+     * .
      *
      * @param moFile
      *            a {@link org.springframework.core.io.Resource} object.
@@ -748,6 +809,7 @@ public class MockSnmpAgent extends BaseAgent implements Runnable {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

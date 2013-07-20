@@ -43,10 +43,12 @@ import org.snmp4j.smi.Variable;
  * @version $Id: $
  */
 public interface Updatable {
+
     /**
      * <p>
      * updateValue
      * </p>
+     * .
      *
      * @param oid
      *            a {@link org.snmp4j.smi.OID} object.

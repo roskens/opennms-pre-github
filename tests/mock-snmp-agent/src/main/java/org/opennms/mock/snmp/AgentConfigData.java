@@ -42,10 +42,14 @@ import java.net.UnknownHostException;
  * @version $Id: $
  */
 public class AgentConfigData {
+
+    /** The m_mo file. */
     public URL m_moFile;
 
+    /** The m_listen addr. */
     public InetAddress m_listenAddr;
 
+    /** The m_listen port. */
     public int m_listenPort;
 
     /**
@@ -67,10 +71,10 @@ public class AgentConfigData {
      *            a {@link java.lang.String} object.
      * @param listenPort
      *            a long.
-     * @throws java.net.UnknownHostException
-     *             if any.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     protected AgentConfigData(String moFileSpec, String listenAddr, int listenPort) throws UnknownHostException,
             MalformedURLException {
@@ -87,6 +91,7 @@ public class AgentConfigData {
      * <p>
      * getMoFile
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -98,6 +103,7 @@ public class AgentConfigData {
      * <p>
      * setMoFile
      * </p>
+     * .
      *
      * @param moFile
      *            a {@link org.springframework.core.io.Resource} object.
@@ -110,6 +116,7 @@ public class AgentConfigData {
      * <p>
      * getListenAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -121,6 +128,7 @@ public class AgentConfigData {
      * <p>
      * setListenAddr
      * </p>
+     * .
      *
      * @param listenAddr
      *            a {@link java.net.InetAddress} object.
@@ -133,6 +141,7 @@ public class AgentConfigData {
      * <p>
      * getListenPort
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -144,6 +153,7 @@ public class AgentConfigData {
      * <p>
      * setListenPort
      * </p>
+     * .
      *
      * @param listenPort
      *            a long.

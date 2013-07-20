@@ -72,51 +72,102 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
+/**
+ * The Class MockSnmpAgentTest.
+ */
 @RunWith(Parameterized.class)
 public class MockSnmpAgentTest {
 
+    /**
+     * Versions.
+     *
+     * @return the collection
+     */
     @Parameters
     public static Collection<Object[]> versions() {
         return Arrays.asList(new Object[][] { { SnmpConstants.version1 }, { SnmpConstants.version2c },
                 { SnmpConstants.version3 }, });
     }
 
+    /** The m_agent. */
     private MockSnmpAgent m_agent;
 
+    /** The m_usm. */
     private USM m_usm;
 
+    /** The m_requested varbinds. */
     private ArrayList<AnticipatedRequest> m_requestedVarbinds;
 
+    /** The m_version. */
     private int m_version;
 
+    /** The default timeout. */
     private static long DEFAULT_TIMEOUT = 5000;
 
+    /**
+     * Instantiates a new mock snmp agent test.
+     *
+     * @param version
+     *            the version
+     */
     public MockSnmpAgentTest(int version) {
         m_version = version;
     }
 
+    /**
+     * The Class AnticipatedRequest.
+     */
     private class AnticipatedRequest {
+
+        /** The m_requested oid. */
         private String m_requestedOid;
 
+        /** The m_requested value. */
         private Variable m_requestedValue;
 
+        /** The m_expected oid. */
         private String m_expectedOid;
 
+        /** The m_expected syntax. */
         private int m_expectedSyntax;
 
+        /** The m_expected value. */
         private Variable m_expectedValue;
 
+        /**
+         * Instantiates a new anticipated request.
+         *
+         * @param requestedOid
+         *            the requested oid
+         * @param requestedValue
+         *            the requested value
+         */
         public AnticipatedRequest(String requestedOid, Variable requestedValue) {
             m_requestedOid = requestedOid;
             m_requestedValue = requestedValue;
         }
 
+        /**
+         * And expect.
+         *
+         * @param expectedOid
+         *            the expected oid
+         * @param expectedSyntax
+         *            the expected syntax
+         * @param expectedValue
+         *            the expected value
+         */
         public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
             m_expectedOid = expectedOid;
             m_expectedSyntax = expectedSyntax;
             m_expectedValue = expectedValue;
         }
 
+        /**
+         * Gets the request varbind.
+         *
+         * @return the request varbind
+         */
         public VariableBinding getRequestVarbind() {
             OID oid = new OID(m_requestedOid);
             if (m_requestedValue != null) {
@@ -126,6 +177,12 @@ public class MockSnmpAgentTest {
             }
         }
 
+        /**
+         * Verify.
+         *
+         * @param vb
+         *            the vb
+         */
         public void verify(VariableBinding vb) {
             assertNotNull("variable binding should not be null", vb);
             Variable val = vb.getVariable();
@@ -137,6 +194,12 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Create a global USM that all client calls will use
@@ -151,6 +214,12 @@ public class MockSnmpAgentTest {
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         reset();
@@ -159,24 +228,41 @@ public class MockSnmpAgentTest {
         }
     }
 
+    /**
+     * Request.
+     *
+     * @param requestedOid
+     *            the requested oid
+     * @param requestedValue
+     *            the requested value
+     * @return the anticipated request
+     */
     public AnticipatedRequest request(String requestedOid, Variable requestedValue) {
         AnticipatedRequest r = new AnticipatedRequest(requestedOid, requestedValue);
         m_requestedVarbinds.add(r);
         return r;
     }
 
+    /**
+     * Request.
+     *
+     * @param requestOid
+     *            the request oid
+     * @return the anticipated request
+     */
     public AnticipatedRequest request(String requestOid) {
         return request(requestOid, null);
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         m_requestedVarbinds.clear();
     }
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     *
-     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -190,6 +276,7 @@ public class MockSnmpAgentTest {
      * later instances of the agent.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testSetUpTearDownTwice() throws Exception {
@@ -199,6 +286,12 @@ public class MockSnmpAgentTest {
         // don't need the second tearDown(), since it will be done by JUnit
     }
 
+    /**
+     * Test get next.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNext() throws Exception {
 
@@ -207,6 +300,12 @@ public class MockSnmpAgentTest {
         doGetNext();
     }
 
+    /**
+     * Test get.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGet() throws Exception {
 
@@ -222,6 +321,12 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Test update from file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdateFromFile() throws Exception {
         request("1.3.5.1.1.3.0").andExpect("1.3.5.1.1.3.0", SMIConstants.SYNTAX_INTEGER, new Integer32(42));
@@ -236,6 +341,12 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Test get next multiple varbinds.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextMultipleVarbinds() throws Exception {
 
@@ -261,6 +372,12 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Test set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSet() throws Exception {
 
@@ -280,6 +397,12 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Test update from file with usm time reset.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUpdateFromFileWithUSMTimeReset() throws Exception {
         request("1.3.5.1.1.3.0").andExpect("1.3.5.1.1.3.0", SMIConstants.SYNTAX_INTEGER, new Integer32(42));
@@ -311,6 +434,12 @@ public class MockSnmpAgentTest {
         doGet();
     }
 
+    /**
+     * Test sine wave responder.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSineWaveResponder() throws Exception {
         String oid = "1.3.5.1.1.10.0";
@@ -330,6 +459,12 @@ public class MockSnmpAgentTest {
         doGet();
     }
 
+    /**
+     * Test sleeper responder.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSleeperResponder() throws Exception {
         final String myOid = "1.3.5.1.1.11.0";
@@ -361,6 +496,12 @@ public class MockSnmpAgentTest {
         doGet();
     }
 
+    /**
+     * Test dynamic variable cache after update from file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDynamicVariableCacheAfterUpdateFromFile() throws Exception {
         final String oid = "1.3.5.1.1.10.0";
@@ -374,18 +515,46 @@ public class MockSnmpAgentTest {
         doGet();
     }
 
+    /**
+     * Do get.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void doGet() throws Exception {
         requestAndVerifyResponse(PDU.GET, m_version);
     }
 
+    /**
+     * Do get next.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void doGetNext() throws Exception {
         requestAndVerifyResponse(PDU.GETNEXT, m_version);
     }
 
+    /**
+     * Do set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void doSet() throws Exception {
         requestAndVerifyResponse(PDU.SET, m_version);
     }
 
+    /**
+     * Request and verify response.
+     *
+     * @param pduType
+     *            the pdu type
+     * @param version
+     *            the version
+     * @throws Exception
+     *             the exception
+     */
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
         PDU pdu = createPDU(version);
 
@@ -414,6 +583,13 @@ public class MockSnmpAgentTest {
 
     }
 
+    /**
+     * Creates the pdu.
+     *
+     * @param version
+     *            the version
+     * @return the pdu
+     */
     private PDU createPDU(int version) {
         if (version == SnmpConstants.version3) {
             return new ScopedPDU();
@@ -422,6 +598,17 @@ public class MockSnmpAgentTest {
         }
     }
 
+    /**
+     * Send request.
+     *
+     * @param pdu
+     *            the pdu
+     * @param version
+     *            the version
+     * @return the pdu
+     * @throws Exception
+     *             the exception
+     */
     private PDU sendRequest(PDU pdu, int version) throws Exception {
         if (version == SnmpConstants.version3) {
             return sendRequestV3(pdu);
@@ -430,6 +617,15 @@ public class MockSnmpAgentTest {
         }
     }
 
+    /**
+     * Send request v1 v2.
+     *
+     * @param pdu
+     *            the pdu
+     * @param version
+     *            the version
+     * @return the pdu
+     */
     private PDU sendRequestV1V2(PDU pdu, int version) {
         PDU response = null;
         CommunityTarget target = new CommunityTarget();
@@ -467,6 +663,13 @@ public class MockSnmpAgentTest {
         return response;
     }
 
+    /**
+     * Send request v3.
+     *
+     * @param pdu
+     *            the pdu
+     * @return the pdu
+     */
     private PDU sendRequestV3(PDU pdu) {
         PDU response = null;
 
@@ -516,6 +719,13 @@ public class MockSnmpAgentTest {
         return response;
     }
 
+    /**
+     * Class path resource.
+     *
+     * @param path
+     *            the path
+     * @return the url
+     */
     private URL classPathResource(String path) {
         return getClass().getClassLoader().getResource(path);
     }

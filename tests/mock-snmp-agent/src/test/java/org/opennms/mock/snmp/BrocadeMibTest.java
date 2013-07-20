@@ -70,49 +70,99 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
+/**
+ * The Class BrocadeMibTest.
+ */
 @RunWith(Parameterized.class)
 public class BrocadeMibTest {
 
+    /**
+     * Versions.
+     *
+     * @return the collection
+     */
     @Parameters
     public static Collection<Object[]> versions() {
         return Arrays.asList(new Object[][] { { SnmpConstants.version1 }, { SnmpConstants.version2c },
                 { SnmpConstants.version3 }, });
     }
 
+    /** The m_agent. */
     private MockSnmpAgent m_agent;
 
+    /** The m_usm. */
     private USM m_usm;
 
+    /** The m_requested varbinds. */
     private ArrayList<AnticipatedRequest> m_requestedVarbinds;
 
+    /** The m_version. */
     private int m_version;
 
+    /**
+     * Instantiates a new brocade mib test.
+     *
+     * @param version
+     *            the version
+     */
     public BrocadeMibTest(int version) {
         m_version = version;
     }
 
+    /**
+     * The Class AnticipatedRequest.
+     */
     private class AnticipatedRequest {
+
+        /** The m_requested oid. */
         private String m_requestedOid;
 
+        /** The m_requested value. */
         private Variable m_requestedValue;
 
+        /** The m_expected oid. */
         private String m_expectedOid;
 
+        /** The m_expected syntax. */
         private int m_expectedSyntax;
 
+        /** The m_expected value. */
         private Variable m_expectedValue;
 
+        /**
+         * Instantiates a new anticipated request.
+         *
+         * @param requestedOid
+         *            the requested oid
+         * @param requestedValue
+         *            the requested value
+         */
         public AnticipatedRequest(String requestedOid, Variable requestedValue) {
             m_requestedOid = requestedOid;
             m_requestedValue = requestedValue;
         }
 
+        /**
+         * And expect.
+         *
+         * @param expectedOid
+         *            the expected oid
+         * @param expectedSyntax
+         *            the expected syntax
+         * @param expectedValue
+         *            the expected value
+         */
         public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
             m_expectedOid = expectedOid;
             m_expectedSyntax = expectedSyntax;
             m_expectedValue = expectedValue;
         }
 
+        /**
+         * Gets the request varbind.
+         *
+         * @return the request varbind
+         */
         public VariableBinding getRequestVarbind() {
             OID oid = new OID(m_requestedOid);
             if (m_requestedValue != null) {
@@ -122,6 +172,12 @@ public class BrocadeMibTest {
             }
         }
 
+        /**
+         * Verify.
+         *
+         * @param vb
+         *            the vb
+         */
         public void verify(VariableBinding vb) {
             assertNotNull("variable binding should not be null", vb);
             Variable val = vb.getVariable();
@@ -133,6 +189,12 @@ public class BrocadeMibTest {
 
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Create a global USM that all client calls will use
@@ -147,6 +209,12 @@ public class BrocadeMibTest {
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_agent != null) {
@@ -154,24 +222,41 @@ public class BrocadeMibTest {
         }
     }
 
+    /**
+     * Request.
+     *
+     * @param requestedOid
+     *            the requested oid
+     * @param requestedValue
+     *            the requested value
+     * @return the anticipated request
+     */
     public AnticipatedRequest request(String requestedOid, Variable requestedValue) {
         AnticipatedRequest r = new AnticipatedRequest(requestedOid, requestedValue);
         m_requestedVarbinds.add(r);
         return r;
     }
 
+    /**
+     * Request.
+     *
+     * @param requestOid
+     *            the request oid
+     * @return the anticipated request
+     */
     public AnticipatedRequest request(String requestOid) {
         return request(requestOid, null);
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         m_requestedVarbinds.clear();
     }
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     *
-     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -185,6 +270,7 @@ public class BrocadeMibTest {
      * later instances of the agent.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testSetUpTearDownTwice() throws Exception {
@@ -194,6 +280,12 @@ public class BrocadeMibTest {
         // don't need the second tearDown(), since it will be done by JUnit
     }
 
+    /**
+     * Test get next.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNext() throws Exception {
 
@@ -209,6 +301,12 @@ public class BrocadeMibTest {
         doGetNext();
     }
 
+    /**
+     * Test get next multiple varbinds.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextMultipleVarbinds() throws Exception {
 
@@ -245,10 +343,26 @@ public class BrocadeMibTest {
 
     }
 
+    /**
+     * Do get next.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void doGetNext() throws Exception {
         requestAndVerifyResponse(PDU.GETNEXT, m_version);
     }
 
+    /**
+     * Request and verify response.
+     *
+     * @param pduType
+     *            the pdu type
+     * @param version
+     *            the version
+     * @throws Exception
+     *             the exception
+     */
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
         PDU pdu = createPDU(version);
 
@@ -277,6 +391,13 @@ public class BrocadeMibTest {
 
     }
 
+    /**
+     * Creates the pdu.
+     *
+     * @param version
+     *            the version
+     * @return the pdu
+     */
     private PDU createPDU(int version) {
         if (version == SnmpConstants.version3) {
             return new ScopedPDU();
@@ -285,6 +406,17 @@ public class BrocadeMibTest {
         }
     }
 
+    /**
+     * Send request.
+     *
+     * @param pdu
+     *            the pdu
+     * @param version
+     *            the version
+     * @return the pdu
+     * @throws Exception
+     *             the exception
+     */
     private PDU sendRequest(PDU pdu, int version) throws Exception {
         if (version == SnmpConstants.version3) {
             return sendRequestV3(pdu);
@@ -293,6 +425,17 @@ public class BrocadeMibTest {
         }
     }
 
+    /**
+     * Send request v1 v2.
+     *
+     * @param pdu
+     *            the pdu
+     * @param version
+     *            the version
+     * @return the pdu
+     * @throws Exception
+     *             the exception
+     */
     private PDU sendRequestV1V2(PDU pdu, int version) throws Exception {
         PDU response;
         CommunityTarget target = new CommunityTarget();
@@ -316,6 +459,15 @@ public class BrocadeMibTest {
         return response;
     }
 
+    /**
+     * Send request v3.
+     *
+     * @param pdu
+     *            the pdu
+     * @return the pdu
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private PDU sendRequestV3(PDU pdu) throws IOException {
         PDU response;
 
@@ -351,6 +503,13 @@ public class BrocadeMibTest {
         return response;
     }
 
+    /**
+     * Class path resource.
+     *
+     * @param path
+     *            the path
+     * @return the url
+     */
     private URL classPathResource(String path) {
         return getClass().getClassLoader().getResource(path);
     }
