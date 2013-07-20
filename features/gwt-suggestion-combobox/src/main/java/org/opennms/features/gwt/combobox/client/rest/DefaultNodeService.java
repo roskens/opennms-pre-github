@@ -33,8 +33,12 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
 
+/**
+ * The Class DefaultNodeService.
+ */
 public class DefaultNodeService implements NodeService {
 
+    /** The test response. */
     public static String TEST_RESPONSE = "{" + "\"@totalCount\" : \"4\"," + "\"@count\" : \"4\"," + "\"node\" : [ {"
             + "\"@type\" : \"A\"," + "\"@id\" : \"47\"," + "\"@label\" : \"www.gap.con\","
             + "\"@foreignSource\" : \"gap\"," + "\"@foreignId\" : \"1300814982372\"," + "\"assetRecord\" : {"
@@ -63,13 +67,25 @@ public class DefaultNodeService implements NodeService {
             + "\"createTime\" : \"2010-12-14T11:21:23.886-05:00\"," + "\"labelSource\" : \"U\","
             + "\"lastCapsdPoll\" : \"2011-06-05T07:31:51.912-04:00\"" + "} ]" + "}";
 
+    /** The base url. */
     private static String BASE_URL = "rest/nodes";
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.rest.NodeService#getAllNodes(com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void getAllNodes(RequestCallback callback) {
         sendRequest(callback, BASE_URL + "?limit=0");
     }
 
+    /**
+     * Send request.
+     *
+     * @param callback
+     *            the callback
+     * @param url
+     *            the url
+     */
     private void sendRequest(RequestCallback callback, String url) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("accept", "application/json");
@@ -80,6 +96,9 @@ public class DefaultNodeService implements NodeService {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.rest.NodeService#getNodeByNodeLabel(java.lang.String, com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void getNodeByNodeLabel(String nodeLabel, RequestCallback callback) {
         String url = BASE_URL + "?label=" + nodeLabel + "&comparator=contains&limit=0";

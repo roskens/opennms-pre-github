@@ -41,14 +41,30 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class SuggestionComboboxPresenter.
+ */
 public class SuggestionComboboxPresenter implements Presenter, SuggestionComboboxView.Presenter<NodeDetail> {
 
+    /** The m_event bus. */
     private final SimpleEventBus m_eventBus;
 
+    /** The m_view. */
     private final SuggestionComboboxView<NodeDetail> m_view;
 
+    /** The m_node service. */
     private final NodeService m_nodeService;
 
+    /**
+     * Instantiates a new suggestion combobox presenter.
+     *
+     * @param eventBus
+     *            the event bus
+     * @param view
+     *            the view
+     * @param nodeService
+     *            the node service
+     */
     public SuggestionComboboxPresenter(SimpleEventBus eventBus, SuggestionComboboxView<NodeDetail> view,
             NodeService nodeService) {
         m_eventBus = eventBus;
@@ -58,20 +74,36 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
         m_nodeService = nodeService;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(final HasWidgets container) {
         container.clear();
         container.add(m_view.asWidget());
     }
 
+    /**
+     * Gets the event bus.
+     *
+     * @return the event bus
+     */
     public SimpleEventBus getEventBus() {
         return m_eventBus;
     }
 
+    /**
+     * Gets the display.
+     *
+     * @return the display
+     */
     public SuggestionComboboxView<NodeDetail> getDisplay() {
         return m_view;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView.Presenter#onGoButtonClicked()
+     */
     @Override
     public void onGoButtonClicked() {
         m_nodeService.getNodeByNodeLabel(m_view.getSelectedText(), new RequestCallback() {
@@ -93,6 +125,9 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView.Presenter#onEnterKeyEvent()
+     */
     @Override
     public void onEnterKeyEvent() {
         m_nodeService.getNodeByNodeLabel(m_view.getSelectedText(), new RequestCallback() {
@@ -115,10 +150,18 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
         });
     }
 
+    /**
+     * Gets the node service.
+     *
+     * @return the node service
+     */
     public NodeService getNodeService() {
         return m_nodeService;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView.Presenter#onNodeSelected()
+     */
     @Override
     public void onNodeSelected() {
         StringBuilder builder = new StringBuilder();
@@ -130,6 +173,11 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
         Location.assign(builder.toString());
     }
 
+    /**
+     * Gets the base href.
+     *
+     * @return the base href
+     */
     public final native String getBaseHref()/*-{
                                             try{
                                             return $wnd.getBaseHref();

@@ -30,19 +30,40 @@ package org.opennms.features.gwt.combobox.client.view;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class NodeDetail.
+ */
 public class NodeDetail extends JavaScriptObject {
 
+    /**
+     * Instantiates a new node detail.
+     */
     protected NodeDetail() {
     }
 
+    /**
+     * Gets the label.
+     *
+     * @return the label
+     */
     public final native String getLabel() /*-{
                                           return this["@label"];
                                           }-*/;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native int getId() /*-{
                                     return parseInt(this["@id"]);
                                     }-*/;
 
+    /**
+     * Gets the node type.
+     *
+     * @return the node type
+     */
     public final native String getNodeType() /*-{
                                              return this["@type"];
                                              }-*/;

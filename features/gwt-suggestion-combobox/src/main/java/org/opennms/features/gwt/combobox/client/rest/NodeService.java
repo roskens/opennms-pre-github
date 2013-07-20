@@ -30,9 +30,29 @@ package org.opennms.features.gwt.combobox.client.rest;
 
 import com.google.gwt.http.client.RequestCallback;
 
+/**
+ * The Interface NodeService.
+ */
 public interface NodeService {
+
+    /**
+     * Gets the all nodes.
+     *
+     * @param callback
+     *            the callback
+     * @return the all nodes
+     */
     public void getAllNodes(RequestCallback callback);
 
+    /**
+     * Gets the node by node label.
+     *
+     * @param nodeLabel
+     *            the node label
+     * @param callback
+     *            the callback
+     * @return the node by node label
+     */
     public void getNodeByNodeLabel(String nodeLabel, RequestCallback callback);
 
 }

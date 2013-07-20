@@ -39,8 +39,18 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 
+/**
+ * The Class NodeRestResponseMapper.
+ */
 public class NodeRestResponseMapper {
 
+    /**
+     * Map node jso nto node detail.
+     *
+     * @param jsonString
+     *            the json string
+     * @return the list
+     */
     public static List<NodeDetail> mapNodeJSONtoNodeDetail(String jsonString) {
         List<NodeDetail> nodeDetails = new ArrayList<NodeDetail>();
         JSONObject jsonObject = JSONParser.parseStrict(jsonString).isObject();
@@ -64,10 +74,24 @@ public class NodeRestResponseMapper {
         return nodeDetails;
     }
 
+    /**
+     * Creates the node details overlay.
+     *
+     * @param jso
+     *            the jso
+     * @return the node detail
+     */
     private static native NodeDetail createNodeDetailsOverlay(JavaScriptObject jso) /*-{
                                                                                     return jso;
                                                                                     }-*/;
 
+    /**
+     * Creates the node details array.
+     *
+     * @param jso
+     *            the jso
+     * @return the js array
+     */
     private static native JsArray<NodeDetail> createNodeDetailsArray(JavaScriptObject jso) /*-{
                                                                                            return jso;
                                                                                            }-*/;

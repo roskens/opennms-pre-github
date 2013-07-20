@@ -38,17 +38,33 @@ import org.opennms.features.gwt.combobox.client.view.SuggestionComboboxViewImpl;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class AppController.
+ */
 public class AppController implements Presenter {
+
+    /** The m_event bus. */
     private final SimpleEventBus m_eventBus;
 
+    /** The m_suggestion combobox view. */
     private SuggestionComboboxView<NodeDetail> m_suggestionComboboxView;
 
+    /** The m_container. */
     private HasWidgets m_container;
 
+    /**
+     * Instantiates a new app controller.
+     *
+     * @param eventBus
+     *            the event bus
+     */
     public AppController(SimpleEventBus eventBus) {
         m_eventBus = eventBus;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         m_container = container;

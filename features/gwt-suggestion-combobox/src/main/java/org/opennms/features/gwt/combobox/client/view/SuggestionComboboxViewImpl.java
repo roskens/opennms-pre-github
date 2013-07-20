@@ -58,10 +58,19 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class SuggestionComboboxViewImpl.
+ */
 public class SuggestionComboboxViewImpl extends Composite implements SuggestionComboboxView<NodeDetail> {
 
+    /**
+     * The Class NodeDetailCell.
+     */
     public class NodeDetailCell extends AbstractSafeHtmlCell<NodeDetail> {
 
+        /**
+         * Instantiates a new node detail cell.
+         */
         public NodeDetailCell() {
             super(new SafeHtmlRenderer<NodeDetail>() {
 
@@ -86,39 +95,58 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
             });
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.cell.client.AbstractSafeHtmlCell#render(com.google.gwt.cell.client.Cell.Context, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+         */
         @Override
         protected void render(Context context, SafeHtml value, SafeHtmlBuilder sb) {
             sb.append(value);
         }
     }
 
+    /** The ui binder. */
     private static SuggestionComboboxViewUiBinder uiBinder = GWT.create(SuggestionComboboxViewUiBinder.class);
 
+    /**
+     * The Interface SuggestionComboboxViewUiBinder.
+     */
     @UiTemplate("SuggestionComboboxView.ui.xml")
     interface SuggestionComboboxViewUiBinder extends UiBinder<Widget, SuggestionComboboxViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_text box. */
     @UiField
     TextBox m_textBox;
 
+    /** The m_go button. */
     @UiField
     Button m_goButton;
 
+    /** The m_node list. */
     CellList<NodeDetail> m_nodeList;
 
+    /** The m_pager. */
     SimplePager m_pager;
 
+    /** The m_data list. */
     ListDataProvider<NodeDetail> m_dataList;
 
+    /** The m_popup panel. */
     PopupPanel m_popupPanel;
 
+    /** The m_presenter. */
     private Presenter<NodeDetail> m_presenter;
 
+    /** The m_selection model. */
     private SingleSelectionModel<NodeDetail> m_selectionModel;
 
+    /**
+     * Instantiates a new suggestion combobox view impl.
+     */
     public SuggestionComboboxViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
         m_layoutPanel.setSize("100%", "23px");
@@ -169,11 +197,17 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
         m_popupPanel.getElement().getStyle().setPadding(1, Unit.PX);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView#setPresenter(org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<NodeDetail> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView#setData(java.util.List)
+     */
     @Override
     public void setData(List<NodeDetail> dataList) {
         m_dataList.setList(dataList);
@@ -188,6 +222,12 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
         });
     }
 
+    /**
+     * On go button click handler.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_goButton")
     void onGoButtonClickHandler(ClickEvent event) {
         if (m_presenter != null) {
@@ -195,11 +235,17 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView#getSelectedText()
+     */
     @Override
     public String getSelectedText() {
         return m_textBox.getText();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.combobox.client.view.SuggestionComboboxView#getSelectedNode()
+     */
     @Override
     public NodeDetail getSelectedNode() {
         return m_selectionModel.getSelectedObject();

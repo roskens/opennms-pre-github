@@ -68,6 +68,12 @@ public class NodeSuggestionCombobox implements EntryPoint {
 
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param elem
+     *            the elem
+     */
     private void createView(Element elem) {
         SimpleEventBus eventBus = new SimpleEventBus();
         AppController appView = new AppController(eventBus);

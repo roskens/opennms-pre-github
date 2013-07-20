@@ -32,23 +32,72 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface SuggestionComboboxView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface SuggestionComboboxView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On go button clicked.
+         */
         void onGoButtonClicked();
 
+        /**
+         * On enter key event.
+         */
         void onEnterKeyEvent();
 
+        /**
+         * On node selected.
+         */
         void onNodeSelected();
     }
 
+    /**
+     * Gets the selected text.
+     *
+     * @return the selected text
+     */
     String getSelectedText();
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 
+    /**
+     * Sets the data.
+     *
+     * @param dataList
+     *            the new data
+     */
     void setData(List<T> dataList);
 
+    /**
+     * As widget.
+     *
+     * @return the widget
+     */
     Widget asWidget();
 
+    /**
+     * Gets the selected node.
+     *
+     * @return the selected node
+     */
     NodeDetail getSelectedNode();
 }

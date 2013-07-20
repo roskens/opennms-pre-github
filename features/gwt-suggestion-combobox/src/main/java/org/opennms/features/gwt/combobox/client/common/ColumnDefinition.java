@@ -30,13 +30,37 @@ package org.opennms.features.gwt.combobox.client.common;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Class ColumnDefinition.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public abstract class ColumnDefinition<T> {
+
+    /**
+     * Render.
+     *
+     * @param t
+     *            the t
+     * @return the widget
+     */
     public abstract Widget render(T t);
 
+    /**
+     * Checks if is clickable.
+     *
+     * @return true, if is clickable
+     */
     public boolean isClickable() {
         return true;
     }
 
+    /**
+     * Checks if is selectable.
+     *
+     * @return true, if is selectable
+     */
     public boolean isSelectable() {
         return true;
     }
