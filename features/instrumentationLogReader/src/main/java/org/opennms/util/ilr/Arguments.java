@@ -33,10 +33,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface Arguments.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD })
 public @interface Arguments {
 
+    /**
+     * Help.
+     *
+     * @return the string
+     */
     String help();
 
 }

@@ -39,57 +39,108 @@ import java.lang.reflect.Method;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class OptionTest.
+ */
 public class OptionTest {
+
+    /** The m_arg handler. */
     private OptionTester m_argHandler;
 
+    /** The m_arg parser. */
     private ArgumentParser m_argParser;
 
+    /**
+     * The Class OptionTester.
+     */
     public static class OptionTester {
 
+        /** The arg1. */
         boolean arg1 = false;
 
+        /** The arg2. */
         boolean arg2 = false;
 
+        /** The arg3. */
         boolean arg3 = false;
 
+        /** The file name. */
         String fileName = "";
 
+        /**
+         * Handle arg1.
+         */
         @Option(shortName = "arg1", longName = "argumentOne", help = "this is argument one")
         public void handleArg1() {
             arg1 = true;
         }
 
+        /**
+         * Handle arg2.
+         */
         @Option(shortName = "arg2", longName = "argumentTwo", help = "this is argument two")
         public void handleArg2() {
             arg2 = true;
         }
 
+        /**
+         * Handle arg3.
+         */
         @Option(shortName = "arg3", longName = "argumentThree", help = "this is argument three")
         public void handleArg3() {
             arg3 = true;
         }
 
+        /**
+         * Handle file arguments.
+         *
+         * @param arg
+         *            the arg
+         */
         @Arguments(help = "this is one or more String Arguments")
         public void handleFileArguments(String arg) {
             fileName += " " + arg;
         }
 
+        /**
+         * Gets the arg1.
+         *
+         * @return the arg1
+         */
         public boolean getArg1() {
             return arg1;
         }
 
+        /**
+         * Gets the arg2.
+         *
+         * @return the arg2
+         */
         public boolean getArg2() {
             return arg2;
         }
 
+        /**
+         * Gets the arg3.
+         *
+         * @return the arg3
+         */
         public boolean getArg3() {
             return arg3;
         }
 
+        /**
+         * Gets the file name.
+         *
+         * @return the file name
+         */
         public String getFileName() {
             return fileName;
         }
 
+        /**
+         * Reset.
+         */
         public void reset() {
             arg1 = false;
             arg2 = false;
@@ -97,12 +148,18 @@ public class OptionTest {
         }
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_argHandler = new OptionTester();
         m_argParser = new ArgumentParser("Test", m_argHandler);
     }
 
+    /**
+     * Test annotations.
+     */
     @Test
     public void testAnnotations() {
         OptionTester argHandler = new OptionTester();
@@ -118,6 +175,16 @@ public class OptionTest {
         }
     }
 
+    /**
+     * Test parse long option.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test
     public void testParseLongOption() throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
@@ -125,6 +192,16 @@ public class OptionTest {
         assertTrue(m_argHandler.getArg1());
     }
 
+    /**
+     * Test parse short option.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test
     public void testParseShortOption() throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
@@ -132,12 +209,25 @@ public class OptionTest {
         assertTrue(m_argHandler.getArg1());
     }
 
+    /**
+     * Test find option.
+     */
     @Test
     public void testFindOption() {
         assertNotNull(m_argParser.findOptionByShortName("arg1"));
         assertNotNull(m_argParser.findOptionByLongName("argumentOne"));
     }
 
+    /**
+     * Test find and parse multiple options.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test
     public void testFindAndParseMultipleOptions() throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
@@ -161,6 +251,16 @@ public class OptionTest {
         assertFalse(m_argHandler.getArg3());
     }
 
+    /**
+     * Test parse help option.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test
     public void testParseHelpOption() throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
@@ -168,12 +268,32 @@ public class OptionTest {
 
     }
 
+    /**
+     * Test parse invalid argument.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testParseInvalidArgument() throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
         m_argParser.processArgs(new String[] { "-arg4" });
     }
 
+    /**
+     * Test file argument.
+     *
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     @Test
     public void testFileArgument() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         m_argParser.processArgs(new String[] { "-arg3", "--argumentTwo", "a", "b", "c", "d", "e" });

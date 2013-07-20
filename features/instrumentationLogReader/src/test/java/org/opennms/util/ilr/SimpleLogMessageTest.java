@@ -35,12 +35,23 @@ import java.util.Date;
 
 import org.junit.Test;
 
+/**
+ * The Class SimpleLogMessageTest.
+ */
 public class SimpleLogMessageTest {
+
+    /**
+     * Test get service.
+     */
     @Test
     public void testGetService() {
         LogMessage log = SimpleLogMessage.create("2010-05-26 12:12:38,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: collectData: end: 24/216.216.217.254/SNMP");
         assertEquals("24/216.216.217.254/SNMP", log.getServiceID());
     }
+
+    /**
+     * Test post log4j refactor service.
+     */
     @Test
     public void testPostLog4jRefactorService() throws Exception {
         LogMessage log = SimpleLogMessage.create("2013-07-23 11:39:22,295 DEBUG [LegacyScheduler-Thread-34-of-50] o.o.n.c.DefaultCollectdInstrumentation: collector.collect: begin:816/10.151.24.66/SNMP");

@@ -32,9 +32,22 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class MainTest.
+ */
 public class MainTest {
+
+    /** The main. */
     Main main = new Main();
 
+    /**
+     * Setup.
+     *
+     * @param testFile
+     *            the test file
+     * @param sortFlag
+     *            the sort flag
+     */
     public void setup(String testFile, String sortFlag) {
         String[] args = new String[2];
         args[0] = testFile;
@@ -42,54 +55,81 @@ public class MainTest {
         main.execute(args, System.out);
     }
 
+    /**
+     * Test parse total collection sort flag.
+     */
     @Test
     public void testParseTotalCollectionSortFlag() {
         setup("target/test-classes/TestLogFile.log", "-tc");
         assertEquals("TOTALCOLLECTS", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse average collection time.
+     */
     @Test
     public void testParseAverageCollectionTime() {
         setup("target/test-classes/TestLogFile.log", "-act");
         assertEquals("AVGCOLLECTTIME", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse total collection time.
+     */
     @Test
     public void testParseTotalCollectionTime(){
         setup("target/test-classes/TestLogFile.log", "-tct");
         assertEquals("TOTALCOLLECTTIME", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse average time between collection.
+     */
     @Test
     public void testParseAverageTimeBetweenCollection() {
         setup("target/test-classes/TestLogFile.log","-atbc");
         assertEquals("AVGTIMEBETWEENCOLLECTS", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse average successful collection time.
+     */
     @Test
     public void testParseAverageSuccessfulCollectionTime() {
         setup("target/test-classes/TestLogFile.log","-asct");
         assertEquals("AVGSUCCESSCOLLECTTIME", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse successful percentage.
+     */
     @Test
     public void testParseSuccessfulPercentage() {
         setup("target/test-classes/TestLogFile.log","-sp");
         assertEquals("SUCCESSPERCENTAGE", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse average unsuccessful collection time.
+     */
     @Test
     public void testParseAverageUnsuccessfulCollectionTime() {
         setup("target/test-classes/TestLogFile.log","-auct");
         assertEquals("AVGUNSUCCESSCOLLECTTIME", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse unsuccessful percentage.
+     */
     @Test
     public void testParseUnsuccessfulPercentage() {
         setup("target/test-classes/TestLogFile.log","-up");
         assertEquals("UNSUCCESSPERCENTAGE", main.getCollector().m_sortColumn.toString());
     }
 
+    /**
+     * Test parse total persist time.
+     */
     @Test
     public void testParseTotalPersistTime() {
         setup("target/test-classes/TestLogFile.log","-tpt");

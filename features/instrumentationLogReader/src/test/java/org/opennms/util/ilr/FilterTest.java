@@ -46,13 +46,23 @@ import java.util.List;
 import org.junit.Test;
 import org.opennms.util.ilr.Filter.Predicate;
 
+/**
+ * The Class FilterTest.
+ */
 public class FilterTest {
+
+    /** The filter. */
     Filter filter = new Filter();
 
+    /** The c. */
     Collector c = new Collector();
 
+    /** The svc collector. */
     ServiceCollector svcCollector = new ServiceCollector(null);
 
+    /**
+     * Setup.
+     */
     public void setup() {
         c.addLog("2010-03-13 02:21:30,000 DEBUG [CollectdScheduler-400 Pool-fiber51] Collectd: collector.collect: begin:0/1.1.1.1/SNMP");
         c.addLog("2010-03-13 02:21:40,000 DEBUG [CollectdScheduler-400 Pool-fiber51] Collectd: collector.collect: end:0/1.1.1.1/SNMP");
@@ -62,6 +72,9 @@ public class FilterTest {
         c.addLog("2010-03-13 02:23:50,000 DEBUG [CollectdScheduler-400 Pool-fiber51] Collectd: collector.collect: end:0/3.3.3.3/SNMP");
     }
 
+    /**
+     * Test create predicate.
+     */
     @Test
     public void testCreatePredicate() {
         Predicate<Integer> predicate = new Predicate<Integer>() {
@@ -81,6 +94,9 @@ public class FilterTest {
         assertEquals(false, expectedFalse);
     }
 
+    /**
+     * Test create integer based filter.
+     */
     @Test
     public void testCreateIntegerBasedFilter() {
         Predicate<Integer> predicate = filter.createIntegerBasedPredicate(3);
@@ -90,6 +106,9 @@ public class FilterTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test create string based filter.
+     */
     @Test
     public void testCreateStringBasedFilter() {
         Predicate<String> predicate = filter.createStringBasedPredicate("This is a String");
@@ -99,6 +118,9 @@ public class FilterTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Test filter even numbers out.
+     */
     @Test
     public void testFilterEvenNumbersOut() {
         List<Integer> list = Arrays.asList(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
@@ -115,6 +137,9 @@ public class FilterTest {
         assertEquals(expected, oddNumbers);
     }
 
+    /**
+     * Test filter service collectors by service id.
+     */
     @Test
     public void testFilterServiceCollectorsByServiceID() {
         setup();
@@ -128,6 +153,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test compound filters.
+     */
     @Test
     public void testCompoundFilters() {
         setup();
@@ -149,6 +177,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test filter odd numbers out.
+     */
     @Test
     public void testFilterOddNumbersOut() {
         List<Integer> list = Arrays.asList(new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });

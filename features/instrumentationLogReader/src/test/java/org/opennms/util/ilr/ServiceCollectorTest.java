@@ -32,8 +32,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class ServiceCollectorTest.
+ */
 public class ServiceCollectorTest {
 
+    /**
+     * Test service id check.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testServiceIDCheck() {
 
@@ -46,6 +52,9 @@ public class ServiceCollectorTest {
 
     }
 
+    /**
+     * Test collect add message.
+     */
     @Test
     public void testCollectAddMessage() {
 
@@ -62,6 +71,9 @@ public class ServiceCollectorTest {
         assertEquals(100, svcCollector.getSuccessPercentage(), 0);
     }
 
+    /**
+     * Test error add message.
+     */
     @Test
     public void testErrorAddMessage() {
 
@@ -78,6 +90,9 @@ public class ServiceCollectorTest {
         assertEquals(20000L, svcCollector.getAverageErrorCollectionTime());
     }
 
+    /**
+     * Test persist add message.
+     */
     @Test
     public void testPersistAddMessage() {
 
@@ -94,6 +109,9 @@ public class ServiceCollectorTest {
 
     }
 
+    /**
+     * Test get collection time with different dates.
+     */
     @Test
     public void testGetCollectionTimeWithDifferentDates() {
 
@@ -126,6 +144,9 @@ public class ServiceCollectorTest {
                                                                           // collection
     }
 
+    /**
+     * Test get error time with different dates.
+     */
     @Test
     public void testGetErrorTimeWithDifferentDates() {
 
@@ -155,6 +176,9 @@ public class ServiceCollectorTest {
                                                                         // collection)
     }
 
+    /**
+     * Test get persist time with different dates.
+     */
     @Test
     public void testGetPersistTimeWithDifferentDates() {
 
@@ -177,6 +201,9 @@ public class ServiceCollectorTest {
                                                                      // PERSIST)
     }
 
+    /**
+     * Test get parsed service id.
+     */
     @Test
     public void testGetParsedServiceID() {
         ServiceCollector svcCollector = setupServiceCollector();
@@ -192,6 +219,12 @@ public class ServiceCollectorTest {
 
     }
 
+    /**
+     * Sets the up collection messages.
+     *
+     * @param svcCollector
+     *            the new up collection messages
+     */
     public void setupCollectionMessages(ServiceCollector svcCollector) {
 
         LogMessage startNormalCollectionMessage = BaseLogMessage.create("2010-05-26 12:12:18,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: "
@@ -203,6 +236,12 @@ public class ServiceCollectorTest {
         svcCollector.addMessage(endNormalCollectionMessage);
     }
 
+    /**
+     * Sets the up error messages.
+     *
+     * @param svcCollector
+     *            the new up error messages
+     */
     public void setupErrorMessages(ServiceCollector svcCollector) {
 
         LogMessage startErrorCollectionMessage = BaseLogMessage.create("2010-05-26 12:12:18,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: "
@@ -217,6 +256,12 @@ public class ServiceCollectorTest {
         svcCollector.addMessage(endErrorCollectionMessage);
     }
 
+    /**
+     * Sets the up persist messages.
+     *
+     * @param svcCollector
+     *            the new up persist messages
+     */
     public void setupPersistMessages(ServiceCollector svcCollector) {
 
         LogMessage startPersistMessage = BaseLogMessage.create("2010-05-26 12:12:18,027 DEBUG [CollectdScheduler-200 Pool-fiber81] Collectd: "
@@ -228,6 +273,11 @@ public class ServiceCollectorTest {
         svcCollector.addMessage(endPersistMessage);
     }
 
+    /**
+     * Setup service collector.
+     *
+     * @return the service collector
+     */
     public ServiceCollector setupServiceCollector() {
         String serviceID = "24/216.216.217.254/SNMP";
         ServiceCollector svcCollector = new ServiceCollector(serviceID);

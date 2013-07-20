@@ -47,11 +47,30 @@ import org.junit.Test;
 import org.opennms.util.ilr.Collector.SortColumn;
 import org.opennms.util.ilr.Collector.SortOrder;
 
+/**
+ * The Class CollectorTest.
+ */
 public class CollectorTest {
+
+    /**
+     * Gets the date.
+     *
+     * @param dateString
+     *            the date string
+     * @return the date
+     * @throws ParseException
+     *             the parse exception
+     */
     private Date getDate(String dateString) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,S").parse(dateString);
     }
 
+    /**
+     * Test start not set end.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     @Test
     public void testStartNotSetEnd() throws ParseException {
         Collector c = new Collector();
@@ -64,6 +83,12 @@ public class CollectorTest {
         assertEquals(7144, c.getDuration());
     }
 
+    /**
+     * Test start and end time.
+     *
+     * @throws ParseException
+     *             the parse exception
+     */
     @Test
     public void testStartAndEndTime() throws ParseException {
         Collector c = new Collector();
@@ -75,6 +100,9 @@ public class CollectorTest {
         assertEquals(7144, c.getDuration());
     }
 
+    /**
+     * Test service count.
+     */
     @Test
     public void testServiceCount() {
         Collector c = new Collector();
@@ -98,6 +126,9 @@ public class CollectorTest {
         assertEquals(5, c.getServiceCount());
     }
 
+    /**
+     * Test threadcount.
+     */
     @Test
     public void testThreadcount() {
         Collector c = new Collector();
@@ -116,6 +147,9 @@ public class CollectorTest {
         assertEquals(5, c.getThreadCount());
     }
 
+    /**
+     * Test collections per service.
+     */
     @Test
     public void testCollectionsPerService() {
         Collector c = new Collector();
@@ -136,6 +170,9 @@ public class CollectorTest {
         assertEquals(0, c.getCollectionsPerService("58/172.20.1.201/SNMP"));
     }
 
+    /**
+     * Test average collection time per service.
+     */
     @Test
     public void testAverageCollectionTimePerService() {
         Collector c = new Collector();
@@ -156,6 +193,9 @@ public class CollectorTest {
         assertEquals(0, c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
     }
 
+    /**
+     * Test total collection time per service.
+     */
     @Test
     public void testTotalCollectionTimePerService() {
         Collector c = new Collector();
@@ -176,6 +216,9 @@ public class CollectorTest {
         assertEquals(0, c.getAverageCollectionTimePerService("58/172.20.1.201/SNMP"));
     }
 
+    /**
+     * Test total collection time.
+     */
     @Test
     public void testTotalCollectionTime() {
         Collector c = new Collector();
@@ -195,6 +238,12 @@ public class CollectorTest {
                      c.getTotalCollectionTimePerService("32028/209.219.9.78/SNMP"));
     }
 
+    /**
+     * Test read log messages from file.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testReadLogMessagesFromFile() throws IOException {
         Collector c = new Collector();
@@ -217,6 +266,12 @@ public class CollectorTest {
         assertEquals("LegacyScheduler-Thread-20-of-50", logMessage.getThread());
     }
 
+    /**
+     * Test print global stats.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testPrintGlobalStats() throws IOException {
         Collector c = new Collector ();
@@ -230,6 +285,13 @@ public class CollectorTest {
         assertTrue(actualOutput.contains("Total Services: 5"));
         assertTrue(actualOutput.contains("Threads Used: 5"));
     }
+
+    /**
+     * Test print service stats.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testPrintServiceStats () throws IOException {
         Collector c = new Collector ();
@@ -253,6 +315,9 @@ public class CollectorTest {
         assertEquals(expectedOutput,actualOutput);
     }
 
+    /**
+     * Test format duration.
+     */
     @Test
     public void testFormatDuration () {
         assertEquals("0s",Collector.formatDuration(0));
@@ -270,6 +335,13 @@ public class CollectorTest {
         assertEquals("1d",Collector.formatDuration(3600*1000*24));
         assertEquals("1d0h0m0.001s",Collector.formatDuration(3600*1000*24+1));
     }
+
+    /**
+     * Test print report.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Ignore
     @Test
     public void testPrintReport() throws IOException{
@@ -282,6 +354,9 @@ public class CollectorTest {
         assertEquals(expectedOutput,actualOutput);
     }
 
+    /**
+     * Test sort by average collection time.
+     */
     @Test
     public void testSortByAverageCollectionTime() {
 
@@ -300,6 +375,9 @@ public class CollectorTest {
         assertEquals(new Duration(10000), collectors.get(2).getAverageCollectionDuration());
     }
 
+    /**
+     * Test sort by total collection time.
+     */
     @Test
     public void testSortByTotalCollectionTime() {
 
@@ -320,6 +398,9 @@ public class CollectorTest {
         assertEquals(new Duration(5000), collectors.get(2).getTotalCollectionDuration());
     }
 
+    /**
+     * Test sort by total collections.
+     */
     @Test
     public void testSortByTotalCollections() {
 
@@ -344,6 +425,9 @@ public class CollectorTest {
         assertEquals(1, collectors.get(2).getCollectionCount());
     }
 
+    /**
+     * Test sort by average time between collections.
+     */
     @Test
     public void testSortByAverageTimeBetweenCollections() {
 
@@ -368,6 +452,9 @@ public class CollectorTest {
         assertEquals(1000, collectors.get(2).getAverageTimeBetweenCollections());
     }
 
+    /**
+     * Test sort by success percentage.
+     */
     @Test
     public void testSortBySuccessPercentage() {
 
@@ -390,6 +477,9 @@ public class CollectorTest {
         assertEquals(0.0, collectors.get(2).getSuccessPercentage(),0);
     }
 
+    /**
+     * Test sort by successful collections.
+     */
     @Test
     public void testSortBySuccessfulCollections() {
 
@@ -415,6 +505,9 @@ public class CollectorTest {
 
     }
 
+    /**
+     * Test sort by average successful collection time.
+     */
     @Test
     public void testSortByAverageSuccessfulCollectionTime() {
 
@@ -433,6 +526,9 @@ public class CollectorTest {
         assertEquals(new Duration(10000), collectors.get(2).getAverageCollectionDuration());
     }
 
+    /**
+     * Test sort by unsuccessful collections.
+     */
     @Test
     public void testSortByUnsuccessfulCollections() {
 
@@ -456,6 +552,9 @@ public class CollectorTest {
         assertEquals(0, collectors.get(2).getErrorCollectionCount());
     }
 
+    /**
+     * Test sort by total persist time.
+     */
     @Test
     public void testSortByTotalPersistTime() {
 
@@ -474,6 +573,9 @@ public class CollectorTest {
         assertEquals(1000, collectors.get(2).getTotalPersistTime());
     }
 
+    /**
+     * Test sort by unsuccessful percentage.
+     */
     @Test
     public void testSortByUnsuccessfulPercentage() {
 
@@ -496,6 +598,9 @@ public class CollectorTest {
         assertEquals(0.0, collectors.get(2).getErrorPercentage(), 0);
     }
 
+    /**
+     * Test sort by average unsuccessful collection time.
+     */
     @Test
     public void testSortByAverageUnsuccessfulCollectionTime() {
 
@@ -520,6 +625,9 @@ public class CollectorTest {
 
     }
 
+    /**
+     * Test sort by average collection time reversed.
+     */
     @Test
     public void testSortByAverageCollectionTimeReversed() {
 
@@ -544,6 +652,15 @@ public class CollectorTest {
         return BaseLogMessage.parseTimestamp(dateString);
     }
 
+    /**
+     * From file.
+     *
+     * @param fileName
+     *            the file name
+     * @return the string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private String fromFile(String fileName) throws IOException {
         StringBuilder buf = new StringBuilder();
         File logFile = new File(fileName);

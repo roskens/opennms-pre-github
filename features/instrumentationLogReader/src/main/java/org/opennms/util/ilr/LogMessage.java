@@ -30,28 +30,86 @@ package org.opennms.util.ilr;
 
 import java.util.Date;
 
+/**
+ * The Interface LogMessage.
+ */
 public interface LogMessage {
 
+    /**
+     * Checks if is end message.
+     *
+     * @return true, if is end message
+     */
     public abstract boolean isEndMessage();
 
+    /**
+     * Checks if is persist message.
+     *
+     * @return true, if is persist message
+     */
     public abstract boolean isPersistMessage();
 
+    /**
+     * Checks if is persist begin message.
+     *
+     * @return true, if is persist begin message
+     */
     public abstract boolean isPersistBeginMessage();
 
+    /**
+     * Checks if is persist end message.
+     *
+     * @return true, if is persist end message
+     */
     public abstract boolean isPersistEndMessage();
 
+    /**
+     * Checks if is begin message.
+     *
+     * @return true, if is begin message
+     */
     public abstract boolean isBeginMessage();
 
+    /**
+     * Checks if is error message.
+     *
+     * @return true, if is error message
+     */
     public abstract boolean isErrorMessage();
 
+    /**
+     * Checks if is collector begin message.
+     *
+     * @return true, if is collector begin message
+     */
     public abstract boolean isCollectorBeginMessage();
 
+    /**
+     * Checks if is collector end message.
+     *
+     * @return true, if is collector end message
+     */
     public abstract boolean isCollectorEndMessage();
 
+    /**
+     * Gets the date.
+     *
+     * @return the date
+     */
     public abstract Date getDate();
 
+    /**
+     * Gets the service id.
+     *
+     * @return the service id
+     */
     public abstract String getServiceID();
 
+    /**
+     * Gets the thread.
+     *
+     * @return the thread
+     */
     public abstract String getThread();
 
 }

@@ -33,7 +33,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.opennms.util.ilr.Collector.SortColumn;
 
+/**
+ * The Class EnumTest.
+ */
 public class EnumTest {
+
+    /**
+     * Test set sort column.
+     */
     @Test
     public void testSetSortColumn() {
         String param = "TOTALCOLLECTS";

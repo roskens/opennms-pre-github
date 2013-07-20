@@ -46,7 +46,7 @@ import org.junit.internal.matchers.TypeSafeMatcher;
 import org.junit.runner.RunWith;
 
 /**
- * Duration
+ * Duration.
  *
  * @author brozow
  */
@@ -54,10 +54,18 @@ import org.junit.runner.RunWith;
 @RunWith(Theories.class)
 public class DurationTest {
 
+    /**
+     * Timestamp.
+     *
+     * @param dateString
+     *            the date string
+     * @return the date
+     */
     static Date timestamp(String dateString) {
         return BaseLogMessage.parseTimestamp(dateString);
     }
 
+    /** The data points. */
     @DataPoints
     public static Date[] dataPoints = new Date[] {
             timestamp("2010-05-26 12:12:40,000"),
@@ -72,32 +80,65 @@ public class DurationTest {
             timestamp("2020-05-26 12:12:40,000"), timestamp("2110-05-26 12:12:40,000"),
             timestamp("3010-05-26 12:12:40,000"), };
 
+    /**
+     * The Class ToStringData.
+     */
     public static class ToStringData {
+
+        /** The m_duration. */
         long m_duration;
 
+        /** The m_units. */
         TimeUnit m_units;
 
+        /** The m_expected string. */
         String m_expectedString;
 
+        /**
+         * Instantiates a new to string data.
+         *
+         * @param duration
+         *            the duration
+         * @param units
+         *            the units
+         * @param expectedString
+         *            the expected string
+         */
         public ToStringData(long duration, TimeUnit units, String expectedString) {
             m_duration = duration;
             m_units = units;
             m_expectedString = expectedString;
         }
 
+        /**
+         * Duration.
+         *
+         * @return the long
+         */
         public long duration() {
             return m_duration;
         }
 
+        /**
+         * Units.
+         *
+         * @return the time unit
+         */
         public TimeUnit units() {
             return m_units;
         }
 
+        /**
+         * Expected string.
+         *
+         * @return the string
+         */
         public String expectedString() {
             return m_expectedString;
         }
     }
 
+    /** The to string data. */
     @DataPoints
     public static ToStringData[] toStringData = new ToStringData[] { new ToStringData(0, TimeUnit.MILLISECONDS, "0ms"),
             new ToStringData(1, TimeUnit.MILLISECONDS, "1ms"), new ToStringData(1, TimeUnit.SECONDS, "1s"),
@@ -108,12 +149,24 @@ public class DurationTest {
             new ToStringData(60003, TimeUnit.MILLISECONDS, "1m0s3ms"),
             new ToStringData(3600 * 24 * 3 + 1, TimeUnit.SECONDS, "3d0h0m1s"), };
 
+    /**
+     * Test to string.
+     *
+     * @param data
+     *            the data
+     */
     @Theory
     public void testToString(ToStringData data) {
         Duration d = new Duration(data.duration(), data.units());
         assertThat(d.toString(), is(data.expectedString()));
     }
 
+    /**
+     * Test start and end same.
+     *
+     * @param time
+     *            the time
+     */
     @Theory
     public void testStartAndEndSame(Date time) {
         Duration d = new Duration(time, time);
@@ -121,6 +174,9 @@ public class DurationTest {
         assertThat(d.millis(), is(0L));
     }
 
+    /**
+     * Test simple compare.
+     */
     @Test
     public void testSimpleCompare() {
         Duration d1 = new Duration(100);
@@ -132,6 +188,18 @@ public class DurationTest {
         assertThat(d2.compareTo(d2), is(0));
     }
 
+    /**
+     * Test compare to.
+     *
+     * @param s1
+     *            the s1
+     * @param e1
+     *            the e1
+     * @param s2
+     *            the s2
+     * @param e2
+     *            the e2
+     */
     @Theory
     public void testCompareTo(Date s1, Date e1, Date s2, Date e2) {
         assumeThat(!s1.after(e1), is(true));
@@ -146,6 +214,14 @@ public class DurationTest {
 
     }
 
+    /**
+     * Test create.
+     *
+     * @param startTime
+     *            the start time
+     * @param endTime
+     *            the end time
+     */
     @Theory
     public void testCreate(Date startTime, Date endTime) {
         assumeThat(startTime.before(endTime), is(true));
@@ -155,6 +231,14 @@ public class DurationTest {
 
     }
 
+    /**
+     * Test create with invalid dates.
+     *
+     * @param startTime
+     *            the start time
+     * @param endTime
+     *            the end time
+     */
     @Theory
     public void testCreateWithInvalidDates(Date startTime, Date endTime) {
         assumeThat(startTime.after(endTime), is(true));
@@ -170,21 +254,37 @@ public class DurationTest {
 
     }
 
+    /**
+     * Test with null start date.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testWithNullStartDate() {
         new Duration(null, new Date());
     }
 
+    /**
+     * Test with null end date.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testWithNullEndDate() {
         new Duration(new Date(), null);
     }
 
+    /**
+     * Test with null time unit.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testWithNullTimeUnit() {
         new Duration(1, null);
     }
 
+    /**
+     * Checks if is less than.
+     *
+     * @param val
+     *            the val
+     * @return the matcher
+     */
     Matcher<Integer> isLessThan(final int val) {
         return new TypeSafeMatcher<Integer>() {
 
@@ -200,6 +300,13 @@ public class DurationTest {
         };
     }
 
+    /**
+     * Checks if is greater than.
+     *
+     * @param val
+     *            the val
+     * @return the matcher
+     */
     Matcher<Integer> isGreaterThan(final int val) {
         return new TypeSafeMatcher<Integer>() {
 
@@ -216,6 +323,13 @@ public class DurationTest {
 
     }
 
+    /**
+     * Sign.
+     *
+     * @param num
+     *            the num
+     * @return the int
+     */
     int sign(long num) {
         return num < 0 ? -1 : num > 0 ? 1 : 0;
     }

@@ -34,21 +34,40 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class SimpleLogMessage.
+ */
 public class SimpleLogMessage implements LogMessage {
 
+    /**
+     * Creates the.
+     *
+     * @param logMessage
+     *            the log message
+     * @return the log message
+     */
     public static LogMessage create(String logMessage) {
         return new SimpleLogMessage(logMessage);
     }
+
+    /** The m_log message. */
     private String m_logMessage;
 
+    /**
+     * Instantiates a new simple log message.
+     *
+     * @param logMessage
+     *            the log message
+     */
     private SimpleLogMessage(String logMessage) {
         m_logMessage = logMessage;
     }
-    /*
-     * (non-Javadoc)
-     * @see org.opennms.util.ilr.LogMessage#getMessage()
+    /**
+     * Gets the message.
+     *
+     * @return the message
      */
-    public String getMessage () {
+    public String getMessage() {
         return m_logMessage;
     }
     /*
@@ -59,6 +78,10 @@ public class SimpleLogMessage implements LogMessage {
     public boolean isEndMessage() {
         return getMessage().contains("end");
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return m_logMessage;
@@ -71,10 +94,18 @@ public class SimpleLogMessage implements LogMessage {
     public boolean isPersistMessage() {
         return getMessage().contains("persist");
     }
+
+    /* (non-Javadoc)
+     * @see org.opennms.util.ilr.LogMessage#isPersistBeginMessage()
+     */
     @Override
     public boolean isPersistBeginMessage() {
         return getMessage().contains("persistDataQueueing: begin");
     }
+
+    /* (non-Javadoc)
+     * @see org.opennms.util.ilr.LogMessage#isPersistEndMessage()
+     */
     @Override
     public boolean isPersistEndMessage() {
         return getMessage().contains("persistDataQueueing: end");

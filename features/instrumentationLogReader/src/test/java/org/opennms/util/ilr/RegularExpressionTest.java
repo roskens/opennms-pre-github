@@ -35,7 +35,14 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
+/**
+ * The Class RegularExpressionTest.
+ */
 public class RegularExpressionTest {
+
+    /**
+     * Test parse timestamp.
+     */
     @Test
     public void testParseTimestamp() {
         String regex = "\\s*(\\d+)-(\\d+)-(\\d+)\\s*(\\d+):(\\d+):(\\d+),(\\d+)";
@@ -46,6 +53,9 @@ public class RegularExpressionTest {
         assertEquals(true, timestampMatcher.find());
     }
 
+    /**
+     * Test save timestamp.
+     */
     @Test
     public void testSaveTimestamp() {
         String regex = "\\s*(\\d+)-(\\d+)-(\\d+)\\s*(\\d+):(\\d+):(\\d+),(\\d+)";
@@ -61,6 +71,9 @@ public class RegularExpressionTest {
         assertEquals("2010-06-01 13:53:41,062", sucess);
     }
 
+    /**
+     * Test separate date.
+     */
     @Test
     public void testSeparateDate() {
         String regex = "\\s*(\\d+)-(\\d+)-(\\d+)\\s*(\\d+):(\\d+):(\\d+),(\\d+)";
@@ -84,6 +97,9 @@ public class RegularExpressionTest {
 
     }
 
+    /**
+     * Test parse type.
+     */
     @Test
     public void testParseType() {
         String regex = "\\s*(\\D+)";
@@ -94,6 +110,9 @@ public class RegularExpressionTest {
         assertEquals(true, typeMatcher.find());
     }
 
+    /**
+     * Test save type.
+     */
     @Test
     public void testSaveType() {
         String regex = "\\s(\\D+)\\s";
@@ -110,6 +129,9 @@ public class RegularExpressionTest {
 
     }
 
+    /**
+     * Test parse thread.
+     */
     @Test
     public void testParseThread() {
         String regex = "\\s*\\[(\\D+)-(\\d+)\\s+(\\D+)-(\\D+)\\d\\]";
@@ -120,6 +142,9 @@ public class RegularExpressionTest {
         assertEquals(true, threadMatcher.find());
     }
 
+    /**
+     * Test save thread.
+     */
     @Test
     public void testSaveThread() {
         String regex = "\\[(\\D+)-(\\d+)\\s+(\\D+)-(\\D+)\\d\\]";
@@ -135,6 +160,9 @@ public class RegularExpressionTest {
         assertEquals("[CollectdScheduler-50 Pool-fiber0]", sucess);
     }
 
+    /**
+     * Test parse event.
+     */
     @Test
     public void testParseEvent() {
         String regex = "\\s*(\\D+):(\\D+):\\s+(\\D+)";
@@ -145,6 +173,9 @@ public class RegularExpressionTest {
         assertEquals(true, eventMatcher.find());
     }
 
+    /**
+     * Test save event.
+     */
     @Test
     public void testSaveEvent() {
         String regex = "\\s(\\D+):(\\D+):\\s+(\\D+)";

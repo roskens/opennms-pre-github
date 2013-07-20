@@ -34,20 +34,37 @@ import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * The Class ArgumentParser.
+ */
 public class ArgumentParser {
 
+    /** The m_program name. */
     private String m_programName;
 
+    /** The m_arg handler. */
     private Object m_argHandler;
 
+    /** The m_arg method. */
     private Method m_argMethod;
 
+    /** The m_arg help. */
     private String m_argHelp;
 
+    /** The out. */
     PrintStream out = System.err;
 
+    /** The m_options. */
     private Map<Option, Method> m_options = new LinkedHashMap<Option, Method>();
 
+    /**
+     * Instantiates a new argument parser.
+     *
+     * @param programName
+     *            the program name
+     * @param argHandler
+     *            the arg handler
+     */
     public ArgumentParser(String programName, Object argHandler) {
         m_programName = programName;
         m_argHandler = argHandler;
@@ -64,6 +81,18 @@ public class ArgumentParser {
         }
     }
 
+    /**
+     * Process args.
+     *
+     * @param args
+     *            the args
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     public void processArgs(String[] args) throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
         for (int i = 0; i < args.length; i++) {
@@ -83,6 +112,9 @@ public class ArgumentParser {
 
     }
 
+    /**
+     * Prints the help options.
+     */
     public void printHelpOptions() {
         out.printf("Usage: %s <options> <arguments> \n", m_programName);
         out.printf("   where <arguments> is %s\n", m_argHelp);
@@ -94,6 +126,20 @@ public class ArgumentParser {
 
     }
 
+    /**
+     * Execute option.
+     *
+     * @param o
+     *            the o
+     * @param arg
+     *            the arg
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     public void executeOption(Option o, String arg) throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
         if (o != null) {
@@ -104,6 +150,13 @@ public class ArgumentParser {
         }
     }
 
+    /**
+     * Find option by short name.
+     *
+     * @param arg
+     *            the arg
+     * @return the option
+     */
     public Option findOptionByShortName(String arg) {
         for (Option o : m_options.keySet()) {
             if (arg.equals(o.shortName())) {
@@ -113,6 +166,13 @@ public class ArgumentParser {
         return null;
     }
 
+    /**
+     * Find option by long name.
+     *
+     * @param arg
+     *            the arg
+     * @return the option
+     */
     public Option findOptionByLongName(String arg) {
         for (Option o : m_options.keySet()) {
             if (arg.equals(o.longName())) {

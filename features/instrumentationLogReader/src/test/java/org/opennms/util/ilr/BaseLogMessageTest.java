@@ -47,17 +47,33 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.util.ilr.BaseLogMessage.MsgType;
 
 /**
- * LogMessageTest
+ * LogMessageTest.
  *
  * @author brozow
  */
 @RunWith(Parameterized.class)
 public class BaseLogMessageTest {
 
+    /**
+     * Timestamp.
+     *
+     * @param dateString
+     *            the date string
+     * @return the date
+     * @throws ParseException
+     *             the parse exception
+     */
     static Date timestamp(String dateString) throws ParseException {
         return BaseLogMessage.parseTimestamp(dateString);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
@@ -132,20 +148,43 @@ public class BaseLogMessageTest {
 
     }
 
+    /** The m_msg is valid. */
     private boolean m_msgIsValid;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
+    /** The m_thread name. */
     private String m_threadName;
 
+    /** The m_log string. */
     private String m_logString;
 
+    /** The m_log message. */
     private BaseLogMessage m_logMessage;
 
+    /** The m_msg type. */
     private MsgType m_msgType;
 
+    /** The m_service id. */
     private String m_serviceId;
 
+    /**
+     * Instantiates a new base log message test.
+     *
+     * @param msgIsValid
+     *            the msg is valid
+     * @param timestamp
+     *            the timestamp
+     * @param threadName
+     *            the thread name
+     * @param msgType
+     *            the msg type
+     * @param serviceId
+     *            the service id
+     * @param logString
+     *            the log string
+     */
     public BaseLogMessageTest(final boolean msgIsValid, final Date timestamp, final String threadName, final MsgType msgType, final String serviceId, final String logString) {
         m_msgIsValid = msgIsValid;
         m_timestamp = timestamp;
@@ -155,29 +194,44 @@ public class BaseLogMessageTest {
         m_logString = logString;
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_logMessage = BaseLogMessage.create(m_logString);
     }
 
+    /**
+     * Test invalid message.
+     */
     @Test
     public void testInvalidMessage() {
         assumeThat(m_msgIsValid, is(false));
         assertNull(m_logMessage);
     }
 
+    /**
+     * Test get timestamp.
+     */
     @Test
     public void testGetTimestamp() {
         assumeThat(m_msgIsValid, is(true));
         assertEquals(m_timestamp, m_logMessage.getDate());
     }
 
+    /**
+     * Test get thread name.
+     */
     @Test
     public void testGetThreadName() {
         assumeThat(m_msgIsValid, is(true));
         assertEquals(m_threadName, m_logMessage.getThread());
     }
 
+    /**
+     * Test get msg type.
+     */
     @Test
     public void testGetMsgType() {
         assumeThat(m_msgIsValid, is(true));
@@ -185,6 +239,9 @@ public class BaseLogMessageTest {
         assertTrue(m_logMessage.is(m_msgType));
     }
 
+    /**
+     * Test service id.
+     */
     @Test
     public void testServiceId() {
         assumeThat(m_msgIsValid, is(true));

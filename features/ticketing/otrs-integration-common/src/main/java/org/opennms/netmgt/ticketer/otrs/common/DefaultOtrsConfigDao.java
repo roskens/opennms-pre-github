@@ -50,7 +50,6 @@ import org.slf4j.LoggerFactory;
 public class DefaultOtrsConfigDao {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultOtrsConfigDao.class);
 
-<<<<<<< HEAD:features/ticketing/otrs-integration-common/src/main/java/org/opennms/netmgt/ticketer/otrs/common/DefaultOtrsConfigDao.java
 	/**
 	 * Retrieves the properties defined in the otrs.properties file.
 	 *
@@ -156,144 +155,11 @@ public class DefaultOtrsConfigDao {
 
 		List<String> cancelledStateId = getProperties().getList("otrs.validcancelledstateid");
 		return stringToInt(cancelledStateId);
-=======
-    /**
-     * Retrieves the properties defined in the otrs.properties file.
-     *
-     * @param otrsTicketerPlugin
-     * @return a
-     *         <code>java.util.Properties</code> object containing otrs plugin defined properties
-     * @throws IOException
-     */
-    private Configuration getProperties() {
-        Configuration config = new PropertiesConfiguration();
-        String propsFile = null;
-        try {
-            propsFile = new File(new File(System.getProperty("opennms.home"), "etc"), "otrs.properties").getCanonicalPath();
-            LOG.debug("loading properties from: {}", propsFile);
-            config = new PropertiesConfiguration(propsFile);
-        } catch (final ConfigurationException e) {
-            LOG.error("Unable to load properties from {}", propsFile, e);
-        } catch (final IOException e) {
-            LOG.error("Exception when trying to find OTRS configuration properties from {}", propsFile, e);
-        }
-        return config;
-    }
-
-    /**
-     * <p>
-     * getUserName
-     * </p>
-     *
-     * @return a {@link java.lang.String} object.
-     */
-    public String getUserName() {
-        return getProperties().getString("otrs.username");
-    }
-
-    String getPassword() {
-        return getProperties().getString("otrs.password");
-    }
-
-    String getEndpoint() {
-        return getProperties().getString("otrs.endpoint");
-    }
-
-    String getState() {
-        return getProperties().getString("otrs.state");
-    }
-
-    Integer getOwnerID() {
-        return getProperties().getInteger("otrs.ownerid", 1);
-    }
-
-    String getPriority() {
-        return getProperties().getString("otrs.priority");
-    }
-
-    String getLock() {
-        return getProperties().getString("otrs.lock");
-    }
-
-    String getQueue() {
-        return getProperties().getString("otrs.queue");
-    }
-
-    String getArticleFrom() {
-        return getProperties().getString("otrs.articlefrom");
-    }
-
-    String getArticleType() {
-        return getProperties().getString("otrs.articletype");
-    }
-
-    String getArticleSenderType() {
-        return getProperties().getString("otrs.articlesendertype");
-    }
-
-    String getArticleContentType() {
-        return getProperties().getString("otrs.articlecontenttype");
-    }
-
-    String getArticleHistoryComment() {
-        return getProperties().getString("otrs.articlehistorycomment");
-    }
-
-    String getArticleHistoryType() {
-        return getProperties().getString("otrs.articlehistorytype");
-    }
-
-    @SuppressWarnings("unchecked")
-    List<Integer> getValidClosedStateId() {
-
-        List<String> closedStateId = getProperties().getList("otrs.validclosedstateid");
-        return stringToInt(closedStateId);
-
-    }
-
-    @SuppressWarnings("unchecked")
-    List<Integer> getValidOpenStateId() {
-
-        List<String> openStateId = getProperties().getList("otrs.validopenstateid");
-        return stringToInt(openStateId);
-
-    }
-
-    @SuppressWarnings("unchecked")
-    List<Integer> getValidCancelledStateId() {
-
-        List<String> cancelledStateId = getProperties().getList("otrs.validcancelledstateid");
-        return stringToInt(cancelledStateId);
-
-    }
-
-    Integer getOpenStateId() {
-        return getProperties().getInteger("otrs.openstateid", 1);
-    }
-
-    Integer getClosedStateId() {
-        LOG.debug("getting closed state ID: {}", getProperties().getInteger("otrs.closedstateid", 2));
-        return getProperties().getInteger("otrs.closedstateid", 2);
-    }
-
-    Integer getCancelledStateId() {
-        return getProperties().getInteger("otrs.cancelledstateid", 5);
-    }
-
-    String getDefaultUser() {
-        return getProperties().getString("otrs.defaultuser");
-    }
-
-    private List<Integer> stringToInt(List<String> strings) {
-
-        List<Integer> intList = new ArrayList<Integer>();
->>>>>>> 51c505b... Format Source:features/ticketing/otrs-integration/src/main/java/org/opennms/netmgt/ticketer/otrs/DefaultOtrsConfigDao.java
 
         for (String string : strings) {
             intList.add(Integer.parseInt(string));
         }
 
-<<<<<<< HEAD:features/ticketing/otrs-integration-common/src/main/java/org/opennms/netmgt/ticketer/otrs/common/DefaultOtrsConfigDao.java
 	public Integer getOpenStateId() {
 		return getProperties().getInteger("otrs.openstateid", 1);
 	}
@@ -310,28 +176,11 @@ public class DefaultOtrsConfigDao {
 	public String getDefaultUser() {
 		return getProperties().getString("otrs.defaultuser");
 	}
-=======
-        return intList;
-    }
-
-    String getTicketOpenedMessage() {
-        return getProperties().getString("otrs.ticketopenedmessage");
-    }
-
-    String getTicketClosedMessage() {
-        return getProperties().getString("otrs.ticketclosedmessage");
-    }
-
-    String getTicketCancelledMessage() {
-        return getProperties().getString("otrs.ticketcancelledmessage");
-    }
->>>>>>> 51c505b... Format Source:features/ticketing/otrs-integration/src/main/java/org/opennms/netmgt/ticketer/otrs/DefaultOtrsConfigDao.java
 
     String getTicketUpdatedMessage() {
         return getProperties().getString("otrs.ticketupdatedmessage");
     }
 
-<<<<<<< HEAD:features/ticketing/otrs-integration-common/src/main/java/org/opennms/netmgt/ticketer/otrs/common/DefaultOtrsConfigDao.java
 		List<Integer> intList = new ArrayList<Integer>();
 
 		for (String string : strings) {
@@ -360,9 +209,4 @@ public class DefaultOtrsConfigDao {
 	public String getArticleUpdateSubject() {
 		return getProperties().getString("otrs.articleupdatesubject");
 	}
-=======
-    String getArticleUpdateSubject() {
-        return getProperties().getString("otrs.articleupdatesubject");
-    }
->>>>>>> 51c505b... Format Source:features/ticketing/otrs-integration/src/main/java/org/opennms/netmgt/ticketer/otrs/DefaultOtrsConfigDao.java
 }

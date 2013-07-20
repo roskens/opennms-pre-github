@@ -31,46 +31,81 @@ package org.opennms.util.ilr;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class ServiceCollector.
+ */
 public class ServiceCollector {
 
+    /** The m_service id. */
     private String m_serviceID;
 
+    /** The m_collection count. */
     private int m_collectionCount = 0;
 
+    /** The m_error count. */
     private int m_errorCount = 0;
 
+    /** The m_between count. */
     private int m_betweenCount = 0;
 
+    /** The m_persist count. */
     private int m_persistCount = 0;
 
+    /** The m_total time. */
     private long m_totalTime = 0;
 
+    /** The m_error time. */
     private long m_errorTime = 0;
 
+    /** The m_total between time. */
     private long m_totalBetweenTime = 0;
 
+    /** The m_total persist time. */
     private long m_totalPersistTime;
 
+    /** The m_last begin. */
     private long m_lastBegin = 0;
 
+    /** The m_last error begin. */
     private long m_lastErrorBegin = 0;
 
+    /** The m_last end. */
     private long m_lastEnd = 0;
 
+    /** The m_last persist begin. */
     private long m_lastPersistBegin = 0;
 
+    /**
+     * Instantiates a new service collector.
+     *
+     * @param serviceID
+     *            the service id
+     */
     public ServiceCollector(String serviceID) {
         m_serviceID = serviceID;
     }
 
+    /**
+     * Gets the service id.
+     *
+     * @return the service id
+     */
     public String getServiceID() {
         return m_serviceID;
     }
 
+    /** The m_regex. */
     public final String m_regex = "(\\d+)/(\\d+.\\d+.\\d+.\\d+)/(\\w+)";
 
+    /** The m_pattern. */
     public final Pattern m_pattern = Pattern.compile(m_regex);
 
+    /**
+     * Adds the message.
+     *
+     * @param msg
+     *            the msg
+     */
     public void addMessage(LogMessage msg) {
         if (!m_serviceID.equals(msg.getServiceID())) {
             throw new IllegalArgumentException(
@@ -117,6 +152,11 @@ public class ServiceCollector {
         }
     }
 
+    /**
+     * Gets the parsed service id.
+     *
+     * @return the parsed service id
+     */
     public String getParsedServiceID() {
         Matcher m = m_pattern.matcher(getServiceID());
         if (m.matches()) {
@@ -126,54 +166,119 @@ public class ServiceCollector {
         }
     }
 
+    /**
+     * Gets the collection count.
+     *
+     * @return the collection count
+     */
     public int getCollectionCount() {
         return m_collectionCount;
     }
 
+    /**
+     * Gets the error collection count.
+     *
+     * @return the error collection count
+     */
     public int getErrorCollectionCount() {
         return m_errorCount;
     }
 
+    /**
+     * Gets the persist count.
+     *
+     * @return the persist count
+     */
     public int getPersistCount() {
         return m_persistCount;
     }
 
+    /**
+     * Gets the total collection time.
+     *
+     * @return the total collection time
+     */
     public long getTotalCollectionTime() {
         return m_totalTime;
     }
 
+    /**
+     * Gets the total collection duration.
+     *
+     * @return the total collection duration
+     */
     public Duration getTotalCollectionDuration() {
         return new Duration(getTotalCollectionTime());
     }
 
+    /**
+     * Gets the error collection time.
+     *
+     * @return the error collection time
+     */
     public long getErrorCollectionTime() {
         return m_errorTime;
     }
 
+    /**
+     * Gets the error collection duration.
+     *
+     * @return the error collection duration
+     */
     public Duration getErrorCollectionDuration() {
         return new Duration(getErrorCollectionTime());
     }
 
+    /**
+     * Gets the successful collection time.
+     *
+     * @return the successful collection time
+     */
     public long getSuccessfulCollectionTime() {
         return m_totalTime - m_errorTime;
     }
 
+    /**
+     * Gets the successful collection duration.
+     *
+     * @return the successful collection duration
+     */
     public Duration getSuccessfulCollectionDuration() {
         return new Duration(getSuccessfulCollectionTime());
     }
 
+    /**
+     * Gets the total persist time.
+     *
+     * @return the total persist time
+     */
     public long getTotalPersistTime() {
         return m_totalPersistTime;
     }
 
+    /**
+     * Gets the total persist duration.
+     *
+     * @return the total persist duration
+     */
     public Duration getTotalPersistDuration() {
         return new Duration(getTotalPersistTime());
     }
 
+    /**
+     * Gets the successful collection count.
+     *
+     * @return the successful collection count
+     */
     public int getSuccessfulCollectionCount() {
         return m_collectionCount - m_errorCount;
     }
 
+    /**
+     * Gets the success percentage.
+     *
+     * @return the success percentage
+     */
     public double getSuccessPercentage() {
         if (getCollectionCount() == 0) {
             return -1;
@@ -182,6 +287,11 @@ public class ServiceCollector {
         }
     }
 
+    /**
+     * Gets the error percentage.
+     *
+     * @return the error percentage
+     */
     public double getErrorPercentage() {
         if (getCollectionCount() == 0) {
             return -1;
@@ -190,6 +300,11 @@ public class ServiceCollector {
         }
     }
 
+    /**
+     * Gets the average collection time.
+     *
+     * @return the average collection time
+     */
     public long getAverageCollectionTime() {
         int count = getCollectionCount();
         if (count == 0)
@@ -197,10 +312,20 @@ public class ServiceCollector {
         return getTotalCollectionTime() / count;
     }
 
+    /**
+     * Gets the average collection duration.
+     *
+     * @return the average collection duration
+     */
     public Duration getAverageCollectionDuration() {
         return new Duration(getAverageCollectionTime());
     }
 
+    /**
+     * Gets the average persist time.
+     *
+     * @return the average persist time
+     */
     public long getAveragePersistTime() {
         int count = getPersistCount();
         if (count == 0)
@@ -208,10 +333,20 @@ public class ServiceCollector {
         return getTotalPersistTime() / count;
     }
 
+    /**
+     * Gets the average persist duration.
+     *
+     * @return the average persist duration
+     */
     public Duration getAveragePersistDuration() {
         return new Duration(getAveragePersistTime());
     }
 
+    /**
+     * Gets the average error collection time.
+     *
+     * @return the average error collection time
+     */
     public long getAverageErrorCollectionTime() {
         int count = getErrorCollectionCount();
         if (count == 0)
@@ -219,10 +354,20 @@ public class ServiceCollector {
         return getErrorCollectionTime() / count;
     }
 
+    /**
+     * Gets the average error collection duration.
+     *
+     * @return the average error collection duration
+     */
     public Duration getAverageErrorCollectionDuration() {
         return new Duration(getAverageErrorCollectionTime());
     }
 
+    /**
+     * Gets the average successful collection time.
+     *
+     * @return the average successful collection time
+     */
     public long getAverageSuccessfulCollectionTime() {
         int count = getSuccessfulCollectionCount();
         if (count == 0)
@@ -230,20 +375,38 @@ public class ServiceCollector {
         return getSuccessfulCollectionTime() / count;
     }
 
+    /**
+     * Gets the average successful collection duration.
+     *
+     * @return the average successful collection duration
+     */
     public Duration getAverageSuccessfulCollectionDuration() {
         return new Duration(getAverageSuccessfulCollectionTime());
     }
 
+    /**
+     * Gets the average time between collections.
+     *
+     * @return the average time between collections
+     */
     public long getAverageTimeBetweenCollections() {
         if (m_betweenCount == 0)
             return 0;
         return m_totalBetweenTime / m_betweenCount;
     }
 
+    /**
+     * Gets the average duration between collections.
+     *
+     * @return the average duration between collections
+     */
     public Duration getAverageDurationBetweenCollections() {
         return new Duration(getAverageTimeBetweenCollections());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof ServiceCollector) {
@@ -253,6 +416,9 @@ public class ServiceCollector {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return getServiceID().hashCode();
