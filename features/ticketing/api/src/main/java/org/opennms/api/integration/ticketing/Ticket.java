@@ -62,30 +62,41 @@ public class Ticket {
         CLOSED
     }
 
+    /** The m_id. */
     private String m_id;
 
+    /** The m_alarm id. */
     private Integer m_alarmId;
 
+    /** The m_node id. */
     private Integer m_nodeId;
 
+    /** The m_ip address. */
     private InetAddress m_ipAddress;
 
+    /** The m_state. */
     private State m_state = State.OPEN;
 
+    /** The m_summary. */
     private String m_summary;
 
+    /** The m_details. */
     private String m_details;
 
+    /** The m_user. */
     private String m_user;
 
+    /** The m_modification timestamp. */
     private String m_modificationTimestamp;
 
+    /** The m_attributes. */
     private Map<String, String> m_attributes;
 
     /**
      * <p>
      * getAttributes
      * </p>
+     * .
      *
      * @return a Map of free from attributes of the ticket. Typically,
      *         from OnmsAlarm attributes.
@@ -237,7 +248,7 @@ public class Ticket {
 
     /**
      * A timestamp to be used for optimistic locking with the trouble ticketing
-     * system
+     * system.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -249,6 +260,7 @@ public class Ticket {
      * <p>
      * setModificationTimestamp
      * </p>
+     * .
      *
      * @param modificationTimestamp
      *            a {@link java.lang.String} object.
@@ -258,7 +270,7 @@ public class Ticket {
     }
 
     /**
-     * Returns the ID of the originator alarm
+     * Returns the ID of the originator alarm.
      *
      * @return the alarm ID.
      */
@@ -277,7 +289,7 @@ public class Ticket {
     }
 
     /**
-     * Returns the ID of the originator node
+     * Returns the ID of the originator node.
      *
      * @return the node ID.
      */
@@ -296,7 +308,7 @@ public class Ticket {
     }
 
     /**
-     * Returns the IP address of the originator alarm
+     * Returns the IP address of the originator alarm.
      *
      * @return the IP address.
      */

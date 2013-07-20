@@ -29,7 +29,7 @@
 package org.opennms.api.integration.ticketing;
 
 /**
- * OpenNMS Trouble Ticket Plugin API
+ * OpenNMS Trouble Ticket Plugin API.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -43,8 +43,8 @@ public interface Plugin {
      * @param ticketId
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.api.integration.ticketing.Ticket} object.
-     * @throws org.opennms.api.integration.ticketing.PluginException
-     *             if any.
+     * @throws PluginException
+     *             the plugin exception
      */
     public Ticket get(String ticketId) throws PluginException;
 
@@ -54,8 +54,8 @@ public interface Plugin {
      *
      * @param ticket
      *            a {@link org.opennms.api.integration.ticketing.Ticket} object.
-     * @throws org.opennms.api.integration.ticketing.PluginException
-     *             if any.
+     * @throws PluginException
+     *             the plugin exception
      */
     public void saveOrUpdate(Ticket ticket) throws PluginException;
 

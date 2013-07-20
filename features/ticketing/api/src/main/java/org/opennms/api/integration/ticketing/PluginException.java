@@ -30,16 +30,14 @@ package org.opennms.api.integration.ticketing;
 
 /**
  * Exception used to indicate failure of a Ticketing Plugin
- * when updating a remote trouble ticket system
+ * when updating a remote trouble ticket system.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  * @version $Id: $
  */
 public class PluginException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6445393393836316186L;
 
     /**
