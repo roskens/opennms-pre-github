@@ -30,9 +30,36 @@ package org.opennms.features.gwt.ksc.add.client.rest;
 
 import com.google.gwt.http.client.RequestCallback;
 
+/**
+ * The Interface KscReportService.
+ */
 public interface KscReportService {
+
+    /**
+     * Gets the all reports.
+     *
+     * @param callback
+     *            the callback
+     * @return the all reports
+     */
     public void getAllReports(RequestCallback callback);
 
+    /**
+     * Adds the graph to report.
+     *
+     * @param callback
+     *            the callback
+     * @param kscReportId
+     *            the ksc report id
+     * @param graphTitle
+     *            the graph title
+     * @param graphName
+     *            the graph name
+     * @param resourceId
+     *            the resource id
+     * @param timeSpan
+     *            the time span
+     */
     public void addGraphToReport(RequestCallback callback, int kscReportId, String graphTitle, String graphName,
             String resourceId, String timeSpan);
 }

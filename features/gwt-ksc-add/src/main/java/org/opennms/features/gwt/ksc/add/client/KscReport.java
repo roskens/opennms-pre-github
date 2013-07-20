@@ -30,14 +30,31 @@ package org.opennms.features.gwt.ksc.add.client;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class KscReport.
+ */
 public class KscReport extends JavaScriptObject {
+
+    /**
+     * Instantiates a new ksc report.
+     */
     protected KscReport() {
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native int getId() /*-{
                                     return parseInt(this["@id"]);
                                     }-*/;
 
+    /**
+     * Gets the label.
+     *
+     * @return the label
+     */
     public final native String getLabel() /*-{
                                           return this["@label"];
                                           }-*/;

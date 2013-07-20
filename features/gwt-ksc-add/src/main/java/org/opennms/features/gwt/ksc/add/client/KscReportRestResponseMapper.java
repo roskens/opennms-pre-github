@@ -39,13 +39,30 @@ import com.google.gwt.json.client.JSONArray;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 
+/**
+ * The Class KscReportRestResponseMapper.
+ */
 public class KscReportRestResponseMapper {
 
+    /**
+     * Translate.
+     *
+     * @param response
+     *            the response
+     * @return the list
+     */
     public static List<KscReport> translate(final Response response) {
         final String jsonText = response.getText();
         return translate(jsonText);
     }
 
+    /**
+     * Translate.
+     *
+     * @param jsonText
+     *            the json text
+     * @return the list
+     */
     public static List<KscReport> translate(final String jsonText) {
         final List<KscReport> reports = new ArrayList<KscReport>();
         final JSONObject jsonObject = JSONParser.parseStrict(jsonText).isObject();
@@ -70,10 +87,24 @@ public class KscReportRestResponseMapper {
         return reports;
     }
 
+    /**
+     * Translate json report.
+     *
+     * @param jso
+     *            the jso
+     * @return the ksc report
+     */
     private static native KscReport translateJsonReport(final JavaScriptObject jso) /*-{
                                                                                     return jso;
                                                                                     }-*/;
 
+    /**
+     * Translate json report list.
+     *
+     * @param jso
+     *            the jso
+     * @return the js array
+     */
     private static native JsArray<KscReport> translateJsonReportList(final JavaScriptObject jso) /*-{
                                                                                                  return jso;
                                                                                                  }-*/;

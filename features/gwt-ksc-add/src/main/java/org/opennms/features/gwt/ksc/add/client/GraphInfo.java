@@ -31,19 +31,35 @@ package org.opennms.features.gwt.ksc.add.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 
+/**
+ * The Class GraphInfo.
+ */
 public final class GraphInfo {
+
+    /** The m_report. */
     private String m_report = null;
 
+    /** The m_title. */
     private String m_title = null;
 
+    /** The m_resource id. */
     private String m_resourceId = null;
 
+    /** The m_timespan. */
     private String m_timespan = null;
 
+    /** The m_start time. */
     private Integer m_startTime = null;
 
+    /** The m_end time. */
     private Integer m_endTime = null;
 
+    /**
+     * Instantiates a new graph info.
+     *
+     * @param elem
+     *            the elem
+     */
     public GraphInfo(final Element elem) {
         // required
         m_report = elem.getAttribute("reportName");
@@ -75,26 +91,56 @@ public final class GraphInfo {
         }
     }
 
+    /**
+     * Gets the report name.
+     *
+     * @return the report name
+     */
     public String getReportName() {
         return m_report;
     }
 
+    /**
+     * Gets the resource id.
+     *
+     * @return the resource id
+     */
     public String getResourceId() {
         return m_resourceId;
     }
 
+    /**
+     * Gets the timespan.
+     *
+     * @return the timespan
+     */
     public String getTimespan() {
         return m_timespan;
     }
 
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return m_title;
     }
 
+    /**
+     * Gets the start time.
+     *
+     * @return the start time
+     */
     public Integer getStartTime() {
         return m_startTime;
     }
 
+    /**
+     * Gets the end time.
+     *
+     * @return the end time
+     */
     public Integer getEndTime() {
         return m_endTime;
     }

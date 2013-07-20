@@ -43,13 +43,22 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
+/**
+ * The Class KSCResourceAddGraph.
+ */
 public class KSCResourceAddGraph implements EntryPoint {
+
+    /** The Constant DEBUG. */
     public static final boolean DEBUG = true;
 
+    /** The Constant m_debugResponse. */
     private static final String m_debugResponse = "{" + "\"@totalCount\":\"2\"," + "\"@count\":\"2\","
             + "\"kscReport\":[" + "{\"@label\":\"Test\",\"@id\":\"0\"}," + "{\"@label\":\"Test 2\",\"@id\":\"1\"}"
             + "]" + "}";
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+     */
     @Override
     public void onModuleLoad() {
         final KscReportService service = new DefaultKscReportService();
@@ -98,6 +107,14 @@ public class KSCResourceAddGraph implements EntryPoint {
 
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param elem
+     *            the elem
+     * @param kscReportList
+     *            the ksc report list
+     */
     private void createView(final Element elem, final List<KscReport> kscReportList) {
         final GraphInfo info = new GraphInfo(elem);
 

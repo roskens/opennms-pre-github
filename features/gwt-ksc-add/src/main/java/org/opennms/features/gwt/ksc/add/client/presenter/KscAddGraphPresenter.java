@@ -56,22 +56,44 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 
+/**
+ * The Class KscAddGraphPresenter.
+ */
 public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presenter<KscReport> {
 
+    /** The Constant EMPTY_KSCREPORT_LIST. */
     private static final List<KscReport> EMPTY_KSCREPORT_LIST = Collections.unmodifiableList(new ArrayList<KscReport>());
 
+    /** The m_view. */
     private KscAddGraphView<KscReport> m_view;
 
+    /** The Ksc reports. */
     private List<KscReport> m_KscReports;
 
+    /** The m_main popup. */
     private PopupPanel m_mainPopup;
 
+    /** The m_add image. */
     private final Image m_addImage;
 
+    /** The m_graph info. */
     private GraphInfo m_graphInfo;
 
+    /** The m_report service. */
     private final KscReportService m_reportService = new DefaultKscReportService();
 
+    /**
+     * Instantiates a new ksc add graph presenter.
+     *
+     * @param mainPopup
+     *            the main popup
+     * @param addGraphView
+     *            the add graph view
+     * @param kscReports
+     *            the ksc reports
+     * @param graphInfo
+     *            the graph info
+     */
     public KscAddGraphPresenter(final PopupPanel mainPopup, final KscAddGraphView<KscReport> addGraphView,
             final List<KscReport> kscReports, final GraphInfo graphInfo) {
         m_mainPopup = mainPopup;
@@ -85,6 +107,13 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         m_addImage.setTitle("Add this graph to a KSC report.");
     }
 
+    /**
+     * Filter results by name.
+     *
+     * @param searchText
+     *            the search text
+     * @return the list
+     */
     private List<KscReport> filterResultsByName(final String searchText) {
         final List<KscReport> list = new ArrayList<KscReport>();
         for (final KscReport detail : m_KscReports) {
@@ -96,6 +125,9 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView.Presenter#onKeyCodeEvent(com.google.gwt.event.dom.client.KeyCodeEvent, java.lang.String)
+     */
     @Override
     public void onKeyCodeEvent(final KeyCodeEvent<?> event, final String searchText) {
         final int keyCode = event.getNativeEvent().getKeyCode();
@@ -131,12 +163,18 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView.Presenter#onKscReportSelected()
+     */
     @Override
     public void onKscReportSelected() {
         GWT.log("selected report " + m_view.getSelectedReport().getId());
         m_view.hidePopup();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView.Presenter#onAddButtonClicked()
+     */
     @Override
     public void onAddButtonClicked() {
         final String graphTitle = m_view.getTitle();
@@ -166,6 +204,9 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         m_mainPopup.hide();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(final HasWidgets container) {
         m_addImage.addClickHandler(new ClickHandler() {
@@ -199,6 +240,11 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         container.add(m_mainPopup.asWidget());
     }
 
+    /**
+     * Gets the base href.
+     *
+     * @return the base href
+     */
     public final native String getBaseHref() /*-{
                                              try{
                                              return $wnd.getBaseHref();
@@ -207,6 +253,11 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
                                              }
                                              }-*/;
 
+    /**
+     * Calculate main popup position.
+     *
+     * @return the int[]
+     */
     private int[] calculateMainPopupPosition() {
         final int[] positions = { 0, 0 };
 

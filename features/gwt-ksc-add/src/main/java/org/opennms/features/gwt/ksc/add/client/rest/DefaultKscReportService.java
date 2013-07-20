@@ -35,15 +35,25 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.UrlBuilder;
 
+/**
+ * The Class DefaultKscReportService.
+ */
 public class DefaultKscReportService implements KscReportService {
 
+    /** The base url. */
     private static String BASE_URL = "rest/ksc";
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.rest.KscReportService#getAllReports(com.google.gwt.http.client.RequestCallback)
+     */
     @Override
     public void getAllReports(final RequestCallback callback) {
         sendRequest(callback, RequestBuilder.GET, BASE_URL);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.rest.KscReportService#addGraphToReport(com.google.gwt.http.client.RequestCallback, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public void addGraphToReport(final RequestCallback callback, final int kscReportId, final String graphTitle,
             final String graphName, final String resourceId, final String timeSpan) {
@@ -61,6 +71,16 @@ public class DefaultKscReportService implements KscReportService {
         sendRequest(callback, RequestBuilder.PUT, url);
     }
 
+    /**
+     * Send request.
+     *
+     * @param callback
+     *            the callback
+     * @param method
+     *            the method
+     * @param url
+     *            the url
+     */
     private void sendRequest(final RequestCallback callback, final Method method, final String url) {
         final RequestBuilder builder = new RequestBuilder(method, url);
         builder.setHeader("accept", "application/json");

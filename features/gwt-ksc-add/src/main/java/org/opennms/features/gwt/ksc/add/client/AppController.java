@@ -38,22 +38,42 @@ import org.opennms.features.gwt.ksc.add.client.view.KscAddGraphViewImpl;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.PopupPanel;
 
+/**
+ * The Class AppController.
+ */
 public class AppController implements Presenter {
+
+    /** The m_reports. */
     private List<KscReport> m_reports;
 
+    /** The m_container. */
     private HasWidgets m_container;
 
+    /** The m_popup panel. */
     private PopupPanel m_popupPanel;
 
+    /** The m_add graph view. */
     private KscAddGraphView<KscReport> m_addGraphView;
 
+    /** The m_graph info. */
     private GraphInfo m_graphInfo;
 
+    /**
+     * Instantiates a new app controller.
+     *
+     * @param kscReports
+     *            the ksc reports
+     * @param graphInfo
+     *            the graph info
+     */
     public AppController(final List<KscReport> kscReports, final GraphInfo graphInfo) {
         m_reports = kscReports;
         m_graphInfo = graphInfo;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(final HasWidgets container) {
         m_container = container;

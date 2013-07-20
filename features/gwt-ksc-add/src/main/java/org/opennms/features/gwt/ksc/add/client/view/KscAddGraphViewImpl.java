@@ -65,10 +65,19 @@ import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+/**
+ * The Class KscAddGraphViewImpl.
+ */
 public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<KscReport> {
 
+    /**
+     * The Class KscReportCell.
+     */
     public class KscReportCell extends AbstractSafeHtmlCell<KscReport> {
 
+        /**
+         * Instantiates a new ksc report cell.
+         */
         public KscReportCell() {
             super(new SafeHtmlRenderer<KscReport>() {
                 @Override
@@ -90,6 +99,9 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
             });
         }
 
+        /* (non-Javadoc)
+         * @see com.google.gwt.cell.client.AbstractSafeHtmlCell#render(com.google.gwt.cell.client.Cell.Context, com.google.gwt.safehtml.shared.SafeHtml, com.google.gwt.safehtml.shared.SafeHtmlBuilder)
+         */
         @Override
         protected void render(final Context context, final SafeHtml value, final SafeHtmlBuilder sb) {
             sb.append(value);
@@ -97,44 +109,64 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
 
     }
 
+    /** The ui binder. */
     private static KscAddGraphViewImplUiBinder uiBinder = GWT.create(KscAddGraphViewImplUiBinder.class);
 
+    /**
+     * The Interface KscAddGraphViewImplUiBinder.
+     */
     @UiTemplate("KscAddGraphViewImpl.ui.xml")
     interface KscAddGraphViewImplUiBinder extends UiBinder<Widget, KscAddGraphViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_title box. */
     @UiField
     TextBox m_titleBox;
 
+    /** The m_text box. */
     @UiField
     TextBox m_textBox;
 
+    /** The m_add button. */
     @UiField
     Button m_addButton;
 
+    /** The m_title label. */
     @UiField
     Label m_titleLabel;
 
+    /** The m_report label. */
     @UiField
     Label m_reportLabel;
 
+    /** The m_report list. */
     CellList<KscReport> m_reportList;
 
+    /** The m_pager. */
     SimplePager m_pager;
 
+    /** The m_popup panel. */
     PopupPanel m_popupPanel;
 
+    /** The m_presenter. */
     private Presenter<KscReport> m_presenter;
 
+    /** The m_data list. */
     private ListDataProvider<KscReport> m_dataList;
 
+    /** The m_selection model. */
     private SingleSelectionModel<KscReport> m_selectionModel;
 
+    /** The m_reposition popup panel. */
     private PositionCallback m_repositionPopupPanel;
 
+    /**
+     * Instantiates a new ksc add graph view impl.
+     */
     public KscAddGraphViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
 
@@ -213,61 +245,100 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#getSearchText()
+     */
     @Override
     public String getSearchText() {
         return m_textBox.getText();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#setPresenter(org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView.Presenter)
+     */
     @Override
     public void setPresenter(final Presenter<KscReport> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#setDataList(java.util.List)
+     */
     @Override
     public void setDataList(final List<KscReport> dataList) {
         m_dataList.setList(dataList);
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.UIObject#getTitle()
+     */
     @Override
     public String getTitle() {
         return m_titleBox.getValue();
     }
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.UIObject#setTitle(java.lang.String)
+     */
     @Override
     public void setTitle(final String title) {
         m_titleBox.setValue(title == null ? "" : title);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#getSelectedReport()
+     */
     @Override
     public KscReport getSelectedReport() {
         return m_selectionModel.getSelectedObject();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#select(org.opennms.features.gwt.ksc.add.client.KscReport)
+     */
     @Override
     public void select(final KscReport report) {
         m_selectionModel.setSelected(report, true);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#clearSelection()
+     */
     @Override
     public void clearSelection() {
         m_selectionModel.setSelected(m_selectionModel.getSelectedObject(), false);
     }
 
+    /**
+     * Handle add button.
+     *
+     * @param event
+     *            the event
+     */
     @UiHandler("m_addButton")
     public void handleAddButton(final ClickEvent event) {
         m_presenter.onAddButtonClicked();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#isPopupShowing()
+     */
     @Override
     public boolean isPopupShowing() {
         return m_popupPanel.isShowing();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#hidePopup()
+     */
     @Override
     public void hidePopup() {
         m_popupPanel.hide();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.ksc.add.client.view.KscAddGraphView#showPopup()
+     */
     @Override
     public void showPopup() {
         if (!m_popupPanel.isShowing()) {

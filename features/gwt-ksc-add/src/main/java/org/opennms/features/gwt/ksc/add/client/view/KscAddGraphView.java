@@ -36,38 +36,121 @@ import com.google.gwt.event.dom.client.KeyCodeEvent;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface KscAddGraphView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface KscAddGraphView<T> extends IsWidget {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On add button clicked.
+         */
         void onAddButtonClicked();
 
+        /**
+         * On key code event.
+         *
+         * @param event
+         *            the event
+         * @param searchText
+         *            the search text
+         */
         void onKeyCodeEvent(KeyCodeEvent<?> event, String searchText);
 
+        /**
+         * On ksc report selected.
+         */
         void onKscReportSelected();
     }
 
+    /**
+     * Gets the search text.
+     *
+     * @return the search text
+     */
     String getSearchText();
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(List<T> dataList);
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.user.client.ui.IsWidget#asWidget()
+     */
     @Override
     Widget asWidget();
 
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     String getTitle();
 
+    /**
+     * Sets the title.
+     *
+     * @param defaultTitle
+     *            the new title
+     */
     void setTitle(String defaultTitle);
 
+    /**
+     * Gets the selected report.
+     *
+     * @return the selected report
+     */
     KscReport getSelectedReport();
 
+    /**
+     * Select.
+     *
+     * @param report
+     *            the report
+     */
     void select(KscReport report);
 
+    /**
+     * Clear selection.
+     */
     void clearSelection();
 
+    /**
+     * Checks if is popup showing.
+     *
+     * @return true, if is popup showing
+     */
     boolean isPopupShowing();
 
+    /**
+     * Hide popup.
+     */
     void hidePopup();
 
+    /**
+     * Show popup.
+     */
     void showPopup();
 }

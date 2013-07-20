@@ -30,6 +30,16 @@ package org.opennms.features.gwt.ksc.add.client.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Interface Presenter.
+ */
 public abstract interface Presenter {
+
+    /**
+     * Go.
+     *
+     * @param container
+     *            the container
+     */
     public abstract void go(final HasWidgets container);
 }
