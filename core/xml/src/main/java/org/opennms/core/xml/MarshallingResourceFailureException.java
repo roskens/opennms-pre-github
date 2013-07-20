@@ -30,13 +30,32 @@ package org.opennms.core.xml;
 
 import org.springframework.dao.DataAccessResourceFailureException;
 
+/**
+ * The Class MarshallingResourceFailureException.
+ */
 public class MarshallingResourceFailureException extends DataAccessResourceFailureException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3634878517879877803L;
 
+    /**
+     * Instantiates a new marshalling resource failure exception.
+     *
+     * @param msg
+     *            the msg
+     */
     public MarshallingResourceFailureException(final String msg) {
         super(msg);
     }
 
+    /**
+     * Instantiates a new marshalling resource failure exception.
+     *
+     * @param msg
+     *            the msg
+     * @param cause
+     *            the cause
+     */
     public MarshallingResourceFailureException(final String msg, final Throwable cause) {
         super(msg, cause);
     }

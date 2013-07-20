@@ -35,16 +35,31 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.XMLFilterImpl;
 
+/**
+ * The Class SimpleNamespaceFilter.
+ */
 public class SimpleNamespaceFilter extends XMLFilterImpl {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SimpleNamespaceFilter.class);
 
+    /** The m_namespace uri. */
     private String m_namespaceUri;
 
+    /** The m_add namespace. */
     private boolean m_addNamespace = false;
 
+    /** The m_added namespace. */
     private boolean m_addedNamespace = false;
 
+    /**
+     * Instantiates a new simple namespace filter.
+     *
+     * @param namespaceUri
+     *            the namespace uri
+     * @param addNamespace
+     *            the add namespace
+     */
     public SimpleNamespaceFilter(final String namespaceUri, final boolean addNamespace) {
         super();
 
@@ -58,6 +73,9 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
         this.m_addNamespace = addNamespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.XMLFilterImpl#startDocument()
+     */
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
@@ -66,6 +84,9 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.XMLFilterImpl#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+     */
     @Override
     public void startElement(final String uri, final String localName, final String qName, final Attributes attributes)
             throws SAXException {
@@ -98,6 +119,9 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.XMLFilterImpl#endElement(java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public void endElement(final String uri, final String localName, final String qName) throws SAXException {
         if (m_addNamespace) {
@@ -110,6 +134,9 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.xml.sax.helpers.XMLFilterImpl#startPrefixMapping(java.lang.String, java.lang.String)
+     */
     @Override
     public void startPrefixMapping(final String prefix, final String url) throws SAXException {
         LOG.trace("startPrefixMapping: prefix = {}, url = {}", prefix, url);
@@ -121,6 +148,12 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
 
     }
 
+    /**
+     * Start controlled prefix mapping.
+     *
+     * @throws SAXException
+     *             the sAX exception
+     */
     private void startControlledPrefixMapping() throws SAXException {
         LOG.trace("startControlledPrefixMapping");
         if (m_addNamespace && !m_addedNamespace) {

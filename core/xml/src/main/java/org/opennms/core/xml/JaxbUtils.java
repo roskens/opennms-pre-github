@@ -66,15 +66,28 @@ import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+/**
+ * The Class JaxbUtils.
+ */
 public abstract class JaxbUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JaxbUtils.class);
 
+    /**
+     * The Class LoggingValidationEventHandler.
+     */
     private static final class LoggingValidationEventHandler implements ValidationEventHandler {
 
+        /**
+         * Instantiates a new logging validation event handler.
+         */
         private LoggingValidationEventHandler() {
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.ValidationEventHandler#handleEvent(javax.xml.bind.ValidationEvent)
+         */
         @Override
         public boolean handleEvent(final ValidationEvent event) {
             LOG.trace("event = {}", event, event.getLinkedException());
@@ -82,27 +95,51 @@ public abstract class JaxbUtils {
         }
     }
 
+    /** The Constant EXCEPTION_TRANSLATOR. */
     private static final MarshallingExceptionTranslator EXCEPTION_TRANSLATOR = new MarshallingExceptionTranslator();
 
+    /** The m_marshallers. */
     private static ThreadLocal<Map<Class<?>, Marshaller>> m_marshallers = new ThreadLocal<Map<Class<?>, Marshaller>>();
 
+    /** The m_un marshallers. */
     private static ThreadLocal<Map<Class<?>, Unmarshaller>> m_unMarshallers = new ThreadLocal<Map<Class<?>, Unmarshaller>>();
 
+    /** The Constant m_contexts. */
     private static final Map<Class<?>, JAXBContext> m_contexts = Collections.synchronizedMap(new WeakHashMap<Class<?>, JAXBContext>());
 
+    /** The Constant m_schemas. */
     private static final Map<Class<?>, Schema> m_schemas = Collections.synchronizedMap(new WeakHashMap<Class<?>, Schema>());
 
+    /** The Constant VALIDATE_IF_POSSIBLE. */
     private static final boolean VALIDATE_IF_POSSIBLE = true;
 
+    /**
+     * Instantiates a new jaxb utils.
+     */
     private JaxbUtils() {
     }
 
+    /**
+     * Marshal.
+     *
+     * @param obj
+     *            the obj
+     * @return the string
+     */
     public static String marshal(final Object obj) {
         final StringWriter jaxbWriter = new StringWriter();
         marshal(obj, jaxbWriter);
         return jaxbWriter.toString();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param obj
+     *            the obj
+     * @param writer
+     *            the writer
+     */
     public static void marshal(final Object obj, final Writer writer) {
         final Marshaller jaxbMarshaller = getMarshallerFor(obj, null);
         try {
@@ -112,10 +149,34 @@ public abstract class JaxbUtils {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param file
+     *            the file
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final File file) {
         return unmarshal(clazz, file, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param file
+     *            the file
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final File file, final boolean validate) {
         FileReader reader = null;
         try {
@@ -128,18 +189,66 @@ public abstract class JaxbUtils {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param reader
+     *            the reader
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final Reader reader) {
         return unmarshal(clazz, reader, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param reader
+     *            the reader
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final Reader reader, final boolean validate) {
         return unmarshal(clazz, new InputSource(reader), null, validate);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param xml
+     *            the xml
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final String xml) {
         return unmarshal(clazz, xml, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param xml
+     *            the xml
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final String xml, final boolean validate) {
         final StringReader sr = new StringReader(xml);
         final InputSource is = new InputSource(sr);
@@ -150,10 +259,34 @@ public abstract class JaxbUtils {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param resource
+     *            the resource
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final Resource resource) {
         return unmarshal(clazz, resource, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param resource
+     *            the resource
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final Resource resource, final boolean validate) {
         try {
             return unmarshal(clazz, new InputSource(resource.getInputStream()), null, validate);
@@ -162,18 +295,70 @@ public abstract class JaxbUtils {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param inputSource
+     *            the input source
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final InputSource inputSource) {
         return unmarshal(clazz, inputSource, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param inputSource
+     *            the input source
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final InputSource inputSource, final boolean validate) {
         return unmarshal(clazz, inputSource, null, validate);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param inputSource
+     *            the input source
+     * @param jaxbContext
+     *            the jaxb context
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final InputSource inputSource, final JAXBContext jaxbContext) {
         return unmarshal(clazz, inputSource, jaxbContext, VALIDATE_IF_POSSIBLE);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param inputSource
+     *            the input source
+     * @param jaxbContext
+     *            the jaxb context
+     * @param validate
+     *            the validate
+     * @return the t
+     */
     public static <T> T unmarshal(final Class<T> clazz, final InputSource inputSource, final JAXBContext jaxbContext,
             final boolean validate) {
         final Unmarshaller um = getUnmarshallerFor(clazz, jaxbContext, validate);
@@ -195,6 +380,17 @@ public abstract class JaxbUtils {
         }
     }
 
+    /**
+     * Gets the xML filter for class.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the xML filter for class
+     * @throws SAXException
+     *             the sAX exception
+     */
     public static <T> XMLFilter getXMLFilterForClass(final Class<T> clazz) throws SAXException {
         final XMLFilter filter;
         final XmlSchema schema = clazz.getPackage().getAnnotation(XmlSchema.class);
@@ -215,6 +411,15 @@ public abstract class JaxbUtils {
         return filter;
     }
 
+    /**
+     * Gets the marshaller for.
+     *
+     * @param obj
+     *            the obj
+     * @param jaxbContext
+     *            the jaxb context
+     * @return the marshaller for
+     */
     public static Marshaller getMarshallerFor(final Object obj, final JAXBContext jaxbContext) {
         final Class<?> clazz = (Class<?>) (obj instanceof Class<?> ? obj : obj.getClass());
 
@@ -311,6 +516,15 @@ public abstract class JaxbUtils {
         return unmarshaller;
     }
 
+    /**
+     * Gets the context for.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the context for
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     private static JAXBContext getContextFor(final Class<?> clazz) throws JAXBException {
         final JAXBContext context;
         if (m_contexts.containsKey(clazz)) {
@@ -322,6 +536,13 @@ public abstract class JaxbUtils {
         return context;
     }
 
+    /**
+     * Gets the validator for.
+     *
+     * @param origClazz
+     *            the orig clazz
+     * @return the validator for
+     */
     private static Schema getValidatorFor(final Class<?> origClazz) {
         final Class<?> clazz = (Class<?>) (origClazz instanceof Class<?> ? origClazz : origClazz.getClass());
         LOG.trace("finding XSD for class {}", clazz);

@@ -30,13 +30,22 @@ package org.opennms.core.xml;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * The Class StringTrimAdapter.
+ */
 public class StringTrimAdapter extends XmlAdapter<String, String> {
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public String marshal(final String value) throws Exception {
         return value;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public String unmarshal(final String value) throws Exception {
         if (value == null)

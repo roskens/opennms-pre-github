@@ -44,10 +44,12 @@ import org.xml.sax.SAXException;
  * @version $Id: $
  */
 public class MarshallingExceptionTranslator {
+
     /**
      * <p>
      * translate
      * </p>
+     * .
      *
      * @param task
      *            a {@link java.lang.String} object.
@@ -63,6 +65,7 @@ public class MarshallingExceptionTranslator {
      * <p>
      * translate
      * </p>
+     * .
      *
      * @param task
      *            a {@link java.lang.String} object.
@@ -78,6 +81,7 @@ public class MarshallingExceptionTranslator {
      * <p>
      * translate
      * </p>
+     * .
      *
      * @param task
      *            a {@link java.lang.String} object.
@@ -90,11 +94,29 @@ public class MarshallingExceptionTranslator {
                                                        e);
     }
 
+    /**
+     * Translate.
+     *
+     * @param task
+     *            the task
+     * @param e
+     *            the e
+     * @return the data access exception
+     */
     public DataAccessException translate(final String task, final JAXBException e) {
         return new MarshallingResourceFailureException("Failed to marshal/unmarshal XML file while " + task + ": " + e,
                                                        e);
     }
 
+    /**
+     * Translate.
+     *
+     * @param task
+     *            the task
+     * @param e
+     *            the e
+     * @return the data access exception
+     */
     public DataAccessException translate(final String task, final SAXException e) {
         return new MarshallingResourceFailureException("Failed to marshal/unmarshal XML file while " + task + ": " + e,
                                                        e);

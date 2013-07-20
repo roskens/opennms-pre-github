@@ -54,8 +54,11 @@ import org.xml.sax.InputSource;
  * @version $Id: $
  */
 public abstract class CastorUtils {
+
+    /** The Constant CASTOR_EXCEPTION_TRANSLATOR. */
     private static final MarshallingExceptionTranslator CASTOR_EXCEPTION_TRANSLATOR = new MarshallingExceptionTranslator();
 
+    /** The Constant DEFAULT_PRESERVATION_BEHAVIOR. */
     private static final boolean DEFAULT_PRESERVATION_BEHAVIOR = false;
 
     /**
@@ -65,12 +68,8 @@ public abstract class CastorUtils {
      *            the object representing the objected to be marshalled to XML
      * @param writer
      *            where the marshalled XML will be written
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Marshaller.marshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public static void marshalWithTranslatedExceptions(Object obj, Writer writer) throws DataAccessException {
         try {
@@ -84,6 +83,20 @@ public abstract class CastorUtils {
         }
     }
 
+    /**
+     * Marshal.
+     *
+     * @param obj
+     *            the obj
+     * @param writer
+     *            the writer
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private static void marshal(Object obj, Writer writer) throws IOException, MarshalException, ValidationException {
         Marshaller m = new Marshaller(writer);
         m.setSuppressNamespaces(true);
@@ -95,14 +108,10 @@ public abstract class CastorUtils {
      *
      * @param obj
      *            the object representing the objected to be marshalled to XML
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Marshaller.marshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public static void marshalWithTranslatedExceptionsViaString(Object obj, Resource resource)
             throws DataAccessException {
@@ -126,6 +135,15 @@ public abstract class CastorUtils {
         }
     }
 
+    /**
+     * Gets the unmarshaller.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the unmarshaller
+     */
     public static <T> Unmarshaller getUnmarshaller(Class<T> clazz) {
         return createUnmarshaller(clazz, true);
     }
@@ -135,11 +153,13 @@ public abstract class CastorUtils {
      * default configuration details. In particular, the Unmarshaller is set
      * to not ignore extra attributes and elements.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class to unmarshal
      * @param preserveWhitespace
      *            whether to preserve whitespace when parsing
-     * @return
+     * @return the unmarshaller
      */
     private static <T> Unmarshaller createUnmarshaller(Class<T> clazz, boolean preserveWhitespace) {
         Unmarshaller u = new Unmarshaller(clazz);
@@ -153,20 +173,18 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration
      *            file
      * @param reader
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      * @deprecated Use a Resource or InputStream-based method instead to avoid
      *             character set issues.
      */
@@ -178,6 +196,8 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration
      *            file
@@ -186,14 +206,10 @@ public abstract class CastorUtils {
      * @param preserveWhitespace
      *            whether or not to preserve whitespace
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      * @deprecated Use a Resource or InputStream-based method instead to avoid
      *             character set issues.
      */
@@ -207,19 +223,17 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param in
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static <T> T unmarshal(Class<T> clazz, InputStream in) throws MarshalException, ValidationException {
         return unmarshal(clazz, new InputSource(in), DEFAULT_PRESERVATION_BEHAVIOR);
@@ -229,6 +243,8 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param in
@@ -236,20 +252,33 @@ public abstract class CastorUtils {
      * @param preserveWhitespace
      *            whether or not to preserve whitespace
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static <T> T unmarshal(Class<T> clazz, InputStream in, boolean preserveWhitespace) throws MarshalException,
             ValidationException {
         return unmarshal(clazz, new InputSource(in), preserveWhitespace);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param source
+     *            the source
+     * @param preserveWhitespace
+     *            the preserve whitespace
+     * @return the t
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @SuppressWarnings("unchecked")
     private static <T> T unmarshal(Class<T> clazz, InputSource source, boolean preserveWhitespace)
             throws MarshalException, ValidationException {
@@ -260,21 +289,19 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param resource
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
-     * @throws java.io.IOException
-     *             if the resource could not be opened
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static <T> T unmarshal(Class<T> clazz, Resource resource) throws MarshalException, ValidationException,
             IOException {
@@ -285,6 +312,8 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param resource
@@ -292,16 +321,12 @@ public abstract class CastorUtils {
      * @param preserveWhitespace
      *            whether or not to preserve whitespace
      * @return Unmarshalled object representing XML file
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.MarshalException
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a
-     *             org.exolab.castor.xml.ValidationException
-     * @throws java.io.IOException
-     *             if the resource could not be opened
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static <T> T unmarshal(Class<T> clazz, Resource resource, boolean preserveWhitespace)
             throws MarshalException, ValidationException, IOException {
@@ -332,18 +357,16 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration
      *            file
      * @param reader
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
+     * @throws DataAccessException
+     *             the data access exception
      * @deprecated Use a Resource or InputStream-based method instead to avoid
      *             character set issues.
      */
@@ -355,6 +378,8 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param reader
@@ -362,12 +387,8 @@ public abstract class CastorUtils {
      * @param preserveWhitespace
      *            Whether to preserve whitespace when unmarshalling.
      * @return Unmarshalled object representing XML file
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
+     * @throws DataAccessException
+     *             the data access exception
      * @deprecated Use a Resource or InputStream-based method instead to avoid
      *             character set issues.
      */
@@ -386,17 +407,15 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param in
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public static <T> T unmarshalWithTranslatedExceptions(Class<T> clazz, InputStream in) throws DataAccessException {
         return unmarshalWithTranslatedExceptions(clazz, in, DEFAULT_PRESERVATION_BEHAVIOR);
@@ -406,6 +425,8 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param in
@@ -413,12 +434,8 @@ public abstract class CastorUtils {
      * @param preserveWhitespace
      *            whether to preserve whitespace when unmarshalling.
      * @return Unmarshalled object representing XML file
-     * @throws org.springframework.dao.DataAccessException
-     *             if the underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public static <T> T unmarshalWithTranslatedExceptions(Class<T> clazz, InputStream in, boolean preserveWhitespace)
             throws DataAccessException {
@@ -435,21 +452,13 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param resource
      *            the marshalled XML configuration file to unmarshal
      * @return Unmarshalled object representing XML file
-     * @throws DataAccessException
-     *             if the resource could not be opened or the
-     *             underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator and will include
-     *             information about
-     *             the resource from its {@link Resource#toString() toString()}
-     *             method.
      */
     public static <T> T unmarshalWithTranslatedExceptions(Class<T> clazz, Resource resource) {
         return unmarshalWithTranslatedExceptions(clazz, resource, DEFAULT_PRESERVATION_BEHAVIOR);
@@ -459,21 +468,15 @@ public abstract class CastorUtils {
      * Unmarshal a Castor XML configuration file. Uses Java 5 generics for
      * return type and throws DataAccessExceptions.
      *
+     * @param <T>
+     *            the generic type
      * @param clazz
      *            the class representing the marshalled XML configuration file
      * @param resource
      *            the marshalled XML configuration file to unmarshal
+     * @param preserveWhitespace
+     *            the preserve whitespace
      * @return Unmarshalled object representing XML file
-     * @throws DataAccessException
-     *             if the resource could not be opened or the
-     *             underlying Castor
-     *             Unmarshaller.unmarshal() call throws a MarshalException or
-     *             ValidationException. The underlying exception will be
-     *             translated
-     *             using MarshallingExceptionTranslator and will include
-     *             information about
-     *             the resource from its {@link Resource#toString() toString()}
-     *             method.
      */
     public static <T> T unmarshalWithTranslatedExceptions(Class<T> clazz, Resource resource, boolean preserveWhitespace) {
         // TODO It might be useful to add code to test for readability on real
@@ -528,12 +531,12 @@ public abstract class CastorUtils {
      *            a {@link java.lang.Object} object.
      * @param cfgFile
      *            a {@link java.io.File} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void marshalViaString(Object config, File cfgFile) throws MarshalException, ValidationException,
             IOException {
@@ -548,6 +551,21 @@ public abstract class CastorUtils {
     }
 
     // FIXME This is a funky way to duplicate an object - dj@opennms.org
+    /**
+     * Duplicate object.
+     *
+     * @param <T>
+     *            the generic type
+     * @param object
+     *            the object
+     * @param clazz
+     *            the clazz
+     * @return the t
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @SuppressWarnings("unchecked")
     public static <T> T duplicateObject(T object, Class<T> clazz) throws MarshalException, ValidationException {
         StringWriter stringWriter = new StringWriter();
