@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.geocoder.google;
 
 import java.math.BigDecimal;
@@ -9,16 +36,34 @@ import com.google.code.geocoder.model.GeocoderGeometry;
 import com.google.code.geocoder.model.GeocoderResult;
 import com.google.code.geocoder.model.LatLng;
 
+/**
+ * The Class GoogleCoordinates.
+ */
 public class GoogleCoordinates extends Coordinates {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5665827436870286281L;
 
+    /** The Constant ROUND_HALF_EVEN. */
     private static final int ROUND_HALF_EVEN = BigDecimal.ROUND_HALF_EVEN;
 
+    /** The Constant PRECISION. */
     private static final int PRECISION = 6;
 
+    /**
+     * Instantiates a new google coordinates.
+     */
     public GoogleCoordinates() {
     }
 
+    /**
+     * Instantiates a new google coordinates.
+     *
+     * @param result
+     *            the result
+     * @throws GeocoderException
+     *             the geocoder exception
+     */
     public GoogleCoordinates(final GeocoderResult result) throws GeocoderException {
         super();
 
