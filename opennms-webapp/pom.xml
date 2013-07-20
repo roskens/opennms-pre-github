@@ -73,7 +73,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>2.5</version>
         <configuration>
           <filesets>
             <fileset>
@@ -696,10 +695,12 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client</artifactId>
+      <scope>${onmsLibScope}</scope>
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client-compiler</artifactId>
+      <scope>${onmsLibScope}</scope>
     </dependency>
     <!-- test dependencies -->
     <dependency>
