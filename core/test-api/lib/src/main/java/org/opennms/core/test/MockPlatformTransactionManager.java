@@ -34,14 +34,22 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 
 /**
+ * The Class MockPlatformTransactionManager.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class MockPlatformTransactionManager implements PlatformTransactionManager {
 
+    /* (non-Javadoc)
+     * @see org.springframework.transaction.PlatformTransactionManager#commit(org.springframework.transaction.TransactionStatus)
+     */
     @Override
     public void commit(TransactionStatus status) throws TransactionException {
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.transaction.PlatformTransactionManager#getTransaction(org.springframework.transaction.TransactionDefinition)
+     */
     @Override
     public TransactionStatus getTransaction(TransactionDefinition definition) {
         return new TransactionStatus() {
@@ -93,6 +101,9 @@ public class MockPlatformTransactionManager implements PlatformTransactionManage
         };
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.transaction.PlatformTransactionManager#rollback(org.springframework.transaction.TransactionStatus)
+     */
     @Override
     public void rollback(TransactionStatus status) throws TransactionException {
     }

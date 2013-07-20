@@ -46,6 +46,7 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  */
 public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSAbstractTestExecutionListener.class);
 
     /** {@inheritDoc} */
@@ -66,13 +67,14 @@ public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionL
      * <p>
      * findTestAnnotation
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param clazz
      *            a {@link java.lang.Class} object.
      * @param testContext
      *            a {@link org.springframework.test.context.TestContext} object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
      */
     protected <T extends Annotation> T findTestAnnotation(final Class<T> clazz, final TestContext testContext) {

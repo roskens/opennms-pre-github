@@ -47,8 +47,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSJUnit4ClassRunner.class);
 
+    /** The Constant STANDARD_LISTENER_CLASS_NAMES. */
     private static final String[] STANDARD_LISTENER_CLASS_NAMES = new String[] {
             "org.opennms.test.OpenNMSConfigurationExecutionListener",
             "org.opennms.core.test.db.TemporaryDatabaseExecutionListener",
@@ -60,8 +62,14 @@ public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
             "org.springframework.test.context.support.DirtiesContextTestExecutionListener",
             "org.springframework.test.context.transaction.TransactionalTestExecutionListener" };
 
+    /**
+     * The Class ClassNameComparator.
+     */
     private static class ClassNameComparator implements Comparator<TestExecutionListener> {
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(TestExecutionListener o1, TestExecutionListener o2) {
             return o1.getClass().getName().compareTo(o2.getClass().getName());
@@ -69,6 +77,14 @@ public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
 
     }
 
+    /**
+     * Instantiates a new open nmsj unit4 class runner.
+     *
+     * @param clazz
+     *            the clazz
+     * @throws InitializationError
+     *             the initialization error
+     */
     public OpenNMSJUnit4ClassRunner(Class<?> clazz) throws InitializationError {
         super(clazz);
 

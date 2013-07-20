@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.core.test;
 
 import java.io.FileNotFoundException;
@@ -34,64 +61,98 @@ import org.slf4j.helpers.Util;
  * @author C&eacute;drik LIME
  */
 public class MockLogger extends MarkerIgnoringBase {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8598934420192647453L;
 
+    /** The Constant CONFIGURATION_FILE. */
     private static final String CONFIGURATION_FILE = "mocklogger.properties";
 
+    /** The start time. */
     private static long START_TIME = System.currentTimeMillis();
 
+    /** The Constant SIMPLE_LOGGER_PROPS. */
     private static final Properties SIMPLE_LOGGER_PROPS = new Properties();
 
+    /** The initialized. */
     private static boolean INITIALIZED = false;
 
+    /** The default log level. */
     private static Level DEFAULT_LOG_LEVEL = Level.INFO;
 
+    /** The show date time. */
     private static boolean SHOW_DATE_TIME = true;
 
+    /** The date time format str. */
     private static String DATE_TIME_FORMAT_STR = "yyyy-MM-dd HH:mm:ss,SSS";
 
+    /** The date formatter. */
     private static DateFormat DATE_FORMATTER = null;
 
+    /** The show thread name. */
     private static boolean SHOW_THREAD_NAME = true;
 
+    /** The show log name. */
     private static boolean SHOW_LOG_NAME = true;
 
+    /** The show short log name. */
     private static boolean SHOW_SHORT_LOG_NAME = false;
 
+    /** The log file. */
     private static String LOG_FILE = "System.out";
 
+    /** The target stream. */
     private static PrintStream TARGET_STREAM = null;
 
+    /** The level in brackets. */
     private static boolean LEVEL_IN_BRACKETS = false;
 
+    /** The warn level string. */
     private static String WARN_LEVEL_STRING = "WARN";
 
     /**
      * All system properties used by <code>MockLogger</code> start with this
-     * prefix
+     * prefix.
      */
     public static final String SYSTEM_PREFIX = "org.opennms.core.test.mockLogger.";
 
+    /** The Constant DEFAULT_LOG_LEVEL_KEY. */
     public static final String DEFAULT_LOG_LEVEL_KEY = SYSTEM_PREFIX + "defaultLogLevel";
 
+    /** The Constant SHOW_DATE_TIME_KEY. */
     public static final String SHOW_DATE_TIME_KEY = SYSTEM_PREFIX + "showDateTime";
 
+    /** The Constant DATE_TIME_FORMAT_KEY. */
     public static final String DATE_TIME_FORMAT_KEY = SYSTEM_PREFIX + "dateTimeFormat";
 
+    /** The Constant SHOW_THREAD_NAME_KEY. */
     public static final String SHOW_THREAD_NAME_KEY = SYSTEM_PREFIX + "showThreadName";
 
+    /** The Constant SHOW_LOG_NAME_KEY. */
     public static final String SHOW_LOG_NAME_KEY = SYSTEM_PREFIX + "showLogName";
 
+    /** The Constant SHOW_SHORT_LOG_NAME_KEY. */
     public static final String SHOW_SHORT_LOG_NAME_KEY = SYSTEM_PREFIX + "showShortLogName";
 
+    /** The Constant LOG_FILE_KEY. */
     public static final String LOG_FILE_KEY = SYSTEM_PREFIX + "logFile";
 
+    /** The Constant LEVEL_IN_BRACKETS_KEY. */
     public static final String LEVEL_IN_BRACKETS_KEY = SYSTEM_PREFIX + "levelInBrackets";
 
+    /** The Constant WARN_LEVEL_STRING_KEY. */
     public static final String WARN_LEVEL_STRING_KEY = SYSTEM_PREFIX + "warnLevelString";
 
+    /** The Constant LOG_KEY_PREFIX. */
     public static final String LOG_KEY_PREFIX = SYSTEM_PREFIX + "log.";
 
+    /**
+     * Gets the string property.
+     *
+     * @param name
+     *            the name
+     * @return the string property
+     */
     private static String getStringProperty(String name) {
         String prop = null;
         try {
@@ -102,11 +163,29 @@ public class MockLogger extends MarkerIgnoringBase {
         return (prop == null) ? SIMPLE_LOGGER_PROPS.getProperty(name) : prop;
     }
 
+    /**
+     * Gets the string property.
+     *
+     * @param name
+     *            the name
+     * @param defaultValue
+     *            the default value
+     * @return the string property
+     */
     private static String getStringProperty(String name, String defaultValue) {
         String prop = getStringProperty(name);
         return (prop == null) ? defaultValue : prop;
     }
 
+    /**
+     * Gets the boolean property.
+     *
+     * @param name
+     *            the name
+     * @param defaultValue
+     *            the default value
+     * @return the boolean property
+     */
     private static boolean getBooleanProperty(String name, boolean defaultValue) {
         String prop = getStringProperty(name);
         return (prop == null) ? defaultValue : "true".equalsIgnoreCase(prop);
@@ -115,6 +194,9 @@ public class MockLogger extends MarkerIgnoringBase {
     // Initialize class attributes.
     // Load properties file, if found.
     // Override with system properties.
+    /**
+     * Inits the.
+     */
     static void init() {
         System.err.println("Initializing MockLogger.");
 
@@ -145,6 +227,13 @@ public class MockLogger extends MarkerIgnoringBase {
         }
     }
 
+    /**
+     * Compute target stream.
+     *
+     * @param logFile
+     *            the log file
+     * @return the prints the stream
+     */
     private static PrintStream computeTargetStream(String logFile) {
         if ("System.err".equalsIgnoreCase(logFile))
             return System.err;
@@ -162,6 +251,9 @@ public class MockLogger extends MarkerIgnoringBase {
         }
     }
 
+    /**
+     * Load properties.
+     */
     private static void loadProperties() {
         // Add props from the resource mocklogger.properties
         InputStream in = AccessController.doPrivileged(new PrivilegedAction<InputStream>() {
@@ -184,17 +276,18 @@ public class MockLogger extends MarkerIgnoringBase {
         }
     }
 
-    /** The current log level */
+    /** The current log level. */
     protected Level currentLogLevel = Level.INFO;
 
-    /** The short name of this simple log instance */
+    /** The short name of this simple log instance. */
     private transient String shortLogName = null;
 
     /**
      * Package access allows only {@link MockLoggerFactory} to instantiate
      * MockLogger instances.
      *
-     * @param appender
+     * @param name
+     *            the name
      */
     MockLogger(String name) {
         if (!INITIALIZED) {
@@ -210,6 +303,11 @@ public class MockLogger extends MarkerIgnoringBase {
         }
     }
 
+    /**
+     * Recursively compute level string.
+     *
+     * @return the string
+     */
     String recursivelyComputeLevelString() {
         String tempName = name;
         String levelString = null;
@@ -224,6 +322,13 @@ public class MockLogger extends MarkerIgnoringBase {
         return levelString;
     }
 
+    /**
+     * String to level.
+     *
+     * @param levelStr
+     *            the level str
+     * @return the level
+     */
     private static Level stringToLevel(final String levelStr) {
         Level level = Level.valueOf(levelStr.toUpperCase());
         if (level == null) {
@@ -295,6 +400,14 @@ public class MockLogger extends MarkerIgnoringBase {
 
     }
 
+    /**
+     * Write.
+     *
+     * @param buf
+     *            the buf
+     * @param t
+     *            the t
+     */
     void write(StringBuffer buf, Throwable t) {
         TARGET_STREAM.println(buf.toString());
         if (t != null) {
@@ -303,6 +416,11 @@ public class MockLogger extends MarkerIgnoringBase {
         TARGET_STREAM.flush();
     }
 
+    /**
+     * Gets the formatted date.
+     *
+     * @return the formatted date
+     */
     private String getFormattedDate() {
         Date now = new Date();
         String dateText;
@@ -312,6 +430,11 @@ public class MockLogger extends MarkerIgnoringBase {
         return dateText;
     }
 
+    /**
+     * Compute short name.
+     *
+     * @return the string
+     */
     private String computeShortName() {
         return name.substring(name.lastIndexOf(".") + 1);
     }
@@ -320,9 +443,13 @@ public class MockLogger extends MarkerIgnoringBase {
      * For formatted messages, first substitute arguments and then log.
      *
      * @param level
+     *            the level
      * @param format
+     *            the format
      * @param arg1
+     *            the arg1
      * @param arg2
+     *            the arg2
      */
     private void formatAndLog(Level level, String format, Object arg1, Object arg2) {
         if (!isLevelEnabled(level)) {
@@ -336,7 +463,9 @@ public class MockLogger extends MarkerIgnoringBase {
      * For formatted messages, first substitute arguments and then log.
      *
      * @param level
+     *            the level
      * @param format
+     *            the format
      * @param arguments
      *            a list of 3 ore more arguments
      */
@@ -349,10 +478,11 @@ public class MockLogger extends MarkerIgnoringBase {
     }
 
     /**
-     * Is the given log level currently enabled?
+     * Is the given log level currently enabled?.
      *
      * @param logLevel
      *            is this level enabled?
+     * @return true, if is level enabled
      */
     protected boolean isLevelEnabled(Level logLevel) {
         // log level are numerically ordered so can use simple numeric
@@ -360,7 +490,11 @@ public class MockLogger extends MarkerIgnoringBase {
         return (logLevel.getCode() >= currentLogLevel.getCode());
     }
 
-    /** Are {@code trace} messages currently enabled? */
+    /**
+     * Are {@code trace} messages currently enabled?.
+     *
+     * @return true, if is trace enabled
+     */
     public boolean isTraceEnabled() {
         return isLevelEnabled(Level.TRACE);
     }
@@ -368,6 +502,9 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * A simple implementation which logs messages of level TRACE according
      * to the format outlined above.
+     *
+     * @param msg
+     *            the msg
      */
     public void trace(final String msg) {
         log(Level.TRACE, msg, null);
@@ -376,6 +513,11 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform single parameter substitution before logging the message of level
      * TRACE according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param param1
+     *            the param1
      */
     public void trace(final String format, final Object param1) {
         formatAndLog(Level.TRACE, format, param1, null);
@@ -384,6 +526,13 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * TRACE according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param param1
+     *            the param1
+     * @param param2
+     *            the param2
      */
     public void trace(final String format, final Object param1, final Object param2) {
         formatAndLog(Level.TRACE, format, param1, param2);
@@ -392,17 +541,33 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * TRACE according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param argArray
+     *            the arg array
      */
     public void trace(String format, Object... argArray) {
         formatAndLog(Level.TRACE, format, argArray);
     }
 
-    /** Log a message of level TRACE, including an exception. */
+    /**
+     * Log a message of level TRACE, including an exception.
+     *
+     * @param msg
+     *            the msg
+     * @param t
+     *            the t
+     */
     public void trace(String msg, Throwable t) {
         log(Level.TRACE, msg, t);
     }
 
-    /** Are {@code debug} messages currently enabled? */
+    /**
+     * Are {@code debug} messages currently enabled?.
+     *
+     * @return true, if is debug enabled
+     */
     public boolean isDebugEnabled() {
         return isLevelEnabled(Level.DEBUG);
     }
@@ -410,6 +575,9 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * A simple implementation which logs messages of level DEBUG according
      * to the format outlined above.
+     *
+     * @param msg
+     *            the msg
      */
     public void debug(String msg) {
         log(Level.DEBUG, msg, null);
@@ -418,6 +586,11 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform single parameter substitution before logging the message of level
      * DEBUG according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param param1
+     *            the param1
      */
     public void debug(String format, Object param1) {
         formatAndLog(Level.DEBUG, format, param1, null);
@@ -426,6 +599,13 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * DEBUG according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param param1
+     *            the param1
+     * @param param2
+     *            the param2
      */
     public void debug(String format, Object param1, Object param2) {
         formatAndLog(Level.DEBUG, format, param1, param2);
@@ -434,17 +614,33 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * DEBUG according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param argArray
+     *            the arg array
      */
     public void debug(String format, Object... argArray) {
         formatAndLog(Level.DEBUG, format, argArray);
     }
 
-    /** Log a message of level DEBUG, including an exception. */
+    /**
+     * Log a message of level DEBUG, including an exception.
+     *
+     * @param msg
+     *            the msg
+     * @param t
+     *            the t
+     */
     public void debug(String msg, Throwable t) {
         log(Level.DEBUG, msg, t);
     }
 
-    /** Are {@code info} messages currently enabled? */
+    /**
+     * Are {@code info} messages currently enabled?.
+     *
+     * @return true, if is info enabled
+     */
     public boolean isInfoEnabled() {
         return isLevelEnabled(Level.INFO);
     }
@@ -452,6 +648,9 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * A simple implementation which logs messages of level INFO according
      * to the format outlined above.
+     *
+     * @param msg
+     *            the msg
      */
     public void info(String msg) {
         log(Level.INFO, msg, null);
@@ -460,6 +659,11 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform single parameter substitution before logging the message of level
      * INFO according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg
+     *            the arg
      */
     public void info(String format, Object arg) {
         formatAndLog(Level.INFO, format, arg, null);
@@ -468,6 +672,13 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * INFO according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg1
+     *            the arg1
+     * @param arg2
+     *            the arg2
      */
     public void info(String format, Object arg1, Object arg2) {
         formatAndLog(Level.INFO, format, arg1, arg2);
@@ -476,17 +687,33 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * INFO according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param argArray
+     *            the arg array
      */
     public void info(String format, Object... argArray) {
         formatAndLog(Level.INFO, format, argArray);
     }
 
-    /** Log a message of level INFO, including an exception. */
+    /**
+     * Log a message of level INFO, including an exception.
+     *
+     * @param msg
+     *            the msg
+     * @param t
+     *            the t
+     */
     public void info(String msg, Throwable t) {
         log(Level.INFO, msg, t);
     }
 
-    /** Are {@code warn} messages currently enabled? */
+    /**
+     * Are {@code warn} messages currently enabled?.
+     *
+     * @return true, if is warn enabled
+     */
     public boolean isWarnEnabled() {
         return isLevelEnabled(Level.WARN);
     }
@@ -495,6 +722,9 @@ public class MockLogger extends MarkerIgnoringBase {
      * A simple implementation which always logs messages of level WARN
      * according
      * to the format outlined above.
+     *
+     * @param msg
+     *            the msg
      */
     public void warn(String msg) {
         log(Level.WARN, msg, null);
@@ -503,6 +733,11 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform single parameter substitution before logging the message of level
      * WARN according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg
+     *            the arg
      */
     public void warn(String format, Object arg) {
         formatAndLog(Level.WARN, format, arg, null);
@@ -511,6 +746,13 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * WARN according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg1
+     *            the arg1
+     * @param arg2
+     *            the arg2
      */
     public void warn(String format, Object arg1, Object arg2) {
         formatAndLog(Level.WARN, format, arg1, arg2);
@@ -519,17 +761,33 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * WARN according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param argArray
+     *            the arg array
      */
     public void warn(String format, Object... argArray) {
         formatAndLog(Level.WARN, format, argArray);
     }
 
-    /** Log a message of level WARN, including an exception. */
+    /**
+     * Log a message of level WARN, including an exception.
+     *
+     * @param msg
+     *            the msg
+     * @param t
+     *            the t
+     */
     public void warn(String msg, Throwable t) {
         log(Level.WARN, msg, t);
     }
 
-    /** Are {@code error} messages currently enabled? */
+    /**
+     * Are {@code error} messages currently enabled?.
+     *
+     * @return true, if is error enabled
+     */
     public boolean isErrorEnabled() {
         return isLevelEnabled(Level.ERROR);
     }
@@ -538,6 +796,9 @@ public class MockLogger extends MarkerIgnoringBase {
      * A simple implementation which always logs messages of level ERROR
      * according
      * to the format outlined above.
+     *
+     * @param msg
+     *            the msg
      */
     public void error(String msg) {
         log(Level.ERROR, msg, null);
@@ -546,6 +807,11 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform single parameter substitution before logging the message of level
      * ERROR according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg
+     *            the arg
      */
     public void error(String format, Object arg) {
         formatAndLog(Level.ERROR, format, arg, null);
@@ -554,6 +820,13 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * ERROR according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param arg1
+     *            the arg1
+     * @param arg2
+     *            the arg2
      */
     public void error(String format, Object arg1, Object arg2) {
         formatAndLog(Level.ERROR, format, arg1, arg2);
@@ -562,12 +835,24 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Perform double parameter substitution before logging the message of level
      * ERROR according to the format outlined above.
+     *
+     * @param format
+     *            the format
+     * @param argArray
+     *            the arg array
      */
     public void error(String format, Object... argArray) {
         formatAndLog(Level.ERROR, format, argArray);
     }
 
-    /** Log a message of level ERROR, including an exception. */
+    /**
+     * Log a message of level ERROR, including an exception.
+     *
+     * @param msg
+     *            the msg
+     * @param t
+     *            the t
+     */
     public void error(String msg, Throwable t) {
         log(Level.ERROR, msg, t);
     }

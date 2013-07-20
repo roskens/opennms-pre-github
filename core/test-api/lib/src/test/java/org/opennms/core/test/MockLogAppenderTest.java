@@ -40,23 +40,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class MockLogAppenderTest.
+ *
  * @author brozow
  */
 public class MockLogAppenderTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockLogAppenderTest.class);
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.resetLogLevel();
         MockLogAppender.resetEvents();
     }
 
+    /**
+     * Test info.
+     */
     @Test
     public void testInfo() {
         LOG.info("An Info message");
         assertTrue("Messages were logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
     }
 
+    /**
+     * Test warn.
+     */
     @Test
     public void testWarn() {
         LOG.warn("A warn message");
@@ -64,6 +80,9 @@ public class MockLogAppenderTest {
                     MockLogAppender.noWarningsOrHigherLogged());
     }
 
+    /**
+     * Test error.
+     */
     @Test
     public void testError() {
         LOG.error("An error message");
@@ -72,12 +91,18 @@ public class MockLogAppenderTest {
 
     }
 
+    /**
+     * Test info with exception.
+     */
     @Test
     public void testInfoWithException() {
         LOG.info("An info message with exception", new NullPointerException());
         assertTrue("Messages were logged with a warning level or higher", MockLogAppender.noWarningsOrHigherLogged());
     }
 
+    /**
+     * Test error with exception.
+     */
     @Test
     public void testErrorWithException() {
         LOG.error("An error message with exception", new NullPointerException());
@@ -85,6 +110,12 @@ public class MockLogAppenderTest {
                     MockLogAppender.noWarningsOrHigherLogged());
     }
 
+    /**
+     * Xtest info message.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void xtestInfoMessage() throws InterruptedException {
         LOG.info("An Info message");
@@ -99,6 +130,12 @@ public class MockLogAppenderTest {
         assertEquals("Logged message", "An Info message", events[0].getMessage());
     }
 
+    /**
+     * Test warn limit.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testWarnLimit() throws InterruptedException {
         LOG.info("An Info message");
@@ -115,6 +152,12 @@ public class MockLogAppenderTest {
         assertEquals("Logged message", "A warn message", events[0].getMessage());
     }
 
+    /**
+     * Test warn assert.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testWarnAssert() throws InterruptedException {
         LOG.info("An Info message");
@@ -129,6 +172,12 @@ public class MockLogAppenderTest {
         fail("Did not receive expected AssertionFailedError from MockLogAppender.assertNotGreatorOrEqual");
     }
 
+    /**
+     * Test error assert.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void testErrorAssert() throws InterruptedException {
         LOG.info("An Info message");
         LOG.warn("A warn message");
@@ -140,6 +189,9 @@ public class MockLogAppenderTest {
         }
     }
 
+    /**
+     * Test discard hibernate annotation binder warnings.
+     */
     public void testDiscardHibernateAnnotationBinderWarnings() {
         org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger("org.hibernate.cfg.AnnotationBinder");
         log.info("An Info message");

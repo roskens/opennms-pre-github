@@ -58,15 +58,19 @@ import org.springframework.core.io.Resource;
  * @version $Id: $
  */
 public abstract class ConfigurationTestUtils extends Assert {
+
+    /** The Constant POM_FILE. */
     private static final String POM_FILE = "pom.xml";
 
     // TODO: rename this constant
+    /** The Constant DAEMON_DIRECTORY. */
     private static final String DAEMON_DIRECTORY = "opennms-base-assembly";
 
     /**
      * <p>
      * getUrlForResource
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -80,6 +84,13 @@ public abstract class ConfigurationTestUtils extends Assert {
         return url;
     }
 
+    /**
+     * Gets the class.
+     *
+     * @param obj
+     *            the obj
+     * @return the class
+     */
     private static Class<? extends Object> getClass(Object obj) {
         return (obj != null) ? obj.getClass() : ConfigurationTestUtils.class;
     }
@@ -88,6 +99,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getSpringResourceForResource
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -103,6 +115,19 @@ public abstract class ConfigurationTestUtils extends Assert {
         }
     }
 
+    /**
+     * Gets the spring resource for resource with replacements.
+     *
+     * @param obj
+     *            the obj
+     * @param resource
+     *            the resource
+     * @param replacements
+     *            the replacements
+     * @return the spring resource for resource with replacements
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static Resource getSpringResourceForResourceWithReplacements(final Object obj, final String resource,
             final String[]... replacements) throws IOException {
         try {
@@ -122,6 +147,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getFileForResource
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -143,12 +169,14 @@ public abstract class ConfigurationTestUtils extends Assert {
     }
 
     /**
-     * @deprecated Use getInputStreamForResource instead.
+     * Gets the reader for resource.
+     *
      * @param obj
      *            a {@link java.lang.Object} object.
      * @param resource
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.Reader} object.
+     * @deprecated Use getInputStreamForResource instead.
      */
     public static Reader getReaderForResource(Object obj, String resource) {
         Reader retval = null;
@@ -164,6 +192,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getInputStreamForResource
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -183,6 +212,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getReaderForResourceWithReplacements
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -191,8 +221,8 @@ public abstract class ConfigurationTestUtils extends Assert {
      * @param replacements
      *            an array of {@link java.lang.String} objects.
      * @return a {@link java.io.Reader} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static Reader getReaderForResourceWithReplacements(Object obj, String resource, String[]... replacements)
             throws IOException {
@@ -204,6 +234,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getInputStreamForResourceWithReplacements
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -212,8 +243,8 @@ public abstract class ConfigurationTestUtils extends Assert {
      * @param replacements
      *            an array of {@link java.lang.String} objects.
      * @return a {@link java.io.InputStream} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static InputStream getInputStreamForResourceWithReplacements(Object obj, String resource,
             String[]... replacements) throws IOException {
@@ -225,6 +256,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getConfigForResourceWithReplacements
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -233,8 +265,8 @@ public abstract class ConfigurationTestUtils extends Assert {
      * @param replacements
      *            an array of {@link java.lang.String} objects.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static String getConfigForResourceWithReplacements(Object obj, String resource, String[]... replacements)
             throws IOException {
@@ -268,8 +300,8 @@ public abstract class ConfigurationTestUtils extends Assert {
      * @param configFile
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.Reader} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
      */
     public static Reader getReaderForConfigFile(String configFile) throws FileNotFoundException {
         Reader retval = null;
@@ -285,12 +317,13 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getInputStreamForConfigFile
      * </p>
+     * .
      *
      * @param configFile
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.InputStream} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
      */
     public static InputStream getInputStreamForConfigFile(String configFile) throws FileNotFoundException {
         return new FileInputStream(getFileForConfigFile(configFile));
@@ -300,6 +333,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getFileForConfigFile
      * </p>
+     * .
      *
      * @param configFile
      *            a {@link java.lang.String} object.
@@ -315,6 +349,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getDaemonEtcDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -327,6 +362,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setRelativeHomeDirectory
      * </p>
+     * .
      *
      * @param relativeHomeDirectory
      *            a {@link java.lang.String} object.
@@ -339,6 +375,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setAbsoluteHomeDirectory
      * </p>
+     * .
      *
      * @param absoluteHomeDirectory
      *            a {@link java.lang.String} object.
@@ -351,6 +388,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getTopProjectDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -363,6 +401,11 @@ public abstract class ConfigurationTestUtils extends Assert {
         return findTopProjectDirectory(currentDirectory);
     }
 
+    /**
+     * Gets the current directory.
+     *
+     * @return the current directory
+     */
     private static File getCurrentDirectory() {
         File currentDirectory = new File(System.getProperty("user.dir"));
         assertTrue("current directory should exist: " + currentDirectory.getAbsolutePath(), currentDirectory.exists());
@@ -375,6 +418,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * getDaemonProjectDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -393,6 +437,13 @@ public abstract class ConfigurationTestUtils extends Assert {
         return daemonDirectory;
     }
 
+    /**
+     * Find top project directory.
+     *
+     * @param currentDirectory
+     *            the current directory
+     * @return the file
+     */
     private static File findTopProjectDirectory(File currentDirectory) {
         File buildFile = new File(currentDirectory, "compile.pl");
         if (buildFile.exists()) {
@@ -416,6 +467,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setRrdBinary
      * </p>
+     * .
      *
      * @param path
      *            a {@link java.lang.String} object.
@@ -428,6 +480,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setRelativeRrdBaseDirectory
      * </p>
+     * .
      *
      * @param relativePath
      *            a {@link java.lang.String} object.
@@ -444,6 +497,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setRelativeImporterDirectory
      * </p>
+     * .
      *
      * @param relativeImporterDirectory
      *            a {@link java.lang.String} object.
@@ -460,6 +514,7 @@ public abstract class ConfigurationTestUtils extends Assert {
      * <p>
      * setRelativeForeignSourceDirectory
      * </p>
+     * .
      *
      * @param relativeForeignSourceDirectory
      *            a {@link java.lang.String} object.

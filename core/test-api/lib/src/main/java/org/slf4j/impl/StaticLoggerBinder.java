@@ -1,9 +1,39 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.slf4j.impl;
 
 import org.opennms.core.test.MockLoggerFactory;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.spi.LoggerFactoryBinder;
 
+/**
+ * The Class StaticLoggerBinder.
+ */
 public class StaticLoggerBinder implements LoggerFactoryBinder {
     /**
      * The unique instance of this class.
@@ -26,22 +56,32 @@ public class StaticLoggerBinder implements LoggerFactoryBinder {
     // to avoid constant folding by the compiler, this field must *not* be final
     public static String REQUESTED_API_VERSION = "1.6.99"; // !final
 
+    /** The Constant loggerFactoryClassStr. */
     private static final String loggerFactoryClassStr = MockLoggerFactory.class.getName();
 
     /**
      * The ILoggerFactory instance returned by the {@link #getLoggerFactory}
-     * method should always be the same object
+     * method should always be the same object.
      */
     private final ILoggerFactory loggerFactory;
 
+    /**
+     * Instantiates a new static logger binder.
+     */
     private StaticLoggerBinder() {
         loggerFactory = new MockLoggerFactory();
     }
 
+    /* (non-Javadoc)
+     * @see org.slf4j.spi.LoggerFactoryBinder#getLoggerFactory()
+     */
     public ILoggerFactory getLoggerFactory() {
         return loggerFactory;
     }
 
+    /* (non-Javadoc)
+     * @see org.slf4j.spi.LoggerFactoryBinder#getLoggerFactoryClassStr()
+     */
     public String getLoggerFactoryClassStr() {
         return loggerFactoryClassStr;
     }

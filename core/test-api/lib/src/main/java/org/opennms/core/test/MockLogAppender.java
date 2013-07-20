@@ -62,14 +62,20 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MockLogAppender {
+
+    /** The Constant EMPTY_LOGGING_EVENT. */
     private static final LoggingEvent[] EMPTY_LOGGING_EVENT = new LoggingEvent[0];
 
+    /** The s_events. */
     private static List<LoggingEvent> s_events;
 
+    /** The s_highest logged level. */
     private static Level s_highestLoggedLevel = Level.TRACE;
 
+    /** The s_default level. */
     private static String s_defaultLevel = "DEBUG";
 
+    /** The s_instance. */
     private static MockLogAppender s_instance = null;
 
     /**
@@ -87,6 +93,7 @@ public class MockLogAppender {
      * <p>
      * resetEvents
      * </p>
+     * .
      */
     public static void resetEvents() {
         s_events = Collections.synchronizedList(new LinkedList<LoggingEvent>());
@@ -96,6 +103,9 @@ public class MockLogAppender {
      * <p>
      * getEvents
      * </p>
+     * .
+     *
+     * @return the events
      */
     public static LoggingEvent[] getEvents() {
         return (LoggingEvent[]) s_events.toArray(EMPTY_LOGGING_EVENT);
@@ -105,6 +115,11 @@ public class MockLogAppender {
      * <p>
      * getEventsGreaterOrEqual
      * </p>
+     * .
+     *
+     * @param level
+     *            the level
+     * @return the events greater or equal
      */
     public static LoggingEvent[] getEventsGreaterOrEqual(final Level level) {
         LinkedList<LoggingEvent> matching = new LinkedList<LoggingEvent>();
@@ -124,7 +139,11 @@ public class MockLogAppender {
      * <p>
      * getEventsAtLevel
      * </p>
-     * Returns events that were logged at the specified level
+     * Returns events that were logged at the specified level.
+     *
+     * @param level
+     *            the level
+     * @return the events at level
      */
     public static LoggingEvent[] getEventsAtLevel(final Level level) {
         final LinkedList<LoggingEvent> matching = new LinkedList<LoggingEvent>();
@@ -144,6 +163,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      */
     public static void setupLogging() {
         setupLogging(new Properties());
@@ -153,6 +173,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      *
      * @param config
      *            a {@link java.util.Properties} object.
@@ -165,6 +186,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      *
      * @param toConsole
      *            a boolean.
@@ -177,6 +199,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      *
      * @param toConsole
      *            a boolean.
@@ -192,6 +215,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      *
      * @param toConsole
      *            a boolean.
@@ -206,6 +230,7 @@ public class MockLogAppender {
      * <p>
      * setupLogging
      * </p>
+     * .
      *
      * @param toConsole
      *            a boolean.
@@ -251,6 +276,16 @@ public class MockLogAppender {
         }
     }
 
+    /**
+     * Sets the property.
+     *
+     * @param logger
+     *            the logger
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     private static void setProperty(final Logger logger, final String key, final String value) {
         System.setProperty(key, System.getProperty(key, value));
     }
@@ -259,6 +294,7 @@ public class MockLogAppender {
      * <p>
      * isLoggingSetup
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -270,6 +306,7 @@ public class MockLogAppender {
      * <p>
      * receivedLogLevel
      * </p>
+     * .
      *
      * @param level
      *            a {@link org.apache.log4j.Level} object.
@@ -286,6 +323,7 @@ public class MockLogAppender {
      * <p>
      * resetLogLevel
      * </p>
+     * .
      */
     public static void resetLogLevel() {
         s_highestLoggedLevel = Level.TRACE;
@@ -296,6 +334,7 @@ public class MockLogAppender {
      * <p>
      * noWarningsOrHigherLogged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -307,9 +346,12 @@ public class MockLogAppender {
      * <p>
      * assertNotGreaterOrEqual
      * </p>
+     * .
      *
-     * @throws junit.framework.AssertionFailedError
-     *             if any.
+     * @param level
+     *            the level
+     * @throws AssertionFailedError
+     *             the assertion failed error
      */
     public static void assertNotGreaterOrEqual(final Level level) throws AssertionFailedError {
         if (!isLoggingSetup()) {
@@ -339,18 +381,31 @@ public class MockLogAppender {
      * <p>
      * assertNoWarningsOrGreater
      * </p>
+     * .
      *
-     * @throws junit.framework.AssertionFailedError
-     *             if any.
+     * @throws AssertionFailedError
+     *             the assertion failed error
      */
     public static void assertNoWarningsOrGreater() throws AssertionFailedError {
         assertNotGreaterOrEqual(Level.WARN);
     }
 
+    /**
+     * Assert no error or greater.
+     *
+     * @throws AssertionFailedError
+     *             the assertion failed error
+     */
     public static void assertNoErrorOrGreater() throws AssertionFailedError {
         assertNotGreaterOrEqual(Level.ERROR);
     }
 
+    /**
+     * Assert no fatal or greater.
+     *
+     * @throws AssertionFailedError
+     *             the assertion failed error
+     */
     public static void assertNoFatalOrGreater() throws AssertionFailedError {
         assertNotGreaterOrEqual(Level.FATAL);
     }
@@ -363,8 +418,10 @@ public class MockLogAppender {
      * Useful for testing code that *should* have logged an error message
      * (or a notice or some other special case)
      *
-     * @throws junit.framework.AssertionFailedError
-     *             if any.
+     * @param level
+     *            the level
+     * @throws AssertionFailedError
+     *             the assertion failed error
      */
     public static void assertLogAtLevel(final Level level) throws AssertionFailedError {
         if (!isLoggingSetup()) {
@@ -383,22 +440,47 @@ public class MockLogAppender {
 
     }
 
+    /**
+     * Adds the event.
+     *
+     * @param loggingEvent
+     *            the logging event
+     */
     public static void addEvent(final LoggingEvent loggingEvent) {
         s_events.add(loggingEvent);
         receivedLogLevel(loggingEvent.getLevel());
     }
 
+    /**
+     * Gets the single instance of MockLogAppender.
+     *
+     * @return single instance of MockLogAppender
+     */
     public static MockLogAppender getInstance() {
         setupLogging();
         return s_instance;
     }
 
+    /**
+     * Assert no logging.
+     *
+     * @throws AssertionFailedError
+     *             the assertion failed error
+     */
     public static void assertNoLogging() throws AssertionFailedError {
         if (s_events.size() > 0) {
             throw new AssertionFailedError("Unhancled logging occurred.");
         }
     }
 
+    /**
+     * Assert log matched.
+     *
+     * @param level
+     *            the level
+     * @param message
+     *            the message
+     */
     public static void assertLogMatched(final Level level, final String message) {
         for (final LoggingEvent event : s_events) {
             if (event.getLevel().eq(level) && event.getMessage().contains(message)) {
