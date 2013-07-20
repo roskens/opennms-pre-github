@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.core.test.http;
 
 import java.util.Collections;
@@ -24,19 +51,37 @@ import org.opennms.core.test.http.annotations.Webapp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JUnitServer.
+ */
 public class JUnitServer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
 
+    /** The m_server. */
     private Server m_server;
 
+    /** The m_config. */
     private JUnitHttpServer m_config;
 
+    /**
+     * Instantiates a new j unit server.
+     *
+     * @param config
+     *            the config
+     */
     public JUnitServer(final JUnitHttpServer config) {
         initializeServerWithConfig(config);
         m_config = config;
     }
 
+    /**
+     * Initialize server with config.
+     *
+     * @param config
+     *            the config
+     */
     protected void initializeServerWithConfig(final JUnitHttpServer config) {
         Server server = null;
         if (config.https()) {
@@ -125,6 +170,12 @@ public class JUnitServer {
         m_server.setHandler(topLevelHandler);
     }
 
+    /**
+     * Start.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public synchronized void start() throws Exception {
         LOG.debug("starting jetty on port {}", m_config.port());
         m_server.start();
@@ -133,6 +184,12 @@ public class JUnitServer {
     // NOTE: we retry server stop because of a concurrency issue inside Jetty
     // that is not
     // easily solvable.
+    /**
+     * Stop.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public synchronized void stop() throws Exception {
         LOG.debug("shutting down jetty on port {}", m_config.port());
         try {

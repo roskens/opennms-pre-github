@@ -45,8 +45,18 @@ import java.lang.annotation.Target;
 @Target({ ElementType.ANNOTATION_TYPE })
 public @interface Webapp {
 
+    /**
+     * Context.
+     *
+     * @return the string
+     */
     String context() default "/";
 
+    /**
+     * Path.
+     *
+     * @return the string
+     */
     String path();
 
 }

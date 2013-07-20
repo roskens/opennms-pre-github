@@ -52,12 +52,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class JUnitHttpServerTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ JUnitHttpServerExecutionListener.class })
 public class JUnitHttpServerTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JUnitHttpServerTest.class);
 
+    /**
+     * Test server.
+     *
+     * @throws HttpException
+     *             the http exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitHttpServer(port = 9162)
     public void testServer() throws HttpException, IOException {
@@ -70,6 +82,12 @@ public class JUnitHttpServerTest {
         assertTrue(responseString.contains("Purple monkey dishwasher."));
     }
 
+    /**
+     * Test webapp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, webapps = { @Webapp(context = "/testContext", path = "src/test/resources/test-webapp") })
     public void testWebapp() throws Exception {
@@ -82,6 +100,12 @@ public class JUnitHttpServerTest {
         assertTrue(responseString.contains("This is a webapp."));
     }
 
+    /**
+     * Test webapp with servlet.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, webapps = { @Webapp(context = "/testContext", path = "src/test/resources/test-webapp") })
     public void testWebappWithServlet() throws Exception {
@@ -94,6 +118,12 @@ public class JUnitHttpServerTest {
         assertTrue(responseString.contains("You are reading this from a servlet!"));
     }
 
+    /**
+     * Test basic auth success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, basicAuth = true, webapps = { @Webapp(context = "/testContext", path = "src/test/resources/test-webapp") })
     public void testBasicAuthSuccess() throws Exception {
@@ -111,6 +141,12 @@ public class JUnitHttpServerTest {
         assertTrue(responseString.contains("You are reading this from a servlet!"));
     }
 
+    /**
+     * Test basic auth failure.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 9162, basicAuth = true, webapps = { @Webapp(context = "/testContext", path = "src/test/resources/test-webapp") })
     public void testBasicAuthFailure() throws Exception {

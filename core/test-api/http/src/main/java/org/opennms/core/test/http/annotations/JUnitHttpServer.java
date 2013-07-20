@@ -47,40 +47,76 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitHttpServer {
 
-    /** the directory from which to serve test files **/
+    /**
+     * the directory from which to serve test files *.
+     *
+     * @return the string
+     */
     String resource() default "target/test-classes";
 
-    /** the port to listen on **/
+    /**
+     * the port to listen on *.
+     *
+     * @return the int
+     */
     int port() default 9162;
 
-    /** the list of virtual hosts to respond to, defaults to "localhost" **/
+    /**
+     * the list of virtual hosts to respond to, defaults to "localhost" *.
+     *
+     * @return the string[]
+     */
     String[] vhosts() default { "localhost", "127.0.0.1", "::1", "[0000:0000:0000:0000:0000:0000:0000:0001]" };
 
-    /** whether or not to use HTTPS (defaults to HTTP) **/
+    /**
+     * whether or not to use HTTPS (defaults to HTTP) *.
+     *
+     * @return true, if successful
+     */
     boolean https() default false;
 
-    /** whether or not to use basic auth **/
+    /**
+     * whether or not to use basic auth *.
+     *
+     * @return true, if successful
+     */
     boolean basicAuth() default false;
 
     /**
      * the basic auth property file (defaults to
      * target/test-classes/realm.properties)
-     **/
+     *
+     * @return the string
+     */
     String basicAuthFile() default "target/test-classes/realm.properties";
 
     /**
      * the location of the keystore if using HTTPS (defaults to
      * target/test-classes/JUnitHttpServer.keystore)
-     **/
+     *
+     * @return the string
+     */
     String keystore() default "target/test-classes/JUnitHttpServer.keystore";
 
-    /** the keystore password **/
+    /**
+     * the keystore password *.
+     *
+     * @return the string
+     */
     String keystorePassword() default "opennms";
 
-    /** the key password **/
+    /**
+     * the key password *.
+     *
+     * @return the string
+     */
     String keyPassword() default "opennms";
 
-    /** zero or more webapps to include, with contexts **/
+    /**
+     * zero or more webapps to include, with contexts *.
+     *
+     * @return the webapp[]
+     */
     Webapp[] webapps() default {};
 
 }

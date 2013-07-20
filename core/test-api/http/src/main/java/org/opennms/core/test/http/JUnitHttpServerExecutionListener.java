@@ -42,6 +42,8 @@ import org.springframework.test.context.TestExecutionListener;
  * @author ranger
  */
 public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecutionListener {
+
+    /** The m_junit server. */
     private JUnitServer m_junitServer;
 
     /** {@inheritDoc} */
