@@ -70,7 +70,7 @@ public abstract class CollectionTracker implements Collectable {
         return m_timedOut;
     }
 
-    abstract public void setMaxRepetitions(int maxRepetitions);
+    public abstract void setMaxRepetitions(int maxRepetitions);
 
     public void setFailed(boolean failed) {
         m_failed = failed;

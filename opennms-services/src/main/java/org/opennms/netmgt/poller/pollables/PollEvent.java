@@ -38,7 +38,7 @@ import java.util.Date;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-abstract public class PollEvent {
+public abstract class PollEvent {
 
     Scope m_scope;
 
@@ -72,7 +72,7 @@ abstract public class PollEvent {
      *
      * @return a int.
      */
-    abstract public int getEventId();
+    public abstract int getEventId();
 
     /**
      * <p>
@@ -81,7 +81,7 @@ abstract public class PollEvent {
      *
      * @return a {@link java.util.Date} object.
      */
-    abstract public Date getDate();
+    public abstract Date getDate();
 
     /**
      * <p>

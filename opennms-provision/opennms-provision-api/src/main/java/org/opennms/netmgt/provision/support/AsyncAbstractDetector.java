@@ -76,5 +76,5 @@ public abstract class AsyncAbstractDetector extends AbstractDetector implements 
 
     /** {@inheritDoc} */
     @Override
-    abstract public DetectFuture isServiceDetected(final InetAddress address);
+    public abstract DetectFuture isServiceDetected(final InetAddress address);
 }

@@ -81,9 +81,9 @@ public abstract class Vlan extends SnmpStore {
         return getDisplayString(VLAN_NAME);
     }
 
-    abstract public VlanStatus getVlanStatus();
+    public abstract VlanStatus getVlanStatus();
 
-    abstract public VlanType getVlanType();
+    public abstract VlanType getVlanType();
 
     public OnmsVlan getOnmsVlan() {
         return new OnmsVlan(getVlanIndex(), getVlanName(), getVlanStatus(), getVlanType());

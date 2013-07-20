@@ -84,7 +84,7 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
 
     /** {@inheritDoc} */
     @Override
-    abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
+    public abstract PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
 
     public String getStringValue(SnmpValue result) {
         if (hex)

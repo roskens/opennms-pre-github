@@ -83,7 +83,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
-abstract public class PollerConfigManager implements PollerConfig {
+public abstract class PollerConfigManager implements PollerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(PollerConfigManager.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();

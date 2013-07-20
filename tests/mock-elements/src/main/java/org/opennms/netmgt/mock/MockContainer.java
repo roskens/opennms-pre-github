@@ -47,7 +47,7 @@ import org.opennms.netmgt.model.PollStatus;
  *         Preferences - Java - Code Style - Code Templates
  * @version $Id: $
  */
-abstract public class MockContainer<P extends MockContainer<?, ?>, C extends MockElement> extends MockElement {
+public abstract class MockContainer<P extends MockContainer<?, ?>, C extends MockElement> extends MockElement {
 
     private volatile Map<Object, C> m_members = new HashMap<Object, C>();
 

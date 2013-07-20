@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-abstract public class PollableElement {
+public abstract class PollableElement {
     private static final Logger LOG = LoggerFactory.getLogger(PollableElement.class);
 
     private final Scope m_scope;
@@ -353,7 +353,7 @@ abstract public class PollableElement {
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
-    abstract public PollStatus poll();
+    public abstract PollStatus poll();
 
     /**
      * <p>

@@ -33,7 +33,7 @@ import java.util.List;
 
 import org.opennms.netmgt.snmp.SnmpObjId;
 
-abstract public class RequestPdu extends TestPdu {
+public abstract class RequestPdu extends TestPdu {
 
     protected int getNonRepeaters() {
         return size();

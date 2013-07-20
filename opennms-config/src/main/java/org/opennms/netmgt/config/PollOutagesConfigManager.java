@@ -48,7 +48,7 @@ import org.springframework.util.Assert;
  *
  * @author brozow
  */
-abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Outages, Outages> implements
+public abstract class PollOutagesConfigManager extends AbstractJaxbConfigDao<Outages, Outages> implements
         PollOutagesConfig {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 

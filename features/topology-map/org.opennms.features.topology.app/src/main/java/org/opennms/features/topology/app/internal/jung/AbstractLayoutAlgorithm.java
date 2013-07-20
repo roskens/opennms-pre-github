@@ -13,7 +13,7 @@ import org.opennms.features.topology.api.topo.VertexRef;
 public abstract class AbstractLayoutAlgorithm implements LayoutAlgorithm, LayoutConstants {
 
     @Override
-    abstract public void updateLayout(GraphContainer graph);
+    public abstract void updateLayout(GraphContainer graph);
 
     protected Dimension selectLayoutSize(GraphContainer g) {
         int vertexCount = g.getGraph().getDisplayVertices().size();

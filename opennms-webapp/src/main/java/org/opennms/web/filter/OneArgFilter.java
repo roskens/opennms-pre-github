@@ -83,7 +83,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      *
      * @return a {@link java.lang.String} object.
      */
-    abstract public String getSQLTemplate();
+    public abstract String getSQLTemplate();
 
     /**
      * <p>

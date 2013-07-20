@@ -45,7 +45,7 @@ public abstract class SnmpWalker {
             super(maxVarsPerPdu);
         }
 
-        abstract public void reset();
+        public abstract void reset();
     }
 
     private final String m_name;

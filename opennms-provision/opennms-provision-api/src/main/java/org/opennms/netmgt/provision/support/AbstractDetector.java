@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDetector implements ServiceDetector {
 
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDetector.class);
 
     private static final int DEFAULT_TIMEOUT = 2000;
@@ -118,7 +119,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * </p>
      */
     @Override
-    abstract public void dispose();
+    public abstract void dispose();
 
     /**
      * <p>

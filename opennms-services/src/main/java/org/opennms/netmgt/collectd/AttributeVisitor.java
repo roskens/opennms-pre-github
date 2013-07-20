@@ -42,6 +42,6 @@ public abstract class AttributeVisitor extends AbstractCollectionSetVisitor {
 
     /** {@inheritDoc} */
     @Override
-    abstract public void visitAttribute(CollectionAttribute attribute);
+    public abstract void visitAttribute(CollectionAttribute attribute);
 
 }

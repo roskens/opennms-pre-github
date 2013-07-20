@@ -42,7 +42,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-abstract public class SnmpTable<T extends SnmpTableEntry> extends AggregateTracker {
+public abstract class SnmpTable<T extends SnmpTableEntry> extends AggregateTracker {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTable.class);
 
     private Map<SnmpInstId, T> m_results = new TreeMap<SnmpInstId, T>();

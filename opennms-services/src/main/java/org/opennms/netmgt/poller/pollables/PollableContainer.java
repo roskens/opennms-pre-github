@@ -43,7 +43,7 @@ import org.opennms.netmgt.model.PollStatus;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
-abstract public class PollableContainer extends PollableElement {
+public abstract class PollableContainer extends PollableElement {
 
     private final Map<Object, PollableElement> m_members = new HashMap<Object, PollableElement>();
 

@@ -75,5 +75,5 @@ public abstract class SyncAbstractDetector extends AbstractDetector implements S
 
     /** {@inheritDoc} */
     @Override
-    abstract public boolean isServiceDetected(final InetAddress address);
+    public abstract boolean isServiceDetected(final InetAddress address);
 }

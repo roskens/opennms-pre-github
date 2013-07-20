@@ -98,7 +98,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
         return m_listeners;
     }
 
-    abstract public PingReplyMetric ping(T addr, int id, int sequenceNumber, int count, long interval)
+    public abstract PingReplyMetric ping(T addr, int id, int sequenceNumber, int count, long interval)
             throws InterruptedException;
 
     public void addPingReplyListener(PingReplyListener listener) {

@@ -178,7 +178,7 @@ public abstract class WebRole {
      *            a int.
      * @return a {@link org.opennms.netmgt.config.groups.Schedule} object.
      */
-    abstract public Schedule getSchedule(int schedIndex);
+    public abstract Schedule getSchedule(int schedIndex);
 
     /**
      * <p>
@@ -191,7 +191,7 @@ public abstract class WebRole {
      *            a int.
      * @return a {@link org.opennms.netmgt.config.common.Time} object.
      */
-    abstract public Time getTime(int schedIndex, int timeIndex);
+    public abstract Time getTime(int schedIndex, int timeIndex);
 
     /**
      * <p>
@@ -200,7 +200,7 @@ public abstract class WebRole {
      *
      * @return a {@link java.util.Collection} object.
      */
-    abstract public Collection<WebUser> getCurrentUsers();
+    public abstract Collection<WebUser> getCurrentUsers();
 
     /**
      * <p>
@@ -233,7 +233,7 @@ public abstract class WebRole {
      *            a {@link java.util.Date} object.
      * @return a {@link org.opennms.netmgt.config.WebCalendar} object.
      */
-    abstract public WebCalendar getCalendar(Date month);
+    public abstract WebCalendar getCalendar(Date month);
 
     /**
      * <p>

@@ -58,7 +58,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
 
     /** {@inheritDoc} */
     @Override
-    abstract public void correlate(Event e);
+    public abstract void correlate(Event e);
 
     /**
      * <p>
@@ -68,7 +68,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      * @return a {@link java.util.List} object.
      */
     @Override
-    abstract public List<String> getInterestingEvents();
+    public abstract List<String> getInterestingEvents();
 
     /**
      * <p>

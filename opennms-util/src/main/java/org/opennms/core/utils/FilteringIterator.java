@@ -38,7 +38,7 @@ import java.util.Iterator;
  * @author ranger
  * @version $Id: $
  */
-abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
+public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
 
     private static final class PeekableIterator<T> implements Iterator<T> {
 

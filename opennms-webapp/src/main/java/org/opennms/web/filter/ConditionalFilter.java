@@ -210,7 +210,7 @@ public abstract class ConditionalFilter implements Filter {
      * @return a {@link org.hibernate.criterion.Criterion} object.
      */
     @Override
-    abstract public Criterion getCriterion();
+    public abstract Criterion getCriterion();
 
     /**
      * <p>

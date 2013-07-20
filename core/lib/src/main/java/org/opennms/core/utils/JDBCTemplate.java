@@ -44,7 +44,7 @@ import org.springframework.dao.DataRetrievalFailureException;
  * @author brozow
  * @version $Id: $
  */
-abstract public class JDBCTemplate {
+public abstract class JDBCTemplate {
 
     private DataSource m_db;
 

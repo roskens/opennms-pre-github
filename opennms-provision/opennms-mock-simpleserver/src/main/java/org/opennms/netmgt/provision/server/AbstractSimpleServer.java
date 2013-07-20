@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @author ranger
  * @version $Id: $
  */
-abstract public class AbstractSimpleServer {
+public abstract class AbstractSimpleServer {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSimpleServer.class);
 

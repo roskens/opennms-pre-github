@@ -842,7 +842,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return m_val.getName();
         }
 
-        abstract public String getAttributeValue(Event e);
+        public abstract String getAttributeValue(Event e);
     }
 
     // XXX: This is here because Spring converting to a String appears

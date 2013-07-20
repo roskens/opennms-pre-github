@@ -71,7 +71,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
-abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfacePollerConfig {
+public abstract class SnmpInterfacePollerConfigManager implements SnmpInterfacePollerConfig {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpInterfacePollerConfigManager.class);
 
     /**

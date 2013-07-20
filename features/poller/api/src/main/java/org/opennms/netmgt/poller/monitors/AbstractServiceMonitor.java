@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="weave@oculan.com">Weave</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
  */
-abstract public class AbstractServiceMonitor implements ServiceMonitor {
+public abstract class AbstractServiceMonitor implements ServiceMonitor {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceMonitor.class);
 
@@ -143,5 +143,5 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
 
     /** {@inheritDoc} */
     @Override
-    abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
+    public abstract PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
 }

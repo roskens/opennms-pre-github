@@ -71,7 +71,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:brozow@openms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
-abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
+public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     private static final Logger LOG = LoggerFactory.getLogger(MapsAdapterConfigManager.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();

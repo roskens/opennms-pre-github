@@ -73,7 +73,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLFilter;
 
 @RunWith(Parameterized.class)
-abstract public class XmlTest<T> {
+public abstract class XmlTest<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(XmlTest.class);
 

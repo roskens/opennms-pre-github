@@ -67,7 +67,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
-abstract public class LinkdConfigManager implements LinkdConfig {
+public abstract class LinkdConfigManager implements LinkdConfig {
     private static final Logger LOG = LoggerFactory.getLogger(LinkdConfigManager.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();

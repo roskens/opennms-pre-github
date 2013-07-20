@@ -56,7 +56,7 @@ public abstract class ImportOperation {
      * scan
      * </p>
      */
-    abstract public void scan();
+    public abstract void scan();
 
     /**
      * <p>
