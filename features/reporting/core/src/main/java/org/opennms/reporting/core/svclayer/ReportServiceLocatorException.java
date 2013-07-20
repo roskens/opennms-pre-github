@@ -29,12 +29,13 @@
 package org.opennms.reporting.core.svclayer;
 
 /**
- * Used by ReportServiceLocator
+ * Used by ReportServiceLocator.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  */
 public class ReportServiceLocatorException extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7839336888035725570L;
 
     /**

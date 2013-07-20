@@ -42,8 +42,10 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class DefaultReportServiceLocator implements ApplicationContextAware, ReportServiceLocator {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_global report repository. */
     private GlobalReportRepository m_globalReportRepository;
 
     /**
@@ -78,6 +80,12 @@ public class DefaultReportServiceLocator implements ApplicationContextAware, Rep
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Sets the global report repository.
+     *
+     * @param globalReportRepository
+     *            the new global report repository
+     */
     public void setGlobalReportRepository(GlobalReportRepository globalReportRepository) {
         m_globalReportRepository = globalReportRepository;
     }

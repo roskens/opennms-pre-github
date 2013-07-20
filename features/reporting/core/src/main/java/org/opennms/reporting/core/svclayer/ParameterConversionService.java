@@ -42,6 +42,7 @@ public interface ParameterConversionService {
      * <p>
      * convert
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link org.opennms.netmgt.config.reporting.Parameters}

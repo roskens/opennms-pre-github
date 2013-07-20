@@ -66,12 +66,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultReportWrapperService implements ReportWrapperService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultReportWrapperService.class);
 
+    /** The m_report service locator. */
     private ReportServiceLocator m_reportServiceLocator;
 
+    /** The m_report store service. */
     private ReportStoreService m_reportStoreService;
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
     /**
@@ -192,6 +197,14 @@ public class DefaultReportWrapperService implements ReportWrapperService {
 
     }
 
+    /**
+     * Mail report.
+     *
+     * @param deliveryOptions
+     *            the delivery options
+     * @param outputStream
+     *            the output stream
+     */
     private void mailReport(DeliveryOptions deliveryOptions, ByteArrayOutputStream outputStream) {
         try {
             JavaMailer jm = new JavaMailer();
@@ -234,6 +247,13 @@ public class DefaultReportWrapperService implements ReportWrapperService {
         return getReportService(reportId).validate(parameters.getReportParms(), reportId);
     }
 
+    /**
+     * Gets the report service.
+     *
+     * @param reportId
+     *            the report id
+     * @return the report service
+     */
     private ReportService getReportService(String reportId) {
         return m_reportServiceLocator.getReportServiceForId(reportId);
     }
@@ -242,6 +262,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
      * <p>
      * setReportServiceLocator
      * </p>
+     * .
      *
      * @param reportServiceLocator
      *            a
@@ -256,6 +277,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
      * <p>
      * setReportStoreService
      * </p>
+     * .
      *
      * @param reportStoreService
      *            a

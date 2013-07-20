@@ -44,6 +44,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  */
 public class BatchReportJob extends QuartzJobBean {
 
+    /** The m_context. */
     private ApplicationContext m_context;
 
     /** {@inheritDoc} */
@@ -76,6 +77,7 @@ public class BatchReportJob extends QuartzJobBean {
      * <p>
      * setApplicationContext
      * </p>
+     * .
      *
      * @param applicationContext
      *            a {@link org.springframework.context.ApplicationContext}

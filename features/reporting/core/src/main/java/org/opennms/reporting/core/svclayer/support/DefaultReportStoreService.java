@@ -56,14 +56,20 @@ import org.slf4j.LoggerFactory;
  * </p>
  */
 public class DefaultReportStoreService implements ReportStoreService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultReportStoreService.class);
 
+    /** The m_report catalog dao. */
     private ReportCatalogDao m_reportCatalogDao;
 
+    /** The m_report service locator. */
     private ReportServiceLocator m_reportServiceLocator;
 
+    /** The m_global report repository. */
     private GlobalReportRepository m_globalReportRepository;
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
     /**
@@ -80,6 +86,7 @@ public class DefaultReportStoreService implements ReportStoreService {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param ids
      *            an array of {@link java.lang.Integer} objects.
@@ -95,6 +102,7 @@ public class DefaultReportStoreService implements ReportStoreService {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -115,6 +123,7 @@ public class DefaultReportStoreService implements ReportStoreService {
      * <p>
      * getAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -129,6 +138,7 @@ public class DefaultReportStoreService implements ReportStoreService {
      * <p>
      * getFormatMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -189,7 +199,7 @@ public class DefaultReportStoreService implements ReportStoreService {
      * </p>
      * Set the global report repository which implements a local report for
      * Community reports and remote
-     * OpenNMS CONNECT repositories
+     * OpenNMS CONNECT repositories.
      *
      * @param globalReportRepository
      *            a 

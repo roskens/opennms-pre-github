@@ -39,22 +39,29 @@ import org.opennms.api.reporting.ReportFormat;
  */
 public class DeliveryOptions implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7983363859009905407L;
 
+    /** The m_mail to. */
     protected String m_mailTo;
 
+    /** The m_persist. */
     protected Boolean m_persist;
 
+    /** The m_send mail. */
     protected Boolean m_sendMail;
 
+    /** The m_format. */
     protected ReportFormat m_format;
 
+    /** The m_instance id. */
     protected String m_instanceId;
 
     /**
      * <p>
      * getMailTo
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -66,6 +73,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * setMailTo
      * </p>
+     * .
      *
      * @param email
      *            a {@link java.lang.String} object.
@@ -78,6 +86,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * setPersist
      * </p>
+     * .
      *
      * @param persist
      *            a {@link java.lang.Boolean} object.
@@ -90,6 +99,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * getPersist
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -101,6 +111,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * setSendMail
      * </p>
+     * .
      *
      * @param sendEmail
      *            a {@link java.lang.Boolean} object.
@@ -113,6 +124,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * getSendMail
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -124,6 +136,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * getFormat
      * </p>
+     * .
      *
      * @return a {@link org.opennms.api.reporting.ReportFormat} object.
      */
@@ -135,6 +148,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * setFormat
      * </p>
+     * .
      *
      * @param format
      *            a {@link org.opennms.api.reporting.ReportFormat} object.
@@ -147,6 +161,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * getInstanceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,6 +173,7 @@ public class DeliveryOptions implements Serializable {
      * <p>
      * setInstanceId
      * </p>
+     * .
      *
      * @param instanceId
      *            a {@link java.lang.String} object.

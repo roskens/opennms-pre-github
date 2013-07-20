@@ -49,34 +49,50 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 // TODO: We have replaced the databaseConfigDao by a GlobalReportRepository. We have to rewrite the whole test set with a mockup GlobalReportRepository
+/**
+ * The Class DefaultReportStoreServiceTest.
+ */
 @Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class })
 @ContextConfiguration(locations = { "classpath:org/opennms/reporting/core/svclayer/support/DefaultReportStoreServiceTest.xml" })
 public class DefaultReportStoreServiceTest implements InitializingBean {
 
+    /** The m_report store service. */
     @Autowired
     ReportStoreService m_reportStoreService;
 
+    /** The m_report catalog dao. */
     @Autowired
     ReportCatalogDao m_reportCatalogDao;
 
+    /** The m_report service locator. */
     @Autowired
     ReportServiceLocator m_reportServiceLocator;
 
+    /** The m_database report config dao. */
     @Autowired
     DatabaseReportConfigDao m_databaseReportConfigDao;
 
+    /**
+     * Setup.
+     */
     @BeforeClass
     public static void setup() {
         System.setProperty("opennms.home", "src/test/resources");
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test save.
+     */
     @Test
     public void testSave() {
 
@@ -90,6 +106,9 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Test reder.
+     */
     @Test
     public void testReder() {
         // TODO something useful here

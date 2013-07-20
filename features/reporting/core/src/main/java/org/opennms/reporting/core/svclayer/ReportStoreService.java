@@ -49,6 +49,7 @@ public interface ReportStoreService {
      * <p>
      * getAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -58,6 +59,7 @@ public interface ReportStoreService {
      * <p>
      * getFormatMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -67,6 +69,7 @@ public interface ReportStoreService {
      * <p>
      * render
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -81,6 +84,7 @@ public interface ReportStoreService {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param ids
      *            an array of {@link java.lang.Integer} objects.
@@ -92,6 +96,7 @@ public interface ReportStoreService {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -103,6 +108,7 @@ public interface ReportStoreService {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param reportCatalogEntry
      *            a {@link org.opennms.netmgt.model.ReportCatalogEntry} object.
@@ -114,6 +120,7 @@ public interface ReportStoreService {
      * <p>
      * setReportCatalogDao
      * </p>
+     * .
      *
      * @param reportCatalogDao
      *            a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
@@ -124,6 +131,7 @@ public interface ReportStoreService {
      * <p>
      * setReportServiceLocator
      * </p>
+     * .
      *
      * @param reportServiceLocator
      *            a

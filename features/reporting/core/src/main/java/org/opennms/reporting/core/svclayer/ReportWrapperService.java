@@ -60,16 +60,16 @@ public interface ReportWrapperService {
     public abstract boolean validate(ReportParameters parameters, String reportId);
 
     /**
-     * This method runs the report
+     * This method runs the report.
      *
      * @param parameters
      *            runtime report parameters
+     * @param mode
+     *            in which to run the report (ONLINE, BATCH or IMMEDIATE)
      * @param deliveryOptions
      *            delivery options for the report
      * @param reportId
      *            reportId as defined in database-reports.xml
-     * @param mode
-     *            in which to run the report (ONLINE, BATCH or IMMEDIATE)
      */
     public abstract void run(ReportParameters parameters, ReportMode mode, DeliveryOptions deliveryOptions,
             String reportId);
@@ -90,7 +90,7 @@ public interface ReportWrapperService {
     public abstract DeliveryOptions getDeliveryOptions(String userId, String reportId);
 
     /**
-     * This method provides a list of formats supported by the report
+     * This method provides a list of formats supported by the report.
      *
      * @param reportId
      *            reportId as defined in database-reports.xml
@@ -100,14 +100,14 @@ public interface ReportWrapperService {
 
     /**
      * This method runs the report and renders in into the given output stream
-     * with no intermediate steps
+     * with no intermediate steps.
      *
      * @param parameters
      *            runtime report parameters
-     * @param outputStream
-     *            stream to render the resulting report
      * @param mode
      *            in which to run the report (ONLINE, BATCH or IMMEDIATE)
+     * @param outputStream
+     *            stream to render the resulting report
      */
     public abstract void runAndRender(ReportParameters parameters, ReportMode mode, OutputStream outputStream);
 
@@ -126,21 +126,21 @@ public interface ReportWrapperService {
     public abstract void render(String ReportId, String location, ReportFormat format, OutputStream outputStream);
 
     /**
-     * This method is used to determine whether the report takes any parameters
+     * This method is used to determine whether the report takes any parameters.
      *
-     * @return true if the report takes parameters, false if not.
      * @param ReportId
      *            a {@link java.lang.String} object.
+     * @return true if the report takes parameters, false if not.
      */
     public abstract Boolean hasParameters(String ReportId);
 
     /**
-     * This method retrieves the runtime parameters taken by the report
+     * This method retrieves the runtime parameters taken by the report.
      *
-     * @return a ReportParameters object containing the parameters taken by the
-     *         report
      * @param ReportId
      *            a {@link java.lang.String} object.
+     * @return a ReportParameters object containing the parameters taken by the
+     *         report
      */
     public abstract ReportParameters getParameters(String ReportId);
 
