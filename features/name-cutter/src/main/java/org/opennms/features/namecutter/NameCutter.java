@@ -36,14 +36,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class NameCutter.
+ *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class NameCutter {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(NameCutter.class);
 
+    /** The dictionary. */
     private Map<String, String> dictionary = new HashMap<String, String>();
 
+    /**
+     * Trim by camel case.
+     *
+     * @param name
+     *            the name
+     * @param maxLength
+     *            the max length
+     * @return the string
+     */
     public String trimByCamelCase(String name, Integer maxLength) {
         String result = "";
         String[] nameParts = StringUtils.splitByCharacterTypeCamelCase(name);
@@ -65,6 +78,13 @@ public class NameCutter {
         return result;
     }
 
+    /**
+     * Trim by dictionary.
+     *
+     * @param name
+     *            the name
+     * @return the string
+     */
     public String trimByDictionary(String name) {
         String result = "";
 
@@ -86,10 +106,21 @@ public class NameCutter {
         return result;
     }
 
+    /**
+     * Gets the dictionary.
+     *
+     * @return the dictionary
+     */
     public Map<String, String> getDictionary() {
         return dictionary;
     }
 
+    /**
+     * Sets the dictionary.
+     *
+     * @param dictionary
+     *            the dictionary
+     */
     public void setDictionary(Map<String, String> dictionary) {
         this.dictionary = dictionary;
     }

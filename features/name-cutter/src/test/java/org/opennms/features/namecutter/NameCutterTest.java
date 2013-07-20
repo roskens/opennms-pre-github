@@ -41,14 +41,24 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * The Class NameCutterTest.
+ *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class NameCutterTest {
 
+    /** The dictionary. */
     private static Map<String, String> dictionary = new HashMap<String, String>();
 
+    /** The name cutter. */
     private NameCutter nameCutter = new NameCutter();
 
+    /**
+     * Sets the up class.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
         Properties properties = new Properties();
@@ -64,12 +74,18 @@ public class NameCutterTest {
         }
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         nameCutter = new NameCutter();
         nameCutter.setDictionary(dictionary);
     }
 
+    /**
+     * Test trim by dictionary.
+     */
     @Test
     public void testTrimByDictionary() {
         Assert.assertEquals("Blo", nameCutter.trimByDictionary("Bloom"));
@@ -80,6 +96,9 @@ public class NameCutterTest {
         Assert.assertEquals("AllIdntToknzCnt", nameCutter.trimByDictionary("AllIdentityTokenizedCount"));
     }
 
+    /**
+     * Test trim by camel case.
+     */
     @Test
     public void testTrimByCamelCase() {
         Assert.assertEquals("CommitteVirtMemSize", nameCutter.trimByCamelCase("CommittedVirtMemSize", 19));
