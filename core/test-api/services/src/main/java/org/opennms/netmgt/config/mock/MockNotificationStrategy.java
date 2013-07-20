@@ -39,16 +39,22 @@ import org.opennms.netmgt.model.notifd.NotificationStrategy;
 import org.opennms.test.mock.MockUtil;
 
 /**
+ * The Class MockNotificationStrategy.
+ *
  * @author david
  */
 public class MockNotificationStrategy implements NotificationStrategy {
 
+    /** The s_anticipator. */
     private static NotificationAnticipator s_anticipator = null;
 
     static {
         MockUtil.println("Static initializer on " + MockNotificationStrategy.class.getName());
     }
 
+    /**
+     * Instantiates a new mock notification strategy.
+     */
     public MockNotificationStrategy() {
         MockUtil.println("Created a " + MockNotificationStrategy.class.getName());
     }
@@ -87,10 +93,21 @@ public class MockNotificationStrategy implements NotificationStrategy {
 
     }
 
+    /**
+     * Gets the anticipator.
+     *
+     * @return the anticipator
+     */
     public static NotificationAnticipator getAnticipator() {
         return s_anticipator;
     }
 
+    /**
+     * Sets the anticipator.
+     *
+     * @param anticipator
+     *            the new anticipator
+     */
     public static void setAnticipator(NotificationAnticipator anticipator) {
         s_anticipator = anticipator;
     }

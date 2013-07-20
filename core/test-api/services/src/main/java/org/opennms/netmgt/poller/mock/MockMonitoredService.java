@@ -36,17 +36,40 @@ import org.opennms.netmgt.poller.InetNetworkInterface;
 import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.NetworkInterface;
 
+/**
+ * The Class MockMonitoredService.
+ */
 public class MockMonitoredService implements MonitoredService {
+
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_ip addr. */
     private final String m_ipAddr;
 
+    /** The m_svc name. */
     private final String m_svcName;
 
+    /** The m_inet addr. */
     private InetAddress m_inetAddr;
 
+    /**
+     * Instantiates a new mock monitored service.
+     *
+     * @param nodeId
+     *            the node id
+     * @param nodeLabel
+     *            the node label
+     * @param inetAddress
+     *            the inet address
+     * @param svcName
+     *            the svc name
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public MockMonitoredService(int nodeId, String nodeLabel, InetAddress inetAddress, String svcName)
             throws UnknownHostException {
         m_nodeId = nodeId;
@@ -56,40 +79,67 @@ public class MockMonitoredService implements MonitoredService {
         m_ipAddr = InetAddressUtils.str(m_inetAddr);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getSvcName()
+     */
     @Override
     public String getSvcName() {
         return m_svcName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getIpAddr()
+     */
     @Override
     public String getIpAddr() {
         return m_ipAddr;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getNodeId()
+     */
     @Override
     public int getNodeId() {
         return m_nodeId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getNodeLabel()
+     */
     @Override
     public String getNodeLabel() {
         return m_nodeLabel;
     }
 
+    /**
+     * Sets the node label.
+     *
+     * @param nodeLabel
+     *            the new node label
+     */
     public void setNodeLabel(String nodeLabel) {
         m_nodeLabel = nodeLabel;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getNetInterface()
+     */
     @Override
     public NetworkInterface<InetAddress> getNetInterface() {
         return new InetNetworkInterface(m_inetAddr);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getAddress()
+     */
     @Override
     public InetAddress getAddress() {
         return m_inetAddr;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getSvcUrl()
+     */
     @Override
     public String getSvcUrl() {
         return null;

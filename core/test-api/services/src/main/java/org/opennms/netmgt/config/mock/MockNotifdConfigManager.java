@@ -37,12 +37,16 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.NotifdConfigManager;
 
 /**
+ * The Class MockNotifdConfigManager.
+ *
  * @author David Hustace <david@opennms.org>
  */
 public class MockNotifdConfigManager extends NotifdConfigManager {
 
+    /** The m_next notif id sql. */
     private String m_nextNotifIdSql;
 
+    /** The m_next user notif id sql. */
     private String m_nextUserNotifIdSql;
 
     /*
@@ -50,10 +54,16 @@ public class MockNotifdConfigManager extends NotifdConfigManager {
      */
 
     /**
+     * Instantiates a new mock notifd config manager.
+     *
      * @param configString
-     * @throws IOException
-     * @throws ValidationException
+     *            the config string
      * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MockNotifdConfigManager(String configString) throws MarshalException, ValidationException, IOException {
         InputStream reader = new ByteArrayInputStream(configString.getBytes("UTF-8"));
@@ -87,16 +97,31 @@ public class MockNotifdConfigManager extends NotifdConfigManager {
         return m_nextNotifIdSql;
     }
 
+    /**
+     * Sets the next notif id sql.
+     *
+     * @param sql
+     *            the new next notif id sql
+     */
     public void setNextNotifIdSql(String sql) {
         m_nextNotifIdSql = sql;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.NotifdConfigManager#getNextUserNotifIdSql()
+     */
     @Override
     public String getNextUserNotifIdSql() throws IOException, MarshalException, ValidationException {
         // TODO Auto-generated method stub
         return m_nextUserNotifIdSql;
     }
 
+    /**
+     * Sets the next user notif id sql.
+     *
+     * @param sql
+     *            the new next user notif id sql
+     */
     public void setNextUserNotifIdSql(String sql) {
         m_nextUserNotifIdSql = sql;
     }

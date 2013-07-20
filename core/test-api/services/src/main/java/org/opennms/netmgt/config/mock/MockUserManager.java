@@ -38,22 +38,49 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.GroupManager;
 import org.opennms.netmgt.config.UserManager;
 
+/**
+ * The Class MockUserManager.
+ */
 public class MockUserManager extends UserManager {
 
+    /** The m_xml string. */
     String m_xmlString;
 
+    /** The update needed. */
     boolean updateNeeded = true;
 
+    /** The m_last modified. */
     private long m_lastModified;
 
+    /** The m_file size. */
     private long m_fileSize;
 
+    /**
+     * Instantiates a new mock user manager.
+     *
+     * @param groupManager
+     *            the group manager
+     * @param xmlString
+     *            the xml string
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public MockUserManager(GroupManager groupManager, String xmlString) throws MarshalException, ValidationException {
         super(groupManager);
         m_xmlString = xmlString;
         parseXML();
     }
 
+    /**
+     * Parses the xml.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void parseXML() throws MarshalException, ValidationException {
         InputStream in = new ByteArrayInputStream(m_xmlString.getBytes());
         parseXML(in);
@@ -62,12 +89,18 @@ public class MockUserManager extends UserManager {
         m_fileSize = m_xmlString.getBytes().length;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#saveXML(java.lang.String)
+     */
     @Override
     protected void saveXML(String writerString) throws IOException {
         m_xmlString = writerString;
         updateNeeded = true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#doUpdate()
+     */
     @Override
     protected void doUpdate() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         if (updateNeeded) {
@@ -75,21 +108,33 @@ public class MockUserManager extends UserManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#isUpdateNeeded()
+     */
     @Override
     public boolean isUpdateNeeded() {
         return updateNeeded;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#getLastModified()
+     */
     @Override
     public long getLastModified() {
         return m_lastModified;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#getFileSize()
+     */
     @Override
     public long getFileSize() {
         return m_fileSize;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.UserManager#reload()
+     */
     @Override
     public void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         parseXML();

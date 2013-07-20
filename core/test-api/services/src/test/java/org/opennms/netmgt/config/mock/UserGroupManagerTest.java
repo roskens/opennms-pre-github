@@ -51,29 +51,50 @@ import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.config.users.User;
 
+/**
+ * The Class UserGroupManagerTest.
+ */
 public class UserGroupManagerTest {
+
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
+    /** The m_user manager. */
     private UserManager m_userManager;
 
+    /** The brozow. */
     private User brozow;
 
+    /** The admin. */
     private User admin;
 
+    /** The up user. */
     private User upUser;
 
+    /** The david. */
     private User david;
 
+    /** The oncall. */
     private Role oncall;
 
+    /** The unscheduled. */
     private Role unscheduled;
 
+    /** The night. */
     private Date night;
 
+    /** The day. */
     private Date day;
 
+    /** The sunday. */
     private Date sunday;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -113,11 +134,23 @@ public class UserGroupManagerTest {
         assertEquals("unscheduled", unscheduled.getName());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test get user names.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetUserNames() throws Exception {
         List<String> userNameList = m_userManager.getUserNames();
@@ -128,6 +161,12 @@ public class UserGroupManagerTest {
         assertTrue(userNameList.contains("david"));
     }
 
+    /**
+     * Test rename user.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRenameUser() throws Exception {
         m_userManager.renameUser("brozow", "brozow2");
@@ -146,6 +185,12 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test save user.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSaveUser() throws Exception {
         String userName = "brozow";
@@ -170,6 +215,12 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test get group names.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetGroupNames() throws Exception {
         List<String> userNameList = m_groupManager.getGroupNames();
@@ -180,6 +231,12 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test save groups.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSaveGroups() throws Exception {
         final String groupName = "UpGroup";
@@ -209,11 +266,20 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test get roles.
+     */
     @Test
     public void testGetRoles() {
         assertRoles(m_groupManager.getRoleNames(), new Role[] { oncall, unscheduled });
     }
 
+    /**
+     * Test user has role.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUserHasRole() throws Exception {
         assertTrue(m_userManager.userHasRole(brozow, "oncall"));
@@ -222,6 +288,12 @@ public class UserGroupManagerTest {
         assertTrue(m_userManager.userHasRole(david, "oncall"));
     }
 
+    /**
+     * Test get users with role.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetUsersWithRole() throws Exception {
         String[] userNames = m_userManager.getUsersWithRole("oncall");
@@ -229,6 +301,12 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test user scheduled for role new.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUserScheduledForRoleNew() throws Exception {
         Date[] dates = new Date[] { night, day, sunday };
@@ -237,6 +315,14 @@ public class UserGroupManagerTest {
         }
     }
 
+    /**
+     * Test users scheduled for roles at.
+     *
+     * @param date
+     *            the date
+     * @throws Exception
+     *             the exception
+     */
     private void testUsersScheduledForRolesAt(Date date) throws Exception {
         String[] roles = m_groupManager.getRoleNames();
         for (int i = 0; i < roles.length; i++) {
@@ -245,6 +331,16 @@ public class UserGroupManagerTest {
         }
     }
 
+    /**
+     * Test users schedule for role at.
+     *
+     * @param role
+     *            the role
+     * @param date
+     *            the date
+     * @throws Exception
+     *             the exception
+     */
     private void testUsersScheduleForRoleAt(String role, Date date) throws Exception {
         for (String userId : m_userManager.getUserNames()) {
             User u = m_userManager.getUser(userId);
@@ -252,12 +348,30 @@ public class UserGroupManagerTest {
         }
     }
 
+    /**
+     * Test user scheduled for role at.
+     *
+     * @param u
+     *            the u
+     * @param role
+     *            the role
+     * @param date
+     *            the date
+     * @throws Exception
+     *             the exception
+     */
     private void testUserScheduledForRoleAt(User u, String role, Date date) throws Exception {
         assertEquals("Unexpected value " + u.getUserId() + " for role " + role + " at " + date,
                      m_userManager.isUserScheduledForRole(u, role, date),
                      m_userManager.isUserScheduledForRole(u, role, date));
     }
 
+    /**
+     * Test user scheduled for role.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUserScheduledForRole() throws Exception {
         // day and night are mondays at 11 am and 11 pm respectively
@@ -288,6 +402,12 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Test get users scheduled for role.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetUsersScheduledForRole() throws Exception {
         String[] nightUserNames = m_userManager.getUsersScheduledForRole("oncall", night);
@@ -301,6 +421,14 @@ public class UserGroupManagerTest {
 
     }
 
+    /**
+     * Assert roles.
+     *
+     * @param roleNames
+     *            the role names
+     * @param expected
+     *            the expected
+     */
     private void assertRoles(String[] roleNames, Role[] expected) {
         if (expected == null)
             assertNull("Expected null list", roleNames);
@@ -315,6 +443,14 @@ public class UserGroupManagerTest {
         }
     }
 
+    /**
+     * Assert users.
+     *
+     * @param userNames
+     *            the user names
+     * @param expected
+     *            the expected
+     */
     private void assertUsers(String[] userNames, User[] expected) {
         if (expected == null)
             assertNull("Expected null list", userNames);

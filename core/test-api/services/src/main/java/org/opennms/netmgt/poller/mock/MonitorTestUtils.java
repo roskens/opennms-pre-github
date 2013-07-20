@@ -33,18 +33,62 @@ import java.net.UnknownHostException;
 
 import org.opennms.core.utils.InetAddressUtils;
 
+/**
+ * The Class MonitorTestUtils.
+ */
 public abstract class MonitorTestUtils {
 
+    /**
+     * Gets the monitored service.
+     *
+     * @param nodeId
+     *            the node id
+     * @param addr
+     *            the addr
+     * @param svcName
+     *            the svc name
+     * @return the monitored service
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static MockMonitoredService getMonitoredService(int nodeId, InetAddress addr, String svcName)
             throws UnknownHostException {
         return new MockMonitoredService(nodeId, InetAddressUtils.str(addr), addr, svcName);
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @param nodeId
+     *            the node id
+     * @param hostname
+     *            the hostname
+     * @param svcName
+     *            the svc name
+     * @return the monitored service
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static MockMonitoredService getMonitoredService(int nodeId, String hostname, String svcName)
             throws UnknownHostException {
         return getMonitoredService(nodeId, hostname, svcName, false);
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @param nodeId
+     *            the node id
+     * @param hostname
+     *            the hostname
+     * @param svcName
+     *            the svc name
+     * @param preferInet6Address
+     *            the prefer inet6 address
+     * @return the monitored service
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static MockMonitoredService getMonitoredService(int nodeId, String hostname, String svcName,
             boolean preferInet6Address) throws UnknownHostException {
         InetAddress myAddress = InetAddressUtils.resolveHostname(hostname, preferInet6Address);

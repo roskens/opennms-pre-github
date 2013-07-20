@@ -37,17 +37,40 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.GroupManager;
 
+/**
+ * The Class MockGroupManager.
+ */
 public class MockGroupManager extends GroupManager {
 
+    /** The m_xml string. */
     String m_xmlString;
 
+    /** The update needed. */
     boolean updateNeeded = false;
 
+    /**
+     * Instantiates a new mock group manager.
+     *
+     * @param xmlString
+     *            the xml string
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public MockGroupManager(String xmlString) throws MarshalException, ValidationException {
         m_xmlString = xmlString;
         parseXML();
     }
 
+    /**
+     * Parses the xml.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void parseXML() throws MarshalException, ValidationException {
         try {
             InputStream reader = new ByteArrayInputStream(m_xmlString.getBytes("UTF-8"));
@@ -58,6 +81,9 @@ public class MockGroupManager extends GroupManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.GroupManager#update()
+     */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
         if (updateNeeded) {
@@ -65,6 +91,9 @@ public class MockGroupManager extends GroupManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.GroupManager#saveXml(java.lang.String)
+     */
     @Override
     protected void saveXml(String data) throws IOException {
         m_xmlString = data;

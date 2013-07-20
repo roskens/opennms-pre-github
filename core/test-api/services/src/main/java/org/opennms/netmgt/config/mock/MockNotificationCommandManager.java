@@ -36,11 +36,23 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.NotificationCommandManager;
 
 /**
+ * The Class MockNotificationCommandManager.
+ *
  * @author david hustace <david@opennms.org>
  */
 
 public class MockNotificationCommandManager extends NotificationCommandManager {
 
+    /**
+     * Instantiates a new mock notification command manager.
+     *
+     * @param xmlString
+     *            the xml string
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public MockNotificationCommandManager(String xmlString) throws MarshalException, ValidationException {
         try {
             parseXML(new ByteArrayInputStream(xmlString.getBytes("UTF-8")));
@@ -49,6 +61,9 @@ public class MockNotificationCommandManager extends NotificationCommandManager {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.NotificationCommandManager#update()
+     */
     @Override
     public void update() throws Exception {
 

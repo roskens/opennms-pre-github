@@ -64,17 +64,29 @@ import org.opennms.netmgt.config.groups.Group;
 import org.opennms.netmgt.config.groups.Role;
 import org.opennms.netmgt.config.users.User;
 
+/**
+ * The Class RolesTest.
+ */
 public class RolesTest extends IntervalTestCase {
+
+    /** The m_group manager. */
     private GroupManager m_groupManager;
 
+    /** The m_user manager. */
     private UserManager m_userManager;
 
+    /** The m_role mgr. */
     private WebRoleManager m_roleMgr;
 
+    /** The m_group mgr. */
     private WebGroupManager m_groupMgr;
 
+    /** The m_user mgr. */
     private WebUserManager m_userMgr;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.IntervalTestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -100,6 +112,12 @@ public class RolesTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test roles.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoles() throws Exception {
         assertNotNull(m_roleMgr);
@@ -133,6 +151,12 @@ public class RolesTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test week count.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWeekCount() throws Exception {
         int firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
@@ -162,6 +186,12 @@ public class RolesTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Test time intervals.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTimeIntervals() throws Exception {
         OwnedIntervalSequence intervals = m_groupManager.getRoleScheduleEntries("oncall", getDate("2005-08-18"),
@@ -194,10 +224,28 @@ public class RolesTest extends IntervalTestCase {
 
     }
 
+    /**
+     * Assert user.
+     *
+     * @param user
+     *            the user
+     * @param webUser
+     *            the web user
+     */
     private void assertUser(User user, WebUser webUser) {
         assertEquals(user.getUserId(), webUser.getName());
     }
 
+    /**
+     * Assert group.
+     *
+     * @param group
+     *            the group
+     * @param webGroup
+     *            the web group
+     * @throws Exception
+     *             the exception
+     */
     private void assertGroup(Group group, WebGroup webGroup) throws Exception {
         assertEquals(group.getName(), webGroup.getName());
         Collection<String> userNames = group.getUserCollection();
@@ -210,6 +258,16 @@ public class RolesTest extends IntervalTestCase {
         }
     }
 
+    /**
+     * Assert role.
+     *
+     * @param role
+     *            the role
+     * @param webRole
+     *            the web role
+     * @throws Exception
+     *             the exception
+     */
     private void assertRole(Role role, WebRole webRole) throws Exception {
         assertEquals(role.getName(), webRole.getName());
         assertEquals(role.getDescription(), webRole.getDescription());
@@ -224,6 +282,15 @@ public class RolesTest extends IntervalTestCase {
         }
     }
 
+    /**
+     * Gets the date.
+     *
+     * @param date
+     *            the date
+     * @return the date
+     * @throws ParseException
+     *             the parse exception
+     */
     private Date getDate(String date) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }

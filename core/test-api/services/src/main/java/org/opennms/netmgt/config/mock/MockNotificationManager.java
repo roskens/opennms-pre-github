@@ -40,10 +40,26 @@ import org.opennms.netmgt.config.NotifdConfigManager;
 import org.opennms.netmgt.config.NotificationManager;
 
 /**
+ * The Class MockNotificationManager.
+ *
  * @author david
  */
 public class MockNotificationManager extends NotificationManager {
 
+    /**
+     * Instantiates a new mock notification manager.
+     *
+     * @param configManager
+     *            the config manager
+     * @param db
+     *            the db
+     * @param mgrString
+     *            the mgr string
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @SuppressWarnings("deprecation")
     public MockNotificationManager(NotifdConfigManager configManager, DataSource db, String mgrString)
             throws MarshalException, ValidationException {
@@ -74,6 +90,13 @@ public class MockNotificationManager extends NotificationManager {
      * @see
      * org.opennms.netmgt.config.NotificationManager#getInterfaceFilter(java
      * .lang.String)
+     */
+    /**
+     * Gets the interface filter.
+     *
+     * @param rule
+     *            the rule
+     * @return the interface filter
      */
     protected String getInterfaceFilter(String rule) {
         return "SELECT DISTINCT ipaddr, servicename, nodeid FROM ifservices, service WHERE ifservices.serviceid = service.serviceid";
