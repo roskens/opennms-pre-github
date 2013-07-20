@@ -43,7 +43,7 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
 /**
- * Nsclient object groups
+ * Nsclient object groups.
  *
  * @version $Revision$ $Date$
  */
@@ -55,15 +55,16 @@ public class Wpms implements java.io.Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * An NSClient Object Group
-     */
+    /** An NSClient Object Group. */
     private java.util.List<org.opennms.netmgt.config.nsclient.Wpm> _wpmList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new wpms.
+     */
     public Wpms() {
         super();
         this._wpmList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.Wpm>();
@@ -74,21 +75,26 @@ public class Wpms implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the wpm.
+     *
      * @param vWpm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v wpm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addWpm(final org.opennms.netmgt.config.nsclient.Wpm vWpm) throws java.lang.IndexOutOfBoundsException {
         this._wpmList.add(vWpm);
     }
 
     /**
+     * Adds the wpm.
+     *
      * @param index
+     *            the index
      * @param vWpm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v wpm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addWpm(final int index, final org.opennms.netmgt.config.nsclient.Wpm vWpm)
             throws java.lang.IndexOutOfBoundsException {
@@ -109,6 +115,7 @@ public class Wpms implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -135,11 +142,11 @@ public class Wpms implements java.io.Serializable {
      * Method getWpm.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.nsclient.Wpm at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.nsclient.Wpm getWpm(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -232,13 +239,14 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -246,16 +254,16 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -263,6 +271,7 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
+     * Removes the all wpm.
      */
     public void removeAllWpm() {
         this._wpmList.clear();
@@ -272,6 +281,7 @@ public class Wpms implements java.io.Serializable {
      * Method removeWpm.
      *
      * @param vWpm
+     *            the v wpm
      * @return true if the object was removed from the collection.
      */
     public boolean removeWpm(final org.opennms.netmgt.config.nsclient.Wpm vWpm) {
@@ -283,6 +293,7 @@ public class Wpms implements java.io.Serializable {
      * Method removeWpmAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.nsclient.Wpm removeWpmAt(final int index) {
@@ -291,11 +302,14 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
+     * Sets the wpm.
+     *
      * @param index
+     *            the index
      * @param vWpm
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v wpm
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setWpm(final int index, final org.opennms.netmgt.config.nsclient.Wpm vWpm)
             throws java.lang.IndexOutOfBoundsException {
@@ -309,7 +323,10 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
+     * Sets the wpm.
+     *
      * @param vWpmArray
+     *            the new wpm
      */
     public void setWpm(final org.opennms.netmgt.config.nsclient.Wpm[] vWpmArray) {
         // -- copy array
@@ -338,9 +355,9 @@ public class Wpms implements java.io.Serializable {
      * Sets the value of '_wpmList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param wpmList
      *            the Vector to set.
+     * @deprecated
      */
     public void setWpmCollection(final java.util.List<org.opennms.netmgt.config.nsclient.Wpm> wpmList) {
         this._wpmList = wpmList;
@@ -350,14 +367,13 @@ public class Wpms implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.nsclient.Wpms
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.nsclient.Wpms unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -366,9 +382,10 @@ public class Wpms implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

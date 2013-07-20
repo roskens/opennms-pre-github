@@ -82,6 +82,9 @@ public class WpmsDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new wpms descriptor.
+     */
     public WpmsDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";

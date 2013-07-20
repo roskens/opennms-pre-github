@@ -39,26 +39,32 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public class NSClientAgentConfig {
-    /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
+
+    /** Constant <code>DEFAULT_TIMEOUT=3000</code>. */
     public static final int DEFAULT_TIMEOUT = 3000;
 
-    /** Constant <code>DEFAULT_PORT=1248</code> */
+    /** Constant <code>DEFAULT_PORT=1248</code>. */
     public static final int DEFAULT_PORT = 1248;
 
-    /** Constant <code>DEFAULT_RETRIES=1</code> */
+    /** Constant <code>DEFAULT_RETRIES=1</code>. */
     public static final int DEFAULT_RETRIES = 1;
 
-    /** Constant <code>DEFAULT_PASSWORD="None"</code> */
+    /** Constant <code>DEFAULT_PASSWORD="None"</code>. */
     public static final String DEFAULT_PASSWORD = "None";
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_retries. */
     private int m_retries;
 
+    /** The m_port. */
     private int m_port;
 
+    /** The m_password. */
     private String m_password;
 
     /**
@@ -83,6 +89,9 @@ public class NSClientAgentConfig {
         setDefaults();
     }
 
+    /**
+     * Sets the defaults.
+     */
     private void setDefaults() {
         m_timeout = DEFAULT_TIMEOUT;
         m_retries = DEFAULT_RETRIES;
@@ -94,6 +103,7 @@ public class NSClientAgentConfig {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,6 +127,7 @@ public class NSClientAgentConfig {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -128,6 +139,7 @@ public class NSClientAgentConfig {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -140,6 +152,7 @@ public class NSClientAgentConfig {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +164,7 @@ public class NSClientAgentConfig {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -163,6 +177,7 @@ public class NSClientAgentConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -174,6 +189,7 @@ public class NSClientAgentConfig {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -186,6 +202,7 @@ public class NSClientAgentConfig {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -197,6 +214,7 @@ public class NSClientAgentConfig {
      * <p>
      * setRetries
      * </p>
+     * .
      *
      * @param retries
      *            a int.
@@ -209,6 +227,7 @@ public class NSClientAgentConfig {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -221,6 +240,7 @@ public class NSClientAgentConfig {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

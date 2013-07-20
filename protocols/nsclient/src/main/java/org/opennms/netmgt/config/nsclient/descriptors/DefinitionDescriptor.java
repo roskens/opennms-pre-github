@@ -82,6 +82,9 @@ public class DefinitionDescriptor extends org.exolab.castor.xml.util.XMLClassDes
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new definition descriptor.
+     */
     public DefinitionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient";

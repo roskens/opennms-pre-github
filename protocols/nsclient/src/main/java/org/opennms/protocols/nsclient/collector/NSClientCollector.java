@@ -81,38 +81,66 @@ import org.slf4j.LoggerFactory;
  */
 public class NSClientCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NSClientCollector.class);
 
     // Don't make this static because each service will have its own
     // copy and the key won't require the service name as part of the key.
+    /** The m_scheduled nodes. */
     private final HashMap<Integer, NSClientAgentState> m_scheduledNodes = new HashMap<Integer, NSClientAgentState>();
 
+    /**
+     * The Class NSClientCollectionAttributeType.
+     */
     class NSClientCollectionAttributeType implements CollectionAttributeType {
+
+        /** The m_attribute. */
         Attrib m_attribute;
 
+        /** The m_group type. */
         AttributeGroupType m_groupType;
 
+        /**
+         * Instantiates a new nS client collection attribute type.
+         *
+         * @param attribute
+         *            the attribute
+         * @param groupType
+         *            the group type
+         */
         protected NSClientCollectionAttributeType(Attrib attribute, AttributeGroupType groupType) {
             m_groupType = groupType;
             m_attribute = attribute;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType()
+         */
         @Override
         public AttributeGroupType getGroupType() {
             return m_groupType;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute(org.opennms.netmgt.config.collector.CollectionAttribute, org.opennms.netmgt.config.collector.Persister)
+         */
         @Override
         public void storeAttribute(CollectionAttribute attribute, Persister persister) {
             // Only numeric data comes back from NSClient in data collection
             persister.persistNumericAttribute(attribute);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
+         */
         @Override
         public String getName() {
             return m_attribute.getAlias();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
+         */
         @Override
         public String getType() {
             return m_attribute.getType();
@@ -120,16 +148,35 @@ public class NSClientCollector implements ServiceCollector {
 
     }
 
+    /**
+     * The Class NSClientCollectionAttribute.
+     */
     class NSClientCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
 
+        /** The m_alias. */
         String m_alias;
 
+        /** The m_value. */
         String m_value;
 
+        /** The m_resource. */
         NSClientCollectionResource m_resource;
 
+        /** The m_attrib type. */
         CollectionAttributeType m_attribType;
 
+        /**
+         * Instantiates a new nS client collection attribute.
+         *
+         * @param resource
+         *            the resource
+         * @param attribType
+         *            the attrib type
+         * @param alias
+         *            the alias
+         * @param value
+         *            the value
+         */
         NSClientCollectionAttribute(NSClientCollectionResource resource, CollectionAttributeType attribType,
                 String alias, String value) {
             super();
@@ -139,46 +186,73 @@ public class NSClientCollector implements ServiceCollector {
             m_value = value;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType()
+         */
         @Override
         public CollectionAttributeType getAttributeType() {
             return m_attribType;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getName()
+         */
         @Override
         public String getName() {
             return m_alias;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
+         */
         @Override
         public String getNumericValue() {
             return m_value;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
+         */
         @Override
         public CollectionResource getResource() {
             return m_resource;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
+         */
         @Override
         public String getStringValue() {
             return m_value; // Should this be null instead?
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+         */
         @Override
         public boolean shouldPersist(ServiceParameters params) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttribute#getType()
+         */
         @Override
         public String getType() {
             return m_attribType.getType();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "NSClientCollectionAttribute " + m_alias + "=" + m_value;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+         */
         @Override
         public String getMetricIdentifier() {
             return "Not supported yet._" + "NSC_" + getName();
@@ -186,12 +260,24 @@ public class NSClientCollector implements ServiceCollector {
 
     }
 
+    /**
+     * The Class NSClientCollectionResource.
+     */
     class NSClientCollectionResource extends AbstractCollectionResource {
 
+        /**
+         * Instantiates a new nS client collection resource.
+         *
+         * @param agent
+         *            the agent
+         */
         NSClientCollectionResource(CollectionAgent agent) {
             super(agent);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getType()
+         */
         @Override
         public int getType() {
             return -1; // Is this right?
@@ -199,59 +285,109 @@ public class NSClientCollector implements ServiceCollector {
 
         // A rescan is never needed for the NSClientCollector, at least on
         // resources
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionResource#rescanNeeded()
+         */
         @Override
         public boolean rescanNeeded() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+         */
         @Override
         public boolean shouldPersist(ServiceParameters params) {
             return true;
         }
 
+        /**
+         * Sets the attribute value.
+         *
+         * @param type
+         *            the type
+         * @param value
+         *            the value
+         */
         public void setAttributeValue(CollectionAttributeType type, String value) {
             NSClientCollectionAttribute attr = new NSClientCollectionAttribute(this, type, type.getName(), value);
             addAttribute(attr);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+         */
         @Override
         public String getResourceTypeName() {
             return "node"; // All node resources for NSClient; nothing of
                            // interface or "indexed resource" type
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
+         */
         @Override
         public String getInstance() {
             return null; // For node type resources, use the default instance
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+         */
         @Override
         public String getParent() {
             return m_agent.getStorageDir().toString();
         }
     }
 
+    /**
+     * The Class NSClientCollectionSet.
+     */
     class NSClientCollectionSet implements CollectionSet {
+
+        /** The m_status. */
         private int m_status;
 
+        /** The m_timestamp. */
         private Date m_timestamp;
 
+        /** The m_collection resource. */
         private NSClientCollectionResource m_collectionResource;
 
+        /**
+         * Instantiates a new nS client collection set.
+         *
+         * @param agent
+         *            the agent
+         * @param timestamp
+         *            the timestamp
+         */
         NSClientCollectionSet(CollectionAgent agent, Date timestamp) {
             m_status = ServiceCollector.COLLECTION_FAILED;
             m_collectionResource = new NSClientCollectionResource(agent);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
+         */
         @Override
         public int getStatus() {
             return m_status;
         }
 
+        /**
+         * Sets the status.
+         *
+         * @param status
+         *            the new status
+         */
         void setStatus(int status) {
             m_status = status;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+         */
         @Override
         public void visit(CollectionSetVisitor visitor) {
             visitor.visitCollectionSet(this);
@@ -259,15 +395,26 @@ public class NSClientCollector implements ServiceCollector {
             visitor.completeCollectionSet(this);
         }
 
+        /**
+         * Gets the resource.
+         *
+         * @return the resource
+         */
         public NSClientCollectionResource getResource() {
             return m_collectionResource;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
+         */
         @Override
         public boolean ignorePersist() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+         */
         @Override
         public Date getCollectionTimestamp() {
             return m_timestamp;
@@ -368,6 +515,9 @@ public class NSClientCollector implements ServiceCollector {
         initializeRrdRepository();
     }
 
+    /**
+     * Inits the ns client peer factory.
+     */
     private void initNSClientPeerFactory() {
         LOG.debug("initialize: Initializing NSClientPeerFactory");
         try {
@@ -384,6 +534,9 @@ public class NSClientCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the ns client collection config.
+     */
     private void initNSClientCollectionConfig() {
         LOG.debug("initialize: Initializing collector: {}", getClass());
         try {
@@ -403,11 +556,17 @@ public class NSClientCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initialize rrd repository.
+     */
     private void initializeRrdRepository() {
         LOG.debug("initializeRrdRepository: Initializing RRD repo from NSClientCollector...");
         initializeRrdDirs();
     }
 
+    /**
+     * Initialize rrd dirs.
+     */
     private void initializeRrdDirs() {
         /*
          * If the RRD file repository directory does NOT already exist, create
@@ -423,6 +582,9 @@ public class NSClientCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the database connection factory.
+     */
     private void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -476,6 +638,7 @@ public class NSClientCollector implements ServiceCollector {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {
@@ -492,15 +655,31 @@ public class NSClientCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * The Class NSClientAgentState.
+     */
     private class NSClientAgentState {
+
+        /** The m_manager. */
         private NsclientManager m_manager;
 
+        /** The m_agent config. */
         private NSClientAgentConfig m_agentConfig; // Do we need to keep this?
 
+        /** The m_address. */
         private String m_address;
 
+        /** The m_group states. */
         private HashMap<String, NSClientGroupState> m_groupStates = new HashMap<String, NSClientGroupState>();
 
+        /**
+         * Instantiates a new nS client agent state.
+         *
+         * @param address
+         *            the address
+         * @param parameters
+         *            the parameters
+         */
         public NSClientAgentState(InetAddress address, Map<String, Object> parameters) {
             m_address = InetAddressUtils.str(address);
             m_agentConfig = NSClientPeerFactory.getInstance().getAgentConfig(address);
@@ -510,14 +689,31 @@ public class NSClientCollector implements ServiceCollector {
             m_manager.setPortNumber(m_agentConfig.getPort());
         }
 
+        /**
+         * Gets the address.
+         *
+         * @return the address
+         */
         public String getAddress() {
             return m_address;
         }
 
+        /**
+         * Gets the manager.
+         *
+         * @return the manager
+         */
         public NsclientManager getManager() {
             return m_manager;
         }
 
+        /**
+         * Group is available.
+         *
+         * @param groupName
+         *            the group name
+         * @return true, if successful
+         */
         public boolean groupIsAvailable(String groupName) {
             NSClientGroupState groupState = m_groupStates.get(groupName);
             if (groupState == null) {
@@ -527,6 +723,14 @@ public class NSClientCollector implements ServiceCollector {
             return groupState.isAvailable();
         }
 
+        /**
+         * Sets the group is available.
+         *
+         * @param groupName
+         *            the group name
+         * @param available
+         *            the available
+         */
         public void setGroupIsAvailable(String groupName, boolean available) {
             NSClientGroupState groupState = m_groupStates.get(groupName);
             if (groupState == null) {
@@ -536,6 +740,15 @@ public class NSClientCollector implements ServiceCollector {
             m_groupStates.put(groupName, groupState);
         }
 
+        /**
+         * Should check availability.
+         *
+         * @param groupName
+         *            the group name
+         * @param recheckInterval
+         *            the recheck interval
+         * @return true, if successful
+         */
         public boolean shouldCheckAvailability(String groupName, int recheckInterval) {
             NSClientGroupState groupState = m_groupStates.get(groupName);
             if (groupState == null) {
@@ -549,6 +762,12 @@ public class NSClientCollector implements ServiceCollector {
             return (now.getTime() - lastchecked.getTime() > recheckInterval);
         }
 
+        /**
+         * Did check group availability.
+         *
+         * @param groupName
+         *            the group name
+         */
         @SuppressWarnings("unused")
         public void didCheckGroupAvailability(String groupName) {
             NSClientGroupState groupState = m_groupStates.get(groupName);
@@ -562,32 +781,74 @@ public class NSClientCollector implements ServiceCollector {
 
     }
 
+    /**
+     * The Class NSClientGroupState.
+     */
     private class NSClientGroupState {
+
+        /** The available. */
         private boolean available = false;
 
+        /** The last checked. */
         private Date lastChecked;
 
+        /**
+         * Instantiates a new nS client group state.
+         *
+         * @param isAvailable
+         *            the is available
+         */
         public NSClientGroupState(boolean isAvailable) {
             this(isAvailable, new Date());
         }
 
+        /**
+         * Instantiates a new nS client group state.
+         *
+         * @param isAvailable
+         *            the is available
+         * @param lastChecked
+         *            the last checked
+         */
         public NSClientGroupState(boolean isAvailable, Date lastChecked) {
             this.available = isAvailable;
             this.lastChecked = lastChecked;
         }
 
+        /**
+         * Checks if is available.
+         *
+         * @return true, if is available
+         */
         public boolean isAvailable() {
             return available;
         }
 
+        /**
+         * Sets the available.
+         *
+         * @param available
+         *            the new available
+         */
         public void setAvailable(boolean available) {
             this.available = available;
         }
 
+        /**
+         * Gets the last checked.
+         *
+         * @return the last checked
+         */
         public Date getLastChecked() {
             return lastChecked;
         }
 
+        /**
+         * Sets the last checked.
+         *
+         * @param lastChecked
+         *            the new last checked
+         */
         public void setLastChecked(Date lastChecked) {
             this.lastChecked = lastChecked;
         }

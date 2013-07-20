@@ -82,6 +82,9 @@ public class NsclientDatacollectionConfigDescriptor extends org.exolab.castor.xm
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new nsclient datacollection config descriptor.
+     */
     public NsclientDatacollectionConfigDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";

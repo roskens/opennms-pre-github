@@ -66,34 +66,22 @@ public class Definition implements java.io.Serializable {
      */
     private int _port;
 
-    /**
-     * keeps track of state for field: _port
-     */
+    /** keeps track of state for field: _port. */
     private boolean _has_port;
 
-    /**
-     * number of retries
-     */
+    /** number of retries. */
     private int _retry;
 
-    /**
-     * keeps track of state for field: _retry
-     */
+    /** keeps track of state for field: _retry. */
     private boolean _has_retry;
 
-    /**
-     * timeout (in milliseconds)
-     */
+    /** timeout (in milliseconds). */
     private int _timeout;
 
-    /**
-     * keeps track of state for field: _timeout
-     */
+    /** keeps track of state for field: _timeout. */
     private boolean _has_timeout;
 
-    /**
-     * Password for this definition
-     */
+    /** Password for this definition. */
     private java.lang.String _password;
 
     /**
@@ -108,15 +96,16 @@ public class Definition implements java.io.Serializable {
      */
     private java.util.List<java.lang.String> _specificList;
 
-    /**
-     * Match Octets (as in IPLIKE)
-     */
+    /** Match Octets (as in IPLIKE). */
     private java.util.List<java.lang.String> _ipMatchList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new definition.
+     */
     public Definition() {
         super();
         this._rangeList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.Range>();
@@ -129,31 +118,38 @@ public class Definition implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the ip match.
+     *
      * @param vIpMatch
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v ip match
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpMatch(final java.lang.String vIpMatch) throws java.lang.IndexOutOfBoundsException {
         this._ipMatchList.add(vIpMatch);
     }
 
     /**
+     * Adds the ip match.
+     *
      * @param index
+     *            the index
      * @param vIpMatch
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v ip match
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpMatch(final int index, final java.lang.String vIpMatch) throws java.lang.IndexOutOfBoundsException {
         this._ipMatchList.add(index, vIpMatch);
     }
 
     /**
+     * Adds the range.
+     *
      * @param vRange
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v range
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRange(final org.opennms.netmgt.config.nsclient.Range vRange)
             throws java.lang.IndexOutOfBoundsException {
@@ -161,11 +157,14 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Adds the range.
+     *
      * @param index
+     *            the index
      * @param vRange
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v range
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRange(final int index, final org.opennms.netmgt.config.nsclient.Range vRange)
             throws java.lang.IndexOutOfBoundsException {
@@ -173,21 +172,26 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Adds the specific.
+     *
      * @param vSpecific
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v specific
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addSpecific(final java.lang.String vSpecific) throws java.lang.IndexOutOfBoundsException {
         this._specificList.add(vSpecific);
     }
 
     /**
+     * Adds the specific.
+     *
      * @param index
+     *            the index
      * @param vSpecific
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v specific
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addSpecific(final int index, final java.lang.String vSpecific)
             throws java.lang.IndexOutOfBoundsException {
@@ -195,18 +199,21 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Delete port.
      */
     public void deletePort() {
         this._has_port = false;
     }
 
     /**
+     * Delete retry.
      */
     public void deleteRetry() {
         this._has_retry = false;
     }
 
     /**
+     * Delete timeout.
      */
     public void deleteTimeout() {
         this._has_timeout = false;
@@ -246,6 +253,7 @@ public class Definition implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -305,10 +313,10 @@ public class Definition implements java.io.Serializable {
      * Method getIpMatch.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getIpMatch(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -382,11 +390,11 @@ public class Definition implements java.io.Serializable {
      * Method getRange.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.nsclient.Range at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.nsclient.Range getRange(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -449,10 +457,10 @@ public class Definition implements java.io.Serializable {
      * Method getSpecific.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getSpecific(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -614,13 +622,14 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -628,16 +637,16 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -645,18 +654,21 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Removes the all ip match.
      */
     public void removeAllIpMatch() {
         this._ipMatchList.clear();
     }
 
     /**
+     * Removes the all range.
      */
     public void removeAllRange() {
         this._rangeList.clear();
     }
 
     /**
+     * Removes the all specific.
      */
     public void removeAllSpecific() {
         this._specificList.clear();
@@ -666,6 +678,7 @@ public class Definition implements java.io.Serializable {
      * Method removeIpMatch.
      *
      * @param vIpMatch
+     *            the v ip match
      * @return true if the object was removed from the collection.
      */
     public boolean removeIpMatch(final java.lang.String vIpMatch) {
@@ -677,6 +690,7 @@ public class Definition implements java.io.Serializable {
      * Method removeIpMatchAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeIpMatchAt(final int index) {
@@ -688,6 +702,7 @@ public class Definition implements java.io.Serializable {
      * Method removeRange.
      *
      * @param vRange
+     *            the v range
      * @return true if the object was removed from the collection.
      */
     public boolean removeRange(final org.opennms.netmgt.config.nsclient.Range vRange) {
@@ -699,6 +714,7 @@ public class Definition implements java.io.Serializable {
      * Method removeRangeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.nsclient.Range removeRangeAt(final int index) {
@@ -710,6 +726,7 @@ public class Definition implements java.io.Serializable {
      * Method removeSpecific.
      *
      * @param vSpecific
+     *            the v specific
      * @return true if the object was removed from the collection.
      */
     public boolean removeSpecific(final java.lang.String vSpecific) {
@@ -721,6 +738,7 @@ public class Definition implements java.io.Serializable {
      * Method removeSpecificAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeSpecificAt(final int index) {
@@ -729,11 +747,14 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the ip match.
+     *
      * @param index
+     *            the index
      * @param vIpMatch
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v ip match
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIpMatch(final int index, final java.lang.String vIpMatch) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -746,7 +767,10 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the ip match.
+     *
      * @param vIpMatchArray
+     *            the new ip match
      */
     public void setIpMatch(final java.lang.String[] vIpMatchArray) {
         // -- copy array
@@ -775,9 +799,9 @@ public class Definition implements java.io.Serializable {
      * Sets the value of '_ipMatchList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param ipMatchList
      *            the Vector to set.
+     * @deprecated
      */
     public void setIpMatchCollection(final java.util.List<java.lang.String> ipMatchList) {
         this._ipMatchList = ipMatchList;
@@ -809,11 +833,14 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the range.
+     *
      * @param index
+     *            the index
      * @param vRange
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v range
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setRange(final int index, final org.opennms.netmgt.config.nsclient.Range vRange)
             throws java.lang.IndexOutOfBoundsException {
@@ -827,7 +854,10 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the range.
+     *
      * @param vRangeArray
+     *            the new range
      */
     public void setRange(final org.opennms.netmgt.config.nsclient.Range[] vRangeArray) {
         // -- copy array
@@ -856,9 +886,9 @@ public class Definition implements java.io.Serializable {
      * Sets the value of '_rangeList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param rangeList
      *            the Vector to set.
+     * @deprecated
      */
     public void setRangeCollection(final java.util.List<org.opennms.netmgt.config.nsclient.Range> rangeList) {
         this._rangeList = rangeList;
@@ -877,11 +907,14 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the specific.
+     *
      * @param index
+     *            the index
      * @param vSpecific
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v specific
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setSpecific(final int index, final java.lang.String vSpecific)
             throws java.lang.IndexOutOfBoundsException {
@@ -895,7 +928,10 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
+     * Sets the specific.
+     *
      * @param vSpecificArray
+     *            the new specific
      */
     public void setSpecific(final java.lang.String[] vSpecificArray) {
         // -- copy array
@@ -924,9 +960,9 @@ public class Definition implements java.io.Serializable {
      * Sets the value of '_specificList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param specificList
      *            the Vector to set.
+     * @deprecated
      */
     public void setSpecificCollection(final java.util.List<java.lang.String> specificList) {
         this._specificList = specificList;
@@ -948,14 +984,13 @@ public class Definition implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.nsclient.Definition
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.nsclient.Definition unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -964,9 +999,10 @@ public class Definition implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

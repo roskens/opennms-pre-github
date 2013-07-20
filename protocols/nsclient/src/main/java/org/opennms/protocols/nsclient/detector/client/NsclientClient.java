@@ -50,12 +50,18 @@ import org.slf4j.LoggerFactory;
  */
 public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NsclientClient.class);
 
+    /** The password. */
     private String password;
 
+    /** The client. */
     private NsclientManager client;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#connect(java.net.InetAddress, int, int)
+     */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         client = new NsclientManager(InetAddressUtils.str(address), port, password);
@@ -63,16 +69,25 @@ public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
         client.init();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#close()
+     */
     @Override
     public void close() {
         client.close();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#receiveBanner()
+     */
     @Override
     public NsclientPacket receiveBanner() throws IOException, Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#sendRequest(java.lang.Object)
+     */
     @Override
     public NsclientPacket sendRequest(NsclientRequest request) throws IOException, Exception {
         boolean isAServer = false;
@@ -95,10 +110,21 @@ public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
         return response;
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

@@ -82,6 +82,9 @@ public class RangeDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new range descriptor.
+     */
     public RangeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient";

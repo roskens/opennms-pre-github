@@ -45,6 +45,12 @@ import org.opennms.protocols.nsclient.AbstractNsclientTest;
  */
 public class NsclientPluginTest extends AbstractNsclientTest {
 
+    /**
+     * Test plugin success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPluginSuccess() throws Exception {
         startServer("None&1", "NSClient++ 0.3.8.75 2010-05-27");
@@ -55,6 +61,12 @@ public class NsclientPluginTest extends AbstractNsclientTest {
         stopServer();
     }
 
+    /**
+     * Test plugin fail.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPluginFail() throws Exception {
         startServer("None&1", "ERROR: I don't know what you mean");

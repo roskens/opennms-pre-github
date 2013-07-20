@@ -58,16 +58,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = { "classpath*:/META-INF/opennms/detectors.xml" })
 public class NsclientDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     private NsclientDetector m_detector;
 
+    /** The m_server. */
     private SimpleServer m_server = null;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -76,6 +87,12 @@ public class NsclientDetectorTest implements InitializingBean {
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -101,6 +118,12 @@ public class NsclientDetectorTest implements InitializingBean {
         m_detector.setRetries(3);
     }
 
+    /**
+     * Test server success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testServerSuccess() throws Exception {
         m_detector.setCommand("CLIENTVERSION");
@@ -108,6 +131,12 @@ public class NsclientDetectorTest implements InitializingBean {
         Assert.assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
+    /**
+     * Test bad command.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testBadCommand() throws Exception {
         m_detector.setCommand("UNKNOWN");
@@ -115,6 +144,12 @@ public class NsclientDetectorTest implements InitializingBean {
         Assert.assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
+    /**
+     * Test no command.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testNoCommand() throws Exception {
         m_detector.init(); // Assumes CLIENTVERSION

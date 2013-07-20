@@ -60,16 +60,16 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      */
     private java.lang.String _rrdRepository;
 
-    /**
-     * A grouping of Nsclient related RRD parms and Nsclient
-     * object groups
-     */
+    /** A grouping of Nsclient related RRD parms and Nsclient object groups. */
     private java.util.List<org.opennms.netmgt.config.nsclient.NsclientCollection> _nsclientCollectionList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new nsclient datacollection config.
+     */
     public NsclientDatacollectionConfig() {
         super();
         this._nsclientCollectionList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.NsclientCollection>();
@@ -80,10 +80,12 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the nsclient collection.
+     *
      * @param vNsclientCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v nsclient collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addNsclientCollection(final org.opennms.netmgt.config.nsclient.NsclientCollection vNsclientCollection)
             throws java.lang.IndexOutOfBoundsException {
@@ -91,11 +93,14 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Adds the nsclient collection.
+     *
      * @param index
+     *            the index
      * @param vNsclientCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v nsclient collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addNsclientCollection(final int index,
             final org.opennms.netmgt.config.nsclient.NsclientCollection vNsclientCollection)
@@ -117,6 +122,7 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -150,12 +156,12 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Method getNsclientCollection.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.nsclient.NsclientCollection at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.nsclient.NsclientCollection getNsclientCollection(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -261,13 +267,14 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -275,16 +282,16 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -292,6 +299,7 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all nsclient collection.
      */
     public void removeAllNsclientCollection() {
         this._nsclientCollectionList.clear();
@@ -301,6 +309,7 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Method removeNsclientCollection.
      *
      * @param vNsclientCollection
+     *            the v nsclient collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeNsclientCollection(
@@ -313,6 +322,7 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Method removeNsclientCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.nsclient.NsclientCollection removeNsclientCollectionAt(final int index) {
@@ -321,11 +331,14 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the nsclient collection.
+     *
      * @param index
+     *            the index
      * @param vNsclientCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v nsclient collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setNsclientCollection(final int index,
             final org.opennms.netmgt.config.nsclient.NsclientCollection vNsclientCollection)
@@ -340,7 +353,10 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the nsclient collection.
+     *
      * @param vNsclientCollectionArray
+     *            the new nsclient collection
      */
     public void setNsclientCollection(
             final org.opennms.netmgt.config.nsclient.NsclientCollection[] vNsclientCollectionArray) {
@@ -371,9 +387,9 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Sets the value of '_nsclientCollectionList' by setting it to
      * the given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param nsclientCollectionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setNsclientCollectionCollection(
             final java.util.List<org.opennms.netmgt.config.nsclient.NsclientCollection> nsclientCollectionList) {
@@ -394,14 +410,13 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -410,9 +425,10 @@ public class NsclientDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

@@ -82,6 +82,9 @@ public class RrdDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptor
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new rrd descriptor.
+     */
     public RrdDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";

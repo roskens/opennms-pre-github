@@ -68,17 +68,22 @@ import org.slf4j.LoggerFactory;
  */
 public class NSClientDataCollectionConfigFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NSClientDataCollectionConfigFactory.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /** The singleton instance. */
     private static NSClientDataCollectionConfigFactory m_instance;
 
+    /** The m_loaded from file. */
     private static boolean m_loadedFromFile = false;
 
     /**
@@ -87,6 +92,7 @@ public class NSClientDataCollectionConfigFactory {
      */
     protected static long m_lastModified;
 
+    /** The m_config. */
     private NsclientDatacollectionConfig m_config;
 
     /**
@@ -96,12 +102,12 @@ public class NSClientDataCollectionConfigFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public NSClientDataCollectionConfigFactory(final String configFile) throws MarshalException, ValidationException,
             IOException {
@@ -115,14 +121,34 @@ public class NSClientDataCollectionConfigFactory {
         }
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
 
+    /**
+     * Initialize.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void initialize(final InputStream stream) throws MarshalException, ValidationException {
         LOG.debug("initialize: initializing NSCLient collection config factory.");
         m_config = CastorUtils.unmarshal(NsclientDatacollectionConfig.class, stream);
@@ -131,14 +157,14 @@ public class NSClientDataCollectionConfigFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -151,11 +177,9 @@ public class NSClientDataCollectionConfigFactory {
     }
 
     /**
-     * Singleton static call to get the only instance that should exist
+     * Singleton static call to get the only instance that should exist.
      *
      * @return the single factory instance
-     * @throws java.lang.IllegalStateException
-     *             if init has not been called
      */
     public static synchronized NSClientDataCollectionConfigFactory getInstance() {
         if (m_instance == null) {
@@ -169,6 +193,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a
@@ -184,15 +209,16 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_instance = null;
@@ -203,6 +229,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * getNSClientCollection
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -233,6 +260,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -256,6 +284,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * getStep
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -279,6 +308,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * getRRAList
      * </p>
+     * .
      *
      * @param cName
      *            a {@link java.lang.String} object.
@@ -302,6 +332,7 @@ public class NSClientDataCollectionConfigFactory {
      * <p>
      * getRrdPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -332,12 +363,12 @@ public class NSClientDataCollectionConfigFactory {
      * since we last
      * read it.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {

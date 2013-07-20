@@ -68,6 +68,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NsclientManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NsclientManager.class);
 
     /**
@@ -105,8 +106,10 @@ public class NsclientManager {
      */
     private BufferedInputStream m_BufInStream = null;
 
+    /** The Byte array out stream. */
     private ByteArrayOutputStream m_ByteArrayOutStream = null;
 
+    /** The Timeout. */
     private int m_Timeout = DEFAULT_SOCKET_TIMEOUT;
 
     /**
@@ -194,7 +197,7 @@ public class NsclientManager {
 
     /**
      * This method uses CheckStrings to convert from a short value such as
-     * CHECK_CLIENTVERSION to the a string, for example "CLIENTVERSION"
+     * CHECK_CLIENTVERSION to the a string, for example "CLIENTVERSION".
      *
      * @param type
      *            the CHECK_ type to look up in the CheckStrings map.
@@ -377,11 +380,8 @@ public class NsclientManager {
      * service. The input and output streams are created after the socket is
      * connected.
      *
-     * @throws org.opennms.protocols.nsclient.NsclientException
-     *             if the hostname is unknown if the connection is refused if
-     *             there is no route to the host if the host did not respond
-     *             if there was an unexpected IO error. The thrown exception
-     *             contains the causing exception.
+     * @throws NsclientException
+     *             the nsclient exception
      */
     public void init() throws NsclientException {
         try {
@@ -411,6 +411,14 @@ public class NsclientManager {
         }
     }
 
+    /**
+     * Close socket and throw.
+     *
+     * @param e
+     *            the e
+     * @throws NsclientException
+     *             the nsclient exception
+     */
     private void closeSocketAndThrow(final NsclientException e) throws NsclientException {
         if (m_Socket != null && !m_Socket.isClosed()) {
             try {
@@ -477,11 +485,8 @@ public class NsclientManager {
      *            on the respones from the remote service.
      * @return the NsclientPacket as processed by the check command method
      *         that is called.
-     * @throws org.opennms.protocols.nsclient.NsclientException
-     *             this method rethrows
-     *             org.opennms.netmgt.poller.nsclient.NsclientExceptions caused
-     *             by the check
-     *             commands.
+     * @throws NsclientException
+     *             the nsclient exception
      */
     public NsclientPacket processCheckCommand(String type, NsclientCheckParams param) throws NsclientException {
         try {
@@ -1026,10 +1031,28 @@ public class NsclientManager {
         }
     }
 
+    /**
+     * Prep list.
+     *
+     * @param list
+     *            the list
+     * @return the string
+     */
     private String prepList(String list) {
         return list.replaceAll(",", "&");
     }
 
+    /**
+     * Handle number format exception.
+     *
+     * @param pack
+     *            the pack
+     * @param e
+     *            the e
+     * @return the nsclient packet
+     * @throws NsclientException
+     *             the nsclient exception
+     */
     private NsclientPacket handleNumberFormatException(NsclientPacket pack, NumberFormatException e)
             throws NsclientException {
         pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);

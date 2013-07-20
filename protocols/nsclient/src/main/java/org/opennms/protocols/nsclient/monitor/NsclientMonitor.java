@@ -60,6 +60,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class NsclientMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NsclientMonitor.class);
 
     /**

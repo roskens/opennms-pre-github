@@ -43,11 +43,16 @@ import org.junit.Test;
  */
 public class NSClientTest extends AbstractNsclientTest {
 
+    /** The m_nsclient manager. */
     private NsclientManager m_nsclientManager;
 
+    /** The counters. */
     private String[] counters = { "\\Processor(_Total)\\% Processor Time", "\\Processor(_Total)\\% Interrupt Time",
             "\\Processor(_Total)\\% Privileged Time", "\\Processor(_Total)\\% User Time" };
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.nsclient.AbstractNsclientTest#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -57,6 +62,9 @@ public class NSClientTest extends AbstractNsclientTest {
                                                 getServer().getLocalPort());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.nsclient.AbstractNsclientTest#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
@@ -64,6 +72,12 @@ public class NSClientTest extends AbstractNsclientTest {
         super.tearDown();
     }
 
+    /**
+     * Test get counters.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetCounters() throws Exception {
         for (String counter : counters) {
@@ -74,6 +88,12 @@ public class NSClientTest extends AbstractNsclientTest {
         }
     }
 
+    /**
+     * Test get counters with shared connection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetCountersWithSharedConnection() throws Exception {
         m_nsclientManager.init();
@@ -84,6 +104,14 @@ public class NSClientTest extends AbstractNsclientTest {
         m_nsclientManager.close();
     }
 
+    /**
+     * Validate packet.
+     *
+     * @param counter
+     *            the counter
+     * @param result
+     *            the result
+     */
     private void validatePacket(String counter, NsclientPacket result) {
         int value = Integer.parseInt(result.getResponse());
         System.err.println(counter + "=" + value);
@@ -92,6 +120,15 @@ public class NSClientTest extends AbstractNsclientTest {
         Assert.assertTrue(isAvailable);
     }
 
+    /**
+     * Gets the counter.
+     *
+     * @param counter
+     *            the counter
+     * @return the counter
+     * @throws NsclientException
+     *             the nsclient exception
+     */
     private NsclientPacket getCounter(String counter) throws NsclientException {
         NsclientCheckParams params = new NsclientCheckParams(counter);
         NsclientPacket result = m_nsclientManager.processCheckCommand(NsclientManager.CHECK_COUNTER, params);

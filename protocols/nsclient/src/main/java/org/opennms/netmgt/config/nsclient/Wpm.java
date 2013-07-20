@@ -43,7 +43,7 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
 /**
- * An NSClient Object Group
+ * An NSClient Object Group.
  *
  * @version $Revision$ $Date$
  */
@@ -55,14 +55,12 @@ public class Wpm implements java.io.Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The name of this group, for user id purposes
-     */
+    /** The name of this group, for user id purposes. */
     private java.lang.String _name;
 
     /**
-     * The Key value which, if present, indicates that the rest of
-     * this group should be collected
+     * The Key value which, if present, indicates that the rest of this group
+     * should be collected.
      */
     private java.lang.String _keyvalue;
 
@@ -72,20 +70,19 @@ public class Wpm implements java.io.Serializable {
      */
     private int _recheckInterval;
 
-    /**
-     * keeps track of state for field: _recheckInterval
-     */
+    /** keeps track of state for field: _recheckInterval. */
     private boolean _has_recheckInterval;
 
-    /**
-     * An NSClient Object
-     */
+    /** An NSClient Object. */
     private java.util.List<org.opennms.netmgt.config.nsclient.Attrib> _attribList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new wpm.
+     */
     public Wpm() {
         super();
         this._attribList = new java.util.ArrayList<org.opennms.netmgt.config.nsclient.Attrib>();
@@ -96,10 +93,12 @@ public class Wpm implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the attrib.
+     *
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -107,11 +106,14 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final int index, final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -119,6 +121,7 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Delete recheck interval.
      */
     public void deleteRecheckInterval() {
         this._has_recheckInterval = false;
@@ -138,6 +141,7 @@ public class Wpm implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -182,11 +186,11 @@ public class Wpm implements java.io.Serializable {
      * Method getAttrib.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.nsclient.Attrib at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.nsclient.Attrib getAttrib(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -331,13 +335,14 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -345,16 +350,16 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -362,6 +367,7 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Removes the all attrib.
      */
     public void removeAllAttrib() {
         this._attribList.clear();
@@ -371,6 +377,7 @@ public class Wpm implements java.io.Serializable {
      * Method removeAttrib.
      *
      * @param vAttrib
+     *            the v attrib
      * @return true if the object was removed from the collection.
      */
     public boolean removeAttrib(final org.opennms.netmgt.config.nsclient.Attrib vAttrib) {
@@ -382,6 +389,7 @@ public class Wpm implements java.io.Serializable {
      * Method removeAttribAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.nsclient.Attrib removeAttribAt(final int index) {
@@ -390,11 +398,14 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setAttrib(final int index, final org.opennms.netmgt.config.nsclient.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -408,7 +419,10 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param vAttribArray
+     *            the new attrib
      */
     public void setAttrib(final org.opennms.netmgt.config.nsclient.Attrib[] vAttribArray) {
         // -- copy array
@@ -437,9 +451,9 @@ public class Wpm implements java.io.Serializable {
      * Sets the value of '_attribList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param attribList
      *            the Vector to set.
+     * @deprecated
      */
     public void setAttribCollection(final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> attribList) {
         this._attribList = attribList;
@@ -487,13 +501,12 @@ public class Wpm implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled org.opennms.netmgt.config.nsclient.Wp
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.nsclient.Wpm unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -502,9 +515,10 @@ public class Wpm implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

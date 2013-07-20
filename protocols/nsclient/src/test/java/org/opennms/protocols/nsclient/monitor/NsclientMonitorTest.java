@@ -49,6 +49,12 @@ import org.opennms.protocols.nsclient.AbstractNsclientTest;
  */
 public class NsclientMonitorTest extends AbstractNsclientTest {
 
+    /**
+     * Test monitor success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMonitorSuccess() throws Exception {
         startServer("None&1", "NSClient++ 0.3.8.75 2010-05-27");
@@ -60,6 +66,12 @@ public class NsclientMonitorTest extends AbstractNsclientTest {
         stopServer();
     }
 
+    /**
+     * Test monitor fail.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMonitorFail() throws Exception {
         startServer("None&1", "ERROR: I don't know what you mean");
@@ -71,6 +83,11 @@ public class NsclientMonitorTest extends AbstractNsclientTest {
         stopServer();
     }
 
+    /**
+     * Creates the monitored service.
+     *
+     * @return the monitored service
+     */
     private MonitoredService createMonitoredService() {
         final InetAddress address = getServer().getInetAddress();
         MonitoredService svc = new MonitoredService() {

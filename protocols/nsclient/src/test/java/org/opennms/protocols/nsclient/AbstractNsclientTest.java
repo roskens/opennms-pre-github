@@ -47,22 +47,50 @@ import org.opennms.netmgt.provision.server.exchange.RequestHandler;
  */
 public abstract class AbstractNsclientTest {
 
+    /** The m_server. */
     private SimpleServer m_server = null;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Gets the server.
+     *
+     * @return the server
+     */
     public SimpleServer getServer() {
         return m_server;
     }
 
+    /**
+     * Start server.
+     *
+     * @param command
+     *            the command
+     * @param response
+     *            the response
+     * @throws Exception
+     *             the exception
+     */
     public void startServer(final String command, final String response) throws Exception {
         m_server = new SimpleServer() {
             @Override
@@ -80,6 +108,12 @@ public abstract class AbstractNsclientTest {
         Thread.sleep(100); // make sure the server is really started
     }
 
+    /**
+     * Stop server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void stopServer() throws Exception {
         if (m_server != null) {
             m_server.stopServer();

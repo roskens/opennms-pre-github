@@ -81,22 +81,22 @@ import org.springframework.core.io.FileSystemResource;
  */
 public final class NSClientPeerFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NSClientPeerFactory.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static NSClientPeerFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private NsclientConfig m_config;
 
     /**
@@ -105,14 +105,16 @@ public final class NSClientPeerFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Private constructor
+     * Private constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private NSClientPeerFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(NsclientConfig.class, new FileSystemResource(configFile));
@@ -125,21 +127,31 @@ public final class NSClientPeerFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public NSClientPeerFactory(final InputStream stream) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(NsclientConfig.class, stream);
     }
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -148,18 +160,12 @@ public final class NSClientPeerFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -176,20 +182,14 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         m_singleton = null;
@@ -199,16 +199,18 @@ public final class NSClientPeerFactory {
 
     /**
      * Package-private access. Should only be used for unit testing.
+     *
+     * @return the config
      */
     NsclientConfig getConfig() {
         return m_config;
     }
 
     /**
-     * Saves the current settings to disk
+     * Saves the current settings to disk.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void saveCurrent() throws Exception {
         getWriteLock().lock();
@@ -242,8 +244,6 @@ public final class NSClientPeerFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized NSClientPeerFactory getInstance() {
         if (!m_loaded) {
@@ -257,6 +257,7 @@ public final class NSClientPeerFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a
@@ -272,6 +273,7 @@ public final class NSClientPeerFactory {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @param agentInetAddress
      *            a {@link java.net.InetAddress} object.
@@ -341,6 +343,9 @@ public final class NSClientPeerFactory {
      * not sure how (given that "Definition" is different for both
      * SNMP and NSClient. Maybe some sort of visitor methodology would work. The
      * basic logic should be fine as it's all IP address manipulation
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     void optimize() throws UnknownHostException {
         getWriteLock().lock();
@@ -491,6 +496,14 @@ public final class NSClientPeerFactory {
         }
     }
 
+    /**
+     * Sets the ns client agent config.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param def
+     *            the def
+     */
     private void setNSClientAgentConfig(final NSClientAgentConfig agentConfig, final Definition def) {
         setCommonAttributes(agentConfig, def);
         agentConfig.setPassword(determinePassword(def));
@@ -501,8 +514,9 @@ public final class NSClientPeerFactory {
      * agentConfig.
      *
      * @param agentConfig
+     *            the agent config
      * @param def
-     * @param version
+     *            the def
      */
     private void setCommonAttributes(final NSClientAgentConfig agentConfig, final Definition def) {
         agentConfig.setPort(determinePort(def));
@@ -512,10 +526,11 @@ public final class NSClientPeerFactory {
 
     /**
      * Helper method to search the nsclient configuration for the appropriate
-     * password
+     * password.
      *
      * @param def
-     * @return
+     *            the def
+     * @return the string
      */
     private String determinePassword(final Definition def) {
         return (def.getPassword() == null ? (m_config.getPassword() == null ? NSClientAgentConfig.DEFAULT_PASSWORD
@@ -523,26 +538,35 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * Helper method to search the nsclient configuration for a port
+     * Helper method to search the nsclient configuration for a port.
      *
      * @param def
-     * @return
+     *            the def
+     * @return the int
      */
     private int determinePort(final Definition def) {
         return (def.getPort() == 0 ? (m_config.getPort() == 0 ? 161 : m_config.getPort()) : def.getPort());
     }
 
     /**
-     * Helper method to search the nsclient configuration
+     * Helper method to search the nsclient configuration.
      *
      * @param def
-     * @return
+     *            the def
+     * @return the long
      */
     private long determineTimeout(final Definition def) {
         return (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? (long) NSClientAgentConfig.DEFAULT_TIMEOUT
             : m_config.getTimeout()) : def.getTimeout());
     }
 
+    /**
+     * Determine retries.
+     *
+     * @param def
+     *            the def
+     * @return the int
+     */
     private int determineRetries(final Definition def) {
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? NSClientAgentConfig.DEFAULT_RETRIES
             : m_config.getRetry()) : def.getRetry());

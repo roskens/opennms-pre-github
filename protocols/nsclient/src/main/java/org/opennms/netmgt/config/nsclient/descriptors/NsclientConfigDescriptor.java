@@ -82,6 +82,9 @@ public class NsclientConfigDescriptor extends org.exolab.castor.xml.util.XMLClas
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new nsclient config descriptor.
+     */
     public NsclientConfigDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient";

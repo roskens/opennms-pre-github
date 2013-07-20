@@ -82,6 +82,9 @@ public class AttribDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new attrib descriptor.
+     */
     public AttribDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";

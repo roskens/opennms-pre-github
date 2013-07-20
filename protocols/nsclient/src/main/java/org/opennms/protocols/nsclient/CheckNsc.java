@@ -41,7 +41,7 @@ import org.apache.commons.cli.PosixParser;
 
 /**
  * This is an example commandline tool to perform checks against NSClient
- * services using <code>NsclientManager</code>
+ * services using <code>NsclientManager</code>.
  *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
  * @author <a href="http://www.opennms.org">OpenNMS</a>
@@ -52,11 +52,12 @@ public class CheckNsc {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
-     * @throws org.apache.commons.cli.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public static void main(String[] args) throws ParseException {
 
@@ -151,6 +152,18 @@ public class CheckNsc {
         }
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     * @param error
+     *            the error
+     * @param e
+     *            the e
+     */
     private static void usage(Options options, CommandLine cmd, String error, Throwable e) {
         HelpFormatter formatter = new HelpFormatter();
         PrintWriter pw = new PrintWriter(System.out);
@@ -167,6 +180,14 @@ public class CheckNsc {
         pw.close();
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     */
     private static void usage(Options options, CommandLine cmd) {
         usage(options, cmd, null, null);
     }

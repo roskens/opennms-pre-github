@@ -39,6 +39,9 @@ import org.opennms.protocols.nsclient.detector.request.NsclientRequest;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class NsclientDetector.
+ */
 @Component
 /**
  * <p>NsclientDetector class.</p>
@@ -49,27 +52,33 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPacket> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "NSClient";
 
+    /** The command. */
     private String command = NsclientManager.convertTypeToString(NsclientManager.CHECK_CLIENTVERSION);
 
+    /** The password. */
     private String password = NSClientAgentConfig.DEFAULT_PASSWORD;
 
+    /** The parameter. */
     private String parameter;
 
+    /** The warn perc. */
     private int warnPerc;
 
+    /** The crit perc. */
     private int critPerc;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public NsclientDetector() {
         super(DEFAULT_SERVICE_NAME, NSClientAgentConfig.DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -80,11 +89,19 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
         super(serviceName, port);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AbstractDetector#onInit()
+     */
     @Override
     protected void onInit() {
         send(getRequest(), getNsclientValidator());
     }
 
+    /**
+     * Gets the nsclient validator.
+     *
+     * @return the nsclient validator
+     */
     private static ResponseValidator<NsclientPacket> getNsclientValidator() {
         return new ResponseValidator<NsclientPacket>() {
             @Override
@@ -96,6 +113,11 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
         };
     }
 
+    /**
+     * Gets the request.
+     *
+     * @return the request
+     */
     private NsclientRequest getRequest() {
         final NsclientRequest request = new NsclientRequest();
         request.setCommand(getCommand());
@@ -106,6 +128,9 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
         return request;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.BasicDetector#getClient()
+     */
     @Override
     protected Client<NsclientRequest, NsclientPacket> getClient() {
         final NsclientClient client = new NsclientClient();
@@ -113,42 +138,97 @@ public class NsclientDetector extends BasicDetector<NsclientRequest, NsclientPac
         return client;
     }
 
+    /**
+     * Gets the command.
+     *
+     * @return the command
+     */
     public String getCommand() {
         return command;
     }
 
+    /**
+     * Sets the command.
+     *
+     * @param command
+     *            the new command
+     */
     public void setCommand(String command) {
         this.command = command;
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Gets the parameter.
+     *
+     * @return the parameter
+     */
     public String getParameter() {
         return parameter;
     }
 
+    /**
+     * Sets the parameter.
+     *
+     * @param parameter
+     *            the new parameter
+     */
     public void setParameter(String parameter) {
         this.parameter = parameter;
     }
 
+    /**
+     * Gets the warn perc.
+     *
+     * @return the warn perc
+     */
     public int getWarnPerc() {
         return warnPerc;
     }
 
+    /**
+     * Sets the warn perc.
+     *
+     * @param warnPerc
+     *            the new warn perc
+     */
     public void setWarnPerc(int warnPerc) {
         this.warnPerc = warnPerc;
     }
 
+    /**
+     * Gets the crit perc.
+     *
+     * @return the crit perc
+     */
     public int getCritPerc() {
         return critPerc;
     }
 
+    /**
+     * Sets the crit perc.
+     *
+     * @param critPerc
+     *            the new crit perc
+     */
     public void setCritPerc(int critPerc) {
         this.critPerc = critPerc;
     }

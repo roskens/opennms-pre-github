@@ -37,6 +37,7 @@ package org.opennms.protocols.nsclient;
  */
 public class NsclientException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5403442488340618492L;
 
     /**

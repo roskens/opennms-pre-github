@@ -46,9 +46,14 @@ import org.junit.Test;
 public class NSClientPeerFactoryTest {
 
     /**
+     * Test one specific.
+     *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public final void testOneSpecific() throws MarshalException, ValidationException, IOException {
@@ -73,8 +78,11 @@ public class NSClientPeerFactoryTest {
      * in the definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public final void testAddAdjacentSpecificToDef() throws MarshalException, ValidationException, IOException {
@@ -99,6 +107,16 @@ public class NSClientPeerFactoryTest {
         assertEquals("192.168.0.6", factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public final void testAddAdjacentSpecificToDefIPv6() throws MarshalException, ValidationException, IOException {
 
@@ -125,6 +143,16 @@ public class NSClientPeerFactoryTest {
                      factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6 with same scope id.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public final void testAddAdjacentSpecificToDefIPv6WithSameScopeId() throws MarshalException, ValidationException,
             IOException {
@@ -152,6 +180,16 @@ public class NSClientPeerFactoryTest {
                      factory.getConfig().getDefinition(0).getRange(0).getEnd());
     }
 
+    /**
+     * Test add adjacent specific to def i pv6 with different scope ids.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public final void testAddAdjacentSpecificToDefIPv6WithDifferentScopeIds() throws MarshalException,
             ValidationException, IOException {
@@ -187,8 +225,11 @@ public class NSClientPeerFactoryTest {
      * deleted.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testRecombineSpecificIntoRange() throws MarshalException, ValidationException, IOException {
@@ -229,8 +270,11 @@ public class NSClientPeerFactoryTest {
      * deleted.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testRecombineSpecificIntoRangeWithDifferentScopeIds() throws MarshalException, ValidationException,
@@ -272,8 +316,11 @@ public class NSClientPeerFactoryTest {
      * a range in a current definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public final void testNewSpecificSameAsBeginInOldDef() throws MarshalException, ValidationException, IOException {
@@ -305,8 +352,11 @@ public class NSClientPeerFactoryTest {
      * a range in a current definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public final void testNewSpecificSameAsEndInOldDef() throws MarshalException, ValidationException, IOException {
@@ -339,8 +389,11 @@ public class NSClientPeerFactoryTest {
      * definition.
      *
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testOverlapsTwoRanges() throws MarshalException, ValidationException, IOException {

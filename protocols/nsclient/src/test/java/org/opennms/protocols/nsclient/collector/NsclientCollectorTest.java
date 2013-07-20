@@ -64,22 +64,38 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 public class NsclientCollectorTest extends AbstractNsclientTest {
 
+    /** The m_transaction manager. */
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
+    /** The m_collection agent. */
     private CollectionAgent m_collectionAgent;
 
+    /**
+     * The Class CountResourcesVisitor.
+     */
     private class CountResourcesVisitor extends AbstractCollectionSetVisitor {
 
+        /** The count. */
         private int count = 0;
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public int getCount() {
             return count;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionSetVisitor#visitAttribute(org.opennms.netmgt.config.collector.CollectionAttribute)
+         */
         @Override
         public void visitAttribute(CollectionAttribute attribute) {
             count++;
@@ -87,6 +103,9 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.nsclient.AbstractNsclientTest#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -118,6 +137,9 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         m_collectionAgent = DefaultCollectionAgent.create(1, m_ipInterfaceDao, m_transactionManager);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.nsclient.AbstractNsclientTest#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
@@ -126,6 +148,12 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         super.tearDown();
     }
 
+    /**
+     * Test collector.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCollector() throws Exception {
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -138,6 +166,13 @@ public class NsclientCollectorTest extends AbstractNsclientTest {
         Assert.assertEquals(42, visitor.getCount());
     }
 
+    /**
+     * Gets the collector.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the collector
+     */
     private NSClientCollector getCollector(Map<String, Object> parameters) {
         NSClientCollector collector = new NSClientCollector();
         collector.initialize(m_collectionAgent, parameters);

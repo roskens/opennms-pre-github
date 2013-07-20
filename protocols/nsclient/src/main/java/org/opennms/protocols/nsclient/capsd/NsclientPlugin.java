@@ -54,11 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public class NsclientPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NsclientPlugin.class);
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "NSCLIENT";
 
     /**
@@ -179,6 +178,8 @@ public class NsclientPlugin extends AbstractPlugin {
      *            The remote host to connect to.
      * @param port
      *            The remote port on the host.
+     * @param password
+     *            the password
      * @param command
      *            The command to execute on the remote server.
      * @param retries
