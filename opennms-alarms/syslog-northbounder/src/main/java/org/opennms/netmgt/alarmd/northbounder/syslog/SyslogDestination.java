@@ -73,7 +73,7 @@ public class SyslogDestination implements Serializable {
         KERN("KERN"), USER("USER"), MAIL("MAIL"), DAEMON("DAEMON"), AUTH("AUTH"), SYSLOG("SYSLOG"), LPR("LPR"), NEWS(
                 "NEWS"), UUCP("UUCP"), CRON("CRON"), AUTHPRIV("AUTHPRIV"), FTP("FTP"), LOCAL0("LOCAL0"), LOCAL1(
                 "LOCAL1"), LOCAL2("LOCAL2"), LOCAL3("LOCAL3"), LOCAL4("LOCAL4"), LOCAL5("LOCAL5"), LOCAL6("LOCAL6"), LOCAL7(
-                "LOCAL7"), ;
+                "LOCAL7");
 
         private String m_id;
 

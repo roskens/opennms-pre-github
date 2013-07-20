@@ -45,14 +45,14 @@ import org.opennms.netmgt.ackd.readers.ReaderSchedule;
 public interface AckReader {
 
     public enum AckReaderState {
-        STOP_PENDING(1, "Stop Pending"), STOPPED(2, "Stopped"), START_PENDING(3, "Start Pending"), STARTED(4, "Started"), PAUSE_PENDING(
-                5, "Pause Pending"), PAUSED(6, "Paused"), RESUME_PENDING(7, "Resume Pending"), RESUMED(8, "Resumed") // might
-                                                                                                                     // be
-                                                                                                                     // the
-                                                                                                                     // same
-                                                                                                                     // as
-                                                                                                                     // started
-        ;
+        STOP_PENDING(1, "Stop Pending"),
+        STOPPED(2, "Stopped"),
+        START_PENDING(3, "Start Pending"),
+        STARTED(4, "Started"),
+        PAUSE_PENDING(5, "Pause Pending"),
+        PAUSED(6, "Paused"),
+        RESUME_PENDING(7, "Resume Pending"),
+        RESUMED(8, "Resumed"); // might be the same as started
 
         private int m_id;
 
