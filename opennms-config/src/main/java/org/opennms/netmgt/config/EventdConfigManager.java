@@ -231,7 +231,7 @@ public class EventdConfigManager {
     /**
      * Return flag indicating if timeout to be set on the socket is specified.
      *
-     * @return flag indicating if timeout to be set on the socket is specified <
+     * @return flag indicating if timeout to be set on the socket is specified
      */
     public boolean hasSocketSoTimeoutPeriod() {
         getReadLock().lock();
