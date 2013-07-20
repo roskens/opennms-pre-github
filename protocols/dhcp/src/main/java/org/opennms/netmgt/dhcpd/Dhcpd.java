@@ -89,6 +89,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Observer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Dhcpd.class);
 
     /**
@@ -96,9 +97,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      */
     private static final Dhcpd m_singleton = new Dhcpd();
 
-    /**
-     * List of clients currently connected to the DHCP daemon
-     */
+    /** List of clients currently connected to the DHCP daemon. */
     private static List<Client> m_clients;
 
     /**
@@ -117,9 +116,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      */
     private Receiver2 m_listener2;
 
-    /**
-     * The working thread
-     */
+    /** The working thread. */
     private Thread m_worker;
 
     /**
@@ -139,6 +136,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -230,6 +228,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -371,8 +370,8 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      *            The maximum number of attempts.
      * @return response time in milliseconds if remote box is a DHCP server or
      *         -1 if it is NOT.
-     * @throws java.io.IOException
-     *             Thrown if an error occurs.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static long isServer(InetAddress address, long timeout, int retries) throws IOException {
         return Poller.isServer(address, timeout, retries);
@@ -386,8 +385,8 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      *            The address to query.
      * @return response time in milliseconds if remote box is a DHCP server or
      *         -1 if it is NOT.
-     * @throws java.io.IOException
-     *             Thrown if an error occurs.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static long isServer(InetAddress address) throws IOException {
         return Poller.isServer(address, Poller.DEFAULT_TIMEOUT, Poller.DEFAULT_RETRIES);
@@ -397,6 +396,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {

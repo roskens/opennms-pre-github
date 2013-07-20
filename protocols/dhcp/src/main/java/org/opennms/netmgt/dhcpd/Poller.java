@@ -58,29 +58,36 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
  */
 final class Poller {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
 
-    /**
-     * The hardware address (ex: 00:06:0D:BE:9C:B2)
-     */
+    /** The hardware address (ex: 00:06:0D:BE:9C:B2). */
     private static final byte[] DEFAULT_MAC_ADDRESS = { (byte) 0x00, (byte) 0x06, (byte) 0x0d, (byte) 0xbe,
             (byte) 0x9c, (byte) 0xb2, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 };
 
+    /** The s_hw address. */
     private static byte[] s_hwAddress = null;
 
+    /** The s_my ip address. */
     private static byte[] s_myIpAddress = null;
 
+    /** The s_request ip address. */
     private static byte[] s_requestIpAddress = null;
 
+    /** The req target ip. */
     private static boolean reqTargetIp = true;
 
+    /** The target offset. */
     private static boolean targetOffset = true;
 
+    /** The relay mode. */
     private static boolean relayMode = false;
 
+    /** The params checked. */
     private static boolean paramsChecked = false;
 
+    /** The extended mode. */
     private static Boolean extendedMode = false;
 
     /**
@@ -91,14 +98,10 @@ final class Poller {
      */
     static final short BROADCAST_FLAG = (short) 0x8000;
 
-    /**
-     * Default retries
-     */
+    /** Default retries. */
     static final int DEFAULT_RETRIES = 2;
 
-    /**
-     * Default timeout
-     */
+    /** Default timeout. */
     static final long DEFAULT_TIMEOUT = 3000L;
 
     /**
@@ -116,14 +119,10 @@ final class Poller {
      */
     private static int m_nextXid = (new java.util.Random(System.currentTimeMillis())).nextInt();
 
-    /**
-     * TCP Socket connection with DHCP Daemon
-     */
+    /** TCP Socket connection with DHCP Daemon. */
     private Socket m_connection;
 
-    /**
-     * Output Object stream
-     */
+    /** Output Object stream. */
     private ObjectOutputStream m_outs;
 
     /**
@@ -135,6 +134,8 @@ final class Poller {
      * Returns a disconnection request message that can be sent to the server.
      *
      * @return A disconnection message.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     private static Message getDisconnectRequest() throws UnknownHostException {
         return new Message(InetAddressUtils.addr("0.0.0.0"), new DHCPMessage());
@@ -145,9 +146,10 @@ final class Poller {
      * the DHCP server. DHCP server should respond with a DHCP OFFER, ACK, or
      * NAK message in response..
      *
-     * @param (InetAddress) addr The address to poll
-     * @param (byte) mType The type of DHCP message to send (DISCOVER, INFORM,
-     *        or REQUEST)
+     * @param addr
+     *            the addr
+     * @param mType
+     *            the m type
      * @return The message to send to the DHCP server.
      */
     private static Message getPollingRequest(InetAddress addr, byte mType) {
@@ -204,10 +206,10 @@ final class Poller {
 
     /**
      * Ensures that during garbage collection the resources used by this
-     * object are released!
+     * object are released!.
      *
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void finalize() throws Throwable {
@@ -218,6 +220,8 @@ final class Poller {
      * Constructor. Establishes a TCP socket connection with the DHCP client
      * daemon on port 5818.
      *
+     * @param timeout
+     *            the timeout
      * @throws IOException
      *             if unable to establish the connection with the DHCP client
      *             daemon.
@@ -263,9 +267,6 @@ final class Poller {
 
     /**
      * Closes the client's socket connection to the DHCP daemon.
-     *
-     * @throws IOException
-     *             if the socket close() method fails.
      */
     public void close() {
         try {
@@ -308,10 +309,18 @@ final class Poller {
      * zero) is sent to the DHCP daemon.
      * </p>
      *
+     * @param host
+     *            the host
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
      * @return response time in milliseconds if the specified host responded
      *         with a valid DHCP offer datagram within the context of the
      *         specified timeout and retry values or negative one (-1)
      *         otherwise.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     static long isServer(InetAddress host, long timeout, int retries) throws IOException {
 
@@ -462,6 +471,12 @@ final class Poller {
 
     // Converts the provided hardware address string (format=00:00:00:00:00:00)
     // to an array of bytes which can be passed in a DHCP DISCOVER packet.
+    /**
+     * Sets the hw address.
+     *
+     * @param hwAddressStr
+     *            the new hw address
+     */
     private static void setHwAddress(String hwAddressStr) {
         // initialize the address
         s_hwAddress = DEFAULT_MAC_ADDRESS;
@@ -486,6 +501,13 @@ final class Poller {
     // Converts the provided IP address string
     // to an array of bytes which can be passed in a DHCP packet.
 
+    /**
+     * Sets the ip address.
+     *
+     * @param ipAddressStr
+     *            the ip address str
+     * @return the byte[]
+     */
     private static byte[] setIpAddress(String ipAddressStr) {
         // initialize the address
         byte[] ipAddress = new byte[4];

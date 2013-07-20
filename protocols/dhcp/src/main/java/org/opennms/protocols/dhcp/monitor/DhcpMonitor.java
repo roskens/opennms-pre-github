@@ -58,6 +58,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class DhcpMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DhcpMonitor.class);
 
     /**

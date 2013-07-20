@@ -54,6 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class DhcpPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DhcpPlugin.class);
 
     /**
@@ -69,14 +70,10 @@ public final class DhcpPlugin extends AbstractPlugin {
      */
     private static final String PROTOCOL_NAME = "DHCP";
 
-    /**
-     * Default number of retries for DHCP requests
-     */
+    /** Default number of retries for DHCP requests. */
     private static final int DEFAULT_RETRY = 3;
 
-    /**
-     * Default timeout (in milliseconds) for DHCP requests
-     */
+    /** Default timeout (in milliseconds) for DHCP requests. */
     private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**

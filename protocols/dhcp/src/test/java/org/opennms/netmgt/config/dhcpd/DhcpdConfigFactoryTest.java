@@ -34,8 +34,17 @@ import java.io.File;
 
 import org.junit.Test;
 
+/**
+ * The Class DhcpdConfigFactoryTest.
+ */
 public class DhcpdConfigFactoryTest {
 
+    /**
+     * Test read.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRead() throws Exception {
         /*

@@ -42,22 +42,40 @@ import org.slf4j.LoggerFactory;
 
 import edu.bucknell.net.JDHCP.DHCPMessage;
 
+/**
+ * The Class Receiver2.
+ */
 final class Receiver2 implements Runnable, Fiber {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Receiver2.class);
 
+    /** The Constant DHCP_TARGET_PORT. */
     private static final short DHCP_TARGET_PORT = 67;
 
+    /** The m_receiver. */
     private DatagramSocket m_receiver;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_status. */
     private int m_status;
 
+    /** The m_worker. */
     private Thread m_worker;
 
+    /** The m_clients. */
     private List<Client> m_clients;
 
+    /**
+     * Instantiates a new receiver2.
+     *
+     * @param clients
+     *            the clients
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     Receiver2(List<Client> clients) throws IOException {
         m_name = "DHCPReceiver2";
         m_worker = null;
@@ -79,6 +97,7 @@ final class Receiver2 implements Runnable, Fiber {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -95,6 +114,7 @@ final class Receiver2 implements Runnable, Fiber {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public synchronized void stop() {
@@ -107,6 +127,7 @@ final class Receiver2 implements Runnable, Fiber {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -119,6 +140,7 @@ final class Receiver2 implements Runnable, Fiber {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +153,7 @@ final class Receiver2 implements Runnable, Fiber {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {

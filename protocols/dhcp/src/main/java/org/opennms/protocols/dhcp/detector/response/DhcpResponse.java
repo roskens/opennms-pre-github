@@ -38,6 +38,7 @@ package org.opennms.protocols.dhcp.detector.response;
  */
 public class DhcpResponse {
 
+    /** The m_response time. */
     private long m_responseTime;
 
     /**
@@ -56,6 +57,7 @@ public class DhcpResponse {
      * <p>
      * validate
      * </p>
+     * .
      *
      * @param num
      *            a long.

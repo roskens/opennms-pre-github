@@ -42,12 +42,21 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.dhcpd.Dhcpd;
 
 /**
+ * The Class DhcpPluginTest.
+ *
  * @author thedesloge
  */
 public class DhcpPluginTest {
 
+    /** The m_dhcpd. */
     private Dhcpd m_dhcpd;
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         m_dhcpd = Dhcpd.getInstance();
@@ -56,11 +65,24 @@ public class DhcpPluginTest {
 
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_dhcpd.stop();
     }
 
+    /**
+     * Test plugin.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Ignore
     @Test
     public void testPlugin() throws MarshalException, ValidationException, IOException {

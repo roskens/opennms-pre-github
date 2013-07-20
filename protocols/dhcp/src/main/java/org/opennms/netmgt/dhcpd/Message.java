@@ -46,12 +46,18 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
  */
 public final class Message implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2712181407338192347L;
 
+    /** The m_dhcpmsg. */
     private DHCPMessage m_dhcpmsg;
 
+    /** The m_target. */
     private InetAddress m_target;
 
+    /**
+     * Instantiates a new message.
+     */
     Message() // server and serialization only
     {
         m_dhcpmsg = null;
@@ -77,6 +83,7 @@ public final class Message implements Serializable {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -88,6 +95,7 @@ public final class Message implements Serializable {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link edu.bucknell.net.JDHCP.DHCPMessage} object.
      */
@@ -95,6 +103,14 @@ public final class Message implements Serializable {
         return m_dhcpmsg;
     }
 
+    /**
+     * Write object.
+     *
+     * @param out
+     *            the out
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.writeObject(m_target);
 
@@ -103,6 +119,16 @@ public final class Message implements Serializable {
         out.write(buf);
     }
 
+    /**
+     * Read object.
+     *
+     * @param in
+     *            the in
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         m_target = (InetAddress) in.readObject();
 

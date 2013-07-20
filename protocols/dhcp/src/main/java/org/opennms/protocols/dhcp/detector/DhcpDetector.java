@@ -37,6 +37,9 @@ import org.opennms.protocols.dhcp.detector.response.DhcpResponse;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class DhcpDetector.
+ */
 @Component
 /**
  * <p>DhcpDetector class.</p>
@@ -47,8 +50,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DhcpDetector extends BasicDetector<DhcpRequest, DhcpResponse> {
 
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 0;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
     /**
@@ -68,6 +73,13 @@ public class DhcpDetector extends BasicDetector<DhcpRequest, DhcpResponse> {
         expectBanner(responseTimeGreaterThan(-1));
     }
 
+    /**
+     * Response time greater than.
+     *
+     * @param num
+     *            the num
+     * @return the response validator
+     */
     private static ResponseValidator<DhcpResponse> responseTimeGreaterThan(final long num) {
         return new ResponseValidator<DhcpResponse>() {
 

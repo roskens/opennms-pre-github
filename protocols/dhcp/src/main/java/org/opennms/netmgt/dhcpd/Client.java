@@ -45,28 +45,42 @@ import org.slf4j.LoggerFactory;
 
 import edu.bucknell.net.JDHCP.DHCPMessage;
 
+/**
+ * The Class Client.
+ */
 final class Client extends Observable implements Runnable, Fiber {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
+    /** The Constant DHCP_TARGET_PORT. */
     private static final short DHCP_TARGET_PORT = 67;
 
+    /** The null addr. */
     private static InetAddress NULL_ADDR;
 
+    /** The m_sender. */
     private DatagramSocket m_sender;
 
+    /** The m_client. */
     private Socket m_client;
 
+    /** The m_objs out. */
     private ObjectOutputStream m_objsOut;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_status. */
     private int m_status;
 
+    /** The m_worker. */
     private Thread m_worker;
 
+    /** The m_unicast listener. */
     private UnicastListener m_unicastListener;
 
+    /** The m_keep listening. */
     private boolean m_keepListening;
 
     static {
@@ -78,6 +92,8 @@ final class Client extends Observable implements Runnable, Fiber {
      * unicasting the response directly back to us or broadcasting the response
      * to port 68 on the local subnet. The Receiver class handles the broadcast
      * scenario and this class will take care of the unicast scenario.
+     *
+     * @see UnicastEvent
      */
     public final class UnicastListener extends Thread {
         /**
@@ -91,7 +107,7 @@ final class Client extends Observable implements Runnable, Fiber {
         Client m_client;
 
         /**
-         * Constructor
+         * Constructor.
          *
          * @param incoming
          *            UDP socket over which the DHCP request was sent
@@ -170,6 +186,14 @@ final class Client extends Observable implements Runnable, Fiber {
         }
     }
 
+    /**
+     * Instantiates a new client.
+     *
+     * @param clnt
+     *            the clnt
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     Client(Socket clnt) throws IOException {
         m_name = "DHCPClient-TCP-" + clnt.getPort();
         m_client = clnt;
@@ -190,6 +214,14 @@ final class Client extends Observable implements Runnable, Fiber {
         m_objsOut.flush();
     }
 
+    /**
+     * Send message.
+     *
+     * @param msg
+     *            the msg
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     void sendMessage(Message msg) throws IOException {
         m_objsOut.writeObject(msg);
         m_objsOut.flush();
@@ -199,6 +231,7 @@ final class Client extends Observable implements Runnable, Fiber {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -219,6 +252,7 @@ final class Client extends Observable implements Runnable, Fiber {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public synchronized void stop() {
@@ -237,6 +271,7 @@ final class Client extends Observable implements Runnable, Fiber {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -249,6 +284,7 @@ final class Client extends Observable implements Runnable, Fiber {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,6 +297,7 @@ final class Client extends Observable implements Runnable, Fiber {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {

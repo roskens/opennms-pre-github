@@ -45,14 +45,11 @@ import org.opennms.core.xml.JaxbUtils;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class DhcpdConfigFactory {
-    /**
-     * The singleton instance of this factory
-     */
+
+    /** The singleton instance of this factory. */
     private static DhcpdConfigFactory m_singleton = null;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private DhcpdConfiguration m_config;
 
     /**
@@ -61,14 +58,10 @@ public final class DhcpdConfigFactory {
     private static boolean m_loaded = false;
 
     /**
-     * Default constructor (used by test as was as static methods)
+     * Default constructor (used by test as was as static methods).
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
+     * @param configFile
+     *            the config file
      */
     DhcpdConfigFactory(File configFile) {
         m_config = JaxbUtils.unmarshal(DhcpdConfiguration.class, configFile);
@@ -78,18 +71,8 @@ public final class DhcpdConfigFactory {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void init() throws IOException {
         if (m_loaded) {
@@ -105,20 +88,10 @@ public final class DhcpdConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void reload() throws IOException {
         m_singleton = null;
@@ -131,8 +104,6 @@ public final class DhcpdConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized DhcpdConfigFactory getInstance() {
         if (!m_loaded)

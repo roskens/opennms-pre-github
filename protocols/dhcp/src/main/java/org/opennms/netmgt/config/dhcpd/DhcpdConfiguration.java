@@ -155,6 +155,9 @@ public class DhcpdConfiguration implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new dhcpd configuration.
+     */
     public DhcpdConfiguration() {
         super();
     }
@@ -204,6 +207,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
     }
 
     /**
+     * Delete port.
      */
     public void deletePort() {
         m_port = null;
@@ -419,6 +423,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override

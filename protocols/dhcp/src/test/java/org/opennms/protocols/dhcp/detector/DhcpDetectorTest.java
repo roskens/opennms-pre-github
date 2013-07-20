@@ -54,25 +54,38 @@ import org.springframework.test.context.ContextConfiguration;
 import edu.bucknell.net.JDHCP.DHCPMessage;
 import edu.bucknell.net.JDHCP.DHCPSocket;
 
+/**
+ * The Class DhcpDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:/META-INF/opennms/detectors.xml" })
 public class DhcpDetectorTest implements InitializingBean {
 
     // Tested local DHCP client
+    /** The dhcp server ip. */
     private static String DHCP_SERVER_IP = "172.20.1.1";
 
+    /** The m_detector. */
     @Autowired
     public DhcpDetector m_detector;
 
+    /** The m_dhcpd. */
     private Dhcpd m_dhcpd;
 
+    /** The m_dhcpd thread. */
     private Thread m_dhcpdThread = null;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -83,16 +96,32 @@ public class DhcpDetectorTest implements InitializingBean {
         // m_dhcpd.start();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         // m_dhcpd.stop();
     }
 
+    /**
+     * Test detector wired.
+     */
     @Test(timeout = 90000)
     public void testDetectorWired() {
         assertNotNull(m_detector);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @Test(timeout = 90000)
     @Ignore
     public void testDetectorSuccess() throws IOException, MarshalException, ValidationException {
@@ -102,6 +131,12 @@ public class DhcpDetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Test jdhcp.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test(timeout = 90000)
     @Ignore
     public void testJdhcp() throws IOException {
@@ -147,10 +182,21 @@ public class DhcpDetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Sets the dhcpd thread.
+     *
+     * @param dhcpdThread
+     *            the new dhcpd thread
+     */
     public void setDhcpdThread(Thread dhcpdThread) {
         m_dhcpdThread = dhcpdThread;
     }
 
+    /**
+     * Gets the dhcpd thread.
+     *
+     * @return the dhcpd thread
+     */
     public Thread getDhcpdThread() {
         return m_dhcpdThread;
     }
