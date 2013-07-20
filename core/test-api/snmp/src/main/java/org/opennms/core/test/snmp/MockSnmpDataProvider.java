@@ -33,10 +33,26 @@ import java.io.IOException;
 import org.opennms.netmgt.snmp.SnmpAgentAddress;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Interface MockSnmpDataProvider.
+ */
 public interface MockSnmpDataProvider {
 
+    /**
+     * Sets the data for address.
+     *
+     * @param address
+     *            the address
+     * @param resource
+     *            the resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void setDataForAddress(SnmpAgentAddress address, Resource resource) throws IOException;
 
+    /**
+     * Reset data.
+     */
     public void resetData();
 
 }

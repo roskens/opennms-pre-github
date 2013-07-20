@@ -44,12 +44,24 @@ import org.opennms.test.VersionSettingTestSuite;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public abstract class SnmpTestSuiteUtils {
+
+    /** The Constant STRATEGY_CLASS_PROPERTY_NAME. */
     private static final String STRATEGY_CLASS_PROPERTY_NAME = "org.opennms.snmp.strategyClass";
 
+    /**
+     * Instantiates a new snmp test suite utils.
+     */
     private SnmpTestSuiteUtils() {
         throw new UnsupportedOperationException("you aren't the boss of me!");
     }
 
+    /**
+     * Creates the snmp strategy test suite.
+     *
+     * @param testClass
+     *            the test class
+     * @return the test suite
+     */
     public static TestSuite createSnmpStrategyTestSuite(Class<? extends TestCase> testClass) {
         TestSuite suite = new TestSuite(testClass.getName());
         suite.addTest(new PropertySettingTestSuite(testClass, "JoeSnmp Tests", STRATEGY_CLASS_PROPERTY_NAME,
@@ -61,6 +73,13 @@ public abstract class SnmpTestSuiteUtils {
         return suite;
     }
 
+    /**
+     * Creates the snmp version test suite.
+     *
+     * @param testClass
+     *            the test class
+     * @return the test suite
+     */
     public static TestSuite createSnmpVersionTestSuite(Class<? extends TestCase> testClass) {
         TestSuite suite = new TestSuite(testClass.getName());
         suite.addTest(new VersionSettingTestSuite(testClass, "SNMPv1 Tests", SnmpAgentConfig.VERSION1));

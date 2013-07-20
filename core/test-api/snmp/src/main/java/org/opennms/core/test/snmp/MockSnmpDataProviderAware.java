@@ -28,6 +28,16 @@
 
 package org.opennms.core.test.snmp;
 
+/**
+ * The Interface MockSnmpDataProviderAware.
+ */
 public interface MockSnmpDataProviderAware {
+
+    /**
+     * Sets the mock snmp data provider.
+     *
+     * @param provider
+     *            the new mock snmp data provider
+     */
     public void setMockSnmpDataProvider(MockSnmpDataProvider provider);
 }

@@ -50,13 +50,25 @@ import org.opennms.core.test.snmp.ProxySnmpAgentConfigFactory;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitSnmpAgent {
 
+    /**
+     * Resource.
+     *
+     * @return the string
+     */
     String resource() default "classpath:snmpwalk.properties";
 
+    /**
+     * Host.
+     *
+     * @return the string
+     */
     String host() default "";
 
     /**
      * This value should match the port value configured in the unit test spring
-     * context object {@link ProxySnmpAgentConfigFactory}
+     * context object {@link ProxySnmpAgentConfigFactory}.
+     *
+     * @return the int
      */
     int port() default 9161;
 }

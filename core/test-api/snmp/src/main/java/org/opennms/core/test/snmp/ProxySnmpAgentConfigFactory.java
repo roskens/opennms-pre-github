@@ -44,15 +44,36 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory for creating ProxySnmpAgentConfig objects.
+ */
 public class ProxySnmpAgentConfigFactory extends SnmpPeerFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ProxySnmpAgentConfigFactory.class);
 
+    /**
+     * Instantiates a new proxy snmp agent config factory.
+     *
+     * @param config
+     *            the config
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public ProxySnmpAgentConfigFactory(InputStream config) throws MarshalException, ValidationException,
             FileNotFoundException, IOException {
         super(config);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.SnmpPeerFactory#getAgentConfig(java.net.InetAddress)
+     */
     @Override
     public SnmpAgentConfig getAgentConfig(final InetAddress address) {
         final SnmpAgentConfigProxyMapper mapper = SnmpAgentConfigProxyMapper.getInstance();

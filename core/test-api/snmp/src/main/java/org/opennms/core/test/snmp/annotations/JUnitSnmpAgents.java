@@ -34,9 +34,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface JUnitSnmpAgents.
+ */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitSnmpAgents {
+
+    /**
+     * Value.
+     *
+     * @return the j unit snmp agent[]
+     */
     JUnitSnmpAgent[] value() default {};
 }

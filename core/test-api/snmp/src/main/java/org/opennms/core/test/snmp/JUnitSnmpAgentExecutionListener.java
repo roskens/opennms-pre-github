@@ -61,23 +61,35 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  * annotation
  * and uses attributes on it to launch a mock SNMP agent for use during unit
  * testing.
+ *
+ * @see JUnitSnmpAgentExecutionEvent
  */
 public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JUnitSnmpAgentExecutionListener.class);
 
+    /** The Constant useMockSnmpStrategyDefault. */
     private static final Boolean useMockSnmpStrategyDefault = false;
 
+    /** The Constant USE_STRATEGY_PROPERTY. */
     private static final String USE_STRATEGY_PROPERTY = "org.opennms.core.test-api.snmp.useMockSnmpStrategy";
 
+    /** The Constant STRATEGY_CLASS_PROPERTY. */
     private static final String STRATEGY_CLASS_PROPERTY = "org.opennms.snmp.strategyClass";
 
+    /** The Constant STRATEGY_CLASS_KEY. */
     private static final String STRATEGY_CLASS_KEY = "org.opennms.core.test-api.snmp.strategyClass";
 
+    /** The Constant AGENT_KEY. */
     private static final String AGENT_KEY = "org.opennms.core.test-api.snmp.agentList";
 
+    /** The Constant PROVIDER_KEY. */
     private static final String PROVIDER_KEY = "org.opennms.core.test-api.snmp.dataProvider";
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#beforeTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void beforeTestMethod(final TestContext testContext) throws Exception {
         super.beforeTestClass(testContext);
@@ -123,6 +135,9 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#afterTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void afterTestMethod(final TestContext testContext) throws Exception {
         super.afterTestMethod(testContext);
@@ -139,6 +154,22 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
         }
     }
 
+    /**
+     * Handle snmp agent.
+     *
+     * @param testContext
+     *            the test context
+     * @param config
+     *            the config
+     * @param provider
+     *            the provider
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private void handleSnmpAgent(final TestContext testContext, final JUnitSnmpAgent config,
             MockSnmpDataProvider provider) throws IOException, UnknownHostException, InterruptedException {
         if (config == null)
@@ -242,6 +273,13 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
         provider.setDataForAddress(agentAddress, resource);
     }
 
+    /**
+     * Find agent annotation.
+     *
+     * @param testContext
+     *            the test context
+     * @return the j unit snmp agent
+     */
     private JUnitSnmpAgent findAgentAnnotation(final TestContext testContext) {
         final Method testMethod = testContext.getTestMethod();
         final JUnitSnmpAgent config = testMethod.getAnnotation(JUnitSnmpAgent.class);
@@ -254,6 +292,13 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
 
     }
 
+    /**
+     * Find agent list annotation.
+     *
+     * @param testContext
+     *            the test context
+     * @return the j unit snmp agents
+     */
     private JUnitSnmpAgents findAgentListAnnotation(final TestContext testContext) {
         final Method testMethod = testContext.getTestMethod();
         final JUnitSnmpAgents config = testMethod.getAnnotation(JUnitSnmpAgents.class);
@@ -266,7 +311,14 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
 
     }
 
+    /**
+     * The Class MockSnmpStrategyDataProvider.
+     */
     private static final class MockSnmpStrategyDataProvider implements MockSnmpDataProvider {
+
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.snmp.MockSnmpDataProvider#setDataForAddress(org.opennms.netmgt.snmp.SnmpAgentAddress, org.springframework.core.io.Resource)
+         */
         @Override
         public void setDataForAddress(final SnmpAgentAddress address, final Resource resource) {
             try {
@@ -276,24 +328,44 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.snmp.MockSnmpDataProvider#resetData()
+         */
         @Override
         public void resetData() {
             MockSnmpStrategy.resetData();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "MockSnmpStrategyDataProvider[]";
         }
     }
 
+    /**
+     * The Class MockSnmpAgentDataProvider.
+     */
     private static final class MockSnmpAgentDataProvider implements MockSnmpDataProvider {
+
+        /** The m_agents. */
         private final Map<SnmpAgentAddress, MockSnmpAgent> m_agents;
 
+        /**
+         * Instantiates a new mock snmp agent data provider.
+         *
+         * @param mockAgents
+         *            the mock agents
+         */
         public MockSnmpAgentDataProvider(final Map<SnmpAgentAddress, MockSnmpAgent> mockAgents) {
             m_agents = mockAgents;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.snmp.MockSnmpDataProvider#setDataForAddress(org.opennms.netmgt.snmp.SnmpAgentAddress, org.springframework.core.io.Resource)
+         */
         @Override
         public void setDataForAddress(final SnmpAgentAddress address, final Resource resource) throws IOException {
             final MockSnmpAgent agent = m_agents.get(address);
@@ -304,6 +376,9 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
             agent.updateValuesFromResource(resource.getURL());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.snmp.MockSnmpDataProvider#resetData()
+         */
         @Override
         public void resetData() {
             for (final MockSnmpAgent agent : m_agents.values()) {
@@ -318,6 +393,9 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
             m_agents.clear();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "MockSnmpAgentDataProvider[" + (m_agents == null ? "" : (m_agents.size() + " agents")) + "]";
