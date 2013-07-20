@@ -46,19 +46,19 @@ import org.apache.commons.io.IOUtils;
  */
 public class PropertyPhonebook implements Phonebook {
 
+    /** The m_property file. */
     private String m_propertyFile;
 
+    /** The m_last modified. */
     private long m_lastModified = 0;
 
+    /** The m_last properties. */
     private Properties m_lastProperties = null;
 
     /**
      * Initialize the phone book. Defaults to assuming "smsPhonebook.properties"
      * will
      * exist in the classpath, and contain IP address -> phone number mappings.
-     *
-     * @throws PhonebookException
-     *             if any.
      */
     public PropertyPhonebook() {
         this("smsPhonebook.properties");
@@ -86,6 +86,7 @@ public class PropertyPhonebook implements Phonebook {
      * @return the @{link Properties} object from the property file. Can return
      *         a null
      * @throws PhonebookException
+     *             the phonebook exception
      */
     private Properties getProperties() throws PhonebookException {
         InputStream stream = null;
@@ -124,6 +125,7 @@ public class PropertyPhonebook implements Phonebook {
      * <p>
      * getPropertyFile
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +137,7 @@ public class PropertyPhonebook implements Phonebook {
      * <p>
      * setPropertyFile
      * </p>
+     * .
      *
      * @param filename
      *            a {@link java.lang.String} object.

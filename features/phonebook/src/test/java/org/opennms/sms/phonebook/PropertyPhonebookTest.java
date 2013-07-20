@@ -32,8 +32,17 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class PropertyPhonebookTest.
+ */
 public class PropertyPhonebookTest {
 
+    /**
+     * Test property file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPropertyFile() throws Exception {
         String fileName = getClass().getResource("/phonebook-test.properties").getFile();
@@ -45,6 +54,12 @@ public class PropertyPhonebookTest {
         assertEquals("sms@example.com", p.getTargetForAddress("192.168.0.3"));
     }
 
+    /**
+     * Test resource file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testResourceFile() throws Exception {
         PropertyPhonebook p = new PropertyPhonebook();

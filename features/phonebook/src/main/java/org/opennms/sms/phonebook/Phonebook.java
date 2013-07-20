@@ -45,9 +45,8 @@ public interface Phonebook {
      *            the IPv4 or IPv6 address
      * @return a string representing the SMS "to" (usually a phone number or SMS
      *         email address)
-     * @throws @{link PhonebookException}
-     * @throws org.opennms.sms.phonebook.PhonebookException
-     *             if any.
+     * @throws PhonebookException
+     *             the phonebook exception
      */
     String getTargetForAddress(String address) throws PhonebookException;
 
