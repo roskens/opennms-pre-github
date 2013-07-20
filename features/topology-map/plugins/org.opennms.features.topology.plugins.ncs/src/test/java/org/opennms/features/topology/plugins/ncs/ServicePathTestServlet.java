@@ -35,9 +35,8 @@ public class ServicePathTestServlet extends HttpServlet {
             + "<LSPNode>" + "<Depth>1</Depth>" + "<Parent>(null)</Parent>" + "<Address>10.1.3.12</Address>"
             + "<LabelValue>934750</LabelValue>" + "<Status>Success</Status>" + "<Device>"
             + "<DeviceName>siegfried</DeviceName>" + "<DeviceID>131103</DeviceID>" + "</Device>" + "</LSPNode>"
-            + "</LSPPath>" + "</ServicePath>" +
-
-            "</ServiceResource>" + "<Status>" + "<Code>200</Code>" + "<Message>Operation Successful</Message>"
+            + "</LSPPath>" + "</ServicePath>"
+            + "</ServiceResource>" + "<Status>" + "<Code>200</Code>" + "<Message>Operation Successful</Message>"
             + "</Status>" + "</Data>";
 
     private String m_responseString3 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
