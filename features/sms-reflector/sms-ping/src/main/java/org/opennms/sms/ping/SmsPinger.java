@@ -116,15 +116,17 @@ import org.slf4j.LoggerFactory;
  */
 public class SmsPinger {
 
+    /** The s_ping tracker. */
     private static SmsPingTracker s_pingTracker;
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(SmsPinger.class);
 
     /**
-     * Initializes this singleton
+     * Initializes this singleton.
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized void initialize() throws IOException {
         if (s_pingTracker == null)
@@ -135,6 +137,7 @@ public class SmsPinger {
      * <p>
      * setSmsPingTracker
      * </p>
+     * .
      *
      * @param pingTracker
      *            a {@link org.opennms.sms.ping.SmsPingTracker} object.
@@ -148,6 +151,7 @@ public class SmsPinger {
      * <p>
      * ping
      * </p>
+     * .
      *
      * @param phoneNumber
      *            a {@link java.lang.String} object.
@@ -157,8 +161,8 @@ public class SmsPinger {
      *            a int.
      * @param cb
      *            a {@link org.opennms.sms.ping.PingResponseCallback} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void ping(String phoneNumber, long timeout, int retries, PingResponseCallback cb) throws Exception {
         initialize();
@@ -178,12 +182,10 @@ public class SmsPinger {
      *            The number of times to retry
      * @return The response time in microseconds if the host is reachable and
      *         has responded with an echo reply, otherwise a null value.
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws Exception
+     *             the exception
      */
     public static Long ping(String phoneNumber, long timeout, int retries) throws InterruptedException, Exception {
         SinglePingResponseCallback cb = new SinglePingResponseCallback(phoneNumber);
@@ -198,12 +200,10 @@ public class SmsPinger {
      * @param host
      *            the host to ping
      * @return the round-trip time of the packet
-     * @throws IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public static Long ping(String host) throws Exception, InterruptedException {
         SinglePingResponseCallback cb = new SinglePingResponseCallback(host);

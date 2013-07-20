@@ -45,6 +45,7 @@ public interface PingResponseCallback {
      * <p>
      * handleResponse
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.sms.ping.internal.PingRequest} object.
@@ -57,6 +58,7 @@ public interface PingResponseCallback {
      * <p>
      * handleTimeout
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.sms.ping.internal.PingRequest} object.
@@ -69,6 +71,7 @@ public interface PingResponseCallback {
      * <p>
      * handleError
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.sms.ping.internal.PingRequest} object.

@@ -29,7 +29,7 @@
 package org.opennms.sms.ping;
 
 /**
- * SmsPingTracker
+ * SmsPingTracker.
  *
  * @author brozow
  * @version $Id: $
@@ -40,6 +40,7 @@ public interface SmsPingTracker {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param phoneNumber
      *            a {@link java.lang.String} object.
@@ -49,8 +50,8 @@ public interface SmsPingTracker {
      *            a int.
      * @param cb
      *            a {@link org.opennms.sms.ping.PingResponseCallback} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     void sendRequest(String phoneNumber, long timeout, int retries, PingResponseCallback cb) throws Exception;
 

@@ -39,13 +39,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * SmsPingTrackerImpl
+ * SmsPingTrackerImpl.
  *
  * @author brozow
  * @version $Id: $
  */
 public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> implements SmsPingTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmsPingTrackerImpl.class);
 
     /**
@@ -56,8 +57,8 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
      * @param smsMessenger
      *            a {@link org.opennms.sms.ping.internal.SmsPingMessenger}
      *            object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public SmsPingTrackerImpl(SmsPingMessenger smsMessenger) throws IOException {
         super("SMS", smsMessenger, new IDBasedRequestLocator<PingRequestId, PingRequest, PingReply>());
@@ -86,6 +87,7 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
      * <p>
      * stop
      * </p>
+     * .
      */
     public void stop() {
         LOG.debug("Calling stop()");

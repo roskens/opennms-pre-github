@@ -49,15 +49,20 @@ import org.smslib.Message;
  */
 public class SinglePingResponseCallback implements PingResponseCallback {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SinglePingResponseCallback.class);
 
+    /** The bs. */
     private CountDownLatch bs = new CountDownLatch(1);
 
+    /** The error. */
     @SuppressWarnings("unused")
     private Throwable error = null;
 
+    /** The response time. */
     private Long responseTime = null;
 
+    /** The m_phone number. */
     private String m_phoneNumber;
 
     /**
@@ -99,11 +104,12 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * waitFor
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor(long timeout) throws InterruptedException {
         bs.await(timeout, TimeUnit.MILLISECONDS);
@@ -113,9 +119,10 @@ public class SinglePingResponseCallback implements PingResponseCallback {
      * <p>
      * waitFor
      * </p>
+     * .
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void waitFor() throws InterruptedException {
         LOG.info("waiting for ping to {} to finish", m_phoneNumber);

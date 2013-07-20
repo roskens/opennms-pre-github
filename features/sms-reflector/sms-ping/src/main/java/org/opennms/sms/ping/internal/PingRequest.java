@@ -51,39 +51,25 @@ import org.smslib.OutboundMessage;
  */
 public final class PingRequest implements Request<PingRequestId, PingRequest, PingReply> {
 
-    /**
-     * The id representing the packet
-     */
+    /** The id representing the packet. */
     private PingRequestId m_id;
 
-    /**
-     * the request packet
-     */
+    /** the request packet. */
     private OutboundMessage m_request = null;
 
-    /**
-     * the response packet
-     */
+    /** the response packet. */
     private InboundMessage m_response = null;
 
-    /**
-     * The callback to use when this object is ready to do something
-     */
+    /** The callback to use when this object is ready to do something. */
     private PingResponseCallback m_callback = null;
 
-    /**
-     * How many retries
-     */
+    /** How many retries. */
     private int m_retries;
 
-    /**
-     * how long to wait for a response
-     */
+    /** how long to wait for a response. */
     private long m_timeout;
 
-    /**
-     * The expiration time of this request
-     */
+    /** The expiration time of this request. */
     private long m_expiration = -1L;
 
     /**
@@ -91,12 +77,29 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      */
     private Logger m_log;
 
+    /** The m_sent timestamp. */
     private Long m_sentTimestamp;
 
+    /** The m_response timestamp. */
     private Long m_responseTimestamp;
 
+    /** The m_processed. */
     private volatile boolean m_processed = false;
 
+    /**
+     * Instantiates a new ping request.
+     *
+     * @param id
+     *            the id
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param logger
+     *            the logger
+     * @param cb
+     *            the cb
+     */
     PingRequest(PingRequestId id, long timeout, int retries, Logger logger, PingResponseCallback cb) {
         m_id = id;
         m_retries = retries;
@@ -133,6 +136,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.sms.ping.PingRequestId} object.
      */
@@ -145,6 +149,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -156,6 +161,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -167,6 +173,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a {@link org.smslib.OutboundMessage} object.
      */
@@ -178,6 +185,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getResponse
      * </p>
+     * .
      *
      * @return a {@link org.smslib.InboundMessage} object.
      */
@@ -189,6 +197,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getExpiration
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -196,6 +205,11 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
         return m_expiration;
     }
 
+    /**
+     * Log.
+     *
+     * @return the logger
+     */
     private Logger log() {
         return m_log;
     }
@@ -204,6 +218,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * processResponse
      * </p>
+     * .
      *
      * @param reply
      *            a {@link org.opennms.sms.ping.internal.PingReply} object.
@@ -220,6 +235,12 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
         }
     }
 
+    /**
+     * Process response.
+     *
+     * @param packet
+     *            the packet
+     */
     private void processResponse(InboundMessage packet) {
         m_response = packet;
         log().debug(System.currentTimeMillis() + ": Ping Response Received " + this);
@@ -230,6 +251,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * processTimeout
      * </p>
+     * .
      *
      * @return a {@link org.opennms.sms.ping.internal.PingRequest} object.
      */
@@ -256,6 +278,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * isExpired
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -267,6 +290,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -294,6 +318,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.util.concurrent.Delayed} object.
@@ -324,6 +349,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * setSentTimestamp
      * </p>
+     * .
      *
      * @param millis
      *            a {@link java.lang.Long} object.
@@ -336,6 +362,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * setResponseTimestamp
      * </p>
+     * .
      *
      * @param millis
      *            a {@link java.lang.Long} object.
@@ -348,6 +375,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * getRoundTripTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -359,6 +387,7 @@ public final class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * <p>
      * isProcessed
      * </p>
+     * .
      *
      * @return a boolean.
      */

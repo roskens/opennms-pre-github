@@ -31,13 +31,14 @@ package org.opennms.sms.ping;
 import org.springframework.util.Assert;
 
 /**
- * PingRequestId
+ * PingRequestId.
  *
  * @author brozow
  * @version $Id: $
  */
 public class PingRequestId {
 
+    /** The m_destination. */
     private String m_destination;
 
     /**
@@ -57,6 +58,7 @@ public class PingRequestId {
      * <p>
      * getDestination
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -34,7 +34,7 @@ import org.smslib.InboundMessage;
 
 /**
  * <p>
- * This class is use to encapsulate an ICMP reply that conforms to the
+ * This class is use to encapsulate an ICMP reply that conforms to the.
  * {@link ICMPEchoPacket packet}class. The reply must be of type ICMP Echo Reply
  * and be the correct length.
  * </p>
@@ -66,6 +66,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
      */
     private final InboundMessage m_packet;
 
+    /** The m_receive timestamp. */
     private long m_receiveTimestamp;
 
     /**
@@ -87,6 +88,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
      * <p>
      * getRequestId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.sms.ping.PingRequestId} object.
      */
@@ -99,6 +101,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
      * <p>
      * getPacket
      * </p>
+     * .
      *
      * @return a {@link org.smslib.InboundMessage} object.
      */
@@ -110,6 +113,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
      * <p>
      * setReceiveTimestamp
      * </p>
+     * .
      *
      * @param millis
      *            a long.
@@ -122,6 +126,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
      * <p>
      * getReceiveTimestamp
      * </p>
+     * .
      *
      * @return a long.
      */

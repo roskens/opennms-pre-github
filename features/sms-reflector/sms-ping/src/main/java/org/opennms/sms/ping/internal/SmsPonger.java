@@ -45,14 +45,17 @@ import org.smslib.OutboundMessage;
 import org.smslib.TimeoutException;
 
 /**
- * SmsMessenger
+ * SmsMessenger.
  *
  * @author brozow
  * @version $Id: $
  */
 public class SmsPonger implements OnmsInboundMessageNotification {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmsPonger.class);
 
+    /** The s_token responses. */
     Map<String, String> s_tokenResponses = buildTokenResponses();
 
     /** {@inheritDoc} */
@@ -66,16 +69,37 @@ public class SmsPonger implements OnmsInboundMessageNotification {
         }
     }
 
+    /**
+     * Checks if is ping request.
+     *
+     * @param msg
+     *            the msg
+     * @return true, if is ping request
+     */
     private boolean isPingRequest(InboundMessage msg) {
         return (!(msg instanceof InboundBinaryMessage)) && msg.getText() != null
                 && (isPseudoPingRequest(msg) || isCanonicalPingRequest(msg));
     }
 
+    /**
+     * Checks if is canonical ping request.
+     *
+     * @param msg
+     *            the msg
+     * @return true, if is canonical ping request
+     */
     private boolean isCanonicalPingRequest(InboundMessage msg) {
         return (!(msg instanceof InboundBinaryMessage)) && msg.getText() != null && msg.getText().length() >= 4
                 && "ping".equalsIgnoreCase(msg.getText().substring(0, 4));
     }
 
+    /**
+     * Checks if is pseudo ping request.
+     *
+     * @param msg
+     *            the msg
+     * @return true, if is pseudo ping request
+     */
     private boolean isPseudoPingRequest(InboundMessage msg) {
         if (s_tokenResponses.size() == 0) {
             LOG.debug("No token responses found, not processing pseudo-pings");
@@ -92,6 +116,14 @@ public class SmsPonger implements OnmsInboundMessageNotification {
         return false;
     }
 
+    /**
+     * Send pong.
+     *
+     * @param gateway
+     *            the gateway
+     * @param msg
+     *            the msg
+     */
     private void sendPong(AGateway gateway, InboundMessage msg) {
         String pongResponse = (isCanonicalPingRequest(msg)) ? "pong" : getPseudoPongResponse(msg);
         LOG.debug("SmsPonger.sendPong: sending string '{}'", pongResponse);
@@ -112,6 +144,13 @@ public class SmsPonger implements OnmsInboundMessageNotification {
         }
     }
 
+    /**
+     * Gets the pseudo pong response.
+     *
+     * @param msg
+     *            the msg
+     * @return the pseudo pong response
+     */
     private String getPseudoPongResponse(InboundMessage msg) {
         for (Entry<String, String> tuple : s_tokenResponses.entrySet()) {
             if (msg.getText().matches(tuple.getKey())) {
@@ -123,6 +162,11 @@ public class SmsPonger implements OnmsInboundMessageNotification {
         return "";
     }
 
+    /**
+     * Builds the token responses.
+     *
+     * @return the map
+     */
     private static Map<String, String> buildTokenResponses() {
         // Use a LinkedHashMap to preserve ordering
         Map<String, String> tokenResponses = new LinkedHashMap<String, String>();
