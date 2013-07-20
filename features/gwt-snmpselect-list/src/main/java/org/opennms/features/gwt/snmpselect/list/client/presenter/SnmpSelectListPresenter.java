@@ -37,12 +37,25 @@ import org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class SnmpSelectListPresenter.
+ */
 public class SnmpSelectListPresenter implements Presenter, SnmpSelectListView.Presenter<SnmpCellListItem> {
 
+    /** The m_view. */
     private SnmpSelectListView<SnmpCellListItem> m_view;
 
+    /** The m_rest service. */
     private SnmpInterfaceRestService m_restService;
 
+    /**
+     * Instantiates a new snmp select list presenter.
+     *
+     * @param view
+     *            the view
+     * @param service
+     *            the service
+     */
     public SnmpSelectListPresenter(SnmpSelectListView<SnmpCellListItem> view, SnmpInterfaceRestService service) {
         m_view = view;
         m_view.setPresenter(this);
@@ -62,6 +75,9 @@ public class SnmpSelectListPresenter implements Presenter, SnmpSelectListView.Pr
         });
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets container) {
         container.clear();
@@ -70,11 +86,20 @@ public class SnmpSelectListPresenter implements Presenter, SnmpSelectListView.Pr
         m_restService.getInterfaceList();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView.Presenter#onSnmpInterfaceCollectUpdated(int, java.lang.String, java.lang.String)
+     */
     @Override
     public void onSnmpInterfaceCollectUpdated(int ifIndex, String oldValue, String newValue) {
         m_restService.updateCollection(ifIndex, newValue);
     }
 
+    /**
+     * Sets the test data list.
+     *
+     * @param testDataList
+     *            the new test data list
+     */
     public void setTestDataList(List<SnmpCellListItem> testDataList) {
         m_view.setDataList(testDataList);
     }

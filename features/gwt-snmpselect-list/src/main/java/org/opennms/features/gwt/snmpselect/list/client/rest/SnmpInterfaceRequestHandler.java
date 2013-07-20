@@ -32,10 +32,25 @@ import java.util.List;
 
 import org.opennms.features.gwt.snmpselect.list.client.view.SnmpCellListItem;
 
+/**
+ * The Interface SnmpInterfaceRequestHandler.
+ */
 public interface SnmpInterfaceRequestHandler {
 
+    /**
+     * On response.
+     *
+     * @param itemList
+     *            the item list
+     */
     void onResponse(List<SnmpCellListItem> itemList);
 
+    /**
+     * On error.
+     *
+     * @param message
+     *            the message
+     */
     void onError(String message);
 
 }

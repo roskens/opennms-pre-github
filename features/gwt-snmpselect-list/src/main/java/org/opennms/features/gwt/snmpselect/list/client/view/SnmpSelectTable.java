@@ -42,23 +42,39 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 
+/**
+ * The Class SnmpSelectTable.
+ */
 public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
 
+    /**
+     * The Class SnmpTextColumn.
+     */
     private abstract class SnmpTextColumn extends Column<SnmpCellListItem, String> {
 
+        /**
+         * Instantiates a new snmp text column.
+         */
         public SnmpTextColumn() {
             super(new TextCell());
         }
 
     }
 
+    /** The m_field updater. */
     private SnmpSelectTableCollectUpdateHandler m_fieldUpdater;
 
+    /**
+     * Instantiates a new snmp select table.
+     */
     public SnmpSelectTable() {
         super(15, (CellTable.Resources) GWT.create(OnmsTableResources.class));
         initializeColumns();
     }
 
+    /**
+     * Initialize columns.
+     */
     private void initializeColumns() {
         setRowStyles(new RowStyles<SnmpCellListItem>() {
 
@@ -175,10 +191,21 @@ public class SnmpSelectTable extends CellTable<SnmpCellListItem> {
 
     }
 
+    /**
+     * Sets the collect update handler.
+     *
+     * @param fieldUpdater
+     *            the new collect update handler
+     */
     public void setCollectUpdateHandler(SnmpSelectTableCollectUpdateHandler fieldUpdater) {
         m_fieldUpdater = fieldUpdater;
     }
 
+    /**
+     * Gets the collect update handler.
+     *
+     * @return the collect update handler
+     */
     public SnmpSelectTableCollectUpdateHandler getCollectUpdateHandler() {
         return m_fieldUpdater;
     }

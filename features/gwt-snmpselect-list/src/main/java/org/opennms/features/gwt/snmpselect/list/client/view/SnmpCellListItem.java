@@ -30,48 +30,105 @@ package org.opennms.features.gwt.snmpselect.list.client.view;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
+/**
+ * The Class SnmpCellListItem.
+ */
 public class SnmpCellListItem extends JavaScriptObject {
 
+    /**
+     * Instantiates a new snmp cell list item.
+     */
     protected SnmpCellListItem() {
 
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public final native String getIfIndex()/*-{
                                            return this["@ifIndex"];
                                            }-*/;
 
+    /**
+     * Gets the snmp type.
+     *
+     * @return the snmp type
+     */
     public final native String getSnmpType() /*-{
                                              return this.ifType;
                                              }-*/;
 
+    /**
+     * Gets the if descr.
+     *
+     * @return the if descr
+     */
     public final native String getIfDescr() /*-{
                                             return this.ifDescr;
                                             }-*/;
 
+    /**
+     * Gets the if name.
+     *
+     * @return the if name
+     */
     public final native String getIfName() /*-{
                                            return this.ifName;
                                            }-*/;
 
+    /**
+     * Gets the if alias.
+     *
+     * @return the if alias
+     */
     public final native String getIfAlias() /*-{
                                             return this.ifAlias;
                                             }-*/;
 
+    /**
+     * Gets the collect flag.
+     *
+     * @return the collect flag
+     */
     public final native String getCollectFlag() /*-{
                                                 return this["@collectFlag"];
                                                 }-*/;
 
+    /**
+     * Sets the collect flag.
+     *
+     * @param flag
+     *            the new collect flag
+     */
     public final native void setCollectFlag(String flag) /*-{
                                                          this["@collectFlag"] = flag;
                                                          }-*/;
 
+    /**
+     * Gets the if admin status.
+     *
+     * @return the if admin status
+     */
     public final native int getIfAdminStatus() /*-{
                                                return parseInt(this.ifAdminStatus);
                                                }-*/;
 
+    /**
+     * Gets the if oper status.
+     *
+     * @return the if oper status
+     */
     public final native int getIfOperStatus() /*-{
                                               return parseInt(this.ifOperStatus);
                                               }-*/;
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public final native int getId() /*-{
                                     return parseInt(this["@id"]);
                                     }-*/;

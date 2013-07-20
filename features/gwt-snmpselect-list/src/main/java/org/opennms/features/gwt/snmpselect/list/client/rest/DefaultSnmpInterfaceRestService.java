@@ -44,8 +44,12 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 
+/**
+ * The Class DefaultSnmpInterfaceRestService.
+ */
 public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService {
 
+    /** The default response. */
     private static String DEFAULT_RESPONSE = "{" + "\"@totalCount\" : \"2\"," + "\"@count\" : \"2\","
             + "\"snmpInterface\" : [ {" + "\"@poll\" : \"false\"," + "\"@pollFlag\" : \"N\"," + "\"@ifIndex\" : \"2\","
             + "\"@id\" : \"139\"," + "\"@collect\" : \"true\"," + "\"@collectFlag\" : \"C\","
@@ -58,14 +62,25 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
             + "\"ifDescr\" : \"sit0\"," + "\"ifName\" : \"sit0\"," + "\"ifOperStatus\" : \"2\","
             + "\"ifSpeed\" : \"0\"," + "\"ifType\" : \"131\"," + "\"nodeId\" : \"10\"" + "} ]" + "}";
 
+    /** The m_request handler. */
     private SnmpInterfaceRequestHandler m_requestHandler;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /**
+     * Instantiates a new default snmp interface rest service.
+     *
+     * @param nodeId
+     *            the node id
+     */
     public DefaultSnmpInterfaceRestService(int nodeId) {
         m_nodeId = nodeId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.rest.SnmpInterfaceRestService#getInterfaceList()
+     */
     @Override
     public void getInterfaceList() {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode("rest/nodes/" + m_nodeId
@@ -99,6 +114,13 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
 
     }
 
+    /**
+     * Parses the json data.
+     *
+     * @param jsonString
+     *            the json string
+     * @return the list
+     */
     protected List<SnmpCellListItem> parseJSONData(String jsonString) {
         List<SnmpCellListItem> cellList = new ArrayList<SnmpCellListItem>();
         JSONObject jsonObject = JSONParser.parseStrict(jsonString).isObject();
@@ -113,10 +135,20 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
         return cellList;
     }
 
+    /**
+     * Creates the js array.
+     *
+     * @param jso
+     *            the jso
+     * @return the js array
+     */
     private static native JsArray<SnmpCellListItem> createJsArray(JavaScriptObject jso) /*-{
                                                                                         return jso;
                                                                                         }-*/;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.rest.SnmpInterfaceRestService#updateCollection(int, java.lang.String)
+     */
     @Override
     public void updateCollection(int ifIndex, String collectFlag) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.PUT, URL.encode("rest/nodes/" + m_nodeId
@@ -141,6 +173,9 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.rest.SnmpInterfaceRestService#setSnmpInterfaceRequestHandler(org.opennms.features.gwt.snmpselect.list.client.rest.SnmpInterfaceRequestHandler)
+     */
     @Override
     public void setSnmpInterfaceRequestHandler(SnmpInterfaceRequestHandler handler) {
         m_requestHandler = handler;

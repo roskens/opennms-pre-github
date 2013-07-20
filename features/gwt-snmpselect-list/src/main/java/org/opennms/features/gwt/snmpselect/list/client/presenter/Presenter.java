@@ -30,6 +30,16 @@ package org.opennms.features.gwt.snmpselect.list.client.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Interface Presenter.
+ */
 public abstract interface Presenter {
+
+    /**
+     * Go.
+     *
+     * @param widget
+     *            the widget
+     */
     public abstract void go(final HasWidgets widget);
 }

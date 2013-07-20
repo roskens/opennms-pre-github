@@ -32,20 +32,71 @@ import java.util.List;
 
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * The Interface SnmpSelectListView.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface SnmpSelectListView<T> {
 
+    /**
+     * The Interface Presenter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Presenter<T> {
+
+        /**
+         * On snmp interface collect updated.
+         *
+         * @param interfaceId
+         *            the interface id
+         * @param oldValue
+         *            the old value
+         * @param newValue
+         *            the new value
+         */
         void onSnmpInterfaceCollectUpdated(int interfaceId, String oldValue, String newValue);
     }
 
+    /**
+     * As widget.
+     *
+     * @return the widget
+     */
     Widget asWidget();
 
+    /**
+     * Sets the presenter.
+     *
+     * @param presenter
+     *            the new presenter
+     */
     void setPresenter(Presenter<T> presenter);
 
+    /**
+     * Sets the data list.
+     *
+     * @param dataList
+     *            the new data list
+     */
     void setDataList(List<SnmpCellListItem> dataList);
 
+    /**
+     * Gets the updated cell.
+     *
+     * @return the updated cell
+     */
     SnmpCellListItem getUpdatedCell();
 
+    /**
+     * Show error.
+     *
+     * @param message
+     *            the message
+     */
     void showError(String message);
 
 }

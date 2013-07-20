@@ -48,30 +48,47 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.ListDataProvider;
 
+/**
+ * The Class SnmpSelectListViewImpl.
+ */
 public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListView<SnmpCellListItem> {
 
+    /** The ui binder. */
     private static SnmpSelectListViewImplUiBinder uiBinder = GWT.create(SnmpSelectListViewImplUiBinder.class);
 
+    /**
+     * The Interface SnmpSelectListViewImplUiBinder.
+     */
     interface SnmpSelectListViewImplUiBinder extends UiBinder<Widget, SnmpSelectListViewImpl> {
     }
 
+    /** The m_layout panel. */
     @UiField
     LayoutPanel m_layoutPanel;
 
+    /** The m_snmp select table. */
     @UiField
     SnmpSelectTable m_snmpSelectTable;
 
+    /** The m_pager container. */
     @UiField
     FlowPanel m_pagerContainer;
 
+    /** The m_presenter. */
     private Presenter<SnmpCellListItem> m_presenter;
 
+    /** The m_simple pager. */
     private SimplePager m_simplePager;
 
+    /** The m_data list. */
     private ListDataProvider<SnmpCellListItem> m_dataList;
 
+    /** The m_updated cell. */
     protected SnmpCellListItem m_updatedCell;
 
+    /**
+     * Instantiates a new snmp select list view impl.
+     */
     public SnmpSelectListViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
         m_layoutPanel.setSize("100%", "500px");
@@ -99,21 +116,33 @@ public class SnmpSelectListViewImpl extends Composite implements SnmpSelectListV
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView#setPresenter(org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView.Presenter)
+     */
     @Override
     public void setPresenter(Presenter<SnmpCellListItem> presenter) {
         m_presenter = presenter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView#setDataList(java.util.List)
+     */
     @Override
     public void setDataList(List<SnmpCellListItem> dataList) {
         m_dataList.setList(dataList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView#getUpdatedCell()
+     */
     @Override
     public SnmpCellListItem getUpdatedCell() {
         return m_updatedCell;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListView#showError(java.lang.String)
+     */
     @Override
     public void showError(String message) {
         Window.alert("Error: " + message);

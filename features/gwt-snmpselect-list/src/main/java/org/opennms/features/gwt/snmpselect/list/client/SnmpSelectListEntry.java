@@ -39,8 +39,14 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.Window.Navigator;
 import com.google.gwt.user.client.ui.RootPanel;
 
+/**
+ * The Class SnmpSelectListEntry.
+ */
 public class SnmpSelectListEntry implements EntryPoint {
 
+    /* (non-Javadoc)
+     * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+     */
     @Override
     public void onModuleLoad() {
 
@@ -65,11 +71,22 @@ public class SnmpSelectListEntry implements EntryPoint {
         }
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param elem
+     *            the elem
+     */
     private void createView(Element elem) {
         AppController appController = new AppController(new DefaultSnmpInterfaceRestService(getNodeId()));
         appController.go(RootPanel.get(elem.getId()));
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     private int getNodeId() {
         if (Location.getParameter("node") != null) {
             return Integer.valueOf(Location.getParameter("node"));
@@ -78,6 +95,11 @@ public class SnmpSelectListEntry implements EntryPoint {
         }
     }
 
+    /**
+     * Gets the test data list.
+     *
+     * @return the test data list
+     */
     public static native JsArray<SnmpCellListItem> getTestDataList()/*-{
                                                                     return $wnd.testData.snmpInterface;
                                                                     }-*/;

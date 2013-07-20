@@ -35,14 +35,27 @@ import org.opennms.features.gwt.snmpselect.list.client.view.SnmpSelectListViewIm
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
+/**
+ * The Class AppController.
+ */
 public class AppController implements Presenter {
 
+    /** The m_presenter. */
     private SnmpSelectListPresenter m_presenter;
 
+    /**
+     * Instantiates a new app controller.
+     *
+     * @param service
+     *            the service
+     */
     public AppController(SnmpInterfaceRestService service) {
         m_presenter = new SnmpSelectListPresenter(new SnmpSelectListViewImpl(), service);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.gwt.snmpselect.list.client.presenter.Presenter#go(com.google.gwt.user.client.ui.HasWidgets)
+     */
     @Override
     public void go(HasWidgets widget) {
         m_presenter.go(widget);

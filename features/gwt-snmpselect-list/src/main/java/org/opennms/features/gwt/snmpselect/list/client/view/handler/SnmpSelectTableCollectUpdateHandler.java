@@ -28,7 +28,20 @@
 
 package org.opennms.features.gwt.snmpselect.list.client.view.handler;
 
+/**
+ * The Interface SnmpSelectTableCollectUpdateHandler.
+ */
 public interface SnmpSelectTableCollectUpdateHandler {
 
+    /**
+     * On snmp interface collect updated.
+     *
+     * @param interfaceId
+     *            the interface id
+     * @param oldValue
+     *            the old value
+     * @param newValue
+     *            the new value
+     */
     void onSnmpInterfaceCollectUpdated(int interfaceId, String oldValue, String newValue);
 }

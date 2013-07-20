@@ -28,11 +28,33 @@
 
 package org.opennms.features.gwt.snmpselect.list.client.rest;
 
+/**
+ * The Interface SnmpInterfaceRestService.
+ */
 public interface SnmpInterfaceRestService {
 
+    /**
+     * Sets the snmp interface request handler.
+     *
+     * @param handler
+     *            the new snmp interface request handler
+     */
     public void setSnmpInterfaceRequestHandler(SnmpInterfaceRequestHandler handler);
 
+    /**
+     * Gets the interface list.
+     *
+     * @return the interface list
+     */
     public void getInterfaceList();
 
+    /**
+     * Update collection.
+     *
+     * @param interfaceId
+     *            the interface id
+     * @param collectFlag
+     *            the collect flag
+     */
     public void updateCollection(int interfaceId, String collectFlag);
 }
