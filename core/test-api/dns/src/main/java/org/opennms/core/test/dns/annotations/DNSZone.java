@@ -34,17 +34,40 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface DNSZone.
+ */
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.ANNOTATION_TYPE })
 public @interface DNSZone {
 
+    /**
+     * Name.
+     *
+     * @return the string
+     */
     String name();
 
+    /**
+     * V4address.
+     *
+     * @return the string
+     */
     String v4address() default "127.0.0.1";
 
+    /**
+     * V6address.
+     *
+     * @return the string
+     */
     String v6address() default "::1";
 
+    /**
+     * Entries.
+     *
+     * @return the dNS entry[]
+     */
     DNSEntry[] entries() default {};
 
 }

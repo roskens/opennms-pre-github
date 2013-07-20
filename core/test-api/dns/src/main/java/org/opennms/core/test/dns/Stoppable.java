@@ -28,6 +28,13 @@
 
 package org.opennms.core.test.dns;
 
+/**
+ * The Interface Stoppable.
+ */
 public interface Stoppable extends Runnable {
+
+    /**
+     * Stop.
+     */
     public void stop();
 }

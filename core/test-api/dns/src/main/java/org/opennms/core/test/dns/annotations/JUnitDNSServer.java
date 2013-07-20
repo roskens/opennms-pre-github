@@ -47,9 +47,17 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitDNSServer {
 
-    /** the port to listen on **/
+    /**
+     * the port to listen on *.
+     *
+     * @return the int
+     */
     int port() default 9153;
 
-    /** a list of DNS zones to respond to **/
+    /**
+     * a list of DNS zones to respond to *.
+     *
+     * @return the dNS zone[]
+     */
     DNSZone[] zones() default {};
 }

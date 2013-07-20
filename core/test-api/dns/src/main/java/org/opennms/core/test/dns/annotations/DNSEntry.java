@@ -33,12 +33,31 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface DNSEntry.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.ANNOTATION_TYPE })
 public @interface DNSEntry {
+
+    /**
+     * Hostname.
+     *
+     * @return the string
+     */
     String hostname();
 
+    /**
+     * Address.
+     *
+     * @return the string
+     */
     String address();
 
+    /**
+     * Ipv6.
+     *
+     * @return true, if successful
+     */
     boolean ipv6() default false;
 }

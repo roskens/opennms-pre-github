@@ -28,16 +28,38 @@
 
 package org.opennms.core.test.dns;
 
+/**
+ * The Class ConfigurationException.
+ */
 public class ConfigurationException extends Exception {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5568481847146314296L;
 
+    /**
+     * Instantiates a new configuration exception.
+     */
     public ConfigurationException() {
     }
 
+    /**
+     * Instantiates a new configuration exception.
+     *
+     * @param message
+     *            the message
+     */
     public ConfigurationException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new configuration exception.
+     *
+     * @param message
+     *            the message
+     * @param t
+     *            the t
+     */
     public ConfigurationException(final String message, final Throwable t) {
         super(message, t);
     }

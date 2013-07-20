@@ -90,28 +90,61 @@ import org.xbill.DNS.Type;
 import org.xbill.DNS.Zone;
 import org.xbill.DNS.ZoneTransferException;
 
+/**
+ * The Class DNSServer.
+ */
 public class DNSServer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DNSServer.class);
 
+    /** The Constant DEFAULT_SOCKET_TIMEOUT. */
     private static final int DEFAULT_SOCKET_TIMEOUT = 100;
 
+    /**
+     * The listener interface for receiving TCP events.
+     * The class that is interested in processing a TCP
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addTCPListener<code> method. When
+     * the TCP event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see TCPEvent
+     */
     private final class TCPListener implements Stoppable {
+
+        /** The m_port. */
         private final int m_port;
 
+        /** The m_addr. */
         private final InetAddress m_addr;
 
+        /** The m_socket. */
         private ServerSocket m_socket;
 
+        /** The m_stopped. */
         private volatile boolean m_stopped = false;
 
+        /** The m_latch. */
         private CountDownLatch m_latch = new CountDownLatch(1);
 
+        /**
+         * Instantiates a new tCP listener.
+         *
+         * @param port
+         *            the port
+         * @param addr
+         *            the addr
+         */
         private TCPListener(final int port, final InetAddress addr) {
             m_port = port;
             m_addr = addr;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             try {
@@ -180,6 +213,9 @@ public class DNSServer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.dns.Stoppable#stop()
+         */
         @Override
         public void stop() {
             m_stopped = true;
@@ -192,20 +228,47 @@ public class DNSServer {
         }
     }
 
+    /**
+     * The listener interface for receiving UDP events.
+     * The class that is interested in processing a UDP
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addUDPListener<code> method. When
+     * the UDP event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see UDPEvent
+     */
     private final class UDPListener implements Stoppable {
+
+        /** The m_port. */
         private final int m_port;
 
+        /** The m_addr. */
         private final InetAddress m_addr;
 
+        /** The m_stopped. */
         private volatile boolean m_stopped = false;
 
+        /** The m_latch. */
         private CountDownLatch m_latch = new CountDownLatch(1);
 
+        /**
+         * Instantiates a new uDP listener.
+         *
+         * @param port
+         *            the port
+         * @param addr
+         *            the addr
+         */
         private UDPListener(int port, InetAddress addr) {
             m_port = port;
             m_addr = addr;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             DatagramSocket sock = null;
@@ -257,6 +320,9 @@ public class DNSServer {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.test.dns.Stoppable#stop()
+         */
         @Override
         public void stop() {
             m_stopped = true;
@@ -269,33 +335,74 @@ public class DNSServer {
         }
     }
 
+    /** The Constant FLAG_DNSSECOK. */
     static final int FLAG_DNSSECOK = 1;
 
+    /** The Constant FLAG_SIGONLY. */
     static final int FLAG_SIGONLY = 2;
 
+    /** The m_caches. */
     final Map<Integer, Cache> m_caches = new HashMap<Integer, Cache>();
 
+    /** The m_znames. */
     final Map<Name, Zone> m_znames = new HashMap<Name, Zone>();
 
+    /** The TSI gs. */
     final Map<Name, TSIG> m_TSIGs = new HashMap<Name, TSIG>();
 
+    /** The m_ports. */
     final List<Integer> m_ports = new ArrayList<Integer>();
 
+    /** The m_addresses. */
     final List<InetAddress> m_addresses = new ArrayList<InetAddress>();
 
+    /** The m_active listeners. */
     final List<Stoppable> m_activeListeners = new ArrayList<Stoppable>();
 
+    /**
+     * Addrport.
+     *
+     * @param addr
+     *            the addr
+     * @param port
+     *            the port
+     * @return the string
+     */
     private static String addrport(final InetAddress addr, final int port) {
         return InetAddressUtils.str(addr) + "#" + port;
     }
 
+    /**
+     * Instantiates a new dNS server.
+     *
+     * @param conffile
+     *            the conffile
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ZoneTransferException
+     *             the zone transfer exception
+     * @throws ConfigurationException
+     *             the configuration exception
+     */
     public DNSServer(final String conffile) throws IOException, ZoneTransferException, ConfigurationException {
         parseConfiguration(conffile);
     }
 
+    /**
+     * Instantiates a new dNS server.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public DNSServer() throws UnknownHostException {
     }
 
+    /**
+     * Start.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void start() throws UnknownHostException {
         initializeDefaults();
 
@@ -317,6 +424,9 @@ public class DNSServer {
         LOG.debug("finished starting up");
     }
 
+    /**
+     * Stop.
+     */
     public void stop() {
         for (final Stoppable listener : m_activeListeners) {
             LOG.debug("stopping {}", listener);
@@ -325,6 +435,20 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Parses the configuration.
+     *
+     * @param conffile
+     *            the conffile
+     * @throws ConfigurationException
+     *             the configuration exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ZoneTransferException
+     *             the zone transfer exception
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     protected void parseConfiguration(final String conffile) throws ConfigurationException, IOException,
             ZoneTransferException, UnknownHostException {
         final FileInputStream fs;
@@ -384,6 +508,12 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Initialize defaults.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     protected void initializeDefaults() throws UnknownHostException {
         if (m_ports.size() == 0) {
             m_ports.add(new Integer(53));
@@ -394,10 +524,22 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Adds the port.
+     *
+     * @param port
+     *            the port
+     */
     public void addPort(final int port) {
         m_ports.add(port);
     }
 
+    /**
+     * Sets the ports.
+     *
+     * @param ports
+     *            the new ports
+     */
     public void setPorts(final List<Integer> ports) {
         if (m_ports == ports)
             return;
@@ -405,10 +547,22 @@ public class DNSServer {
         m_ports.addAll(ports);
     }
 
+    /**
+     * Adds the address.
+     *
+     * @param address
+     *            the address
+     */
     public void addAddress(final InetAddress address) {
         m_addresses.add(address);
     }
 
+    /**
+     * Sets the addresses.
+     *
+     * @param addresses
+     *            the new addresses
+     */
     public void setAddresses(final List<InetAddress> addresses) {
         if (m_addresses == addresses)
             return;
@@ -416,10 +570,26 @@ public class DNSServer {
         m_addresses.addAll(addresses);
     }
 
+    /**
+     * Adds the zone.
+     *
+     * @param zone
+     *            the zone
+     */
     public void addZone(final Zone zone) {
         m_znames.put(zone.getOrigin(), zone);
     }
 
+    /**
+     * Adds the primary zone.
+     *
+     * @param zname
+     *            the zname
+     * @param zonefile
+     *            the zonefile
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void addPrimaryZone(final String zname, final String zonefile) throws IOException {
         Name origin = null;
         if (zname != null)
@@ -428,17 +598,48 @@ public class DNSServer {
         m_znames.put(newzone.getOrigin(), newzone);
     }
 
+    /**
+     * Adds the secondary zone.
+     *
+     * @param zone
+     *            the zone
+     * @param remote
+     *            the remote
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ZoneTransferException
+     *             the zone transfer exception
+     */
     public void addSecondaryZone(final String zone, final String remote) throws IOException, ZoneTransferException {
         final Name zname = Name.fromString(zone, Name.root);
         final Zone newzone = new Zone(zname, DClass.IN, remote);
         m_znames.put(zname, newzone);
     }
 
+    /**
+     * Adds the tsig.
+     *
+     * @param algstr
+     *            the algstr
+     * @param namestr
+     *            the namestr
+     * @param key
+     *            the key
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void addTSIG(final String algstr, final String namestr, final String key) throws IOException {
         final Name name = Name.fromString(namestr, Name.root);
         m_TSIGs.put(name, new TSIG(algstr, namestr, key));
     }
 
+    /**
+     * Gets the cache.
+     *
+     * @param dclass
+     *            the dclass
+     * @return the cache
+     */
     public Cache getCache(final int dclass) {
         Cache c = m_caches.get(dclass);
         if (c == null) {
@@ -448,6 +649,13 @@ public class DNSServer {
         return c;
     }
 
+    /**
+     * Find best zone.
+     *
+     * @param name
+     *            the name
+     * @return the zone
+     */
     public Zone findBestZone(final Name name) {
         Zone foundzone = m_znames.get(name);
         if (foundzone != null) {
@@ -464,6 +672,19 @@ public class DNSServer {
         return null;
     }
 
+    /**
+     * Find exact match.
+     *
+     * @param name
+     *            the name
+     * @param type
+     *            the type
+     * @param dclass
+     *            the dclass
+     * @param glue
+     *            the glue
+     * @return the r rset
+     */
     public RRset findExactMatch(final Name name, final int type, final int dclass, final boolean glue) {
         final Zone zone = findBestZone(name);
         if (zone != null) {
@@ -484,6 +705,20 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Adds the r rset.
+     *
+     * @param name
+     *            the name
+     * @param response
+     *            the response
+     * @param rrset
+     *            the rrset
+     * @param section
+     *            the section
+     * @param flags
+     *            the flags
+     */
     void addRRset(final Name name, final Message response, final RRset rrset, final int section, final int flags) {
         for (int s = 1; s <= section; s++) {
             if (response.findRRset(name, rrset.getType(), s))
@@ -515,15 +750,43 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Adds the soa.
+     *
+     * @param response
+     *            the response
+     * @param zone
+     *            the zone
+     */
     private final void addSOA(final Message response, final Zone zone) {
         response.addRecord(zone.getSOA(), Section.AUTHORITY);
     }
 
+    /**
+     * Adds the ns.
+     *
+     * @param response
+     *            the response
+     * @param zone
+     *            the zone
+     * @param flags
+     *            the flags
+     */
     private final void addNS(final Message response, final Zone zone, final int flags) {
         final RRset nsRecords = zone.getNS();
         addRRset(nsRecords.getName(), response, nsRecords, Section.AUTHORITY, flags);
     }
 
+    /**
+     * Adds the cache ns.
+     *
+     * @param response
+     *            the response
+     * @param cache
+     *            the cache
+     * @param name
+     *            the name
+     */
     private final void addCacheNS(final Message response, final Cache cache, final Name name) {
         final SetResponse sr = cache.lookupRecords(name, Type.NS, Credibility.HINT);
         if (!sr.isDelegation())
@@ -537,6 +800,16 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Adds the glue.
+     *
+     * @param response
+     *            the response
+     * @param name
+     *            the name
+     * @param flags
+     *            the flags
+     */
     private void addGlue(final Message response, final Name name, final int flags) {
         final RRset a = findExactMatch(name, Type.A, DClass.IN, true);
         if (a == null)
@@ -544,6 +817,16 @@ public class DNSServer {
         addRRset(name, response, a, Section.ADDITIONAL, flags);
     }
 
+    /**
+     * Adds the additional2.
+     *
+     * @param response
+     *            the response
+     * @param section
+     *            the section
+     * @param flags
+     *            the flags
+     */
     private void addAdditional2(final Message response, final int section, final int flags) {
         final Record[] records = response.getSectionArray(section);
         for (int i = 0; i < records.length; i++) {
@@ -554,11 +837,36 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Adds the additional.
+     *
+     * @param response
+     *            the response
+     * @param flags
+     *            the flags
+     */
     private final void addAdditional(final Message response, final int flags) {
         addAdditional2(response, Section.ANSWER, flags);
         addAdditional2(response, Section.AUTHORITY, flags);
     }
 
+    /**
+     * Adds the answer.
+     *
+     * @param response
+     *            the response
+     * @param name
+     *            the name
+     * @param type
+     *            the type
+     * @param dclass
+     *            the dclass
+     * @param iterations
+     *            the iterations
+     * @param flags
+     *            the flags
+     * @return the byte
+     */
     byte addAnswer(final Message response, final Name name, int type, int dclass, int iterations, int flags) {
         SetResponse sr;
         byte rcode = Rcode.NOERROR;
@@ -633,6 +941,21 @@ public class DNSServer {
         return rcode;
     }
 
+    /**
+     * Do axfr.
+     *
+     * @param name
+     *            the name
+     * @param query
+     *            the query
+     * @param tsig
+     *            the tsig
+     * @param qtsig
+     *            the qtsig
+     * @param s
+     *            the s
+     * @return the byte[]
+     */
     byte[] doAXFR(final Name name, final Message query, final TSIG tsig, TSIGRecord qtsig, final Socket s) {
         final Zone zone = m_znames.get(name);
         boolean first = true;
@@ -674,6 +997,21 @@ public class DNSServer {
      * Note: a null return value means that the caller doesn't need to do
      * anything. Currently this only happens if this is an AXFR request over
      * TCP.
+     */
+    /**
+     * Generate reply.
+     *
+     * @param query
+     *            the query
+     * @param in
+     *            the in
+     * @param length
+     *            the length
+     * @param s
+     *            the s
+     * @return the byte[]
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     byte[] generateReply(final Message query, final byte[] in, final int length, final Socket s) throws IOException {
         final Header header = query.getHeader();
@@ -740,6 +1078,17 @@ public class DNSServer {
         return response.toWire(maxLength);
     }
 
+    /**
+     * Builds the error message.
+     *
+     * @param header
+     *            the header
+     * @param rcode
+     *            the rcode
+     * @param question
+     *            the question
+     * @return the byte[]
+     */
     byte[] buildErrorMessage(final Header header, final int rcode, final Record question) {
         final Message response = new Message();
         response.setHeader(header);
@@ -751,6 +1100,13 @@ public class DNSServer {
         return response.toWire();
     }
 
+    /**
+     * Formerr message.
+     *
+     * @param in
+     *            the in
+     * @return the byte[]
+     */
     public byte[] formerrMessage(final byte[] in) {
         try {
             return buildErrorMessage(new Header(in), Rcode.FORMERR, null);
@@ -760,6 +1116,15 @@ public class DNSServer {
         }
     }
 
+    /**
+     * Error message.
+     *
+     * @param query
+     *            the query
+     * @param rcode
+     *            the rcode
+     * @return the byte[]
+     */
     public byte[] errorMessage(final Message query, final int rcode) {
         return buildErrorMessage(query.getHeader(), rcode, query.getQuestion());
     }
