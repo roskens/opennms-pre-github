@@ -153,7 +153,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         return trackers;
     }
 
-    static private class CombinedColumnResponseProcessor implements ResponseProcessor {
+    private static class CombinedColumnResponseProcessor implements ResponseProcessor {
         private final List<ResponseProcessor> m_processors;
 
         private int m_currentIndex = 0;

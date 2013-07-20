@@ -51,7 +51,7 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class XmlRpcTest {
 
-    static private WebServer m_webServer;
+    private static WebServer m_webServer;
 
     private Provisioner m_provisioner;
 

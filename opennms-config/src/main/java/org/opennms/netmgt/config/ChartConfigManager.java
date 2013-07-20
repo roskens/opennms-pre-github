@@ -64,7 +64,7 @@ public abstract class ChartConfigManager {
      * @throws java.io.IOException
      *             if any.
      */
-    public synchronized static void parseXml(InputStream stream) throws MarshalException, ValidationException,
+    public static synchronized void parseXml(InputStream stream) throws MarshalException, ValidationException,
             IOException {
         m_configuration = CastorUtils.unmarshal(ChartConfiguration.class, stream);
     }

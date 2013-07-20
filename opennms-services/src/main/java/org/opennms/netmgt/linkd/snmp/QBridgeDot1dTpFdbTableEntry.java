@@ -54,16 +54,16 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
     //
 
     /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code> */
-    public final static String FDB_ADDRESS = "dot1dTpFdbAddress";
+    public static final String FDB_ADDRESS = "dot1dTpFdbAddress";
 
     /** Constant <code>FDB_ADDRESS_OID=".1.3.6.1.2.1.17.7.1.2.2.1.1"</code> */
-    public final static String FDB_ADDRESS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.1";
+    public static final String FDB_ADDRESS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.1";
 
     /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code> */
-    public final static String FDB_PORT = "dot1dTpFdbPort";
+    public static final String FDB_PORT = "dot1dTpFdbPort";
 
     /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code> */
-    public final static String FDB_STATUS = "dot1dTpFdbStatus";
+    public static final String FDB_STATUS = "dot1dTpFdbStatus";
 
     private boolean hasFdbAddressFromBase = false;
 

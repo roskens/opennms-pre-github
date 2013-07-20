@@ -93,13 +93,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class TcaCollectorTest implements InitializingBean {
 
     /** The Constant TEST_NODE_IP. */
-    public final static String TEST_NODE_IP = "127.0.0.1";
+    public static final String TEST_NODE_IP = "127.0.0.1";
 
     /** The Constant TEST_NODE_LABEL. */
-    public final static String TEST_NODE_LABEL = "TestNode";
+    public static final String TEST_NODE_LABEL = "TestNode";
 
     /** The Constant TEST_SNMP_DIR. */
-    public final static String TEST_SNMP_DIR = "target/snmp";
+    public static final String TEST_SNMP_DIR = "target/snmp";
 
     /** The collection agent. */
     private CollectionAgent m_collectionAgent;

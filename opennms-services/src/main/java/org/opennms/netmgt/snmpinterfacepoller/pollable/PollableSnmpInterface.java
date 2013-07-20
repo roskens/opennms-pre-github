@@ -71,11 +71,11 @@ public class PollableSnmpInterface implements ReadyRunnable {
 
     public class SnmpMinimalPollInterface {
 
-        final static int IF_UP = 1;
+        static final int IF_UP = 1;
 
-        final static int IF_DOWN = 2;
+        static final int IF_DOWN = 2;
 
-        final static int IF_UNKNOWN = 0;
+        static final int IF_UNKNOWN = 0;
 
         private final String[] s_statusNames = { "Unknown", "InterfaceUp", "InterfaceDown" };
 

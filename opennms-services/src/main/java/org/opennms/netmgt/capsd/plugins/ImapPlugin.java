@@ -60,12 +60,12 @@ public final class ImapPlugin extends AbstractTcpPlugin {
     /**
      * Default number of retries for IMAP requests
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for IMAP requests
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * The BYE response received from the server in response to the logout

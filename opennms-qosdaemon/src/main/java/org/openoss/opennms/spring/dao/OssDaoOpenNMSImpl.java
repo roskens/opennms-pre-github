@@ -222,7 +222,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * </p>
      */
     @Override
-    synchronized public void init() {
+    public synchronized void init() {
         if (initialised)
             return;
 
@@ -480,7 +480,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      *             if any.
      */
     @Override
-    synchronized public void updateAlarmCache() throws IllegalStateException {
+    public synchronized void updateAlarmCache() throws IllegalStateException {
         localUpdateAlarmCache();
     }
 
@@ -498,7 +498,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      *             if any.
      */
     @Override
-    synchronized public void updateAlarmCacheAndSendAlarms() throws IllegalStateException {
+    public synchronized void updateAlarmCacheAndSendAlarms() throws IllegalStateException {
         localUpdateAlarmCache();
         sendAlarms();
     }

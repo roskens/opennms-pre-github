@@ -21,7 +21,7 @@ package org.opennms.container.web.felix.base.internal.logger;
 import org.osgi.service.log.LogService;
 
 public final class SystemLogger {
-    private final static LogService NOP = new NopLogger();
+    private static final LogService NOP = new NopLogger();
 
     private static LogService LOGGER;
 

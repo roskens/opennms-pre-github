@@ -51,7 +51,7 @@ public class JoeSnmpWalker extends SnmpWalker {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpWalker.class);
 
-    public static abstract class JoeSnmpPduBuilder extends WalkerPduBuilder {
+    public abstract static class JoeSnmpPduBuilder extends WalkerPduBuilder {
         public JoeSnmpPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }

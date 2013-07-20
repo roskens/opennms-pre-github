@@ -65,7 +65,7 @@ public final class SnmpTrapSession extends Object {
      *
      * @see SnmpTrapHandler#snmpTrapSessionError
      */
-    public final static int ERROR_EXCEPTION = -1;
+    public static final int ERROR_EXCEPTION = -1;
 
     /**
      * <P>
@@ -76,13 +76,13 @@ public final class SnmpTrapSession extends Object {
      *
      * @see SnmpTrapHandler#snmpTrapSessionError
      */
-    public final static int ERROR_INVALID_PDU = -2;
+    public static final int ERROR_INVALID_PDU = -2;
 
     /**
      * This is the default port where traps should be sent and received as
      * defined by the RFC.
      */
-    public final static int DEFAULT_PORT = 162;
+    public static final int DEFAULT_PORT = 162;
 
     /**
      * The default SNMP trap callback handler. If this is not set and it is

@@ -34,7 +34,7 @@ public class InstanceTrackerTest extends TestCase {
 
     private SnmpObjId m_sysNameOid = SnmpObjId.get(".1.3.6.1.2.1.1.5");
 
-    static private class MyColumnTracker extends ColumnTracker {
+    private static class MyColumnTracker extends ColumnTracker {
 
         private boolean m_expectsStorageCall;
 

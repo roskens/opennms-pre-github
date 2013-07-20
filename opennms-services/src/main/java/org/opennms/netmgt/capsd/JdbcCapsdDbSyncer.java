@@ -80,11 +80,11 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
         /**
          * Represents NULL value for 'ifIndex' field in the ipInterface table
          */
-        protected final static int NULL_IFINDEX = -1;
+        protected static final int NULL_IFINDEX = -1;
 
-        protected final static int NULL_IFTYPE = -1;
+        protected static final int NULL_IFTYPE = -1;
 
-        protected final static int LOOPBACK_IFTYPE = 24;
+        protected static final int LOOPBACK_IFTYPE = 24;
 
         private int m_nodeId;
 

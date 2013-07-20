@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:r.trommer@open-factory.org">Ronny Trommer</A>
  */
 @Distributable(DistributionContext.DAEMON)
-final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
+public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
 
     public static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisMonitor.class);
 

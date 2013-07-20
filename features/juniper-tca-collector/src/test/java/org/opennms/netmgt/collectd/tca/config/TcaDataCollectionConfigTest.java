@@ -81,7 +81,7 @@ public class TcaDataCollectionConfigTest {
     /**
      * The Class TestOutputResolver.
      */
-    static private class TestOutputResolver extends SchemaOutputResolver {
+    private static class TestOutputResolver extends SchemaOutputResolver {
 
         /** The schema file. */
         private final File m_schemaFile;

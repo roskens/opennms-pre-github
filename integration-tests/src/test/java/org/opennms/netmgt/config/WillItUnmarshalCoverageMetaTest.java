@@ -110,7 +110,7 @@ public class WillItUnmarshalCoverageMetaTest {
     /**
      * The set of files covered by the {@link WillItUnmarshalTest}.
      */
-    final static Set<File> COVERED_FILES = new HashSet<File>();
+    static final Set<File> COVERED_FILES = new HashSet<File>();
 
     @BeforeClass
     public static void setUpClass() throws Exception {

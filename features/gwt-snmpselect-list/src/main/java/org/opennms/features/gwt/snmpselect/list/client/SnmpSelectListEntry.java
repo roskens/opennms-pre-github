@@ -78,7 +78,7 @@ public class SnmpSelectListEntry implements EntryPoint {
         }
     }
 
-    public native static JsArray<SnmpCellListItem> getTestDataList()/*-{
+    public static native JsArray<SnmpCellListItem> getTestDataList()/*-{
                                                                     return $wnd.testData.snmpInterface;
                                                                     }-*/;
 

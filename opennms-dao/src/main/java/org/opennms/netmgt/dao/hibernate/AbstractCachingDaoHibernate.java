@@ -80,7 +80,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
      *            a T object.
      * @return a CacheKey object.
      */
-    abstract protected CacheKey getKey(T t);
+    protected abstract CacheKey getKey(T t);
 
     /** {@inheritDoc} */
     @Override

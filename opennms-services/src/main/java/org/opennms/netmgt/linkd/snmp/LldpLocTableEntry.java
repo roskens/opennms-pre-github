@@ -36,17 +36,17 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 
 public class LldpLocTableEntry extends SnmpStore {
 
-    public final static String LLDP_LOC_PORTNUM_ALIAS = "lldpLocPortNum";
+    public static final String LLDP_LOC_PORTNUM_ALIAS = "lldpLocPortNum";
 
-    public final static String LLDP_LOC_PORTID_SUBTYPE_ALIAS = "lldpLocPortIdSubtype";
+    public static final String LLDP_LOC_PORTID_SUBTYPE_ALIAS = "lldpLocPortIdSubtype";
 
-    public final static String LLDP_LOC_PORTID_ALIAS = "lldpLocPortId";
+    public static final String LLDP_LOC_PORTID_ALIAS = "lldpLocPortId";
 
-    public final static String LLDP_LOC_PORTNUM_OID = ".1.0.8802.1.1.2.1.3.7.1.1";
+    public static final String LLDP_LOC_PORTNUM_OID = ".1.0.8802.1.1.2.1.3.7.1.1";
 
-    public final static String LLDP_LOC_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.7.1.2";
+    public static final String LLDP_LOC_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.7.1.2";
 
-    public final static String LLDP_LOC_PORTID_OID = ".1.0.8802.1.1.2.1.3.7.1.3";
+    public static final String LLDP_LOC_PORTID_OID = ".1.0.8802.1.1.2.1.3.7.1.3";
 
     public static final NamedSnmpVar[] lldploctable_elemList = new NamedSnmpVar[] {
 

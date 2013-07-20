@@ -284,7 +284,7 @@ public class VElement extends DbElement {
      * @throws org.opennms.web.map.view.VElementNotChildException
      *             if any.
      */
-    final public int getContainerMap() throws VElementNotChildException {
+    public final int getContainerMap() throws VElementNotChildException {
         if (isChild == true)
             return getMapId();
         throw new VElementNotChildException();

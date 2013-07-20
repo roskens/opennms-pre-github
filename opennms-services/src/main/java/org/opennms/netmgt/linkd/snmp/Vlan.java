@@ -47,13 +47,13 @@ public abstract class Vlan extends SnmpStore {
 
     private Integer vlanIndex = null;
 
-    public final static String VLAN_INDEX = "vlanIndex";
+    public static final String VLAN_INDEX = "vlanIndex";
 
-    public final static String VLAN_NAME = "vlanName";
+    public static final String VLAN_NAME = "vlanName";
 
-    public final static String VLAN_STATUS = "vlanStatus";
+    public static final String VLAN_STATUS = "vlanStatus";
 
-    public final static String VLAN_TYPE = "vlanType";
+    public static final String VLAN_TYPE = "vlanType";
 
     public Vlan(NamedSnmpVar[] list) {
         super(list);
@@ -69,7 +69,7 @@ public abstract class Vlan extends SnmpStore {
         super.storeResult(res);
     }
 
-    abstract protected boolean hasVlanIndexOid();
+    protected abstract boolean hasVlanIndexOid();
 
     public Integer getVlanIndex() {
         if (hasVlanIndex)

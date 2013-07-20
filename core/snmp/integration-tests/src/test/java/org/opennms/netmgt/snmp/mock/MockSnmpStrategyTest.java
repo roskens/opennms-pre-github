@@ -241,7 +241,7 @@ public class MockSnmpStrategyTest {
         walker.waitFor();
     }
 
-    static private class CountingColumnTracker extends ColumnTracker {
+    private static class CountingColumnTracker extends ColumnTracker {
         private long m_count = 0;
 
         public CountingColumnTracker(final SnmpObjId base) {

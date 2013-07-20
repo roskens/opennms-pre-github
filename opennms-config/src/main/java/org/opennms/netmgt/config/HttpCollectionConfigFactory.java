@@ -223,7 +223,7 @@ public class HttpCollectionConfigFactory {
      *         {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig}
      *         object.
      */
-    public synchronized static HttpDatacollectionConfig getConfig() {
+    public static synchronized HttpDatacollectionConfig getConfig() {
         return m_config;
     }
 
@@ -237,7 +237,7 @@ public class HttpCollectionConfigFactory {
      *            {@link org.opennms.netmgt.config.httpdatacollection.HttpDatacollectionConfig}
      *            object.
      */
-    public synchronized static void setConfig(HttpDatacollectionConfig m_config) {
+    public static synchronized void setConfig(HttpDatacollectionConfig m_config) {
         HttpCollectionConfigFactory.m_config = m_config;
     }
 

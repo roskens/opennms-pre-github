@@ -46,7 +46,7 @@ import org.opennms.netmgt.icmp.Pinger;
  */
 public class Jni6PingTest extends TestCase {
 
-    static private Jni6Pinger s_jniPinger = new Jni6Pinger();
+    private static Jni6Pinger s_jniPinger = new Jni6Pinger();
 
     private InetAddress m_goodHost = null;
 

@@ -64,7 +64,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
     /**
      * Log4j category
      */
-    private final static String NAME = "threshd";
+    private static final String NAME = "threshd";
 
     /**
      * <p>

@@ -9,12 +9,12 @@ public interface VlanTable {
     /**
      * The VLAN string to define default VLAN name
      */
-    public final static String DEFAULT_VLAN_NAME = "default";
+    public static final String DEFAULT_VLAN_NAME = "default";
 
     /**
      * The VLAN int to define default VLAN index
      */
-    public final static int DEFAULT_VLAN_INDEX = 1;
+    public static final int DEFAULT_VLAN_INDEX = 1;
 
     /**
      * The VLAN int to define default VLAN status, 1 means operational/active

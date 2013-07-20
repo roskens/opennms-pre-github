@@ -183,5 +183,5 @@ public class Constants {
     public static String AUTHORITIES_ITEMS = "authItems";
 
     /** Constant <code>ALGORITHM_SHA="SHA-1"</code> */
-    public final static String ALGORITHM_SHA = "SHA-1";
+    public static final String ALGORITHM_SHA = "SHA-1";
 }

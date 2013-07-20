@@ -60,24 +60,24 @@ public final class DhcpPlugin extends AbstractPlugin {
      * The port where the DHCP server is detected. This is a well known port and
      * this integer is always returned in the qualifier map.
      */
-    private final static Integer PORT_NUMBER = 67;
+    private static final Integer PORT_NUMBER = 67;
 
     /**
      * <P>
      * The protocol name of the plugin.
      * </P>
      */
-    private final static String PROTOCOL_NAME = "DHCP";
+    private static final String PROTOCOL_NAME = "DHCP";
 
     /**
      * Default number of retries for DHCP requests
      */
-    private final static int DEFAULT_RETRY = 3;
+    private static final int DEFAULT_RETRY = 3;
 
     /**
      * Default timeout (in milliseconds) for DHCP requests
      */
-    private final static int DEFAULT_TIMEOUT = 3000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
      * This method is used to test a passed address for DHCP server support. If

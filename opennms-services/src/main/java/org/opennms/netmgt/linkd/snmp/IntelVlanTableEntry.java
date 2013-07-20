@@ -50,14 +50,14 @@ public final class IntelVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
     /** Constant <code>VLAN_CREATEOBJ="policyVlanCreateObj"</code> */
-    public final static String VLAN_CREATEOBJ = "policyVlanCreateObj";
+    public static final String VLAN_CREATEOBJ = "policyVlanCreateObj";
 
     /** Constant <code>VLAN_DELETEOBJ="policyVlanDeleteObj"</code> */
-    public final static String VLAN_DELETEOBJ = "policyVlanDeleteObj";
+    public static final String VLAN_DELETEOBJ = "policyVlanDeleteObj";
 
-    private final static String VLAN_INDEX_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.1";
+    private static final String VLAN_INDEX_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.1";
 
-    private final static String VLAN_NAME_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.2";
+    private static final String VLAN_NAME_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.2";
 
     /**
      * <P>

@@ -52,19 +52,19 @@ public final class Dot1qStaticVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
     /** Constant <code>VLAN_STATICEGRESSPORTS="dot1qVlanStaticEgressPorts"</code> */
-    public final static String VLAN_STATICEGRESSPORTS = "dot1qVlanStaticEgressPorts";
+    public static final String VLAN_STATICEGRESSPORTS = "dot1qVlanStaticEgressPorts";
 
     /**
      * Constant
      * <code>VLAN_FORBIDDENEGRESSPORTS="dot1qVlanStaticForbiddenEgressPorts"</code>
      */
-    public final static String VLAN_FORBIDDENEGRESSPORTS = "dot1qVlanStaticForbiddenEgressPorts";
+    public static final String VLAN_FORBIDDENEGRESSPORTS = "dot1qVlanStaticForbiddenEgressPorts";
 
     /**
      * Constant
      * <code>VLAN_STATICUNTAGGEDPORTS="dot1qVlanStaticUntaggedPorts"</code>
      */
-    public final static String VLAN_STATICUNTAGGEDPORTS = "dot1qVlanStaticUntaggedPorts";
+    public static final String VLAN_STATICUNTAGGEDPORTS = "dot1qVlanStaticUntaggedPorts";
 
     private static String VLAN_NAME_OID = ".1.3.6.1.2.1.17.7.1.4.3.1.1";
 

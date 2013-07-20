@@ -79,12 +79,12 @@ public class LdapPlugin extends AbstractPlugin {
     /**
      * Default number of retries for HTTP requests.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for HTTP requests.
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * A class to add a timeout to the socket that the LDAP code uses to access

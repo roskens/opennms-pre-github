@@ -74,24 +74,24 @@ class InsSession extends InsAbstractSession {
 	private PrintStream streamToClient;
 
 	// Client requests
-	private final static String START_AUTHENTICATION_REQUEST = "AUTH";
+	private static final String START_AUTHENTICATION_REQUEST = "AUTH";
 
-	private final static String LIST_CURRENT_ALARM_REQUEST = "LIST_CURRENT_ALARM_REQUEST";
+	private static final String LIST_CURRENT_ALARM_REQUEST = "LIST_CURRENT_ALARM_REQUEST";
 
-	private final static String STOP_ALARM_REQUEST = "STOP_ALARM";
+	private static final String STOP_ALARM_REQUEST = "STOP_ALARM";
 
 	// Server answers
-	private final static String AUTH_REQUIRED_ACK = "AUTH_REQUIRED";
+	private static final String AUTH_REQUIRED_ACK = "AUTH_REQUIRED";
 
-	private final static String AUTH_NOT_REQUIRED_ACK = "AUTH_NOT_REQUIRED";
+	private static final String AUTH_NOT_REQUIRED_ACK = "AUTH_NOT_REQUIRED";
 
-	private final static String AUTHENTICATION_SUCCESS = "AUTH-SUCCESS";
+	private static final String AUTHENTICATION_SUCCESS = "AUTH-SUCCESS";
 
-	private final static String RESET_SIGNAL = "RESET";
+	private static final String RESET_SIGNAL = "RESET";
 
-	private final static String ACTIVE_ALARM_BEGIN = "ACTIVE_ALARM_BEGIN";
+	private static final String ACTIVE_ALARM_BEGIN = "ACTIVE_ALARM_BEGIN";
 
-	private final static String ACTIVE_ALARM_END = "ACTIVE_ALARM_END";
+	private static final String ACTIVE_ALARM_END = "ACTIVE_ALARM_END";
 
 	// session statuses
 	private final int STARTING_SESSION_STATUS = 0;
@@ -417,9 +417,9 @@ class InsSession extends InsAbstractSession {
         return m_events;
     }
 
-    final static char MULTIPLE_VAL_DELIM = ';';
-    final static char NAME_VAL_DELIM = '=';
-    final static char DB_ATTRIB_DELIM = ',';
+    static final char MULTIPLE_VAL_DELIM = ';';
+    static final char NAME_VAL_DELIM = '=';
+    static final char DB_ATTRIB_DELIM = ',';
 
 
 }

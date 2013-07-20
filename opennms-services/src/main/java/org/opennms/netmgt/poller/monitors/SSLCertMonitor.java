@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  */
 @Distributable
-final public class SSLCertMonitor extends AbstractServiceMonitor {
+public final class SSLCertMonitor extends AbstractServiceMonitor {
 
     public static final Logger LOG = LoggerFactory.getLogger(SSLCertMonitor.class);
 

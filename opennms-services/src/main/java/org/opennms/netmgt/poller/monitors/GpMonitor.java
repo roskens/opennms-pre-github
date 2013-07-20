@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 // this is marked not distributable because it relieds on the dhcpd deamon of
 // opennms
 @Distributable(DistributionContext.DAEMON)
-final public class GpMonitor extends AbstractServiceMonitor {
+public final class GpMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(GpMonitor.class);
 
     /**

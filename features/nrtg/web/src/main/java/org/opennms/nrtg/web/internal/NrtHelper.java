@@ -34,7 +34,7 @@ import org.opennms.netmgt.model.PrefabGraph;
  */
 public class NrtHelper {
 
-    public final static List<String> RRD_KEYWORDS = Arrays.asList("--", "DEF", "CDEF", "LINE", "GPRINT");
+    public static final List<String> RRD_KEYWORDS = Arrays.asList("--", "DEF", "CDEF", "LINE", "GPRINT");
 
     public String cleanUpRrdGraphStringForWebUi(final PrefabGraph prefabGraph,
             final Map<String, String> externalPropertyAttributes, final Map<String, String> stringPropertyAttributes) {

@@ -64,19 +64,19 @@ public class RemedyTicketerPlugin implements Plugin {
 
     private String m_createportname;
 
-    private final static String ACTION_CREATE = "CREATE";
+    private static final String ACTION_CREATE = "CREATE";
 
-    private final static String ACTION_MODIFY = "MODIFY";
+    private static final String ACTION_MODIFY = "MODIFY";
 
-    public final static String ATTRIBUTE_NODE_LABEL_ID = "nodelabel";
+    public static final String ATTRIBUTE_NODE_LABEL_ID = "nodelabel";
 
-    private final static String ATTRIBUTE_USER_COMMENT_ID = "remedy.user.comment";
+    private static final String ATTRIBUTE_USER_COMMENT_ID = "remedy.user.comment";
 
-    private final static String ATTRIBUTE_URGENCY_ID = "remedy.urgency";
+    private static final String ATTRIBUTE_URGENCY_ID = "remedy.urgency";
 
-    private final static String ATTRIBUTE_ASSIGNED_GROUP_ID = "remedy.assignedgroup";
+    private static final String ATTRIBUTE_ASSIGNED_GROUP_ID = "remedy.assignedgroup";
 
-    private final static int MAX_SUMMARY_CHARS = 99;
+    private static final int MAX_SUMMARY_CHARS = 99;
 
     // Remember:
     // Summary ---> alarm logmsg

@@ -59,22 +59,22 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
     /** Constant <code>BASE_PORT="dot1dBasePort"</code> */
-    public final static String BASE_PORT = "dot1dBasePort";
+    public static final String BASE_PORT = "dot1dBasePort";
 
     /** Constant <code>BASE_IFINDEX="dot1dBasePortIfIndex"</code> */
-    public final static String BASE_IFINDEX = "dot1dBasePortIfIndex";
+    public static final String BASE_IFINDEX = "dot1dBasePortIfIndex";
 
     /** Constant <code>BASE_PORT_CIRCUIT="dot1dBasePortCircuit"</code> */
-    public final static String BASE_PORT_CIRCUIT = "dot1dBasePortCircuit";
+    public static final String BASE_PORT_CIRCUIT = "dot1dBasePortCircuit";
 
     /**
      * Constant
      * <code>BASE_DELAY_EX_DIS="dot1dBasePortDelayExceededDiscards"</code>
      */
-    public final static String BASE_DELAY_EX_DIS = "dot1dBasePortDelayExceededDiscards";
+    public static final String BASE_DELAY_EX_DIS = "dot1dBasePortDelayExceededDiscards";
 
     /** Constant <code>BASE_MTU_EX_DIS="dot1dBasePortMtuExceededDiscards"</code> */
-    public final static String BASE_MTU_EX_DIS = "dot1dBasePortMtuExceededDiscards";
+    public static final String BASE_MTU_EX_DIS = "dot1dBasePortMtuExceededDiscards";
 
     /**
      * <P>

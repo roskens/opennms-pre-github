@@ -130,7 +130,7 @@ public class WallboardProvider {
      * @return true, if a {@link Wallboard} with the given title exists, false
      *         otherwise
      */
-    synchronized public boolean containsWallboard(String title) {
+    public synchronized boolean containsWallboard(String title) {
         for (Wallboard wallboard : m_wallboards.getWallboards()) {
             if (wallboard.getTitle().equals(title)) {
                 return true;
@@ -147,7 +147,7 @@ public class WallboardProvider {
      *            the title to search for
      * @return the {@link Wallboard} instance if found, null otherwise
      */
-    synchronized public Wallboard getWallboard(String title) {
+    public synchronized Wallboard getWallboard(String title) {
         for (Wallboard wallboard : m_wallboards.getWallboards()) {
             if (wallboard.getTitle().equals(title)) {
                 return wallboard;
@@ -164,7 +164,7 @@ public class WallboardProvider {
      *            the {@link Wallboard} instance to search for
      * @return true, if the {@link Wallboard} exists, false otherwise
      */
-    synchronized public boolean containsWallboard(Wallboard wallboard) {
+    public synchronized boolean containsWallboard(Wallboard wallboard) {
         return m_wallboards.getWallboards().contains(wallboard);
     }
 
@@ -174,7 +174,7 @@ public class WallboardProvider {
      * @param wallboard
      *            the {@link Wallboard} instance to be added
      */
-    synchronized public void addWallboard(Wallboard wallboard) {
+    public synchronized void addWallboard(Wallboard wallboard) {
         if (m_wallboards == null) {
             load();
         }
@@ -189,7 +189,7 @@ public class WallboardProvider {
      * @param wallboard
      *            the {@link Wallboard} instance to be removed
      */
-    synchronized public void removeWallboard(Wallboard wallboard) {
+    public synchronized void removeWallboard(Wallboard wallboard) {
         if (m_wallboards == null) {
             load();
         }

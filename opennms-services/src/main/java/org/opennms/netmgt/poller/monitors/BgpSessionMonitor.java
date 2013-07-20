@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 @Distributable(DistributionContext.DAEMON)
-final public class BgpSessionMonitor extends SnmpMonitorStrategy {
+public final class BgpSessionMonitor extends SnmpMonitorStrategy {
 
     public static final Logger LOG = LoggerFactory.getLogger(BgpSessionMonitor.class);
 

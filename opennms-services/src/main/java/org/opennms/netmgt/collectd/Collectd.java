@@ -121,7 +121,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
     /**
      * Log4j category
      */
-    final static String LOG4J_CATEGORY = "collectd";
+    static final String LOG4J_CATEGORY = "collectd";
 
     /**
      * Instantiated service collectors specified in config file

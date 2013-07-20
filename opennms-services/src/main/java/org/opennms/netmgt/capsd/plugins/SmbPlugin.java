@@ -56,7 +56,7 @@ public final class SmbPlugin extends AbstractPlugin {
     /**
      * The protocol that this plugin checks for.
      */
-    private final static String PROTOCOL_NAME = "SMB";
+    private static final String PROTOCOL_NAME = "SMB";
 
     /**
      * Test to see if the passed host talks SMB &amp; has a NetBIOS name.

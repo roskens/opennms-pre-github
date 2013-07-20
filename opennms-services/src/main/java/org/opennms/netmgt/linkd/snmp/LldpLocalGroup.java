@@ -38,17 +38,17 @@ import org.slf4j.LoggerFactory;
 public final class LldpLocalGroup extends AggregateTracker {
     private static final Logger LOG = LoggerFactory.getLogger(LldpLocalGroup.class);
 
-    public final static String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
+    public static final String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
 
-    public final static String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
+    public static final String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
 
-    public final static String LLDP_LOC_CHASSISID_ALIAS = "lldpLocChassisId";
+    public static final String LLDP_LOC_CHASSISID_ALIAS = "lldpLocChassisId";
 
-    public final static String LLDP_LOC_CHASSISID_OID = ".1.0.8802.1.1.2.1.3.2";
+    public static final String LLDP_LOC_CHASSISID_OID = ".1.0.8802.1.1.2.1.3.2";
 
-    public final static String LLDP_LOC_SYSNAME_ALIAS = "lldpLocSysName";
+    public static final String LLDP_LOC_SYSNAME_ALIAS = "lldpLocSysName";
 
-    public final static String LLDP_LOC_SYSNAME_OID = ".1.0.8802.1.1.2.1.3.3";
+    public static final String LLDP_LOC_SYSNAME_OID = ".1.0.8802.1.1.2.1.3.3";
 
     public static NamedSnmpVar[] ms_elemList = null;
 

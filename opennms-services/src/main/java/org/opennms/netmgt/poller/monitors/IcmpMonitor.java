@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @Distributable
-final public class IcmpMonitor extends AbstractServiceMonitor {
+public final class IcmpMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(IcmpMonitor.class);
 
     /**

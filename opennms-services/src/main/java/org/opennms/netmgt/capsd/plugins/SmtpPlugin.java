@@ -88,12 +88,12 @@ public final class SmtpPlugin extends AbstractPlugin {
     /**
      * Default number of retries for SMTP requests.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for SMTP requests.
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * The name of the local host.

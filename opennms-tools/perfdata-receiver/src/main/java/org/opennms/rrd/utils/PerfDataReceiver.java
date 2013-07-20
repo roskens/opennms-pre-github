@@ -38,7 +38,7 @@ import org.opennms.netmgt.rrd.tcp.PerformanceDataProtos;
 
 public class PerfDataReceiver {
 
-	private volatile static Thread m_listenerThread;
+	private static volatile Thread m_listenerThread;
 
 	public static void main(String[] args) {
 		Thread listener = null;

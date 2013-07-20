@@ -81,7 +81,7 @@ public class Syslogd extends AbstractServiceDaemon {
      *
      * @return a {@link org.opennms.netmgt.syslogd.Syslogd} object.
      */
-    public synchronized static Syslogd getSingleton() {
+    public static synchronized Syslogd getSingleton() {
         return m_singleton;
     }
 

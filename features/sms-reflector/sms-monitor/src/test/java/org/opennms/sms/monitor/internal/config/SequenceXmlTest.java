@@ -82,7 +82,7 @@ public class SequenceXmlTest {
 
     private Unmarshaller m_unmarshaller;
 
-    static private class TestOutputResolver extends SchemaOutputResolver {
+    private static class TestOutputResolver extends SchemaOutputResolver {
         private final File m_schemaFile;
 
         public TestOutputResolver(File schemaFile) {

@@ -138,7 +138,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      *            a T object.
      * @return a boolean.
      */
-    abstract protected boolean matches(T item);
+    protected abstract boolean matches(T item);
 
     /**
      * <p>

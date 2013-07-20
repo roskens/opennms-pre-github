@@ -236,7 +236,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
      * initialised
      */
     @Override
-    synchronized public void init() {
+    public synchronized void init() {
         if (initialised)
             return;
         try {

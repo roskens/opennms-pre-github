@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class MimeTypes {
-    private final static MimeTypes INSTANCE = new MimeTypes();
+    private static final MimeTypes INSTANCE = new MimeTypes();
 
     private final Map<String, String> extMap;
 

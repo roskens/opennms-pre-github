@@ -64,7 +64,7 @@ public class SnmpUtilsTest extends MockSnmpAgentTestCase implements TrapProcesso
 
     private TestTrapListener m_trapListener;
 
-    static private final class TestTrapProcessor implements TrapProcessor {
+    private static final class TestTrapProcessor implements TrapProcessor {
         @Override
         public void setCommunity(String community) {
             // TODO Auto-generated method stub

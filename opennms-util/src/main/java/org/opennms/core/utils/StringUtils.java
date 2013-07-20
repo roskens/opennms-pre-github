@@ -46,9 +46,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 public abstract class StringUtils {
-    final static boolean s_headless = Boolean.getBoolean("java.awt.headless");
+    static final boolean s_headless = Boolean.getBoolean("java.awt.headless");
 
-    final static Pattern s_windowsDrive = Pattern.compile("^[A-Za-z]\\:\\\\");
+    static final Pattern s_windowsDrive = Pattern.compile("^[A-Za-z]\\:\\\\");
 
     /**
      * Convenience method for creating arrays of strings suitable for use as

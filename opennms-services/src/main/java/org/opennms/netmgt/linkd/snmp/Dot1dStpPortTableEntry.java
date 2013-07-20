@@ -55,49 +55,49 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
     //
 
     /** Constant <code>STP_PORT="dot1dStpPort"</code> */
-    public final static String STP_PORT = "dot1dStpPort";
+    public static final String STP_PORT = "dot1dStpPort";
 
     /** Constant <code>STP_PORT_PRIORITY="dot1dStpPortPriority"</code> */
-    public final static String STP_PORT_PRIORITY = "dot1dStpPortPriority";
+    public static final String STP_PORT_PRIORITY = "dot1dStpPortPriority";
 
     /** Constant <code>STP_PORT_STATE="dot1dStpPortState"</code> */
-    public final static String STP_PORT_STATE = "dot1dStpPortState";
+    public static final String STP_PORT_STATE = "dot1dStpPortState";
 
     /** Constant <code>STP_PORT_ENABLE="dot1dStpPortEnable"</code> */
-    public final static String STP_PORT_ENABLE = "dot1dStpPortEnable";
+    public static final String STP_PORT_ENABLE = "dot1dStpPortEnable";
 
     /** Constant <code>STP_PORT_PATH_COST="dot1dStpPortPathCost"</code> */
-    public final static String STP_PORT_PATH_COST = "dot1dStpPortPathCost";
+    public static final String STP_PORT_PATH_COST = "dot1dStpPortPathCost";
 
     /**
      * Constant
      * <code>STP_PORT_DESIGNATED_ROOT="dot1dStpPortDesignatedRoot"</code>
      */
-    public final static String STP_PORT_DESIGNATED_ROOT = "dot1dStpPortDesignatedRoot";
+    public static final String STP_PORT_DESIGNATED_ROOT = "dot1dStpPortDesignatedRoot";
 
     /**
      * Constant
      * <code>STP_PORT_DESIGNATED_COST="dot1dStpPortDesignatedCost"</code>
      */
-    public final static String STP_PORT_DESIGNATED_COST = "dot1dStpPortDesignatedCost";
+    public static final String STP_PORT_DESIGNATED_COST = "dot1dStpPortDesignatedCost";
 
     /**
      * Constant
      * <code>STP_PORT_DESIGNATED_BRIDGE="dot1dStpPortDesignatedBridge"</code>
      */
-    public final static String STP_PORT_DESIGNATED_BRIDGE = "dot1dStpPortDesignatedBridge";
+    public static final String STP_PORT_DESIGNATED_BRIDGE = "dot1dStpPortDesignatedBridge";
 
     /**
      * Constant
      * <code>STP_PORT_DESIGNATED_PORT="dot1dStpPortDesignatedPort"</code>
      */
-    public final static String STP_PORT_DESIGNATED_PORT = "dot1dStpPortDesignatedPort";
+    public static final String STP_PORT_DESIGNATED_PORT = "dot1dStpPortDesignatedPort";
 
     /**
      * Constant
      * <code>STP_PORT_FORW_TRANS="dot1dStpPortForwardTransitions"</code>
      */
-    public final static String STP_PORT_FORW_TRANS = "dot1dStpPortForwardTransitions";
+    public static final String STP_PORT_FORW_TRANS = "dot1dStpPortForwardTransitions";
 
     /**
      * <P>

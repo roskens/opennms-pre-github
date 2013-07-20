@@ -156,7 +156,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
      *
      * @return a {@link org.opennms.netmgt.provision.support.Client} object.
      */
-    abstract protected Client<Request, Response> getClient();
+    protected abstract Client<Request, Response> getClient();
 
     private boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
         return getConversation().attemptConversation(client);

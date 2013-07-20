@@ -44,7 +44,7 @@ import org.opennms.web.map.MapsConstants;
  * @version $Id: $
  * @since 1.8.1
  */
-final public class VLink {
+public final class VLink {
     private final String elem1Type;
 
     private final int elem1Id;

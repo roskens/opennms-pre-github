@@ -95,61 +95,61 @@ public final class RescanProcessor implements Runnable {
      * the specified nodeid. Used to determine if the node is active ('A') or
      * been marked as deleted ('D').
      */
-    final static String SQL_DB_RETRIEVE_NODE_TYPE = "SELECT nodetype FROM node WHERE nodeID=?";
+    static final String SQL_DB_RETRIEVE_NODE_TYPE = "SELECT nodetype FROM node WHERE nodeID=?";
 
     /**
      * SQL statement used to retrieve other nodeIds that have the same
      * ipinterface as the updating node.
      */
-    final static String SQL_DB_RETRIEVE_OTHER_NODES = "SELECT ipinterface.nodeid FROM ipinterface, node WHERE ipinterface.ismanaged != 'D' AND ipinterface.ipaddr = ? AND ipinterface.nodeid = node.nodeid AND node.foreignsource IS NULL AND ipinterface.nodeid !=? ";
+    static final String SQL_DB_RETRIEVE_OTHER_NODES = "SELECT ipinterface.nodeid FROM ipinterface, node WHERE ipinterface.ismanaged != 'D' AND ipinterface.ipaddr = ? AND ipinterface.nodeid = node.nodeid AND node.foreignsource IS NULL AND ipinterface.nodeid !=? ";
 
     /**
      * SQL statements used to reparent an interface and its associated services
      * under a new parent nodeid
      */
-    final static String SQL_DB_REPARENT_IP_INTERFACE_LOOKUP = "SELECT ipaddr, ifindex FROM ipinterface "
+    static final String SQL_DB_REPARENT_IP_INTERFACE_LOOKUP = "SELECT ipaddr, ifindex FROM ipinterface "
             + "WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
 
-    final static String SQL_DB_REPARENT_IP_INTERFACE_DELETE = "DELETE FROM ipinterface "
+    static final String SQL_DB_REPARENT_IP_INTERFACE_DELETE = "DELETE FROM ipinterface "
             + "WHERE nodeID=? AND ipaddr=?";
 
-    final static String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
+    static final String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
 
-    final static String SQL_DB_REPARENT_SNMP_IF_LOOKUP = "SELECT id FROM snmpinterface WHERE nodeID=? AND snmpifindex=?";
+    static final String SQL_DB_REPARENT_SNMP_IF_LOOKUP = "SELECT id FROM snmpinterface WHERE nodeID=? AND snmpifindex=?";
 
-    final static String SQL_DB_REPARENT_SNMP_IF_DELETE = "DELETE FROM snmpinterface "
+    static final String SQL_DB_REPARENT_SNMP_IF_DELETE = "DELETE FROM snmpinterface "
             + "WHERE nodeID=? AND snmpifindex=?";
 
-    final static String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=? AND snmpifindex=?";
+    static final String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=? AND snmpifindex=?";
 
-    final static String SQL_DB_REPARENT_IF_SERVICES_LOOKUP = "SELECT serviceid FROM ifservices "
+    static final String SQL_DB_REPARENT_IF_SERVICES_LOOKUP = "SELECT serviceid FROM ifservices "
             + "WHERE nodeID=? AND ipaddr=? AND ifindex = ? " + "AND status!='D'";
 
-    final static String SQL_DB_REPARENT_IF_SERVICES_DELETE = "DELETE FROM ifservices WHERE nodeID=? AND ipaddr=? ";
+    static final String SQL_DB_REPARENT_IF_SERVICES_DELETE = "DELETE FROM ifservices WHERE nodeID=? AND ipaddr=? ";
 
-    final static String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND ipaddr=? AND status!='D'";
+    static final String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND ipaddr=? AND status!='D'";
 
     /**
      * SQL statements used to clear up ipinterface table, ifservices table and
      * snmpinterface table when delete a duplicate node.
      */
-    final static String SQL_DB_DELETE_DUP_INTERFACE = "DELETE FROM ipinterface WHERE nodeID=?";
+    static final String SQL_DB_DELETE_DUP_INTERFACE = "DELETE FROM ipinterface WHERE nodeID=?";
 
-    final static String SQL_DB_DELETE_DUP_SERVICES = "DELETE FROM ifservices WHERE nodeid=?";
+    static final String SQL_DB_DELETE_DUP_SERVICES = "DELETE FROM ifservices WHERE nodeid=?";
 
-    final static String SQL_DB_DELETE_DUP_SNMPINTERFACE = "DELETE FROM snmpinterface WHERE nodeid =?";
+    static final String SQL_DB_DELETE_DUP_SNMPINTERFACE = "DELETE FROM snmpinterface WHERE nodeid =?";
 
     /**
      * SQL statement used to retrieve service IDs so that service name can be
      * determined from ID, and map of service names
      */
-    private final static String SQL_RETRIEVE_SERVICE_IDS = "SELECT serviceid,servicename  FROM service";
+    private static final String SQL_RETRIEVE_SERVICE_IDS = "SELECT serviceid,servicename  FROM service";
 
     /**
      * SQL statement used to update ipinterface.ismanaged
      * when rescan discovers new interface
      */
-    private final static String SQL_DB_UPDATE_ISMANAGED = "UPDATE ipinterface SET ismanaged=? WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
+    private static final String SQL_DB_UPDATE_ISMANAGED = "UPDATE ipinterface SET ismanaged=? WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
 
     /**
      * Indicates if the rescan is in response to a forceRescan event.

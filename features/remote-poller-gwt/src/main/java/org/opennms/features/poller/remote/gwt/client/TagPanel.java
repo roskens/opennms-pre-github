@@ -71,7 +71,7 @@ public class TagPanel extends Composite implements Collection<String> {
     private static final Binder BINDER = GWT.create(Binder.class);
 
     interface TagStyles extends CssResource {
-        public final static double COUNT = 10.0;
+        public static final double COUNT = 10.0;
 
         String selectedTag();
 

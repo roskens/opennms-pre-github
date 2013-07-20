@@ -70,7 +70,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 public class PropertiesGraphDaoTest {
     private static final Map<String, Resource> s_emptyMap = new HashMap<String, Resource>();
 
-    final static String s_prefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
+    static final String s_prefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
             + "reports=mib2.HCbits, mib2.bits, mib2.discards\n" + "\n" + "report.mib2.HCbits.name=Bits In/Out\n"
             + "report.mib2.HCbits.columns=ifHCInOctets,ifHCOutOctets\n" + "report.mib2.HCbits.type=interface\n"
             + "report.mib2.HCbits.externalValues=ifSpeed\n" + "report.mib2.HCbits.suppress=mib2.bits\n"
@@ -187,7 +187,7 @@ public class PropertiesGraphDaoTest {
      * Used to test that the rest of the reports load as expected
      * (Actual report details trimmed for space
      */
-    final static String s_partlyBorkedPrefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
+    static final String s_partlyBorkedPrefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
             + "reports=mib2.HCbits, mib2.bits, mib2.discards\n" + "\n" + "report.mib2.HCbits.name=Bits In/Out\n"
             + "report.mib2.HCbits.columns=ifHCInOctets,ifHCOutOctets\n" + "report.mib2.HCbits.type=interface\n"
             + "report.mib2.HCbits.externalValues=ifSpeed\n" + "report.mib2.HCbits.suppress=mib2.bits\n"

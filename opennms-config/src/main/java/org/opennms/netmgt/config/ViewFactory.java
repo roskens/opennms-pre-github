@@ -122,7 +122,7 @@ public class ViewFactory {
      *
      * @return the single view factory instance
      */
-    static synchronized public ViewFactory getInstance() {
+    public static synchronized ViewFactory getInstance() {
         if (!initialized)
             return null;
 

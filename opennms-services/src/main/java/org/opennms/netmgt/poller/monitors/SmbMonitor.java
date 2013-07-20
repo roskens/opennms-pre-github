@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
 
 // I this thise needs a jcifs.properties file so we can't distribute it now
 @Distributable(DistributionContext.DAEMON)
-final public class SmbMonitor extends AbstractServiceMonitor {
+public final class SmbMonitor extends AbstractServiceMonitor {
 
     public static final Logger LOG = LoggerFactory.getLogger(SmbMonitor.class);
 

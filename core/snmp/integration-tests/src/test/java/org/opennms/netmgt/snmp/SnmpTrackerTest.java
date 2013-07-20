@@ -112,7 +112,7 @@ public class SnmpTrackerTest implements InitializingBean {
         static final SnmpObjId ifSpecific = SnmpObjId.get(ifTable, "22");
     }
 
-    static private class CountingColumnTracker extends ColumnTracker {
+    private static class CountingColumnTracker extends ColumnTracker {
         private long m_count = 0;
 
         public CountingColumnTracker(final SnmpObjId base) {
@@ -135,7 +135,7 @@ public class SnmpTrackerTest implements InitializingBean {
 
     }
 
-    static private final class ResultTable {
+    private static final class ResultTable {
         private int m_rowsAdded = 0;
 
         private Map<SnmpInstId, SnmpRowResult> m_results = new HashMap<SnmpInstId, SnmpRowResult>();
@@ -175,7 +175,7 @@ public class SnmpTrackerTest implements InitializingBean {
 
     }
 
-    static private class TestRowCallback implements RowCallback {
+    private static class TestRowCallback implements RowCallback {
         private final List<SnmpRowResult> m_responses = new ArrayList<SnmpRowResult>();
 
         private final ResultTable m_results = new ResultTable();

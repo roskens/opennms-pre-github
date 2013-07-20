@@ -68,43 +68,43 @@ public final class DbIfServiceEntry {
     private static final Logger LOG = LoggerFactory.getLogger(DbIfServiceEntry.class);
 
     /** Constant <code>STATUS_UNMANAGED='U'</code> */
-    public final static char STATUS_UNMANAGED = 'U';
+    public static final char STATUS_UNMANAGED = 'U';
 
     /** Constant <code>STATUS_ACTIVE='A'</code> */
-    public final static char STATUS_ACTIVE = 'A';
+    public static final char STATUS_ACTIVE = 'A';
 
     /** Constant <code>STATUS_DELETED='D'</code> */
-    public final static char STATUS_DELETED = 'D';
+    public static final char STATUS_DELETED = 'D';
 
     /** Constant <code>STATUS_FORCED='F'</code> */
-    public final static char STATUS_FORCED = 'F';
+    public static final char STATUS_FORCED = 'F';
 
     /** Constant <code>STATUS_NOT_POLLED='N'</code> */
-    public final static char STATUS_NOT_POLLED = 'N';
+    public static final char STATUS_NOT_POLLED = 'N';
 
     /** Constant <code>STATUS_UNKNOWN=' '</code> */
-    public final static char STATUS_UNKNOWN = ' ';
+    public static final char STATUS_UNKNOWN = ' ';
 
     /** Constant <code>STATUS_SUSPEND='S'</code> */
-    public final static char STATUS_SUSPEND = 'S';
+    public static final char STATUS_SUSPEND = 'S';
 
     /** Constant <code>STATUS_RESUME='R'</code> */
-    public final static char STATUS_RESUME = 'R';
+    public static final char STATUS_RESUME = 'R';
 
     /** Constant <code>STATUS_REMOTE='X'</code> */
-    public final static char STATUS_REMOTE = 'X';
+    public static final char STATUS_REMOTE = 'X';
 
-    public final static char SOURCE_PLUGIN = 'P';
+    public static final char SOURCE_PLUGIN = 'P';
 
-    final static char SOURCE_FORCED = 'F';
+    static final char SOURCE_FORCED = 'F';
 
-    final static char SOURCE_UNKNOWN = ' ';
+    static final char SOURCE_UNKNOWN = ' ';
 
-    public final static char NOTIFY_ON = 'Y';
+    public static final char NOTIFY_ON = 'Y';
 
-    final static char NOTIFY_OFF = 'N';
+    static final char NOTIFY_OFF = 'N';
 
-    final static char NOTIFY_UNKNOWN = ' ';
+    static final char NOTIFY_UNKNOWN = ' ';
 
     /**
      * The SQL statement used to read a node from the database. This record is

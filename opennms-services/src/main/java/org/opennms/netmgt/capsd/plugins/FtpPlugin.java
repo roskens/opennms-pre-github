@@ -71,12 +71,12 @@ public final class FtpPlugin extends AbstractTcpPlugin {
     /**
      * Default number of retries for FTP requests.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for FTP requests.
      */
-    private final static int DEFAULT_TIMEOUT = 5000;
+    private static final int DEFAULT_TIMEOUT = 5000;
 
     /**
      * The capability name of the plugin.

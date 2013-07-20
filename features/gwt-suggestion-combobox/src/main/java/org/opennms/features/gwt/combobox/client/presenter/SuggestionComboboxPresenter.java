@@ -130,7 +130,7 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
         Location.assign(builder.toString());
     }
 
-    public native final String getBaseHref()/*-{
+    public final native String getBaseHref()/*-{
                                             try{
                                             return $wnd.getBaseHref();
                                             }catch(err){

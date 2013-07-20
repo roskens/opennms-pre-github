@@ -153,7 +153,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
 
     private TransactionTemplate m_template;
 
-    private volatile static ConcurrentMap<String, Integer> m_mapNameMapSizeListMap;
+    private static volatile ConcurrentMap<String, Integer> m_mapNameMapSizeListMap;
 
     private static final String MESSAGE_PREFIX = "Dynamic Map provisioning failed: ";
 

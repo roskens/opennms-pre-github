@@ -69,7 +69,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 @Distributable(DistributionContext.DAEMON)
-final public class OmsaStorageMonitor extends SnmpMonitorStrategy {
+public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
 
     public static final Logger LOG = LoggerFactory.getLogger(OmsaStorageMonitor.class);
 

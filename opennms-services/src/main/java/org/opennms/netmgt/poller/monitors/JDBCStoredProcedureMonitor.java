@@ -51,7 +51,7 @@ import org.opennms.netmgt.model.PollStatus;
  * @since 0.1
  * @version $Id: $
  */
-final public class JDBCStoredProcedureMonitor extends JDBCMonitor {
+public final class JDBCStoredProcedureMonitor extends JDBCMonitor {
     /**
      * Class constructor.
      *

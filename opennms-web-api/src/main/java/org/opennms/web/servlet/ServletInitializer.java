@@ -80,7 +80,7 @@ public class ServletInitializer extends Object {
      * @throws javax.servlet.ServletException
      *             if any.
      */
-    public synchronized static void init(ServletContext context) throws ServletException {
+    public static synchronized void init(ServletContext context) throws ServletException {
         if (context == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
@@ -196,7 +196,7 @@ public class ServletInitializer extends Object {
      * @throws javax.servlet.ServletException
      *             if any.
      */
-    public synchronized static void destroy(ServletContext context) throws ServletException {
+    public static synchronized void destroy(ServletContext context) throws ServletException {
     }
 
     /**

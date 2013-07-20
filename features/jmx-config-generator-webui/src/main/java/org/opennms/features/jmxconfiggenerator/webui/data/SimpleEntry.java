@@ -43,7 +43,7 @@ public class SimpleEntry<T> implements Entry<T, T> {
     /**
      * read only key
      */
-    final private T key;
+    private final T key;
 
     private T value;
 

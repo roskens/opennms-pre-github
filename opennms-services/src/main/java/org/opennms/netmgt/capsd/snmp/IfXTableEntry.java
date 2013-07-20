@@ -58,43 +58,43 @@ public final class IfXTableEntry extends SnmpStore {
     /**
      * Lookup strings for specific table entries
      */
-    public final static String IF_NAME = "ifName";
+    public static final String IF_NAME = "ifName";
 
     /** Constant <code>IF_IN_MCAST_PKTS="ifInMulticastPkts"</code> */
-    public final static String IF_IN_MCAST_PKTS = "ifInMulticastPkts";
+    public static final String IF_IN_MCAST_PKTS = "ifInMulticastPkts";
 
     /** Constant <code>IF_IN_BCAST_PKTS="ifInBroadcastPkts"</code> */
-    public final static String IF_IN_BCAST_PKTS = "ifInBroadcastPkts";
+    public static final String IF_IN_BCAST_PKTS = "ifInBroadcastPkts";
 
     /** Constant <code>IF_OUT_MCAST_PKTS="ifOutMulticastPkts"</code> */
-    public final static String IF_OUT_MCAST_PKTS = "ifOutMulticastPkts";
+    public static final String IF_OUT_MCAST_PKTS = "ifOutMulticastPkts";
 
     /** Constant <code>IF_OUT_BCAST_PKTS="ifOutBroadcastPkts"</code> */
-    public final static String IF_OUT_BCAST_PKTS = "ifOutBroadcastPkts";
+    public static final String IF_OUT_BCAST_PKTS = "ifOutBroadcastPkts";
 
     /**
      * Constant
      * <code>IF_LINK_UP_DOWN_TRAP_ENABLE="ifLinkUpDownTrapEnable"</code>
      */
-    public final static String IF_LINK_UP_DOWN_TRAP_ENABLE = "ifLinkUpDownTrapEnable";
+    public static final String IF_LINK_UP_DOWN_TRAP_ENABLE = "ifLinkUpDownTrapEnable";
 
     /** Constant <code>IF_HIGH_SPEED="ifHighSpeed"</code> */
-    public final static String IF_HIGH_SPEED = "ifHighSpeed";
+    public static final String IF_HIGH_SPEED = "ifHighSpeed";
 
     /** Constant <code>IF_PROMISCUOUS_MODE="ifPromiscuousMode"</code> */
-    public final static String IF_PROMISCUOUS_MODE = "ifPromiscuousMode";
+    public static final String IF_PROMISCUOUS_MODE = "ifPromiscuousMode";
 
     /** Constant <code>IF_CONNECTOR_PRESENT="ifConnectorPresent"</code> */
-    public final static String IF_CONNECTOR_PRESENT = "ifConnectorPresent";
+    public static final String IF_CONNECTOR_PRESENT = "ifConnectorPresent";
 
     /** Constant <code>IF_ALIAS="ifAlias"</code> */
-    public final static String IF_ALIAS = "ifAlias";
+    public static final String IF_ALIAS = "ifAlias";
 
     /**
      * Constant
      * <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code>
      */
-    public final static String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
+    public static final String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
 
     //
     // Special case: Lookup string for ifIndex
@@ -106,10 +106,10 @@ public final class IfXTableEntry extends SnmpStore {
     // as the ifIndex of the entry. This value will be stored
     // in the map along with the "ifIndex" lookup string as key.
     /** Constant <code>IF_INDEX="AbstractSnmpStore.IFINDEX"</code> */
-    public final static String IF_INDEX = AbstractSnmpStore.IFINDEX;
+    public static final String IF_INDEX = AbstractSnmpStore.IFINDEX;
 
     /** Constant <code>ms_elemList</code> */
-    public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
+    public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
             new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_NAME, ".1.3.6.1.2.1.31.1.1.1.1", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_MCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.2", 2),
             new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, IF_IN_BCAST_PKTS, ".1.3.6.1.2.1.31.1.1.1.3", 3),

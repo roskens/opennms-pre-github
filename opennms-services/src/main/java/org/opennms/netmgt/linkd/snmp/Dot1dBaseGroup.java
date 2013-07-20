@@ -59,13 +59,13 @@ public final class Dot1dBaseGroup extends AggregateTracker {
     // Lookup strings for specific table entries
     //
     /** Constant <code>BASE_BRIDGE_ADDRESS="dot1dBaseBridgeAddress"</code> */
-    public final static String BASE_BRIDGE_ADDRESS = "dot1dBaseBridgeAddress";
+    public static final String BASE_BRIDGE_ADDRESS = "dot1dBaseBridgeAddress";
 
     /** Constant <code>BASE_NUM_PORTS="dot1dBaseNumPorts"</code> */
-    public final static String BASE_NUM_PORTS = "dot1dBaseNumPorts";
+    public static final String BASE_NUM_PORTS = "dot1dBaseNumPorts";
 
     /** Constant <code>BASE_NUM_TYPE="dot1dBaseType"</code> */
-    public final static String BASE_NUM_TYPE = "dot1dBaseType";
+    public static final String BASE_NUM_TYPE = "dot1dBaseType";
 
     /**
      * <P>
@@ -74,7 +74,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      * Objects in this list should be used by multiple instances of this class.
      * </P>
      */
-    public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
+    public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
     /**
      * <P>
      * The MAC address used by this bridge when it must be referred to in a

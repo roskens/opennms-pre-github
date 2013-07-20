@@ -58,7 +58,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SystemReport extends Bootstrap {
     private static final Logger LOG = LoggerFactory.getLogger(SystemReport.class);
 
-    final static Pattern m_pattern = Pattern.compile("^-D(.*?)=(.*)$");
+    static final Pattern m_pattern = Pattern.compile("^-D(.*?)=(.*)$");
 
     public static void main(String[] args) throws Exception {
         loadDefaultProperties();

@@ -71,19 +71,19 @@ public final class ReparentViaSmb {
     /**
      * SQL Statements
      */
-    final static String SQL_DB_RETRIEVE_NODES = "SELECT nodeid,nodenetbiosname FROM node WHERE nodeType!='D' AND nodenetbiosname is not null ORDER BY nodeid";
+    static final String SQL_DB_RETRIEVE_NODES = "SELECT nodeid,nodenetbiosname FROM node WHERE nodeType!='D' AND nodenetbiosname is not null ORDER BY nodeid";
 
-    final static String SQL_DB_RETRIEVE_NODE = "SELECT nodesysname,nodesysdescription,nodelabel,nodelabelsource FROM node WHERE nodeid=? AND nodeType!='D'";
+    static final String SQL_DB_RETRIEVE_NODE = "SELECT nodesysname,nodesysdescription,nodelabel,nodelabelsource FROM node WHERE nodeid=? AND nodeType!='D'";
 
-    final static String SQL_DB_RETRIEVE_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND isManaged!='D'";
+    static final String SQL_DB_RETRIEVE_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND isManaged!='D'";
 
-    final static String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND isManaged!='D'";
+    static final String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND isManaged!='D'";
 
-    final static String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=?";
+    static final String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=?";
 
-    final static String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND status!='D'";
+    static final String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND status!='D'";
 
-    final static String SQL_DB_DELETE_NODE = "UPDATE node SET nodeType='D' WHERE nodeID=?";
+    static final String SQL_DB_DELETE_NODE = "UPDATE node SET nodeType='D' WHERE nodeID=?";
 
     /**
      * Database connection

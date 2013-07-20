@@ -63,7 +63,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @Distributable
-final public class TcpMonitor extends AbstractServiceMonitor {
+public final class TcpMonitor extends AbstractServiceMonitor {
 
     public static final Logger LOG = LoggerFactory.getLogger(TcpMonitor.class);
 

@@ -118,17 +118,17 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
 
     private EventAnticipator m_anticipator;
 
-    private final static String AP1_MAC = "00:01:02:03:04:05";
+    private static final String AP1_MAC = "00:01:02:03:04:05";
 
-    private final static String AP2_MAC = "07:08:09:0A:0B:0C";
+    private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
-    private final static String AP3_MAC = "F0:05:BA:11:00:FF";
+    private static final String AP3_MAC = "F0:05:BA:11:00:FF";
 
-    private final static int AGENT_TIMEOUT = 1000;
+    private static final int AGENT_TIMEOUT = 1000;
 
-    private final static int POLLING_INTERVAL = 5000;
+    private static final int POLLING_INTERVAL = 5000;
 
-    private final static int POLLING_INTERVAL_DELTA = POLLING_INTERVAL + 2000;
+    private static final int POLLING_INTERVAL_DELTA = POLLING_INTERVAL + 2000;
 
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
 

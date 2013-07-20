@@ -64,7 +64,7 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
         super(NAME);
     }
 
-    public final static String NAME = "passive";
+    public static final String NAME = "passive";
 
     /**
      * <p>

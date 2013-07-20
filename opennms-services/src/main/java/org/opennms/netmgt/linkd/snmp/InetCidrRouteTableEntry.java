@@ -73,7 +73,7 @@ public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry {
     /**
      * Lookup strings for specific table entries
      */
-    public final static String IP_ROUTE_PFX_LEN = "ipRoutePfxLen";
+    public static final String IP_ROUTE_PFX_LEN = "ipRoutePfxLen";
 
     /**
      * <P>
@@ -83,7 +83,7 @@ public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry {
      * instances of this class.
      * </P>
      */
-    public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
+    public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
     /**
      * The destination IP address of this route. An
      * entry with a value of 0.0.0.0 is considered a

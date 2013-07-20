@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public abstract class ImportOperation {
     private static final Logger LOG = LoggerFactory.getLogger(ImportOperation.class);
 
-    final private ProvisionService m_provisionService;
+    private final ProvisionService m_provisionService;
 
     /**
      * <p>

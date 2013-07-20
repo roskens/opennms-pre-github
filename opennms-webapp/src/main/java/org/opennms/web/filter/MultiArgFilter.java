@@ -100,7 +100,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     /** {@inheritDoc} */
     @Override
-    final public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
+    public final int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
         for (int i = 0; i < m_values.length; i++) {
             bindValue(ps, parameterIndex + i, m_values[i]);
         }
@@ -109,7 +109,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     /** {@inheritDoc} */
     @Override
-    final public String getValueString() {
+    public final String getValueString() {
         StringBuilder buf = new StringBuilder();
         for (int i = 0; i < m_values.length; i++) {
             if (i != 0) {
@@ -122,7 +122,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     /** {@inheritDoc} */
     @Override
-    final public String getParamSql() {
+    public final String getParamSql() {
         Object[] qmarks = new String[m_values.length];
 
         Arrays.fill(qmarks, "?");
@@ -132,7 +132,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     /** {@inheritDoc} */
     @Override
-    final public String getSql() {
+    public final String getSql() {
         Object[] formattedVals = new String[m_values.length];
 
         for (int i = 0; i < m_values.length; i++) {

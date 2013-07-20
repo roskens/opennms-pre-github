@@ -59,17 +59,17 @@ public class NsclientPlugin extends AbstractPlugin {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "NSCLIENT";
+    private static final String PROTOCOL_NAME = "NSCLIENT";
 
     /**
      * Default number of retries for TCP requests.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for TCP requests.
      */
-    private final static int DEFAULT_TIMEOUT = 5000;
+    private static final int DEFAULT_TIMEOUT = 5000;
 
     /**
      * Returns the name of the protocol that this plugin checks on the target

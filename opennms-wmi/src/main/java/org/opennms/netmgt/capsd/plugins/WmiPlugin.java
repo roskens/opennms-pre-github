@@ -60,19 +60,19 @@ public class WmiPlugin extends AbstractPlugin {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "WMI";
+    private static final String PROTOCOL_NAME = "WMI";
 
-    private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
+    private static final String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 
-    private final static String DEFAULT_WMI_OBJECT = "Status";
+    private static final String DEFAULT_WMI_OBJECT = "Status";
 
-    private final static String DEFAULT_WMI_COMP_VAL = "OK";
+    private static final String DEFAULT_WMI_COMP_VAL = "OK";
 
-    private final static String DEFAULT_WMI_MATCH_TYPE = "all";
+    private static final String DEFAULT_WMI_MATCH_TYPE = "all";
 
-    private final static String DEFAULT_WMI_COMP_OP = "EQ";
+    private static final String DEFAULT_WMI_COMP_OP = "EQ";
 
-    private final static String DEFAULT_WMI_WQL = "NOTSET";
+    private static final String DEFAULT_WMI_WQL = "NOTSET";
 
     /**
      * {@inheritDoc} Returns the name of the protocol that this plugin checks on

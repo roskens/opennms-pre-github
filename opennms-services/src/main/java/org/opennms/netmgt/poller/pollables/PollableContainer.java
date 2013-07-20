@@ -109,7 +109,7 @@ public abstract class PollableContainer extends PollableElement {
      *            object.
      * @return a {@link java.lang.Object} object.
      */
-    abstract protected Object createMemberKey(PollableElement member);
+    protected abstract Object createMemberKey(PollableElement member);
 
     /**
      * <p>
@@ -211,7 +211,7 @@ public abstract class PollableContainer extends PollableElement {
         public void forEachElement(PollableElement element);
     }
 
-    abstract protected class SimpleIter<T> implements Iter {
+    protected abstract class SimpleIter<T> implements Iter {
         private T result;
 
         public SimpleIter(T initial) {
@@ -231,7 +231,7 @@ public abstract class PollableContainer extends PollableElement {
         }
     }
 
-    abstract protected class Accumulator<T> extends SimpleIter<T> {
+    protected abstract class Accumulator<T> extends SimpleIter<T> {
         public Accumulator(T initial) {
             super(initial);
         }

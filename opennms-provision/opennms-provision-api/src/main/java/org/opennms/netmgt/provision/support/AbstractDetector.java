@@ -111,7 +111,7 @@ public abstract class AbstractDetector implements ServiceDetector {
      * onInit
      * </p>
      */
-    abstract protected void onInit();
+    protected abstract void onInit();
 
     /**
      * <p>

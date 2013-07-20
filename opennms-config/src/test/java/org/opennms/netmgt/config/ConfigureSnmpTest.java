@@ -44,7 +44,7 @@ import org.springframework.core.io.Resource;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ConfigureSnmpTest extends TestCase {
-    final private int m_startingDefCount = 5;
+    private final int m_startingDefCount = 5;
 
     /*
      * (non-Javadoc)

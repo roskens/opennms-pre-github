@@ -49,7 +49,7 @@ public class ThrowableAnticipator extends Assert {
      * Constant
      * <code>IGNORE_MESSAGE="*** ThrowableAnticipator ignore Throwab"{trunked}</code>
      */
-    public final static String IGNORE_MESSAGE = "*** ThrowableAnticipator ignore Throwable.getMessage() ***";
+    public static final String IGNORE_MESSAGE = "*** ThrowableAnticipator ignore Throwable.getMessage() ***";
 
     private List<Throwable> m_anticipated;
 

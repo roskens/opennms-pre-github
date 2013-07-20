@@ -48,7 +48,7 @@ public abstract class HttpUtils extends Object {
     private static final Logger LOG = LoggerFactory.getLogger(HttpUtils.class);
 
     /** Default buffer size for reading data. (Default is one kilobyte.) */
-    public final static int DEFAULT_POST_BUFFER_SIZE = 1024;
+    public static final int DEFAULT_POST_BUFFER_SIZE = 1024;
 
     /**
      * Post a given <code>InputStream</code> s data to a URL.

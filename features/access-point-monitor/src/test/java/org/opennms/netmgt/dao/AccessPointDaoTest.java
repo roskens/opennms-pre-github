@@ -76,11 +76,11 @@ public class AccessPointDaoTest implements InitializingBean {
     @Autowired
     TransactionTemplate m_transTemplate;
 
-    private final static String AP1_MAC = "00:01:02:03:04:05";
+    private static final String AP1_MAC = "00:01:02:03:04:05";
 
-    private final static String AP2_MAC = "07:08:09:0A:0B:0C";
+    private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
-    private final static String AP3_MAC = "0C:0D:0E:0F:01:02";
+    private static final String AP3_MAC = "0C:0D:0E:0F:01:02";
 
     @Override
     public void afterPropertiesSet() throws Exception {

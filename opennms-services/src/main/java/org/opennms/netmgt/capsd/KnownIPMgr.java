@@ -64,12 +64,12 @@ final class KnownIPMgr {
      * The SQL statement used to extract the list of currently known IP
      * addresses from the IP Interface table.
      */
-    private final static String IP_LOAD_SQL = "SELECT ipAddr, nodeid, ipLastCapsdPoll FROM ipInterface";
+    private static final String IP_LOAD_SQL = "SELECT ipAddr, nodeid, ipLastCapsdPoll FROM ipInterface";
 
     /**
      * The SQL statment used to update the last capabilities check time.
      */
-    private final static String IP_UPDATE_TIME_SQL = "UPDATE ipInterface SET ipLastCapsdPoll = ? WHERE ipAddr = ? AND nodeid = ?";
+    private static final String IP_UPDATE_TIME_SQL = "UPDATE ipInterface SET ipLastCapsdPoll = ? WHERE ipAddr = ? AND nodeid = ?";
 
     /**
      * The set of all discovered addresses
@@ -85,7 +85,7 @@ final class KnownIPMgr {
      * @author <a href="mailto:weave@oculan.com">Weave </a>
      * @author <a href="http://www.opennms.org">OpenNMS </a>
      */
-    final static class IPInterface {
+    static final class IPInterface {
         /**
          * The internet address of the interface.
          */

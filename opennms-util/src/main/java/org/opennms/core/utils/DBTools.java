@@ -112,7 +112,7 @@ public class DBTools {
      *
      * @return DBTools A class instance
      */
-    public synchronized static DBTools getInstance() {
+    public static synchronized DBTools getInstance() {
         if (_instance == null) {
             _instance = new DBTools();
         }

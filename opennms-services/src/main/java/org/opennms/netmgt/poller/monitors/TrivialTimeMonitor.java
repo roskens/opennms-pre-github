@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @Distributable
-final public class TrivialTimeMonitor extends AbstractServiceMonitor {
+public final class TrivialTimeMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeMonitor.class);
 
     /**

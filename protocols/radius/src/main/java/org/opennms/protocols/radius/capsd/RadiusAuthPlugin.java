@@ -72,7 +72,7 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      * The protocol name that is tested by this plugin.
      * </P>
      */
-    private final static String PROTOCOL_NAME = "RadiusAuth";
+    private static final String PROTOCOL_NAME = "RadiusAuth";
 
     /**
      * Number of milliseconds to wait before timing out a radius AUTH request

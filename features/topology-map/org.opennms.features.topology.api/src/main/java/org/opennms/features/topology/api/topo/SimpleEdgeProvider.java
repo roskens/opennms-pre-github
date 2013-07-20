@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 public class SimpleEdgeProvider implements EdgeProvider {
 
-    private static abstract class MatchingCriteria implements Criteria {
+    private abstract static class MatchingCriteria implements Criteria {
 
         private String m_namespace;
 

@@ -456,7 +456,7 @@ public class QueuingRrdStrategy implements RrdStrategy<QueuingRrdStrategy.Create
     /**
      * This is the base class for an enqueue able operation
      */
-    static abstract class Operation {
+    abstract static class Operation {
         String fileName;
 
         int type;

@@ -44,7 +44,7 @@ import com.google.gwt.event.shared.GwtEvent;
 public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler> {
 
     /** Constant <code>TYPE</code> */
-    public final static Type<GWTMarkerClickedEventHandler> TYPE = new Type<GWTMarkerClickedEventHandler>();
+    public static final Type<GWTMarkerClickedEventHandler> TYPE = new Type<GWTMarkerClickedEventHandler>();
 
     private GWTMarkerState m_marker;
 

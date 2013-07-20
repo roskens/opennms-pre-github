@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
  */
 @Distributable
-final public class StrafePingMonitor extends AbstractServiceMonitor {
+public final class StrafePingMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(StrafePingMonitor.class);
 
     private static final int DEFAULT_MULTI_PING_COUNT = 20;

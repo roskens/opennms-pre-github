@@ -32,13 +32,13 @@ import java.net.InetAddress;
 
 public class OspfIfTableEntry extends SnmpStore {
 
-    public final static String OSPF_IF_IPADDRESS_ALIAS = "ospfIfIpAddress";
+    public static final String OSPF_IF_IPADDRESS_ALIAS = "ospfIfIpAddress";
 
-    public final static String OSPF_ADDRESS_LESS_IF_ALIAS = "ospfAddressLessIf";
+    public static final String OSPF_ADDRESS_LESS_IF_ALIAS = "ospfAddressLessIf";
 
-    public final static String OSPF_IF_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.7.1.1";
+    public static final String OSPF_IF_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.7.1.1";
 
-    public final static String OSPF_ADDRESS_LESS_IF_OID = ".1.3.6.1.2.1.14.7.1.2";
+    public static final String OSPF_ADDRESS_LESS_IF_OID = ".1.3.6.1.2.1.14.7.1.2";
 
     public static final NamedSnmpVar[] ospfiftable_elemList = new NamedSnmpVar[] {
 

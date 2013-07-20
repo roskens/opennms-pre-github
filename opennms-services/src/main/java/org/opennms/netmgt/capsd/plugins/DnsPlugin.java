@@ -66,29 +66,29 @@ public final class DnsPlugin extends AbstractPlugin {
      * The protocol name that is tested by this plugin.
      * </p>
      */
-    private final static String PROTOCOL_NAME = "DNS";
+    private static final String PROTOCOL_NAME = "DNS";
 
     /**
      * <p>
      * The default port on which the host is checked to see if it supports DNS.
      * </p>
      */
-    private final static int DEFAULT_PORT = 53;
+    private static final int DEFAULT_PORT = 53;
 
     /**
      * Default number of retries for DNS requests
      */
-    private final static int DEFAULT_RETRY = 3;
+    private static final int DEFAULT_RETRY = 3;
 
     /**
      * Default timeout (in milliseconds) for DNS requests.
      */
-    private final static int DEFAULT_TIMEOUT = 3000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
      * Default DNS lookup
      */
-    private final static String DEFAULT_LOOKUP = "localhost";
+    private static final String DEFAULT_LOOKUP = "localhost";
 
     /**
      * @param nserver

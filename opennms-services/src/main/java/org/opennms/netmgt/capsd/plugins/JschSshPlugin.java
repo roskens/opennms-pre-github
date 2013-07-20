@@ -57,7 +57,7 @@ public final class JschSshPlugin extends AbstractPlugin {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "SSH";
+    private static final String PROTOCOL_NAME = "SSH";
 
     /**
      * Returns the name of the protocol that this plugin checks on the target

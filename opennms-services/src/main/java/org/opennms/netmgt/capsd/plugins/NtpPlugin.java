@@ -60,24 +60,24 @@ public final class NtpPlugin extends AbstractPlugin {
      * The protocol name that is tested by this plugin.
      * </P>
      */
-    private final static String PROTOCOL_NAME = "NTP";
+    private static final String PROTOCOL_NAME = "NTP";
 
     /**
      * <P>
      * The default port on which the host is checked to see if it supports NTP.
      * </P>
      */
-    private final static int DEFAULT_PORT = 123;
+    private static final int DEFAULT_PORT = 123;
 
     /**
      * Default number of retries for DNS requests
      */
-    private final static int DEFAULT_RETRY = 3;
+    private static final int DEFAULT_RETRY = 3;
 
     /**
      * Default timeout (in milliseconds) for DNS requests.
      */
-    private final static int DEFAULT_TIMEOUT = 3000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
      * @param nserver

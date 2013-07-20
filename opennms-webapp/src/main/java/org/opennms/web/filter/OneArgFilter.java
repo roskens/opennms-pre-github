@@ -72,7 +72,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      *
      * @return a T object.
      */
-    final public T getValue() {
+    public final T getValue() {
         return m_value;
     };
 
@@ -100,26 +100,26 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
 
     /** {@inheritDoc} */
     @Override
-    final public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
+    public final int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
         bindValue(ps, parameterIndex, getBoundValue(m_value));
         return 1;
     }
 
     /** {@inheritDoc} */
     @Override
-    final public String getValueString() {
+    public final String getValueString() {
         return getValueAsString(m_value);
     }
 
     /** {@inheritDoc} */
     @Override
-    final public String getParamSql() {
+    public final String getParamSql() {
         return String.format(getSQLTemplate(), "?");
     }
 
     /** {@inheritDoc} */
     @Override
-    final public String getSql() {
+    public final String getSql() {
         return String.format(getSQLTemplate(), formatValue(m_value));
     }
 

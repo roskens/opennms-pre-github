@@ -39,7 +39,7 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class GWTMarkerInfoWindowRefreshEvent extends GwtEvent<GWTMarkerInfoWindowRefreshHandler> {
 
-    public final static Type<GWTMarkerInfoWindowRefreshHandler> TYPE = new Type<GWTMarkerInfoWindowRefreshHandler>();
+    public static final Type<GWTMarkerInfoWindowRefreshHandler> TYPE = new Type<GWTMarkerInfoWindowRefreshHandler>();
 
     private GWTMarkerState m_marker;
 

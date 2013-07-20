@@ -72,12 +72,12 @@ public final class Threshd extends AbstractServiceDaemon {
      *
      * @see DbIfServiceEntry#STATUS_ACTIVE
      */
-    private final static String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.status = 'A' AND ifServices.serviceid = service.serviceid AND service.servicename = ?";
+    private static final String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.status = 'A' AND ifServices.serviceid = service.serviceid AND service.servicename = ?";
 
     /**
      * Singleton instance of the Threshd class
      */
-    private final static Threshd m_singleton = new Threshd();
+    private static final Threshd m_singleton = new Threshd();
 
     /**
      * List of all ThresholdableService objects.

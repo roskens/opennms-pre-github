@@ -84,7 +84,7 @@ public class NotifdConfigFactory extends NotifdConfigManager {
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigFactory} object.
      */
-    static synchronized public NotifdConfigFactory getInstance() {
+    public static synchronized NotifdConfigFactory getInstance() {
         if (!initialized)
             throw new IllegalStateException("init() not called.");
 

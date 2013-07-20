@@ -93,7 +93,7 @@ public class NotificationFactory extends NotificationManager {
      *
      * @return a {@link org.opennms.netmgt.config.NotificationFactory} object.
      */
-    static synchronized public NotificationFactory getInstance() {
+    public static synchronized NotificationFactory getInstance() {
         if (!initialized)
             return null;
 

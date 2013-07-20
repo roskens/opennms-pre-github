@@ -26,7 +26,7 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
 public final class DispatcherTracker extends ServiceTracker<Object, Object> {
-    final static String DEFAULT_FILTER = "(http.felix.dispatcher=*)";
+    static final String DEFAULT_FILTER = "(http.felix.dispatcher=*)";
 
     private final FilterConfig config;
 

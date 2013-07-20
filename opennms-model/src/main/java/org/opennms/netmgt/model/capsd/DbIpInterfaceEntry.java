@@ -70,40 +70,40 @@ public final class DbIpInterfaceEntry {
     private static final Logger LOG = LoggerFactory.getLogger(DbIpInterfaceEntry.class);
 
     /** Constant <code>SNMP_PRIMARY='P'</code> */
-    public final static char SNMP_PRIMARY = 'P';
+    public static final char SNMP_PRIMARY = 'P';
 
     /** Constant <code>SNMP_SECONDARY='S'</code> */
-    public final static char SNMP_SECONDARY = 'S';
+    public static final char SNMP_SECONDARY = 'S';
 
     /** Constant <code>SNMP_NOT_ELIGIBLE='N'</code> */
-    public final static char SNMP_NOT_ELIGIBLE = 'N';
+    public static final char SNMP_NOT_ELIGIBLE = 'N';
 
     /** Constant <code>SNMP_UNKNOWN=' '</code> */
-    public final static char SNMP_UNKNOWN = ' ';
+    public static final char SNMP_UNKNOWN = ' ';
 
     /** Constant <code>STATE_MANAGED='M'</code> */
-    public final static char STATE_MANAGED = 'M';
+    public static final char STATE_MANAGED = 'M';
 
     /** Constant <code>STATE_UNMANAGED='U'</code> */
-    public final static char STATE_UNMANAGED = 'U';
+    public static final char STATE_UNMANAGED = 'U';
 
     /** Constant <code>STATE_ALIAS='A'</code> */
-    public final static char STATE_ALIAS = 'A';
+    public static final char STATE_ALIAS = 'A';
 
     /** Constant <code>STATE_DELETED='D'</code> */
-    public final static char STATE_DELETED = 'D';
+    public static final char STATE_DELETED = 'D';
 
     /** Constant <code>STATE_FORCED='F'</code> */
-    public final static char STATE_FORCED = 'F';
+    public static final char STATE_FORCED = 'F';
 
     /** Constant <code>STATE_NOT_POLLED='N'</code> */
-    public final static char STATE_NOT_POLLED = 'N';
+    public static final char STATE_NOT_POLLED = 'N';
 
     /** Constant <code>STATE_REMOTE='X'</code> */
-    public final static char STATE_REMOTE = 'X';
+    public static final char STATE_REMOTE = 'X';
 
     /** Constant <code>STATE_UNKNOWN=' '</code> */
-    public final static char STATE_UNKNOWN = ' ';
+    public static final char STATE_UNKNOWN = ' ';
 
     /**
      * The SQL statement used to read a node from the database. This record is

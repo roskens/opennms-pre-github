@@ -106,7 +106,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     }
 
     // final for now
-    private final static PausibleScheduledThreadPoolExecutor createDefaultSchedulerService() {
+    private static final PausibleScheduledThreadPoolExecutor createDefaultSchedulerService() {
         PausibleScheduledThreadPoolExecutor executorService = new PausibleScheduledThreadPoolExecutor(1);
 
         return executorService;

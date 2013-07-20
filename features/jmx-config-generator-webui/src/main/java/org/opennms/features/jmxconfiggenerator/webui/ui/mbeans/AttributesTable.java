@@ -60,7 +60,7 @@ public class AttributesTable extends Table {
 
     private static final long serialVersionUID = 1L;
 
-    final private Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
+    private final Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
 
     private List<Field<?>> fields = new ArrayList<Field<?>>();
 
@@ -114,9 +114,9 @@ public class AttributesTable extends Table {
 
         private static final long serialVersionUID = 1L;
 
-        final private Validator nameValidator = new AttributeNameValidator();
+        private final Validator nameValidator = new AttributeNameValidator();
 
-        final private Validator lengthValidator = new StringLengthValidator(
+        private final Validator lengthValidator = new StringLengthValidator(
                                                                             String.format("Maximal length is %d",
                                                                                           Config.ATTRIBUTES_ALIAS_MAX_LENGTH),
                                                                             0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH,

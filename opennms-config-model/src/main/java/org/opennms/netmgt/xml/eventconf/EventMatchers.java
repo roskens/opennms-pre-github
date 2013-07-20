@@ -148,7 +148,7 @@ public abstract class EventMatchers {
         };
     }
 
-    private static abstract class EventField implements Field {
+    private abstract static class EventField implements Field {
         private String m_name;
 
         public EventField(String name) {

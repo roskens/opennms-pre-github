@@ -47,12 +47,12 @@ public class K5Plugin extends AbstractPlugin {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "K5Systems";
+    private static final String PROTOCOL_NAME = "K5Systems";
 
     /**
      * Default value for whether or not to use K5
      */
-    private final static String DEFAULT_ACTIVE = "false";
+    private static final String DEFAULT_ACTIVE = "false";
 
     /**
      * Returns the name of the protocol that this plugin checks on the target

@@ -44,9 +44,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class KSCResourceAddGraph implements EntryPoint {
-    final public static boolean DEBUG = true;
+    public static final boolean DEBUG = true;
 
-    final static private String m_debugResponse = "{" + "\"@totalCount\":\"2\"," + "\"@count\":\"2\","
+    private static final String m_debugResponse = "{" + "\"@totalCount\":\"2\"," + "\"@count\":\"2\","
             + "\"kscReport\":[" + "{\"@label\":\"Test\",\"@id\":\"0\"}," + "{\"@label\":\"Test 2\",\"@id\":\"1\"}"
             + "]" + "}";
 

@@ -45,7 +45,7 @@ import org.opennms.netmgt.icmp.PingResponseCallback;
  */
 public class JnaPingTest extends TestCase {
 
-    static private JnaPinger s_jnaPinger = new JnaPinger();
+    private static JnaPinger s_jnaPinger = new JnaPinger();
 
     private InetAddress m_goodHost = null;
 

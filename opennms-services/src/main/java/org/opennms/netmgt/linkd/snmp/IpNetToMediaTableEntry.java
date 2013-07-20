@@ -61,16 +61,16 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
     /** Constant <code>INTM_INDEX="ipNetToMediaIfIndex"</code> */
-    public final static String INTM_INDEX = "ipNetToMediaIfIndex";
+    public static final String INTM_INDEX = "ipNetToMediaIfIndex";
 
     /** Constant <code>INTM_PHYSADDR="ipNetToMediaPhysAddress"</code> */
-    public final static String INTM_PHYSADDR = "ipNetToMediaPhysAddress";
+    public static final String INTM_PHYSADDR = "ipNetToMediaPhysAddress";
 
     /** Constant <code>INTM_NETADDR="ipNetToMediaNetAddress"</code> */
-    public final static String INTM_NETADDR = "ipNetToMediaNetAddress";
+    public static final String INTM_NETADDR = "ipNetToMediaNetAddress";
 
     /** Constant <code>INTM_TYPE="ipNetToMediatype"</code> */
-    public final static String INTM_TYPE = "ipNetToMediatype";
+    public static final String INTM_TYPE = "ipNetToMediatype";
 
     /**
      * <P>

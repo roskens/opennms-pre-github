@@ -36,29 +36,29 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 
 public class LldpRemTableEntry extends SnmpStore {
 
-    public final static String LLDP_REM_LOCAL_PORTNUM_ALIAS = "lldpRemLocalPortNum";
+    public static final String LLDP_REM_LOCAL_PORTNUM_ALIAS = "lldpRemLocalPortNum";
 
-    public final static String LLDP_REM_CHASSISID_SUBTYPE_ALIAS = "lldpRemChassisIdSubtype";
+    public static final String LLDP_REM_CHASSISID_SUBTYPE_ALIAS = "lldpRemChassisIdSubtype";
 
-    public final static String LLDP_REM_CHASSISID_ALIAS = "lldpRemChassisId";
+    public static final String LLDP_REM_CHASSISID_ALIAS = "lldpRemChassisId";
 
-    public final static String LLDP_REM_PORTID_SUBTYPE_ALIAS = "lldpRemPortIdSubtype";
+    public static final String LLDP_REM_PORTID_SUBTYPE_ALIAS = "lldpRemPortIdSubtype";
 
-    public final static String LLDP_REM_PORTID_ALIAS = "lldpRemPortId";
+    public static final String LLDP_REM_PORTID_ALIAS = "lldpRemPortId";
 
-    public final static String LLDP_REM_SYSNAME_ALIAS = "lldpRemSysName";
+    public static final String LLDP_REM_SYSNAME_ALIAS = "lldpRemSysName";
 
-    public final static String LLDP_REM_LOCAL_PORTNUM_OID = ".1.0.8802.1.1.2.1.4.1.1.2";
+    public static final String LLDP_REM_LOCAL_PORTNUM_OID = ".1.0.8802.1.1.2.1.4.1.1.2";
 
-    public final static String LLDP_REM_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.4";
+    public static final String LLDP_REM_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.4";
 
-    public final static String LLDP_REM_CHASSISID_OID = ".1.0.8802.1.1.2.1.4.1.1.5";
+    public static final String LLDP_REM_CHASSISID_OID = ".1.0.8802.1.1.2.1.4.1.1.5";
 
-    public final static String LLDP_REM_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.6";
+    public static final String LLDP_REM_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.6";
 
-    public final static String LLDP_REM_PORTID_OID = ".1.0.8802.1.1.2.1.4.1.1.7";
+    public static final String LLDP_REM_PORTID_OID = ".1.0.8802.1.1.2.1.4.1.1.7";
 
-    public final static String LLDP_REM_SYSNAME_OID = ".1.0.8802.1.1.2.1.4.1.1.9";
+    public static final String LLDP_REM_SYSNAME_OID = ".1.0.8802.1.1.2.1.4.1.1.9";
 
     public static final NamedSnmpVar[] lldpremtable_elemList = new NamedSnmpVar[] {
 

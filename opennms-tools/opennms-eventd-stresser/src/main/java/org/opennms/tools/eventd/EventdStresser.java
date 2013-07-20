@@ -464,7 +464,7 @@ public class EventdStresser {
         return connection;
     }
 
-    synchronized public static Integer getEventCount(PoolingConnection pool) throws SQLException {
+    public static synchronized Integer getEventCount(PoolingConnection pool) throws SQLException {
         Statement statement = pool.createStatement();
         ResultSet result = statement.executeQuery("select count(*) from events where (eventuei = 'MATCH-ANY-UEI' or eventuei = 'uei.opennms.org/traps/eventTrap')");
         result.next();

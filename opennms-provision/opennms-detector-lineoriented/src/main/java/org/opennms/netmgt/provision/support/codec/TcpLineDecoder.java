@@ -51,7 +51,7 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
     private static final Logger LOG = LoggerFactory.getLogger(TcpLineDecoder.class);
 
-    public final static String NO_MESSAGES_RECEIVED = "___OPENNMS_NO_TCP_BANNER_RECEIVED___";
+    public static final String NO_MESSAGES_RECEIVED = "___OPENNMS_NO_TCP_BANNER_RECEIVED___";
 
     private Charset m_charset;
 

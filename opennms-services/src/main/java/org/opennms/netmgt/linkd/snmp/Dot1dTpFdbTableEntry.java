@@ -50,13 +50,13 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
     //
 
     /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code> */
-    public final static String FDB_ADDRESS = "dot1dTpFdbAddress";
+    public static final String FDB_ADDRESS = "dot1dTpFdbAddress";
 
     /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code> */
-    public final static String FDB_PORT = "dot1dTpFdbPort";
+    public static final String FDB_PORT = "dot1dTpFdbPort";
 
     /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code> */
-    public final static String FDB_STATUS = "dot1dTpFdbStatus";
+    public static final String FDB_STATUS = "dot1dTpFdbStatus";
 
     /**
      * <P>

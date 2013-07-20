@@ -64,7 +64,7 @@ import org.springframework.util.Assert;
 public class CollectdConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(CollectdConfigFactory.class);
 
-    final static String SELECT_METHOD_MIN = "min";
+    static final String SELECT_METHOD_MIN = "min";
 
     /**
      * The singleton instance of this factory. Null if the factory hasn't been

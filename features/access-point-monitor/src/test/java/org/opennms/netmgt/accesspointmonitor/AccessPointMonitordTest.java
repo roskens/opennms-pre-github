@@ -104,13 +104,13 @@ public class AccessPointMonitordTest implements InitializingBean {
 
     private EventAnticipator m_anticipator;
 
-    private final static String AP1_MAC = "00:01:02:03:04:05";
+    private static final String AP1_MAC = "00:01:02:03:04:05";
 
-    private final static String AP2_MAC = "07:08:09:0A:0B:0C";
+    private static final String AP2_MAC = "07:08:09:0A:0B:0C";
 
-    private final static String AP3_MAC = "F0:05:BA:11:00:FF";
+    private static final String AP3_MAC = "F0:05:BA:11:00:FF";
 
-    private final static int PACKAGE_SCAN_INTERVAL = 1000;
+    private static final int PACKAGE_SCAN_INTERVAL = 1000;
 
     @Override
     public void afterPropertiesSet() {

@@ -49,7 +49,7 @@ public class Snmp4JWalker extends SnmpWalker {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JWalker.class);
 
-    public static abstract class Snmp4JPduBuilder extends WalkerPduBuilder {
+    public abstract static class Snmp4JPduBuilder extends WalkerPduBuilder {
         public Snmp4JPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }

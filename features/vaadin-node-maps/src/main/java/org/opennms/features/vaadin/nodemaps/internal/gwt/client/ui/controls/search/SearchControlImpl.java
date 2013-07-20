@@ -7,7 +7,7 @@ import com.google.gwt.user.client.Element;
 
 public class SearchControlImpl extends ControlImpl {
 
-    public static native final JSObject create(final SearchControl context, final JSObject options) /*-{
+    public static final native JSObject create(final SearchControl context, final JSObject options) /*-{
                                                                                                     var obj = new $wnd.L.Control(options);
                                                                                                     obj.onAdd = function(map) {
                                                                                                     return context.@org.opennms.features.vaadin.nodemaps.internal.gwt.client.ui.controls.search.SearchControl::doOnAdd(Lcom/google/gwt/core/client/JavaScriptObject;)(map);

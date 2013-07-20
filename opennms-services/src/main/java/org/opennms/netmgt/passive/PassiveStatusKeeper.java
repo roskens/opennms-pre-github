@@ -104,7 +104,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
      *            a {@link org.opennms.netmgt.passive.PassiveStatusKeeper}
      *            object.
      */
-    public synchronized static void setInstance(PassiveStatusKeeper psk) {
+    public static synchronized void setInstance(PassiveStatusKeeper psk) {
         s_instance = psk;
     }
 
@@ -115,7 +115,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
      *
      * @return a {@link org.opennms.netmgt.passive.PassiveStatusKeeper} object.
      */
-    public synchronized static PassiveStatusKeeper getInstance() {
+    public static synchronized PassiveStatusKeeper getInstance() {
         return s_instance;
     }
 

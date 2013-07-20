@@ -82,7 +82,7 @@ public class CategoryModel extends Object {
      * @throws org.exolab.castor.xml.ValidationException
      *             if any.
      */
-    public synchronized static CategoryModel getInstance() throws IOException, MarshalException, ValidationException {
+    public static synchronized CategoryModel getInstance() throws IOException, MarshalException, ValidationException {
         if (CategoryModel.m_instance == null) {
             CategoryModel.m_instance = new CategoryModel();
         }

@@ -7,7 +7,7 @@ import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 
 public class MockLoggerFactory implements ILoggerFactory {
-    final static MockLoggerFactory INSTANCE = new MockLoggerFactory();
+    static final MockLoggerFactory INSTANCE = new MockLoggerFactory();
 
     static MockLogAppender s_appender = MockLogAppender.getInstance();
 

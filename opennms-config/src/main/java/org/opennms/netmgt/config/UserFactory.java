@@ -128,7 +128,7 @@ public class UserFactory extends UserManager {
      *
      * @return the single user factory instance
      */
-    static synchronized public UserManager getInstance() {
+    public static synchronized UserManager getInstance() {
         return instance;
     }
 
@@ -140,7 +140,7 @@ public class UserFactory extends UserManager {
      * @param mgr
      *            a {@link org.opennms.netmgt.config.UserManager} object.
      */
-    static synchronized public void setInstance(UserManager mgr) {
+    public static synchronized void setInstance(UserManager mgr) {
         initialized = true;
         instance = mgr;
     }

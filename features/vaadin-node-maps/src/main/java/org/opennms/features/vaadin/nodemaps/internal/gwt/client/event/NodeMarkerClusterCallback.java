@@ -19,11 +19,11 @@ public class NodeMarkerClusterCallback implements MarkerClusterEventCallback {
     private static final String TARGET_BLANK = "target=\"_blank\"";
 
     private static final class NodeMarkerComparator implements Comparator<NodeMarker> {
-        final static int BEFORE = -1;
+        static final int BEFORE = -1;
 
-        final static int EQUAL = 0;
+        static final int EQUAL = 0;
 
-        final static int AFTER = 1;
+        static final int AFTER = 1;
 
         @Override
         public int compare(final NodeMarker left, final NodeMarker right) {

@@ -53,31 +53,31 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
     /** Constant <code>EXTREME_VLAN_IFINDEX="extremeVlanIfIndex"</code> */
-    public final static String EXTREME_VLAN_IFINDEX = "extremeVlanIfIndex";
+    public static final String EXTREME_VLAN_IFINDEX = "extremeVlanIfIndex";
 
     /**
      * Constant
      * <code>EXTREME_VLAN_IGNORE_STP_FLAG="extremeVlanIfIgnoreStpFlag"</code>
      */
-    public final static String EXTREME_VLAN_IGNORE_STP_FLAG = "extremeVlanIfIgnoreStpFlag";
+    public static final String EXTREME_VLAN_IGNORE_STP_FLAG = "extremeVlanIfIgnoreStpFlag";
 
     /**
      * Constant
      * <code>EXTREME_VLAN_IGNORE_BPDU_FLAG="extremeVlanIfIgnoreBpduFlag"</code>
      */
-    public final static String EXTREME_VLAN_IGNORE_BPDU_FLAG = "extremeVlanIfIgnoreBpduFlag";
+    public static final String EXTREME_VLAN_IGNORE_BPDU_FLAG = "extremeVlanIfIgnoreBpduFlag";
 
     /**
      * Constant
      * <code>EXTREME_VLAN_IFLOOP_MODE_FLAG="extremeVlanIfLoopbackModeFlag"</code>
      */
-    public final static String EXTREME_VLAN_IFLOOP_MODE_FLAG = "extremeVlanIfLoopbackModeFlag";
+    public static final String EXTREME_VLAN_IFLOOP_MODE_FLAG = "extremeVlanIfLoopbackModeFlag";
 
     /**
      * Constant
      * <code>EXTREME_VLAN_GLOBAL_ID="extremeVlanIfGlobalIdentifier"</code>
      */
-    public final static String EXTREME_VLAN_GLOBAL_ID = "extremeVlanIfGlobalIdentifier";
+    public static final String EXTREME_VLAN_GLOBAL_ID = "extremeVlanIfGlobalIdentifier";
 
     private static String VLAN_INDEX_OID = ".1.3.6.1.4.1.1916.1.2.1.2.1.10";
 

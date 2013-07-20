@@ -60,12 +60,12 @@ public final class CitrixPlugin extends AbstractTcpPlugin {
     /**
      * Default number of retries for Citrix requests.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for Citrix requests.
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * <P>

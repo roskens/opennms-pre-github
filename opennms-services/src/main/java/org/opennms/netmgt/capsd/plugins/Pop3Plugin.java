@@ -79,12 +79,12 @@ public final class Pop3Plugin extends AbstractPlugin {
     /**
      * Default number of retries.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds).
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * <P>

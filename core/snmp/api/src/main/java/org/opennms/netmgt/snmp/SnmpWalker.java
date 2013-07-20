@@ -40,7 +40,7 @@ public abstract class SnmpWalker {
 
     private static final transient Logger LOG = LoggerFactory.getLogger(SnmpWalker.class);
 
-    protected static abstract class WalkerPduBuilder extends PduBuilder {
+    protected abstract static class WalkerPduBuilder extends PduBuilder {
         protected WalkerPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }

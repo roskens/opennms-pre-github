@@ -55,51 +55,51 @@ public final class Dot1dStpGroup extends AggregateTracker {
     // Lookup strings for specific table entries
     //
     /** Constant <code>STP_PROTOCOL_SPEC="dot1dStpProtocolSpecification"</code> */
-    public final static String STP_PROTOCOL_SPEC = "dot1dStpProtocolSpecification";
+    public static final String STP_PROTOCOL_SPEC = "dot1dStpProtocolSpecification";
 
     /** Constant <code>STP_PRIORITY="dot1dStpPriority"</code> */
-    public final static String STP_PRIORITY = "dot1dStpPriority";
+    public static final String STP_PRIORITY = "dot1dStpPriority";
 
     /**
      * Constant
      * <code>STP_TIME_LASTTOPCH="dot1dStpTimeSinceLastTopologyChange"</code>
      */
-    // public final static String STP_TIME_LASTTOPCH =
+    // public static final String STP_TIME_LASTTOPCH =
     // "dot1dStpTimeSinceLastTopologyChange";
 
     /** Constant <code>STP_TOP_CHANGES="dot1dStpTopChanges"</code> */
-    // public final static String STP_TOP_CHANGES = "dot1dStpTopChanges";
+    // public static final String STP_TOP_CHANGES = "dot1dStpTopChanges";
 
     /** Constant <code>STP_DESIGNATED_ROOT="dot1dStpDesignatedRoot"</code> */
-    public final static String STP_DESIGNATED_ROOT = "dot1dStpDesignatedRoot";
+    public static final String STP_DESIGNATED_ROOT = "dot1dStpDesignatedRoot";
 
     /** Constant <code>STP_ROOT_COST="dot1dStpRootCost"</code> */
-    public final static String STP_ROOT_COST = "dot1dStpRootCost";
+    public static final String STP_ROOT_COST = "dot1dStpRootCost";
 
     /** Constant <code>STP_ROOT_PORT="dot1dStpRootPort"</code> */
-    public final static String STP_ROOT_PORT = "dot1dStpRootPort";
+    public static final String STP_ROOT_PORT = "dot1dStpRootPort";
 
     /** Constant <code>STP_MAX_AGE="dot1dStpMaxAge"</code> */
-    // public final static String STP_MAX_AGE = "dot1dStpMaxAge";
+    // public static final String STP_MAX_AGE = "dot1dStpMaxAge";
 
     /** Constant <code>STP_HELLO_TIME="dot1dStpHelloTime"</code> */
-    // public final static String STP_HELLO_TIME = "dot1dStpHelloTime";
+    // public static final String STP_HELLO_TIME = "dot1dStpHelloTime";
 
     /** Constant <code>STP_HOLD_TIME="dot1dStpHoldTime"</code> */
-    // public final static String STP_HOLD_TIME = "dot1dStpHoldTime";
+    // public static final String STP_HOLD_TIME = "dot1dStpHoldTime";
 
     /** Constant <code>STP_FORW_DELAY="dot1dStpForwardDelay"</code> */
-    // public final static String STP_FORW_DELAY = "dot1dStpForwardDelay";
+    // public static final String STP_FORW_DELAY = "dot1dStpForwardDelay";
 
     /** Constant <code>STP_BRDG_MAX_AGE="dot1dStpBridgeMaxAge"</code> */
-    // public final static String STP_BRDG_MAX_AGE = "dot1dStpBridgeMaxAge";
+    // public static final String STP_BRDG_MAX_AGE = "dot1dStpBridgeMaxAge";
 
     /** Constant <code>STP_BRDG_HELLO_TIME="dot1dStpBridgeHelloTime"</code> */
-    // public final static String STP_BRDG_HELLO_TIME =
+    // public static final String STP_BRDG_HELLO_TIME =
     // "dot1dStpBridgeHelloTime";
 
     /** Constant <code>STP_BRDG_FORW_DELAY="dot1dStpBridgeForwardDelay"</code> */
-    // public final static String STP_BRDG_FORW_DELAY =
+    // public static final String STP_BRDG_FORW_DELAY =
     // "dot1dStpBridgeForwardDelay";
 
     /**

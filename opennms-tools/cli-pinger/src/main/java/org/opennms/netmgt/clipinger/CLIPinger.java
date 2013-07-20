@@ -55,7 +55,7 @@ import org.opennms.netmgt.icmp.PingerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
  */
 
-final public class CLIPinger {
+public final class CLIPinger {
 
     @Option(name = "--timeout", aliases = {"-t"}, required = false, usage = "timeout for each ping, in milliseconds (default 1000)")
     private static long s_timeout = 1000;

@@ -55,7 +55,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
      * @return a {@link org.opennms.features.poller.remote.gwt.client.GWTLatLng}
      *         object.
      */
-    public final static GWTLatLng getDefault() {
+    public static final GWTLatLng getDefault() {
         return new GWTLatLng(35.7174, -79.1619);
     }
 

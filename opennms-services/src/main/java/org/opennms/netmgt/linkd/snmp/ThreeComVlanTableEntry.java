@@ -51,10 +51,10 @@ public final class ThreeComVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
     /** Constant <code>VLAN_IN="a3ComVlanindex"</code> */
-    public final static String VLAN_IN = "a3ComVlanIfIndex";
+    public static final String VLAN_IN = "a3ComVlanIfIndex";
 
     /** Constant <code>VLAN_IFINFO="a3ComVlanIfInfo"</code> */
-    public final static String VLAN_IFINFO = "a3ComVlanIfInfo";
+    public static final String VLAN_IFINFO = "a3ComVlanIfInfo";
 
     /**
      * <P>
@@ -63,7 +63,7 @@ public final class ThreeComVlanTableEntry extends Vlan {
      * Objects in this list should be used by multiple instances of this class.
      * </P>
      */
-    public final static NamedSnmpVar[] threeComVlan_elemList = new NamedSnmpVar[] {
+    public static final NamedSnmpVar[] threeComVlan_elemList = new NamedSnmpVar[] {
             // new NamedSnmpVar(NamedSnmpVar.SNMPINT32, VLAN_IN,
             // ".1.3.6.1.4.1.43.10.1.14.1.2.1.1", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, VLAN_NAME, ".1.3.6.1.4.1.43.10.1.14.1.2.1.2", 1),

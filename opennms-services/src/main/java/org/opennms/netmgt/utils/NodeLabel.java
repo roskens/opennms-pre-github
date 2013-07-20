@@ -69,89 +69,89 @@ import org.slf4j.LoggerFactory;
  */
 public class NodeLabel {
 
-    private final static Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
 
     /**
      * The SQL statement to update the 'nodelabel' and 'nodelabelsource' fields
      * of 'node' table
      */
-    private final static String SQL_DB_UPDATE_NODE_LABEL = "UPDATE node SET nodelabel=?,nodelabelsource=? WHERE nodeid=?";
+    private static final String SQL_DB_UPDATE_NODE_LABEL = "UPDATE node SET nodelabel=?,nodelabelsource=? WHERE nodeid=?";
 
     /**
      * The SQL statement to retrieve the NetBIOS name associated with a
      * particular nodeID
      */
-    private final static String SQL_DB_RETRIEVE_NETBIOS_NAME = "SELECT nodenetbiosname FROM node WHERE nodeid=?";
+    private static final String SQL_DB_RETRIEVE_NETBIOS_NAME = "SELECT nodenetbiosname FROM node WHERE nodeid=?";
 
     /**
      * The SQL statement to retrieve all managed IP address & hostName values
      * associated with a particular nodeID
      */
-    private final static String SQL_DB_RETRIEVE_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged='M'";
+    private static final String SQL_DB_RETRIEVE_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged='M'";
 
     /**
      * The SQL statement to retrieve all non-managed IP address & hostName
      * values associated with a particular nodeID
      */
-    private final static String SQL_DB_RETRIEVE_NON_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged!='M'";
+    private static final String SQL_DB_RETRIEVE_NON_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged!='M'";
 
     /**
      * The SQL statement to retrieve the MIB-II sysname field from the node
      * table
      */
-    private final static String SQL_DB_RETRIEVE_SYSNAME = "SELECT nodesysname FROM node WHERE nodeid=?";
+    private static final String SQL_DB_RETRIEVE_SYSNAME = "SELECT nodesysname FROM node WHERE nodeid=?";
 
     /**
      * The SQL statement to retrieve the current node label and node label
      * source values associated with a node.
      */
-    private final static String SQL_DB_RETRIEVE_NODELABEL = "SELECT nodelabel,nodelabelsource FROM node WHERE nodeid=?";
+    private static final String SQL_DB_RETRIEVE_NODELABEL = "SELECT nodelabel,nodelabelsource FROM node WHERE nodeid=?";
 
     /**
      * Valid values for node label source flag
      */
-    public final static char SOURCE_USERDEFINED = 'U';
+    public static final char SOURCE_USERDEFINED = 'U';
 
     /** Constant <code>SOURCE_NETBIOS='N'</code> */
-    public final static char SOURCE_NETBIOS = 'N';
+    public static final char SOURCE_NETBIOS = 'N';
 
     /** Constant <code>SOURCE_HOSTNAME='H'</code> */
-    public final static char SOURCE_HOSTNAME = 'H';
+    public static final char SOURCE_HOSTNAME = 'H';
 
     /** Constant <code>SOURCE_SYSNAME='S'</code> */
-    public final static char SOURCE_SYSNAME = 'S';
+    public static final char SOURCE_SYSNAME = 'S';
 
     /** Constant <code>SOURCE_ADDRESS='A'</code> */
-    public final static char SOURCE_ADDRESS = 'A';
+    public static final char SOURCE_ADDRESS = 'A';
 
     /**
      * Initialization value for node label source flag
      */
-    public final static char SOURCE_UNKNOWN = 'X';
+    public static final char SOURCE_UNKNOWN = 'X';
 
     /**
      * Maximum length for node label
      */
-    public final static int MAX_NODE_LABEL_LENGTH = 256;
+    public static final int MAX_NODE_LABEL_LENGTH = 256;
 
     /**
      * Primary interface selection method MIN. Using this selection method the
      * interface with the smallest numeric IP address is considered the primary
      * interface.
      */
-    private final static String SELECT_METHOD_MIN = "min";
+    private static final String SELECT_METHOD_MIN = "min";
 
     /**
      * Primary interface selection method MAX. Using this selection method the
      * interface with the greatest numeric IP address is considered the primary
      * interface.
      */
-    private final static String SELECT_METHOD_MAX = "max";
+    private static final String SELECT_METHOD_MAX = "max";
 
     /**
      * Default primary interface select method.
      */
-    private final static String DEFAULT_SELECT_METHOD = SELECT_METHOD_MIN;
+    private static final String DEFAULT_SELECT_METHOD = SELECT_METHOD_MIN;
 
     /**
      * Node label

@@ -122,7 +122,7 @@ public abstract class ParameterMap {
      *            an array of int.
      */
     @SuppressWarnings("unchecked")
-    public final static int[] getKeyedIntegerArray(final Map map, final String key, final int[] defValues) {
+    public static final int[] getKeyedIntegerArray(final Map map, final String key, final int[] defValues) {
 
         if (map == null)
             return defValues;

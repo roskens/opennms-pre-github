@@ -97,22 +97,22 @@ public final class MSExchangePlugin extends AbstractPlugin {
     /**
      * Default number of retries.
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds).
      */
-    private final static int DEFAULT_TIMEOUT = 5000;
+    private static final int DEFAULT_TIMEOUT = 5000;
 
     /**
      * The array location for POP3 information.
      */
-    private final static int POP3_INDEX = 0;
+    private static final int POP3_INDEX = 0;
 
     /**
      * The array location for IMAP information.
      */
-    private final static int IMAP_INDEX = 1;
+    private static final int IMAP_INDEX = 1;
 
     private boolean isServer(InetAddress host, int port, int retries, int timeout) {
 

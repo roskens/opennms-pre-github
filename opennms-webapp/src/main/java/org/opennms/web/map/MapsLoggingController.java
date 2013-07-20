@@ -69,7 +69,7 @@ public abstract class MapsLoggingController implements Controller, ServletContex
 
     /** {@inheritDoc} */
     @Override
-    final public ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response)
+    public final ModelAndView handleRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         return Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Callable<ModelAndView>() {
 
@@ -82,7 +82,7 @@ public abstract class MapsLoggingController implements Controller, ServletContex
 
     }
 
-    abstract protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
+    protected abstract ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception;
 
 }

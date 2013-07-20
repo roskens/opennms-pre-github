@@ -395,7 +395,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         trapSession.send(peer, pdu);
     }
 
-    private synchronized static SnmpTrapSession getTrapSession() throws SocketException {
+    private static synchronized SnmpTrapSession getTrapSession() throws SocketException {
         if (s_trapSession == null) {
             s_trapSession = new SnmpTrapSession(null, null, -1);
         }

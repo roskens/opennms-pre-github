@@ -98,7 +98,7 @@ final class SuspectEventProcessor implements Runnable {
     /**
      * SQL statement to retrieve the ipaddresses for a given node ID
      */
-    private final static String SQL_RETRIEVE_IPINTERFACES_ON_NODEID = "SELECT ipaddr FROM ipinterface WHERE nodeid = ? and ismanaged != 'D'";
+    private static final String SQL_RETRIEVE_IPINTERFACES_ON_NODEID = "SELECT ipaddr FROM ipinterface WHERE nodeid = ? and ismanaged != 'D'";
 
     /**
      * IP address of new suspect interface

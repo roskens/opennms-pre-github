@@ -45,13 +45,13 @@ import org.slf4j.LoggerFactory;
 public final class FdbTableGet {
     private static final Logger LOG = LoggerFactory.getLogger(FdbTableGet.class);
 
-    private final static String FDB_PORT_OID = ".1.3.6.1.2.1.17.4.3.1.2";
+    private static final String FDB_PORT_OID = ".1.3.6.1.2.1.17.4.3.1.2";
 
-    private final static String FDB_STATUS_OID = ".1.3.6.1.2.1.17.4.3.1.3";
+    private static final String FDB_STATUS_OID = ".1.3.6.1.2.1.17.4.3.1.3";
 
-    private final static String QFDB_PORT_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.2";
+    private static final String QFDB_PORT_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.2";
 
-    private final static String QFDB_STATUS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.3";
+    private static final String QFDB_STATUS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.3";
 
     /**
      * The SnmpPeer object used to communicate via SNMP with the remote host.

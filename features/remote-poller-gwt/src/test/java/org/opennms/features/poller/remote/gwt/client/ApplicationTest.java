@@ -50,13 +50,13 @@ public class ApplicationTest {
 
     final Date m_from = new Date(m_to.getTime() - (1000 * 60 * 60 * 24));
 
-    final static long FIVE_MINUTES = 1000 * 60 * 5;
+    static final long FIVE_MINUTES = 1000 * 60 * 5;
 
     static int count = 0;
 
     static int monitorOffset = 0;
 
-    final static Random m_random = new Random();
+    static final Random m_random = new Random();
 
     Map<String, ApplicationInfo> m_applications = null;
 

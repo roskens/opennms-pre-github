@@ -65,22 +65,22 @@ public final class SSLCertPlugin extends AbstractPlugin {
     /**
      * The protocol supported by the plugin
      */
-    private final static String PROTOCOL_NAME = "SSLCert";
+    private static final String PROTOCOL_NAME = "SSLCert";
 
     /**
      * Default number of retries for TCP requests
      */
-    private final static int DEFAULT_RETRY = 0;
+    private static final int DEFAULT_RETRY = 0;
 
     /**
      * Default timeout (in milliseconds) for TCP requests
      */
-    private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
+    private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
      * Default port to test for a valid SSL certificate.
      */
-    private final static int DEFAULT_PORT = -1;
+    private static final int DEFAULT_PORT = -1;
 
     public static final String PARAMETER_TIMEOUT = "timeout";
 

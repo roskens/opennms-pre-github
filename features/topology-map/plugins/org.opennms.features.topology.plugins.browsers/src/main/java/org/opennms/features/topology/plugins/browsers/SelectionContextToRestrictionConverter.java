@@ -58,5 +58,5 @@ abstract class SelectionContextToRestrictionConverter {
         return new AnyRestriction(restrictions.toArray(new Restriction[restrictions.size()]));
     }
 
-    abstract protected Restriction createRestriction(VertexRef ref);
+    protected abstract Restriction createRestriction(VertexRef ref);
 }

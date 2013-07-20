@@ -101,11 +101,11 @@ public class SyslogNorthBounderTest {
         StringBuilder m_buf = new StringBuilder(MESSAGE_LENGTH);
 
         @Override
-        synchronized public void write(int inByte) throws IOException {
+        public synchronized void write(int inByte) throws IOException {
             m_buf.append((char) inByte);
         }
 
-        synchronized public String getString() {
+        public synchronized String getString() {
             String buffer = m_buf.toString();
             m_buf.setLength(0);
             return buffer;

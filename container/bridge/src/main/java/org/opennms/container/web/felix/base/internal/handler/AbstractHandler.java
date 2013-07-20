@@ -27,7 +27,7 @@ import javax.servlet.ServletException;
 import org.opennms.container.web.felix.base.internal.context.ExtServletContext;
 
 public abstract class AbstractHandler {
-    private final static AtomicInteger ID = new AtomicInteger();
+    private static final AtomicInteger ID = new AtomicInteger();
 
     private final String id;
 

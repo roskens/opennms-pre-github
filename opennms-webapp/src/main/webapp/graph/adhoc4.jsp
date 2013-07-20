@@ -36,7 +36,7 @@
 <%@page import="org.springframework.web.context.WebApplicationContext"%>
 
 <%!
-    public final static String[] REQUIRED_PARAMS =
+    public static final String[] REQUIRED_PARAMS =
 	new String[] {
 		"resourceId",
 		"title",

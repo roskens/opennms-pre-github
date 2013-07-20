@@ -32,37 +32,37 @@ import java.net.InetAddress;
 
 public class OspfNbrTableEntry extends SnmpStore {
 
-    public final static String OSPF_NBR_IPADDRESS_ALIAS = "ospfNbrIpAddr";
+    public static final String OSPF_NBR_IPADDRESS_ALIAS = "ospfNbrIpAddr";
 
-    public final static String OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS = "ospfNbrAddressLessIndex";
+    public static final String OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS = "ospfNbrAddressLessIndex";
 
-    public final static String OSPF_NBR_ROUTERID_ALIAS = "ospfNbrRtrId";
+    public static final String OSPF_NBR_ROUTERID_ALIAS = "ospfNbrRtrId";
 
-    public final static String OSPF_NBR_STATE_ALIAS = "ospfNbrState";
+    public static final String OSPF_NBR_STATE_ALIAS = "ospfNbrState";
 
-    public final static String OSPF_NBR_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.10.1.1";
+    public static final String OSPF_NBR_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.10.1.1";
 
-    public final static String OSPF_NBR_ADDRESS_LESS_INDEX_OID = ".1.3.6.1.2.1.14.10.1.2";
+    public static final String OSPF_NBR_ADDRESS_LESS_INDEX_OID = ".1.3.6.1.2.1.14.10.1.2";
 
-    public final static String OSPF_NBR_ROUTERID_OID = ".1.3.6.1.2.1.14.10.1.3";
+    public static final String OSPF_NBR_ROUTERID_OID = ".1.3.6.1.2.1.14.10.1.3";
 
-    public final static String OSPF_NBR_STATE_OID = ".1.3.6.1.2.1.14.10.1.6";
+    public static final String OSPF_NBR_STATE_OID = ".1.3.6.1.2.1.14.10.1.6";
 
-    public final static Integer OSPF_NBR_STATE_DOWN = 1;
+    public static final Integer OSPF_NBR_STATE_DOWN = 1;
 
-    public final static Integer OSPF_NBR_STATE_ATTEMPT = 2;
+    public static final Integer OSPF_NBR_STATE_ATTEMPT = 2;
 
-    public final static Integer OSPF_NBR_STATE_INIT = 3;
+    public static final Integer OSPF_NBR_STATE_INIT = 3;
 
-    public final static Integer OSPF_NBR_STATE_TWOWAY = 4;
+    public static final Integer OSPF_NBR_STATE_TWOWAY = 4;
 
-    public final static Integer OSPF_NBR_STATE_EXCHANGESTART = 5;
+    public static final Integer OSPF_NBR_STATE_EXCHANGESTART = 5;
 
-    public final static Integer OSPF_NBR_STATE_EXCHANGE = 6;
+    public static final Integer OSPF_NBR_STATE_EXCHANGE = 6;
 
-    public final static Integer OSPF_NBR_STATE_LOADING = 7;
+    public static final Integer OSPF_NBR_STATE_LOADING = 7;
 
-    public final static Integer OSPF_NBR_STATE_FULL = 8;
+    public static final Integer OSPF_NBR_STATE_FULL = 8;
 
     public static final NamedSnmpVar[] ospfnbrtable_elemList = new NamedSnmpVar[] {
 

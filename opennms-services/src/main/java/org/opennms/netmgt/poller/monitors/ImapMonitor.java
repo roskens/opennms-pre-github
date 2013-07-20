@@ -76,7 +76,7 @@ import org.slf4j.LoggerFactory;
  * @version CVS 1.1.1.1
  */
 @Distributable
-final public class ImapMonitor extends AbstractServiceMonitor {
+public final class ImapMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(ImapMonitor.class);
 
     /**

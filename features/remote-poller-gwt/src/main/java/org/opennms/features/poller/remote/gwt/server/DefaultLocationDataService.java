@@ -914,9 +914,9 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     }
 
     private static class MonitorStatusTracker implements StatusTracker {
-        private transient final Map<Integer, OnmsLocationSpecificStatus> m_statuses = new HashMap<Integer, OnmsLocationSpecificStatus>();
+        private final transient Map<Integer, OnmsLocationSpecificStatus> m_statuses = new HashMap<Integer, OnmsLocationSpecificStatus>();
 
-        private transient final String m_locationName;
+        private final transient String m_locationName;
 
         public MonitorStatusTracker(final String locationName) {
             m_locationName = locationName;

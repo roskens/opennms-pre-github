@@ -105,7 +105,7 @@ import org.springframework.util.Assert;
 public class DefaultProvisionService implements ProvisionService, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultProvisionService.class);
 
-    private final static String FOREIGN_SOURCE_FOR_DISCOVERED_NODES = null;
+    private static final String FOREIGN_SOURCE_FOR_DISCOVERED_NODES = null;
 
     /**
      * ServiceTypeFulfiller

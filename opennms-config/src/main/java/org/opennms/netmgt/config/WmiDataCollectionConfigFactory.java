@@ -224,7 +224,7 @@ public class WmiDataCollectionConfigFactory {
      * @return a {@link org.opennms.netmgt.config.wmi.WmiDatacollectionConfig}
      *         object.
      */
-    public synchronized static WmiDatacollectionConfig getConfig() {
+    public static synchronized WmiDatacollectionConfig getConfig() {
         return m_config;
     }
 
@@ -238,7 +238,7 @@ public class WmiDataCollectionConfigFactory {
      *            {@link org.opennms.netmgt.config.wmi.WmiDatacollectionConfig}
      *            object.
      */
-    public synchronized static void setConfig(WmiDatacollectionConfig m_config) {
+    public static synchronized void setConfig(WmiDatacollectionConfig m_config) {
         WmiDataCollectionConfigFactory.m_config = m_config;
     }
 

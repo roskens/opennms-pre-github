@@ -52,46 +52,46 @@ public final class CiscoVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
     /** Constant <code>CISCOVTP_VLAN_MTU="vtpVlanMtu"</code> */
-    public final static String CISCOVTP_VLAN_MTU = "vtpVlanMtu";
+    public static final String CISCOVTP_VLAN_MTU = "vtpVlanMtu";
 
     /** Constant <code>CISCOVTP_VLAN_D10S="vtpVlanDot10Said"</code> */
-    public final static String CISCOVTP_VLAN_D10S = "vtpVlanDot10Said";
+    public static final String CISCOVTP_VLAN_D10S = "vtpVlanDot10Said";
 
     /** Constant <code>CISCOVTP_VLAN_RINGN="vtpVlanRingNumber"</code> */
-    public final static String CISCOVTP_VLAN_RINGN = "vtpVlanRingNumber";
+    public static final String CISCOVTP_VLAN_RINGN = "vtpVlanRingNumber";
 
     /** Constant <code>CISCOVTP_VLAN_BRIDGEN="vtpVlanBridgeNumber"</code> */
-    public final static String CISCOVTP_VLAN_BRIDGEN = "vtpVlanBridgeNumber";
+    public static final String CISCOVTP_VLAN_BRIDGEN = "vtpVlanBridgeNumber";
 
     /** Constant <code>CISCOVTP_VLAN_STPTYPE="vtpVlanStpType"</code> */
-    public final static String CISCOVTP_VLAN_STPTYPE = "vtpVlanStpType";
+    public static final String CISCOVTP_VLAN_STPTYPE = "vtpVlanStpType";
 
     /** Constant <code>CISCOVTP_VLAN_PARV="vtpVlanParentVlan"</code> */
-    public final static String CISCOVTP_VLAN_PARV = "vtpVlanParentVlan";
+    public static final String CISCOVTP_VLAN_PARV = "vtpVlanParentVlan";
 
     /** Constant <code>CISCOVTP_VLAN_TRV1="vtpVlanTranslationalVlan1"</code> */
-    public final static String CISCOVTP_VLAN_TRV1 = "vtpVlanTranslationalVlan1";
+    public static final String CISCOVTP_VLAN_TRV1 = "vtpVlanTranslationalVlan1";
 
     /** Constant <code>CISCOVTP_VLAN_TRV2="vtpVlanTranslationalVlan2"</code> */
-    public final static String CISCOVTP_VLAN_TRV2 = "vtpVlanTranslationalVlan2";
+    public static final String CISCOVTP_VLAN_TRV2 = "vtpVlanTranslationalVlan2";
 
     /** Constant <code>CISCOVTP_VLAN_BRIDGETYPE="vtpVlanBridgeType"</code> */
-    public final static String CISCOVTP_VLAN_BRIDGETYPE = "vtpVlanBridgeType";
+    public static final String CISCOVTP_VLAN_BRIDGETYPE = "vtpVlanBridgeType";
 
     /** Constant <code>CISCOVTP_VLAN_AREHC="vtpVlanAreHopCount"</code> */
-    public final static String CISCOVTP_VLAN_AREHC = "vtpVlanAreHopCount";
+    public static final String CISCOVTP_VLAN_AREHC = "vtpVlanAreHopCount";
 
     /** Constant <code>CISCOVTP_VLAN_STEHC="vtpVlanSteHopCount"</code> */
-    public final static String CISCOVTP_VLAN_STEHC = "vtpVlanSteHopCount";
+    public static final String CISCOVTP_VLAN_STEHC = "vtpVlanSteHopCount";
 
     /** Constant <code>CISCOVTP_VLAN_ISCRFBACHUP="vtpVlanIsCRFBackup"</code> */
-    public final static String CISCOVTP_VLAN_ISCRFBACHUP = "vtpVlanIsCRFBackup";
+    public static final String CISCOVTP_VLAN_ISCRFBACHUP = "vtpVlanIsCRFBackup";
 
     /** Constant <code>CISCOVTP_VLAN_TYPEEXT="vtpVlanTypeExt"</code> */
-    public final static String CISCOVTP_VLAN_TYPEEXT = "vtpVlanTypeExt";
+    public static final String CISCOVTP_VLAN_TYPEEXT = "vtpVlanTypeExt";
 
     /** Constant <code>CISCOVTP_VLAN_IFINDEX="vtpVlanIfIndex"</code> */
-    public final static String CISCOVTP_VLAN_IFINDEX = "vtpVlanIfIndex";
+    public static final String CISCOVTP_VLAN_IFINDEX = "vtpVlanIfIndex";
 
     /**
      * <P>

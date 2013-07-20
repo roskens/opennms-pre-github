@@ -56,9 +56,9 @@ public final class CdpGlobalGroup extends AggregateTracker {
     //
     // Lookup strings for specific table entries
     //
-    public final static String CDP_GLOBAL_DEVICEID = "cdpGlobalDeviceId";
+    public static final String CDP_GLOBAL_DEVICEID = "cdpGlobalDeviceId";
 
-    public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
+    public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
     /**
      * <P>
      * The MAC address used by this bridge when it must be referred to in a

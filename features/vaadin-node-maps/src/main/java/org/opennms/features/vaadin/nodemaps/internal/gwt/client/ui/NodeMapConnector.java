@@ -59,7 +59,7 @@ public class NodeMapConnector extends AbstractComponentConnector {
         initializeIcons();
     }
 
-    private static native final boolean isRetina() /*-{
+    private static final native boolean isRetina() /*-{
                                                    return $wnd.L.Browser.retina;
                                                    }-*/;
 

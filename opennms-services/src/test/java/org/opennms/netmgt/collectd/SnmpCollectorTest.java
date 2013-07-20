@@ -104,7 +104,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
     private String m_testHostName;
 
-    private final static String TEST_NODE_LABEL = "TestNode";
+    private static final String TEST_NODE_LABEL = "TestNode";
 
     private CollectionSpecification m_collectionSpecification;
 

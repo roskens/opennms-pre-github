@@ -63,7 +63,7 @@ public final class JDBCStoredProcedurePlugin extends JDBCPlugin {
     /**
      * The stored procedure checked by the plugin
      */
-    private final static String DEFAULT_STORED_PROCEDURE = "isRunning";
+    private static final String DEFAULT_STORED_PROCEDURE = "isRunning";
 
     /**
      * Class constructor. Load the JDBC drivers.

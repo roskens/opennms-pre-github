@@ -10,7 +10,7 @@ import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
 
 public class GoogleGeocoderService implements GeocoderService {
-    final private Geocoder m_geocoder = new Geocoder();
+    private final Geocoder m_geocoder = new Geocoder();
 
     @Override
     public Coordinates getCoordinates(final String address) throws GeocoderException {

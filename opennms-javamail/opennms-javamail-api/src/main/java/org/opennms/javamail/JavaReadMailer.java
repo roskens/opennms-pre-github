@@ -75,7 +75,7 @@ public class JavaReadMailer extends JavaMailer2 {
 
     private List<Message> m_messages;
 
-    final private ReadmailConfig m_config;
+    private final ReadmailConfig m_config;
 
     private Session m_session;
 

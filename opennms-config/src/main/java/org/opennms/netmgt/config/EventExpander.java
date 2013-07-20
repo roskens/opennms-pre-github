@@ -104,13 +104,13 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     /*
      * This is never used
      * TODO: delete this code
-     * private final static String ENTERPRISE_PRE = ".1.3.6.1.4.1";
+     * private static final String ENTERPRISE_PRE = ".1.3.6.1.4.1";
      */
     /**
      * The default event UEI - if the event lookup into the 'event.conf' fails,
      * the event is loaded with information from this default UEI
      */
-    private final static String DEFAULT_EVENT_UEI = "uei.opennms.org/default/event";
+    private static final String DEFAULT_EVENT_UEI = "uei.opennms.org/default/event";
 
     /**
      * The default trap UEI - if the trap lookup into the 'event.conf' fails,
@@ -119,7 +119,7 @@ public final class EventExpander implements EventProcessor, InitializingBean {
     /*
      * This is never used
      * TODO: delete this code soon
-     * private final static String DEFAULT_TRAP_UEI =
+     * private static final String DEFAULT_TRAP_UEI =
      * "uei.opennms.org/default/trap";
      */
     public EventExpander() {

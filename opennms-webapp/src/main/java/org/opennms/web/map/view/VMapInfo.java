@@ -41,7 +41,7 @@ package org.opennms.web.map.view;
  * @version $Id: $
  * @since 1.8.1
  */
-final public class VMapInfo {
+public final class VMapInfo {
 
     private final int id;
 

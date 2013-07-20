@@ -39,9 +39,9 @@ public final class OspfGeneralGroup extends AggregateTracker {
 
     private static final Logger LOG = LoggerFactory.getLogger(OspfGeneralGroup.class);
 
-    public final static String OSPF_ROUTER_ID_ALIAS = "ospfRouterId";
+    public static final String OSPF_ROUTER_ID_ALIAS = "ospfRouterId";
 
-    public final static String OSPF_ROUTER_ID_OID = ".1.3.6.1.2.1.14.1.1";
+    public static final String OSPF_ROUTER_ID_OID = ".1.3.6.1.2.1.14.1.1";
 
     public static NamedSnmpVar[] ms_elemList = null;
 

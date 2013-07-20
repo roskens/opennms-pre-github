@@ -123,7 +123,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @return True if server supports Citrix on the specified port, false
      *         otherwise
      */
-    final protected boolean checkConnection(ConnectionConfig config) {
+    protected final boolean checkConnection(ConnectionConfig config) {
         // get a log to send errors
         //
         // don't let the user set the timeout to 0, an infinite loop will occur
@@ -269,7 +269,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      *            a int.
      * @return a int.
      */
-    final protected int getKeyedInteger(Map<String, Object> qualifiers, String key, int defaultVal) {
+    protected final int getKeyedInteger(Map<String, Object> qualifiers, String key, int defaultVal) {
         if (qualifiers == null)
             return defaultVal;
         else
@@ -289,7 +289,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      *            an array of int.
      * @return an array of int.
      */
-    final protected int[] getKeyedIntegerArray(Map<String, Object> qualifiers, String key, int[] defaultVal) {
+    protected final int[] getKeyedIntegerArray(Map<String, Object> qualifiers, String key, int[] defaultVal) {
         if (qualifiers == null)
             return defaultVal;
         else
@@ -303,7 +303,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      *
      * @return Returns the pluginName.
      */
-    final public String getPluginName() {
+    public final String getPluginName() {
         if (m_pluginName == null) {
             String fullName = this.getClass().getName();
             int idx = fullName.lastIndexOf('.');
@@ -319,7 +319,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @return The protocol name for this plugin.
      */
     @Override
-    final public String getProtocolName() {
+    public final String getProtocolName() {
         return m_protocolName;
     }
 
@@ -329,7 +329,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * protocol is not supported then a false value is returned to the caller.
      */
     @Override
-    final public boolean isProtocolSupported(InetAddress address) {
+    public final boolean isProtocolSupported(InetAddress address) {
         return isProtocolSupported(address, null);
     }
 
@@ -342,7 +342,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * service events if needed.
      */
     @Override
-    final public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
+    public final boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
 
         List<ConnectionConfig> connList = getConnectionConfigList(qualifiers, address);
 
@@ -414,7 +414,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @param value
      *            a int.
      */
-    final protected void saveKeyedInteger(Map<String, Object> qualifiers, String key, int value) {
+    protected final void saveKeyedInteger(Map<String, Object> qualifiers, String key, int value) {
         if (qualifiers != null && !qualifiers.containsKey(key))
             qualifiers.put(key, Integer.valueOf(value));
     }
@@ -427,7 +427,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * @param pluginName
      *            The pluginName to set.
      */
-    final public void setPluginName(String pluginName) {
+    public final void setPluginName(String pluginName) {
         m_pluginName = pluginName;
     }
 

@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @Distributable
-final public class SshMonitor extends AbstractServiceMonitor {
+public final class SshMonitor extends AbstractServiceMonitor {
     private static final Logger LOG = LoggerFactory.getLogger(SshMonitor.class);
 
     private static final int DEFAULT_RETRY = 0;

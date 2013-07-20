@@ -149,7 +149,7 @@ public class OpenNMSEventHandlerThread extends Thread {
     /**
      * Initialise the Thread. Must be called before a call to run.
      */
-    synchronized public void init() {
+    public synchronized void init() {
         LOG.debug("OpenNMSEventHandlerThread.init() initialised");
         init = true; // inform the thread that it has been initialised
         // and can execute the run() method.
@@ -160,7 +160,7 @@ public class OpenNMSEventHandlerThread extends Thread {
      * Stop execution of the thread. Will complete any current update before
      * exiting
      */
-    synchronized public void kill() {
+    public synchronized void kill() {
         // Thread.stop() is unsafe so ending run method by changing
         // a status variable that tells the run method to return
         // and end execution.
@@ -178,7 +178,7 @@ public class OpenNMSEventHandlerThread extends Thread {
      * latched ( i.e. not queued) and result
      * another update when the previous one completes
      */
-    synchronized public void sendAlarmList() {
+    public synchronized void sendAlarmList() {
         LOG.debug("OpenNMSEventHandlerThread.sendAlarmList() request received to update alarm list");
         sendList = true;
         // instance.notify();
@@ -193,7 +193,7 @@ public class OpenNMSEventHandlerThread extends Thread {
      * latched ( i.e. not queued) and result
      * in only one update when the previous one completes
      */
-    synchronized public void updateNodeCache() {
+    public synchronized void updateNodeCache() {
         LOG.debug("OpenNMSEventHandlerThread.updateNodeCache() request received to update node list");
         updateNCache = true;
         // instance.notify();

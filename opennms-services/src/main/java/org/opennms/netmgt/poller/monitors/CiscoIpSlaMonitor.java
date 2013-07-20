@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @Distributable(DistributionContext.DAEMON)
-final public class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
+public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
 
     public static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaMonitor.class);
 
