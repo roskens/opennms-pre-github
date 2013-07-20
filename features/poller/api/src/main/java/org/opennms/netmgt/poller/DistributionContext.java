@@ -37,5 +37,11 @@ package org.opennms.netmgt.poller;
  * @version $Id: $
  */
 public enum DistributionContext {
-    ALL, DAEMON, REMOTE_MONITOR
+
+    /** The all. */
+    ALL,
+ /** The daemon. */
+ DAEMON,
+ /** The remote monitor. */
+ REMOTE_MONITOR
 }

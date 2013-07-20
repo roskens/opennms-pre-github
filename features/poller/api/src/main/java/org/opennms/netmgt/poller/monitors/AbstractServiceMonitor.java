@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractServiceMonitor implements ServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceMonitor.class);
 
     /**
@@ -88,9 +89,6 @@ public abstract class AbstractServiceMonitor implements ServiceMonitor {
      * its state information is saved. Once the plug-in returns from this call
      * its configuration proxy object is considered invalid.
      * </P>
-     *
-     * @exception java.lang.RuntimeException
-     *                Thrown if an error occurs during deallocation.
      */
     @Override
     public void release() {
@@ -109,9 +107,6 @@ public abstract class AbstractServiceMonitor implements ServiceMonitor {
      * scheduling.
      * </P>
      *
-     * @exception java.lang.RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

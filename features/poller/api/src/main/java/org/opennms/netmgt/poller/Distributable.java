@@ -57,5 +57,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Distributable {
+
+    /**
+     * Value.
+     *
+     * @return the distribution context[]
+     */
     DistributionContext[] value() default DistributionContext.ALL;
 }

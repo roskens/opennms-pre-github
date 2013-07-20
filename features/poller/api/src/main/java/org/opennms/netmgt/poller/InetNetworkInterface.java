@@ -54,9 +54,8 @@ import java.util.Map;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class InetNetworkInterface implements NetworkInterface<InetAddress>, Serializable {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6076361991057260210L;
 
     /**
@@ -64,9 +63,7 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
      */
     private transient Map<String, Object> m_properties;
 
-    /**
-     * Interface address
-     */
+    /** Interface address. */
     protected InetAddress m_address;
 
     /**
@@ -111,6 +108,7 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */

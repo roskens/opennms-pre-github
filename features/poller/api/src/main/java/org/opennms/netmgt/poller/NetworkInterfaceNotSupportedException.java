@@ -40,9 +40,8 @@ package org.opennms.netmgt.poller;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class NetworkInterfaceNotSupportedException extends UnsupportedOperationException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6475953946239469715L;
 
     /**
@@ -53,7 +52,7 @@ public class NetworkInterfaceNotSupportedException extends UnsupportedOperationE
     }
 
     /**
-     * Constructs a new exception instance with the specific message
+     * Constructs a new exception instance with the specific message.
      *
      * @param msg
      *            The exception message.

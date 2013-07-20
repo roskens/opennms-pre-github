@@ -44,6 +44,8 @@ package org.opennms.netmgt.poller;
  * must be careful to choose unique keys to prevent namespace collisions.
  * </P>
  *
+ * @param <T>
+ *            the generic type
  * @author <A HREF="mailto:weave@oculan.com">Weave </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -93,11 +95,11 @@ public interface NetworkInterface<T> {
      * is returned to the application.
      * </P>
      *
+     * @param <V>
+     *            the value type
      * @param property
      *            The key for the lookup.
      * @return The resulting value for the key, null if no value exist.
-     * @exception java.lang.IllegalArgumentException
-     *                Thrown if the passed key is empty or null.
      * @see java.util.Map#get(java.lang.Object)
      */
     public <V> V getAttribute(String property);
@@ -117,8 +119,6 @@ public interface NetworkInterface<T> {
      *            The value to associate with the key
      * @return The object that was previously associated with the key. Null is
      *         returned if there was no previous value associated.
-     * @exception java.lang.IllegalArgumentException
-     *                Thrown if the property name is empty or null.
      * @see java.util.Map#put(java.lang.Object, java.lang.Object)
      */
     public Object setAttribute(String property, Object value);

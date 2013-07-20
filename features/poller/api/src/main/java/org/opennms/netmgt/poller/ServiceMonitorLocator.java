@@ -42,6 +42,7 @@ public interface ServiceMonitorLocator {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -51,6 +52,7 @@ public interface ServiceMonitorLocator {
      * <p>
      * getServiceLocatorKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -60,6 +62,7 @@ public interface ServiceMonitorLocator {
      * <p>
      * getServiceMonitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */

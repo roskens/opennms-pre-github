@@ -79,9 +79,6 @@ public interface ServiceMonitor {
      *
      * @param parameters
      *            Not currently used
-     * @exception java.lang.RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                plug-in from functioning.
      */
     public void initialize(Map<String, Object> parameters);
 
@@ -98,9 +95,6 @@ public interface ServiceMonitor {
      * its state information is saved. Once the plug-in returns from this call
      * its configuration proxy object is considered invalid.
      * </P>
-     *
-     * @exception java.lang.RuntimeException
-     *                Thrown if an error occurs during deallocation.
      */
     public void release();
 
@@ -119,9 +113,6 @@ public interface ServiceMonitor {
      *
      * @param svc
      *            TODO
-     * @exception java.lang.RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      */
     public void initialize(MonitoredService svc);
 
@@ -140,9 +131,6 @@ public interface ServiceMonitor {
      *
      * @param svc
      *            TODO
-     * @exception java.lang.RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      */
     public void release(MonitoredService svc);
 
@@ -167,9 +155,6 @@ public interface ServiceMonitor {
      *            this poll.
      * @return The availability of the interface and if a transition event
      *         should be suppressed.
-     * @exception java.lang.RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @see PollStatus#SERVICE_AVAILABLE
      * @see PollStatus#SERVICE_UNAVAILABLE
      * @see PollStatus#SERVICE_AVAILABLE
