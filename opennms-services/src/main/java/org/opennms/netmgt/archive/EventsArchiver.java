@@ -85,8 +85,9 @@ import org.slf4j.LoggerFactory;
  *  The EventsArchiver uses Apache's log4j both for its output logs and for
  *  the actual archiving itself - the set up for the log4j appenders for
  *  this archiver are all doneexclusively in the 'events.archiver.properties'
- *  property file
+ *  property file.
  *
+ * </pre>
  *
  *  @author &lt;A HREF=&quot;mailto:sowmya@opennms.org&quot;&gt;Sowmya Nataraj&lt;/A&gt;
  *  @author &lt;A HREF=&quot;http://www.opennms.org&quot;&gt;OpenNMS&lt;/A&gt;

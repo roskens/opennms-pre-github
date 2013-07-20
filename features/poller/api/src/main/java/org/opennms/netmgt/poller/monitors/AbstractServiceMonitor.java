@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * of the <code>ServiceMonitor</code> class. Since most pollers do not do any
  * special initialization, and only require that the interface is an
  * <code>InetAddress</code> object this class provides everything by the
- * <code>poll<code> interface.
+ * <code>poll</code> interface.
  *
  * @author <A HREF="mike@opennms.org">Mike</A>
  * @author <A HREF="weave@oculan.com">Weave</A>

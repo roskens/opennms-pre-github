@@ -43,9 +43,9 @@ import org.opennms.core.utils.ConfigFileConstants;
  * config is loaded before accessing other convenience methods.
  * Modified: 03/11/2005
  *
- * @author David Hustace <a href="mailto:david@opennms.org" David Hustace </a>
+ * @author <a href="mailto:david@opennms.org"> David Hustace </a>
  *         <strong>Note: Refactored and moved all non-static references
- *         to a base class moving away from singleton.
+ *         to a base class moving away from singleton.</strong>
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */

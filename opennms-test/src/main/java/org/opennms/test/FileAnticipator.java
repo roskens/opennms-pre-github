@@ -56,6 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  * <pre>
  * private FileAnticipator m_fileAnticipator;
+ *</pre>
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @version $Id: $

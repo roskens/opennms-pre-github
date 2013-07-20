@@ -158,7 +158,7 @@ public class JiraTicketerPlugin implements Plugin {
      * Retrieves the properties defined in the jira.properties file.
      *
      * @return a
-     *         <code>java.util.Properties object containing jira plugin defined properties
+     *         <code>java.util.Properties</code> object containing jira plugin defined properties
      */
 
     private static Properties getProperties() {

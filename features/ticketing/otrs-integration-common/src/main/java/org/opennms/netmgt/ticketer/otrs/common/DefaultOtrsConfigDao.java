@@ -162,7 +162,7 @@ public class DefaultOtrsConfigDao {
      *
      * @param otrsTicketerPlugin
      * @return a
-     *         <code>java.util.Properties object containing otrs plugin defined properties
+     *         <code>java.util.Properties</code> object containing otrs plugin defined properties
      * @throws IOException
      */
     private Configuration getProperties() {

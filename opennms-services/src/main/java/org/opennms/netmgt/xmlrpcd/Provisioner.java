@@ -65,7 +65,7 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
      * @return Always returns true.
      * @throws java.lang.IllegalArgumentException
      *             when arguments are outside of ranges
@@ -97,7 +97,7 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
      * @param port
      *            <code>int</code> the port to poll for DNS service
      * @param hostname
@@ -134,7 +134,7 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
      * @param port
      *            <code>int</code> the port to attempt to connect to determine
      *            if the service is accepting connections
@@ -172,7 +172,7 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
      * @param hostName
      *            <code>String</code> the virtual host (requires a url other
      *            than just "/")

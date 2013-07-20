@@ -38,7 +38,8 @@ import java.util.List;
  *  Also maintains the outage/down time each time it is calculated and the time
  *  from which this was calculated - this is done so when the view outage time for
  *  a window is calculated, the same calculations are not done on the node multiple
- * times
+ * times.
+ * </pre>
  */
 public class OutageSvcTimesList extends ArrayList<Outage> {
     /**

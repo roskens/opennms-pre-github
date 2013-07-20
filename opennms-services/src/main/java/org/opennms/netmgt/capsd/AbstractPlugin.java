@@ -37,7 +37,7 @@ import java.util.Map;
  * of the <code>Plugin</code> class. Since most plugins do not do any special
  * initialization, and only require that the interface is an
  * <code>InetAddress</code> object this class provides eveything but the
- * <code>poll<code> interface.
+ * <code>poll</code> interface.
  *
  * @author <A HREF="mike@opennms.org">Mike</A>
  * @author <A HREF="weave@oculan.com">Weave</A>

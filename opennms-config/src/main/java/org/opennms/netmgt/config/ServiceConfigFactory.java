@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * This factory class is designed to be the main interface between the service
  * configuration information and the users of the information. When initialized
  * the factory loads the configuration from the file system, allowing access to
- * the information by others. The <code>init<code> method may be called by more
+ * the information by others. The <code>init</code> method may be called by more
  * than one thread, but <em>MUST</em> be called by at least one thread before
  * the factory can be used.
  * </p>

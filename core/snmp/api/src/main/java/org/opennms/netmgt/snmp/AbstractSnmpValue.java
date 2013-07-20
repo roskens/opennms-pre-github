@@ -38,7 +38,7 @@ public abstract class AbstractSnmpValue implements SnmpValue {
      * <li>Tab (9)</li>
      * <li>Linefeed (10)</li>
      * <li>Carriage return (13)</li>
-     * <ul>
+     * </ul>
      * <p>
      * or the byte is Delete (127) then this method will return false. Also, if
      * the byte array has a NULL byte (0) that occurs anywhere besides the last

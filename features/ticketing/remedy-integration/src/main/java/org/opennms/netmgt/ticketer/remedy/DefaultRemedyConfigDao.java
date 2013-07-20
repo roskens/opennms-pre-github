@@ -27,7 +27,7 @@ public class DefaultRemedyConfigDao {
      *
      * @param remedyTicketerPlugin
      * @return a
-     *         <code>java.util.Properties object containing remedy plugin defined properties
+     *         <code>java.util.Properties</code> object containing remedy plugin defined properties
      */
 
     private Configuration getProperties() {

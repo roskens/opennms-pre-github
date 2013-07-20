@@ -101,7 +101,7 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
      * the generated View class
      * from the XSD.
      *
-     * @return <code>Map</> of View classes.
+     * @return <code>Map</code> of View classes.
      */
     public Map<String, View> getViewMap() {
         return Collections.unmodifiableMap(SiteStatusViewsFactory.getViewsMap());

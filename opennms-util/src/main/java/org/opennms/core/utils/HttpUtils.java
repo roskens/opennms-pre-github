@@ -57,7 +57,7 @@ public abstract class HttpUtils extends Object {
      *            the <code>URL</code> to post to
      * @param dataStream
      *            an input stream containing the data to send
-     * @return An <code>InputStream</a> that the programmer can read from
+     * @return An <code>InputStream</code> that the programmer can read from
      * to get the HTTP server's response.
      * @throws java.io.IOException
      *             if any.
@@ -78,7 +78,7 @@ public abstract class HttpUtils extends Object {
      *            the username to use in the BASIC authentication
      * @param password
      *            the password to use in the BASIC authentication
-     * @return An <code>InputStream</a> that the programmer can read from
+     * @return An <code>InputStream</code> that the programmer can read from
      * to get the HTTP server's response.
      * @throws java.io.IOException
      *             if any.
@@ -103,7 +103,7 @@ public abstract class HttpUtils extends Object {
      * @param bufSize
      *            the size of the buffer to read from <code>dataStream</code>
      *            and write to the HTTP server
-     * @return An <code>InputStream</a> that the programmer can read from
+     * @return An <code>InputStream</code> that the programmer can read from
      * to get the HTTP server's response.
      * @throws java.io.IOException
      *             if any.
@@ -180,7 +180,7 @@ public abstract class HttpUtils extends Object {
      * @param bufSize
      *            the size of the buffer to read from <code>dataStream</code>
      *            and write to the HTTP server
-     * @return An <code>InputStream</a> that the programmer can read from
+     * @return An <code>InputStream</code> that the programmer can read from
      * to get the HTTP server's response.
      * @throws java.io.IOException
      *             if any.

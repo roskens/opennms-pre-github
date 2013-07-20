@@ -300,7 +300,8 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      *  This hashtable gets constructed once and does not really change -
      *  so hashcode is only evaluated at construction time. Also, while
      *  the superclass uses just the entry set to calculate the hashcode,
-     * this uses both the names and their values in calculating the hashcode
+     * this uses both the names and their values in calculating the hashcode.
+     * </pre>
      */
     private void evaluateHashCode() {
         m_hashCode = 0;
@@ -371,6 +372,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     /**
      * <pre>
      * Get the value of the mask element for this event.
+     * </pre>
      *
      * <em>
      * Note:
