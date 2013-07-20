@@ -54,24 +54,33 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class GatewayGroupListener implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GatewayGroupListener.class);
 
+    /** The m_sms service registrar. */
     private SmsServiceRegistrar m_smsServiceRegistrar;
 
+    /** The m_services. */
     private Map<GatewayGroup, SmsServiceImpl> m_services = new HashMap<GatewayGroup, SmsServiceImpl>();
 
+    /** The m_outbound listeners. */
     private List<IOutboundMessageNotification> m_outboundListeners;
 
+    /** The m_inbound listeners. */
     private List<OnmsInboundMessageNotification> m_inboundListeners;
 
+    /** The m_gateway status listeners. */
     private List<IGatewayStatusNotification> m_gatewayStatusListeners;
 
+    /** The m_ussd listeners. */
     private List<IUSSDNotification> m_ussdListeners;
 
     /**
      * <p>
      * onGatewayGroupRegistered
      * </p>
+     * .
      *
      * @param gatewayGroup
      *            a {@link org.opennms.sms.reflector.smsservice.GatewayGroup}
@@ -118,6 +127,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * onGatewayGroupUnRegistered
      * </p>
+     * .
      *
      * @param gatewayGroup
      *            a {@link org.opennms.sms.reflector.smsservice.GatewayGroup}
@@ -139,6 +149,15 @@ public class GatewayGroupListener implements InitializingBean {
 
     }
 
+    /**
+     * Gateway id matches.
+     *
+     * @param gateways
+     *            the gateways
+     * @param aGateways
+     *            the a gateways
+     * @return true, if successful
+     */
     @SuppressWarnings("unused")
     private boolean gatewayIdMatches(Collection<AGateway> gateways, AGateway[] aGateways) {
         for (AGateway serviceGateway : gateways) {
@@ -155,6 +174,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * setOutboundListeners
      * </p>
+     * .
      *
      * @param outboundListeners
      *            a {@link java.util.List} object.
@@ -167,6 +187,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * getOutboundListeners
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -178,6 +199,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * setInboundListeners
      * </p>
+     * .
      *
      * @param inboundListeners
      *            a {@link java.util.List} object.
@@ -190,6 +212,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * getInboundListeners
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -201,6 +224,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * setGatewayStatusListeners
      * </p>
+     * .
      *
      * @param gatewayStatusListeners
      *            a {@link java.util.List} object.
@@ -213,6 +237,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * getGatewayStatusListeners
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -224,9 +249,10 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -238,6 +264,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * setSmsServiceRegistrar
      * </p>
+     * .
      *
      * @param smsServiceRegistrar
      *            a
@@ -252,6 +279,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * getSmsServiceRegistrar
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.internal.SmsServiceRegistrar}
@@ -265,6 +293,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * setUssdListeners
      * </p>
+     * .
      *
      * @param listeners
      *            a {@link java.util.List} object.
@@ -277,6 +306,7 @@ public class GatewayGroupListener implements InitializingBean {
      * <p>
      * getUssdListeners
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

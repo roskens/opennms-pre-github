@@ -42,6 +42,7 @@ import org.smslib.test.TestGateway;
  */
 public class TestGatewayGroupImpl implements GatewayGroup {
 
+    /** The m_gateways. */
     AGateway[] m_gateways;
 
     /**
@@ -58,6 +59,7 @@ public class TestGatewayGroupImpl implements GatewayGroup {
      * <p>
      * getGateways
      * </p>
+     * .
      *
      * @return an array of {@link org.smslib.AGateway} objects.
      */

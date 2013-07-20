@@ -50,11 +50,14 @@ import org.springframework.context.ApplicationContext;
  */
 public class InboundMessageNotification implements OnmsInboundMessageNotification {
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(InboundMessageNotification.class);
 
+    /** The m_listener list. */
     private Collection<OnmsInboundMessageNotification> m_listenerList;
 
     // private SmsService m_smsService;
+    /** The m_application context. */
     @SuppressWarnings("unused")
     private ApplicationContext m_applicationContext;
 
@@ -83,6 +86,7 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
      * <p>
      * getListeners
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -104,6 +108,18 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
 
     }
 
+    /**
+     * Notify listener.
+     *
+     * @param gateway
+     *            the gateway
+     * @param msgType
+     *            the msg type
+     * @param msg
+     *            the msg
+     * @param listener
+     *            the listener
+     */
     private void notifyListener(AGateway gateway, MessageTypes msgType, InboundMessage msg,
             OnmsInboundMessageNotification listener) {
         try {
@@ -113,6 +129,14 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
         }
     }
 
+    /**
+     * Delete message.
+     *
+     * @param gateway
+     *            the gateway
+     * @param msg
+     *            the msg
+     */
     private void deleteMessage(AGateway gateway, InboundMessage msg) {
         try {
             gateway.deleteMessage(msg);
@@ -125,6 +149,7 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
      * <p>
      * setListenerList
      * </p>
+     * .
      *
      * @param listeners
      *            a {@link java.util.List} object.
@@ -137,12 +162,13 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
      * <p>
      * setApplicationContext
      * </p>
+     * .
      *
      * @param applicationContext
      *            a {@link org.springframework.context.ApplicationContext}
      *            object.
-     * @throws org.springframework.beans.BeansException
-     *             if any.
+     * @throws BeansException
+     *             the beans exception
      */
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

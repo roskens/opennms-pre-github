@@ -51,7 +51,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * SmsMessenger
+ * SmsMessenger.
  *
  * @author brozow
  * @version $Id: $
@@ -59,16 +59,20 @@ import org.springframework.util.Assert;
 public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse>, OnmsInboundMessageNotification,
         IUSSDNotification, InitializingBean {
 
+    /** The log. */
     Logger log = LoggerFactory.getLogger(getClass());
 
+    /** The m_sms service. */
     private SmsService m_smsService;
 
+    /** The m_reply queue. */
     private Queue<MobileMsgResponse> m_replyQueue;
 
     /**
      * <p>
      * setSmsService
      * </p>
+     * .
      *
      * @param smsService
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
@@ -82,9 +86,10 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -95,13 +100,14 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *             object.
      */
     @Override
     public void sendRequest(MobileMsgRequest request) throws Exception {
@@ -144,6 +150,9 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.IUSSDNotification#process(org.smslib.AGateway, org.smslib.USSDResponse)
+     */
     @Override
     public void process(AGateway gateway, USSDResponse ussdResponse) {
         long receiveTime = System.currentTimeMillis();
@@ -155,6 +164,14 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
         }
     }
 
+    /**
+     * Debugf.
+     *
+     * @param fmt
+     *            the fmt
+     * @param args
+     *            the args
+     */
     private void debugf(String fmt, Object... args) {
         if (log.isDebugEnabled()) {
             log.debug(String.format(fmt, args));

@@ -46,6 +46,7 @@ public interface OnmsInboundMessageNotification {
      * <p>
      * process
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.

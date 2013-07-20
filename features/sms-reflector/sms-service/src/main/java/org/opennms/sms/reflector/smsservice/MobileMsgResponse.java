@@ -31,14 +31,17 @@ package org.opennms.sms.reflector.smsservice;
 import org.opennms.protocols.rt.Response;
 
 /**
- * SmsResponse
+ * SmsResponse.
  *
  * @author brozow
  * @version $Id: $
  */
 public abstract class MobileMsgResponse implements Response {
+
+    /** The m_request. */
     private MobileMsgRequest m_request;
 
+    /** The m_receive time. */
     private long m_receiveTime;
 
     /**
@@ -57,6 +60,7 @@ public abstract class MobileMsgResponse implements Response {
      * <p>
      * setRequest
      * </p>
+     * .
      *
      * @param req
      *            a
@@ -71,6 +75,7 @@ public abstract class MobileMsgResponse implements Response {
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *         object.
@@ -83,6 +88,7 @@ public abstract class MobileMsgResponse implements Response {
      * <p>
      * getReceiveTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -94,6 +100,7 @@ public abstract class MobileMsgResponse implements Response {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

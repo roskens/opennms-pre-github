@@ -40,17 +40,17 @@ public interface MobileMsgResponseCallback {
 
     /**
      * return true if this completes the response for this request
-     * return false if more responses are expected
+     * return false if more responses are expected.
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param packet
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
+     *         object.
      */
     public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse packet);
 
@@ -58,6 +58,7 @@ public interface MobileMsgResponseCallback {
      * <p>
      * handleTimeout
      * </p>
+     * .
      *
      * @param request
      *            a
@@ -70,13 +71,14 @@ public interface MobileMsgResponseCallback {
      * <p>
      * handleError
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @param t
      *            a {@link java.lang.Throwable} object.
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *            object.
      */
     public void handleError(MobileMsgRequest request, Throwable t);
 

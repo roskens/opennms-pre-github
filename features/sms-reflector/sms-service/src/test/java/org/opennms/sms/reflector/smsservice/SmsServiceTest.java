@@ -38,19 +38,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class SmsServiceTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:/META-INF/spring/bundle-context.xml",
         "classpath*:/META-INF/opennms/bundle-context-opennms.xml", "classpath:/testGatewayContext.xml" })
 public class SmsServiceTest implements InitializingBean {
 
+    /** The m_service. */
     @Autowired
     SmsService m_service;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test initialization.
+     */
     @Test
     public void testInitialization() {
         assertEquals("must have one gateway", 1, m_service.getGateways().size());

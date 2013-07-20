@@ -29,11 +29,15 @@
 package org.opennms.sms.reflector.smsservice;
 
 /**
- * PingResponseMatcher
+ * PingResponseMatcher.
  *
  * @author brozow
  */
 class PingResponseMatcher implements MobileMsgResponseMatcher {
+
+    /* (non-Javadoc)
+     * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher#matches(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+     */
     @Override
     public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 

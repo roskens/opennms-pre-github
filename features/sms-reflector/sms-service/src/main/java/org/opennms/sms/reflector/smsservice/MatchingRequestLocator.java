@@ -34,25 +34,27 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.opennms.protocols.rt.RequestLocator;
 
 /**
- * MatchingRequestLocator
+ * MatchingRequestLocator.
  *
  * @author brozow
  * @version $Id: $
  */
 public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, MobileMsgResponse> {
 
+    /** The m_requests. */
     private final Set<MobileMsgRequest> m_requests = new CopyOnWriteArraySet<MobileMsgRequest>();
 
     /**
      * <p>
      * trackRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
      */
     @Override
     public boolean trackRequest(MobileMsgRequest request) {
@@ -64,12 +66,13 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
      * <p>
      * locateMatchingRequest
      * </p>
+     * .
      *
      * @param response
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
-     *            object.
      * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponse}
      *         object.
      */
     @Override
@@ -88,12 +91,13 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
      * <p>
      * requestTimedOut
      * </p>
+     * .
      *
      * @param timedOutRequest
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
-     *            object.
      * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
+     *         object.
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *         object.
      */
     @Override
@@ -105,6 +109,7 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
      * <p>
      * requestComplete
      * </p>
+     * .
      *
      * @param request
      *            a

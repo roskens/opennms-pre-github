@@ -29,7 +29,7 @@
 package org.opennms.sms.reflector.smsservice;
 
 /**
- * MobileMsgResponseHandler
+ * MobileMsgResponseHandler.
  *
  * @author brozow
  * @version $Id: $

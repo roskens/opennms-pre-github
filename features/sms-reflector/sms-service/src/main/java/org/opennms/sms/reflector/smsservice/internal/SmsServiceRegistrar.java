@@ -44,6 +44,7 @@ public interface SmsServiceRegistrar {
      * <p>
      * registerSmsService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
@@ -55,6 +56,7 @@ public interface SmsServiceRegistrar {
      * <p>
      * unregisterSmsService
      * </p>
+     * .
      *
      * @param smsServiceImpl
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}

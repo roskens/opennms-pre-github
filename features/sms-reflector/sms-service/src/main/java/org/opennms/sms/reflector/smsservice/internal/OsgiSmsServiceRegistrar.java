@@ -46,8 +46,10 @@ import org.springframework.osgi.context.BundleContextAware;
  */
 public class OsgiSmsServiceRegistrar implements SmsServiceRegistrar, BundleContextAware {
 
+    /** The m_bundle context. */
     private BundleContext m_bundleContext;
 
+    /** The m_registration map. */
     private Map<SmsService, ServiceRegistration<SmsService>> m_registrationMap = new HashMap<SmsService, ServiceRegistration<SmsService>>();
 
     /** {@inheritDoc} */

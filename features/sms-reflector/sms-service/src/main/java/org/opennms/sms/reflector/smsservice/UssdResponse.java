@@ -41,8 +41,10 @@ import org.smslib.USSDSessionStatus;
  */
 public class UssdResponse extends MobileMsgResponse {
 
+    /** The m_gateway id. */
     private String m_gatewayId;
 
+    /** The m_msg. */
     private USSDResponse m_msg;
 
     /**
@@ -67,6 +69,7 @@ public class UssdResponse extends MobileMsgResponse {
      * <p>
      * getGatewayId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -78,6 +81,7 @@ public class UssdResponse extends MobileMsgResponse {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return the text
      */
@@ -90,6 +94,7 @@ public class UssdResponse extends MobileMsgResponse {
      * <p>
      * getSessionStatus
      * </p>
+     * .
      *
      * @return a {@link org.smslib.USSDSessionStatus} object.
      */
@@ -101,6 +106,7 @@ public class UssdResponse extends MobileMsgResponse {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link org.smslib.USSDResponse} object.
      */

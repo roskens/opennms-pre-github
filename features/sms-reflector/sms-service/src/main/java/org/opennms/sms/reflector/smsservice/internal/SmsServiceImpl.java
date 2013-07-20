@@ -73,40 +73,70 @@ import org.smslib.routing.Router;
  */
 public class SmsServiceImpl implements SmsService {
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(SmsServiceImpl.class);
 
+    /** The m_service. */
     private Service m_service = Service.getInstance();
 
+    /** The m_modem id. */
     private String m_modemId;
 
+    /** The m_modem port. */
     private String m_modemPort;
 
+    /** The m_baud rate. */
     private int m_baudRate;
 
+    /** The m_manufacturer. */
     private String m_manufacturer;
 
+    /** The m_model. */
     private String m_model;
 
+    /** The m_outbound listeners. */
     private List<IOutboundMessageNotification> m_outboundListeners;
 
+    /** The m_inbound listeners. */
     private List<OnmsInboundMessageNotification> m_inboundListeners;
 
+    /** The m_gateway status listeners. */
     private List<IGatewayStatusNotification> m_gatewayStatusListeners;
 
+    /** The m_gateway group. */
     private List<GatewayGroup> m_gatewayGroup;
 
+    /**
+     * The Class InboundNotificationAdapter.
+     */
     private class InboundNotificationAdapter implements IInboundMessageNotification {
+
+        /** The m_inbound notification. */
         private OnmsInboundMessageNotification m_inboundNotification;
 
+        /**
+         * Instantiates a new inbound notification adapter.
+         *
+         * @param onmsInbound
+         *            the onms inbound
+         */
         public InboundNotificationAdapter(OnmsInboundMessageNotification onmsInbound) {
             m_inboundNotification = onmsInbound;
         }
 
+        /* (non-Javadoc)
+         * @see org.smslib.IInboundMessageNotification#process(org.smslib.AGateway, org.smslib.Message.MessageTypes, org.smslib.InboundMessage)
+         */
         @Override
         public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
             m_inboundNotification.process(SmsServiceImpl.this.findGateway(gateway.getGatewayId()), msgType, msg);
         }
 
+        /**
+         * Gets the onms inbound message notification.
+         *
+         * @return the onms inbound message notification
+         */
         public OnmsInboundMessageNotification getOnmsInboundMessageNotification() {
             return m_inboundNotification;
         }
@@ -117,6 +147,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getOutboundListeners
      * </p>
+     * .
      *
      * @return the outboundListeners
      */
@@ -128,6 +159,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setOutboundListeners
      * </p>
+     * .
      *
      * @param outboundListeners
      *            the outboundListeners to set
@@ -140,6 +172,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getInboundListeners
      * </p>
+     * .
      *
      * @return the inboundListeners
      */
@@ -151,6 +184,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getGatewayStatusListeners
      * </p>
+     * .
      *
      * @return the gatewayStatusListeners
      */
@@ -162,6 +196,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setGatewayStatusListeners
      * </p>
+     * .
      *
      * @param gatewayStatusListeners
      *            the gatewayStatusListeners to set
@@ -174,6 +209,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getModemId
      * </p>
+     * .
      *
      * @return the modemId
      */
@@ -185,6 +221,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setModemId
      * </p>
+     * .
      *
      * @param modemId
      *            the modemId to set
@@ -197,6 +234,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getModemPort
      * </p>
+     * .
      *
      * @return the modemPort
      */
@@ -208,6 +246,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setModemPort
      * </p>
+     * .
      *
      * @param modemPort
      *            the modemPort to set
@@ -220,6 +259,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getBaudRate
      * </p>
+     * .
      *
      * @return the baudRate
      */
@@ -231,6 +271,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setBaudRate
      * </p>
+     * .
      *
      * @param baudRate
      *            the baudRate to set
@@ -243,6 +284,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getManufacturer
      * </p>
+     * .
      *
      * @return the manufacturer
      */
@@ -254,6 +296,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setManufacturer
      * </p>
+     * .
      *
      * @param manufacturer
      *            the manufacturer to set
@@ -266,6 +309,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getModel
      * </p>
+     * .
      *
      * @return the model
      */
@@ -277,6 +321,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setModel
      * </p>
+     * .
      *
      * @param model
      *            the model to set
@@ -289,6 +334,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * start
      * </p>
+     * .
      */
     public void start() {
         try {
@@ -303,6 +349,14 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * stop
      * </p>
+     * .
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SMSLibException
+     *             the sMS lib exception
      */
     public void stop() throws InterruptedException, IOException, SMSLibException {
         m_service.stopService();
@@ -312,6 +366,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * refresh
      * </p>
+     * .
      *
      * @param properties
      *            a {@link java.util.Map} object.
@@ -361,6 +416,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getCallNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.ICallNotification} object.
      */
@@ -373,6 +429,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getGatewayStatusNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IGatewayStatusNotification} object.
      */
@@ -385,6 +442,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getGateways
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -397,6 +455,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getGatewaysNET
      * </p>
+     * .
      *
      * @return an array of {@link org.smslib.AGateway} objects.
      */
@@ -415,6 +474,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getInboundMessageCount
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -429,6 +489,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getInboundMessageCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -441,6 +502,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getInboundNotification
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification}
@@ -455,6 +517,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getKeyManager
      * </p>
+     * .
      *
      * @return a {@link org.smslib.crypto.KeyManager} object.
      */
@@ -467,6 +530,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getLoadBalancer
      * </p>
+     * .
      *
      * @return a {@link org.smslib.balancing.LoadBalancer} object.
      */
@@ -485,6 +549,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getOutboundMessageCount
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -499,6 +564,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getOutboundMessageCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -511,6 +577,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getOutboundNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IOutboundMessageNotification} object.
      */
@@ -523,6 +590,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getQueueManager
      * </p>
+     * .
      *
      * @return a {@link org.smslib.queues.AbstractQueueManager} object.
      */
@@ -535,6 +603,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getQueueSendingNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IQueueSendingNotification} object.
      */
@@ -547,6 +616,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getRouter
      * </p>
+     * .
      *
      * @return a {@link org.smslib.routing.Router} object.
      */
@@ -559,6 +629,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getServiceStatus
      * </p>
+     * .
      *
      * @return a {@link org.smslib.Service.ServiceStatus} object.
      */
@@ -571,6 +642,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getSettings
      * </p>
+     * .
      *
      * @return a {@link org.smslib.Settings} object.
      */
@@ -583,6 +655,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getStartMillis
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -613,6 +686,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * queueMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
@@ -667,20 +741,21 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.smslib.InboundMessage} objects.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public InboundMessage[] readMessages(MessageClasses msgClass, String gatewayId) throws TimeoutException,
@@ -692,6 +767,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
@@ -700,14 +776,14 @@ public class SmsServiceImpl implements SmsService {
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public int readMessages(Collection<InboundMessage> msgList, MessageClasses msgClass, AGateway gateway)
@@ -719,20 +795,21 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
      * @return an array of {@link org.smslib.InboundMessage} objects.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public InboundMessage[] readMessages(MessageClasses msgClass, AGateway gateway) throws TimeoutException,
@@ -796,18 +873,19 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * sendMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public int sendMessages(OutboundMessage[] msgArray) throws TimeoutException, GatewayException, IOException,
@@ -876,17 +954,18 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * startService
      * </p>
+     * .
      *
-     * @throws org.smslib.SMSLibException
-     *             if any.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws SMSLibException
+     *             the sMS lib exception
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public void startService() throws SMSLibException, TimeoutException, GatewayException, IOException,
@@ -898,15 +977,14 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * stopService
      * </p>
+     * .
      *
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws SMSLibException
+     *             the sMS lib exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public void stopService() throws SMSLibException, IOException, InterruptedException {
@@ -917,6 +995,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param m_service
      *            a {@link org.smslib.Service} object.
@@ -929,6 +1008,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @return a {@link org.smslib.Service} object.
      */
@@ -940,6 +1020,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * setGatewayGroup
      * </p>
+     * .
      *
      * @param m_gatewayGroup
      *            a {@link java.util.List} object.
@@ -952,6 +1033,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getGatewayGroup
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -963,6 +1045,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param smsServiceRegistrar
      *            a
@@ -977,6 +1060,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * unregister
      * </p>
+     * .
      *
      * @param smsServiceRegistrar
      *            a
@@ -991,6 +1075,7 @@ public class SmsServiceImpl implements SmsService {
      * <p>
      * getUSSDNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IUSSDNotification} object.
      */

@@ -41,12 +41,15 @@ import org.smslib.USSDSessionStatus;
  * @version $Id: $
  */
 public class MobileMsgResponseMatchers {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MobileMsgResponseMatchers.class);
 
     /**
      * <p>
      * smsFrom
      * </p>
+     * .
      *
      * @param originator
      *            a {@link java.lang.String} object.
@@ -78,6 +81,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * smsFromRecipient
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
@@ -115,12 +119,13 @@ public class MobileMsgResponseMatchers {
      * <p>
      * and
      * </p>
+     * .
      *
      * @param matchers
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
-     *            object.
      * @return a
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *         object.
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *         object.
      */
@@ -162,12 +167,13 @@ public class MobileMsgResponseMatchers {
      * <p>
      * or
      * </p>
+     * .
      *
      * @param matchers
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
-     *            object.
      * @return a
+     *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *         object.
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *         object.
      */
@@ -209,6 +215,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * textMatches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -237,6 +244,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * isSms
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
@@ -265,6 +273,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * isUssd
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
@@ -293,6 +302,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * ussdStatusIs
      * </p>
+     * .
      *
      * @param status
      *            a {@link org.smslib.USSDSessionStatus} object.
@@ -326,6 +336,7 @@ public class MobileMsgResponseMatchers {
      * <p>
      * isAMatch
      * </p>
+     * .
      *
      * @param expected
      *            a {@link java.lang.String} object.

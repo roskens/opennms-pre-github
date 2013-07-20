@@ -47,8 +47,10 @@ import org.smslib.USSDResponse;
  */
 public class UssdNotificationDispatcher implements IUSSDNotification {
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(UssdNotificationDispatcher.class);
 
+    /** The m_listener list. */
     private Collection<IUSSDNotification> m_listenerList;
 
     /**
@@ -83,6 +85,11 @@ public class UssdNotificationDispatcher implements IUSSDNotification {
         }
     }
 
+    /**
+     * Gets the listeners.
+     *
+     * @return the listeners
+     */
     private Collection<IUSSDNotification> getListeners() {
         return m_listenerList;
     }
@@ -91,6 +98,7 @@ public class UssdNotificationDispatcher implements IUSSDNotification {
      * <p>
      * setListenerList
      * </p>
+     * .
      *
      * @param list
      *            a {@link java.util.List} object.

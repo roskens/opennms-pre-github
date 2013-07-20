@@ -39,10 +39,12 @@ import org.smslib.AGateway;
  * @version $Id: $
  */
 public interface GatewayGroup {
+
     /**
      * <p>
      * getGateways
      * </p>
+     * .
      *
      * @return an array of {@link org.smslib.AGateway} objects.
      */

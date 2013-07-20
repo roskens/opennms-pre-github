@@ -45,14 +45,18 @@ import org.smslib.Service.ServiceStatus;
  * @version $Id: $
  */
 public class GatewayListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GatewayListener.class);
 
+    /** The m_service. */
     private Service m_service;
 
     /**
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.smslib.Service} object.
@@ -65,6 +69,7 @@ public class GatewayListener {
      * <p>
      * addGateway
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -92,6 +97,7 @@ public class GatewayListener {
      * <p>
      * removeGateway
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -117,13 +123,14 @@ public class GatewayListener {
      * <p>
      * bind
      * </p>
+     * .
      *
      * @param arg0
      *            a {@link java.lang.Object} object.
      * @param arg1
      *            a {@link java.util.Map} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void bind(Object arg0, Map<?, ?> arg1) throws Exception {
         // TODO Auto-generated method stub
@@ -134,13 +141,14 @@ public class GatewayListener {
      * <p>
      * unbind
      * </p>
+     * .
      *
      * @param arg0
      *            a {@link java.lang.Object} object.
      * @param arg1
      *            a {@link java.util.Map} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void unbind(Object arg0, Map<?, ?> arg1) throws Exception {
         // TODO Auto-generated method stub

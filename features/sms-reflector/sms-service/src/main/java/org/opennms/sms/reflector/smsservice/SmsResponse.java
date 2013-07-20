@@ -40,6 +40,7 @@ import org.smslib.InboundMessage;
  */
 public class SmsResponse extends MobileMsgResponse {
 
+    /** The m_msg. */
     private InboundMessage m_msg;
 
     /**
@@ -61,6 +62,7 @@ public class SmsResponse extends MobileMsgResponse {
      * <p>
      * getOriginator
      * </p>
+     * .
      *
      * @return the originator
      */
@@ -72,6 +74,7 @@ public class SmsResponse extends MobileMsgResponse {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return the text
      */
@@ -84,6 +87,7 @@ public class SmsResponse extends MobileMsgResponse {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link org.smslib.InboundMessage} object.
      */

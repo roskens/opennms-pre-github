@@ -67,11 +67,12 @@ public interface SmsService {
      * <p>
      * addGateway
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
-     * @throws org.smslib.GatewayException
-     *             if any.
+     * @throws GatewayException
+     *             the gateway exception
      */
     void addGateway(AGateway gateway) throws GatewayException;
 
@@ -79,12 +80,13 @@ public interface SmsService {
      * <p>
      * removeGateway
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
      * @return a boolean.
-     * @throws org.smslib.GatewayException
-     *             if any.
+     * @throws GatewayException
+     *             the gateway exception
      */
     boolean removeGateway(AGateway gateway) throws GatewayException;
 
@@ -92,17 +94,18 @@ public interface SmsService {
      * <p>
      * startService
      * </p>
+     * .
      *
-     * @throws org.smslib.SMSLibException
-     *             if any.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws SMSLibException
+     *             the sMS lib exception
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void startService() throws SMSLibException, TimeoutException, GatewayException, IOException, InterruptedException;
 
@@ -110,15 +113,14 @@ public interface SmsService {
      * <p>
      * stopService
      * </p>
+     * .
      *
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws SMSLibException
+     *             the sMS lib exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stopService() throws SMSLibException, IOException, InterruptedException;
 
@@ -126,20 +128,21 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int readMessages(Collection<InboundMessage> msgList, MessageClasses msgClass) throws TimeoutException,
             GatewayException, IOException, InterruptedException;
@@ -148,18 +151,19 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @return an array of {@link org.smslib.InboundMessage} objects.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     InboundMessage[] readMessages(MessageClasses msgClass) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -168,6 +172,7 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
@@ -176,14 +181,14 @@ public interface SmsService {
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int readMessages(Collection<InboundMessage> msgList, MessageClasses msgClass, String gatewayId)
             throws TimeoutException, GatewayException, IOException, InterruptedException;
@@ -192,20 +197,21 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return an array of {@link org.smslib.InboundMessage} objects.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     InboundMessage[] readMessages(MessageClasses msgClass, String gatewayId) throws TimeoutException, GatewayException,
             IOException, InterruptedException;
@@ -214,6 +220,7 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
@@ -222,14 +229,14 @@ public interface SmsService {
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int readMessages(Collection<InboundMessage> msgList, MessageClasses msgClass, AGateway gateway)
             throws TimeoutException, GatewayException, IOException, InterruptedException;
@@ -238,20 +245,21 @@ public interface SmsService {
      * <p>
      * readMessages
      * </p>
+     * .
      *
      * @param msgClass
      *            a {@link org.smslib.InboundMessage.MessageClasses} object.
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
      * @return an array of {@link org.smslib.InboundMessage} objects.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     InboundMessage[] readMessages(MessageClasses msgClass, AGateway gateway) throws TimeoutException, GatewayException,
             IOException, InterruptedException;
@@ -260,6 +268,7 @@ public interface SmsService {
      * <p>
      * readMessage
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -268,14 +277,14 @@ public interface SmsService {
      * @param memIndex
      *            a int.
      * @return a {@link org.smslib.InboundMessage} object.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     InboundMessage readMessage(String gatewayId, String memLoc, int memIndex) throws TimeoutException,
             GatewayException, IOException, InterruptedException;
@@ -284,18 +293,19 @@ public interface SmsService {
      * <p>
      * sendMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
      * @return a boolean.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     boolean sendMessage(OutboundMessage msg) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -304,20 +314,21 @@ public interface SmsService {
      * <p>
      * sendMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     boolean sendMessage(OutboundMessage msg, String gatewayId) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -326,18 +337,19 @@ public interface SmsService {
      * <p>
      * sendMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int sendMessages(Collection<OutboundMessage> msgList) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -346,18 +358,19 @@ public interface SmsService {
      * <p>
      * sendMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int sendMessages(OutboundMessage[] msgArray) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -366,20 +379,21 @@ public interface SmsService {
      * <p>
      * sendMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int sendMessages(Collection<OutboundMessage> msgList, String gatewayId) throws TimeoutException, GatewayException,
             IOException, InterruptedException;
@@ -388,20 +402,21 @@ public interface SmsService {
      * <p>
      * sendMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int sendMessages(OutboundMessage[] msgArray, String gatewayId) throws TimeoutException, GatewayException,
             IOException, InterruptedException;
@@ -410,6 +425,7 @@ public interface SmsService {
      * <p>
      * queueMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
@@ -421,6 +437,7 @@ public interface SmsService {
      * <p>
      * queueMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
@@ -434,6 +451,7 @@ public interface SmsService {
      * <p>
      * queueMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
@@ -445,6 +463,7 @@ public interface SmsService {
      * <p>
      * queueMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
@@ -456,6 +475,7 @@ public interface SmsService {
      * <p>
      * queueMessages
      * </p>
+     * .
      *
      * @param msgList
      *            a {@link java.util.Collection} object.
@@ -469,6 +489,7 @@ public interface SmsService {
      * <p>
      * queueMessages
      * </p>
+     * .
      *
      * @param msgArray
      *            an array of {@link org.smslib.OutboundMessage} objects.
@@ -482,6 +503,7 @@ public interface SmsService {
      * <p>
      * removeMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
@@ -493,18 +515,19 @@ public interface SmsService {
      * <p>
      * deleteMessage
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.InboundMessage} object.
      * @return a boolean.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     boolean deleteMessage(InboundMessage msg) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -513,20 +536,21 @@ public interface SmsService {
      * <p>
      * readPhonebook
      * </p>
+     * .
      *
      * @param phonebook
      *            a {@link org.smslib.Phonebook} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     int readPhonebook(Phonebook phonebook, String gatewayId) throws TimeoutException, GatewayException, IOException,
             InterruptedException;
@@ -535,6 +559,7 @@ public interface SmsService {
      * <p>
      * getInboundMessageCount
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -546,6 +571,7 @@ public interface SmsService {
      * <p>
      * getInboundMessageCount
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -557,6 +583,7 @@ public interface SmsService {
      * <p>
      * getOutboundMessageCount
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -568,6 +595,7 @@ public interface SmsService {
      * <p>
      * getOutboundMessageCount
      * </p>
+     * .
      *
      * @param gateway
      *            a {@link org.smslib.AGateway} object.
@@ -579,6 +607,7 @@ public interface SmsService {
      * <p>
      * getInboundMessageCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -588,6 +617,7 @@ public interface SmsService {
      * <p>
      * getOutboundMessageCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -597,6 +627,7 @@ public interface SmsService {
      * <p>
      * findGateway
      * </p>
+     * .
      *
      * @param gatewayId
      *            a {@link java.lang.String} object.
@@ -608,6 +639,7 @@ public interface SmsService {
      * <p>
      * getGateways
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -617,6 +649,7 @@ public interface SmsService {
      * <p>
      * getGatewaysNET
      * </p>
+     * .
      *
      * @return an array of {@link org.smslib.AGateway} objects.
      */
@@ -626,6 +659,7 @@ public interface SmsService {
      * <p>
      * getLoadBalancer
      * </p>
+     * .
      *
      * @return a {@link org.smslib.balancing.LoadBalancer} object.
      */
@@ -635,6 +669,7 @@ public interface SmsService {
      * <p>
      * setLoadBalancer
      * </p>
+     * .
      *
      * @param loadBalancer
      *            a {@link org.smslib.balancing.LoadBalancer} object.
@@ -645,6 +680,7 @@ public interface SmsService {
      * <p>
      * getRouter
      * </p>
+     * .
      *
      * @return a {@link org.smslib.routing.Router} object.
      */
@@ -654,6 +690,7 @@ public interface SmsService {
      * <p>
      * setRouter
      * </p>
+     * .
      *
      * @param router
      *            a {@link org.smslib.routing.Router} object.
@@ -664,6 +701,7 @@ public interface SmsService {
      * <p>
      * getInboundNotification
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.sms.reflector.smsservice.OnmsInboundMessageNotification}
@@ -675,6 +713,7 @@ public interface SmsService {
      * <p>
      * setInboundNotification
      * </p>
+     * .
      *
      * @param inboundNotification
      *            a
@@ -687,6 +726,7 @@ public interface SmsService {
      * <p>
      * getOutboundNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IOutboundMessageNotification} object.
      */
@@ -696,6 +736,7 @@ public interface SmsService {
      * <p>
      * setOutboundNotification
      * </p>
+     * .
      *
      * @param outboundNotification
      *            a {@link org.smslib.IOutboundMessageNotification} object.
@@ -706,6 +747,7 @@ public interface SmsService {
      * <p>
      * getCallNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.ICallNotification} object.
      */
@@ -715,6 +757,7 @@ public interface SmsService {
      * <p>
      * setCallNotification
      * </p>
+     * .
      *
      * @param callNotification
      *            a {@link org.smslib.ICallNotification} object.
@@ -725,6 +768,7 @@ public interface SmsService {
      * <p>
      * getGatewayStatusNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IGatewayStatusNotification} object.
      */
@@ -734,6 +778,7 @@ public interface SmsService {
      * <p>
      * setGatewayStatusNotification
      * </p>
+     * .
      *
      * @param gatewayStatusNotification
      *            a {@link org.smslib.IGatewayStatusNotification} object.
@@ -744,6 +789,7 @@ public interface SmsService {
      * <p>
      * getQueueSendingNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IQueueSendingNotification} object.
      */
@@ -753,6 +799,7 @@ public interface SmsService {
      * <p>
      * setQueueSendingNotification
      * </p>
+     * .
      *
      * @param queueSendingNotification
      *            a {@link org.smslib.IQueueSendingNotification} object.
@@ -763,6 +810,7 @@ public interface SmsService {
      * <p>
      * getStartMillis
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -772,6 +820,7 @@ public interface SmsService {
      * <p>
      * getServiceStatus
      * </p>
+     * .
      *
      * @return a {@link org.smslib.Service.ServiceStatus} object.
      */
@@ -781,6 +830,7 @@ public interface SmsService {
      * <p>
      * getSettings
      * </p>
+     * .
      *
      * @return a {@link org.smslib.Settings} object.
      */
@@ -790,6 +840,7 @@ public interface SmsService {
      * <p>
      * createGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -801,6 +852,7 @@ public interface SmsService {
      * <p>
      * removeGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -812,6 +864,7 @@ public interface SmsService {
      * <p>
      * expandGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -823,6 +876,7 @@ public interface SmsService {
      * <p>
      * addToGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -836,6 +890,7 @@ public interface SmsService {
      * <p>
      * removeFromGroup
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -849,6 +904,7 @@ public interface SmsService {
      * <p>
      * getQueueManager
      * </p>
+     * .
      *
      * @return a {@link org.smslib.queues.QueueManager} object.
      */
@@ -858,6 +914,7 @@ public interface SmsService {
      * <p>
      * getKeyManager
      * </p>
+     * .
      *
      * @return a {@link org.smslib.crypto.KeyManager} object.
      */
@@ -867,20 +924,21 @@ public interface SmsService {
      * <p>
      * sendUSSDRequest
      * </p>
+     * .
      *
      * @param req
      *            a {@link org.smslib.USSDRequest} object.
      * @param gatewayId
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.smslib.GatewayException
-     *             if any.
-     * @throws org.smslib.TimeoutException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws GatewayException
+     *             the gateway exception
+     * @throws TimeoutException
+     *             the timeout exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     boolean sendUSSDRequest(USSDRequest req, String gatewayId) throws GatewayException, TimeoutException, IOException,
             InterruptedException;
@@ -889,6 +947,7 @@ public interface SmsService {
      * <p>
      * setUSSDNotification
      * </p>
+     * .
      *
      * @param notif
      *            a {@link org.smslib.IUSSDNotification} object.
@@ -899,6 +958,7 @@ public interface SmsService {
      * <p>
      * getUSSDNotification
      * </p>
+     * .
      *
      * @return a {@link org.smslib.IUSSDNotification} object.
      */

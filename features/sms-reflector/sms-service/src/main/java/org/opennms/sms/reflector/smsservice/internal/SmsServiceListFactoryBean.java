@@ -49,16 +49,21 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmsServiceListFactoryBean.class);
 
+    /** The m_gateway groups. */
     private GatewayGroup[] m_gatewayGroups;
 
+    /** The m_services. */
     private SmsService[] m_services;
 
     /**
      * <p>
      * setOutboundMessageNotification
      * </p>
+     * .
      *
      * @param mOutboundMessageNotification
      *            a {@link org.smslib.IOutboundMessageNotification} object.
@@ -71,6 +76,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * setInboundMessageNotification
      * </p>
+     * .
      *
      * @param mInboundMessageNotification
      *            a
@@ -85,6 +91,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * setGatewayStatusNotification
      * </p>
+     * .
      *
      * @param mGatewayStatusNotification
      *            a {@link org.smslib.IGatewayStatusNotification} object.
@@ -93,10 +100,13 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
         m_gatewayStatusNotification = mGatewayStatusNotification;
     }
 
+    /** The m_outbound message notification. */
     private IOutboundMessageNotification m_outboundMessageNotification;
 
+    /** The m_inbound message notification. */
     private OnmsInboundMessageNotification m_inboundMessageNotification;
 
+    /** The m_gateway status notification. */
     @SuppressWarnings("unused")
     private IGatewayStatusNotification m_gatewayStatusNotification;
 
@@ -113,6 +123,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * setGatewayGroupList
      * </p>
+     * .
      *
      * @param groupList
      *            an array of
@@ -127,6 +138,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -169,11 +181,13 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return an array of
-     *         {@link org.opennms.sms.reflector.smsservice.SmsService} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.sms.reflector.smsservice.SmsService}
+     *             objects.
      */
     @Override
     public SmsService[] getObject() throws Exception {
@@ -184,6 +198,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -196,6 +211,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -47,8 +47,10 @@ import org.springframework.util.Assert;
  */
 public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, InitializingBean {
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_registration map. */
     private Map<SmsService, Registration> m_registrationMap = new HashMap<SmsService, Registration>();
 
     /** {@inheritDoc} */
@@ -71,6 +73,7 @@ public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, Initializin
      * <p>
      * setServiceRegistry
      * </p>
+     * .
      *
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
@@ -83,6 +86,7 @@ public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, Initializin
      * <p>
      * getServiceRegistry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
@@ -94,9 +98,10 @@ public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, Initializin
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

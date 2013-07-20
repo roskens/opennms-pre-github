@@ -56,27 +56,45 @@ import org.smslib.USSDResponse;
 import org.smslib.USSDSessionStatus;
 
 /**
- * MobileMsgTrackerTeste
+ * MobileMsgTrackerTeste.
  *
  * @author brozow
  */
 public class MobileMsgTrackerTest {
 
+    /** The Constant PHONE_NUMBER. */
     private static final String PHONE_NUMBER = "+19195551212";
 
+    /** The Constant TMOBILE_RESPONSE. */
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
 
+    /** The Constant TMOBILE_USSD_MATCH. */
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
+    /**
+     * The Class LatencyCallback.
+     */
     private final class LatencyCallback implements Callback<MobileMsgResponse> {
+
+        /** The m_start. */
         private final AtomicLong m_start = new AtomicLong();
 
+        /** The m_end. */
         private final AtomicLong m_end = new AtomicLong();
 
+        /**
+         * Instantiates a new latency callback.
+         *
+         * @param startTime
+         *            the start time
+         */
         private LatencyCallback(long startTime) {
             m_start.set(startTime);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.Callback#complete(java.lang.Object)
+         */
         @Override
         public void complete(MobileMsgResponse t) {
             if (t != null) {
@@ -84,10 +102,18 @@ public class MobileMsgTrackerTest {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.tasks.Callback#handleException(java.lang.Throwable)
+         */
         @Override
         public void handleException(Throwable t) {
         }
 
+        /**
+         * Gets the latency.
+         *
+         * @return the latency
+         */
         public Long getLatency() {
             if (m_end.get() == 0) {
                 return null;
@@ -98,10 +124,13 @@ public class MobileMsgTrackerTest {
     }
 
     /**
+     * The Class TestMessenger.
+     *
      * @author brozow
      */
     public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
 
+        /** The m_q. */
         Queue<MobileMsgResponse> m_q;
 
         /*
@@ -123,19 +152,33 @@ public class MobileMsgTrackerTest {
             m_q = q;
         }
 
+        /**
+         * Send test response.
+         *
+         * @param response
+         *            the response
+         */
         public void sendTestResponse(MobileMsgResponse response) {
             m_q.offer(response);
         }
 
         /**
-         * @param msg1
+         * Send test response.
+         *
+         * @param msg
+         *            the msg
          */
         public void sendTestResponse(InboundMessage msg) {
             sendTestResponse(new SmsResponse(msg, System.currentTimeMillis()));
         }
 
         /**
+         * Send test response.
+         *
+         * @param gatewayId
+         *            the gateway id
          * @param response
+         *            the response
          */
         public void sendTestResponse(String gatewayId, USSDResponse response) {
             sendTestResponse(new UssdResponse(gatewayId, response, System.currentTimeMillis()));
@@ -143,23 +186,47 @@ public class MobileMsgTrackerTest {
 
     }
 
+    /**
+     * The Class TestCallback.
+     */
     public static class TestCallback implements MobileMsgResponseCallback {
 
+        /** The m_called methods. */
         AtomicReference<String> m_calledMethods = new AtomicReference<String>();
 
+        /** The m_latch. */
         CountDownLatch m_latch = new CountDownLatch(1);
 
+        /** The m_response. */
         AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
+        /**
+         * Gets the response.
+         *
+         * @return the response
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         MobileMsgResponse getResponse() throws InterruptedException {
             m_latch.await();
             return m_response.get();
         }
 
+        /**
+         * Gets the called methods.
+         *
+         * @return the called methods
+         */
         String getCalledMethods() {
             return m_calledMethods.get();
         }
 
+        /**
+         * Method called.
+         *
+         * @param methodName
+         *            the method name
+         */
         private void methodCalled(String methodName) {
             while (true) {
                 String prevVal = m_calledMethods.get();
@@ -213,8 +280,11 @@ public class MobileMsgTrackerTest {
         }
 
         /**
-         * @return
+         * Gets the message.
+         *
+         * @return the message
          * @throws InterruptedException
+         *             the interrupted exception
          */
         public InboundMessage getMessage() throws InterruptedException {
             MobileMsgResponse response = getResponse();
@@ -225,6 +295,13 @@ public class MobileMsgTrackerTest {
 
         }
 
+        /**
+         * Gets the uSSD response.
+         *
+         * @return the uSSD response
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public USSDResponse getUSSDResponse() throws InterruptedException {
             MobileMsgResponse response = getResponse();
             if (response instanceof UssdResponse) {
@@ -235,15 +312,25 @@ public class MobileMsgTrackerTest {
 
     }
 
+    /** The m_messenger. */
     TestMessenger m_messenger;
 
+    /** The m_tracker. */
     MobileMsgTrackerImpl m_tracker;
 
+    /** The m_coordinator. */
     DefaultTaskCoordinator m_coordinator;
 
+    /** The m_session. */
     @SuppressWarnings("unused")
     private Properties m_session;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_messenger = new TestMessenger();
@@ -262,6 +349,12 @@ public class MobileMsgTrackerTest {
         System.err.println("=== STARTING TEST ===");
     }
 
+    /**
+     * Test response but not timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testResponseButNotTimeout() throws Exception {
 
@@ -287,6 +380,12 @@ public class MobileMsgTrackerTest {
 
     }
 
+    /**
+     * Test ping.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPing() throws Exception {
 
@@ -310,6 +409,12 @@ public class MobileMsgTrackerTest {
 
     }
 
+    /**
+     * Test t mobile get balance.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTMobileGetBalance() throws Exception {
 
@@ -326,6 +431,13 @@ public class MobileMsgTrackerTest {
         assertSame(response, cb.getUSSDResponse());
     }
 
+    /**
+     * Send tmobile ussd response.
+     *
+     * @param gatewayId
+     *            the gateway id
+     * @return the uSSD response
+     */
     private USSDResponse sendTmobileUssdResponse(String gatewayId) {
         USSDResponse response = new USSDResponse();
         response.setContent(TMOBILE_RESPONSE);
@@ -337,9 +449,13 @@ public class MobileMsgTrackerTest {
     }
 
     /**
+     * Creates the inbound message.
+     *
      * @param originator
+     *            the originator
      * @param text
-     * @return
+     *            the text
+     * @return the inbound message
      */
     private InboundMessage createInboundMessage(String originator, String text) {
         InboundMessage msg = new InboundMessage(new Date(), originator, text, 0, "0");

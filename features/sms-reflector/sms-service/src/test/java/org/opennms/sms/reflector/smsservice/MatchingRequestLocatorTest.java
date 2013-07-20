@@ -39,19 +39,26 @@ import org.smslib.InboundMessage;
 import org.smslib.OutboundMessage;
 
 /**
- * MatchingRequestLocator
+ * MatchingRequestLocator.
  *
  * @author brozow
  */
 public class MatchingRequestLocatorTest {
 
+    /** The m_locator. */
     MatchingRequestLocator m_locator;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_locator = new MatchingRequestLocator();
     }
 
+    /**
+     * Test match ping pong.
+     */
     @Test
     public void testMatchPingPong() {
 
@@ -80,6 +87,17 @@ public class MatchingRequestLocatorTest {
 
     }
 
+    /**
+     * Gets the message.
+     *
+     * @param originator
+     *            the originator
+     * @param recipient
+     *            the recipient
+     * @param text
+     *            the text
+     * @return the message
+     */
     OutboundMessage getMessage(String originator, String recipient, String text) {
         OutboundMessage msg = new OutboundMessage(recipient, text);
         msg.setValidityPeriod(1);
@@ -87,6 +105,9 @@ public class MatchingRequestLocatorTest {
         return msg;
     }
 
+    /**
+     * Test match ping ping pong.
+     */
     @Test
     public void testMatchPingPingPong() {
 
@@ -109,12 +130,26 @@ public class MatchingRequestLocatorTest {
 
     }
 
+    /**
+     * Creates the response.
+     *
+     * @param originator
+     *            the originator
+     * @param recipient
+     *            the recipient
+     * @param text
+     *            the text
+     * @return the sms response
+     */
     public SmsResponse createResponse(String originator, String recipient, String text) {
         InboundMessage msg = new InboundMessage(new Date(), originator, text, 0, "0");
         return new SmsResponse(msg, System.currentTimeMillis());
 
     }
 
+    /**
+     * Test match ping ping timeout pong.
+     */
     @Test
     public void testMatchPingPingTimeoutPong() {
 

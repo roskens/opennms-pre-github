@@ -37,7 +37,7 @@ import org.smslib.USSDRequest;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * MobileMsgTracker
+ * MobileMsgTracker.
  *
  * @author brozow
  * @version $Id: $
@@ -54,8 +54,8 @@ public class MobileMsgTrackerImpl extends RequestTracker<MobileMsgRequest, Mobil
      *            a {@link java.lang.String} object.
      * @param messenger
      *            a {@link org.opennms.protocols.rt.Messenger} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MobileMsgTrackerImpl(String name, Messenger<MobileMsgRequest, MobileMsgResponse> messenger)
             throws IOException {
@@ -85,9 +85,10 @@ public class MobileMsgTrackerImpl extends RequestTracker<MobileMsgRequest, Mobil
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

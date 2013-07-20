@@ -34,18 +34,36 @@ import org.smslib.test.TestGateway;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
+/**
+ * The Class TestGatewayGroupLoader.
+ */
 public class TestGatewayGroupLoader implements InitializingBean {
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /**
+     * Sets the service registry.
+     *
+     * @param serviceRegistry
+     *            the new service registry
+     */
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
 
+    /**
+     * Gets the service registry.
+     *
+     * @return the service registry
+     */
     public ServiceRegistry getServiceRegistry() {
         return m_serviceRegistry;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_serviceRegistry, "serviceRegistry must not be null");

@@ -32,7 +32,7 @@ import org.smslib.OutboundMessage;
 import org.smslib.USSDRequest;
 
 /**
- * MobileMsgTracker
+ * MobileMsgTracker.
  *
  * @author brozow
  * @version $Id: $
@@ -43,6 +43,7 @@ public interface MobileMsgTracker {
      * <p>
      * sendSmsRequest
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.OutboundMessage} object.
@@ -52,16 +53,16 @@ public interface MobileMsgTracker {
      *            a int.
      * @param cb
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
-     *            object.
      * @param matcher
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
-     *            object.
      * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *         object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *             object.
+     *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *             object.
      */
     public abstract MobileMsgRequest sendSmsRequest(OutboundMessage msg, long timeout, int retries,
             MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception;
@@ -70,6 +71,7 @@ public interface MobileMsgTracker {
      * <p>
      * sendUssdRequest
      * </p>
+     * .
      *
      * @param msg
      *            a {@link org.smslib.USSDRequest} object.
@@ -79,16 +81,16 @@ public interface MobileMsgTracker {
      *            a int.
      * @param cb
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
-     *            object.
      * @param matcher
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
-     *            object.
      * @return a {@link org.opennms.sms.reflector.smsservice.MobileMsgRequest}
      *         object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *             object.
+     *             {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
+     *             object.
      */
     public abstract MobileMsgRequest sendUssdRequest(USSDRequest msg, long timeout, int retries,
             MobileMsgResponseCallback cb, MobileMsgResponseMatcher matcher) throws Exception;

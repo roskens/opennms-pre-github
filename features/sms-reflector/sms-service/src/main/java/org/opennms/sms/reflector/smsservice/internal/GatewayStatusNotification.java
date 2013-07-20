@@ -48,8 +48,10 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class GatewayStatusNotification implements IGatewayStatusNotification, ApplicationContextAware {
 
+    /** The m_listener list. */
     private Collection<IGatewayStatusNotification> m_listenerList;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
     /**
@@ -72,6 +74,9 @@ public class GatewayStatusNotification implements IGatewayStatusNotification, Ap
         m_listenerList = listeners;
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.IGatewayStatusNotification#process(org.smslib.AGateway, org.smslib.AGateway.GatewayStatuses, org.smslib.AGateway.GatewayStatuses)
+     */
     @Override
     public void process(AGateway gateway, GatewayStatuses oldStatus, GatewayStatuses newStatus) {
         for (IGatewayStatusNotification listener : getListeners()) {
@@ -81,6 +86,11 @@ public class GatewayStatusNotification implements IGatewayStatusNotification, Ap
         }
     }
 
+    /**
+     * Gets the listeners.
+     *
+     * @return the listeners
+     */
     private Collection<IGatewayStatusNotification> getListeners() {
         if (m_listenerList == null) {
             m_listenerList = m_applicationContext.getBeansOfType(IGatewayStatusNotification.class).values();
@@ -92,6 +102,7 @@ public class GatewayStatusNotification implements IGatewayStatusNotification, Ap
      * <p>
      * setListenerList
      * </p>
+     * .
      *
      * @param list
      *            a {@link java.util.List} object.

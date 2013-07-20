@@ -41,6 +41,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public class UssdRequest extends MobileMsgRequest {
 
+    /** The m_msg. */
     private USSDRequest m_msg;
 
     /**
@@ -56,10 +57,10 @@ public class UssdRequest extends MobileMsgRequest {
      *            a int.
      * @param cb
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
-     *            object.
      * @param responseMatcher
      *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *            object.
      *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *            object.
      */
@@ -74,6 +75,7 @@ public class UssdRequest extends MobileMsgRequest {
      * <p>
      * getGatewayId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +87,7 @@ public class UssdRequest extends MobileMsgRequest {
      * <p>
      * getContent
      * </p>
+     * .
      *
      * @return the text
      */
@@ -118,6 +121,7 @@ public class UssdRequest extends MobileMsgRequest {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link org.smslib.USSDRequest} object.
      */
@@ -129,6 +133,7 @@ public class UssdRequest extends MobileMsgRequest {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

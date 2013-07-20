@@ -50,10 +50,13 @@ import org.springframework.context.ApplicationContextAware;
  */
 public class OutboundMessageNotification implements IOutboundMessageNotification, ApplicationContextAware {
 
+    /** The log. */
     private static Logger log = LoggerFactory.getLogger(OutboundMessageNotification.class);
 
+    /** The m_listener list. */
     private Collection<IOutboundMessageNotification> m_listenerList;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
     /**
@@ -76,6 +79,9 @@ public class OutboundMessageNotification implements IOutboundMessageNotification
         m_listenerList = listeners;
     }
 
+    /* (non-Javadoc)
+     * @see org.smslib.IOutboundMessageNotification#process(org.smslib.AGateway, org.smslib.OutboundMessage)
+     */
     @Override
     public void process(AGateway gateway, OutboundMessage msg) {
 
@@ -88,6 +94,11 @@ public class OutboundMessageNotification implements IOutboundMessageNotification
         }
     }
 
+    /**
+     * Gets the listeners.
+     *
+     * @return the listeners
+     */
     private Collection<IOutboundMessageNotification> getListeners() {
         if (m_listenerList == null) {
             m_listenerList = m_applicationContext.getBeansOfType(IOutboundMessageNotification.class).values();
@@ -99,6 +110,7 @@ public class OutboundMessageNotification implements IOutboundMessageNotification
      * <p>
      * setListenerList
      * </p>
+     * .
      *
      * @param list
      *            a {@link java.util.List} object.

@@ -42,12 +42,15 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class SmsServiceFactoryBean implements FactoryBean<SmsService>, InitializingBean {
+
+    /** The m_service list. */
     private SmsService[] m_serviceList;
 
     /**
      * <p>
      * setSmsServiceList
      * </p>
+     * .
      *
      * @param serviceList
      *            an array of
@@ -62,10 +65,11 @@ public class SmsServiceFactoryBean implements FactoryBean<SmsService>, Initializ
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link org.opennms.sms.reflector.smsservice.SmsService} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public SmsService getObject() throws Exception {
@@ -76,6 +80,7 @@ public class SmsServiceFactoryBean implements FactoryBean<SmsService>, Initializ
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -88,6 +93,7 @@ public class SmsServiceFactoryBean implements FactoryBean<SmsService>, Initializ
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -100,9 +106,10 @@ public class SmsServiceFactoryBean implements FactoryBean<SmsService>, Initializ
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

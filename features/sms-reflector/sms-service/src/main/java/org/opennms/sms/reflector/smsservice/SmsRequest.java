@@ -41,6 +41,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public class SmsRequest extends MobileMsgRequest {
 
+    /** The m_msg. */
     private OutboundMessage m_msg;
 
     /**
@@ -56,10 +57,10 @@ public class SmsRequest extends MobileMsgRequest {
      *            a int.
      * @param cb
      *            a
-     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
-     *            object.
      * @param responseMatcher
      *            a
+     *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback}
+     *            object.
      *            {@link org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher}
      *            object.
      */
@@ -74,6 +75,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * getValidityPeriodInHours
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -85,6 +87,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * setValidityPeriodInHours
      * </p>
+     * .
      *
      * @param validityPeriod
      *            a int.
@@ -97,6 +100,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * getOriginator
      * </p>
+     * .
      *
      * @return the originator
      */
@@ -108,6 +112,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * setOriginator
      * </p>
+     * .
      *
      * @param originator
      *            the originator to set
@@ -120,6 +125,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * getRecipient
      * </p>
+     * .
      *
      * @return the recipient
      */
@@ -131,6 +137,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * setRecipient
      * </p>
+     * .
      *
      * @param recipient
      *            the recipient to set
@@ -143,6 +150,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * getText
      * </p>
+     * .
      *
      * @return the text
      */
@@ -176,6 +184,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link org.smslib.OutboundMessage} object.
      */
@@ -187,6 +196,7 @@ public class SmsRequest extends MobileMsgRequest {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
