@@ -91,24 +91,35 @@ import org.opennms.netmgt.protocols.xmp.config.XmpPeerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class XmpCollector.
+ */
 public class XmpCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpCollector.class);
 
     /* class variables and methods *********************** */
+    /** The Constant SERVICE_NAME. */
     static final String SERVICE_NAME = "XMP";
 
     /* instance variables ******************************** */
+    /** The xmp port. */
     int xmpPort;
 
+    /** The timeout. */
     int timeout; /* millseconds */
 
+    /** The retries. */
     int retries;
 
+    /** The set of nodes. */
     Set<CollectionAgent> setOfNodes;
 
+    /** The sockopts. */
     SocketOpts sockopts;
 
+    /** The authen user. */
     String authenUser;
 
     /* constructors ************************************* */
@@ -139,6 +150,23 @@ public class XmpCollector implements ServiceCollector {
     // devoted to scalars; check sysUptime if its present
     // and indicate if data should be persisted
 
+    /**
+     * Handle scalar query.
+     *
+     * @param groupName
+     *            the group name
+     * @param collectionSet
+     *            the collection set
+     * @param oldUptime
+     *            the old uptime
+     * @param session
+     *            the session
+     * @param scalarResource
+     *            the scalar resource
+     * @param queryVars
+     *            the query vars
+     * @return true, if successful
+     */
     private boolean handleScalarQuery(String groupName, XmpCollectionSet collectionSet, long oldUptime,
             XmpSession session, XmpCollectionResource scalarResource, XmpVar[] queryVars) {
         XmpMessage reply;
@@ -203,6 +231,23 @@ public class XmpCollector implements ServiceCollector {
 
     // handle a tabular query, save each row in its own
     // collection resource
+    /**
+     * Handle table query.
+     *
+     * @param groupName
+     *            the group name
+     * @param resourceType
+     *            the resource type
+     * @param collectionSet
+     *            the collection set
+     * @param tableInfo
+     *            the table info
+     * @param session
+     *            the session
+     * @param queryVars
+     *            the query vars
+     * @return true, if successful
+     */
     private boolean handleTableQuery(String groupName, String resourceType, XmpCollectionSet collectionSet,
             String[] tableInfo, XmpSession session, XmpVar[] queryVars) {
         int numColumns, numRows;
@@ -401,7 +446,7 @@ public class XmpCollector implements ServiceCollector {
 
     /**
      * Release/stop all querying of agents/interfaces and release
-     * state associated with them *
+     * state associated with them *.
      */
     @Override
     public void release() {
@@ -428,7 +473,7 @@ public class XmpCollector implements ServiceCollector {
     }
 
     /**
-     * who am I and what am I ? *
+     * who am I and what am I ? *.
      *
      * @return a {@link java.lang.String} object.
      */

@@ -67,29 +67,61 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
+/**
+ * The Class XmpCollectionAttribute.
+ */
 public class XmpCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
     /* class variables and methods *********************** */
 
     /* instance variables ******************************** */
+    /** The a var. */
     private XmpVar aVar;
 
+    /** The alias. */
     private String alias;
 
+    /** The resource. */
     private XmpCollectionResource resource;
 
+    /** The attrib type. */
     private CollectionAttributeType attribType;
 
     /* constructors ************************************* */
+    /**
+     * Instantiates a new xmp collection attribute.
+     */
     XmpCollectionAttribute() {
         aVar = null;
     }
 
+    /**
+     * Instantiates a new xmp collection attribute.
+     *
+     * @param aVar
+     *            the a var
+     * @param alias
+     *            the alias
+     * @param res
+     *            the res
+     */
     XmpCollectionAttribute(XmpVar aVar, String alias, XmpCollectionResource res) {
         this.aVar = aVar;
         this.alias = alias;
         this.resource = res;
     }
 
+    /**
+     * Instantiates a new xmp collection attribute.
+     *
+     * @param res
+     *            the res
+     * @param attribType
+     *            the attrib type
+     * @param alias
+     *            the alias
+     * @param aVar
+     *            the a var
+     */
     XmpCollectionAttribute(XmpCollectionResource res, CollectionAttributeType attribType, String alias, XmpVar aVar) {
         this(aVar, alias, res);
         this.attribType = attribType;
@@ -103,6 +135,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
@@ -117,6 +150,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * setAttributeType
      * </p>
+     * .
      *
      * @param attribType
      *            a
@@ -131,6 +165,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -156,6 +191,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getNumericValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -168,6 +204,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,6 +225,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -200,6 +238,7 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getStringValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -208,6 +247,9 @@ public class XmpCollectionAttribute extends AbstractCollectionAttribute implemen
         return aVar.getValue();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "Not supported yet._" + "XMP_" + getName();

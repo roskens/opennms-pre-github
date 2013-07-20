@@ -66,17 +66,31 @@ import org.opennms.netmgt.config.collector.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class XmpCollectionAttributeType.
+ */
 class XmpCollectionAttributeType implements CollectionAttributeType {
     /* class variables and methods *********************** */
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionAttributeType.class);
 
     /* instance variables ******************************** */
     // MibObj mibObj; // this might need to be MibObj
+    /** The a var. */
     XmpVar aVar;
 
+    /** The group type. */
     AttributeGroupType groupType;
 
     /* constructors ************************************* */
+    /**
+     * Instantiates a new xmp collection attribute type.
+     *
+     * @param aVar
+     *            the a var
+     * @param groupType
+     *            the group type
+     */
     XmpCollectionAttributeType(XmpVar aVar, AttributeGroupType groupType) {
         this.aVar = aVar;
         this.groupType = groupType;
@@ -146,6 +160,7 @@ class XmpCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,6 +173,7 @@ class XmpCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +186,7 @@ class XmpCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

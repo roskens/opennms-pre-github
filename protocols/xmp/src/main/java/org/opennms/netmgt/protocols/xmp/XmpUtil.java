@@ -46,31 +46,50 @@ import org.krupczak.xmp.XmpVar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class XmpUtil.
+ */
 public class XmpUtil {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpUtil.class);
 
-/** Constant <code>LESS_THAN="<"</code> */
+/** Constant <code>LESS_THAN="<"</code>. */
     public static final String LESS_THAN = "<";
 
-    /** Constant <code>GREATER_THAN=">"</code> */
+    /** Constant <code>GREATER_THAN=">"</code>. */
     public static final String GREATER_THAN = ">";
 
-    /** Constant <code>LESS_THAN_EQUALS="<="</code> */
+    /** Constant <code>LESS_THAN_EQUALS="<="</code>. */
     public static final String LESS_THAN_EQUALS = "<=";
 
-    /** Constant <code>GREATER_THAN_EQUALS=">="</code> */
+    /** Constant <code>GREATER_THAN_EQUALS=">="</code>. */
     public static final String GREATER_THAN_EQUALS = ">=";
 
-    /** Constant <code>EQUALS="="</code> */
+    /** Constant <code>EQUALS="="</code>. */
     public static final String EQUALS = "=";
 
-    /** Constant <code>NOT_EQUAL="!="</code> */
+    /** Constant <code>NOT_EQUAL="!="</code>. */
     public static final String NOT_EQUAL = "!=";
 
-    /** Constant <code>MATCHES="~"</code> */
+    /** Constant <code>MATCHES="~"</code>. */
     public static final String MATCHES = "~";
 
+    /**
+     * Value meets criteria.
+     *
+     * @param replyVar
+     *            the reply var
+     * @param valueOperator
+     *            the value operator
+     * @param valueOperand
+     *            the value operand
+     * @param caseSensitive
+     *            the case sensitive
+     * @return true, if successful
+     * @throws XmpUtilException
+     *             the xmp util exception
+     */
     private static boolean valueMeetsCriteria(XmpVar replyVar, String valueOperator, String valueOperand,
             boolean caseSensitive) throws XmpUtilException {
         RE valueRegex = null;
@@ -194,6 +213,7 @@ public class XmpUtil {
      * <p>
      * handleScalarQuery
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.krupczak.xmp.XmpSession} object.
@@ -208,8 +228,8 @@ public class XmpUtil {
      * @param caseSensitive
      *            a boolean.
      * @return a boolean.
-     * @throws org.opennms.netmgt.protocols.xmp.XmpUtilException
-     *             if any.
+     * @throws XmpUtilException
+     *             the xmp util exception
      */
     public static boolean handleScalarQuery(XmpSession session, String mib, String object, String valueOperator,
             String valueOperand, boolean caseSensitive) throws XmpUtilException {
@@ -243,6 +263,7 @@ public class XmpUtil {
      * <p>
      * handleTableQuery
      * </p>
+     * .
      *
      * @param session
      *            a {@link org.krupczak.xmp.XmpSession} object.
@@ -269,8 +290,8 @@ public class XmpUtil {
      * @param caseSensitive
      *            a boolean.
      * @return a boolean.
-     * @throws org.opennms.netmgt.protocols.xmp.XmpUtilException
-     *             if any.
+     * @throws XmpUtilException
+     *             the xmp util exception
      */
     public static boolean handleTableQuery(XmpSession session, String mib, String table, String object,
             String instance, RE instanceRegex, String valueOperator, String valueOperand, int minMatches,

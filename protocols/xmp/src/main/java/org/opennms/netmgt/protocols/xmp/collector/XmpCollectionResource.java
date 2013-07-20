@@ -64,24 +64,46 @@ import org.opennms.netmgt.model.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class XmpCollectionResource.
+ */
 class XmpCollectionResource extends AbstractCollectionResource {
     /* class variables and methods *********************** */
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionResource.class);
 
     /* instance variables ******************************** */
+    /** The node type name. */
     String nodeTypeName;
 
+    /** The instance. */
     String instance;
 
+    /** The resource type. */
     String resourceType;
 
+    /** The node type. */
     int nodeType;
 
+    /** The list of groups. */
     Set<AttributeGroup> listOfGroups;
 
+    /** The agent. */
     CollectionAgent agent;
 
     /* constructors ************************************* */
+    /**
+     * Instantiates a new xmp collection resource.
+     *
+     * @param agent
+     *            the agent
+     * @param resourceType
+     *            the resource type
+     * @param nodeTypeName
+     *            the node type name
+     * @param instance
+     *            the instance
+     */
     XmpCollectionResource(CollectionAgent agent, String resourceType, String nodeTypeName, String instance) {
         super(agent);
 
@@ -166,6 +188,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * addAttributeGroup
      * </p>
+     * .
      *
      * @param aGroup
      *            a {@link org.opennms.netmgt.config.collector.AttributeGroup}
@@ -204,6 +227,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -216,6 +240,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * setResourceTypeName
      * </p>
+     * .
      *
      * @param nodeTypeName
      *            a {@link java.lang.String} object.
@@ -231,6 +256,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -243,6 +269,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param nodeType
      *            a int.
@@ -255,6 +282,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -273,6 +301,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -284,6 +313,7 @@ class XmpCollectionResource extends AbstractCollectionResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -311,6 +341,9 @@ class XmpCollectionResource extends AbstractCollectionResource {
 
     } /* visit */
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return agent.getStorageDir().toString();

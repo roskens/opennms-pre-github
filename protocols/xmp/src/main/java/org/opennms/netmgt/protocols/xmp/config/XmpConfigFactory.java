@@ -65,11 +65,16 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 import org.opennms.netmgt.config.xmpConfig.XmpConfig;
 
+/**
+ * A factory for creating XmpConfig objects.
+ */
 public class XmpConfigFactory {
 
     /* class variables and methods *********************** */
+    /** The instance. */
     private static XmpConfigFactory instance;
 
+    /** The config. */
     private XmpConfig config = null;
 
     // initialize our class for the creation of instances
@@ -77,15 +82,16 @@ public class XmpConfigFactory {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
 
@@ -101,6 +107,7 @@ public class XmpConfigFactory {
      * <p>
      * getXmpConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.xmpConfig.XmpConfig} object.
      */
@@ -132,12 +139,12 @@ public class XmpConfigFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public XmpConfigFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream cfgIn = new FileInputStream(configFile);
@@ -154,12 +161,12 @@ public class XmpConfigFactory {
      *
      * @param rdr
      *            a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public XmpConfigFactory(Reader rdr) throws MarshalException, ValidationException, IOException {
         config = (XmpConfig) Unmarshaller.unmarshal(XmpConfig.class, rdr);

@@ -43,7 +43,7 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
 /**
- * MIB object groups
+ * MIB object groups.
  *
  * @version $Revision$ $Date$
  */
@@ -55,15 +55,16 @@ public class Groups implements java.io.Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * a MIB object group
-     */
+    /** a MIB object group. */
     private java.util.List<org.opennms.netmgt.config.xmpDataCollection.Group> _groupList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new groups.
+     */
     public Groups() {
         super();
         this._groupList = new java.util.ArrayList<org.opennms.netmgt.config.xmpDataCollection.Group>();
@@ -74,10 +75,12 @@ public class Groups implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the group.
+     *
      * @param vGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addGroup(final org.opennms.netmgt.config.xmpDataCollection.Group vGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -85,11 +88,14 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Adds the group.
+     *
      * @param index
+     *            the index
      * @param vGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addGroup(final int index, final org.opennms.netmgt.config.xmpDataCollection.Group vGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -110,6 +116,7 @@ public class Groups implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -136,12 +143,12 @@ public class Groups implements java.io.Serializable {
      * Method getGroup.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.xmpDataCollection.Group at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.xmpDataCollection.Group getGroup(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -235,13 +242,14 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -249,16 +257,16 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -266,6 +274,7 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Removes the all group.
      */
     public void removeAllGroup() {
         this._groupList.clear();
@@ -275,6 +284,7 @@ public class Groups implements java.io.Serializable {
      * Method removeGroup.
      *
      * @param vGroup
+     *            the v group
      * @return true if the object was removed from the collection.
      */
     public boolean removeGroup(final org.opennms.netmgt.config.xmpDataCollection.Group vGroup) {
@@ -286,6 +296,7 @@ public class Groups implements java.io.Serializable {
      * Method removeGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.xmpDataCollection.Group removeGroupAt(final int index) {
@@ -294,11 +305,14 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Sets the group.
+     *
      * @param index
+     *            the index
      * @param vGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setGroup(final int index, final org.opennms.netmgt.config.xmpDataCollection.Group vGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -312,7 +326,10 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
+     * Sets the group.
+     *
      * @param vGroupArray
+     *            the new group
      */
     public void setGroup(final org.opennms.netmgt.config.xmpDataCollection.Group[] vGroupArray) {
         // -- copy array
@@ -341,9 +358,9 @@ public class Groups implements java.io.Serializable {
      * Sets the value of '_groupList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param groupList
      *            the Vector to set.
+     * @deprecated
      */
     public void setGroupCollection(final java.util.List<org.opennms.netmgt.config.xmpDataCollection.Group> groupList) {
         this._groupList = groupList;
@@ -353,14 +370,13 @@ public class Groups implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.xmpDataCollection.Groups
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.xmpDataCollection.Groups unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -369,9 +385,10 @@ public class Groups implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

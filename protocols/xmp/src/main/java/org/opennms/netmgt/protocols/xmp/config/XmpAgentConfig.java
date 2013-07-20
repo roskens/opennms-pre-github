@@ -37,30 +37,24 @@ package org.opennms.netmgt.protocols.xmp.config;
  * @version $Id: $
  */
 public class XmpAgentConfig {
-    /**
-     * The TCP port on which the agent communicates
-     */
+
+    /** The TCP port on which the agent communicates. */
     private int m_port;
 
-    /**
-     * The username used for authenticating to the agent
-     */
+    /** The username used for authenticating to the agent. */
     private String m_authenUser;
 
-    /**
-     * The timeout used when communicating with the agent
-     */
+    /** The timeout used when communicating with the agent. */
     private long m_timeout;
 
-    /**
-     * The number of retries permitted when timeout expires
-     */
+    /** The number of retries permitted when timeout expires. */
     private int m_retry;
 
     /**
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -72,6 +66,7 @@ public class XmpAgentConfig {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -84,6 +79,7 @@ public class XmpAgentConfig {
      * <p>
      * getAuthenUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +91,7 @@ public class XmpAgentConfig {
      * <p>
      * setAuthenUser
      * </p>
+     * .
      *
      * @param authenUser
      *            a {@link java.lang.String} object.
@@ -107,6 +104,7 @@ public class XmpAgentConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -118,6 +116,7 @@ public class XmpAgentConfig {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
@@ -130,6 +129,7 @@ public class XmpAgentConfig {
      * <p>
      * getRetry
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -141,6 +141,7 @@ public class XmpAgentConfig {
      * <p>
      * setRetry
      * </p>
+     * .
      *
      * @param retries
      *            a int.

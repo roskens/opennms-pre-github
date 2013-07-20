@@ -82,6 +82,9 @@ public class XmpCollectionDescriptor extends org.exolab.castor.xml.util.XMLClass
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new xmp collection descriptor.
+     */
     public XmpCollectionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/xmp-datacollection";

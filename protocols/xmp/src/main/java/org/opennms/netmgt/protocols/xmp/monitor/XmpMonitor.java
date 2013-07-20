@@ -63,65 +63,40 @@ import org.opennms.netmgt.protocols.xmp.config.XmpConfigFactory;
  */
 public class XmpMonitor extends AbstractServiceMonitor {
 
-    /**
-     * The default port to use for XMP
-     */
+    /** The default port to use for XMP. */
     private static final int DEFAULT_PORT = Xmp.XMP_PORT;
 
-    /**
-     * Default number of retries for TCP requests
-     */
+    /** Default number of retries for TCP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for XMP requests
-     */
+    /** Default timeout (in milliseconds) for XMP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
-    /**
-     * Default XMP user for performing requests
-     */
+    /** Default XMP user for performing requests. */
     private static final String DEFAULT_AUTHEN_USER = "xmpUser";
 
-    /**
-     * Default type of request to perform
-     */
+    /** Default type of request to perform. */
     private static final String DEFAULT_REQUEST_TYPE = "GetRequest";
 
-    /**
-     * Default MIB from which to make request
-     */
+    /** Default MIB from which to make request. */
     private static final String DEFAULT_REQUEST_MIB = "core";
 
-    /**
-     * Default table from which to make request
-     */
+    /** Default table from which to make request. */
     private static final String DEFAULT_REQUEST_TABLE = "";
 
-    /**
-     * Default object name to request
-     */
+    /** Default object name to request. */
     private static final String DEFAULT_REQUEST_OBJECT = "sysObjectID";
 
-    /**
-     * Default instance to request (for SelectTableRequest only)
-     */
+    /** Default instance to request (for SelectTableRequest only). */
     private static final String DEFAULT_REQUEST_INSTANCE = "*";
 
-    /**
-     * Default string against which to match the returned value(s)
-     */
+    /** Default string against which to match the returned value(s). */
     private static final String DEFAULT_VALUE_MATCH = null;
 
-    /**
-     * Default string against which to match the returned instance(s)
-     */
+    /** Default string against which to match the returned instance(s). */
     private static final String DEFAULT_INSTANCE_MATCH = null;
 
-    /**
-     * Default integer denoting minimum number of
-     * matches allowed
-     */
+    /** Default integer denoting minimum number of matches allowed. */
     private static final int DEFAULT_MIN_MATCHES = 1;
 
     /**
@@ -131,11 +106,12 @@ public class XmpMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_MAX_MATCHES = 1;
 
     /**
-     * Default boolean indicating whether maximum number
-     * of matches is actually unbounded
+     * Default boolean indicating whether maximum number of matches is actually
+     * unbounded.
      */
     private static final boolean DEFAULT_MAX_MATCHES_UNBOUNDED = true;
 
+    /** The Constant DEFAULT_VALUE_CASE_SENSITIVE. */
     private static final boolean DEFAULT_VALUE_CASE_SENSITIVE = false;
 
     /** {@inheritDoc} */

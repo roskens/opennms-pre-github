@@ -56,21 +56,19 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * full path to the RRD repository for collected XMP
-     * data
-     */
+    /** full path to the RRD repository for collected XMP data. */
     private java.lang.String _rrdRepository;
 
-    /**
-     * XMP data collection element
-     */
+    /** XMP data collection element. */
     private java.util.List<org.opennms.netmgt.config.xmpDataCollection.XmpCollection> _xmpCollectionList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new xmp datacollection config.
+     */
     public XmpDatacollectionConfig() {
         super();
         this._xmpCollectionList = new java.util.ArrayList<org.opennms.netmgt.config.xmpDataCollection.XmpCollection>();
@@ -81,10 +79,12 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the xmp collection.
+     *
      * @param vXmpCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v xmp collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addXmpCollection(final org.opennms.netmgt.config.xmpDataCollection.XmpCollection vXmpCollection)
             throws java.lang.IndexOutOfBoundsException {
@@ -92,11 +92,14 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Adds the xmp collection.
+     *
      * @param index
+     *            the index
      * @param vXmpCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v xmp collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addXmpCollection(final int index,
             final org.opennms.netmgt.config.xmpDataCollection.XmpCollection vXmpCollection)
@@ -118,6 +121,7 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -163,12 +167,12 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Method getXmpCollection.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.xmpDataCollection.XmpCollection at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.xmpDataCollection.XmpCollection getXmpCollection(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -265,13 +269,14 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -279,16 +284,16 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -296,6 +301,7 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all xmp collection.
      */
     public void removeAllXmpCollection() {
         this._xmpCollectionList.clear();
@@ -305,6 +311,7 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Method removeXmpCollection.
      *
      * @param vXmpCollection
+     *            the v xmp collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeXmpCollection(final org.opennms.netmgt.config.xmpDataCollection.XmpCollection vXmpCollection) {
@@ -316,6 +323,7 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Method removeXmpCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.xmpDataCollection.XmpCollection removeXmpCollectionAt(final int index) {
@@ -337,11 +345,14 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the xmp collection.
+     *
      * @param index
+     *            the index
      * @param vXmpCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v xmp collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setXmpCollection(final int index,
             final org.opennms.netmgt.config.xmpDataCollection.XmpCollection vXmpCollection)
@@ -356,7 +367,10 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the xmp collection.
+     *
      * @param vXmpCollectionArray
+     *            the new xmp collection
      */
     public void setXmpCollection(final org.opennms.netmgt.config.xmpDataCollection.XmpCollection[] vXmpCollectionArray) {
         // -- copy array
@@ -386,9 +400,9 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Sets the value of '_xmpCollectionList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param xmpCollectionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setXmpCollectionCollection(
             final java.util.List<org.opennms.netmgt.config.xmpDataCollection.XmpCollection> xmpCollectionList) {
@@ -399,15 +413,14 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.xmpDataCollection.
      *         XmpDatacollectionConfig
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.xmpDataCollection.XmpDatacollectionConfig unmarshal(
             final java.io.Reader reader) throws org.exolab.castor.xml.MarshalException,
@@ -417,9 +430,10 @@ public class XmpDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

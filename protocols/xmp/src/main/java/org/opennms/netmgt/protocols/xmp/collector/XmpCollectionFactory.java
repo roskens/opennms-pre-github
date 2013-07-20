@@ -70,13 +70,19 @@ import org.opennms.netmgt.model.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory for creating XmpCollection objects.
+ */
 public class XmpCollectionFactory {
 
     /* class variables and methods *********************** */
+    /** The instance. */
     private static XmpCollectionFactory instance;
 
+    /** The config. */
     private static XmpDatacollectionConfig config;
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionFactory.class);
 
     // initialize our class for the creation of instances
@@ -84,15 +90,16 @@ public class XmpCollectionFactory {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
 
@@ -117,6 +124,7 @@ public class XmpCollectionFactory {
     }
 
     /* instance variables ******************************** */
+    /** The rrd path. */
     private String rrdPath;
 
     /* constructors ************************************* */
@@ -127,12 +135,12 @@ public class XmpCollectionFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public XmpCollectionFactory(String configFile) throws MarshalException, ValidationException, IOException {
 
@@ -163,12 +171,12 @@ public class XmpCollectionFactory {
      *
      * @param rdr
      *            a {@link java.io.Reader} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public XmpCollectionFactory(Reader rdr) throws MarshalException, ValidationException, IOException {
 
@@ -206,7 +214,7 @@ public class XmpCollectionFactory {
 
     /**
      * given a collection name, fetch its RRD info from the config file via
-     * the XmpDatacollectionConfig class and return an new repository *
+     * the XmpDatacollectionConfig class and return an new repository *.
      *
      * @param collectionName
      *            a {@link java.lang.String} object.
@@ -241,7 +249,7 @@ public class XmpCollectionFactory {
 
     /**
      * given a collection name, fetch it from the config file via
-     * the XmpDatacollectionConfig class *
+     * the XmpDatacollectionConfig class *.
      *
      * @param collectionName
      *            a {@link java.lang.String} object.

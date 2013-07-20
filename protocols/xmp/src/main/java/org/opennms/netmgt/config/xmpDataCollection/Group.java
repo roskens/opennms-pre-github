@@ -43,7 +43,7 @@ import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.Unmarshaller;
 
 /**
- * a MIB object group
+ * a MIB object group.
  *
  * @version $Revision$ $Date$
  */
@@ -55,9 +55,7 @@ public class Group implements java.io.Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * group name
-     */
+    /** group name. */
     private java.lang.String _name;
 
     /**
@@ -71,20 +69,19 @@ public class Group implements java.io.Serializable {
      */
     private java.lang.String _resourceType;
 
-    /**
-     * a MIB object
-     */
+    /** a MIB object. */
     private java.util.List<org.opennms.netmgt.config.xmpDataCollection.MibObj> _mibObjList;
 
-    /**
-     * sub group
-     */
+    /** sub group. */
     private java.util.List<java.lang.String> _includeGroupList;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new group.
+     */
     public Group() {
         super();
         this._mibObjList = new java.util.ArrayList<org.opennms.netmgt.config.xmpDataCollection.MibObj>();
@@ -96,21 +93,26 @@ public class Group implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the include group.
+     *
      * @param vIncludeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeGroup(final java.lang.String vIncludeGroup) throws java.lang.IndexOutOfBoundsException {
         this._includeGroupList.add(vIncludeGroup);
     }
 
     /**
+     * Adds the include group.
+     *
      * @param index
+     *            the index
      * @param vIncludeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeGroup(final int index, final java.lang.String vIncludeGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -118,10 +120,12 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Adds the mib obj.
+     *
      * @param vMibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMibObj(final org.opennms.netmgt.config.xmpDataCollection.MibObj vMibObj)
             throws java.lang.IndexOutOfBoundsException {
@@ -129,11 +133,14 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Adds the mib obj.
+     *
      * @param index
+     *            the index
      * @param vMibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMibObj(final int index, final org.opennms.netmgt.config.xmpDataCollection.MibObj vMibObj)
             throws java.lang.IndexOutOfBoundsException {
@@ -164,6 +171,7 @@ public class Group implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -211,10 +219,10 @@ public class Group implements java.io.Serializable {
      * Method getIncludeGroup.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getIncludeGroup(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -266,12 +274,12 @@ public class Group implements java.io.Serializable {
      * Method getMibObj.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.xmpDataCollection.MibObj at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.xmpDataCollection.MibObj getMibObj(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -411,13 +419,14 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -425,16 +434,16 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -442,12 +451,14 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Removes the all include group.
      */
     public void removeAllIncludeGroup() {
         this._includeGroupList.clear();
     }
 
     /**
+     * Removes the all mib obj.
      */
     public void removeAllMibObj() {
         this._mibObjList.clear();
@@ -457,6 +468,7 @@ public class Group implements java.io.Serializable {
      * Method removeIncludeGroup.
      *
      * @param vIncludeGroup
+     *            the v include group
      * @return true if the object was removed from the collection.
      */
     public boolean removeIncludeGroup(final java.lang.String vIncludeGroup) {
@@ -468,6 +480,7 @@ public class Group implements java.io.Serializable {
      * Method removeIncludeGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeIncludeGroupAt(final int index) {
@@ -479,6 +492,7 @@ public class Group implements java.io.Serializable {
      * Method removeMibObj.
      *
      * @param vMibObj
+     *            the v mib obj
      * @return true if the object was removed from the collection.
      */
     public boolean removeMibObj(final org.opennms.netmgt.config.xmpDataCollection.MibObj vMibObj) {
@@ -490,6 +504,7 @@ public class Group implements java.io.Serializable {
      * Method removeMibObjAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.xmpDataCollection.MibObj removeMibObjAt(final int index) {
@@ -498,11 +513,14 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param index
+     *            the index
      * @param vIncludeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIncludeGroup(final int index, final java.lang.String vIncludeGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -516,7 +534,10 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param vIncludeGroupArray
+     *            the new include group
      */
     public void setIncludeGroup(final java.lang.String[] vIncludeGroupArray) {
         // -- copy array
@@ -545,20 +566,23 @@ public class Group implements java.io.Serializable {
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param includeGroupList
      *            the Vector to set.
+     * @deprecated
      */
     public void setIncludeGroupCollection(final java.util.List<java.lang.String> includeGroupList) {
         this._includeGroupList = includeGroupList;
     }
 
     /**
+     * Sets the mib obj.
+     *
      * @param index
+     *            the index
      * @param vMibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setMibObj(final int index, final org.opennms.netmgt.config.xmpDataCollection.MibObj vMibObj)
             throws java.lang.IndexOutOfBoundsException {
@@ -572,7 +596,10 @@ public class Group implements java.io.Serializable {
     }
 
     /**
+     * Sets the mib obj.
+     *
      * @param vMibObjArray
+     *            the new mib obj
      */
     public void setMibObj(final org.opennms.netmgt.config.xmpDataCollection.MibObj[] vMibObjArray) {
         // -- copy array
@@ -601,9 +628,9 @@ public class Group implements java.io.Serializable {
      * Sets the value of '_mibObjList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param mibObjList
      *            the Vector to set.
+     * @deprecated
      */
     public void setMibObjCollection(final java.util.List<org.opennms.netmgt.config.xmpDataCollection.MibObj> mibObjList) {
         this._mibObjList = mibObjList;
@@ -642,14 +669,13 @@ public class Group implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.xmpDataCollection.Group
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.xmpDataCollection.Group unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -658,9 +684,10 @@ public class Group implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();

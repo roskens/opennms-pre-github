@@ -82,6 +82,9 @@ public class XmpConfigDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new xmp config descriptor.
+     */
     public XmpConfigDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/xmp";

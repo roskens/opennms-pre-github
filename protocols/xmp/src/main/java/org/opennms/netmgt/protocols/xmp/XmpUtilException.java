@@ -37,11 +37,11 @@ package org.opennms.netmgt.protocols.xmp;
  * @version $Id: $
  */
 public class XmpUtilException extends Exception {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7653583871376609217L;
 
+    /** The m_message. */
     String m_message;
 
     /**
@@ -60,6 +60,7 @@ public class XmpUtilException extends Exception {
      * <p>
      * getMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

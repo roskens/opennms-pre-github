@@ -62,25 +62,41 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class XmpCollectionSet.
+ */
 public class XmpCollectionSet implements CollectionSet {
 
     /* class variables and methods *********************** */
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionSet.class);
 
     /* instance variables ******************************** */
+    /** The status. */
     int status;
 
+    /** The ignore persist var. */
     boolean ignorePersistVar;
 
+    /** The agent. */
     CollectionAgent agent;
 
+    /** The collection resource. */
     XmpCollectionResource collectionResource;
 
+    /** The list of resources. */
     Set<XmpCollectionResource> listOfResources;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
     /* constructors ************************************* */
+    /**
+     * Instantiates a new xmp collection set.
+     *
+     * @param agent
+     *            the agent
+     */
     XmpCollectionSet(CollectionAgent agent) {
         // default status
         status = ServiceCollector.COLLECTION_SUCCEEDED;
@@ -103,6 +119,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * addResource
      * </p>
+     * .
      *
      * @param aResource
      *            a
@@ -117,6 +134,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -129,6 +147,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * getCollectionAgent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -140,6 +159,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * setCollectionAgent
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
@@ -176,6 +196,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * setStatusSuccess
      * </p>
+     * .
      */
     public void setStatusSuccess() {
         this.status = ServiceCollector.COLLECTION_SUCCEEDED;
@@ -185,6 +206,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * setStatusFailed
      * </p>
+     * .
      */
     public void setStatusFailed() {
         this.status = ServiceCollector.COLLECTION_FAILED;
@@ -198,6 +220,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * ignorePersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -210,6 +233,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * ignorePersistTrue
      * </p>
+     * .
      */
     public void ignorePersistTrue() {
         ignorePersistVar = true;
@@ -219,6 +243,7 @@ public class XmpCollectionSet implements CollectionSet {
      * <p>
      * ignorePersistFalse
      * </p>
+     * .
      */
     public void ignorePersistFalse() {
         ignorePersistVar = false;
@@ -249,11 +274,20 @@ public class XmpCollectionSet implements CollectionSet {
         visitor.completeCollectionSet(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+     */
     @Override
     public Date getCollectionTimestamp() {
         return m_timestamp;
     }
 
+    /**
+     * Sets the collection timestamp.
+     *
+     * @param timestamp
+     *            the new collection timestamp
+     */
     public void setCollectionTimestamp(Date timestamp) {
         this.m_timestamp = timestamp;
     }

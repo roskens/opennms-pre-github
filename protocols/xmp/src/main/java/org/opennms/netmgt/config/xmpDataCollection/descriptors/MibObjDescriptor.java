@@ -82,6 +82,9 @@ public class MibObjDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new mib obj descriptor.
+     */
     public MibObjDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/xmp-datacollection";

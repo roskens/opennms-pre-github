@@ -62,40 +62,31 @@ public class XmpConfig implements java.io.Serializable {
      */
     private int _port;
 
-    /**
-     * keeps track of state for field: _port
-     */
+    /** keeps track of state for field: _port. */
     private boolean _has_port;
 
-    /**
-     * Default number of retries
-     */
+    /** Default number of retries. */
     private int _retry;
 
-    /**
-     * keeps track of state for field: _retry
-     */
+    /** keeps track of state for field: _retry. */
     private boolean _has_retry;
 
-    /**
-     * Default timeout (in milliseconds)
-     */
+    /** Default timeout (in milliseconds). */
     private int _timeout;
 
-    /**
-     * keeps track of state for field: _timeout
-     */
+    /** keeps track of state for field: _timeout. */
     private boolean _has_timeout;
 
-    /**
-     * Default XMP user/profile
-     */
+    /** Default XMP user/profile. */
     private java.lang.String _authenUser;
 
     // ----------------/
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new xmp config.
+     */
     public XmpConfig() {
         super();
     }
@@ -105,18 +96,21 @@ public class XmpConfig implements java.io.Serializable {
     // -----------/
 
     /**
+     * Delete port.
      */
     public void deletePort() {
         this._has_port = false;
     }
 
     /**
+     * Delete retry.
      */
     public void deleteRetry() {
         this._has_retry = false;
     }
 
     /**
+     * Delete timeout.
      */
     public void deleteTimeout() {
         this._has_timeout = false;
@@ -126,6 +120,7 @@ public class XmpConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -269,13 +264,14 @@ public class XmpConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
             org.exolab.castor.xml.ValidationException {
@@ -283,16 +279,16 @@ public class XmpConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
             org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -352,14 +348,13 @@ public class XmpConfig implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.xmpConfig.XmpConfig
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static org.opennms.netmgt.config.xmpConfig.XmpConfig unmarshal(final java.io.Reader reader)
             throws org.exolab.castor.xml.MarshalException, org.exolab.castor.xml.ValidationException {
@@ -368,9 +363,10 @@ public class XmpConfig implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws org.exolab.castor.xml.ValidationException {
         org.exolab.castor.xml.Validator validator = new org.exolab.castor.xml.Validator();
