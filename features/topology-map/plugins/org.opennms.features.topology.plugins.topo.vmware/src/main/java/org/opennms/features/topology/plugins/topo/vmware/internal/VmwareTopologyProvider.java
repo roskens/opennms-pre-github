@@ -48,44 +48,89 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class VmwareTopologyProvider.
+ */
 public class VmwareTopologyProvider extends SimpleGraphProvider implements GraphProvider {
 
+    /** The Constant TOPOLOGY_NAMESPACE_VMWARE. */
     public static final String TOPOLOGY_NAMESPACE_VMWARE = "vmware";
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(VmwareTopologyProvider.class);
 
+    /** The split regexp. */
     private final String SPLIT_REGEXP = " *, *";
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_generated. */
     private boolean m_generated = false;
 
+    /**
+     * Instantiates a new vmware topology provider.
+     */
     public VmwareTopologyProvider() {
         super(TOPOLOGY_NAMESPACE_VMWARE);
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /**
+     * Checks if is generated.
+     *
+     * @return true, if is generated
+     */
     public boolean isGenerated() {
         return m_generated;
     }
 
+    /**
+     * Debug.
+     *
+     * @param vmwareVertex
+     *            the vmware vertex
+     */
     public void debug(Vertex vmwareVertex) {
         LOG.debug("-+- id: {}", vmwareVertex.getId());
         LOG.debug(" |- hashCode: {}", vmwareVertex.hashCode());
@@ -105,12 +150,24 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         LOG.debug(" '- parent: {}", (vmwareVertex.getParent() == null ? null : vmwareVertex.getParent().getId()));
     }
 
+    /**
+     * Debug all.
+     */
     public void debugAll() {
         for (Vertex id : getVertices()) {
             debug(id);
         }
     }
 
+    /**
+     * Adds the datacenter group.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param groupName
+     *            the group name
+     * @return the abstract vertex
+     */
     private AbstractVertex addDatacenterGroup(String vertexId, String groupName) {
         if (containsVertexId(vertexId)) {
             return (AbstractVertex) getVertex(TOPOLOGY_NAMESPACE_VMWARE, vertexId);
@@ -118,6 +175,15 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return addGroup(vertexId, "DATACENTER_ICON", groupName);
     }
 
+    /**
+     * Adds the network vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param vertexName
+     *            the vertex name
+     * @return the abstract vertex
+     */
     private AbstractVertex addNetworkVertex(String vertexId, String vertexName) {
         if (containsVertexId(vertexId)) {
             return (AbstractVertex) getVertex(TOPOLOGY_NAMESPACE_VMWARE, vertexId);
@@ -128,6 +194,15 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
+    /**
+     * Adds the datastore vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param vertexName
+     *            the vertex name
+     * @return the abstract vertex
+     */
     private AbstractVertex addDatastoreVertex(String vertexId, String vertexName) {
         if (containsVertexId(vertexId)) {
             return (AbstractVertex) getVertex(TOPOLOGY_NAMESPACE_VMWARE, vertexId);
@@ -138,6 +213,21 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
+    /**
+     * Adds the virtual machine vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param vertexName
+     *            the vertex name
+     * @param primaryInterface
+     *            the primary interface
+     * @param id
+     *            the id
+     * @param powerState
+     *            the power state
+     * @return the abstract vertex
+     */
     private AbstractVertex addVirtualMachineVertex(String vertexId, String vertexName, String primaryInterface, int id,
             String powerState) {
         if (containsVertexId(vertexId)) {
@@ -162,6 +252,21 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
+    /**
+     * Adds the host system vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     * @param vertexName
+     *            the vertex name
+     * @param primaryInterface
+     *            the primary interface
+     * @param id
+     *            the id
+     * @param powerState
+     *            the power state
+     * @return the abstract vertex
+     */
     private AbstractVertex addHostSystemVertex(String vertexId, String vertexName, String primaryInterface, int id,
             String powerState) {
         if (containsVertexId(vertexId)) {
@@ -186,6 +291,12 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         return vertex;
     }
 
+    /**
+     * Adds the host system.
+     *
+     * @param hostSystem
+     *            the host system
+     */
     private void addHostSystem(OnmsNode hostSystem) {
         // getting data for nodes
 
@@ -276,6 +387,12 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
         }
     }
 
+    /**
+     * Adds the virtual machine.
+     *
+     * @param virtualMachine
+     *            the virtual machine
+     */
     private void addVirtualMachine(OnmsNode virtualMachine) {
         // getting data for nodes
 
@@ -374,6 +491,9 @@ public class VmwareTopologyProvider extends SimpleGraphProvider implements Graph
                         getVertex(getVertexNamespace(), vmwareManagementServer + "/" + vmwareHostSystemId));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider#refresh()
+     */
     @Override
     public void refresh() {
         m_generated = true;
