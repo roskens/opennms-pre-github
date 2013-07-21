@@ -43,8 +43,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class PuppetProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PuppetProvisioningAdapter.class);
 
+    /** The Constant ADAPTER_NAME. */
     private static final String ADAPTER_NAME = "PuppetAdapter";
 
     /** {@inheritDoc} */
