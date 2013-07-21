@@ -45,53 +45,112 @@ import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsMap;
 import org.opennms.netmgt.model.OnmsMapElement;
 
+/**
+ * The Class OnmsTopologyProvider.
+ */
 public class OnmsTopologyProvider extends AbstractTopologyProvider implements GraphProvider {
 
+    /** The Constant TOPOLOGY_NAMESPACE_ONMSDAO. */
     private static final String TOPOLOGY_NAMESPACE_ONMSDAO = "onmsdao";
 
+    /** The m_onms map dao. */
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_onms map element dao. */
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_data link interface dao. */
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /**
+     * Gets the onms map dao.
+     *
+     * @return the onms map dao
+     */
     public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
 
+    /**
+     * Sets the onms map dao.
+     *
+     * @param onmsMapDao
+     *            the new onms map dao
+     */
     public void setOnmsMapDao(OnmsMapDao onmsMapDao) {
         m_onmsMapDao = onmsMapDao;
     }
 
+    /**
+     * Gets the onms map element dao.
+     *
+     * @return the onms map element dao
+     */
     public OnmsMapElementDao getOnmsMapElementDao() {
         return m_onmsMapElementDao;
     }
 
+    /**
+     * Sets the onms map element dao.
+     *
+     * @param onmsMapElementDao
+     *            the new onms map element dao
+     */
     public void setOnmsMapElementDao(OnmsMapElementDao onmsMapElementDao) {
         m_onmsMapElementDao = onmsMapElementDao;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
+    /**
+     * Instantiates a new onms topology provider.
+     */
     public OnmsTopologyProvider() {
         super(TOPOLOGY_NAMESPACE_ONMSDAO);
     }
 
+    /**
+     * Gets the map.
+     *
+     * @param mapId
+     *            the map id
+     * @return the map
+     */
     private OnmsMap getMap(int mapId) {
         return getOnmsMapDao().findMapById(mapId);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#save()
+     */
     @Override
     public void save() {
         save("1");
     }
 
+    /**
+     * Save.
+     *
+     * @param filename
+     *            the filename
+     */
     public void save(String filename) {
 
         List<Vertex> vertices = super.getVertices();
@@ -130,11 +189,17 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#refresh()
+     */
     @Override
     public void refresh() {
         // Do nothing
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#load(java.lang.String)
+     */
     @Override
     public void load(String filename) {
 
@@ -149,6 +214,15 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
         addEdges(edges.toArray(new Edge[] {}));
     }
 
+    /**
+     * Gets the vertex.
+     *
+     * @param mapId
+     *            the map id
+     * @param parent
+     *            the parent
+     * @return the vertex
+     */
     private List<Vertex> getVertex(int mapId, SimpleGroup parent) {
         List<Vertex> vertexes = new ArrayList<Vertex>();
         for (OnmsMapElement element : getOnmsMapElementDao().findNodeElementsOnMap(mapId)) {
@@ -174,6 +248,13 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
         return vertexes;
     }
 
+    /**
+     * Gets the edges.
+     *
+     * @param vertexes
+     *            the vertexes
+     * @return the edges
+     */
     private List<Edge> getEdges(List<Vertex> vertexes) {
         List<Edge> edges = new ArrayList<Edge>();
         List<Vertex> leafs = new ArrayList<Vertex>();

@@ -36,21 +36,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class OnmsTopologyProviderTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-mock.xml" })
 public class OnmsTopologyProviderTest {
 
+    /** The m_topology provider. */
     @Autowired
     private OnmsTopologyProvider m_topologyProvider;
 
+    /** The m_database populator. */
     @Autowired
     private EasyMockDataPopulator m_databasePopulator;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         if (m_topologyProvider != null) {
@@ -59,11 +70,17 @@ public class OnmsTopologyProviderTest {
         m_databasePopulator.tearDown();
     }
 
+    /**
+     * Test load1.
+     */
     @Test
     public void testLoad1() {
         m_topologyProvider.load("1");
     }
 
+    /**
+     * Test load2.
+     */
     @Test
     public void testLoad2() {
         m_topologyProvider.load("2");

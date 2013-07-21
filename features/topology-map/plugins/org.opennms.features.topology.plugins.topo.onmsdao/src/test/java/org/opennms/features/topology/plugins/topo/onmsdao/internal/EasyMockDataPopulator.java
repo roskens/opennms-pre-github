@@ -76,31 +76,46 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EasyMockDataPopulator {
+
+    /** The m_onms map dao. */
     @Autowired
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_onms map element dao. */
     @Autowired
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_node1. */
     private OnmsNode m_node1;
 
+    /** The m_node2. */
     private OnmsNode m_node2;
 
+    /** The m_node3. */
     private OnmsNode m_node3;
 
+    /** The m_node4. */
     private OnmsNode m_node4;
 
+    /** The m_node5. */
     private OnmsNode m_node5;
 
+    /** The m_node6. */
     private OnmsNode m_node6;
 
+    /** The m_node7. */
     private OnmsNode m_node7;
 
+    /** The m_node8. */
     private OnmsNode m_node8;
 
+    /**
+     * Populate database.
+     */
     public void populateDatabase() {
         final OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
 
@@ -350,6 +365,13 @@ public class EasyMockDataPopulator {
 
     }
 
+    /**
+     * Gets the map elements.
+     *
+     * @param elements
+     *            the elements
+     * @return the map elements
+     */
     private Set<OnmsMapElement> getMapElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> mapElements = new HashSet<OnmsMapElement>();
         for (OnmsMapElement element : elements) {
@@ -359,6 +381,13 @@ public class EasyMockDataPopulator {
         return mapElements;
     }
 
+    /**
+     * Gets the node elements.
+     *
+     * @param elements
+     *            the elements
+     * @return the node elements
+     */
     private Set<OnmsMapElement> getNodeElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> nodeElements = new HashSet<OnmsMapElement>();
         for (OnmsMapElement element : elements) {
@@ -368,103 +397,227 @@ public class EasyMockDataPopulator {
         return nodeElements;
     }
 
+    /**
+     * Tear down.
+     */
     public void tearDown() {
         EasyMock.verify(m_dataLinkInterfaceDao, m_onmsMapDao, m_onmsMapElementDao);
         EasyMock.reset(m_dataLinkInterfaceDao, m_onmsMapDao, m_onmsMapElementDao);
     }
 
+    /**
+     * Gets the node1.
+     *
+     * @return the node1
+     */
     public OnmsNode getNode1() {
         return m_node1;
     }
 
+    /**
+     * Gets the node2.
+     *
+     * @return the node2
+     */
     public OnmsNode getNode2() {
         return m_node2;
     }
 
+    /**
+     * Gets the node3.
+     *
+     * @return the node3
+     */
     public OnmsNode getNode3() {
         return m_node3;
     }
 
+    /**
+     * Gets the node4.
+     *
+     * @return the node4
+     */
     public OnmsNode getNode4() {
         return m_node4;
     }
 
+    /**
+     * Gets the node5.
+     *
+     * @return the node5
+     */
     public OnmsNode getNode5() {
         return m_node5;
     }
 
+    /**
+     * Gets the node6.
+     *
+     * @return the node6
+     */
     public OnmsNode getNode6() {
         return m_node6;
     }
 
+    /**
+     * Gets the node7.
+     *
+     * @return the node7
+     */
     public OnmsNode getNode7() {
         return m_node7;
     }
 
+    /**
+     * Gets the node8.
+     *
+     * @return the node8
+     */
     public OnmsNode getNode8() {
         return m_node8;
     }
 
+    /**
+     * Sets the node1.
+     *
+     * @param node1
+     *            the new node1
+     */
     private void setNode1(final OnmsNode node1) {
         node1.setId(1);
         m_node1 = node1;
     }
 
+    /**
+     * Sets the node2.
+     *
+     * @param node2
+     *            the new node2
+     */
     private void setNode2(final OnmsNode node2) {
         node2.setId(2);
         m_node2 = node2;
     }
 
+    /**
+     * Sets the node3.
+     *
+     * @param node3
+     *            the new node3
+     */
     private void setNode3(final OnmsNode node3) {
         node3.setId(3);
         m_node3 = node3;
     }
 
+    /**
+     * Sets the node4.
+     *
+     * @param node4
+     *            the new node4
+     */
     private void setNode4(final OnmsNode node4) {
         node4.setId(4);
         m_node4 = node4;
     }
 
+    /**
+     * Sets the node5.
+     *
+     * @param node5
+     *            the new node5
+     */
     private void setNode5(final OnmsNode node5) {
         node5.setId(5);
         m_node5 = node5;
     }
 
+    /**
+     * Sets the node6.
+     *
+     * @param node6
+     *            the new node6
+     */
     private void setNode6(final OnmsNode node6) {
         node6.setId(6);
         m_node6 = node6;
     }
 
+    /**
+     * Sets the node7.
+     *
+     * @param node7
+     *            the new node7
+     */
     private void setNode7(final OnmsNode node7) {
         node7.setId(7);
         m_node7 = node7;
     }
 
+    /**
+     * Sets the node8.
+     *
+     * @param node8
+     *            the new node8
+     */
     private void setNode8(final OnmsNode node8) {
         node8.setId(8);
         m_node8 = node8;
     }
 
+    /**
+     * Gets the onms map dao.
+     *
+     * @return the onms map dao
+     */
     public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
 
+    /**
+     * Sets the onms map dao.
+     *
+     * @param onmsMapDao
+     *            the new onms map dao
+     */
     public void setOnmsMapDao(final OnmsMapDao onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
     }
 
+    /**
+     * Gets the onms map element dao.
+     *
+     * @return the onms map element dao
+     */
     public OnmsMapElementDao getOnmsMapElementDao() {
         return m_onmsMapElementDao;
     }
 
+    /**
+     * Sets the onms map element dao.
+     *
+     * @param onmsMapElementDao
+     *            the new onms map element dao
+     */
     public void setOnmsMapElementDao(final OnmsMapElementDao onmsMapElementDao) {
         this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(final DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }

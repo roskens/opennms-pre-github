@@ -28,12 +28,20 @@
 
 package org.opennms.features.topology.plugins.topo.onmsdao.internal.operations;
 
+/**
+ * The Interface Constants.
+ */
 public interface Constants {
+
+    /** The Constant CENTER_VERTEX_ID. */
     public static final String CENTER_VERTEX_ID = org.opennms.features.topology.api.Constants.CENTER_VERTEX_ID;
 
+    /** The Constant GROUP_ICON. */
     public static final String GROUP_ICON = "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/group.png";
 
+    /** The Constant SERVER_ICON. */
     public static final String SERVER_ICON = "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/server.png";
 
+    /** The Constant SWITCH_ICON. */
     public static final String SWITCH_ICON = "VAADIN/widgetsets/org.opennms.features.topology.widgetset.gwt.TopologyWidgetset/topologywidget/images/srx100.png";
 }
