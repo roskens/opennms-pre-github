@@ -21,11 +21,15 @@
     <module name="ConstantName"/>
     <module name="LocalFinalVariableName"/>
     <module name="LocalVariableName"/>
-    <module name="MemberName"/>
+    <module name="MemberName">
+      <property name="format" value="^(m_)?[a-zA-Z0-9_]*$"/>
+    </module>
     <module name="MethodName"/>
     <module name="PackageName"/>
     <module name="ParameterName"/>
-    <module name="StaticVariableName"/>
+    <module name="StaticVariableName">
+      <property name="format" value="^(s_)?[a-zA-Z0-9_]*$"/>
+    </module>
     <module name="TypeName"/>
     <module name="AvoidStarImport"/>
     <module name="IllegalImport"/>
