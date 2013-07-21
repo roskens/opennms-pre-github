@@ -45,37 +45,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OpenNMS Trouble Ticket Plugin API implementation for Remedy
+ * OpenNMS Trouble Ticket Plugin API implementation for Remedy.
  *
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  * @author <a href="antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class RemedyTicketerPlugin implements Plugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RemedyTicketerPlugin.class);
 
+    /** The m_config dao. */
     private DefaultRemedyConfigDao m_configDao;
 
+    /** The m_endpoint. */
     private String m_endpoint;
 
+    /** The m_portname. */
     private String m_portname;
 
+    /** The m_createendpoint. */
     private String m_createendpoint;
 
+    /** The m_createportname. */
     private String m_createportname;
 
+    /** The Constant ACTION_CREATE. */
     private static final String ACTION_CREATE = "CREATE";
 
+    /** The Constant ACTION_MODIFY. */
     private static final String ACTION_MODIFY = "MODIFY";
 
+    /** The Constant ATTRIBUTE_NODE_LABEL_ID. */
     public static final String ATTRIBUTE_NODE_LABEL_ID = "nodelabel";
 
+    /** The Constant ATTRIBUTE_USER_COMMENT_ID. */
     private static final String ATTRIBUTE_USER_COMMENT_ID = "remedy.user.comment";
 
+    /** The Constant ATTRIBUTE_URGENCY_ID. */
     private static final String ATTRIBUTE_URGENCY_ID = "remedy.urgency";
 
+    /** The Constant ATTRIBUTE_ASSIGNED_GROUP_ID. */
     private static final String ATTRIBUTE_ASSIGNED_GROUP_ID = "remedy.assignedgroup";
 
+    /** The Constant MAX_SUMMARY_CHARS. */
     private static final int MAX_SUMMARY_CHARS = 99;
 
     // Remember:
@@ -139,6 +153,13 @@ public class RemedyTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Remedy to open nms state.
+     *
+     * @param status
+     *            the status
+     * @return the state
+     */
     private State remedyToOpenNMSState(StatusType status) {
         State state = State.OPEN;
         if (status.toString().equals(StatusType._value6) || status.toString().equals(StatusType._value5)) {
@@ -159,6 +180,14 @@ public class RemedyTicketerPlugin implements Plugin {
         }
     }
 
+    /**
+     * Update.
+     *
+     * @param ticket
+     *            the ticket
+     * @throws PluginException
+     *             the plugin exception
+     */
     private void update(Ticket ticket) throws PluginException {
 
         HPD_IncidentInterface_WSPortTypePortType port = getTicketServicePort(m_portname, m_endpoint);
@@ -207,6 +236,15 @@ public class RemedyTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Gets the remedy set input map.
+     *
+     * @param ticket
+     *            the ticket
+     * @param output
+     *            the output
+     * @return the remedy set input map
+     */
     private SetInputMap getRemedySetInputMap(Ticket ticket, GetOutputMap output) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
@@ -229,6 +267,13 @@ public class RemedyTicketerPlugin implements Plugin {
                                "", new byte[0], 0);
     }
 
+    /**
+     * Gets the urgency.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the urgency
+     */
     private UrgencyType getUrgency(Ticket ticket) {
 
         UrgencyType urgency;
@@ -243,6 +288,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return urgency;
     }
 
+    /**
+     * Gets the assigned group.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the assigned group
+     */
     private String getAssignedGroup(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
@@ -253,6 +305,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return m_configDao.getAssignedGroup();
     }
 
+    /**
+     * Gets the assigned support company.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the assigned support company
+     */
     private String getAssignedSupportCompany(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
@@ -263,6 +322,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return m_configDao.getAssignedSupportCompany();
     }
 
+    /**
+     * Gets the assigned support organization.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the assigned support organization
+     */
     private String getAssignedSupportOrganization(Ticket ticket) {
         if (ticket.getAttribute(ATTRIBUTE_ASSIGNED_GROUP_ID) != null) {
             for (String group : m_configDao.getTargetGroups()) {
@@ -273,6 +339,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return m_configDao.getAssignedSupportOrganization();
     }
 
+    /**
+     * Gets the summary.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the summary
+     */
     private String getSummary(Ticket ticket) {
         StringBuffer summary = new StringBuffer();
         if (ticket.getAttribute(ATTRIBUTE_NODE_LABEL_ID) != null) {
@@ -285,6 +358,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return summary.toString();
     }
 
+    /**
+     * Gets the notes.
+     *
+     * @param ticket
+     *            the ticket
+     * @return the notes
+     */
     private String getNotes(Ticket ticket) {
         StringBuffer notes = new StringBuffer("OpenNMS generated ticket by user: ");
         notes.append(ticket.getUser());
@@ -305,6 +385,15 @@ public class RemedyTicketerPlugin implements Plugin {
         return notes.toString();
     }
 
+    /**
+     * Opennms to remedy state.
+     *
+     * @param inputmap
+     *            the inputmap
+     * @param state
+     *            the state
+     * @return the sets the input map
+     */
     private SetInputMap opennmsToRemedyState(SetInputMap inputmap, State state) {
         LOG.debug("getting remedy state from OpenNMS State: {}", state);
 
@@ -332,6 +421,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return inputmap;
     }
 
+    /**
+     * Gets the remedy input map.
+     *
+     * @param ticketId
+     *            the ticket id
+     * @return the remedy input map
+     */
     private GetInputMap getRemedyInputMap(String ticketId) {
         GetInputMap parameters = new GetInputMap();
         parameters.setIncident_Number(ticketId);
@@ -339,6 +435,11 @@ public class RemedyTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Gets the remedy authentication header.
+     *
+     * @return the remedy authentication header
+     */
     private AuthenticationInfo getRemedyAuthenticationHeader() {
         AuthenticationInfo request_header = new AuthenticationInfo();
         request_header.setUserName(m_configDao.getUserName());
@@ -356,6 +457,13 @@ public class RemedyTicketerPlugin implements Plugin {
         return request_header;
     }
 
+    /**
+     * Gets the remedy create input map.
+     *
+     * @param newTicket
+     *            the new ticket
+     * @return the remedy create input map
+     */
     private CreateInputMap getRemedyCreateInputMap(Ticket newTicket) {
 
         CreateInputMap createInputMap = new CreateInputMap();
@@ -385,6 +493,14 @@ public class RemedyTicketerPlugin implements Plugin {
 
     }
 
+    /**
+     * Save.
+     *
+     * @param newTicket
+     *            the new ticket
+     * @throws PluginException
+     *             the plugin exception
+     */
     private void save(Ticket newTicket) throws PluginException {
         HPD_IncidentInterface_Create_WSPortTypePortType port = getCreateTicketServicePort(m_createportname,
                                                                                           m_createendpoint);
@@ -404,7 +520,13 @@ public class RemedyTicketerPlugin implements Plugin {
      * Convenience method for initializing the ticketServicePort and correctly
      * setting the endpoint.
      *
+     * @param portname
+     *            the portname
+     * @param endpoint
+     *            the endpoint
      * @return TicketServicePort to connect to the remote service.
+     * @throws PluginException
+     *             the plugin exception
      */
 
     private HPD_IncidentInterface_WSPortTypePortType getTicketServicePort(String portname, String endpoint)
@@ -429,7 +551,13 @@ public class RemedyTicketerPlugin implements Plugin {
      * Convenience method for initialising the ticketServicePort and correctly
      * setting the endpoint.
      *
+     * @param portname
+     *            the portname
+     * @param endpoint
+     *            the endpoint
      * @return TicketServicePort to connect to the remote service.
+     * @throws PluginException
+     *             the plugin exception
      */
 
     private HPD_IncidentInterface_Create_WSPortTypePortType getCreateTicketServicePort(String portname, String endpoint)
