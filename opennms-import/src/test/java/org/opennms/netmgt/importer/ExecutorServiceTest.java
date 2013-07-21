@@ -39,8 +39,17 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.opennms.core.concurrent.LogPreservingThreadFactory;
 
+/**
+ * The Class ExecutorServiceTest.
+ */
 public class ExecutorServiceTest {
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     public void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -48,16 +57,31 @@ public class ExecutorServiceTest {
         }
     }
 
+    /** The runs. */
     private int runs = 0;
 
+    /**
+     * Incr.
+     */
     public synchronized void incr() {
         runs++;
     }
 
+    /**
+     * Gets the runs.
+     *
+     * @return the runs
+     */
     public synchronized int getRuns() {
         return runs;
     }
 
+    /**
+     * Test thread pool.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testThreadPool() throws Exception {
         ExecutorService pool = Executors.newFixedThreadPool(11,
@@ -82,6 +106,12 @@ public class ExecutorServiceTest {
         assertEquals(100, getRuns());
     }
 
+    /**
+     * Shutdown and wait for completion.
+     *
+     * @param executorService
+     *            the executor service
+     */
     public void shutdownAndWaitForCompletion(ExecutorService executorService) {
         executorService.shutdown();
         try {

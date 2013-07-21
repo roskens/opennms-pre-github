@@ -46,6 +46,7 @@ public interface ImportOperation {
      * <p>
      * gatherAdditionalData
      * </p>
+     * .
      */
     void gatherAdditionalData();
 
@@ -53,6 +54,7 @@ public interface ImportOperation {
      * <p>
      * persist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

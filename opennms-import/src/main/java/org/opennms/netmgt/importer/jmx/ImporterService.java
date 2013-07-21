@@ -56,6 +56,7 @@ public class ImporterService extends AbstractSpringContextJmxServiceDaemon<org.o
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

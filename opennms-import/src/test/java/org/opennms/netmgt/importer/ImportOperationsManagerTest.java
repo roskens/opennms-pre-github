@@ -75,6 +75,9 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * The Class ImportOperationsManagerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -85,43 +88,64 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ImportOperationsManagerTest implements InitializingBean {
+
+    /** The Constant TEST_IP_ADDRESS. */
     private static final String TEST_IP_ADDRESS = "127.0.0.1";
 
+    /** The Constant TEST_PORT. */
     private static final int TEST_PORT = 1691;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_service type dao. */
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_category dao. */
     @Autowired
     CategoryDao m_categoryDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
     }
 
+    /**
+     * On set up in transaction if enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void onSetUpInTransactionIfEnabled() throws Exception {
         Properties p = new Properties();
@@ -137,11 +161,22 @@ public class ImportOperationsManagerTest implements InitializingBean {
         m_categoryDao.flush();
     }
 
+    /**
+     * On tear down in transaction if enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void onTearDownInTransactionIfEnabled() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Gets the model importer.
+     *
+     * @return the model importer
+     */
     protected ModelImporter getModelImporter() {
         ModelImporter mi = new ModelImporter();
         mi.setDistPollerDao(m_distPollerDao);
@@ -151,6 +186,9 @@ public class ImportOperationsManagerTest implements InitializingBean {
         return mi;
     }
 
+    /**
+     * Test get operations.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -169,6 +207,12 @@ public class ImportOperationsManagerTest implements InitializingBean {
         assertEquals(6, opsMgr.getOperationCount());
     }
 
+    /**
+     * Test save then update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -214,6 +258,12 @@ public class ImportOperationsManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test change ip addr.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -231,6 +281,12 @@ public class ImportOperationsManagerTest implements InitializingBean {
                      m_ipInterfaceDao.findByIpAddress("172.20.1.204").size());
     }
 
+    /**
+     * Test import to operations mgr.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -243,6 +299,16 @@ public class ImportOperationsManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Do double import.
+     *
+     * @param specFileResource
+     *            the spec file resource
+     * @throws ModelImportException
+     *             the model import exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void doDoubleImport(Resource specFileResource) throws ModelImportException, IOException {
 
         long pass1 = System.currentTimeMillis();
@@ -256,10 +322,34 @@ public class ImportOperationsManagerTest implements InitializingBean {
                 + " s.");
     }
 
+    /**
+     * Do import from spec file.
+     *
+     * @param specFileResource
+     *            the spec file resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ModelImportException
+     *             the model import exception
+     */
     private void doImportFromSpecFile(Resource specFileResource) throws IOException, ModelImportException {
         doImportFromSpecFile(specFileResource, 4, 50);
     }
 
+    /**
+     * Do import from spec file.
+     *
+     * @param specFileResource
+     *            the spec file resource
+     * @param writeThreads
+     *            the write threads
+     * @param scanThreads
+     *            the scan threads
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ModelImportException
+     *             the model import exception
+     */
     private void doImportFromSpecFile(Resource specFileResource, int writeThreads, int scanThreads) throws IOException,
             ModelImportException {
         expectServiceTypeCreate("HTTP");
@@ -287,6 +377,13 @@ public class ImportOperationsManagerTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the asset number map in transaction.
+     *
+     * @param specFile
+     *            the spec file
+     * @return the asset number map in transaction
+     */
     private Map<String, Integer> getAssetNumberMapInTransaction(final SpecFile specFile) {
         Map<String, Integer> assetNumbers = m_transTemplate.execute(new TransactionCallback<Map<String, Integer>>() {
             @Override
@@ -297,10 +394,23 @@ public class ImportOperationsManagerTest implements InitializingBean {
         return assetNumbers;
     }
 
+    /**
+     * Gets the asset number map.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @return the asset number map
+     */
     protected Map<String, Integer> getAssetNumberMap(String foreignSource) {
         return Collections.unmodifiableMap(m_nodeDao.getForeignIdToNodeIdMap(foreignSource));
     }
 
+    /**
+     * Expect service type create.
+     *
+     * @param string
+     *            the string
+     */
     protected void expectServiceTypeCreate(String string) {
         // TODO Auto-generated method stub
     }

@@ -65,24 +65,34 @@ import org.springframework.beans.PropertyAccessorFactory;
  */
 public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperation implements SaveOrUpdateOperation {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSaveOrUpdateOperation.class);
 
+    /** The m_node. */
     private final OnmsNode m_node;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_dist poller dao. */
     private DistPollerDao m_distPollerDao;
 
+    /** The m_current interface. */
     private OnmsIpInterface m_currentInterface;
 
+    /** The m_svc type dao. */
     private ServiceTypeDao m_svcTypeDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_types. */
     private ThreadLocal<HashMap<String, OnmsServiceType>> m_types;
 
+    /** The m_categories. */
     private ThreadLocal<HashMap<String, OnmsCategory>> m_categories;
 
+    /** The m_collector. */
     private IfSnmpCollector m_collector;
 
     /**
@@ -174,6 +184,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * gatherAdditionalData
      * </p>
+     * .
      */
     @Override
     public void gatherAdditionalData() {
@@ -184,6 +195,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * persist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -196,6 +208,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * doPersist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -205,6 +218,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * updateSnmpData
      * </p>
+     * .
      */
     protected void updateSnmpData() {
         if (m_collector != null) {
@@ -221,6 +235,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         }
     }
 
+    /**
+     * Update snmp data for snmp interfaces.
+     */
     private void updateSnmpDataForSnmpInterfaces() {
         if (m_collector != null && m_collector.hasIfTable()) {
 
@@ -254,6 +271,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         }
     }
 
+    /**
+     * Update snmp data for node.
+     */
     private void updateSnmpDataForNode() {
         if (m_collector != null && m_collector.hasSystemGroup()) {
             m_node.setSysContact(m_collector.getSystemGroup().getSysContact());
@@ -267,6 +287,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * isSnmpDataForNodeUpToDate
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -278,6 +299,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * isSnmpDataForInterfacesUpToDate
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -285,6 +307,12 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         return m_collector != null && m_collector.hasIfTable() && m_collector.hasIpAddrTable();
     }
 
+    /**
+     * Update snmp data for interface.
+     *
+     * @param ipIf
+     *            the ip if
+     */
     private void updateSnmpDataForInterface(OnmsIpInterface ipIf) {
         if (m_collector == null || !m_collector.hasIpAddrTable() || !m_collector.hasIfTable()) {
             return;
@@ -325,16 +353,37 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
     }
 
+    /**
+     * Gets the admin status.
+     *
+     * @param ifIndex
+     *            the if index
+     * @return the admin status
+     */
     private Integer getAdminStatus(int ifIndex) {
         int adminStatus = m_collector.getAdminStatus(ifIndex);
         return (adminStatus == -1 ? null : new Integer(adminStatus));
     }
 
+    /**
+     * Gets the if type.
+     *
+     * @param ifIndex
+     *            the if index
+     * @return the if type
+     */
     private Integer getIfType(int ifIndex) {
         int ifType = m_collector.getIfType(ifIndex);
         return (ifType == -1 ? null : new Integer(ifType));
     }
 
+    /**
+     * Gets the net mask.
+     *
+     * @param ifIndex
+     *            the if index
+     * @return the net mask
+     */
     private InetAddress getNetMask(int ifIndex) {
         InetAddress[] ifAddressAndMask = m_collector.getIfAddressAndMask(ifIndex);
         if (ifAddressAndMask != null && ifAddressAndMask.length > 1 && ifAddressAndMask[1] != null) {
@@ -343,6 +392,12 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         return null;
     }
 
+    /**
+     * Resolve ip hostname.
+     *
+     * @param ipIf
+     *            the ip if
+     */
     private void resolveIpHostname(final OnmsIpInterface ipIf) {
         final String ipAddress = InetAddressUtils.str(ipIf.getIpAddress());
         ipIf.setIpHostName(ipAddress);
@@ -387,6 +442,13 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         }
     }
 
+    /**
+     * Gets the service type.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the service type
+     */
     private OnmsServiceType getServiceType(String serviceName) {
         preloadExistingTypes();
         OnmsServiceType type = getTypes().get(serviceName);
@@ -403,6 +465,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         return type;
     }
 
+    /**
+     * Preload existing types.
+     */
     private void preloadExistingTypes() {
 
         if (getTypes() == null) {
@@ -413,6 +478,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         }
     }
 
+    /**
+     * Preload existing categories.
+     */
     private void preloadExistingCategories() {
         if (getCategories() == null) {
             setCategories(new HashMap<String, OnmsCategory>());
@@ -426,6 +494,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -437,6 +506,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -448,6 +518,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * getDistPollerDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
      */
@@ -455,6 +526,13 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         return m_distPollerDao;
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param name
+     *            the name
+     * @return the category
+     */
     private OnmsCategory getCategory(String name) {
         preloadExistingCategories();
 
@@ -475,6 +553,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * getIpAddrToInterfaceMap
      * </p>
+     * .
      *
      * @param imported
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -489,18 +568,40 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         return ipAddrToIface;
     }
 
+    /**
+     * Gets the types.
+     *
+     * @return the types
+     */
     private HashMap<String, OnmsServiceType> getTypes() {
         return m_types.get();
     }
 
+    /**
+     * Sets the types.
+     *
+     * @param types
+     *            the types
+     */
     private void setTypes(HashMap<String, OnmsServiceType> types) {
         m_types.set(types);
     }
 
+    /**
+     * Sets the categories.
+     *
+     * @param categories
+     *            the categories
+     */
     private void setCategories(HashMap<String, OnmsCategory> categories) {
         m_categories.set(categories);
     }
 
+    /**
+     * Gets the categories.
+     *
+     * @return the categories
+     */
     private HashMap<String, OnmsCategory> getCategories() {
         return m_categories.get();
     }
@@ -509,6 +610,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * getCategoryDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
      */
@@ -520,6 +622,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setCategoryDao
      * </p>
+     * .
      *
      * @param categoryDao
      *            a {@link org.opennms.netmgt.dao.api.CategoryDao} object.
@@ -532,6 +635,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setServiceTypeDao
      * </p>
+     * .
      *
      * @param svcTypeDao
      *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
@@ -544,6 +648,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -556,6 +661,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setDistPollerDao
      * </p>
+     * .
      *
      * @param distPollerDao
      *            a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
@@ -568,6 +674,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setTypeCache
      * </p>
+     * .
      *
      * @param typeCache
      *            a {@link java.lang.ThreadLocal} object.
@@ -580,6 +687,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * setCategoryCache
      * </p>
+     * .
      *
      * @param categoryCache
      *            a {@link java.lang.ThreadLocal} object.
@@ -592,6 +700,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
      * <p>
      * nullSafeEquals
      * </p>
+     * .
      *
      * @param o1
      *            a {@link java.lang.Object} object.

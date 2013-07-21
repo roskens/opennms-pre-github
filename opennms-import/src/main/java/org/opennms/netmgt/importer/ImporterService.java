@@ -60,21 +60,26 @@ import org.springframework.core.io.UrlResource;
  */
 public class ImporterService extends BaseImporter implements SpringServiceDaemon, DisposableBean, EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImporterService.class);
 
-    /** Constant <code>NAME="ModelImporter"</code> */
+    /** Constant <code>NAME="ModelImporter"</code>. */
     public static final String NAME = "model-importer";
 
+    /** The m_import resource. */
     private volatile Resource m_importResource;
 
+    /** The m_event manager. */
     private volatile EventIpcManager m_eventManager;
 
+    /** The m_stats. */
     private volatile ImporterStats m_stats;
 
     /**
      * <p>
      * doImport
      * </p>
+     * .
      */
     public void doImport() {
         doImport(null);
@@ -89,6 +94,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * as a parameter of an event.
      *
      * @param event
+     *            the event
      */
     private void doImport(Event event) {
         Resource resource = null;
@@ -111,6 +117,13 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         }
     }
 
+    /**
+     * Gets the event url.
+     *
+     * @param event
+     *            the event
+     * @return the event url
+     */
     private String getEventUrl(Event event) {
         return EventUtils.getParm(event, EventConstants.PARM_URL);
     }
@@ -119,6 +132,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -126,6 +140,14 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         return (m_stats == null ? "No Stats Availabile" : m_stats.toString());
     }
 
+    /**
+     * Send import successful.
+     *
+     * @param stats
+     *            the stats
+     * @param resource
+     *            the resource
+     */
     private void sendImportSuccessful(ImporterStats stats, Resource resource) {
         EventBuilder builder = new EventBuilder(EventConstants.IMPORT_SUCCESSFUL_UEI, NAME);
         builder.addParam(EventConstants.PARM_IMPORT_RESOURCE, resource.toString());
@@ -133,6 +155,14 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         m_eventManager.sendNow(builder.getEvent());
     }
 
+    /**
+     * Send import failed.
+     *
+     * @param msg
+     *            the msg
+     * @param resource
+     *            the resource
+     */
     private void sendImportFailed(String msg, Resource resource) {
         EventBuilder builder = new EventBuilder(EventConstants.IMPORT_FAILED_UEI, NAME);
         builder.addParam(EventConstants.PARM_IMPORT_RESOURCE, resource.toString());
@@ -140,6 +170,12 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         m_eventManager.sendNow(builder.getEvent());
     }
 
+    /**
+     * Send import started.
+     *
+     * @param resource
+     *            the resource
+     */
     private void sendImportStarted(Resource resource) {
         EventBuilder builder = new EventBuilder(EventConstants.IMPORT_STARTED_UEI, NAME);
         builder.addParam(EventConstants.PARM_IMPORT_RESOURCE, resource.toString());
@@ -150,6 +186,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * setImportResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -162,6 +199,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -173,6 +211,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -195,9 +234,10 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -208,9 +248,10 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -222,6 +263,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -247,54 +289,85 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         }
     }
 
+    /**
+     * The Class ImporterStats.
+     */
     public class ImporterStats implements ImportStatistics {
 
+        /** The m_import duration. */
         private Duration m_importDuration = new Duration("Importing");
 
+        /** The m_audit duration. */
         private Duration m_auditDuration = new Duration("Auditing");
 
+        /** The m_loading duration. */
         private Duration m_loadingDuration = new Duration("Loading");
 
+        /** The m_processing duration. */
         private Duration m_processingDuration = new Duration("Processing");
 
+        /** The m_preprocessing duration. */
         private Duration m_preprocessingDuration = new Duration("Scanning");
 
+        /** The m_relate duration. */
         private Duration m_relateDuration = new Duration("Relating");
 
+        /** The m_preprocessing effort. */
         private WorkEffort m_preprocessingEffort = new WorkEffort("Scan Effort");
 
+        /** The m_processing effort. */
         private WorkEffort m_processingEffort = new WorkEffort("Write Effort");
 
+        /** The m_event effort. */
         private WorkEffort m_eventEffort = new WorkEffort("Event Sending Effort");
 
+        /** The m_delete count. */
         private int m_deleteCount;
 
+        /** The m_insert count. */
         private int m_insertCount;
 
+        /** The m_update count. */
         private int m_updateCount;
 
+        /** The m_event count. */
         private int m_eventCount;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginProcessingOps()
+         */
         @Override
         public void beginProcessingOps() {
             m_processingDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishProcessingOps()
+         */
         @Override
         public void finishProcessingOps() {
             m_processingDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginPreprocessingOps()
+         */
         @Override
         public void beginPreprocessingOps() {
             m_preprocessingDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishPreprocessingOps()
+         */
         @Override
         public void finishPreprocessingOps() {
             m_preprocessingDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginPreprocessing(org.opennms.netmgt.importer.operations.ImportOperation)
+         */
         @Override
         public void beginPreprocessing(ImportOperation oper) {
             if (oper instanceof AbstractSaveOrUpdateOperation) {
@@ -302,6 +375,9 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishPreprocessing(org.opennms.netmgt.importer.operations.ImportOperation)
+         */
         @Override
         public void finishPreprocessing(ImportOperation oper) {
             if (oper instanceof AbstractSaveOrUpdateOperation) {
@@ -309,17 +385,26 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginPersisting(org.opennms.netmgt.importer.operations.ImportOperation)
+         */
         @Override
         public void beginPersisting(ImportOperation oper) {
             m_processingEffort.begin();
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishPersisting(org.opennms.netmgt.importer.operations.ImportOperation)
+         */
         @Override
         public void finishPersisting(ImportOperation oper) {
             m_processingEffort.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginSendingEvents(org.opennms.netmgt.importer.operations.ImportOperation, java.util.List)
+         */
         @Override
         public void beginSendingEvents(ImportOperation oper, List<Event> events) {
             if (events != null)
@@ -327,67 +412,106 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
             m_eventEffort.begin();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishSendingEvents(org.opennms.netmgt.importer.operations.ImportOperation, java.util.List)
+         */
         @Override
         public void finishSendingEvents(ImportOperation oper, List<Event> events) {
             m_eventEffort.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginLoadingResource(org.springframework.core.io.Resource)
+         */
         @Override
         public void beginLoadingResource(Resource resource) {
             m_loadingDuration.setName("Loading Resource: " + resource);
             m_loadingDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishLoadingResource(org.springframework.core.io.Resource)
+         */
         @Override
         public void finishLoadingResource(Resource resource) {
             m_loadingDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginImporting()
+         */
         @Override
         public void beginImporting() {
             m_importDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishImporting()
+         */
         @Override
         public void finishImporting() {
             m_importDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginAuditNodes()
+         */
         @Override
         public void beginAuditNodes() {
             m_auditDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishAuditNodes()
+         */
         @Override
         public void finishAuditNodes() {
             m_auditDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#setDeleteCount(int)
+         */
         @Override
         public void setDeleteCount(int deleteCount) {
             m_deleteCount = deleteCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#setInsertCount(int)
+         */
         @Override
         public void setInsertCount(int insertCount) {
             m_insertCount = insertCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#setUpdateCount(int)
+         */
         @Override
         public void setUpdateCount(int updateCount) {
             m_updateCount = updateCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#beginRelateNodes()
+         */
         @Override
         public void beginRelateNodes() {
             m_relateDuration.start();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.importer.operations.ImportStatistics#finishRelateNodes()
+         */
         @Override
         public void finishRelateNodes() {
             m_relateDuration.end();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuffer stats = new StringBuffer();
@@ -412,34 +536,66 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 
     }
 
+    /**
+     * The Class Duration.
+     */
     public class Duration {
 
+        /** The m_name. */
         private String m_name = null;
 
+        /** The m_start. */
         private long m_start = -1L;
 
+        /** The m_end. */
         private long m_end = -1L;
 
+        /**
+         * Instantiates a new duration.
+         */
         public Duration() {
             this(null);
         }
 
+        /**
+         * Instantiates a new duration.
+         *
+         * @param name
+         *            the name
+         */
         public Duration(String name) {
             m_name = name;
         }
 
+        /**
+         * Sets the name.
+         *
+         * @param name
+         *            the new name
+         */
         public void setName(String name) {
             m_name = name;
         }
 
+        /**
+         * Start.
+         */
         public void start() {
             m_start = System.currentTimeMillis();
         }
 
+        /**
+         * End.
+         */
         public void end() {
             m_end = System.currentTimeMillis();
         }
 
+        /**
+         * Gets the length.
+         *
+         * @return the length
+         */
         public long getLength() {
             if (m_start == -1L)
                 return 0L;
@@ -447,11 +603,19 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
             return end - m_start;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return (m_name == null ? "" : m_name + ": ") + (m_start == -1L ? "has not begun" : elapsedTime());
         }
 
+        /**
+         * Elapsed time.
+         *
+         * @return the string
+         */
         private String elapsedTime() {
 
             long duration = getLength();
@@ -479,36 +643,63 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 
     }
 
+    /**
+     * The Class WorkEffort.
+     */
     public class WorkEffort {
 
+        /** The m_name. */
         private String m_name;
 
+        /** The m_total time. */
         private long m_totalTime;
 
+        /** The m_section count. */
         private long m_sectionCount;
 
+        /** The m_pending section. */
         private ThreadLocal<Duration> m_pendingSection = new ThreadLocal<Duration>();
 
+        /**
+         * Instantiates a new work effort.
+         *
+         * @param name
+         *            the name
+         */
         public WorkEffort(String name) {
             m_name = name;
         }
 
+        /**
+         * Begin.
+         */
         public void begin() {
             Duration pending = new Duration();
             pending.start();
             m_pendingSection.set(pending);
         }
 
+        /**
+         * End.
+         */
         public void end() {
             Duration pending = m_pendingSection.get();
             m_sectionCount++;
             m_totalTime += pending.getLength();
         }
 
+        /**
+         * Gets the total time.
+         *
+         * @return the total time
+         */
         public long getTotalTime() {
             return m_totalTime;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuffer buf = new StringBuffer();
@@ -527,9 +718,10 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {

@@ -46,8 +46,11 @@ import org.opennms.netmgt.importer.specification.AbstractImportVisitor;
  * @version $Id: $
  */
 public class ImportAccountant extends AbstractImportVisitor {
+
+    /** The m_ops mgr. */
     private final ImportOperationsManager m_opsMgr;
 
+    /** The m_current op. */
     private SaveOrUpdateOperation m_currentOp;
 
     /**

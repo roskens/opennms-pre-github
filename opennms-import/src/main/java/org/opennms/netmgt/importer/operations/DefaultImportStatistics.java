@@ -39,11 +39,16 @@ import java.util.List;
 import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DefaultImportStatistics.
+ */
 public class DefaultImportStatistics implements ImportStatistics {
+
     /**
      * <p>
      * beginProcessingOps
      * </p>
+     * .
      */
     @Override
     public void beginProcessingOps() {
@@ -53,6 +58,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * finishProcessingOps
      * </p>
+     * .
      */
     @Override
     public void finishProcessingOps() {
@@ -62,6 +68,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * beginPreprocessingOps
      * </p>
+     * .
      */
     @Override
     public void beginPreprocessingOps() {
@@ -71,6 +78,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * finishPreprocessingOps
      * </p>
+     * .
      */
     @Override
     public void finishPreprocessingOps() {
@@ -120,6 +128,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * beginImporting
      * </p>
+     * .
      */
     @Override
     public void beginImporting() {
@@ -129,6 +138,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * finishImporting
      * </p>
+     * .
      */
     @Override
     public void finishImporting() {
@@ -138,6 +148,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * beginAuditNodes
      * </p>
+     * .
      */
     @Override
     public void beginAuditNodes() {
@@ -147,6 +158,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * finishAuditNodes
      * </p>
+     * .
      */
     @Override
     public void finishAuditNodes() {
@@ -171,6 +183,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * beginRelateNodes
      * </p>
+     * .
      */
     @Override
     public void beginRelateNodes() {
@@ -182,6 +195,7 @@ public class DefaultImportStatistics implements ImportStatistics {
      * <p>
      * finishRelateNodes
      * </p>
+     * .
      */
     @Override
     public void finishRelateNodes() {

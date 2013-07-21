@@ -48,6 +48,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class ImporterServiceTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -58,17 +61,29 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ImporterServiceTest implements InitializingBean {
+
+    /** The m_event ipc mgr. */
     @Autowired
     private MockEventIpcManager m_eventIpcMgr;
 
+    /** The m_daemon. */
     @Autowired
     private ImporterService m_daemon;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * On set up in transaction if enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void onSetUpInTransactionIfEnabled() throws Exception {
         Properties logConfig = new Properties();
@@ -81,6 +96,12 @@ public class ImporterServiceTest implements InitializingBean {
         MockLogAppender.setupLogging(logConfig);
     }
 
+    /**
+     * Test schedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSchedule() throws Exception {
         expectImportStarted();
@@ -99,32 +120,71 @@ public class ImporterServiceTest implements InitializingBean {
         waitForImportSuccessful(300000);
     }
 
+    /**
+     * Expect import successful.
+     */
     private void expectImportSuccessful() {
         anticipateEvent(createEvent(EventConstants.IMPORT_SUCCESSFUL_UEI));
     }
 
+    /**
+     * Expect import started.
+     */
     private void expectImportStarted() {
         anticipateEvent(createEvent(EventConstants.IMPORT_STARTED_UEI));
     }
 
+    /**
+     * Wait for import started.
+     *
+     * @param timeout
+     *            the timeout
+     */
     private void waitForImportStarted(long timeout) {
         assertTrue("Failed to receive importStarted event after waiting " + timeout + " millis",
                    m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
     }
 
+    /**
+     * Wait for import successful.
+     *
+     * @param timeout
+     *            the timeout
+     */
     private void waitForImportSuccessful(long timeout) {
         assertTrue("Failed to receive importSuccessful event after waiting " + timeout + " millis",
                    m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @return the event
+     */
     public Event createEvent(String uei) {
         return new EventBuilder(uei, "ModelImporter").getEvent();
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param e
+     *            the e
+     */
     private void anticipateEvent(Event e) {
         anticipateEvent(e, false);
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param e
+     *            the e
+     * @param checkUnanticipatedList
+     *            the check unanticipated list
+     */
     private void anticipateEvent(Event e, boolean checkUnanticipatedList) {
         m_eventIpcMgr.getEventAnticipator().anticipateEvent(e, checkUnanticipatedList);
     }

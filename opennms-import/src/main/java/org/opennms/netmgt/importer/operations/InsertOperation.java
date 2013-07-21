@@ -69,6 +69,7 @@ public class InsertOperation extends AbstractSaveOrUpdateOperation {
      * <p>
      * doPersist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -91,6 +92,7 @@ public class InsertOperation extends AbstractSaveOrUpdateOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

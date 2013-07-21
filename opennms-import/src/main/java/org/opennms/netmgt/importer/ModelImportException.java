@@ -38,6 +38,7 @@ package org.opennms.netmgt.importer;
  */
 public class ModelImportException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6520991163434052156L;
 
     /**

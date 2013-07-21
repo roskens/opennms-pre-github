@@ -57,20 +57,40 @@ import org.slf4j.LoggerFactory;
  */
 public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UpdateOperation.class);
 
+    /**
+     * The Class ServiceUpdater.
+     */
     public class ServiceUpdater {
 
+        /** The m_iface. */
         private OnmsIpInterface m_iface;
 
+        /** The m_svc typ to svc map. */
         Map<OnmsServiceType, OnmsMonitoredService> m_svcTypToSvcMap;
 
+        /**
+         * Instantiates a new service updater.
+         *
+         * @param iface
+         *            the iface
+         * @param imported
+         *            the imported
+         */
         public ServiceUpdater(OnmsIpInterface iface, OnmsIpInterface imported) {
             m_iface = iface;
 
             createSvcTypeToSvcMap(imported);
         }
 
+        /**
+         * Creates the svc type to svc map.
+         *
+         * @param imported
+         *            the imported
+         */
         private void createSvcTypeToSvcMap(OnmsIpInterface imported) {
             m_svcTypToSvcMap = new HashMap<OnmsServiceType, OnmsMonitoredService>();
             for (OnmsMonitoredService svc : imported.getMonitoredServices()) {
@@ -78,6 +98,12 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             }
         }
 
+        /**
+         * Execute.
+         *
+         * @param events
+         *            the events
+         */
         public void execute(List<Event> events) {
             for (Iterator<OnmsMonitoredService> it = getExisting().iterator(); it.hasNext();) {
                 OnmsMonitoredService svc = it.next();
@@ -93,6 +119,12 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             addNewServices(events);
         }
 
+        /**
+         * Adds the new services.
+         *
+         * @param events
+         *            the events
+         */
         private void addNewServices(List<Event> events) {
             Collection<OnmsMonitoredService> newServices = getNewServices();
             LOG.debug("{} has {} new services.", getNode().getLabel(), newServices.size());
@@ -103,39 +135,89 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             }
         }
 
+        /**
+         * Gets the new services.
+         *
+         * @return the new services
+         */
         private Collection<OnmsMonitoredService> getNewServices() {
             return Collections.unmodifiableCollection(m_svcTypToSvcMap.values());
         }
 
+        /**
+         * Mark as processed.
+         *
+         * @param svc
+         *            the svc
+         */
         private void markAsProcessed(OnmsMonitoredService svc) {
             m_svcTypToSvcMap.remove(svc.getServiceType());
         }
 
+        /**
+         * Update.
+         *
+         * @param svc
+         *            the svc
+         * @param events
+         *            the events
+         */
         private void update(OnmsMonitoredService svc, List<Event> events) {
             // nothing to do here
         }
 
+        /**
+         * Gets the imported version.
+         *
+         * @param svc
+         *            the svc
+         * @return the imported version
+         */
         private OnmsMonitoredService getImportedVersion(OnmsMonitoredService svc) {
             return (OnmsMonitoredService) m_svcTypToSvcMap.get(svc.getServiceType());
         }
 
+        /**
+         * Gets the existing.
+         *
+         * @return the existing
+         */
         Set<OnmsMonitoredService> getExisting() {
             return m_iface.getMonitoredServices();
         }
 
     }
 
+    /**
+     * The Class InterfaceUpdater.
+     */
     public class InterfaceUpdater {
 
+        /** The m_node. */
         private OnmsNode m_node;
 
+        /** The m_ip addr to import ifs. */
         private Map<String, OnmsIpInterface> m_ipAddrToImportIfs;
 
+        /**
+         * Instantiates a new interface updater.
+         *
+         * @param node
+         *            the node
+         * @param imported
+         *            the imported
+         */
         public InterfaceUpdater(OnmsNode node, OnmsNode imported) {
             m_node = node;
             m_ipAddrToImportIfs = getIpAddrToInterfaceMap(imported);
         }
 
+        /**
+         * Execute.
+         *
+         * @param events
+         *            the events
+         */
         public void execute(List<Event> events) {
             for (Iterator<OnmsIpInterface> it = getExistingInterfaces().iterator(); it.hasNext();) {
                 OnmsIpInterface iface = it.next();
@@ -154,6 +236,12 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             addNewInterfaces(events);
         }
 
+        /**
+         * Adds the new interfaces.
+         *
+         * @param events
+         *            the events
+         */
         private void addNewInterfaces(List<Event> events) {
             for (OnmsIpInterface iface : getNewInterfaces()) {
                 m_node.addIpInterface(iface);
@@ -164,18 +252,46 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             }
         }
 
+        /**
+         * Gets the imported version.
+         *
+         * @param iface
+         *            the iface
+         * @return the imported version
+         */
         private OnmsIpInterface getImportedVersion(OnmsIpInterface iface) {
             return m_ipAddrToImportIfs.get(InetAddressUtils.str(iface.getIpAddress()));
         }
 
+        /**
+         * Gets the new interfaces.
+         *
+         * @return the new interfaces
+         */
         private Collection<OnmsIpInterface> getNewInterfaces() {
             return m_ipAddrToImportIfs.values();
         }
 
+        /**
+         * Mark as processed.
+         *
+         * @param iface
+         *            the iface
+         */
         private void markAsProcessed(OnmsIpInterface iface) {
             m_ipAddrToImportIfs.remove(InetAddressUtils.str(iface.getIpAddress()));
         }
 
+        /**
+         * Update.
+         *
+         * @param imported
+         *            the imported
+         * @param iface
+         *            the iface
+         * @param events
+         *            the events
+         */
         private void update(OnmsIpInterface imported, OnmsIpInterface iface, List<Event> events) {
             if (!nullSafeEquals(iface.getIsManaged(), imported.getIsManaged()))
                 iface.setIsManaged(imported.getIsManaged());
@@ -195,6 +311,14 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             updateServices(iface, imported, events);
         }
 
+        /**
+         * Update snmp interface.
+         *
+         * @param imported
+         *            the imported
+         * @param iface
+         *            the iface
+         */
         private void updateSnmpInterface(OnmsIpInterface imported, OnmsIpInterface iface) {
 
             if (nullSafeEquals(iface.getIfIndex(), imported.getIfIndex())) {
@@ -216,27 +340,62 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
         }
 
+        /**
+         * Update services.
+         *
+         * @param iface
+         *            the iface
+         * @param imported
+         *            the imported
+         * @param events
+         *            the events
+         */
         private void updateServices(OnmsIpInterface iface, OnmsIpInterface imported, List<Event> events) {
             new ServiceUpdater(iface, imported).execute(events);
         }
 
+        /**
+         * Gets the existing interfaces.
+         *
+         * @return the existing interfaces
+         */
         private Set<OnmsIpInterface> getExistingInterfaces() {
             return m_node.getIpInterfaces();
         }
 
     }
 
+    /**
+     * The Class SnmpInterfaceUpdater.
+     */
     public class SnmpInterfaceUpdater {
 
+        /** The m_db node. */
         OnmsNode m_dbNode;
 
+        /** The m_if index to snmp interface. */
         Map<Integer, OnmsSnmpInterface> m_ifIndexToSnmpInterface;
 
+        /**
+         * Instantiates a new snmp interface updater.
+         *
+         * @param db
+         *            the db
+         * @param imported
+         *            the imported
+         */
         public SnmpInterfaceUpdater(OnmsNode db, OnmsNode imported) {
             m_dbNode = db;
             m_ifIndexToSnmpInterface = mapIfIndexToSnmpInterface(imported.getSnmpInterfaces());
         }
 
+        /**
+         * Map if index to snmp interface.
+         *
+         * @param snmpInterfaces
+         *            the snmp interfaces
+         * @return the map
+         */
         private Map<Integer, OnmsSnmpInterface> mapIfIndexToSnmpInterface(Set<OnmsSnmpInterface> snmpInterfaces) {
             Map<Integer, OnmsSnmpInterface> map = new HashMap<Integer, OnmsSnmpInterface>();
             for (OnmsSnmpInterface snmpIface : snmpInterfaces) {
@@ -247,6 +406,9 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             return map;
         }
 
+        /**
+         * Execute.
+         */
         public void execute() {
             for (Iterator<OnmsSnmpInterface> it = getExistingInterfaces().iterator(); it.hasNext();) {
                 OnmsSnmpInterface iface = (OnmsSnmpInterface) it.next();
@@ -264,6 +426,14 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
             addNewInterfaces();
         }
 
+        /**
+         * Update.
+         *
+         * @param importedSnmpIface
+         *            the imported snmp iface
+         * @param snmpIface
+         *            the snmp iface
+         */
         private void update(OnmsSnmpInterface importedSnmpIface, OnmsSnmpInterface snmpIface) {
 
             if (!nullSafeEquals(snmpIface.getIfAdminStatus(), importedSnmpIface.getIfAdminStatus())) {
@@ -304,24 +474,50 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
         }
 
+        /**
+         * Mark as processed.
+         *
+         * @param iface
+         *            the iface
+         */
         private void markAsProcessed(OnmsSnmpInterface iface) {
             m_ifIndexToSnmpInterface.remove(iface.getIfIndex());
         }
 
+        /**
+         * Gets the imported version.
+         *
+         * @param iface
+         *            the iface
+         * @return the imported version
+         */
         private OnmsSnmpInterface getImportedVersion(OnmsSnmpInterface iface) {
             return m_ifIndexToSnmpInterface.get(iface.getIfIndex());
         }
 
+        /**
+         * Gets the existing interfaces.
+         *
+         * @return the existing interfaces
+         */
         private Set<OnmsSnmpInterface> getExistingInterfaces() {
             return m_dbNode.getSnmpInterfaces();
         }
 
+        /**
+         * Adds the new interfaces.
+         */
         private void addNewInterfaces() {
             for (OnmsSnmpInterface snmpIface : getNewInterfaces()) {
                 m_dbNode.addSnmpInterface(snmpIface);
             }
         }
 
+        /**
+         * Gets the new interfaces.
+         *
+         * @return the new interfaces
+         */
         private Collection<OnmsSnmpInterface> getNewInterfaces() {
             return m_ifIndexToSnmpInterface.values();
         }
@@ -355,6 +551,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
      * <p>
      * doPersist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -415,15 +612,41 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
 
     }
 
+    /**
+     * Update snmp interfaces.
+     *
+     * @param db
+     *            the db
+     * @param imported
+     *            the imported
+     */
     private void updateSnmpInterfaces(OnmsNode db, OnmsNode imported) {
         new SnmpInterfaceUpdater(db, imported).execute();
     }
 
+    /**
+     * Update categories.
+     *
+     * @param db
+     *            the db
+     * @param imported
+     *            the imported
+     */
     private void updateCategories(OnmsNode db, OnmsNode imported) {
         if (!db.getCategories().equals(imported.getCategories()))
             db.setCategories(imported.getCategories());
     }
 
+    /**
+     * Update interfaces.
+     *
+     * @param db
+     *            the db
+     * @param imported
+     *            the imported
+     * @param events
+     *            the events
+     */
     private void updateInterfaces(OnmsNode db, OnmsNode imported, List<Event> events) {
         new InterfaceUpdater(db, imported).execute(events);
     }
@@ -432,6 +655,7 @@ public class UpdateOperation extends AbstractSaveOrUpdateOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -41,8 +41,17 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The Class ImporterServiceJmxTest.
+ */
 public class ImporterServiceJmxTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -61,6 +70,12 @@ public class ImporterServiceJmxTest {
 
     }
 
+    /**
+     * Test start stop.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testStartStop() throws InterruptedException {
         ImporterServiceMBean mbean = new ImporterService();

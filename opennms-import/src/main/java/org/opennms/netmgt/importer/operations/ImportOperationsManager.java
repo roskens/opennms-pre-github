@@ -50,31 +50,41 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * This nodes job is to tracks nodes that need to be deleted, added, or changed
+ * This nodes job is to tracks nodes that need to be deleted, added, or changed.
  *
  * @author david
  * @version $Id: $
  */
 public class ImportOperationsManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImportOperationsManager.class);
 
+    /** The m_inserts. */
     private List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
 
+    /** The m_updates. */
     private List<ImportOperation> m_updates = new LinkedList<ImportOperation>();
 
+    /** The m_foreign id to node map. */
     private Map<String, Integer> m_foreignIdToNodeMap;
 
+    /** The m_operation factory. */
     private ImportOperationFactory m_operationFactory;
 
+    /** The m_stats. */
     private ImportStatistics m_stats = new DefaultImportStatistics();
 
+    /** The m_event mgr. */
     private EventIpcManager m_eventMgr;
 
+    /** The m_scan threads. */
     private int m_scanThreads = 50;
 
+    /** The m_write threads. */
     private int m_writeThreads = 4;
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
     /**
@@ -98,6 +108,7 @@ public class ImportOperationsManager {
      * <p>
      * foundNode
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -120,10 +131,30 @@ public class ImportOperationsManager {
         }
     }
 
+    /**
+     * Node exists.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @return true, if successful
+     */
     private boolean nodeExists(String foreignId) {
         return m_foreignIdToNodeMap.containsKey(foreignId);
     }
 
+    /**
+     * Insert node.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @param nodeLabel
+     *            the node label
+     * @param building
+     *            the building
+     * @param city
+     *            the city
+     * @return the save or update operation
+     */
     private SaveOrUpdateOperation insertNode(String foreignId, String nodeLabel, String building, String city) {
         InsertOperation insertOperation = m_operationFactory.createInsertOperation(getForeignSource(), foreignId,
                                                                                    nodeLabel, building, city);
@@ -131,6 +162,19 @@ public class ImportOperationsManager {
         return insertOperation;
     }
 
+    /**
+     * Update node.
+     *
+     * @param foreignId
+     *            the foreign id
+     * @param nodeLabel
+     *            the node label
+     * @param building
+     *            the building
+     * @param city
+     *            the city
+     * @return the save or update operation
+     */
     private SaveOrUpdateOperation updateNode(String foreignId, String nodeLabel, String building, String city) {
         Integer nodeId = processForeignId(foreignId);
         UpdateOperation updateOperation = m_operationFactory.createUpdateOperation(nodeId, getForeignSource(),
@@ -145,6 +189,7 @@ public class ImportOperationsManager {
      * tracking nodes to be deleted.
      *
      * @param foreignId
+     *            the foreign id
      * @return a nodeId
      */
     private Integer processForeignId(String foreignId) {
@@ -155,6 +200,7 @@ public class ImportOperationsManager {
      * <p>
      * getOperationCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -166,6 +212,7 @@ public class ImportOperationsManager {
      * <p>
      * getInsertCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -177,6 +224,7 @@ public class ImportOperationsManager {
      * <p>
      * getUpdateCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -188,6 +236,7 @@ public class ImportOperationsManager {
      * <p>
      * getDeleteCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -195,15 +244,25 @@ public class ImportOperationsManager {
         return m_foreignIdToNodeMap.size();
     }
 
+    /**
+     * The Class DeleteIterator.
+     */
     class DeleteIterator implements Iterator<ImportOperation> {
 
+        /** The m_foreign id iterator. */
         private Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return m_foreignIdIterator.hasNext();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public ImportOperation next() {
             Entry<String, Integer> entry = m_foreignIdIterator.next();
@@ -213,6 +272,9 @@ public class ImportOperationsManager {
 
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             m_foreignIdIterator.remove();
@@ -220,12 +282,20 @@ public class ImportOperationsManager {
 
     }
 
+    /**
+     * The Class OperationIterator.
+     */
     class OperationIterator implements Iterator<ImportOperation> {
 
+        /** The m_iter iter. */
         Iterator<Iterator<ImportOperation>> m_iterIter;
 
+        /** The m_current iter. */
         Iterator<ImportOperation> m_currentIter;
 
+        /**
+         * Instantiates a new operation iterator.
+         */
         OperationIterator() {
             List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
             iters.add(new DeleteIterator());
@@ -234,6 +304,9 @@ public class ImportOperationsManager {
             m_iterIter = iters.iterator();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             while ((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
@@ -244,11 +317,17 @@ public class ImportOperationsManager {
             return (m_currentIter == null ? false : m_currentIter.hasNext());
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public ImportOperation next() {
             return m_currentIter.next();
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             m_currentIter.remove();
@@ -260,6 +339,7 @@ public class ImportOperationsManager {
      * <p>
      * shutdownAndWaitForCompletion
      * </p>
+     * .
      *
      * @param executorService
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -281,13 +361,14 @@ public class ImportOperationsManager {
      * <p>
      * persistOperations
      * </p>
+     * .
      *
      * @param template
      *            a
-     *            {@link org.springframework.transaction.support.TransactionTemplate}
-     *            object.
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     public void persistOperations(TransactionTemplate template, OnmsDao<?, ?> dao) {
         m_stats.beginProcessingOps();
@@ -306,6 +387,18 @@ public class ImportOperationsManager {
 
     }
 
+    /**
+     * Preprocess operations.
+     *
+     * @param template
+     *            the template
+     * @param dao
+     *            the dao
+     * @param iterator
+     *            the iterator
+     * @param dbPool
+     *            the db pool
+     */
     private void preprocessOperations(final TransactionTemplate template, final OnmsDao<?, ?> dao,
             OperationIterator iterator, final ExecutorService dbPool) {
 
@@ -335,19 +428,20 @@ public class ImportOperationsManager {
      * <p>
      * preprocessOperation
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
-     *            object.
      * @param template
      *            a
-     *            {@link org.springframework.transaction.support.TransactionTemplate}
-     *            object.
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
      * @param dbPool
      *            a {@link java.util.concurrent.ExecutorService} object.
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     protected void preprocessOperation(final ImportOperation oper, final TransactionTemplate template,
             final OnmsDao<?, ?> dao, final ExecutorService dbPool) {
@@ -370,17 +464,18 @@ public class ImportOperationsManager {
      * <p>
      * persistOperation
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
-     *            object.
      * @param template
      *            a
-     *            {@link org.springframework.transaction.support.TransactionTemplate}
-     *            object.
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.OnmsDao} object.
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
+     *            {@link org.springframework.transaction.support.TransactionTemplate}
+     *            object.
      */
     protected void persistOperation(final ImportOperation oper, TransactionTemplate template, final OnmsDao<?, ?> dao) {
         m_stats.beginPersisting(oper);
@@ -430,6 +525,7 @@ public class ImportOperationsManager {
      * <p>
      * setScanThreads
      * </p>
+     * .
      *
      * @param scanThreads
      *            a int.
@@ -442,6 +538,7 @@ public class ImportOperationsManager {
      * <p>
      * setWriteThreads
      * </p>
+     * .
      *
      * @param writeThreads
      *            a int.
@@ -454,6 +551,7 @@ public class ImportOperationsManager {
      * <p>
      * getEventMgr
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -465,6 +563,7 @@ public class ImportOperationsManager {
      * <p>
      * setEventMgr
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -478,6 +577,7 @@ public class ImportOperationsManager {
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.importer.operations.ImportStatistics}
      *         object.
@@ -490,6 +590,7 @@ public class ImportOperationsManager {
      * <p>
      * setStats
      * </p>
+     * .
      *
      * @param stats
      *            a
@@ -504,6 +605,7 @@ public class ImportOperationsManager {
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -516,6 +618,7 @@ public class ImportOperationsManager {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -39,10 +39,12 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * @version $Id: $
  */
 public interface ImporterServiceMBean extends BaseOnmsMBean {
+
     /**
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

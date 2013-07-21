@@ -38,13 +38,22 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.importer.config.types.InterfaceSnmpPrimaryType;
 
+/**
+ * The Class UpdateOperationTest.
+ */
 public class UpdateOperationTest extends TestCase {
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -53,6 +62,16 @@ public class UpdateOperationTest extends TestCase {
     /*
      * Test method for
      * 'org.opennms.netmgt.importer.operations.AbstractSaveOrUpdateOperation.scanForSnmpData(Node)'
+     */
+    /**
+     * Test scan for snmp data.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public final void testScanForSnmpData() throws MarshalException, ValidationException, IOException {
 

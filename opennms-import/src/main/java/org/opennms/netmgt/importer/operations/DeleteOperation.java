@@ -47,8 +47,10 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class DeleteOperation extends AbstractImportOperation {
 
+    /** The m_node id. */
     Integer m_nodeId;
 
+    /** The m_node dao. */
     NodeDao m_nodeDao;
 
     /**
@@ -74,6 +76,7 @@ public class DeleteOperation extends AbstractImportOperation {
      * <p>
      * persist
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -100,6 +103,7 @@ public class DeleteOperation extends AbstractImportOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,6 +116,7 @@ public class DeleteOperation extends AbstractImportOperation {
      * <p>
      * gatherAdditionalData
      * </p>
+     * .
      */
     @Override
     public void gatherAdditionalData() {

@@ -44,9 +44,20 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class DeleteEventVisitor.
+ */
 public final class DeleteEventVisitor extends AbstractEntityVisitor {
+
+    /** The m_events. */
     private final List<Event> m_events;
 
+    /**
+     * Instantiates a new delete event visitor.
+     *
+     * @param events
+     *            the events
+     */
     DeleteEventVisitor(List<Event> events) {
         m_events = events;
     }

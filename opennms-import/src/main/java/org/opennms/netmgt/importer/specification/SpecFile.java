@@ -52,19 +52,21 @@ import org.springframework.core.io.Resource;
  */
 public class SpecFile {
 
+    /** The m_mi. */
     private ModelImport m_mi;
 
     /**
      * <p>
      * loadResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
-     * @throws org.opennms.netmgt.importer.ModelImportException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws ModelImportException
+     *             the model import exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void loadResource(Resource resource) throws ModelImportException, IOException {
         try {
@@ -80,6 +82,7 @@ public class SpecFile {
      * <p>
      * visitImport
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -90,6 +93,12 @@ public class SpecFile {
         doVisitImport(visitor);
     }
 
+    /**
+     * Do visit import.
+     *
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitImport(ImportVisitor visitor) {
         visitor.visitModelImport(m_mi);
         for (Node node : m_mi.getNodeCollection()) {
@@ -98,10 +107,26 @@ public class SpecFile {
         visitor.completeModelImport(m_mi);
     }
 
+    /**
+     * Visit node.
+     *
+     * @param visitor
+     *            the visitor
+     * @param node
+     *            the node
+     */
     private void visitNode(final ImportVisitor visitor, final Node node) {
         doVisitNode(visitor, node);
     }
 
+    /**
+     * Do visit node.
+     *
+     * @param visitor
+     *            the visitor
+     * @param node
+     *            the node
+     */
     private void doVisitNode(ImportVisitor visitor, Node node) {
         visitor.visitNode(node);
         for (Category category : node.getCategoryCollection()) {
@@ -116,28 +141,76 @@ public class SpecFile {
         visitor.completeNode(node);
     }
 
+    /**
+     * Visit asset.
+     *
+     * @param visitor
+     *            the visitor
+     * @param asset
+     *            the asset
+     */
     private void visitAsset(ImportVisitor visitor, Asset asset) {
         doVisitAsset(visitor, asset);
     }
 
+    /**
+     * Do visit asset.
+     *
+     * @param visitor
+     *            the visitor
+     * @param asset
+     *            the asset
+     */
     private void doVisitAsset(ImportVisitor visitor, Asset asset) {
         visitor.visitAsset(asset);
         visitor.completeAsset(asset);
     }
 
+    /**
+     * Visit category.
+     *
+     * @param visitor
+     *            the visitor
+     * @param category
+     *            the category
+     */
     private void visitCategory(ImportVisitor visitor, Category category) {
         doVisitCategory(visitor, category);
     }
 
+    /**
+     * Do visit category.
+     *
+     * @param visitor
+     *            the visitor
+     * @param category
+     *            the category
+     */
     private void doVisitCategory(ImportVisitor visitor, Category category) {
         visitor.visitCategory(category);
         visitor.completeCategory(category);
     }
 
+    /**
+     * Visit interface.
+     *
+     * @param visitor
+     *            the visitor
+     * @param iface
+     *            the iface
+     */
     private void visitInterface(ImportVisitor visitor, Interface iface) {
         doVisitInterface(visitor, iface);
     }
 
+    /**
+     * Do visit interface.
+     *
+     * @param visitor
+     *            the visitor
+     * @param iface
+     *            the iface
+     */
     private void doVisitInterface(ImportVisitor visitor, Interface iface) {
         visitor.visitInterface(iface);
         for (MonitoredService svc : iface.getMonitoredServiceCollection()) {
@@ -146,10 +219,26 @@ public class SpecFile {
         visitor.completeInterface(iface);
     }
 
+    /**
+     * Visit monitored service.
+     *
+     * @param visitor
+     *            the visitor
+     * @param svc
+     *            the svc
+     */
     private void visitMonitoredService(ImportVisitor visitor, MonitoredService svc) {
         doVisitMonitoredService(visitor, svc);
     }
 
+    /**
+     * Do visit monitored service.
+     *
+     * @param visitor
+     *            the visitor
+     * @param svc
+     *            the svc
+     */
     private void doVisitMonitoredService(ImportVisitor visitor, MonitoredService svc) {
         visitor.visitMonitoredService(svc);
         visitor.completeMonitoredService(svc);
@@ -159,6 +248,7 @@ public class SpecFile {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +260,7 @@ public class SpecFile {
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.

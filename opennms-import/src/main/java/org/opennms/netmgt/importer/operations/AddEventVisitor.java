@@ -43,9 +43,20 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class AddEventVisitor.
+ */
 public final class AddEventVisitor extends AbstractEntityVisitor {
+
+    /** The m_events. */
     private final List<Event> m_events;
 
+    /**
+     * Instantiates a new adds the event visitor.
+     *
+     * @param events
+     *            the events
+     */
     AddEventVisitor(List<Event> events) {
         m_events = events;
     }

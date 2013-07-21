@@ -47,6 +47,7 @@ public interface ImportStatistics {
      * <p>
      * beginProcessingOps
      * </p>
+     * .
      */
     void beginProcessingOps();
 
@@ -54,6 +55,7 @@ public interface ImportStatistics {
      * <p>
      * finishProcessingOps
      * </p>
+     * .
      */
     void finishProcessingOps();
 
@@ -61,6 +63,7 @@ public interface ImportStatistics {
      * <p>
      * beginPreprocessingOps
      * </p>
+     * .
      */
     void beginPreprocessingOps();
 
@@ -68,6 +71,7 @@ public interface ImportStatistics {
      * <p>
      * finishPreprocessingOps
      * </p>
+     * .
      */
     void finishPreprocessingOps();
 
@@ -75,6 +79,7 @@ public interface ImportStatistics {
      * <p>
      * beginPreprocessing
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -87,6 +92,7 @@ public interface ImportStatistics {
      * <p>
      * finishPreprocessing
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -99,6 +105,7 @@ public interface ImportStatistics {
      * <p>
      * beginPersisting
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -111,6 +118,7 @@ public interface ImportStatistics {
      * <p>
      * finishPersisting
      * </p>
+     * .
      *
      * @param oper
      *            a
@@ -123,13 +131,14 @@ public interface ImportStatistics {
      * <p>
      * beginSendingEvents
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
-     *            object.
      * @param events
      *            a {@link java.util.List} object.
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
      */
     void beginSendingEvents(ImportOperation oper, List<Event> events);
 
@@ -137,13 +146,14 @@ public interface ImportStatistics {
      * <p>
      * finishSendingEvents
      * </p>
+     * .
      *
      * @param oper
      *            a
-     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
-     *            object.
      * @param events
      *            a {@link java.util.List} object.
+     *            {@link org.opennms.netmgt.importer.operations.ImportOperation}
+     *            object.
      */
     void finishSendingEvents(ImportOperation oper, List<Event> events);
 
@@ -151,6 +161,7 @@ public interface ImportStatistics {
      * <p>
      * beginLoadingResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -161,6 +172,7 @@ public interface ImportStatistics {
      * <p>
      * finishLoadingResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -171,6 +183,7 @@ public interface ImportStatistics {
      * <p>
      * beginImporting
      * </p>
+     * .
      */
     void beginImporting();
 
@@ -178,6 +191,7 @@ public interface ImportStatistics {
      * <p>
      * finishImporting
      * </p>
+     * .
      */
     void finishImporting();
 
@@ -185,6 +199,7 @@ public interface ImportStatistics {
      * <p>
      * beginAuditNodes
      * </p>
+     * .
      */
     void beginAuditNodes();
 
@@ -192,6 +207,7 @@ public interface ImportStatistics {
      * <p>
      * finishAuditNodes
      * </p>
+     * .
      */
     void finishAuditNodes();
 
@@ -199,6 +215,7 @@ public interface ImportStatistics {
      * <p>
      * setDeleteCount
      * </p>
+     * .
      *
      * @param deleteCount
      *            a int.
@@ -209,6 +226,7 @@ public interface ImportStatistics {
      * <p>
      * setInsertCount
      * </p>
+     * .
      *
      * @param insertCount
      *            a int.
@@ -219,6 +237,7 @@ public interface ImportStatistics {
      * <p>
      * setUpdateCount
      * </p>
+     * .
      *
      * @param updateCount
      *            a int.
@@ -229,6 +248,7 @@ public interface ImportStatistics {
      * <p>
      * beginRelateNodes
      * </p>
+     * .
      */
     void beginRelateNodes();
 
@@ -236,6 +256,7 @@ public interface ImportStatistics {
      * <p>
      * finishRelateNodes
      * </p>
+     * .
      */
     void finishRelateNodes();
 
