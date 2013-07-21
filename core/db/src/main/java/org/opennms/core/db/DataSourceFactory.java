@@ -71,41 +71,37 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
  */
 public final class DataSourceFactory implements DataSource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactory.class);
 
+    /** The Constant DEFAULT_FACTORY_CLASS. */
     private static final Class<?> DEFAULT_FACTORY_CLASS = C3P0ConnectionFactory.class;
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static DataSource m_singleton = null;
 
+    /** The Constant m_dataSources. */
     private static final Map<String, DataSource> m_dataSources = new ConcurrentHashMap<String, DataSource>();
 
+    /** The Constant m_closers. */
     private static final List<Runnable> m_closers = new LinkedList<Runnable>();
 
     /**
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException,
             ClassNotFoundException, PropertyVetoException, SQLException {
@@ -118,21 +114,22 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * init
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public static synchronized void init(final String dsName) throws IOException, MarshalException,
             ValidationException, ClassNotFoundException, PropertyVetoException, SQLException {
@@ -205,6 +202,13 @@ public final class DataSourceFactory implements DataSource {
         setInstance(dsName, lazyProxy);
     }
 
+    /**
+     * Checks if is loaded.
+     *
+     * @param dsName
+     *            the ds name
+     * @return true, if is loaded
+     */
     private static synchronized boolean isLoaded(final String dsName) {
         return m_dataSources.containsKey(dsName);
     }
@@ -218,8 +222,6 @@ public final class DataSourceFactory implements DataSource {
      * </p>
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static DataSource getInstance() {
         return getInstance("opennms");
@@ -229,6 +231,7 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -252,9 +255,8 @@ public final class DataSourceFactory implements DataSource {
      *
      * @return a new database connection to the database configured in the
      *         <tt>opennms-database.xml</tt>
-     * @throws java.sql.SQLException
-     *             Thrown if there is an error opening the connection to the
-     *             database.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public Connection getConnection() throws SQLException {
@@ -265,12 +267,13 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getConnection
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Connection getConnection(final String dsName) throws SQLException {
         return getDataSource(dsName).getConnection();
@@ -280,6 +283,7 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param singleton
      *            a {@link javax.sql.DataSource} object.
@@ -293,6 +297,7 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
@@ -304,7 +309,7 @@ public final class DataSourceFactory implements DataSource {
     }
 
     /**
-     * Return the datasource configured for the database
+     * Return the datasource configured for the database.
      *
      * @return the datasource configured for the database
      */
@@ -316,6 +321,7 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
@@ -335,10 +341,11 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getLogWriter
      * </p>
+     * .
      *
      * @return a {@link java.io.PrintWriter} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public PrintWriter getLogWriter() throws SQLException {
@@ -349,12 +356,13 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getLogWriter
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.PrintWriter} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public PrintWriter getLogWriter(final String dsName) throws SQLException {
         return getDataSource(dsName).getLogWriter();
@@ -370,13 +378,14 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * setLogWriter
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @param out
      *            a {@link java.io.PrintWriter} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void setLogWriter(final String dsName, final PrintWriter out) throws SQLException {
         getDataSource(dsName).setLogWriter(out);
@@ -392,13 +401,14 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * setLoginTimeout
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @param seconds
      *            a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void setLoginTimeout(final String dsName, final int seconds) throws SQLException {
         getDataSource(dsName).setLoginTimeout(seconds);
@@ -408,10 +418,11 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getLoginTimeout
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public int getLoginTimeout() throws SQLException {
@@ -422,12 +433,13 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * getLoginTimeout
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getLoginTimeout(final String dsName) throws SQLException {
         return getDataSource(dsName).getLoginTimeout();
@@ -442,9 +454,10 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * close
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static synchronized void close() throws SQLException {
 
@@ -461,14 +474,15 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * unwrap
      * </p>
+     * .
      *
-     * @param iface
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param iface
+     *            a {@link java.lang.Class} object.
      * @return a T object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public <T> T unwrap(final Class<T> iface) throws SQLException {
@@ -479,12 +493,13 @@ public final class DataSourceFactory implements DataSource {
      * <p>
      * isWrapperFor
      * </p>
+     * .
      *
      * @param iface
      *            a {@link java.lang.Class} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {

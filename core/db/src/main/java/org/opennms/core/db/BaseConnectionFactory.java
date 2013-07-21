@@ -44,24 +44,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A factory for creating BaseConnection objects.
  */
 public abstract class BaseConnectionFactory implements ClosableDataSource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BaseConnectionFactory.class);
 
     /**
+     * Instantiates a new base connection factory.
+     *
      * @param stream
      *            A configuration file as an {@link InputStream}.
      * @param dsName
      *            The data source's name.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
      */
     protected BaseConnectionFactory(final InputStream stream, final String dsName) throws MarshalException,
             ValidationException, PropertyVetoException, SQLException {
@@ -71,20 +75,22 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
     }
 
     /**
+     * Instantiates a new base connection factory.
+     *
      * @param configFile
      *            A configuration file name.
      * @param dsName
      *            The data source's name.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.beans.PropertyVetoException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
      */
     protected BaseConnectionFactory(final String configFile, final String dsName) throws IOException, MarshalException,
             ValidationException, PropertyVetoException, SQLException {
@@ -103,12 +109,21 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
         }
     }
 
+    /**
+     * Initialize pool.
+     *
+     * @param ds
+     *            the ds
+     * @throws SQLException
+     *             the sQL exception
+     */
     protected abstract void initializePool(final JdbcDataSource ds) throws SQLException;
 
     /**
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,6 +133,7 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -128,6 +144,7 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -137,6 +154,7 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * setUser
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -147,6 +165,7 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -156,10 +175,11 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * getLoginTimeout
      * </p>
+     * .
      *
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public abstract int getLoginTimeout() throws SQLException;
@@ -168,9 +188,10 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * close
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void close() throws SQLException {
@@ -180,14 +201,15 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * unwrap
      * </p>
+     * .
      *
-     * @param iface
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param iface
+     *            a {@link java.lang.Class} object.
      * @return a T object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public <T> T unwrap(final Class<T> iface) throws SQLException {
@@ -198,18 +220,25 @@ public abstract class BaseConnectionFactory implements ClosableDataSource {
      * <p>
      * isWrapperFor
      * </p>
+     * .
      *
      * @param iface
      *            a {@link java.lang.Class} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public boolean isWrapperFor(final Class<?> iface) throws SQLException {
         return false; // TODO
     }
 
+    /**
+     * Validate jdbc url.
+     *
+     * @param url
+     *            the url
+     */
     protected static void validateJdbcUrl(String url) {
         try {
             if (url == null) {

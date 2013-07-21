@@ -36,24 +36,28 @@ import org.opennms.core.xml.CastorUtils;
 import org.opennms.netmgt.config.opennmsDataSources.DataSourceConfiguration;
 import org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource;
 
+/**
+ * The Class ConnectionFactoryUtil.
+ */
 public class ConnectionFactoryUtil {
 
     /**
      * <p>
      * marshalDataSourceFromConfig
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
      * @param dsName
      *            a {@link java.lang.String} object.
      * @return a
-     *         {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource}
-     *         object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     *             {@link org.opennms.netmgt.config.opennmsDataSources.JdbcDataSource}
+     *             object.
      */
     public static JdbcDataSource marshalDataSourceFromConfig(final InputStream stream, final String dsName)
             throws MarshalException, ValidationException {
@@ -61,6 +65,15 @@ public class ConnectionFactoryUtil {
         return validateDataSourceConfiguration(dsName, dsc);
     }
 
+    /**
+     * Validate data source configuration.
+     *
+     * @param dsName
+     *            the ds name
+     * @param dsc
+     *            the dsc
+     * @return the jdbc data source
+     */
     private static JdbcDataSource validateDataSourceConfiguration(final String dsName, final DataSourceConfiguration dsc) {
         for (final JdbcDataSource jdbcDs : dsc.getJdbcDataSourceCollection()) {
             if (jdbcDs.getName().equals(dsName)) {

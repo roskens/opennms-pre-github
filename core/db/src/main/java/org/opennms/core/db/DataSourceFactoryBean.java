@@ -44,16 +44,18 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class DataSourceFactoryBean implements FactoryBean<DataSource>, InitializingBean, DisposableBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactoryBean.class);
 
     /**
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public DataSource getObject() throws Exception {
@@ -64,6 +66,7 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -77,6 +80,7 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -89,9 +93,10 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -104,9 +109,10 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>, Initializ
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {

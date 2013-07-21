@@ -43,9 +43,18 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
+ * The Class C3P0ConnectionFactoryTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class C3P0ConnectionFactoryTest extends TestCase {
+
+    /**
+     * Test marshal data source from config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMarshalDataSourceFromConfig() throws Exception {
         C3P0ConnectionFactory factory1 = null;
         C3P0ConnectionFactory factory2 = null;
@@ -113,6 +122,23 @@ public class C3P0ConnectionFactoryTest extends TestCase {
         }
     }
 
+    /**
+     * Make factory.
+     *
+     * @param database
+     *            the database
+     * @return the c3 p0 connection factory
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private C3P0ConnectionFactory makeFactory(String database) throws MarshalException, ValidationException,
             PropertyVetoException, SQLException, IOException {
         InputStream stream = this.getClass().getResourceAsStream(ConfigFileConstants.getFileName(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME));
