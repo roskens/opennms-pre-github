@@ -45,28 +45,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class GpDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class GpDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public GpDetector m_detector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test detector wired.
+     */
     @Test(timeout = 90000)
     public void testDetectorWired() {
         assertNotNull(m_detector);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setScript(System.getProperty("user.dir") + "/src/test/resources/TestBashScript.sh");
@@ -75,6 +94,12 @@ public class GpDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector wrong banner.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorWrongBanner() throws UnknownHostException {
         m_detector.setScript(System.getProperty("user.dir") + "/src/test/resources/TestBashScript.sh");

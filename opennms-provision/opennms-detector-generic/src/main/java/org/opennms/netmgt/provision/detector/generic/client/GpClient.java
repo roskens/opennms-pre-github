@@ -47,30 +47,41 @@ import org.opennms.netmgt.provision.support.Client;
  */
 public class GpClient implements Client<GpRequest, GpResponse> {
 
+    /** The m_script. */
     private String m_script;
 
+    /** The m_args. */
     private String m_args;
 
+    /** The m_banner. */
     private String m_banner;
 
+    /** The m_match. */
     private String m_match;
 
+    /** The m_hoption. */
     private String m_hoption;
 
+    /** The m_toption. */
     private String m_toption;
 
+    /** The m_exec runner. */
     private ExecRunner m_execRunner;
 
+    /** The m_exit status. */
     private int m_exitStatus = 100;
 
+    /** The m_response. */
     private String m_response = "";
 
+    /** The m_error. */
     private String m_error = "";
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -103,6 +114,13 @@ public class GpClient implements Client<GpRequest, GpResponse> {
         }
     }
 
+    /**
+     * Convert to seconds.
+     *
+     * @param timeout
+     *            the timeout
+     * @return the int
+     */
     private int convertToSeconds(int timeout) {
         if (timeout > 0 && timeout < 1000) {
             timeout = 1;
@@ -116,14 +134,15 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.generic.response.GpResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.generic.response.GpResponse}
+     *             object.
      */
     @Override
     public GpResponse receiveBanner() throws IOException, Exception {
@@ -131,6 +150,11 @@ public class GpClient implements Client<GpRequest, GpResponse> {
         return receiveResponse();
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the gp response
+     */
     private GpResponse receiveResponse() {
         final GpResponse response = new GpResponse();
         response.setExitStatus(getExitStatus());
@@ -143,18 +167,19 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.generic.request.GpRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.generic.response.GpResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.generic.request.GpRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.generic.response.GpResponse}
+     *             object.
      */
     @Override
     public GpResponse sendRequest(final GpRequest request) throws IOException, Exception {
@@ -166,6 +191,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setScript
      * </p>
+     * .
      *
      * @param script
      *            a {@link java.lang.String} object.
@@ -178,6 +204,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getScript
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,6 +216,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setArgs
      * </p>
+     * .
      *
      * @param args
      *            a {@link java.lang.String} object.
@@ -201,6 +229,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getArgs
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -212,6 +241,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -224,6 +254,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +266,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setMatch
      * </p>
+     * .
      *
      * @param match
      *            a {@link java.lang.String} object.
@@ -247,6 +279,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -258,6 +291,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setHoption
      * </p>
+     * .
      *
      * @param hoption
      *            a {@link java.lang.String} object.
@@ -270,6 +304,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getHoption
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -281,6 +316,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setToption
      * </p>
+     * .
      *
      * @param toption
      *            a {@link java.lang.String} object.
@@ -293,6 +329,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getToption
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -304,6 +341,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setExitStatus
      * </p>
+     * .
      *
      * @param exitStatus
      *            a int.
@@ -316,6 +354,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getExitStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -327,6 +366,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setResponse
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -339,6 +379,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getResponse
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -350,6 +391,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * setError
      * </p>
+     * .
      *
      * @param error
      *            a {@link java.lang.String} object.
@@ -362,6 +404,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      * <p>
      * getError
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

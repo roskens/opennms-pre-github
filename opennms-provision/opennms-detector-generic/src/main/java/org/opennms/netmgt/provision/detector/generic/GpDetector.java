@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class GpDetector.
+ */
 @Component
 /**
  * <p>GpDetector class.</p>
@@ -47,20 +50,28 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
 
+    /** The default hoption. */
     private static String DEFAULT_HOPTION = "--hostname";
 
+    /** The default toption. */
     private static String DEFAULT_TOPTION = "--timeout";
 
+    /** The m_script. */
     private String m_script;
 
+    /** The m_args. */
     private String m_args;
 
+    /** The m_banner. */
     private String m_banner;
 
+    /** The m_match. */
     private String m_match;
 
+    /** The m_hoption. */
     private String m_hoption = DEFAULT_HOPTION;
 
+    /** The m_toption. */
     private String m_toption = DEFAULT_TOPTION;
 
     /**
@@ -91,6 +102,13 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
         expectBanner(responseMatches(getBanner()));
     }
 
+    /**
+     * Response matches.
+     *
+     * @param banner
+     *            the banner
+     * @return the response validator
+     */
     private static ResponseValidator<GpResponse> responseMatches(final String banner) {
         return new ResponseValidator<GpResponse>() {
 
@@ -106,6 +124,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setScript
      * </p>
+     * .
      *
      * @param script
      *            a {@link java.lang.String} object.
@@ -118,6 +137,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getScript
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +149,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setArgs
      * </p>
+     * .
      *
      * @param args
      *            a {@link java.lang.String} object.
@@ -141,6 +162,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getArgs
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,6 +174,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -164,6 +187,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -175,6 +199,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setMatch
      * </p>
+     * .
      *
      * @param match
      *            a {@link java.lang.String} object.
@@ -187,6 +212,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,6 +224,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setHoption
      * </p>
+     * .
      *
      * @param hoption
      *            a {@link java.lang.String} object.
@@ -210,6 +237,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getHoption
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,6 +249,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * setToption
      * </p>
+     * .
      *
      * @param toption
      *            a {@link java.lang.String} object.
@@ -233,6 +262,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse> {
      * <p>
      * getToption
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
