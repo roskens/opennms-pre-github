@@ -40,6 +40,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class PercDetector.
+ */
 @Component
 /**
  * <p>PercDetector class.</p>
@@ -50,6 +53,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class PercDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PercDetector.class);
 
     /**
@@ -57,9 +61,7 @@ public class PercDetector extends SnmpDetector {
      */
     private static final String PROTOCOL_NAME = "PERC";
 
-    /**
-     * The base OID for the logical device status information
-     */
+    /** The base OID for the logical device status information. */
     private static final String LOGICAL_BASE_OID = ".1.3.6.1.4.1.3582.1.1.2.1.3";
 
     /**
@@ -103,10 +105,21 @@ public class PercDetector extends SnmpDetector {
         return true;
     }
 
+    /**
+     * Gets the array number.
+     *
+     * @return the array number
+     */
     public String getArrayNumber() {
         return m_arrayNumber;
     }
 
+    /**
+     * Sets the array number.
+     *
+     * @param arrayNumber
+     *            the new array number
+     */
     public void setArrayNumber(String arrayNumber) {
         this.m_arrayNumber = arrayNumber;
     }

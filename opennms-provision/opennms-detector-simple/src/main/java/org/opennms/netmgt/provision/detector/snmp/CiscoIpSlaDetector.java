@@ -43,6 +43,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class CiscoIpSlaDetector.
+ */
 @Component
 /**
  * <p>CiscoIpSlaDetector class.</p>
@@ -53,6 +56,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CiscoIpSlaDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaDetector.class);
 
     /**
@@ -60,9 +64,7 @@ public class CiscoIpSlaDetector extends SnmpDetector {
      */
     private static final String PROTOCOL_NAME = "Cisco_IP_SLA";
 
-    /**
-     * A string which identify the active operational state
-     */
+    /** A string which identify the active operational state. */
     private static final int RTT_MON_OPER_STATE_ACTIVE = 6;
 
     /**
@@ -76,6 +78,7 @@ public class CiscoIpSlaDetector extends SnmpDetector {
      */
     private static final String RTT_OPER_STATE_OID = ".1.3.6.1.4.1.9.9.42.1.2.9.1.10";
 
+    /** The m_admin tag. */
     private String m_adminTag;
 
     /**
@@ -135,14 +138,32 @@ public class CiscoIpSlaDetector extends SnmpDetector {
         return false;
     }
 
+    /**
+     * Format value.
+     *
+     * @param value
+     *            the value
+     * @return the string
+     */
     private String formatValue(SnmpValue value) {
         return value.isNull() ? null : value.toString().replaceAll("\"", "");
     }
 
+    /**
+     * Gets the admin tag.
+     *
+     * @return the admin tag
+     */
     public String getAdminTag() {
         return m_adminTag;
     }
 
+    /**
+     * Sets the admin tag.
+     *
+     * @param adminTag
+     *            the new admin tag
+     */
     public void setAdminTag(String adminTag) {
         this.m_adminTag = adminTag;
     }

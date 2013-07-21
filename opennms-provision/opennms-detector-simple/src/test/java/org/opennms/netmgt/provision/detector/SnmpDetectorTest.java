@@ -48,20 +48,35 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SnmpDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/detectors.xml" })
 @JUnitSnmpAgent(host = SnmpDetectorTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/provision/detector/snmpTestData1.properties")
 public class SnmpDetectorTest implements ApplicationContextAware {
 
+    /** The Constant TEST_IP_ADDRESS. */
     static final String TEST_IP_ADDRESS = "172.20.1.205";
 
+    /** The m_detector. */
     private SnmpDetector m_detector;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_test ip address. */
     private InetAddress m_testIpAddress;
 
+    /**
+     * Sets the up.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Before
     public void setUp() throws InterruptedException, UnknownHostException {
         MockLogAppender.setupLogging();
@@ -75,6 +90,12 @@ public class SnmpDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test is forced v1 protocol supported.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testIsForcedV1ProtocolSupported() throws UnknownHostException {
         m_detector.setVbvalue("\\.1\\.3\\.6\\.1\\.4\\.1.*");
@@ -82,28 +103,56 @@ public class SnmpDetectorTest implements ApplicationContextAware {
         assertTrue(m_detector.isServiceDetected(m_testIpAddress));
     }
 
+    /**
+     * Test is expected value.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testIsExpectedValue() throws UnknownHostException {
         m_detector.setVbvalue("\\.1\\.3\\.6\\.1\\.4\\.1.*");
         assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
     }
 
+    /**
+     * Test is expected value no vb value.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testIsExpectedValueNoVbValue() throws UnknownHostException {
         assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
     }
 
+    /**
+     * Test is protocol supported inet address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testIsProtocolSupportedInetAddress() throws UnknownHostException {
         assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private SnmpDetector getDetector(final Class<? extends ServiceDetector> detectorClass) {
         final Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

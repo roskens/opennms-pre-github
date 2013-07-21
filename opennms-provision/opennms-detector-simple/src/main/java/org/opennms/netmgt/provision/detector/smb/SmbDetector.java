@@ -50,23 +50,28 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressResponse> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "SMB";
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = 0;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 1000;
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 0;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public SmbDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
     }
 
     /**
-     * Constructor for instantiating a non-default service name of this protocol
+     * Constructor for instantiating a non-default service name of this
+     * protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -76,7 +81,7 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
     }
 
     /**
-     * Constructor for overriding defaults
+     * Constructor for overriding defaults.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -96,6 +101,11 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
 
     }
 
+    /**
+     * Validate address is not same.
+     *
+     * @return the response validator
+     */
     private static ResponseValidator<NbtAddressResponse> validateAddressIsNotSame() {
         return new ResponseValidator<NbtAddressResponse>() {
 

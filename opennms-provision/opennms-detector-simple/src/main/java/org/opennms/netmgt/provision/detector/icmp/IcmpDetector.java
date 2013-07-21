@@ -50,6 +50,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class IcmpDetector extends SyncAbstractDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IcmpDetector.class);
 
     /**

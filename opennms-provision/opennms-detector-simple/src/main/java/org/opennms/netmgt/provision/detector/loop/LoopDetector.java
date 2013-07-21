@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class LoopDetector.
+ */
 @Component
 /**
  * <p>LoopDetector class.</p>
@@ -46,12 +49,17 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopResponse> {
+
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "LOOP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 0;
 
+    /** The m_ip match. */
     private String m_ipMatch;
 
+    /** The m_is supported. */
     private boolean m_isSupported = true;
 
     /**
@@ -77,6 +85,13 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
         expectBanner(ipMatches(getIpMatch()));
     }
 
+    /**
+     * Ip matches.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @return the response validator
+     */
     private static ResponseValidator<LoopResponse> ipMatches(final String ipAddr) {
 
         return new ResponseValidator<LoopResponse>() {
@@ -93,6 +108,7 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
      * <p>
      * setIpMatch
      * </p>
+     * .
      *
      * @param ipMatch
      *            a {@link java.lang.String} object.
@@ -105,6 +121,7 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
      * <p>
      * getIpMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,6 +133,7 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
      * <p>
      * setSupported
      * </p>
+     * .
      *
      * @param isSupported
      *            a boolean.
@@ -128,6 +146,7 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
      * <p>
      * isSupported
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -48,14 +48,17 @@ import org.opennms.netmgt.provision.support.Client;
  */
 public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse> {
 
+    /** The m_nbt address. */
     private NbtAddress m_nbtAddress;
 
+    /** The m_address. */
     private String m_address;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -74,12 +77,13 @@ public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
+     *             object.
      */
     @Override
     public NbtAddressResponse receiveBanner() throws IOException {
@@ -90,24 +94,30 @@ public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.smb.response.NbtAddressResponse}
+     *             object.
      */
     @Override
     public NbtAddressResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return receiveResponse();
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the nbt address response
+     */
     private NbtAddressResponse receiveResponse() {
         NbtAddressResponse nbtAddrResponse = new NbtAddressResponse();
         nbtAddrResponse.receive(m_address, m_nbtAddress);

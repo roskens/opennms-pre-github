@@ -40,14 +40,17 @@ import jcifs.netbios.NbtAddress;
  */
 public class NbtAddressResponse {
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_nbt address. */
     private NbtAddress m_nbtAddress;
 
     /**
      * <p>
      * receive
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.lang.String} object.
@@ -67,8 +70,8 @@ public class NbtAddressResponse {
      * Maybe the behavior needs to be changed?
      * "Something weird is here....why the address must be different?"
      *
-     * @see https://mynms.opennms.com/Ticket/Display.html?id=1608
      * @return a boolean.
+     * @see https://mynms.opennms.com/Ticket/Display.html?id=1608
      */
     public boolean validateAddressIsNotSame() {
         if (m_nbtAddress.getHostName().equals(m_address)) {

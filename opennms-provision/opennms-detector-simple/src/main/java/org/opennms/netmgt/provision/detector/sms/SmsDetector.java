@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class SmsDetector.
+ */
 @Component
 /**
  * <p>SmsDetector class.</p>
@@ -46,12 +49,17 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse> {
+
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "SMS";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 0;
 
+    /** The m_ip match. */
     private String m_ipMatch;
 
+    /** The m_is supported. */
     private boolean m_isSupported = true;
 
     /**
@@ -77,6 +85,13 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
         expectBanner(ipMatches(getIpMatch()));
     }
 
+    /**
+     * Ip matches.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @return the response validator
+     */
     private static ResponseValidator<SmsResponse> ipMatches(final String ipAddr) {
 
         return new ResponseValidator<SmsResponse>() {
@@ -93,6 +108,7 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
      * <p>
      * setIpMatch
      * </p>
+     * .
      *
      * @param ipMatch
      *            a {@link java.lang.String} object.
@@ -105,6 +121,7 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
      * <p>
      * getIpMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,6 +133,7 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
      * <p>
      * setSupported
      * </p>
+     * .
      *
      * @param isSupported
      *            a boolean.
@@ -128,6 +146,7 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
      * <p>
      * isSupported
      * </p>
+     * .
      *
      * @return a boolean.
      */

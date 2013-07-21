@@ -41,8 +41,10 @@ import org.opennms.netmgt.provision.detector.simple.response.LineOrientedRespons
  */
 public class LoopResponse extends LineOrientedResponse {
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_is supported. */
     private boolean m_isSupported;
 
     /**
@@ -58,6 +60,7 @@ public class LoopResponse extends LineOrientedResponse {
      * <p>
      * receive
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.lang.String} object.
@@ -73,6 +76,7 @@ public class LoopResponse extends LineOrientedResponse {
      * <p>
      * validateIPMatch
      * </p>
+     * .
      *
      * @param ip
      *            a {@link java.lang.String} object.

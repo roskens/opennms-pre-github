@@ -34,6 +34,8 @@ import org.junit.After;
 import org.junit.Test;
 
 /**
+ * The Class SmbDetectorTest.
+ *
  * @author Donald Desloge
  */
 public class SmbDetectorTest {
@@ -47,12 +49,21 @@ public class SmbDetectorTest {
     //
     // }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
 
     }
 
     // Tested against a Windows XP machine on local network.
+    /**
+     * Test my detector.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 30000)
     public void testMyDetector() throws UnknownHostException {
         // m_detector.init();

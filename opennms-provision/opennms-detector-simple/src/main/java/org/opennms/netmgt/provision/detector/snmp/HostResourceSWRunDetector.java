@@ -45,6 +45,9 @@ import org.springframework.stereotype.Component;
 
 import antlr.StringUtils;
 
+/**
+ * The Class HostResourceSWRunDetector.
+ */
 @Component
 /**
  * <p>HostResourceSWRunDetector class.</p>
@@ -55,11 +58,10 @@ import antlr.StringUtils;
 @Scope("prototype")
 public class HostResourceSWRunDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSWRunDetector.class);
 
-    /**
-     * The protocol supported by this detector
-     */
+    /** The protocol supported by this detector. */
     private static final String PROTOCOL_NAME = "HOST-RESOURCES";
 
     /**
@@ -74,8 +76,10 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      */
     static final String SNMP_AGENTCONFIG_KEY = "org.opennms.netmgt.snmp.SnmpAgentConfig";
 
+    /** The m_service to detect. */
     private String m_serviceToDetect;
 
+    /** The m_service name oid. */
     private String m_serviceNameOid;
 
     /**
@@ -160,6 +164,15 @@ public class HostResourceSWRunDetector extends SnmpDetector {
 
     }
 
+    /**
+     * Match.
+     *
+     * @param expectedText
+     *            the expected text
+     * @param currentText
+     *            the current text
+     * @return true, if successful
+     */
     private boolean match(String expectedText, String currentText) {
         if (expectedText.startsWith("~")) {
             return currentText.matches(expectedText.replaceFirst("~", ""));
@@ -167,6 +180,13 @@ public class HostResourceSWRunDetector extends SnmpDetector {
         return currentText.equalsIgnoreCase(expectedText);
     }
 
+    /**
+     * Strip extra quotes.
+     *
+     * @param string
+     *            the string
+     * @return the string
+     */
     private static String stripExtraQuotes(String string) {
         return StringUtils.stripFrontBack(string, "\"", "\"");
     }
@@ -175,6 +195,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      * <p>
      * setServiceNameOid
      * </p>
+     * .
      *
      * @param serviceNameOid
      *            a {@link java.lang.String} object.
@@ -187,6 +208,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      * <p>
      * getServiceNameOid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,6 +220,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      * <p>
      * setServiceToDetect
      * </p>
+     * .
      *
      * @param hostService
      *            a {@link java.lang.String} object.
@@ -210,6 +233,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      * <p>
      * getServiceToDetect
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

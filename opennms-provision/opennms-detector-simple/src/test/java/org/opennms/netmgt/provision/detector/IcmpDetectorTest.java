@@ -47,22 +47,41 @@ import org.springframework.test.annotation.IfProfileValue;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class IcmpDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({})
 public class IcmpDetectorTest {
 
+    /** The m_icmp detector. */
     private IcmpDetector m_icmpDetector;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
 
     }
 
+    /**
+     * Test detector success jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     @IfProfileValue(name = "runPingTests", value = "true")
     public void testDetectorSuccessJni() throws Exception {
@@ -72,6 +91,12 @@ public class IcmpDetectorTest {
                    m_icmpDetector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector fail jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     @IfProfileValue(name = "runPingTests", value = "true")
     public void testDetectorFailJni() throws Exception {
@@ -81,6 +106,12 @@ public class IcmpDetectorTest {
                     m_icmpDetector.isServiceDetected(InetAddressUtils.UNPINGABLE_ADDRESS));
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     @IfProfileValue(name = "runPingTests", value = "true")
     public void testDetectorSuccess() throws Exception {
@@ -90,6 +121,12 @@ public class IcmpDetectorTest {
                    m_icmpDetector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector fail.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     @IfProfileValue(name = "runPingTests", value = "true")
     public void testDetectorFail() throws Exception {

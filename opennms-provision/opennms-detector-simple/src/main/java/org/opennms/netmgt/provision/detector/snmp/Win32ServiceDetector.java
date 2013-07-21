@@ -33,6 +33,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class Win32ServiceDetector.
+ */
 @Component
 /**
  * <p>Win32ServiceDetector class.</p>
@@ -43,12 +46,16 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Win32ServiceDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Win32ServiceDetector.class);
 
+    /** The Constant SV_SVC_OPERATING_STATE_OID. */
     private static final String SV_SVC_OPERATING_STATE_OID = ".1.3.6.1.4.1.77.1.2.3.1.3";
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "Win32Service";
 
+    /** The m_win32 svc name. */
     private String m_win32SvcName;
 
     /**
@@ -61,10 +68,21 @@ public class Win32ServiceDetector extends SnmpDetector {
         setVbvalue("1");
     }
 
+    /**
+     * Gets the win32 service name.
+     *
+     * @return the win32 service name
+     */
     public String getWin32ServiceName() {
         return m_win32SvcName;
     }
 
+    /**
+     * Sets the win32 service name.
+     *
+     * @param serviceName
+     *            the new win32 service name
+     */
     public void setWin32ServiceName(String serviceName) {
         m_win32SvcName = serviceName;
         LOG.debug("setWin32ServiceName: setting service name to {}", serviceName);

@@ -48,14 +48,22 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class LoopDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class LoopDetectorTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_detector. */
     private LoopDetector m_detector;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -63,6 +71,12 @@ public class LoopDetectorTest implements ApplicationContextAware {
         m_detector.setSupported(true);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setIpMatch(InetAddressUtils.str(InetAddress.getLocalHost()));
@@ -71,6 +85,12 @@ public class LoopDetectorTest implements ApplicationContextAware {
                    m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector fail.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFail() throws UnknownHostException {
         m_detector.init();
@@ -78,6 +98,13 @@ public class LoopDetectorTest implements ApplicationContextAware {
                     m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private LoopDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
@@ -85,6 +112,9 @@ public class LoopDetectorTest implements ApplicationContextAware {
         return (LoopDetector) bean;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

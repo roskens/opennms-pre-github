@@ -45,6 +45,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class DiskUsageDetector.
+ */
 @Component
 /**
  * <p>DiskUsageDetector class.</p>
@@ -55,11 +58,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DiskUsageDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DiskUsageDetector.class);
 
-    /**
-     * The protocol supported by this plugin
-     */
+    /** The protocol supported by this plugin. */
     private static final String PROTOCOL_NAME = "DiskUsage";
 
     /**
@@ -67,23 +69,28 @@ public class DiskUsageDetector extends SnmpDetector {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
+    /** The Constant hrStorageDescr. */
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
 
-    /**
-     * The available match-types for this detector
-     */
+    /** The available match-types for this detector. */
     private static final int MATCH_TYPE_EXACT = 0;
 
+    /** The Constant MATCH_TYPE_STARTSWITH. */
     private static final int MATCH_TYPE_STARTSWITH = 1;
 
+    /** The Constant MATCH_TYPE_ENDSWITH. */
     private static final int MATCH_TYPE_ENDSWITH = 2;
 
+    /** The Constant MATCH_TYPE_REGEX. */
     private static final int MATCH_TYPE_REGEX = 3;
 
+    /** The m_match type. */
     private String m_matchType = "";
 
+    /** The m_disk. */
     private String m_disk;
 
+    /** The m_hr storage descr. */
     private String m_hrStorageDescr;
 
     /**
@@ -212,6 +219,17 @@ public class DiskUsageDetector extends SnmpDetector {
 
     }
 
+    /**
+     * Checks if is match.
+     *
+     * @param candidate
+     *            the candidate
+     * @param target
+     *            the target
+     * @param matchType
+     *            the match type
+     * @return true, if is match
+     */
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);
@@ -236,6 +254,7 @@ public class DiskUsageDetector extends SnmpDetector {
      * <p>
      * setMatchType
      * </p>
+     * .
      *
      * @param matchType
      *            a {@link java.lang.String} object.
@@ -248,6 +267,7 @@ public class DiskUsageDetector extends SnmpDetector {
      * <p>
      * getMatchType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -259,6 +279,7 @@ public class DiskUsageDetector extends SnmpDetector {
      * <p>
      * setDisk
      * </p>
+     * .
      *
      * @param disk
      *            a {@link java.lang.String} object.
@@ -271,6 +292,7 @@ public class DiskUsageDetector extends SnmpDetector {
      * <p>
      * getDisk
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

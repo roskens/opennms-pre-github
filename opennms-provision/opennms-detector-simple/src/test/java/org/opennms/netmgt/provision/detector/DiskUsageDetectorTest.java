@@ -46,21 +46,36 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class DiskUsageDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml",
         "classpath:/META-INF/opennms/detectors.xml" })
 @JUnitSnmpAgent(host = DiskUsageDetectorTest.TEST_IP_ADDRESS, resource = "classpath:org/opennms/netmgt/provision/detector/snmpTestData1.properties")
 public class DiskUsageDetectorTest implements InitializingBean {
+
+    /** The Constant TEST_IP_ADDRESS. */
     static final String TEST_IP_ADDRESS = "172.20.1.205";
 
+    /** The m_detector. */
     @Autowired
     private DiskUsageDetector m_detector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Before
     public void setUp() throws InterruptedException {
         MockLogAppender.setupLogging();
@@ -70,11 +85,23 @@ public class DiskUsageDetectorTest implements InitializingBean {
         m_detector.setDisk("/Volumes/iDisk");
     }
 
+    /**
+     * Test detector successful.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccessful() throws UnknownHostException {
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
 
+    /**
+     * Test detector fail.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFail() throws UnknownHostException {
         m_detector.setDisk("No disk by this name");

@@ -36,19 +36,21 @@ import org.opennms.netmgt.provision.detector.sms.response.SmsResponse;
 import org.opennms.netmgt.provision.support.Client;
 
 /**
- * Detector client implemenation for the <code>SmsDetector</code>
+ * Detector client implemenation for the <code>SmsDetector</code>.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
 public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
 
+    /** The m_is supported. */
     private boolean m_isSupported = false;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -64,14 +66,15 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
+     *             object.
      */
     @Override
     public SmsResponse receiveBanner() throws IOException, Exception {
@@ -82,24 +85,30 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.sms.response.SmsResponse}
+     *             object.
      */
     @Override
     public SmsResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return null;
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the sms response
+     */
     private SmsResponse receiveResponse() {
         SmsResponse smsResponse = new SmsResponse();
         return smsResponse;
@@ -109,6 +118,7 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
      * <p>
      * setSupported
      * </p>
+     * .
      *
      * @param isSupported
      *            a boolean.
@@ -121,6 +131,7 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
      * <p>
      * isSupported
      * </p>
+     * .
      *
      * @return a boolean.
      */

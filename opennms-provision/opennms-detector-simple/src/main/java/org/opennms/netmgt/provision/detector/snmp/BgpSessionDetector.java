@@ -37,6 +37,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class BgpSessionDetector.
+ */
 @Component
 /**
  * <p>BgpSessionDetector class.</p>
@@ -47,6 +50,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class BgpSessionDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BgpSessionDetector.class);
 
     /**
@@ -59,6 +63,7 @@ public class BgpSessionDetector extends SnmpDetector {
      */
     private static final String BGP_PEER_STATE_OID = ".1.3.6.1.2.1.15.3.1.2";
 
+    /** The m_bgp peer ip. */
     private String m_bgpPeerIp = "";
 
     /**
@@ -104,6 +109,7 @@ public class BgpSessionDetector extends SnmpDetector {
      * <p>
      * setBgpPeerIp
      * </p>
+     * .
      *
      * @param bgpPeerIp
      *            a {@link java.lang.String} object.
@@ -116,6 +122,7 @@ public class BgpSessionDetector extends SnmpDetector {
      * <p>
      * getBgpPeerIp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

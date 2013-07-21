@@ -40,6 +40,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class OmsaStorageDetector.
+ */
 @Component
 /**
  * <p>OmsaStorageDetector class.</p>
@@ -50,6 +53,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class OmsaStorageDetector extends SnmpDetector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OmsaStorageDetector.class);
 
     /**
@@ -57,11 +61,10 @@ public class OmsaStorageDetector extends SnmpDetector {
      */
     private static final String PROTOCOL_NAME = "OMSAStorage";
 
+    /** The Constant virtualDiskRollUpStatus. */
     private static final String virtualDiskRollUpStatus = ".1.3.6.1.4.1.674.10893.1.20.140.1.1.19";
 
-    /**
-     * Virtual Disk Number (defaults to 1)
-     */
+    /** Virtual Disk Number (defaults to 1). */
     private String m_virtualDiskNumber = "1";
 
     /**
@@ -106,10 +109,21 @@ public class OmsaStorageDetector extends SnmpDetector {
         return true;
     }
 
+    /**
+     * Gets the virtual disk number.
+     *
+     * @return the virtual disk number
+     */
     public String getVirtualDiskNumber() {
         return m_virtualDiskNumber;
     }
 
+    /**
+     * Sets the virtual disk number.
+     *
+     * @param virtualDiskNumber
+     *            the new virtual disk number
+     */
     public void setVirtualDiskNumber(String virtualDiskNumber) {
         this.m_virtualDiskNumber = virtualDiskNumber;
     }

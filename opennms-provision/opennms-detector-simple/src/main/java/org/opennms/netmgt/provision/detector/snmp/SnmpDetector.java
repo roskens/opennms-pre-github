@@ -44,6 +44,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+/**
+ * The Class SnmpDetector.
+ */
 @Component
 /**
  * <p>SnmpDetector class.</p>
@@ -54,7 +57,7 @@ import org.springframework.util.Assert;
 @Scope("prototype")
 public class SnmpDetector extends SyncAbstractDetector implements InitializingBean {
 
-    /** Constant <code>DEFAULT_SERVICE_NAME="SNMP"</code> */
+    /** Constant <code>DEFAULT_SERVICE_NAME="SNMP"</code>. */
     protected static final String DEFAULT_SERVICE_NAME = "SNMP";
 
     /**
@@ -63,18 +66,25 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
     // These are -1 so by default we use the AgentConfig
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = -1;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = -1;
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = -1;
 
+    /** The m_oid. */
     private String m_oid = DEFAULT_OID;
 
+    /** The m_force version. */
     private String m_forceVersion;
 
+    /** The m_vbvalue. */
     private String m_vbvalue;
 
+    /** The m_agent config factory. */
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
     /**
@@ -87,7 +97,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -98,6 +108,9 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
         super(serviceName, port, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_agentConfigFactory);
@@ -136,6 +149,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * configureAgentVersion
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -158,6 +172,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * configureAgentPTR
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -180,6 +195,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -201,6 +217,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * setOid
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -213,6 +230,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * getOid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -224,6 +242,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * setForceVersion
      * </p>
+     * .
      *
      * @param forceVersion
      *            a {@link java.lang.String} object.
@@ -236,6 +255,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * getForceVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -247,6 +267,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * setVbvalue
      * </p>
+     * .
      *
      * @param vbvalue
      *            a {@link java.lang.String} object.
@@ -259,6 +280,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * getVbvalue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -270,6 +292,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * setAgentConfigFactory
      * </p>
+     * .
      *
      * @param agentConfigFactory
      *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
@@ -284,6 +307,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * <p>
      * getAgentConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
      *         object.

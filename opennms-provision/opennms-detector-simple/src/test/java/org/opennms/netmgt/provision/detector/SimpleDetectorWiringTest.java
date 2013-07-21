@@ -46,6 +46,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class SimpleDetectorWiringTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,34 +55,56 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "classpath:/META-INF/opennms/test/snmpConfigFactoryContext.xml" })
 public class SimpleDetectorWiringTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test wired detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     */
     private void testWiredDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
 
+    /**
+     * Test icmp detector wiring.
+     */
     @Test
     public void testIcmpDetectorWiring() {
         testWiredDetector(IcmpDetector.class);
     }
 
+    /**
+     * Test smb detector wiring.
+     */
     @Test
     public void testSmbDetectorWiring() {
         testWiredDetector(SmbDetector.class);
     }
 
+    /**
+     * Test snmp detector wiring.
+     */
     @Test
     public void testSnmpDetectorWiring() {
         testWiredDetector(SnmpDetector.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

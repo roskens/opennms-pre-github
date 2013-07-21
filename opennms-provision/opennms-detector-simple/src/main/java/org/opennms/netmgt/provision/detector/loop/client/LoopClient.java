@@ -46,14 +46,17 @@ import org.opennms.netmgt.provision.support.Client;
  */
 public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_is supported. */
     private boolean m_isSupported = false;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -70,14 +73,15 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
+     *             object.
      */
     @Override
     public LoopResponse receiveBanner() throws IOException, Exception {
@@ -88,24 +92,30 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.loop.response.LoopResponse}
+     *             object.
      */
     @Override
     public LoopResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return null;
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the loop response
+     */
     private LoopResponse receiveResponse() {
         LoopResponse loopResponse = new LoopResponse();
         loopResponse.receive(m_address, isSupported());
@@ -116,6 +126,7 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
      * <p>
      * setSupported
      * </p>
+     * .
      *
      * @param isSupported
      *            a boolean.
@@ -128,6 +139,7 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
      * <p>
      * isSupported
      * </p>
+     * .
      *
      * @return a boolean.
      */

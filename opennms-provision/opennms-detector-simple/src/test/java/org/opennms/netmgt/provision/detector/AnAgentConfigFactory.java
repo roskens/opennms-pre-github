@@ -35,10 +35,15 @@ import org.opennms.netmgt.config.SnmpEventInfo;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
+ * A factory for creating AnAgentConfig objects.
+ *
  * @author Donald Desloge
  */
 public class AnAgentConfigFactory implements SnmpAgentConfigFactory {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.SnmpAgentConfigFactory#getAgentConfig(java.net.InetAddress)
+     */
     @Override
     public SnmpAgentConfig getAgentConfig(final InetAddress address) {
         final SnmpAgentConfig agentConfig = new SnmpAgentConfig(address);
@@ -46,6 +51,12 @@ public class AnAgentConfigFactory implements SnmpAgentConfigFactory {
         return agentConfig;
     }
 
+    /**
+     * Define.
+     *
+     * @param info
+     *            the info
+     */
     public void define(final SnmpEventInfo info) {
     }
 
