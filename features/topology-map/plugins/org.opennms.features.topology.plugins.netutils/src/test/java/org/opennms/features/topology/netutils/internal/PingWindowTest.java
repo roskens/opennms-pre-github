@@ -47,16 +47,29 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
+/**
+ * The Class PingWindowTest.
+ */
 public class PingWindowTest {
 
+    /** The ping window. */
     PingWindow pingWindow;
 
+    /** The ping window2. */
     PingWindow pingWindow2;
 
+    /** The app. */
     UI app;
 
+    /** The did notify. */
     boolean didNotify = false;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         didNotify = false;
@@ -103,6 +116,9 @@ public class PingWindowTest {
         UI.setCurrent(app);
     }
 
+    /**
+     * Test build ur l_correct input.
+     */
     @Test
     public void testBuildURL_correctInput() {
         pingWindow.numericalDataCheckBox.setValue(true);
@@ -114,6 +130,9 @@ public class PingWindowTest {
         assertFalse(didNotify);
     }
 
+    /**
+     * Test build ur l_upper bounds.
+     */
     @Test
     public void testBuildURL_upperBounds() {
         pingWindow.numericalDataCheckBox.setValue(true);
@@ -125,6 +144,9 @@ public class PingWindowTest {
         assertTrue(didNotify);
     }
 
+    /**
+     * Test build ur l_lower bounds.
+     */
     @Test
     public void testBuildURL_lowerBounds() {
         pingWindow.packetSizeDropdown.setValue("16");
@@ -135,6 +157,9 @@ public class PingWindowTest {
         assertTrue(didNotify);
     }
 
+    /**
+     * Test build ur l_non integer input.
+     */
     @Test
     public void testBuildURL_nonIntegerInput() {
         pingWindow.numericalDataCheckBox.setValue(true);
@@ -146,6 +171,9 @@ public class PingWindowTest {
         assertTrue(didNotify);
     }
 
+    /**
+     * Test build ur l_negative integers.
+     */
     @Test
     public void testBuildURL_negativeIntegers() {
         pingWindow.numericalDataCheckBox.setValue(true);
@@ -157,6 +185,9 @@ public class PingWindowTest {
         assertTrue(didNotify);
     }
 
+    /**
+     * Test build ur l_invalid requests.
+     */
     @Test
     public void testBuildURL_invalidRequests() {
         pingWindow.numericalDataCheckBox.setValue(true);
@@ -168,6 +199,9 @@ public class PingWindowTest {
         assertTrue(didNotify);
     }
 
+    /**
+     * Test button click.
+     */
     @Test
     public void testButtonClick() {
         pingWindow.pingButton.click();
@@ -180,6 +214,9 @@ public class PingWindowTest {
         assertFalse(didNotify);
     }
 
+    /**
+     * Test attach.
+     */
     @Test
     public void testAttach() {
         assertTrue(app.getWindows().contains(pingWindow));

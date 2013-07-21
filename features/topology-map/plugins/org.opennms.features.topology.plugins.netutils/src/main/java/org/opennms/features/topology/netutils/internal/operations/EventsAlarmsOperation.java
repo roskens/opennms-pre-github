@@ -41,12 +41,20 @@ import org.opennms.features.topology.netutils.internal.Node;
 
 import com.vaadin.server.Page;
 
+/**
+ * The Class EventsAlarmsOperation.
+ */
 public class EventsAlarmsOperation extends AbstractOperation implements Operation {
 
+    /** The m_events url. */
     private String m_eventsURL;
 
+    /** The m_alarms url. */
     private String m_alarmsURL;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         String label = "";
@@ -87,6 +95,9 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractOperation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -97,23 +108,48 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "EventsAlarms";
     }
 
+    /**
+     * Gets the events url.
+     *
+     * @return the events url
+     */
     public String getEventsURL() {
         return m_eventsURL;
     }
 
+    /**
+     * Sets the events url.
+     *
+     * @param eventsURL
+     *            the new events url
+     */
     public void setEventsURL(final String eventsURL) {
         this.m_eventsURL = eventsURL;
     }
 
+    /**
+     * Gets the alarms url.
+     *
+     * @return the alarms url
+     */
     public String getAlarmsURL() {
         return m_alarmsURL;
     }
 
+    /**
+     * Sets the alarms url.
+     *
+     * @param alarmsURL
+     *            the new alarms url
+     */
     public void setAlarmsURL(final String alarmsURL) {
         this.m_alarmsURL = alarmsURL;
     }

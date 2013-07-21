@@ -40,12 +40,20 @@ import org.opennms.features.topology.netutils.internal.ResourceGraphsWindow;
 
 import com.vaadin.server.Page;
 
+/**
+ * The Class ResourceGraphsOperation.
+ */
 public class ResourceGraphsOperation extends AbstractOperation {
 
+    /** The m_resource graph list url. */
     private String m_resourceGraphListURL;
 
+    /** The m_resource graph node url. */
     private String m_resourceGraphNodeURL;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         String label = "";
@@ -82,6 +90,9 @@ public class ResourceGraphsOperation extends AbstractOperation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractOperation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -94,23 +105,48 @@ public class ResourceGraphsOperation extends AbstractOperation {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "contextResourceGraphs";
     }
 
+    /**
+     * Gets the resource graph list url.
+     *
+     * @return the resource graph list url
+     */
     public String getResourceGraphListURL() {
         return m_resourceGraphListURL;
     }
 
+    /**
+     * Sets the resource graph list url.
+     *
+     * @param resourceGraphListURL
+     *            the new resource graph list url
+     */
     public void setResourceGraphListURL(String resourceGraphListURL) {
         this.m_resourceGraphListURL = resourceGraphListURL;
     }
 
+    /**
+     * Gets the resource graph node url.
+     *
+     * @return the resource graph node url
+     */
     public String getResourceGraphNodeURL() {
         return m_resourceGraphNodeURL;
     }
 
+    /**
+     * Sets the resource graph node url.
+     *
+     * @param resourceGraphNodeURL
+     *            the new resource graph node url
+     */
     public void setResourceGraphNodeURL(final String resourceGraphNodeURL) {
         m_resourceGraphNodeURL = resourceGraphNodeURL;
     }

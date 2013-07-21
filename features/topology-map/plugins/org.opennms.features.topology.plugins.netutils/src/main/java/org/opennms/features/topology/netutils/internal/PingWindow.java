@@ -60,51 +60,70 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class PingWindow extends Window {
 
+    /** The size percentage. */
     private final double sizePercentage = 0.80; // Window size proportionate to
                                                 // main window
 
-    protected NativeSelect ipDropdown = null; // Dropdown component for IP
+    /** The ip dropdown. */
+                                                protected NativeSelect ipDropdown = null; // Dropdown component for IP
                                               // Address
 
-    protected NativeSelect packetSizeDropdown = null; // Dropdown component for
+    /** The packet size dropdown. */
+                                              protected NativeSelect packetSizeDropdown = null; // Dropdown component for
                                                       // Packet Size
 
-    private Label nodeLabel = null; // Label displaying the name of the Node at
+    /** The node label. */
+                                                      private Label nodeLabel = null; // Label displaying the name of the Node at
                                     // the top of the window
 
-    protected TextField requestsField = null; // Textfield for
+    /** The requests field. */
+                                    protected TextField requestsField = null; // Textfield for
                                               // "Number of Requests" variable
 
-    protected TextField timeoutField = null; // Textfield for
+    /** The timeout field. */
+                                              protected TextField timeoutField = null; // Textfield for
                                              // "Time-Out (seconds)" variable
 
-    protected CheckBox numericalDataCheckBox = null; // Checkbox for toggling
+    /**
+                                                 * The numerical data check box.
+                                                 */
+                                             protected CheckBox numericalDataCheckBox = null; // Checkbox for toggling
                                                      // numeric output
 
-    protected Button pingButton; // Button to execute the ping operation
+    /** The ping button. */
+                                                     protected Button pingButton; // Button to execute the ping operation
 
+    /** The results browser. */
     private Embedded resultsBrowser = null; // Browser which displays the ping
                                             // results
 
-    private VerticalLayout topLayout = null; // Contains the form components
+    /** The top layout. */
+                                            private VerticalLayout topLayout = null; // Contains the form components
 
+    /** The bottom layout. */
     private VerticalLayout bottomLayout = null; // Contains the results browser
 
+    /** The v split. */
     private VerticalSplitPanel vSplit = null; // Splits up the top layout and
                                               // bottom layout
 
-    private int margin = 40; // Padding around the results browser
+    /** The margin. */
+                                              private int margin = 40; // Padding around the results browser
 
+    /** The split height. */
     private int splitHeight = 240; // Height from top of the window to the split
                                    // location in pixels
 
-    private int topHeight = 280; // Set height size for everything above the
+    /** The top height. */
+                                   private int topHeight = 280; // Set height size for everything above the
                                  // split
 
-    private final String noLabel = "no such label"; // Label given to vertexes
+    /** The no label. */
+                                 private final String noLabel = "no such label"; // Label given to vertexes
                                                     // that have no real label.
 
-    private String pingUrl;
+    /** The ping url. */
+                                                    private String pingUrl;
 
     /**
      * The PingWindow method constructs a PingWindow component with a size
@@ -112,10 +131,9 @@ public class PingWindow extends Window {
      * width and height of the main window.
      *
      * @param node
-     * @param width
-     *            Width of Main window
-     * @param height
-     *            Height of Main window
+     *            the node
+     * @param pingUrl
+     *            the ping url
      */
     public PingWindow(final Node node, final String pingUrl) {
 
@@ -261,6 +279,9 @@ public class PingWindow extends Window {
         setContent(mainLayout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();
@@ -314,7 +335,6 @@ public class PingWindow extends Window {
      * URL string that is used to redirect the results browser to the Ping page.
      *
      * @return Web address for ping command with submitted parameters
-     * @throws MalformedURLException
      */
     protected URL buildURL() {
         boolean validInput = false;
@@ -353,6 +373,8 @@ public class PingWindow extends Window {
      * user was formatted correctly.
      *
      * @return Whether input was correctly formatted
+     * @throws NumberFormatException
+     *             the number format exception
      */
     protected boolean validateInput() throws NumberFormatException {
         int timeout = 0, requests = 0;

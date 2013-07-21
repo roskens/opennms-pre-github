@@ -49,33 +49,46 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class ResourceGraphsWindow extends Window {
 
+    /** The size percentage. */
     private final double sizePercentage = 0.80; // Window size ratio to the main
                                                 // window
 
-    private final int widthCushion = 50; // Border cushion for width of window;
+    /** The width cushion. */
+                                                private final int widthCushion = 50; // Border cushion for width of window;
 
+    /** The height cushion. */
     private final int heightCushion = 110; // Border cushion for height of
                                            // window
 
-    private Embedded rgBrowser = null; // Browser component which is directed at
+    /** The rg browser. */
+                                           private Embedded rgBrowser = null; // Browser component which is directed at
                                        // the Resource Graphs page
 
-    private final String noLabel = "no such label"; // Label given to vertexes
+    /** The no label. */
+                                       private final String noLabel = "no such label"; // Label given to vertexes
                                                     // that have no real label.
 
     /**
-     * The ResourceGraphsWindow method constructs a sub-window instance which
-     * can be added to a
-     * main window. The sub-window contains an embedded browser which displays
-     * the Resource Graphs
-     * page of the currently selected node
-     *
-     * @param node
-     *            Selected node
-     * @param nodeURL
-     *            Node URL
-     * @throws MalformedURLException
-     */
+                                                     * The ResourceGraphsWindow
+                                                     * method constructs a
+                                                     * sub-window instance which
+                                                     * can be added to a
+                                                     * main window. The
+                                                     * sub-window contains an
+                                                     * embedded browser which
+                                                     * displays
+                                                     * the Resource Graphs
+                                                     * page of the currently
+                                                     * selected node
+                                                     *
+                                                     * @param node
+                                                     *            Selected node
+                                                     * @param nodeURL
+                                                     *            Node URL
+                                                     * @throws MalformedURLException
+                                                     *             the malformed
+                                                     *             url exception
+                                                     */
     public ResourceGraphsWindow(final Node node, final URL nodeURL) throws MalformedURLException {
 
         rgBrowser = new Embedded("", new ExternalResource(nodeURL));
@@ -98,6 +111,9 @@ public class ResourceGraphsWindow extends Window {
         setContent(layout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();

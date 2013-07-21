@@ -50,25 +50,40 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class EventsAlarmsWindow extends Window {
 
+    /** The size percentage. */
     private final double sizePercentage = 0.80; // Window size ratio to the main
                                                 // window
 
-    private final int widthCushion = 50; // Border cushion for width of window;
+    /** The width cushion. */
+                                                private final int widthCushion = 50; // Border cushion for width of window;
 
+    /** The height cushion. */
     private final int heightCushion = 110; // Border cushion for height of
                                            // window
 
-    private Embedded eventsBrowser = null; // Browser component which is
+    /** The events browser. */
+                                           private Embedded eventsBrowser = null; // Browser component which is
                                            // directed at the events page
 
-    private Embedded alarmsBrowser = null; // Browser component which is
+    /** The alarms browser. */
+                                           private Embedded alarmsBrowser = null; // Browser component which is
                                            // directed at the alarms page
 
-    private static final String noLabel = "no such label"; // Label given to
+    /** The Constant noLabel. */
+                                           private static final String noLabel = "no such label"; // Label given to
                                                            // vertexes that have
                                                            // no real label.
 
-    private static String makeLabel(final Node node) {
+    /**
+                                                             * Make label.
+                                                             *
+                                                             * @param node
+                                                             *            the
+                                                             *            node
+                                                             * @return the
+                                                             *         string
+                                                             */
+                                                           private static String makeLabel(final Node node) {
         String label = node == null ? "" : node.getLabel();
         /* Sets up window settings */
         if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
@@ -88,11 +103,12 @@ public class EventsAlarmsWindow extends Window {
      *
      * @param node
      *            Selected node
-     * @param width
-     *            Width of main window
-     * @param height
-     *            Height of main window
+     * @param eventsURL
+     *            the events url
+     * @param alarmsURL
+     *            the alarms url
      * @throws MalformedURLException
+     *             the malformed url exception
      */
     public EventsAlarmsWindow(final Node node, final URL eventsURL, final URL alarmsURL) throws MalformedURLException {
         super("Events & Alarms" + makeLabel(node));
@@ -115,6 +131,9 @@ public class EventsAlarmsWindow extends Window {
         // addComponent(layout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();

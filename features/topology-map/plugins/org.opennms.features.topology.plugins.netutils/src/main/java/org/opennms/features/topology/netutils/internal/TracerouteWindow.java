@@ -61,47 +61,67 @@ import com.vaadin.ui.Window;
 @SuppressWarnings("serial")
 public class TracerouteWindow extends Window {
 
+    /** The size percentage. */
     private final double sizePercentage = 0.80; // Window size proportionate to
                                                 // main window
 
-    protected NativeSelect ipDropdown = null; // Dropdown component for IP
+    /** The ip dropdown. */
+                                                protected NativeSelect ipDropdown = null; // Dropdown component for IP
                                               // Address
 
-    private Label nodeLabel = null; // Label displaying the name of the Node at
+    /** The node label. */
+                                              private Label nodeLabel = null; // Label displaying the name of the Node at
                                     // the top of the window
 
-    protected TextField forcedHopField = null; // Textfield for the "Forced Hop"
+    /** The forced hop field. */
+                                    protected TextField forcedHopField = null; // Textfield for the "Forced Hop"
                                                // variable
 
-    protected CheckBox numericalDataCheckBox = null; // Checkbox which toggles
+    /**
+                                                 * The numerical data check box.
+                                                 */
+                                               protected CheckBox numericalDataCheckBox = null; // Checkbox which toggles
                                                      // numeric output
 
-    protected Button tracerouteButton; // Button to execute the traceroute
+    /**
+                                                         * The traceroute
+                                                         * button.
+                                                         */
+                                                     protected Button tracerouteButton; // Button to execute the traceroute
                                        // operation
 
-    private Embedded resultsBrowser = null; // Browser component which displays
+    /** The results browser. */
+                                       private Embedded resultsBrowser = null; // Browser component which displays
                                             // the results of Traceroute
 
-    private VerticalLayout topLayout = null; // Contains the form for Traceroute
+    /** The top layout. */
+                                            private VerticalLayout topLayout = null; // Contains the form for Traceroute
 
+    /** The bottom layout. */
     private VerticalLayout bottomLayout = null; // Contains the results Browser
                                                 // for a Traceroute
 
-    private VerticalSplitPanel vSplit = null; // Splits up the top and bottom
+    /** The v split. */
+                                                private VerticalSplitPanel vSplit = null; // Splits up the top and bottom
                                               // layout
 
-    private int margin = 40; // Padding around the results browser
+    /** The margin. */
+                                              private int margin = 40; // Padding around the results browser
 
+    /** The split height. */
     private int splitHeight = 180;// Height from top of the window to the split
                                   // location in pixels
 
-    private int topHeight = 220;// Set height size for everything above the
+    /** The top height. */
+                                  private int topHeight = 220;// Set height size for everything above the
                                 // split
 
-    private final String noLabel = "no such label"; // Label given to vertexes
+    /** The no label. */
+                                private final String noLabel = "no such label"; // Label given to vertexes
                                                     // that have no real label.
 
-    private String tracerouteUrl;
+    /** The traceroute url. */
+                                                    private String tracerouteUrl;
 
     /**
      * The TracerouteWindow method constructs a TracerouteWindow component with
@@ -109,10 +129,9 @@ public class TracerouteWindow extends Window {
      * width and height of the main window.
      *
      * @param node
-     * @param width
-     *            Width of Main window
-     * @param height
-     *            Height of Main window
+     *            the node
+     * @param url
+     *            the url
      */
     public TracerouteWindow(final Node node, final String url) {
 
@@ -229,6 +248,9 @@ public class TracerouteWindow extends Window {
         setContent(mainLayout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();
@@ -283,7 +305,6 @@ public class TracerouteWindow extends Window {
      * page.
      *
      * @return Web address for traceroute command with submitted parameters
-     * @throws MalformedURLException
      */
     protected URL buildURL() {
         boolean validInput = false;

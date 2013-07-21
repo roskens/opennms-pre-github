@@ -30,45 +30,91 @@ package org.opennms.features.topology.netutils.internal;
 
 /**
  * The Node class constructs an object which contains all necessary information
- * and methods for a server or machine in a network
+ * and methods for a server or machine in a network.
  *
  * @author Leonardo Bell
  * @author Philip Grenon
  */
 public class Node {
 
+    /** The label. */
     private String label; // Name of the server or machine
 
+    /** The ip addr. */
     private String ipAddr; // IP Address of the server or machine
 
+    /** The node id. */
     private int nodeID; // Identification number
 
+    /**
+     * Instantiates a new node.
+     *
+     * @param nodeID
+     *            the node id
+     * @param ip
+     *            the ip
+     * @param label
+     *            the label
+     */
     public Node(int nodeID, String ip, String label) {
         this.nodeID = nodeID;
         this.ipAddr = ip;
         this.label = label;
     }
 
+    /**
+     * Gets the label.
+     *
+     * @return the label
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Gets the iP address.
+     *
+     * @return the iP address
+     */
     public String getIPAddress() {
         return ipAddr;
     }
 
+    /**
+     * Sets the label.
+     *
+     * @param label
+     *            the new label
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * Sets the iP address.
+     *
+     * @param ip
+     *            the new iP address
+     */
     public void setIPAddress(String ip) {
         this.ipAddr = ip;
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeID
+     *            the new node id
+     */
     public void setNodeID(int nodeID) {
         this.nodeID = nodeID;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeID() {
         return nodeID;
     }

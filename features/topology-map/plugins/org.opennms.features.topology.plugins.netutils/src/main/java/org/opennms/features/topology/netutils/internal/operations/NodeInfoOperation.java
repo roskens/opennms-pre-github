@@ -40,11 +40,20 @@ import org.opennms.features.topology.netutils.internal.NodeInfoWindow;
 
 import com.vaadin.server.Page;
 
+/**
+ * The Class NodeInfoOperation.
+ */
 public class NodeInfoOperation extends AbstractOperation {
+
+    /** The m_node page url. */
     private String m_nodePageURL;
 
+    /** The m_node list url. */
     private String m_nodeListURL;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         String label = "";
@@ -81,6 +90,9 @@ public class NodeInfoOperation extends AbstractOperation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractOperation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -93,23 +105,48 @@ public class NodeInfoOperation extends AbstractOperation {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "contextNodeInfo";
     }
 
+    /**
+     * Gets the node page url.
+     *
+     * @return the node page url
+     */
     public String getNodePageURL() {
         return m_nodePageURL;
     }
 
+    /**
+     * Sets the node page url.
+     *
+     * @param nodePageURL
+     *            the new node page url
+     */
     public void setNodePageURL(final String nodePageURL) {
         m_nodePageURL = nodePageURL;
     }
 
+    /**
+     * Gets the node list url.
+     *
+     * @return the node list url
+     */
     public String getNodeListURL() {
         return m_nodeListURL;
     }
 
+    /**
+     * Sets the node list url.
+     *
+     * @param nodeListURL
+     *            the new node list url
+     */
     public void setNodeListURL(String nodeListURL) {
         this.m_nodeListURL = nodeListURL;
     }

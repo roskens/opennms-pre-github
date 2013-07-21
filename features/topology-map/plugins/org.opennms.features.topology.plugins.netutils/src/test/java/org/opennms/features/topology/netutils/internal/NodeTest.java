@@ -33,46 +33,74 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class NodeTest.
+ */
 public class NodeTest {
 
+    /** The node2. */
     Node node1, node2;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         node1 = new Node(0, "", "");
         node2 = new Node(5, "127.0.0.1", "Leonardo");
     }
 
+    /**
+     * Test get label.
+     */
     @Test
     public void testGetLabel() {
         assertEquals("", node1.getLabel());
         assertEquals("Leonardo", node2.getLabel());
     }
 
+    /**
+     * Test get ip address.
+     */
     @Test
     public void testGetIPAddress() {
         assertEquals("", node1.getIPAddress());
         assertEquals("127.0.0.1", node2.getIPAddress());
     }
 
+    /**
+     * Test get node id.
+     */
     @Test
     public void testGetNodeID() {
         assertEquals(0, node1.getNodeID());
         assertEquals(5, node2.getNodeID());
     }
 
+    /**
+     * Test set label.
+     */
     @Test
     public void testSetLabel() {
         node1.setLabel("Philip");
         assertEquals("Philip", node1.getLabel());
     }
 
+    /**
+     * Test set ip address.
+     */
     @Test
     public void testSetIPAddress() {
         node1.setIPAddress("1.1.1.1");
         assertEquals("1.1.1.1", node1.getIPAddress());
     }
 
+    /**
+     * Test set node id.
+     */
     @Test
     public void testSetNodeID() {
         node1.setNodeID(99);

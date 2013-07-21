@@ -37,10 +37,17 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.netutils.internal.Node;
 import org.opennms.features.topology.netutils.internal.PingWindow;
 
+/**
+ * The Class PingOperation.
+ */
 public class PingOperation extends AbstractOperation {
 
+    /** The ping url. */
     private String pingURL;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
         String ipAddr = "";
@@ -66,6 +73,9 @@ public class PingOperation extends AbstractOperation {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractOperation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -78,15 +88,29 @@ public class PingOperation extends AbstractOperation {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "ping";
     }
 
+    /**
+     * Sets the ping url.
+     *
+     * @param url
+     *            the new ping url
+     */
     public void setPingURL(final String url) {
         pingURL = url;
     }
 
+    /**
+     * Gets the ping url.
+     *
+     * @return the ping url
+     */
     public String getPingURL() {
         return pingURL;
     }

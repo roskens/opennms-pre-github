@@ -41,16 +41,29 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class NodeInfoWindowTest.
+ */
 public class NodeInfoWindowTest {
 
+    /** The window. */
     InfoWindow window;
 
+    /** The window2. */
     InfoWindow window2;
 
+    /** The main window. */
     Window mainWindow;
 
+    /** The app. */
     UI app;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Node testNode1 = new Node(9, "172.20.1.10", "Cartman");
@@ -68,6 +81,9 @@ public class NodeInfoWindowTest {
         };
     }
 
+    /**
+     * Test attach.
+     */
     @Test
     public void testAttach() {
         app.addWindow(window);

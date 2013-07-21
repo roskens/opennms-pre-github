@@ -44,16 +44,29 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 
+/**
+ * The Class TracerouteWindowTest.
+ */
 public class TracerouteWindowTest {
 
+    /** The trace window. */
     TracerouteWindow traceWindow;
 
+    /** The trace window2. */
     TracerouteWindow traceWindow2;
 
+    /** The app. */
     UI app;
 
+    /** The did notify. */
     boolean didNotify = false;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         didNotify = false;
@@ -96,6 +109,9 @@ public class TracerouteWindowTest {
         UI.setCurrent(app);
     }
 
+    /**
+     * Test build ur l_correct input.
+     */
     @Test
     public void testBuildURL_correctInput() {
         traceWindow.numericalDataCheckBox.setValue(true);
@@ -103,6 +119,9 @@ public class TracerouteWindowTest {
         assertNotNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test build ur l_upper bounds.
+     */
     @Test
     public void testBuildURL_upperBounds() {
         traceWindow.numericalDataCheckBox.setValue(true);
@@ -110,30 +129,45 @@ public class TracerouteWindowTest {
         assertNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test build ur l_lower bounds.
+     */
     @Test
     public void testBuildURL_lowerBounds() {
         traceWindow.forcedHopField.setValue("-1.-1.-1.-1");
         assertNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test build ur l_non integer input.
+     */
     @Test
     public void testBuildURL_nonIntegerInput() {
         traceWindow.forcedHopField.setValue("abc.def.ghi.jkl");
         assertNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test build ur l_not ip address.
+     */
     @Test
     public void testBuildURL_notIPAddress() {
         traceWindow.forcedHopField.setValue("not an IP");
         assertNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test build ur l_negative integers.
+     */
     @Test
     public void testBuildURL_negativeIntegers() {
         traceWindow.forcedHopField.setValue("-255.-255.-255.-255");
         assertNull(traceWindow.buildURL());
     }
 
+    /**
+     * Test button click.
+     */
     @Test
     public void testButtonClick() {
         traceWindow.tracerouteButton.click();
@@ -143,6 +177,9 @@ public class TracerouteWindowTest {
         traceWindow.tracerouteButton.click();
     }
 
+    /**
+     * Test attach.
+     */
     @Test
     public void testAttach() {
         // assertTrue(app.getChildWindows().contains(traceWindow));
