@@ -41,12 +41,18 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.model.events.EventForwarder;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class LinkEventSendingStateTransition.
+ */
 public class LinkEventSendingStateTransition implements LinkStateTransition {
 
+    /** The m_data link interface. */
     private DataLinkInterface m_dataLinkInterface;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_node link service. */
     private NodeLinkService m_nodeLinkService;
 
     /**
@@ -75,12 +81,19 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
      * <p>
      * onLinkDown
      * </p>
+     * .
      */
     @Override
     public void onLinkDown() {
         sendDataLinkEvent(EventConstants.DATA_LINK_FAILED_EVENT_UEI);
     }
 
+    /**
+     * Send data link event.
+     *
+     * @param uei
+     *            the uei
+     */
     private void sendDataLinkEvent(String uei) {
         String endPoint1 = m_dataLinkInterface.getNode().getLabel();
         String endPoint2 = m_nodeLinkService.getNodeLabel(m_dataLinkInterface.getNodeParentId());
@@ -96,6 +109,7 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
      * <p>
      * onLinkUp
      * </p>
+     * .
      */
     @Override
     public void onLinkUp() {
@@ -106,6 +120,7 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
      * <p>
      * onLinkUnknown
      * </p>
+     * .
      */
     @Override
     public void onLinkUnknown() {

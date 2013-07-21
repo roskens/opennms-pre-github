@@ -36,14 +36,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class LinkAdapterConfiguration.
+ */
 @XmlRootElement(name = "link-adapter-configuration")
 public class LinkAdapterConfiguration {
+
+    /** The m_patterns. */
     Set<LinkPattern> m_patterns = new HashSet<LinkPattern>();
 
     /**
      * <p>
      * addPattern
      * </p>
+     * .
      *
      * @param linkPattern
      *            a
@@ -58,6 +64,7 @@ public class LinkAdapterConfiguration {
      * <p>
      * getPatterns
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -70,6 +77,7 @@ public class LinkAdapterConfiguration {
      * <p>
      * setPatterns
      * </p>
+     * .
      *
      * @param patterns
      *            a {@link java.util.Set} object.
@@ -87,6 +95,7 @@ public class LinkAdapterConfiguration {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -45,11 +45,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 
+/**
+ * The Class EndPointTypeValidator.
+ */
 @XmlRootElement(name = "endpoint-types")
 public class EndPointTypeValidator {
+
+    /** The m_end point service name. */
     @XmlAttribute(name = "endpoint-service-name")
     String m_endPointServiceName = "EndPoint";
 
+    /** The m_end point configs. */
     @XmlElement(name = "endpoint-type")
     List<EndPointType> m_endPointConfigs = Collections.synchronizedList(new ArrayList<EndPointType>());
 
@@ -65,6 +71,7 @@ public class EndPointTypeValidator {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,6 +83,7 @@ public class EndPointTypeValidator {
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -88,6 +96,7 @@ public class EndPointTypeValidator {
      * <p>
      * getConfigs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -99,6 +108,7 @@ public class EndPointTypeValidator {
      * <p>
      * setConfigs
      * </p>
+     * .
      *
      * @param configs
      *            a {@link java.util.List} object.
@@ -116,6 +126,7 @@ public class EndPointTypeValidator {
      * <p>
      * hasMatch
      * </p>
+     * .
      *
      * @param ep
      *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
@@ -135,12 +146,13 @@ public class EndPointTypeValidator {
      * <p>
      * validate
      * </p>
+     * .
      *
      * @param ep
      *            a {@link org.opennms.netmgt.provision.adapters.link.EndPoint}
      *            object.
-     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException
-     *             if any.
+     * @throws EndPointStatusException
+     *             the end point status exception
      */
     public void validate(EndPoint ep) throws EndPointStatusException {
         for (EndPointType config : m_endPointConfigs) {

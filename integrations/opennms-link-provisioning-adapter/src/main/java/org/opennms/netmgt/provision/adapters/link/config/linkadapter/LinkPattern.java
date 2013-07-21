@@ -51,10 +51,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 @XmlRootElement(name = "link-pattern")
 public class LinkPattern {
     // premature optimization! ;)
+    /** The m_compiled pattern. */
     private Pattern m_compiledPattern;
 
+    /** The m_pattern. */
     private String m_pattern;
 
+    /** The m_template. */
     private String m_template;
 
     /**
@@ -84,6 +87,7 @@ public class LinkPattern {
      * <p>
      * getPattern
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +100,7 @@ public class LinkPattern {
      * <p>
      * setPattern
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -111,6 +116,7 @@ public class LinkPattern {
      * <p>
      * getTemplate
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +129,7 @@ public class LinkPattern {
      * <p>
      * setTemplate
      * </p>
+     * .
      *
      * @param template
      *            a {@link java.lang.String} object.
@@ -135,6 +142,7 @@ public class LinkPattern {
      * <p>
      * resolveTemplate
      * </p>
+     * .
      *
      * @param endPoint
      *            a {@link java.lang.String} object.
@@ -156,6 +164,7 @@ public class LinkPattern {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

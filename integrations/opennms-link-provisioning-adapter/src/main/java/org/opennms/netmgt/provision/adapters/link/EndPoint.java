@@ -38,11 +38,16 @@ import java.net.InetAddress;
 
 import org.opennms.netmgt.snmp.SnmpValue;
 
+/**
+ * The Interface EndPoint.
+ */
 public interface EndPoint {
+
     /**
      * <p>
      * get
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -54,6 +59,7 @@ public interface EndPoint {
      * <p>
      * getSysOid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,6 +69,7 @@ public interface EndPoint {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -72,10 +79,11 @@ public interface EndPoint {
      * <p>
      * ping
      * </p>
+     * .
      *
      * @return a boolean.
-     * @throws org.opennms.netmgt.provision.adapters.link.EndPointStatusException
-     *             if any.
+     * @throws EndPointStatusException
+     *             the end point status exception
      */
     public boolean ping() throws EndPointStatusException;
 }

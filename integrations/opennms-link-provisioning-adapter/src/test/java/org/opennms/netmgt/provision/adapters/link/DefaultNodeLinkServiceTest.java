@@ -67,6 +67,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * The Class DefaultNodeLinkServiceTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -79,48 +82,66 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitTemporaryDatabase
 public class DefaultNodeLinkServiceTest implements InitializingBean {
 
+    /** The EN d_ poin t1_ id. */
     private int END_POINT1_ID;
 
+    /** The EN d_ poin t2_ id. */
     private int END_POINT2_ID;
 
+    /** The EN d_ poin t3_ id. */
     private int END_POINT3_ID;
 
+    /** The EN d_ poin t1_ label. */
     private String END_POINT1_LABEL = "node1";
 
     // private String END_POINT2_LABEL = "node2";
     // private String END_POINT3_LABEL = "node3";
+    /** The no such node label. */
     public String NO_SUCH_NODE_LABEL = "noSuchNode";
 
+    /** The m_db populator. */
     @Autowired
     DatabasePopulator m_dbPopulator;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_link state dao. */
     @Autowired
     LinkStateDao m_linkStateDao;
 
+    /** The m_data link dao. */
     @Autowired
     DataLinkInterfaceDao m_dataLinkDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_jdbc template. */
     @Autowired
     JdbcTemplate m_jdbcTemplate;
 
+    /** The m_node link service. */
     @Autowired
     NodeLinkService m_nodeLinkService;
 
+    /** The m_service type dao. */
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_transaction template. */
     @Autowired
     TransactionTemplate m_transactionTemplate;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         m_dbPopulator.populateDatabase();
@@ -130,11 +151,17 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         END_POINT3_ID = m_dbPopulator.getNode3().getId();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Dwo test get node label.
+     */
     @Test
     @Transactional
     public void dwoTestGetNodeLabel() {
@@ -144,6 +171,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals("node1", nodeLabel);
     }
 
+    /**
+     * Dwo test node not there.
+     */
     @Test
     @Transactional
     public void dwoTestNodeNotThere() {
@@ -151,6 +181,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertNull(nodeLabel);
     }
 
+    /**
+     * Dwo test get node id.
+     */
     @Test
     @Transactional
     public void dwoTestGetNodeId() {
@@ -159,6 +192,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(END_POINT1_ID, nodeId.intValue());
     }
 
+    /**
+     * Dwo test get node id null.
+     */
     @Test
     @Transactional
     public void dwoTestGetNodeIdNull() {
@@ -166,6 +202,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertNull(nodeId);
     }
 
+    /**
+     * Dwo test create link.
+     */
     @Test
     @Transactional
     public void dwoTestCreateLink() {
@@ -179,6 +218,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo test link already exists.
+     */
     @Test
     @Transactional
     public void dwoTestLinkAlreadyExists() {
@@ -191,6 +233,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(1, dataLinks.size());
     }
 
+    /**
+     * Dwo test update link status.
+     */
     @Test
     @Transactional
     public void dwoTestUpdateLinkStatus() {
@@ -205,6 +250,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(StatusType.GOOD, dataLinks.iterator().next().getStatus());
     }
 
+    /**
+     * Dwo test update link failed status.
+     */
     @Test
     @Transactional
     public void dwoTestUpdateLinkFailedStatus() {
@@ -220,6 +268,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(StatusType.BAD, dataLinks.iterator().next().getStatus());
     }
 
+    /**
+     * Dwo test update link good then failed status.
+     */
     @Test
     @Transactional
     public void dwoTestUpdateLinkGoodThenFailedStatus() {
@@ -240,6 +291,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(StatusType.BAD, dataLinks.iterator().next().getStatus());
     }
 
+    /**
+     * Dwo test get link containing node id.
+     */
     @Test
     @Transactional
     public void dwoTestGetLinkContainingNodeId() {
@@ -251,6 +305,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo test get link state for interface.
+     */
     @Test
     @Transactional
     public void dwoTestGetLinkStateForInterface() {
@@ -272,6 +329,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(OnmsLinkState.LinkState.LINK_UP, linkState.getLinkState());
     }
 
+    /**
+     * Dwo test save link state.
+     */
     @Test
     @Transactional
     public void dwoTestSaveLinkState() {
@@ -301,6 +361,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo test save all enum states.
+     */
     @Test
     @Transactional
     public void dwoTestSaveAllEnumStates() {
@@ -319,6 +382,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo test add primary service to node.
+     */
     @Test
     @Transactional
     public void dwoTestAddPrimaryServiceToNode() {
@@ -334,6 +400,9 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
         assertEquals(END_POINT_SERVICE_NAME, service.getServiceName());
     }
 
+    /**
+     * Dwo test node has end point service.
+     */
     @Test
     @Transactional
     public void dwoTestNodeHasEndPointService() {
@@ -347,6 +416,14 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Adds the primary service to node.
+     *
+     * @param nodeId
+     *            the node id
+     * @param serviceName
+     *            the service name
+     */
     public void addPrimaryServiceToNode(final int nodeId, final String serviceName) {
         m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 
@@ -373,6 +450,12 @@ public class DefaultNodeLinkServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Save link state.
+     *
+     * @param linkState
+     *            the link state
+     */
     public void saveLinkState(final OnmsLinkState linkState) {
         m_transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 

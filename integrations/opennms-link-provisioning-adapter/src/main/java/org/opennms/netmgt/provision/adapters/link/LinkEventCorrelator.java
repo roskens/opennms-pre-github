@@ -49,14 +49,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class LinkEventCorrelator.
+ */
 @EventListener(name = "LinkEventCorrelator")
 public class LinkEventCorrelator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LinkEventCorrelator.class);
 
+    /** The m_forwarder. */
     private EventForwarder m_forwarder;
 
+    /** The m_node link service. */
     private NodeLinkService m_nodeLinkService;
 
+    /** The m_end point config dao. */
     private EndPointConfigurationDao m_endPointConfigDao;
 
     /**
@@ -71,6 +79,7 @@ public class LinkEventCorrelator {
      * <p>
      * isLinkUp
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -84,6 +93,7 @@ public class LinkEventCorrelator {
      * <p>
      * logEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -96,6 +106,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleNodeDown
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -120,6 +131,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleNodeUp
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -144,6 +156,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleInterfaceDown
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -171,6 +184,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleInterfaceUp
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -198,6 +212,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleServiceUnresponsive
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -230,6 +245,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleServiceResponsive
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -262,6 +278,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleNodeGainedService
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -294,6 +311,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleNodeLostService
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -328,6 +346,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleNodeRegainedService
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -360,6 +379,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleServiceUnmanaged
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -392,6 +412,7 @@ public class LinkEventCorrelator {
      * <p>
      * handleServiceDeleted
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -421,6 +442,12 @@ public class LinkEventCorrelator {
 
     }
 
+    /**
+     * Link down.
+     *
+     * @param nodeId
+     *            the node id
+     */
     private void linkDown(int nodeId) {
         LOG.debug("Processing a down for links with endpoint on node {}", nodeId);
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
@@ -446,6 +473,12 @@ public class LinkEventCorrelator {
         }
     }
 
+    /**
+     * End point deleted.
+     *
+     * @param nodeId
+     *            the node id
+     */
     private void endPointDeleted(int nodeId) {
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
 
@@ -469,6 +502,12 @@ public class LinkEventCorrelator {
         }
     }
 
+    /**
+     * Link up.
+     *
+     * @param nodeId
+     *            the node id
+     */
     private void linkUp(int nodeId) {
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
             boolean isParent = false;
@@ -493,6 +532,12 @@ public class LinkEventCorrelator {
         }
     }
 
+    /**
+     * End point found.
+     *
+     * @param nodeId
+     *            the node id
+     */
     private void endPointFound(int nodeId) {
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
 
@@ -520,6 +565,7 @@ public class LinkEventCorrelator {
      * <p>
      * isSnmpPrimary
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -539,6 +585,7 @@ public class LinkEventCorrelator {
      * <p>
      * nodeHasEndPointService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -552,6 +599,7 @@ public class LinkEventCorrelator {
      * <p>
      * updateLinkStatus
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -564,6 +612,7 @@ public class LinkEventCorrelator {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param forwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -577,6 +626,7 @@ public class LinkEventCorrelator {
      * <p>
      * setNodeLinkService
      * </p>
+     * .
      *
      * @param nodeLinkService
      *            a
@@ -591,6 +641,7 @@ public class LinkEventCorrelator {
      * <p>
      * setEndPointConfigDao
      * </p>
+     * .
      *
      * @param endPointConfigDao
      *            a
@@ -601,6 +652,11 @@ public class LinkEventCorrelator {
         m_endPointConfigDao = endPointConfigDao;
     }
 
+    /**
+     * Gets the end point type validator.
+     *
+     * @return the end point type validator
+     */
     private EndPointTypeValidator getEndPointTypeValidator() {
         return m_endPointConfigDao.getValidator();
     }

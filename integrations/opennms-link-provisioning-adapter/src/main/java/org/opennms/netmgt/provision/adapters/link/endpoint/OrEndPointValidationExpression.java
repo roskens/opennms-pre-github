@@ -45,8 +45,13 @@ import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
 
+/**
+ * The Class OrEndPointValidationExpression.
+ */
 @XmlRootElement(name = "or")
 public class OrEndPointValidationExpression extends EndPointValidationExpressionImpl {
+
+    /** The m_validators. */
     @XmlElementRef
     private List<EndPointValidationExpressionImpl> m_validators = Collections.synchronizedList(new ArrayList<EndPointValidationExpressionImpl>());
 
@@ -96,6 +101,7 @@ public class OrEndPointValidationExpression extends EndPointValidationExpression
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -67,17 +67,30 @@ import org.springframework.util.Assert;
  */
 public class DefaultEndPointConfigurationDao extends
         AbstractCastorConfigDao<EndPointTypeValidator, EndPointTypeValidator> implements EndPointConfigurationDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEndPointConfigurationDao.class);
 
+    /** The m_context. */
     private JAXBContext m_context;
 
+    /** The m_marshaller. */
     private Marshaller m_marshaller;
 
+    /** The m_unmarshaller. */
     private Unmarshaller m_unmarshaller;
 
+    /**
+     * The Class StringResolver.
+     */
     private static final class StringResolver extends SchemaOutputResolver {
+
+        /** The m_writer. */
         private StringWriter m_writer = new StringWriter();
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             StreamResult sr = new StreamResult(m_writer);
@@ -85,6 +98,11 @@ public class DefaultEndPointConfigurationDao extends
             return sr;
         }
 
+        /**
+         * Gets the xml.
+         *
+         * @return the xml
+         */
         public String getXml() {
             return m_writer.toString();
         }
@@ -123,6 +141,7 @@ public class DefaultEndPointConfigurationDao extends
      * <p>
      * getXsd
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +161,7 @@ public class DefaultEndPointConfigurationDao extends
      * <p>
      * getValidator
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator}

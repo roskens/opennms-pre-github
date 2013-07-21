@@ -57,33 +57,51 @@ import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class LinkEventCorrelatorTest.
+ */
 public class LinkEventCorrelatorTest {
 
+    /** The m_unmanaged event. */
     private Event m_unmanagedEvent = new EventBuilder(EventConstants.DATA_LINK_UNMANAGED_EVENT_UEI, "Test").getEvent();
 
+    /** The m_failed event. */
     private Event m_failedEvent = new EventBuilder(EventConstants.DATA_LINK_FAILED_EVENT_UEI, "Test").getEvent();
 
+    /** The m_regained event. */
     private Event m_regainedEvent = new EventBuilder(EventConstants.DATA_LINK_RESTORED_EVENT_UEI, "Test").getEvent();
 
+    /** The m_easy mock. */
     EasyMockUtils m_easyMock = new EasyMockUtils();
 
     // MockEventUtil m_eventUtil = new MockEventUtil();
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_node1. */
     private MockNode m_node1;
 
+    /** The m_node2. */
     private MockNode m_node2;
 
+    /** The m_event ipc manager. */
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_node link service. */
     private NodeLinkService m_nodeLinkService;
 
+    /** The m_data link interface. */
     private DataLinkInterface m_dataLinkInterface;
 
+    /** The m_end point config dao. */
     private DefaultEndPointConfigurationDao m_endPointConfigDao;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -117,6 +135,9 @@ public class LinkEventCorrelatorTest {
 
     }
 
+    /**
+     * Test node down event.
+     */
     @Test
     public void testNodeDownEvent() {
         OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
@@ -146,6 +167,9 @@ public class LinkEventCorrelatorTest {
         verify();
     }
 
+    /**
+     * Test correlator1 node down.
+     */
     @Test
     public void testCorrelator1NodeDown() {
         OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
@@ -188,6 +212,9 @@ public class LinkEventCorrelatorTest {
         verify();
     }
 
+    /**
+     * Test correlator node flap.
+     */
     @Test
     public void testCorrelatorNodeFlap() {
         OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_UP);
@@ -242,6 +269,9 @@ public class LinkEventCorrelatorTest {
         verify();
     }
 
+    /**
+     * Test correlator unmanaged node flap.
+     */
     @Test
     public void testCorrelatorUnmanagedNodeFlap() {
         OnmsLinkState ls = new OnmsLinkState(m_dataLinkInterface, LinkState.LINK_BOTH_UNMANAGED);
@@ -288,14 +318,29 @@ public class LinkEventCorrelatorTest {
         verify();
     }
 
+    /**
+     * Creates the mock.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the t
+     */
     public <T> T createMock(Class<T> clazz) {
         return m_easyMock.createMock(clazz);
     }
 
+    /**
+     * Verify.
+     */
     public void verify() {
         m_easyMock.verifyAll();
     }
 
+    /**
+     * Replay.
+     */
     public void replay() {
         m_easyMock.replayAll();
     }

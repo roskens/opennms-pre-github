@@ -47,6 +47,7 @@ public interface NodeLinkService {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -58,6 +59,7 @@ public interface NodeLinkService {
      * <p>
      * createLink
      * </p>
+     * .
      *
      * @param nodeParentId
      *            a int.
@@ -70,6 +72,7 @@ public interface NodeLinkService {
      * <p>
      * saveLinkState
      * </p>
+     * .
      *
      * @param state
      *            a {@link org.opennms.netmgt.model.OnmsLinkState} object.
@@ -80,6 +83,7 @@ public interface NodeLinkService {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @param endPoint
      *            a {@link java.lang.String} object.
@@ -91,6 +95,7 @@ public interface NodeLinkService {
      * <p>
      * getLinkContainingNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -102,6 +107,7 @@ public interface NodeLinkService {
      * <p>
      * updateLinkStatus
      * </p>
+     * .
      *
      * @param nodeParentId
      *            a int.
@@ -116,6 +122,7 @@ public interface NodeLinkService {
      * <p>
      * getLinkStateForInterface
      * </p>
+     * .
      *
      * @param dataLinkInterface
      *            a {@link org.opennms.netmgt.model.DataLinkInterface} object.
@@ -127,6 +134,7 @@ public interface NodeLinkService {
      * <p>
      * getPrimaryAddress
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -138,6 +146,7 @@ public interface NodeLinkService {
      * <p>
      * nodeHasEndPointService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -149,6 +158,7 @@ public interface NodeLinkService {
      * <p>
      * getEndPointStatus
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.

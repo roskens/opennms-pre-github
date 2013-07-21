@@ -41,10 +41,20 @@ import org.opennms.netmgt.provision.adapters.link.endpoint.dao.DefaultEndPointCo
 import org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class EndPointConfigurationTest.
+ */
 public class EndPointConfigurationTest {
 
+    /** The m_end point dao. */
     private EndPointConfigurationDao m_endPointDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         DefaultEndPointConfigurationDao dao = new DefaultEndPointConfigurationDao();
@@ -66,12 +76,24 @@ public class EndPointConfigurationTest {
 
     }
 
+    /**
+     * Test get from dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetFromDao() throws Exception {
         EndPointTypeValidator validator = m_endPointDao.getValidator();
         assertEquals("test config has 2 entries", 2, validator.getConfigs().size());
     }
 
+    /**
+     * Test get xsd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetXsd() throws Exception {
         String xsd = m_endPointDao.getXsd();

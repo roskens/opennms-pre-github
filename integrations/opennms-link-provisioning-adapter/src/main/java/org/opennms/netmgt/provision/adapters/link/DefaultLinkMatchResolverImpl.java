@@ -43,9 +43,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version $Id: $
  */
 public class DefaultLinkMatchResolverImpl implements LinkMatchResolver, InitializingBean {
+
+    /** The m_config dao. */
     @Autowired
     private DefaultLinkAdapterConfigurationDao m_configDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

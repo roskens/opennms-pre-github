@@ -45,12 +45,15 @@ import org.opennms.netmgt.provision.adapters.link.EndPointValidationExpression;
  */
 @XmlRootElement(name = "validator")
 public abstract class EndPointValidationExpressionImpl implements EndPointValidationExpression {
+
+    /** The m_value. */
     protected String m_value;
 
     /**
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,6 +66,7 @@ public abstract class EndPointValidationExpressionImpl implements EndPointValida
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.

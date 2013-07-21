@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 
+/**
+ * The Class PingEndPointValidationExpression.
+ */
 @XmlRootElement(name = "pingable")
 public class PingEndPointValidationExpression extends EndPointValidationExpressionImpl {
     /** {@inheritDoc} */
@@ -54,6 +57,7 @@ public class PingEndPointValidationExpression extends EndPointValidationExpressi
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

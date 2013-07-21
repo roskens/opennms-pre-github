@@ -59,47 +59,74 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitTemporaryDatabase
 public class SimplerProvisioningAdapterTest implements InitializingBean {
 
+    /** The name. */
     public static String NAME = "MyProvisioningAdapter";
 
+    /** The add latch. */
     CountDownLatch addLatch = new CountDownLatch(1);
 
+    /** The delete latch. */
     CountDownLatch deleteLatch = new CountDownLatch(1);
 
+    /** The update latch. */
     CountDownLatch updateLatch = new CountDownLatch(1);
 
+    /** The config change latch. */
     CountDownLatch configChangeLatch = new CountDownLatch(1);
 
     // From applicationContext-dao.xml
+    /** The m_tx template. */
     @Autowired
     private TransactionTemplate m_txTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * The Class MyProvisioningAdapter.
+     */
     class MyProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
 
+        /**
+         * Instantiates a new my provisioning adapter.
+         */
         public MyProvisioningAdapter() {
             super(NAME);
             setTemplate(m_txTemplate);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.SimplerQueuedProvisioningAdapter#doAddNode(int)
+         */
         @Override
         public void doAddNode(int nodeid) {
             addLatch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.SimplerQueuedProvisioningAdapter#doDeleteNode(int)
+         */
         @Override
         public void doDeleteNode(int nodeid) {
             deleteLatch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.SimplerQueuedProvisioningAdapter#doNotifyConfigChange(int)
+         */
         @Override
         public void doNotifyConfigChange(int nodeid) {
             configChangeLatch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.SimplerQueuedProvisioningAdapter#doUpdateNode(int)
+         */
         @Override
         public void doUpdateNode(int nodeid) {
             updateLatch.countDown();
@@ -107,19 +134,32 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
 
     }
 
+    /** The m_adapter. */
     private MyProvisioningAdapter m_adapter;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_adapter = new MyProvisioningAdapter();
         m_adapter.init();
     }
 
+    /**
+     * Dwo get name.
+     */
     @Test
     public void dwoGetName() {
         assertEquals(NAME, m_adapter.getName());
     }
 
+    /**
+     * Dwo add node calls do add node.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoAddNodeCallsDoAddNode() throws InterruptedException {
 
@@ -128,6 +168,12 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo delete node calls do delete node.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoDeleteNodeCallsDoDeleteNode() throws InterruptedException {
 
@@ -136,6 +182,12 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo update node calls do update node.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoUpdateNodeCallsDoUpdateNode() throws InterruptedException {
 
@@ -144,6 +196,12 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo notify config change calls do notify config change.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoNotifyConfigChangeCallsDoNotifyConfigChange() throws InterruptedException {
 

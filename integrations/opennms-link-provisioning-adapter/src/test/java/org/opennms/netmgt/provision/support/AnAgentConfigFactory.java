@@ -33,7 +33,14 @@ import java.net.InetAddress;
 import org.opennms.netmgt.config.SnmpAgentConfigFactory;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
+/**
+ * A factory for creating AnAgentConfig objects.
+ */
 public class AnAgentConfigFactory implements SnmpAgentConfigFactory {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.SnmpAgentConfigFactory#getAgentConfig(java.net.InetAddress)
+     */
     @Override
     public SnmpAgentConfig getAgentConfig(final InetAddress address) {
         final SnmpAgentConfig agentConfig = new SnmpAgentConfig(address);

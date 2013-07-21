@@ -44,13 +44,21 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class EndPointImpl.
+ */
 public class EndPointImpl implements EndPoint {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EndPointImpl.class);
 
+    /** The m_agent config. */
     private SnmpAgentConfig m_agentConfig;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_sys oid. */
     private String m_sysOid;
 
     /**
@@ -87,6 +95,7 @@ public class EndPointImpl implements EndPoint {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -99,6 +108,7 @@ public class EndPointImpl implements EndPoint {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -111,6 +121,7 @@ public class EndPointImpl implements EndPoint {
      * <p>
      * getSysOid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +134,7 @@ public class EndPointImpl implements EndPoint {
      * <p>
      * setSysOid
      * </p>
+     * .
      *
      * @param sysOid
      *            a {@link java.lang.String} object.
@@ -135,6 +147,7 @@ public class EndPointImpl implements EndPoint {
      * <p>
      * ping
      * </p>
+     * .
      *
      * @return a boolean.
      */

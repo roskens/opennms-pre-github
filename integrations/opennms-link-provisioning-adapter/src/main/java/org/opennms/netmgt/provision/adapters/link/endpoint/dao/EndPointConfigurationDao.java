@@ -44,6 +44,7 @@ public interface EndPointConfigurationDao {
      * <p>
      * getValidator
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointTypeValidator}
@@ -55,6 +56,7 @@ public interface EndPointConfigurationDao {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param validator
      *            a
@@ -67,6 +69,7 @@ public interface EndPointConfigurationDao {
      * <p>
      * getXsd
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

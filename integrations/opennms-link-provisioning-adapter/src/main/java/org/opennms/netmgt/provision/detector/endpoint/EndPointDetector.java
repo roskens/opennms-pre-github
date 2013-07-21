@@ -58,7 +58,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class EndPointDetector extends SyncAbstractDetector implements InitializingBean {
 
-    /** Constant <code>DEFAULT_SERVICE_NAME="EndPoint"</code> */
+    /** Constant <code>DEFAULT_SERVICE_NAME="EndPoint"</code>. */
     protected static final String DEFAULT_SERVICE_NAME = "EndPoint";
 
     /**
@@ -67,17 +67,23 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     private static final String SYS_OBJECT_ID = ".1.3.6.1.2.1.1.2.0";
 
     // These are -1 so by default we use the AgentConfig
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = -1;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = -1;
 
+    /** The Constant DEFAULT_RETRIES. */
     private static final int DEFAULT_RETRIES = -1;
 
+    /** The m_force version. */
     private String m_forceVersion;
 
+    /** The m_agent config factory. */
     @Autowired
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
+    /** The m_config dao. */
     @Autowired
     private EndPointConfigurationDao m_configDao;
 
@@ -91,7 +97,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -102,6 +108,9 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
         super(serviceName, port, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -131,6 +140,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * configureAgentVersion
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -153,6 +163,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * configureAgentPTR
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -175,6 +186,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -196,6 +208,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * setForceVersion
      * </p>
+     * .
      *
      * @param forceVersion
      *            a {@link java.lang.String} object.
@@ -208,6 +221,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * getForceVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +233,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * setAgentConfigFactory
      * </p>
+     * .
      *
      * @param agentConfigFactory
      *            a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
@@ -232,6 +247,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * getAgentConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.SnmpAgentConfigFactory}
      *         object.
@@ -244,6 +260,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * setEndPointConfigurationDao
      * </p>
+     * .
      *
      * @param dao
      *            a
@@ -258,6 +275,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * <p>
      * getEndPointConfigurationDao
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.dao.EndPointConfigurationDao}

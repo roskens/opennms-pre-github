@@ -49,9 +49,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
+/**
+ * The Class DefaultLinkAdapterConfigurationDao.
+ */
 public class DefaultLinkAdapterConfigurationDao extends
         AbstractJaxbConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> implements
         LinkAdapterConfigurationDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLinkAdapterConfigurationDao.class);
 
     /**
@@ -87,6 +92,7 @@ public class DefaultLinkAdapterConfigurationDao extends
      * <p>
      * getPatterns
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -109,6 +115,7 @@ public class DefaultLinkAdapterConfigurationDao extends
      * <p>
      * saveCurrent
      * </p>
+     * .
      */
     @Override
     public synchronized void saveCurrent() {

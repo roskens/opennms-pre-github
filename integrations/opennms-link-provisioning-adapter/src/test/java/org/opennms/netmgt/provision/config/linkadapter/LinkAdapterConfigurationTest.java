@@ -66,6 +66,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class LinkAdapterConfigurationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -77,35 +80,63 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class LinkAdapterConfigurationTest implements InitializingBean {
 
+    /**
+     * The Class TestOutputResolver.
+     */
     private static class TestOutputResolver extends SchemaOutputResolver {
+
+        /** The m_schema file. */
         private final File m_schemaFile;
 
+        /**
+         * Instantiates a new test output resolver.
+         *
+         * @param schemaFile
+         *            the schema file
+         */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
         }
     }
 
+    /** The m_link config dao. */
     @Autowired
     private DefaultLinkAdapterConfigurationDao m_linkConfigDao;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_context. */
     private JAXBContext m_context;
 
+    /** The m_marshaller. */
     private Marshaller m_marshaller;
 
+    /** The m_unmarshaller. */
     private Unmarshaller m_unmarshaller;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_fileAnticipator = new FileAnticipator();
@@ -135,6 +166,14 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
 
     }
 
+    /**
+     * Prints the file.
+     *
+     * @param file
+     *            the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void printFile(File file) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
         StringBuilder sb = new StringBuilder();
@@ -146,6 +185,12 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         System.err.println(sb.toString());
     }
 
+    /**
+     * Generate schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateSchema() throws Exception {
         File schemaFile = m_fileAnticipator.expecting("map-link-adapter.xsd");
@@ -156,6 +201,12 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         }
     }
 
+    /**
+     * Generate xml.
+     *
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     @Test
     public void generateXML() throws JAXBException {
         StringWriter objectXML = new StringWriter();
@@ -165,6 +216,12 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         System.err.println(objectXML.toString());
     }
 
+    /**
+     * Test require link tag.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(expected = Exception.class)
     @Ignore("I can't find a way to get JAXB to set minOccurs=1 with annotations...")
     public void testRequireLinkTag() throws Exception {

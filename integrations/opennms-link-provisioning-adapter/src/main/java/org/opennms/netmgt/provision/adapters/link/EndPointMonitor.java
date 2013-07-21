@@ -58,10 +58,13 @@ public class EndPointMonitor extends AbstractServiceMonitor {
      */
     public static final String SNMP_AGENTCONFIG_KEY = "org.opennms.netmgt.snmp.SnmpAgentConfig";
 
+    /** The m_config dao. */
     private EndPointConfigurationDao m_configDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_agent config factory. */
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
     /**

@@ -48,6 +48,7 @@ public abstract class EndPointValidationExpressions {
      * <p>
      * ping
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
@@ -61,6 +62,7 @@ public abstract class EndPointValidationExpressions {
      * <p>
      * match
      * </p>
+     * .
      *
      * @param oid
      *            a {@link java.lang.String} object.
@@ -78,12 +80,13 @@ public abstract class EndPointValidationExpressions {
      * <p>
      * and
      * </p>
+     * .
      *
      * @param validators
      *            a
-     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *         object.
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
      *         object.
      */
@@ -95,12 +98,13 @@ public abstract class EndPointValidationExpressions {
      * <p>
      * or
      * </p>
+     * .
      *
      * @param validators
      *            a
-     *            {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
+     *         object.
      *         {@link org.opennms.netmgt.provision.adapters.link.endpoint.EndPointValidationExpressionImpl}
      *         object.
      */

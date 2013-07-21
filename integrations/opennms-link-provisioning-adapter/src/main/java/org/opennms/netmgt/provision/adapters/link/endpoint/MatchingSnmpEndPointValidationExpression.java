@@ -41,8 +41,13 @@ import org.opennms.netmgt.provision.adapters.link.EndPoint;
 import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 import org.opennms.netmgt.snmp.SnmpValue;
 
+/**
+ * The Class MatchingSnmpEndPointValidationExpression.
+ */
 @XmlRootElement(name = "match-oid")
 public class MatchingSnmpEndPointValidationExpression extends EndPointValidationExpressionImpl {
+
+    /** The m_oid. */
     @XmlAttribute(name = "oid")
     private String m_oid = null;
 
@@ -89,6 +94,7 @@ public class MatchingSnmpEndPointValidationExpression extends EndPointValidation
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

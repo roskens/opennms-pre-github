@@ -43,6 +43,9 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class DefaultLinkMatchResolverTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -53,9 +56,14 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DefaultLinkMatchResolverTest {
+
+    /** The m_resolver. */
     @Autowired
     private DefaultLinkMatchResolverImpl m_resolver;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         Properties props = new Properties();
@@ -66,11 +74,17 @@ public class DefaultLinkMatchResolverTest {
         MockLogAppender.setupLogging(props);
     }
 
+    /**
+     * Test simple match.
+     */
     @Test
     public void testSimpleMatch() {
         assertEquals("nc-ral0002-to-ral0001-dwave", m_resolver.getAssociatedEndPoint("nc-ral0001-to-ral0002-dwave"));
     }
 
+    /**
+     * Test multiple patterns.
+     */
     @Test
     public void testMultiplePatterns() {
         assertEquals("middle-was-bar", m_resolver.getAssociatedEndPoint("foo-bar-baz"));
@@ -78,6 +92,9 @@ public class DefaultLinkMatchResolverTest {
         assertNull(m_resolver.getAssociatedEndPoint("after-wasn't-before"));
     }
 
+    /**
+     * Test patterns from config.
+     */
     @Test
     public void testPatternsFromConfig() {
         assertEquals("middle-was-bar", m_resolver.getAssociatedEndPoint("foo-bar-baz"));

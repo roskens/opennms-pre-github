@@ -34,8 +34,14 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 import org.opennms.netmgt.provision.adapters.link.config.linkadapter.LinkPattern;
 
+/**
+ * The Class LinkPatternTest.
+ */
 public class LinkPatternTest {
 
+    /**
+     * Test simple pattern.
+     */
     @Test
     public void testSimplePattern() {
         LinkPattern p = new LinkPattern("foo", "bar");
@@ -44,6 +50,9 @@ public class LinkPatternTest {
         assertNull(p.resolveTemplate("monkey"));
     }
 
+    /**
+     * Test template pattern.
+     */
     @Test
     public void testTemplatePattern() {
         LinkPattern p = new LinkPattern("([a-z]{2})-([a-z]{3})([0-9]{4})-to-([a-z]{3})([0-9]{4})-dwave",

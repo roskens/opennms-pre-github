@@ -39,6 +39,8 @@ import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
  * @version $Id: $
  */
 public class DefaultNamespacePrefixMapper extends NamespacePrefixMapper {
+
+    /** The m_uri. */
     private String m_uri;
 
     /**
@@ -79,6 +81,7 @@ public class DefaultNamespacePrefixMapper extends NamespacePrefixMapper {
      * <p>
      * getPreDeclaredNamespaceUris
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
      */

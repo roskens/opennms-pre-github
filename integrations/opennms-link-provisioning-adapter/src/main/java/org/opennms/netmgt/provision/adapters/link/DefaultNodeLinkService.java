@@ -56,6 +56,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+/**
+ * The Class DefaultNodeLinkService.
+ */
 @Transactional
 /**
  * <p>DefaultNodeLinkService class.</p>
@@ -64,27 +67,38 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultNodeLinkService implements NodeLinkService, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultNodeLinkService.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_data link dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_end point config dao. */
     @Autowired
     private EndPointConfigurationDao m_endPointConfigDao;
 
+    /** The m_link state dao. */
     @Autowired
     private LinkStateDao m_linkStateDao;
 
+    /** The m_event forwarder. */
     @Autowired
     @Qualifier("transactionAware")
     private EventForwarder m_eventForwarder;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -170,6 +184,13 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         m_linkStateDao.flush();
     }
 
+    /**
+     * Gets the primary if index for node.
+     *
+     * @param node
+     *            the node
+     * @return the primary if index for node
+     */
     private int getPrimaryIfIndexForNode(OnmsNode node) {
         if (node.getPrimaryInterface() != null && node.getPrimaryInterface().getIfIndex() != null) {
             return node.getPrimaryInterface().getIfIndex();

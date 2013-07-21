@@ -44,23 +44,31 @@ import org.springframework.util.Assert;
 /**
  * This adapter automatically creates links between nodes based on an expression
  * applied
- * to the node label (hostname)
+ * to the node label (hostname).
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
 @EventListener(name = "LinkProvisioningAdapter")
 public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LinkProvisioningAdapter.class);
 
+    /** The Constant ADAPTER_NAME. */
     private static final String ADAPTER_NAME = "LinkAdapter";
 
+    /** The m_link match resolver. */
     @Autowired
     private LinkMatchResolver m_linkMatchResolver;
 
+    /** The m_node link service. */
     @Autowired
     private NodeLinkService m_nodeLinkService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -110,6 +118,12 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
         createLinkForNodeIfNecessary(nodeid);
     }
 
+    /**
+     * Creates the link for node if necessary.
+     *
+     * @param nodeid
+     *            the nodeid
+     */
     private void createLinkForNodeIfNecessary(final int nodeid) {
         doAddNode(nodeid);
     }
@@ -130,6 +144,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * dataLinkFailed
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -145,6 +160,16 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
         }
     }
 
+    /**
+     * Update link status.
+     *
+     * @param method
+     *            the method
+     * @param event
+     *            the event
+     * @param newStatus
+     *            the new status
+     */
     private void updateLinkStatus(final String method, final Event event, final String newStatus) {
         LOG.info("{}: received event {}", method, event.getUei());
         final String endPoint1 = EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1);
@@ -171,6 +196,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * dataLinkRestored
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -190,6 +216,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * dataLinkUnmanaged
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -209,6 +236,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * max
      * </p>
+     * .
      *
      * @param string1
      *            a {@link java.lang.String} object.
@@ -228,6 +256,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * min
      * </p>
+     * .
      *
      * @param string1
      *            a {@link java.lang.String} object.
@@ -247,6 +276,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * setLinkMatchResolver
      * </p>
+     * .
      *
      * @param linkMatchResolver
      *            a
@@ -261,6 +291,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * getLinkMatchResolver
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.adapters.link.LinkMatchResolver}
@@ -274,6 +305,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
      * <p>
      * setNodeLinkService
      * </p>
+     * .
      *
      * @param nodeLinkService
      *            a

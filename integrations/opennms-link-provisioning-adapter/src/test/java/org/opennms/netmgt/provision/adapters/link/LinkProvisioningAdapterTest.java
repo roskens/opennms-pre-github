@@ -68,28 +68,42 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class LinkProvisioningAdapterTest implements InitializingBean {
 
+    /** The Constant END_POINT_1. */
     public static final String END_POINT_1 = "nc-ral0001-to-ral0002-dwave";
 
+    /** The Constant END_POINT_2. */
     public static final String END_POINT_2 = "nc-ral0002-to-ral0001-dwave";
 
+    /** The Constant UP_STATUS. */
     public static final String UP_STATUS = "G";
 
+    /** The Constant FAILED_STATUS. */
     public static final String FAILED_STATUS = "B";
 
+    /** The m_adapter. */
     @Autowired
     LinkProvisioningAdapter m_adapter;
 
+    /** The m_easy mock. */
     EasyMockUtils m_easyMock = new EasyMockUtils();
 
+    /** The m_match resolver. */
     private LinkMatchResolver m_matchResolver;
 
+    /** The m_node link service. */
     private NodeLinkService m_nodeLinkService;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_matchResolver = createMock(LinkMatchResolver.class);
@@ -105,6 +119,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
 
     }
 
+    /**
+     * Dwo test stubs.
+     */
     @Test
     public void dwoTestStubs() {
         replay();
@@ -119,6 +136,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo add linked nodes.
+     */
     @Test
     public void dwoAddLinkedNodes() {
 
@@ -141,6 +161,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo add end point2 end point1 exists.
+     */
     @Test
     public void dwoAddEndPoint2EndPoint1Exists() {
 
@@ -159,6 +182,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo add end point1 end point2 exists.
+     */
     @Test
     public void dwoAddEndPoint1EndPoint2Exists() {
 
@@ -177,6 +203,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo data link failed event end point1.
+     */
     @Test
     public void dwoDataLinkFailedEventEndPoint1() {
 
@@ -198,6 +227,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo data link fail event end point2.
+     */
     @Test
     public void dwoDataLinkFailEventEndPoint2() {
 
@@ -221,6 +253,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo data link restored event end point1.
+     */
     @Test
     public void dwoDataLinkRestoredEventEndPoint1() {
 
@@ -244,6 +279,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo data link restored event end point2.
+     */
     @Test
     public void dwoDataLinkRestoredEventEndPoint2() {
 
@@ -267,6 +305,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo test update end point1.
+     */
     @Test
     public void dwoTestUpdateEndPoint1() {
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
@@ -288,6 +329,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo update end point2 end point1 exists.
+     */
     @Test
     public void dwoUpdateEndPoint2EndPoint1Exists() {
 
@@ -306,6 +350,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Dwo update end point1 end point2 exists.
+     */
     @Test
     public void dwoUpdateEndPoint1EndPoint2Exists() {
 
@@ -324,14 +371,29 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         verify();
     }
 
+    /**
+     * Creates the mock.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the t
+     */
     public <T> T createMock(Class<T> clazz) {
         return m_easyMock.createMock(clazz);
     }
 
+    /**
+     * Verify.
+     */
     public void verify() {
         m_easyMock.verifyAll();
     }
 
+    /**
+     * Replay.
+     */
     public void replay() {
         m_easyMock.replayAll();
     }
@@ -340,6 +402,9 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
      * Test invocation of the addNode() operation to verify that the Spring
      * context
      * is injecting all of the necessary dependencies.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void dwoAddNodeCallsDoAddNode() throws InterruptedException {
@@ -349,6 +414,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         Assert.assertEquals(0, m_adapter.getOperationQueue().getOperationQueueForNode(1).size());
     }
 
+    /**
+     * Dwo delete node calls do delete node.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoDeleteNodeCallsDoDeleteNode() throws InterruptedException {
         m_adapter.deleteNode(1);
@@ -357,6 +428,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         Assert.assertEquals(0, m_adapter.getOperationQueue().getOperationQueueForNode(1).size());
     }
 
+    /**
+     * Dwo update node calls do update node.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoUpdateNodeCallsDoUpdateNode() throws InterruptedException {
         m_adapter.updateNode(1);
@@ -365,6 +442,12 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
         Assert.assertEquals(0, m_adapter.getOperationQueue().getOperationQueueForNode(1).size());
     }
 
+    /**
+     * Dwo notify config change calls do notify config change.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void dwoNotifyConfigChangeCallsDoNotifyConfigChange() throws InterruptedException {
         m_adapter.nodeConfigChanged(1);
