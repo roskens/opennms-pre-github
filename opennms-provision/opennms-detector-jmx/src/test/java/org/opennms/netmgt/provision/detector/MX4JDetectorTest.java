@@ -56,28 +56,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class MX4JDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MX4JDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public MX4JDetector m_detector;
 
+    /** The m_bean server. */
     public static MBeanServer m_beanServer;
 
+    /** The m_connector server. */
     private JMXConnectorServer m_connectorServer;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Before test.
+     *
+     * @throws RemoteException
+     *             the remote exception
+     */
     @BeforeClass
     public static void beforeTest() throws RemoteException {
         LocateRegistry.createRegistry(9999);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
         assertNotNull(m_detector);
@@ -91,22 +112,43 @@ public class MX4JDetectorTest implements InitializingBean {
         m_detector.setUrlPath("/server");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_connectorServer.stop();
     }
 
+    /**
+     * Test detectored wired.
+     */
     @Test(timeout = 90000)
     public void testDetectoredWired() {
         assertNotNull(m_detector);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws IOException {
         m_detector.init();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector wrong port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorWrongPort() throws UnknownHostException {
         m_detector.setPort(9000);
@@ -114,6 +156,12 @@ public class MX4JDetectorTest implements InitializingBean {
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
 
+    /**
+     * Test detector wrong url path.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorWrongUrlPath() throws UnknownHostException {
         m_detector.setUrlPath("wrongpath");

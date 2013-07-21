@@ -55,6 +55,8 @@ public class IsolatingClassLoader extends URLClassLoader {
      * Constructor for IsolatingClassLoader.
      * </p>
      *
+     * @param name
+     *            a {@link java.lang.String} object.
      * @param classpath
      *            Where to find classes.
      * @param isolated
@@ -65,12 +67,8 @@ public class IsolatingClassLoader extends URLClassLoader {
      * @param augmentClassPath
      *            true => Add the URL's of the current
      *            thread context class loader to <code>classpath</code>.
-     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException
-     *             If augmentClassPath
-     *             is true and the current thread context class loader is not a
-     *             <code>URLClassLoader</code>.
-     * @param name
-     *            a {@link java.lang.String} object.
+     * @throws InvalidContextClassLoaderException
+     *             the invalid context class loader exception
      */
     public IsolatingClassLoader(String name, URL[] classpath, String[] isolated, boolean augmentClassPath)
             throws InvalidContextClassLoaderException {
@@ -84,8 +82,12 @@ public class IsolatingClassLoader extends URLClassLoader {
      * Constructor for IsolatingClassLoader.
      * </p>
      *
+     * @param name
+     *            a {@link java.lang.String} object.
      * @param classpath
      *            Where to find classes.
+     * @param parent
+     *            a {@link java.lang.ClassLoader} object.
      * @param isolated
      *            Array of fully qualified class names, or fully
      *            qualified prefixes ending in "*", that identify the packages
@@ -94,14 +96,8 @@ public class IsolatingClassLoader extends URLClassLoader {
      * @param augmentClassPath
      *            true => Add the URL's of the current
      *            thread context class loader to <code>classpath</code>.
-     * @throws org.opennms.netmgt.provision.support.jmx.connectors.IsolatingClassLoader.InvalidContextClassLoaderException
-     *             If augmentClassPath
-     *             is true and the current thread context class loader is not a
-     *             <code>URLClassLoader</code>.
-     * @param name
-     *            a {@link java.lang.String} object.
-     * @param parent
-     *            a {@link java.lang.ClassLoader} object.
+     * @throws InvalidContextClassLoaderException
+     *             the invalid context class loader exception
      */
     public IsolatingClassLoader(String name, URL[] classpath, ClassLoader parent, String[] isolated,
             boolean augmentClassPath) throws InvalidContextClassLoaderException {
@@ -110,6 +106,18 @@ public class IsolatingClassLoader extends URLClassLoader {
         init(name, isolated, augmentClassPath);
     }
 
+    /**
+     * Inits the.
+     *
+     * @param name
+     *            the name
+     * @param isolated
+     *            the isolated
+     * @param augmentClassPath
+     *            the augment class path
+     * @throws InvalidContextClassLoaderException
+     *             the invalid context class loader exception
+     */
     private void init(String name, String[] isolated, boolean augmentClassPath)
             throws InvalidContextClassLoaderException {
 
@@ -182,13 +190,20 @@ public class IsolatingClassLoader extends URLClassLoader {
         return super.loadClass(name, resolve);
     }
 
+    /**
+     * The Class InvalidContextClassLoaderException.
+     */
     public static class InvalidContextClassLoaderException extends Exception {
 
-        /**
-         *
-         */
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 6994862689901854608L;
 
+        /**
+         * Instantiates a new invalid context class loader exception.
+         *
+         * @param message
+         *            the message
+         */
         public InvalidContextClassLoaderException(String message) {
 
             super(message);

@@ -41,6 +41,8 @@ import javax.management.MBeanServerConnection;
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public class JBossConnectionWrapper implements ConnectionWrapper {
+
+    /** The mbean server. */
     private MBeanServer mbeanServer;
 
     /**
@@ -64,6 +66,7 @@ public class JBossConnectionWrapper implements ConnectionWrapper {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -79,6 +82,7 @@ public class JBossConnectionWrapper implements ConnectionWrapper {
      * <p>
      * getMBeanServer
      * </p>
+     * .
      *
      * @return a {@link javax.management.MBeanServerConnection} object.
      */

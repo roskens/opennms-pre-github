@@ -61,30 +61,50 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class Jsr160DetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class Jsr160DetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public Jsr160Detector m_detector;
 
+    /** The m_bean server. */
     public static MBeanServer m_beanServer;
 
+    /** The m_connector server. */
     private JMXConnectorServer m_connectorServer;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Before test.
+     *
+     * @throws RemoteException
+     *             the remote exception
+     */
     @BeforeClass
     public static void beforeTest() throws RemoteException {
         LocateRegistry.createRegistry(9123);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
         MockLogAppender.setupLogging();
@@ -97,11 +117,33 @@ public class Jsr160DetectorTest implements InitializingBean {
         m_connectorServer.start();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_connectorServer.stop();
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws NullPointerException
+     *             the null pointer exception
+     * @throws InstanceAlreadyExistsException
+     *             the instance already exists exception
+     * @throws MBeanRegistrationException
+     *             the m bean registration exception
+     * @throws NotCompliantMBeanException
+     *             the not compliant m bean exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws IOException, MalformedObjectNameException, NullPointerException,
             InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
@@ -114,6 +156,22 @@ public class Jsr160DetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Test detector wrong port.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws NullPointerException
+     *             the null pointer exception
+     * @throws InstanceAlreadyExistsException
+     *             the instance already exists exception
+     * @throws MBeanRegistrationException
+     *             the m bean registration exception
+     * @throws NotCompliantMBeanException
+     *             the not compliant m bean exception
+     */
     @Test(timeout = 90000)
     public void testDetectorWrongPort() throws IOException, MalformedObjectNameException, NullPointerException,
             InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
@@ -126,6 +184,22 @@ public class Jsr160DetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Test detector wrong url path.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws NullPointerException
+     *             the null pointer exception
+     * @throws InstanceAlreadyExistsException
+     *             the instance already exists exception
+     * @throws MBeanRegistrationException
+     *             the m bean registration exception
+     * @throws NotCompliantMBeanException
+     *             the not compliant m bean exception
+     */
     @Test(timeout = 90000)
     public void testDetectorWrongUrlPath() throws IOException, MalformedObjectNameException, NullPointerException,
             InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {

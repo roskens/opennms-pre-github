@@ -45,12 +45,14 @@ import org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper;
  */
 public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
 
+    /** The m_connection. */
     private ConnectionWrapper m_connection;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -64,6 +66,7 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param parameterMap
      *            a {@link java.util.Map} object.
@@ -79,6 +82,7 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * <p>
      * generateMap
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -98,12 +102,13 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public Integer receiveBanner() throws IOException, Exception {
@@ -118,22 +123,30 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper}
-     *            object.
      * @return a {@link java.lang.Integer} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper}
+     *             object.
      */
     @Override
     public Integer sendRequest(ConnectionWrapper request) throws IOException, Exception {
         return receiveResponse();
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the integer
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private Integer receiveResponse() throws IOException {
         return null;
     }

@@ -42,8 +42,10 @@ import javax.management.remote.JMXConnector;
  */
 public class Jsr160ConnectionWrapper implements ConnectionWrapper {
 
+    /** The connector. */
     private JMXConnector connector;
 
+    /** The connection. */
     private MBeanServerConnection connection;
 
     /**
@@ -65,6 +67,7 @@ public class Jsr160ConnectionWrapper implements ConnectionWrapper {
      * <p>
      * getMBeanServer
      * </p>
+     * .
      *
      * @return Returns the connection.
      */
@@ -77,6 +80,7 @@ public class Jsr160ConnectionWrapper implements ConnectionWrapper {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {

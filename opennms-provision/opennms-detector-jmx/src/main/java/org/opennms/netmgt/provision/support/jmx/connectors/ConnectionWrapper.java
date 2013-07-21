@@ -38,10 +38,12 @@ import javax.management.MBeanServerConnection;
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public interface ConnectionWrapper {
+
     /**
      * <p>
      * getMBeanServer
      * </p>
+     * .
      *
      * @return a {@link javax.management.MBeanServerConnection} object.
      */
@@ -51,6 +53,7 @@ public interface ConnectionWrapper {
      * <p>
      * close
      * </p>
+     * .
      */
     public void close();
 

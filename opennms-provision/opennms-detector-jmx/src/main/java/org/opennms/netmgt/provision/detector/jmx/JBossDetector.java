@@ -33,6 +33,9 @@ import org.opennms.netmgt.provision.detector.jmx.client.JMXClient;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class JBossDetector.
+ */
 @Component
 /**
  * <p>JBossDetector class.</p>
@@ -43,8 +46,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class JBossDetector extends JMXDetector {
 
+    /** The default service name. */
     private static String DEFAULT_SERVICE_NAME = "JBoss";
 
+    /** The default jboss port. */
     private static int DEFAULT_JBOSS_PORT = 1099;
 
     /**

@@ -43,10 +43,11 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class Jsr160Detector extends AbstractJsr160Detector {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "JSR160";
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Jsr160Detector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);

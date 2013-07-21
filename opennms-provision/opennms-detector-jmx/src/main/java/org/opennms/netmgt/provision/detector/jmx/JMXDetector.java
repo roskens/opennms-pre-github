@@ -78,6 +78,7 @@ public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integ
      * <p>
      * expectBeanCount
      * </p>
+     * .
      *
      * @param bannerValidator
      *            a
@@ -92,6 +93,7 @@ public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integ
      * <p>
      * greatThan
      * </p>
+     * .
      *
      * @param count
      *            a int.

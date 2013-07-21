@@ -46,6 +46,7 @@ import org.opennms.netmgt.provision.support.jmx.connectors.Jsr160ConnectionFacto
  */
 public class Jsr160Client extends JMXClient {
 
+    /** The m_parameter map. */
     private Map<String, Object> m_parameterMap;
 
     /**
@@ -76,6 +77,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setFactory
      * </p>
+     * .
      *
      * @param factory
      *            a {@link java.lang.String} object.
@@ -88,6 +90,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setFriendlyName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -100,6 +103,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -112,6 +116,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -124,6 +129,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setUrlPath
      * </p>
+     * .
      *
      * @param urlPath
      *            a {@link java.lang.String} object.
@@ -136,6 +142,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -148,6 +155,7 @@ public class Jsr160Client extends JMXClient {
      * <p>
      * setProtocol
      * </p>
+     * .
      *
      * @param protocol
      *            a {@link java.lang.String} object.

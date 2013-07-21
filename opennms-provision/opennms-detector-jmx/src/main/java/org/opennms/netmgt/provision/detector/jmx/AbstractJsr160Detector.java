@@ -41,21 +41,28 @@ import org.opennms.netmgt.provision.detector.jmx.client.Jsr160Client;
  */
 public abstract class AbstractJsr160Detector extends JMXDetector {
 
-    /** Constant <code>DEFAULT_PORT=9003</code> */
+    /** Constant <code>DEFAULT_PORT=9003</code>. */
     protected static int DEFAULT_PORT = 9003;
 
+    /** The m_factory. */
     private String m_factory = "STANDARD";
 
+    /** The m_friendly name. */
     private String m_friendlyName = "jsr160";
 
+    /** The m_protocol. */
     private String m_protocol = "rmi";
 
+    /** The m_type. */
     private String m_type = "default";
 
+    /** The m_url path. */
     private String m_urlPath = "/jmxrmi";
 
+    /** The m_username. */
     private String m_username = "opennms";
 
+    /** The m_password. */
     private String m_password = "OPENNMS";
 
     /**
@@ -92,6 +99,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setFactory
      * </p>
+     * .
      *
      * @param factory
      *            a {@link java.lang.String} object.
@@ -104,6 +112,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getFactory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,6 +124,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setFriendlyName
      * </p>
+     * .
      *
      * @param friendlyName
      *            a {@link java.lang.String} object.
@@ -127,6 +137,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getFriendlyName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -138,6 +149,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setProtocol
      * </p>
+     * .
      *
      * @param protocol
      *            a {@link java.lang.String} object.
@@ -150,6 +162,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getProtocol
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -161,6 +174,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -173,6 +187,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -184,6 +199,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setUrlPath
      * </p>
+     * .
      *
      * @param urlPath
      *            a {@link java.lang.String} object.
@@ -196,6 +212,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getUrlPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -207,6 +224,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -219,6 +237,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,6 +249,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -242,6 +262,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

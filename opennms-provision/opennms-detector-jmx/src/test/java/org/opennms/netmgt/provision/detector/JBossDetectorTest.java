@@ -43,23 +43,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class JBossDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class JBossDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     public JBossDetector m_detector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws RemoteException
+     *             the remote exception
+     */
     @Before
     public void setUp() throws RemoteException {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test detectored wired.
+     */
     @Test(timeout = 90000)
     public void testDetectoredWired() {
         assertNotNull(m_detector);

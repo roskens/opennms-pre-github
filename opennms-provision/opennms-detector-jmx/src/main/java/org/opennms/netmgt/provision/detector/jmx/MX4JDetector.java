@@ -31,6 +31,9 @@ package org.opennms.netmgt.provision.detector.jmx;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class MX4JDetector.
+ */
 @Component
 /**
  * <p>MX4JDetector class.</p>

@@ -55,12 +55,14 @@ import org.slf4j.LoggerFactory;
  */
 public class Jsr160ConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Jsr160ConnectionFactory.class);
 
     /**
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param propertiesMap
      *            a {@link java.util.Map} object.
@@ -82,6 +84,25 @@ public class Jsr160ConnectionFactory {
         return getWrapper(address, factory, port, protocol, urlPath, username, password);
     }
 
+    /**
+     * Gets the wrapper.
+     *
+     * @param address
+     *            the address
+     * @param factory
+     *            the factory
+     * @param port
+     *            the port
+     * @param protocol
+     *            the protocol
+     * @param urlPath
+     *            the url path
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     * @return the wrapper
+     */
     private static Jsr160ConnectionWrapper getWrapper(InetAddress address, String factory, int port, String protocol,
             String urlPath, String username, String password) {
         Jsr160ConnectionWrapper connectionWrapper = null;
