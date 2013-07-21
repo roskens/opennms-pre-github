@@ -38,20 +38,26 @@ package org.opennms.netmgt.provision;
  */
 public class ResourceRecord {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_r class. */
     private String m_rClass;
 
+    /** The m_rd length. */
     private Integer m_rdLength;
 
+    /** The m_rdata. */
     private String m_rdata;
 
+    /** The m_ttl. */
     private String m_ttl;
 
     /**
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -63,6 +69,7 @@ public class ResourceRecord {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -75,6 +82,7 @@ public class ResourceRecord {
      * <p>
      * getRClass
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +94,7 @@ public class ResourceRecord {
      * <p>
      * setClass
      * </p>
+     * .
      *
      * @param class1
      *            a {@link java.lang.String} object.
@@ -98,6 +107,7 @@ public class ResourceRecord {
      * <p>
      * getRdLength
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -109,6 +119,7 @@ public class ResourceRecord {
      * <p>
      * setRdLength
      * </p>
+     * .
      *
      * @param rdLength
      *            a {@link java.lang.Integer} object.
@@ -121,6 +132,7 @@ public class ResourceRecord {
      * <p>
      * getRdata
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,6 +144,7 @@ public class ResourceRecord {
      * <p>
      * setRdata
      * </p>
+     * .
      *
      * @param rdata
      *            a {@link java.lang.String} object.
@@ -144,6 +157,7 @@ public class ResourceRecord {
      * <p>
      * getTtl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,6 +169,7 @@ public class ResourceRecord {
      * <p>
      * setTtl
      * </p>
+     * .
      *
      * @param ttl
      *            a {@link java.lang.String} object.

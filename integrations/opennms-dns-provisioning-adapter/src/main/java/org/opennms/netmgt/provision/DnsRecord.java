@@ -36,15 +36,29 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class DnsRecord.
+ */
 class DnsRecord {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DnsRecord.class);
 
+    /** The m_ip. */
     private InetAddress m_ip;
 
+    /** The m_hostname. */
     private String m_hostname;
 
+    /** The m_zone. */
     private String m_zone;
 
+    /**
+     * Instantiates a new dns record.
+     *
+     * @param node
+     *            the node
+     */
     DnsRecord(OnmsNode node) {
 
         OnmsIpInterface primaryInterface = node.getPrimaryInterface();
@@ -72,6 +86,7 @@ class DnsRecord {
      * <p>
      * getIp
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -83,6 +98,7 @@ class DnsRecord {
      * <p>
      * getZone
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +110,7 @@ class DnsRecord {
      * <p>
      * getHostname
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

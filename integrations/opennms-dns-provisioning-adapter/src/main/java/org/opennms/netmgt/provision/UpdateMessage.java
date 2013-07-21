@@ -54,20 +54,26 @@ public class UpdateMessage {
      * +---------------------+
      */
 
+    /** The m_header. */
     private UpdateHeader m_header;
 
+    /** The m_zone. */
     private String m_zone;
 
+    /** The m_prereq. */
     private String m_prereq;
 
+    /** The m_update. */
     private Set<ResourceRecord> m_update;
 
+    /** The m_additional data. */
     private String m_additionalData;
 
     /**
      * <p>
      * getHeader
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.UpdateMessage.UpdateHeader}
      *         object.
@@ -80,6 +86,7 @@ public class UpdateMessage {
      * <p>
      * setHeader
      * </p>
+     * .
      *
      * @param header
      *            a
@@ -94,6 +101,7 @@ public class UpdateMessage {
      * <p>
      * getZone
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +113,7 @@ public class UpdateMessage {
      * <p>
      * setZone
      * </p>
+     * .
      *
      * @param zone
      *            a {@link java.lang.String} object.
@@ -117,6 +126,7 @@ public class UpdateMessage {
      * <p>
      * getPrereq
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +138,7 @@ public class UpdateMessage {
      * <p>
      * setPrereq
      * </p>
+     * .
      *
      * @param prereq
      *            a {@link java.lang.String} object.
@@ -140,6 +151,7 @@ public class UpdateMessage {
      * <p>
      * getUpdate
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -151,6 +163,7 @@ public class UpdateMessage {
      * <p>
      * setUpdate
      * </p>
+     * .
      *
      * @param update
      *            a {@link java.util.Set} object.
@@ -163,6 +176,7 @@ public class UpdateMessage {
      * <p>
      * getAdditionalData
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -174,6 +188,7 @@ public class UpdateMessage {
      * <p>
      * setAdditionalData
      * </p>
+     * .
      *
      * @param additionalData
      *            a {@link java.lang.String} object.
@@ -182,6 +197,9 @@ public class UpdateMessage {
         m_additionalData = additionalData;
     }
 
+    /**
+     * The Class UpdateHeader.
+     */
     private class UpdateHeader {
 
         /*
@@ -251,27 +269,35 @@ public class UpdateMessage {
          * ADCOUNT The number of RRs in the Additional Data Section.
          */
 
+        /** The m_id. */
         @SuppressWarnings("unused")
         private int m_id;
 
+        /** The m_flag. */
         @SuppressWarnings("unused")
         private int m_flag;
 
+        /** The m_opt code. */
         @SuppressWarnings("unused")
         private int m_optCode;
 
+        /** The Constant Z. */
         @SuppressWarnings("unused")
         private static final int Z = 0;
 
+        /** The m_r code. */
         @SuppressWarnings("unused")
         private int m_rCode;
 
+        /** The m_z o count. */
         @SuppressWarnings("unused")
         private int m_zOCount;
 
+        /** The m_up count. */
         @SuppressWarnings("unused")
         private int m_upCount;
 
+        /** The m_ad count. */
         @SuppressWarnings("unused")
         private int m_adCount;
 

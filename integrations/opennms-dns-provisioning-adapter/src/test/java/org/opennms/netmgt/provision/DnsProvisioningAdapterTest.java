@@ -50,6 +50,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 
+/**
+ * The Class DnsProvisioningAdapterTest.
+ */
 @TestExecutionListeners({ JUnitDNSServerExecutionListener.class })
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -60,21 +63,35 @@ import org.springframework.test.context.TestExecutionListeners;
         "importer.adapter.dns.server=127.0.0.1:9153",
         "importer.adapter.dns.privatekey=hmac-md5/test.example.com./QBMBi+8THN8iyAuGIhniB+fiURwQjrrpwFuq1L6NmHcya7QdKqjwp6kLIczPjsAUDcqiLAdQJnQUhCPThA4XtQ==" })
 public class DnsProvisioningAdapterTest implements InitializingBean {
+
+    /** The m_adapter. */
     @Autowired
     private DnsProvisioningAdapter m_adapter;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_add operation. */
     private AdapterOperation m_addOperation;
 
+    /** The m_delete operation. */
     private AdapterOperation m_deleteOperation;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         NetworkBuilder nb = new NetworkBuilder();
@@ -106,6 +123,12 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
                                                                                                                         TimeUnit.SECONDS));
     }
 
+    /**
+     * Test add.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "test", address = "192.168.0.1") }) })
     public void testAdd() throws Exception {
@@ -114,6 +137,12 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
         m_adapter.processPendingOperationForNode(m_addOperation);
     }
 
+    /**
+     * Test delete.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "example.com", entries = { @DNSEntry(hostname = "test", address = "192.168.0.1") }) })
     public void testDelete() throws Exception {

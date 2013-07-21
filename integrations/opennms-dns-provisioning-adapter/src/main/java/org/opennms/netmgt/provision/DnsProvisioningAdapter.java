@@ -62,6 +62,8 @@ import org.xbill.DNS.Update;
  * @version $Id: $
  */
 public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DnsProvisioningAdapter.class);
 
     /**
@@ -69,27 +71,35 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      */
     private NodeDao m_nodeDao;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_resolver. */
     private Resolver m_resolver = null;
 
+    /** The m_signature. */
     private String m_signature;
 
+    /** The m_template. */
     private TransactionTemplate m_template;
 
+    /** The Constant MESSAGE_PREFIX. */
     private static final String MESSAGE_PREFIX = "Dynamic DNS provisioning failed: ";
 
+    /** The Constant ADAPTER_NAME. */
     private static final String ADAPTER_NAME = "DNS Provisioning Adapter";
 
+    /** The m_node dns record map. */
     private static volatile ConcurrentMap<Integer, DnsRecord> m_nodeDnsRecordMap;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -125,6 +135,9 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Creates the dns record map.
+     */
     private void createDnsRecordMap() {
         List<OnmsNode> nodes = m_nodeDao.findAllProvisionedNodes();
 
@@ -140,6 +153,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -151,6 +165,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -163,6 +178,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -176,6 +192,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -187,6 +204,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -229,6 +247,12 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Do update.
+     *
+     * @param op
+     *            the op
+     */
     private void doUpdate(AdapterOperation op) {
         OnmsNode node = null;
         LOG.debug("doUpdate: operation: {}", op.getType().name());
@@ -254,6 +278,12 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Do delete.
+     *
+     * @param op
+     *            the op
+     */
     private void doDelete(AdapterOperation op) {
         try {
             DnsRecord record = m_nodeDnsRecordMap.get(Integer.valueOf(op.getNodeId()));
@@ -271,6 +301,14 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Send and throw.
+     *
+     * @param nodeId
+     *            the node id
+     * @param e
+     *            the e
+     */
     private void sendAndThrow(int nodeId, Throwable e) {
         String message = e.getLocalizedMessage() == null ? "" : ": " + e.getLocalizedMessage();
         Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason",
@@ -281,6 +319,15 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }
 
+    /**
+     * Builds the event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @return the event builder
+     */
     private EventBuilder buildEvent(String uei, int nodeId) {
         EventBuilder builder = new EventBuilder(uei, "Provisioner", new Date());
         builder.setNodeid(nodeId);
@@ -291,6 +338,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setTemplate
      * </p>
+     * .
      *
      * @param template
      *            a
@@ -305,6 +353,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getTemplate
      * </p>
+     * .
      *
      * @return a
      *         {@link org.springframework.transaction.support.TransactionTemplate}
