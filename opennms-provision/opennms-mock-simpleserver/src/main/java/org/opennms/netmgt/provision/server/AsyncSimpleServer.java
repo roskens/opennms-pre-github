@@ -50,27 +50,35 @@ import org.opennms.netmgt.provision.server.exchange.LineConversation;
  */
 public class AsyncSimpleServer {
 
+    /** The Constant CHARSET_UTF8. */
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
+    /** The m_line conversation. */
     private LineConversation m_lineConversation;
 
+    /** The m_acceptor. */
     private IoAcceptor m_acceptor;
 
+    /** The m_io handler. */
     private IoHandler m_ioHandler;
 
+    /** The m_port. */
     private int m_port = 9123;
 
+    /** The m_buffer size. */
     private int m_bufferSize = 2048;
 
+    /** The m_idle time. */
     private int m_idleTime = 10;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public final void init() throws Exception {
         m_lineConversation = new LineConversation();
@@ -81,6 +89,7 @@ public class AsyncSimpleServer {
      * <p>
      * onInit
      * </p>
+     * .
      */
     protected void onInit() {
         // Do nothing by default
@@ -90,9 +99,10 @@ public class AsyncSimpleServer {
      * <p>
      * startServer
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void startServer() throws Exception {
 
@@ -112,9 +122,10 @@ public class AsyncSimpleServer {
      * <p>
      * stopServer
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void stopServer() throws Exception {
         m_acceptor.unbind();
@@ -125,6 +136,7 @@ public class AsyncSimpleServer {
      * <p>
      * addRequestHandler
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.lang.String} object.
@@ -139,6 +151,7 @@ public class AsyncSimpleServer {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -151,6 +164,7 @@ public class AsyncSimpleServer {
      * <p>
      * setExpectedClose
      * </p>
+     * .
      *
      * @param closeRequest
      *            a {@link java.lang.String} object.
@@ -163,6 +177,7 @@ public class AsyncSimpleServer {
      * <p>
      * setExpectedClose
      * </p>
+     * .
      *
      * @param closeRequest
      *            a {@link java.lang.String} object.
@@ -177,6 +192,7 @@ public class AsyncSimpleServer {
      * <p>
      * getServerHandler
      * </p>
+     * .
      *
      * @return a {@link org.apache.mina.core.service.IoHandler} object.
      */
@@ -188,6 +204,7 @@ public class AsyncSimpleServer {
      * <p>
      * setServerHandler
      * </p>
+     * .
      *
      * @param handler
      *            a {@link org.apache.mina.core.service.IoHandler} object.
@@ -200,6 +217,7 @@ public class AsyncSimpleServer {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -212,6 +230,7 @@ public class AsyncSimpleServer {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -223,6 +242,7 @@ public class AsyncSimpleServer {
      * <p>
      * setBufferSize
      * </p>
+     * .
      *
      * @param bufferSize
      *            a int.
@@ -235,6 +255,7 @@ public class AsyncSimpleServer {
      * <p>
      * getBufferSize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -246,6 +267,7 @@ public class AsyncSimpleServer {
      * <p>
      * setIdleTime
      * </p>
+     * .
      *
      * @param idleTime
      *            a int.
@@ -258,6 +280,7 @@ public class AsyncSimpleServer {
      * <p>
      * getIdleTime
      * </p>
+     * .
      *
      * @return a int.
      */

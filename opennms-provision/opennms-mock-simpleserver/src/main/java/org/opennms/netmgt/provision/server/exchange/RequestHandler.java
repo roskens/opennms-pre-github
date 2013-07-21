@@ -40,15 +40,17 @@ import java.io.OutputStream;
  * @version $Id: $
  */
 public interface RequestHandler {
+
     /**
      * <p>
      * doRequest
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void doRequest(OutputStream out) throws IOException;
 }

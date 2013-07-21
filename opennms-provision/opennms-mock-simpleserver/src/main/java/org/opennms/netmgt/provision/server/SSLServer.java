@@ -55,48 +55,57 @@ import org.slf4j.LoggerFactory;
  */
 public class SSLServer extends SimpleServer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SSLServer.class);
 
-    /** Constant <code>DEFAULT_TESTING_PORT=7070</code> */
+    /** Constant <code>DEFAULT_TESTING_PORT=7070</code>. */
     public static final int DEFAULT_TESTING_PORT = 7070;
 
-    /** Constant <code>DEFAULT_PASSWORD="123456"</code> */
+    /** Constant <code>DEFAULT_PASSWORD="123456"</code>. */
     public static final String DEFAULT_PASSWORD = "123456";
 
     /**
      * Constant
      * <code>DEFAULT_PATH_TO_KEY_STORE="src/main/resources/org/opennms/netmgt/p"{trunked}</code>
+     * .
      */
     public static final String DEFAULT_PATH_TO_KEY_STORE = "src/main/resources/org/opennms/netmgt/provision/server/mySrvKeystore";
 
-    /** Constant <code>DEFAULT_KEY_MANAGER_ALGORITHM="SunX509"</code> */
+    /** Constant <code>DEFAULT_KEY_MANAGER_ALGORITHM="SunX509"</code>. */
     public static final String DEFAULT_KEY_MANAGER_ALGORITHM = "SunX509";
 
-    /** Constant <code>DEFAULT_KEY_MANAGER_PROVIDER="SunJSSE"</code> */
+    /** Constant <code>DEFAULT_KEY_MANAGER_PROVIDER="SunJSSE"</code>. */
     public static final String DEFAULT_KEY_MANAGER_PROVIDER = "SunJSSE";
 
-    /** Constant <code>DEFAULT_SSL_CONTEXT_PROTOCOL="SSL"</code> */
+    /** Constant <code>DEFAULT_SSL_CONTEXT_PROTOCOL="SSL"</code>. */
     public static final String DEFAULT_SSL_CONTEXT_PROTOCOL = "SSL";
 
+    /** The m_port. */
     private int m_port = DEFAULT_TESTING_PORT;
 
+    /** The m_password. */
     private String m_password = DEFAULT_PASSWORD;
 
+    /** The m_path to key store. */
     private String m_pathToKeyStore = DEFAULT_PATH_TO_KEY_STORE;
 
+    /** The m_key manager algorithm. */
     private String m_keyManagerAlgorithm = DEFAULT_KEY_MANAGER_ALGORITHM;
 
+    /** The m_key manager provider. */
     private String m_keyManagerProvider = DEFAULT_KEY_MANAGER_PROVIDER;
 
+    /** The m_ssl context protocol. */
     private String m_sslContextProtocol = DEFAULT_SSL_CONTEXT_PROTOCOL;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void init() throws Exception {
@@ -129,10 +138,11 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getRunnable
      * </p>
+     * .
      *
      * @return a {@link java.lang.Runnable} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     protected Runnable getRunnable() throws Exception {
@@ -183,6 +193,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -195,6 +206,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -206,6 +218,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -218,6 +231,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -229,6 +243,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setPathToKeyStore
      * </p>
+     * .
      *
      * @param pathToKeyStore
      *            a {@link java.lang.String} object.
@@ -241,6 +256,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getPathToKeyStore
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +268,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setKeyManagerAlgorithm
      * </p>
+     * .
      *
      * @param keyManagerAlgorithm
      *            a {@link java.lang.String} object.
@@ -264,6 +281,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getKeyManagerAlgorithm
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -275,6 +293,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setKeyManagerProvider
      * </p>
+     * .
      *
      * @param keyManagerProvider
      *            a {@link java.lang.String} object.
@@ -287,6 +306,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getKeyManagerProvider
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -298,6 +318,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * setSslContextProtocol
      * </p>
+     * .
      *
      * @param sslContextProtocol
      *            a {@link java.lang.String} object.
@@ -310,6 +331,7 @@ public class SSLServer extends SimpleServer {
      * <p>
      * getSslContextProtocol
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

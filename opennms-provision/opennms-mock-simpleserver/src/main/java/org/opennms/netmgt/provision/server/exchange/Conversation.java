@@ -48,21 +48,36 @@ import org.slf4j.LoggerFactory;
  */
 public class Conversation {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Conversation.class);
 
+    /**
+     * The Class ErrorExchange.
+     */
     public static class ErrorExchange implements Exchange {
+
+        /** The Constant ERROR_STRING. */
         private static final String ERROR_STRING = "DEFAULT ERROR STRING: YOU HAVE NOT IMPLEMENTED AN ERROR EXCHANGE";
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#matchResponseByString(java.lang.String)
+         */
         @Override
         public boolean matchResponseByString(String response) {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#processResponse(java.io.BufferedReader)
+         */
         @Override
         public boolean processResponse(BufferedReader in) throws IOException {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#sendRequest(java.io.OutputStream)
+         */
         @Override
         public boolean sendRequest(OutputStream out) throws IOException {
             out.write(String.format("%s\r\n", ERROR_STRING).getBytes());
@@ -71,14 +86,17 @@ public class Conversation {
 
     }
 
+    /** The m_conversation. */
     private final List<Exchange> m_conversation = new ArrayList<Exchange>();
 
+    /** The m_error exchange. */
     private Exchange m_errorExchange = new ErrorExchange();
 
     /**
      * <p>
      * addExchange
      * </p>
+     * .
      *
      * @param exchange
      *            a
@@ -93,6 +111,7 @@ public class Conversation {
      * <p>
      * addErrorExchange
      * </p>
+     * .
      *
      * @param ex
      *            a
@@ -107,13 +126,14 @@ public class Conversation {
      * <p>
      * attemptServerConversation
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void attemptServerConversation(BufferedReader in, OutputStream out) throws Exception {
         boolean isFinished = false;
@@ -153,14 +173,15 @@ public class Conversation {
      * <p>
      * attemptClientConversation
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean attemptClientConversation(BufferedReader in, OutputStream out) throws IOException {
 
@@ -181,6 +202,15 @@ public class Conversation {
 
     }
 
+    /**
+     * Find matching exchange.
+     *
+     * @param input
+     *            the input
+     * @return the exchange
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private Exchange findMatchingExchange(String input) throws IOException {
 
         for (Exchange ex : m_conversation) {
@@ -197,6 +227,7 @@ public class Conversation {
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -219,6 +250,7 @@ public class Conversation {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -241,6 +273,7 @@ public class Conversation {
      * <p>
      * regexpMatches
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.

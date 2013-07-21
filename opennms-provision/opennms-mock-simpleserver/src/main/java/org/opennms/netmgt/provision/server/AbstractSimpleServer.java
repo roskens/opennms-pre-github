@@ -52,30 +52,81 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractSimpleServer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSimpleServer.class);
 
+    /**
+     * The Interface RequestMatcher.
+     */
     public static interface RequestMatcher {
+
+        /**
+         * Matches.
+         *
+         * @param input
+         *            the input
+         * @return true, if successful
+         */
         public boolean matches(String input);
     }
 
+    /**
+     * The Interface Exchange.
+     */
     public static interface Exchange {
+
+        /**
+         * Send reply.
+         *
+         * @param out
+         *            the out
+         * @return true, if successful
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public boolean sendReply(OutputStream out) throws IOException;
 
+        /**
+         * Process request.
+         *
+         * @param in
+         *            the in
+         * @return true, if successful
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public boolean processRequest(BufferedReader in) throws IOException;
     }
 
+    /**
+     * The Class BannerExchange.
+     */
     public static class BannerExchange implements Exchange {
+
+        /** The m_banner. */
         private String m_banner;
 
+        /**
+         * Instantiates a new banner exchange.
+         *
+         * @param banner
+         *            the banner
+         */
         public BannerExchange(String banner) {
             m_banner = banner;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.AbstractSimpleServer.Exchange#processRequest(java.io.BufferedReader)
+         */
         @Override
         public boolean processRequest(BufferedReader in) throws IOException {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.AbstractSimpleServer.Exchange#sendReply(java.io.OutputStream)
+         */
         @Override
         public boolean sendReply(OutputStream out) throws IOException {
             out.write(String.format("%s\r\n", m_banner).getBytes());
@@ -84,16 +135,33 @@ public abstract class AbstractSimpleServer {
 
     }
 
+    /**
+     * The Class SimpleServerExchange.
+     */
     public static class SimpleServerExchange implements Exchange {
+
+        /** The m_response. */
         private String m_response;
 
+        /** The m_request matcher. */
         private RequestMatcher m_requestMatcher;
 
+        /**
+         * Instantiates a new simple server exchange.
+         *
+         * @param requestMatcher
+         *            the request matcher
+         * @param response
+         *            the response
+         */
         public SimpleServerExchange(RequestMatcher requestMatcher, String response) {
             m_response = response;
             m_requestMatcher = requestMatcher;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.AbstractSimpleServer.Exchange#processRequest(java.io.BufferedReader)
+         */
         @Override
         public boolean processRequest(BufferedReader in) throws IOException {
             String line = in.readLine();
@@ -105,6 +173,9 @@ public abstract class AbstractSimpleServer {
             return m_requestMatcher.matches(line);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.AbstractSimpleServer.Exchange#sendReply(java.io.OutputStream)
+         */
         @Override
         public boolean sendReply(OutputStream out) throws IOException {
             LOG.info("writing output: {}", m_response);
@@ -114,20 +185,26 @@ public abstract class AbstractSimpleServer {
 
     }
 
+    /** The m_server socket. */
     private ServerSocket m_serverSocket = null;
 
+    /** The m_server thread. */
     private Thread m_serverThread = null;
 
+    /** The m_socket. */
     private Socket m_socket;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_conversation. */
     private List<Exchange> m_conversation = new ArrayList<Exchange>();
 
     /**
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -139,6 +216,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -151,6 +229,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return InetAddress returns the inetaddress from the serversocket.
      */
@@ -162,6 +241,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * getLocalPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -173,9 +253,10 @@ public abstract class AbstractSimpleServer {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public final void init() throws Exception {
         m_serverSocket = new ServerSocket();
@@ -188,6 +269,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * onInit
      * </p>
+     * .
      */
     protected void onInit() {
         // Do nothing by default
@@ -197,9 +279,10 @@ public abstract class AbstractSimpleServer {
      * <p>
      * startServer
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void startServer() throws Exception {
         m_serverThread = new Thread(getRunnable(), this.getClass().getSimpleName());
@@ -210,10 +293,11 @@ public abstract class AbstractSimpleServer {
      * <p>
      * getRunnable
      * </p>
+     * .
      *
      * @return a {@link java.lang.Runnable} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Runnable getRunnable() throws Exception {
         return new Runnable() {
@@ -242,14 +326,15 @@ public abstract class AbstractSimpleServer {
      * <p>
      * attemptConversation
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected boolean attemptConversation(BufferedReader in, OutputStream out) throws IOException {
         for (Exchange ex : m_conversation) {
@@ -269,6 +354,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * setExpectedBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -281,6 +367,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * addRequestResponse
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.lang.String} object.
@@ -295,6 +382,7 @@ public abstract class AbstractSimpleServer {
      * <p>
      * regexpMatches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.

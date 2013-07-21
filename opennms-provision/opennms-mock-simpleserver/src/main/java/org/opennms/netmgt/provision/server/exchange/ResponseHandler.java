@@ -42,6 +42,7 @@ public interface ResponseHandler {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param input
      *            a {@link java.lang.String} object.

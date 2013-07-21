@@ -39,16 +39,18 @@ import java.io.IOException;
  * @version $Id: $
  */
 public interface TemplateExchange {
+
     /**
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param args
      *            a {@link java.lang.Object} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean sendRequest(Object... args) throws IOException;
 
@@ -56,12 +58,13 @@ public interface TemplateExchange {
      * <p>
      * processResponse
      * </p>
+     * .
      *
      * @param args
      *            a {@link java.lang.Object} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public boolean processResponse(Object... args) throws IOException;
 
@@ -69,6 +72,7 @@ public interface TemplateExchange {
      * <p>
      * matchResponseByString
      * </p>
+     * .
      *
      * @param input
      *            a {@link java.lang.String} object.

@@ -44,23 +44,45 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
+/**
+ * The Class SimpleServerTest.
+ */
 public class SimpleServerTest {
+
+    /** The m_socket. */
     private Socket m_socket;
 
+    /** The m_in. */
     private BufferedReader m_in;
 
+    /** The m_out. */
     private OutputStream m_out;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_socket.close();
     }
 
+    /**
+     * Test server timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerTimeout() throws Exception {
         SimpleServer server = new SimpleServer() {
@@ -81,6 +103,12 @@ public class SimpleServerTest {
         assertNull(m_in.readLine());
     }
 
+    /**
+     * Test server with custom errors.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerWithCustomErrors() throws Exception {
         SimpleServer server = new SimpleServer() {
@@ -125,6 +153,12 @@ public class SimpleServerTest {
         assertNull(m_in.readLine());
     }
 
+    /**
+     * Test multiple request and close server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMultipleRequestAndCloseServer() throws Exception {
         SimpleServer server = new SimpleServer() {
@@ -160,6 +194,12 @@ public class SimpleServerTest {
         assertNull(m_in.readLine());
     }
 
+    /**
+     * Test server quit and close.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerQuitAndClose() throws Exception {
         // TODO
@@ -187,6 +227,12 @@ public class SimpleServerTest {
         assertNull(m_in.readLine());
     }
 
+    /**
+     * Test server no banner timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerNoBannerTimeout() throws Exception {
         SimpleServer server = new SimpleServer() {
@@ -205,6 +251,14 @@ public class SimpleServerTest {
 
     }
 
+    /**
+     * Connect to server.
+     *
+     * @param server
+     *            the server
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void connectToServer(SimpleServer server) throws IOException {
         m_socket = createSocketConnection(server.getInetAddress(), server.getLocalPort(), 5000);
         m_in = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
@@ -212,6 +266,19 @@ public class SimpleServerTest {
 
     }
 
+    /**
+     * Creates the socket connection.
+     *
+     * @param host
+     *            the host
+     * @param port
+     *            the port
+     * @param timeout
+     *            the timeout
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected Socket createSocketConnection(InetAddress host, int port, int timeout) throws IOException {
         Socket socket = new Socket();
         socket.connect(new InetSocketAddress(host, port), timeout);

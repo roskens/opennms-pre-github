@@ -53,25 +53,46 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleServer extends SimpleConversationEndPoint {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SimpleServer.class);
 
+    /**
+     * The Class ServerErrorExchange.
+     */
     public static class ServerErrorExchange implements Exchange {
+
+        /** The m_error request. */
         protected RequestHandler m_errorRequest;
 
+        /**
+         * Instantiates a new server error exchange.
+         *
+         * @param requestHandler
+         *            the request handler
+         */
         public ServerErrorExchange(final RequestHandler requestHandler) {
             m_errorRequest = requestHandler;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#matchResponseByString(java.lang.String)
+         */
         @Override
         public boolean matchResponseByString(final String response) {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#processResponse(java.io.BufferedReader)
+         */
         @Override
         public boolean processResponse(final BufferedReader in) throws IOException {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#sendRequest(java.io.OutputStream)
+         */
         @Override
         public boolean sendRequest(final OutputStream out) throws IOException {
             m_errorRequest.doRequest(out);
@@ -80,24 +101,32 @@ public class SimpleServer extends SimpleConversationEndPoint {
 
     }
 
+    /** The m_server socket. */
     private ServerSocket m_serverSocket = null;
 
+    /** The m_server thread. */
     private Thread m_serverThread = null;
 
+    /** The m_thread sleep length. */
     private int m_threadSleepLength = 0;
 
+    /** The m_socket. */
     private Socket m_socket;
 
+    /** The m_banner. */
     private String m_banner;
 
+    /** The m_banner delay. */
     private int m_bannerDelay = 0;
 
+    /** The m_stopped. */
     protected volatile boolean m_stopped = false;
 
     /**
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -110,6 +139,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +150,9 @@ public class SimpleServer extends SimpleConversationEndPoint {
     /**
      * Slow down transmission of the banner by a specified number of
      * milliseconds.
+     *
+     * @param delay
+     *            the new banner delay
      */
     public void setBannerDelay(final int delay) {
         m_bannerDelay = delay;
@@ -129,6 +162,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return InetAddress returns the inetaddress from the serversocket.
      */
@@ -140,6 +174,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getLocalPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +186,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * setThreadSleepLength
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -163,6 +199,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getThreadSleepLength
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -174,9 +211,10 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void init() throws Exception {
@@ -190,6 +228,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * onInit
      * </p>
+     * .
      */
     protected void onInit() {
         // Do nothing by default
@@ -199,9 +238,10 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * startServer
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void startServer() throws Exception {
         setServerThread(new Thread(getRunnable(), this.getClass().getSimpleName()));
@@ -213,9 +253,10 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * stopServer
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void stopServer() throws IOException {
         if (!m_stopped) {
@@ -241,6 +282,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * dispose
      * </p>
+     * .
      */
     public void dispose() {
         // Do nothing by default
@@ -250,10 +292,11 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getRunnable
      * </p>
+     * .
      *
      * @return a {@link java.lang.Runnable} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected Runnable getRunnable() throws Exception {
         return new Runnable() {
@@ -335,11 +378,12 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * sendBanner
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void sendBanner(final OutputStream out) throws IOException {
         byte[] bannerBytes = getBanner().getBytes();
@@ -363,14 +407,15 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * attemptConversation
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws java.lang.Exception
-     *             if any.
      * @return a boolean.
+     * @throws Exception
+     *             the exception
      */
     protected boolean attemptConversation(final BufferedReader in, final OutputStream out) throws Exception {
         m_conversation.attemptServerConversation(in, out);
@@ -381,6 +426,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * addErrorHandler
      * </p>
+     * .
      *
      * @param requestHandler
      *            a
@@ -395,6 +441,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * errorString
      * </p>
+     * .
      *
      * @param error
      *            a {@link java.lang.String} object.
@@ -418,6 +465,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * shutdownServer
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -441,6 +489,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * setServerSocket
      * </p>
+     * .
      *
      * @param serverSocket
      *            a {@link java.net.ServerSocket} object.
@@ -453,6 +502,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getServerSocket
      * </p>
+     * .
      *
      * @return a {@link java.net.ServerSocket} object.
      */
@@ -464,6 +514,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * setSocket
      * </p>
+     * .
      *
      * @param socket
      *            a {@link java.net.Socket} object.
@@ -476,6 +527,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getSocket
      * </p>
+     * .
      *
      * @return a {@link java.net.Socket} object.
      */
@@ -487,6 +539,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * setServerThread
      * </p>
+     * .
      *
      * @param serverThread
      *            a {@link java.lang.Thread} object.
@@ -499,6 +552,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * <p>
      * getServerThread
      * </p>
+     * .
      *
      * @return a {@link java.lang.Thread} object.
      */

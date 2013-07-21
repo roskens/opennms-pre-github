@@ -45,8 +45,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleServerHandler extends IoHandlerAdapter {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SimpleServerHandler.class);
 
+    /** The m_conversation. */
     private LineConversation m_conversation;
 
     /**

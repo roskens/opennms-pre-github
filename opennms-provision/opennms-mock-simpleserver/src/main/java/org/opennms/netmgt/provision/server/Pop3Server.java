@@ -42,6 +42,7 @@ public class Pop3Server extends SimpleServer {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {

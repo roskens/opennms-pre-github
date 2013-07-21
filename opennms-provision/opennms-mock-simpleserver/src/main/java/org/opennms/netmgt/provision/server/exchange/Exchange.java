@@ -41,16 +41,18 @@ import java.io.OutputStream;
  * @version $Id: $
  */
 public interface Exchange {
+
     /**
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     boolean sendRequest(OutputStream out) throws IOException;
 
@@ -58,12 +60,13 @@ public interface Exchange {
      * <p>
      * processResponse
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
      * @return a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     boolean processResponse(BufferedReader in) throws IOException;
 
@@ -71,6 +74,7 @@ public interface Exchange {
      * <p>
      * matchResponseByString
      * </p>
+     * .
      *
      * @param input
      *            a {@link java.lang.String} object.

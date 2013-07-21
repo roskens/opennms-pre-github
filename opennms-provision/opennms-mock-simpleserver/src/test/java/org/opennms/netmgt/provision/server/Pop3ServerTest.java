@@ -42,13 +42,26 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
+/**
+ * The Class Pop3ServerTest.
+ */
 public class Pop3ServerTest {
+
+    /** The m_pop3 server. */
     private Pop3Server m_pop3Server;
 
+    /** The m_socket. */
     private Socket m_socket;
 
+    /** The m_in. */
     private BufferedReader m_in;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -63,18 +76,36 @@ public class Pop3ServerTest {
         }
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_socket.close();
         m_pop3Server.stopServer();
     }
 
+    /**
+     * Test server banner.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerBanner() throws Exception {
         String line = m_in.readLine();
         assertEquals("+OK", line);
     }
 
+    /**
+     * Test server banner and response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerBannerAndResponse() throws Exception {
 
@@ -91,6 +122,19 @@ public class Pop3ServerTest {
 
     }
 
+    /**
+     * Creates the socket connection.
+     *
+     * @param host
+     *            the host
+     * @param port
+     *            the port
+     * @param timeout
+     *            the timeout
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected Socket createSocketConnection(InetAddress host, int port, int timeout) throws IOException {
         Socket socket = new Socket();
         socket.connect(new InetSocketAddress(host, port), timeout);

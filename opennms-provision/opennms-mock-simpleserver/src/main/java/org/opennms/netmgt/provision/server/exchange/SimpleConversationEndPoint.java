@@ -45,23 +45,44 @@ import org.slf4j.LoggerFactory;
  */
 public class SimpleConversationEndPoint {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SimpleConversationEndPoint.class);
 
+    /**
+     * The Class SimpleExchange.
+     */
     public static class SimpleExchange implements Exchange {
+
+        /** The m_response handler. */
         private ResponseHandler m_responseHandler;
 
+        /** The m_request handler. */
         private RequestHandler m_requestHandler;
 
+        /**
+         * Instantiates a new simple exchange.
+         *
+         * @param responseHandler
+         *            the response handler
+         * @param requestHandler
+         *            the request handler
+         */
         public SimpleExchange(ResponseHandler responseHandler, RequestHandler requestHandler) {
             setResponseHandler(responseHandler);
             setRequestHandler(requestHandler);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#matchResponseByString(java.lang.String)
+         */
         @Override
         public boolean matchResponseByString(String response) {
             return getResponseHandler().matches(response);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#processResponse(java.io.BufferedReader)
+         */
         @Override
         public boolean processResponse(BufferedReader in) throws IOException {
             String input = in.readLine();
@@ -74,6 +95,9 @@ public class SimpleConversationEndPoint {
             return matchResponseByString(input);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.exchange.Exchange#sendRequest(java.io.OutputStream)
+         */
         @Override
         public boolean sendRequest(OutputStream out) throws IOException {
             if (getRequestHandler() != null) {
@@ -82,35 +106,60 @@ public class SimpleConversationEndPoint {
             return true;
         }
 
+        /**
+         * Sets the response handler.
+         *
+         * @param responseHandler
+         *            the new response handler
+         */
         public void setResponseHandler(ResponseHandler responseHandler) {
             m_responseHandler = responseHandler;
         }
 
+        /**
+         * Gets the response handler.
+         *
+         * @return the response handler
+         */
         public ResponseHandler getResponseHandler() {
             return m_responseHandler;
         }
 
+        /**
+         * Sets the request handler.
+         *
+         * @param requestHandler
+         *            the new request handler
+         */
         public void setRequestHandler(RequestHandler requestHandler) {
             m_requestHandler = requestHandler;
         }
 
+        /**
+         * Gets the request handler.
+         *
+         * @return the request handler
+         */
         public RequestHandler getRequestHandler() {
             return m_requestHandler;
         }
 
     }
 
+    /** The m_conversation. */
     protected Conversation m_conversation;
 
+    /** The m_timeout. */
     private int m_timeout;
 
     /**
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void init() throws Exception {
         m_conversation = new Conversation();
@@ -120,6 +169,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -132,6 +182,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -143,6 +194,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -163,6 +215,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param phrase
      *            a {@link java.lang.String} object.
@@ -183,6 +236,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -204,14 +258,14 @@ public class SimpleConversationEndPoint {
      * startsWith(String prefix);
      * contains(String phrase);
      * regexMatches(String regex);
-     * Within the extending class's overriding onInit method
+     * Within the extending class's overriding onInit method.
      *
      * @param responseHandler
      *            a
-     *            {@link org.opennms.netmgt.provision.server.exchange.ResponseHandler}
-     *            object.
      * @param requestHandler
      *            a
+     *            {@link org.opennms.netmgt.provision.server.exchange.ResponseHandler}
+     *            object.
      *            {@link org.opennms.netmgt.provision.server.exchange.RequestHandler}
      *            object.
      */
@@ -223,6 +277,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * singleLineRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.lang.String} object.
@@ -245,6 +300,7 @@ public class SimpleConversationEndPoint {
      * <p>
      * multilineLineRequest
      * </p>
+     * .
      *
      * @param request
      *            an array of {@link java.lang.String} objects.
