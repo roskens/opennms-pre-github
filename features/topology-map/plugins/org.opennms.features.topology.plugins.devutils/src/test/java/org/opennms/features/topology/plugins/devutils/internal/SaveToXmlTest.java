@@ -37,32 +37,57 @@ import org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider;
 import com.vaadin.data.Property;
 import com.vaadin.ui.UI;
 
+/**
+ * The Class SaveToXmlTest.
+ */
 public class SaveToXmlTest {
 
+    /**
+     * The Class TestOperationContext.
+     */
     private class TestOperationContext implements OperationContext {
 
+        /** The m_graph container. */
         private GraphContainer m_graphContainer;
 
+        /**
+         * Instantiates a new test operation context.
+         *
+         * @param graphContainer
+         *            the graph container
+         */
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getMainWindow()
+         */
         @Override
         public UI getMainWindow() {
             return EasyMock.createMock(UI.class);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getGraphContainer()
+         */
         @Override
         public GraphContainer getGraphContainer() {
             return m_graphContainer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#isChecked()
+         */
         @Override
         public boolean isChecked() {
             // TODO Auto-generated method stub
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.OperationContext#getDisplayLocation()
+         */
         @Override
         public DisplayLocation getDisplayLocation() {
             return DisplayLocation.MENUBAR;
@@ -70,6 +95,12 @@ public class SaveToXmlTest {
 
     }
 
+    /**
+     * Test save.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSave() throws Exception {
 
@@ -85,6 +116,11 @@ public class SaveToXmlTest {
         saver.execute(null, new TestOperationContext(graphContainer));
     }
 
+    /**
+     * Gets the scale property.
+     *
+     * @return the scale property
+     */
     public Property<Double> getScaleProperty() {
         return null;
     }
