@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs.support;
 
 import java.io.IOException;
@@ -16,17 +43,45 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class NCSPathRouteUtil.
+ */
 public class NCSPathRouteUtil {
 
+    /** The m_dao. */
     private NCSComponentRepository m_dao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /**
+     * Instantiates a new nCS path route util.
+     *
+     * @param dao
+     *            the dao
+     * @param nodeDao
+     *            the node dao
+     */
     public NCSPathRouteUtil(NCSComponentRepository dao, NodeDao nodeDao) {
         m_dao = dao;
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @param data
+     *            the data
+     * @param exchange
+     *            the exchange
+     * @return the service name
+     * @throws ParserConfigurationException
+     *             the parser configuration exception
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void getServiceName(@JuniperXPath(value = "//juniper:ServiceType")
     String data, Exchange exchange) throws ParserConfigurationException, SAXException, IOException {
         Message in = exchange.getIn();
@@ -45,6 +100,15 @@ public class NCSPathRouteUtil {
                                                               + exchange.getOut().getHeaders());
     }
 
+    /**
+     * Creates the path.
+     *
+     * @param data
+     *            the data
+     * @param exchange
+     *            the exchange
+     * @return the nCS service path
+     */
     public NCSServicePath createPath(@JuniperXPath("//juniper:Data")
     Node data, Exchange exchange) {
         Message in = exchange.getIn();

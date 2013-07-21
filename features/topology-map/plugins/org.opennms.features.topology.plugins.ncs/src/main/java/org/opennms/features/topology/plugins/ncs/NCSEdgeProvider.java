@@ -49,21 +49,44 @@ import org.slf4j.LoggerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
+/**
+ * The Class NCSEdgeProvider.
+ */
 public class NCSEdgeProvider implements EdgeProvider {
 
+    /** The Constant HTML_TOOLTIP_TAG_OPEN. */
     private static final String HTML_TOOLTIP_TAG_OPEN = "<p>";
 
+    /** The Constant HTML_TOOLTIP_TAG_END. */
     private static final String HTML_TOOLTIP_TAG_END = "</p>";
 
+    /**
+     * The Class NCSEdge.
+     */
     public static class NCSEdge extends AbstractEdge {
+
+        /** The m_service name. */
         private final String m_serviceName;
 
+        /**
+         * Instantiates a new nCS edge.
+         *
+         * @param serviceName
+         *            the service name
+         * @param source
+         *            the source
+         * @param target
+         *            the target
+         */
         public NCSEdge(String serviceName, NCSVertex source, NCSVertex target) {
             super("ncs", source.getId() + ":::" + target.getId(), source, target);
             m_serviceName = serviceName;
             setStyleName("ncs edge");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.AbstractEdge#getTooltipText()
+         */
         @Override
         public String getTooltipText() {
             StringBuffer toolTip = new StringBuffer();
@@ -83,6 +106,9 @@ public class NCSEdgeProvider implements EdgeProvider {
             return toolTip.toString();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.AbstractEdge#getItem()
+         */
         @Override
         public Item getItem() {
             return new BeanItem<NCSEdge>(this);
@@ -90,44 +116,88 @@ public class NCSEdgeProvider implements EdgeProvider {
 
     }
 
+    /**
+     * The Class NCSVertex.
+     */
     public static class NCSVertex extends AbstractVertex {
 
+        /**
+         * Instantiates a new nCS vertex.
+         *
+         * @param id
+         *            the id
+         * @param label
+         *            the label
+         */
         public NCSVertex(String id, String label) {
             super("nodes", id);
             setLabel(label);
         }
     }
 
+    /** The m_dao. */
     private NCSComponentRepository m_dao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param dao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;
     }
 
+    /**
+     * Gets the ncs component repository.
+     *
+     * @return the ncs component repository
+     */
     public NCSComponentRepository getNcsComponentRepository() {
         return m_dao;
     }
 
+    /**
+     * Sets the ncs component repository.
+     *
+     * @param dao
+     *            the new ncs component repository
+     */
     public void setNcsComponentRepository(NCSComponentRepository dao) {
         m_dao = dao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#addEdgeListener(org.opennms.features.topology.api.topo.EdgeListener)
+     */
     @Override
     public void addEdgeListener(EdgeListener vertexListener) {
         // TODO: Implement me
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#getEdge(java.lang.String, java.lang.String)
+     */
     @Override
     public Edge getEdge(String namespace, String id) {
         throw new UnsupportedOperationException("Not implemented");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#getEdge(org.opennms.features.topology.api.topo.EdgeRef)
+     */
     @Override
     public Edge getEdge(EdgeRef reference) {
         throw new UnsupportedOperationException("Not implemented");
@@ -141,6 +211,7 @@ public class NCSEdgeProvider implements EdgeProvider {
      *
      * @param criteria
      *            An {@link NCSServiceCriteria} object
+     * @return the edges
      */
     @Override
     public List<Edge> getEdges(Criteria criteria) {
@@ -194,61 +265,105 @@ public class NCSEdgeProvider implements EdgeProvider {
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#getEdges()
+     */
     @Override
     public List<Edge> getEdges() {
         throw new UnsupportedOperationException("Not implemented");
         // TODO: Implement me
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#getEdges(java.util.Collection)
+     */
     @Override
     public List<Edge> getEdges(Collection<? extends EdgeRef> references) {
         throw new UnsupportedOperationException("Not implemented");
         // TODO: Implement me
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#getEdgeNamespace()
+     */
     @Override
     public String getEdgeNamespace() {
         return "ncs";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#contributesTo(java.lang.String)
+     */
     @Override
     public boolean contributesTo(String namespace) {
         return "nodes".equals(namespace);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#removeEdgeListener(org.opennms.features.topology.api.topo.EdgeListener)
+     */
     @Override
     public void removeEdgeListener(EdgeListener vertexListener) {
         // TODO: Implement me
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#matches(org.opennms.features.topology.api.topo.EdgeRef, org.opennms.features.topology.api.topo.Criteria)
+     */
     @Override
     public boolean matches(EdgeRef edgeRef, Criteria criteria) {
         throw new UnsupportedOperationException("EdgeProvider.matches is not yet implemented.");
     }
 
+    /**
+     * The Class NCSServiceCriteria.
+     */
     public static class NCSServiceCriteria extends ArrayList<Long> implements Criteria {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 5833460704861282509L;
 
+        /**
+         * Instantiates a new nCS service criteria.
+         *
+         * @param serviceIds
+         *            the service ids
+         */
         public NCSServiceCriteria(Collection<Long> serviceIds) {
             super(serviceIds);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.Criteria#getNamespace()
+         */
         @Override
         public String getNamespace() {
             return "ncs";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.Criteria#getType()
+         */
         @Override
         public ElementType getType() {
             return ElementType.EDGE;
         }
     }
 
+    /**
+     * Creates the criteria.
+     *
+     * @param selectedIds
+     *            the selected ids
+     * @return the criteria
+     */
     public static Criteria createCriteria(Collection<Long> selectedIds) {
         return new NCSServiceCriteria(selectedIds);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.EdgeProvider#clearEdges()
+     */
     @Override
     public void clearEdges() {
         throw new UnsupportedOperationException("Not implemented");

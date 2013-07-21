@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs;
 
 import java.net.ConnectException;
@@ -37,20 +64,32 @@ import com.vaadin.ui.Select;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class ShowNCSPathOperation.
+ */
 public class ShowNCSPathOperation implements Operation {
 
+    /** The m_ncs edge provider. */
     private NCSEdgeProvider m_ncsEdgeProvider;
 
+    /** The m_ncs path provider. */
     private NCSPathProviderService m_ncsPathProvider;
 
+    /** The m_dao. */
     private NCSComponentRepository m_dao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_stored criteria. */
     private NCSServiceCriteria m_storedCriteria;
 
+    /** The m_service manager. */
     private NCSCriteriaServiceManager m_serviceManager;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
         // Get the current NCS criteria from here you can get the foreignIds
@@ -216,6 +255,13 @@ public class ShowNCSPathOperation implements Operation {
         return null;
     }
 
+    /**
+     * Gets the vertex refs for ncs service.
+     *
+     * @param storedCriteria
+     *            the stored criteria
+     * @return the vertex refs for ncs service
+     */
     private Collection<VertexRef> getVertexRefsForNCSService(NCSServiceCriteria storedCriteria) {
         List<Edge> edges = m_ncsEdgeProvider.getEdges(storedCriteria);
         Set<VertexRef> vertRefList = new HashSet<VertexRef>();
@@ -226,12 +272,23 @@ public class ShowNCSPathOperation implements Operation {
         return vertRefList;
     }
 
+    /**
+     * Highlight edge paths.
+     *
+     * @param path
+     *            the path
+     * @param graphProvider
+     *            the graph provider
+     */
     protected void highlightEdgePaths(NCSServicePath path, GraphProvider graphProvider) {
         // TODO Auto-generated method stub
         Edge edge = graphProvider.getEdge("nodes", path.getEdges().iterator().next().getId());
         edge.setStyleName("ncsSetPath");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
 
@@ -248,6 +305,9 @@ public class ShowNCSPathOperation implements Operation {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         for (VertexRef targetRef : targets) {
@@ -263,43 +323,96 @@ public class ShowNCSPathOperation implements Operation {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return null;
     }
 
+    /**
+     * Gets the ncs edge provider.
+     *
+     * @return the ncs edge provider
+     */
     public NCSEdgeProvider getNcsEdgeProvider() {
         return m_ncsEdgeProvider;
     }
 
+    /**
+     * Sets the ncs edge provider.
+     *
+     * @param ncsEdgeProvider
+     *            the new ncs edge provider
+     */
     public void setNcsEdgeProvider(NCSEdgeProvider ncsEdgeProvider) {
         m_ncsEdgeProvider = ncsEdgeProvider;
     }
 
+    /**
+     * Gets the ncs path provider.
+     *
+     * @return the ncs path provider
+     */
     public NCSPathProviderService getNcsPathProvider() {
         return m_ncsPathProvider;
     }
 
+    /**
+     * Sets the ncs path provider.
+     *
+     * @param ncsPathProvider
+     *            the new ncs path provider
+     */
     public void setNcsPathProvider(NCSPathProviderService ncsPathProvider) {
         m_ncsPathProvider = ncsPathProvider;
     }
 
+    /**
+     * Gets the dao.
+     *
+     * @return the dao
+     */
     public NCSComponentRepository getDao() {
         return m_dao;
     }
 
+    /**
+     * Sets the dao.
+     *
+     * @param dao
+     *            the new dao
+     */
     public void setDao(NCSComponentRepository dao) {
         m_dao = dao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Sets the ncs criteria service manager.
+     *
+     * @param manager
+     *            the new ncs criteria service manager
+     */
     public void setNcsCriteriaServiceManager(NCSCriteriaServiceManager manager) {
         m_serviceManager = manager;
     }

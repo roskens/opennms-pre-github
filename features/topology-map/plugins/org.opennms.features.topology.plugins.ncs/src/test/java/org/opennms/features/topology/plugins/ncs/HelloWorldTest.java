@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs;
 
 import static org.apache.karaf.tooling.exam.options.KarafDistributionOption.karafDistributionConfiguration;
@@ -32,13 +59,19 @@ import org.ops4j.pax.exam.util.PathUtils;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 
+/**
+ * The Class HelloWorldTest.
+ */
 @RunWith(JUnit4TestRunner.class)
 @ExamReactorStrategy(AllConfinedStagedReactorFactory.class)
 @Ignore
 public class HelloWorldTest {
+
+    /** The m_repository. */
     @Inject
     private NCSComponentRepository m_repository;
 
+    /** The m_context. */
     @Inject
     private BundleContext m_context;
 
@@ -47,9 +80,17 @@ public class HelloWorldTest {
      * private Action m_action;
      */
 
+    /**
+     * Instantiates a new hello world test.
+     */
     public HelloWorldTest() {
     }
 
+    /**
+     * Config.
+     *
+     * @return the option[]
+     */
     @Configuration
     public Option[] config() {
         InputStream inp = bundle().add(MockNCSComponentRepository.class).add(MockNCSCompontentRepositoryActivator.class).set(Constants.BUNDLE_SYMBOLICNAME,
@@ -65,11 +106,20 @@ public class HelloWorldTest {
                        keepRuntimeFolder());
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         assertNotNull(m_context);
     }
 
+    /**
+     * Test something.
+     */
     @Test
     public void testSomething() {
         assertNotNull(m_repository);

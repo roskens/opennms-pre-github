@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs;
 
 import java.io.IOException;
@@ -8,9 +35,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The Class ServicePathTestServlet.
+ */
 @SuppressWarnings("serial")
 public class ServicePathTestServlet extends HttpServlet {
 
+    /** The m_response path1. */
     private String m_responsePath1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" + "<ServiceResource>" + "<ServicePath>"
             + "<To>10.1.0.2</To>" + "<Via>ge-1/0/2.0</Via>" + "<MPLSLabel>Push 300528, Push 301888(top)</MPLSLabel>"
@@ -23,6 +54,7 @@ public class ServicePathTestServlet extends HttpServlet {
             + "</Device>" + "</LSPNode>" + "</LSPPath>" + "</ServicePath>" + "</ServiceResource>" + "<Status>"
             + "<Code>200</Code>" + "<Message>Operation Successful</Message>" + "</Status>" + "</Data>";
 
+    /** The m_response path2. */
     private String m_responsePath2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" + "<ServiceResource>" + "<ServicePath>"
             + "<To>10.1.3.1</To>" + "<Via>ae2.0</Via>" + "<LSPPath>" + "<RSVPLSPName>froh-penelope</RSVPLSPName>"
@@ -39,6 +71,7 @@ public class ServicePathTestServlet extends HttpServlet {
             + "</ServiceResource>" + "<Status>" + "<Code>200</Code>" + "<Message>Operation Successful</Message>"
             + "</Status>" + "</Data>";
 
+    /** The m_response string3. */
     private String m_responseString3 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" + "<ServiceResource>" + "<ServicePath>"
             + "<To>20.1.42.2</To>" + "<Via>ge-1/0/0.1</Via>" + "<LSPPath>"
@@ -64,10 +97,14 @@ public class ServicePathTestServlet extends HttpServlet {
             + "</ServicePath>" + "</ServiceResource>" + "<Status>" + "<Code>200</Code>"
             + "<Message>Operation Successful</Message>" + "</Status>" + "</Data>";
 
+    /** The m_response error string. */
     private String m_responseErrorString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> "
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" + "<ServiceResource>" + "<ServicePath/>"
             + "</ServiceResource>" + "<Status>" + "<Code>500</Code>" + "</Status>" + "</Data> ";
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();

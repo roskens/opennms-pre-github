@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs.xpath;
 
 import java.lang.annotation.Documented;
@@ -10,17 +37,36 @@ import org.apache.camel.component.bean.XPathAnnotationExpressionFactory;
 import org.apache.camel.language.LanguageAnnotation;
 import org.apache.camel.language.NamespacePrefix;
 
+/**
+ * The Interface JuniperXPath.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @LanguageAnnotation(language = "xpath", factory = XPathAnnotationExpressionFactory.class)
 public @interface JuniperXPath {
+
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     String value();
 
+    /**
+     * Namespaces.
+     *
+     * @return the namespace prefix[]
+     */
     NamespacePrefix[] namespaces() default {
             @NamespacePrefix(prefix = "soap", uri = "http://www.w3.org/2003/05/soap-envelope"),
             @NamespacePrefix(prefix = "xsd", uri = "http://www.w3.org/2001/XMLSchema"),
             @NamespacePrefix(prefix = "juniper", uri = "services.schema.networkapi.jmp.juniper.net") };
 
+    /**
+     * Result type.
+     *
+     * @return the class
+     */
     Class<?> resultType() default Object.class;
 }

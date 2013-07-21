@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs;
 
 import java.io.IOException;
@@ -8,9 +35,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The Class AppNameTestServlet.
+ */
 @SuppressWarnings("serial")
 public class AppNameTestServlet extends HttpServlet {
 
+    /** The m_response string. */
     private String m_responseString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\" >"
             + "<ServiceResource>\n"
@@ -35,6 +66,7 @@ public class AppNameTestServlet extends HttpServlet {
             + "<Customer key=\"491520\" href=\"/api/space/nsas/customer-management/customers/491520\" uri=\"/api/space/nsas/customer-management/customers/491520\"/>"
             + "</Reference>" + "</Service>" + "</ServiceResource>" + "</Data>";
 
+    /** The m_response string2. */
     private String m_responseString2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
             + "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">"
             + "<ServiceResource>"
@@ -59,6 +91,9 @@ public class AppNameTestServlet extends HttpServlet {
             + "<Customer key=\"590215\" href=\"/api/space/nsas/customer-management/customers/590215\" uri=\"/api/space/nsas/customer-management/customers/590215\"/>"
             + "</Reference>" + "</Service>" + "</ServiceResource>" + "</Data>";
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/xml");

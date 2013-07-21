@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.ncs;
 
 import java.util.ArrayList;
@@ -13,16 +40,29 @@ import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 
+/**
+ * The Class NCSServiceContainer.
+ */
 public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServiceItem> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3245953234720320852L;
 
+    /** The Constant FOREIGN_SOURCE_PROPERTY. */
     private static final String FOREIGN_SOURCE_PROPERTY = "foreignSource";
 
+    /** The m_dao. */
     private final NCSComponentRepository m_dao;
 
+    /** The m_root items. */
     private final Set<NCSServiceItem> m_rootItems = new HashSet<NCSServiceItem>();
 
+    /**
+     * Instantiates a new nCS service container.
+     *
+     * @param dao
+     *            the dao
+     */
     public NCSServiceContainer(NCSComponentRepository dao) {
         super(NCSServiceItem.class);
         m_dao = dao;
@@ -34,6 +74,12 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         addAll(createListFromComponents(services));
     }
 
+    /**
+     * Creates the root items.
+     *
+     * @param components
+     *            the components
+     */
     private void createRootItems(List<NCSComponent> components) {
         Set<String> foreignSources = new HashSet<String>();
         for (NCSComponent component : components) {
@@ -44,6 +90,13 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         }
     }
 
+    /**
+     * Creates the list from components.
+     *
+     * @param ncsComponents
+     *            the ncs components
+     * @return the collection<? extends ncs service item>
+     */
     private Collection<? extends NCSServiceItem> createListFromComponents(List<NCSComponent> ncsComponents) {
         Collection<NCSServiceItem> list = new ArrayList<NCSServiceItem>();
         for (NCSComponent ncsComponent : ncsComponents) {
@@ -52,6 +105,9 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         return list;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#areChildrenAllowed(java.lang.Object)
+     */
     @Override
     public boolean areChildrenAllowed(Object itemId) {
         // Assert.isInstanceOf(Long.class, itemId);
@@ -59,6 +115,9 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         return (Boolean) component.getItemProperty("childrenAllowed").getValue();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#getChildren(java.lang.Object)
+     */
     @Override
     public Collection<Long> getChildren(Object itemId) {
         // Assert.isInstanceOf(Long.class, itemId);
@@ -82,6 +141,9 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#getParent(java.lang.Object)
+     */
     @Override
     public Long getParent(Object itemId) {
         // Assert.isInstanceOf(Long.class, itemId);
@@ -99,6 +161,9 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#rootItemIds()
+     */
     @Override
     public Collection<Long> rootItemIds() {
         List<Long> retval = new ArrayList<Long>();
@@ -109,11 +174,17 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#setChildrenAllowed(java.lang.Object, boolean)
+     */
     @Override
     public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot setChildredAllowed() on NCSComponent type");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Hierarchical#setParent(java.lang.Object, java.lang.Object)
+     */
     @Override
     public boolean setParent(Object itemId, Object newParentId) throws UnsupportedOperationException {
         // Assert.isInstanceOf(Long.class, itemId);

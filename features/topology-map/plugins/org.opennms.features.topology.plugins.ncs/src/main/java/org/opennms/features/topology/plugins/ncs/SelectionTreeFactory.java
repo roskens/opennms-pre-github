@@ -34,19 +34,36 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 
 import com.vaadin.server.Resource;
 
+/**
+ * A factory for creating SelectionTree objects.
+ */
 public class SelectionTreeFactory implements IViewContribution {
 
+    /** The m_container. */
     private final BlueprintContainer m_container;
 
+    /** The m_bean name. */
     private final String m_beanName;
 
+    /** The m_title. */
     private String m_title;
 
+    /**
+     * Instantiates a new selection tree factory.
+     *
+     * @param container
+     *            the container
+     * @param beanName
+     *            the bean name
+     */
     public SelectionTreeFactory(BlueprintContainer container, String beanName) {
         m_container = container;
         m_beanName = beanName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IViewContribution#getView(org.opennms.features.topology.api.WidgetContext)
+     */
     @Override
     public SelectionTree getView(WidgetContext widgetContext) {
         // Get the component by asking the blueprint container to instantiate a
@@ -58,17 +75,28 @@ public class SelectionTreeFactory implements IViewContribution {
 
     /**
      * Returns null.
+     *
+     * @return the icon
      */
     @Override
     public Resource getIcon() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IViewContribution#getTitle()
+     */
     @Override
     public String getTitle() {
         return m_title;
     }
 
+    /**
+     * Sets the title.
+     *
+     * @param title
+     *            the new title
+     */
     public void setTitle(String title) {
         m_title = title;
     }

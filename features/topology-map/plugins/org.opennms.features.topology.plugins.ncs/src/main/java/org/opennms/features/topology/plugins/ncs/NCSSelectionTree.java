@@ -35,53 +35,101 @@ import org.opennms.features.topology.api.topo.Criteria;
 import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 
+/**
+ * The Class NCSSelectionTree.
+ */
 public class NCSSelectionTree extends SelectionTree {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8778577903128733601L;
 
+    /**
+     * The Class NCSSelectionTreeCriteria.
+     */
     public static class NCSSelectionTreeCriteria extends ArrayList<Long> implements Criteria {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 5833460704861282509L;
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.Criteria#getNamespace()
+         */
         @Override
         public String getNamespace() {
             return "ncs";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.api.topo.Criteria#getType()
+         */
         @Override
         public ElementType getType() {
             return ElementType.EDGE;
         }
     }
 
+    /** The m_dao. */
     private NCSComponentRepository m_dao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_current criteria. */
     private final NCSSelectionTreeCriteria m_currentCriteria = new NCSSelectionTreeCriteria();
 
     // private EdgeProviderMapImpl m_edges = new EdgeProviderMapImpl();
 
+    /**
+     * Instantiates a new nCS selection tree.
+     *
+     * @param container
+     *            the container
+     */
     public NCSSelectionTree(FilterableHierarchicalContainer container) {
         super(container);
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param dao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;
     }
 
+    /**
+     * Gets the ncs component repository.
+     *
+     * @return the ncs component repository
+     */
     public NCSComponentRepository getNcsComponentRepository() {
         return m_dao;
     }
 
+    /**
+     * Sets the ncs component repository.
+     *
+     * @param dao
+     *            the new ncs component repository
+     */
     public void setNcsComponentRepository(NCSComponentRepository dao) {
         m_dao = dao;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractSelect#select(java.lang.Object)
+     */
     @Override
     public void select(Object itemId) {
         m_currentCriteria.add((Long) itemId);
@@ -104,6 +152,9 @@ public class NCSSelectionTree extends SelectionTree {
         super.select(itemId);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractSelect#unselect(java.lang.Object)
+     */
     @Override
     public void unselect(Object itemId) {
         m_currentCriteria.remove((Long) itemId);
