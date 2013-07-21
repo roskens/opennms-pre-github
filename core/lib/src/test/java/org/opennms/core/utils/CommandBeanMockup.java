@@ -36,46 +36,98 @@ package org.opennms.core.utils;
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  */
 public class CommandBeanMockup {
+
+    /** The script. */
     String script = "<script>foo</script>";
 
+    /** The html table. */
     String htmlTable = "<table>";
 
+    /** The number. */
     int number = 1;
 
+    /** The cool. */
     Boolean cool = false;
 
+    /**
+     * Gets the script.
+     *
+     * @return the script
+     */
     public String getScript() {
         return script;
     }
 
+    /**
+     * Sets the script.
+     *
+     * @param script
+     *            the new script
+     */
     public void setScript(String script) {
         this.script = script;
     }
 
+    /**
+     * Gets the html table.
+     *
+     * @return the html table
+     */
     public String getHtmlTable() {
         return htmlTable;
     }
 
+    /**
+     * Sets the html table.
+     *
+     * @param htmlTable
+     *            the new html table
+     */
     public void setHtmlTable(String htmlTable) {
         this.htmlTable = htmlTable;
     }
 
+    /**
+     * Gets the number.
+     *
+     * @return the number
+     */
     public int getNumber() {
         return number;
     }
 
+    /**
+     * Sets the number.
+     *
+     * @param number
+     *            the new number
+     */
     public void setNumber(int number) {
         this.number = number;
     }
 
+    /**
+     * Gets the cool.
+     *
+     * @return the cool
+     */
     public Boolean getCool() {
         return cool;
     }
 
+    /**
+     * Sets the cool.
+     *
+     * @param cool
+     *            the new cool
+     */
     public void setCool(Boolean cool) {
         this.cool = cool;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "CommandBean [script=" + script + ", htmlTable=" + htmlTable + ", number=" + number + ", cool=" + cool

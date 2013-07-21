@@ -42,6 +42,8 @@ import java.util.List;
  * @version $Id: $
  */
 public class OwnedInterval extends TimeInterval {
+
+    /** The m_owners. */
     private List<Owner> m_owners;
 
     /**
@@ -148,6 +150,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * getOwners
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -159,6 +162,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * addOwner
      * </p>
+     * .
      *
      * @param owner
      *            a {@link org.opennms.netmgt.config.Owner} object.
@@ -172,6 +176,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * removeOwner
      * </p>
+     * .
      *
      * @param owner
      *            a {@link org.opennms.netmgt.config.Owner} object.
@@ -184,6 +189,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * addOwners
      * </p>
+     * .
      *
      * @param owners
      *            a {@link java.util.List} object.
@@ -197,6 +203,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * removeOwners
      * </p>
+     * .
      *
      * @param owners
      *            a {@link java.util.List} object.
@@ -209,6 +216,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * isOwner
      * </p>
+     * .
      *
      * @param owner
      *            a {@link org.opennms.netmgt.config.Owner} object.
@@ -222,6 +230,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * isOwned
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -233,6 +242,7 @@ public class OwnedInterval extends TimeInterval {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

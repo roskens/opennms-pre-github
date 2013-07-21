@@ -40,24 +40,45 @@ import java.util.List;
  * TimeIntervalSequence class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
 
+    /**
+     * The Class TimeIntervalSeqIter.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static class TimeIntervalSeqIter<T extends TimeInterval> implements Iterator<T> {
 
+        /** The m_current. */
         private AbstractTimeIntervalSequence<T> m_current;
 
+        /**
+         * Instantiates a new time interval seq iter.
+         *
+         * @param seq
+         *            the seq
+         */
         public TimeIntervalSeqIter(AbstractTimeIntervalSequence<T> seq) {
             m_current = seq;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return m_current != null && m_current.m_interval != null;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public T next() {
             T interval = m_current.m_interval;
@@ -65,6 +86,9 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             return interval;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             throw new UnsupportedOperationException("not implemented yet");
@@ -72,8 +96,10 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
 
     }
 
+    /** The m_interval. */
     private T m_interval;
 
+    /** The m_tail. */
     private AbstractTimeIntervalSequence<T> m_tail;
 
     /**
@@ -97,6 +123,14 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         this(interval, null);
     }
 
+    /**
+     * Instantiates a new abstract time interval sequence.
+     *
+     * @param interval
+     *            the interval
+     * @param tail
+     *            the tail
+     */
     private AbstractTimeIntervalSequence(T interval, AbstractTimeIntervalSequence<T> tail) {
         m_interval = interval;
         m_tail = tail;
@@ -106,6 +140,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -113,10 +148,28 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         return new TimeIntervalSeqIter<T>(this);
     }
 
+    /**
+     * Min.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @return the date
+     */
     Date min(Date a, Date b) {
         return (a.before(b) ? a : b);
     }
 
+    /**
+     * Max.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @return the date
+     */
     Date max(Date a, Date b) {
         return (b.before(a) ? a : b);
     }
@@ -125,6 +178,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * addInterval
      * </p>
+     * .
      *
      * @param interval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -142,6 +196,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
 
     }
 
+    /**
+     * Adds the overlapping interval.
+     *
+     * @param newInterval
+     *            the new interval
+     */
     private void addOverlappingInterval(T newInterval) {
         // overlapping intervals
         Collection<T> newIntervals = combineIntervals(m_interval, newInterval);
@@ -159,6 +219,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * combineIntervals
      * </p>
+     * .
      *
      * @param currentInterval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -199,6 +260,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         return newIntervals;
     }
 
+    /**
+     * Adds the succeeding interval.
+     *
+     * @param interval
+     *            the interval
+     */
     private void addSucceedingInterval(T interval) {
         // new interval is earlier than current interval
         // replace current with new and add current to the tail
@@ -208,11 +275,23 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         m_interval = interval;
     }
 
+    /**
+     * Adds the preceeding interval.
+     *
+     * @param interval
+     *            the interval
+     */
     private void addPreceedingInterval(T interval) {
         // new interval is later than current interval so add it to the tail
         addToTail(interval);
     }
 
+    /**
+     * Adds the to tail.
+     *
+     * @param interval
+     *            the interval
+     */
     private void addToTail(T interval) {
         if (m_tail == null) {
             m_tail = createTail(interval);
@@ -225,6 +304,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * createInterval
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.
@@ -238,6 +318,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * createTail
      * </p>
+     * .
      *
      * @param interval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -246,6 +327,9 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      */
     protected abstract AbstractTimeIntervalSequence<T> createTail(T interval);
 
+    /**
+     * Removes the current.
+     */
     private void removeCurrent() {
         if (m_tail == null) {
             m_interval = null;
@@ -259,6 +343,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * removeInterval
      * </p>
+     * .
      *
      * @param removedInterval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -296,6 +381,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * separateIntervals
      * </p>
+     * .
      *
      * @param origInterval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -317,6 +403,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         return newIntervals;
     }
 
+    /**
+     * Removes the from tail.
+     *
+     * @param interval
+     *            the interval
+     */
     private void removeFromTail(T interval) {
         if (m_tail == null) {
             return;
@@ -332,6 +424,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * bound
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.
@@ -347,6 +440,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * bound
      * </p>
+     * .
      *
      * @param interval
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -359,6 +453,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * getStart
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -372,6 +467,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * getEnd
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -387,6 +483,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * getBounds
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.utils.TimeInterval} object.
      */
@@ -400,6 +497,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * addAll
      * </p>
+     * .
      *
      * @param intervals
      *            a {@link org.opennms.core.utils.AbstractTimeIntervalSequence}
@@ -416,6 +514,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * addAll
      * </p>
+     * .
      *
      * @param intervals
      *            a {@link java.util.Collection} object.
@@ -431,6 +530,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * removeAll
      * </p>
+     * .
      *
      * @param intervals
      *            a {@link org.opennms.core.utils.AbstractTimeIntervalSequence}
@@ -447,6 +547,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

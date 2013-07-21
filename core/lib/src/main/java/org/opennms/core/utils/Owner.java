@@ -38,12 +38,16 @@ package org.opennms.core.utils;
  */
 public class Owner implements Comparable<Owner> {
 
+    /** The m_roleid. */
     private String m_roleid;
 
+    /** The m_user. */
     private String m_user;
 
+    /** The m_sched index. */
     private int m_schedIndex;
 
+    /** The m_time index. */
     private int m_timeIndex;
 
     /**
@@ -115,6 +119,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * isSupervisor
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -126,6 +131,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * getRoleid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -137,6 +143,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * getSchedIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -148,6 +155,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * getTimeIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -159,6 +167,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,6 +175,13 @@ public class Owner implements Comparable<Owner> {
         return m_user;
     }
 
+    /**
+     * Adds the time index.
+     *
+     * @param timeIndex
+     *            the time index
+     * @return the owner
+     */
     public Owner addTimeIndex(int timeIndex) {
         return new Owner(this, timeIndex);
     }
@@ -184,6 +200,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -196,6 +213,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param o
      *            a {@link org.opennms.core.utils.Owner} object.
@@ -210,6 +228,7 @@ public class Owner implements Comparable<Owner> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

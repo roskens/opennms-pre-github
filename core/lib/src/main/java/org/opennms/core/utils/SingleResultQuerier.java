@@ -56,12 +56,14 @@ public class SingleResultQuerier extends Querier {
         super(db, sql);
     }
 
+    /** The m_result. */
     private Object m_result;
 
     /**
      * <p>
      * getResult
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */

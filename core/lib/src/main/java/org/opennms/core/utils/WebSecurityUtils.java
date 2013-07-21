@@ -49,20 +49,26 @@ import org.springframework.beans.BeanWrapperImpl;
  */
 public abstract class WebSecurityUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WebSecurityUtils.class);
 
+    /** The Constant ILLEGAL_IN_INTEGER. */
     private static final Pattern ILLEGAL_IN_INTEGER = Pattern.compile("[^0-9+-]");
 
+    /** The Constant ILLEGAL_IN_FLOAT. */
     private static final Pattern ILLEGAL_IN_FLOAT = Pattern.compile("[^0-9.Ee+-]");
 
+    /** The Constant ILLEGAL_IN_COLUMN_NAME_PATTERN. */
     private static final Pattern ILLEGAL_IN_COLUMN_NAME_PATTERN = Pattern.compile("[^A-Za-z0-9_]");
 
+    /** The Constant scriptPattern. */
     private static final Pattern scriptPattern = Pattern.compile("script", Pattern.CASE_INSENSITIVE);
 
     /**
      * <p>
      * sanitizeString
      * </p>
+     * .
      *
      * @param raw
      *            an array of {@link java.lang.String} objects.
@@ -79,6 +85,7 @@ public abstract class WebSecurityUtils {
      * <p>
      * sanitizeString
      * </p>
+     * .
      *
      * @param raw
      *            a {@link java.lang.String} object.
@@ -92,6 +99,7 @@ public abstract class WebSecurityUtils {
      * <p>
      * sanitizeString
      * </p>
+     * .
      *
      * @param raw
      *            a {@link java.lang.String} object.
@@ -116,12 +124,13 @@ public abstract class WebSecurityUtils {
      * <p>
      * safeParseInt
      * </p>
+     * .
      *
      * @param dirty
      *            an array of {@link java.lang.String} objects.
      * @return an array of int.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static int[] safeParseInt(String[] dirty) throws NumberFormatException {
         final int[] clean = new int[dirty.length];
@@ -137,12 +146,13 @@ public abstract class WebSecurityUtils {
      * <p>
      * safeParseInt
      * </p>
+     * .
      *
      * @param dirty
      *            a {@link java.lang.String} object.
      * @return a int.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static int safeParseInt(String dirty) throws NumberFormatException {
         String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
@@ -153,12 +163,13 @@ public abstract class WebSecurityUtils {
      * <p>
      * safeParseLong
      * </p>
+     * .
      *
      * @param dirty
      *            a {@link java.lang.String} object.
      * @return a long.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static long safeParseLong(String dirty) throws NumberFormatException {
         String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
@@ -169,12 +180,13 @@ public abstract class WebSecurityUtils {
      * <p>
      * safeParseFloat
      * </p>
+     * .
      *
      * @param dirty
      *            a {@link java.lang.String} object.
      * @return a float.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static float safeParseFloat(String dirty) throws NumberFormatException {
         String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
@@ -185,12 +197,13 @@ public abstract class WebSecurityUtils {
      * <p>
      * safeParseDouble
      * </p>
+     * .
      *
      * @param dirty
      *            a {@link java.lang.String} object.
      * @return a double.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static double safeParseDouble(String dirty) throws NumberFormatException {
         String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
@@ -201,6 +214,7 @@ public abstract class WebSecurityUtils {
      * <p>
      * sanitizeDbColumnName
      * </p>
+     * .
      *
      * @param dirty
      *            a {@link java.lang.String} object.
@@ -216,11 +230,12 @@ public abstract class WebSecurityUtils {
      * </p>
      * This is a simple method is used to sanitize all bean string properties.
      *
+     * @param <T>
+     *            the generic type
      * @param bean
      *            a {@link java.lang.Object} object.
-     * @param Set
-     *            of fieldnames as Strings that are allowed for html content.
-     *            All fieldnames in lowercase. null -> no html
+     * @param allowHtmlFields
+     *            the allow html fields
      * @return a {@link java.lang.Object} object.
      */
     public static <T> T sanitizeBeanStringProperties(T bean, Set<String> allowHtmlFields) {

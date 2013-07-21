@@ -59,6 +59,9 @@ public class Updater extends JDBCTemplate {
         super(db, sql);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.JDBCTemplate#executeStmt(java.sql.PreparedStatement)
+     */
     @Override
     void executeStmt(PreparedStatement stmt) throws SQLException {
         stmt.executeUpdate();

@@ -38,18 +38,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * ParameterMapTest
+ * ParameterMapTest.
  *
  * @author brozow
  */
 public class ParameterMapTest {
 
+    /** The Constant INT_ARRAY_VAL. */
     private static final int[] INT_ARRAY_VAL = new int[] { 1, 2, 3 };
 
+    /** The Constant DEFAULT_INT_ARRAY. */
     private static final int[] DEFAULT_INT_ARRAY = new int[] { 4, 5, 6 };
 
+    /** The m_map. */
     private Map<String, Object> m_map;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_map = new HashMap<String, Object>();
@@ -68,6 +74,9 @@ public class ParameterMapTest {
         m_map.put("keyedString", "keyedString");
     }
 
+    /**
+     * Test get keyed string.
+     */
     @Test
     public void testGetKeyedString() {
         assertEquals("keyedString", ParameterMap.getKeyedString(m_map, "keyedString", "defaultValue"));
@@ -75,6 +84,9 @@ public class ParameterMapTest {
         assertEquals("defaultValue", ParameterMap.getKeyedString(null, "keyedString", "defaultValue"));
     }
 
+    /**
+     * Test get keyed boolean.
+     */
     @Test
     public void testGetKeyedBoolean() {
         assertEquals(true, ParameterMap.getKeyedBoolean(m_map, "keyedBoolean", false));
@@ -83,6 +95,9 @@ public class ParameterMapTest {
         assertEquals(false, ParameterMap.getKeyedBoolean(null, "keyedBoolean", false));
     }
 
+    /**
+     * Test get keyed integer.
+     */
     @Test
     public void testGetKeyedInteger() {
         assertEquals(7, ParameterMap.getKeyedInteger(m_map, "keyedInteger", 3));
@@ -91,6 +106,9 @@ public class ParameterMapTest {
         assertEquals(3, ParameterMap.getKeyedInteger(null, "keyedInteger", 3));
     }
 
+    /**
+     * Test get keyed integer array.
+     */
     @Test
     public void testGetKeyedIntegerArray() {
         assertArrayEquals(INT_ARRAY_VAL,
@@ -109,6 +127,9 @@ public class ParameterMapTest {
 
     }
 
+    /**
+     * Test get keyed long.
+     */
     @Test
     public void testGetKeyedLong() {
         assertEquals(7L, ParameterMap.getKeyedLong(m_map, "keyedLong", 3L));

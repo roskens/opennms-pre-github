@@ -40,8 +40,10 @@ import java.util.Date;
  */
 public class TimeInterval implements Comparable<TimeInterval> {
 
+    /** The m_start. */
     private Date m_start;
 
+    /** The m_end. */
     private Date m_end;
 
     /**
@@ -71,6 +73,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
      * <p>
      * getStart
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -82,6 +85,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
      * <p>
      * getEnd
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -90,7 +94,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
     }
 
     /**
-     * Returns -1, 0, 1 based on how date compares to this interval
+     * Returns -1, 0, 1 based on how date compares to this interval.
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -112,6 +116,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +139,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -148,6 +154,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param t
      *            a {@link org.opennms.core.utils.TimeInterval} object.
@@ -163,14 +170,35 @@ public class TimeInterval implements Comparable<TimeInterval> {
             return 0;
     }
 
+    /**
+     * Preceeds.
+     *
+     * @param interval
+     *            the interval
+     * @return true, if successful
+     */
     public boolean preceeds(TimeInterval interval) {
         return compareTo(interval) < 0;
     }
 
+    /**
+     * Follows.
+     *
+     * @param interval
+     *            the interval
+     * @return true, if successful
+     */
     public boolean follows(TimeInterval interval) {
         return compareTo(interval) > 0;
     }
 
+    /**
+     * Overlaps.
+     *
+     * @param interval
+     *            the interval
+     * @return true, if successful
+     */
     public boolean overlaps(TimeInterval interval) {
         return compareTo(interval) == 0;
     }

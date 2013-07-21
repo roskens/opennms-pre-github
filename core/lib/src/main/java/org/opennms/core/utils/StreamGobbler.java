@@ -56,15 +56,16 @@ import org.slf4j.LoggerFactory;
  */
 public class StreamGobbler extends Thread {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(StreamGobbler.class);
 
-    /** The {@link InputStream} we're gobbling */
+    /** The {@link InputStream} we're gobbling. */
     private InputStream in = null;
 
-    /** The {@link PrintWriter} we'll send the gobbled characters to if asked */
+    /** The {@link PrintWriter} we'll send the gobbled characters to if asked. */
     private PrintWriter pwOut = null;
 
-    /** Our flag to allow us to safely terminate the monitoring thread */
+    /** Our flag to allow us to safely terminate the monitoring thread. */
     private boolean quit = false;
 
     /**
@@ -75,7 +76,7 @@ public class StreamGobbler extends Thread {
     }
 
     /**
-     * A simpler constructor for StreamGobbler - defaults to {@link System#out}
+     * A simpler constructor for StreamGobbler - defaults to {@link System#out}.
      *
      * @param in
      *            InputStream
@@ -122,10 +123,10 @@ public class StreamGobbler extends Thread {
      * We override the <code>clone</code> method here to prevent cloning of
      * our class.
      *
-     * @throws java.lang.CloneNotSupportedException
-     *             To indicate cloning is not allowed
      * @return Nothing ever really returned since we throw a
      *         CloneNotSupportedException
+     * @throws CloneNotSupportedException
+     *             the clone not supported exception
      */
     @Override
     public final Object clone() throws CloneNotSupportedException {

@@ -40,19 +40,34 @@ import java.util.Date;
  */
 public class TimeIntervalSequence extends AbstractTimeIntervalSequence<TimeInterval> {
 
+    /**
+     * Instantiates a new time interval sequence.
+     */
     public TimeIntervalSequence() {
         super();
     }
 
+    /**
+     * Instantiates a new time interval sequence.
+     *
+     * @param interval
+     *            the interval
+     */
     public TimeIntervalSequence(TimeInterval interval) {
         super(interval);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.AbstractTimeIntervalSequence#createInterval(java.util.Date, java.util.Date)
+     */
     @Override
     protected TimeInterval createInterval(Date start, Date end) {
         return new TimeInterval(start, end);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.AbstractTimeIntervalSequence#createTail(org.opennms.core.utils.TimeInterval)
+     */
     @Override
     protected TimeIntervalSequence createTail(TimeInterval interval) {
         return new TimeIntervalSequence(interval);

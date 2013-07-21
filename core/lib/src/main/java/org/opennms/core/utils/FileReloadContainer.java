@@ -65,49 +65,65 @@ import org.springframework.util.Assert;
  * If the first constructor is used, the Resource will be stored for later
  * reloading. If {@link Resource#getFile() Resource.getFile()} does not throw an
  * exception, the returned File object will be stored and
- * {@link File#lastModified() File.lastModified()} will be called every time the
- * {@link #getObject() getObject()} method is called to see if the file has
- * changed. If the file has changed, the last modified time is updated and the
- * reload callback, {@link FileReloadCallback#reload(Object, File)
- * FileReloadCallback.reload}, is called. If it returns a non-null object, the
- * new object is stored and it gets returned to the caller. If a null object is
- * returned, the stored object isn't modified and the old object is returned to
- * the caller.
- * </p>
- * <p>
- * If an unchecked exception is thrown by the reload callback, it will be
- * caught, logged, and a {@link DataAccessResourceFailureException} with a cause
- * of the unchecked exception. This will propogate up to the caller of the
- * getObject method. If you do not want unchecked exceptions on reloads to
- * propogate up to the caller of getObject, they need to be caught within the
- * reload method. Returning a null in the case of errors is a good alternative
- * in this case.
- * </p>
  *
- * @author dj@opennms.org
  * @param <T>
  *            the class of the inner object that is stored in this container
+ *            {@link File#lastModified() File.lastModified()} will be called
+ *            every time the {@link #getObject() getObject()} method is called
+ *            to see if the file has
+ *            changed. If the file has changed, the last modified time is
+ *            updated and the
+ *            reload callback, {@link FileReloadCallback#reload(Object, File)
+ *            FileReloadCallback.reload}, is called. If it returns a non-null
+ *            object, the
+ *            new object is stored and it gets returned to the caller. If a null
+ *            object is
+ *            returned, the stored object isn't modified and the old object is
+ *            returned to
+ *            the caller.
+ *            </p>
+ *            <p>
+ *            If an unchecked exception is thrown by the reload callback, it
+ *            will be caught, logged, and a
+ *            {@link DataAccessResourceFailureException} with a cause of the
+ *            unchecked exception. This will propogate up to the caller of the
+ *            getObject method. If you do not want unchecked exceptions on
+ *            reloads to propogate up to the caller of getObject, they need to
+ *            be caught within the reload method. Returning a null in the case
+ *            of errors is a good alternative in this case.
+ *            </p>
+ * @author dj@opennms.org
  */
 public class FileReloadContainer<T> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FileReloadContainer.class);
 
+    /** The Constant DEFAULT_RELOAD_CHECK_INTERVAL. */
     private static final long DEFAULT_RELOAD_CHECK_INTERVAL = 1000;
 
+    /** The m_object. */
     private T m_object;
 
+    /** The m_resource. */
     private Resource m_resource;
 
+    /** The m_file. */
     private File m_file;
 
+    /** The m_last modified. */
     private long m_lastModified;
 
+    /** The m_last file size. */
     private long m_lastFileSize;
 
+    /** The m_callback. */
     private FileReloadCallback<T> m_callback;
 
+    /** The m_reload check interval. */
     private long m_reloadCheckInterval = DEFAULT_RELOAD_CHECK_INTERVAL;
 
+    /** The m_last reload check. */
     private long m_lastReloadCheck;
 
     /**
@@ -115,22 +131,20 @@ public class FileReloadContainer<T> {
      * object. If reloadCheckInterval is set to a non-negative value
      * (default is 1000 milliseconds), the last modified timestamp on
      * the file will be checked and the
-     * {@link FileReloadCallback#reload(Object, File) reload} on the callback
-     * will be called when the file is modified. The
-     * check will be performed when {@link #getObject()} is called and
-     * at least reloadCheckInterval milliseconds have passed.
      *
      * @param object
      *            object to be stored in this container
-     * @param callback
-     *            {@link FileReloadCallback#reload(Object, File) reload} will be
-     *            called when the underlying file object is modified
-     * @throws java.lang.IllegalArgumentException
-     *             if object, file, or callback are null
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
-     * @param <T>
-     *            a T object.
+     * @param callback
+     *            the callback {@link FileReloadCallback#reload(Object, File)
+     *            reload} on the callback
+     *            will be called when the file is modified. The
+     *            check will be performed when {@link #getObject()} is called
+     *            and
+     *            at least reloadCheckInterval milliseconds have passed.
+     *            {@link FileReloadCallback#reload(Object, File) reload} will be
+     *            called when the underlying file object is modified
      */
     public FileReloadContainer(final T object, final Resource resource, final FileReloadCallback<T> callback) {
         Assert.notNull(object, "argument object cannot be null");
@@ -154,6 +168,14 @@ public class FileReloadContainer<T> {
         m_lastReloadCheck = System.currentTimeMillis();
     }
 
+    /**
+     * Instantiates a new file reload container.
+     *
+     * @param file
+     *            the file
+     * @param callback
+     *            the callback
+     */
     public FileReloadContainer(File file, FileReloadCallback<T> callback) {
         m_object = null;
         m_resource = new FileSystemResource(file);
@@ -171,8 +193,6 @@ public class FileReloadContainer<T> {
      *
      * @param object
      *            object to be stored in this container
-     * @throws java.lang.IllegalArgumentException
-     *             if object is null
      */
     public FileReloadContainer(final T object) {
         Assert.notNull(object, "argument object cannot be null");
@@ -185,16 +205,20 @@ public class FileReloadContainer<T> {
      * changed the object will be reloaded.
      *
      * @return object in this container
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if an unchecked exception
-     *             is received while trying to reload the object from the
-     *             underlying file
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     public T getObject() throws DataAccessResourceFailureException {
         checkForUpdates();
         return m_object;
     }
 
+    /**
+     * Check for updates.
+     *
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
+     */
     private synchronized void checkForUpdates() throws DataAccessResourceFailureException {
         if (m_file == null || m_reloadCheckInterval < 0
                 || System.currentTimeMillis() < (m_lastReloadCheck + m_reloadCheckInterval)) {

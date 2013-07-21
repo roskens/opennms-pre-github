@@ -47,14 +47,19 @@ import org.slf4j.LoggerFactory;
  */
 public class DBUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DBUtils.class);
 
+    /** The m_statements. */
     private final Set<Statement> m_statements;
 
+    /** The m_result sets. */
     private final Set<ResultSet> m_resultSets;
 
+    /** The m_connections. */
     private final Set<Connection> m_connections;
 
+    /** The m_logging class. */
     private Class<?> m_loggingClass;
 
     /**
@@ -85,6 +90,7 @@ public class DBUtils {
      * <p>
      * setLoggingClass
      * </p>
+     * .
      *
      * @param c
      *            a {@link java.lang.Class} object.
@@ -99,6 +105,7 @@ public class DBUtils {
      * <p>
      * watch
      * </p>
+     * .
      *
      * @param o
      *            a {@link java.lang.Object} object.
@@ -119,6 +126,7 @@ public class DBUtils {
      * <p>
      * cleanUp
      * </p>
+     * .
      */
     public void cleanUp() {
         for (ResultSet rs : m_resultSets) {

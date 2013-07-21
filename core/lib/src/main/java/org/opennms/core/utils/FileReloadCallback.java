@@ -36,12 +36,12 @@ import org.springframework.core.io.Resource;
  * Supporting interface for {@link FileReloadContainer} for performing a
  * reload callback.
  *
- * @author dj@opennms.org
  * @param <T>
  *            the class of the inner object that is stored in the
- *            {@link FileReloadContainer}
+ * @author dj@opennms.org {@link FileReloadContainer}
  */
 public interface FileReloadCallback<T> {
+
     /**
      * <p>
      * Reload the specified object from the underlying file and return the new
@@ -68,8 +68,8 @@ public interface FileReloadCallback<T> {
      *            used for reloading
      * @return the new object, or null if the old object should continue
      *         being used
-     * @param <T>
-     *            a T object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public T reload(T object, Resource resource) throws IOException;
 }

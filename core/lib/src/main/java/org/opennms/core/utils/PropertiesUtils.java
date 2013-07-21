@@ -43,34 +43,75 @@ import java.util.Properties;
  */
 public abstract class PropertiesUtils {
 
+    /** The Constant PLACEHOLDER_SUFFIX. */
     private static final String PLACEHOLDER_SUFFIX = "}";
 
+    /** The Constant PLACEHOLDER_PREFIX. */
     private static final String PLACEHOLDER_PREFIX = "${";
 
+    /**
+     * The Interface SymbolTable.
+     */
     public static interface SymbolTable {
+
+        /**
+         * Gets the symbol value.
+         *
+         * @param symbol
+         *            the symbol
+         * @return the symbol value
+         */
         public String getSymbolValue(String symbol);
     }
 
+    /**
+     * The Class PropertyBasedSymbolTable.
+     */
     private static class PropertyBasedSymbolTable implements SymbolTable {
+
+        /** The m_properties. */
         Properties m_properties;
 
+        /**
+         * Instantiates a new property based symbol table.
+         *
+         * @param properties
+         *            the properties
+         */
         PropertyBasedSymbolTable(Properties properties) {
             m_properties = properties;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.PropertiesUtils.SymbolTable#getSymbolValue(java.lang.String)
+         */
         @Override
         public String getSymbolValue(String symbol) {
             return m_properties.getProperty(symbol);
         }
     }
 
+    /**
+     * The Class MapBasedSymbolTable.
+     */
     private static class MapBasedSymbolTable implements SymbolTable {
+
+        /** The m_map. */
         Map<String, String> m_map;
 
+        /**
+         * Instantiates a new map based symbol table.
+         *
+         * @param properties
+         *            the properties
+         */
         MapBasedSymbolTable(Map<String, String> properties) {
             m_map = properties;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.PropertiesUtils.SymbolTable#getSymbolValue(java.lang.String)
+         */
         @Override
         public String getSymbolValue(String symbol) {
             return m_map.get(symbol);
@@ -86,9 +127,9 @@ public abstract class PropertiesUtils {
      *
      * @param initialString
      *            the string to perform the substitutions in
-     * @return The string with appropriate substitutions made.
      * @param propertiesArray
      *            a {@link java.util.Properties} object.
+     * @return The string with appropriate substitutions made.
      */
     public static String substitute(String initialString, Properties... propertiesArray) {
         String workingString = initialString;
@@ -109,9 +150,9 @@ public abstract class PropertiesUtils {
      *
      * @param initialString
      *            the string to perform the substitutions in
-     * @return The string with appropriate substitutions made.
      * @param mapArray
      *            a {@link java.util.Map} object.
+     * @return The string with appropriate substitutions made.
      */
     public static String substitute(String initialString, Map<String, String>... mapArray) {
         String workingString = initialString;
@@ -127,6 +168,7 @@ public abstract class PropertiesUtils {
      * <p>
      * substitute
      * </p>
+     * .
      *
      * @param initialString
      *            a {@link java.lang.String} object.
@@ -147,6 +189,7 @@ public abstract class PropertiesUtils {
      * <p>
      * substitute
      * </p>
+     * .
      *
      * @param initialString
      *            a {@link java.lang.String} object.
@@ -164,6 +207,21 @@ public abstract class PropertiesUtils {
         return workingString;
     }
 
+    /**
+     * Substitute.
+     *
+     * @param initialString
+     *            the initial string
+     * @param symTable
+     *            the sym table
+     * @param placeholderPrefix
+     *            the placeholder prefix
+     * @param placeholderSuffix
+     *            the placeholder suffix
+     * @param list
+     *            the list
+     * @return the string
+     */
     private static String substitute(String initialString, SymbolTable symTable, String placeholderPrefix,
             String placeholderSuffix, List<String> list) {
         if (initialString == null)
@@ -204,13 +262,13 @@ public abstract class PropertiesUtils {
      * Get a String valued property, returning default value if it is not set
      * or is set to an invalid value.
      *
+     * @param props
+     *            a {@link java.util.Properties} object.
      * @param name
      *            the property name
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props
-     *            a {@link java.util.Properties} object.
      */
     public static String getProperty(Properties props, String name, String defaultVal) {
         return props.getProperty(name) == null ? defaultVal : props.getProperty(name);
@@ -220,13 +278,13 @@ public abstract class PropertiesUtils {
      * Get a boolean valued property, returning default value if it is not set
      * or is set to an invalid value.
      *
+     * @param props
+     *            a {@link java.util.Properties} object.
      * @param name
      *            the property name
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props
-     *            a {@link java.util.Properties} object.
      */
     public static boolean getProperty(Properties props, String name, boolean defaultVal) {
         return "true".equalsIgnoreCase(props.getProperty(name, (defaultVal ? "true" : "false")));
@@ -236,13 +294,13 @@ public abstract class PropertiesUtils {
      * Get a int valued property, returning default value if it is not set or is
      * set to an invalid value.
      *
+     * @param props
+     *            a {@link java.util.Properties} object.
      * @param name
      *            the property name
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props
-     *            a {@link java.util.Properties} object.
      */
     public static int getProperty(Properties props, String name, int defaultVal) {
         String val = props.getProperty(name, (String) null);
@@ -257,15 +315,15 @@ public abstract class PropertiesUtils {
 
     /**
      * Get a long valued property, returning default value if it is not set or
-     * is set to an invalid value
+     * is set to an invalid value.
      *
+     * @param props
+     *            a {@link java.util.Properties} object.
      * @param name
      *            the property name
      * @param defaultVal
      *            the default value to use if the property is not set
      * @return the value of the property
-     * @param props
-     *            a {@link java.util.Properties} object.
      */
     public static long getProperty(Properties props, String name, long defaultVal) {
         String val = props.getProperty(name, (String) null);

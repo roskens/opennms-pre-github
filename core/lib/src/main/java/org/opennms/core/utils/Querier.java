@@ -43,8 +43,11 @@ import javax.sql.DataSource;
  * @version $Id: $
  */
 public class Querier extends JDBCTemplate implements RowProcessor {
+
+    /** The m_count. */
     private int m_count;
 
+    /** The m_row processor. */
     private RowProcessor m_rowProcessor;
 
     /**
@@ -86,6 +89,7 @@ public class Querier extends JDBCTemplate implements RowProcessor {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a int.
      */

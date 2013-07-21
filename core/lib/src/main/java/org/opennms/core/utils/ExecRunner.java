@@ -59,31 +59,31 @@ public class ExecRunner {
     /** Win NT/2K/MEPro require cmd.exe to run programs * */
     private static final String WINDOWS_NT_2000_COMMAND_1 = "cmd.exe";
 
-    /** Win NT/2K/MEPro require the /C to specify what to run * */
+    /** Win NT/2K/MEPro require the /C to specify what to run *. */
     private static final String WINDOWS_NT_2000_COMMAND_2 = "/C";
 
     /** Win 9X/MEHome require cmd.exe to run programs * */
     private static final String WINDOWS_9X_ME_COMMAND_1 = "command.exe";
 
-    /** Win 9X/MEHome require the /C to specify what to run * */
+    /** Win 9X/MEHome require the /C to specify what to run *. */
     private static final String WINDOWS_9X_ME_COMMAND_2 = "/C";
 
-    /** String to send to STDERR if program exceeds max run time * */
+    /** String to send to STDERR if program exceeds max run time *. */
     private static final String MAX_RUN_TIME_EXCEEDED_STRING = "MAX_RUN_TIME_EXCEEDED";
 
-    /** String to capture STDOUT */
+    /** String to capture STDOUT. */
     private String out = "".intern();
 
-    /** String to capture STDERR */
+    /** String to capture STDERR. */
     private String err = "".intern();
 
-    /** Default max run time (in seconds) */
+    /** Default max run time (in seconds). */
     private int maxRunTimeSecs = 0;
 
-    /** Flag to indicate if we've exceeded max run time */
+    /** Flag to indicate if we've exceeded max run time. */
     private boolean maxRunTimeExceeded = false;
 
-    /** Number of milliseconds to wait between polling watched thread */
+    /** Number of milliseconds to wait between polling watched thread. */
     private static final int POLL_DELAY_MS = 100;
 
     /**
@@ -98,8 +98,8 @@ public class ExecRunner {
      *
      * @param command
      *            The program or command to run
-     * @throws java.lang.ExceptionInInitializerError
-     *             thrown if a problem occurs
+     * @throws ExceptionInInitializerError
+     *             the exception in initializer error
      */
     public ExecRunner(final String command) throws ExceptionInInitializerError {
         this();
@@ -115,10 +115,10 @@ public class ExecRunner {
      * We override the <code>clone</code> method here to prevent cloning of
      * our class.
      *
-     * @throws java.lang.CloneNotSupportedException
-     *             To indicate cloning is not allowed
      * @return Nothing ever really returned since we throw a
      *         CloneNotSupportedException
+     * @throws CloneNotSupportedException
+     *             the clone not supported exception
      */
     @Override
     public final Object clone() throws CloneNotSupportedException {
@@ -152,13 +152,13 @@ public class ExecRunner {
      * }
      * </pre>
      *
-     * @return The command's return code
      * @param command
      *            The program or command to run
-     * @throws java.io.IOException
-     *             thrown if a problem occurs
-     * @throws java.lang.InterruptedException
-     *             thrown if a problem occurs
+     * @return The command's return code
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public int exec(final String command) throws IOException, InterruptedException {
 
@@ -192,17 +192,17 @@ public class ExecRunner {
     /**
      * Convenience method for calling exec with OutputStreams.
      *
-     * @return The command's return code
      * @param command
      *            The program or command to run
      * @param stdoutStream
      *            java.io.OutputStream
      * @param stderrStream
      *            java.io.OutputStream
-     * @throws java.io.IOException
-     *             thrown if a problem occurs
-     * @throws java.lang.InterruptedException
-     *             thrown if a problem occurs
+     * @return The command's return code
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public int exec(final String command, final OutputStream stdoutStream, final OutputStream stderrStream)
             throws IOException, InterruptedException {
@@ -226,17 +226,17 @@ public class ExecRunner {
      * process inside of a watched thread. It returns the client's exit code and
      * feeds its STDOUT and STDERR to the passed-in streams.
      *
-     * @return The command's return code
      * @param command
      *            The program or command to run
      * @param stdoutWriter
      *            java.io.PrintWriter
      * @param stderrWriter
      *            java.io.PrintWriter
-     * @throws java.io.IOException
-     *             thrown if a problem occurs
-     * @throws java.lang.InterruptedException
-     *             thrown if a problem occurs
+     * @return The command's return code
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public int exec(final String command, final PrintWriter stdoutWriter, final PrintWriter stderrWriter)
             throws IOException, InterruptedException {
@@ -385,8 +385,8 @@ public class ExecRunner {
      *
      * @param args
      *            an array of command-line arguments
-     * @throws java.io.IOException
-     *             thrown if a problem occurs
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void main(final String[] args) throws IOException {
 

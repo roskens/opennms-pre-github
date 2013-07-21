@@ -43,6 +43,9 @@ import org.junit.Test;
  */
 public class WebSecurityUtilsTest {
 
+    /**
+     * Test basic sanitize string.
+     */
     @Test
     public void testBasicSanitizeString() {
         String script = "<script>foo</script>";
@@ -53,6 +56,9 @@ public class WebSecurityUtilsTest {
         assertTrue("Html is sanitized", html.equals("&lt;table&gt;"));
     }
 
+    /**
+     * Test htm lallowed sanitize string.
+     */
     @Test
     public void testHTMLallowedSanitizeString() {
         String script = "<script>foo</script>";
@@ -63,6 +69,9 @@ public class WebSecurityUtilsTest {
         assertTrue("HtmlTable is sanitized with HTML allowed, so unchanged", html.equals("<table>"));
     }
 
+    /**
+     * Test basic bean sanitizer.
+     */
     @Test
     public void testBasicBeanSanitizer() {
         CommandBeanMockup bean = new CommandBeanMockup();
@@ -79,6 +88,9 @@ public class WebSecurityUtilsTest {
                    !WebSecurityUtils.sanitizeString("<table>", true).equals(bean.getHtmlTable()));
     }
 
+    /**
+     * Test bean sanitizer with html allow list.
+     */
     @Test
     public void testBeanSanitizerWithHtmlAllowList() {
         CommandBeanMockup bean = new CommandBeanMockup();

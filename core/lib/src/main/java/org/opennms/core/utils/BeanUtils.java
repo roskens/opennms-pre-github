@@ -49,6 +49,7 @@ import org.springframework.context.access.DefaultLocatorFactory;
  */
 public abstract class BeanUtils {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
@@ -118,6 +119,11 @@ public abstract class BeanUtils {
 
     /**
      * Check that all fields that are marked with @Autowired are not null.
+     *
+     * @param <T>
+     *            the generic type
+     * @param instance
+     *            the instance
      */
     public static <T> void assertAutowiring(T instance) {
         for (Field field : instance.getClass().getDeclaredFields()) {

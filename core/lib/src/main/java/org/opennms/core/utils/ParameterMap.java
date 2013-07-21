@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ParameterMap {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ParameterMap.class);
 
     /**
@@ -55,13 +56,13 @@ public abstract class ParameterMap {
      * in the map. If the specified key does not exist in the map then the
      * default value is returned.
      *
-     * @return The long value associated with the key.
      * @param map
      *            a {@link java.util.Map} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defValue
      *            a long.
+     * @return The long value associated with the key.
      */
     @SuppressWarnings("unchecked")
     public static long getKeyedLong(final Map map, final String key, final long defValue) {
@@ -94,13 +95,13 @@ public abstract class ParameterMap {
      * in the map. If the specified key does not exist in the map then the
      * default value is returned.
      *
-     * @return The int value associated with the key.
      * @param map
      *            a {@link java.util.Map} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defValue
      *            a int.
+     * @return The int value associated with the key.
      */
     public static int getKeyedInteger(@SuppressWarnings("unchecked")
     final Map map, final String key, final int defValue) {
@@ -113,13 +114,13 @@ public abstract class ParameterMap {
      * value is replaced in the map. The converted value is returned to the
      * caller. If the value cannot be converted then the default value is used.
      *
-     * @return The array of integer values associated with the key.
      * @param map
      *            a {@link java.util.Map} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defValues
      *            an array of int.
+     * @return The array of integer values associated with the key.
      */
     @SuppressWarnings("unchecked")
     public static final int[] getKeyedIntegerArray(final Map map, final String key, final int[] defValues) {
@@ -165,13 +166,13 @@ public abstract class ParameterMap {
      * the specified key does not exist in the map then the default value is
      * returned.
      *
-     * @return The String value associated with the key.
      * @param map
      *            a {@link java.util.Map} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defValue
      *            a {@link java.lang.String} object.
+     * @return The String value associated with the key.
      */
     @SuppressWarnings("unchecked")
     public static String getKeyedString(final Map map, final String key, final String defValue) {
@@ -199,13 +200,13 @@ public abstract class ParameterMap {
      * in the map. If the specified key does not exist in the map then the
      * default value is returned.
      *
-     * @return The bool value associated with the key.
      * @param map
      *            a {@link java.util.Map} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param defValue
      *            a boolean.
+     * @return The bool value associated with the key.
      */
     @SuppressWarnings("unchecked")
     public static boolean getKeyedBoolean(final Map map, final String key, final boolean defValue) {
@@ -239,6 +240,16 @@ public abstract class ParameterMap {
      * cannot be found in the map then the default value is stored
      * in the map. If the specified key does not exist in the map then the
      * default value is returned.
+     *
+     * @param <T>
+     *            the generic type
+     * @param map
+     *            the map
+     * @param key
+     *            the key
+     * @param defValue
+     *            the def value
+     * @return the keyed value
      */
     public static <T> T getKeyedValue(final Map<String, T> map, final String key, final T defValue) {
 

@@ -46,8 +46,10 @@ import org.springframework.dao.DataRetrievalFailureException;
  */
 public abstract class JDBCTemplate {
 
+    /** The m_db. */
     private DataSource m_db;
 
+    /** The m_sql. */
     private String m_sql;
 
     /**
@@ -69,6 +71,7 @@ public abstract class JDBCTemplate {
      * <p>
      * execute
      * </p>
+     * .
      *
      * @param values
      *            a {@link java.lang.Object} object.
@@ -82,6 +85,13 @@ public abstract class JDBCTemplate {
         }
     }
 
+    /**
+     * Args to string.
+     *
+     * @param values
+     *            the values
+     * @return the string
+     */
     private String argsToString(final Object[] values) {
         final StringBuffer sb = new StringBuffer("[");
         for (int i = 0; i < values.length; i++) {
@@ -93,6 +103,14 @@ public abstract class JDBCTemplate {
         return sb.toString();
     }
 
+    /**
+     * Do execute.
+     *
+     * @param values
+     *            the values
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void doExecute(final Object[] values) throws SQLException {
         final DBUtils d = new DBUtils(getClass());
         try {
@@ -113,6 +131,7 @@ public abstract class JDBCTemplate {
      * <p>
      * reproduceStatement
      * </p>
+     * .
      *
      * @param values
      *            an array of {@link java.lang.Object} objects.
@@ -122,6 +141,14 @@ public abstract class JDBCTemplate {
         return m_sql + ": with vals " + argsToString(values);
     }
 
+    /**
+     * Execute stmt.
+     *
+     * @param stmt
+     *            the stmt
+     * @throws SQLException
+     *             the sQL exception
+     */
     abstract void executeStmt(PreparedStatement stmt) throws SQLException;
 
 }
