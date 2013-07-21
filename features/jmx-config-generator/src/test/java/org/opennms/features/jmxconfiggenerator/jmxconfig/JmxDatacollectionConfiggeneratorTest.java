@@ -49,19 +49,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JmxDatacollectionConfiggeneratorTest.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class JmxDatacollectionConfiggeneratorTest {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(JmxDatacollectionConfiggenerator.class);
 
+    /** The jmx configgenerator. */
     private JmxDatacollectionConfiggenerator jmxConfiggenerator;
 
+    /** The platform m bean server. */
     private MBeanServer platformMBeanServer;
 
+    /** The dictionary. */
     private Map<String, String> dictionary = new HashMap<String, String>();
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         jmxConfiggenerator = new JmxDatacollectionConfiggenerator();
@@ -71,6 +83,12 @@ public class JmxDatacollectionConfiggeneratorTest {
         platformMBeanServer.registerMBean(testMBean, objectName);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         jmxConfiggenerator = null;
@@ -79,6 +97,9 @@ public class JmxDatacollectionConfiggeneratorTest {
         platformMBeanServer = null;
     }
 
+    /**
+     * Test generate jmx config model skip jvm m beans.
+     */
     @Test
     public void testGenerateJmxConfigModelSkipJvmMBeans() {
         JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
@@ -92,6 +113,9 @@ public class JmxDatacollectionConfiggeneratorTest {
                             jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
     }
 
+    /**
+     * Test generate jmx config model run writable m beans.
+     */
     @Test
     public void testGenerateJmxConfigModelRunWritableMBeans() {
         JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
@@ -105,6 +129,9 @@ public class JmxDatacollectionConfiggeneratorTest {
                             jmxConfigModel.getJmxCollection().get(0).getMbeans().getMbean().get(0).getAttrib().size());
     }
 
+    /**
+     * Test generate jmx config model run jvm m beans.
+     */
     @Test
     public void testGenerateJmxConfigModelRunJvmMBeans() {
         JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
@@ -119,6 +146,14 @@ public class JmxDatacollectionConfiggeneratorTest {
     }
 
     // @Test
+    /**
+     * Test generate jmx config cassandra local.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGenerateJmxConfigCassandraLocal() throws MalformedURLException, IOException {
         JmxDatacollectionConfig jmxConfigModel = jmxConfiggenerator.generateJmxConfigModel(platformMBeanServer,
                                                                                            "cassandra", false, false,
@@ -130,6 +165,14 @@ public class JmxDatacollectionConfiggeneratorTest {
     }
 
     // @Test
+    /**
+     * Test generate jmx config jmx mp.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGenerateJmxConfigJmxMp() throws MalformedURLException, IOException {
 
         JMXServiceURL url = jmxConfiggenerator.getJmxServiceURL(false, "connect.opennms-edu.net", "9998");

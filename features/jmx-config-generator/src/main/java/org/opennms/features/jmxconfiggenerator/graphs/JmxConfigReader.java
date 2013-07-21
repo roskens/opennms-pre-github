@@ -43,26 +43,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JmxConfigReader.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class JmxConfigReader {
 
+    /** The logger. */
     private Logger logger = LoggerFactory.getLogger(JmxConfigReader.class);
 
+    /** The attributereport. */
     private final String ATTRIBUTEREPORT = "AttributeReport";
 
+    /** The mbeanreport. */
     private final String MBEANREPORT = "MBeanReport";
 
+    /** The compositereport. */
     private final String COMPOSITEREPORT = "CompositeReport";
 
+    /** The compositattribereport. */
     private final String COMPOSITATTRIBEREPORT = "CompositeAttributeReport";
 
+    /**
+     * Generate reports by jmx datacollection config.
+     *
+     * @param inputConfigFileName
+     *            the input config file name
+     * @return the collection
+     */
     public Collection<Report> generateReportsByJmxDatacollectionConfig(String inputConfigFileName) {
         return generateReportsByJmxDatacollectionConfig(JAXB.unmarshal(new File(inputConfigFileName),
                                                                        JmxDatacollectionConfig.class));
     }
 
+    /**
+     * Generate reports by jmx datacollection config.
+     *
+     * @param inputConfig
+     *            the input config
+     * @return the collection
+     */
     public Collection<Report> generateReportsByJmxDatacollectionConfig(JmxDatacollectionConfig inputConfig) {
         Collection<Report> reports = new ArrayList<Report>();
         for (JmxCollection jmxCollection : inputConfig.getJmxCollection()) {
@@ -78,6 +99,13 @@ public class JmxConfigReader {
         return reports;
     }
 
+    /**
+     * Generate attribute repors by m bean.
+     *
+     * @param mbean
+     *            the mbean
+     * @return the collection
+     */
     private Collection<Report> generateAttributeReporsByMBean(Mbean mbean) {
         Collection<Report> reports = new ArrayList<Report>();
         for (Attrib attrib : mbean.getAttrib()) {
@@ -93,6 +121,13 @@ public class JmxConfigReader {
         return reports;
     }
 
+    /**
+     * Generate mbean reports by m bean.
+     *
+     * @param mbean
+     *            the mbean
+     * @return the collection
+     */
     private Collection<Report> generateMbeanReportsByMBean(Mbean mbean) {
         Collection<Report> reports = new ArrayList<Report>();
         if (!mbean.getAttrib().isEmpty()) {
@@ -109,6 +144,13 @@ public class JmxConfigReader {
         return reports;
     }
 
+    /**
+     * Generate composite reports by m bean.
+     *
+     * @param mbean
+     *            the mbean
+     * @return the collection
+     */
     private Collection<Report> generateCompositeReportsByMBean(Mbean mbean) {
         Collection<Report> reports = new ArrayList<Report>();
 
@@ -128,6 +170,13 @@ public class JmxConfigReader {
         return reports;
     }
 
+    /**
+     * Generate composite member reports by m bean.
+     *
+     * @param mbean
+     *            the mbean
+     * @return the collection
+     */
     private Collection<Report> generateCompositeMemberReportsByMBean(Mbean mbean) {
         Collection<Report> reports = new ArrayList<Report>();
 

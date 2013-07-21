@@ -29,19 +29,52 @@
 package org.opennms.features.jmxconfiggenerator.jmxconfig;
 
 /**
+ * The Interface JmxTestDummyMBean.
+ *
  * @author Markus Neumann <markus@opennms.com>
  */
 public interface JmxTestDummyMBean {
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName();
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public int getX();
 
+    /**
+     * Gets the integer.
+     *
+     * @return the integer
+     */
     public Integer getInteger();
 
+    /**
+     * Gets the long.
+     *
+     * @return the long
+     */
     public Long getLong();
 
+    /**
+     * Sets the writable y.
+     *
+     * @param writable
+     *            the new writable y
+     */
     public void setWritableY(int writable);
 
+    /**
+     * Gets the writable y.
+     *
+     * @return the writable y
+     */
     public int getWritableY();
 }

@@ -55,67 +55,101 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class Starter.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class Starter {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(Starter.class);
 
+    /** The jmx. */
     @Option(name = "-jmx", usage = "Generate jmx-datacollection.xml by reading JMX over RMI")
     private boolean jmx = false;
 
+    /** The service name. */
     @Option(name = "-service", usage = "Your optional service-name. Like cassandra, jboss, tomcat")
     private String serviceName = "anyservice";
 
+    /** The host name. */
     @Option(name = "-host", usage = "Hostname or IP-Adress of JMX-RMI host")
     private String hostName;
 
+    /** The username. */
     @Option(name = "-username", usage = "Username for JMX-RMI Authentication")
     private String username;
 
+    /** The password. */
     @Option(name = "-password", usage = "Password for JMX-RMI Authentication")
     private String password;
 
+    /** The port. */
     @Option(name = "-port", usage = "Port of JMX-RMI service")
     private String port;
 
+    /** The jmxmp. */
     @Option(name = "-jmxmp", usage = "Use JMXMP and not JMX-RMI")
     private boolean jmxmp = false;
 
     // @Option(name = "-ssl", usage = "Use SSL for the connection")
+    /** The ssl. */
     private boolean ssl = false;
 
+    /** The skip default vm. */
     @Option(name = "-skipDefaultVM", usage = "set to process default JavaVM Beans.")
     private boolean skipDefaultVM = false;
 
+    /** The run writable m beans. */
     @Option(name = "-runWritableMBeans", usage = "include MBeans that are read- and writable.")
     private boolean runWritableMBeans = false;
 
+    /** The graph. */
     @Option(name = "-graph", usage = "Generate snmp-graph.properties linke file to out, by reading jmx-datacollection.xml like file from input")
     private boolean graph = false;
 
+    /** The input file. */
     @Option(name = "-input", usage = "Jmx-datacolletion.xml like file to parse")
     private String inputFile;
 
+    /** The out file. */
     @Option(name = "-out", usage = "File to write generated snmp-graph.properties linke content")
     private String outFile;
 
+    /** The template file. */
     @Option(name = "-template", usage = "Template file for SnmpGraphs")
     private String templateFile;
 
+    /** The dictionary file. */
     @Option(name = "-dictionary", usage = "Dictionary properties file for replacing attribute names and parts of this names")
     private String dictionaryFile;
 
+    /** The url. */
     @Option(name = "-url", usage = "JMX URL Usage: <hostname>:<port> OR service:jmx:<protocol>:<sap> OR service:jmx:remoting-jmx://<hostname>:<port>")
     private String url;
 
+    /** The dictionary. */
     private Map<String, String> dictionary = new HashMap<String, String>();
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static void main(String[] args) throws IOException {
         new Starter().doMain(args);
     }
 
+    /**
+     * Do main.
+     *
+     * @param args
+     *            the args
+     */
     public void doMain(String[] args) {
 
         CmdLineParser parser = new CmdLineParser(this);
@@ -203,6 +237,11 @@ public class Starter {
     }
 
     // TODO make this private!
+    /**
+     * Load internal dictionary.
+     *
+     * @return the map
+     */
     public static Map<String, String> loadInternalDictionary() {
         Map<String, String> internalDictionary = new HashMap<String, String>();
         Properties properties = new Properties();
@@ -222,6 +261,13 @@ public class Starter {
         return internalDictionary;
     }
 
+    /**
+     * Load external dictionary.
+     *
+     * @param dictionaryFile
+     *            the dictionary file
+     * @return the map
+     */
     private Map<String, String> loadExternalDictionary(String dictionaryFile) {
         Map<String, String> externalDictionary = new HashMap<String, String>();
         Properties properties = new Properties();

@@ -32,21 +32,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The Class Report.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class Report {
 
+    /** The id. */
     private String id;
 
+    /** The name. */
     private String name;
 
+    /** The title. */
     private String title;
 
+    /** The vertical label. */
     private String verticalLabel;
 
+    /** The graphs. */
     private List<Graph> graphs = new ArrayList<Graph>();
 
+    /**
+     * Instantiates a new report.
+     *
+     * @param id
+     *            the id
+     * @param name
+     *            the name
+     * @param title
+     *            the title
+     * @param verticalLabel
+     *            the vertical label
+     */
     public Report(String id, String name, String title, String verticalLabel) {
         this.id = id;
         this.name = name;
@@ -54,6 +73,11 @@ public class Report {
         this.verticalLabel = verticalLabel;
     }
 
+    /**
+     * Gets the graph resources.
+     *
+     * @return the graph resources
+     */
     public String getGraphResources() {
         String result = "";
         for (Graph graph : graphs) {
@@ -65,50 +89,114 @@ public class Report {
         return result;
     }
 
+    /**
+     * Gets the graphs.
+     *
+     * @return the graphs
+     */
     public List<Graph> getGraphs() {
         return graphs;
     }
 
+    /**
+     * Sets the graphs.
+     *
+     * @param graphs
+     *            the new graphs
+     */
     public void setGraphs(List<Graph> graphs) {
         this.graphs = graphs;
     }
 
+    /**
+     * Adds the graph.
+     *
+     * @param graph
+     *            the graph
+     */
     public void addGraph(Graph graph) {
         this.graphs.add(graph);
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Sets the title.
+     *
+     * @param title
+     *            the new title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Gets the vertical label.
+     *
+     * @return the vertical label
+     */
     public String getVerticalLabel() {
         return verticalLabel;
     }
 
+    /**
+     * Sets the vertical label.
+     *
+     * @param verticalLabel
+     *            the new vertical label
+     */
     public void setVerticalLabel(String verticalLabel) {
         this.verticalLabel = verticalLabel;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Report{" + "id=" + id + ", name=" + name + ", title=" + title + ", verticalLabel=" + verticalLabel

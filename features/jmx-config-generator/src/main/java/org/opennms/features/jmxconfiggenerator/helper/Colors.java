@@ -32,12 +32,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The Class Colors.
+ *
  * @author Markus Neumann <markus@opennms.com>
  */
 public class Colors {
 
+    /** The tango colors. */
     private static List<String> tangoColors = new ArrayList<String>();
 
+    /** The color index. */
     private static int colorIndex = 0;
 
     static {
@@ -78,12 +82,20 @@ public class Colors {
         tangoColors.add("888a85");
     }
 
+    /**
+     * Gets the next color.
+     *
+     * @return the next color
+     */
     public static String getNextColor() {
         String color = tangoColors.get(colorIndex);
         colorIndex = (colorIndex + 1) % tangoColors.size();
         return color;
     }
 
+    /**
+     * Restet color.
+     */
     public static void restetColor() {
         colorIndex = 0;
     }

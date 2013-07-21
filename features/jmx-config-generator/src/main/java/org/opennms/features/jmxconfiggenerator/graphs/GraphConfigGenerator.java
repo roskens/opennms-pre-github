@@ -48,13 +48,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class GraphConfigGenerator.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class GraphConfigGenerator {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(GraphConfigGenerator.class);
 
+    /**
+     * Generate snmp graph.
+     *
+     * @param reports
+     *            the reports
+     * @param graphTemplate
+     *            the graph template
+     * @return the string
+     */
     public String generateSnmpGraph(Collection<Report> reports, String graphTemplate) {
         Velocity.init();
         VelocityContext context = new VelocityContext();
@@ -84,6 +96,15 @@ public class GraphConfigGenerator {
         return sw.toString();
     }
 
+    /**
+     * Generate snmp graph.
+     *
+     * @param reports
+     *            the reports
+     * @return the string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String generateSnmpGraph(Collection<Report> reports) throws IOException {
         String jarInternTemplate = "graphTemplate.vm";
 

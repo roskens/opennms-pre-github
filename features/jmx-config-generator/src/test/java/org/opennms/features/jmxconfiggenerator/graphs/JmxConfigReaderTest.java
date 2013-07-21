@@ -38,37 +38,65 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * The Class JmxConfigReaderTest.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 
 public class JmxConfigReaderTest {
 
+    /** The jmx config reader. */
     private JmxConfigReader jmxConfigReader;
 
+    /** The graph config generator. */
     private GraphConfigGenerator graphConfigGenerator;
 
+    /**
+     * Instantiates a new jmx config reader test.
+     */
     public JmxConfigReaderTest() {
     }
 
+    /**
+     * Sets the up class.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     * Tear down class.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         jmxConfigReader = new JmxConfigReader();
         graphConfigGenerator = new GraphConfigGenerator();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
     }
 
+    /**
+     * Test generate reports by jmx datacollection config.
+     */
     @Test
     public void testGenerateReportsByJmxDatacollectionConfig() {
         Collection<Report> reports = jmxConfigReader.generateReportsByJmxDatacollectionConfig("src/test/resources/test.xml");
@@ -82,6 +110,9 @@ public class JmxConfigReaderTest {
     }
 
     // TODO move to GraphConfigGenerator
+    /**
+     * Test velocitey run.
+     */
     @Test
     public void testVelociteyRun() {
         Collection<Report> reports = jmxConfigReader.generateReportsByJmxDatacollectionConfig("src/test/resources/JVM-Basics.xml");

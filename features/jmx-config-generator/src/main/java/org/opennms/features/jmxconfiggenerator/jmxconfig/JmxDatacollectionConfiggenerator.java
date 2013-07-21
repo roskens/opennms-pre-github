@@ -66,29 +66,41 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JmxDatacollectionConfiggenerator.
+ *
  * @author Simon Walter <simon.walter@hp-factory.de>
  * @author Markus Neumann <markus@opennms.com>
  */
 public class JmxDatacollectionConfiggenerator {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(JmxDatacollectionConfiggenerator.class);
 
+    /** The xml object factory. */
     private static ObjectFactory xmlObjectFactory = new ObjectFactory();
 
+    /** The standard vm beans. */
     private static ArrayList<String> standardVmBeans = new ArrayList<String>();
 
+    /** The ignores. */
     private static ArrayList<String> ignores = new ArrayList<String>();
 
+    /** The numbers. */
     private static ArrayList<String> numbers = new ArrayList<String>();
 
+    /** The rras. */
     private static ArrayList<String> rras = new ArrayList<String>();
 
+    /** The alias map. */
     private static HashMap<String, Integer> aliasMap = new HashMap<String, Integer>();
 
+    /** The alias list. */
     private static ArrayList<String> aliasList = new ArrayList<String>();
 
+    /** The rrd. */
     private static Rrd rrd = new Rrd();
 
+    /** The name cutter. */
     private static NameCutter nameCutter = new NameCutter();
 
     static {
@@ -117,6 +129,21 @@ public class JmxDatacollectionConfiggenerator {
         rrd.getRra().addAll(rras);
     }
 
+    /**
+     * Generate jmx config model.
+     *
+     * @param mBeanServerConnection
+     *            the m bean server connection
+     * @param serviceName
+     *            the service name
+     * @param runStandardVmBeans
+     *            the run standard vm beans
+     * @param runWritableMBeans
+     *            the run writable m beans
+     * @param dictionary
+     *            the dictionary
+     * @return the jmx datacollection config
+     */
     public JmxDatacollectionConfig generateJmxConfigModel(MBeanServerConnection mBeanServerConnection,
             String serviceName, Boolean runStandardVmBeans, Boolean runWritableMBeans, Map<String, String> dictionary) {
 
@@ -238,6 +265,15 @@ public class JmxDatacollectionConfiggenerator {
         return xmlJmxDatacollectionConfig;
     }
 
+    /**
+     * Creates the m bean server connection.
+     *
+     * @param jmxConnector
+     *            the jmx connector
+     * @return the m bean server connection
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public MBeanServerConnection createMBeanServerConnection(JMXConnector jmxConnector) throws IOException {
         MBeanServerConnection jmxServerConnection = jmxConnector.getMBeanServerConnection();
         logger.debug("jmxServerConnection: '{}'", jmxServerConnection);
@@ -280,10 +316,14 @@ public class JmxDatacollectionConfiggenerator {
      * determines the jmxServiceUrl depending on jmxmp.
      *
      * @param jmxmp
+     *            the jmxmp
      * @param hostName
+     *            the host name
      * @param port
-     * @return
+     *            the port
+     * @return the jmx service url
      * @throws MalformedURLException
+     *             the malformed url exception
      */
     public JMXServiceURL getJmxServiceURL(Boolean jmxmp, String hostName, String port) throws MalformedURLException {
         if (jmxmp) {
@@ -292,12 +332,31 @@ public class JmxDatacollectionConfiggenerator {
         return new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + hostName + ":" + port + "/jmxrmi");
     }
 
+    /**
+     * Write jmx config file.
+     *
+     * @param jmxDatacollectionConfigModel
+     *            the jmx datacollection config model
+     * @param outFile
+     *            the out file
+     */
     public void writeJmxConfigFile(JmxDatacollectionConfig jmxDatacollectionConfigModel, String outFile) {
         logger.debug("start marshalling");
         JAXB.marshal(jmxDatacollectionConfigModel, new File(outFile));
         logger.debug("finished marshalling");
     }
 
+    /**
+     * Creates the comp attrib.
+     *
+     * @param jmxServerConnection
+     *            the jmx server connection
+     * @param jmxObjectInstance
+     *            the jmx object instance
+     * @param jmxMBeanAttributeInfo
+     *            the jmx m bean attribute info
+     * @return the comp attrib
+     */
     private CompAttrib createCompAttrib(MBeanServerConnection jmxServerConnection, ObjectInstance jmxObjectInstance,
             MBeanAttributeInfo jmxMBeanAttributeInfo) {
         Boolean contentAdded = false;
@@ -353,6 +412,13 @@ public class JmxDatacollectionConfiggenerator {
         return null;
     }
 
+    /**
+     * Creates the attr.
+     *
+     * @param jmxMBeanAttributeInfo
+     *            the jmx m bean attribute info
+     * @return the attrib
+     */
     private Attrib createAttr(MBeanAttributeInfo jmxMBeanAttributeInfo) {
         Attrib xmlJmxAttribute = xmlObjectFactory.createAttrib();
 
@@ -365,6 +431,13 @@ public class JmxDatacollectionConfiggenerator {
         return xmlJmxAttribute;
     }
 
+    /**
+     * Creates the and register unique alias.
+     *
+     * @param originalAlias
+     *            the original alias
+     * @return the string
+     */
     private String createAndRegisterUniqueAlias(String originalAlias) {
         String uniqueAlias = originalAlias;
         if (!aliasMap.containsKey(originalAlias)) {

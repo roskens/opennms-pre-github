@@ -31,42 +31,65 @@ package org.opennms.features.jmxconfiggenerator.jmxconfig;
 import org.junit.Ignore;
 
 /**
+ * The Class JmxTestDummy.
+ *
  * @author Markus Neumann <markus@opennms.com>
  */
 @Ignore
 public class JmxTestDummy implements JmxTestDummyMBean {
 
+    /** The name. */
     String name = "JmxTest";
 
+    /** The x. */
     int x = 42;
 
+    /** The writable. */
     int writable = 0;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#getName()
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#getX()
+     */
     @Override
     public int getX() {
         return x;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#getInteger()
+     */
     @Override
     public Integer getInteger() {
         return new Integer(42);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#getLong()
+     */
     @Override
     public Long getLong() {
         return new Long(42);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#setWritableY(int)
+     */
     @Override
     public void setWritableY(int writable) {
         this.writable = writable;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.jmxconfig.JmxTestDummyMBean#getWritableY()
+     */
     @Override
     public int getWritableY() {
         return writable;
