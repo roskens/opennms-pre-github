@@ -57,9 +57,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+/**
+ * The Class NCSRestServiceTest.
+ */
 public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NCSRestServiceTest.class);
 
+    /**
+     * Sets the up logging.
+     *
+     * @param level
+     *            the new up logging
+     */
     private static void setupLogging(final String level) {
         final Properties config = new Properties();
         config.setProperty("log4j.logger.org.opennms.netmgt.mock.MockEventIpcManager", "ERROR");
@@ -68,11 +79,15 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         MockLogAppender.setupLogging(true, level, config);
     }
 
+    /**
+     * Setup logging.
+     */
     @BeforeClass
     public static void setupLogging() {
         setupLogging("ERROR");
     }
 
+    /** The Constant m_serviceXML. */
     private static final String m_serviceXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"Service\" foreignId=\"123\" foreignSource=\"NA-Service\">\n"
@@ -134,6 +149,7 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
             + "                <name>lspB-PE2-PE1</name>\n" + "            </component>\n" + "        </component>\n"
             + "    </component>\n" + "</component>\n";
 
+    /** The Constant m_components. */
     private static final String[][] m_components = new String[][] {
             new String[] { "Service", "CokeP2P", "NA-Service", "123" },
             new String[] { "ServiceElement", "PE1,ge-1/0/2", "NA-ServiceElement", "8765,1234" },
@@ -149,17 +165,20 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
             new String[] { "ServiceElementComponent", "lspA-PE2-PE1", "NA-SvcElemComp", "9876,LSP-1234" },
             new String[] { "ServiceElementComponent", "lspB-PE2-PE1", "NA-SvcElemComp", "9876,LSP-4321" } };
 
+    /** The Constant m_serviceXMLFragment. */
     private static final String m_serviceXMLFragment = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"ServiceElementComponent\" foreignId=\"9876,vcid(50)\" foreignSource=\"NA-SvcElemComp\">\n"
             + "  <name>PE2,vcid(50)</name>\n" + "  <dependenciesRequired>ANY</dependenciesRequired>\n"
             + "</component>\n";
 
+    /** The Constant m_serviceXMLTopFragment. */
     private static final String m_serviceXMLTopFragment = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"Service\" foreignId=\"123\" foreignSource=\"NA-Service\">\n"
             + "    <name>CokeP2P</name>\n" + "</component>\n";
 
+    /** The Constant m_extraXML. */
     private static final String m_extraXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"ServiceElementComponent\" foreignId=\"monkey1\" foreignSource=\"NA-SvcElemComp\">\n"
@@ -167,20 +186,27 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
             + "    <component type=\"PhysicalInterface\" foreignId=\"shoe2\" foreignSource=\"NA-PhysIfs\">\n"
             + "        <name>Shoe (2)</name>\n" + "    </component>\n" + "</component>\n";
 
+    /** The Constant m_badForeignSourceXML. */
     private static final String m_badForeignSourceXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"Service\" foreignId=\"123\" foreignSource=\"NA-Service:1\">\n"
             + "    <name>Blah</name>\n" + "</component>\n";
 
+    /** The Constant m_badForeignIdXML. */
     private static final String m_badForeignIdXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<component xmlns=\"http://xmlns.opennms.org/xsd/model/ncs\" type=\"Service\" foreignId=\"123:456\" foreignSource=\"NA-Service\">\n"
             + "    <name>Blah</name>\n" + "</component>\n";
 
+    /** The m_event ipc manager. */
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_event anticipator. */
     private EventAnticipator m_eventAnticipator;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.rest.AbstractSpringJerseyRestTestCase#afterServletStart()
+     */
     @Override
     protected void afterServletStart() throws Exception {
         m_eventIpcManager = getWebAppContext().getBean(MockEventIpcManager.class);
@@ -189,6 +215,9 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         service.setEventProxy(m_eventIpcManager);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.rest.AbstractSpringJerseyRestTestCase#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
@@ -207,6 +236,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         super.tearDown();
     }
 
+    /**
+     * Test post a service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPostAService() throws Exception {
         setupLogging("DEBUG");
@@ -228,6 +263,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("jnxVpnPwVpnName"));
     }
 
+    /**
+     * Test delete a component.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteAComponent() throws Exception {
         sendPost("/NCS", m_serviceXML);
@@ -253,6 +294,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Test get a non existing service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetANonExistingService() throws Exception {
         setupLogging("DEBUG");
@@ -265,6 +312,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Test find a service by attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindAServiceByAttribute() throws Exception {
         sendPost("/NCS", m_serviceXML);
@@ -280,6 +333,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("jnxVpnPwVpnName"));
     }
 
+    /**
+     * Test add components.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddComponents() throws Exception {
         sendPost("/NCS", m_serviceXML);
@@ -303,6 +362,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
     }
 
+    /**
+     * Test delete orphans.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteOrphans() throws Exception {
         sendPost("/NCS", m_serviceXML);
@@ -327,6 +392,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
     /*
      * Deletes everything but the top-level "Service" component.
      */
+    /**
+     * Test delete orphans recursive.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteOrphansRecursive() throws Exception {
         sendPost("/NCS", m_serviceXML);
@@ -349,6 +420,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendRequest(request, 200);
     }
 
+    /**
+     * Test multi parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMultiParent() throws Exception {
         createMultiParent();
@@ -363,6 +440,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("child2Fd1"));
     }
 
+    /**
+     * Test delete multi parent orphans.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDeleteMultiParentOrphans() throws Exception {
         setupLogging("DEBUG");
@@ -395,6 +478,12 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         assertTrue(xml.contains("child2Fd1"));
     }
 
+    /**
+     * Creates the multi parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createMultiParent() throws Exception {
         // create a simple 3-level tree
         String text = ""
@@ -431,6 +520,13 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         sendPost("/NCS/top/topFs1:topFd1", text, 200);
     }
 
+    /**
+     * Format parms.
+     *
+     * @param parms
+     *            the parms
+     * @return the string
+     */
     private String formatParms(final List<Parm> parms) {
         final StringBuilder sb = new StringBuilder();
         sb.append("[");
@@ -448,24 +544,50 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
         return sb.toString();
     }
 
+    /**
+     * Test invalid foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("allowing this for now")
     public void testInvalidForeignSource() throws Exception {
         sendPost("/NCS", m_badForeignSourceXML, 400);
     }
 
+    /**
+     * Test invalid foreign id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("allowing this for now")
     public void testInvalidForeignId() throws Exception {
         sendPost("/NCS", m_badForeignIdXML, 400);
     }
 
+    /**
+     * Anticipate events.
+     *
+     * @param uei
+     *            the uei
+     */
     private void anticipateEvents(final String uei) {
         for (final String[] componentInfo : m_components) {
             anticipateEvent(uei, componentInfo);
         }
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param uei
+     *            the uei
+     * @param componentInfo
+     *            the component info
+     */
     private void anticipateEvent(final String uei, final String[] componentInfo) {
         final EventBuilder builder = new EventBuilder(uei, "NCSComponentService");
         builder.addParam("componentType", componentInfo[0]);

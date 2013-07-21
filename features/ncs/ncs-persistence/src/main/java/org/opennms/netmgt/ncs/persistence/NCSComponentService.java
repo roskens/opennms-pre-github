@@ -32,17 +32,85 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.ncs.rest.NCSRestService.ComponentList;
 
+/**
+ * The Interface NCSComponentService.
+ */
 public interface NCSComponentService {
+
+    /**
+     * Sets the event proxy.
+     *
+     * @param eventProxy
+     *            the new event proxy
+     * @throws Exception
+     *             the exception
+     */
     public void setEventProxy(EventProxy eventProxy) throws Exception;
 
+    /**
+     * Gets the component.
+     *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the component
+     */
     public NCSComponent getComponent(String type, String foreignSource, String foreignId);
 
+    /**
+     * Find components with attribute.
+     *
+     * @param string
+     *            the string
+     * @param string2
+     *            the string2
+     * @return the component list
+     */
     public ComponentList findComponentsWithAttribute(String string, String string2);
 
+    /**
+     * Adds the or update components.
+     *
+     * @param component
+     *            the component
+     * @param deleteOrphans
+     *            the delete orphans
+     * @return the nCS component
+     */
     public NCSComponent addOrUpdateComponents(NCSComponent component, boolean deleteOrphans);
 
+    /**
+     * Adds the subcomponent.
+     *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param subComponent
+     *            the sub component
+     * @param deleteOrphans
+     *            the delete orphans
+     * @return the nCS component
+     */
     public NCSComponent addSubcomponent(String type, String foreignSource, String foreignId, NCSComponent subComponent,
             boolean deleteOrphans);
 
+    /**
+     * Delete component.
+     *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param deleteOrphans
+     *            the delete orphans
+     */
     public void deleteComponent(String type, String foreignSource, String foreignId, boolean deleteOrphans);
 }

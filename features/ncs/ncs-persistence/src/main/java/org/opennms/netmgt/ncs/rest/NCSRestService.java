@@ -68,7 +68,7 @@ import org.springframework.util.Assert;
 import com.sun.jersey.spi.resource.PerRequest;
 
 /**
- * Basic Web Service using REST for NCS Components
+ * Basic Web Service using REST for NCS Components.
  *
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
@@ -78,20 +78,32 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("NCS")
 @Transactional
 public class NCSRestService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NCSRestService.class);
 
+    /** The m_component service. */
     @Autowired
     NCSComponentService m_componentService;
 
+    /** The m_event dao. */
     @Autowired
     EventDao m_eventDao;
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /** The m_uri info. */
     @Context
     UriInfo m_uriInfo;
 
+    /**
+     * After properties set.
+     *
+     * @throws RuntimeException
+     *             the runtime exception
+     */
     public void afterPropertiesSet() throws RuntimeException {
         Assert.notNull(m_componentService);
         Assert.notNull(m_eventDao);
@@ -102,7 +114,14 @@ public class NCSRestService {
      * <p>
      * getNodes
      * </p>
+     * .
      *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
      * @return a {@link org.opennms.netmgt.model.OnmsNodeList} object.
      */
     @GET
@@ -130,6 +149,11 @@ public class NCSRestService {
         }
     }
 
+    /**
+     * Gets the components by attributes.
+     *
+     * @return the components by attributes
+     */
     @GET
     @Path("attributes")
     public ComponentList getComponentsByAttributes() {
@@ -147,6 +171,15 @@ public class NCSRestService {
 
     }
 
+    /**
+     * Adds the components.
+     *
+     * @param deleteOrphans
+     *            the delete orphans
+     * @param component
+     *            the component
+     * @return the response
+     */
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response addComponents(@QueryParam("deleteOrphans")
@@ -176,7 +209,18 @@ public class NCSRestService {
      * <p>
      * getNodes
      * </p>
+     * .
      *
+     * @param deleteOrphans
+     *            the delete orphans
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param subComponent
+     *            the sub component
      * @return a {@link org.opennms.netmgt.model.OnmsNodeList} object.
      */
     @POST
@@ -211,6 +255,19 @@ public class NCSRestService {
         }
     }
 
+    /**
+     * Delete component.
+     *
+     * @param deleteOrphans
+     *            the delete orphans
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the response
+     */
     @DELETE
     @Path("{type}/{foreignSource}:{foreignId}")
     public Response deleteComponent(@QueryParam("deleteOrphans")
@@ -236,22 +293,34 @@ public class NCSRestService {
         }
     }
 
+    /** The m_global lock. */
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /**
+     * Read lock.
+     */
     protected void readLock() {
         m_readLock.lock();
     }
 
+    /**
+     * Read unlock.
+     */
     protected void readUnlock() {
         if (m_globalLock.getReadHoldCount() > 0) {
             m_readLock.unlock();
         }
     }
 
+    /**
+     * Write lock.
+     */
     protected void writeLock() {
         if (m_globalLock.getWriteHoldCount() == 0) {
             while (m_globalLock.getReadHoldCount() > 0) {
@@ -261,17 +330,25 @@ public class NCSRestService {
         }
     }
 
+    /**
+     * Write unlock.
+     */
     protected void writeUnlock() {
         if (m_globalLock.getWriteHoldCount() > 0) {
             m_writeLock.unlock();
         }
     }
 
+    /**
+     * The Class ComponentList.
+     */
     @XmlRootElement(name = "components")
     public static class ComponentList extends LinkedList<NCSComponent> {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 8031737923157780179L;
 
+        /** The m_total count. */
         private int m_totalCount;
 
         /**
@@ -299,6 +376,7 @@ public class NCSRestService {
          * <p>
          * getNodes
          * </p>
+         * .
          *
          * @return a {@link java.util.List} object.
          */
@@ -311,6 +389,7 @@ public class NCSRestService {
          * <p>
          * setNodes
          * </p>
+         * .
          *
          * @param components
          *            a {@link java.util.List} object.
@@ -326,6 +405,7 @@ public class NCSRestService {
          * <p>
          * getCount
          * </p>
+         * .
          *
          * @return a {@link java.lang.Integer} object.
          */
@@ -336,6 +416,12 @@ public class NCSRestService {
 
         // The property has a getter "" but no setter. For unmarshalling, please
         // define setters.
+        /**
+         * Sets the count.
+         *
+         * @param count
+         *            the new count
+         */
         public void setCount(final int count) {
         }
 
@@ -343,6 +429,7 @@ public class NCSRestService {
          * <p>
          * getTotalCount
          * </p>
+         * .
          *
          * @return a int.
          */
@@ -355,6 +442,7 @@ public class NCSRestService {
          * <p>
          * setTotalCount
          * </p>
+         * .
          *
          * @param count
          *            a int.

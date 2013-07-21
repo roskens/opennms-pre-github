@@ -28,6 +28,9 @@
 
 package org.opennms.netmgt.ncs.rest;
 
+/**
+ * The Class MockWebContainer.
+ */
 public class MockWebContainer {
 
 }

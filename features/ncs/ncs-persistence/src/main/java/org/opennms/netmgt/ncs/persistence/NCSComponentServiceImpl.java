@@ -55,30 +55,47 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class NCSComponentServiceImpl.
+ */
 public class NCSComponentServiceImpl implements NCSComponentService {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NCSComponentServiceImpl.class);
 
+    /** The Constant EMPTY_COMPONENT_SET. */
     private static final Set<NCSComponent> EMPTY_COMPONENT_SET = Collections.unmodifiableSet(new HashSet<NCSComponent>());
 
+    /** The m_component dao. */
     @Autowired
     NCSComponentDao m_componentDao;
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /** The m_event dao. */
     @Autowired
     EventDao m_eventDao;
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_event proxy. */
     EventProxy m_eventProxy;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#setEventProxy(org.opennms.netmgt.model.events.EventProxy)
+     */
     @Override
     public void setEventProxy(final EventProxy proxy) throws Exception {
         m_eventProxy = proxy;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#getComponent(java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     @Transactional
     public NCSComponent getComponent(final String type, final String foreignSource, final String foreignId) {
@@ -86,6 +103,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return getComponent(new ComponentIdentifier(null, type, foreignSource, foreignId, null, null));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#findComponentsWithAttribute(java.lang.String, java.lang.String)
+     */
     @Override
     @Transactional
     public ComponentList findComponentsWithAttribute(final String attrKey, final String attrValue) {
@@ -93,6 +113,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return new ComponentList(m_componentDao.findComponentsWithAttribute(attrKey, attrValue));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#addOrUpdateComponents(org.opennms.netmgt.model.ncs.NCSComponent, boolean)
+     */
     @Override
     @Transactional
     public NCSComponent addOrUpdateComponents(final NCSComponent component, final boolean deleteOrphans) {
@@ -108,6 +131,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return updatedComponent;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#addSubcomponent(java.lang.String, java.lang.String, java.lang.String, org.opennms.netmgt.model.ncs.NCSComponent, boolean)
+     */
     @Override
     @Transactional
     public NCSComponent addSubcomponent(final String type, final String foreignSource, final String foreignId,
@@ -142,6 +168,9 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return getComponent(id);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.ncs.persistence.NCSComponentService#deleteComponent(java.lang.String, java.lang.String, java.lang.String, boolean)
+     */
     @Override
     @Transactional
     public void deleteComponent(final String type, final String foreignSource, final String foreignId,
@@ -159,6 +188,13 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         }
     }
 
+    /**
+     * Gets the identifiers.
+     *
+     * @param components
+     *            the components
+     * @return the identifiers
+     */
     private Set<ComponentIdentifier> getIdentifiers(final Collection<NCSComponent> components) {
         final Set<ComponentIdentifier> identifiers = new HashSet<ComponentIdentifier>();
         for (final NCSComponent component : components) {
@@ -167,16 +203,43 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return identifiers;
     }
 
+    /**
+     * Gets the identifier.
+     *
+     * @param component
+     *            the component
+     * @return the identifier
+     */
     private ComponentIdentifier getIdentifier(final NCSComponent component) {
         return new ComponentIdentifier(component.getId(), component.getType(), component.getForeignSource(),
                                        component.getForeignId(), component.getName(),
                                        component.getDependenciesRequired());
     }
 
+    /**
+     * Gets the component.
+     *
+     * @param id
+     *            the id
+     * @return the component
+     */
     private NCSComponent getComponent(final ComponentIdentifier id) {
         return m_componentDao.findByTypeAndForeignIdentity(id.getType(), id.getForeignSource(), id.getForeignId());
     }
 
+    /**
+     * Adds the or update components.
+     *
+     * @param id
+     *            the id
+     * @param component
+     *            the component
+     * @param ceq
+     *            the ceq
+     * @param deleteOrphans
+     *            the delete orphans
+     * @return the nCS component
+     */
     private NCSComponent addOrUpdateComponents(final ComponentIdentifier id, final NCSComponent component,
             final ComponentEventQueue ceq, final boolean deleteOrphans) {
         final Set<NCSComponent> subcomponents = new LinkedHashSet<NCSComponent>();
@@ -232,6 +295,16 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         return existing;
     }
 
+    /**
+     * Delete component.
+     *
+     * @param id
+     *            the id
+     * @param ceq
+     *            the ceq
+     * @param deleteOrphans
+     *            the delete orphans
+     */
     private void deleteComponent(final ComponentIdentifier id, final ComponentEventQueue ceq,
             final boolean deleteOrphans) {
         final NCSComponent component = getComponent(id);
@@ -272,6 +345,18 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 
     }
 
+    /**
+     * Handle orphaned components.
+     *
+     * @param parent
+     *            the parent
+     * @param child
+     *            the child
+     * @param ceq
+     *            the ceq
+     * @param deleteOrphans
+     *            the delete orphans
+     */
     private void handleOrphanedComponents(final NCSComponent parent, final ComponentIdentifier child,
             final ComponentEventQueue ceq, final boolean deleteOrphans) {
         final ComponentIdentifier parentId = getIdentifier(parent);
@@ -305,6 +390,14 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         }
     }
 
+    /**
+     * Send update events.
+     *
+     * @param ceq
+     *            the ceq
+     * @param parentIds
+     *            the parent ids
+     */
     private void sendUpdateEvents(final ComponentEventQueue ceq, final Collection<ComponentIdentifier> parentIds) {
         LOG.debug("sendUpdateEvents: parents = {}", parentIds);
         for (final ComponentIdentifier parentId : parentIds) {
@@ -312,6 +405,16 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         }
     }
 
+    /**
+     * Delete orphaned components.
+     *
+     * @param oldComponents
+     *            the old components
+     * @param newComponents
+     *            the new components
+     * @param ceq
+     *            the ceq
+     */
     private void deleteOrphanedComponents(final Set<ComponentIdentifier> oldComponents,
             final Set<ComponentIdentifier> newComponents, final ComponentEventQueue ceq) {
         for (final ComponentIdentifier id : oldComponents) {
@@ -321,6 +424,14 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         }
     }
 
+    /**
+     * Delete alarms.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     */
     private void deleteAlarms(final String foreignSource, final String foreignId) {
         final OnmsCriteria alarmCriteria = new OnmsCriteria(OnmsAlarm.class).add(Restrictions.like("eventParms",
                                                                                                    "%componentForeignSource="
@@ -335,6 +446,14 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         }
     }
 
+    /**
+     * Delete events.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     */
     private void deleteEvents(final String foreignSource, final String foreignId) {
         final OnmsCriteria eventCriteria = new OnmsCriteria(OnmsEvent.class).add(Restrictions.like("eventParms",
                                                                                                    "%componentForeignSource="

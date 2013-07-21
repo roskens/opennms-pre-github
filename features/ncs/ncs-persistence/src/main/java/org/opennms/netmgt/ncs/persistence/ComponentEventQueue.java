@@ -37,31 +37,64 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class ComponentEventQueue.
+ */
 public final class ComponentEventQueue {
+
+    /** The m_added. */
     private final Set<ComponentIdentifier> m_added = new LinkedHashSet<ComponentIdentifier>();
 
+    /** The m_deleted. */
     private final Set<ComponentIdentifier> m_deleted = new LinkedHashSet<ComponentIdentifier>();
 
+    /** The m_updated. */
     private final Set<ComponentIdentifier> m_updated = new LinkedHashSet<ComponentIdentifier>();
 
+    /**
+     * Component added.
+     *
+     * @param identifier
+     *            the identifier
+     */
     public void componentAdded(final ComponentIdentifier identifier) {
         m_added.add(identifier);
         m_deleted.remove(identifier);
         m_updated.remove(identifier);
     }
 
+    /**
+     * Component deleted.
+     *
+     * @param identifier
+     *            the identifier
+     */
     public void componentDeleted(final ComponentIdentifier identifier) {
         m_added.remove(identifier);
         m_deleted.add(identifier);
         m_updated.remove(identifier);
     }
 
+    /**
+     * Component updated.
+     *
+     * @param identifier
+     *            the identifier
+     */
     public void componentUpdated(final ComponentIdentifier identifier) {
         m_added.remove(identifier);
         m_deleted.remove(identifier);
         m_updated.add(identifier);
     }
 
+    /**
+     * Send all.
+     *
+     * @param eventProxy
+     *            the event proxy
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     public void sendAll(final EventProxy eventProxy) throws EventProxyException {
         for (final ComponentIdentifier id : m_deleted) {
             final String uei = EventConstants.COMPONENT_DELETED_UEI;
@@ -77,6 +110,15 @@ public final class ComponentEventQueue {
         }
     }
 
+    /**
+     * Gets the event.
+     *
+     * @param uei
+     *            the uei
+     * @param id
+     *            the id
+     * @return the event
+     */
     private Event getEvent(final String uei, final ComponentIdentifier id) {
         final EventBuilder builder = new EventBuilder(uei, "NCSComponentService");
         builder.addParam("componentId", id.getId());

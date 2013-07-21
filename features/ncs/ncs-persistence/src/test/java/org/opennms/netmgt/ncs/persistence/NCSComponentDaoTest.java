@@ -51,6 +51,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class NCSComponentDaoTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-datasource.xml",
@@ -60,19 +63,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class NCSComponentDaoTest {
 
+    /** The m_repository. */
     @Autowired
     NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_pe1 node id. */
     int m_pe1NodeId;
 
+    /** The m_pe2 node id. */
     int m_pe2NodeId;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -149,6 +160,9 @@ public class NCSComponentDaoTest {
 
     }
 
+    /**
+     * Test find components by node id.
+     */
     @Test
     public void testFindComponentsByNodeId() {
 

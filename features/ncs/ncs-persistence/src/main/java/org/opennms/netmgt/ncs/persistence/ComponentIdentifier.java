@@ -31,19 +31,45 @@ package org.opennms.netmgt.ncs.persistence;
 import org.apache.commons.lang.builder.CompareToBuilder;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 
+/**
+ * The Class ComponentIdentifier.
+ */
 public final class ComponentIdentifier implements Comparable<ComponentIdentifier> {
+
+    /** The m_id. */
     private final Long m_id;
 
+    /** The m_type. */
     private final String m_type;
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_foreign source. */
     private final String m_foreignSource;
 
+    /** The m_foreign id. */
     private final String m_foreignId;
 
+    /** The m_dependency requirements. */
     private final DependencyRequirements m_dependencyRequirements;
 
+    /**
+     * Instantiates a new component identifier.
+     *
+     * @param id
+     *            the id
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param name
+     *            the name
+     * @param requirements
+     *            the requirements
+     */
     public ComponentIdentifier(final Long id, final String type, final String foreignSource, final String foreignId,
             final String name, final DependencyRequirements requirements) {
         m_id = id;
@@ -54,35 +80,71 @@ public final class ComponentIdentifier implements Comparable<ComponentIdentifier
         m_dependencyRequirements = requirements == null ? DependencyRequirements.ALL : requirements;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public Long getId() {
         return m_id;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public String getType() {
         return m_type;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Gets the foreign source.
+     *
+     * @return the foreign source
+     */
     public String getForeignSource() {
         return m_foreignSource;
     }
 
+    /**
+     * Gets the foreign id.
+     *
+     * @return the foreign id
+     */
     public String getForeignId() {
         return m_foreignId;
     }
 
+    /**
+     * Gets the dependency requirements.
+     *
+     * @return the dependency requirements
+     */
     public DependencyRequirements getDependencyRequirements() {
         return m_dependencyRequirements;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ComponentIdentifier[" + m_type + "|" + m_name + "|" + m_foreignSource + "|" + m_foreignId + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -93,6 +155,9 @@ public final class ComponentIdentifier implements Comparable<ComponentIdentifier
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -123,6 +188,9 @@ public final class ComponentIdentifier implements Comparable<ComponentIdentifier
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final ComponentIdentifier o) {
         return new CompareToBuilder().append(m_id, o.getId()).append(m_foreignId, o.getForeignId()).append(m_foreignSource,
