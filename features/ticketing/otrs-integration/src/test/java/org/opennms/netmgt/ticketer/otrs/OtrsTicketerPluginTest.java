@@ -38,6 +38,12 @@ import junit.framework.TestCase;
 
 import org.opennms.api.integration.ticketing.PluginException;
 import org.opennms.api.integration.ticketing.Ticket;
+import org.opennms.integration.otrs.ticketservice.ArticleCore;
+import org.opennms.integration.otrs.ticketservice.Credentials;
+import org.opennms.integration.otrs.ticketservice.TicketCore;
+import org.opennms.integration.otrs.ticketservice.TicketIDAndNumber;
+import org.opennms.integration.otrs.ticketservice.TicketServiceLocator;
+import org.opennms.integration.otrs.ticketservice.TicketServicePort_PortType;
 
 /**
  * The Class OtrsTicketerPluginTest.
