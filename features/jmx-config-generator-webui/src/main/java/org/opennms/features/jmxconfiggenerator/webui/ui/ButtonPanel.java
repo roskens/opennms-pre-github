@@ -31,13 +31,26 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 
+/**
+ * The Class ButtonPanel.
+ */
 public class ButtonPanel extends HorizontalLayout implements ModelChangeListener<UiState> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The next. */
     private final Button next;
 
+    /** The previous. */
     private final Button previous;
 
+    /**
+     * Instantiates a new button panel.
+     *
+     * @param listener
+     *            the listener
+     */
     public ButtonPanel(ClickListener listener) {
         next = UIHelper.createButton("next", IconProvider.BUTTON_NEXT, listener);
         previous = UIHelper.createButton("previous", IconProvider.BUTTON_PREVIOUS, listener);
@@ -48,14 +61,27 @@ public class ButtonPanel extends HorizontalLayout implements ModelChangeListener
         addComponent(next);
     }
 
+    /**
+     * Gets the next.
+     *
+     * @return the next
+     */
     public Button getNext() {
         return next;
     }
 
+    /**
+     * Gets the previous.
+     *
+     * @return the previous
+     */
     public Button getPrevious() {
         return previous;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiState newModel) {
         // help.setVisible(false); // TODO enable/disable help dynamically

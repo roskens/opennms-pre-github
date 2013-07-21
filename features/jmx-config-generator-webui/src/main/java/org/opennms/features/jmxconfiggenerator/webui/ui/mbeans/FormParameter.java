@@ -63,11 +63,12 @@ public interface FormParameter {
     Object[] getVisiblePropertieNames();
 
     /**
-     * Returns an optional callback which is invoked after the usual hooks from
-     * {@link EditControls} have been invoked and executed. May return null.
+     * Returns an optional callback which is invoked after the usual hooks from.
      *
      * @return an optional callback which is invoked after the usual hooks from
      *         {@link EditControls} have been invoked and executed. May return
+     *         null. {@link EditControls} have been invoked and executed. May
+     *         return
      *         null.
      */
     @SuppressWarnings("unchecked")

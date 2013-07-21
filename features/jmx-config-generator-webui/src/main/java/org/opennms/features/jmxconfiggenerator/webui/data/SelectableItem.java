@@ -45,78 +45,119 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
 /**
  * This class represents a selectable item. In encapsulates any java objects
  * which fulfillths the java bean convention. In addition it implements
- * {@link Selectable} which determines that this item can be selected. This
- * class is mainly a rough copy of {@link com.vaadin.data.util.BeanItem}, but
- * due to some limitations in how the {@link BeanItemContainer} (or
- * {@link AbstractBeanContainer}) handles the creation of a BeanItem I decided
- * to implement a new SelectableItem. This may change in future releases in the
- * vaadin core framework. So we may remove this item.
  *
  * @param <T>
- *            The type of the Java Bean we want to use as a
+ *            The type of the Java Bean we want to use as a {@link Selectable}
+ *            which determines that this item can be selected. This
+ *            class is mainly a rough copy of
+ *            {@link com.vaadin.data.util.BeanItem}, but
+ *            due to some limitations in how the {@link BeanItemContainer} (or
+ *            {@link AbstractBeanContainer}) handles the creation of a BeanItem
+ *            I decided
+ *            to implement a new SelectableItem. This may change in future
+ *            releases in the
+ *            vaadin core framework. So we may remove this item.
  *            {@linkplain SelectableItem}
  * @author Markus von Rüden
  * @see BeanItem
  */
 public class SelectableItem<T> extends PropertysetItem implements Selectable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
     /**
      * The bean to store.
      */
     private final T bean;
 
+    /**
+     * Instantiates a new selectable item.
+     *
+     * @param bean
+     *            the bean
+     * @param pdMap
+     *            the pd map
+     */
     SelectableItem(T bean, Map<String, VaadinPropertyDescriptor> pdMap) {
         this.bean = bean;
         for (VaadinPropertyDescriptor pd : pdMap.values())
             addItemProperty(pd.getName(), pd.createProperty(bean));
     }
 
+    /**
+     * Instantiates a new selectable item.
+     *
+     * @param bean
+     *            the bean
+     */
     public SelectableItem(T bean) {
         this(bean, getPropertyDescriptors((Class<? super T>) bean.getClass()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.Selectable#isSelected()
+     */
     @Override
     public boolean isSelected() {
         return (Boolean) getItemProperty("selected").getValue();
     }
 
+    /**
+     * Gets the bean.
+     *
+     * @return the bean
+     */
     public T getBean() {
         return bean;
     }
 
     /**
-     * <b>Note:</b>This method is simmilar to
-     * {@link com.vaadin.data.util.BeanItem#getPropertyDescriptors(java.lang.Class)
-	 * }
-     * but adds an additional <code>VaadinPropertyDescriptor</codE> to support a
-     * "is selectable" feature. Because the earlier mentioned method is static,
-     * we cannot overwrite it. Therefore I decided to implement it in my own
-     * way.<br/>
-     * <br/>
-     * <b>In short:</b> It lookups all methods which fullfill the java bean
-     * convention of <code>clazz</code> and builds accessors for it (read
-     * method, write method, etc. for a field, etc. Have a look at
-     * {@link java.beans.Introspector}). And in addition we a new "accessor" for
-     * a selectable item is added.<br/>
-     * <br/>
-     * <b>In detail:</b><br/>
-     * {@link java.beans.Introspector} is used to get all PropertyDescriptors
-     * from the given class <code>clazz</code>. Each PropertyDescriptor is
-     * converted to a vaadin <code>MethodPropertyDescriptor</code>(
-     * {@link com.vaadin.data.util.MethodPropertyDescriptor} is created. In
-     * addition a VaadinPropertyDescriptor is added to provide the "select"
-     * feature. For this we use the <code>ObjectProperty</code> of vaadin. <br/>
-     * <br/>
-     * The build map is a mapping between property names and the
-     * <code>VaadinPropertyDescriptor</code>s, whereby
-     * {@link com.vaadin.data.util.VaadinPropertyDescriptor#getName()} is
-     * identically with the key of the returned map (and therefore represents
-     * the property name).
+     * <b>Note:</b>This method is simmilar to.
      *
      * @param <T>
+     *            the generic type
      * @param clazz
-     * @return
+     *            the clazz
+     * @return the property descriptors
+     *         {@link com.vaadin.data.util.BeanItem#getPropertyDescriptors(java.lang.Class)
+     * }
+     *         but adds an additional <code>VaadinPropertyDescriptor</codE> to
+     *         support a
+     *         "is selectable" feature. Because the earlier mentioned method is
+     *         static,
+     *         we cannot overwrite it. Therefore I decided to implement it in my
+     *         own
+     *         way.<br/>
+     * <br/>
+     *         <b>In short:</b> It lookups all methods which fullfill the java
+     *         bean
+     *         convention of <code>clazz</code> and builds accessors for it
+     *         (read
+     *         method, write method, etc. for a field, etc. Have a look at
+     *         {@link java.beans.Introspector}). And in addition we a new
+     *         "accessor" for
+     *         a selectable item is added.<br/>
+     * <br/>
+     *         <b>In detail:</b><br/>
+     *         {@link java.beans.Introspector} is used to get all
+     *         PropertyDescriptors
+     *         from the given class <code>clazz</code>. Each PropertyDescriptor
+     *         is
+     *         converted to a vaadin <code>MethodPropertyDescriptor</code>(
+     *         {@link com.vaadin.data.util.MethodPropertyDescriptor} is created.
+     *         In
+     *         addition a VaadinPropertyDescriptor is added to provide the
+     *         "select"
+     *         feature. For this we use the <code>ObjectProperty</code> of
+     *         vaadin. <br/>
+     * <br/>
+     *         The build map is a mapping between property names and the
+     *         <code>VaadinPropertyDescriptor</code>s, whereby
+     *         {@link com.vaadin.data.util.VaadinPropertyDescriptor#getName()}
+     *         is
+     *         identically with the key of the returned map (and therefore
+     *         represents
+     *         the property name).
      */
     protected static <T> Map<String, VaadinPropertyDescriptor> getPropertyDescriptors(Class<? super T> clazz) {
         Map<String, VaadinPropertyDescriptor> mpdMap = new HashMap<String, VaadinPropertyDescriptor>();

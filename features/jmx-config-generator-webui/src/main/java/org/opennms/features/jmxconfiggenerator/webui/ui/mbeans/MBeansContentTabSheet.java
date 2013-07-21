@@ -49,20 +49,33 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 /**
+ * The Class MBeansContentTabSheet.
+ *
  * @author Markus von Rüden
  */
 public class MBeansContentTabSheet extends TabSheet implements ModelChangeListener<Mbean>, ViewStateChangedListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The attributes layout. */
     private AttributesLayout attributesLayout;
 
+    /** The composites layout. */
     private CompositesLayout compositesLayout;
 
+    /** The controller. */
     private final MBeansController controller;
 
+    /** The selected tab position. */
     private int selectedTabPosition;
 
+    /**
+     * Instantiates a new m beans content tab sheet.
+     *
+     * @param controller
+     *            the controller
+     */
     public MBeansContentTabSheet(final MBeansController controller) {
         this.controller = controller;
         setSizeFull();
@@ -75,6 +88,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         addTab(compositesLayout, "Composites");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(Mbean newModel) {
         // forward
@@ -83,6 +99,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         disableCompositesTabIfNecessary(newModel);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+     */
     @Override
     public void viewStateChanged(ViewStateChangedEvent event) {
         // just forward
@@ -92,6 +111,12 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         disableCompositesTabIfNecessary(controller.getSelectedMBean());
     }
 
+    /**
+     * Disable composites tab if necessary.
+     *
+     * @param newModel
+     *            the new model
+     */
     private void disableCompositesTabIfNecessary(Mbean newModel) {
         boolean alreadyDisabled = !getTab(compositesLayout).isEnabled();
         boolean shouldDisable = newModel == null || newModel.getCompAttrib().isEmpty();
@@ -107,15 +132,24 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         getTab(compositesLayout).setDescription(disabled ? "no composites available" : null);
     }
 
+    /**
+     * The Class CompositesLayout.
+     */
     private class CompositesLayout extends VerticalLayout implements ViewStateChangedListener,
             ModelChangeListener<Mbean> {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
+        /** The tab sheet. */
         private final TabSheet tabSheet = new TabSheet();
 
+        /** The selected composites tab position. */
         private int selectedCompositesTabPosition;
 
+        /**
+         * Instantiates a new composites layout.
+         */
         public CompositesLayout() {
             setSizeFull();
             setSpacing(false);
@@ -124,6 +158,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             addComponent(tabSheet);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+         */
         @Override
         public void viewStateChanged(ViewStateChangedEvent event) {
             selectedCompositesTabPosition = UIHelper.enableTabs(tabSheet, event, selectedCompositesTabPosition);
@@ -132,6 +169,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             ((CompositeTabLayout) tabSheet.getSelectedTab()).viewStateChanged((event)); // forwared
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+         */
         @Override
         public void modelChanged(Mbean newModel) {
             tabSheet.removeAllComponents();
@@ -144,6 +184,15 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             }
         }
 
+        /**
+         * Gets the composite form.
+         *
+         * @param mbean
+         *            the mbean
+         * @param compAttrib
+         *            the comp attrib
+         * @return the composite form
+         */
         private NameEditForm getCompositeForm(final Mbean mbean, final CompAttrib compAttrib) {
             NameEditForm form = new NameEditForm(controller, new FormParameter() {
                 @Override
@@ -181,6 +230,15 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             return form;
         }
 
+        /**
+         * Gets the comp attrib table.
+         *
+         * @param mbean
+         *            the mbean
+         * @param attrib
+         *            the attrib
+         * @return the comp attrib table
+         */
         private Table getCompAttribTable(final Mbean mbean, final CompAttrib attrib) {
             AttributesTable memberTable = new AttributesTable(controller, new Callback() {
                 @Override
@@ -192,21 +250,38 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             return memberTable;
         }
 
+        /**
+         * The Class CompositeTabLayout.
+         */
         private class CompositeTabLayout extends VerticalLayout implements Property.ReadOnlyStatusChangeNotifier,
                 EditControls.Callback, ViewStateChangedListener {
 
+            /** The Constant serialVersionUID. */
             private static final long serialVersionUID = 1L;
 
+            /** The composite form. */
             private final NameEditForm compositeForm;
 
+            /** The composite table. */
             private final Table compositeTable;
 
+            /** The form button handler. */
             private final FormButtonHandler<NameEditForm> formButtonHandler;
 
+            /** The table button handler. */
             private final TableButtonHandler<Table> tableButtonHandler;
 
+            /** The footer. */
             private final EditControls<AbstractField> footer;
 
+            /**
+             * Instantiates a new composite tab layout.
+             *
+             * @param compositeForm
+             *            the composite form
+             * @param compositeTable
+             *            the composite table
+             */
             private CompositeTabLayout(NameEditForm compositeForm, Table compositeTable) {
                 this.compositeForm = compositeForm;
                 this.compositeTable = compositeTable;
@@ -250,28 +325,43 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
                 setExpandRatio(compositeTable, 1);
             }
 
+            /* (non-Javadoc)
+             * @see com.vaadin.data.Property.ReadOnlyStatusChangeNotifier#addListener(com.vaadin.data.Property.ReadOnlyStatusChangeListener)
+             */
             @Override
             public void addListener(ReadOnlyStatusChangeListener listener) {
                 addReadOnlyStatusChangeListener(listener);
             }
 
+            /* (non-Javadoc)
+             * @see com.vaadin.data.Property.ReadOnlyStatusChangeNotifier#addReadOnlyStatusChangeListener(com.vaadin.data.Property.ReadOnlyStatusChangeListener)
+             */
             @Override
             public void addReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
                 compositeForm.addListener(listener);
                 compositeTable.addListener(listener);
             }
 
+            /* (non-Javadoc)
+             * @see com.vaadin.data.Property.ReadOnlyStatusChangeNotifier#removeListener(com.vaadin.data.Property.ReadOnlyStatusChangeListener)
+             */
             @Override
             public void removeListener(ReadOnlyStatusChangeListener listener) {
                 removeReadOnlyStatusChangeListener(listener);
             }
 
+            /* (non-Javadoc)
+             * @see com.vaadin.data.Property.ReadOnlyStatusChangeNotifier#removeReadOnlyStatusChangeListener(com.vaadin.data.Property.ReadOnlyStatusChangeListener)
+             */
             @Override
             public void removeReadOnlyStatusChangeListener(ReadOnlyStatusChangeListener listener) {
                 compositeForm.removeListener(listener);
                 compositeTable.removeListener(listener);
             }
 
+            /* (non-Javadoc)
+             * @see com.vaadin.ui.AbstractComponent#setReadOnly(boolean)
+             */
             @Override
             public void setReadOnly(boolean readOnly) {
                 super.setReadOnly(readOnly);
@@ -280,6 +370,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.Callback#callback(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonType, com.vaadin.ui.Component)
+             */
             @Override
             public void callback(ButtonType type, Component outer) {
                 if (type == ButtonType.edit) {
@@ -293,12 +386,21 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
                 }
             }
 
+            /**
+             * Adds the footer hooks.
+             *
+             * @param footer
+             *            the footer
+             */
             private void addFooterHooks(final EditControls footer) {
                 footer.addSaveHook(this);
                 footer.addCancelHook(this);
                 footer.addEditHook(this);
             }
 
+            /* (non-Javadoc)
+             * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+             */
             @Override
             public void viewStateChanged(ViewStateChangedEvent event) {
                 switch (event.getNewState()) {
@@ -317,15 +419,24 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
         }
     }
 
+    /**
+     * The Class AttributesLayout.
+     */
     private class AttributesLayout extends VerticalLayout implements ViewStateChangedListener,
             EditControls.Callback<Table> {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
+        /** The attributes table. */
         private final AttributesTable attributesTable;
 
+        /** The footer. */
         private final EditControls footer;
 
+        /**
+         * Instantiates a new attributes layout.
+         */
         private AttributesLayout() {
             attributesTable = new AttributesTable(controller, new Callback() {
                 @Override
@@ -343,6 +454,9 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             setExpandRatio(attributesTable, 1);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.Callback#callback(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonType, com.vaadin.ui.Component)
+         */
         @Override
         public void callback(ButtonType type, Table outer) {
             if (type == ButtonType.cancel) {
@@ -362,18 +476,27 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             }
         }
 
+        /**
+         * Adds the footer hooks.
+         */
         private void addFooterHooks() {
             footer.addSaveHook(this);
             footer.addCancelHook(this);
             footer.addEditHook(this);
         }
 
+        /* (non-Javadoc)
+         * @see com.vaadin.ui.AbstractComponent#setEnabled(boolean)
+         */
         @Override
         public void setEnabled(boolean enabled) {
             super.setEnabled(enabled);
             footer.setVisible(enabled);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+         */
         @Override
         public void viewStateChanged(ViewStateChangedEvent event) {
             switch (event.getNewState()) {
@@ -389,6 +512,12 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
             attributesTable.viewStateChanged(event);// forward
         }
 
+        /**
+         * Model changed.
+         *
+         * @param newModel
+         *            the new model
+         */
         private void modelChanged(Mbean newModel) {
             attributesTable.modelChanged(newModel); // forward
         }

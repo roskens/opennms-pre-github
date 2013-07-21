@@ -42,9 +42,15 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
+
+    /** The label. */
     private Label label;
 
+    /**
+     * Instantiates a new header panel.
+     */
     public HeaderPanel() {
         Layout layout = new VerticalLayout();
         label = new Label();
@@ -82,6 +88,9 @@ public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
         label.setValue(labelString.trim());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     /**
      * Is invoked when the uiState changes and updates the label.

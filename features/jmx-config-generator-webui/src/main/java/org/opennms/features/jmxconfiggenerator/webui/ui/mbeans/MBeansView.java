@@ -59,8 +59,12 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * The Class MBeansView.
+ */
 public class MBeansView extends VerticalLayout implements ClickListener, ModelChangeListener, ViewStateChangedListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -74,18 +78,25 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
      */
     private UiModel model;
 
+    /** The main panel. */
     private final AbstractSplitPanel mainPanel;
 
+    /** The mbeans content. */
     private final Layout mbeansContent;
 
+    /** The app. */
     private final JmxConfigGeneratorApplication app;
 
+    /** The mbeans tree. */
     private final MBeansTree mbeansTree;
 
+    /** The mbeans tab sheet. */
     private final MBeansContentTabSheet mbeansTabSheet;
 
+    /** The button panel. */
     private final ButtonPanel buttonPanel = new ButtonPanel(this);
 
+    /** The mbeans form. */
     private final NameEditForm mbeansForm = new NameEditForm(controller, new FormParameter() {
         @Override
         public boolean hasFooter() {
@@ -126,6 +137,12 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         }
     });
 
+    /**
+     * Instantiates a new m beans view.
+     *
+     * @param app
+     *            the app
+     */
     public MBeansView(JmxConfigGeneratorApplication app) {
         this.app = app;
         setSizeFull();
@@ -141,6 +158,9 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         setExpandRatio(mainPanel, 1);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+     */
     @Override
     public void buttonClick(ClickEvent event) {
         if (event.getButton().equals(buttonPanel.getPrevious())) {
@@ -156,6 +176,15 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         }
     }
 
+    /**
+     * Inits the main panel.
+     *
+     * @param first
+     *            the first
+     * @param second
+     *            the second
+     * @return the abstract split panel
+     */
     private AbstractSplitPanel initMainPanel(Component first, Component second) {
         AbstractSplitPanel layout = new HorizontalSplitPanel();
         layout.setSizeFull();
@@ -167,6 +196,15 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         return layout;
     }
 
+    /**
+     * Inits the content panel.
+     *
+     * @param form
+     *            the form
+     * @param tabSheet
+     *            the tab sheet
+     * @return the layout
+     */
     private Layout initContentPanel(NameEditForm form, MBeansContentTabSheet tabSheet) {
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
@@ -177,6 +215,9 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         return layout;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(Object newModel) {
         if (newModel instanceof UiModel) {
@@ -186,6 +227,13 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         }
     }
 
+    /**
+     * Wrap to panel.
+     *
+     * @param component
+     *            the component
+     * @return the panel
+     */
     private Panel wrapToPanel(Component component) {
         Panel panel = new Panel(component.getCaption());
         panel.setSizeFull();
@@ -201,6 +249,12 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         return panel;
     }
 
+    /**
+     * Register listener.
+     *
+     * @param controller
+     *            the controller
+     */
     private void registerListener(MBeansController controller) {
         controller.registerListener(Item.class, mbeansForm);
         controller.registerListener(Mbean.class, mbeansTabSheet);
@@ -215,6 +269,11 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
     // TODO the whole validation is made twice :-/
     // TODO we can fix that when there is a central "ValidationStrategy"-Handler
     // instance or so
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     private boolean isValid() {
         List<InvalidValueException> exceptionList = new ArrayList<InvalidValueException>();
         NameValidator nameValidator = new NameValidator();
@@ -289,6 +348,9 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         return exceptionList.isEmpty();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+     */
     @Override
     public void viewStateChanged(ViewStateChangedEvent event) {
         // hide next, previous buttons if in edit mode
@@ -296,6 +358,16 @@ public class MBeansView extends VerticalLayout implements ClickListener, ModelCh
         buttonPanel.getNext().setEnabled(event.getNewState() != ViewState.Edit);
     }
 
+    /**
+     * Validate.
+     *
+     * @param validator
+     *            the validator
+     * @param value
+     *            the value
+     * @param exceptionList
+     *            the exception list
+     */
     private static void validate(Validator validator, Object value, List<InvalidValueException> exceptionList) {
         try {
             validator.validate(value); // TODO do it more dynamically

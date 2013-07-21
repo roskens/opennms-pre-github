@@ -43,17 +43,19 @@ import org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeNotifier;
  */
 public class ModelChangeRegistry implements ModelChangeNotifier {
 
+    /** The listeners. */
     private Map<Class, Set<ModelChangeListener>> listeners = new HashMap<Class, Set<ModelChangeListener>>();
 
     /**
-     * Registers a new listener as described in
-     * {@link ModelChangeNotifier#registerListener(java.lang.Class, org.opennms.tools.gui.data.ModelChangeListener)
-	 * }
-     * . A listener is only registered once!
+     * Registers a new listener as described in.
      *
      * @param clazz
      *            the class of the model. Cannot be null!
      * @param listener
+     *            the listener
+     *            {@link ModelChangeNotifier#registerListener(java.lang.Class, org.opennms.tools.gui.data.ModelChangeListener)
+     * }
+     *            . A listener is only registered once!
      * @see ModelChangeNotifier
      */
     @Override
@@ -66,6 +68,12 @@ public class ModelChangeRegistry implements ModelChangeNotifier {
     }
 
     /**
+     * Notify observers.
+     *
+     * @param clazz
+     *            the clazz
+     * @param model
+     *            the model
      * @see ModelChangeNotifier#notifyObservers(java.lang.Class,
      *      java.lang.Object)
      */

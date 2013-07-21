@@ -40,27 +40,59 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
  */
 public interface MetaAttribItem {
 
+    /**
+     * The Enum AttribType.
+     */
     public static enum AttribType {
-        counter, gauge;
 
+        /** The counter. */
+        counter,
+ /** The gauge. */
+ gauge;
+
+        /**
+         * Value of.
+         *
+         * @param object
+         *            the object
+         * @return the attrib type
+         */
         public static AttribType valueOf(Object object) {
             return gauge;
         }
 
+        /**
+         * Value of.
+         *
+         * @param attrib
+         *            the attrib
+         * @return the attrib type
+         */
         public static AttribType valueOf(Attrib attrib) {
             return attrib == null ? gauge : valueOf(attrib.getType());
         }
 
+        /**
+         * Value of.
+         *
+         * @param attrib
+         *            the attrib
+         * @return the attrib type
+         */
         public static AttribType valueOf(CompAttrib attrib) {
             return attrib == null ? gauge : valueOf(attrib.getType());
         }
     }
 
+    /** The name. */
     String NAME = "name";
 
+    /** The selected. */
     String SELECTED = "selected";
 
+    /** The alias. */
     String ALIAS = "alias";
 
+    /** The type. */
     String TYPE = "type";
 }

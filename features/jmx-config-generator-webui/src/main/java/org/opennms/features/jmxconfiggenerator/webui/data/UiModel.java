@@ -44,32 +44,57 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
  */
 public class UiModel {
 
+    /**
+     * The Enum OutputDataKey.
+     */
     public static enum OutputDataKey {
 
-        JmxDataCollectionConfig, SnmpGraphProperties, CollectdConfigSnippet;
+        /** The Jmx data collection config. */
+        JmxDataCollectionConfig, /** The Snmp graph properties. */
+ SnmpGraphProperties, /** The Collectd config snippet. */
+ CollectdConfigSnippet;
 
+        /**
+         * Gets the description filename.
+         *
+         * @return the description filename
+         */
         public String getDescriptionFilename() {
             return "/descriptions/" + name() + ".html";
         }
 
+        /**
+         * Gets the download filename.
+         *
+         * @return the download filename
+         */
         public String getDownloadFilename() {
             return name() + ".properties";
         }
     }
 
+    /** The raw model. */
     private JmxDatacollectionConfig rawModel;
 
+    /** The config model. */
     private ServiceConfig configModel = new ServiceConfig();
 
     // private CollectdConfig collectdConfig;
+    /** The output map. */
     private final Map<OutputDataKey, String> outputMap = new HashMap<OutputDataKey, String>();
 
+    /** The output config. */
     private JmxDatacollectionConfig outputConfig;
 
+    /** The snmp graph properties. */
     private String snmpGraphProperties;
 
     /**
-     * Set the real model and get the data we need out of it
+     * Set the real model and get the data we need out of it.
+     *
+     * @param rawModel
+     *            the raw model
+     * @return the ui model
      */
     public UiModel setRawModel(JmxDatacollectionConfig rawModel) {
         if (!isValid(rawModel)) {
@@ -84,16 +109,27 @@ public class UiModel {
      * Mbeans (count can be 0, but not NULL).
      *
      * @param rawModel
+     *            the raw model
      * @return true if valid, false otherwise
      */
     private boolean isValid(JmxDatacollectionConfig rawModel) {
         return !(rawModel.getJmxCollection().isEmpty() || rawModel.getJmxCollection().get(0) == null || rawModel.getJmxCollection().get(0).getMbeans() == null);
     }
 
+    /**
+     * Gets the raw model.
+     *
+     * @return the raw model
+     */
     public JmxDatacollectionConfig getRawModel() {
         return rawModel;
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @return the service name
+     */
     public String getServiceName() {
         return this.configModel.getServiceName();
     }
@@ -106,32 +142,70 @@ public class UiModel {
     // return collectdConfig;
     // }
 
+    /**
+     * Sets the output.
+     *
+     * @param output
+     *            the output
+     * @param value
+     *            the value
+     */
     public void setOutput(OutputDataKey output, String value) {
         outputMap.put(output, value);
     }
 
+    /**
+     * Gets the output map.
+     *
+     * @return the output map
+     */
     public Map<OutputDataKey, String> getOutputMap() {
         return outputMap;
     }
 
+    /**
+     * Gets the service config.
+     *
+     * @return the service config
+     */
     public ServiceConfig getServiceConfig() {
         return configModel;
     }
 
+    /**
+     * Sets the jmx data collection according to selection.
+     *
+     * @param outputConfig
+     *            the new jmx data collection according to selection
+     */
     public void setJmxDataCollectionAccordingToSelection(JmxDatacollectionConfig outputConfig) {
         this.outputConfig = outputConfig;
     }
 
+    /**
+     * Gets the output config.
+     *
+     * @return the output config
+     */
     public JmxDatacollectionConfig getOutputConfig() {
         return outputConfig;
     }
 
+    /**
+     * Update output.
+     */
     public void updateOutput() {
         setOutput(OutputDataKey.JmxDataCollectionConfig, marshal(getOutputConfig()));
         setOutput(OutputDataKey.SnmpGraphProperties, snmpGraphProperties);
         setOutput(OutputDataKey.CollectdConfigSnippet, "TODO");
     }
 
+    /**
+     * Sets the snmp graph properties.
+     *
+     * @param generatedSnmpGraphProperties
+     *            the new snmp graph properties
+     */
     public void setSnmpGraphProperties(String generatedSnmpGraphProperties) {
         snmpGraphProperties = generatedSnmpGraphProperties;
     }
@@ -139,6 +213,8 @@ public class UiModel {
     /**
      * Creates a CollectdConfiguration snippet depending on the data saved here.
      *
+     * @param anyObject
+     *            the any object
      * @return The CollecdConfiguration snippet depending on the data saved in
      *         this model.
      */

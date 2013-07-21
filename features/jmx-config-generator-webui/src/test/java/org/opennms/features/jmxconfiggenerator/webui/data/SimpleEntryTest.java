@@ -33,10 +33,15 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 /**
+ * The Class SimpleEntryTest.
+ *
  * @author Markus von Rüden
  */
 public class SimpleEntryTest {
 
+    /**
+     * Test hash code and equals.
+     */
     @Test
     public void testHashCodeAndEquals() {
         SimpleEntry one = new SimpleEntry("123", "456");

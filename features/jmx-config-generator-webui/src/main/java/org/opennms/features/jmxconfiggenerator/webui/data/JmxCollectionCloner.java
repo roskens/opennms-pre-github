@@ -50,7 +50,8 @@ public class JmxCollectionCloner {
      * Clones a whole JmxCollectionConfig. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the jmx datacollection config
      */
     public static JmxDatacollectionConfig clone(JmxDatacollectionConfig input) {
         JmxDatacollectionConfig output = new JmxDatacollectionConfig();
@@ -65,7 +66,8 @@ public class JmxCollectionCloner {
      * Clones a whole JmxCollection. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the jmx collection
      */
     public static JmxCollection clone(JmxCollection input) {
         JmxCollection output = new JmxCollection();
@@ -80,7 +82,8 @@ public class JmxCollectionCloner {
      * Clones a Rrd object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the rrd
      */
     public static Rrd clone(Rrd input) {
         Rrd output = new Rrd();
@@ -93,7 +96,8 @@ public class JmxCollectionCloner {
      * Clones a Mbeans object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the mbeans
      */
     public static Mbeans clone(Mbeans input) {
         Mbeans output = new Mbeans();
@@ -107,7 +111,8 @@ public class JmxCollectionCloner {
      * Clones a Mbean object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the mbean
      */
     public static Mbean clone(Mbean input) {
         Mbean output = new Mbean();
@@ -130,7 +135,8 @@ public class JmxCollectionCloner {
      * Clones an Attrib object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the attrib
      */
     public static Attrib clone(Attrib input) {
         Attrib output = new Attrib();
@@ -146,7 +152,8 @@ public class JmxCollectionCloner {
      * Clones a CompAttrib object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the comp attrib
      */
     public static CompAttrib clone(CompAttrib input) {
         CompAttrib output = new CompAttrib();
@@ -163,7 +170,8 @@ public class JmxCollectionCloner {
      * Clones a CompMember object. Makes a deep copy!
      *
      * @param input
-     * @return
+     *            the input
+     * @return the comp member
      */
     public static CompMember clone(CompMember input) {
         CompMember output = new CompMember();

@@ -41,14 +41,21 @@ import com.vaadin.ui.Window;
  */
 public class ProgressWindow extends Window {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The progress. */
     private ProgressIndicator progress = new ProgressIndicator();
 
+    /** The layout. */
     private HorizontalLayout layout = new HorizontalLayout();
 
+    /** The label. */
     private Label label = new Label("calculating some stuff");
 
+    /**
+     * Instantiates a new progress window.
+     */
     public ProgressWindow() {
         setCaption("processing...");
         setModal(true);
@@ -63,6 +70,12 @@ public class ProgressWindow extends Window {
         center();
     }
 
+    /**
+     * Sets the label text.
+     *
+     * @param label
+     *            the new label text
+     */
     public void setLabelText(String label) {
         this.label.setValue(label);
     }

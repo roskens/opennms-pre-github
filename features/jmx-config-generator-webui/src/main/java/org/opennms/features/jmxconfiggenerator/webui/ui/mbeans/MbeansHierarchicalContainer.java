@@ -45,14 +45,23 @@ import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.server.Resource;
 
 /**
+ * The Class MbeansHierarchicalContainer.
+ *
  * @author Markus von Rüden
  */
 public class MbeansHierarchicalContainer extends HierarchicalContainer {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The Class TreeNodeComparator.
+     */
     private class TreeNodeComparator implements Comparator<TreeNode> {
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(TreeNode o1, TreeNode o2) {
             String s1 = o1 == null ? "" : getStringComparable(o1.getData());
@@ -60,6 +69,13 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
             return s1.compareTo(s2);
         }
 
+        /**
+         * Gets the string comparable.
+         *
+         * @param data
+         *            the data
+         * @return the string comparable
+         */
         private String getStringComparable(Object data) {
             if (data == null)
                 return "";
@@ -68,12 +84,21 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         }
     }
 
+    /** The controller. */
     private final MBeansController controller;
 
+    /** The root. */
     private TreeNode root = new TreeNodeImpl();
 
+    /** The mbeans. */
     private Collection<Mbean> mbeans = new ArrayList<Mbean>();
 
+    /**
+     * Instantiates a new mbeans hierarchical container.
+     *
+     * @param controller
+     *            the controller
+     */
     public MbeansHierarchicalContainer(MBeansController controller) {
         this.controller = controller;
         addContainerProperty(MetaMBeanItem.ICON, Resource.class, null);
@@ -84,26 +109,56 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         addContainerProperty(MetaMBeanItem.CAPTION, String.class, "");
     }
 
+    /**
+     * Update data source.
+     *
+     * @param model
+     *            the model
+     */
     public void updateDataSource(UiModel model) {
         mbeans.clear();
         buildInternalTree(model);
         updateContainer();
     }
 
+    /**
+     * Builds the internal tree.
+     *
+     * @param model
+     *            the model
+     */
     private void buildInternalTree(UiModel model) {
         root = new TreeNodeImpl();
         for (Mbean bean : getMBeans(model))
             add(bean);
     }
 
+    /**
+     * Gets the m beans.
+     *
+     * @return the m beans
+     */
     public Collection<Mbean> getMBeans() {
         return this.mbeans;
     }
 
+    /**
+     * Gets the m beans.
+     *
+     * @param model
+     *            the model
+     * @return the m beans
+     */
     private List<Mbean> getMBeans(UiModel model) {
         return model.getRawModel().getJmxCollection().get(0).getMbeans().getMbean();
     }
 
+    /**
+     * Adds the.
+     *
+     * @param bean
+     *            the bean
+     */
     private void add(Mbean bean) {
         String objectName = bean.getObjectname();
         if (Strings.isNullOrEmpty(objectName))
@@ -114,16 +169,28 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         mbeans.add(bean);
     }
 
+    /**
+     * Update container.
+     */
     private void updateContainer() {
         removeAllItems();
         updateChildren(this, root);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return getClass().getName() + ":\n" + printInternalTree(root, 0);
     }
 
+    /**
+     * Adds the nodes.
+     *
+     * @param bean
+     *            the bean
+     */
     private void addNodes(Mbean bean) {
         TreeNode root = this.root;
         for (Object node : MBeansHelper.getMBeansTreeElements(bean))
@@ -131,6 +198,15 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         addChild(root, bean);
     }
 
+    /**
+     * Prints the internal tree.
+     *
+     * @param node
+     *            the node
+     * @param depth
+     *            the depth
+     * @return the string
+     */
     private String printInternalTree(TreeNode node, int depth) {
         String tabs = "";
         String ret = "";
@@ -142,6 +218,15 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         return ret;
     }
 
+    /**
+     * Adds the child.
+     *
+     * @param root
+     *            the root
+     * @param childData
+     *            the child data
+     * @return the tree node
+     */
     private TreeNode addChild(TreeNode root, Object childData) {
         TreeNode node = findNodeForData(root, childData);
         if (node != null)
@@ -152,6 +237,15 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         return node;
     }
 
+    /**
+     * Find node for data.
+     *
+     * @param root
+     *            the root
+     * @param data
+     *            the data
+     * @return the tree node
+     */
     private TreeNode findNodeForData(TreeNode root, Object data) {
         if (root == null)
             return null;
@@ -164,6 +258,16 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         return null;
     }
 
+    /**
+     * Adds the item.
+     *
+     * @param container
+     *            the container
+     * @param root
+     *            the root
+     * @param child
+     *            the child
+     */
     private void addItem(HierarchicalContainer container, TreeNode root, TreeNode child) {
         Item item = container.addItem(child.getData());
         controller.setItemProperties(item, child.getData());
@@ -173,6 +277,14 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
         container.setChildrenAllowed(child.getData(), child.hasChildren());
     }
 
+    /**
+     * Update children.
+     *
+     * @param container
+     *            the container
+     * @param root
+     *            the root
+     */
     private void updateChildren(HierarchicalContainer container, TreeNode root) {
         Collections.sort(root.getChildren(), new TreeNodeComparator());
         for (TreeNode child : root.getChildren()) {

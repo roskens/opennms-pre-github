@@ -29,7 +29,7 @@
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
 /**
- * Represents a view state of the MbeanView
+ * Represents a view state of the MbeanView.
  *
  * @author Markus von Rüden
  */
@@ -40,19 +40,22 @@ public enum ViewState {
      * available.
      */
     Init,
-    /**
-     * A Mbean is selected
-     */
+
+    /** A Mbean is selected. */
     LeafSelected,
-    /**
-     * No MBean is selected
-     */
+
+    /** No MBean is selected. */
     NonLeafSelected,
     /**
      * View is in edit mode.
      */
     Edit;
 
+    /**
+     * Checks if is edits the.
+     *
+     * @return true, if is edits the
+     */
     public boolean isEdit() {
         return this == Edit;
     }

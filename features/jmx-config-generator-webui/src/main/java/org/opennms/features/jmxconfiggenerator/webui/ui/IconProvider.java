@@ -40,30 +40,54 @@ import com.vaadin.server.ThemeResource;
  */
 public class IconProvider {
 
+    /** The Constant PACKAGE_ICON. */
     public static final String PACKAGE_ICON = "crystal_project/folder_blue.png";
 
+    /** The Constant MBEANS_ICON. */
     public static final String MBEANS_ICON = "crystal_project/blockdevice.png";
 
+    /** The Constant MBEANS_DESELECTED_ICON. */
     public static final String MBEANS_DESELECTED_ICON = "crystal_project/blockdevice_gray.png";
 
+    /** The Constant BUTTON_EDIT. */
     public static final String BUTTON_EDIT = "crystal_project/button_edit.png";
 
+    /** The Constant BUTTON_SAVE. */
     public static final String BUTTON_SAVE = "crystal_project/button_save.png";
 
+    /** The Constant BUTTON_CANCEL. */
     public static final String BUTTON_CANCEL = "crystal_project/button_cancel.png";
 
+    /** The Constant BUTTON_NEXT. */
     public static final String BUTTON_NEXT = "crystal_project/button_next.png";
 
+    /** The Constant BUTTON_PREVIOUS. */
     public static final String BUTTON_PREVIOUS = "crystal_project/button_previous.png";
 
+    /** The Constant BUTTON_INFO. */
     public static final String BUTTON_INFO = "crystal_project/button_info.png";
 
+    /** The Constant WORK_FOLDER. */
     public static final String WORK_FOLDER = Config.IMG_FOLDER + "/";
 
+    /**
+     * Gets the icon.
+     *
+     * @param icon
+     *            the icon
+     * @return the icon
+     */
     public static ThemeResource getIcon(String icon) {
         return new ThemeResource(WORK_FOLDER + icon);
     }
 
+    /**
+     * Gets the m beans icon.
+     *
+     * @param selected
+     *            the selected
+     * @return the m beans icon
+     */
     public static ThemeResource getMBeansIcon(boolean selected) {
         if (selected)
             return getIcon(MBEANS_ICON);

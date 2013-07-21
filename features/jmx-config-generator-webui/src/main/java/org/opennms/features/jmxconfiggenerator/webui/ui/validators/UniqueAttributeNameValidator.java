@@ -39,22 +39,38 @@ import com.vaadin.data.validator.AbstractValidator;
 import com.vaadin.ui.Field;
 
 /**
+ * The Class UniqueAttributeNameValidator.
+ *
  * @author Markus von Rüden
  */
 public class UniqueAttributeNameValidator extends AbstractValidator<String> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The provider. */
     private final NameProvider provider;
 
+    /** The text field item map. */
     private final Map<Object, Field<String>> textFieldItemMap;
 
+    /**
+     * Instantiates a new unique attribute name validator.
+     *
+     * @param provider
+     *            the provider
+     * @param fieldsForIsValid
+     *            the fields for is valid
+     */
     public UniqueAttributeNameValidator(NameProvider provider, Map<Object, Field<String>> fieldsForIsValid) {
         super("The attribute name must be unique in whole collection!");
         this.provider = provider;
         this.textFieldItemMap = fieldsForIsValid;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.validator.AbstractValidator#isValidValue(java.lang.Object)
+     */
     @Override
     protected boolean isValidValue(String value) {
         if (value == null || !(value instanceof String))
@@ -74,6 +90,9 @@ public class UniqueAttributeNameValidator extends AbstractValidator<String> {
                                                // or 1 times
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.validator.AbstractValidator#getType()
+     */
     @Override
     public Class<String> getType() {
         return String.class;

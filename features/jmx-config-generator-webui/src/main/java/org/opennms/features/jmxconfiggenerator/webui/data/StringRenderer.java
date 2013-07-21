@@ -35,9 +35,9 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  * does not fulfill the requirements.<br/>
  * <br/>
  *
- * @author Markus von Rüden
  * @param <T>
  *            the type of the object which needs to be rendered as a String
+ * @author Markus von Rüden
  */
 public interface StringRenderer<T> {
 

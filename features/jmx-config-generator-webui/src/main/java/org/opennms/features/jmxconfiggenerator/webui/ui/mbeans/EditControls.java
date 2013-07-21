@@ -60,17 +60,27 @@ import com.vaadin.ui.Table;
 class EditControls<T extends Component> extends HorizontalLayout implements ReadOnlyStatusChangeListener,
         Button.ClickListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**
      * This callback is implemented by any instance which uses the EditControls,
      * so on a button click this callback is invoked.
      *
-     * @author Markus von Rüden
      * @param <T>
      *            The type of the component which uses the EditControl.
+     * @author Markus von Rüden
      */
     public static interface Callback<T extends Component> {
+
+        /**
+         * Callback.
+         *
+         * @param type
+         *            the type
+         * @param outer
+         *            the outer
+         */
         void callback(ButtonType type, T outer);
     }
 
@@ -114,25 +124,41 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * @author Markus von Rüden
      */
     public static enum ButtonType {
-        edit, cancel, save;
+
+        /** The edit. */
+        edit,
+ /** The cancel. */
+ cancel,
+ /** The save. */
+ save;
     }
 
     /**
      * Simple implementation of a ButtonHandler for Components. It allows
      * setting the outer component.
      *
-     * @author Markus von Rüden
      * @param <T>
      *            Type of the outer component.
+     * @author Markus von Rüden
      */
     public abstract static class AbstractButtonHandler<T extends Component> implements ButtonHandler<T> {
 
+        /** The outer. */
         private final T outer;
 
+        /**
+         * Instantiates a new abstract button handler.
+         *
+         * @param outer
+         *            the outer
+         */
         public AbstractButtonHandler(T outer) {
             this.outer = outer;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonHandler#getOuter()
+         */
         @Override
         public T getOuter() {
             return outer;
@@ -147,14 +173,25 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * <li>form.setReadOnly(false)</li> -> write mode
      * </ul>
      *
+     * @param <T>
+     *            the generic type
      * @author Markus von Rüden
      */
     public static class FormButtonHandler<T extends AbstractField> extends AbstractButtonHandler<T> {
 
+        /**
+         * Instantiates a new form button handler.
+         *
+         * @param outer
+         *            the outer
+         */
         public FormButtonHandler(T outer) {
             super(outer);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonHandler#handleSave()
+         */
         @Override
         public void handleSave() {
             if (!getOuter().isValid())
@@ -163,21 +200,26 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
             setEditAllowed(false);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonHandler#handleCancel()
+         */
         @Override
         public void handleCancel() {
             getOuter().discard();
             setEditAllowed(false);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonHandler#handleEdit()
+         */
         @Override
         public void handleEdit() {
             setEditAllowed(true);
         }
 
         /**
-         * @param component
-         *            the outer component, which toggles from read to write mode
-         *            (or vice versa).
+         * Sets the edits the allowed.
+         *
          * @param editAllowed
          *            true: <code>component</code> is in edit mode, false:
          *            <code>component</code> is in read mode
@@ -192,14 +234,25 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * write mode is handled by setting the editable flag. Setting read only
      * flag does not change from non-editable to editable.
      *
+     * @param <T>
+     *            the generic type
      * @author Markus von Rüden
      */
     public static class TableButtonHandler<T extends Table> extends FormButtonHandler<T> {
 
+        /**
+         * Instantiates a new table button handler.
+         *
+         * @param t
+         *            the t
+         */
         public TableButtonHandler(T t) {
             super(t);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.FormButtonHandler#setEditAllowed(boolean)
+         */
         @Override
         protected void setEditAllowed(boolean editAllowed) {
             getOuter().setReadOnly(!editAllowed); // to be consistent, we set
@@ -241,14 +294,34 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      */
     private ButtonHandler<T> buttonHandler;
 
+    /**
+     * Instantiates a new edits the controls.
+     *
+     * @param outerForm
+     *            the outer form
+     */
     protected EditControls(final Form outerForm) {
         this(outerForm, new FormButtonHandler(outerForm));
     }
 
+    /**
+     * Instantiates a new edits the controls.
+     *
+     * @param outerTable
+     *            the outer table
+     */
     protected EditControls(final Table outerTable) {
         this(outerTable, new TableButtonHandler(outerTable));
     }
 
+    /**
+     * Instantiates a new edits the controls.
+     *
+     * @param callback
+     *            the callback
+     * @param buttonHandler
+     *            the button handler
+     */
     protected EditControls(ReadOnlyStatusChangeNotifier callback, ButtonHandler<T> buttonHandler) {
         this.buttonHandler = buttonHandler;
         // we need to do this, otherwise we don't notice when to hide/show
@@ -275,6 +348,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
         hooks.put(edit, new ArrayList<Callback<?>>());
     }
 
+    /**
+     * Inits the footer button actions.
+     */
     private void initFooterButtonActions() {
         edit.addListener((Button.ClickListener) this);
         save.addListener((Button.ClickListener) this);
@@ -303,6 +379,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * versa. In edition we execute any registerd hooks afterwards.
      *
      * @param event
+     *            the event
      */
     @Override
     public void buttonClick(Button.ClickEvent event) {
@@ -321,11 +398,12 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * stuff AFTER handling the toggle between read and write mode. <br/>
      * <br/>
      * <b>Be aware that <code>button</code> should be one of:</b> {@link #save},
-     * {@link #edit}, {@link #cancel}.
      *
      * @param button
-     *            {@link #save}, {@link #edit}, {@link #cancel}
-     * @param listener
+     *            the button
+     * @param callback
+     *            the callback {@link #edit}, {@link #cancel}. {@link #save},
+     *            {@link #edit}, {@link #cancel}
      */
     private void addHook(ButtonType button, Callback callback) {
         Button b = getButton(button);
@@ -334,23 +412,50 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
         hooks.get(b).add(callback);
     }
 
+    /**
+     * Adds the save hook.
+     *
+     * @param callback
+     *            the callback
+     */
     public void addSaveHook(Callback<?> callback) {
         addHook(ButtonType.save, callback);
     }
 
+    /**
+     * Adds the edit hook.
+     *
+     * @param callback
+     *            the callback
+     */
     public void addEditHook(Callback<?> callback) {
         addHook(ButtonType.edit, callback);
     }
 
+    /**
+     * Adds the cancel hook.
+     *
+     * @param callback
+     *            the callback
+     */
     public void addCancelHook(Callback<?> callback) {
         addHook(ButtonType.cancel, callback);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Property.ReadOnlyStatusChangeListener#readOnlyStatusChange(com.vaadin.data.Property.ReadOnlyStatusChangeEvent)
+     */
     @Override
     public void readOnlyStatusChange(Property.ReadOnlyStatusChangeEvent event) {
         updateVisibility(event.getProperty().isReadOnly());
     }
 
+    /**
+     * Execute hooks.
+     *
+     * @param event
+     *            the event
+     */
     private void executeHooks(final Button.ClickEvent event) {
         if (hooks.get(event.getButton()) == null)
             return; // nothing to do
@@ -360,6 +465,13 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
         }
     }
 
+    /**
+     * Gets the button.
+     *
+     * @param button
+     *            the button
+     * @return the button
+     */
     private Button getButton(ButtonType button) {
         switch (button) {
         default:
@@ -372,6 +484,13 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
         }
     }
 
+    /**
+     * Gets the button type.
+     *
+     * @param button
+     *            the button
+     * @return the button type
+     */
     private ButtonType getButtonType(Button button) {
         if (button == cancel)
             return ButtonType.cancel;
@@ -386,7 +505,8 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
      * Sets a new <code>editHandler</code>.
      *
      * @param editHandler
-     * @return
+     *            the edit handler
+     * @return the edits the controls
      * @see ButtonHandler
      */
     protected EditControls<T> changeButtonHandler(ButtonHandler<T> editHandler) {

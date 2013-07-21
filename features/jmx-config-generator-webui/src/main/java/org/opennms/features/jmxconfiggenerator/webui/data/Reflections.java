@@ -48,25 +48,26 @@ public class Reflections {
      * <b>Example:</b>
      *
      * <pre>
-     *   class A implements Serializable, Clonable {
-     *   ....
-     *   }
+     * class A implements Serializable, Clonable {
+     * ....
+     * }
      *
-     *   class B extends A implements Comparable {
-     *    ....
-     *   }
+     * class B extends A implements Comparable {
+     * ....
+     * }
      *
-     *   class C extends B {
+     * class C extends B {
      *
-     *    ....
+     * ....
      *
-     *   }
+     * }
      *
-     *   buildClassHierarchy(c.class) returns [C.class, Comparable.class, B.class, Serializable.class, Cloneable.class, A.class]
+     * buildClassHierarchy(c.class) returns [C.class, Comparable.class, B.class, Serializable.class, Cloneable.class, A.class]
      * </pre>
      *
      * @param clazz
-     * @return
+     *            the clazz
+     * @return the list
      */
     public static List<Class> buildClassHierarchy(Class clazz) {
         Set<Class> classes = new HashSet<Class>();
@@ -75,14 +76,14 @@ public class Reflections {
     }
 
     /**
-     * Builds the class hierarchy as described in
-     * {@link #buildClassHierarchy(java.lang.Class) }
+     * Builds the class hierarchy as described in.
      *
      * @param clazz
      *            the class to build class hierarchy for
      * @param classes
      *            a set to store all classes and prevent doubles (is needed to
      *            avoid double occurance of interrfaces)
+     *            {@link #buildClassHierarchy(java.lang.Class) }
      * @see #buildClassHierarchy(java.lang.Class)
      */
     private static void buildClassHierarchy(Class clazz, Set<Class> classes) {

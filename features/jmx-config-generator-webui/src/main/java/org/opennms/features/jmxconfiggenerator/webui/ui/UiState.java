@@ -29,44 +29,104 @@ package org.opennms.features.jmxconfiggenerator.webui.ui;
 
 import java.util.Arrays;
 
+/**
+ * The Enum UiState.
+ */
 public enum UiState {
-    IntroductionView("Introduction", true), ServiceConfigurationView("Service Configuration", true), MbeansDetection(
-            "Determine MBeans information", false), MbeansView("MBeans Configuration", true), ResultConfigGeneration(
-            "Generate OpenNMS Configuration snippets", false), ResultView("OpenNMS Configuration", true);
 
+    /** The Introduction view. */
+    IntroductionView("Introduction", true),
+ /** The Service configuration view. */
+ ServiceConfigurationView("Service Configuration", true),
+ /** The Mbeans detection. */
+ MbeansDetection(
+            "Determine MBeans information", false),
+ /** The Mbeans view. */
+ MbeansView("MBeans Configuration", true),
+ /** The Result config generation. */
+ ResultConfigGeneration(
+            "Generate OpenNMS Configuration snippets", false),
+ /** The Result view. */
+ ResultView("OpenNMS Configuration", true);
+
+    /** The description. */
     private final String description;
 
+    /** The ui. */
     private boolean ui;
 
+    /**
+     * Instantiates a new ui state.
+     *
+     * @param description
+     *            the description
+     * @param ui
+     *            the ui
+     */
     private UiState(String description, boolean ui) {
         this.description = description;
         this.ui = ui;
     }
 
+    /**
+     * Checks for ui.
+     *
+     * @return true, if successful
+     */
     boolean hasUi() {
         return ui;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Checks for previous.
+     *
+     * @return true, if successful
+     */
     public boolean hasPrevious() {
         return !isFirst();
     }
 
+    /**
+     * Checks for next.
+     *
+     * @return true, if successful
+     */
     public boolean hasNext() {
         return !isLast();
     }
 
+    /**
+     * Checks if is first.
+     *
+     * @return true, if is first
+     */
     private boolean isFirst() {
         return UiState.values()[0].equals(this);
     }
 
+    /**
+     * Checks if is last.
+     *
+     * @return true, if is last
+     */
     private boolean isLast() {
         return UiState.values()[UiState.values().length - 1].equals(this);
     }
 
+    /**
+     * Gets the previous.
+     *
+     * @return the previous
+     */
     public UiState getPrevious() {
         if (hasPrevious()) {
             int currentIndex = Arrays.asList(UiState.values()).indexOf(this);
@@ -75,6 +135,11 @@ public enum UiState {
         return null; // no previous element
     }
 
+    /**
+     * Gets the next.
+     *
+     * @return the next
+     */
     public UiState getNext() {
         if (hasNext()) {
             int currentIndex = Arrays.asList(UiState.values()).indexOf(this);

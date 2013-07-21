@@ -33,6 +33,8 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  * <code>T</code> has changed.
  * In future releases a ModelChangeEvent may be introduced.
  *
+ * @param <T>
+ *            the generic type
  * @author Markus von Rüden
  */
 public interface ModelChangeListener<T extends Object> {

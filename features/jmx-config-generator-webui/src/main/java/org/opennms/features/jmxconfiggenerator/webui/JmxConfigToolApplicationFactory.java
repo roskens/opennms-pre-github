@@ -31,6 +31,9 @@ import org.ops4j.pax.vaadin.AbstractApplicationFactory;
 
 import com.vaadin.ui.UI;
 
+/**
+ * A factory for creating JmxConfigToolApplication objects.
+ */
 public class JmxConfigToolApplicationFactory extends AbstractApplicationFactory {
 
     /*

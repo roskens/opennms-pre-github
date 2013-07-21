@@ -55,11 +55,10 @@ import com.vaadin.data.util.VaadinPropertyDescriptor;
  */
 public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T, String, SelectableItem<T>> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * Mapping of an itemId to a <code>SelectableItem</code>
-     */
+    /** Mapping of an itemId to a <code>SelectableItem</code>. */
     private final Map<T, SelectableItem<T>> itemIdToItem = new HashMap<T, SelectableItem<T>>();
 
     /**
@@ -69,26 +68,39 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
      */
     private final Map<String, VaadinPropertyDescriptor> model;
 
-    /**
-     * The type of our bean
-     */
+    /** The type of our bean. */
     private final Class<? super T> type;
 
+    /**
+     * Instantiates a new selectable bean item container.
+     *
+     * @param type
+     *            the type
+     */
     public SelectableBeanItemContainer(Class<? super T> type) {
         model = SelectableItem.getPropertyDescriptors(type);
         this.type = type;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#getUnfilteredItem(java.lang.Object)
+     */
     @Override
     protected SelectableItem<T> getUnfilteredItem(Object itemId) {
         return itemIdToItem.get(itemId);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getContainerPropertyIds()
+     */
     @Override
     public Collection<String> getContainerPropertyIds() {
         return model.keySet();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getContainerProperty(java.lang.Object, java.lang.Object)
+     */
     @Override
     public Property getContainerProperty(Object itemId, Object propertyId) {
         Item item = getItem(itemId);
@@ -97,15 +109,28 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return item.getItemProperty(propertyId);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getType(java.lang.Object)
+     */
     @Override
     public Class<?> getType(Object propertyId) {
         return model.get(propertyId).getPropertyType();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @param itemId
+     *            the item id
+     * @return true, if is valid
+     */
     private boolean isValid(Object itemId) {
         return itemId != null && type.isAssignableFrom(itemId.getClass());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#addItemAt(int, java.lang.Object)
+     */
     @Override
     public Item addItemAt(int index, Object newItemId) {
         if (!isValid(newItemId))
@@ -113,12 +138,22 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return internalAddItemAt(index, (T) newItemId, createItem((T) newItemId), true);
     }
 
+    /**
+     * Creates the item.
+     *
+     * @param itemId
+     *            the item id
+     * @return the selectable item
+     */
     private SelectableItem<T> createItem(T itemId) {
         if (itemId == null)
             return null;
         return new SelectableItem<T>(itemId, model);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#addItemAfter(java.lang.Object, java.lang.Object)
+     */
     @Override
     public Item addItemAfter(Object previousItemId, Object newItemId) {
         if (!isValid(previousItemId) || !isValid(newItemId))
@@ -126,6 +161,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return internalAddItemAfter((T) previousItemId, (T) newItemId, createItem((T) newItemId), true);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#addItem(java.lang.Object)
+     */
     @Override
     public Item addItem(Object itemId) {
         if (!isValid(itemId))
@@ -133,6 +171,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return internalAddItemAtEnd((T) itemId, createItem((T) itemId), true);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#removeItem(java.lang.Object)
+     */
     @Override
     public boolean removeItem(Object itemId) {
         int position = indexOfId(itemId);
@@ -144,6 +185,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#removeAllItems()
+     */
     @Override
     public boolean removeAllItems() {
         internalRemoveAllItems();
@@ -152,6 +196,9 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.util.AbstractInMemoryContainer#registerNewItem(int, java.lang.Object, com.vaadin.data.Item)
+     */
     @Override
     protected void registerNewItem(int position, T itemId, SelectableItem<T> item) {
         itemIdToItem.put(itemId, item);
@@ -159,6 +206,16 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
 
     /**
      * we do not allow adding additional properties to the container.
+     *
+     * @param propertyId
+     *            the property id
+     * @param type
+     *            the type
+     * @param defaultValue
+     *            the default value
+     * @return true, if successful
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @Override
     public boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue)
@@ -170,6 +227,12 @@ public class SelectableBeanItemContainer<T> extends AbstractInMemoryContainer<T,
     /**
      * We do not allow removing properties from the container. This may change
      * in future releases.
+     *
+     * @param propertyId
+     *            the property id
+     * @return true, if successful
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @Override
     public boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {

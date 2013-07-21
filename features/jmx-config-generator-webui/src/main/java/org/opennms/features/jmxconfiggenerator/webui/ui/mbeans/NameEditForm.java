@@ -52,16 +52,29 @@ import com.vaadin.ui.TextField;
 public class NameEditForm extends Form implements ModelChangeListener<Item>, ViewStateChangedListener,
         EditControls.Callback {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The footer. */
     private final EditControls footer = new EditControls(this);
 
+    /** The controller. */
     private final MBeansController controller;
 
+    /** The name validator. */
     private final Validator nameValidator = new NameValidator();
 
+    /** The parameter. */
     private final FormParameter parameter;
 
+    /**
+     * Instantiates a new name edit form.
+     *
+     * @param controller
+     *            the controller
+     * @param parameter
+     *            the parameter
+     */
     public NameEditForm(MBeansController controller, final FormParameter parameter) {
         this.controller = controller;
         this.parameter = parameter;
@@ -110,12 +123,18 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
         setVisibleItemProperties(parameter.getVisiblePropertieNames());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(Item newItem) {
         setItemDataSource(newItem);
         setVisibleItemProperties(getVisibleItemProperties());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+     */
     @Override
     public void viewStateChanged(ViewStateChangedEvent event) {
         switch (event.getNewState()) {
@@ -136,12 +155,18 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
     }
 
     // lock or unlock the whole view!
+    /**
+     * Adds the footer hooks.
+     */
     private void addFooterHooks() {
         footer.addCancelHook(this);
         footer.addEditHook(this);
         footer.addSaveHook(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.Callback#callback(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.EditControls.ButtonType, com.vaadin.ui.Component)
+     */
     @Override
     public void callback(ButtonType type, Component outer) {
         if (type == ButtonType.cancel) {
@@ -164,12 +189,25 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
         }
     }
 
+    /**
+     * Call additional callbacks if there are any.
+     *
+     * @param type
+     *            the type
+     * @param outer
+     *            the outer
+     */
     private void callAdditionalCallbacksIfThereAreAny(ButtonType type, Component outer) {
         if (parameter.getAdditionalCallback() == null)
             return;
         parameter.getAdditionalCallback().callback(type, outer);
     }
 
+    /**
+     * Gets the form parameter.
+     *
+     * @return the form parameter
+     */
     protected FormParameter getFormParameter() {
         return parameter;
     }

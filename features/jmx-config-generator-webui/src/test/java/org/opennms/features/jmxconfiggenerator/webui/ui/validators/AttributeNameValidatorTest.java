@@ -33,10 +33,15 @@ import org.junit.Test;
 import com.vaadin.data.Validator;
 
 /**
+ * The Class AttributeNameValidatorTest.
+ *
  * @author Markus von Rüden
  */
 public class AttributeNameValidatorTest {
 
+    /**
+     * Test validate.
+     */
     @Test
     public void testValidate() {
         final String[] OK = new String[] { "com", "comwebserver", "someEntry", "HELLOWORLD", "HellowoRlD", "a", "ab" };

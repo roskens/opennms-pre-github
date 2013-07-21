@@ -37,23 +37,33 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  */
 public interface MetaConfigModel {
 
+    /** The service name. */
     String SERVICE_NAME = "serviceName";
 
+    /** The package names. */
     String PACKAGE_NAMES = "packageNames";
 
+    /** The jmxmp. */
     String JMXMP = "jmxmp";
 
+    /** The host. */
     String HOST = "host";
 
+    /** The password. */
     String PASSWORD = "password";
 
+    /** The port. */
     String PORT = "port";
 
+    /** The authenticate. */
     String AUTHENTICATE = "authenticate";
 
+    /** The user. */
     String USER = "user";
 
+    /** The skip default vm. */
     String SKIP_DEFAULT_VM = "skipDefaultVM";
 
+    /** The run writable mbeans. */
     String RUN_WRITABLE_MBEANS = "runWritableMBeans";
 }

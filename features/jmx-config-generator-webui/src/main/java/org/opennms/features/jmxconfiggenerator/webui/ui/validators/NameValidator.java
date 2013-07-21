@@ -31,12 +31,18 @@ package org.opennms.features.jmxconfiggenerator.webui.ui.validators;
 import com.vaadin.data.validator.RegexpValidator;
 
 /**
+ * The Class NameValidator.
+ *
  * @author Markus von Rüden
  */
 public class NameValidator extends RegexpValidator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new name validator.
+     */
     public NameValidator() {
         super("[a-zA-Z0-9_]+([\\.-][a-zA-Z0-9_]+)*", true,
               "You must specify a valid name. Allowed characters: (a-z, A-Z, 0-9,. , _)");

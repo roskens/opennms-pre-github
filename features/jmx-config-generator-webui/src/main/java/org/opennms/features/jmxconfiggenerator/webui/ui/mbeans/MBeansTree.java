@@ -40,22 +40,36 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
 
 /**
+ * The Class MBeansTree.
+ *
  * @author Markus von Rüden
  */
 class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewStateChangedListener, Action.Handler {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The controller. */
     private final MBeansController controller;
 
+    /** The container. */
     private final MbeansHierarchicalContainer container;
 
+    /** The select. */
     private final Action SELECT = new Action("select");
 
+    /** The deselect. */
     private final Action DESELECT = new Action("deselect");
 
+    /** The actions. */
     private final Action[] ACTIONS = new Action[] { SELECT, DESELECT };
 
+    /**
+     * Instantiates a new m beans tree.
+     *
+     * @param controller
+     *            the controller
+     */
     protected MBeansTree(final MBeansController controller) {
         this.container = controller.getMBeansHierarchicalContainer();
         this.controller = controller;
@@ -106,6 +120,9 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
         return firstItemId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiModel internalModel) {
         container.updateDataSource(internalModel);
@@ -120,6 +137,9 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+     */
     @Override
     public void viewStateChanged(ViewStateChangedEvent event) {
         switch (event.getNewState()) {
@@ -132,11 +152,17 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.event.Action.Handler#getActions(java.lang.Object, java.lang.Object)
+     */
     @Override
     public Action[] getActions(Object target, Object sender) {
         return ACTIONS;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.event.Action.Handler#handleAction(com.vaadin.event.Action, java.lang.Object, java.lang.Object)
+     */
     @Override
     public void handleAction(Action action, Object sender, Object target) {
         if (action == SELECT)

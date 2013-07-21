@@ -29,18 +29,16 @@
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
 /**
+ * The Class ViewStateChangedEvent.
+ *
  * @author Markus von Rüden
  */
 public class ViewStateChangedEvent {
 
-    /**
-     * old view state
-     */
+    /** old view state. */
     private ViewState oldState;
 
-    /**
-     * new view state
-     */
+    /** new view state. */
     private ViewState newState;
 
     /**
@@ -50,20 +48,45 @@ public class ViewStateChangedEvent {
      */
     private Object source;
 
+    /**
+     * Instantiates a new view state changed event.
+     *
+     * @param oldState
+     *            the old state
+     * @param newState
+     *            the new state
+     * @param source
+     *            the source
+     */
     public ViewStateChangedEvent(ViewState oldState, ViewState newState, Object source) {
         this.oldState = oldState;
         this.newState = newState;
         this.source = source;
     }
 
+    /**
+     * Gets the old state.
+     *
+     * @return the old state
+     */
     public ViewState getOldState() {
         return oldState;
     }
 
+    /**
+     * Gets the new state.
+     *
+     * @return the new state
+     */
     public ViewState getNewState() {
         return newState;
     }
 
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
     public Object getSource() {
         return source;
     }

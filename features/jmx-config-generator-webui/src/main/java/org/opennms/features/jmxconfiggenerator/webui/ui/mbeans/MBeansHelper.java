@@ -48,12 +48,22 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
  */
 public class MBeansHelper {
 
+    /**
+     * Gets the m beans tree elements.
+     *
+     * @param input
+     *            the input
+     * @return the m beans tree elements
+     */
     public static List getMBeansTreeElements(Mbean input) {
         return getMBeansTreeElements(input, true);
     }
 
     /**
+     * Gets the leaf label.
+     *
      * @param input
+     *            the input
      * @return the string to display in the MBeanTree for the Mbean leaf.
      */
     public static String getLeafLabel(Mbean input) {
@@ -67,6 +77,8 @@ public class MBeansHelper {
     }
 
     /**
+     * Gets the m beans tree elements.
+     *
      * @param input
      *            any Mbean
      * @param removeLastElement
@@ -103,6 +115,16 @@ public class MBeansHelper {
         return names;
     }
 
+    /**
+     * Adds the if not null.
+     *
+     * @param names
+     *            the names
+     * @param keyProperty
+     *            the key property
+     * @param key
+     *            the key
+     */
     private static void addIfNotNull(List<Map.Entry<String, String>> names, Map<String, String> keyProperty, String key) {
         if (keyProperty.get(key) == null)
             return;

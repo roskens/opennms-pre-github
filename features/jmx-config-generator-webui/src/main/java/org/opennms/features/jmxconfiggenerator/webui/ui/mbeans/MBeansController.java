@@ -63,7 +63,17 @@ import com.vaadin.event.ItemClickEvent;
  */
 public class MBeansController implements ModelChangeNotifier, ViewStateChangedListener, ModelChangeListener<UiModel>,
         NameProvider {
+
+    /**
+     * The Interface Callback.
+     */
     public static interface Callback {
+
+        /**
+         * Gets the container.
+         *
+         * @return the container
+         */
         Container getContainer();
     }
 
@@ -79,15 +89,19 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      * We stick to 2. So at the beginning this class simply maps each MBean to
      * its container. But further on we realized that there are more scenarios
      * where we have a parent object which has a list of attributes. So the
-     * {@link AttributesContainerCache} got more generic. Therefore the
-     * ATTRIBUTETYPE defines the type of the attribute (e.g. {@link Attrib} to
-     * stick with the MBeans example) and the PARENTTYPE defines the type of the
-     * parent object (e.g. {@link Mbean} to stick with the MBeans example).
      *
      * @param <ATTRIBUTETYPE>
      *            The type of the parent object's attributes.
      * @param <PARENTTYPE>
      *            The type of the parent object which holds the attributes.
+     *            {@link AttributesContainerCache} got more generic. Therefore
+     *            the
+     *            ATTRIBUTETYPE defines the type of the attribute (e.g.
+     *            {@link Attrib} to
+     *            stick with the MBeans example) and the PARENTTYPE defines the
+     *            type of the
+     *            parent object (e.g. {@link Mbean} to stick with the MBeans
+     *            example).
      * @author Markus von Rüden
      */
     public static class AttributesContainerCache<ATTRIBUTETYPE, PARENTTYPE> {
@@ -114,6 +128,14 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
          */
         private final AttributeCollector<ATTRIBUTETYPE, PARENTTYPE> attribCollector;
 
+        /**
+         * Instantiates a new attributes container cache.
+         *
+         * @param type
+         *            the type
+         * @param attribCollector
+         *            the attrib collector
+         */
         private AttributesContainerCache(Class<? super ATTRIBUTETYPE> type,
                 AttributeCollector<ATTRIBUTETYPE, PARENTTYPE> attribCollector) {
             this.type = type;
@@ -125,7 +147,8 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
          * one is created, otherwise the earlier used container is returned.
          *
          * @param bean
-         * @return
+         *            the bean
+         * @return the container
          */
         public SelectableBeanItemContainer<ATTRIBUTETYPE> getContainer(PARENTTYPE bean) {
             if (bean == null)
@@ -156,11 +179,11 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
          * The AttributeCollector retrieves all attributes from the parent's
          * object.
          *
-         * @author Markus von Rüden
          * @param <ATTRIBUTETYPE>
          *            The type of the attributes.
          * @param <PARENTTYPE>
          *            The type of the parent's object.
+         * @author Markus von Rüden
          */
         public static interface AttributeCollector<ATTRIBUTETYPE, PARENTTYPE> {
 
@@ -176,14 +199,10 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
         }
     }
 
-    /**
-     * Vaadin container for the MbeansTree
-     */
+    /** Vaadin container for the MbeansTree. */
     private final MbeansHierarchicalContainer mbeansContainer = new MbeansHierarchicalContainer(this);
 
-    /**
-     * Registry to notify underlying components on modelChange events
-     */
+    /** Registry to notify underlying components on modelChange events. */
     private final ModelChangeRegistry registry = new ModelChangeRegistry();
 
     /**
@@ -192,21 +211,22 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      */
     private final Collection<ViewStateChangedListener> viewStateListener = new ArrayList<ViewStateChangedListener>();
 
+    /** The item strategy handler. */
     private final MBeansItemStrategyHandler itemStrategyHandler = new MBeansItemStrategyHandler();
 
-    /**
-     * the Mbean which is currently selected in the MBeanTree
-     */
+    /** the Mbean which is currently selected in the MBeanTree. */
     private Mbean currentlySelected = null;
 
-    /**
-     * The state in which the view is currently
-     */
+    /** The state in which the view is currently. */
     private ViewState currentState = ViewState.Init; // this would be default,
                                                      // but we set it
                                                      // nevertheless
 
-    private AttributesContainerCache<Attrib, Mbean> attribContainerCache = new AttributesContainerCache<Attrib, Mbean>(
+    /**
+                                                         * The attrib container
+                                                         * cache.
+                                                         */
+                                                     private AttributesContainerCache<Attrib, Mbean> attribContainerCache = new AttributesContainerCache<Attrib, Mbean>(
                                                                                                                        Attrib.class,
                                                                                                                        new AttributesContainerCache.AttributeCollector<Attrib, Mbean>() {
                                                                                                                            @Override
@@ -218,6 +238,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 
     // TODO mvonrued -> this is not correct, because we do not want all members,
     // we just want specific ones
+    /** The comp attrib container cache. */
     private AttributesContainerCache<CompAttrib, Mbean> compAttribContainerCache = new AttributesContainerCache<CompAttrib, Mbean>(
                                                                                                                                    CompAttrib.class,
                                                                                                                                    new AttributesContainerCache.AttributeCollector<CompAttrib, Mbean>() {
@@ -228,6 +249,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
                                                                                                                                        }
                                                                                                                                    });
 
+    /** The comp member container cache. */
     private AttributesContainerCache<CompMember, CompAttrib> compMemberContainerCache = new AttributesContainerCache<CompMember, CompAttrib>(
                                                                                                                                              CompMember.class,
                                                                                                                                              new AttributesContainerCache.AttributeCollector<CompMember, CompAttrib>() {
@@ -238,16 +260,27 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
                                                                                                                                                  }
                                                                                                                                              });
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeNotifier#registerListener(java.lang.Class, org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener)
+     */
     @Override
     public void registerListener(Class clazz, ModelChangeListener listener) {
         registry.registerListener(clazz, listener);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeNotifier#notifyObservers(java.lang.Class, java.lang.Object)
+     */
     @Override
     public void notifyObservers(Class clazz, Object newModel) {
         registry.notifyObservers(clazz, newModel);
     }
 
+    /**
+     * Gets the m beans hierarchical container.
+     *
+     * @return the m beans hierarchical container
+     */
     public MbeansHierarchicalContainer getMBeansHierarchicalContainer() {
         return mbeansContainer;
     }
@@ -260,6 +293,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      * is selected)
      *
      * @param event
+     *            the event
      */
     protected void updateView(ItemClickEvent event) {
         if (currentlySelected == event.getItemId())
@@ -274,6 +308,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      * Gets the next ViewState of the view.
      *
      * @param itemId
+     *            the item id
      * @return ViewState.Init if itemId is null, otherwise
      *         ViewState.LeafSelected on Mbean selection and NonLeafSelected on
      *         non-Mbean selection
@@ -288,6 +323,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
         return ViewState.Init;
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param itemId
+     *            the new state
+     */
     private void setState(Object itemId) {
         ViewState nextState = getNextState(itemId);
         if (nextState == currentState)
@@ -305,14 +346,32 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
                                                                                         // :)
     }
 
+    /**
+     * Sets the item properties.
+     *
+     * @param item
+     *            the item
+     * @param itemId
+     *            the item id
+     */
     public void setItemProperties(Item item, Object itemId) {
         itemStrategyHandler.setItemProperties(item, itemId);
     }
 
+    /**
+     * Gets the string renderer.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the string renderer
+     */
     public StringRenderer getStringRenderer(Class<?> clazz) {
         return itemStrategyHandler.getStringRenderer(clazz);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedListener#viewStateChanged(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.ViewStateChangedEvent)
+     */
     @Override
     public void viewStateChanged(ViewStateChangedEvent event) {
         currentState = event.getNewState();
@@ -323,32 +382,83 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
         }
     }
 
+    /**
+     * Adds the view.
+     *
+     * @param view
+     *            the view
+     */
     protected void addView(ViewStateChangedListener view) {
         viewStateListener.add(view);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiModel newModel) {
         fireViewStateChanged(new ViewStateChangedEvent(currentState, ViewState.Init, this));
     }
 
+    /**
+     * Fire view state changed.
+     *
+     * @param newState
+     *            the new state
+     * @param source
+     *            the source
+     */
     protected void fireViewStateChanged(ViewState newState, Object source) {
         fireViewStateChanged(new ViewStateChangedEvent(currentState, newState, source));
     }
 
+    /**
+     * Fire view state changed.
+     *
+     * @param event
+     *            the event
+     */
     private void fireViewStateChanged(ViewStateChangedEvent event) {
         for (ViewStateChangedListener listener : viewStateListener)
             listener.viewStateChanged(event);
     }
 
+    /**
+     * Handle deselect.
+     *
+     * @param container
+     *            the container
+     * @param itemId
+     *            the item id
+     */
     void handleDeselect(HierarchicalContainer container, Object itemId) {
         handleSelectDeselect(container, container.getItem(itemId), itemId, false);
     }
 
+    /**
+     * Handle select.
+     *
+     * @param container
+     *            the container
+     * @param itemId
+     *            the item id
+     */
     void handleSelect(HierarchicalContainer container, Object itemId) {
         handleSelectDeselect(container, container.getItem(itemId), itemId, true);
     }
 
+    /**
+     * Handle select deselect.
+     *
+     * @param container
+     *            the container
+     * @param item
+     *            the item
+     * @param itemId
+     *            the item id
+     * @param select
+     *            the select
+     */
     public void handleSelectDeselect(HierarchicalContainer container, Item item, Object itemId, boolean select) {
         itemStrategyHandler.getStrategy(itemId.getClass()).handleSelectDeselect(item, itemId, select);
         if (!container.hasChildren(itemId))
@@ -358,31 +468,64 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
         }
     }
 
+    /**
+     * Update m bean icon.
+     */
     public void updateMBeanIcon() {
         itemStrategyHandler.getStrategy(Mbean.class).updateIcon(mbeansContainer.getItem(currentlySelected));
     }
 
+    /**
+     * Gets the attribute container.
+     *
+     * @param bean
+     *            the bean
+     * @return the attribute container
+     */
     public SelectableBeanItemContainer<Attrib> getAttributeContainer(Mbean bean) {
         return attribContainerCache.getContainer(bean);
     }
 
+    /**
+     * Clear attributes cache.
+     */
     public void clearAttributesCache() {
         attribContainerCache.containerMap.clear();
     }
 
+    /**
+     * Update m bean.
+     */
     protected void updateMBean() {
         itemStrategyHandler.getStrategy(Mbean.class).updateModel(mbeansContainer.getItem(currentlySelected),
                                                                  currentlySelected);
     }
 
+    /**
+     * Gets the composite member container.
+     *
+     * @param attrib
+     *            the attrib
+     * @return the composite member container
+     */
     public SelectableBeanItemContainer<CompMember> getCompositeMemberContainer(CompAttrib attrib) {
         return compMemberContainerCache.getContainer(attrib);
     }
 
+    /**
+     * Gets the composite attribute container.
+     *
+     * @param mbean
+     *            the mbean
+     * @return the composite attribute container
+     */
     public SelectableBeanItemContainer<CompAttrib> getCompositeAttributeContainer(Mbean mbean) {
         return compAttribContainerCache.getContainer(mbean);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.NameProvider#getNames()
+     */
     @Override
     public Map<Object, String> getNames() {
         Map<Object, String> names = new HashMap<Object, String>();
@@ -399,6 +542,11 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 
     }
 
+    /**
+     * Gets the selected m bean.
+     *
+     * @return the selected m bean
+     */
     protected Mbean getSelectedMBean() {
         return currentlySelected;
     }
@@ -412,10 +560,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      * MBeans/Attribs/CompMembers/CompAttribs and add them manually with the
      * changes made in the gui.
      *
-     * @param controller
-     *            the MBeansController of the MbeansView (is needed to determine
-     *            the changes made in gui)
-     * @return
+     * @param uiModel
+     *            the ui model
+     * @return the jmx datacollection config
      */
     // TODO mvonrued -> I guess we do not need this clone-stuff at all ^^ and it
     // is too complicated for such a simple
@@ -513,10 +660,8 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
      * The composite attribute should be also selected. There is no check if
      * that is the case.
      *
-     * @param mbean
-     *            The composite attribute to get all selected composite members
-     *            from. The composite attribute should be also selected. There
-     *            is no check if that is the case.
+     * @param compAttrib
+     *            the comp attrib
      * @return all selected composite members for the given composite attribute.
      */
     protected Iterable<CompMember> getSelectedCompositeMembers(CompAttrib compAttrib) {
@@ -524,7 +669,10 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
     }
 
     /**
+     * Gets the selected mbeans.
+     *
      * @param container
+     *            the container
      * @return all Mbeans which are selected
      */
     private static Iterable<Mbean> getSelectedMbeans(final MbeansHierarchicalContainer container) {
@@ -542,8 +690,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
     }
 
     /**
+     * Gets the selected composite attributes.
+     *
      * @param mbean
+     *            the mbean
      * @param compAttribContainer
+     *            the comp attrib container
      * @return all CompAttrib elements which are selected
      */
     private static Iterable<CompAttrib> getSelectedCompositeAttributes(final Mbean mbean,
@@ -560,8 +712,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
     }
 
     /**
+     * Gets the selected composite members.
+     *
      * @param compAtt
+     *            the comp att
      * @param compMemberContainer
+     *            the comp member container
      * @return all <code>CompMember</code>s which are selected.
      */
     private static Iterable<CompMember> getSelectedCompositeMembers(final CompAttrib compAtt,
@@ -578,8 +734,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
     }
 
     /**
+     * Gets the selected attributes.
+     *
      * @param mbean
+     *            the mbean
      * @param attributesContainer
+     *            the attributes container
      * @return all Attributes which are selected.
      */
     private static Iterable<Attrib> getSelectedAttributes(final Mbean mbean,

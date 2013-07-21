@@ -36,14 +36,26 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * The Class IntroductionView.
+ */
 public class IntroductionView extends Panel implements ClickListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The next. */
     private final Button next;
 
+    /** The app. */
     private JmxConfigGeneratorApplication app;
 
+    /**
+     * Instantiates a new introduction view.
+     *
+     * @param app
+     *            the app
+     */
     public IntroductionView(JmxConfigGeneratorApplication app) {
         this.app = app;
         next = UIHelper.createButton("next", IconProvider.BUTTON_NEXT, this);
@@ -59,6 +71,9 @@ public class IntroductionView extends Panel implements ClickListener {
         setContent(layout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+     */
     @Override
     public void buttonClick(ClickEvent event) {
         app.updateView(UiState.ServiceConfigurationView);

@@ -36,21 +36,36 @@ import com.google.common.base.Objects;
  * Straight forward implementation of {@link java.util.Map.Entry}.<br/>
  * <b>Note:</b> Does not support null keys.
  *
+ * @param <T>
+ *            the generic type
  * @author Markus von Rüden
  */
 public class SimpleEntry<T> implements Entry<T, T> {
 
-    /**
-     * read only key
-     */
+    /** read only key. */
     private final T key;
 
+    /** The value. */
     private T value;
 
+    /**
+     * Instantiates a new simple entry.
+     *
+     * @param key
+     *            the key
+     */
     public SimpleEntry(T key) {
         this(key, null);
     }
 
+    /**
+     * Instantiates a new simple entry.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public SimpleEntry(T key, T value) {
         if (key == null)
             throw new IllegalArgumentException(getClass().getSimpleName() + " cannot handle null keys");
@@ -58,21 +73,33 @@ public class SimpleEntry<T> implements Entry<T, T> {
         this.value = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return key + "=" + value;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Map.Entry#getKey()
+     */
     @Override
     public T getKey() {
         return key;
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Map.Entry#getValue()
+     */
     @Override
     public T getValue() {
         return value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(key, value);
@@ -83,6 +110,7 @@ public class SimpleEntry<T> implements Entry<T, T> {
      * <code>this.key.equals(that.key) && this.value.equals(that.value)</code>.
      *
      * @param obj
+     *            the obj
      * @return true if both keys and values are equal, false otherwise. False is
      *         also returned if <codE>obj</code> does not inherit/implement
      *         <code>Entry</code> does not match or <code>obj</code> is null.
@@ -96,6 +124,9 @@ public class SimpleEntry<T> implements Entry<T, T> {
         return Objects.equal(this.key, ((Entry) obj).getKey()) && Objects.equal(this.value, ((Entry) obj).getValue());
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Map.Entry#setValue(java.lang.Object)
+     */
     @Override
     public T setValue(T value) {
         T old = this.value;

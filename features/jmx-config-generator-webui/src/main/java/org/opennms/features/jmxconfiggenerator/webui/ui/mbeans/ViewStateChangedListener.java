@@ -29,14 +29,17 @@
 package org.opennms.features.jmxconfiggenerator.webui.ui.mbeans;
 
 /**
- * A listener to handle "ViewState changed events"
+ * A listener to handle "ViewState changed events".
  *
  * @author Markus von Rüden
  */
 public interface ViewStateChangedListener {
 
     /**
-     * Listener to handle "View State changed events"
+     * Listener to handle "View State changed events".
+     *
+     * @param event
+     *            the event
      */
     void viewStateChanged(ViewStateChangedEvent event);
 }

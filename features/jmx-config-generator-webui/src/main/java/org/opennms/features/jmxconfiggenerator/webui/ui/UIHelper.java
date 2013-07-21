@@ -60,6 +60,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class UIHelper {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UIHelper.class);
 
     /**
@@ -72,12 +73,22 @@ public class UIHelper {
      */
     public static class LayoutCreator {
 
+        /** The layout type. */
         private Class<?> layoutType = null;
 
+        /** The components. */
         private List<Component> components = new ArrayList<Component>();
 
+        /** The spacing. */
         private boolean spacing = false;
 
+        /**
+         * With components.
+         *
+         * @param components
+         *            the components
+         * @return the layout creator
+         */
         public LayoutCreator withComponents(Component... components) {
             this.components.addAll(Arrays.asList(components));
             return this;
@@ -117,29 +128,54 @@ public class UIHelper {
          * Add the component to the layout during creation.
          *
          * @param component
-         * @return
+         *            the component
+         * @return the layout creator
          */
         public LayoutCreator withComponent(Component component) {
             this.components.add(component);
             return this;
         }
 
+        /**
+         * To layout.
+         *
+         * @return the abstract ordered layout
+         */
         public AbstractOrderedLayout toLayout() {
             AbstractOrderedLayout layout = createLayout(layoutType, components);
             layout.setSpacing(spacing);
             return layout;
         }
 
+        /**
+         * With spacing.
+         *
+         * @return the layout creator
+         */
         public LayoutCreator withSpacing() {
             spacing = true;
             return this;
         }
 
+        /**
+         * Without spacing.
+         *
+         * @return the layout creator
+         */
         public LayoutCreator withoutSpacing() {
             spacing = false;
             return this;
         }
 
+        /**
+         * Creates the layout.
+         *
+         * @param clazz
+         *            the clazz
+         * @param components
+         *            the components
+         * @return the abstract ordered layout
+         */
         private static AbstractOrderedLayout createLayout(Class<?> clazz, List<Component> components) {
             try {
                 AbstractOrderedLayout layout = (AbstractOrderedLayout) clazz.newInstance();
@@ -155,6 +191,17 @@ public class UIHelper {
         }
     }
 
+    /**
+     * Creates the button.
+     *
+     * @param buttonCaption
+     *            the button caption
+     * @param iconName
+     *            the icon name
+     * @param clickListener
+     *            the click listener
+     * @return the button
+     */
     public static Button createButton(final String buttonCaption, final String iconName,
             final ClickListener clickListener) {
         Button button = new Button();
@@ -165,6 +212,15 @@ public class UIHelper {
         return button;
     }
 
+    /**
+     * Creates the button.
+     *
+     * @param buttonCaption
+     *            the button caption
+     * @param iconName
+     *            the icon name
+     * @return the button
+     */
     public static Button createButton(final String buttonCaption, final String iconName) {
         return createButton(buttonCaption, iconName, null);
     }
@@ -179,9 +235,10 @@ public class UIHelper {
      * @param tabSheet
      *            the tabsheet to enable or disable all tabs in
      * @param event
+     *            the event
      * @param oldSelectedTabPosition
      *            which tab was selected before view state was Edit
-     * @return
+     * @return the int
      */
     public static int enableTabs(final TabSheet tabSheet, final ViewStateChangedEvent event,
             final int oldSelectedTabPosition) {
@@ -201,6 +258,13 @@ public class UIHelper {
         return editMode ? newSelectedTabPosition : getSelectedTabPosition(tabSheet);
     }
 
+    /**
+     * Gets the selected tab position.
+     *
+     * @param tabSheet
+     *            the tab sheet
+     * @return the selected tab position
+     */
     private static int getSelectedTabPosition(final TabSheet tabSheet) {
         if (tabSheet == null)
             return 0;
@@ -213,8 +277,11 @@ public class UIHelper {
 
     /**
      * Closes the given Closeable silently. That means if an error during
-     * {@link Closeable#close()} occurs, the IOException is catched and logged.
-     * No further information is forwarded.
+     *
+     * @param closeable
+     *            the closeable {@link Closeable#close()} occurs, the
+     *            IOException is catched and logged.
+     *            No further information is forwarded.
      */
     public static void closeSilently(Closeable closeable) {
         if (closeable == null)

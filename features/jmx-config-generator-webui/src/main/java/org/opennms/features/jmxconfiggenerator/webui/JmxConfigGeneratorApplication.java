@@ -65,10 +65,14 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
+/**
+ * The Class JmxConfigGeneratorApplication.
+ */
 @Theme(Config.STYLE_NAME)
 @SuppressWarnings("serial")
 public class JmxConfigGeneratorApplication extends UI implements ModelChangeListener<UiModel> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JmxConfigGeneratorApplication.class);
 
     /**
@@ -83,14 +87,21 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
      */
     private Panel contentPanel;
 
+    /** The progress window. */
     private ProgressWindow progressWindow;
 
+    /** The model. */
     private UiModel model = new UiModel();
 
+    /** The model change registry. */
     private ModelChangeRegistry modelChangeRegistry = new ModelChangeRegistry();
 
+    /** The view cache. */
     private Map<UiState, Component> viewCache = new HashMap<UiState, Component>();
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+     */
     @Override
     protected void init(VaadinRequest request) {
         initHeaderPanel();
@@ -101,12 +112,18 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         updateView(UiState.IntroductionView);
     }
 
+    /**
+     * Inits the header panel.
+     */
     private void initHeaderPanel() {
         headerPanel = new HeaderPanel();
         registerListener(UiState.class, headerPanel);
     }
 
     // the Main panel holds all views such as Config view, mbeans view, etc.
+    /**
+     * Inits the content panel.
+     */
     private void initContentPanel() {
         contentPanel = new Panel();
         contentPanel.setContent(new VerticalLayout());
@@ -131,10 +148,22 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         addWindow(window);
     }
 
+    /**
+     * Sets the content panel component.
+     *
+     * @param c
+     *            the new content panel component
+     */
     private void setContentPanelComponent(Component c) {
         contentPanel.setContent(c);
     }
 
+    /**
+     * Update view.
+     *
+     * @param uiState
+     *            the ui state
+     */
     public void updateView(UiState uiState) {
         switch (uiState) {
         case IntroductionView:
@@ -156,6 +185,15 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         notifyObservers(UiState.class, uiState);
     }
 
+    /**
+     * Creates the view.
+     *
+     * @param uiState
+     *            the ui state
+     * @param app
+     *            the app
+     * @return the component
+     */
     private Component createView(UiState uiState, JmxConfigGeneratorApplication app) {
         Component component = null;
         switch (uiState) {
@@ -178,6 +216,13 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         return component;
     }
 
+    /**
+     * Gets the view.
+     *
+     * @param uiState
+     *            the ui state
+     * @return the view
+     */
     private Component getView(UiState uiState) {
         if (viewCache.get(uiState) == null) {
             Component component = createView(uiState, JmxConfigGeneratorApplication.this);
@@ -188,6 +233,11 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         return viewCache.get(uiState);
     }
 
+    /**
+     * Gets the progress window.
+     *
+     * @return the progress window
+     */
     private ProgressWindow getProgressWindow() {
         if (progressWindow == null) {
             progressWindow = new ProgressWindow();
@@ -195,21 +245,49 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         return progressWindow;
     }
 
+    /**
+     * Show progress window.
+     *
+     * @param label
+     *            the label
+     */
     public void showProgressWindow(String label) {
         getProgressWindow().setLabelText(label);
         addWindow(getProgressWindow());
     }
 
+    /**
+     * Register listener.
+     *
+     * @param aClass
+     *            the a class
+     * @param listener
+     *            the listener
+     */
     private void registerListener(Class<?> aClass, ModelChangeListener<?> listener) {
         modelChangeRegistry.registerListener(aClass, listener);
     }
 
+    /**
+     * Notify observers.
+     *
+     * @param aClass
+     *            the a class
+     * @param object
+     *            the object
+     */
     private void notifyObservers(Class<?> aClass, Object object) {
         modelChangeRegistry.notifyObservers(aClass, object);
     }
 
+    /**
+     * The Class DetectMBeansWorkerThread.
+     */
     private class DetectMBeansWorkerThread extends Thread {
 
+        /* (non-Javadoc)
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             try {
@@ -242,6 +320,12 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
             }
         }
 
+        /**
+         * Handle error.
+         *
+         * @param ex
+         *            the ex
+         */
         private void handleError(Exception ex) {
             // TODO logging?
             Notification.show("Connection error",
@@ -251,8 +335,14 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         }
     }
 
+    /**
+     * The Class CreateOutputWorkerThread.
+     */
     private class CreateOutputWorkerThread extends Thread {
 
+        /* (non-Javadoc)
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             if (model == null) {
@@ -276,6 +366,9 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiModel newModel) {
         if (model != newModel) {

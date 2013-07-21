@@ -35,13 +35,21 @@ import org.junit.Test;
 import com.vaadin.data.Validator;
 
 /**
+ * The Class MBeansNameValidatorTest.
+ *
  * @author Markus von Rüden
  */
 public class MBeansNameValidatorTest {
 
+    /**
+     * Instantiates a new m beans name validator test.
+     */
     public MBeansNameValidatorTest() {
     }
 
+    /**
+     * Test validate.
+     */
     @Test
     public void testValidate() {
         final String[] OK = new String[] { "com", "com_webserver", "someEntry", "HELLO-WORLD", "Hello_woRlD",
@@ -64,6 +72,16 @@ public class MBeansNameValidatorTest {
         validate(validator, FAIL, false);
     }
 
+    /**
+     * Validate.
+     *
+     * @param validator
+     *            the validator
+     * @param names
+     *            the names
+     * @param shouldSucceed
+     *            the should succeed
+     */
     public static void validate(Validator validator, String[] names, boolean shouldSucceed) {
         for (String validateMe : names) {
             try {

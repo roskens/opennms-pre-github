@@ -54,20 +54,35 @@ import com.vaadin.ui.TableFieldFactory;
 import com.vaadin.ui.TextField;
 
 /**
+ * The Class AttributesTable.
+ *
  * @author Markus von Rüden
  */
 public class AttributesTable extends Table {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The fields to validate. */
     private final Map<Object, Field<String>> fieldsToValidate = new HashMap<Object, Field<String>>();
 
+    /** The fields. */
     private List<Field<?>> fields = new ArrayList<Field<?>>();
 
+    /** The unique attribute name validator. */
     private final UniqueAttributeNameValidator uniqueAttributeNameValidator;
 
+    /** The callback. */
     private final Callback callback;
 
+    /**
+     * Instantiates a new attributes table.
+     *
+     * @param provider
+     *            the provider
+     * @param callback
+     *            the callback
+     */
     public AttributesTable(NameProvider provider, MBeansController.Callback callback) {
         this.callback = callback;
         this.uniqueAttributeNameValidator = new UniqueAttributeNameValidator(provider, fieldsToValidate);
@@ -80,6 +95,12 @@ public class AttributesTable extends Table {
         setTableFieldFactory(new AttributesTableFieldFactory());
     }
 
+    /**
+     * Model changed.
+     *
+     * @param bean
+     *            the bean
+     */
     public void modelChanged(Mbean bean) {
         if (getData() == bean)
             return;
@@ -93,6 +114,12 @@ public class AttributesTable extends Table {
                 MetaAttribItem.TYPE });
     }
 
+    /**
+     * View state changed.
+     *
+     * @param event
+     *            the event
+     */
     void viewStateChanged(ViewStateChangedEvent event) {
         switch (event.getNewState()) {
         case Init:
@@ -110,18 +137,27 @@ public class AttributesTable extends Table {
         }
     }
 
+    /**
+     * A factory for creating AttributesTableField objects.
+     */
     private class AttributesTableFieldFactory implements TableFieldFactory {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
+        /** The name validator. */
         private final Validator nameValidator = new AttributeNameValidator();
 
+        /** The length validator. */
         private final Validator lengthValidator = new StringLengthValidator(
                                                                             String.format("Maximal length is %d",
                                                                                           Config.ATTRIBUTES_ALIAS_MAX_LENGTH),
                                                                             0, Config.ATTRIBUTES_ALIAS_MAX_LENGTH,
                                                                             false);
 
+        /* (non-Javadoc)
+         * @see com.vaadin.ui.TableFieldFactory#createField(com.vaadin.data.Container, java.lang.Object, java.lang.Object, com.vaadin.ui.Component)
+         */
         @Override
         public Field<?> createField(Container container, Object itemId, Object propertyId, Component uiContext) {
             Field<?> field = null;
@@ -144,6 +180,13 @@ public class AttributesTable extends Table {
             return field;
         }
 
+        /**
+         * Creates a new AttributesTableField object.
+         *
+         * @param itemId
+         *            the item id
+         * @return the combo box
+         */
         private ComboBox createType(Object itemId) {
             ComboBox select = new ComboBox();
             for (AttribType type : AttribType.values())
@@ -155,6 +198,13 @@ public class AttributesTable extends Table {
             return select;
         }
 
+        /**
+         * Creates a new AttributesTableField object.
+         *
+         * @param itemId
+         *            the item id
+         * @return the text field
+         */
         private TextField createAlias(Object itemId) {
             final TextField tf = new TextField();
             tf.setValidationVisible(true);
@@ -172,6 +222,9 @@ public class AttributesTable extends Table {
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#commit()
+     */
     @Override
     public void commit() throws SourceException, InvalidValueException {
         super.commit();
@@ -181,6 +234,9 @@ public class AttributesTable extends Table {
             f.commit();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#discard()
+     */
     @Override
     public void discard() throws SourceException {
         super.discard();
@@ -188,6 +244,9 @@ public class AttributesTable extends Table {
             f.discard();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#validate()
+     */
     @Override
     public void validate() throws InvalidValueException {
         super.validate();
@@ -204,6 +263,9 @@ public class AttributesTable extends Table {
             throw validationException;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#isValid()
+     */
     @Override
     public boolean isValid() {
         try {

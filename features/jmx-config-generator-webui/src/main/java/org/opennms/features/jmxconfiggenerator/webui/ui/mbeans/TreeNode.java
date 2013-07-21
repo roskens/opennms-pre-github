@@ -41,23 +41,33 @@ import java.util.List;
 public interface TreeNode {
 
     /**
-     * Defines if the <code>TreeNode</code> is a root node
+     * Defines if the <code>TreeNode</code> is a root node.
+     *
+     * @return true, if is root
      */
     boolean isRoot();
 
     /**
      * Indicates weather this <code>TreeNode</code> has children or not. *
+     *
+     * @return true, if successful
      */
     boolean hasChildren();
 
     /**
      * Adds a child ( <code>TreeNode</codE>) to the current
-     * <code>TreeNode</code>
+     * <code>TreeNode</code>.
+     *
+     * @param child
+     *            the child
      */
     void addChild(TreeNode child);
 
     /**
-     * Sets the new parent of the current <code>TreeNode</code>
+     * Sets the new parent of the current <code>TreeNode</code>.
+     *
+     * @param parent
+     *            the new parent
      */
     void setParent(TreeNode parent);
 
@@ -70,7 +80,7 @@ public interface TreeNode {
     TreeNode getParent();
 
     /**
-     * Assigns user data to the <code>TreeNode</code>
+     * Assigns user data to the <code>TreeNode</code>.
      *
      * @param data
      *            any user object which represents the node (e.g. a String, or
@@ -79,11 +89,15 @@ public interface TreeNode {
     void setData(Object data);
 
     /**
+     * Gets the data.
+     *
      * @return the stored user data or null if no user data is saved
      */
     Object getData();
 
     /**
+     * Gets the children.
+     *
      * @return all children of this node, or an empty list if there are no
      *         children. Should NEVER return null.
      */

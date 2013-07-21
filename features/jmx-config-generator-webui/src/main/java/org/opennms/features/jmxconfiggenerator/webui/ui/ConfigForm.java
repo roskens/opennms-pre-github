@@ -57,12 +57,22 @@ import com.vaadin.ui.TextField;
  */
 @SuppressWarnings("deprecation")
 public class ConfigForm extends Form implements ModelChangeListener<UiModel>, ClickListener {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9179098093927051983L;
 
+    /** The app. */
     private JmxConfigGeneratorApplication app;
 
+    /** The button panel. */
     private ButtonPanel buttonPanel = new ButtonPanel(this);
 
+    /**
+     * Instantiates a new config form.
+     *
+     * @param app
+     *            the app
+     */
     public ConfigForm(JmxConfigGeneratorApplication app) {
         this.app = app;
         setImmediate(true);
@@ -86,6 +96,9 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
         setFooter(buttonPanel);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiModel newModel) {
         setItemDataSource(new BeanItem<ServiceConfig>(newModel.getServiceConfig()));
@@ -95,6 +108,9 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
         updateAuthenticationFields(false); // default -> hide those fields
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+     */
     @Override
     public void buttonClick(ClickEvent event) {
         if (buttonPanel.getNext().equals(event.getButton())) {
@@ -109,6 +125,11 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
         }
     }
 
+    /**
+     * Creates the visible item properties.
+     *
+     * @return the object[]
+     */
     private Object[] createVisibleItemProperties() {
         return new Object[] { MetaConfigModel.SERVICE_NAME, MetaConfigModel.JMXMP, MetaConfigModel.HOST,
                 MetaConfigModel.PORT, MetaConfigModel.AUTHENTICATE, MetaConfigModel.USER, MetaConfigModel.PASSWORD,
@@ -118,6 +139,13 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
     /**
      * Toggles the visibility of user and password fields. The fields are shown
      * if "authenticate" checkbox is presssed. Otherwise they are not shown.
+     *
+     * @param visible
+     *            the visible
+     * @throws ReadOnlyException
+     *             the read only exception
+     * @throws ConversionException
+     *             the conversion exception
      */
     private void updateAuthenticationFields(boolean visible) throws ReadOnlyException, ConversionException {
         getField(MetaConfigModel.AUTHENTICATE).setValue(visible);
@@ -162,7 +190,7 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
     }
 
     /**
-     * Updates the descriptions (tool tips) of each field in the form using
+     * Updates the descriptions (tool tips) of each field in the form using.
      * {@link #getOptionDescriptions()
      * }
      */

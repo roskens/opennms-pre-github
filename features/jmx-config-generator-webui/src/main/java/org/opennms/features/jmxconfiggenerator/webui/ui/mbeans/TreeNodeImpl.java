@@ -53,29 +53,55 @@ public class TreeNodeImpl implements TreeNode {
      */
     private Object data;
 
+    /**
+     * Instantiates a new tree node impl.
+     */
     public TreeNodeImpl() {
         this(null, null);
     }
 
+    /**
+     * Instantiates a new tree node impl.
+     *
+     * @param parent
+     *            the parent
+     * @param data
+     *            the data
+     */
     public TreeNodeImpl(TreeNode parent, Object data) {
         this.parent = parent;
         this.data = data;
     }
 
+    /**
+     * Instantiates a new tree node impl.
+     *
+     * @param data
+     *            the data
+     */
     public TreeNodeImpl(Object data) {
         this(null, data);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#isRoot()
+     */
     @Override
     public boolean isRoot() {
         return parent == null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#hasChildren()
+     */
     @Override
     public boolean hasChildren() {
         return !children.isEmpty();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#addChild(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode)
+     */
     @Override
     public void addChild(TreeNode child) {
         if (children.contains(child))
@@ -83,26 +109,41 @@ public class TreeNodeImpl implements TreeNode {
         children.add(child);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#setParent(org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode)
+     */
     @Override
     public void setParent(TreeNode parent) {
         this.parent = parent;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#getParent()
+     */
     @Override
     public TreeNode getParent() {
         return parent;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#setData(java.lang.Object)
+     */
     @Override
     public void setData(Object data) {
         this.data = data;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#getData()
+     */
     @Override
     public Object getData() {
         return this.data;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.ui.mbeans.TreeNode#getChildren()
+     */
     @Override
     public List<TreeNode> getChildren() {
         return this.children;

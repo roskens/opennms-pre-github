@@ -62,6 +62,7 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class ConfigResultView extends CustomComponent implements ModelChangeListener<UiModel>, Button.ClickListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -84,8 +85,15 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
      */
     private final ButtonPanel buttonPanel = new ButtonPanel(this);
 
+    /** The app. */
     private final JmxConfigGeneratorApplication app;
 
+    /**
+     * Instantiates a new config result view.
+     *
+     * @param app
+     *            the app
+     */
     public ConfigResultView(JmxConfigGeneratorApplication app) {
         this.app = app;
         setSizeFull();
@@ -115,6 +123,9 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
         setCompositionRoot(mainLayout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+     */
     @Override
     public void buttonClick(ClickEvent event) {
         if (event.getSource().equals(buttonPanel.getPrevious()))
@@ -161,6 +172,9 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
         return new File(filename).getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.jmxconfiggenerator.webui.data.ModelChangeListener#modelChanged(java.lang.Object)
+     */
     @Override
     public void modelChanged(UiModel newValue) {
         if (newValue == null)
@@ -181,14 +195,18 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
      */
     private static class DownloadResource extends StreamResource {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
         /**
+         * Instantiates a new download resource.
+         *
          * @param zipContentMap
          *            key: Filename, value: File content
-         * @param application
          * @param filename
          *            The filename for the downloadable zip file.
+         * @param application
+         *            the application
          */
         public DownloadResource(final Map<String, String> zipContentMap, final String filename, final UI application) {
             super(new StreamSource() {
@@ -209,6 +227,8 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
          * Set DownloadStream-Parameter "Content-Disposition" to atachment,
          * therefore the Stream is downloaded and is not parsed as for example
          * "normal" xml.
+         *
+         * @return the stream
          */
         @Override
         public DownloadStream getStream() {
@@ -250,8 +270,12 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
         }
     }
 
+    /**
+     * The Class TabContent.
+     */
     private class TabContent extends HorizontalSplitPanel {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
         /**
@@ -266,6 +290,12 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
          */
         private final Label descriptionLabel;
 
+        /**
+         * Instantiates a new tab content.
+         *
+         * @param key
+         *            the key
+         */
         private TabContent(OutputDataKey key) {
             setSizeFull();
             setLocked(false);
@@ -278,6 +308,11 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
             setCaption(key.name());
         }
 
+        /**
+         * Gets the description text.
+         *
+         * @return the description text
+         */
         public String getDescriptionText() {
             return (String) descriptionLabel.getValue();
         }
@@ -292,6 +327,11 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
             configTextArea.setValue(newConfigContent);
         }
 
+        /**
+         * Gets the config content.
+         *
+         * @return the config content
+         */
         public String getConfigContent() {
             return configTextArea.getValue() == null ? "" : (String) configTextArea.getValue();
         }
