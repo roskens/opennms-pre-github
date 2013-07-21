@@ -51,8 +51,10 @@ import org.slf4j.LoggerFactory;
  */
 public class DominoIIOPClient extends LineOrientedClient {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DominoIIOPClient.class);
 
+    /** The m_ior port. */
     private int m_iorPort = 1000;
 
     /** {@inheritDoc} */
@@ -64,21 +66,34 @@ public class DominoIIOPClient extends LineOrientedClient {
     }
 
     /**
-     * @param timeout
-     * @param port
+     * Preconnect.
+     *
      * @param host
+     *            the host
+     * @param port
+     *            the port
      * @param timeout
-     * @return
+     *            the timeout
+     * @return true, if successful
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private boolean preconnect(final InetAddress host, final int port, final int timeout) throws IOException {
         return retrieveIORText(InetAddressUtils.str(host), port, timeout);
     }
 
     /**
+     * Retrieve ior text.
+     *
      * @param hostAddress
+     *            the host address
      * @param port
-     * @return
+     *            the port
+     * @param timeout
+     *            the timeout
+     * @return true, if successful
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private boolean retrieveIORText(final String hostAddress, final int port, final int timeout) throws IOException {
         String IOR = "";
@@ -123,6 +138,7 @@ public class DominoIIOPClient extends LineOrientedClient {
      * <p>
      * setIorPort
      * </p>
+     * .
      *
      * @param iorPort
      *            a int.
@@ -135,6 +151,7 @@ public class DominoIIOPClient extends LineOrientedClient {
      * <p>
      * getIorPort
      * </p>
+     * .
      *
      * @return a int.
      */

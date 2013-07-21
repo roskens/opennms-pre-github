@@ -35,10 +35,17 @@ import org.opennms.netmgt.provision.support.BaseDetectorHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TcpDetectorHandler.
+ */
 public class TcpDetectorHandler extends BaseDetectorHandler<LineOrientedRequest, LineOrientedResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpDetectorHandler.class);
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.BaseDetectorHandler#sessionOpened(org.apache.mina.core.session.IoSession)
+     */
     @Override
     public void sessionOpened(IoSession session) throws Exception {
         Object request = getConversation().getRequest();

@@ -47,6 +47,7 @@ import org.opennms.netmgt.provision.detector.simple.response.LineOrientedRespons
  */
 public class LineOrientedDecoder extends CumulativeProtocolDecoder {
 
+    /** The m_charset. */
     private Charset m_charset;
 
     /**
@@ -114,12 +115,13 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
      * <p>
      * parseCommand
      * </p>
+     * .
      *
      * @param in
      *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
      * @return a {@link java.lang.Object} object.
-     * @throws java.nio.charset.CharacterCodingException
-     *             if any.
+     * @throws CharacterCodingException
+     *             the character coding exception
      */
     protected Object parseCommand(final IoBuffer in) throws CharacterCodingException {
         return new LineOrientedResponse(in.getString(getCharset().newDecoder()));
@@ -129,6 +131,7 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
      * <p>
      * setCharset
      * </p>
+     * .
      *
      * @param charset
      *            a {@link java.nio.charset.Charset} object.
@@ -141,6 +144,7 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
      * <p>
      * getCharset
      * </p>
+     * .
      *
      * @return a {@link java.nio.charset.Charset} object.
      */

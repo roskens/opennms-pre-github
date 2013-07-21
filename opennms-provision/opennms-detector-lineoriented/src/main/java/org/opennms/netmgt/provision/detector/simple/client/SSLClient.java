@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
 public class SSLClient extends MultilineOrientedClient implements
         Client<LineOrientedRequest, MultilineOrientedResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SSLClient.class);
 
     /** {@inheritDoc} */
@@ -67,6 +68,7 @@ public class SSLClient extends MultilineOrientedClient implements
      * <p>
      * getWrappedSocket
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -75,8 +77,8 @@ public class SSLClient extends MultilineOrientedClient implements
      * @param timeout
      *            a int.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected Socket getWrappedSocket(final InetAddress address, final int port, final int timeout) throws IOException {
         Socket socket = new Socket();

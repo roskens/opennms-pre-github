@@ -34,29 +34,30 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.zip.CRC32;
 
+/**
+ * The Class NrpePacket.
+ */
 public class NrpePacket {
-    /** Constant <code>QUERY_PACKET=1</code> */
+
+    /** Constant <code>QUERY_PACKET=1</code>. */
     public static final short QUERY_PACKET = 1;
 
-    /** Constant <code>RESPONSE_PACKET=2</code> */
+    /** Constant <code>RESPONSE_PACKET=2</code>. */
     public static final short RESPONSE_PACKET = 2;
 
-    /** Constant <code>HELLO_COMMAND="_NRPE_CHECK"</code> */
+    /** Constant <code>HELLO_COMMAND="_NRPE_CHECK"</code>. */
     public static final String HELLO_COMMAND = "_NRPE_CHECK";
 
-    /** Constant <code>PACKET_VERSION_2=2</code> */
+    /** Constant <code>PACKET_VERSION_2=2</code>. */
     public static final short PACKET_VERSION_2 = 2;
 
-    /** Constant <code>MAX_PACKETBUFFER_LENGTH=1024</code> */
+    /** Constant <code>MAX_PACKETBUFFER_LENGTH=1024</code>. */
     public static final int MAX_PACKETBUFFER_LENGTH = 1024;
 
     /**
      * Constant
-     * <code>PACKET_SIZE=2 + // packet version, 16 bit integer
-			2 + // packet type, 16 bit integer
-			4 + // crc32, 32 bit unsigned integer
-			2 + // result code
-			MAX_PACKETBUFFER_LENGTH</code>
+     * <code>PACKET_SIZE=2 + // packet version, 16 bit integer 2 + // packet type, 16 bit integer 4 + // crc32, 32 bit unsigned integer 2 + // result code MAX_PACKETBUFFER_LENGTH</code>
+     * .
      */
     public static final int PACKET_SIZE = 2 + // packet version, 16 bit integer
             2 + // packet type, 16 bit integer
@@ -64,15 +65,19 @@ public class NrpePacket {
             2 + // result code
             MAX_PACKETBUFFER_LENGTH; // buffer
 
-    /** Constant <code>DEFAULT_PADDING=2</code> */
+    /** Constant <code>DEFAULT_PADDING=2</code>. */
     public static final int DEFAULT_PADDING = 2;
 
+    /** The m_version. */
     private short m_version = PACKET_VERSION_2;
 
+    /** The m_type. */
     private short m_type;
 
+    /** The m_result code. */
     private short m_resultCode;
 
+    /** The m_buffer. */
     private String m_buffer;
 
     /**
@@ -105,6 +110,7 @@ public class NrpePacket {
      * <p>
      * getVersion
      * </p>
+     * .
      *
      * @return a short.
      */
@@ -116,6 +122,7 @@ public class NrpePacket {
      * <p>
      * setVersion
      * </p>
+     * .
      *
      * @param version
      *            a short.
@@ -128,6 +135,7 @@ public class NrpePacket {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a short.
      */
@@ -139,6 +147,7 @@ public class NrpePacket {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a short.
@@ -151,6 +160,7 @@ public class NrpePacket {
      * <p>
      * getResultCode
      * </p>
+     * .
      *
      * @return a short.
      */
@@ -162,6 +172,7 @@ public class NrpePacket {
      * <p>
      * setResultCode
      * </p>
+     * .
      *
      * @param resultCode
      *            a short.
@@ -174,6 +185,7 @@ public class NrpePacket {
      * <p>
      * getBuffer
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -185,6 +197,7 @@ public class NrpePacket {
      * <p>
      * setBuffer
      * </p>
+     * .
      *
      * @param buffer
      *            a {@link java.lang.String} object.
@@ -197,6 +210,7 @@ public class NrpePacket {
      * <p>
      * receivePacket
      * </p>
+     * .
      *
      * @param i
      *            a {@link java.io.InputStream} object.
@@ -204,10 +218,10 @@ public class NrpePacket {
      *            a int.
      * @return a {@link org.opennms.netmgt.provision.support.nrpe.NrpePacket}
      *         object.
-     * @throws org.opennms.netmgt.provision.support.nrpe.NrpeException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws NrpeException
+     *             the nrpe exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static NrpePacket receivePacket(final InputStream i, final int padding) throws NrpeException, IOException {
 
@@ -259,6 +273,7 @@ public class NrpePacket {
      * <p>
      * positive
      * </p>
+     * .
      *
      * @param b
      *            a byte.
@@ -276,6 +291,7 @@ public class NrpePacket {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -289,6 +305,7 @@ public class NrpePacket {
      * <p>
      * buildPacket
      * </p>
+     * .
      *
      * @param padding
      *            a int.
@@ -310,6 +327,7 @@ public class NrpePacket {
      * <p>
      * buildPacket
      * </p>
+     * .
      *
      * @param padding
      *            a int.

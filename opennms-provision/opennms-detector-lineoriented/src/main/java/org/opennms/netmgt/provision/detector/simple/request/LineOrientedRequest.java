@@ -41,11 +41,12 @@ import java.io.OutputStream;
  */
 public class LineOrientedRequest {
 
-    /** Constant <code>Null</code> */
+    /** Constant <code>Null</code>. */
     public static final LineOrientedRequest Null = new LineOrientedRequest(null) {
 
     };
 
+    /** The m_command. */
     private String m_command;
 
     /**
@@ -64,11 +65,12 @@ public class LineOrientedRequest {
      * <p>
      * send
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
      * @param out
      *            a {@link java.io.OutputStream} object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void send(final OutputStream out) throws IOException {
         out.write(String.format("%s\r\n", m_command).getBytes("UTF-8"));
@@ -78,6 +80,7 @@ public class LineOrientedRequest {
      * <p>
      * getRequest
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +92,7 @@ public class LineOrientedRequest {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

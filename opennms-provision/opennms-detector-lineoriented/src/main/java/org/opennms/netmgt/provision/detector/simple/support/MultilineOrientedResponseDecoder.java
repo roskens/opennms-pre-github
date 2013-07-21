@@ -42,19 +42,19 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
  */
 public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
 
+    /** The Constant DEFAULT_MULTILINE_INDICATOR. */
     public static final String DEFAULT_MULTILINE_INDICATOR = "-";
 
+    /** The m_multiline indicator. */
     private final String m_multilineIndicator;
 
+    /** The m_response. */
     private MultilineOrientedResponse m_response;
 
     /**
      * <p>
      * Constructor for MultilineOrientedResponseDecoder.
      * </p>
-     *
-     * @param multilineIndicator
-     *            a {@link java.lang.String} object.
      */
     public MultilineOrientedResponseDecoder() {
         this(DEFAULT_MULTILINE_INDICATOR);
@@ -73,9 +73,18 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
     }
 
     /**
-     * This method decodes {@link String} objects into
-     * {@link MultilineOrientedResponse} instances
-     * that contain each line of the string response.
+     * This method decodes {@link String} objects into.
+     *
+     * @param ctx
+     *            the ctx
+     * @param channel
+     *            the channel
+     * @param msg
+     *            the msg
+     * @return the object
+     * @throws Exception
+     *             the exception {@link MultilineOrientedResponse} instances
+     *             that contain each line of the string response.
      */
     @Override
     protected Object decode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {
@@ -104,6 +113,7 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
      * <p>
      * checkIndicator
      * </p>
+     * .
      *
      * @param line
      *            a {@link String} object.
@@ -117,6 +127,7 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
      * <p>
      * getMultilineIndicator
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

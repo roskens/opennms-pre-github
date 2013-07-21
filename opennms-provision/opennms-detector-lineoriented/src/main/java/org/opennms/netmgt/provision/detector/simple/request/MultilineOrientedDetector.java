@@ -63,14 +63,14 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      * Constructor for MultilineOrientedDetector.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     protected MultilineOrientedDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
@@ -80,6 +80,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -95,6 +96,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      * <p>
      * expectClose
      * </p>
+     * .
      */
     protected void expectClose() {
         send(LineOrientedRequest.Null, equals(null));
@@ -105,6 +107,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -126,6 +129,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.

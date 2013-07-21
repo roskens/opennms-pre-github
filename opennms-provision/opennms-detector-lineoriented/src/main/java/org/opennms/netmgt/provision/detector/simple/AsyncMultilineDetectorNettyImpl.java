@@ -73,14 +73,14 @@ public abstract class AsyncMultilineDetectorNettyImpl extends
      * Constructor for AsyncMultilineDetector.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     public AsyncMultilineDetectorNettyImpl(final String serviceName, final int port, final int timeout,
             final int retries) {
@@ -91,6 +91,7 @@ public abstract class AsyncMultilineDetectorNettyImpl extends
      * <p>
      * expectCodeRange
      * </p>
+     * .
      *
      * @param beginRange
      *            a int.
@@ -129,6 +130,7 @@ public abstract class AsyncMultilineDetectorNettyImpl extends
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -140,6 +142,9 @@ public abstract class AsyncMultilineDetectorNettyImpl extends
         return new LineOrientedRequest(command);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AsyncBasicDetectorNettyImpl#appendToPipeline(org.jboss.netty.channel.ChannelPipeline)
+     */
     @Override
     protected void appendToPipeline(ChannelPipeline retval) {
         // Upstream handlers

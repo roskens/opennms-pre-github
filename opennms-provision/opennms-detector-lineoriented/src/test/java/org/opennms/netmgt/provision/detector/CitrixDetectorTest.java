@@ -50,18 +50,29 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class CitrixDetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class CitrixDetectorTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_detector. */
     private CitrixDetector m_detector;
 
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -74,6 +85,12 @@ public class CitrixDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -82,6 +99,12 @@ public class CitrixDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test my detector.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testMyDetector() throws Exception {
         m_detector.setPort(20000);
@@ -95,6 +118,12 @@ public class CitrixDetectorTest implements ApplicationContextAware {
         assertFalse(future.isServiceDetected());
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(20000);
@@ -108,6 +137,12 @@ public class CitrixDetectorTest implements ApplicationContextAware {
         assertFalse(future.isServiceDetected());
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws Exception {
         m_detector.setPort(m_server.getLocalPort());
@@ -121,6 +156,11 @@ public class CitrixDetectorTest implements ApplicationContextAware {
         assertTrue(future.isServiceDetected());
     }
 
+    /**
+     * Gets the server.
+     *
+     * @return the server
+     */
     private SimpleServer getServer() {
         return new SimpleServer() {
 
@@ -131,6 +171,13 @@ public class CitrixDetectorTest implements ApplicationContextAware {
         };
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private CitrixDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

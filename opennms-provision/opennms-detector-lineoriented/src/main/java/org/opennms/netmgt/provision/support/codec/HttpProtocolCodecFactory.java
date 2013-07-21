@@ -45,8 +45,10 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  */
 public class HttpProtocolCodecFactory implements ProtocolCodecFactory {
 
+    /** The m_encoder. */
     private LineOrientedEncoder m_encoder;
 
+    /** The m_decoder. */
     private HttpStatusResponseDecoder m_decoder;
 
     /**

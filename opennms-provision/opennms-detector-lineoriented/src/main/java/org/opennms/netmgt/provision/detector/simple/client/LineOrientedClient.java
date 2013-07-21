@@ -52,12 +52,16 @@ import org.slf4j.LoggerFactory;
  */
 public class LineOrientedClient implements Client<LineOrientedRequest, LineOrientedResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedClient.class);
 
+    /** The m_socket. */
     protected Socket m_socket;
 
+    /** The m_out. */
     private OutputStream m_out;
 
+    /** The m_in. */
     private BufferedReader m_in;
 
     /** {@inheritDoc} */
@@ -76,16 +80,17 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
+     *             object.
      */
     @Override
     public LineOrientedResponse sendRequest(final LineOrientedRequest request) throws IOException {
@@ -94,8 +99,11 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
     }
 
     /**
-     * @return
+     * Receive response.
+     *
+     * @return the line oriented response
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private LineOrientedResponse receiveResponse() throws IOException {
         LineOrientedResponse response = new LineOrientedResponse("response");
@@ -107,12 +115,13 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
-     *         object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.provision.detector.simple.response.LineOrientedResponse}
+     *             object.
      */
     @Override
     public LineOrientedResponse receiveBanner() throws IOException {
@@ -123,6 +132,7 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -141,6 +151,7 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * setOutput
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
@@ -153,6 +164,7 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * getOutput
      * </p>
+     * .
      *
      * @return a {@link java.io.OutputStream} object.
      */
@@ -164,6 +176,7 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * setInput
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
@@ -176,6 +189,7 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
      * <p>
      * getInput
      * </p>
+     * .
      *
      * @return a {@link java.io.BufferedReader} object.
      */

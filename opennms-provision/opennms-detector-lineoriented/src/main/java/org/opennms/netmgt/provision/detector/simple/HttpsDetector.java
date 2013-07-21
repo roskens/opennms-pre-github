@@ -31,6 +31,9 @@ package org.opennms.netmgt.provision.detector.simple;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class HttpsDetector.
+ */
 @Component
 /**
  * <p>HttpsDetector class.</p>
@@ -41,8 +44,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class HttpsDetector extends HttpDetector {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "HTTPS";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 443;
 
     /**
@@ -58,7 +63,7 @@ public class HttpsDetector extends HttpDetector {
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.

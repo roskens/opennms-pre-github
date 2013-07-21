@@ -54,17 +54,26 @@ import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class AsyncDetectorFileDescriptorLeakTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 @Ignore
 public class AsyncDetectorFileDescriptorLeakTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorFileDescriptorLeakTest.class);
 
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /** The m_socket. */
     private ServerSocket m_socket;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         // Set the logging to INFO so that it doesn't OutOfMemory Eclipse with
@@ -72,6 +81,15 @@ public class AsyncDetectorFileDescriptorLeakTest {
         MockLogAppender.setupLogging(true, "INFO");
     }
 
+    /**
+     * Gets the new detector.
+     *
+     * @param port
+     *            the port
+     * @param bannerRegex
+     *            the banner regex
+     * @return the new detector
+     */
     private static AsyncServiceDetector getNewDetector(int port, String bannerRegex) {
         TcpDetector detector = new TcpDetector();
         detector.setServiceName("TCP");
@@ -86,6 +104,12 @@ public class AsyncDetectorFileDescriptorLeakTest {
         return detector;
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -95,15 +119,39 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
     }
 
+    /**
+     * Sets the up socket.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void setUpSocket() throws Exception {
         m_socket = new ServerSocket();
         m_socket.bind(null);
     }
 
+    /**
+     * Sets the up server.
+     *
+     * @param banner
+     *            the new up server
+     * @throws Exception
+     *             the exception
+     */
     private void setUpServer(final String banner) throws Exception {
         setUpServer(banner, 0);
     }
 
+    /**
+     * Sets the up server.
+     *
+     * @param banner
+     *            the banner
+     * @param bannerDelay
+     *            the banner delay
+     * @throws Exception
+     *             the exception
+     */
     private void setUpServer(final String banner, final int bannerDelay) throws Exception {
         m_server = new SimpleServer() {
 
@@ -124,6 +172,12 @@ public class AsyncDetectorFileDescriptorLeakTest {
         m_server.startServer();
     }
 
+    /**
+     * Test detector timeout waiting for banner.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testDetectorTimeoutWaitingForBanner() throws Throwable {
         // Start a socket that doesn't have a thread servicing it
@@ -151,6 +205,9 @@ public class AsyncDetectorFileDescriptorLeakTest {
      * TODO: This test will fail if there are more than a few milliseconds of
      * delay
      * between the characters of the banner. We need to fix this behavior.
+     *
+     * @throws Throwable
+     *             the throwable
      */
     @Test
     public void testDetectorBannerTimeout() throws Throwable {
@@ -175,6 +232,12 @@ public class AsyncDetectorFileDescriptorLeakTest {
         assertNull(future.getException());
     }
 
+    /**
+     * Test success server.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testSuccessServer() throws Throwable {
         setUpServer("Winner");
@@ -204,6 +267,12 @@ public class AsyncDetectorFileDescriptorLeakTest {
         }
     }
 
+    /**
+     * Test bannerless server.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testBannerlessServer() throws Throwable {
         // No banner
@@ -234,6 +303,12 @@ public class AsyncDetectorFileDescriptorLeakTest {
         }
     }
 
+    /**
+     * Test no server present.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Repeat(10000)
     public void testNoServerPresent() throws Exception {

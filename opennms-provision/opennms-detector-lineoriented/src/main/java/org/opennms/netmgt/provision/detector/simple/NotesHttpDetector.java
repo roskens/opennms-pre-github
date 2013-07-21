@@ -31,6 +31,9 @@ package org.opennms.netmgt.provision.detector.simple;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class NotesHttpDetector.
+ */
 @Component
 /**
  * <p>NotesHttpDetector class.</p>

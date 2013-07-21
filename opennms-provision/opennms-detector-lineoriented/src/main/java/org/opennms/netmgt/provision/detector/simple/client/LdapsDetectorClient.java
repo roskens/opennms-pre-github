@@ -40,6 +40,10 @@ import org.opennms.core.utils.SslSocketWrapper;
  * @version $Id: $
  */
 public class LdapsDetectorClient extends LdapDetectorClient {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.detector.simple.client.LdapDetectorClient#getSocketWrapper()
+     */
     @Override
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();

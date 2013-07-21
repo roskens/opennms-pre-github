@@ -50,10 +50,13 @@ import org.slf4j.LoggerFactory;
  */
 public class LineOrientedEncoder extends ProtocolEncoderAdapter {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedEncoder.class);
 
+    /** The encoder. */
     private final AttributeKey ENCODER = new AttributeKey(getClass(), "encoder");
 
+    /** The m_charset. */
     private final Charset m_charset;
 
     /**

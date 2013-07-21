@@ -43,9 +43,18 @@ import org.opennms.netmgt.provision.detector.simple.response.LineOrientedRespons
 public class LineOrientedResponseDecoder extends OneToOneDecoder {
 
     /**
-     * This method decodes {@link String} objects into
-     * {@link LineOrientedResponse} instances
-     * that contain the byte representation of the response.
+     * This method decodes {@link String} objects into.
+     *
+     * @param ctx
+     *            the ctx
+     * @param channel
+     *            the channel
+     * @param msg
+     *            the msg
+     * @return the object
+     * @throws Exception
+     *             the exception {@link LineOrientedResponse} instances
+     *             that contain the byte representation of the response.
      */
     @Override
     public Object decode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {

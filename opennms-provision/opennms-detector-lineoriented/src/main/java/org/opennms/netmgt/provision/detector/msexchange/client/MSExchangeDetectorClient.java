@@ -53,20 +53,26 @@ import org.slf4j.LoggerFactory;
  */
 public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSExchangeResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MSExchangeDetectorClient.class);
 
+    /** The m_imap port. */
     private Integer m_imapPort;
 
+    /** The m_pop3 port. */
     private Integer m_pop3Port;
 
+    /** The m_pop3 response. */
     private String m_pop3Response;
 
+    /** The m_imap response. */
     private String m_imapResponse;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -80,6 +86,17 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
         setPop3Response(connectAndGetResponse(address, getPop3Port(), timeout));
     }
 
+    /**
+     * Connect and get response.
+     *
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     * @param timeout
+     *            the timeout
+     * @return the string
+     */
     private String connectAndGetResponse(final InetAddress address, final Integer port, final int timeout) {
         Socket socket = null;
         InputStreamReader isr = null;
@@ -124,14 +141,15 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
+     *             object.
      */
     @Override
     public MSExchangeResponse receiveBanner() throws IOException, Exception {
@@ -145,18 +163,19 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.msexchange.response.MSExchangeResponse}
+     *             object.
      */
     @Override
     public MSExchangeResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
@@ -167,6 +186,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * setImapPort
      * </p>
+     * .
      *
      * @param imapPort
      *            a int.
@@ -179,6 +199,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * getImapPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -190,6 +211,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * setFtpPort
      * </p>
+     * .
      *
      * @param ftpPort
      *            a int.
@@ -202,6 +224,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * getPop3Port
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -213,6 +236,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * setPop3Port
      * </p>
+     * .
      *
      * @param pop3Port
      *            a int.
@@ -225,6 +249,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * setImapResponse
      * </p>
+     * .
      *
      * @param imapResponse
      *            a {@link java.lang.String} object.
@@ -237,6 +262,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * getImapResponse
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,6 +274,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * setPop3Response
      * </p>
+     * .
      *
      * @param pop3Response
      *            a {@link java.lang.String} object.
@@ -260,6 +287,7 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
      * <p>
      * getPop3Response
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -44,8 +44,10 @@ import org.slf4j.LoggerFactory;
  */
 public class HttpStatusResponse extends LineOrientedResponse {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpStatusResponse.class);
 
+    /** The Constant DEFAULT_REGEX. */
     private static final Pattern DEFAULT_REGEX = Pattern.compile("([H][T][T][P+]/[1].[0-1]) ([0-6]+) ([a-zA-Z ]+)");
 
     /**
@@ -65,6 +67,7 @@ public class HttpStatusResponse extends LineOrientedResponse {
      * <p>
      * validateResponse
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -75,8 +78,8 @@ public class HttpStatusResponse extends LineOrientedResponse {
      * @param maxRetCode
      *            a int.
      * @return a boolean.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public boolean validateResponse(final String pattern, final String url, final boolean isCheckCode,
             final int maxRetCode) throws Exception {

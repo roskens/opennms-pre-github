@@ -47,10 +47,13 @@ import org.slf4j.LoggerFactory;
  */
 public class MultilineOrientedResponse {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MultilineOrientedResponse.class);
 
+    /** The m_in. */
     private BufferedReader m_in;
 
+    /** The m_response list. */
     private List<String> m_responseList = new ArrayList<String>();
 
     /**
@@ -65,6 +68,7 @@ public class MultilineOrientedResponse {
      * <p>
      * addLine
      * </p>
+     * .
      *
      * @param line
      *            a {@link java.lang.String} object.
@@ -77,6 +81,7 @@ public class MultilineOrientedResponse {
      * <p>
      * receive
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
@@ -89,6 +94,7 @@ public class MultilineOrientedResponse {
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -107,6 +113,7 @@ public class MultilineOrientedResponse {
      * <p>
      * expectedCodeRange
      * </p>
+     * .
      *
      * @param beginCodeRange
      *            a int.
@@ -126,6 +133,13 @@ public class MultilineOrientedResponse {
 
     }
 
+    /**
+     * Gets the code.
+     *
+     * @param firstResponseLine
+     *            the first response line
+     * @return the code
+     */
     private String getCode(final String firstResponseLine) {
         return firstResponseLine.substring(0, 3);
     }
@@ -135,6 +149,7 @@ public class MultilineOrientedResponse {
      * <p>
      * containedInHTTP
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -184,8 +199,13 @@ public class MultilineOrientedResponse {
     }
 
     /**
-     * @return
+     * Gets the entire response.
+     *
+     * @param in
+     *            the in
+     * @return the entire response
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private String getEntireResponse(final BufferedReader in) throws IOException {
         final char[] cbuf = new char[1024];
@@ -205,8 +225,15 @@ public class MultilineOrientedResponse {
     }
 
     /**
+     * Validate code range.
+     *
      * @param codeString
-     * @return
+     *            the code string
+     * @param beginCodeRange
+     *            the begin code range
+     * @param endCodeRange
+     *            the end code range
+     * @return true, if successful
      */
     private boolean validateCodeRange(final String codeString, final int beginCodeRange, final int endCodeRange) {
         try {
@@ -218,6 +245,9 @@ public class MultilineOrientedResponse {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return getResponseList().isEmpty() ? "MultilineOrientedResponse" : String.format("Response: %s",
@@ -228,6 +258,7 @@ public class MultilineOrientedResponse {
      * <p>
      * setResponseList
      * </p>
+     * .
      *
      * @param responseList
      *            a {@link java.util.List} object.
@@ -240,6 +271,7 @@ public class MultilineOrientedResponse {
      * <p>
      * getResponseList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

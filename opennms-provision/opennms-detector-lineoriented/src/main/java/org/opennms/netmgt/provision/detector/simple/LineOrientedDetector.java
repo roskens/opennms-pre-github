@@ -64,14 +64,14 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * Constructor for LineOrientedDetector.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     protected LineOrientedDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
@@ -82,6 +82,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -102,6 +103,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -122,6 +124,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -143,6 +146,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * find
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -164,6 +168,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -179,6 +184,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
      * <p>
      * expectClose
      * </p>
+     * .
      */
     public void expectClose() {
         send(LineOrientedRequest.Null, equals(null));

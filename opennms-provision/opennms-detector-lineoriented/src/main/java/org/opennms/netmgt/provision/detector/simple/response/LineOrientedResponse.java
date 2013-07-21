@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
  */
 public class LineOrientedResponse {
 
+    /** The m_response. */
     private String m_response;
 
     /**
@@ -60,11 +61,12 @@ public class LineOrientedResponse {
      * <p>
      * receive
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void receive(final BufferedReader in) throws IOException {
         setResponse(in.readLine());
@@ -74,6 +76,7 @@ public class LineOrientedResponse {
      * <p>
      * startsWith
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -87,6 +90,7 @@ public class LineOrientedResponse {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -100,6 +104,7 @@ public class LineOrientedResponse {
      * <p>
      * endsWith
      * </p>
+     * .
      *
      * @param suffix
      *            a {@link java.lang.String} object.
@@ -113,6 +118,7 @@ public class LineOrientedResponse {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -126,6 +132,7 @@ public class LineOrientedResponse {
      * <p>
      * find
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -139,6 +146,7 @@ public class LineOrientedResponse {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -152,6 +160,7 @@ public class LineOrientedResponse {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,6 +173,7 @@ public class LineOrientedResponse {
      * <p>
      * setResponse
      * </p>
+     * .
      *
      * @param response
      *            a {@link java.lang.String} object.
@@ -176,6 +186,7 @@ public class LineOrientedResponse {
      * <p>
      * getResponse
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

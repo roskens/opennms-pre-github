@@ -48,20 +48,28 @@ import org.slf4j.LoggerFactory;
 public abstract class MultilineHttpDetector extends
         AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineHttpResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MultilineHttpDetector.class);
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 80;
 
+    /** The default url. */
     private static String DEFAULT_URL = "/";
 
+    /** The default max ret code. */
     private static int DEFAULT_MAX_RET_CODE = 399;
 
+    /** The m_url. */
     private String m_url;
 
+    /** The m_max ret code. */
     private int m_maxRetCode;
 
+    /** The m_check ret code. */
     private boolean m_checkRetCode = false;
 
     /**
@@ -89,6 +97,9 @@ public abstract class MultilineHttpDetector extends
         contructDefaults();
     }
 
+    /**
+     * Contruct defaults.
+     */
     private void contructDefaults() {
         setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineHttpProtocolFactory()));
         setUrl(DEFAULT_URL);
@@ -105,6 +116,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * httpCommand
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -119,6 +131,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -134,6 +147,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -169,6 +183,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -181,6 +196,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -192,6 +208,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * setMaxRetCode
      * </p>
+     * .
      *
      * @param maxRetCode
      *            a int.
@@ -204,6 +221,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * getMaxRetCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -215,6 +233,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * setCheckRetCode
      * </p>
+     * .
      *
      * @param checkRetCode
      *            a boolean.
@@ -227,6 +246,7 @@ public abstract class MultilineHttpDetector extends
      * <p>
      * isCheckRetCode
      * </p>
+     * .
      *
      * @return a boolean.
      */

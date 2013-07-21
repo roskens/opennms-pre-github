@@ -51,14 +51,26 @@ public class LdapDetectorClient extends LineOrientedClient {
 
     /**
      * A class to add a timeout to the socket that the LDAP code uses to access
-     * an LDAP server
+     * an LDAP server.
      */
     private class TimeoutLDAPSocket extends TimeoutSocketFactory implements LDAPSocketFactory {
+
+        /**
+         * Instantiates a new timeout ldap socket.
+         *
+         * @param timeout
+         *            the timeout
+         */
         public TimeoutLDAPSocket(int timeout) {
             super(timeout, getSocketWrapper());
         }
     }
 
+    /**
+     * Gets the socket wrapper.
+     *
+     * @return the socket wrapper
+     */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();
     }

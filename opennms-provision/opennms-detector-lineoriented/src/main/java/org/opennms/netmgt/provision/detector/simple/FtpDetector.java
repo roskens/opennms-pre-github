@@ -45,21 +45,24 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "FTP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 21;
 
+    /** The m_multiline indicator. */
     private String m_multilineIndicator = "-";
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public FtpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -74,6 +77,7 @@ public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -89,6 +93,7 @@ public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
      * <p>
      * setMultilineIndicator
      * </p>
+     * .
      *
      * @param multilineIndicator
      *            a {@link java.lang.String} object.
@@ -101,6 +106,7 @@ public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
      * <p>
      * getMultilineIndicator
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

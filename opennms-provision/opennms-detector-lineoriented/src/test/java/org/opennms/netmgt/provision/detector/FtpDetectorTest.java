@@ -43,15 +43,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class FtpDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class FtpDetectorTest {
 
+    /** The m_detector. */
     @Autowired
     private FtpDetector m_detector;
 
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -71,6 +82,12 @@ public class FtpDetectorTest {
         m_server.startServer();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -80,6 +97,12 @@ public class FtpDetectorTest {
         m_detector.dispose();
     }
 
+    /**
+     * Test detector single line response success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSingleLineResponseSuccess() throws Exception {
 
@@ -89,6 +112,12 @@ public class FtpDetectorTest {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector multiline success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorMultilineSuccess() throws Exception {
 
@@ -99,6 +128,12 @@ public class FtpDetectorTest {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test failure closed port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureClosedPort() throws Exception {
 
@@ -111,6 +146,12 @@ public class FtpDetectorTest {
 
     }
 
+    /**
+     * Test failure no banner sent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureNoBannerSent() throws Exception {
         m_server = new SimpleServer();
@@ -124,6 +165,15 @@ public class FtpDetectorTest {
 
     }
 
+    /**
+     * Do check.
+     *
+     * @param future
+     *            the future
+     * @return true, if successful
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private boolean doCheck(DetectFuture future) throws InterruptedException {
 
         future.awaitFor();

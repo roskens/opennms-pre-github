@@ -41,14 +41,29 @@ import org.slf4j.LoggerFactory;
  */
 public class TrivialTimeResponse {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeResponse.class);
 
+    /** The available. */
     boolean available;
 
+    /**
+     * Instantiates a new trivial time response.
+     */
     public TrivialTimeResponse() {
         available = false;
     }
 
+    /**
+     * Instantiates a new trivial time response.
+     *
+     * @param remoteTime
+     *            the remote time
+     * @param localTime
+     *            the local time
+     * @param allowedSkew
+     *            the allowed skew
+     */
     public TrivialTimeResponse(int remoteTime, int localTime, int allowedSkew) {
         available = false;
         LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime,
@@ -71,6 +86,11 @@ public class TrivialTimeResponse {
         }
     }
 
+    /**
+     * Checks if is available.
+     *
+     * @return true, if is available
+     */
     public boolean isAvailable() {
         return available;
     }

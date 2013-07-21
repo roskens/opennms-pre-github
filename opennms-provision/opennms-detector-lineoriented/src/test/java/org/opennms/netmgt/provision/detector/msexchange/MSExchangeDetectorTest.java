@@ -47,24 +47,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class MSExchangeDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MSExchangeDetectorTest implements InitializingBean {
 
+    /** The test banner. */
     private static String TEST_BANNER = "Microsoft Exchange";
 
+    /** The m_detector. */
     @Autowired
     MSExchangeDetector m_detector;
 
+    /** The m_pop3 server. */
     SimpleServer m_pop3Server;
 
+    /** The m_imap server. */
     SimpleServer m_imapServer;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -91,6 +107,12 @@ public class MSExchangeDetectorTest implements InitializingBean {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_imapServer != null) {
@@ -104,11 +126,20 @@ public class MSExchangeDetectorTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test detector wired.
+     */
     @Test(timeout = 90000)
     public void testDetectorWired() {
         assertNotNull(m_detector);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setImapPort(m_imapServer.getLocalPort());
@@ -117,6 +148,12 @@ public class MSExchangeDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
+    /**
+     * Test detector success pop3 fail imap.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccessPop3FailImap() throws IOException {
         m_imapServer.stopServer();
@@ -125,6 +162,12 @@ public class MSExchangeDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
+    /**
+     * Test detector success imap fail pop3.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccessImapFailPop3() throws IOException {
         m_pop3Server.stopServer();
@@ -133,6 +176,9 @@ public class MSExchangeDetectorTest implements InitializingBean {
         assertTrue(m_detector.isServiceDetected(m_pop3Server.getInetAddress()));
     }
 
+    /**
+     * Test detector fail wrong port.
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() {
         m_detector.setImapPort(9000);

@@ -49,31 +49,48 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class HttpsDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class HttpsDetectorTest implements ApplicationContextAware {
+
+    /** The Constant SSL_PORT. */
     private static final int SSL_PORT = 7142;
 
+    /** The m_detector. */
     private HttpsDetector m_detector;
 
+    /** The m_server. */
     private SSLServer m_server;
 
+    /** The server ok response. */
     private String serverOKResponse = "HTTP/1.1 200 OK\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
             + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
             + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n" + "Content-Length: 47\r\n"
             + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\rn" + "Content-Type: text/html\r\n" + "\r\n"
             + "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>";
 
+    /** The not found response. */
     private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n" + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
             + "Server: Apache/2.0.54\r\n" + "Last-Modified: Fri, 16 Jun 2006 01:52:14 GMT\r\n"
             + "ETag: \"778216aa-2f-aa66cf80\"\r\n" + "Accept-Ranges: bytes\r\n" + "Content-Length: 52\r\n"
             + "Vary: Accept-Encoding,User-Agent\r\n" + "Connection: close\rn" + "Content-Type: text/html\r\n" + "\r\n"
             + "<html>\r\n" + "<body>\r\n" + "<!-- default -->\r\n" + "</body>\r\n" + "</html>";
 
+    /** The not a server response. */
     private String notAServerResponse = "NOT A SERVER";
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -81,6 +98,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         m_detector.setRetries(0);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -94,6 +117,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(2000);
@@ -102,6 +131,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector fail not a server response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailNotAServerResponse() throws Exception {
         m_detector.init();
@@ -111,6 +146,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector fail not found response max ret code399.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -124,6 +165,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector sucess max ret code399.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSucessMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -136,6 +183,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector fail max ret code below200.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailMaxRetCodeBelow200() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -149,6 +202,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector max ret code600.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorMaxRetCode600() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -161,6 +220,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector sucess check code true.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSucessCheckCodeTrue() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -173,6 +238,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector success check code false.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccessCheckCodeFalse() throws Exception {
         m_detector.setCheckRetCode(false);
@@ -184,6 +255,12 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws Exception {
         m_server = createServer(serverOKResponse);
@@ -194,9 +271,13 @@ public class HttpsDetectorTest implements ApplicationContextAware {
     }
 
     /**
+     * Do check.
+     *
      * @param serviceDetected
-     * @return
+     *            the service detected
+     * @return true, if successful
      * @throws InterruptedException
+     *             the interrupted exception
      */
     private boolean doCheck(DetectFuture serviceDetected) throws InterruptedException {
         DetectFuture future = serviceDetected;
@@ -205,6 +286,15 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         return future.isServiceDetected();
     }
 
+    /**
+     * Creates the server.
+     *
+     * @param httpResponse
+     *            the http response
+     * @return the sSL server
+     * @throws Exception
+     *             the exception
+     */
     private SSLServer createServer(final String httpResponse) throws Exception {
         SSLServer server = new SSLServer() {
 
@@ -220,10 +310,21 @@ public class HttpsDetectorTest implements ApplicationContextAware {
         return server;
     }
 
+    /**
+     * Sets the server ok response.
+     *
+     * @param serverOKResponse
+     *            the new server ok response
+     */
     public void setServerOKResponse(String serverOKResponse) {
         this.serverOKResponse = serverOKResponse;
     }
 
+    /**
+     * Gets the server ok response.
+     *
+     * @return the server ok response
+     */
     public String getServerOKResponse() {
         return serverOKResponse;
     }
@@ -240,6 +341,13 @@ public class HttpsDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private HttpsDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

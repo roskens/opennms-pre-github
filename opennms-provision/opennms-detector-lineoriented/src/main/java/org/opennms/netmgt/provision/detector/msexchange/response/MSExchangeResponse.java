@@ -38,8 +38,10 @@ package org.opennms.netmgt.provision.detector.msexchange.response;
  */
 public class MSExchangeResponse {
 
+    /** The m_pop3 response. */
     private String m_pop3Response;
 
+    /** The m_imap response. */
     private String m_imapResponse;
 
     /**
@@ -54,6 +56,7 @@ public class MSExchangeResponse {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -68,6 +71,7 @@ public class MSExchangeResponse {
      * <p>
      * setPop3Response
      * </p>
+     * .
      *
      * @param ftpResponse
      *            a {@link java.lang.String} object.
@@ -80,6 +84,7 @@ public class MSExchangeResponse {
      * <p>
      * getPop3Response
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,6 +96,7 @@ public class MSExchangeResponse {
      * <p>
      * setImapResponse
      * </p>
+     * .
      *
      * @param imapResponse
      *            a {@link java.lang.String} object.
@@ -103,6 +109,7 @@ public class MSExchangeResponse {
      * <p>
      * getImapResponse
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

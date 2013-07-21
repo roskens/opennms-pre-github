@@ -43,35 +43,56 @@ import org.opennms.netmgt.provision.support.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TrivialTimeClient.
+ */
 public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTimeResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeClient.class);
 
     /**
-     * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp
-     * to make it comparable to a 1900-01-01 00:00:00-based timestamp from
-     * the trivial time service (actually adding a negative value)
+     * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp to
+     * make it comparable to a 1900-01-01 00:00:00-based timestamp from the
+     * trivial time service (actually adding a negative value).
      */
     private static final int EPOCH_ADJ_FACTOR = 2085978496;
 
+    /** The protocol. */
     private String protocol;
 
+    /** The allowed skew. */
     private int allowedSkew;
 
+    /** The retries. */
     private int retries;
 
+    /** The tcp socket. */
     private Socket tcpSocket;
 
+    /** The udp socket. */
     private DatagramSocket udpSocket;
 
+    /** The udp packet. */
     private DatagramPacket udpPacket;
 
+    /**
+     * Instantiates a new trivial time client.
+     *
+     * @param protocol
+     *            the protocol
+     * @param allowedSkew
+     *            the allowed skew
+     */
     public TrivialTimeClient(String protocol, int allowedSkew) {
         super();
         this.protocol = protocol;
         this.allowedSkew = allowedSkew;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#connect(java.net.InetAddress, int, int)
+     */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         // Validate Protocol
@@ -96,6 +117,9 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
         LOG.debug("Connected to host: {} on {} port: {}", address, protocol.toUpperCase(), port);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#close()
+     */
     @Override
     public void close() {
         try {
@@ -110,11 +134,17 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#receiveBanner()
+     */
     @Override
     public TrivialTimeResponse receiveBanner() throws IOException, Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.Client#sendRequest(java.lang.Object)
+     */
     @Override
     public TrivialTimeResponse sendRequest(TrivialTimeRequest request) throws IOException, Exception {
         boolean gotTime = false;
@@ -158,14 +188,30 @@ public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTime
         return gotTime ? new TrivialTimeResponse(remoteTime, localTime, allowedSkew) : new TrivialTimeResponse();
     }
 
+    /**
+     * Sets the retries.
+     *
+     * @param retries
+     *            the new retries
+     */
     public void setRetries(int retries) {
         this.retries = retries;
     }
 
+    /**
+     * Checks if is tcp.
+     *
+     * @return true, if is tcp
+     */
     private boolean isTcp() {
         return protocol.equalsIgnoreCase("tcp");
     }
 
+    /**
+     * Checks if is udp.
+     *
+     * @return true, if is udp
+     */
     private boolean isUdp() {
         return protocol.equalsIgnoreCase("udp");
     }

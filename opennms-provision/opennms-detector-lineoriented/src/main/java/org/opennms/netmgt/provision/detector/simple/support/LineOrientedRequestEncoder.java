@@ -43,9 +43,18 @@ import org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest;
 public class LineOrientedRequestEncoder extends OneToOneEncoder {
 
     /**
-     * This method encodes {@link LineOrientedRequest} objects into
-     * {@link String} instances
-     * that contain the byte representation of the request.
+     * This method encodes {@link LineOrientedRequest} objects into.
+     *
+     * @param ctx
+     *            the ctx
+     * @param channel
+     *            the channel
+     * @param msg
+     *            the msg
+     * @return the object
+     * @throws Exception
+     *             the exception {@link String} instances
+     *             that contain the byte representation of the request.
      */
     @Override
     public Object encode(final ChannelHandlerContext ctx, final Channel channel, final Object msg) throws Exception {

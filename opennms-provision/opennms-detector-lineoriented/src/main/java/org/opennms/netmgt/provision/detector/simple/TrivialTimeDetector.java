@@ -49,11 +49,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, TrivialTimeResponse> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "TrivialTime";
 
-    /**
-     * Default layer-4 protocol to use
-     */
+    /** Default layer-4 protocol to use. */
     private static final String DEFAULT_PROTOCOL = "tcp"; // Use TCP by default
 
     /**
@@ -61,24 +60,24 @@ public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, Trivi
      */
     private static final int DEFAULT_PORT = 37;
 
-    /**
-     * Default permissible skew between the remote and local clocks
-     */
+    /** Default permissible skew between the remote and local clocks. */
     private static final int DEFAULT_ALLOWED_SKEW = 30; // 30 second skew
 
+    /** The protocol. */
     private String protocol = DEFAULT_PROTOCOL;
 
+    /** The allowed skew. */
     private int allowedSkew = DEFAULT_ALLOWED_SKEW;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public TrivialTimeDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -95,10 +94,20 @@ public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, Trivi
         send(request(), validate());
     }
 
+    /**
+     * Request.
+     *
+     * @return the trivial time request
+     */
     private TrivialTimeRequest request() {
         return new TrivialTimeRequest();
     }
 
+    /**
+     * Validate.
+     *
+     * @return the response validator
+     */
     private static ResponseValidator<TrivialTimeResponse> validate() {
         return new ResponseValidator<TrivialTimeResponse>() {
             @Override
@@ -116,18 +125,40 @@ public class TrivialTimeDetector extends BasicDetector<TrivialTimeRequest, Trivi
         return client;
     }
 
+    /**
+     * Gets the protocol.
+     *
+     * @return the protocol
+     */
     public String getProtocol() {
         return protocol;
     }
 
+    /**
+     * Sets the protocol.
+     *
+     * @param protocol
+     *            the new protocol
+     */
     public void setProtocol(String protocol) {
         this.protocol = protocol;
     }
 
+    /**
+     * Gets the allowed skew.
+     *
+     * @return the allowed skew
+     */
     public int getAllowedSkew() {
         return allowedSkew;
     }
 
+    /**
+     * Sets the allowed skew.
+     *
+     * @param allowedSkew
+     *            the new allowed skew
+     */
     public void setAllowedSkew(int allowedSkew) {
         this.allowedSkew = allowedSkew;
     }

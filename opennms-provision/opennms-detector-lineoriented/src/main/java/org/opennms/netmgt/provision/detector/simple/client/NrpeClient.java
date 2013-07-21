@@ -53,28 +53,35 @@ import org.slf4j.LoggerFactory;
  */
 public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrapper {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NrpeClient.class);
 
     /**
      * List of cipher suites to use when talking SSL to NRPE, which uses
-     * anonymous DH
+     * anonymous DH.
      */
     private static final String[] ADH_CIPHER_SUITES = new String[] { "TLS_DH_anon_WITH_AES_128_CBC_SHA" };
 
+    /** The m_socket. */
     private Socket m_socket;
 
+    /** The m_padding. */
     private int m_padding = 2;
 
+    /** The m_use ssl. */
     private boolean m_useSsl = true;
 
+    /** The m_out. */
     private OutputStream m_out;
 
+    /** The m_in. */
     private InputStream m_in;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -103,6 +110,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * getWrappedSocket
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -111,8 +119,8 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * @param timeout
      *            a int.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected Socket getWrappedSocket(InetAddress address, int port, int timeout) throws IOException {
         final Socket socket = new Socket();
@@ -130,16 +138,13 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * wrapSocket
      * </p>
+     * .
      *
      * @param socket
      *            a {@link java.net.Socket} object.
-     * @param hostAddress
-     *            a {@link java.lang.String} object.
-     * @param port
-     *            a int.
      * @return a {@link java.net.Socket} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public Socket wrapSocket(final Socket socket) throws IOException {
@@ -158,13 +163,14 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.provision.support.nrpe.NrpePacket}
      *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public NrpePacket receiveBanner() throws IOException, Exception {
@@ -175,17 +181,18 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.NrpeRequest}
-     *            object.
      * @return a {@link org.opennms.netmgt.provision.support.nrpe.NrpePacket}
      *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.NrpeRequest}
+     *             object.
      */
     @Override
     public NrpePacket sendRequest(final NrpeRequest request) throws IOException, Exception {
@@ -193,6 +200,13 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
         return receiveResponse();
     }
 
+    /**
+     * Receive response.
+     *
+     * @return the nrpe packet
+     * @throws Exception
+     *             the exception
+     */
     private NrpePacket receiveResponse() throws Exception {
         final NrpePacket response = NrpePacket.receivePacket(getInput(), getPadding());
         LOG.info("what is response: {}", response.getResultCode());
@@ -203,6 +217,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * setPadding
      * </p>
+     * .
      *
      * @param padding
      *            a int.
@@ -215,6 +230,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * getPadding
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -226,6 +242,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * setUseSsl
      * </p>
+     * .
      *
      * @param useSsl
      *            a boolean.
@@ -238,6 +255,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * isUseSsl
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -249,6 +267,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * setOutput
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
@@ -261,6 +280,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * getOutput
      * </p>
+     * .
      *
      * @return a {@link java.io.OutputStream} object.
      */
@@ -272,6 +292,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * setInput
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.InputStream} object.
@@ -284,6 +305,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
      * <p>
      * getInput
      * </p>
+     * .
      *
      * @return a {@link java.io.InputStream} object.
      */

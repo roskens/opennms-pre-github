@@ -51,26 +51,45 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class TcpDetectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class TcpDetectorTest implements ApplicationContextAware {
+
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /** The m_detector. */
     private TcpDetector m_detector;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_banner. */
     private String m_banner;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Initialize detector.
+     */
     private void initializeDetector() {
         m_detector = getDetector(TcpDetector.class);
         m_detector.setServiceName(getServiceName());
@@ -79,6 +98,9 @@ public class TcpDetectorTest implements ApplicationContextAware {
         m_detector.init();
     }
 
+    /**
+     * Initialize default detector.
+     */
     private void initializeDefaultDetector() {
         setServiceName("TCP");
         setTimeout(1000);
@@ -87,6 +109,9 @@ public class TcpDetectorTest implements ApplicationContextAware {
         initializeDetector();
     }
 
+    /**
+     * Intialize null banner detector.
+     */
     private void intializeNullBannerDetector() {
         setServiceName("TCP");
         setTimeout(1000);
@@ -95,6 +120,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
         initializeDetector();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -103,6 +134,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test success server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testSuccessServer() throws Exception {
         initializeDefaultDetector();
@@ -136,6 +173,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
         assertTrue(future.isServiceDetected());
     }
 
+    /**
+     * Test failure no banner sent when expecting a banner.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureNoBannerSentWhenExpectingABanner() throws Exception {
         initializeDefaultDetector();
@@ -161,6 +204,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Test failure connection times out when expecting a banner.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureConnectionTimesOutWhenExpectingABanner() throws Exception {
         initializeDefaultDetector();
@@ -186,6 +235,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Test success not expecting banner no banner sent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testSuccessNotExpectingBannerNoBannerSent() throws Exception {
         intializeNullBannerDetector();
@@ -212,6 +267,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Test failure closed port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureClosedPort() throws Exception {
         initializeDefaultDetector();
@@ -243,6 +304,9 @@ public class TcpDetectorTest implements ApplicationContextAware {
      * since neither
      * server is actually started. The detector just times out on both
      * connections.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test(timeout = 90000)
     public void testServerCloses() throws Exception {
@@ -269,6 +333,12 @@ public class TcpDetectorTest implements ApplicationContextAware {
         assertFalse(future.isServiceDetected());
     }
 
+    /**
+     * Test no server present.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testNoServerPresent() throws Exception {
         initializeDefaultDetector();
@@ -303,6 +373,13 @@ public class TcpDetectorTest implements ApplicationContextAware {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private TcpDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
@@ -310,26 +387,59 @@ public class TcpDetectorTest implements ApplicationContextAware {
         return (TcpDetector) bean;
     }
 
+    /**
+     * Sets the service name.
+     *
+     * @param serviceName
+     *            the new service name
+     */
     public void setServiceName(String serviceName) {
         m_serviceName = serviceName;
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @return the service name
+     */
     public String getServiceName() {
         return m_serviceName;
     }
 
+    /**
+     * Sets the timeout.
+     *
+     * @param timeout
+     *            the new timeout
+     */
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
 
+    /**
+     * Gets the timeout.
+     *
+     * @return the timeout
+     */
     public int getTimeout() {
         return m_timeout;
     }
 
+    /**
+     * Sets the banner.
+     *
+     * @param banner
+     *            the new banner
+     */
     public void setBanner(String banner) {
         m_banner = banner;
     }
 
+    /**
+     * Gets the banner.
+     *
+     * @return the banner
+     */
     public String getBanner() {
         return m_banner;
     }

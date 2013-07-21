@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class MSExchangeDetector.
+ */
 @Component
 /**
  * <p>MSExchangeDetector class.</p>
@@ -47,16 +50,22 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExchangeResponse> {
 
+    /** The service name. */
     private static String SERVICE_NAME = "MSExchange";
 
+    /** The default banner. */
     private static String DEFAULT_BANNER = "Microsoft Exchange";
 
+    /** The DEFAUL t_ po p3_ port. */
     private static int DEFAULT_POP3_PORT = 110;
 
+    /** The default imap port. */
     private static int DEFAULT_IMAP_PORT = 143;
 
+    /** The m_pop3 port. */
     private int m_pop3Port;
 
+    /** The m_imap port. */
     private int m_imapPort;
 
     /**
@@ -89,6 +98,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
      * <p>
      * find
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -110,6 +120,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
      * <p>
      * setPop3Port
      * </p>
+     * .
      *
      * @param pop3Port
      *            a int.
@@ -122,6 +133,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
      * <p>
      * getPop3Port
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -133,6 +145,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
      * <p>
      * setImapPort
      * </p>
+     * .
      *
      * @param imapPort
      *            a int.
@@ -145,6 +158,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
      * <p>
      * getImapPort
      * </p>
+     * .
      *
      * @return a int.
      */

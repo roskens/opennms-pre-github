@@ -48,6 +48,7 @@ import org.opennms.netmgt.provision.support.codec.LineOrientedCodecFactory;
 public abstract class AsyncLineOrientedDetectorMinaImpl extends
         AsyncBasicDetectorMinaImpl<LineOrientedRequest, LineOrientedResponse> {
 
+    /** The Constant CHARSET_UTF8. */
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
     /**
@@ -70,14 +71,14 @@ public abstract class AsyncLineOrientedDetectorMinaImpl extends
      * Constructor for AsyncLineOrientedDetector.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     public AsyncLineOrientedDetectorMinaImpl(final String serviceName, final int port, final int timeout,
             final int retries) {
@@ -115,6 +116,7 @@ public abstract class AsyncLineOrientedDetectorMinaImpl extends
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.

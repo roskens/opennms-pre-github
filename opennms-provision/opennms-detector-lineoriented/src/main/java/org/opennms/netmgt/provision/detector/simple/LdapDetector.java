@@ -50,6 +50,7 @@ import com.novell.ldap.LDAPConnection;
 @Scope("prototype")
 public class LdapDetector extends LineOrientedDetector {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "LDAP";
 
     /**
@@ -61,14 +62,14 @@ public class LdapDetector extends LineOrientedDetector {
     private static final int DEFAULT_PORT = LDAPConnection.DEFAULT_PORT;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     protected LdapDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.

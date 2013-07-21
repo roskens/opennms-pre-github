@@ -52,72 +52,95 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class DetectorWiringTest.
+ *
  * @author brozow
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class DetectorWiringTest implements InitializingBean {
 
+    /** The m_http detector. */
     @Autowired
     @Qualifier(value = "org.opennms.netmgt.provision.detector.simple.HttpDetector")
     @SuppressWarnings("unused")
     private HttpDetector m_httpDetector;
 
+    /** The m_pop3 detector. */
     @Autowired
     @SuppressWarnings("unused")
     private Pop3Detector m_pop3Detector;
 
+    /** The m_citrix detector. */
     @Autowired
     @SuppressWarnings("unused")
     private CitrixDetector m_citrixDetector;
 
+    /** The m_domino iiop detector. */
     @Autowired
     @SuppressWarnings("unused")
     private DominoIIOPDetector m_dominoIIOPDetector;
 
+    /** The m_ftp detector. */
     @Autowired
     @SuppressWarnings("unused")
     private FtpDetector m_ftpDetector;
 
+    /** The m_https detector. */
     @Autowired
     @SuppressWarnings("unused")
     private HttpsDetector m_httpsDetector;
 
+    /** The m_imap detector. */
     @Autowired
     @SuppressWarnings("unused")
     private ImapDetector m_imapDetector;
 
+    /** The m_ldap detector. */
     @Autowired
     @Qualifier(value = "org.opennms.netmgt.provision.detector.simple.LdapDetector")
     @SuppressWarnings("unused")
     private LdapDetector m_ldapDetector;
 
+    /** The m_ldaps detector. */
     @Autowired
     @SuppressWarnings("unused")
     private LdapsDetector m_ldapsDetector;
 
+    /** The m_nrpe detector. */
     @Autowired
     @SuppressWarnings("unused")
     private NrpeDetector m_nrpeDetector;
 
+    /** The m_smtp detector. */
     @Autowired
     @SuppressWarnings("unused")
     private SmtpDetector m_smtpDetector;
 
+    /** The m_tcp detector. */
     @Autowired
     @SuppressWarnings("unused")
     private TcpDetector m_tcpDetector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test something.
+     */
     @Test
     public void testSomething() {
         // All checks are in the InitializingBean method

@@ -44,12 +44,20 @@ import org.opennms.netmgt.provision.server.SimpleServer;
 import org.opennms.netmgt.provision.server.exchange.RequestHandler;
 
 /**
+ * The Class LineDecoderTest.
+ *
  * @author Donald Desloge
  */
 public class LineDecoderTest {
 
+    /**
+     * The Class TestServer.
+     */
     public static class TestServer extends SimpleServer {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.SimpleServer#sendBanner(java.io.OutputStream)
+         */
         @Override
         protected void sendBanner(OutputStream out) throws IOException {
             String[] tokens = getBanner().split("");
@@ -64,6 +72,9 @@ public class LineDecoderTest {
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.SimpleServer#errorString(java.lang.String)
+         */
         @Override
         protected RequestHandler errorString(final String error) {
             return new RequestHandler() {
@@ -77,6 +88,9 @@ public class LineDecoderTest {
             };
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.server.SimpleServer#shutdownServer(java.lang.String)
+         */
         @Override
         protected RequestHandler shutdownServer(final String response) {
             return new RequestHandler() {
@@ -91,13 +105,22 @@ public class LineDecoderTest {
         }
     }
 
+    /**
+     * The Class TestDetector.
+     */
     public static class TestDetector extends AsyncLineOrientedDetectorMinaImpl {
 
+        /**
+         * Instantiates a new test detector.
+         */
         public TestDetector() {
             super("POP3", 110, 5000, 1);
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.support.AbstractDetector#onInit()
+         */
         @Override
         protected void onInit() {
             expectBanner(startsWith("+OK"));
@@ -106,10 +129,18 @@ public class LineDecoderTest {
 
     }
 
+    /** The m_server. */
     private TestServer m_server;
 
+    /** The m_detector. */
     private TestDetector m_detector;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -126,6 +157,12 @@ public class LineDecoderTest {
         m_server.startServer();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -134,6 +171,12 @@ public class LineDecoderTest {
         }
     }
 
+    /**
+     * Test success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSuccess() throws Exception {
 
@@ -142,6 +185,12 @@ public class LineDecoderTest {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test failure with bogus response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFailureWithBogusResponse() throws Exception {
         m_server.setBanner("Oh Henry");
@@ -152,6 +201,12 @@ public class LineDecoderTest {
 
     }
 
+    /**
+     * Test monitor failure with no response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMonitorFailureWithNoResponse() throws Exception {
         m_server.setBanner(null);
@@ -161,6 +216,12 @@ public class LineDecoderTest {
 
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDetectorFailWrongPort() throws Exception {
 
@@ -169,6 +230,13 @@ public class LineDecoderTest {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Creates the detector.
+     *
+     * @param port
+     *            the port
+     * @return the test detector
+     */
     private static TestDetector createDetector(int port) {
         TestDetector detector = new TestDetector();
         detector.setServiceName("TEST");
@@ -178,6 +246,15 @@ public class LineDecoderTest {
         return detector;
     }
 
+    /**
+     * Do check.
+     *
+     * @param future
+     *            the future
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     private static boolean doCheck(DetectFuture future) throws Exception {
 
         future.awaitFor();

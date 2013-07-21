@@ -48,16 +48,23 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class DominoIIOPDetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class DominoIIOPDetectorTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_detector. */
     private DominoIIOPDetector m_detector;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -71,6 +78,12 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
      * used a pre-existing http server on a local machine that would
      * allow the connection.
      */
+    /**
+     * Test detector success token port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccessTokenPort() throws UnknownHostException {
         // m_detector.setPort(8080);
@@ -78,6 +91,12 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
         // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         m_detector.setPort(10000);
@@ -85,12 +104,24 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
 
+    /**
+     * Test detector fail no host.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailNoHost() throws UnknownHostException {
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("1.1.1.1")));
     }
 
+    /**
+     * Test detector fail wrong ior port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongIORPort() throws UnknownHostException {
         // m_detector.setIorPort(1000);
@@ -111,6 +142,13 @@ public class DominoIIOPDetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private DominoIIOPDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

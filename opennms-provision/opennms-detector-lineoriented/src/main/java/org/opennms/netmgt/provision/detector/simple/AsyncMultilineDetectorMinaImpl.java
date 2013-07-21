@@ -63,14 +63,14 @@ public abstract class AsyncMultilineDetectorMinaImpl extends
      * Constructor for AsyncMultilineDetector.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     public AsyncMultilineDetectorMinaImpl(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
@@ -80,6 +80,7 @@ public abstract class AsyncMultilineDetectorMinaImpl extends
      * <p>
      * expectCodeRange
      * </p>
+     * .
      *
      * @param beginRange
      *            a int.
@@ -118,6 +119,7 @@ public abstract class AsyncMultilineDetectorMinaImpl extends
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.

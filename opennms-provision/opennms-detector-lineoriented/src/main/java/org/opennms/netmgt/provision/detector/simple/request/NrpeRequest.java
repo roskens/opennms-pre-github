@@ -42,13 +42,14 @@ import java.util.Arrays;
  */
 public class NrpeRequest {
 
-    /** Constant <code>Null</code> */
+    /** Constant <code>Null</code>. */
     public static final NrpeRequest Null = new NrpeRequest(null) {
         @Override
         public void send(final OutputStream out) throws IOException {
         }
     };
 
+    /** The m_command. */
     private final byte[] m_command;
 
     /**
@@ -71,11 +72,12 @@ public class NrpeRequest {
      * <p>
      * send
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
      * @param out
      *            a {@link java.io.OutputStream} object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void send(final OutputStream out) throws IOException {
         out.write(m_command);
@@ -85,6 +87,7 @@ public class NrpeRequest {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -56,6 +56,7 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 public abstract class AsyncLineOrientedDetectorNettyImpl extends
         AsyncBasicDetectorNettyImpl<LineOrientedRequest, LineOrientedResponse> {
 
+    /** The Constant CHARSET_UTF8. */
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
     /**
@@ -79,14 +80,14 @@ public abstract class AsyncLineOrientedDetectorNettyImpl extends
      * Constructor for AsyncLineOrientedDetectorNettyImpl.
      * </p>
      *
+     * @param serviceName
+     *            a {@link java.lang.String} object.
      * @param port
      *            a int.
      * @param timeout
      *            a int.
      * @param retries
      *            a int.
-     * @param serviceName
-     *            a {@link java.lang.String} object.
      */
     public AsyncLineOrientedDetectorNettyImpl(final String serviceName, final int port, final int timeout,
             final int retries) {
@@ -125,6 +126,7 @@ public abstract class AsyncLineOrientedDetectorNettyImpl extends
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -136,6 +138,9 @@ public abstract class AsyncLineOrientedDetectorNettyImpl extends
         return new LineOrientedRequest(command);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AsyncBasicDetectorNettyImpl#appendToPipeline(org.jboss.netty.channel.ChannelPipeline)
+     */
     @Override
     protected void appendToPipeline(ChannelPipeline retval) {
         // Upstream handlers

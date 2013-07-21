@@ -50,20 +50,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class MemcachedDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class MemcachedDetectorTest implements InitializingBean {
 
+    /** The m_detector. */
     @Autowired
     private MemcachedDetector m_detector;
 
+    /** The m_server. */
     private SimpleServer m_server = null;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -72,6 +86,12 @@ public class MemcachedDetectorTest implements InitializingBean {
         m_detector.init();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -80,6 +100,12 @@ public class MemcachedDetectorTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test server success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testServerSuccess() throws Exception {
         m_server = new SimpleServer() {
@@ -108,6 +134,12 @@ public class MemcachedDetectorTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test server fail.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testServerFail() throws Exception {
         m_server = new SimpleServer() {

@@ -47,10 +47,13 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
  */
 public class MultiLineDecoder extends CumulativeProtocolDecoder {
 
+    /** The m_multiline indicator. */
     private final String m_multilineIndicator;
 
+    /** The m_charset. */
     private Charset m_charset;
 
+    /** The current response. */
     protected String CURRENT_RESPONSE = "CURRENT_RESPONSE";
 
     /**
@@ -138,12 +141,13 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * checkIndicator
      * </p>
+     * .
      *
      * @param in
      *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
      * @return a boolean.
-     * @throws java.nio.charset.CharacterCodingException
-     *             if any.
+     * @throws CharacterCodingException
+     *             the character coding exception
      */
     protected boolean checkIndicator(final IoBuffer in) throws CharacterCodingException {
         final String line = in.getString(getCharset().newDecoder());
@@ -154,6 +158,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * setCharset
      * </p>
+     * .
      *
      * @param charset
      *            a {@link java.nio.charset.Charset} object.
@@ -166,6 +171,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * getCharset
      * </p>
+     * .
      *
      * @return a {@link java.nio.charset.Charset} object.
      */
@@ -177,6 +183,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * getMultilineIndicator
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

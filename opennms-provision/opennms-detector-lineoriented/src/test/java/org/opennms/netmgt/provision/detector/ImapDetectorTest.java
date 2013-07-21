@@ -47,15 +47,28 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class ImapDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class ImapDetectorTest implements ApplicationContextAware {
+
+    /** The m_detector. */
     private ImapDetector m_detector = null;
 
+    /** The m_server. */
     private SimpleServer m_server = null;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext = null;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -66,6 +79,12 @@ public class ImapDetectorTest implements ApplicationContextAware {
         m_detector.init();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -74,6 +93,12 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test server success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testServerSuccess() throws Exception {
         m_server = new SimpleServer() {
@@ -106,6 +131,12 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test detector fail unexpected banner.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailUnexpectedBanner() throws Exception {
         m_server = new SimpleServer() {
@@ -135,6 +166,12 @@ public class ImapDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test detector fail unexpected logout response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailUnexpectedLogoutResponse() throws Exception {
         m_server = new SimpleServer() {
@@ -176,6 +213,13 @@ public class ImapDetectorTest implements ApplicationContextAware {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private ImapDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

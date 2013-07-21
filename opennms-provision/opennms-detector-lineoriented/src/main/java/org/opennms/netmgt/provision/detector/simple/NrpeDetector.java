@@ -49,30 +49,33 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "NRPE";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 5666;
 
-    /**
-     * Default whether to use SSL
-     */
+    /** Default whether to use SSL. */
     private static final boolean DEFAULT_USE_SSL = true;
 
+    /** The m_use ssl. */
     private boolean m_useSsl = DEFAULT_USE_SSL;
 
+    /** The m_padding. */
     private int m_padding = 2;
 
+    /** The m_command. */
     private String m_command = NrpePacket.HELLO_COMMAND;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public NrpeDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -89,6 +92,13 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
         send(request(m_command), resultCodeEquals(0));
     }
 
+    /**
+     * Result code equals.
+     *
+     * @param desiredResultCode
+     *            the desired result code
+     * @return the response validator
+     */
     private static ResponseValidator<NrpePacket> resultCodeEquals(final int desiredResultCode) {
         return new ResponseValidator<NrpePacket>() {
 
@@ -104,7 +114,11 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     }
 
     /**
-     * @return
+     * Request.
+     *
+     * @param command
+     *            the command
+     * @return the nrpe request
      */
     private NrpeRequest request(final String command) {
         final NrpePacket packet = new NrpePacket(NrpePacket.QUERY_PACKET, (short) 0, command);
@@ -125,6 +139,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * setUseSsl
      * </p>
+     * .
      *
      * @param useSsl
      *            a boolean.
@@ -137,6 +152,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * isUseSsl
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -148,6 +164,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * setPadding
      * </p>
+     * .
      *
      * @param padding
      *            a int.
@@ -160,6 +177,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * getPadding
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -171,6 +189,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * setCommand
      * </p>
+     * .
      *
      * @param command
      *            a String.
@@ -183,6 +202,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
      * <p>
      * getCommand
      * </p>
+     * .
      *
      * @return a String.
      */

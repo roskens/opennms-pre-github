@@ -47,15 +47,28 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class Pop3DetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class Pop3DetectorTest implements ApplicationContextAware {
+
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /** The m_detector. */
     private Pop3Detector m_detector;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -73,6 +86,12 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         m_server.startServer();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_server != null) {
@@ -81,6 +100,12 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testSuccess() throws Exception {
 
@@ -89,6 +114,12 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test failure with bogus response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testFailureWithBogusResponse() throws Exception {
         m_server.setBanner("Oh Henry");
@@ -99,6 +130,12 @@ public class Pop3DetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Test monitor failure with no response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testMonitorFailureWithNoResponse() throws Exception {
         m_server.setBanner(null);
@@ -108,6 +145,12 @@ public class Pop3DetectorTest implements ApplicationContextAware {
 
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
 
@@ -116,6 +159,13 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Creates the detector.
+     *
+     * @param port
+     *            the port
+     * @return the pop3 detector
+     */
     private Pop3Detector createDetector(int port) {
         Pop3Detector detector = getDetector(Pop3Detector.class);
         detector.setServiceName("POP3");
@@ -125,6 +175,15 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         return detector;
     }
 
+    /**
+     * Do check.
+     *
+     * @param future
+     *            the future
+     * @return true, if successful
+     * @throws Exception
+     *             the exception
+     */
     private boolean doCheck(DetectFuture future) throws Exception {
 
         future.awaitFor();
@@ -143,6 +202,13 @@ public class Pop3DetectorTest implements ApplicationContextAware {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private Pop3Detector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

@@ -43,19 +43,21 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class MemcachedDetector extends AsyncLineOrientedDetectorMinaImpl {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "Memcached";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 11211;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public MemcachedDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -70,6 +72,7 @@ public class MemcachedDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {

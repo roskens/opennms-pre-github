@@ -44,19 +44,21 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class ImapDetector extends AsyncLineOrientedDetectorMinaImpl {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "IMAP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 143;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public ImapDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -71,6 +73,7 @@ public class ImapDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {

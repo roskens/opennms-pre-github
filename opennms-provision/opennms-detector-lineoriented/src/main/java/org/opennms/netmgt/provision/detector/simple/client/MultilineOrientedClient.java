@@ -52,18 +52,23 @@ import org.slf4j.LoggerFactory;
  */
 public class MultilineOrientedClient implements Client<LineOrientedRequest, MultilineOrientedResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MultilineOrientedClient.class);
 
+    /** The m_socket. */
     protected Socket m_socket;
 
+    /** The m_out. */
     private OutputStream m_out;
 
+    /** The m_in. */
     private BufferedReader m_in;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -93,12 +98,13 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse}
+     *             object.
      */
     @Override
     public MultilineOrientedResponse receiveBanner() throws IOException {
@@ -109,16 +115,17 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     *             {@link org.opennms.netmgt.provision.detector.simple.request.LineOrientedRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedResponse}
+     *             object.
      */
     @Override
     public MultilineOrientedResponse sendRequest(final LineOrientedRequest request) throws IOException {
@@ -127,8 +134,11 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
     }
 
     /**
-     * @return
+     * Receive response.
+     *
+     * @return the multiline oriented response
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private MultilineOrientedResponse receiveResponse() throws IOException {
         final MultilineOrientedResponse response = new MultilineOrientedResponse();
@@ -140,6 +150,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * setInput
      * </p>
+     * .
      *
      * @param in
      *            a {@link java.io.BufferedReader} object.
@@ -152,6 +163,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * getInput
      * </p>
+     * .
      *
      * @return a {@link java.io.BufferedReader} object.
      */
@@ -163,6 +175,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * setOutput
      * </p>
+     * .
      *
      * @param out
      *            a {@link java.io.OutputStream} object.
@@ -175,6 +188,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
      * <p>
      * getOutput
      * </p>
+     * .
      *
      * @return a {@link java.io.OutputStream} object.
      */

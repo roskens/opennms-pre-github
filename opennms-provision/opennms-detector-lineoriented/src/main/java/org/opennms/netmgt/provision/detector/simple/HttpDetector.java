@@ -51,24 +51,32 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, HttpStatusResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpDetector.class);
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 80;
 
+    /** The default url. */
     private static String DEFAULT_URL = "/";
 
+    /** The default max ret code. */
     private static int DEFAULT_MAX_RET_CODE = 399;
 
+    /** The m_url. */
     private String m_url;
 
+    /** The m_max ret code. */
     private int m_maxRetCode;
 
+    /** The m_check ret code. */
     private boolean m_checkRetCode = false;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public HttpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
@@ -76,7 +84,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -88,6 +96,9 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
         contructDefaults();
     }
 
+    /**
+     * Contruct defaults.
+     */
     private void contructDefaults() {
         setProtocolCodecFilter(new ProtocolCodecFilter(new HttpProtocolCodecFactory()));
         setUrl(DEFAULT_URL);
@@ -98,6 +109,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -108,6 +120,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * httpCommand
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -122,6 +135,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * request
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -137,6 +151,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.
@@ -174,6 +189,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * setUrl
      * </p>
+     * .
      *
      * @param url
      *            a {@link java.lang.String} object.
@@ -186,6 +202,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * getUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -197,6 +214,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * setMaxRetCode
      * </p>
+     * .
      *
      * @param maxRetCode
      *            a int.
@@ -209,6 +227,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * getMaxRetCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -220,6 +239,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * setCheckRetCode
      * </p>
+     * .
      *
      * @param checkRetCode
      *            a boolean.
@@ -232,6 +252,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * <p>
      * isCheckRetCode
      * </p>
+     * .
      *
      * @return a boolean.
      */

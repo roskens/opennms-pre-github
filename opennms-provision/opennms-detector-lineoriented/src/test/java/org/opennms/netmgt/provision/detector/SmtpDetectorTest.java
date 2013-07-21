@@ -50,18 +50,29 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class SmtpDetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class SmtpDetectorTest implements ApplicationContextAware {
 
+    /** The m_detector. */
     private SmtpDetector m_detector;
 
+    /** The m_server. */
     private SimpleServer m_server;
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -75,6 +86,12 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         m_detector.setPort(m_server.getLocalPort());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -83,6 +100,12 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test detector fail wrong code expected multiline request.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongCodeExpectedMultilineRequest() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
@@ -104,6 +127,12 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
+    /**
+     * Test detector fail incomplete multiline response from server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailIncompleteMultilineResponseFromServer() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
@@ -125,6 +154,12 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
+    /**
+     * Test detector fail bogus second line.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailBogusSecondLine() throws Exception {
         SimpleServer tempServer = new SimpleServer() {
@@ -147,6 +182,12 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(tempServer.getInetAddress())));
     }
 
+    /**
+     * Test detector fail wrong type of banner.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongTypeOfBanner() throws Exception {
 
@@ -156,28 +197,60 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector fail server stopped.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailServerStopped() throws Exception {
         m_server.stopServer();
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(1);
         assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Test detector sucess.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSucess() throws Exception {
         assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
 
+    /**
+     * Do check.
+     *
+     * @param future
+     *            the future
+     * @return true, if successful
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private boolean doCheck(DetectFuture future) throws InterruptedException {
         future.awaitFor();
         return future.isServiceDetected();
     }
 
+    /**
+     * Gets the server.
+     *
+     * @return the server
+     */
     private SimpleServer getServer() {
         return new SimpleServer() {
 
@@ -203,6 +276,13 @@ public class SmtpDetectorTest implements ApplicationContextAware {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private SmtpDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

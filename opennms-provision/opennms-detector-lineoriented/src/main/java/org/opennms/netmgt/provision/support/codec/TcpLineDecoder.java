@@ -49,10 +49,13 @@ import org.slf4j.LoggerFactory;
  */
 public class TcpLineDecoder extends CumulativeProtocolDecoder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpLineDecoder.class);
 
+    /** The Constant NO_MESSAGES_RECEIVED. */
     public static final String NO_MESSAGES_RECEIVED = "___OPENNMS_NO_TCP_BANNER_RECEIVED___";
 
+    /** The m_charset. */
     private Charset m_charset;
 
     /**
@@ -67,6 +70,12 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
         setCharset(charset);
     }
 
+    /**
+     * Sets the charset.
+     *
+     * @param charset
+     *            the new charset
+     */
     private void setCharset(final Charset charset) {
         m_charset = charset;
     }
@@ -127,6 +136,7 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * parseCommand
      * </p>
+     * .
      *
      * @param in
      *            a {@link org.apache.mina.core.buffer.IoBuffer} object.
@@ -143,6 +153,13 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
         return new LineOrientedResponse(outputStr);
     }
 
+    /**
+     * Convert to string.
+     *
+     * @param in
+     *            the in
+     * @return the string
+     */
     private String convertToString(final IoBuffer in) {
         final StringBuffer sb = new StringBuffer();
         while (in.hasRemaining()) {
@@ -156,6 +173,7 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
      * <p>
      * getCharset
      * </p>
+     * .
      *
      * @return a {@link java.nio.charset.Charset} object.
      */
@@ -163,6 +181,9 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
         return m_charset;
     }
 
+    /* (non-Javadoc)
+     * @see org.apache.mina.filter.codec.ProtocolDecoderAdapter#finishDecode(org.apache.mina.core.session.IoSession, org.apache.mina.filter.codec.ProtocolDecoderOutput)
+     */
     @Override
     public void finishDecode(final IoSession session, final ProtocolDecoderOutput out) {
         if (session.getReadMessages() == 0) {

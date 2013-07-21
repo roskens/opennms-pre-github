@@ -38,6 +38,9 @@ package org.opennms.netmgt.provision.detector.simple.request;
  */
 public class TrivialTimeRequest {
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "TrivialTime";

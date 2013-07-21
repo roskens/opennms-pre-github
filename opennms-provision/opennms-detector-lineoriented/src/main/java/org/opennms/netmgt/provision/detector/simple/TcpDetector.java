@@ -51,21 +51,24 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "TCP";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 23;
 
+    /** The m_banner. */
     private String m_banner = null;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public TcpDetector() {
         this(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -82,6 +85,7 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -92,6 +96,11 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
         }
     }
 
+    /**
+     * Test bannerless connection.
+     *
+     * @return the conversation exchange
+     */
     private static ConversationExchange<LineOrientedRequest, LineOrientedResponse> testBannerlessConnection() {
 
         return new ConversationExchange<LineOrientedRequest, LineOrientedResponse>() {
@@ -112,6 +121,7 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param regex
      *            a {@link java.lang.String} object.
@@ -137,6 +147,7 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -149,6 +160,7 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
      * <p>
      * getBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

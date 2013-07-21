@@ -44,6 +44,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class LdapDetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -64,8 +66,15 @@ public class LdapDetectorTest implements ApplicationContextAware {
     // m_detector.init();
     // }
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /**
+     * Test my detector.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testMyDetector() throws UnknownHostException {
         // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(DEFAULT_LOCAL_SERVER_IP)));
@@ -95,6 +104,13 @@ public class LdapDetectorTest implements ApplicationContextAware {
         m_applicationContext = applicationContext;
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     @SuppressWarnings("unused")
     private LdapDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
