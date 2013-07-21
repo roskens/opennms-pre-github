@@ -54,22 +54,29 @@ import org.slf4j.LoggerFactory;
  */
 public class SshClient implements Client<NullRequest, SshResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SshClient.class);
 
+    /** The m_is available. */
     private boolean m_isAvailable = false;
 
+    /** The m_banner. */
     private String m_banner = null;
 
+    /** The m_match. */
     private String m_match = null;
 
+    /** The m_client banner. */
     private String m_clientBanner = Ssh.DEFAULT_CLIENT_BANNER;
 
+    /** The Constant DEFAULT_RETRY. */
     public static final int DEFAULT_RETRY = 0;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -137,14 +144,15 @@ public class SshClient implements Client<NullRequest, SshResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
+     *             object.
      */
     @Override
     public SshResponse receiveBanner() throws IOException, Exception {
@@ -157,18 +165,19 @@ public class SshClient implements Client<NullRequest, SshResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.ssh.request.NullRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.ssh.request.NullRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.ssh.response.SshResponse}
+     *             object.
      */
     @Override
     public SshResponse sendRequest(NullRequest request) throws IOException, Exception {
@@ -179,6 +188,7 @@ public class SshClient implements Client<NullRequest, SshResponse> {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -191,6 +201,7 @@ public class SshClient implements Client<NullRequest, SshResponse> {
      * <p>
      * setMatch
      * </p>
+     * .
      *
      * @param match
      *            a {@link java.lang.String} object.
@@ -203,6 +214,7 @@ public class SshClient implements Client<NullRequest, SshResponse> {
      * <p>
      * setClientBanner
      * </p>
+     * .
      *
      * @param clientBanner
      *            a {@link java.lang.String} object.

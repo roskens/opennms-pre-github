@@ -44,19 +44,29 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class SSHDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class SSHDetectorTest implements ApplicationContextAware, InitializingBean {
     // Tested on a local server with SSH
 
+    /** The m_detector. */
     @Autowired
     public SshDetector m_detector;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -64,12 +74,24 @@ public class SSHDetectorTest implements ApplicationContextAware, InitializingBea
         m_detector.setTimeout(1);
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         // m_detector.init();
         // assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         // m_detector.setPort(30);
@@ -77,6 +99,12 @@ public class SSHDetectorTest implements ApplicationContextAware, InitializingBea
         // assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
+    /**
+     * Test detector fail banner.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailBanner() throws UnknownHostException {
         // m_detector.setBanner("Hello there crazy");
@@ -84,6 +112,9 @@ public class SSHDetectorTest implements ApplicationContextAware, InitializingBea
         // assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         // TODO Auto-generated method stub

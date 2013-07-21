@@ -41,9 +41,7 @@ package org.opennms.netmgt.provision.support.ssh;
  */
 public class InsufficientParametersException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8211286874534073471L;
 
     /**

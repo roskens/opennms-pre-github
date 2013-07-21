@@ -38,6 +38,9 @@ import org.opennms.netmgt.provision.support.ssh.Ssh;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class SshDetector.
+ */
 @Component
 /**
  * <p>SshDetector class.</p>
@@ -48,25 +51,30 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "SSH";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 22;
 
+    /** The m_banner. */
     private String m_banner = null;
 
+    /** The m_match. */
     private String m_match = null;
 
+    /** The m_client banner. */
     private String m_clientBanner = Ssh.DEFAULT_CLIENT_BANNER;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public SshDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -94,7 +102,9 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
     }
 
     /**
-     * @return
+     * Ssh is available.
+     *
+     * @return the response validator
      */
     private static ResponseValidator<SshResponse> sshIsAvailable() {
 
@@ -112,6 +122,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * setBanner
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.
@@ -124,6 +135,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * getBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +147,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * setMatch
      * </p>
+     * .
      *
      * @param match
      *            a {@link java.lang.String} object.
@@ -147,6 +160,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * getMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,6 +172,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * setClientBanner
      * </p>
+     * .
      *
      * @param clientBanner
      *            a {@link java.lang.String} object.
@@ -170,6 +185,7 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse> {
      * <p>
      * getClientBanner
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

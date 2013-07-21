@@ -44,6 +44,7 @@ import org.opennms.netmgt.model.PollStatus;
  */
 public abstract class AbstractPoll implements Poll {
     // default timeout of 3 seconds
+    /** The m_timeout. */
     protected int m_timeout = 3000;
 
     /**
@@ -69,12 +70,13 @@ public abstract class AbstractPoll implements Poll {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param tracker
      *            a {@link org.opennms.core.utils.TimeoutTracker} object.
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException
-     *             if any.
+     * @throws InsufficientParametersException
+     *             the insufficient parameters exception
      */
     public abstract PollStatus poll(TimeoutTracker tracker) throws InsufficientParametersException;
 
@@ -82,10 +84,11 @@ public abstract class AbstractPoll implements Poll {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
-     * @throws org.opennms.netmgt.provision.support.ssh.InsufficientParametersException
-     *             if any.
+     * @throws InsufficientParametersException
+     *             the insufficient parameters exception
      */
     @Override
     public PollStatus poll() throws InsufficientParametersException {
