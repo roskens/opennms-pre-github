@@ -37,7 +37,7 @@ import org.opennms.protocols.rt.ResponseWithId;
 
 /**
  * <p>
- * This class is use to encapsulate an ICMP reply that conforms to the
+ * This class is use to encapsulate an ICMP reply that conforms to the.
  * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and
  * be the correct length.
  * </p>
@@ -94,6 +94,7 @@ public final class JniPingResponse implements ResponseWithId<JniPingRequestId>, 
      * <p>
      * getRequestId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.icmp.spi.PingRequestId} object.
      */
@@ -112,31 +113,49 @@ public final class JniPingResponse implements ResponseWithId<JniPingRequestId>, 
         return getPacket().isEchoReply();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getIdentifier()
+     */
     @Override
     public int getIdentifier() {
         return getPacket().getIdentity();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSequenceNumber()
+     */
     @Override
     public int getSequenceNumber() {
         return getPacket().getSequenceId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getThreadId()
+     */
     @Override
     public long getThreadId() {
         return getPacket().getTID();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSentTimeNanos()
+     */
     @Override
     public long getSentTimeNanos() {
         return getPacket().getSentTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getReceivedTimeNanos()
+     */
     @Override
     public long getReceivedTimeNanos() {
         return getPacket().getReceivedTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#elapsedTime(java.util.concurrent.TimeUnit)
+     */
     @Override
     public double elapsedTime(TimeUnit timeUnit) {
         // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()}
@@ -145,6 +164,9 @@ public final class JniPingResponse implements ResponseWithId<JniPingRequestId>, 
         return (getPacket().getPingRTT() * 1000) / nanosPerUnit;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();

@@ -40,16 +40,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * JniIcmpMessenger
+ * JniIcmpMessenger.
  *
  * @author brozow
  * @version $Id: $
  */
 public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingResponse> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JniIcmpMessenger.class);
 
+    /** The m_pinger id. */
     private int m_pingerId;
 
+    /** The m_socket. */
     private IcmpSocket m_socket;
 
     /**
@@ -58,14 +62,21 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
      * </p>
      *
      * @param pingerId
-     * @throws java.io.IOException
-     *             if any.
+     *            the pinger id
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public JniIcmpMessenger(int pingerId) throws IOException {
         m_pingerId = pingerId;
         m_socket = new IcmpSocket();
     }
 
+    /**
+     * Process packets.
+     *
+     * @param pendingReplies
+     *            the pending replies
+     */
     void processPackets(Queue<JniPingResponse> pendingReplies) {
         final int pingerId = m_pingerId;
         while (true) {
@@ -100,6 +111,7 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.netmgt.icmp.jni.JniPingRequest} object.
@@ -141,10 +153,6 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
      *
      * @param packet
      *            The packet with the ICMP datagram.
-     * @throws java.lang.IllegalArgumentException
-     *             Throw if the datagram is not the correct length or type.
-     * @throws java.lang.IndexOutOfBoundsException
-     *             Thrown if the datagram does not contain sufficient data.
      * @return a {@link org.opennms.netmgt.icmp.spi.PingReply} object.
      */
     public static JniPingResponse createPingResponse(DatagramPacket packet) {

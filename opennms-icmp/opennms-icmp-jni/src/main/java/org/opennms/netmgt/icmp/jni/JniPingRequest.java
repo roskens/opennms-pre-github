@@ -54,47 +54,40 @@ import org.slf4j.LoggerFactory;
  */
 public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest, JniPingResponse>, EchoPacket {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JniPingRequest.class);
 
+    /** The s_next tid. */
     private static long s_nextTid = 1;
 
+    /**
+     * Gets the next tid.
+     *
+     * @return the next tid
+     */
     public static final synchronized long getNextTID() {
         return s_nextTid++;
     }
 
-    /**
-     * The id representing the packet
-     */
+    /** The id representing the packet. */
     private final JniPingRequestId m_id;
 
-    /**
-     * the request packet
-     */
+    /** the request packet. */
     private ICMPEchoPacket m_requestPacket = null;
 
-    /**
-     * The callback to use when this object is ready to do something
-     */
+    /** The callback to use when this object is ready to do something. */
     private final PingResponseCallback m_callback;
 
-    /**
-     * How many retries
-     */
+    /** How many retries. */
     private final int m_retries;
 
-    /**
-     * The ICMP packet size
-     */
+    /** The ICMP packet size. */
     private final int m_packetsize;
 
-    /**
-     * how long to wait for a response
-     */
+    /** how long to wait for a response. */
     private final long m_timeout;
 
-    /**
-     * The expiration time of this request
-     */
+    /** The expiration time of this request. */
     private long m_expiration = -1L;
 
     /**
@@ -103,6 +96,20 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
 
     private final AtomicBoolean m_processed = new AtomicBoolean(false);
 
+    /**
+     * Instantiates a new jni ping request.
+     *
+     * @param id
+     *            the id
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param packetsize
+     *            the packetsize
+     * @param callback
+     *            the callback
+     */
     public JniPingRequest(JniPingRequestId id, long timeout, int retries, int packetsize, PingResponseCallback callback) {
         m_id = id;
         m_timeout = timeout;
@@ -111,11 +118,49 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         m_callback = callback;
     }
 
+    /**
+     * Instantiates a new jni ping request.
+     *
+     * @param addr
+     *            the addr
+     * @param identifier
+     *            the identifier
+     * @param sequenceNumber
+     *            the sequence number
+     * @param threadId
+     *            the thread id
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param packetsize
+     *            the packetsize
+     * @param cb
+     *            the cb
+     */
     public JniPingRequest(InetAddress addr, int identifier, int sequenceNumber, long threadId, long timeout,
             int retries, int packetsize, PingResponseCallback cb) {
         this(new JniPingRequestId(addr, identifier, sequenceNumber, threadId), timeout, retries, packetsize, cb);
     }
 
+    /**
+     * Instantiates a new jni ping request.
+     *
+     * @param addr
+     *            the addr
+     * @param identifier
+     *            the identifier
+     * @param sequenceNumber
+     *            the sequence number
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param packetsize
+     *            the packetsize
+     * @param cb
+     *            the cb
+     */
     public JniPingRequest(InetAddress addr, int identifier, int sequenceNumber, long timeout, int retries,
             int packetsize, PingResponseCallback cb) {
         this(addr, identifier, sequenceNumber, getNextTID(), timeout, retries, packetsize, cb);
@@ -125,12 +170,13 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * processResponse
      * </p>
+     * .
      *
      * @param reply
      *            a
-     *            {@link org.opennms.netmgt.icmp.spi.JniPingResponse.PingReply}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.netmgt.icmp.spi.JniPingResponse.PingReply}
+     *         object.
      */
     @Override
     public boolean processResponse(JniPingResponse reply) {
@@ -147,6 +193,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * processTimeout
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.icmp.jni.JniPingRequest} object.
      */
@@ -173,6 +220,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * isExpired
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -184,6 +232,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -211,6 +260,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.util.concurrent.Delayed} object.
@@ -231,6 +281,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.icmp.spi.JniPingRequestId.PingRequestId}
@@ -241,6 +292,9 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         return m_id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.rt.Request#processError(java.lang.Throwable)
+     */
     @Override
     public void processError(Throwable t) {
         try {
@@ -250,6 +304,12 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         }
     }
 
+    /**
+     * Sets the processed.
+     *
+     * @param processed
+     *            the new processed
+     */
     private void setProcessed(boolean processed) {
         m_processed.set(processed);
     }
@@ -258,6 +318,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * <p>
      * isProcessed
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -267,7 +328,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
     }
 
     /**
-     * Send this JniPingRequest through the given icmpSocket
+     * Send this JniPingRequest through the given icmpSocket.
      *
      * @param icmpSocket
      *            a {@link org.opennms.protocols.icmp.IcmpSocket} object.
@@ -286,6 +347,16 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         }
     }
 
+    /**
+     * Send.
+     *
+     * @param icmpSocket
+     *            the icmp socket
+     * @param packet
+     *            the packet
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void send(IcmpSocket icmpSocket, DatagramPacket packet) throws IOException {
         try {
             icmpSocket.send(packet);
@@ -300,10 +371,20 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         }
     }
 
+    /**
+     * Gets the request packet.
+     *
+     * @return the request packet
+     */
     private ICMPEchoPacket getRequestPacket() {
         return m_requestPacket;
     }
 
+    /**
+     * Creates the request packet.
+     *
+     * @return the iCMP echo packet
+     */
     private ICMPEchoPacket createRequestPacket() {
         ICMPEchoPacket iPkt = new ICMPEchoPacket(m_id.getThreadId(), m_packetsize);
         iPkt.setIdentity((short) m_id.getIdentifier());
@@ -312,36 +393,57 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         return iPkt;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#isEchoReply()
+     */
     @Override
     public boolean isEchoReply() {
         return getRequestPacket().isEchoReply();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getIdentifier()
+     */
     @Override
     public int getIdentifier() {
         return getRequestPacket().getIdentity();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSequenceNumber()
+     */
     @Override
     public int getSequenceNumber() {
         return getRequestPacket().getSequenceId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getThreadId()
+     */
     @Override
     public long getThreadId() {
         return getRequestPacket().getTID();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getReceivedTimeNanos()
+     */
     @Override
     public long getReceivedTimeNanos() {
         return getRequestPacket().getReceivedTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSentTimeNanos()
+     */
     @Override
     public long getSentTimeNanos() {
         return getRequestPacket().getSentTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#elapsedTime(java.util.concurrent.TimeUnit)
+     */
     @Override
     public double elapsedTime(TimeUnit timeUnit) {
         // {@link org.opennms.protocols.icmp.ICMPEchoPacket.getPingRTT()}
