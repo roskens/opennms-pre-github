@@ -28,8 +28,17 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Interface LayoutAlgorithm.
+ */
 public interface LayoutAlgorithm {
 
+    /**
+     * Update layout.
+     *
+     * @param graph
+     *            the graph
+     */
     void updateLayout(GraphContainer graph);
 
 }

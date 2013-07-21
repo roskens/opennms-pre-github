@@ -31,14 +31,49 @@ package org.opennms.features.topology.api;
 import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.Vertex;
 
+/**
+ * The Interface GraphVisitor.
+ */
 public interface GraphVisitor {
 
+    /**
+     * Visit graph.
+     *
+     * @param graph
+     *            the graph
+     * @throws Exception
+     *             the exception
+     */
     public void visitGraph(Graph graph) throws Exception;
 
+    /**
+     * Complete graph.
+     *
+     * @param graph
+     *            the graph
+     * @throws Exception
+     *             the exception
+     */
     public void completeGraph(Graph graph) throws Exception;
 
+    /**
+     * Visit vertex.
+     *
+     * @param vertex
+     *            the vertex
+     * @throws Exception
+     *             the exception
+     */
     public void visitVertex(Vertex vertex) throws Exception;
 
+    /**
+     * Visit edge.
+     *
+     * @param edge
+     *            the edge
+     * @throws Exception
+     *             the exception
+     */
     public void visitEdge(Edge edge) throws Exception;
 
 }

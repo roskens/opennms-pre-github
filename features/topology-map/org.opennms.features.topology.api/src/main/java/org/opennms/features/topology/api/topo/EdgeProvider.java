@@ -31,18 +31,23 @@ package org.opennms.features.topology.api.topo;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The Interface EdgeProvider.
+ */
 public interface EdgeProvider {
 
     /**
      * A string used to identify references belonging to this provider
      * May only container characters that make for a reasonable java identifier
      * such as letters digits and underscore (no colons, periods, commans etc.)
+     *
+     * @return the edge namespace
      */
     public String getEdgeNamespace();
 
     /**
      * This boolean returns true if the edges in this provider are intended
-     * to contribute to or overlay another namespace
+     * to contribute to or overlay another namespace.
      *
      * @param namespace
      *            the namespace of a provider
@@ -53,31 +58,81 @@ public interface EdgeProvider {
      */
     public boolean contributesTo(String namespace);
 
+    /**
+     * Gets the edge.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @return the edge
+     */
     public Edge getEdge(String namespace, String id);
 
+    /**
+     * Gets the edge.
+     *
+     * @param reference
+     *            the reference
+     * @return the edge
+     */
     public Edge getEdge(EdgeRef reference);
 
+    /**
+     * Matches.
+     *
+     * @param edgeRef
+     *            the edge ref
+     * @param criteria
+     *            the criteria
+     * @return true, if successful
+     */
     public boolean matches(EdgeRef edgeRef, Criteria criteria);
 
     /**
      * Return an immutable list of edges that match the criteria.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the edges
      */
     public List<Edge> getEdges(Criteria criteria);
 
     /**
      * Return an immutable list of all edges.
+     *
+     * @return the edges
      */
     public List<Edge> getEdges();
 
     /**
      * Return an immutable list of all edges that match this set of references.
+     *
+     * @param references
+     *            the references
+     * @return the edges
      */
     public List<Edge> getEdges(Collection<? extends EdgeRef> references);
 
+    /**
+     * Adds the edge listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void addEdgeListener(EdgeListener listener);
 
+    /**
+     * Removes the edge listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void removeEdgeListener(EdgeListener listener);
 
+    /**
+     * Clear edges.
+     */
     void clearEdges();
 
 }

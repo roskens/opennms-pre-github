@@ -33,22 +33,77 @@ import java.util.Collection;
 import org.opennms.features.topology.api.topo.EdgeRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Interface SelectionContext.
+ */
 public interface SelectionContext {
 
+    /**
+     * Deselect all.
+     *
+     * @return true, if successful
+     */
     public boolean deselectAll();
 
+    /**
+     * Sets the selected vertex refs.
+     *
+     * @param vertexRefs
+     *            the vertex refs
+     * @return true, if successful
+     */
     public boolean setSelectedVertexRefs(Collection<? extends VertexRef> vertexRefs);
 
+    /**
+     * Select vertex refs.
+     *
+     * @param vertexRefs
+     *            the vertex refs
+     * @return true, if successful
+     */
     public boolean selectVertexRefs(Collection<? extends VertexRef> vertexRefs);
 
+    /**
+     * Deselect vertex refs.
+     *
+     * @param vertexRefs
+     *            the vertex refs
+     * @return true, if successful
+     */
     public boolean deselectVertexRefs(Collection<? extends VertexRef> vertexRefs);
 
+    /**
+     * Sets the selected edge refs.
+     *
+     * @param edgeRefs
+     *            the edge refs
+     * @return true, if successful
+     */
     public boolean setSelectedEdgeRefs(Collection<? extends EdgeRef> edgeRefs);
 
+    /**
+     * Checks if is vertex ref selected.
+     *
+     * @param vertexRef
+     *            the vertex ref
+     * @return true, if is vertex ref selected
+     */
     public boolean isVertexRefSelected(VertexRef vertexRef);
 
+    /**
+     * Checks if is edge ref selected.
+     *
+     * @param edgeRef
+     *            the edge ref
+     * @return true, if is edge ref selected
+     */
     public boolean isEdgeRefSelected(EdgeRef edgeRef);
 
+    /**
+     * Gets the selected vertex refs.
+     *
+     * @return the selected vertex refs
+     */
     public Collection<VertexRef> getSelectedVertexRefs();
 
 }

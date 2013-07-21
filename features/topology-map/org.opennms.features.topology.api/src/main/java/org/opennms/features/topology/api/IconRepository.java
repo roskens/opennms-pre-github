@@ -28,10 +28,27 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Interface IconRepository.
+ */
 public interface IconRepository {
 
+    /**
+     * Contains.
+     *
+     * @param type
+     *            the type
+     * @return true, if successful
+     */
     boolean contains(String type);
 
+    /**
+     * Gets the icon url.
+     *
+     * @param type
+     *            the type
+     * @return the icon url
+     */
     String getIconUrl(String type);
 
 }

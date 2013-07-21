@@ -28,23 +28,51 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Class AbstractVertexRef.
+ */
 public class AbstractVertexRef extends AbstractRef implements VertexRef {
 
+    /**
+     * Instantiates a new abstract vertex ref.
+     *
+     * @param ref
+     *            the ref
+     */
     public AbstractVertexRef(VertexRef ref) {
         super(ref);
     }
 
+    /**
+     * Instantiates a new abstract vertex ref.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     public AbstractVertexRef(String namespace, String id, String label) {
         super(namespace, id, label);
     }
 
     /**
+     * Instantiates a new abstract vertex ref.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
      * @deprecated Specify a useful label for the object
      */
     public AbstractVertexRef(String namespace, String id) {
         super(namespace, id, namespace + ":" + id);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.AbstractRef#equals(java.lang.Object)
+     */
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof VertexRef) {
@@ -53,6 +81,9 @@ public class AbstractVertexRef extends AbstractRef implements VertexRef {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "VertexRef:" + getNamespace() + ":" + getId();

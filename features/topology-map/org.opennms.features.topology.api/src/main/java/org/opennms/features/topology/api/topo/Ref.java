@@ -28,12 +28,15 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Interface Ref.
+ */
 public interface Ref extends Comparable<Ref> {
 
     /**
-     * An identifier unique to the provider that 'owns' this reference
+     * An identifier unique to the provider that 'owns' this reference.
      *
-     * @return
+     * @return the id
      */
     public String getId();
 
@@ -41,11 +44,15 @@ public interface Ref extends Comparable<Ref> {
      * A string used to identify the provider this belongs to.
      * May only container characters that make for a reasonable java identifier
      * such as letters digits and underscore (no colons, periods, commans etc.)
+     *
+     * @return the namespace
      */
     public String getNamespace();
 
     /**
      * A human-readable label for the reference.
+     *
+     * @return the label
      */
     public String getLabel();
 

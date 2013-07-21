@@ -28,6 +28,24 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The listener interface for receiving selection events.
+ * The class that is interested in processing a selection
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSelectionListener<code> method. When
+ * the selection event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SelectionEvent
+ */
 public interface SelectionListener {
+
+    /**
+     * Selection changed.
+     *
+     * @param selectionManager
+     *            the selection manager
+     */
     public void selectionChanged(SelectionContext selectionManager);
 }

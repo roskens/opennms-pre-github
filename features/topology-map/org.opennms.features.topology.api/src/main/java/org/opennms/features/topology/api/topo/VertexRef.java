@@ -28,6 +28,9 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Interface VertexRef.
+ */
 public interface VertexRef extends Ref {
 
 }

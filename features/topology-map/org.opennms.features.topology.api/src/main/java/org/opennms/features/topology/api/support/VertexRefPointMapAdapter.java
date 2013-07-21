@@ -41,39 +41,67 @@ import org.opennms.features.topology.api.topo.AbstractVertexRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 
 /**
+ * The Class VertexRefPointMapAdapter.
  */
 public class VertexRefPointMapAdapter extends
         XmlAdapter<VertexRefPointMapAdapter.VertexRefPointMap, Map<VertexRef, Point>> {
 
+    /**
+     * The Class VertexRefPointMap.
+     */
     public static final class VertexRefPointMap {
+
+        /** The entry. */
         public List<VertexRefPointEntry> entry = new ArrayList<VertexRefPointEntry>(0);
     }
 
+    /**
+     * The Class VertexRefPointEntry.
+     */
     public static final class VertexRefPointEntry {
+
+        /** The key. */
         public VertexRefKey key;
 
+        /** The value. */
         public PointValue value;
     }
 
+    /**
+     * The Class VertexRefKey.
+     */
     public static final class VertexRefKey {
+
+        /** The namespace. */
         @XmlAttribute
         public String namespace;
 
+        /** The id. */
         @XmlAttribute
         public String id;
 
+        /** The label. */
         @XmlAttribute
         public String label;
     }
 
+    /**
+     * The Class PointValue.
+     */
     public static final class PointValue {
+
+        /** The x. */
         @XmlAttribute
         public int x;
 
+        /** The y. */
         @XmlAttribute
         public int y;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public VertexRefPointMapAdapter.VertexRefPointMap marshal(Map<VertexRef, Point> v) throws Exception {
         if (v == null) {
@@ -98,6 +126,9 @@ public class VertexRefPointMapAdapter extends
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public Map<VertexRef, Point> unmarshal(VertexRefPointMapAdapter.VertexRefPointMap v) throws Exception {
         if (v == null) {

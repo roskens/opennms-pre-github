@@ -33,19 +33,35 @@ import java.util.Map;
 
 import org.opennms.features.topology.api.IconRepository;
 
+/**
+ * The Class DefaultIconRepository.
+ */
 public class DefaultIconRepository implements IconRepository {
 
+    /** The m_icon map. */
     private Map<String, String> m_iconMap = Collections.emptyMap();;
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IconRepository#contains(java.lang.String)
+     */
     @Override
     public boolean contains(String type) {
         return m_iconMap.containsKey(type);
     }
 
+    /**
+     * Sets the icon map.
+     *
+     * @param icons
+     *            the icons
+     */
     public void setIconMap(Map<String, String> icons) {
         m_iconMap = icons;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IconRepository#getIconUrl(java.lang.String)
+     */
     @Override
     public String getIconUrl(String type) {
         return m_iconMap.get(type);

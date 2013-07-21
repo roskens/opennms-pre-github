@@ -34,21 +34,41 @@ import java.util.Map;
 
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class AbstractCheckedOperation.
+ */
 public abstract class AbstractCheckedOperation implements CheckedOperation {
 
     /**
      * Return true by default.
+     *
+     * @param container
+     *            the container
+     * @return true, if successful
      */
     protected boolean enabled(GraphContainer container) {
         return true;
     }
 
+    /**
+     * Checks if is checked.
+     *
+     * @param container
+     *            the container
+     * @return true, if is checked
+     */
     protected boolean isChecked(GraphContainer container) {
         return false;
     }
 
     /**
-     * By default, call {@link #enabled(OperationContext)}
+     * By default, call {@link #enabled(OperationContext)}.
+     *
+     * @param vertices
+     *            the vertices
+     * @param context
+     *            the context
+     * @return true, if successful
      */
     @Override
     public boolean enabled(List<VertexRef> vertices, OperationContext context) {
@@ -56,7 +76,13 @@ public abstract class AbstractCheckedOperation implements CheckedOperation {
     }
 
     /**
-     * By default, call {@link #isChecked(OperationContext)}
+     * By default, call {@link #isChecked(OperationContext)}.
+     *
+     * @param vertices
+     *            the vertices
+     * @param context
+     *            the context
+     * @return true, if is checked
      */
     @Override
     public boolean isChecked(List<VertexRef> vertices, OperationContext context) {
@@ -66,6 +92,10 @@ public abstract class AbstractCheckedOperation implements CheckedOperation {
     /**
      * By default, save the state based on the checked status of the operation,
      * independent of any currently-selected vertices.
+     *
+     * @param container
+     *            the container
+     * @return the map
      */
     @Override
     public Map<String, String> createHistory(GraphContainer container) {

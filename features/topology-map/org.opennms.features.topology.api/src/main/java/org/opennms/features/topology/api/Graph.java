@@ -33,18 +33,58 @@ import java.util.Collection;
 import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.Vertex;
 
+/**
+ * The Interface Graph.
+ */
 public interface Graph {
 
+    /**
+     * Gets the layout.
+     *
+     * @return the layout
+     */
     Layout getLayout();
 
+    /**
+     * Gets the display vertices.
+     *
+     * @return the display vertices
+     */
     Collection<Vertex> getDisplayVertices();
 
+    /**
+     * Gets the display edges.
+     *
+     * @return the display edges
+     */
     Collection<Edge> getDisplayEdges();
 
+    /**
+     * Gets the edge by key.
+     *
+     * @param edgeKey
+     *            the edge key
+     * @return the edge by key
+     */
     Edge getEdgeByKey(String edgeKey);
 
+    /**
+     * Gets the vertex by key.
+     *
+     * @param vertexKey
+     *            the vertex key
+     * @return the vertex by key
+     */
     Vertex getVertexByKey(String vertexKey);
 
+    /**
+     * Visit.
+     *
+     * @param visitor
+     *            the visitor
+     * @throws Exception
+     *             the exception
+     */
     void visit(GraphVisitor visitor) throws Exception;
 
 }

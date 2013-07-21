@@ -31,10 +31,25 @@ package org.opennms.features.topology.api.support;
 import com.vaadin.data.Container;
 import com.vaadin.data.util.BeanContainer;
 
+/**
+ * The Class HierarchicalBeanContainer.
+ *
+ * @param <K>
+ *            the key type
+ * @param <T>
+ *            the generic type
+ */
 public abstract class HierarchicalBeanContainer<K, T> extends BeanContainer<K, T> implements Container.Hierarchical {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 194248426656888195L;
 
+    /**
+     * Instantiates a new hierarchical bean container.
+     *
+     * @param type
+     *            the type
+     */
     public HierarchicalBeanContainer(Class<? super T> type) {
         super(type);
     }
@@ -43,6 +58,10 @@ public abstract class HierarchicalBeanContainer<K, T> extends BeanContainer<K, T
      * This is a naive implementation of this method that just checks the size
      * of
      * the collection returned by {@link #getChildren(Object)}.
+     *
+     * @param key
+     *            the key
+     * @return true, if successful
      */
     @Override
     public boolean hasChildren(Object key) {
@@ -50,8 +69,11 @@ public abstract class HierarchicalBeanContainer<K, T> extends BeanContainer<K, T
     }
 
     /**
-     * This is a naive implementation of this method that just checks to see if
-     * {@link #getParent(Object)} returns null.
+     * This is a naive implementation of this method that just checks to see if.
+     *
+     * @param key
+     *            the key
+     * @return true, if is root {@link #getParent(Object)} returns null.
      */
     @Override
     public boolean isRoot(Object key) {

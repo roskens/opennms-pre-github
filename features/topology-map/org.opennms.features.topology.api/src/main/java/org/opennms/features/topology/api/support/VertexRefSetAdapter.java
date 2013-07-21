@@ -38,24 +38,40 @@ import org.opennms.features.topology.api.topo.AbstractVertexRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 
 /**
+ * The Class VertexRefSetAdapter.
  */
 public class VertexRefSetAdapter extends XmlAdapter<VertexRefSetAdapter.VertexRefSet, Set<VertexRef>> {
 
+    /**
+     * The Class VertexRefSet.
+     */
     public static final class VertexRefSet {
+
+        /** The entry. */
         public Set<VertexRefEntry> entry = new HashSet<VertexRefEntry>(0);
     }
 
+    /**
+     * The Class VertexRefEntry.
+     */
     public static final class VertexRefEntry {
+
+        /** The namespace. */
         @XmlAttribute
         public String namespace;
 
+        /** The id. */
         @XmlAttribute
         public String id;
 
+        /** The label. */
         @XmlAttribute
         public String label;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public VertexRefSetAdapter.VertexRefSet marshal(Set<VertexRef> v) throws Exception {
         if (v == null) {
@@ -73,6 +89,9 @@ public class VertexRefSetAdapter extends XmlAdapter<VertexRefSetAdapter.VertexRe
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public Set<VertexRef> unmarshal(VertexRefSetAdapter.VertexRefSet v) throws Exception {
         if (v == null) {

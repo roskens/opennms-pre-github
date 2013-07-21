@@ -28,27 +28,63 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Class SimpleGroup.
+ */
 public class SimpleGroup extends AbstractVertex {
 
+    /** The m_mapid. */
     private int m_mapid;
 
+    /**
+     * Instantiates a new simple group.
+     *
+     * @param namespace
+     *            the namespace
+     * @param groupId
+     *            the group id
+     */
     public SimpleGroup(String namespace, String groupId) {
         this(namespace, groupId, -1);
     }
 
+    /**
+     * Instantiates a new simple group.
+     *
+     * @param namespace
+     *            the namespace
+     * @param groupId
+     *            the group id
+     * @param mapid
+     *            the mapid
+     */
     public SimpleGroup(String namespace, String groupId, int mapid) {
         super(namespace, groupId);
         m_mapid = mapid;
     }
 
+    /**
+     * Gets the mapid.
+     *
+     * @return the mapid
+     */
     public int getMapid() {
         return m_mapid;
     }
 
+    /**
+     * Sets the mapid.
+     *
+     * @param mapid
+     *            the new mapid
+     */
     public void setMapid(int mapid) {
         m_mapid = mapid;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.AbstractVertex#isGroup()
+     */
     @Override
     public boolean isGroup() {
         return true;

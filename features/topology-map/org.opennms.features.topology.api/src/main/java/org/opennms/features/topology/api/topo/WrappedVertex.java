@@ -43,41 +43,65 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class WrappedVertex.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedVertex implements VertexRef {
 
+    /** The icon key. */
     public String iconKey;
 
+    /** The id. */
     @XmlID
     public String id;
 
+    /** The ip addr. */
     public String ipAddr;
 
+    /** The label. */
     public String label;
 
+    /** The namespace. */
     @XmlTransient
     public String namespace;
 
+    /** The node id. */
     public Integer nodeID;
 
+    /** The style name. */
     public String styleName;
 
+    /** The tooltip text. */
     public String tooltipText;
 
+    /** The x. */
     public Integer x;
 
+    /** The y. */
     public Integer y;
 
+    /** The group. */
     @XmlTransient
     public boolean group;
 
+    /** The locked. */
     public boolean locked;
 
+    /** The selected. */
     public boolean selected;
 
+    /** The parent. */
     @XmlIDREF
     public WrappedVertex parent;
 
+    /**
+     * Creates the.
+     *
+     * @param vertex
+     *            the vertex
+     * @return the wrapped vertex
+     */
     public static WrappedVertex create(Vertex vertex) {
         return (vertex.isGroup() ? new WrappedGroup(vertex) : new WrappedLeafVertex(vertex));
     }
@@ -88,6 +112,12 @@ public class WrappedVertex implements VertexRef {
     public WrappedVertex() {
     }
 
+    /**
+     * Instantiates a new wrapped vertex.
+     *
+     * @param vertex
+     *            the vertex
+     */
     protected WrappedVertex(VertexRef vertex) {
         if (vertex.getId() == null) {
             throw new IllegalArgumentException("Vertex has null ID: " + vertex);
@@ -99,6 +129,12 @@ public class WrappedVertex implements VertexRef {
         namespace = vertex.getNamespace();
     }
 
+    /**
+     * Instantiates a new wrapped vertex.
+     *
+     * @param vertex
+     *            the vertex
+     */
     protected WrappedVertex(Vertex vertex) {
         this((VertexRef) vertex);
         iconKey = vertex.getIconKey();
@@ -118,6 +154,11 @@ public class WrappedVertex implements VertexRef {
     /**
      * This JAXB function is used to set the namespace since we expect it to be
      * set in the parent object.
+     *
+     * @param u
+     *            the u
+     * @param parent
+     *            the parent
      */
     public void afterUnmarshal(Unmarshaller u, Object parent) {
         if (namespace == null) {
@@ -146,21 +187,33 @@ public class WrappedVertex implements VertexRef {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getId()
+     */
     @Override
     public String getId() {
         return id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getNamespace()
+     */
     @Override
     public String getNamespace() {
         return namespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getLabel()
+     */
     @Override
     public String getLabel() {
         return label;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -170,6 +223,9 @@ public class WrappedVertex implements VertexRef {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -186,6 +242,9 @@ public class WrappedVertex implements VertexRef {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Ref o) {
         if (this.equals(o)) {
@@ -205,6 +264,9 @@ public class WrappedVertex implements VertexRef {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "WrappedVertex:" + namespace + ":" + id + "[label=" + label + ", styleName=" + styleName + "]";

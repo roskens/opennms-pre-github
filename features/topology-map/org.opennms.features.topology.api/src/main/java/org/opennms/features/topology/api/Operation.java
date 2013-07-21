@@ -32,23 +32,71 @@ import java.util.List;
 
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Interface Operation.
+ */
 public interface Operation {
 
+    /** The Constant OPERATION_MENU_LOCATION. */
     public static final String OPERATION_MENU_LOCATION = "operation.menuLocation";
 
+    /** The Constant OPERATION_CONTEXT_LOCATION. */
     public static final String OPERATION_CONTEXT_LOCATION = "operation.contextMenuLocation";
 
+    /** The Constant OPERATION_LABEL. */
     public static final String OPERATION_LABEL = "operation.label";
 
+    /**
+     * The Interface Undoer.
+     */
     public interface Undoer {
+
+        /**
+         * Undo.
+         *
+         * @param operationContext
+         *            the operation context
+         */
         public void undo(OperationContext operationContext);
     }
 
+    /**
+     * Execute.
+     *
+     * @param targets
+     *            the targets
+     * @param operationContext
+     *            the operation context
+     * @return the undoer
+     */
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext);
 
+    /**
+     * Display.
+     *
+     * @param targets
+     *            the targets
+     * @param operationContext
+     *            the operation context
+     * @return true, if successful
+     */
     public boolean display(List<VertexRef> targets, OperationContext operationContext);
 
+    /**
+     * Enabled.
+     *
+     * @param targets
+     *            the targets
+     * @param operationContext
+     *            the operation context
+     * @return true, if successful
+     */
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext);
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public String getId();
 }

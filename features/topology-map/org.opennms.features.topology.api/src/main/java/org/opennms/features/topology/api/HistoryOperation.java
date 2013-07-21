@@ -30,8 +30,27 @@ package org.opennms.features.topology.api;
 
 import java.util.Map;
 
+/**
+ * The Interface HistoryOperation.
+ */
 public interface HistoryOperation {
+
+    /**
+     * Apply history.
+     *
+     * @param container
+     *            the container
+     * @param settings
+     *            the settings
+     */
     void applyHistory(GraphContainer container, Map<String, String> settings);
 
+    /**
+     * Creates the history.
+     *
+     * @param graphContainer
+     *            the graph container
+     * @return the map
+     */
     Map<String, String> createHistory(GraphContainer graphContainer);
 }

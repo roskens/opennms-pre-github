@@ -30,14 +30,37 @@ package org.opennms.features.topology.api.topo;
 
 import java.util.Collection;
 
+/**
+ * The Interface StatusProvider.
+ */
 public interface StatusProvider {
 
+    /**
+     * Gets the status for vertex.
+     *
+     * @param vertex
+     *            the vertex
+     * @return the status for vertex
+     */
     public Status getStatusForVertex(VertexRef vertex);
 
+    /**
+     * Gets the status for vertices.
+     *
+     * @param vertices
+     *            the vertices
+     * @return the status for vertices
+     */
     public Collection<Status> getStatusForVertices(Collection<VertexRef> vertices);
 
+    /**
+     * Gets the namespace.
+     *
+     * @return the namespace
+     */
     public String getNamespace();
 
+    /** The null. */
     StatusProvider NULL = new StatusProvider() {
         @Override
         public Status getStatusForVertex(VertexRef vertex) {

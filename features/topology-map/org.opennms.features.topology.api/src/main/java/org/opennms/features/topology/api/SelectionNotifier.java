@@ -30,12 +30,33 @@ package org.opennms.features.topology.api;
 
 import java.util.Set;
 
+/**
+ * The Interface SelectionNotifier.
+ */
 public interface SelectionNotifier {
 
+    /**
+     * Adds the selection listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void addSelectionListener(SelectionListener listener);
 
+    /**
+     * Removes the selection listener.
+     *
+     * @param listener
+     *            the listener
+     */
     public void removeSelectionListener(SelectionListener listener);
 
+    /**
+     * Sets the selection listeners.
+     *
+     * @param listeners
+     *            the new selection listeners
+     */
     void setSelectionListeners(Set<SelectionListener> listeners);
 
 }

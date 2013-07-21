@@ -30,47 +30,116 @@ package org.opennms.features.topology.api.topo;
 
 import com.vaadin.data.Item;
 
+/**
+ * The Interface Vertex.
+ */
 public interface Vertex extends VertexRef {
 
     /**
+     * Gets the key.
+     *
+     * @return the key
      * @deprecated Use namespace/id tuple
      */
     String getKey();
 
+    /**
+     * Gets the item.
+     *
+     * @return the item
+     */
     Item getItem();
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getLabel()
+     */
     @Override
     String getLabel();
 
+    /**
+     * Gets the tooltip text.
+     *
+     * @return the tooltip text
+     */
     String getTooltipText();
 
+    /**
+     * Gets the icon key.
+     *
+     * @return the icon key
+     */
     String getIconKey();
 
+    /**
+     * Gets the style name.
+     *
+     * @return the style name
+     */
     String getStyleName();
 
+    /**
+     * Checks if is group.
+     *
+     * @return true, if is group
+     */
     boolean isGroup();
 
     /**
      * TODO: To support Many-to-Many grouping, this function will need to be
      * enhanced add to a list of parents.
+     *
+     * @param parent
+     *            the new parent
      */
     void setParent(VertexRef parent);
 
     /**
      * TODO: To support Many-to-Many grouping, this function will need to be
      * enhanced to return an array of vertices.
+     *
+     * @return the parent
      */
     VertexRef getParent();
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     Integer getX();
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     Integer getY();
 
+    /**
+     * Checks if is locked.
+     *
+     * @return true, if is locked
+     */
     boolean isLocked();
 
+    /**
+     * Checks if is selected.
+     *
+     * @return true, if is selected
+     */
     boolean isSelected();
 
+    /**
+     * Gets the ip address.
+     *
+     * @return the ip address
+     */
     String getIpAddress();
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     Integer getNodeID();
 }

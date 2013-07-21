@@ -34,13 +34,22 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AbstractOperation.
+ */
 public abstract class AbstractOperation implements Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(final List<VertexRef> targets, final OperationContext operationContext) {
         if (targets == null || targets.size() < 2) {
@@ -54,21 +63,57 @@ public abstract class AbstractOperation implements Operation {
         return false;
     }
 
+    /**
+     * Gets the label value.
+     *
+     * @param operationContext
+     *            the operation context
+     * @param target
+     *            the target
+     * @return the label value
+     */
     protected static String getLabelValue(final OperationContext operationContext, final VertexRef target) {
         Vertex vertex = getVertexItem(operationContext, target);
         return vertex == null ? null : vertex.getLabel();
     }
 
+    /**
+     * Gets the ip addr value.
+     *
+     * @param operationContext
+     *            the operation context
+     * @param target
+     *            the target
+     * @return the ip addr value
+     */
     protected static String getIpAddrValue(final OperationContext operationContext, final VertexRef target) {
         Vertex vertex = getVertexItem(operationContext, target);
         return vertex == null ? null : vertex.getIpAddress();
     }
 
+    /**
+     * Gets the node id value.
+     *
+     * @param operationContext
+     *            the operation context
+     * @param target
+     *            the target
+     * @return the node id value
+     */
     protected static Integer getNodeIdValue(final OperationContext operationContext, final VertexRef target) {
         Vertex vertex = getVertexItem(operationContext, target);
         return vertex == null ? null : vertex.getNodeID();
     }
 
+    /**
+     * Gets the vertex item.
+     *
+     * @param operationContext
+     *            the operation context
+     * @param target
+     *            the target
+     * @return the vertex item
+     */
     protected static Vertex getVertexItem(final OperationContext operationContext, final VertexRef target) {
         Vertex vertex = operationContext.getGraphContainer().getBaseTopology().getVertex(target);
         if (vertex == null) {

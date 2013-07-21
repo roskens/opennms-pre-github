@@ -38,17 +38,23 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class WrappedGraph.
+ */
 @XmlRootElement(name = "graph")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedGraph {
 
+    /** The m_vertices. */
     @XmlElements({ @XmlElement(name = "vertex", type = WrappedLeafVertex.class),
             @XmlElement(name = "group", type = WrappedGroup.class) })
     public List<WrappedVertex> m_vertices = new ArrayList<WrappedVertex>();
 
+    /** The m_edges. */
     @XmlElement(name = "edge")
     public List<WrappedEdge> m_edges = new ArrayList<WrappedEdge>();
 
+    /** The m_namespace. */
     @XmlAttribute(name = "namespace")
     public String m_namespace;
 
@@ -58,6 +64,16 @@ public class WrappedGraph {
     public WrappedGraph() {
     }
 
+    /**
+     * Instantiates a new wrapped graph.
+     *
+     * @param namespace
+     *            the namespace
+     * @param vertices
+     *            the vertices
+     * @param edges
+     *            the edges
+     */
     public WrappedGraph(String namespace, List<WrappedVertex> vertices, List<WrappedEdge> edges) {
         m_namespace = namespace;
         m_vertices = vertices;
@@ -69,6 +85,7 @@ public class WrappedGraph {
      * to find
      * the namespace when we are deserializing child classes.
      *
+     * @return the namespace
      * @see WrappedVertex#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)
      * @see WrappedEdge#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)
      */
@@ -81,6 +98,8 @@ public class WrappedGraph {
      * to find
      * the namespace when we are deserializing child classes.
      *
+     * @param namespace
+     *            the new namespace
      * @see WrappedVertex#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)
      * @see WrappedEdge#afterUnmarshal(javax.xml.bind.Unmarshaller, Object)
      */

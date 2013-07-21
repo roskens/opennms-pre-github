@@ -36,16 +36,33 @@ import java.util.Set;
 import org.opennms.features.topology.api.topo.EdgeRef;
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Class DefaultSelectionContext.
+ */
 public class DefaultSelectionContext implements SelectionContext {
+
+    /** The m_selected vertices. */
     private final Set<VertexRef> m_selectedVertices = Collections.synchronizedSet(new HashSet<VertexRef>());
 
+    /** The m_selected edges. */
     private final Set<EdgeRef> m_selectedEdges = Collections.synchronizedSet(new HashSet<EdgeRef>());
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#isVertexRefSelected(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public boolean isVertexRefSelected(VertexRef vertexRef) {
         return m_selectedVertices.contains(vertexRef);
     }
 
+    /**
+     * Sets the vertex ref selected.
+     *
+     * @param ref
+     *            the ref
+     * @param selected
+     *            the selected
+     */
     private void setVertexRefSelected(VertexRef ref, boolean selected) {
         if (selected) {
             m_selectedVertices.add(ref);
@@ -54,11 +71,22 @@ public class DefaultSelectionContext implements SelectionContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#isEdgeRefSelected(org.opennms.features.topology.api.topo.EdgeRef)
+     */
     @Override
     public boolean isEdgeRefSelected(EdgeRef edgeRef) {
         return m_selectedEdges.contains(edgeRef);
     }
 
+    /**
+     * Sets the edge ref selected.
+     *
+     * @param edgeRef
+     *            the edge ref
+     * @param selected
+     *            the selected
+     */
     private void setEdgeRefSelected(EdgeRef edgeRef, boolean selected) {
         if (selected) {
             m_selectedEdges.add(edgeRef);
@@ -67,11 +95,17 @@ public class DefaultSelectionContext implements SelectionContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#getSelectedVertexRefs()
+     */
     @Override
     public Collection<VertexRef> getSelectedVertexRefs() {
         return Collections.unmodifiableSet(m_selectedVertices);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#selectVertexRefs(java.util.Collection)
+     */
     @Override
     public boolean selectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
         Set<VertexRef> oldSet = new HashSet<VertexRef>();
@@ -88,6 +122,9 @@ public class DefaultSelectionContext implements SelectionContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#deselectVertexRefs(java.util.Collection)
+     */
     @Override
     public boolean deselectVertexRefs(Collection<? extends VertexRef> vertexRefs) {
         Set<VertexRef> oldSet = new HashSet<VertexRef>();
@@ -104,17 +141,26 @@ public class DefaultSelectionContext implements SelectionContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#deselectAll()
+     */
     @Override
     public boolean deselectAll() {
         return (setSelectedVertexRefs(Collections.<VertexRef> emptySet()))
                 || setSelectedEdgeRefs(Collections.<EdgeRef> emptySet());
     }
 
+    /**
+     * Do deselect all.
+     */
     private void doDeselectAll() {
         m_selectedEdges.clear();
         m_selectedVertices.clear();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#setSelectedVertexRefs(java.util.Collection)
+     */
     @Override
     public boolean setSelectedVertexRefs(Collection<? extends VertexRef> vertexRefs) {
         doDeselectAll();
@@ -125,6 +171,9 @@ public class DefaultSelectionContext implements SelectionContext {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionContext#setSelectedEdgeRefs(java.util.Collection)
+     */
     @Override
     public boolean setSelectedEdgeRefs(Collection<? extends EdgeRef> edgeRefs) {
         doDeselectAll();

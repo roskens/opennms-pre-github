@@ -30,23 +30,36 @@ package org.opennms.features.topology.api.topo;
 
 /**
  * The interface is extended by plugin developers to allow the setting of
- * criteria for their Providers
+ * criteria for their Providers.
  *
  * @author brozow
  */
 public interface Criteria {
 
+    /**
+     * The Enum ElementType.
+     */
     enum ElementType {
-        GRAPH, VERTEX, EDGE
+
+        /** The graph. */
+        GRAPH,
+ /** The vertex. */
+ VERTEX,
+ /** The edge. */
+ EDGE
     }
 
     /**
-     * This criteria applies to only providers of the indicated type
+     * This criteria applies to only providers of the indicated type.
+     *
+     * @return the type
      */
     public ElementType getType();
 
     /**
-     * This criteria only applies to providers for this namespace
+     * This criteria only applies to providers for this namespace.
+     *
+     * @return the namespace
      */
     public String getNamespace();
 

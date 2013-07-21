@@ -31,16 +31,35 @@ package org.opennms.features.topology.api.topo;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
+/**
+ * The Class AbstractEdge.
+ */
 public class AbstractEdge extends AbstractEdgeRef implements Edge {
 
+    /** The m_source. */
     private final SimpleConnector m_source;
 
+    /** The m_target. */
     private final SimpleConnector m_target;
 
+    /** The m_tooltip text. */
     private String m_tooltipText;
 
+    /** The m_style name. */
     private String m_styleName;
 
+    /**
+     * Instantiates a new abstract edge.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     */
     public AbstractEdge(String namespace, String id, Vertex source, Vertex target) {
         super(namespace, id);
         if (source == null) {
@@ -55,6 +74,18 @@ public class AbstractEdge extends AbstractEdgeRef implements Edge {
         m_styleName = "edge";
     }
 
+    /**
+     * Instantiates a new abstract edge.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     */
     public AbstractEdge(String namespace, String id, SimpleConnector source, SimpleConnector target) {
         super(namespace, id);
         m_source = source;
@@ -63,6 +94,9 @@ public class AbstractEdge extends AbstractEdgeRef implements Edge {
     }
 
     /**
+     * Gets the key.
+     *
+     * @return the key
      * @deprecated Use namespace/id tuple
      */
     @Override
@@ -70,41 +104,65 @@ public class AbstractEdge extends AbstractEdgeRef implements Edge {
         return getNamespace() + ":" + getId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#getTooltipText()
+     */
     @Override
     public String getTooltipText() {
         return m_tooltipText;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#getStyleName()
+     */
     @Override
     public final String getStyleName() {
         return m_styleName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#setTooltipText(java.lang.String)
+     */
     @Override
     public final void setTooltipText(String tooltipText) {
         m_tooltipText = tooltipText;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#setStyleName(java.lang.String)
+     */
     @Override
     public final void setStyleName(String styleName) {
         m_styleName = styleName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#getItem()
+     */
     @Override
     public Item getItem() {
         return new BeanItem<AbstractEdge>(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#getSource()
+     */
     @Override
     public final SimpleConnector getSource() {
         return m_source;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Edge#getTarget()
+     */
     @Override
     public final SimpleConnector getTarget() {
         return m_target;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.AbstractEdgeRef#toString()
+     */
     @Override
     public String toString() {
         return "Edge:" + getNamespace() + ":" + getId() + "[label=" + getLabel() + ", styleName=" + getStyleName()

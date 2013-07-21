@@ -37,22 +37,36 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
+ * The Class StringMapAdapter.
  */
 public class StringMapAdapter extends XmlAdapter<StringMapAdapter.JaxbMap, Map<String, String>> {
 
+    /**
+     * The Class JaxbMap.
+     */
     public static final class JaxbMap {
+
+        /** The entry. */
         public List<Entry> entry = new ArrayList<Entry>(0);
     }
 
+    /**
+     * The Class Entry.
+     */
     public static final class Entry {
 
+        /** The key. */
         @XmlAttribute
         public String key;
 
+        /** The value. */
         @XmlAttribute
         public String value;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public StringMapAdapter.JaxbMap marshal(Map<String, String> v) throws Exception {
         JaxbMap retval = new JaxbMap();
@@ -65,6 +79,9 @@ public class StringMapAdapter extends XmlAdapter<StringMapAdapter.JaxbMap, Map<S
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public Map<String, String> unmarshal(StringMapAdapter.JaxbMap v) throws Exception {
         Map<String, String> retval = new HashMap<String, String>();

@@ -30,17 +30,47 @@ package org.opennms.features.topology.api;
 
 import com.vaadin.ui.UI;
 
+/**
+ * The Interface OperationContext.
+ */
 public interface OperationContext {
 
+    /**
+     * The Enum DisplayLocation.
+     */
     enum DisplayLocation {
-        MENUBAR, CONTEXTMENU
+
+        /** The menubar. */
+        MENUBAR,
+ /** The contextmenu. */
+ CONTEXTMENU
     };
 
+    /**
+     * Gets the main window.
+     *
+     * @return the main window
+     */
     UI getMainWindow();
 
+    /**
+     * Gets the graph container.
+     *
+     * @return the graph container
+     */
     GraphContainer getGraphContainer();
 
+    /**
+     * Gets the display location.
+     *
+     * @return the display location
+     */
     DisplayLocation getDisplayLocation();
 
+    /**
+     * Checks if is checked.
+     *
+     * @return true, if is checked
+     */
     boolean isChecked();
 }

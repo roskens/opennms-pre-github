@@ -28,16 +28,57 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Interface HistoryManager.
+ */
 public interface HistoryManager {
 
+    /**
+     * Apply history.
+     *
+     * @param userId
+     *            the user id
+     * @param fragmentId
+     *            the fragment id
+     * @param container
+     *            the container
+     */
     public void applyHistory(String userId, String fragmentId, GraphContainer container);
 
+    /**
+     * Gets the history for user.
+     *
+     * @param userId
+     *            the user id
+     * @return the history for user
+     */
     public String getHistoryForUser(String userId);
 
+    /**
+     * Creates the.
+     *
+     * @param userId
+     *            the user id
+     * @param container
+     *            the container
+     * @return the string
+     */
     public String create(String userId, GraphContainer container);
 
+    /**
+     * On bind.
+     *
+     * @param operation
+     *            the operation
+     */
     void onBind(HistoryOperation operation);
 
+    /**
+     * On unbind.
+     *
+     * @param operation
+     *            the operation
+     */
     void onUnbind(HistoryOperation operation);
 
 }

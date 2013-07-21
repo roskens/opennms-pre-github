@@ -30,10 +30,23 @@ package org.opennms.features.topology.api.topo;
 
 import java.util.Map;
 
+/**
+ * The Interface Status.
+ */
 public interface Status {
 
+    /**
+     * Compute status.
+     *
+     * @return the string
+     */
     String computeStatus();
 
+    /**
+     * Gets the status properties.
+     *
+     * @return the status properties
+     */
     Map<String, String> getStatusProperties();
 
 }

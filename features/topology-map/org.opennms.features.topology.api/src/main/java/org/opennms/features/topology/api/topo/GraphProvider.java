@@ -32,36 +32,117 @@ import java.net.MalformedURLException;
 
 import javax.xml.bind.JAXBException;
 
+/**
+ * The Interface GraphProvider.
+ */
 public interface GraphProvider extends VertexProvider, EdgeProvider {
 
+    /**
+     * Save.
+     */
     void save();
 
+    /**
+     * Load.
+     *
+     * @param filename
+     *            the filename
+     * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws JAXBException
+     *             the jAXB exception
+     */
     void load(String filename) throws MalformedURLException, JAXBException;
 
+    /**
+     * Refresh.
+     */
     public void refresh();
 
+    /**
+     * Reset container.
+     */
     void resetContainer();
 
+    /**
+     * Adds the vertices.
+     *
+     * @param vertices
+     *            the vertices
+     */
     void addVertices(Vertex... vertices);
 
+    /**
+     * Removes the vertex.
+     *
+     * @param vertexId
+     *            the vertex id
+     */
     void removeVertex(VertexRef... vertexId);
 
     /**
+     * Adds the vertex.
+     *
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     * @return the vertex
      * @deprecated Convert calls to this to addVertices
      */
     Vertex addVertex(int x, int y);
 
+    /**
+     * Adds the group.
+     *
+     * @param label
+     *            the label
+     * @param iconKey
+     *            the icon key
+     * @return the vertex
+     */
     Vertex addGroup(String label, String iconKey);
 
+    /**
+     * Gets the edge ids for vertex.
+     *
+     * @param vertex
+     *            the vertex
+     * @return the edge ids for vertex
+     */
     EdgeRef[] getEdgeIdsForVertex(VertexRef vertex);
 
+    /**
+     * Adds the edges.
+     *
+     * @param edges
+     *            the edges
+     */
     void addEdges(Edge... edges);
 
+    /**
+     * Removes the edges.
+     *
+     * @param edges
+     *            the edges
+     */
     void removeEdges(EdgeRef... edges);
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#setParent(org.opennms.features.topology.api.topo.VertexRef, org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     boolean setParent(VertexRef vertexId, VertexRef parentId);
 
+    /**
+     * Connect vertices.
+     *
+     * @param sourceVertextId
+     *            the source vertext id
+     * @param targetVertextId
+     *            the target vertext id
+     * @return the edge
+     */
     Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId);
 
 }

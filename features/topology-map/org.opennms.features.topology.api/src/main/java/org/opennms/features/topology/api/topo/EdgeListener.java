@@ -30,10 +30,39 @@ package org.opennms.features.topology.api.topo;
 
 import java.util.Collection;
 
+/**
+ * The listener interface for receiving edge events.
+ * The class that is interested in processing a edge
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addEdgeListener<code> method. When
+ * the edge event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see EdgeEvent
+ */
 public interface EdgeListener {
 
+    /**
+     * Edge set changed.
+     *
+     * @param provider
+     *            the provider
+     */
     public void edgeSetChanged(EdgeProvider provider);
 
+    /**
+     * Edge set changed.
+     *
+     * @param provider
+     *            the provider
+     * @param added
+     *            the added
+     * @param updated
+     *            the updated
+     * @param removedEdgeIds
+     *            the removed edge ids
+     */
     public void edgeSetChanged(EdgeProvider provider, Collection<? extends Edge> added,
             Collection<? extends Edge> updated, Collection<String> removedEdgeIds);
 }

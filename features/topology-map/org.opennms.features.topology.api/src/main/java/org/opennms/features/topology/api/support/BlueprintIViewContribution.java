@@ -35,19 +35,36 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 import com.vaadin.server.Resource;
 import com.vaadin.ui.Component;
 
+/**
+ * The Class BlueprintIViewContribution.
+ */
 public class BlueprintIViewContribution implements IViewContribution {
 
+    /** The m_container. */
     private final BlueprintContainer m_container;
 
+    /** The m_bean name. */
     private final String m_beanName;
 
+    /** The m_title. */
     private String m_title;
 
+    /**
+     * Instantiates a new blueprint i view contribution.
+     *
+     * @param container
+     *            the container
+     * @param beanName
+     *            the bean name
+     */
     public BlueprintIViewContribution(BlueprintContainer container, String beanName) {
         m_container = container;
         m_beanName = beanName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IViewContribution#getView(org.opennms.features.topology.api.WidgetContext)
+     */
     @Override
     public Component getView(WidgetContext widgetContext) {
         // Get the component by asking the blueprint container to instantiate a
@@ -58,17 +75,28 @@ public class BlueprintIViewContribution implements IViewContribution {
 
     /**
      * Returns null.
+     *
+     * @return the icon
      */
     @Override
     public Resource getIcon() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IViewContribution#getTitle()
+     */
     @Override
     public String getTitle() {
         return m_title;
     }
 
+    /**
+     * Sets the title.
+     *
+     * @param title
+     *            the new title
+     */
     public void setTitle(String title) {
         m_title = title;
     }

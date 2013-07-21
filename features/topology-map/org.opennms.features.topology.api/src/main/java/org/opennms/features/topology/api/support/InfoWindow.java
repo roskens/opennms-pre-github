@@ -51,23 +51,42 @@ public class InfoWindow extends Window {
      * @author Markus von Rüden
      */
     public static interface LabelCreator {
+
+        /**
+         * Gets the label.
+         *
+         * @return the label
+         */
         String getLabel();
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -510407825043696244L;
 
+    /** The size percentage. */
     private final double sizePercentage = 0.80; // Window size ratio to the main
                                                 // window
 
-    private final int widthCushion = 50; // Border cushion for width of window;
+    /** The width cushion. */
+                                                private final int widthCushion = 50; // Border cushion for width of window;
 
+    /** The height cushion. */
     private final int heightCushion = 110; // Border cushion for height of
                                            // window
 
-    private Embedded infoBrowser = null; // Browser component which is directed
+    /** The info browser. */
+                                           private Embedded infoBrowser = null; // Browser component which is directed
                                          // at the Resource Graphs page
 
-    public InfoWindow(final URL embeddedURL, LabelCreator labelCreator) {
+    /**
+                                             * Instantiates a new info window.
+                                             *
+                                             * @param embeddedURL
+                                             *            the embedded url
+                                             * @param labelCreator
+                                             *            the label creator
+                                             */
+                                         public InfoWindow(final URL embeddedURL, LabelCreator labelCreator) {
         infoBrowser = new Embedded("", new ExternalResource(embeddedURL));
 
         String label = labelCreator == null ? "" : labelCreator.getLabel();
@@ -83,6 +102,9 @@ public class InfoWindow extends Window {
         setContent(layout);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractComponent#attach()
+     */
     @Override
     public void attach() {
         super.attach();

@@ -35,6 +35,9 @@ import java.util.Comparator;
  */
 public class RefComparator implements Comparator<Ref> {
 
+    /* (non-Javadoc)
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
     @Override
     public int compare(Ref a, Ref b) {
         if (a == null) {

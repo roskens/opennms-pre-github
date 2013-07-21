@@ -28,43 +28,83 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Class AbstractRef.
+ */
 public class AbstractRef implements Ref {
 
+    /** The m_namespace. */
     private final String m_namespace;
 
+    /** The m_id. */
     private final String m_id;
 
+    /** The m_label. */
     private String m_label;
 
+    /**
+     * Instantiates a new abstract ref.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     protected AbstractRef(String namespace, String id, String label) {
         m_namespace = namespace;
         m_id = id;
         m_label = label;
     }
 
+    /**
+     * Instantiates a new abstract ref.
+     *
+     * @param ref
+     *            the ref
+     */
     protected AbstractRef(Ref ref) {
         this(ref.getNamespace(), ref.getId(), ref.getLabel());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getId()
+     */
     @Override
     public final String getId() {
         return m_id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getNamespace()
+     */
     @Override
     public final String getNamespace() {
         return m_namespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getLabel()
+     */
     @Override
     public final String getLabel() {
         return m_label;
     }
 
+    /**
+     * Sets the label.
+     *
+     * @param label
+     *            the new label
+     */
     public final void setLabel(String label) {
         m_label = label;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -74,6 +114,9 @@ public class AbstractRef implements Ref {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -90,6 +133,9 @@ public class AbstractRef implements Ref {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Ref o) {
         if (this.equals(o)) {

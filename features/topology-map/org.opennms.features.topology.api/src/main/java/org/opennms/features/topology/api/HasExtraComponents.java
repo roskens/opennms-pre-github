@@ -30,6 +30,15 @@ package org.opennms.features.topology.api;
 
 import com.vaadin.ui.Component;
 
+/**
+ * The Interface HasExtraComponents.
+ */
 public interface HasExtraComponents {
+
+    /**
+     * Gets the extra components.
+     *
+     * @return the extra components
+     */
     Component[] getExtraComponents();
 }

@@ -28,6 +28,15 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Interface WidgetContext.
+ */
 public interface WidgetContext {
+
+    /**
+     * Gets the graph container.
+     *
+     * @return the graph container
+     */
     public GraphContainer getGraphContainer();
 }

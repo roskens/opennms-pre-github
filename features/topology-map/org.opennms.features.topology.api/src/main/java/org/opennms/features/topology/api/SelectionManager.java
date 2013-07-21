@@ -28,5 +28,8 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Interface SelectionManager.
+ */
 public interface SelectionManager extends SelectionContext, SelectionNotifier, SelectionListener {
 }

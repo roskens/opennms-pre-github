@@ -28,24 +28,51 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Class Point.
+ */
 public class Point {
+
+    /** The m_x. */
     private int m_x;
 
+    /** The m_y. */
     private int m_y;
 
+    /**
+     * Instantiates a new point.
+     *
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     */
     public Point(int x, int y) {
         m_x = x;
         m_y = y;
     }
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public int getX() {
         return m_x;
     }
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public int getY() {
         return m_y;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -55,6 +82,9 @@ public class Point {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -71,6 +101,9 @@ public class Point {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "(" + m_x + "," + m_y + ")";

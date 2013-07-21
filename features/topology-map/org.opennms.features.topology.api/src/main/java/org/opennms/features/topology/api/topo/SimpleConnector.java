@@ -30,20 +30,28 @@ package org.opennms.features.topology.api.topo;
 
 import javax.xml.bind.annotation.XmlID;
 
+/**
+ * The Class SimpleConnector.
+ */
 public class SimpleConnector implements Connector {
 
     // Required
+    /** The m_namespace. */
     private String m_namespace;
 
     // Required
+    /** The m_id. */
     private String m_id;
 
     // Required
+    /** The m_label. */
     private String m_label;
 
     // Required
+    /** The m_vertex. */
     private VertexRef m_vertex;
 
+    /** The m_edge. */
     private AbstractEdge m_edge;
 
     /**
@@ -53,10 +61,16 @@ public class SimpleConnector implements Connector {
     }
 
     /**
+     * Instantiates a new simple connector.
+     *
      * @param namespace
+     *            the namespace
      * @param id
+     *            the id
      * @param label
+     *            the label
      * @param vertex
+     *            the vertex
      */
     public SimpleConnector(String namespace, String id, String label, VertexRef vertex) {
         if (namespace == null) {
@@ -75,19 +89,32 @@ public class SimpleConnector implements Connector {
     }
 
     /**
+     * Instantiates a new simple connector.
+     *
      * @param namespace
+     *            the namespace
      * @param id
+     *            the id
      * @param vertex
+     *            the vertex
      */
     public SimpleConnector(String namespace, String id, VertexRef vertex) {
         this(namespace, id, namespace + ":" + id, vertex);
     }
 
     /**
+     * Instantiates a new simple connector.
+     *
      * @param namespace
+     *            the namespace
      * @param id
+     *            the id
+     * @param label
+     *            the label
      * @param vertex
+     *            the vertex
      * @param edge
+     *            the edge
      */
     public SimpleConnector(String namespace, String id, String label, VertexRef vertex, AbstractEdge edge) {
         this(namespace, id, label, vertex);
@@ -95,46 +122,75 @@ public class SimpleConnector implements Connector {
     }
 
     /**
+     * Instantiates a new simple connector.
+     *
      * @param namespace
+     *            the namespace
      * @param id
-     * @param label
+     *            the id
      * @param vertex
+     *            the vertex
      * @param edge
+     *            the edge
      */
     public SimpleConnector(String namespace, String id, VertexRef vertex, AbstractEdge edge) {
         this(namespace, id, namespace + ":" + id, vertex, edge);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getNamespace()
+     */
     @Override
     public String getNamespace() {
         return m_namespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getId()
+     */
     @XmlID
     @Override
     public String getId() {
         return m_id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getLabel()
+     */
     @Override
     public String getLabel() {
         return m_label;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Connector#getEdge()
+     */
     @Override
     public AbstractEdge getEdge() {
         return m_edge;
     }
 
+    /**
+     * Sets the edge.
+     *
+     * @param edgeRef
+     *            the new edge
+     */
     public void setEdge(AbstractEdge edgeRef) {
         m_edge = edgeRef;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Connector#getVertex()
+     */
     @Override
     public VertexRef getVertex() {
         return m_vertex;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(Ref o) {
         if (this.equals(o)) {

@@ -32,18 +32,65 @@ import java.util.Collection;
 
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Interface Layout.
+ */
 public interface Layout {
 
+    /**
+     * Gets the location.
+     *
+     * @param v
+     *            the v
+     * @return the location
+     */
     Point getLocation(VertexRef v);
 
+    /**
+     * Sets the location.
+     *
+     * @param vertex
+     *            the vertex
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     */
     void setLocation(VertexRef vertex, int x, int y);
 
+    /**
+     * Sets the location.
+     *
+     * @param v
+     *            the v
+     * @param location
+     *            the location
+     */
     void setLocation(VertexRef v, Point location);
 
+    /**
+     * Gets the initial location.
+     *
+     * @param v
+     *            the v
+     * @return the initial location
+     */
     Point getInitialLocation(VertexRef v);
 
+    /**
+     * Gets the bounds.
+     *
+     * @return the bounds
+     */
     BoundingBox getBounds();
 
+    /**
+     * Compute bounding box.
+     *
+     * @param vertRefs
+     *            the vert refs
+     * @return the bounding box
+     */
     BoundingBox computeBoundingBox(Collection<VertexRef> vertRefs);
 
 }

@@ -28,19 +28,42 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The Class BoundingBox.
+ */
 public class BoundingBox {
+
+    /** The m_left. */
     private int m_left = Integer.MAX_VALUE;
 
+    /** The m_top. */
     private int m_top = Integer.MAX_VALUE;
 
+    /** The m_right. */
     private int m_right = Integer.MIN_VALUE;
 
+    /** The m_bottom. */
     private int m_bottom = Integer.MIN_VALUE;
 
+    /**
+     * Instantiates a new bounding box.
+     */
     public BoundingBox() {
 
     }
 
+    /**
+     * Instantiates a new bounding box.
+     *
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     */
     public BoundingBox(int x, int y, int width, int height) {
         m_left = x;
         m_top = y;
@@ -48,6 +71,16 @@ public class BoundingBox {
         m_bottom = y + height;
     }
 
+    /**
+     * Instantiates a new bounding box.
+     *
+     * @param center
+     *            the center
+     * @param width
+     *            the width
+     * @param height
+     *            the height
+     */
     public BoundingBox(Point center, int width, int height) {
         m_left = center.getX() - width / 2;
         m_top = center.getY() - height / 2;
@@ -55,22 +88,48 @@ public class BoundingBox {
         m_bottom = m_top + height;
     }
 
+    /**
+     * Gets the x.
+     *
+     * @return the x
+     */
     public int getX() {
         return m_left;
     }
 
+    /**
+     * Gets the y.
+     *
+     * @return the y
+     */
     public int getY() {
         return m_top;
     }
 
+    /**
+     * Gets the width.
+     *
+     * @return the width
+     */
     public int getWidth() {
         return m_right - m_left;
     }
 
+    /**
+     * Gets the height.
+     *
+     * @return the height
+     */
     public int getHeight() {
         return m_bottom - m_top;
     }
 
+    /**
+     * Adds the point.
+     *
+     * @param location
+     *            the location
+     */
     public void addPoint(Point location) {
         m_left = Math.min(m_left, location.getX());
         m_right = Math.max(m_right, location.getX());
@@ -78,16 +137,34 @@ public class BoundingBox {
         m_bottom = Math.max(m_bottom, location.getY());
     }
 
+    /**
+     * Gets the center.
+     *
+     * @return the center
+     */
     public Point getCenter() {
         Point p = new Point(getX() + (getWidth() / 2), getY() + (getHeight() / 2));
         return p;
     }
 
+    /**
+     * Sets the center.
+     *
+     * @param center
+     *            the new center
+     */
     public void setCenter(Point center) {
         m_left = center.getX() - getWidth() / 2;
         m_top = center.getY() - getHeight() / 2;
     }
 
+    /**
+     * Compute with aspect ratio.
+     *
+     * @param R
+     *            the r
+     * @return the bounding box
+     */
     public BoundingBox computeWithAspectRatio(double R) {
         double r = getAspectRatio();
         int width = (int) (r < R ? Math.round(getHeight() * R) : getWidth());
@@ -98,19 +175,38 @@ public class BoundingBox {
         return new BoundingBox(x, y, width, height);
     }
 
+    /**
+     * Gets the aspect ratio.
+     *
+     * @return the aspect ratio
+     */
     private double getAspectRatio() {
         return getHeight() == 0 ? 0 : (double) getWidth() / (double) getHeight();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "x: " + getX() + " y: " + getY() + " width: " + getWidth() + " height: " + getHeight();
     }
 
+    /**
+     * Fragment.
+     *
+     * @return the string
+     */
     public String fragment() {
         return "(" + getX() + "," + getY() + "," + getWidth() + "," + getHeight() + ")";
     }
 
+    /**
+     * Adds the boundingbox.
+     *
+     * @param box
+     *            the box
+     */
     public void addBoundingbox(BoundingBox box) {
         m_left = Math.min(m_left, box.m_left);
         m_right = Math.max(m_right, box.m_right);
@@ -119,6 +215,9 @@ public class BoundingBox {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -130,6 +229,9 @@ public class BoundingBox {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -28,9 +28,22 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Interface Connector.
+ */
 public interface Connector extends ConnectorRef {
 
+    /**
+     * Gets the edge.
+     *
+     * @return the edge
+     */
     EdgeRef getEdge();
 
+    /**
+     * Gets the vertex.
+     *
+     * @return the vertex
+     */
     VertexRef getVertex();
 }

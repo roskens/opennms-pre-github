@@ -30,10 +30,39 @@ package org.opennms.features.topology.api.topo;
 
 import java.util.Collection;
 
+/**
+ * The listener interface for receiving vertex events.
+ * The class that is interested in processing a vertex
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addVertexListener<code> method. When
+ * the vertex event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see VertexEvent
+ */
 public interface VertexListener {
 
+    /**
+     * Vertex set changed.
+     *
+     * @param provider
+     *            the provider
+     */
     public void vertexSetChanged(VertexProvider provider);
 
+    /**
+     * Vertex set changed.
+     *
+     * @param provider
+     *            the provider
+     * @param added
+     *            the added
+     * @param update
+     *            the update
+     * @param removedVertexIds
+     *            the removed vertex ids
+     */
     public void vertexSetChanged(VertexProvider provider, Collection<? extends Vertex> added,
             Collection<? extends Vertex> update, Collection<String> removedVertexIds);
 

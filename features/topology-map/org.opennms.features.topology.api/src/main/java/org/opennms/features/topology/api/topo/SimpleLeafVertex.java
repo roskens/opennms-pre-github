@@ -28,8 +28,23 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Class SimpleLeafVertex.
+ */
 public class SimpleLeafVertex extends AbstractVertex {
 
+    /**
+     * Instantiates a new simple leaf vertex.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     */
     public SimpleLeafVertex(String namespace, String id, Integer x, Integer y) {
         super(namespace, id);
         if (x != null)

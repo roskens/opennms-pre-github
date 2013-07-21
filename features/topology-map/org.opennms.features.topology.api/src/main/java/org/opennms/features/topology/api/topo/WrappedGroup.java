@@ -34,9 +34,13 @@ import java.util.List;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class WrappedGroup.
+ */
 @XmlRootElement(name = "group")
 public class WrappedGroup extends WrappedVertex {
 
+    /** The members. */
     public List<WrappedVertex> members = new ArrayList<WrappedVertex>();
 
     /**
@@ -47,10 +51,19 @@ public class WrappedGroup extends WrappedVertex {
         group = true;
     }
 
+    /**
+     * Instantiates a new wrapped group.
+     *
+     * @param vertex
+     *            the vertex
+     */
     public WrappedGroup(Vertex vertex) {
         super(vertex);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.WrappedVertex#afterUnmarshal(javax.xml.bind.Unmarshaller, java.lang.Object)
+     */
     @Override
     public void afterUnmarshal(Unmarshaller u, Object parent) {
         super.afterUnmarshal(u, parent);

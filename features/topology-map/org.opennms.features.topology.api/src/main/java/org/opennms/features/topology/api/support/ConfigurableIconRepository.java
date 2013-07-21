@@ -38,32 +38,59 @@ import org.opennms.features.topology.api.IconRepository;
 import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
+/**
+ * The Class ConfigurableIconRepository.
+ */
 public class ConfigurableIconRepository implements IconRepository, ManagedService {
 
+    /** The m_icon map. */
     private final AtomicReference<Map<String, String>> m_iconMap;
 
+    /**
+     * Instantiates a new configurable icon repository.
+     */
     public ConfigurableIconRepository() {
         this(Collections.<String, String> emptyMap());
     }
 
+    /**
+     * Instantiates a new configurable icon repository.
+     *
+     * @param iconMap
+     *            the icon map
+     */
     public ConfigurableIconRepository(Map<String, String> iconMap) {
         m_iconMap = new AtomicReference<Map<String, String>>(iconMap);
     }
 
+    /**
+     * Icon map.
+     *
+     * @return the map
+     */
     private Map<String, String> iconMap() {
         return m_iconMap.get();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IconRepository#contains(java.lang.String)
+     */
     @Override
     public boolean contains(String type) {
         return iconMap().containsKey(type);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.IconRepository#getIconUrl(java.lang.String)
+     */
     @Override
     public String getIconUrl(String type) {
         return iconMap().get(type);
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.service.cm.ManagedService#updated(java.util.Dictionary)
+     */
     @Override
     public void updated(Dictionary<String, ?> properties) throws ConfigurationException {
 

@@ -44,25 +44,35 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class WrappedEdge.
+ */
 @XmlRootElement(name = "edge")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedEdge {
 
+    /** The key. */
     public String key;
 
+    /** The label. */
     public String label;
 
+    /** The tooltip text. */
     public String tooltipText;
 
+    /** The source. */
     @XmlIDREF
     public WrappedVertex source;
 
+    /** The target. */
     @XmlIDREF
     public WrappedVertex target;
 
+    /** The id. */
     @XmlID
     public String id;
 
+    /** The namespace. */
     @XmlTransient
     public String namespace;
 
@@ -72,6 +82,16 @@ public class WrappedEdge {
     public WrappedEdge() {
     }
 
+    /**
+     * Instantiates a new wrapped edge.
+     *
+     * @param edge
+     *            the edge
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     */
     public WrappedEdge(Edge edge, WrappedVertex source, WrappedVertex target) {
         key = edge.getKey();
         label = edge.getLabel();
@@ -86,6 +106,11 @@ public class WrappedEdge {
     /**
      * This JAXB function is used to set the namespace since we expect it to be
      * set in the parent object.
+     *
+     * @param u
+     *            the u
+     * @param parent
+     *            the parent
      */
     public void afterUnmarshal(Unmarshaller u, Object parent) {
         if (namespace == null) {
@@ -114,6 +139,9 @@ public class WrappedEdge {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "WrappedEdge:" + namespace + ":" + id + "[label=" + label + "]";

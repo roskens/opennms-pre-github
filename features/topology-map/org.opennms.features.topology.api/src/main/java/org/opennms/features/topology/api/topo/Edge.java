@@ -30,28 +30,74 @@ package org.opennms.features.topology.api.topo;
 
 import com.vaadin.data.Item;
 
+/**
+ * The Interface Edge.
+ */
 public interface Edge extends EdgeRef {
 
     /**
+     * Gets the key.
+     *
+     * @return the key
      * @deprecated Use namespace/id tuple
      */
     String getKey();
 
+    /**
+     * Gets the item.
+     *
+     * @return the item
+     */
     Item getItem();
 
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
     Connector getSource();
 
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
     Connector getTarget();
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.Ref#getLabel()
+     */
     @Override
     String getLabel();
 
+    /**
+     * Gets the tooltip text.
+     *
+     * @return the tooltip text
+     */
     String getTooltipText();
 
+    /**
+     * Sets the tooltip text.
+     *
+     * @param tooltipText
+     *            the new tooltip text
+     */
     void setTooltipText(String tooltipText);
 
+    /**
+     * Gets the style name.
+     *
+     * @return the style name
+     */
     String getStyleName();
 
+    /**
+     * Sets the style name.
+     *
+     * @param styleName
+     *            the new style name
+     */
     void setStyleName(String styleName);
 
 }

@@ -32,6 +32,19 @@ import java.util.List;
 
 import org.opennms.features.topology.api.topo.VertexRef;
 
+/**
+ * The Interface CheckedOperation.
+ */
 public interface CheckedOperation extends Operation, HistoryOperation {
+
+    /**
+     * Checks if is checked.
+     *
+     * @param targets
+     *            the targets
+     * @param operationContext
+     *            the operation context
+     * @return true, if is checked
+     */
     boolean isChecked(List<VertexRef> targets, OperationContext operationContext);
 }

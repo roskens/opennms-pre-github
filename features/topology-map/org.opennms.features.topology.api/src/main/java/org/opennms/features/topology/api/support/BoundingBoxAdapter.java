@@ -34,23 +34,35 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.opennms.features.topology.api.BoundingBox;
 
 /**
+ * The Class BoundingBoxAdapter.
  */
 public class BoundingBoxAdapter extends XmlAdapter<BoundingBoxAdapter.JaxbBoundingBox, BoundingBox> {
 
+    /**
+     * The Class JaxbBoundingBox.
+     */
     public static final class JaxbBoundingBox {
+
+        /** The x. */
         @XmlAttribute
         public int x;
 
+        /** The y. */
         @XmlAttribute
         public int y;
 
+        /** The height. */
         @XmlAttribute
         public int height;
 
+        /** The width. */
         @XmlAttribute
         public int width;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public BoundingBoxAdapter.JaxbBoundingBox marshal(BoundingBox v) throws Exception {
         JaxbBoundingBox retval = new JaxbBoundingBox();
@@ -61,6 +73,9 @@ public class BoundingBoxAdapter extends XmlAdapter<BoundingBoxAdapter.JaxbBoundi
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public BoundingBox unmarshal(BoundingBoxAdapter.JaxbBoundingBox v) throws Exception {
         return new BoundingBox(v.x, v.y, v.width, v.height);

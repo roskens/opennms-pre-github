@@ -42,32 +42,55 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SimpleVertexProvider.
+ */
 public class SimpleVertexProvider implements VertexProvider {
 
+    /** The m_namespace. */
     private final String m_namespace;
 
+    /** The m_vertex map. */
     private final Map<String, Vertex> m_vertexMap = new LinkedHashMap<String, Vertex>();
 
+    /** The m_listeners. */
     private final Set<VertexListener> m_listeners = new CopyOnWriteArraySet<VertexListener>();
 
+    /** The m_parents. */
     private final Map<VertexRef, VertexRef> m_parents = new HashMap<VertexRef, VertexRef>();
 
+    /** The m_children. */
     private final Map<VertexRef, Set<VertexRef>> m_children = new HashMap<VertexRef, Set<VertexRef>>();
 
+    /**
+     * Instantiates a new simple vertex provider.
+     *
+     * @param namespace
+     *            the namespace
+     */
     public SimpleVertexProvider(String namespace) {
         m_namespace = namespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertexNamespace()
+     */
     @Override
     public String getVertexNamespace() {
         return m_namespace;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#contributesTo(java.lang.String)
+     */
     @Override
     public boolean contributesTo(String namespace) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertex(java.lang.String, java.lang.String)
+     */
     @Override
     public Vertex getVertex(String namespace, String id) {
         if (getVertexNamespace().equals(namespace)) {
@@ -76,11 +99,21 @@ public class SimpleVertexProvider implements VertexProvider {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertex(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public Vertex getVertex(VertexRef reference) {
         return getSimpleVertex(reference);
     }
 
+    /**
+     * Gets the simple vertex.
+     *
+     * @param reference
+     *            the reference
+     * @return the simple vertex
+     */
     private Vertex getSimpleVertex(VertexRef reference) {
         if (reference != null && getVertexNamespace().equals(reference.getNamespace())) {
             return m_vertexMap.get(reference.getId());
@@ -88,11 +121,17 @@ public class SimpleVertexProvider implements VertexProvider {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertices()
+     */
     @Override
     public List<Vertex> getVertices() {
         return Collections.unmodifiableList(new ArrayList<Vertex>(m_vertexMap.values()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertices(java.util.Collection)
+     */
     @Override
     public List<Vertex> getVertices(Collection<? extends VertexRef> references) {
         List<Vertex> vertices = new ArrayList<Vertex>();
@@ -105,6 +144,9 @@ public class SimpleVertexProvider implements VertexProvider {
         return vertices;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getRootGroup()
+     */
     @Override
     public List<Vertex> getRootGroup() {
         List<Vertex> rootGroup = new ArrayList<Vertex>();
@@ -116,17 +158,26 @@ public class SimpleVertexProvider implements VertexProvider {
         return rootGroup;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#hasChildren(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public boolean hasChildren(VertexRef group) {
         return m_children.containsKey(group);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getParent(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public Vertex getParent(VertexRef vertex) {
         VertexRef parentRef = m_parents.get(vertex);
         return parentRef == null ? null : getSimpleVertex(parentRef);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#setParent(org.opennms.features.topology.api.topo.VertexRef, org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public boolean setParent(VertexRef child, VertexRef parent) {
         // Set the parent value on the vertex object
@@ -160,24 +211,42 @@ public class SimpleVertexProvider implements VertexProvider {
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getChildren(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public List<Vertex> getChildren(VertexRef group) {
         Set<VertexRef> children = m_children.get(group);
         return children == null ? Collections.<Vertex> emptyList() : getVertices(children);
     }
 
+    /**
+     * Fire vertex set changed.
+     */
     private void fireVertexSetChanged() {
         for (VertexListener listener : m_listeners) {
             listener.vertexSetChanged(this);
         }
     }
 
+    /**
+     * Fire vertices added.
+     *
+     * @param vertices
+     *            the vertices
+     */
     private void fireVerticesAdded(Collection<Vertex> vertices) {
         for (VertexListener listener : m_listeners) {
             listener.vertexSetChanged(this, vertices, null, null);
         }
     }
 
+    /**
+     * Fire vertices removed.
+     *
+     * @param all
+     *            the all
+     */
     private void fireVerticesRemoved(List<? extends VertexRef> all) {
         List<String> ids = new ArrayList<String>(all.size());
         for (VertexRef vertex : all) {
@@ -188,16 +257,28 @@ public class SimpleVertexProvider implements VertexProvider {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#addVertexListener(org.opennms.features.topology.api.topo.VertexListener)
+     */
     @Override
     public void addVertexListener(VertexListener vertexListener) {
         m_listeners.add(vertexListener);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#removeVertexListener(org.opennms.features.topology.api.topo.VertexListener)
+     */
     @Override
     public void removeVertexListener(VertexListener vertexListener) {
         m_listeners.remove(vertexListener);
     }
 
+    /**
+     * Removes the vertices.
+     *
+     * @param all
+     *            the all
+     */
     private void removeVertices(List<? extends VertexRef> all) {
         for (VertexRef vertex : all) {
             LoggerFactory.getLogger(this.getClass()).debug("Removing vertex: {}", vertex);
@@ -209,6 +290,12 @@ public class SimpleVertexProvider implements VertexProvider {
         }
     }
 
+    /**
+     * Adds the vertices.
+     *
+     * @param vertices
+     *            the vertices
+     */
     private void addVertices(Collection<Vertex> vertices) {
         for (Vertex vertex : vertices) {
             if (vertex.getNamespace() == null || vertex.getId() == null) {
@@ -220,41 +307,80 @@ public class SimpleVertexProvider implements VertexProvider {
         }
     }
 
+    /**
+     * Sets the vertices.
+     *
+     * @param vertices
+     *            the new vertices
+     */
     public void setVertices(List<Vertex> vertices) {
         clearVertices();
         addVertices(vertices);
         fireVertexSetChanged();
     }
 
+    /**
+     * Adds the.
+     *
+     * @param vertices
+     *            the vertices
+     */
     public void add(Vertex... vertices) {
         add(Arrays.asList(vertices));
     }
 
+    /**
+     * Adds the.
+     *
+     * @param vertices
+     *            the vertices
+     */
     public void add(Collection<Vertex> vertices) {
         addVertices(vertices);
         fireVerticesAdded(vertices);
     }
 
+    /**
+     * Removes the.
+     *
+     * @param vertices
+     *            the vertices
+     */
     public void remove(List<VertexRef> vertices) {
         removeVertices(vertices);
         fireVerticesRemoved(vertices);
     }
 
+    /**
+     * Removes the.
+     *
+     * @param vertices
+     *            the vertices
+     */
     public void remove(VertexRef... vertices) {
         remove(Arrays.asList(vertices));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getVertices(org.opennms.features.topology.api.topo.Criteria)
+     */
     @Override
     public List<Vertex> getVertices(Criteria criteria) {
         throw new UnsupportedOperationException("VertexProvider.getVertices is not yet implemented.");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#getSemanticZoomLevel(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public int getSemanticZoomLevel(VertexRef vertex) {
         Vertex parent = getParent(vertex);
         return parent == null ? 0 : 1 + getSemanticZoomLevel(parent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#clearVertices()
+     */
     @Override
     public void clearVertices() {
         List<? extends Vertex> all = getVertices();
@@ -263,6 +389,11 @@ public class SimpleVertexProvider implements VertexProvider {
     }
 
     /**
+     * Contains vertex id.
+     *
+     * @param id
+     *            the id
+     * @return true, if successful
      * @deprecated You should search by the namespace and ID tuple instead
      */
     @Override
@@ -270,6 +401,9 @@ public class SimpleVertexProvider implements VertexProvider {
         return containsVertexId(new AbstractVertexRef(getVertexNamespace(), id));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.VertexProvider#containsVertexId(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public boolean containsVertexId(VertexRef id) {
         return getVertex(id) != null;

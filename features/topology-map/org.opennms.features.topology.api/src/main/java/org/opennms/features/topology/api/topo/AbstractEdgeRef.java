@@ -28,23 +28,51 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Class AbstractEdgeRef.
+ */
 public class AbstractEdgeRef extends AbstractRef implements EdgeRef {
 
+    /**
+     * Instantiates a new abstract edge ref.
+     *
+     * @param ref
+     *            the ref
+     */
     public AbstractEdgeRef(EdgeRef ref) {
         super(ref);
     }
 
+    /**
+     * Instantiates a new abstract edge ref.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     */
     public AbstractEdgeRef(String namespace, String id, String label) {
         super(namespace, id, label);
     }
 
     /**
+     * Instantiates a new abstract edge ref.
+     *
+     * @param namespace
+     *            the namespace
+     * @param id
+     *            the id
      * @deprecated Specify a useful label for the object
      */
     public AbstractEdgeRef(String namespace, String id) {
         super(namespace, id, namespace + ":" + id);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.AbstractRef#equals(java.lang.Object)
+     */
     @Override
     public final boolean equals(Object obj) {
         if (obj instanceof EdgeRef) {
@@ -53,6 +81,9 @@ public class AbstractEdgeRef extends AbstractRef implements EdgeRef {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "EdgeRef:" + getNamespace() + ":" + getId();

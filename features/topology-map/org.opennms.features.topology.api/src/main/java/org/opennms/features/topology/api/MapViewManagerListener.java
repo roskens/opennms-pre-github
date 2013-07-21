@@ -28,6 +28,24 @@
 
 package org.opennms.features.topology.api;
 
+/**
+ * The listener interface for receiving mapViewManager events.
+ * The class that is interested in processing a mapViewManager
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addMapViewManagerListener<code> method. When
+ * the mapViewManager event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see MapViewManagerEvent
+ */
 public interface MapViewManagerListener {
+
+    /**
+     * Bounding box changed.
+     *
+     * @param viewManager
+     *            the view manager
+     */
     public void boundingBoxChanged(MapViewManager viewManager);
 }

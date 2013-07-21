@@ -28,6 +28,9 @@
 
 package org.opennms.features.topology.api.topo;
 
+/**
+ * The Interface ConnectorRef.
+ */
 public interface ConnectorRef extends Ref {
 
 }

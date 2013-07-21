@@ -32,14 +32,31 @@ import com.vaadin.server.Resource;
 import com.vaadin.ui.Component;
 
 /**
- * A simple view UI contribution
+ * A simple view UI contribution.
  */
 public interface IViewContribution {
 
+    /**
+     * Gets the view.
+     *
+     * @param widgetContext
+     *            the widget context
+     * @return the view
+     */
     Component getView(WidgetContext widgetContext);
 
+    /**
+     * Gets the title.
+     *
+     * @return the title
+     */
     String getTitle();
 
+    /**
+     * Gets the icon.
+     *
+     * @return the icon
+     */
     Resource getIcon();
 
 }

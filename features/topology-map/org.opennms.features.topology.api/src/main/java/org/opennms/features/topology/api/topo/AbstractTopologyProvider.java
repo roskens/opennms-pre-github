@@ -36,11 +36,18 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
+/**
+ * The Class AbstractTopologyProvider.
+ */
 public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvider implements GraphProvider {
+
+    /** The Constant SIMPLE_VERTEX_ID_PREFIX. */
     protected static final String SIMPLE_VERTEX_ID_PREFIX = "v";
 
+    /** The Constant SIMPLE_GROUP_ID_PREFIX. */
     protected static final String SIMPLE_GROUP_ID_PREFIX = "g";
 
+    /** The Constant SIMPLE_EDGE_ID_PREFIX. */
     protected static final String SIMPLE_EDGE_ID_PREFIX = "e";
 
     /**
@@ -72,6 +79,14 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
          */
         private boolean initialized;
 
+        /**
+         * Instantiates a new id generator.
+         *
+         * @param idPrefix
+         *            the id prefix
+         * @param provider
+         *            the provider
+         */
         protected IdGenerator(String idPrefix, AbstractTopologyProvider provider) {
             this.idPrefix = idPrefix;
             this.provider = provider;
@@ -82,9 +97,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
          * If an entry with the generated id (see {@link #createId()} already
          * exists in {@link #provider} a new one is created.
          * This process is done until a key is created which is not already in
-         * {@link #provider}
          *
          * @return The next id in format '<prefix><counter>' (e.g. v100).
+         *         {@link #provider}
          */
         public String getNextId() {
             try {
@@ -109,12 +124,13 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         /**
          * Returns the initial value of counter.
          * Therefore the maximum number of each id from the
-         * {@link #getContent()} values are used.
-         * A id can start with any prefix (or none) so only ids which starts
-         * with the same id as {@link #idPrefix} are considered.
-         * If there is no matching content, 0 is returned.
          *
-         * @return The initial value of counter.
+         * @return The initial value of counter. {@link #getContent()} values
+         *         are used.
+         *         A id can start with any prefix (or none) so only ids which
+         *         starts
+         *         with the same id as {@link #idPrefix} are considered.
+         *         If there is no matching content, 0 is returned.
          */
         private int getInitValue() {
             int max = 0;
@@ -140,6 +156,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
             return !provider.containsVertexId(new AbstractVertexRef(provider.getVertexNamespace(), generatedId));
         }
 
+        /**
+         * Reset.
+         */
         public void reset() {
             counter = 0;
             initialized = false;
@@ -166,6 +185,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
             }
         }
 
+        /**
+         * Initialize if needed.
+         */
         private void initializeIfNeeded() {
             if (!initialized) {
                 counter = getInitValue();
@@ -173,9 +195,15 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
             }
         }
 
+        /**
+         * Gets the content.
+         *
+         * @return the content
+         */
         public abstract List<Ref> getContent();
     }
 
+    /** The group id generator. */
     private IdGenerator groupIdGenerator = new IdGenerator(SIMPLE_GROUP_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
@@ -183,6 +211,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
     };
 
+    /** The edge id generator. */
     private IdGenerator edgeIdGenerator = new IdGenerator(SIMPLE_EDGE_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
@@ -190,6 +219,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
     };
 
+    /** The vertex id generator. */
     private IdGenerator vertexIdGenerator = new IdGenerator(SIMPLE_VERTEX_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
@@ -197,22 +227,48 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
     };
 
+    /**
+     * Gets the next vertex id.
+     *
+     * @return the next vertex id
+     */
     protected String getNextVertexId() {
         return vertexIdGenerator.getNextId();
     }
 
+    /**
+     * Gets the next group id.
+     *
+     * @return the next group id
+     */
     protected String getNextGroupId() {
         return groupIdGenerator.getNextId();
     }
 
+    /**
+     * Gets the next edge id.
+     *
+     * @return the next edge id
+     */
     protected String getNextEdgeId() {
         return edgeIdGenerator.getNextId();
     }
 
+    /**
+     * Instantiates a new abstract topology provider.
+     *
+     * @param namespace
+     *            the namespace
+     */
     protected AbstractTopologyProvider(String namespace) {
         super(namespace);
     }
 
+    /**
+     * Gets the vertices without groups.
+     *
+     * @return the vertices without groups
+     */
     public List<Vertex> getVerticesWithoutGroups() {
         return new ArrayList<Vertex>(Collections2.filter(getVertices(), new Predicate<Vertex>() {
             public boolean apply(Vertex input) {
@@ -221,6 +277,11 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }));
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @return the groups
+     */
     public List<Vertex> getGroups() {
         return new ArrayList<Vertex>(Collections2.filter(getVertices(), new Predicate<Vertex>() {
             public boolean apply(Vertex input) {
@@ -229,6 +290,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#removeVertex(org.opennms.features.topology.api.topo.VertexRef[])
+     */
     @Override
     public final void removeVertex(VertexRef... vertexId) {
         for (VertexRef vertex : vertexId) {
@@ -241,17 +305,34 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#addVertices(org.opennms.features.topology.api.topo.Vertex[])
+     */
     @Override
     public final void addVertices(Vertex... vertices) {
         getSimpleVertexProvider().add(vertices);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#addVertex(int, int)
+     */
     @Override
     public final AbstractVertex addVertex(int x, int y) {
         String id = getNextVertexId();
         return addVertex(id, x, y);
     }
 
+    /**
+     * Adds the vertex.
+     *
+     * @param id
+     *            the id
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     * @return the abstract vertex
+     */
     protected final AbstractVertex addVertex(String id, int x, int y) {
         LoggerFactory.getLogger(getClass()).debug("Adding vertex in {} with ID: {}", getClass().getSimpleName(), id);
         AbstractVertex vertex = new SimpleLeafVertex(getVertexNamespace(), id, x, y);
@@ -259,12 +340,26 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         return vertex;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#addGroup(java.lang.String, java.lang.String)
+     */
     @Override
     public final AbstractVertex addGroup(String groupName, String groupIconKey) {
         String nextGroupId = getNextGroupId();
         return addGroup(nextGroupId, groupIconKey, groupName);
     }
 
+    /**
+     * Adds the group.
+     *
+     * @param groupId
+     *            the group id
+     * @param iconKey
+     *            the icon key
+     * @param label
+     *            the label
+     * @return the abstract vertex
+     */
     protected final AbstractVertex addGroup(String groupId, String iconKey, String label) {
         AbstractVertex vertex = new SimpleGroup(getVertexNamespace(), groupId);
         if (containsVertexId(vertex)) {
@@ -277,16 +372,25 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         return vertex;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#addEdges(org.opennms.features.topology.api.topo.Edge[])
+     */
     @Override
     public final void addEdges(Edge... edges) {
         getSimpleEdgeProvider().add(edges);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#removeEdges(org.opennms.features.topology.api.topo.EdgeRef[])
+     */
     @Override
     public final void removeEdges(EdgeRef... edge) {
         getSimpleEdgeProvider().remove(edge);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#getEdgeIdsForVertex(org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public final EdgeRef[] getEdgeIdsForVertex(VertexRef vertex) {
         if (vertex == null)
@@ -302,12 +406,26 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         return retval.toArray(new EdgeRef[0]);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#connectVertices(org.opennms.features.topology.api.topo.VertexRef, org.opennms.features.topology.api.topo.VertexRef)
+     */
     @Override
     public Edge connectVertices(VertexRef sourceVertextId, VertexRef targetVertextId) {
         String nextEdgeId = getNextEdgeId();
         return connectVertices(nextEdgeId, sourceVertextId, targetVertextId);
     }
 
+    /**
+     * Connect vertices.
+     *
+     * @param id
+     *            the id
+     * @param sourceId
+     *            the source id
+     * @param targetId
+     *            the target id
+     * @return the abstract edge
+     */
     protected final AbstractEdge connectVertices(String id, VertexRef sourceId, VertexRef targetId) {
         SimpleConnector source = new SimpleConnector(getEdgeNamespace(), sourceId.getId() + "-" + id + "-connector",
                                                      sourceId);
@@ -321,6 +439,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         return edge;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#resetContainer()
+     */
     @Override
     public void resetContainer() {
         clearVertices();
@@ -328,6 +449,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         clearCounters();
     }
 
+    /**
+     * Clear counters.
+     */
     protected void clearCounters() {
         vertexIdGenerator.reset();
         groupIdGenerator.reset();
