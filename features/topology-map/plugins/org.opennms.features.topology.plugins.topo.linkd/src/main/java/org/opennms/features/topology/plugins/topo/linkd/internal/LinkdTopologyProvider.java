@@ -63,17 +63,31 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class LinkdTopologyProvider.
+ */
 public class LinkdTopologyProvider extends AbstractTopologyProvider implements GraphProvider {
 
+    /**
+     * The Class LinkStateMachine.
+     */
     private class LinkStateMachine {
+
+        /** The m_up state. */
         LinkState m_upState;
 
+        /** The m_down state. */
         LinkState m_downState;
 
+        /** The m_unknown state. */
         LinkState m_unknownState;
 
+        /** The m_state. */
         LinkState m_state;
 
+        /**
+         * Instantiates a new link state machine.
+         */
         public LinkStateMachine() {
             m_upState = new LinkUpState(this);
             m_downState = new LinkDownState(this);
@@ -81,56 +95,134 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             m_state = m_upState;
         }
 
+        /**
+         * Sets the parent interfaces.
+         *
+         * @param sourceInterface
+         *            the source interface
+         * @param targetInterface
+         *            the target interface
+         */
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             m_state.setParentInterfaces(sourceInterface, targetInterface);
         }
 
+        /**
+         * Gets the link status.
+         *
+         * @return the link status
+         */
         public String getLinkStatus() {
             return m_state.getLinkStatus();
         }
 
+        /**
+         * Gets the up state.
+         *
+         * @return the up state
+         */
         public LinkState getUpState() {
             return m_upState;
         }
 
+        /**
+         * Gets the down state.
+         *
+         * @return the down state
+         */
         public LinkState getDownState() {
             return m_downState;
         }
 
+        /**
+         * Gets the unknown state.
+         *
+         * @return the unknown state
+         */
         public LinkState getUnknownState() {
             return m_unknownState;
         }
 
+        /**
+         * Sets the state.
+         *
+         * @param state
+         *            the new state
+         */
         public void setState(LinkState state) {
             m_state = state;
         }
     }
 
+    /**
+     * The Interface LinkState.
+     */
     private interface LinkState {
+
+        /**
+         * Sets the parent interfaces.
+         *
+         * @param sourceInterface
+         *            the source interface
+         * @param targetInterface
+         *            the target interface
+         */
         void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface);
 
+        /**
+         * Gets the link status.
+         *
+         * @return the link status
+         */
         String getLinkStatus();
     }
 
+    /**
+     * The Class AbstractLinkState.
+     */
     private abstract class AbstractLinkState implements LinkState {
 
+        /** The m_link state machine. */
         private LinkStateMachine m_linkStateMachine;
 
+        /**
+         * Instantiates a new abstract link state.
+         *
+         * @param linkStateMachine
+         *            the link state machine
+         */
         public AbstractLinkState(LinkStateMachine linkStateMachine) {
             m_linkStateMachine = linkStateMachine;
         }
 
+        /**
+         * Gets the link state machine.
+         *
+         * @return the link state machine
+         */
         protected LinkStateMachine getLinkStateMachine() {
             return m_linkStateMachine;
         }
     }
 
+    /**
+     * The Class LinkUpState.
+     */
     private class LinkUpState extends AbstractLinkState {
 
+        /**
+         * Instantiates a new link up state.
+         *
+         * @param linkStateMachine
+         *            the link state machine
+         */
         public LinkUpState(LinkStateMachine linkStateMachine) {
             super(linkStateMachine);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#setParentInterfaces(org.opennms.netmgt.model.OnmsSnmpInterface, org.opennms.netmgt.model.OnmsSnmpInterface)
+         */
         @Override
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             if (sourceInterface != null && sourceInterface.getIfOperStatus() != null) {
@@ -151,6 +243,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#getLinkStatus()
+         */
         @Override
         public String getLinkStatus() {
             return OPER_ADMIN_STATUS[1];
@@ -158,12 +253,24 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     }
 
+    /**
+     * The Class LinkDownState.
+     */
     private class LinkDownState extends AbstractLinkState {
 
+        /**
+         * Instantiates a new link down state.
+         *
+         * @param linkStateMachine
+         *            the link state machine
+         */
         public LinkDownState(LinkStateMachine linkStateMachine) {
             super(linkStateMachine);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#setParentInterfaces(org.opennms.netmgt.model.OnmsSnmpInterface, org.opennms.netmgt.model.OnmsSnmpInterface)
+         */
         @Override
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             if (targetInterface != null && targetInterface.getIfOperStatus() != null) {
@@ -177,6 +284,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#getLinkStatus()
+         */
         @Override
         public String getLinkStatus() {
             return OPER_ADMIN_STATUS[2];
@@ -184,12 +294,24 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     }
 
+    /**
+     * The Class LinkUnknownState.
+     */
     private class LinkUnknownState extends AbstractLinkState {
 
+        /**
+         * Instantiates a new link unknown state.
+         *
+         * @param linkStateMachine
+         *            the link state machine
+         */
         public LinkUnknownState(LinkStateMachine linkStateMachine) {
             super(linkStateMachine);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#setParentInterfaces(org.opennms.netmgt.model.OnmsSnmpInterface, org.opennms.netmgt.model.OnmsSnmpInterface)
+         */
         @Override
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             if (targetInterface != null && targetInterface.getIfOperStatus() != null) {
@@ -204,6 +326,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider.LinkState#getLinkStatus()
+         */
         @Override
         public String getLinkStatus() {
             return OPER_ADMIN_STATUS[4];
@@ -211,14 +336,19 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     }
 
+    /** The Constant TOPOLOGY_NAMESPACE_LINKD. */
     public static final String TOPOLOGY_NAMESPACE_LINKD = "nodes";
 
+    /** The Constant GROUP_ICON_KEY. */
     public static final String GROUP_ICON_KEY = "linkd:group";
 
+    /** The Constant SERVER_ICON_KEY. */
     public static final String SERVER_ICON_KEY = "linkd:system";
 
+    /** The Constant HTML_TOOLTIP_TAG_OPEN. */
     private static final String HTML_TOOLTIP_TAG_OPEN = "<p>";
 
+    /** The Constant HTML_TOOLTIP_TAG_END. */
     private static final String HTML_TOOLTIP_TAG_END = "</p>";
 
     /**
@@ -245,6 +375,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         m_nodeStatusMap.put('D', "Deleted");
     }
 
+    /** The Constant OPER_ADMIN_STATUS. */
     static final String[] OPER_ADMIN_STATUS = new String[] { "&nbsp;", // 0 (not
                                                                        // supported)
             "Up", // 1
@@ -256,79 +387,159 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             "LowerLayerDown" // 7
     };
 
+    /** The add node without link. */
     private boolean addNodeWithoutLink = false;
 
+    /** The m_data link interface dao. */
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_configuration file. */
     private String m_configurationFile;
 
+    /**
+     * Gets the configuration file.
+     *
+     * @return the configuration file
+     */
     public String getConfigurationFile() {
         return m_configurationFile;
     }
 
+    /**
+     * Sets the configuration file.
+     *
+     * @param configurationFile
+     *            the new configuration file
+     */
     public void setConfigurationFile(String configurationFile) {
         m_configurationFile = configurationFile;
     }
 
+    /**
+     * Gets the snmp interface dao.
+     *
+     * @return the snmp interface dao
+     */
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    /**
+     * Sets the snmp interface dao.
+     *
+     * @param snmpInterfaceDao
+     *            the new snmp interface dao
+     */
     public void setSnmpInterfaceDao(SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Checks if is adds the node without link.
+     *
+     * @return true, if is adds the node without link
+     */
     public boolean isAddNodeWithoutLink() {
         return addNodeWithoutLink;
     }
 
+    /**
+     * Sets the adds the node without link.
+     *
+     * @param addNodeWithoutLink
+     *            the new adds the node without link
+     */
     public void setAddNodeWithoutLink(boolean addNodeWithoutLink) {
         this.addNodeWithoutLink = addNodeWithoutLink;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
     /**
-     * Used as an init-method in the OSGi blueprint
+     * Used as an init-method in the OSGi blueprint.
      *
-     * @throws JAXBException
      * @throws MalformedURLException
+     *             the malformed url exception
+     * @throws JAXBException
+     *             the jAXB exception
      */
     public void onInit() throws MalformedURLException, JAXBException {
         log("init: loading topology v1.3");
         load(null);
     }
 
+    /**
+     * Instantiates a new linkd topology provider.
+     */
     public LinkdTopologyProvider() {
         super(TOPOLOGY_NAMESPACE_LINKD);
     }
 
+    /**
+     * Gets the graph from file.
+     *
+     * @param file
+     *            the file
+     * @return the graph from file
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     private static WrappedGraph getGraphFromFile(File file) throws JAXBException, MalformedURLException {
         JAXBContext jc = JAXBContext.newInstance(WrappedGraph.class);
         Unmarshaller u = jc.createUnmarshaller();
         return (WrappedGraph) u.unmarshal(file.toURI().toURL());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#refresh()
+     */
     @Override
     public void refresh() {
         try {
@@ -340,6 +551,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#load(java.lang.String)
+     */
     @Override
     public void load(String filename) throws MalformedURLException, JAXBException {
         if (filename != null) {
@@ -452,6 +666,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         log("Found " + getEdges().size() + " edges");
     }
 
+    /**
+     * Gets the vertex.
+     *
+     * @param onmsnode
+     *            the onmsnode
+     * @return the vertex
+     */
     private AbstractVertex getVertex(OnmsNode onmsnode) {
         OnmsIpInterface ip = getAddress(onmsnode);
         AbstractVertex vertex = new SimpleLeafVertex(TOPOLOGY_NAMESPACE_LINKD, onmsnode.getNodeId(), 0, 0);
@@ -463,6 +684,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         return vertex;
     }
 
+    /**
+     * Gets the address.
+     *
+     * @param node
+     *            the node
+     * @return the address
+     */
     private OnmsIpInterface getAddress(OnmsNode node) {
         // OnmsIpInterface ip = node.getPrimaryInterface();
         OnmsIpInterface ip = m_ipInterfaceDao.findPrimaryInterfaceByNodeId(node.getId());
@@ -476,6 +704,17 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         return ip;
     }
 
+    /**
+     * Gets the edge tooltip text.
+     *
+     * @param link
+     *            the link
+     * @param source
+     *            the source
+     * @param target
+     *            the target
+     * @return the edge tooltip text
+     */
     private String getEdgeTooltipText(DataLinkInterface link, Vertex source, Vertex target) {
         StringBuffer tooltipText = new StringBuffer();
 
@@ -536,6 +775,17 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         return tooltipText.toString();
     }
 
+    /**
+     * Gets the node tooltip text.
+     *
+     * @param node
+     *            the node
+     * @param vertex
+     *            the vertex
+     * @param ip
+     *            the ip
+     * @return the node tooltip text
+     */
     private static String getNodeTooltipText(OnmsNode node, AbstractVertex vertex, OnmsIpInterface ip) {
         StringBuffer tooltipText = new StringBuffer();
 
@@ -573,10 +823,20 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     }
 
+    /**
+     * Gets the icon name.
+     *
+     * @param node
+     *            the node
+     * @return the icon name
+     */
     public static String getIconName(OnmsNode node) {
         return node.getSysObjectId() == null ? "linkd:system" : "linkd:system:snmp:" + node.getSysObjectId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.topo.GraphProvider#save()
+     */
     @Override
     public void save() {
         List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
@@ -603,6 +863,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         JAXB.marshal(graph, new File(m_configurationFile));
     }
 
+    /**
+     * Gets the if status string.
+     *
+     * @param ifStatusNum
+     *            the if status num
+     * @return the if status string
+     */
     private static String getIfStatusString(int ifStatusNum) {
         if (ifStatusNum < OPER_ADMIN_STATUS.length) {
             return OPER_ADMIN_STATUS[ifStatusNum];
@@ -673,14 +940,31 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         return formatter.format(displaySpeed) + " " + units;
     }
 
+    /**
+     * Log.
+     *
+     * @param string
+     *            the string
+     */
     private static void log(final String string) {
         LoggerFactory.getLogger(LinkdTopologyProvider.class).debug(string);
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }

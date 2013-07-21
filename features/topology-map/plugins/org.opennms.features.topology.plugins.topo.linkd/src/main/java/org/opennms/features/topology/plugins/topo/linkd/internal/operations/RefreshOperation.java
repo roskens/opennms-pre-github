@@ -35,8 +35,14 @@ import org.opennms.features.topology.api.OperationContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RefreshOperation.
+ */
 public class RefreshOperation implements Operation {
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         if (operationContext != null && operationContext.getGraphContainer() != null) {
@@ -50,20 +56,35 @@ public class RefreshOperation implements Operation {
         return null;
     }
 
+    /**
+     * Log.
+     *
+     * @param string
+     *            the string
+     */
     private void log(final String string) {
         LoggerFactory.getLogger(getClass()).debug("{}: {}", getId(), string);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#enabled(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "LinkdTopologyProviderRefreshOperation";

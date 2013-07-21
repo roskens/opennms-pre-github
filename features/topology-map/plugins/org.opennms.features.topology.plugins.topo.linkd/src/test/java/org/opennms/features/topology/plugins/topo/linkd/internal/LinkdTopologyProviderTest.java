@@ -71,27 +71,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class LinkdTopologyProviderTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-mock.xml" })
 public class LinkdTopologyProviderTest {
+
+    /** The m_refresh operation. */
     @Autowired
     private RefreshOperation m_refreshOperation;
 
+    /** The m_operation context. */
     @Autowired
     private OperationContext m_operationContext;
 
+    /** The m_topology provider. */
     @Autowired
     private LinkdTopologyProvider m_topologyProvider;
 
+    /** The m_database populator. */
     @Autowired
     private EasyMockDataPopulator m_databasePopulator;
 
+    /**
+     * Adds the vertex to topr.
+     *
+     * @return the vertex ref
+     */
     private VertexRef addVertexToTopr() {
         return m_topologyProvider.addVertex(0, 0);
     }
 
+    /** The m_original filename. */
     private String m_originalFilename;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -102,6 +122,9 @@ public class LinkdTopologyProviderTest {
         m_topologyProvider.load(null);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_databasePopulator.tearDown();
@@ -111,6 +134,9 @@ public class LinkdTopologyProviderTest {
         m_topologyProvider.setConfigurationFile(m_originalFilename);
     }
 
+    /**
+     * Test get icon.
+     */
     @Test
     public void testGetIcon() {
         Assert.assertTrue("linkd:system:snmp:1.3.6.1.4.1.5813.1.25".equals(LinkdTopologyProvider.getIconName(m_databasePopulator.getNode1())));
@@ -124,11 +150,17 @@ public class LinkdTopologyProviderTest {
 
     }
 
+    /**
+     * Test load.
+     */
     @Test
     public void testLoad() {
         m_databasePopulator.check(m_topologyProvider);
     }
 
+    /**
+     * Test save.
+     */
     @Test
     public void testSave() {
         m_topologyProvider.setConfigurationFile("target/test-map.xml");
@@ -136,18 +168,30 @@ public class LinkdTopologyProviderTest {
         m_databasePopulator.check(m_topologyProvider);
     }
 
+    /**
+     * Test operation refresh.
+     */
     @Test
     public void testOperationRefresh() {
         m_refreshOperation.execute(null, m_operationContext);
         m_databasePopulator.check(m_topologyProvider);
     }
 
+    /**
+     * Test add group.
+     */
     @Test
     public void testAddGroup() {
         Vertex parentId = m_topologyProvider.addGroup("Linkd Group", LinkdTopologyProvider.GROUP_ICON_KEY);
         Assert.assertEquals(true, m_topologyProvider.containsVertexId(parentId));
     }
 
+    /**
+     * Test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void test() throws Exception {
         new File("target/test-classes/test.xml").delete();
@@ -271,6 +315,12 @@ public class LinkdTopologyProviderTest {
         assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexE));
     }
 
+    /**
+     * Load sample graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void loadSampleGraph() throws Exception {
         m_topologyProvider.setConfigurationFile("target/test-classes/saved-vmware-graph.xml");
@@ -282,6 +332,12 @@ public class LinkdTopologyProviderTest {
         assertEquals(8, m_topologyProvider.getEdges().size());
     }
 
+    /**
+     * Load saved graph with only groups.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void loadSavedGraphWithOnlyGroups() throws Exception {
         m_topologyProvider.setConfigurationFile("target/test-classes/saved-linkd-graph.xml");
@@ -352,6 +408,12 @@ public class LinkdTopologyProviderTest {
         m_topologyProvider.setDataLinkInterfaceDao(dao);
     }
 
+    /**
+     * Test load simple graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSimpleGraph() throws Exception {
         /*
@@ -404,6 +466,9 @@ public class LinkdTopologyProviderTest {
         }
     }
 
+    /**
+     * Test connect vertices.
+     */
     @Test
     public void testConnectVertices() {
         m_topologyProvider.resetContainer();
@@ -431,6 +496,9 @@ public class LinkdTopologyProviderTest {
 
     }
 
+    /**
+     * Test topo provider set parent.
+     */
     @Test
     public void testTopoProviderSetParent() {
         VertexRef vertexId1 = addVertexToTopr();
@@ -470,7 +538,9 @@ public class LinkdTopologyProviderTest {
      * children as well.
      *
      * @throws MalformedURLException
+     *             the malformed url exception
      * @throws JAXBException
+     *             the jAXB exception
      */
     @Test
     public void testAssignChildrenToParentsCorrectly() throws MalformedURLException, JAXBException {
@@ -515,6 +585,16 @@ public class LinkdTopologyProviderTest {
     }
 
     // checks that the vertex and the node are equal
+    /**
+     * Check.
+     *
+     * @param child
+     *            the child
+     * @param node
+     *            the node
+     * @param parent
+     *            the parent
+     */
     private void check(Vertex child, OnmsNode node, Vertex parent) {
         Assert.assertNotNull(child);
         Assert.assertNotNull(child.getTooltipText());

@@ -39,14 +39,27 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.features.topology.plugins.topo.linkd.internal.LinkdTopologyProvider;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class HideNodesWithoutLinksOperation.
+ */
 public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
 
+    /** The m_topology provider. */
     private final LinkdTopologyProvider m_topologyProvider;
 
+    /**
+     * Instantiates a new hide nodes without links operation.
+     *
+     * @param topologyProvider
+     *            the topology provider
+     */
     public HideNodesWithoutLinksOperation(LinkdTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#execute(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         if (enabled(targets, operationContext)) {
@@ -55,6 +68,12 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
         return null;
     }
 
+    /**
+     * Execute.
+     *
+     * @param container
+     *            the container
+     */
     private void execute(GraphContainer container) {
         LoggerFactory.getLogger(this.getClass()).debug("switched addNodeWithoutLinks to: "
                                                                + !m_topologyProvider.isAddNodeWithoutLink());
@@ -63,6 +82,9 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
         container.redoLayout();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#display(java.util.List, org.opennms.features.topology.api.OperationContext)
+     */
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
@@ -72,6 +94,10 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
      * This is kinda unreliable because we are just matching on namespace... but
      * that's all we can do with
      * the API as it is now.
+     *
+     * @param container
+     *            the container
+     * @return true, if successful
      */
     @Override
     protected boolean enabled(GraphContainer container) {
@@ -79,11 +105,17 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
         return m_topologyProvider.getVertexNamespace().equals(activeGraphProvider.getVertexNamespace());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.Operation#getId()
+     */
     @Override
     public String getId() {
         return "LinkdTopologyProviderHidesNodesWithoutLinksOperation";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.AbstractCheckedOperation#isChecked(org.opennms.features.topology.api.GraphContainer)
+     */
     @Override
     protected boolean isChecked(GraphContainer container) {
         if (enabled(container)) {
@@ -93,6 +125,9 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.HistoryOperation#applyHistory(org.opennms.features.topology.api.GraphContainer, java.util.Map)
+     */
     @Override
     public void applyHistory(GraphContainer container, Map<String, String> settings) {
         if ("true".equals(settings.get(this.getClass().getName()))) {
