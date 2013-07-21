@@ -31,13 +31,14 @@ package org.opennms.netmgt.provision.persist;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
 
 /**
- * OnmsAssetRequisition
+ * OnmsAssetRequisition.
  *
  * @author brozow
  * @version $Id: $
  */
 public class OnmsAssetRequisition {
 
+    /** The m_asset. */
     private RequisitionAsset m_asset;
 
     /**
@@ -54,6 +55,11 @@ public class OnmsAssetRequisition {
         m_asset = asset;
     }
 
+    /**
+     * Gets the asset.
+     *
+     * @return the asset
+     */
     RequisitionAsset getAsset() {
         return m_asset;
     }
@@ -62,6 +68,7 @@ public class OnmsAssetRequisition {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -77,6 +84,7 @@ public class OnmsAssetRequisition {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,6 +96,7 @@ public class OnmsAssetRequisition {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

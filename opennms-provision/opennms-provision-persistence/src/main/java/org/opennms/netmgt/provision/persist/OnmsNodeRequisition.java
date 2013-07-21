@@ -43,23 +43,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OnmsNodeRequistion
+ * OnmsNodeRequistion.
  *
  * @author brozow
  * @version $Id: $
  */
 public class OnmsNodeRequisition {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsNodeRequisition.class);
 
+    /** The m_foreign source. */
     private String m_foreignSource;
 
+    /** The m_node. */
     private RequisitionNode m_node;
 
+    /** The m_asset reqs. */
     private List<OnmsAssetRequisition> m_assetReqs;
 
+    /** The m_iface reqs. */
     private List<OnmsIpInterfaceRequisition> m_ifaceReqs;
 
+    /** The m_category reqs. */
     private List<OnmsNodeCategoryRequisition> m_categoryReqs;
 
     /**
@@ -91,6 +97,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +105,11 @@ public class OnmsNodeRequisition {
         return m_foreignSource;
     }
 
+    /**
+     * Construct asset requistions.
+     *
+     * @return the list
+     */
     private List<OnmsAssetRequisition> constructAssetRequistions() {
         final List<OnmsAssetRequisition> reqs = new ArrayList<OnmsAssetRequisition>(m_node.getAssets().size());
         for (final RequisitionAsset asset : m_node.getAssets()) {
@@ -106,6 +118,11 @@ public class OnmsNodeRequisition {
         return reqs;
     }
 
+    /**
+     * Construct ip interface requistions.
+     *
+     * @return the list
+     */
     private List<OnmsIpInterfaceRequisition> constructIpInterfaceRequistions() {
         final List<OnmsIpInterfaceRequisition> reqs = new ArrayList<OnmsIpInterfaceRequisition>(
                                                                                                 m_node.getInterfaces().size());
@@ -115,6 +132,11 @@ public class OnmsNodeRequisition {
         return reqs;
     }
 
+    /**
+     * Construct category requistions.
+     *
+     * @return the list
+     */
     private List<OnmsNodeCategoryRequisition> constructCategoryRequistions() {
         final List<OnmsNodeCategoryRequisition> reqs = new ArrayList<OnmsNodeCategoryRequisition>(
                                                                                                   m_node.getCategories().size());
@@ -134,6 +156,7 @@ public class OnmsNodeRequisition {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -154,23 +177,42 @@ public class OnmsNodeRequisition {
         visitor.completeNode(this);
     }
 
+    /**
+     * The Class OnmsNodeBuilder.
+     */
     private static class OnmsNodeBuilder extends AbstractRequisitionVisitor {
+
+        /** The bldr. */
         private NetworkBuilder bldr = new NetworkBuilder();
 
+        /**
+         * Gets the node.
+         *
+         * @return the node
+         */
         public OnmsNode getNode() {
             return bldr.getCurrentNode();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#visitAsset(org.opennms.netmgt.provision.persist.OnmsAssetRequisition)
+         */
         @Override
         public void visitAsset(final OnmsAssetRequisition assetReq) {
             bldr.setAssetAttribute(assetReq.getName(), assetReq.getValue());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#visitNodeCategory(org.opennms.netmgt.provision.persist.OnmsNodeCategoryRequisition)
+         */
         @Override
         public void visitNodeCategory(final OnmsNodeCategoryRequisition catReq) {
             bldr.addCategory(catReq.getName());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#visitInterface(org.opennms.netmgt.provision.persist.OnmsIpInterfaceRequisition)
+         */
         @Override
         public void visitInterface(final OnmsIpInterfaceRequisition ifaceReq) {
             final String ipAddr = ifaceReq.getIpAddr();
@@ -187,11 +229,17 @@ public class OnmsNodeRequisition {
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#visitMonitoredService(org.opennms.netmgt.provision.persist.OnmsMonitoredServiceRequisition)
+         */
         @Override
         public void visitMonitoredService(final OnmsMonitoredServiceRequisition monSvcReq) {
             bldr.addService(monSvcReq.getServiceName());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#visitNode(org.opennms.netmgt.provision.persist.OnmsNodeRequisition)
+         */
         @Override
         public void visitNode(final OnmsNodeRequisition nodeReq) {
             final NodeBuilder nodeBldr = bldr.addNode(nodeReq.getNodeLabel());
@@ -214,6 +262,7 @@ public class OnmsNodeRequisition {
      * <p>
      * constructOnmsNodeFromRequisition
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
@@ -231,6 +280,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -246,6 +296,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -261,6 +312,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getBuilding
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -276,6 +328,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getCity
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,6 +346,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getParentForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -309,6 +363,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getParentForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -325,6 +380,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getParentNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -340,6 +396,7 @@ public class OnmsNodeRequisition {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode}

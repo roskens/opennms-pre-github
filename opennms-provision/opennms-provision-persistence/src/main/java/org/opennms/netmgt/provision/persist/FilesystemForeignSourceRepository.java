@@ -61,18 +61,25 @@ import org.springframework.util.Assert;
  */
 public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FilesystemForeignSourceRepository.class);
 
+    /** The m_requisition path. */
     private String m_requisitionPath;
 
+    /** The m_foreign source path. */
     private String m_foreignSourcePath;
 
+    /** The m_update date stamps. */
     private boolean m_updateDateStamps = true;
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -80,13 +87,16 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * Constructor for FilesystemForeignSourceRepository.
      * </p>
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public FilesystemForeignSourceRepository() throws ForeignSourceRepositoryException {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_requisitionPath, "Requisition path must not be empty.");
@@ -97,6 +107,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * getActiveForeignSourceNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -131,6 +142,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * setUpdateDateStamps
      * </p>
+     * .
      *
      * @param update
      *            a boolean.
@@ -148,10 +160,11 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * getForeignSourceCount
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public int getForeignSourceCount() throws ForeignSourceRepositoryException {
@@ -167,10 +180,11 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * getForeignSources
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
@@ -272,10 +286,11 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * getRequisitions
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
@@ -325,16 +340,17 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * getRequisition
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
@@ -353,13 +369,14 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * save
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
@@ -397,13 +414,14 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
@@ -429,6 +447,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * setRequisitionPath
      * </p>
+     * .
      *
      * @param path
      *            a {@link java.lang.String} object.
@@ -446,6 +465,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
      * <p>
      * setForeignSourcePath
      * </p>
+     * .
      *
      * @param path
      *            a {@link java.lang.String} object.
@@ -491,6 +511,9 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#flush()
+     */
     @Override
     public void flush() throws ForeignSourceRepositoryException {
         // Unnecessary, there is no caching/delayed writes in

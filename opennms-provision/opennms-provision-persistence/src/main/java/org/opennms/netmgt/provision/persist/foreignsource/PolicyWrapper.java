@@ -40,6 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "policy")
 public class PolicyWrapper extends PluginConfig {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2274187366206871955L;
 
     /**

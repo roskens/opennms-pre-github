@@ -65,25 +65,35 @@ import org.springframework.beans.factory.annotation.Qualifier;
  */
 public class DefaultForeignSourceService implements ForeignSourceService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultForeignSourceService.class);
 
+    /** The m_service registry. */
     @Autowired
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_deployed foreign source repository. */
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_deployedForeignSourceRepository;
 
+    /** The m_pending foreign source repository. */
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
+    /** The m_detectors. */
     private static Map<String, String> m_detectors;
 
+    /** The m_policies. */
     private static Map<String, String> m_policies;
 
+    /** The m_wrappers. */
     private static Map<String, PluginWrapper> m_wrappers;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -105,6 +115,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
      * <p>
      * getAllForeignSources
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -267,6 +278,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
      * <p>
      * getDetectorTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -295,6 +307,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
      * <p>
      * getPolicyTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -326,6 +339,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
      * <p>
      * getWrappers
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -353,6 +367,12 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         return m_wrappers;
     }
 
+    /**
+     * Normalize plugin configs.
+     *
+     * @param fs
+     *            the fs
+     */
     private void normalizePluginConfigs(ForeignSource fs) {
         for (PluginConfig pc : fs.getDetectors()) {
             normalizePluginConfig(pc);
@@ -362,6 +382,12 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         }
     }
 
+    /**
+     * Normalize plugin config.
+     *
+     * @param pc
+     *            the pc
+     */
     private void normalizePluginConfig(PluginConfig pc) {
         if (m_wrappers.containsKey(pc.getPluginClass())) {
             PluginWrapper w = m_wrappers.get(pc.getPluginClass());

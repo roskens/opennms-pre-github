@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.annotations.Require;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class NodeCategorySettingPolicy.
+ */
 @Component
 /**
  * <p>NodeCategorySettingPolicy class.</p>
@@ -48,6 +51,7 @@ import org.springframework.stereotype.Component;
 @Policy("Set Node Category")
 public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements NodePolicy {
 
+    /** The m_category. */
     private String m_category;
 
     /** {@inheritDoc} */
@@ -69,6 +73,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +86,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -93,6 +99,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,6 +111,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -116,6 +124,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getSysObjectId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,6 +136,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setSysObjectId
      * </p>
+     * .
      *
      * @param sysObjectId
      *            a {@link java.lang.String} object.
@@ -139,6 +149,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getSysName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,6 +161,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setSysName
      * </p>
+     * .
      *
      * @param sysName
      *            a {@link java.lang.String} object.
@@ -162,6 +174,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getSysDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -173,6 +186,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setSysDescription
      * </p>
+     * .
      *
      * @param sysDescription
      *            a {@link java.lang.String} object.
@@ -185,6 +199,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getSysLocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -196,6 +211,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setSysLocation
      * </p>
+     * .
      *
      * @param sysLocation
      *            a {@link java.lang.String} object.
@@ -208,6 +224,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getSysContact
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +236,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setSysContact
      * </p>
+     * .
      *
      * @param sysContact
      *            a {@link java.lang.String} object.
@@ -231,6 +249,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +261,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -254,6 +274,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getLabelSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -265,6 +286,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setLabelSource
      * </p>
+     * .
      *
      * @param labelSource
      *            a {@link java.lang.String} object.
@@ -277,6 +299,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getNetBiosName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -288,6 +311,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setNetBiosName
      * </p>
+     * .
      *
      * @param netBiosName
      *            a {@link java.lang.String} object.
@@ -300,6 +324,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getNetBiosDomain
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -311,6 +336,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setNetBiosDomain
      * </p>
+     * .
      *
      * @param netBiosDomain
      *            a {@link java.lang.String} object.
@@ -323,6 +349,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getOperatingSystem
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -334,6 +361,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setOperatingSystem
      * </p>
+     * .
      *
      * @param operatingSystem
      *            a {@link java.lang.String} object.
@@ -346,6 +374,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -357,6 +386,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setForeignId
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -369,6 +399,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -380,6 +411,7 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.

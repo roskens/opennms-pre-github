@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "nodes")
 public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7563467532077046047L;
 
     /**
@@ -74,6 +75,7 @@ public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
      * <p>
      * setNodes
      * </p>
+     * .
      *
      * @param requisitions
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

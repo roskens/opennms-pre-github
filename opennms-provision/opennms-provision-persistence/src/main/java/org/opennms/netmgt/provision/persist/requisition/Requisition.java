@@ -78,25 +78,34 @@ import org.springframework.core.io.Resource;
 @XmlRootElement(name = "model-import")
 @ValidateUsing("model-import.xsd")
 public class Requisition implements Serializable, Comparable<Requisition> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Requisition.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1629774241824443273L;
 
+    /** The m_node reqs. */
     @XmlTransient
     private Map<String, OnmsNodeRequisition> m_nodeReqs = new LinkedHashMap<String, OnmsNodeRequisition>();
 
+    /** The m_nodes. */
     @XmlElement(name = "node")
     protected List<RequisitionNode> m_nodes = new ArrayList<RequisitionNode>();
 
+    /** The m_date stamp. */
     @XmlAttribute(name = "date-stamp")
     protected XMLGregorianCalendar m_dateStamp;
 
+    /** The m_foreign source. */
     @XmlAttribute(name = "foreign-source")
     protected String m_foreignSource = "imported:";
 
+    /** The m_last import. */
     @XmlAttribute(name = "last-import")
     protected XMLGregorianCalendar m_lastImport;
 
+    /** The m_resource. */
     @XmlTransient
     /** the resource that this requisition was created from **/
     private Resource m_resource;
@@ -105,6 +114,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -128,6 +138,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * removeNode
      * </p>
+     * .
      *
      * @param node
      *            a
@@ -151,6 +162,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * deleteNode
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -173,6 +185,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionNode}
@@ -187,6 +200,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -198,6 +212,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * setNodes
      * </p>
+     * .
      *
      * @param nodes
      *            a {@link java.util.List} object.
@@ -211,6 +226,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * insertNode
      * </p>
+     * .
      *
      * @param node
      *            a
@@ -231,6 +247,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * putNode
      * </p>
+     * .
      *
      * @param node
      *            a
@@ -251,6 +268,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getDateStamp
      * </p>
+     * .
      *
      * @return a {@link javax.xml.datatype.XMLGregorianCalendar} object.
      */
@@ -262,6 +280,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * setDateStamp
      * </p>
+     * .
      *
      * @param value
      *            a {@link javax.xml.datatype.XMLGregorianCalendar} object.
@@ -274,6 +293,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * updateDateStamp
      * </p>
+     * .
      */
     public void updateDateStamp() {
         try {
@@ -287,6 +307,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +323,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * setForeignSource
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -314,6 +336,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getLastImport
      * </p>
+     * .
      *
      * @return a {@link javax.xml.datatype.XMLGregorianCalendar} object.
      */
@@ -325,6 +348,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * setLastImport
      * </p>
+     * .
      *
      * @param value
      *            a {@link javax.xml.datatype.XMLGregorianCalendar} object.
@@ -334,7 +358,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
     }
 
     /**
-     * Update the last imported stamp to the current date and time
+     * Update the last imported stamp to the current date and time.
      */
     public void updateLastImported() {
         try {
@@ -378,10 +402,19 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         return m_resource;
     }
 
+    /**
+     * Sets the resource.
+     *
+     * @param resource
+     *            the new resource
+     */
     public void setResource(final Resource resource) {
         m_resource = resource;
     }
 
+    /**
+     * Update node cache.
+     */
     private void updateNodeCache() {
         m_nodeReqs.clear();
         if (m_nodes != null) {
@@ -391,6 +424,9 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         }
     }
 
+    /**
+     * Update node cache if necessary.
+     */
     private void updateNodeCacheIfNecessary() {
         if (m_nodes != null && m_nodeReqs.size() != m_nodes.size()) {
             updateNodeCache();
@@ -401,6 +437,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -428,6 +465,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getNodeRequistion
      * </p>
+     * .
      *
      * @param foreignId
      *            a {@link java.lang.String} object.
@@ -444,6 +482,7 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * getNodeCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -452,6 +491,9 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         return (m_nodes == null) ? 0 : m_nodes.size();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -463,6 +505,9 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -500,6 +545,9 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Requisition [nodes=" + m_nodes + ", dateStamp=" + m_dateStamp + ", foreignSource=" + m_foreignSource
@@ -510,12 +558,13 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param obj
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *         object.
      */
     @Override
     public int compareTo(final Requisition obj) {
@@ -527,6 +576,9 @@ public class Requisition implements Serializable, Comparable<Requisition> {
      * Make sure that no data in the requisition is inconsistent. Nodes should
      * be unique,
      * interfaces should be unique per node, etc.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     public void validate() throws ValidationException {
         final Map<String, Integer> foreignSourceCounts = new HashMap<String, Integer>();
@@ -560,12 +612,23 @@ public class Requisition implements Serializable, Comparable<Requisition> {
         }
     }
 
+    /**
+     * Gets the date.
+     *
+     * @return the date
+     */
     @XmlTransient
     @Transient
     public Date getDate() {
         return getDateStamp() == null ? null : getDateStamp().toGregorianCalendar().getTime();
     }
 
+    /**
+     * Sets the date.
+     *
+     * @param date
+     *            the new date
+     */
     public void setDate(final Date date) {
         final GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);

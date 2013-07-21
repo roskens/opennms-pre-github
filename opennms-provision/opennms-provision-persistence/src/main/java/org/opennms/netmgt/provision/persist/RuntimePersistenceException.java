@@ -38,6 +38,7 @@ package org.opennms.netmgt.provision.persist;
  */
 public class RuntimePersistenceException extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8462261466853731107L;
 
     /**

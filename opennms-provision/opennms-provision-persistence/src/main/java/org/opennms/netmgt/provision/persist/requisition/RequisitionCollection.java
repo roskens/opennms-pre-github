@@ -50,6 +50,7 @@ import org.opennms.core.xml.ValidateUsing;
 @ValidateUsing("model-import.xsd")
 public class RequisitionCollection extends LinkedList<Requisition> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3613062331927556776L;
 
     /**
@@ -77,6 +78,7 @@ public class RequisitionCollection extends LinkedList<Requisition> {
      * <p>
      * getRequisitions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -89,6 +91,7 @@ public class RequisitionCollection extends LinkedList<Requisition> {
      * <p>
      * setRequisitions
      * </p>
+     * .
      *
      * @param requisitions
      *            a {@link java.util.List} object.
@@ -104,6 +107,7 @@ public class RequisitionCollection extends LinkedList<Requisition> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

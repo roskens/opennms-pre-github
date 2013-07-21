@@ -31,15 +31,27 @@ package org.opennms.netmgt.provision.persist;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class TestVisitor.
+ */
 public class TestVisitor extends AbstractRequisitionVisitor {
 
+    /** The m_node reqs. */
     private final List<OnmsNodeRequisition> m_nodeReqs = new ArrayList<OnmsNodeRequisition>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractRequisitionVisitor#completeNode(org.opennms.netmgt.provision.persist.OnmsNodeRequisition)
+     */
     @Override
     public void completeNode(OnmsNodeRequisition nodeReq) {
         m_nodeReqs.add(nodeReq);
     }
 
+    /**
+     * Gets the node reqs.
+     *
+     * @return the node reqs
+     */
     public List<OnmsNodeRequisition> getNodeReqs() {
         return m_nodeReqs;
     }

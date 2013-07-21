@@ -40,6 +40,7 @@ import org.springframework.dao.DataAccessException;
  */
 public class ForeignSourceRepositoryException extends DataAccessException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2083626087386447796L;
 
     /**

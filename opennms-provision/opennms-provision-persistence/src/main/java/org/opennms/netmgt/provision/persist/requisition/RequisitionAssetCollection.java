@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "assets")
 public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6944256042334743348L;
 
     /**
@@ -74,6 +75,7 @@ public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
      * <p>
      * getAssetFields
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
      * <p>
      * setAssetFields
      * </p>
+     * .
      *
      * @param assets
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

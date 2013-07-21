@@ -62,9 +62,11 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 @XmlRootElement(name = "monitored-service")
 public class RequisitionMonitoredService implements Comparable<RequisitionMonitoredService> {
 
+    /** The m_categories. */
     @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();;
 
+    /** The m_service name. */
     @XmlAttribute(name = "service-name", required = true)
     protected String m_serviceName;
 
@@ -92,6 +94,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * getCategoryCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -105,6 +108,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
@@ -119,6 +123,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -133,6 +138,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -145,6 +151,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a
@@ -168,6 +175,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -189,6 +197,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * insertCategory
      * </p>
+     * .
      *
      * @param category
      *            a
@@ -210,6 +219,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -221,6 +231,7 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -229,6 +240,9 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
         m_serviceName = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -238,6 +252,9 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -262,11 +279,17 @@ public class RequisitionMonitoredService implements Comparable<RequisitionMonito
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "RequisitionMonitoredService [categories=" + m_categories + ", serviceName=" + m_serviceName + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final RequisitionMonitoredService other) {
         return new CompareToBuilder().append(m_serviceName, other.m_serviceName).append(m_categories,

@@ -65,24 +65,31 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
 
     // TODO Change these to be sets so that we don't have to verify duplicates
     // in the lists
+    /** The m_monitored services. */
     @XmlElement(name = "monitored-service")
     protected List<RequisitionMonitoredService> m_monitoredServices = new ArrayList<RequisitionMonitoredService>();
 
+    /** The m_categories. */
     @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();
 
+    /** The m_description. */
     @XmlAttribute(name = "descr")
     protected String m_description;
 
+    /** The m_ip address. */
     @XmlAttribute(name = "ip-addr", required = true)
     protected String m_ipAddress;
 
+    /** The m_is managed. */
     @XmlAttribute(name = "managed")
     protected Boolean m_isManaged;
 
     // annotated on the class, for some compatibility/initialization
+    /** The m_snmp primary. */
     protected PrimaryType m_snmpPrimary;
 
+    /** The m_status. */
     @XmlAttribute(name = "status")
     protected Integer m_status;
 
@@ -90,6 +97,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getMonitoredServiceCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -103,6 +111,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService}
@@ -117,6 +126,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getMonitoredServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -131,6 +141,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setMonitoredServices
      * </p>
+     * .
      *
      * @param services
      *            a {@link java.util.List} object.
@@ -143,6 +154,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -166,6 +178,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * deleteMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a
@@ -180,6 +193,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * deleteMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a {@link java.lang.String} object.
@@ -201,6 +215,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * insertMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a
@@ -222,6 +237,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * putMonitoredService
      * </p>
+     * .
      *
      * @param service
      *            a
@@ -243,6 +259,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -257,6 +274,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -269,6 +287,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -292,6 +311,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a
@@ -306,6 +326,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -327,6 +348,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -338,6 +360,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setDescr
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -350,6 +373,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -361,6 +385,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -377,6 +402,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * isManaged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -392,6 +418,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setManaged
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Boolean} object.
@@ -404,6 +431,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getSnmpPrimary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -417,6 +445,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setSnmpPrimary
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -429,6 +458,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -444,6 +474,7 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Integer} object.
@@ -452,6 +483,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
         m_status = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 67;
@@ -466,6 +500,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -520,6 +557,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "RequisitionInterface [monitoredServices=" + m_monitoredServices + ", categories=" + m_categories
@@ -527,6 +567,9 @@ public class RequisitionInterface implements Comparable<RequisitionInterface> {
                 + ", snmpPrimary=" + m_snmpPrimary + ", status=" + m_status + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final RequisitionInterface other) {
         return new CompareToBuilder().append(m_ipAddress, other.m_ipAddress).append(m_status, other.m_status).append(m_isManaged,

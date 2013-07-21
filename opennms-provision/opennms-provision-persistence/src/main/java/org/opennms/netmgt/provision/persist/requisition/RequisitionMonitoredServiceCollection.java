@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "services")
 public class RequisitionMonitoredServiceCollection extends LinkedList<RequisitionMonitoredService> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1248948292315231797L;
 
     /**
@@ -74,6 +75,7 @@ public class RequisitionMonitoredServiceCollection extends LinkedList<Requisitio
      * <p>
      * getMonitoredServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class RequisitionMonitoredServiceCollection extends LinkedList<Requisitio
      * <p>
      * setMonitoredServices
      * </p>
+     * .
      *
      * @param services
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class RequisitionMonitoredServiceCollection extends LinkedList<Requisitio
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

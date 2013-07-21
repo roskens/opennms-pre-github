@@ -44,7 +44,8 @@ import org.joda.time.format.PeriodFormatterBuilder;
  * @version $Id: $
  */
 public class StringIntervalAdapter extends XmlAdapter<String, Duration> {
-    /** Constant <code>DEFAULT_PERIOD_FORMATTER</code> */
+
+    /** Constant <code>DEFAULT_PERIOD_FORMATTER</code>. */
     public static final PeriodFormatter DEFAULT_PERIOD_FORMATTER = new PeriodFormatterBuilder().appendWeeks().appendSuffix("w").appendSeparator(" ").appendDays().appendSuffix("d").appendSeparator(" ").appendHours().appendSuffix("h").appendSeparator(" ").appendMinutes().appendSuffix("m").appendSeparator(" ").appendSeconds().appendSuffix("s").appendSeparator(" ").appendMillis().appendSuffix("ms").toFormatter();
 
     /** {@inheritDoc} */

@@ -66,18 +66,26 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class DefaultNodeProvisionService implements NodeProvisionService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultNodeProvisionService.class);
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_foreign source repository. */
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -181,6 +189,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
      * <p>
      * setForeignSourceRepository
      * </p>
+     * .
      *
      * @param repository
      *            a
@@ -195,11 +204,12 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
      * <p>
      * setEventProxy
      * </p>
+     * .
      *
      * @param proxy
      *            a {@link org.opennms.netmgt.model.events.EventProxy} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void setEventProxy(final EventProxy proxy) throws Exception {
         EventForwarder proxyForwarder = new EventForwarder() {

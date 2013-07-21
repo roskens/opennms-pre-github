@@ -40,20 +40,40 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class ForeignSourceRepositoryTestCase.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testForeignSourceContext.xml" })
 @JUnitConfigurationEnvironment
 public abstract class ForeignSourceRepositoryTestCase implements InitializingBean {
+
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Configure logging.
+     */
     @Before
     public void configureLogging() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Assert requisitions match.
+     *
+     * @param msg
+     *            the msg
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     */
     protected void assertRequisitionsMatch(final String msg, final Requisition a, final Requisition b) {
         assertEquals(msg, a.getForeignSource(), b.getForeignSource());
         assertEquals(msg, a.getNodes(), b.getNodes());

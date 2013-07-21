@@ -40,14 +40,22 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.springframework.util.Assert;
 
 /**
+ * The Class MockForeignSourceRepository.
+ *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
 public class MockForeignSourceRepository extends AbstractForeignSourceRepository {
+
+    /** The m_requisitions. */
     private final Map<String, Requisition> m_requisitions = new HashMap<String, Requisition>();
 
+    /** The m_foreign sources. */
     private final Map<String, ForeignSource> m_foreignSources = new HashMap<String, ForeignSource>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getActiveForeignSourceNames()
+     */
     @Override
     public Set<String> getActiveForeignSourceNames() {
         final Set<String> fsNames = new TreeSet<String>();
@@ -56,16 +64,25 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         return fsNames;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSourceCount()
+     */
     @Override
     public int getForeignSourceCount() {
         return m_foreignSources.size();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSources()
+     */
     @Override
     public Set<ForeignSource> getForeignSources() {
         return new TreeSet<ForeignSource>(m_foreignSources.values());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSource(java.lang.String)
+     */
     @Override
     public ForeignSource getForeignSource(final String foreignSourceName) {
         Assert.notNull(foreignSourceName);
@@ -80,6 +97,9 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         return foreignSource;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void save(final ForeignSource foreignSource) {
         Assert.notNull(foreignSource);
@@ -91,22 +111,34 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         m_foreignSources.put(foreignSource.getName(), foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void delete(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         m_foreignSources.remove(foreignSource.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitions()
+     */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
         return new TreeSet<Requisition>(m_requisitions.values());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(java.lang.String)
+     */
     @Override
     public Requisition getRequisition(final String foreignSourceName) {
         Assert.notNull(foreignSourceName);
         return m_requisitions.get(foreignSourceName);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public Requisition getRequisition(final ForeignSource foreignSource) {
         Assert.notNull(foreignSource);
@@ -114,6 +146,9 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         return getRequisition(foreignSource.getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void save(final Requisition requisition) {
         Assert.notNull(requisition);
@@ -125,22 +160,34 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         m_requisitions.put(requisition.getForeignSource(), requisition);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
         m_requisitions.remove(requisition.getForeignSource());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionDate(java.lang.String)
+     */
     @Override
     public Date getRequisitionDate(final String foreignSource) {
         final Requisition requisition = m_requisitions.get(foreignSource);
         return requisition == null ? null : requisition.getDate();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionURL(java.lang.String)
+     */
     @Override
     public URL getRequisitionURL(final String foreignSource) {
         throw new UnsupportedOperationException("no URL in the mock repository");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#getDefaultForeignSource()
+     */
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
         final ForeignSource fs = getForeignSource("default");
@@ -150,6 +197,9 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         return fs;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#putDefaultForeignSource(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void putDefaultForeignSource(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         if (foreignSource == null) {
@@ -162,6 +212,9 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         save(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#flush()
+     */
     @Override
     public void flush() throws ForeignSourceRepositoryException {
         // Unnecessary, there is no caching/delayed writes in

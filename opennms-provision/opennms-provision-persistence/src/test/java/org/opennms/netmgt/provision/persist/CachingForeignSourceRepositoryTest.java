@@ -46,18 +46,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class CachingForeignSourceRepositoryTest.
+ */
 public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryTestCase {
+
+    /** The m_default foreign source name. */
     private String m_defaultForeignSourceName;
 
+    /** The m_foreign source repository. */
     @Autowired
     @Qualifier("caching")
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_defaultForeignSourceName = "imported:";
     }
 
+    /**
+     * Creates the requisition.
+     *
+     * @return the requisition
+     * @throws Exception
+     *             the exception
+     */
     private Requisition createRequisition() throws Exception {
         Requisition r = m_foreignSourceRepository.importResourceRequisition(new ClassPathResource(
                                                                                                   "/requisition-test.xml"));
@@ -66,6 +82,15 @@ public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryT
         return r;
     }
 
+    /**
+     * Creates the foreign source.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @return the foreign source
+     * @throws Exception
+     *             the exception
+     */
     private ForeignSource createForeignSource(String foreignSource) throws Exception {
         ForeignSource fs = new ForeignSource(foreignSource);
         fs.addDetector(new PluginConfig("HTTP", "org.opennms.netmgt.provision.detector.simple.HttpDetector"));
@@ -76,6 +101,12 @@ public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryT
         return fs;
     }
 
+    /**
+     * Test requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRequisition() throws Exception {
         createRequisition();
@@ -86,6 +117,12 @@ public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryT
         assertEquals("node name matches", "apknd", v.getNodeReqs().get(0).getNodeLabel());
     }
 
+    /**
+     * Test foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testForeignSource() throws Exception {
         createRequisition();
@@ -109,6 +146,12 @@ public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryT
         assertEquals(foreignSource.getScanInterval(), newForeignSource.getScanInterval());
     }
 
+    /**
+     * Test get requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetRequisition() throws Exception {
         Requisition requisition = createRequisition();
@@ -120,6 +163,12 @@ public class CachingForeignSourceRepositoryTest extends ForeignSourceRepositoryT
                                 m_foreignSourceRepository.getRequisition(foreignSource));
     }
 
+    /**
+     * Test default foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDefaultForeignSource() throws Exception {
         createRequisition();

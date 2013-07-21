@@ -55,33 +55,43 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "node")
 public class RequisitionNode {
 
+    /** The m_interfaces. */
     @XmlElement(name = "interface")
     protected List<RequisitionInterface> m_interfaces = new ArrayList<RequisitionInterface>();
 
+    /** The m_categories. */
     @XmlElement(name = "category")
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();
 
+    /** The m_assets. */
     @XmlElement(name = "asset")
     protected List<RequisitionAsset> m_assets = new ArrayList<RequisitionAsset>();
 
+    /** The m_building. */
     @XmlAttribute(name = "building")
     protected String m_building;
 
+    /** The m_city. */
     @XmlAttribute(name = "city")
     protected String m_city;
 
+    /** The m_foreign id. */
     @XmlAttribute(name = "foreign-id", required = true)
     protected String m_foreignId;
 
+    /** The m_node label. */
     @XmlAttribute(name = "node-label", required = true)
     protected String m_nodeLabel;
 
+    /** The m_parent foreign source. */
     @XmlAttribute(name = "parent-foreign-source")
     protected String m_parentForeignSource;
 
+    /** The m_parent foreign id. */
     @XmlAttribute(name = "parent-foreign-id")
     protected String m_parentForeignId;
 
+    /** The m_parent node label. */
     @XmlAttribute(name = "parent-node-label")
     protected String m_parentNodeLabel;
 
@@ -89,6 +99,7 @@ public class RequisitionNode {
      * <p>
      * getInterfaceCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -102,6 +113,7 @@ public class RequisitionNode {
      * <p>
      * getInterface
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
@@ -116,6 +128,7 @@ public class RequisitionNode {
      * <p>
      * getInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -127,6 +140,7 @@ public class RequisitionNode {
      * <p>
      * setInterfaces
      * </p>
+     * .
      *
      * @param interfaces
      *            a {@link java.util.List} object.
@@ -145,6 +159,7 @@ public class RequisitionNode {
      * <p>
      * getInterface
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -165,11 +180,13 @@ public class RequisitionNode {
      * <p>
      * removeInterface
      * </p>
+     * .
      *
      * @param iface
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
-     *            object.
+     * @return true, if successful
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionInterface}
+     *         object.
      */
     public boolean deleteInterface(final RequisitionInterface iface) {
         return m_interfaces.remove(iface);
@@ -179,9 +196,11 @@ public class RequisitionNode {
      * <p>
      * deleteInterface
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
+     * @return true, if successful
      */
     public boolean deleteInterface(final String ipAddress) {
         final Iterator<RequisitionInterface> i = m_interfaces.iterator();
@@ -199,6 +218,7 @@ public class RequisitionNode {
      * <p>
      * putInterface
      * </p>
+     * .
      *
      * @param iface
      *            a
@@ -214,6 +234,7 @@ public class RequisitionNode {
      * <p>
      * getCategoryCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -227,6 +248,7 @@ public class RequisitionNode {
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
@@ -241,6 +263,7 @@ public class RequisitionNode {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -252,6 +275,7 @@ public class RequisitionNode {
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -270,6 +294,7 @@ public class RequisitionNode {
      * <p>
      * getCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
@@ -290,11 +315,13 @@ public class RequisitionNode {
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
-     *            object.
+     * @return true, if successful
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionCategory}
+     *         object.
      */
     public boolean deleteCategory(final RequisitionCategory category) {
         return m_categories.remove(category);
@@ -304,9 +331,11 @@ public class RequisitionNode {
      * <p>
      * deleteCategory
      * </p>
+     * .
      *
      * @param category
      *            a {@link java.lang.String} object.
+     * @return true, if successful
      */
     public boolean deleteCategory(final String category) {
         if (m_categories != null) {
@@ -326,6 +355,7 @@ public class RequisitionNode {
      * <p>
      * putCategory
      * </p>
+     * .
      *
      * @param category
      *            a
@@ -341,6 +371,7 @@ public class RequisitionNode {
      * <p>
      * getAssetCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -354,6 +385,7 @@ public class RequisitionNode {
      * <p>
      * getAsset
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
@@ -368,6 +400,7 @@ public class RequisitionNode {
      * <p>
      * getAssets
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -379,6 +412,7 @@ public class RequisitionNode {
      * <p>
      * setAssets
      * </p>
+     * .
      *
      * @param assets
      *            a {@link java.util.List} object.
@@ -397,6 +431,7 @@ public class RequisitionNode {
      * <p>
      * getAsset
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -417,9 +452,11 @@ public class RequisitionNode {
      * <p>
      * deleteAsset
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
+     * @return true, if successful
      */
     public boolean deleteAsset(final String name) {
         final Iterator<RequisitionAsset> i = m_assets.iterator();
@@ -437,11 +474,13 @@ public class RequisitionNode {
      * <p>
      * deleteAsset
      * </p>
+     * .
      *
      * @param asset
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
-     *            object.
+     * @return true, if successful
+     *         {@link org.opennms.netmgt.provision.persist.requisition.RequisitionAsset}
+     *         object.
      */
     public boolean deleteAsset(final RequisitionAsset asset) {
         return m_assets.remove(asset);
@@ -451,6 +490,7 @@ public class RequisitionNode {
      * <p>
      * putAsset
      * </p>
+     * .
      *
      * @param asset
      *            a
@@ -623,6 +663,9 @@ public class RequisitionNode {
         m_parentNodeLabel = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 17;
@@ -640,6 +683,9 @@ public class RequisitionNode {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -712,6 +758,9 @@ public class RequisitionNode {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "RequisitionNode [interfaces=" + m_interfaces + ", categories=" + m_categories + ", assets=" + m_assets

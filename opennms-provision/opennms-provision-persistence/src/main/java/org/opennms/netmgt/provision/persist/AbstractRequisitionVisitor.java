@@ -31,7 +31,7 @@ package org.opennms.netmgt.provision.persist;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 
 /**
- * AbstactImportVisitor
+ * AbstactImportVisitor.
  *
  * @author brozow
  * @version $Id: $

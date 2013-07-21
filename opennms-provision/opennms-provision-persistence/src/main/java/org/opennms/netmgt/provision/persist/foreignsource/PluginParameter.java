@@ -54,14 +54,18 @@ import org.opennms.netmgt.provision.support.PluginWrapper;
 @XmlType(name = "", propOrder = { "m_key", "m_value" })
 public class PluginParameter implements Serializable, Comparable<PluginParameter> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6314596729655404812L;
 
+    /** The m_key. */
     @XmlAttribute(name = "key")
     private String m_key = null;
 
+    /** The m_value. */
     @XmlAttribute(name = "value")
     private String m_value = null;
 
+    /** The m_parent. */
     @XmlTransient
     private PluginConfig m_parent = null;
 
@@ -108,12 +112,12 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      *
      * @param pluginConfig
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
-     *            object.
      * @param key
      *            a {@link java.lang.String} object.
      * @param value
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
      */
     public PluginParameter(PluginConfig pluginConfig, String key, String value) {
         this(key, value);
@@ -127,10 +131,10 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      *
      * @param pluginConfig
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
-     *            object.
      * @param set
      *            a {@link java.util.Map.Entry} object.
+     *            {@link org.opennms.netmgt.provision.persist.foreignsource.PluginConfig}
+     *            object.
      */
     public PluginParameter(PluginConfig pluginConfig, Entry<String, String> set) {
         this(set);
@@ -141,6 +145,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * setPluginConfig
      * </p>
+     * .
      *
      * @param pc
      *            a
@@ -155,6 +160,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * getKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,6 +172,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -177,6 +184,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * setKey
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -189,6 +197,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -201,6 +210,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      * <p>
      * getAvailableParameterKeys
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -222,6 +232,9 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
         return keys;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 421;
@@ -231,6 +244,9 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -255,11 +271,17 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "PluginParameter [key=" + m_key + ", value=" + m_value + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final PluginParameter other) {
         return new CompareToBuilder().append(m_key, other.m_key).append(m_value, other.m_value).toComparison();

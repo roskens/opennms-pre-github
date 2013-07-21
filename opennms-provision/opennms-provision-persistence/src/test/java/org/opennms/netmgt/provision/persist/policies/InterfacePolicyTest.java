@@ -51,25 +51,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class InterfacePolicyTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml" })
 @JUnitConfigurationEnvironment
 public class InterfacePolicyTest implements InitializingBean {
+
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_interfaces. */
     private List<OnmsIpInterface> m_interfaces;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -77,11 +90,17 @@ public class InterfacePolicyTest implements InitializingBean {
         m_interfaces = m_ipInterfaceDao.findAll();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_populator.resetDatabase();
     }
 
+    /**
+     * Test matching policy.
+     */
     @Test
     @Transactional
     public void testMatchingPolicy() {

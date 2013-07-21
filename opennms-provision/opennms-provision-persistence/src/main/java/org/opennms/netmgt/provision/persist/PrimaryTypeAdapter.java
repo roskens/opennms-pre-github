@@ -32,13 +32,22 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import org.opennms.netmgt.model.PrimaryType;
 
+/**
+ * The Class PrimaryTypeAdapter.
+ */
 public class PrimaryTypeAdapter extends XmlAdapter<String, PrimaryType> {
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public String marshal(final PrimaryType type) throws Exception {
         return type == null ? null : type.getCode();
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public PrimaryType unmarshal(final String typeCode) throws Exception {
         return typeCode == null ? null : PrimaryType.get(typeCode);

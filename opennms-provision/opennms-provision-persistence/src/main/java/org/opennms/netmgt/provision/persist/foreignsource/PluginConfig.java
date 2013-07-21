@@ -60,14 +60,18 @@ import org.opennms.netmgt.provision.support.PluginWrapper;
 @XmlRootElement(name = "plugin")
 public class PluginConfig implements Serializable, Comparable<PluginConfig> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4307231598310473690L;
 
+    /** The m_name. */
     @XmlAttribute(name = "name")
     private String m_name;
 
+    /** The m_plugin class. */
     @XmlAttribute(name = "class")
     private String m_pluginClass;
 
+    /** The m_parameters. */
     @XmlElement(name = "parameter")
     private Set<PluginParameter> m_parameters = new LinkedHashSet<PluginParameter>();
 
@@ -160,6 +164,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param list
      *            a {@link java.util.Set} object.
@@ -175,6 +180,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * getParameterMap
      * </p>
+     * .
      *
      * @return the parameters
      */
@@ -190,6 +196,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * setParameterMap
      * </p>
+     * .
      *
      * @param parameters
      *            the parameters to set
@@ -205,6 +212,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * getParameter
      * </p>
+     * .
      *
      * @param key
      *            the parameter name
@@ -223,6 +231,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param key
      *            the parameter name
@@ -237,6 +246,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * removeParameters
      * </p>
+     * .
      *
      * @param p
      *            a
@@ -251,6 +261,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      * <p>
      * getAvailableParameterKeys
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -268,6 +279,11 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         return keys;
     }
 
+    /**
+     * Gets the parameters as string.
+     *
+     * @return the parameters as string
+     */
     private String getParametersAsString() {
         final StringBuilder sb = new StringBuilder();
         for (final PluginParameter p : getParameters()) {
@@ -279,6 +295,9 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 107;
@@ -289,6 +308,9 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -319,12 +341,18 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "PluginConfig [name=" + m_name + ", pluginClass=" + m_pluginClass + ", parameters="
                 + getParametersAsString() + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final PluginConfig other) {
         return new CompareToBuilder().append(m_name, other.m_name).append(m_pluginClass, other.m_pluginClass).toComparison();

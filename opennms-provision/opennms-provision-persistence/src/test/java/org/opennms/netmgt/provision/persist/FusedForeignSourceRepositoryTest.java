@@ -54,19 +54,32 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.UrlResource;
 
+/**
+ * The Class FusedForeignSourceRepositoryTest.
+ */
 public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTestCase {
+
+    /** The m_pending. */
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pending;
 
+    /** The m_active. */
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_active;
 
+    /** The m_repository. */
     @Autowired
     @Qualifier("fused")
     private ForeignSourceRepository m_repository;
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
         System.err.println("setUp()");
@@ -93,6 +106,9 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         m_active.flush();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public final void tearDown() {
         /*
@@ -115,6 +131,12 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         m_active.flush();
     }
 
+    /**
+     * Simple snapshot test.
+     *
+     * @throws URISyntaxException
+     *             the uRI syntax exception
+     */
     @Test
     public void simpleSnapshotTest() throws URISyntaxException {
         Requisition pendingReq = createRequisition();
@@ -131,6 +153,14 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         assertNull(pendingUrl);
     }
 
+    /**
+     * Multiple snapshot test.
+     *
+     * @throws URISyntaxException
+     *             the uRI syntax exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void multipleSnapshotTest() throws URISyntaxException, InterruptedException {
         Requisition pendingReq = createRequisition();
@@ -177,6 +207,9 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         assertEquals(deployedRequisition.getDate().getTime(), bReq.getDate().getTime());
     }
 
+    /**
+     * Integration test.
+     */
     @Test
     public void integrationTest() {
         /*
@@ -222,6 +255,11 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
                    m_pending.getForeignSource("test").isDefault());
     }
 
+    /**
+     * Creates the requisition.
+     *
+     * @return the requisition
+     */
     private Requisition createRequisition() {
         Requisition pendingReq = new Requisition("test");
         RequisitionNode node = new RequisitionNode();

@@ -48,31 +48,50 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
+/**
+ * The Class CachingForeignSourceRepository.
+ */
 public class CachingForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
+
+    /** The m_global lock. */
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock(true);
 
+    /** The m_read lock. */
     private final ReadLock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final WriteLock m_writeLock = m_globalLock.writeLock();
 
+    /** The m_foreign source repository. */
     private ForeignSourceRepository m_foreignSourceRepository;
 
+    /** The m_refresh interval. */
     private long m_refreshInterval;
 
+    /** The m_dirty foreign sources. */
     private Set<String> m_dirtyForeignSources = new HashSet<String>();
 
+    /** The m_dirty requisitions. */
     private Set<String> m_dirtyRequisitions = new HashSet<String>();
 
+    /** The m_foreign source names. */
     private Set<String> m_foreignSourceNames;
 
+    /** The m_foreign sources. */
     private Map<String, ForeignSource> m_foreignSources;
 
+    /** The m_requisitions. */
     private Map<String, Requisition> m_requisitions;
 
+    /** The m_default foreign source. */
     private ForeignSource m_defaultForeignSource;
 
+    /** The m_executor. */
     private ScheduledExecutorService m_executor;
 
+    /**
+     * Instantiates a new caching foreign source repository.
+     */
     public CachingForeignSourceRepository() {
         m_refreshInterval = Long.getLong("org.opennms.netmgt.provision.persist.cacheRefreshInterval", 300000);
 
@@ -87,12 +106,18 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
                                        TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Write unlock.
+     */
     protected void writeUnlock() {
         if (m_globalLock.getWriteHoldCount() > 0) {
             m_writeLock.unlock();
         }
     }
 
+    /**
+     * Write lock.
+     */
     protected void writeLock() {
         if (m_globalLock.getWriteHoldCount() == 0) {
             while (m_globalLock.getReadHoldCount() > 0) {
@@ -102,20 +127,34 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /**
+     * Read unlock.
+     */
     protected void readUnlock() {
         if (m_globalLock.getReadHoldCount() > 0) {
             m_readLock.unlock();
         }
     }
 
+    /**
+     * Read lock.
+     */
     protected void readLock() {
         m_readLock.lock();
     }
 
+    /**
+     * Clean cache.
+     */
     protected void cleanCache() {
         getRefreshRunnable().run();
     }
 
+    /**
+     * Gets the refresh runnable.
+     *
+     * @return the refresh runnable
+     */
     protected Runnable getRefreshRunnable() {
         return new Runnable() {
             @Override
@@ -161,19 +200,36 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         };
     }
 
+    /**
+     * Gets the foreign source repository.
+     *
+     * @return the foreign source repository
+     */
     public ForeignSourceRepository getForeignSourceRepository() {
         return m_foreignSourceRepository;
     }
 
+    /**
+     * Sets the foreign source repository.
+     *
+     * @param fsr
+     *            the new foreign source repository
+     */
     public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_foreignSourceRepository = fsr;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(m_foreignSourceRepository);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getActiveForeignSourceNames()
+     */
     @Override
     public Set<String> getActiveForeignSourceNames() {
         readLock();
@@ -187,6 +243,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSourceCount()
+     */
     @Override
     public int getForeignSourceCount() throws ForeignSourceRepositoryException {
         readLock();
@@ -197,6 +256,11 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /**
+     * Gets the foreign source map.
+     *
+     * @return the foreign source map
+     */
     private Map<String, ForeignSource> getForeignSourceMap() {
         readLock();
         try {
@@ -219,6 +283,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSources()
+     */
     @Override
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
         readLock();
@@ -229,6 +296,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSource(java.lang.String)
+     */
     @Override
     public ForeignSource getForeignSource(final String foreignSourceName) throws ForeignSourceRepositoryException {
         readLock();
@@ -244,6 +314,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void save(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         readLock();
@@ -256,6 +329,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void delete(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         readLock();
@@ -268,6 +344,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#getDefaultForeignSource()
+     */
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
         readLock();
@@ -287,6 +366,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#putDefaultForeignSource(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void putDefaultForeignSource(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         writeLock();
@@ -298,6 +380,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#resetDefaultForeignSource()
+     */
     @Override
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
         writeLock();
@@ -309,6 +394,11 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /**
+     * Gets the requisition map.
+     *
+     * @return the requisition map
+     */
     private Map<String, Requisition> getRequisitionMap() {
         readLock();
         try {
@@ -331,6 +421,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#importResourceRequisition(org.springframework.core.io.Resource)
+     */
     @Override
     public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
         readLock();
@@ -341,6 +434,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitions()
+     */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
         readLock();
@@ -351,6 +447,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(java.lang.String)
+     */
     @Override
     public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
         readLock();
@@ -361,6 +460,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         readLock();
@@ -371,16 +473,25 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionDate(java.lang.String)
+     */
     @Override
     public Date getRequisitionDate(final String foreignSource) {
         return m_foreignSourceRepository.getRequisitionDate(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionURL(java.lang.String)
+     */
     @Override
     public URL getRequisitionURL(final String foreignSource) {
         return m_foreignSourceRepository.getRequisitionURL(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
         writeLock();
@@ -392,6 +503,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
         writeLock();
@@ -403,6 +517,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#getNodeRequisition(java.lang.String, java.lang.String)
+     */
     @Override
     public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId)
             throws ForeignSourceRepositoryException {
@@ -415,16 +532,25 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         super.validate(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.AbstractForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
         super.validate(requisition);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#finalize()
+     */
     @Override
     protected void finalize() throws Throwable {
         m_executor.shutdown();
@@ -432,6 +558,9 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
         super.finalize();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#flush()
+     */
     @Override
     public void flush() throws ForeignSourceRepositoryException {
         getRefreshRunnable().run();

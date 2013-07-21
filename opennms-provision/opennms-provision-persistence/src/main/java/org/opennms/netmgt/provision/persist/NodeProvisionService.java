@@ -46,6 +46,7 @@ public interface NodeProvisionService {
      * <p>
      * getModelAndView
      * </p>
+     * .
      *
      * @param request
      *            a {@link javax.servlet.http.HttpServletRequest} object.
@@ -57,6 +58,7 @@ public interface NodeProvisionService {
      * <p>
      * provisionNode
      * </p>
+     * .
      *
      * @param user
      *            a {@link java.lang.String} object.
@@ -84,9 +86,11 @@ public interface NodeProvisionService {
      *            a {@link java.lang.String} object.
      * @param autoEnable
      *            a {@link java.lang.String} object.
+     * @param noSNMP
+     *            the no snmp
      * @return a boolean.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public boolean provisionNode(String user, String foreignSource, String foreignId, String nodeLabel,
             String ipAddress, String[] categories, String snmpCommunity, String snmpVersion, String deviceUsername,

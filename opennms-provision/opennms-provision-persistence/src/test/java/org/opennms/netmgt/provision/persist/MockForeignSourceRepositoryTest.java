@@ -45,21 +45,46 @@ import org.springframework.beans.InvalidPropertyException;
 import org.springframework.beans.PropertyAccessorFactory;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class MockForeignSourceRepositoryTest.
+ */
 public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTestCase {
+
+    /** The m_default foreign source name. */
     private String m_defaultForeignSourceName;
 
+    /** The m_repository. */
     private ForeignSourceRepository m_repository;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_repository = new MockForeignSourceRepository();
         m_defaultForeignSourceName = "imported:";
     }
 
+    /**
+     * Creates the requisition.
+     *
+     * @return the requisition
+     * @throws Exception
+     *             the exception
+     */
     private Requisition createRequisition() throws Exception {
         return m_repository.importResourceRequisition(new ClassPathResource("/requisition-test.xml"));
     }
 
+    /**
+     * Creates the foreign source.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @return the foreign source
+     * @throws Exception
+     *             the exception
+     */
     private ForeignSource createForeignSource(String foreignSource) throws Exception {
         ForeignSource fs = new ForeignSource(foreignSource);
         fs.addDetector(new PluginConfig("HTTP", "org.opennms.netmgt.provision.detector.simple.HttpDetector"));
@@ -70,6 +95,12 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         return fs;
     }
 
+    /**
+     * Test requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRequisition() throws Exception {
         createRequisition();
@@ -80,6 +111,12 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         assertEquals("node name matches", "apknd", v.getNodeReqs().get(0).getNodeLabel());
     }
 
+    /**
+     * Test foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testForeignSource() throws Exception {
         createRequisition();
@@ -95,6 +132,9 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
     /**
      * This test ensures that the Spring Bean accessor classes work properly
      * since our REST implementation uses bean access to update the values.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testBeanWrapperAccess() throws Exception {
@@ -120,6 +160,12 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         assertEquals(2, ((RequisitionCategory[]) wrapper.getPropertyValue("node[1].category")).length);
     }
 
+    /**
+     * Test get requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetRequisition() throws Exception {
         Requisition requisition = createRequisition();

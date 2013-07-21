@@ -58,28 +58,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class CollectionPolicyTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml" })
 @JUnitConfigurationEnvironment
 public class CollectionPolicyTest implements InitializingBean {
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_interfaces. */
     private List<OnmsSnmpInterface> m_interfaces;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -87,11 +100,17 @@ public class CollectionPolicyTest implements InitializingBean {
         m_interfaces = m_snmpInterfaceDao.findAll();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_populator.resetDatabase();
     }
 
+    /**
+     * Test matching if descr.
+     */
     @Test
     @Transactional
     public void testMatchingIfDescr() {
@@ -101,12 +120,20 @@ public class CollectionPolicyTest implements InitializingBean {
         matchPolicy(m_interfaces, p, addr("192.168.1.1"));
     }
 
+    /**
+     * Creates the policy.
+     *
+     * @return the matching snmp interface policy
+     */
     private MatchingSnmpInterfacePolicy createPolicy() {
         MatchingSnmpInterfacePolicy policy = new MatchingSnmpInterfacePolicy();
         policy.setMatchBehavior(BasePolicy.Match.NO_PARAMETERS.toString());
         return policy;
     }
 
+    /**
+     * Test matching if name.
+     */
     @Test
     @Transactional
     public void testMatchingIfName() {
@@ -116,6 +143,9 @@ public class CollectionPolicyTest implements InitializingBean {
         matchPolicy(m_interfaces, p, addr("192.168.1.2"));
     }
 
+    /**
+     * Test matching if type.
+     */
     @Test
     @Transactional
     public void testMatchingIfType() {
@@ -125,6 +155,9 @@ public class CollectionPolicyTest implements InitializingBean {
         matchPolicy(m_interfaces, p, addr("192.168.1.2"));
     }
 
+    /**
+     * Test category assignment.
+     */
     @Test
     @Transactional
     public void testCategoryAssignment() {
@@ -150,6 +183,16 @@ public class CollectionPolicyTest implements InitializingBean {
         assertTrue(node2.hasCategory(TEST_CATEGORY));
     }
 
+    /**
+     * Match policy.
+     *
+     * @param interfaces
+     *            the interfaces
+     * @param p
+     *            the p
+     * @param matchingIp
+     *            the matching ip
+     */
     private static void matchPolicy(List<OnmsSnmpInterface> interfaces, MatchingSnmpInterfacePolicy p,
             InetAddress matchingIp) {
         OnmsSnmpInterface o;

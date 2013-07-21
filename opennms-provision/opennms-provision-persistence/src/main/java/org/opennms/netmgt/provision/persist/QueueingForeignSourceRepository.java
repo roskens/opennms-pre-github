@@ -46,22 +46,36 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
+/**
+ * The Class QueueingForeignSourceRepository.
+ */
 public class QueueingForeignSourceRepository implements ForeignSourceRepository, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QueueingForeignSourceRepository.class);
 
+    /** The m_pending requisitions. */
     private final ConcurrentMap<String, Requisition> m_pendingRequisitions = new ConcurrentHashMap<String, Requisition>();
 
+    /** The m_pending foreign sources. */
     private final ConcurrentMap<String, ForeignSource> m_pendingForeignSources = new ConcurrentHashMap<String, ForeignSource>();
 
+    /** The m_repository. */
     ForeignSourceRepository m_repository = null;
 
+    /** The m_executor. */
     private ExecutorService m_executor = Executors.newSingleThreadExecutor();
 
+    /**
+     * Instantiates a new queueing foreign source repository.
+     */
     public QueueingForeignSourceRepository() {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#flush()
+     */
     @Override
     public void flush() throws ForeignSourceRepositoryException {
         LOG.debug("flushing queue");
@@ -83,39 +97,68 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         LOG.debug("finished flushing queue");
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_repository, "No foreign source repository was set!");
     }
 
+    /**
+     * Gets the foreign source repository.
+     *
+     * @return the foreign source repository
+     */
     public ForeignSourceRepository getForeignSourceRepository() {
         return m_repository;
     }
 
+    /**
+     * Sets the foreign source repository.
+     *
+     * @param fsr
+     *            the new foreign source repository
+     */
     public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_repository = fsr;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getActiveForeignSourceNames()
+     */
     @Override
     public Set<String> getActiveForeignSourceNames() {
         return m_repository.getActiveForeignSourceNames();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSourceCount()
+     */
     @Override
     public int getForeignSourceCount() throws ForeignSourceRepositoryException {
         return getActiveForeignSourceNames().size();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSources()
+     */
     @Override
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
         return m_repository.getForeignSources();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getForeignSource(java.lang.String)
+     */
     @Override
     public ForeignSource getForeignSource(final String foreignSourceName) throws ForeignSourceRepositoryException {
         return m_repository.getForeignSource(foreignSourceName);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void save(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         LOG.debug("Queueing save of foreign source {}", foreignSource.getName());
@@ -123,6 +166,9 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         m_executor.execute(new QueuePersistRunnable());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void delete(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         LOG.debug("Queueing delete of foreign source {}", foreignSource.getName());
@@ -130,21 +176,33 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         m_executor.execute(new QueuePersistRunnable());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitions()
+     */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
         return m_repository.getRequisitions();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(java.lang.String)
+     */
     @Override
     public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
         return m_repository.getRequisition(foreignSourceName);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisition(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public Requisition getRequisition(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         return m_repository.getRequisition(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionDate(java.lang.String)
+     */
     @Override
     public Date getRequisitionDate(final String foreignSource) {
         if (m_pendingRequisitions.containsKey(foreignSource)) {
@@ -153,11 +211,17 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         return m_repository.getRequisitionDate(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getRequisitionURL(java.lang.String)
+     */
     @Override
     public URL getRequisitionURL(final String foreignSource) {
         return m_repository.getRequisitionURL(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#save(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void save(final Requisition requisition) throws ForeignSourceRepositoryException {
         LOG.debug("Queueing save of requisition {} (containing {} nodes)", requisition.getForeignSource(),
@@ -166,6 +230,9 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         m_executor.execute(new QueuePersistRunnable());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#delete(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void delete(final Requisition requisition) throws ForeignSourceRepositoryException {
         LOG.debug("Queueing delete of requistion {}", requisition.getForeignSource());
@@ -173,43 +240,71 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         m_executor.execute(new QueuePersistRunnable());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getDefaultForeignSource()
+     */
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
         return m_repository.getDefaultForeignSource();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#putDefaultForeignSource(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void putDefaultForeignSource(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         m_repository.putDefaultForeignSource(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#resetDefaultForeignSource()
+     */
     @Override
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
         m_repository.resetDefaultForeignSource();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#importResourceRequisition(org.springframework.core.io.Resource)
+     */
     @Override
     public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
         return m_repository.importResourceRequisition(resource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#getNodeRequisition(java.lang.String, java.lang.String)
+     */
     @Override
     public OnmsNodeRequisition getNodeRequisition(final String foreignSource, final String foreignId)
             throws ForeignSourceRepositoryException {
         return m_repository.getNodeRequisition(foreignSource, foreignId);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         m_repository.validate(foreignSource);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
         m_repository.validate(requisition);
     }
 
+    /**
+     * The Class QueuePersistRunnable.
+     */
     private final class QueuePersistRunnable implements Runnable {
+
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             try {
@@ -253,31 +348,65 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
         }
     }
 
+    /**
+     * The Class DeletedForeignSource.
+     */
     private static final class DeletedForeignSource extends ForeignSource {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -1484921681168837826L;
 
+        /** The m_foreign source. */
         private final ForeignSource m_foreignSource;
 
+        /**
+         * Instantiates a new deleted foreign source.
+         *
+         * @param foreignSource
+         *            the foreign source
+         */
         public DeletedForeignSource(final ForeignSource foreignSource) {
             m_foreignSource = foreignSource;
             setName(foreignSource.getName());
         }
 
+        /**
+         * Gets the original.
+         *
+         * @return the original
+         */
         public ForeignSource getOriginal() {
             return m_foreignSource;
         }
     }
 
+    /**
+     * The Class DeletedRequisition.
+     */
     private static final class DeletedRequisition extends Requisition {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -19738304185310191L;
 
+        /** The m_requisition. */
         private final Requisition m_requisition;
 
+        /**
+         * Instantiates a new deleted requisition.
+         *
+         * @param requisition
+         *            the requisition
+         */
         public DeletedRequisition(final Requisition requisition) {
             m_requisition = requisition;
             setForeignSource(requisition.getForeignSource());
         }
 
+        /**
+         * Gets the original.
+         *
+         * @return the original
+         */
         public Requisition getOriginal() {
             return m_requisition;
         }

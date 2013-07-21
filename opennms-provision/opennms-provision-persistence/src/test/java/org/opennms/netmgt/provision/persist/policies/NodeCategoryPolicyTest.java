@@ -51,25 +51,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class NodeCategoryPolicyTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml" })
 @JUnitConfigurationEnvironment
 public class NodeCategoryPolicyTest implements InitializingBean {
+
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_nodes. */
     private List<OnmsNode> m_nodes;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -77,11 +90,17 @@ public class NodeCategoryPolicyTest implements InitializingBean {
         m_nodes = m_nodeDao.findAll();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_populator.resetDatabase();
     }
 
+    /**
+     * Test matching label.
+     */
     @Test
     @Transactional
     public void testMatchingLabel() {
@@ -93,6 +112,9 @@ public class NodeCategoryPolicyTest implements InitializingBean {
         assertTrue(matchedNodes.get(0).getCategories().contains(new OnmsCategory("PolicyTest")));
     }
 
+    /**
+     * Test matching nothing.
+     */
     @Test
     @Transactional
     public void testMatchingNothing() {
@@ -104,6 +126,15 @@ public class NodeCategoryPolicyTest implements InitializingBean {
         assertEquals(0, matchedNodes.size());
     }
 
+    /**
+     * Match policy.
+     *
+     * @param p
+     *            the p
+     * @param matchingId
+     *            the matching id
+     * @return the list
+     */
     private List<OnmsNode> matchPolicy(NodeCategorySettingPolicy p, String matchingId) {
         OnmsNode o;
         List<OnmsNode> populatedNodes = new ArrayList<OnmsNode>();

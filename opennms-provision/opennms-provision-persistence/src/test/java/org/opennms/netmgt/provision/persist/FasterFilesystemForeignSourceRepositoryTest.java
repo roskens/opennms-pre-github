@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.provision.persist;
 
 import static org.junit.Assert.assertEquals;
@@ -14,8 +41,17 @@ import org.opennms.netmgt.provision.persist.foreignsource.ForeignSource;
 import org.opennms.netmgt.provision.persist.requisition.Requisition;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionNode;
 
+/**
+ * The Class FasterFilesystemForeignSourceRepositoryTest.
+ */
 public class FasterFilesystemForeignSourceRepositoryTest {
 
+    /**
+     * Test active foreign source names.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testActiveForeignSourceNames() throws Exception {
         FileSystemBuilder bldr = new FileSystemBuilder("target", "testActiveForeignSourceNames");
@@ -28,6 +64,12 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         assertEquals(set("test", "pending", "noreq"), repo.getActiveForeignSourceNames());
     }
 
+    /**
+     * Test get foreign source count.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetForeignSourceCount() throws Exception {
         FileSystemBuilder bldr = new FileSystemBuilder("target", "testGetForeignSourceCount");
@@ -41,6 +83,12 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         assertEquals(3, repo.getForeignSourceCount());
     }
 
+    /**
+     * Test get foreign sources.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetForeignSources() throws Exception {
         FileSystemBuilder bldr = new FileSystemBuilder("target", "testGetForeignSources");
@@ -58,6 +106,12 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         assertEquals(Duration.standardDays(1), testFS.getScanInterval());
     }
 
+    /**
+     * Test get foreign source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetForeignSource() throws Exception {
 
@@ -74,6 +128,12 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         assertEquals(Duration.standardDays(1), testFS.getScanInterval());
     }
 
+    /**
+     * Test get requisition.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetRequisition() throws Exception {
 
@@ -92,6 +152,17 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         assertEquals("node1", node.getNodeLabel());
     }
 
+    /**
+     * Repo.
+     *
+     * @param foreignSourceDir
+     *            the foreign source dir
+     * @param requisitionDir
+     *            the requisition dir
+     * @return the faster filesystem foreign source repository
+     * @throws Exception
+     *             the exception
+     */
     private FasterFilesystemForeignSourceRepository repo(File foreignSourceDir, File requisitionDir) throws Exception {
         FasterFilesystemForeignSourceRepository repo = new FasterFilesystemForeignSourceRepository();
         repo.setForeignSourcePath(foreignSourceDir.getAbsolutePath());
@@ -100,12 +171,28 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         return repo;
     }
 
+    /**
+     * Sets the.
+     *
+     * @param <T>
+     *            the generic type
+     * @param items
+     *            the items
+     * @return the sets the
+     */
     private <T> Set<T> set(T... items) {
         Set<T> set = new HashSet<T>();
         Collections.addAll(set, items);
         return set;
     }
 
+    /**
+     * Fs.
+     *
+     * @param name
+     *            the name
+     * @return the string
+     */
     private String fs(String name) {
         String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
                 + "<foreign-source date-stamp=\"2012-12-17T13:59:04.299-05:00\" name=\"_TEMPLATE_\" xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\">\n"
@@ -118,6 +205,13 @@ public class FasterFilesystemForeignSourceRepositoryTest {
         return template.replaceAll("_TEMPLATE_", name);
     }
 
+    /**
+     * Req.
+     *
+     * @param name
+     *            the name
+     * @return the string
+     */
     private String req(String name) {
         String template = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
                 + "<model-import last-import=\"2012-12-17T14:00:08.997-05:00\" foreign-source=\"_TEMPLATE_\" date-stamp=\"2012-12-17T14:00:08.757-05:00\" xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\">\n"

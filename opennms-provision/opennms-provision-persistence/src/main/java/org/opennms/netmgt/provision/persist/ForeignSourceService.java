@@ -48,6 +48,7 @@ public interface ForeignSourceService {
      * <p>
      * setDeployedForeignSourceRepository
      * </p>
+     * .
      *
      * @param repo
      *            a
@@ -60,6 +61,7 @@ public interface ForeignSourceService {
      * <p>
      * setPendingForeignSourceRepository
      * </p>
+     * .
      *
      * @param repo
      *            a
@@ -72,6 +74,7 @@ public interface ForeignSourceService {
      * <p>
      * getAllForeignSources
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -81,6 +84,7 @@ public interface ForeignSourceService {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -94,14 +98,15 @@ public interface ForeignSourceService {
      * <p>
      * saveForeignSource
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @param fs
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
      * @return a
+     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *         object.
      *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
      *         object.
      */
@@ -111,6 +116,7 @@ public interface ForeignSourceService {
      * <p>
      * cloneForeignSource
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -126,6 +132,7 @@ public interface ForeignSourceService {
      * <p>
      * deleteForeignSource
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -136,6 +143,7 @@ public interface ForeignSourceService {
      * <p>
      * deletePath
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
@@ -151,6 +159,7 @@ public interface ForeignSourceService {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
@@ -166,6 +175,7 @@ public interface ForeignSourceService {
      * <p>
      * addDetectorToForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -181,6 +191,7 @@ public interface ForeignSourceService {
      * <p>
      * deleteDetector
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -196,6 +207,7 @@ public interface ForeignSourceService {
      * <p>
      * addPolicyToForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -211,6 +223,7 @@ public interface ForeignSourceService {
      * <p>
      * deletePolicy
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -226,6 +239,7 @@ public interface ForeignSourceService {
      * <p>
      * getDetectorTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -235,6 +249,7 @@ public interface ForeignSourceService {
      * <p>
      * getPolicyTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -244,6 +259,7 @@ public interface ForeignSourceService {
      * <p>
      * getWrappers
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

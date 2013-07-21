@@ -39,6 +39,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class MatchingIpInterfacePolicy.
+ */
 @Component
 /**
  * <p>MatchingIpInterfacePolicy class.</p>
@@ -49,18 +52,39 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Policy("Match IP Interface")
 public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> implements IpInterfacePolicy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MatchingIpInterfacePolicy.class);
 
+    /**
+     * The Enum Action.
+     */
     public static enum Action {
-        MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL, DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION
+
+        /** The manage. */
+        MANAGE,
+ /** The unmanage. */
+ UNMANAGE,
+ /** The do not persist. */
+ DO_NOT_PERSIST,
+ /** The enable snmp poll. */
+ ENABLE_SNMP_POLL,
+ /** The disable snmp poll. */
+ DISABLE_SNMP_POLL,
+ /** The enable collection. */
+ ENABLE_COLLECTION,
+ /** The disable collection. */
+ DISABLE_COLLECTION
     };
 
+    /** The m_action. */
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
      * <p>
      * getAction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -74,6 +98,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
      * <p>
      * setAction
      * </p>
+     * .
      *
      * @param action
      *            a {@link java.lang.String} object.
@@ -141,6 +166,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -153,6 +179,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -164,6 +191,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
      * <p>
      * setHostName
      * </p>
+     * .
      *
      * @param hostName
      *            a {@link java.lang.String} object.
@@ -176,6 +204,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
      * <p>
      * getHostName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

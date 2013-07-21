@@ -43,10 +43,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class RequisitionFileUtils.
+ */
 public class RequisitionFileUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RequisitionFileUtils.class);
 
+    /**
+     * Creates the path.
+     *
+     * @param fsPath
+     *            the fs path
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     */
     static void createPath(final File fsPath) throws ForeignSourceRepositoryException {
         if (!fsPath.exists()) {
             if (!fsPath.mkdirs()) {
@@ -55,14 +67,41 @@ public class RequisitionFileUtils {
         }
     }
 
+    /**
+     * Encode file name.
+     *
+     * @param path
+     *            the path
+     * @param foreignSourceName
+     *            the foreign source name
+     * @return the file
+     */
     static File encodeFileName(final String path, final String foreignSourceName) {
         return new File(path, foreignSourceName + ".xml");
     }
 
+    /**
+     * Gets the foreign source from file.
+     *
+     * @param inputFile
+     *            the input file
+     * @return the foreign source from file
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     */
     static ForeignSource getForeignSourceFromFile(final File inputFile) throws ForeignSourceRepositoryException {
         return JaxbUtils.unmarshal(ForeignSource.class, inputFile);
     }
 
+    /**
+     * Gets the requisition from file.
+     *
+     * @param inputFile
+     *            the input file
+     * @return the requisition from file
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     */
     static Requisition getRequisitionFromFile(final File inputFile) throws ForeignSourceRepositoryException {
         try {
             return JaxbUtils.unmarshal(Requisition.class, inputFile);
@@ -71,18 +110,47 @@ public class RequisitionFileUtils {
         }
     }
 
+    /**
+     * Gets the output file for foreign source.
+     *
+     * @param path
+     *            the path
+     * @param foreignSource
+     *            the foreign source
+     * @return the output file for foreign source
+     */
     static File getOutputFileForForeignSource(final String path, final ForeignSource foreignSource) {
         final File fsPath = new File(path);
         createPath(fsPath);
         return encodeFileName(path, foreignSource.getName());
     }
 
+    /**
+     * Gets the output file for requisition.
+     *
+     * @param path
+     *            the path
+     * @param requisition
+     *            the requisition
+     * @return the output file for requisition
+     */
     static File getOutputFileForRequisition(final String path, final Requisition requisition) {
         final File reqPath = new File(path);
         createPath(reqPath);
         return encodeFileName(path, requisition.getForeignSource());
     }
 
+    /**
+     * Creates the snapshot.
+     *
+     * @param repository
+     *            the repository
+     * @param foreignSource
+     *            the foreign source
+     * @param date
+     *            the date
+     * @return the file
+     */
     public static File createSnapshot(final ForeignSourceRepository repository, final String foreignSource,
             final Date date) {
         final URL url = repository.getRequisitionURL(foreignSource);
@@ -115,6 +183,15 @@ public class RequisitionFileUtils {
         return null;
     }
 
+    /**
+     * Find snapshots.
+     *
+     * @param repository
+     *            the repository
+     * @param foreignSource
+     *            the foreign source
+     * @return the list
+     */
     public static List<File> findSnapshots(final ForeignSourceRepository repository, final String foreignSource) {
         final List<File> files = new ArrayList<File>();
 
@@ -142,10 +219,25 @@ public class RequisitionFileUtils {
         return files;
     }
 
+    /**
+     * Checks if is snapshot.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param entry
+     *            the entry
+     * @return true, if is snapshot
+     */
     private static boolean isSnapshot(final String foreignSource, final File entry) {
         return !entry.isDirectory() && entry.getName().matches(foreignSource + ".xml.\\d+");
     }
 
+    /**
+     * Delete resource if snapshot.
+     *
+     * @param requisition
+     *            the requisition
+     */
     public static void deleteResourceIfSnapshot(final Requisition requisition) {
         final Resource resource = requisition.getResource();
         if (resource == null)
@@ -165,6 +257,12 @@ public class RequisitionFileUtils {
 
     }
 
+    /**
+     * Delete all snapshots.
+     *
+     * @param repository
+     *            the repository
+     */
     public static void deleteAllSnapshots(final ForeignSourceRepository repository) {
         for (final String foreignSource : repository.getActiveForeignSourceNames()) {
             final List<File> snapshots = findSnapshots(repository, foreignSource);

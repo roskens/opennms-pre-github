@@ -50,6 +50,7 @@ public interface ForeignSourceRepository {
      * <p>
      * getActiveForeignSourceNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -59,10 +60,11 @@ public interface ForeignSourceRepository {
      * <p>
      * getForeignSourceCount
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public int getForeignSourceCount() throws ForeignSourceRepositoryException;
 
@@ -70,10 +72,11 @@ public interface ForeignSourceRepository {
      * <p>
      * getForeignSources
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException;
 
@@ -81,14 +84,15 @@ public interface ForeignSourceRepository {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     public ForeignSource getForeignSource(String foreignSourceName) throws ForeignSourceRepositoryException;
 
@@ -96,13 +100,14 @@ public interface ForeignSourceRepository {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     public void save(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
@@ -110,13 +115,14 @@ public interface ForeignSourceRepository {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     public void delete(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
@@ -124,12 +130,13 @@ public interface ForeignSourceRepository {
      * <p>
      * getDefaultForeignSource
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException;
 
@@ -137,13 +144,14 @@ public interface ForeignSourceRepository {
      * <p>
      * putDefaultForeignSource
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     public void putDefaultForeignSource(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
@@ -151,9 +159,10 @@ public interface ForeignSourceRepository {
      * <p>
      * resetDefaultForeignSource
      * </p>
+     * .
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException;
 
@@ -161,14 +170,15 @@ public interface ForeignSourceRepository {
      * <p>
      * importResourceRequisition
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     public Requisition importResourceRequisition(Resource resource) throws ForeignSourceRepositoryException;
 
@@ -176,10 +186,11 @@ public interface ForeignSourceRepository {
      * <p>
      * getRequisitions
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException;
 
@@ -187,14 +198,15 @@ public interface ForeignSourceRepository {
      * <p>
      * getRequisition
      * </p>
+     * .
      *
      * @param foreignSourceName
      *            a {@link java.lang.String} object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     public Requisition getRequisition(String foreignSourceName) throws ForeignSourceRepositoryException;
 
@@ -202,16 +214,17 @@ public interface ForeignSourceRepository {
      * <p>
      * getRequisition
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     public Requisition getRequisition(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
@@ -219,6 +232,7 @@ public interface ForeignSourceRepository {
      * <p>
      * getRequisitionDate
      * </p>
+     * .
      *
      * @param foreignSource
      *            the Foreign Source name of the requisition.
@@ -230,6 +244,7 @@ public interface ForeignSourceRepository {
      * <p>
      * getRequisitionURL
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -241,13 +256,14 @@ public interface ForeignSourceRepository {
      * <p>
      * save
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     public void save(Requisition requisition) throws ForeignSourceRepositoryException;
 
@@ -255,13 +271,14 @@ public interface ForeignSourceRepository {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     public void delete(Requisition requisition) throws ForeignSourceRepositoryException;
 
@@ -269,22 +286,39 @@ public interface ForeignSourceRepository {
      * <p>
      * getNodeRequisition
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
      * @param foreignId
      *            a {@link java.lang.String} object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.OnmsNodeRequisition}
+     *             object.
      */
     public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId)
             throws ForeignSourceRepositoryException;
 
+    /**
+     * Validate.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     */
     public void validate(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
 
+    /**
+     * Validate.
+     *
+     * @param requisition
+     *            the requisition
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     */
     public void validate(Requisition requisition) throws ForeignSourceRepositoryException;
 
     /**
@@ -293,6 +327,7 @@ public interface ForeignSourceRepository {
      * return the latest saved data unless you flush first.
      *
      * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     public void flush() throws ForeignSourceRepositoryException;
 }

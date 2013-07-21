@@ -61,32 +61,62 @@ import org.opennms.netmgt.provision.persist.foreignsource.PluginConfig;
 import org.opennms.test.FileAnticipator;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class PersistenceSerializationTest.
+ */
 public class PersistenceSerializationTest {
+
+    /** The fsw. */
     private ForeignSourceCollection fsw;
 
+    /** The fsr. */
     private AbstractForeignSourceRepository fsr;
 
+    /** The m. */
     private Marshaller m;
 
+    /** The c. */
     private JAXBContext c;
 
+    /** The fs. */
     private ForeignSource fs;
 
+    /** The fa. */
     private FileAnticipator fa;
 
+    /**
+     * The Class TestOutputResolver.
+     */
     private static class TestOutputResolver extends SchemaOutputResolver {
+
+        /** The m_schema file. */
         private final File m_schemaFile;
 
+        /**
+         * Instantiates a new test output resolver.
+         *
+         * @param schemaFile
+         *            the schema file
+         */
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
 
+        /* (non-Javadoc)
+         * @see javax.xml.bind.SchemaOutputResolver#createOutput(java.lang.String, java.lang.String)
+         */
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -139,11 +169,23 @@ public class PersistenceSerializationTest {
         XMLUnit.setNormalize(true);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         fa.tearDown();
     }
 
+    /**
+     * Generate schema.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateSchema() throws Exception {
         File schemaFile = fa.expecting("foreign-sources.xsd");
@@ -153,6 +195,12 @@ public class PersistenceSerializationTest {
         }
     }
 
+    /**
+     * Generate xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string
@@ -186,6 +234,19 @@ public class PersistenceSerializationTest {
                      myDiff.getAllDifferences().size());
     }
 
+    /**
+     * Gets the diff.
+     *
+     * @param objectXML
+     *            the object xml
+     * @param exampleXML
+     *            the example xml
+     * @return the diff
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @SuppressWarnings("unchecked")
     private static DetailedDiff getDiff(StringWriter objectXML, StringBuffer exampleXML) throws SAXException,
             IOException {

@@ -54,28 +54,56 @@ import org.springframework.util.Assert;
  */
 public class FusedForeignSourceRepository extends AbstractForeignSourceRepository implements ForeignSourceRepository,
         InitializingBean {
+
+    /** The m_pending foreign source repository. */
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
+    /** The m_deployed foreign source repository. */
     private ForeignSourceRepository m_deployedForeignSourceRepository;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_pendingForeignSourceRepository, "Pending foreign source repository must not be null.");
         Assert.notNull(m_deployedForeignSourceRepository, "Deployed foreign source repository must not be null.");
     }
 
+    /**
+     * Gets the pending foreign source repository.
+     *
+     * @return the pending foreign source repository
+     */
     public ForeignSourceRepository getPendingForeignSourceRepository() {
         return m_pendingForeignSourceRepository;
     }
 
+    /**
+     * Sets the pending foreign source repository.
+     *
+     * @param fsr
+     *            the new pending foreign source repository
+     */
     public void setPendingForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_pendingForeignSourceRepository = fsr;
     }
 
+    /**
+     * Gets the deployed foreign source repository.
+     *
+     * @return the deployed foreign source repository
+     */
     public ForeignSourceRepository getDeployedForeignSourceRepository() {
         return m_deployedForeignSourceRepository;
     }
 
+    /**
+     * Sets the deployed foreign source repository.
+     *
+     * @param fsr
+     *            the new deployed foreign source repository
+     */
     public void setDeployedForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_deployedForeignSourceRepository = fsr;
     }
@@ -84,6 +112,7 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * getActiveForeignSourceNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -107,6 +136,12 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
         return requisition;
     }
 
+    /**
+     * Clean up deployed foreign sources.
+     *
+     * @param foreignSourceName
+     *            the foreign source name
+     */
     private synchronized void cleanUpDeployedForeignSources(String foreignSourceName) {
         ForeignSource deployed = m_deployedForeignSourceRepository.getForeignSource(foreignSourceName);
         ForeignSource pending = m_pendingForeignSourceRepository.getForeignSource(foreignSourceName);
@@ -144,13 +179,14 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public synchronized void delete(Requisition requisition) throws ForeignSourceRepositoryException {
@@ -168,10 +204,11 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * getForeignSourceCount
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public int getForeignSourceCount() throws ForeignSourceRepositoryException {
@@ -182,10 +219,11 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * getForeignSources
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public Set<ForeignSource> getForeignSources() throws ForeignSourceRepositoryException {
@@ -202,16 +240,17 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * getRequisition
      * </p>
+     * .
      *
      * @param foreignSource
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public Requisition getRequisition(ForeignSource foreignSource) throws ForeignSourceRepositoryException {
@@ -234,10 +273,11 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * getRequisitions
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public Set<Requisition> getRequisitions() throws ForeignSourceRepositoryException {
@@ -255,13 +295,14 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
      * <p>
      * save
      * </p>
+     * .
      *
      * @param requisition
      *            a
-     *            {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
-     *            object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.requisition.Requisition}
+     *             object.
      */
     @Override
     public synchronized void save(final Requisition requisition) throws ForeignSourceRepositoryException {
@@ -269,6 +310,12 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
         m_deployedForeignSourceRepository.save(requisition);
     }
 
+    /**
+     * Clean up snapshots.
+     *
+     * @param requisition
+     *            the requisition
+     */
     private void cleanUpSnapshots(final Requisition requisition) {
         final String foreignSource = requisition.getForeignSource();
         final Date pendingDate = m_pendingForeignSourceRepository.getRequisitionDate(foreignSource);
@@ -299,6 +346,15 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
         RequisitionFileUtils.deleteResourceIfSnapshot(requisition);
     }
 
+    /**
+     * Checks if is newer.
+     *
+     * @param snap
+     *            the snap
+     * @param date
+     *            the date
+     * @return true, if is newer
+     */
     private boolean isNewer(final File snap, final Date date) {
         final String name = snap.getName();
         final String timestamp = name.substring(name.lastIndexOf(".") + 1);
@@ -306,6 +362,9 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
         return date.after(snapshotDate);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#flush()
+     */
     @Override
     public void flush() throws ForeignSourceRepositoryException {
         // Unnecessary, there is no caching/delayed writes in

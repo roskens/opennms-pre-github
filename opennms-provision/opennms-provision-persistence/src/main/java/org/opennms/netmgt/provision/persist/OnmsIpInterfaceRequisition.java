@@ -36,15 +36,17 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionInterface;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredService;
 
 /**
- * OnmsIpInterfaceRequisition
+ * OnmsIpInterfaceRequisition.
  *
  * @author brozow
  * @version $Id: $
  */
 public class OnmsIpInterfaceRequisition {
 
+    /** The m_iface. */
     private RequisitionInterface m_iface;
 
+    /** The m_svc reqs. */
     private final List<OnmsMonitoredServiceRequisition> m_svcReqs;
 
     /**
@@ -62,10 +64,20 @@ public class OnmsIpInterfaceRequisition {
         m_svcReqs = constructSvcReqs();
     }
 
+    /**
+     * Gets the interface.
+     *
+     * @return the interface
+     */
     RequisitionInterface getInterface() {
         return m_iface;
     }
 
+    /**
+     * Construct svc reqs.
+     *
+     * @return the list
+     */
     private List<OnmsMonitoredServiceRequisition> constructSvcReqs() {
         List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(
                                                                                                     m_iface.getMonitoredServices().size());
@@ -79,6 +91,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -97,6 +110,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * getDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -108,6 +122,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +134,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * getManaged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -130,6 +146,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * getSnmpPrimary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,6 +158,7 @@ public class OnmsIpInterfaceRequisition {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */

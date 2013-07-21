@@ -54,6 +54,7 @@ public class StringIntervalPropertyEditor extends PropertyEditorSupport implemen
      * <p>
      * getAsText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -40,13 +40,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
+/**
+ * The Class RequisitionTest.
+ */
 public class RequisitionTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test requisition validation.
+     */
     @Test
     public void testRequisitionValidation() {
         final List<RequisitionNode> nodes = new ArrayList<RequisitionNode>();

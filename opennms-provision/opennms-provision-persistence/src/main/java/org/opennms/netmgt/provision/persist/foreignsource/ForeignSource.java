@@ -62,28 +62,37 @@ import org.slf4j.LoggerFactory;
 @XmlRootElement(name = "foreign-source")
 @ValidateUsing("foreign-sources.xsd")
 public class ForeignSource implements Serializable, Comparable<ForeignSource> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ForeignSource.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1903289015976502808L;
 
+    /** The m_name. */
     @XmlAttribute(name = "name", required = true)
     private String m_name;
 
+    /** The m_date stamp. */
     @XmlAttribute(name = "date-stamp")
     protected XMLGregorianCalendar m_dateStamp;
 
+    /** The m_scan interval. */
     @XmlElement(name = "scan-interval")
     @XmlJavaTypeAdapter(StringIntervalAdapter.class)
     private Duration m_scanInterval = Duration.standardDays(1);
 
+    /** The m_detectors. */
     @XmlElementWrapper(name = "detectors")
     @XmlElement(name = "detector")
     private List<PluginConfig> m_detectors = new ArrayList<PluginConfig>();
 
+    /** The m_policies. */
     @XmlElementWrapper(name = "policies")
     @XmlElement(name = "policy")
     private List<PluginConfig> m_policies = new ArrayList<PluginConfig>();
 
+    /** The m_default. */
     private boolean m_default;
 
     /**
@@ -112,6 +121,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return the name
      */
@@ -124,6 +134,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            the name to set
@@ -136,6 +147,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getScanInterval
      * </p>
+     * .
      *
      * @return the scanInterval
      */
@@ -148,6 +160,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setScanInterval
      * </p>
+     * .
      *
      * @param scanInterval
      *            the scanInterval to set
@@ -160,6 +173,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getDateStamp
      * </p>
+     * .
      *
      * @return the date stamp
      */
@@ -172,6 +186,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getDateStampAsDate
      * </p>
+     * .
      *
      * @return the date stamp as a {@link java.util.Date}
      */
@@ -184,6 +199,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setDateStamp
      * </p>
+     * .
      *
      * @param value
      *            the date stamp
@@ -193,7 +209,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     }
 
     /**
-     * Update the date stamp to the current date and time
+     * Update the date stamp to the current date and time.
      */
     public void updateDateStamp() {
         try {
@@ -207,6 +223,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getDetectors
      * </p>
+     * .
      *
      * @return the detectors
      */
@@ -219,6 +236,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setDetectors
      * </p>
+     * .
      *
      * @param detectors
      *            the detectors to set
@@ -227,6 +245,11 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         m_detectors = detectors;
     }
 
+    /**
+     * Gets the detector names.
+     *
+     * @return the detector names
+     */
     @XmlTransient
     public List<String> getDetectorNames() {
         List<String> names = new ArrayList<String>(m_detectors.size());
@@ -240,6 +263,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getPolicies
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -252,6 +276,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setPolicies
      * </p>
+     * .
      *
      * @param policies
      *            a {@link java.util.List} object.
@@ -264,6 +289,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * addDetector
      * </p>
+     * .
      *
      * @param detector
      *            a
@@ -278,6 +304,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * addPolicy
      * </p>
+     * .
      *
      * @param policy
      *            a
@@ -292,6 +319,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getDetector
      * </p>
+     * .
      *
      * @param detector
      *            a {@link java.lang.String} object.
@@ -313,6 +341,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * removeDetectors
      * </p>
+     * .
      *
      * @param detector
      *            a
@@ -327,6 +356,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * getPolicy
      * </p>
+     * .
      *
      * @param policy
      *            a {@link java.lang.String} object.
@@ -348,6 +378,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * removePolicies
      * </p>
+     * .
      *
      * @param policy
      *            a
@@ -362,6 +393,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * isDefault
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -373,6 +405,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
      * <p>
      * setDefault
      * </p>
+     * .
      *
      * @param isDefault
      *            a boolean.
@@ -382,6 +415,9 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         m_default = isDefault;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 109;
@@ -395,6 +431,9 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -439,12 +478,18 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ForeignSource [name=" + m_name + ", dateStamp=" + m_dateStamp + ", scanInterval=" + m_scanInterval
                 + ", detectors=" + m_detectors + ", policies=" + m_policies + ", default=" + m_default + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final ForeignSource other) {
         return new CompareToBuilder().append(m_name, other.m_name).toComparison();

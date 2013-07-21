@@ -41,12 +41,21 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class RequisitionFrom18Test.
+ */
 @JUnitConfigurationEnvironment
 public class RequisitionFrom18Test {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RequisitionFrom18Test.class);
 
+    /** The m_foreign source repository. */
     private FilesystemForeignSourceRepository m_foreignSourceRepository;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -55,6 +64,9 @@ public class RequisitionFrom18Test {
         m_foreignSourceRepository.setRequisitionPath("target/test-classes/1.8-upgrade-test");
     }
 
+    /**
+     * Test18 requisitions.
+     */
     @Test
     public void test18Requisitions() {
         final Set<Requisition> requisitions = m_foreignSourceRepository.getRequisitions();

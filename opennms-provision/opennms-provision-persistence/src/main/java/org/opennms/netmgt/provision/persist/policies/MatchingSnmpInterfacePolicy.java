@@ -38,6 +38,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class MatchingSnmpInterfacePolicy.
+ */
 @Component
 /**
  * <p>MatchingSnmpInterfacePolicy class.</p>
@@ -48,18 +51,35 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Policy("Match SNMP Interface")
 public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> implements SnmpInterfacePolicy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MatchingSnmpInterfacePolicy.class);
 
+    /**
+     * The Enum Action.
+     */
     public static enum Action {
-        ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING
+
+        /** The enable collection. */
+        ENABLE_COLLECTION,
+ /** The disable collection. */
+ DISABLE_COLLECTION,
+ /** The do not persist. */
+ DO_NOT_PERSIST,
+ /** The enable polling. */
+ ENABLE_POLLING,
+ /** The disable polling. */
+ DISABLE_POLLING
     };
 
+    /** The m_action. */
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
      * <p>
      * getAction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +92,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setAction
      * </p>
+     * .
      *
      * @param action
      *            a {@link java.lang.String} object.
@@ -122,6 +143,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,6 +155,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfDescr
      * </p>
+     * .
      *
      * @param ifDescr
      *            a {@link java.lang.String} object.
@@ -145,6 +168,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -156,6 +180,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfName
      * </p>
+     * .
      *
      * @param ifName
      *            a {@link java.lang.String} object.
@@ -168,6 +193,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -179,6 +205,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfType
      * </p>
+     * .
      *
      * @param ifType
      *            a {@link java.lang.String} object.
@@ -191,6 +218,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,6 +230,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setPhysAddr
      * </p>
+     * .
      *
      * @param physAddr
      *            a {@link java.lang.String} object.
@@ -214,6 +243,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -225,6 +255,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfIndex
      * </p>
+     * .
      *
      * @param ifIndex
      *            a {@link java.lang.String} object.
@@ -237,6 +268,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfSpeed
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -248,6 +280,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfSpeed
      * </p>
+     * .
      *
      * @param ifSpeed
      *            a {@link java.lang.String} object.
@@ -260,6 +293,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfAdminStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -271,6 +305,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfAdminStatus
      * </p>
+     * .
      *
      * @param ifAdminStatus
      *            a {@link java.lang.String} object.
@@ -283,6 +318,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfOperStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -294,6 +330,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfOperStatus
      * </p>
+     * .
      *
      * @param ifOperStatus
      *            a {@link java.lang.String} object.
@@ -306,6 +343,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -317,6 +355,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param ifAlias
      *            a {@link java.lang.String} object.

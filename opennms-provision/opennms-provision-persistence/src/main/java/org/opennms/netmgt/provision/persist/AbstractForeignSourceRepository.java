@@ -45,8 +45,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
+/**
+ * The Class AbstractForeignSourceRepository.
+ */
 public abstract class AbstractForeignSourceRepository implements ForeignSourceRepository {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractForeignSourceRepository.class);
 
     /**
@@ -73,12 +77,13 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
      * <p>
      * getDefaultForeignSource
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
-     *         object.
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
+     *             {@link org.opennms.netmgt.provision.persist.foreignsource.ForeignSource}
+     *             object.
      */
     @Override
     public ForeignSource getDefaultForeignSource() throws ForeignSourceRepositoryException {
@@ -121,9 +126,10 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
      * <p>
      * resetDefaultForeignSource
      * </p>
+     * .
      *
-     * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException
-     *             if any.
+     * @throws ForeignSourceRepositoryException
+     *             the foreign source repository exception
      */
     @Override
     public void resetDefaultForeignSource() throws ForeignSourceRepositoryException {
@@ -144,6 +150,9 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
         return (req == null ? null : req.getNodeRequistion(foreignId));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.foreignsource.ForeignSource)
+     */
     @Override
     public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
         /*
@@ -155,6 +164,9 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
          */
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.persist.ForeignSourceRepository#validate(org.opennms.netmgt.provision.persist.requisition.Requisition)
+     */
     @Override
     public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
         /*

@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "categories")
 public class RequisitionCategoryCollection extends LinkedList<RequisitionCategory> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4537041686190969655L;
 
     /**
@@ -74,6 +75,7 @@ public class RequisitionCategoryCollection extends LinkedList<RequisitionCategor
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class RequisitionCategoryCollection extends LinkedList<RequisitionCategor
      * <p>
      * setCategories
      * </p>
+     * .
      *
      * @param categories
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class RequisitionCategoryCollection extends LinkedList<RequisitionCategor
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "interfaces")
 public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterface> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7279860847652394855L;
 
     /**
@@ -74,6 +75,7 @@ public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterf
      * <p>
      * getInterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +88,7 @@ public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterf
      * <p>
      * setInterfaces
      * </p>
+     * .
      *
      * @param interfaces
      *            a {@link java.util.List} object.
@@ -101,6 +104,7 @@ public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterf
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

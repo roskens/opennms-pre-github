@@ -56,6 +56,7 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 @XmlRootElement(name = "category")
 public class RequisitionCategory implements Comparable<RequisitionCategory> {
 
+    /** The m_name. */
     @XmlAttribute(name = "name", required = true)
     protected String m_name;
 
@@ -83,6 +84,7 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +96,7 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -102,6 +105,9 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
         m_name = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 61;
@@ -110,6 +116,9 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -128,11 +137,17 @@ public class RequisitionCategory implements Comparable<RequisitionCategory> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "RequisitionCategory [name=" + m_name + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final RequisitionCategory other) {
         return new CompareToBuilder().append(m_name, other.m_name).toComparison();

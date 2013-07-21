@@ -37,6 +37,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * The Class ParameterList.
+ */
 @XmlRootElement
 /**
  * <p>ParameterList class.</p>
@@ -47,6 +50,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "pluginConfigParameter")
 public class ParameterList {
+
+    /** The parameter. */
     public List<PluginParameter> parameter;
 
     /**

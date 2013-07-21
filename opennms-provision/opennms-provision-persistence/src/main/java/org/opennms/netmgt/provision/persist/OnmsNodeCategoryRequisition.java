@@ -31,13 +31,14 @@ package org.opennms.netmgt.provision.persist;
 import org.opennms.netmgt.provision.persist.requisition.RequisitionCategory;
 
 /**
- * OnmsCategoryRequisition
+ * OnmsCategoryRequisition.
  *
  * @author brozow
  * @version $Id: $
  */
 public class OnmsNodeCategoryRequisition {
 
+    /** The m_category. */
     private RequisitionCategory m_category;
 
     /**
@@ -55,6 +56,8 @@ public class OnmsNodeCategoryRequisition {
     }
 
     /**
+     * Gets the category.
+     *
      * @return the category
      */
     RequisitionCategory getCategory() {
@@ -65,6 +68,7 @@ public class OnmsNodeCategoryRequisition {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -80,6 +84,7 @@ public class OnmsNodeCategoryRequisition {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

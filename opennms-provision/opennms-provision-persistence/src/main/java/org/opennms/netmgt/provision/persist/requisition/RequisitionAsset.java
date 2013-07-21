@@ -56,9 +56,11 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 @XmlRootElement(name = "asset")
 public class RequisitionAsset implements Comparable<RequisitionAsset> {
 
+    /** The m_name. */
     @XmlAttribute(name = "name", required = true)
     protected String m_name;
 
+    /** The m_value. */
     @XmlAttribute(name = "value", required = true)
     protected String m_value;
 
@@ -89,6 +91,7 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -100,6 +103,7 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -112,6 +116,7 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +128,7 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -131,6 +137,9 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -140,6 +149,9 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -164,11 +176,17 @@ public class RequisitionAsset implements Comparable<RequisitionAsset> {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "RequisitionAsset [name=" + m_name + ", value=" + m_value + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(final RequisitionAsset other) {
         return new CompareToBuilder().append(m_name, other.m_name).append(m_value, other.m_value).toComparison();

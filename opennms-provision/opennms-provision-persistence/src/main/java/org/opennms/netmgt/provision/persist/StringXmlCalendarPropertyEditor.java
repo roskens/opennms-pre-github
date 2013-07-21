@@ -59,6 +59,7 @@ public class StringXmlCalendarPropertyEditor extends PropertyEditorSupport imple
      * <p>
      * getAsText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.provision.persist;
 
 import static org.junit.Assert.assertEquals;
@@ -17,12 +44,23 @@ import org.junit.Test;
 import org.opennms.core.utils.FileReloadCallback;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DirectoryWatcherTest.
+ */
 public class DirectoryWatcherTest {
 
+    /** The m_bldr. */
     private FileSystemBuilder m_bldr;
 
+    /** The m_watcher. */
     private DirectoryWatcher<String> m_watcher;
 
+    /**
+     * Sets the up.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Before
     public void setUp() throws IOException {
 
@@ -42,22 +80,46 @@ public class DirectoryWatcherTest {
         m_watcher = new DirectoryWatcher<String>(dir, loader);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_bldr.cleanup();
     }
 
+    /**
+     * Test get contents.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     public void testGetContents() throws FileNotFoundException {
         assertEquals("file1Contents", m_watcher.getContents("file1.xml"));
         assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
     }
 
+    /**
+     * Test file doesnt exist.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test(expected = FileNotFoundException.class)
     public void testFileDoesntExist() throws FileNotFoundException {
         m_watcher.getContents("doesnotexist.xml");
     }
 
+    /**
+     * Test file added.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testFileAdded() throws IOException {
         assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
@@ -67,6 +129,12 @@ public class DirectoryWatcherTest {
         assertEquals("file3Contents", m_watcher.getContents("file3.xml"));
     }
 
+    /**
+     * Test file deleted.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test(expected = FileNotFoundException.class)
     public void testFileDeleted() throws IOException {
         assertEquals("file2Contents", m_watcher.getContents("file2.xml"));
@@ -82,6 +150,9 @@ public class DirectoryWatcherTest {
 
     }
 
+    /**
+     * Test get files names.
+     */
     @Test
     public void testGetFilesNames() {
         assertEquals(set("file1.xml", "file2.xml"), m_watcher.getFileNames());
@@ -89,6 +160,15 @@ public class DirectoryWatcherTest {
         assertEquals(set(), m_watcher.getBaseNamesWithExtension(".txt"));
     }
 
+    /**
+     * Sets the.
+     *
+     * @param <T>
+     *            the generic type
+     * @param items
+     *            the items
+     * @return the sets the
+     */
     public <T> Set<T> set(T... items) {
         Set<T> set = new LinkedHashSet<T>();
         Collections.addAll(set, items);
