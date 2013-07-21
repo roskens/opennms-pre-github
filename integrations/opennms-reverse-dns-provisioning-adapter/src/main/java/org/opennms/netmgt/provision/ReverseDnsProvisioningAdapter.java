@@ -61,30 +61,39 @@ import org.xbill.DNS.Update;
  * @version $Id: $
  */
 public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReverseDnsProvisioningAdapter.class);
 
     /*
      * A read-only DAO will be set by the Provisioning Daemon.
      */
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_resolver. */
     private Resolver m_resolver = null;
 
+    /** The m_signature. */
     private String m_signature;
 
+    /** The m_reverse dns provisioning adapter service. */
     private ReverseDnsProvisioningAdapterService m_reverseDnsProvisioningAdapterService;
 
+    /** The Constant MESSAGE_PREFIX. */
     private static final String MESSAGE_PREFIX = "Dynamic Reverse DNS provisioning failed: ";
 
+    /** The Constant ADAPTER_NAME. */
     private static final String ADAPTER_NAME = "Reverse DNS Provisioning Adapter";
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -110,10 +119,21 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
         }
     }
 
+    /**
+     * Gets the reverse provisioning adapter service.
+     *
+     * @return the reverse provisioning adapter service
+     */
     public ReverseDnsProvisioningAdapterService getReverseProvisioningAdapterService() {
         return m_reverseDnsProvisioningAdapterService;
     }
 
+    /**
+     * Sets the reverse dns provisioning adapter service.
+     *
+     * @param reverseProvisioningAdapterService
+     *            the new reverse dns provisioning adapter service
+     */
     public void setReverseDnsProvisioningAdapterService(
             ReverseDnsProvisioningAdapterService reverseProvisioningAdapterService) {
         m_reverseDnsProvisioningAdapterService = reverseProvisioningAdapterService;
@@ -123,6 +143,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -136,6 +157,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -147,6 +169,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -179,6 +202,12 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
         }
     }
 
+    /**
+     * Do update.
+     *
+     * @param op
+     *            the op
+     */
     private void doUpdate(AdapterOperation op) {
         LOG.debug("doUpdate: operation: {}", op.getType().name());
         for (ReverseDnsRecord record : m_reverseDnsProvisioningAdapterService.get(op.getNodeId())) {
@@ -197,6 +226,14 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
         }
     }
 
+    /**
+     * Send and throw.
+     *
+     * @param nodeId
+     *            the node id
+     * @param e
+     *            the e
+     */
     private void sendAndThrow(int nodeId, Exception e) {
         Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason",
                                                                                               MESSAGE_PREFIX
@@ -205,6 +242,15 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
         throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }
 
+    /**
+     * Builds the event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @return the event builder
+     */
     private EventBuilder buildEvent(String uei, int nodeId) {
         EventBuilder builder = new EventBuilder(uei, "Provisioner", new Date());
         builder.setNodeid(nodeId);

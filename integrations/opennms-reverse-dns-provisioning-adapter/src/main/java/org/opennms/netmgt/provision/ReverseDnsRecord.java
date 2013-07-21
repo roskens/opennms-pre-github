@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.provision;
 
 import java.net.InetAddress;
@@ -8,15 +35,29 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ReverseDnsRecord.
+ */
 public class ReverseDnsRecord {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReverseDnsRecord.class);
 
+    /** The m_hostname. */
     String m_hostname;
 
+    /** The m_zone. */
     String m_zone;
 
+    /** The m_ip. */
     InetAddress m_ip;
 
+    /**
+     * Instantiates a new reverse dns record.
+     *
+     * @param ipInterface
+     *            the ip interface
+     */
     public ReverseDnsRecord(OnmsIpInterface ipInterface) {
 
         OnmsSnmpInterface snmpInterface = ipInterface.getSnmpInterface();
@@ -45,18 +86,40 @@ public class ReverseDnsRecord {
         LOG.debug("Constructor: set zone: {}", m_zone);
     }
 
+    /**
+     * Gets the hostname.
+     *
+     * @return the hostname
+     */
     public String getHostname() {
         return m_hostname;
     }
 
+    /**
+     * Gets the zone.
+     *
+     * @return the zone
+     */
     public String getZone() {
         return m_zone;
     }
 
+    /**
+     * Gets the ip.
+     *
+     * @return the ip
+     */
     public InetAddress getIp() {
         return m_ip;
     }
 
+    /**
+     * Third level zonefrom inet4 address.
+     *
+     * @param addr
+     *            the addr
+     * @return the string
+     */
     public static String thirdLevelZonefromInet4Address(byte[] addr) {
         if (addr.length != 4 && addr.length != 16)
             throw new IllegalArgumentException("array must contain " + "4 or 16 elements");

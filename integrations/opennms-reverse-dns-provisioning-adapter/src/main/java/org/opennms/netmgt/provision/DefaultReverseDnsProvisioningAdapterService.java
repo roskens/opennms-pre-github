@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.provision;
 
 import java.util.ArrayList;
@@ -11,18 +38,25 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.Assert;
 
+/**
+ * The Class DefaultReverseDnsProvisioningAdapterService.
+ */
 public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsProvisioningAdapterService {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_template. */
     private TransactionTemplate m_template;
 
     /**
      * <p>
      * setTemplate
      * </p>
+     * .
      *
      * @param template
      *            a
@@ -37,6 +71,7 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
      * <p>
      * getTemplate
      * </p>
+     * .
      *
      * @return a
      *         {@link org.springframework.transaction.support.TransactionTemplate}
@@ -46,10 +81,21 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
         return m_template;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
@@ -58,6 +104,7 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -69,6 +116,7 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -77,11 +125,20 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
         m_nodeDao = dao;
     }
 
+    /**
+     * After properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_nodeDao, "ReverseDnsProvisioner requires a NodeDao which is not null.");
         Assert.notNull(m_ipInterfaceDao, "ReverseDnsProvisioner requires an IpInterfaceDao which is not null.");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ReverseDnsProvisioningAdapterService#get(java.lang.Integer)
+     */
     @Override
     public List<ReverseDnsRecord> get(final Integer nodeid) {
         final List<ReverseDnsRecord> records = new ArrayList<ReverseDnsRecord>();
@@ -96,6 +153,9 @@ public class DefaultReverseDnsProvisioningAdapterService implements ReverseDnsPr
         return records;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.ReverseDnsProvisioningAdapterService#update(java.lang.Integer, org.opennms.netmgt.provision.ReverseDnsRecord)
+     */
     @Override
     public void update(Integer nodeid, ReverseDnsRecord rdr) {
         OnmsIpInterface ipInterface = m_ipInterfaceDao.findByNodeIdAndIpAddress(nodeid, rdr.getIp().getHostAddress());
