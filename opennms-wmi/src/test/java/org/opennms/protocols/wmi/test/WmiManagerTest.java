@@ -47,15 +47,22 @@ import org.opennms.protocols.wmi.test.stubs.OnmsWbemPropSetBiosStub;
 import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
 
 /**
+ * The Class WmiManagerTest.
+ *
  * @author <a href="mailto:matt.raykowski@gmail.com">Matt Raykowski</a>
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiManagerTest extends TestCase {
+
+    /** The Wmi mock. */
     private IWmiClient m_WmiMock;
 
     /*
      * Create a placeholder mock object. We will reset() this in each test
      * so that we can reuse it.
+     * @see junit.framework.TestCase#setUp()
+     */
+    /* (non-Javadoc)
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -68,6 +75,9 @@ public class WmiManagerTest extends TestCase {
 
     /*
      * Tear down simply resets the mock object.
+     * @see junit.framework.TestCase#tearDown()
+     */
+    /* (non-Javadoc)
      * @see junit.framework.TestCase#tearDown()
      */
     @Override
@@ -252,11 +262,11 @@ public class WmiManagerTest extends TestCase {
     /**
      * Test the performOp method with an invalid WMI class and valid WMI object.
      * Test method for
-     * {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
-     * .
      *
      * @throws WmiException
      *             if there is a problem with the mock object.
+     *             {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
+     *             .
      */
     public final void testPerformOpInvalidClass() throws WmiException {
         // Create parameter holder.
@@ -295,11 +305,11 @@ public class WmiManagerTest extends TestCase {
     /**
      * Test the performOp method with an valid WMI class and invalid WMI object.
      * Test method for
-     * {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
-     * .
      *
      * @throws WmiException
      *             if there is a problem with the mock object.
+     *             {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
+     *             .
      */
     public final void testPerformOpInvalidObject() throws WmiException {
 
@@ -341,11 +351,11 @@ public class WmiManagerTest extends TestCase {
     /**
      * Test the performOp method with a valid WMI class and valid WMI object.
      * Test method for
-     * {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
-     * .
      *
      * @throws WmiException
      *             if there is a problem with the mock object.
+     *             {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}
+     *             .
      */
     public final void testPerformOpValidObject() throws WmiException {
 

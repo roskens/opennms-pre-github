@@ -42,6 +42,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath;
  * @version $Id: $
  */
 public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
+
+    /** The wbem object path dispatch. */
     private IJIDispatch wbemObjectPathDispatch;
 
     /**
@@ -61,10 +63,13 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiAuthority
      * </p>
+     * .
      *
+     * @param name
+     *            the name
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     private String getWmiString(final String name) throws WmiException {
         try {
@@ -74,6 +79,15 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
         }
     }
 
+    /**
+     * Gets the wmi boolean.
+     *
+     * @param name
+     *            the name
+     * @return the wmi boolean
+     * @throws WmiException
+     *             the wmi exception
+     */
     private Boolean getWmiBoolean(final String name) throws WmiException {
         try {
             return wbemObjectPathDispatch.get(name).getObjectAsBoolean();
@@ -82,21 +96,33 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath#getWmiAuthority()
+     */
     @Override
     public String getWmiAuthority() throws WmiException {
         return getWmiString("Authority");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath#getWmiClass()
+     */
     @Override
     public String getWmiClass() throws WmiException {
         return getWmiString("Class");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath#getWmiDisplayName()
+     */
     @Override
     public String getWmiDisplayName() throws WmiException {
         return getWmiString("DisplayName");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath#getWmiLocale()
+     */
     @Override
     public String getWmiLocale() throws WmiException {
         return getWmiString("Locale");
@@ -106,10 +132,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiNamespace
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiNamespace() throws WmiException {
@@ -120,10 +147,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiParentNamespace
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiParentNamespace() throws WmiException {
@@ -134,10 +162,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiPath() throws WmiException {
@@ -148,10 +177,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiRelPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiRelPath() throws WmiException {
@@ -162,10 +192,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiServer
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiServer() throws WmiException {
@@ -176,10 +207,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiIsClass
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Boolean getWmiIsClass() throws WmiException {
@@ -190,10 +222,11 @@ public class OnmsWbemObjectPathImpl implements OnmsWbemObjectPath {
      * <p>
      * getWmiIsSingleton
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Boolean getWmiIsSingleton() throws WmiException {

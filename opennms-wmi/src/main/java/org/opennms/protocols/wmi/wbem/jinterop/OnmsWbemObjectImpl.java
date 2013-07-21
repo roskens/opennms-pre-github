@@ -49,6 +49,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
  * @version $Id: $
  */
 public class OnmsWbemObjectImpl implements OnmsWbemObject {
+
+    /** The wbem object dispatch. */
     private IJIDispatch wbemObjectDispatch;
 
     /**
@@ -74,6 +76,7 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * wmiInstances
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -86,6 +89,7 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * wmiPut
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,11 +102,12 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * getWmiMethods
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemMethodSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public OnmsWbemMethodSet getWmiMethods() throws WmiException {
@@ -121,11 +126,12 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * getWmiPath
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectPath}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public OnmsWbemObjectPath getWmiPath() throws WmiException {
@@ -144,10 +150,11 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * getWmiObjectText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiObjectText() throws WmiException {
@@ -162,11 +169,12 @@ public class OnmsWbemObjectImpl implements OnmsWbemObject {
      * <p>
      * getWmiProperties
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public OnmsWbemPropertySet getWmiProperties() throws WmiException {

@@ -56,6 +56,7 @@ public class WmiSingleInstanceCollectionResource extends WmiCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,6 +69,7 @@ public class WmiSingleInstanceCollectionResource extends WmiCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

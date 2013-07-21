@@ -55,23 +55,28 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiPlugin.class);
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "WMI";
 
+    /** The Constant DEFAULT_WMI_CLASS. */
     private static final String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 
+    /** The Constant DEFAULT_WMI_OBJECT. */
     private static final String DEFAULT_WMI_OBJECT = "Status";
 
+    /** The Constant DEFAULT_WMI_COMP_VAL. */
     private static final String DEFAULT_WMI_COMP_VAL = "OK";
 
+    /** The Constant DEFAULT_WMI_MATCH_TYPE. */
     private static final String DEFAULT_WMI_MATCH_TYPE = "all";
 
+    /** The Constant DEFAULT_WMI_COMP_OP. */
     private static final String DEFAULT_WMI_COMP_OP = "EQ";
 
+    /** The Constant DEFAULT_WMI_WQL. */
     private static final String DEFAULT_WMI_WQL = "NOTSET";
 
     /**
@@ -193,6 +198,14 @@ public class WmiPlugin extends AbstractPlugin {
      *
      * @param host
      *            The remote host to connect to.
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @param domain
+     *            the domain
+     * @param matchType
+     *            the match type
      * @param retries
      *            The number of retries to attempt when connecting.
      * @param timeout

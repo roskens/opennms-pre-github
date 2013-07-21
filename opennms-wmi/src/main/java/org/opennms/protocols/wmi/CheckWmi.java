@@ -41,7 +41,7 @@ import org.apache.commons.cli.PosixParser;
 
 /**
  * This is an example command-line tool to perform checks against WMI
- * services using <code>WmiClient</code>
+ * services using <code>WmiClient</code>.
  *
  * @author <A HREF="mailto:matt.raykowski@gmail.com">Matt Raykowski </A>
  */
@@ -51,11 +51,12 @@ public class CheckWmi {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
-     * @throws org.apache.commons.cli.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public static void main(final String[] args) throws ParseException {
         final Options options = new Options();
@@ -172,6 +173,18 @@ public class CheckWmi {
         }
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     * @param error
+     *            the error
+     * @param e
+     *            the e
+     */
     private static void usage(final Options options, final CommandLine cmd, final String error, final Exception e) {
         final HelpFormatter formatter = new HelpFormatter();
         final PrintWriter pw = new PrintWriter(System.out);
@@ -188,6 +201,14 @@ public class CheckWmi {
         pw.close();
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     */
     private static void usage(final Options options, final CommandLine cmd) {
         usage(options, cmd, null, null);
     }

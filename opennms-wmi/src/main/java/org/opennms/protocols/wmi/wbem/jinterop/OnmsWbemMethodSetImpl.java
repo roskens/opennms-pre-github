@@ -48,6 +48,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemMethodSet;
  * @version $Id: $
  */
 public class OnmsWbemMethodSetImpl implements OnmsWbemMethodSet {
+
+    /** The wbem method set dispatch. */
     private IJIDispatch wbemMethodSetDispatch;
 
     /**
@@ -67,10 +69,11 @@ public class OnmsWbemMethodSetImpl implements OnmsWbemMethodSet {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Integer getCount() throws WmiException {

@@ -48,6 +48,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
  * @version $Id: $
  */
 public class OnmsWbemObjectSetImpl implements OnmsWbemObjectSet {
+
+    /** The wbem object set. */
     private IJIDispatch wbemObjectSet;
 
     /**
@@ -67,10 +69,11 @@ public class OnmsWbemObjectSetImpl implements OnmsWbemObjectSet {
      * <p>
      * count
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Integer count() throws WmiException {

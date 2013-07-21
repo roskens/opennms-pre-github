@@ -66,22 +66,31 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiClient implements IWmiClient {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiClient.class);
 
+    /** The Com stub. */
     private JIComServer m_ComStub = null;
 
+    /** The Com object. */
     private IJIComObject m_ComObject = null;
 
+    /** The Dispatch. */
     private IJIDispatch m_Dispatch = null;
 
+    /** The Address. */
     private String m_Address = null;
 
+    /** The Session. */
     private JISession m_Session = null;
 
+    /** The Wbem services. */
     private IJIDispatch m_WbemServices = null;
 
+    /** The Constant WMI_CLSID. */
     private static final String WMI_CLSID = "76A6415B-CB41-11d1-8B02-00600806D9B6";
 
+    /** The Constant WMI_PROGID. */
     private static final String WMI_PROGID = "WbemScripting.SWbemLocator";
 
     /**
@@ -91,8 +100,8 @@ public class WmiClient implements IWmiClient {
      *
      * @param address
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public WmiClient(final String address) throws WmiException {
         JISystem.setAutoRegisteration(true);
@@ -142,12 +151,13 @@ public class WmiClient implements IWmiClient {
      * <p>
      * performWmiGet
      * </p>
+     * .
      *
      * @param strObjectPath
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObject} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObject performWmiGet(final String strObjectPath) throws WmiException {
         try {
@@ -165,13 +175,14 @@ public class WmiClient implements IWmiClient {
      * <p>
      * performSubclassOf
      * </p>
+     * .
      *
      * @param strSuperClass
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObjectSet performSubclassOf(final String strSuperClass) throws WmiException {
         try {
@@ -189,11 +200,12 @@ public class WmiClient implements IWmiClient {
      * <p>
      * performSubclassOf
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObjectSet performSubclassOf() throws WmiException {
         try {
@@ -213,12 +225,13 @@ public class WmiClient implements IWmiClient {
      * <p>
      * convertToNativeType
      * </p>
+     * .
      *
      * @param type
      *            a {@link org.jinterop.dcom.core.JIVariant} object.
      * @return a {@link java.lang.Object} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public static Object convertToNativeType(final JIVariant type) throws WmiException {
         try {
@@ -312,9 +325,10 @@ public class WmiClient implements IWmiClient {
      * <p>
      * disconnect
      * </p>
+     * .
      *
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public void disconnect() throws WmiException {
@@ -329,18 +343,26 @@ public class WmiClient implements IWmiClient {
      * <p>
      * convertWmiDate
      * </p>
+     * .
      *
      * @param dateStr
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public static Date convertWmiDate(final String dateStr) throws ParseException {
         return new SimpleDateFormat("yyyyMMddHHmmss.ssssss+000").parse(dateStr);
     }
 
     // TODO This needs to be completed.
+    /**
+     * Checks if is numeric.
+     *
+     * @param str
+     *            the str
+     * @return true, if is numeric
+     */
     @SuppressWarnings("unused")
     private static boolean isNumeric(final String str) {
         try {
@@ -352,6 +374,13 @@ public class WmiClient implements IWmiClient {
     }
 
     // TODO this needs to be completed.
+    /**
+     * Checks if is date.
+     *
+     * @param str
+     *            the str
+     * @return true, if is date
+     */
     @SuppressWarnings("unused")
     private static boolean isDate(final String str) {
         // Parse the date.

@@ -39,8 +39,11 @@ import java.util.Date;
  * @version $Id: $
  */
 public class WmiGroupState {
+
+    /** The available. */
     private boolean available = false;
 
+    /** The last checked. */
     private Date lastChecked;
 
     /**
@@ -74,6 +77,7 @@ public class WmiGroupState {
      * <p>
      * isAvailable
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -43,12 +43,17 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
  * @version $Id: $
  */
 public class WmiCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
+
+    /** The m_alias. */
     String m_alias;
 
+    /** The m_value. */
     String m_value;
 
+    /** The m_resource. */
     WmiCollectionResource m_resource;
 
+    /** The m_attrib type. */
     CollectionAttributeType m_attribType;
 
     /**
@@ -58,16 +63,16 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.collectd.wmi.WmiCollectionResource}
-     *            object.
      * @param attribType
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
-     *            object.
      * @param alias
      *            a {@link java.lang.String} object.
      * @param value
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.collectd.wmi.WmiCollectionResource}
+     *            object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *            object.
      */
     public WmiCollectionAttribute(final WmiCollectionResource resource, final CollectionAttributeType attribType,
             final String alias, final String value) {
@@ -81,6 +86,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
@@ -95,6 +101,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +114,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getNumericValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +127,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -132,6 +141,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getStringValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,6 +160,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -162,6 +173,7 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +182,9 @@ public class WmiCollectionAttribute extends AbstractCollectionAttribute implemen
         return "WmiCollectionAttribute " + m_alias + "=" + m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "Not supported yet._" + "WMI_" + getName();

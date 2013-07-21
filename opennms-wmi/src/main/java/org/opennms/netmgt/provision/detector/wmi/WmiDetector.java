@@ -43,48 +43,74 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class WmiDetector.
+ */
 @Component
 @Scope("prototype")
 public class WmiDetector extends SyncAbstractDetector {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(WmiDetector.class);
 
+    /** The Constant PROTOCOL_NAME. */
     private static final String PROTOCOL_NAME = "WMI";
 
+    /** The Constant DEFAULT_WMI_CLASS. */
     private static final String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 
+    /** The Constant DEFAULT_WMI_OBJECT. */
     private static final String DEFAULT_WMI_OBJECT = "Status";
 
+    /** The Constant DEFAULT_WMI_COMP_VAL. */
     private static final String DEFAULT_WMI_COMP_VAL = "OK";
 
+    /** The Constant DEFAULT_WMI_MATCH_TYPE. */
     private static final String DEFAULT_WMI_MATCH_TYPE = "all";
 
+    /** The Constant DEFAULT_WMI_COMP_OP. */
     private static final String DEFAULT_WMI_COMP_OP = "EQ";
 
+    /** The Constant DEFAULT_WMI_WQL. */
     private static final String DEFAULT_WMI_WQL = "NOTSET";
 
+    /** The m_match type. */
     private String m_matchType;
 
+    /** The m_comp val. */
     private String m_compVal;
 
+    /** The m_comp op. */
     private String m_compOp;
 
+    /** The m_wmi class. */
     private String m_wmiClass;
 
+    /** The m_wmi object. */
     private String m_wmiObject;
 
+    /** The m_wmi wql str. */
     private String m_wmiWqlStr;
 
+    /** The m_username. */
     private String m_username;
 
+    /** The m_password. */
     private String m_password;
 
+    /** The m_domain. */
     private String m_domain;
 
+    /**
+     * Instantiates a new wmi detector.
+     */
     public WmiDetector() {
         super(PROTOCOL_NAME, 0);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AbstractDetector#onInit()
+     */
     @Override
     protected void onInit() {
         setMatchType(getMatchType() != null ? getMatchType() : DEFAULT_WMI_MATCH_TYPE);
@@ -95,6 +121,9 @@ public class WmiDetector extends SyncAbstractDetector {
         setWmiWqlStr(getWmiWqlStr() != null ? getWmiWqlStr() : DEFAULT_WMI_WQL);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.SyncAbstractDetector#isServiceDetected(java.net.InetAddress)
+     */
     @Override
     public boolean isServiceDetected(final InetAddress address) {
         WmiParams clientParams = null;
@@ -132,6 +161,27 @@ public class WmiDetector extends SyncAbstractDetector {
         return (result != null && result.getResultCode() != WmiResult.RES_STATE_CRIT && result.getResultCode() != WmiResult.RES_STATE_UNKNOWN);
     }
 
+    /**
+     * Checks if is server.
+     *
+     * @param host
+     *            the host
+     * @param user
+     *            the user
+     * @param pass
+     *            the pass
+     * @param domain
+     *            the domain
+     * @param matchType
+     *            the match type
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param params
+     *            the params
+     * @return the wmi result
+     */
     private WmiResult isServer(InetAddress host, String user, String pass, String domain, String matchType,
             int retries, int timeout, WmiParams params) {
         boolean isAServer = false;
@@ -177,80 +227,182 @@ public class WmiDetector extends SyncAbstractDetector {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.support.AbstractDetector#dispose()
+     */
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
 
     }
 
+    /**
+     * Sets the match type.
+     *
+     * @param matchType
+     *            the new match type
+     */
     public void setMatchType(String matchType) {
         m_matchType = matchType;
     }
 
+    /**
+     * Gets the match type.
+     *
+     * @return the match type
+     */
     public String getMatchType() {
         return m_matchType;
     }
 
+    /**
+     * Sets the comp val.
+     *
+     * @param compVal
+     *            the new comp val
+     */
     public void setCompVal(String compVal) {
         m_compVal = compVal;
     }
 
+    /**
+     * Gets the comp val.
+     *
+     * @return the comp val
+     */
     public String getCompVal() {
         return m_compVal;
     }
 
+    /**
+     * Sets the comp op.
+     *
+     * @param compOp
+     *            the new comp op
+     */
     public void setCompOp(String compOp) {
         m_compOp = compOp;
     }
 
+    /**
+     * Gets the comp op.
+     *
+     * @return the comp op
+     */
     public String getCompOp() {
         return m_compOp;
     }
 
+    /**
+     * Sets the wmi class.
+     *
+     * @param wmiClass
+     *            the new wmi class
+     */
     public void setWmiClass(String wmiClass) {
         m_wmiClass = wmiClass;
     }
 
+    /**
+     * Gets the wmi class.
+     *
+     * @return the wmi class
+     */
     public String getWmiClass() {
         return m_wmiClass;
     }
 
+    /**
+     * Sets the wmi object.
+     *
+     * @param wmiObject
+     *            the new wmi object
+     */
     public void setWmiObject(String wmiObject) {
         m_wmiObject = wmiObject;
     }
 
+    /**
+     * Gets the wmi object.
+     *
+     * @return the wmi object
+     */
     public String getWmiObject() {
         return m_wmiObject;
     }
 
+    /**
+     * Sets the wmi wql str.
+     *
+     * @param wmiWqlStr
+     *            the new wmi wql str
+     */
     public void setWmiWqlStr(String wmiWqlStr) {
         m_wmiWqlStr = wmiWqlStr;
     }
 
+    /**
+     * Gets the wmi wql str.
+     *
+     * @return the wmi wql str
+     */
     public String getWmiWqlStr() {
         return m_wmiWqlStr;
     }
 
+    /**
+     * Sets the username.
+     *
+     * @param username
+     *            the new username
+     */
     public void setUsername(String username) {
         m_username = username;
     }
 
+    /**
+     * Gets the username.
+     *
+     * @return the username
+     */
     public String getUsername() {
         return m_username;
     }
 
+    /**
+     * Sets the password.
+     *
+     * @param password
+     *            the new password
+     */
     public void setPassword(String password) {
         m_password = password;
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return m_password;
     }
 
+    /**
+     * Sets the domain.
+     *
+     * @param domain
+     *            the new domain
+     */
     public void setDomain(String domain) {
         m_domain = domain;
     }
 
+    /**
+     * Gets the domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return m_domain;
     }

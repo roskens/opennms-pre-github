@@ -43,6 +43,9 @@ public class WmiAgentConfigTest extends TestCase {
      * so that we can reuse it.
      * @see junit.framework.TestCase#setUp()
      */
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -50,6 +53,9 @@ public class WmiAgentConfigTest extends TestCase {
 
     /*
      * Tear down simply resets the mock object.
+     * @see junit.framework.TestCase#tearDown()
+     */
+    /* (non-Javadoc)
      * @see junit.framework.TestCase#tearDown()
      */
     @Override

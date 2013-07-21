@@ -58,16 +58,22 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiAgentState {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiAgentState.class);
 
+    /** The m_manager. */
     private WmiManager m_manager;
 
+    /** The m_wmi client. */
     private IWmiClient m_wmiClient;
 
+    /** The m_agent config. */
     private WmiAgentConfig m_agentConfig;
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_group states. */
     private HashMap<String, WmiGroupState> m_groupStates = new HashMap<String, WmiGroupState>();
 
     /**
@@ -97,6 +103,7 @@ public class WmiAgentState {
      * <p>
      * connect
      * </p>
+     * .
      */
     public void connect() {
         try {
@@ -110,6 +117,7 @@ public class WmiAgentState {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +129,7 @@ public class WmiAgentState {
      * <p>
      * getManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.WmiManager} object.
      */
@@ -132,6 +141,7 @@ public class WmiAgentState {
      * <p>
      * groupIsAvailable
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -150,6 +160,7 @@ public class WmiAgentState {
      * <p>
      * setGroupIsAvailable
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -169,6 +180,7 @@ public class WmiAgentState {
      * <p>
      * shouldCheckAvailability
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -193,6 +205,7 @@ public class WmiAgentState {
      * <p>
      * didCheckGroupAvailability
      * </p>
+     * .
      *
      * @param groupName
      *            a {@link java.lang.String} object.
@@ -211,6 +224,7 @@ public class WmiAgentState {
      * <p>
      * getWmiClient
      * </p>
+     * .
      *
      * @return a {@link org.opennms.protocols.wmi.IWmiClient} object.
      */
@@ -222,6 +236,7 @@ public class WmiAgentState {
      * <p>
      * setWmiClient
      * </p>
+     * .
      *
      * @param wmiClient
      *            a {@link org.opennms.protocols.wmi.IWmiClient} object.

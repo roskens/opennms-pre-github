@@ -47,10 +47,14 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
  * @version $Id: $
  */
 public class WmiCollectionSet implements CollectionSet {
+
+    /** The m_status. */
     private int m_status;
 
+    /** The m_collection resources. */
     private List<WmiCollectionResource> m_collectionResources;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
     /**
@@ -70,6 +74,7 @@ public class WmiCollectionSet implements CollectionSet {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -82,6 +87,7 @@ public class WmiCollectionSet implements CollectionSet {
      * <p>
      * setStatus
      * </p>
+     * .
      *
      * @param status
      *            a int.
@@ -106,6 +112,7 @@ public class WmiCollectionSet implements CollectionSet {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -117,6 +124,7 @@ public class WmiCollectionSet implements CollectionSet {
      * <p>
      * ignorePersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -125,11 +133,20 @@ public class WmiCollectionSet implements CollectionSet {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+     */
     @Override
     public Date getCollectionTimestamp() {
         return m_timestamp;
     }
 
+    /**
+     * Sets the collection timestamp.
+     *
+     * @param timestamp
+     *            the new collection timestamp
+     */
     public void setCollectionTimestamp(Date timestamp) {
         this.m_timestamp = timestamp;
     }

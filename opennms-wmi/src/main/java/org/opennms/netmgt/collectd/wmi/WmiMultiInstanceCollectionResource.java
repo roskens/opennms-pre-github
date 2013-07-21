@@ -45,10 +45,13 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiMultiInstanceCollectionResource.class);
 
+    /** The m_inst. */
     private String m_inst;
 
+    /** The m_name. */
     private String m_name;
 
     /**
@@ -87,6 +90,7 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,6 +103,7 @@ public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

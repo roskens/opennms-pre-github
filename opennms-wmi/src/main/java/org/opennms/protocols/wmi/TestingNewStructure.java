@@ -43,10 +43,12 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
  * @version $Id: $
  */
 public class TestingNewStructure {
+
     /**
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

@@ -32,18 +32,35 @@ import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.wbem.OnmsWbemObject;
 import org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet;
 
+/**
+ * The Class OnmsWbemObjectSetBiosStub.
+ */
 public class OnmsWbemObjectSetBiosStub implements OnmsWbemObjectSet {
+
+    /** The obj stub. */
     public OnmsWbemObject objStub;
 
+    /**
+     * Instantiates a new onms wbem object set bios stub.
+     *
+     * @param obj
+     *            the obj
+     */
     public OnmsWbemObjectSetBiosStub(OnmsWbemObject obj) {
         objStub = obj;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet#count()
+     */
     @Override
     public Integer count() throws WmiException {
         return 1;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet#get(java.lang.Integer)
+     */
     @Override
     public OnmsWbemObject get(Integer idx) throws WmiException {
         if (idx == 0) {

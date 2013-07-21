@@ -153,6 +153,7 @@ public class WmiResult {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

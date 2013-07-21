@@ -43,8 +43,10 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
  */
 public abstract class WmiCollectionResource extends AbstractCollectionResource {
 
+    /** The m_node id. */
     protected int m_nodeId;
 
+    /** The m_agent. */
     protected CollectionAgent m_agent;
 
     /**
@@ -65,6 +67,7 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -78,6 +81,7 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -96,13 +100,14 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      * <p>
      * setAttributeValue
      * </p>
+     * .
      *
      * @param type
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
-     *            object.
      * @param value
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
+     *            object.
      */
     public void setAttributeValue(final CollectionAttributeType type, final String value) {
         final WmiCollectionAttribute attr = new WmiCollectionAttribute(this, type, type.getName(), value);
@@ -113,6 +118,7 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,12 +129,16 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
     public abstract String getInstance();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();

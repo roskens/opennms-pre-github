@@ -44,13 +44,14 @@ public interface IWmiClient {
      * <p>
      * performExecQuery
      * </p>
+     * .
      *
      * @param strQuery
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObjectSet performExecQuery(String strQuery) throws WmiException;
 
@@ -58,6 +59,7 @@ public interface IWmiClient {
      * <p>
      * performExecQuery
      * </p>
+     * .
      *
      * @param strQuery
      *            a {@link java.lang.String} object.
@@ -67,8 +69,8 @@ public interface IWmiClient {
      *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObjectSet performExecQuery(String strQuery, String strQueryLanguage, Integer flags)
             throws WmiException;
@@ -77,13 +79,14 @@ public interface IWmiClient {
      * <p>
      * performInstanceOf
      * </p>
+     * .
      *
      * @param wmiClass
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObjectSet}
      *         object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemObjectSet performInstanceOf(String wmiClass) throws WmiException;
 
@@ -91,6 +94,7 @@ public interface IWmiClient {
      * <p>
      * connect
      * </p>
+     * .
      *
      * @param domain
      *            a {@link java.lang.String} object.
@@ -98,8 +102,8 @@ public interface IWmiClient {
      *            a {@link java.lang.String} object.
      * @param password
      *            a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public void connect(String domain, String username, String password) throws WmiException;
 
@@ -107,9 +111,10 @@ public interface IWmiClient {
      * <p>
      * disconnect
      * </p>
+     * .
      *
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public void disconnect() throws WmiException;
 

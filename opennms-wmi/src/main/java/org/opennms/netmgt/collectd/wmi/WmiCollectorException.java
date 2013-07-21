@@ -38,9 +38,8 @@ package org.opennms.netmgt.collectd.wmi;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiCollectorException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7123162374663054884L;
 
     /**

@@ -62,18 +62,25 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class WmiMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiMonitor.class);
 
+    /** The Constant DEFAULT_WMI_CLASS. */
     private static final String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
 
+    /** The Constant DEFAULT_WMI_OBJECT. */
     private static final String DEFAULT_WMI_OBJECT = "Status";
 
+    /** The Constant DEFAULT_WMI_COMP_VAL. */
     private static final String DEFAULT_WMI_COMP_VAL = "OK";
 
+    /** The Constant DEFAULT_WMI_MATCH_TYPE. */
     private static final String DEFAULT_WMI_MATCH_TYPE = "all";
 
+    /** The Constant DEFAULT_WMI_COMP_OP. */
     private static final String DEFAULT_WMI_COMP_OP = "EQ";
 
+    /** The Constant DEFAULT_WMI_WQL. */
     private static final String DEFAULT_WMI_WQL = "NOTSET";
 
     /**

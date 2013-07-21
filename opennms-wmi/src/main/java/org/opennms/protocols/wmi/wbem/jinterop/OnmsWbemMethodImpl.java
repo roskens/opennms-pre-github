@@ -42,6 +42,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemMethod;
  * @version $Id: $
  */
 public class OnmsWbemMethodImpl implements OnmsWbemMethod {
+
+    /** The wbem method dispatch. */
     private IJIDispatch wbemMethodDispatch;
 
     /**
@@ -61,10 +63,11 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
      * <p>
      * getWmiName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiName() throws WmiException {
@@ -79,10 +82,11 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
      * <p>
      * getWmiOrigin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiOrigin() throws WmiException {
@@ -97,6 +101,9 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
      * <p>
      * getWmiOutParameters
      * </p>
+     * .
+     *
+     * @return the wmi out parameters
      */
     @Override
     public void getWmiOutParameters() {
@@ -107,6 +114,9 @@ public class OnmsWbemMethodImpl implements OnmsWbemMethod {
      * <p>
      * getWmiInParameters
      * </p>
+     * .
+     *
+     * @return the wmi in parameters
      */
     @Override
     public void getWmiInParameters() {

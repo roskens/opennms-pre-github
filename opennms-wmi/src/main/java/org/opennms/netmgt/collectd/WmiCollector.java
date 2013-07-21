@@ -78,14 +78,18 @@ import org.slf4j.LoggerFactory;
  */
 public class WmiCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
 
     // Don't make this static because each service will have its own
     // copy and the key won't require the service name as part of the key.
+    /** The m_scheduled nodes. */
     private final HashMap<Integer, WmiAgentState> m_scheduledNodes = new HashMap<Integer, WmiAgentState>();
 
+    /** The m_group type list. */
     private HashMap<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
 
+    /** The m_attrib type list. */
     private HashMap<String, WmiCollectionAttributeType> m_attribTypeList = new HashMap<String, WmiCollectionAttributeType>();
 
     /** {@inheritDoc} */
@@ -189,6 +193,12 @@ public class WmiCollector implements ServiceCollector {
         return collectionSet;
     }
 
+    /**
+     * Load attribute group list.
+     *
+     * @param collection
+     *            the collection
+     */
     private void loadAttributeGroupList(final WmiCollection collection) {
         for (final Wpm wpm : collection.getWpms().getWpm()) {
             final AttributeGroupType attribGroupType1 = new AttributeGroupType(wpm.getName(), wpm.getIfType());
@@ -196,6 +206,12 @@ public class WmiCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Load attribute type list.
+     *
+     * @param collection
+     *            the collection
+     */
     private void loadAttributeTypeList(final WmiCollection collection) {
         for (final Wpm wpm : collection.getWpms().getWpm()) {
             for (final Attrib attrib : wpm.getAttrib()) {
@@ -206,6 +222,15 @@ public class WmiCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Checks if is group available.
+     *
+     * @param agentState
+     *            the agent state
+     * @param wpm
+     *            the wpm
+     * @return true, if is group available
+     */
     private boolean isGroupAvailable(final WmiAgentState agentState, final Wpm wpm) {
         LOG.debug("Checking availability of group {}", wpm.getName());
         WmiManager manager = null;
@@ -262,6 +287,9 @@ public class WmiCollector implements ServiceCollector {
         initializeRrdRepository();
     }
 
+    /**
+     * Inits the wmi peer factory.
+     */
     private void initWMIPeerFactory() {
         LOG.debug("initialize: Initializing WmiPeerFactory");
         try {
@@ -278,6 +306,9 @@ public class WmiCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the wmi collection config.
+     */
     private void initWMICollectionConfig() {
         LOG.debug("initialize: Initializing collector: {}", getClass());
         try {
@@ -297,11 +328,17 @@ public class WmiCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initialize rrd repository.
+     */
     private void initializeRrdRepository() {
         LOG.debug("initializeRrdRepository: Initializing RRD repo from WmiCollector...");
         initializeRrdDirs();
     }
 
+    /**
+     * Initialize rrd dirs.
+     */
     private void initializeRrdDirs() {
         /*
          * If the RRD file repository directory does NOT already exist, create
@@ -317,6 +354,9 @@ public class WmiCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the database connection factory.
+     */
     private void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -354,6 +394,7 @@ public class WmiCollector implements ServiceCollector {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {

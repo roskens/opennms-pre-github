@@ -39,14 +39,16 @@ import org.opennms.protocols.wmi.WmiException;
  * @version $Id: $
  */
 public interface OnmsWbemMethodSet {
+
     /**
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public Integer getCount() throws WmiException;
 
@@ -54,12 +56,13 @@ public interface OnmsWbemMethodSet {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param idx
      *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemMethod} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemMethod get(Integer idx) throws WmiException;
 }

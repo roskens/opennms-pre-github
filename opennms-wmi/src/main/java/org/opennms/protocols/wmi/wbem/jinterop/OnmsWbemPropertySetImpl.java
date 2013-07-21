@@ -48,6 +48,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
  * @version $Id: $
  */
 public class OnmsWbemPropertySetImpl implements OnmsWbemPropertySet {
+
+    /** The wbem property set dispatch. */
     private IJIDispatch wbemPropertySetDispatch;
 
     /**
@@ -67,10 +69,11 @@ public class OnmsWbemPropertySetImpl implements OnmsWbemPropertySet {
      * <p>
      * count
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Integer count() throws WmiException {

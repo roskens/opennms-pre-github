@@ -31,32 +31,54 @@ package org.opennms.protocols.wmi.test.stubs;
 import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
 
+/**
+ * The Class OnmsWbemPropBiosStub.
+ */
 public class OnmsWbemPropBiosStub implements OnmsWbemProperty {
+
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiName()
+     */
     @Override
     public String getWmiName() throws WmiException {
         return "ReleaseDate";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiOrigin()
+     */
     @Override
     public String getWmiOrigin() throws WmiException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiIsArray()
+     */
     @Override
     public Boolean getWmiIsArray() throws WmiException {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiIsLocal()
+     */
     @Override
     public Boolean getWmiIsLocal() throws WmiException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiValue()
+     */
     @Override
     public Object getWmiValue() throws WmiException {
         return "2/12/2004 00:00:00";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemProperty#getWmiCIMType()
+     */
     @Override
     public Integer getWmiCIMType() throws WmiException {
         return null;

@@ -42,10 +42,25 @@ import java.util.Date;
  * @version $Id: $
  */
 public enum WmiMgrOperation {
-    EQ(0), NEQ(1), GT(2), LT(3);
 
+    /** The eq. */
+    EQ(0),
+ /** The neq. */
+ NEQ(1),
+ /** The gt. */
+ GT(2),
+ /** The lt. */
+ LT(3);
+
+    /** The Operation type. */
     private int m_OperationType;
 
+    /**
+     * Instantiates a new wmi mgr operation.
+     *
+     * @param opType
+     *            the op type
+     */
     WmiMgrOperation(final int opType) {
         m_OperationType = opType;
     }
@@ -54,6 +69,7 @@ public enum WmiMgrOperation {
      * <p>
      * getOpNumber
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -65,14 +81,15 @@ public enum WmiMgrOperation {
      * <p>
      * compareString
      * </p>
+     * .
      *
      * @param comp1
      *            a {@link java.lang.Object} object.
      * @param comp2
      *            a {@link java.lang.String} object.
      * @return a boolean.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public boolean compareString(final Object comp1, final String comp2) throws WmiException {
         if (comp1 instanceof String) {
@@ -123,6 +140,15 @@ public enum WmiMgrOperation {
         return false;
     }
 
+    /**
+     * Compare to string.
+     *
+     * @param comp1
+     *            the comp1
+     * @param comp2
+     *            the comp2
+     * @return true, if successful
+     */
     private boolean compareToString(final String comp1, final String comp2) {
         switch (this) {
         case EQ:
@@ -140,6 +166,15 @@ public enum WmiMgrOperation {
         return false;
     }
 
+    /**
+     * Compare to integer.
+     *
+     * @param comp1
+     *            the comp1
+     * @param comp2
+     *            the comp2
+     * @return true, if successful
+     */
     private boolean compareToInteger(final Integer comp1, final Integer comp2) {
         switch (this) {
         case EQ:
@@ -173,6 +208,15 @@ public enum WmiMgrOperation {
         return false;
     }
 
+    /**
+     * Compare to boolean.
+     *
+     * @param bool1
+     *            the bool1
+     * @param bool2
+     *            the bool2
+     * @return true, if successful
+     */
     private boolean compareToBoolean(final Boolean bool1, final Boolean bool2) {
         switch (this) {
         case EQ:
@@ -187,6 +231,15 @@ public enum WmiMgrOperation {
         return false;
     }
 
+    /**
+     * Compare to float.
+     *
+     * @param comp1
+     *            the comp1
+     * @param comp2
+     *            the comp2
+     * @return true, if successful
+     */
     private boolean compareToFloat(final Float comp1, final Float comp2) {
         switch (this) {
         case EQ:
@@ -220,6 +273,15 @@ public enum WmiMgrOperation {
         return false;
     }
 
+    /**
+     * Compare to date.
+     *
+     * @param date1
+     *            the date1
+     * @param date2
+     *            the date2
+     * @return true, if successful
+     */
     private boolean compareToDate(final Date date1, final Date date2) {
         switch (this) {
         case EQ:

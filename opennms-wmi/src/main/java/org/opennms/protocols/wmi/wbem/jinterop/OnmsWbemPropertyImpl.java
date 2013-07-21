@@ -43,6 +43,8 @@ import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
  * @version $Id: $
  */
 public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
+
+    /** The wbem property dispatch. */
     private IJIDispatch wbemPropertyDispatch;
 
     /**
@@ -62,10 +64,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiName() throws WmiException {
@@ -76,10 +79,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiOrigin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public String getWmiOrigin() throws WmiException {
@@ -90,10 +94,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiIsArray
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Boolean getWmiIsArray() throws WmiException {
@@ -104,10 +109,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiIsLocal
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Boolean getWmiIsLocal() throws WmiException {
@@ -118,10 +124,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Object getWmiValue() throws WmiException {
@@ -136,10 +143,11 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
      * <p>
      * getWmiCIMType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     @Override
     public Integer getWmiCIMType() throws WmiException {
@@ -150,6 +158,15 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
         }
     }
 
+    /**
+     * Gets the wmi string.
+     *
+     * @param name
+     *            the name
+     * @return the wmi string
+     * @throws WmiException
+     *             the wmi exception
+     */
     private String getWmiString(final String name) throws WmiException {
         try {
             return wbemPropertyDispatch.get(name).getObjectAsString2();
@@ -158,6 +175,15 @@ public class OnmsWbemPropertyImpl implements OnmsWbemProperty {
         }
     }
 
+    /**
+     * Gets the wmi boolean.
+     *
+     * @param name
+     *            the name
+     * @return the wmi boolean
+     * @throws WmiException
+     *             the wmi exception
+     */
     private Boolean getWmiBoolean(final String name) throws WmiException {
         try {
             return wbemPropertyDispatch.get(name).getObjectAsBoolean();

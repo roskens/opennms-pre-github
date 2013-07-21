@@ -70,10 +70,13 @@ public class WmiManager {
      */
     private String m_Password = null;
 
+    /** The Wmi client. */
     private IWmiClient m_WmiClient = null;
 
+    /** The Match type. */
     private String m_MatchType = null;
 
+    /** The Timeout. */
     private int m_Timeout = DEFAULT_SOCKET_TIMEOUT;
 
     /**
@@ -217,6 +220,7 @@ public class WmiManager {
      * <p>
      * isValidMatchType
      * </p>
+     * .
      *
      * @param matchType
      *            a {@link java.lang.String} object.
@@ -234,6 +238,7 @@ public class WmiManager {
      * <p>
      * isValidOpType
      * </p>
+     * .
      *
      * @param opType
      *            a {@link java.lang.String} object.
@@ -251,11 +256,8 @@ public class WmiManager {
     /**
      * This creates a new WmiClient and creates a connection to the host.
      *
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             An exception will be thrown if the system is unable to look
-     *             up the host and if J-Interop throws an exception this will
-     *             re-throw that exception so that implementors need not know
-     *             J-Interop exceptions.
+     * @throws WmiException
+     *             the wmi exception
      */
     public void init() throws WmiException {
         m_WmiClient = (IWmiClient) new WmiClient(m_HostName);
@@ -268,8 +270,8 @@ public class WmiManager {
      * @param client
      *            allows a IWmiClient to be pre-instantiated. Used for mock
      *            testing.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             is thrown if there are any problems connecting.
+     * @throws WmiException
+     *             the wmi exception
      */
     public void init(final IWmiClient client) throws WmiException {
         m_WmiClient = client;
@@ -280,9 +282,10 @@ public class WmiManager {
      * <p>
      * close
      * </p>
+     * .
      *
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public void close() throws WmiException {
         if (m_WmiClient == null) {
@@ -295,12 +298,13 @@ public class WmiManager {
      * <p>
      * performOp
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.protocols.wmi.WmiParams} object.
      * @return a {@link org.opennms.protocols.wmi.WmiResult} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public WmiResult performOp(final WmiParams params) throws WmiException {
         // If we defined a WQL query string, exec the query.
@@ -316,12 +320,13 @@ public class WmiManager {
      * <p>
      * performExecQuery
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.protocols.wmi.WmiParams} object.
      * @return a {@link org.opennms.protocols.wmi.WmiResult} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public WmiResult performExecQuery(final WmiParams params) throws WmiException {
         final ArrayList<Object> wmiObjects = new ArrayList<Object>();
@@ -349,12 +354,13 @@ public class WmiManager {
      * <p>
      * performInstanceOf
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.protocols.wmi.WmiParams} object.
      * @return a {@link org.opennms.protocols.wmi.WmiResult} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public WmiResult performInstanceOf(final WmiParams params) throws WmiException {
         final ArrayList<Object> wmiObjects = new ArrayList<Object>();
@@ -378,6 +384,16 @@ public class WmiManager {
         return result;
     }
 
+    /**
+     * Perform result check.
+     *
+     * @param wmiResult
+     *            the wmi result
+     * @param params
+     *            the params
+     * @throws WmiException
+     *             the wmi exception
+     */
     private void performResultCheck(final WmiResult wmiResult, final WmiParams params) throws WmiException {
         final ArrayList<Object> wmiObjects = wmiResult.getResponse();
 
@@ -421,6 +437,7 @@ public class WmiManager {
      * <p>
      * getMatchType
      * </p>
+     * .
      *
      * @return the m_MatchType
      */
@@ -432,6 +449,7 @@ public class WmiManager {
      * <p>
      * setMatchType
      * </p>
+     * .
      *
      * @param matchType
      *            the m_MatchType to set

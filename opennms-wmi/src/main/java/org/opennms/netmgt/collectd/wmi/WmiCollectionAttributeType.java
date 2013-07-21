@@ -43,8 +43,11 @@ import org.opennms.netmgt.config.wmi.Attrib;
  * @version $Id: $
  */
 public class WmiCollectionAttributeType implements CollectionAttributeType {
+
+    /** The m_attribute. */
     Attrib m_attribute;
 
+    /** The m_group type. */
     AttributeGroupType m_groupType;
 
     /**
@@ -68,6 +71,7 @@ public class WmiCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * getGroupType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
      *         object.
@@ -91,6 +95,7 @@ public class WmiCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +108,7 @@ public class WmiCollectionAttributeType implements CollectionAttributeType {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

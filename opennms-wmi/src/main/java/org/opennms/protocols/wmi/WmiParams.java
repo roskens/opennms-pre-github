@@ -36,10 +36,11 @@ package org.opennms.protocols.wmi;
  * @version $Id: $
  */
 public class WmiParams {
-    /** Constant <code>WMI_OPERATION_INSTANCEOF="InstanceOf"</code> */
+
+    /** Constant <code>WMI_OPERATION_INSTANCEOF="InstanceOf"</code>. */
     public static final String WMI_OPERATION_INSTANCEOF = "InstanceOf";
 
-    /** Constant <code>WMI_OPERATION_WQL="Wql"</code> */
+    /** Constant <code>WMI_OPERATION_WQL="Wql"</code>. */
     public static final String WMI_OPERATION_WQL = "Wql";
 
     /**
@@ -47,14 +48,19 @@ public class WmiParams {
      */
     private Object m_CompareValue = null;
 
+    /** The Compare operation. */
     private String m_CompareOperation = null;
 
+    /** The Wmi class. */
     private String m_WmiClass = null;
 
+    /** The Wmi object. */
     private String m_WmiObject = null;
 
+    /** The Wm wql str. */
     private String m_WmWqlStr = null;
 
+    /** The Wmi operation. */
     private String m_WmiOperation = null;
 
     /**
@@ -84,6 +90,9 @@ public class WmiParams {
         m_WmiOperation = queryType;
     }
 
+    /**
+     * Instantiates a new wmi params.
+     */
     @SuppressWarnings("unused")
     private WmiParams() {
         // do nothing, disallow this default ctor. All params are required.
@@ -93,6 +102,7 @@ public class WmiParams {
      * <p>
      * getCompareValue
      * </p>
+     * .
      *
      * @return the m_CompareValue
      */
@@ -104,6 +114,7 @@ public class WmiParams {
      * <p>
      * setCompareValue
      * </p>
+     * .
      *
      * @param compareValue
      *            the m_CompareValue to set
@@ -116,6 +127,7 @@ public class WmiParams {
      * <p>
      * getCompareOperation
      * </p>
+     * .
      *
      * @return the m_CompareOperation
      */
@@ -127,6 +139,7 @@ public class WmiParams {
      * <p>
      * setCompareOperation
      * </p>
+     * .
      *
      * @param compareOperation
      *            the m_CompareOperation to set
@@ -139,6 +152,7 @@ public class WmiParams {
      * <p>
      * getWmiClass
      * </p>
+     * .
      *
      * @return the m_WmiClass
      */
@@ -150,6 +164,7 @@ public class WmiParams {
      * <p>
      * setWmiClass
      * </p>
+     * .
      *
      * @param wmiClass
      *            the m_WmiClass to set
@@ -162,6 +177,7 @@ public class WmiParams {
      * <p>
      * getWmiObject
      * </p>
+     * .
      *
      * @return the m_WmiObject
      */
@@ -173,6 +189,7 @@ public class WmiParams {
      * <p>
      * setWmiObject
      * </p>
+     * .
      *
      * @param wmiObject
      *            the m_WmiObject to set
@@ -185,6 +202,7 @@ public class WmiParams {
      * <p>
      * getWql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -196,6 +214,7 @@ public class WmiParams {
      * <p>
      * setWql
      * </p>
+     * .
      *
      * @param wmiWql
      *            a {@link java.lang.String} object.
@@ -208,6 +227,7 @@ public class WmiParams {
      * <p>
      * getWmiOperation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -219,6 +239,7 @@ public class WmiParams {
      * <p>
      * setWmiOperation
      * </p>
+     * .
      *
      * @param wmiOperation
      *            a {@link java.lang.String} object.

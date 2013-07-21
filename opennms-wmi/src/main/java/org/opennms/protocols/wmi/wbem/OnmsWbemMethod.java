@@ -44,10 +44,11 @@ public interface OnmsWbemMethod {
      * <p>
      * getWmiName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public String getWmiName() throws WmiException;
 
@@ -55,10 +56,11 @@ public interface OnmsWbemMethod {
      * <p>
      * getWmiOrigin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public String getWmiOrigin() throws WmiException;
 
@@ -66,6 +68,9 @@ public interface OnmsWbemMethod {
      * <p>
      * getWmiOutParameters
      * </p>
+     * .
+     *
+     * @return the wmi out parameters
      */
     public void getWmiOutParameters();
 
@@ -73,6 +78,9 @@ public interface OnmsWbemMethod {
      * <p>
      * getWmiInParameters
      * </p>
+     * .
+     *
+     * @return the wmi in parameters
      */
     public void getWmiInParameters();
 }

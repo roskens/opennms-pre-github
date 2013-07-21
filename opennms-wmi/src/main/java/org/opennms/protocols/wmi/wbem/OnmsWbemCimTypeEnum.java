@@ -43,19 +43,53 @@ import java.util.Map;
  * @version $Id: $
  */
 public enum OnmsWbemCimTypeEnum {
-    wbemCimtypeSint16(2, "wbemCimtypeSint16"), wbemCimtypeSint32(3, "wbemCimtypeSint32"), wbemCimtypeReal32(4,
-            "wbemCimtypeReal32"), wbemCimtypeReal64(5, "wbemCimtypeReal64"), wbemCimtypeString(8, "wbemCimtypeString"), wbemCimtypeBoolean(
-            11, "wbemCimtypeBoolean"), wbemCimtypeObject(13, "wbemCimtypeObject"), wbemCimtypeSint8(16,
-            "wbemCimtypeSint8"), wbemCimtypeUint8(17, "wbemCimtypeUint8"), wbemCimtypeUint16(18, "wbemCimtypeUint16"), wbemCimtypeUint32(
-            19, "wbemCimtypeUint32"), wbemCimtypeSint64(20, "wbemCimtypeSint64"), wbemCimtypeUint64(21,
-            "wbemCimtypeUint64"), wbemCimtypeDatetime(101, "wbemCimtypeDatetime"), wbemCimtypeReference(102,
-            "wbemCimtypeReference"), wbemCimtypeChar16(103, "wbemCimtypeChar16");
 
-    /** Constant <code>lookup</code> */
+    /** The wbem cimtype sint16. */
+    wbemCimtypeSint16(2, "wbemCimtypeSint16"),
+ /** The wbem cimtype sint32. */
+ wbemCimtypeSint32(3, "wbemCimtypeSint32"),
+ /** The wbem cimtype real32. */
+ wbemCimtypeReal32(4,
+            "wbemCimtypeReal32"),
+ /** The wbem cimtype real64. */
+ wbemCimtypeReal64(5, "wbemCimtypeReal64"),
+ /** The wbem cimtype string. */
+ wbemCimtypeString(8, "wbemCimtypeString"),
+ /** The wbem cimtype boolean. */
+ wbemCimtypeBoolean(
+            11, "wbemCimtypeBoolean"),
+ /** The wbem cimtype object. */
+ wbemCimtypeObject(13, "wbemCimtypeObject"),
+ /** The wbem cimtype sint8. */
+ wbemCimtypeSint8(16,
+            "wbemCimtypeSint8"),
+ /** The wbem cimtype uint8. */
+ wbemCimtypeUint8(17, "wbemCimtypeUint8"),
+ /** The wbem cimtype uint16. */
+ wbemCimtypeUint16(18, "wbemCimtypeUint16"),
+ /** The wbem cimtype uint32. */
+ wbemCimtypeUint32(
+            19, "wbemCimtypeUint32"),
+ /** The wbem cimtype sint64. */
+ wbemCimtypeSint64(20, "wbemCimtypeSint64"),
+ /** The wbem cimtype uint64. */
+ wbemCimtypeUint64(21,
+            "wbemCimtypeUint64"),
+ /** The wbem cimtype datetime. */
+ wbemCimtypeDatetime(101, "wbemCimtypeDatetime"),
+ /** The wbem cimtype reference. */
+ wbemCimtypeReference(102,
+            "wbemCimtypeReference"),
+ /** The wbem cimtype char16. */
+ wbemCimtypeChar16(103, "wbemCimtypeChar16");
+
+    /** Constant <code>lookup</code>. */
     private static final Map<Integer, OnmsWbemCimTypeEnum> lookup = new HashMap<Integer, OnmsWbemCimTypeEnum>();
 
+    /** The cim value. */
     private int cimValue;
 
+    /** The cim name. */
     private String cimName;
 
     static {
@@ -63,6 +97,14 @@ public enum OnmsWbemCimTypeEnum {
             lookup.put(s.getCimValue(), s);
     }
 
+    /**
+     * Instantiates a new onms wbem cim type enum.
+     *
+     * @param cimValue
+     *            the cim value
+     * @param cimName
+     *            the cim name
+     */
     OnmsWbemCimTypeEnum(final int cimValue, final String cimName) {
         this.cimValue = cimValue;
         this.cimName = cimName;
@@ -94,6 +136,7 @@ public enum OnmsWbemCimTypeEnum {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param cimValue
      *            a int.

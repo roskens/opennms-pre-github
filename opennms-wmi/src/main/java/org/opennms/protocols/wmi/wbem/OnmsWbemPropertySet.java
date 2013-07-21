@@ -44,10 +44,11 @@ public interface OnmsWbemPropertySet {
      * <p>
      * count
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public Integer count() throws WmiException;
 
@@ -55,12 +56,13 @@ public interface OnmsWbemPropertySet {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param idx
      *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemProperty} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemProperty get(Integer idx) throws WmiException;
 
@@ -68,12 +70,13 @@ public interface OnmsWbemPropertySet {
      * <p>
      * getByName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemProperty} object.
-     * @throws org.opennms.protocols.wmi.WmiException
-     *             if any.
+     * @throws WmiException
+     *             the wmi exception
      */
     public OnmsWbemProperty getByName(String name) throws WmiException;
 }

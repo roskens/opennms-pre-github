@@ -32,23 +32,43 @@ import org.opennms.protocols.wmi.WmiException;
 import org.opennms.protocols.wmi.wbem.OnmsWbemProperty;
 import org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet;
 
+/**
+ * The Class OnmsWbemPropSetBiosStub.
+ */
 public class OnmsWbemPropSetBiosStub implements OnmsWbemPropertySet {
+
+    /** The release date. */
     public OnmsWbemProperty releaseDate;
 
+    /**
+     * Instantiates a new onms wbem prop set bios stub.
+     *
+     * @param prop
+     *            the prop
+     */
     public OnmsWbemPropSetBiosStub(OnmsWbemProperty prop) {
         releaseDate = prop;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet#count()
+     */
     @Override
     public Integer count() throws WmiException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet#get(java.lang.Integer)
+     */
     @Override
     public OnmsWbemProperty get(Integer idx) throws WmiException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.wmi.wbem.OnmsWbemPropertySet#getByName(java.lang.String)
+     */
     @Override
     public OnmsWbemProperty getByName(String name) throws WmiException {
         if (name.equals("ReleaseDate"))

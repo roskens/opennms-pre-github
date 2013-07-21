@@ -44,15 +44,26 @@ import java.util.Map;
  */
 public enum OnmsWbemFlagReturnEnum {
 
-    wbemFlagForwardOnly(32, "wbemFlagForwardOnly"), wbemFlagBidirectional(0, "wbemFlagBidirectional"), wbemFlagReturnImmediately(
-            16, "wbemFlagReturnImmediately"), wbemFlagReturnWhenComplete(0, "wbemFlagReturnWhenComplete"), wbemQueryFlagPrototype(
-            2, "wbemQueryFlagPrototype"), wbemFlagUseAmendedQualifiers(131072, "wbemFlagUseAmendedQualifiers");
+    /** The wbem flag forward only. */
+    wbemFlagForwardOnly(32, "wbemFlagForwardOnly"), /** The wbem flag bidirectional. */
+ wbemFlagBidirectional(0, "wbemFlagBidirectional"), /** The wbem flag return immediately. */
+ wbemFlagReturnImmediately(
+            16, "wbemFlagReturnImmediately"),
+ /** The wbem flag return when complete. */
+ wbemFlagReturnWhenComplete(0, "wbemFlagReturnWhenComplete"),
+ /** The wbem query flag prototype. */
+ wbemQueryFlagPrototype(
+            2, "wbemQueryFlagPrototype"),
+ /** The wbem flag use amended qualifiers. */
+ wbemFlagUseAmendedQualifiers(131072, "wbemFlagUseAmendedQualifiers");
 
-    /** Constant <code>lookup</code> */
+    /** Constant <code>lookup</code>. */
     private static final Map<Integer, OnmsWbemFlagReturnEnum> lookup = new HashMap<Integer, OnmsWbemFlagReturnEnum>();
 
+    /** The return flag value. */
     private int returnFlagValue;
 
+    /** The return flag name. */
     private String returnFlagName;
 
     static {
@@ -60,6 +71,14 @@ public enum OnmsWbemFlagReturnEnum {
             lookup.put(s.getReturnFlagValue(), s);
     }
 
+    /**
+     * Instantiates a new onms wbem flag return enum.
+     *
+     * @param returnFlagValue
+     *            the return flag value
+     * @param returnFlagName
+     *            the return flag name
+     */
     OnmsWbemFlagReturnEnum(final int returnFlagValue, final String returnFlagName) {
         this.returnFlagValue = returnFlagValue;
         this.returnFlagName = returnFlagName;
@@ -91,6 +110,7 @@ public enum OnmsWbemFlagReturnEnum {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param returnFlagValue
      *            a int.
