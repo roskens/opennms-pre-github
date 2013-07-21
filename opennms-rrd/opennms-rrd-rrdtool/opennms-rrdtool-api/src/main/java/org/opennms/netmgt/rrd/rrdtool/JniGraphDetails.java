@@ -43,12 +43,16 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
  */
 public class JniGraphDetails implements RrdGraphDetails {
 
+    /** The m_height. */
     private int m_height;
 
+    /** The m_width. */
     private int m_width;
 
+    /** The m_print lines. */
     private String[] m_printLines;
 
+    /** The m_input stream. */
     private InputStream m_inputStream;
 
     /**
@@ -76,10 +80,11 @@ public class JniGraphDetails implements RrdGraphDetails {
      * <p>
      * getHeight
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public int getHeight() throws RrdException {
@@ -90,10 +95,11 @@ public class JniGraphDetails implements RrdGraphDetails {
      * <p>
      * getInputStream
      * </p>
+     * .
      *
      * @return a {@link java.io.InputStream} object.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public InputStream getInputStream() throws RrdException {
@@ -104,10 +110,11 @@ public class JniGraphDetails implements RrdGraphDetails {
      * <p>
      * getPrintLines
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.String} objects.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public String[] getPrintLines() throws RrdException {
@@ -118,10 +125,11 @@ public class JniGraphDetails implements RrdGraphDetails {
      * <p>
      * getWidth
      * </p>
+     * .
      *
      * @return a int.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     @Override
     public int getWidth() throws RrdException {

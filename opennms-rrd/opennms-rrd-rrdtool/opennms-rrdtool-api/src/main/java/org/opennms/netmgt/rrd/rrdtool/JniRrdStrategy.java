@@ -63,28 +63,50 @@ import org.springframework.util.FileCopyUtils;
  * @version $Id: $
  */
 public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand, StringBuffer> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JniRrdStrategy.class);
 
+    /** The Constant IGNORABLE_LIBART_WARNING_STRING. */
     private static final String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
 
+    /** The Constant IGNORABLE_LIBART_WARNING_REGEX. */
     private static final String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
 
+    /** The m_configuration properties. */
     private Properties m_configurationProperties;
 
+    /**
+     * The Class CreateCommand.
+     */
     public static class CreateCommand {
 
+        /** The filename. */
         String filename;
 
+        /** The operation. */
         final String operation = "create";
 
+        /** The parameter. */
         String parameter;
 
+        /**
+         * Instantiates a new creates the command.
+         *
+         * @param filename
+         *            the filename
+         * @param parameter
+         *            the parameter
+         */
         public CreateCommand(String filename, String parameter) {
             super();
             this.filename = filename;
             this.parameter = parameter;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return operation + " " + filename + " " + parameter;
@@ -96,6 +118,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      * <p>
      * getConfigurationProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -116,8 +139,8 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      *
      * @param rrd
      *            a {@link java.lang.StringBuffer} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void closeFile(StringBuffer rrd) throws Exception {
@@ -171,8 +194,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      *
      * @param createCommand
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @param attributeMappings
+     *            the attribute mappings
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void createFile(CreateCommand createCommand, Map<String, String> attributeMappings) throws Exception {
@@ -217,10 +242,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
     }
 
     /**
-     * Initialized the JNI Interface
+     * Initialized the JNI Interface.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public JniRrdStrategy() throws Exception {
         Interface.init();
@@ -425,6 +450,19 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
         return new ByteArrayInputStream(byteArray);
     }
 
+    /**
+     * Creates the graph as byte array.
+     *
+     * @param command
+     *            the command
+     * @param workDir
+     *            the work dir
+     * @return the byte[]
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws RrdException
+     *             the rrd exception
+     */
     private byte[] createGraphAsByteArray(String command, File workDir) throws IOException, RrdException {
         String[] commandArray = StringUtils.createCommandArray(command, '@');
         Process process;
@@ -470,6 +508,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -482,6 +521,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -494,6 +534,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -506,6 +547,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand,
      * <p>
      * getDefaultFileExtension
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

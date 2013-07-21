@@ -49,8 +49,15 @@ import org.springframework.util.StringUtils;
 @TestExecutionListeners({})
 public class JniRrdStrategyTest {
 
+    /** The m_strategy. */
     private JniRrdStrategy m_strategy;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -67,10 +74,19 @@ public class JniRrdStrategyTest {
         }
     }
 
+    /**
+     * Test initialize.
+     */
     @Test
     public void testInitialize() {
     }
 
+    /**
+     * Test graph.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGraph() throws Exception {
         if (m_strategy != null) {
