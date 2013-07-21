@@ -38,6 +38,7 @@ package org.opennms.report.configuration;
  */
 public class ConfigurationCalculationException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8290071295128513350L;
 
     /**

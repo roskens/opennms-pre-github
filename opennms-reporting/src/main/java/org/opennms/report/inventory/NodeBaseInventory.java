@@ -45,20 +45,28 @@ import org.opennms.rancid.InventoryElement2;
  */
 public class NodeBaseInventory {
 
+    /** The devicename. */
     String devicename;
 
+    /** The groupname. */
     String groupname;
 
+    /** The version. */
     String version;
 
+    /** The status. */
     String status;
 
+    /** The creationdate. */
     Date creationdate;
 
+    /** The swconfigurationurl. */
     String swconfigurationurl;
 
+    /** The configurationurl. */
     String configurationurl;
 
+    /** The ie. */
     List<InventoryElement2> ie;
 
     /**
@@ -258,6 +266,7 @@ public class NodeBaseInventory {
      * <p>
      * expand
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

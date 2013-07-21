@@ -40,12 +40,14 @@ import org.opennms.report.inventory.InventoryReportRunner;
  */
 public class DefaultInventoryReportService implements InventoryReportService {
 
+    /** The m_report runner. */
     InventoryReportRunner m_reportRunner;
 
     /**
      * <p>
      * getReportRunner
      * </p>
+     * .
      *
      * @return a {@link org.opennms.report.inventory.InventoryReportRunner}
      *         object.
@@ -58,6 +60,7 @@ public class DefaultInventoryReportService implements InventoryReportService {
      * <p>
      * setReportRunner
      * </p>
+     * .
      *
      * @param reportRunner
      *            a {@link org.opennms.report.inventory.InventoryReportRunner}

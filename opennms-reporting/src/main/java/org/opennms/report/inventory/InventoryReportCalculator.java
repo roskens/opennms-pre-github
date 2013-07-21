@@ -68,20 +68,25 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class InventoryReportCalculator implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InventoryReportCalculator.class);
 
+    /** The m_base dir. */
     String m_baseDir;
 
     // output file name
 
+    /** The m_output file name. */
     private String m_outputFileName;
 
+    /** The m_cp. */
     ConnectionProperties m_cp;
 
     /**
      * <p>
      * getOutputFileName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,6 +98,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * setOutputFileName
      * </p>
+     * .
      *
      * @param outputFileName
      *            a {@link java.lang.String} object.
@@ -101,16 +107,22 @@ public class InventoryReportCalculator implements InitializingBean {
         m_outputFileName = outputFileName;
     }
 
+    /** The m_rws config. */
     RWSConfig m_rwsConfig;
 
+    /** The date. */
     String theDate;
 
+    /** The user. */
     String user;
 
+    /** The field. */
     String theField;
 
+    /** The report request date. */
     Date reportRequestDate;
 
+    /** The rnbi. */
     RwsNbinventoryreport rnbi;
 
     /**
@@ -209,6 +221,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * getRwsConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
@@ -220,6 +233,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * setRwsConfig
      * </p>
+     * .
      *
      * @param rwsConfig
      *            a {@link org.opennms.netmgt.config.RWSConfig} object.
@@ -232,6 +246,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * getBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -243,6 +258,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * setBaseDir
      * </p>
+     * .
      *
      * @param baseDir
      *            a {@link java.lang.String} object.
@@ -255,9 +271,10 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -265,6 +282,11 @@ public class InventoryReportCalculator implements InitializingBean {
         m_cp = m_rwsConfig.getBase();
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @return the groups
+     */
     private List<String> getGroups() {
 
         try {
@@ -275,6 +297,13 @@ public class InventoryReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the device list on group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the device list on group
+     */
     private List<String> getDeviceListOnGroup(String groupName) {
         try {
             return RWSClientApi.getRWSResourceDeviceList(m_cp, groupName).getResource();
@@ -284,6 +313,15 @@ public class InventoryReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the version list on device.
+     *
+     * @param deviceName
+     *            the device name
+     * @param groupName
+     *            the group name
+     * @return the version list on device
+     */
     private List<String> getVersionListOnDevice(String deviceName, String groupName) {
         try {
             return RWSClientApi.getRWSResourceConfigList(m_cp, groupName, deviceName).getResource();
@@ -294,6 +332,15 @@ public class InventoryReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the full node.
+     *
+     * @param groupName
+     *            the group name
+     * @param deviceName
+     *            the device name
+     * @return the full node
+     */
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
             return RWSClientApi.getRWSRancidNodeInventory(m_cp, groupName, deviceName);
@@ -307,6 +354,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * calculate
      * </p>
+     * .
      */
     public void calculate() {
 
@@ -495,6 +543,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * getNodeBaseInventory
      * </p>
+     * .
      *
      * @param node
      *            a {@link java.lang.String} object.
@@ -542,9 +591,10 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * writeXML
      * </p>
+     * .
      *
-     * @throws org.opennms.report.inventory.InventoryCalculationException
-     *             if any.
+     * @throws InventoryCalculationException
+     *             the inventory calculation exception
      */
     public void writeXML() throws InventoryCalculationException {
         try {
@@ -568,11 +618,12 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>
      * marshal
      * </p>
+     * .
      *
      * @param outputFile
      *            a {@link java.io.File} object.
-     * @throws org.opennms.report.inventory.InventoryCalculationException
-     *             if any.
+     * @throws InventoryCalculationException
+     *             the inventory calculation exception
      */
     public void marshal(File outputFile) throws InventoryCalculationException {
         try {

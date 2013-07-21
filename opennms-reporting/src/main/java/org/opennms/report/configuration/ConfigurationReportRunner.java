@@ -47,28 +47,38 @@ import org.slf4j.LoggerFactory;
  */
 public class ConfigurationReportRunner implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportRunner.class);
 
+    /** The date. */
     String theDate;
 
+    /** The report format. */
     String reportFormat;
 
+    /** The report email. */
     String reportEmail;
 
+    /** The user. */
     String user;
 
+    /** The report request date. */
     Date reportRequestDate;
 
+    /** The calculator. */
     ConfigurationReportCalculator calculator;
 
+    /** The m_html report renderer. */
     ReportRenderer m_htmlReportRenderer;
 
+    /** The m_null report renderer. */
     ReportRenderer m_nullReportRenderer;
 
     /**
      * <p>
      * getNullReportRenderer
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.reporting.availability.render.ReportRenderer}
@@ -82,6 +92,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * setNullReportRenderer
      * </p>
+     * .
      *
      * @param nullReportRenderer
      *            a
@@ -96,6 +107,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * getHtmlReportRenderer
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.reporting.availability.render.ReportRenderer}
@@ -109,6 +121,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * setHtmlReportRenderer
      * </p>
+     * .
      *
      * @param htmlReportRenderer
      *            a
@@ -238,6 +251,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * getConfigurationReportCalculator
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.report.configuration.ConfigurationReportCalculator}
@@ -251,6 +265,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * setConfigurationReportCalculator
      * </p>
+     * .
      *
      * @param configurationReportCalculator
      *            a
@@ -265,6 +280,7 @@ public class ConfigurationReportRunner implements Runnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {

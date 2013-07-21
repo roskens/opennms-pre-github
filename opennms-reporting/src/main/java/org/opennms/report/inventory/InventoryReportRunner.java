@@ -47,30 +47,41 @@ import org.slf4j.LoggerFactory;
  */
 public class InventoryReportRunner implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InventoryReportRunner.class);
 
+    /** The date. */
     String theDate;
 
+    /** The field. */
     String theField;
 
+    /** The report format. */
     String reportFormat;
 
+    /** The report email. */
     String reportEmail;
 
+    /** The user. */
     String user;
 
+    /** The report request date. */
     Date reportRequestDate;
 
+    /** The calculator. */
     InventoryReportCalculator calculator;
 
+    /** The m_html report renderer. */
     ReportRenderer m_htmlReportRenderer;
 
+    /** The m_null report renderer. */
     ReportRenderer m_nullReportRenderer;
 
     /**
      * <p>
      * getNullReportRenderer
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.reporting.availability.render.ReportRenderer}
@@ -84,6 +95,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * setNullReportRenderer
      * </p>
+     * .
      *
      * @param nullReportRenderer
      *            a
@@ -98,6 +110,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * getHtmlReportRenderer
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.reporting.availability.render.ReportRenderer}
@@ -111,6 +124,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * setHtmlReportRenderer
      * </p>
+     * .
      *
      * @param htmlReportRenderer
      *            a
@@ -263,6 +277,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * getInventoryReportCalculator
      * </p>
+     * .
      *
      * @return a {@link org.opennms.report.inventory.InventoryReportCalculator}
      *         object.
@@ -275,6 +290,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * setInventoryReportCalculator
      * </p>
+     * .
      *
      * @param inventoryReportCalculator
      *            a
@@ -289,6 +305,7 @@ public class InventoryReportRunner implements Runnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {

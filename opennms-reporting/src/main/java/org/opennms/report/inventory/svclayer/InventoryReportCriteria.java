@@ -40,16 +40,22 @@ import java.util.Date;
  */
 public class InventoryReportCriteria {
 
+    /** The date. */
     String theDate;
 
+    /** The field. */
     String theField;
 
+    /** The report format. */
     String reportFormat;
 
+    /** The report email. */
     String reportEmail;
 
+    /** The user. */
     String user;
 
+    /** The report request date. */
     Date reportRequestDate;
 
     /**

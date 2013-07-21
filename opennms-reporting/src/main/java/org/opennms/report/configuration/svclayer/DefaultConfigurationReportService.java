@@ -40,12 +40,14 @@ import org.opennms.report.configuration.ConfigurationReportRunner;
  */
 public class DefaultConfigurationReportService implements ConfigurationReportService {
 
+    /** The m_report runner. */
     ConfigurationReportRunner m_reportRunner;
 
     /**
      * <p>
      * getReportRunner
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.report.configuration.ConfigurationReportRunner}
@@ -59,6 +61,7 @@ public class DefaultConfigurationReportService implements ConfigurationReportSer
      * <p>
      * setReportRunner
      * </p>
+     * .
      *
      * @param reportRunner
      *            a

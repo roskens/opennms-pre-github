@@ -42,12 +42,13 @@ public interface InventoryReportService {
      * <p>
      * runReport
      * </p>
+     * .
      *
      * @param criteria
      *            a
-     *            {@link org.opennms.report.inventory.svclayer.InventoryReportCriteria}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.report.inventory.svclayer.InventoryReportCriteria}
+     *         object.
      */
     public boolean runReport(InventoryReportCriteria criteria);
 

@@ -45,16 +45,23 @@ import org.springframework.core.io.Resource;
  * @version $Id: $
  */
 public class NullReportRenderer implements ReportRenderer {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NullReportRenderer.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
+    /** The m_output file name. */
     private String m_outputFileName;
 
+    /** The m_input file name. */
     private String m_inputFileName;
 
+    /** The m_base dir. */
     private String m_baseDir;
 
+    /** The m_xslt resource. */
     @SuppressWarnings("unused")
     private Resource m_xsltResource;
 
@@ -62,9 +69,10 @@ public class NullReportRenderer implements ReportRenderer {
      * <p>
      * render
      * </p>
+     * .
      *
-     * @throws org.opennms.reporting.availability.render.ReportRenderException
-     *             if any.
+     * @throws ReportRenderException
+     *             the report render exception
      */
     @Override
     public void render() throws ReportRenderException {
@@ -89,6 +97,7 @@ public class NullReportRenderer implements ReportRenderer {
      * <p>
      * getOutputFileName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +122,7 @@ public class NullReportRenderer implements ReportRenderer {
      * <p>
      * getBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -45,14 +45,20 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ReportMailer {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReportMailer.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "reports";
 
+    /** The m_filename. */
     private String m_filename;
 
+    /** The m_address. */
     private String m_address;
 
+    /** The m_subject. */
     private String m_subject;
 
     /**
@@ -89,9 +95,10 @@ public class ReportMailer {
      * <p>
      * send
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void send() throws IOException {
         if (m_filename == null || m_address == null) {
@@ -115,6 +122,7 @@ public class ReportMailer {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -126,6 +134,7 @@ public class ReportMailer {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.lang.String} object.
@@ -138,6 +147,7 @@ public class ReportMailer {
      * <p>
      * getFilename
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,6 +159,7 @@ public class ReportMailer {
      * <p>
      * setFilename
      * </p>
+     * .
      *
      * @param filename
      *            a {@link java.lang.String} object.

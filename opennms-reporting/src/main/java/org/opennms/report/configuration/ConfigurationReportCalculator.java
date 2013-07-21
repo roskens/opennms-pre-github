@@ -63,20 +63,25 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class ConfigurationReportCalculator implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportCalculator.class);
 
+    /** The m_base dir. */
     String m_baseDir;
 
     // output file name
 
+    /** The m_output file name. */
     private String m_outputFileName;
 
+    /** The m_cp. */
     ConnectionProperties m_cp;
 
     /**
      * <p>
      * getOutputFileName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -88,6 +93,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * setOutputFileName
      * </p>
+     * .
      *
      * @param outputFileName
      *            a {@link java.lang.String} object.
@@ -96,14 +102,19 @@ public class ConfigurationReportCalculator implements InitializingBean {
         m_outputFileName = outputFileName;
     }
 
+    /** The m_rws config. */
     RWSConfig m_rwsConfig;
 
+    /** The date. */
     String theDate;
 
+    /** The user. */
     String user;
 
+    /** The report request date. */
     Date reportRequestDate;
 
+    /** The rlist. */
     RwsRancidlistreport rlist;
 
     /**
@@ -179,6 +190,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * getRwsConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.RWSConfig} object.
      */
@@ -190,6 +202,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * setRwsConfig
      * </p>
+     * .
      *
      * @param rwsConfig
      *            a {@link org.opennms.netmgt.config.RWSConfig} object.
@@ -202,6 +215,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * getBaseDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -213,6 +227,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * setBaseDir
      * </p>
+     * .
      *
      * @param baseDir
      *            a {@link java.lang.String} object.
@@ -225,9 +240,10 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -235,6 +251,11 @@ public class ConfigurationReportCalculator implements InitializingBean {
         m_cp = m_rwsConfig.getBase();
     }
 
+    /**
+     * Gets the groups.
+     *
+     * @return the groups
+     */
     private List<String> getGroups() {
 
         try {
@@ -245,6 +266,13 @@ public class ConfigurationReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the device list on group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the device list on group
+     */
     private List<String> getDeviceListOnGroup(String groupName) {
         try {
             return RWSClientApi.getRWSResourceDeviceList(m_cp, groupName).getResource();
@@ -254,6 +282,15 @@ public class ConfigurationReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the version list on device.
+     *
+     * @param deviceName
+     *            the device name
+     * @param groupName
+     *            the group name
+     * @return the version list on device
+     */
     private List<String> getVersionListOnDevice(String deviceName, String groupName) {
         try {
             return RWSClientApi.getRWSResourceConfigList(m_cp, groupName, deviceName).getResource();
@@ -264,6 +301,15 @@ public class ConfigurationReportCalculator implements InitializingBean {
         return new ArrayList<String>();
     }
 
+    /**
+     * Gets the full node.
+     *
+     * @param groupName
+     *            the group name
+     * @param deviceName
+     *            the device name
+     * @return the full node
+     */
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
             return RWSClientApi.getRWSRancidNodeInventory(m_cp, groupName, deviceName);
@@ -277,6 +323,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * calculate
      * </p>
+     * .
      */
     public void calculate() {
 
@@ -390,9 +437,10 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * writeXML
      * </p>
+     * .
      *
-     * @throws org.opennms.report.configuration.ConfigurationCalculationException
-     *             if any.
+     * @throws ConfigurationCalculationException
+     *             the configuration calculation exception
      */
     public void writeXML() throws ConfigurationCalculationException {
         try {
@@ -416,11 +464,12 @@ public class ConfigurationReportCalculator implements InitializingBean {
      * <p>
      * marshal
      * </p>
+     * .
      *
      * @param outputFile
      *            a {@link java.io.File} object.
-     * @throws org.opennms.report.configuration.ConfigurationCalculationException
-     *             if any.
+     * @throws ConfigurationCalculationException
+     *             the configuration calculation exception
      */
     public void marshal(File outputFile) throws ConfigurationCalculationException {
         try {

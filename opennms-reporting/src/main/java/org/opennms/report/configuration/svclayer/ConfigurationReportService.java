@@ -42,12 +42,13 @@ public interface ConfigurationReportService {
      * <p>
      * runReport
      * </p>
+     * .
      *
      * @param criteria
      *            a
-     *            {@link org.opennms.report.configuration.svclayer.ConfigurationReportCriteria}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.report.configuration.svclayer.ConfigurationReportCriteria}
+     *         object.
      */
     public boolean runReport(ConfigurationReportCriteria criteria);
 

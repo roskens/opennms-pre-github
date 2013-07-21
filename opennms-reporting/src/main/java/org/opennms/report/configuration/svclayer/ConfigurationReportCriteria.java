@@ -40,14 +40,19 @@ import java.util.Date;
  */
 public class ConfigurationReportCriteria {
 
+    /** The date. */
     String theDate;
 
+    /** The report format. */
     String reportFormat;
 
+    /** The report email. */
     String reportEmail;
 
+    /** The user. */
     String user;
 
+    /** The report request date. */
     Date reportRequestDate;
 
     /**
