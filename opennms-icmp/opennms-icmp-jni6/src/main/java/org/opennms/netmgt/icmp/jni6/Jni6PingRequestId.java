@@ -41,12 +41,17 @@ import org.opennms.core.utils.InetAddressComparator;
  * @version $Id: $
  */
 public class Jni6PingRequestId {
+
+    /** The m_addr. */
     Inet6Address m_addr;
 
+    /** The m_identifier. */
     int m_identifier;
 
+    /** The m_sequence number. */
     int m_sequenceNumber;
 
+    /** The m_thread id. */
     long m_threadId;
 
     /**
@@ -56,6 +61,8 @@ public class Jni6PingRequestId {
      *
      * @param addr
      *            a {@link java.net.InetAddress} object.
+     * @param identifier
+     *            the identifier
      * @param sequenceNumber
      *            a short.
      * @param threadId
@@ -86,6 +93,7 @@ public class Jni6PingRequestId {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -93,6 +101,11 @@ public class Jni6PingRequestId {
         return m_addr;
     }
 
+    /**
+     * Gets the identifier.
+     *
+     * @return the identifier
+     */
     public int getIdentifier() {
         return m_identifier;
     }
@@ -101,6 +114,7 @@ public class Jni6PingRequestId {
      * <p>
      * getSequenceId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +126,7 @@ public class Jni6PingRequestId {
      * <p>
      * getTid
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -147,6 +162,7 @@ public class Jni6PingRequestId {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

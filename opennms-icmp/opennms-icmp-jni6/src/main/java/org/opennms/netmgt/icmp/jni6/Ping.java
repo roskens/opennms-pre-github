@@ -40,20 +40,41 @@ import org.opennms.protocols.icmp6.ICMPv6Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class Ping.
+ */
 public class Ping {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Ping.class);
 
+    /**
+     * The Class Stuff.
+     */
     public static class Stuff implements Runnable {
+
+        /** The m_socket. */
         private ICMPv6Socket m_socket;
 
+        /** The m_icmp id. */
         private short m_icmpId;
 
+        /**
+         * Instantiates a new stuff.
+         *
+         * @param socket
+         *            the socket
+         * @param icmpId
+         *            the icmp id
+         */
         public Stuff(ICMPv6Socket socket, short icmpId) {
             m_socket = socket;
             m_icmpId = icmpId;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             try {
@@ -85,6 +106,7 @@ public class Ping {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.

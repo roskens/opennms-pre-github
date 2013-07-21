@@ -42,19 +42,27 @@ import org.opennms.netmgt.icmp.PingResponseCallback;
 import org.opennms.netmgt.icmp.Pinger;
 
 /**
+ * The Class Jni6PingTest.
+ *
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>
  */
 public class Jni6PingTest extends TestCase {
 
+    /** The s_jni pinger. */
     private static Jni6Pinger s_jniPinger = new Jni6Pinger();
 
+    /** The m_good host. */
     private InetAddress m_goodHost = null;
 
+    /** The m_bad host. */
     private InetAddress m_badHost = null;
 
     /**
      * Don't run this test unless the runPingTests property
      * is set to "true".
+     *
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void runTest() throws Throwable {
@@ -72,14 +80,27 @@ public class Jni6PingTest extends TestCase {
         }
     }
 
+    /**
+     * Checks if is run test.
+     *
+     * @return true, if is run test
+     */
     private boolean isRunTest() {
         return Boolean.getBoolean(getRunTestProperty());
     }
 
+    /**
+     * Gets the run test property.
+     *
+     * @return the run test property
+     */
     private String getRunTestProperty() {
         return "runPingTests";
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         if (!isRunTest()) {
@@ -94,27 +115,53 @@ public class Jni6PingTest extends TestCase {
         assertEquals(16, m_badHost.getAddress().length);
     }
 
+    /**
+     * Test single ping jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingJni() throws Exception {
         singlePing(s_jniPinger);
     }
 
+    /**
+     * Single ping.
+     *
+     * @param pinger
+     *            the pinger
+     * @throws Exception
+     *             the exception
+     */
     protected void singlePing(Pinger pinger) throws Exception {
         Number rtt = pinger.ping(m_goodHost);
         assertNotNull("No RTT value returned from ping, looks like the ping failed", rtt);
         assertTrue("Negative RTT value returned from ping", rtt.doubleValue() > 0);
     }
 
+    /**
+     * The Class TestPingResponseCallback.
+     */
     private static class TestPingResponseCallback implements PingResponseCallback {
+
+        /** The m_latch. */
         private final CountDownLatch m_latch = new CountDownLatch(1);
 
+        /** The m_address. */
         private InetAddress m_address;
 
+        /** The m_packet. */
         private EchoPacket m_packet;
 
+        /** The m_throwable. */
         private Throwable m_throwable;
 
+        /** The m_timeout. */
         private boolean m_timeout = false;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleResponse(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+         */
         @Override
         public void handleResponse(InetAddress address, EchoPacket response) {
             m_address = address;
@@ -123,6 +170,9 @@ public class Jni6PingTest extends TestCase {
             System.err.println("RESPONSE COUNTED DOWN");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleTimeout(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+         */
         @Override
         public void handleTimeout(InetAddress address, EchoPacket request) {
             m_timeout = true;
@@ -132,6 +182,9 @@ public class Jni6PingTest extends TestCase {
             System.err.println("TIMEOUT COUNTED DOWN");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleError(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket, java.lang.Throwable)
+         */
         @Override
         public void handleError(InetAddress address, EchoPacket request, Throwable t) {
             m_address = address;
@@ -142,11 +195,19 @@ public class Jni6PingTest extends TestCase {
             t.printStackTrace();
         }
 
+        /**
+         * Await.
+         *
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void await() throws InterruptedException {
             m_latch.await();
         }
 
         /**
+         * Gets the address.
+         *
          * @return the address
          */
         public InetAddress getAddress() {
@@ -154,6 +215,8 @@ public class Jni6PingTest extends TestCase {
         }
 
         /**
+         * Gets the packet.
+         *
          * @return the packet
          */
         public EchoPacket getPacket() {
@@ -161,6 +224,8 @@ public class Jni6PingTest extends TestCase {
         }
 
         /**
+         * Gets the throwable.
+         *
          * @return the throwable
          */
         public Throwable getThrowable() {
@@ -168,6 +233,8 @@ public class Jni6PingTest extends TestCase {
         }
 
         /**
+         * Checks if is timeout.
+         *
          * @return the timeout
          */
         public boolean isTimeout() {
@@ -176,6 +243,14 @@ public class Jni6PingTest extends TestCase {
 
     };
 
+    /**
+     * Ping callback timeout.
+     *
+     * @param pinger
+     *            the pinger
+     * @throws Exception
+     *             the exception
+     */
     protected void pingCallbackTimeout(Pinger pinger) throws Exception {
 
         TestPingResponseCallback cb = new TestPingResponseCallback();
@@ -193,10 +268,22 @@ public class Jni6PingTest extends TestCase {
 
     }
 
+    /**
+     * Test ping callback timeout jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPingCallbackTimeoutJni() throws Exception {
         pingCallbackTimeout(s_jniPinger);
     }
 
+    /**
+     * Test single ping failure jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingFailureJni() throws Exception {
         try {
             singlePingFailure(s_jniPinger);
@@ -205,14 +292,36 @@ public class Jni6PingTest extends TestCase {
         }
     }
 
+    /**
+     * Single ping failure.
+     *
+     * @param pinger
+     *            the pinger
+     * @throws Exception
+     *             the exception
+     */
     protected void singlePingFailure(Pinger pinger) throws Exception {
         assertNull(pinger.ping(m_badHost));
     }
 
+    /**
+     * Test parallel ping jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingJni() throws Exception {
         parallelPing(s_jniPinger);
     }
 
+    /**
+     * Parallel ping.
+     *
+     * @param pinger
+     *            the pinger
+     * @throws Exception
+     *             the exception
+     */
     protected void parallelPing(Pinger pinger) throws Exception {
         List<Number> items = pinger.parallelPing(m_goodHost, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(1000);
@@ -225,10 +334,24 @@ public class Jni6PingTest extends TestCase {
         }
     }
 
+    /**
+     * Test parallel ping failure jni.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingFailureJni() throws Exception {
         parallelPingFailure(s_jniPinger);
     }
 
+    /**
+     * Parallel ping failure.
+     *
+     * @param pinger
+     *            the pinger
+     * @throws Exception
+     *             the exception
+     */
     protected void parallelPingFailure(Pinger pinger) throws Exception {
         List<Number> items = pinger.parallelPing(m_badHost, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(PingConstants.DEFAULT_TIMEOUT + 100);
@@ -237,6 +360,12 @@ public class Jni6PingTest extends TestCase {
                    CollectionMath.countNotNull(items) == 0);
     }
 
+    /**
+     * Prints the response.
+     *
+     * @param items
+     *            the items
+     */
     private void printResponse(List<Number> items) {
         Long passed = CollectionMath.countNotNull(items);
         Long failed = CollectionMath.countNull(items);

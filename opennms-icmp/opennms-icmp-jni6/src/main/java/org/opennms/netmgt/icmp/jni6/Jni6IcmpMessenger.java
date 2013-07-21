@@ -43,16 +43,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * JniIcmpMessenger
+ * JniIcmpMessenger.
  *
  * @author brozow
  * @version $Id: $
  */
 public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingResponse> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Jni6IcmpMessenger.class);
 
+    /** The m_pinger id. */
     private int m_pingerId;
 
+    /** The m_socket. */
     private ICMPv6Socket m_socket;
 
     /**
@@ -61,14 +65,21 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
      * </p>
      *
      * @param pingerId
-     * @throws java.io.IOException
-     *             if any.
+     *            the pinger id
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Jni6IcmpMessenger(int pingerId) throws IOException {
         m_pingerId = pingerId;
         m_socket = new ICMPv6Socket();
     }
 
+    /**
+     * Process packets.
+     *
+     * @param pendingReplies
+     *            the pending replies
+     */
     void processPackets(Queue<Jni6PingResponse> pendingReplies) {
         while (true) {
             try {
@@ -97,6 +108,7 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.netmgt.icmp.jni6.Jni6PingRequest} object.
@@ -139,10 +151,6 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
      *
      * @param packet
      *            The packet with the ICMP datagram.
-     * @throws java.lang.IllegalArgumentException
-     *             Throw if the datagram is not the correct length or type.
-     * @throws java.lang.IndexOutOfBoundsException
-     *             Thrown if the datagram does not contain sufficient data.
      * @return a {@link org.opennms.netmgt.icmp.spi.PingReply} object.
      */
     public static Jni6PingResponse createPingResponse(DatagramPacket packet) {
