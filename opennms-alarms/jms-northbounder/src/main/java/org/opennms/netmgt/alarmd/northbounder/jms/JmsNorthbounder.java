@@ -56,33 +56,48 @@ import org.springframework.jms.core.MessageCreator;
  */
 public class JmsNorthbounder extends AbstractNorthbounder implements InitializingBean {
 
+    /**
+     * Instantiates a new jms northbounder.
+     */
     protected JmsNorthbounder() {
         super("JmsNorthbounder");
     }
 
+    /** The m_template. */
     @Autowired
     private JmsTemplate m_template;
 
     // Wire this so that we can have a single connection factory in OpenNMS
+    /** The m_connection factory. */
     @Autowired
     private ConnectionFactory m_connectionFactory;
 
     // TODO needs to be configured
+    /** The m_queue. */
     private Queue m_queue;
 
     // @Autowired
     // private JmsNorthbounderConfig m_config;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#accepts(org.opennms.netmgt.alarmd.api.NorthboundAlarm)
+     */
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#forwardAlarms(java.util.List)
+     */
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
@@ -104,10 +119,20 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
 
     }
 
+    /**
+     * Convert alarm to xml.
+     *
+     * @param alarm
+     *            the alarm
+     * @return the string
+     */
     protected String convertAlarmToXml(NorthboundAlarm alarm) {
         return "This is a test alarm.";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#onPreStart()
+     */
     @Override
     public void onPreStart() throws NorthbounderException {
         m_template = new JmsTemplate(m_connectionFactory);
