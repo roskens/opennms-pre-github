@@ -31,52 +31,91 @@ package org.opennms.core.criteria;
 import org.opennms.core.criteria.Criteria.CriteriaVisitor;
 import org.opennms.core.criteria.restrictions.Restriction;
 
+/**
+ * The Class AbstractCriteriaVisitor.
+ */
 public class AbstractCriteriaVisitor implements CriteriaVisitor {
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitClass(java.lang.Class)
+     */
     @Override
     public void visitClass(final Class<?> clazz) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitOrder(org.opennms.core.criteria.Order)
+     */
     @Override
     public void visitOrder(final Order order) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitOrdersFinished()
+     */
     @Override
     public void visitOrdersFinished() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitAlias(org.opennms.core.criteria.Alias)
+     */
     @Override
     public void visitAlias(final Alias alias) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitAliasesFinished()
+     */
     @Override
     public void visitAliasesFinished() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitFetch(org.opennms.core.criteria.Fetch)
+     */
     @Override
     public void visitFetch(final Fetch fetch) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitFetchesFinished()
+     */
     @Override
     public void visitFetchesFinished() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitRestriction(org.opennms.core.criteria.restrictions.Restriction)
+     */
     @Override
     public void visitRestriction(final Restriction restriction) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitRestrictionsFinished()
+     */
     @Override
     public void visitRestrictionsFinished() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitDistinct(boolean)
+     */
     @Override
     public void visitDistinct(final boolean distinct) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitLimit(java.lang.Integer)
+     */
     @Override
     public void visitLimit(final Integer limit) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.Criteria.CriteriaVisitor#visitOffset(java.lang.Integer)
+     */
     @Override
     public void visitOffset(final Integer offset) {
     }

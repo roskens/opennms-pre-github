@@ -37,12 +37,28 @@ import org.opennms.core.criteria.Alias.JoinType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AliasBuilder.
+ */
 public class AliasBuilder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AliasBuilder.class);
 
+    /** The m_aliases. */
     final Map<String, Alias> m_aliases = new HashMap<String, Alias>();
 
+    /**
+     * Alias.
+     *
+     * @param associationPath
+     *            the association path
+     * @param alias
+     *            the alias
+     * @param type
+     *            the type
+     * @return the alias builder
+     */
     public AliasBuilder alias(final String associationPath, final String alias, final JoinType type) {
         if (m_aliases.containsKey(alias)) {
             LOG.debug("alias '{}' already associated with associationPath '{}', skipping.", alias, associationPath);
@@ -52,6 +68,11 @@ public class AliasBuilder {
         return this;
     }
 
+    /**
+     * Gets the alias collection.
+     *
+     * @return the alias collection
+     */
     public Collection<Alias> getAliasCollection() {
         // make a copy so the internal one can't be modified outside of the
         // builder

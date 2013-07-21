@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class GtRestriction.
+ */
 public class GtRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new gt restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public GtRestriction(final String attribute, final Object value) {
         super(RestrictionType.GT, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitGt(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "GtRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class LtRestriction.
+ */
 public class LtRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new lt restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public LtRestriction(final String attribute, final Object value) {
         super(RestrictionType.LT, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitLt(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "LtRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

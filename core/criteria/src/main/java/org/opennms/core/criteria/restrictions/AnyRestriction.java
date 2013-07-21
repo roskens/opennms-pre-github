@@ -28,12 +28,24 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class AnyRestriction.
+ */
 public class AnyRestriction extends VarargsRestrictionRestriction {
 
+    /**
+     * Instantiates a new any restriction.
+     *
+     * @param restrictions
+     *            the restrictions
+     */
     public AnyRestriction(final Restriction... restrictions) {
         super(RestrictionType.ANY, restrictions);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitAny(this);
@@ -43,6 +55,9 @@ public class AnyRestriction extends VarargsRestrictionRestriction {
         visitor.visitAnyComplete(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.VarargsRestrictionRestriction#toString()
+     */
     @Override
     public String toString() {
         return "AnyRestriction [restrictions=" + getRestrictions() + "]";

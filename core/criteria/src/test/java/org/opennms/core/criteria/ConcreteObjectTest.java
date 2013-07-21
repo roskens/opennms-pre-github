@@ -43,8 +43,17 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsOutage;
 
+/**
+ * The Class ConcreteObjectTest.
+ */
 public class ConcreteObjectTest {
 
+    /**
+     * Test types.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTypes() throws Exception {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
@@ -60,6 +69,12 @@ public class ConcreteObjectTest {
         assertEquals(Map.class, crit.getType("details"));
     }
 
+    /**
+     * Test aliases.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAliases() throws Exception {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
@@ -83,6 +98,12 @@ public class ConcreteObjectTest {
         assertEquals(OnmsMonitoredService.class, crit.getType("service"));
     }
 
+    /**
+     * Test node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNode() throws Exception {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);

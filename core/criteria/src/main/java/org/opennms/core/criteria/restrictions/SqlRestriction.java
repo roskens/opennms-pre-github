@@ -28,17 +28,32 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class SqlRestriction.
+ */
 public class SqlRestriction extends AttributeRestriction {
 
+    /**
+     * Instantiates a new sql restriction.
+     *
+     * @param attribute
+     *            the attribute
+     */
     public SqlRestriction(final String attribute) {
         super(RestrictionType.SQL, attribute);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitSql(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#toString()
+     */
     @Override
     public String toString() {
         return "SqlRestriction [attribute=" + getAttribute() + "]";

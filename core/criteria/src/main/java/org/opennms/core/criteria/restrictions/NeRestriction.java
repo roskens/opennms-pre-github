@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class NeRestriction.
+ */
 public class NeRestriction extends AttributeValueRestriction implements Restriction {
 
+    /**
+     * Instantiates a new ne restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public NeRestriction(final String attribute, final Object value) {
         super(RestrictionType.NE, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitNe(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "NeRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

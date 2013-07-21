@@ -28,43 +28,108 @@
 
 package org.opennms.core.criteria;
 
+/**
+ * The Class Order.
+ */
 public class Order {
+
+    /**
+     * The Interface OrderVisitor.
+     */
     public static interface OrderVisitor {
+
+        /**
+         * Visit attribute.
+         *
+         * @param attribute
+         *            the attribute
+         */
         public void visitAttribute(final String attribute);
 
+        /**
+         * Visit ascending.
+         *
+         * @param ascending
+         *            the ascending
+         */
         public void visitAscending(final boolean ascending);
     }
 
+    /** The m_attribute. */
     private final String m_attribute;
 
+    /** The m_ascending. */
     private final boolean m_ascending;
 
+    /**
+     * Instantiates a new order.
+     *
+     * @param attribute
+     *            the attribute
+     * @param ascending
+     *            the ascending
+     */
     public Order(final String attribute, boolean ascending) {
         m_attribute = attribute;
         m_ascending = ascending;
     }
 
+    /**
+     * Visit.
+     *
+     * @param visitor
+     *            the visitor
+     */
     public void visit(final OrderVisitor visitor) {
         visitor.visitAttribute(getAttribute());
         visitor.visitAscending(asc());
     }
 
+    /**
+     * Gets the attribute.
+     *
+     * @return the attribute
+     */
     public String getAttribute() {
         return m_attribute;
     }
 
+    /**
+     * Asc.
+     *
+     * @return true, if successful
+     */
     public boolean asc() {
         return m_ascending;
     }
 
+    /**
+     * Desc.
+     *
+     * @return true, if successful
+     */
     public boolean desc() {
         return !m_ascending;
     }
 
+    /**
+     * Asc.
+     *
+     * @param attribute
+     *            the attribute
+     * @return the order
+     */
     public static Order asc(final String attribute) {
         return new Order(attribute, true);
     }
 
+    /**
+     * Desc.
+     *
+     * @param attribute
+     *            the attribute
+     * @return the order
+     */
     public static Order desc(final String attribute) {
         return new Order(attribute, false);
     }
@@ -72,6 +137,9 @@ public class Order {
     /*
      * we don't include m_ascending since a single order attribute should only
      * be used once
+     */
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
@@ -85,6 +153,9 @@ public class Order {
     /*
      * we don't include m_ascending since a single order attribute should only
      * be used once
+     */
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(final Object obj) {
@@ -105,6 +176,9 @@ public class Order {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Order [attribute=" + m_attribute + ", ascending=" + m_ascending + "]";

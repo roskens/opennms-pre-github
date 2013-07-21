@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class IplikeRestriction.
+ */
 public class IplikeRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new iplike restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public IplikeRestriction(final String attribute, final Object value) {
         super(RestrictionType.IPLIKE, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitIplike(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "IplikeRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

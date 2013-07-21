@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class LikeRestriction.
+ */
 public class LikeRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new like restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public LikeRestriction(final String attribute, final Object value) {
         super(RestrictionType.LIKE, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitLike(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "LikeRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

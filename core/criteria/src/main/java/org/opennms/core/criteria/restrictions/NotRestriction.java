@@ -31,20 +31,40 @@ package org.opennms.core.criteria.restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class NotRestriction.
+ */
 public class NotRestriction extends BaseRestriction {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotRestriction.class);
 
+    /** The m_restriction. */
     private final Restriction m_restriction;
 
+    /**
+     * Instantiates a new not restriction.
+     *
+     * @param restriction
+     *            the restriction
+     */
     public NotRestriction(final Restriction restriction) {
         super(RestrictionType.NOT);
         m_restriction = restriction;
     }
 
+    /**
+     * Gets the restriction.
+     *
+     * @return the restriction
+     */
     public Restriction getRestriction() {
         return m_restriction;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitNot(this);
@@ -56,6 +76,9 @@ public class NotRestriction extends BaseRestriction {
         visitor.visitNotComplete(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -64,6 +87,9 @@ public class NotRestriction extends BaseRestriction {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -82,6 +108,9 @@ public class NotRestriction extends BaseRestriction {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#toString()
+     */
     @Override
     public String toString() {
         return "NotRestriction [restriction=" + m_restriction + "]";

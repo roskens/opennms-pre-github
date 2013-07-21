@@ -28,29 +28,68 @@
 
 package org.opennms.core.criteria;
 
+/**
+ * The Class Fetch.
+ */
 public class Fetch {
+
+    /**
+     * The Enum FetchType.
+     */
     public enum FetchType {
-        DEFAULT, LAZY, EAGER
+
+        /** The default. */
+        DEFAULT,
+ /** The lazy. */
+ LAZY,
+ /** The eager. */
+ EAGER
     }
 
+    /** The m_attribute. */
     private final String m_attribute;
 
+    /** The m_fetch type. */
     private final FetchType m_fetchType;
 
+    /**
+     * Instantiates a new fetch.
+     *
+     * @param attribute
+     *            the attribute
+     * @param fetchType
+     *            the fetch type
+     */
     public Fetch(final String attribute, final FetchType fetchType) {
         m_attribute = attribute;
         m_fetchType = fetchType;
     }
 
+    /**
+     * Instantiates a new fetch.
+     *
+     * @param attribute
+     *            the attribute
+     */
     public Fetch(final String attribute) {
         m_attribute = attribute;
         m_fetchType = FetchType.DEFAULT;
     }
 
+    /**
+     * Gets the attribute.
+     *
+     * @return the attribute
+     */
     public String getAttribute() {
         return m_attribute;
     }
 
+    /**
+     * Gets the fetch type.
+     *
+     * @return the fetch type
+     */
     public FetchType getFetchType() {
         return m_fetchType;
     }
@@ -58,6 +97,9 @@ public class Fetch {
     /*
      * we don't include m_fetchType since a single fetch attribute should only
      * be used once
+     */
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
@@ -72,6 +114,9 @@ public class Fetch {
     /*
      * we don't include m_fetchType since a single fetch attribute should only
      * be used once
+     */
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(final Object obj) {
@@ -92,6 +137,9 @@ public class Fetch {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Fetch [attribute=" + m_attribute + ", fetchType=" + m_fetchType + "]";

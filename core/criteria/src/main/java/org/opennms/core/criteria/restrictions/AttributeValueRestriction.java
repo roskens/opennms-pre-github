@@ -28,18 +28,41 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class AttributeValueRestriction.
+ */
 public abstract class AttributeValueRestriction extends AttributeRestriction {
+
+    /** The m_value. */
     protected final Object m_value;
 
+    /**
+     * Instantiates a new attribute value restriction.
+     *
+     * @param type
+     *            the type
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public AttributeValueRestriction(final RestrictionType type, final String attribute, final Object value) {
         super(type, attribute);
         m_value = value;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public Object getValue() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -48,6 +71,9 @@ public abstract class AttributeValueRestriction extends AttributeRestriction {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -66,6 +92,9 @@ public abstract class AttributeValueRestriction extends AttributeRestriction {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#toString()
+     */
     @Override
     public String toString() {
         return "AttributeValueRestriction [type=" + getType() + ", attribute=" + getAttribute() + ", value=" + m_value

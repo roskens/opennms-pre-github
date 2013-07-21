@@ -28,22 +28,50 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class AttributeRestriction.
+ */
 public abstract class AttributeRestriction extends BaseRestriction {
+
+    /** The m_attribute. */
     private final String m_attribute;
 
+    /**
+     * Instantiates a new attribute restriction.
+     *
+     * @param type
+     *            the type
+     * @param attribute
+     *            the attribute
+     */
     public AttributeRestriction(final RestrictionType type, final String attribute) {
         super(type);
         m_attribute = attribute.intern();
     }
 
+    /**
+     * Gets the attribute.
+     *
+     * @return the attribute
+     */
     public String getAttribute() {
         return m_attribute;
     }
 
+    /**
+     * Lower.
+     *
+     * @param string
+     *            the string
+     * @return the string
+     */
     protected static String lower(final String string) {
         return string == null ? null : string.toLowerCase();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -52,6 +80,9 @@ public abstract class AttributeRestriction extends BaseRestriction {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -70,6 +101,9 @@ public abstract class AttributeRestriction extends BaseRestriction {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#toString()
+     */
     @Override
     public String toString() {
         return "AttributeRestriction [type=" + getType() + ", attribute=" + m_attribute + "]";

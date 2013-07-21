@@ -35,12 +35,18 @@ import java.util.LinkedHashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class OrderBuilder.
+ */
 public final class OrderBuilder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OrderBuilder.class);
 
+    /** The m_orders. */
     private final LinkedHashSet<Order> m_orders = new LinkedHashSet<Order>();
 
+    /** The m_last attribute. */
     private String m_lastAttribute = null;
 
     /**
@@ -61,16 +67,27 @@ public final class OrderBuilder {
         }
     }
 
+    /**
+     * Clear.
+     */
     public void clear() {
         m_orders.clear();
     }
 
+    /**
+     * Gets the order collection.
+     *
+     * @return the order collection
+     */
     public Collection<Order> getOrderCollection() {
         // make a copy so the internal one can't be modified outside of the
         // builder
         return new ArrayList<Order>(m_orders);
     }
 
+    /**
+     * Asc.
+     */
     public void asc() {
         synchronized (m_orders) {
             if (m_orders.isEmpty()) {
@@ -89,6 +106,9 @@ public final class OrderBuilder {
         }
     }
 
+    /**
+     * Desc.
+     */
     public void desc() {
         synchronized (m_orders) {
             if (m_orders.isEmpty()) {

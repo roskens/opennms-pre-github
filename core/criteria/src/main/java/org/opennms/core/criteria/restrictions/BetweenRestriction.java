@@ -31,29 +31,58 @@ package org.opennms.core.criteria.restrictions;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The Class BetweenRestriction.
+ */
 public class BetweenRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new between restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param begin
+     *            the begin
+     * @param end
+     *            the end
+     */
     public BetweenRestriction(final String attribute, final Object begin, final Object end) {
         super(RestrictionType.BETWEEN, attribute, Arrays.asList(new Object[] { begin, end }));
     }
 
+    /**
+     * Gets the begin.
+     *
+     * @return the begin
+     */
     public Object getBegin() {
         @SuppressWarnings("unchecked")
         final List<Object> value = (List<Object>) getValue();
         return value.get(0);
     }
 
+    /**
+     * Gets the end.
+     *
+     * @return the end
+     */
     public Object getEnd() {
         @SuppressWarnings("unchecked")
         final List<Object> value = (List<Object>) getValue();
         return value.get(1);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitBetween(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "BetweenRestriction [attribute=" + getAttribute() + ", begin=" + getBegin() + ", end=" + getEnd() + "]";

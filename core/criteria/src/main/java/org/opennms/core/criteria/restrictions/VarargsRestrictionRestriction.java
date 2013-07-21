@@ -32,10 +32,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The Class VarargsRestrictionRestriction.
+ */
 public abstract class VarargsRestrictionRestriction extends BaseRestriction {
 
+    /** The m_restrictions. */
     private List<Restriction> m_restrictions = new ArrayList<Restriction>();
 
+    /**
+     * Instantiates a new varargs restriction restriction.
+     *
+     * @param type
+     *            the type
+     * @param restrictions
+     *            the restrictions
+     */
     public VarargsRestrictionRestriction(final RestrictionType type, final Restriction... restrictions) {
         super(type);
         for (final Restriction r : restrictions) {
@@ -43,10 +55,18 @@ public abstract class VarargsRestrictionRestriction extends BaseRestriction {
         }
     }
 
+    /**
+     * Gets the restrictions.
+     *
+     * @return the restrictions
+     */
     public Collection<Restriction> getRestrictions() {
         return m_restrictions;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -55,6 +75,9 @@ public abstract class VarargsRestrictionRestriction extends BaseRestriction {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -69,6 +92,9 @@ public abstract class VarargsRestrictionRestriction extends BaseRestriction {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.BaseRestriction#toString()
+     */
     @Override
     public String toString() {
         return "VarargsRestrictionRestriction [type=" + getType() + ", restrictions=" + m_restrictions + "]";

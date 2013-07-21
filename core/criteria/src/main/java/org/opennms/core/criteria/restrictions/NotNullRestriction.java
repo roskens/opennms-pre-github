@@ -28,17 +28,32 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class NotNullRestriction.
+ */
 public class NotNullRestriction extends AttributeRestriction {
 
+    /**
+     * Instantiates a new not null restriction.
+     *
+     * @param attribute
+     *            the attribute
+     */
     public NotNullRestriction(final String attribute) {
         super(RestrictionType.NOTNULL, attribute);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitNotNull(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#toString()
+     */
     @Override
     public String toString() {
         return "NotNullRestriction [attribute=" + getAttribute() + "]";

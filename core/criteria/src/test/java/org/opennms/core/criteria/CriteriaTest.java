@@ -47,10 +47,17 @@ import org.opennms.core.criteria.restrictions.Restrictions;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
 
+/**
+ * The Class CriteriaTest.
+ */
 public class CriteriaTest {
 
+    /** The Constant EMPTY_ORDER_ARRAY. */
     private static final Order[] EMPTY_ORDER_ARRAY = new Order[0];
 
+    /**
+     * Test builder.
+     */
     @Test
     public void testBuilder() {
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -58,6 +65,9 @@ public class CriteriaTest {
         assertNotNull(cb.toCriteria());
     }
 
+    /**
+     * Test order.
+     */
     @Test
     public void testOrder() {
         final List<Order> orders = new ArrayList<Order>();
@@ -106,6 +116,9 @@ public class CriteriaTest {
         assertArrayEquals(orders.toArray(), cb.toCriteria().getOrders().toArray());
     }
 
+    /**
+     * Test fetch.
+     */
     @Test
     public void testFetch() {
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -117,6 +130,9 @@ public class CriteriaTest {
         assertEquals(FetchType.LAZY, i.next().getFetchType());
     }
 
+    /**
+     * Test alias.
+     */
     @Test
     public void testAlias() {
         CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -131,6 +147,9 @@ public class CriteriaTest {
         assertEquals(JoinType.FULL_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
     }
 
+    /**
+     * Test distinct.
+     */
     @Test
     public void testDistinct() {
         final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -145,6 +164,9 @@ public class CriteriaTest {
         assertFalse(cb.toCriteria().isDistinct());
     }
 
+    /**
+     * Test limits.
+     */
     @Test
     public void testLimits() {
         CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -153,6 +175,9 @@ public class CriteriaTest {
         assertEquals(Integer.valueOf(20), cb.toCriteria().getOffset());
     }
 
+    /**
+     * Test restrictions.
+     */
     @Test
     public void testRestrictions() {
         CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);

@@ -48,33 +48,107 @@ import java.util.regex.Pattern;
 
 import org.opennms.core.criteria.restrictions.Restriction;
 
+/**
+ * The Class Criteria.
+ */
 public class Criteria implements Cloneable {
+
+    /**
+     * The Interface CriteriaVisitor.
+     */
     public static interface CriteriaVisitor {
+
+        /**
+         * Visit class.
+         *
+         * @param clazz
+         *            the clazz
+         */
         public void visitClass(final Class<?> clazz);
 
+        /**
+         * Visit order.
+         *
+         * @param order
+         *            the order
+         */
         public void visitOrder(final Order order);
 
+        /**
+         * Visit orders finished.
+         */
         public void visitOrdersFinished();
 
+        /**
+         * Visit alias.
+         *
+         * @param alias
+         *            the alias
+         */
         public void visitAlias(final Alias alias);
 
+        /**
+         * Visit aliases finished.
+         */
         public void visitAliasesFinished();
 
+        /**
+         * Visit fetch.
+         *
+         * @param fetch
+         *            the fetch
+         */
         public void visitFetch(final Fetch fetch);
 
+        /**
+         * Visit fetches finished.
+         */
         public void visitFetchesFinished();
 
+        /**
+         * Visit restriction.
+         *
+         * @param restriction
+         *            the restriction
+         */
         public void visitRestriction(final Restriction restriction);
 
+        /**
+         * Visit restrictions finished.
+         */
         public void visitRestrictionsFinished();
 
+        /**
+         * Visit distinct.
+         *
+         * @param distinct
+         *            the distinct
+         */
         public void visitDistinct(final boolean distinct);
 
+        /**
+         * Visit limit.
+         *
+         * @param limit
+         *            the limit
+         */
         public void visitLimit(final Integer limit);
 
+        /**
+         * Visit offset.
+         *
+         * @param offset
+         *            the offset
+         */
         public void visitOffset(final Integer offset);
     }
 
+    /**
+     * Visit.
+     *
+     * @param visitor
+     *            the visitor
+     */
     public void visit(final CriteriaVisitor visitor) {
         visitor.visitClass(getCriteriaClass());
 
@@ -103,36 +177,67 @@ public class Criteria implements Cloneable {
         visitor.visitOffset(getOffset());
     }
 
+    /** The Constant SPLIT_ON. */
     private static final Pattern SPLIT_ON = Pattern.compile("\\.");
 
+    /** The m_class. */
     private Class<?> m_class;
 
+    /** The m_orders. */
     private List<Order> m_orders = new ArrayList<Order>();
 
+    /** The m_aliases. */
     private List<Alias> m_aliases = new ArrayList<Alias>();
 
+    /** The m_fetch types. */
     private Set<Fetch> m_fetchTypes = new LinkedHashSet<Fetch>();
 
+    /** The m_restrictions. */
     private Set<Restriction> m_restrictions = new LinkedHashSet<Restriction>();
 
+    /** The m_distinct. */
     private boolean m_distinct = false;
 
+    /** The m_limit. */
     private Integer m_limit = null;
 
+    /** The m_offset. */
     private Integer m_offset = null;
 
+    /**
+     * Instantiates a new criteria.
+     *
+     * @param clazz
+     *            the clazz
+     */
     public Criteria(final Class<?> clazz) {
         m_class = clazz;
     }
 
+    /**
+     * Gets the criteria class.
+     *
+     * @return the criteria class
+     */
     public Class<?> getCriteriaClass() {
         return m_class;
     }
 
+    /**
+     * Gets the orders.
+     *
+     * @return the orders
+     */
     public Collection<Order> getOrders() {
         return Collections.unmodifiableList(m_orders);
     }
 
+    /**
+     * Sets the orders.
+     *
+     * @param orderCollection
+     *            the new orders
+     */
     public void setOrders(final Collection<? extends Order> orderCollection) {
         if (m_orders == orderCollection)
             return;
@@ -142,10 +247,21 @@ public class Criteria implements Cloneable {
         }
     }
 
+    /**
+     * Gets the fetch types.
+     *
+     * @return the fetch types
+     */
     public Collection<Fetch> getFetchTypes() {
         return Collections.unmodifiableList(new ArrayList<Fetch>(m_fetchTypes));
     }
 
+    /**
+     * Sets the fetch types.
+     *
+     * @param fetchTypes
+     *            the new fetch types
+     */
     public void setFetchTypes(final Collection<? extends Fetch> fetchTypes) {
         if (m_fetchTypes == fetchTypes)
             return;
@@ -153,10 +269,21 @@ public class Criteria implements Cloneable {
         m_fetchTypes.addAll(fetchTypes);
     }
 
+    /**
+     * Gets the aliases.
+     *
+     * @return the aliases
+     */
     public Collection<Alias> getAliases() {
         return Collections.unmodifiableList(m_aliases);
     }
 
+    /**
+     * Sets the aliases.
+     *
+     * @param aliases
+     *            the new aliases
+     */
     public void setAliases(final Collection<? extends Alias> aliases) {
         if (m_aliases == aliases)
             return;
@@ -164,10 +291,21 @@ public class Criteria implements Cloneable {
         m_aliases.addAll(aliases);
     }
 
+    /**
+     * Gets the restrictions.
+     *
+     * @return the restrictions
+     */
     public Collection<Restriction> getRestrictions() {
         return Collections.unmodifiableList(new ArrayList<Restriction>(m_restrictions));
     }
 
+    /**
+     * Sets the restrictions.
+     *
+     * @param restrictions
+     *            the new restrictions
+     */
     public void setRestrictions(Collection<? extends Restriction> restrictions) {
         if (m_restrictions == restrictions)
             return;
@@ -175,38 +313,97 @@ public class Criteria implements Cloneable {
         m_restrictions.addAll(restrictions);
     }
 
+    /**
+     * Adds the restriction.
+     *
+     * @param restriction
+     *            the restriction
+     */
     public void addRestriction(final Restriction restriction) {
         m_restrictions.add(restriction);
     }
 
+    /**
+     * Checks if is distinct.
+     *
+     * @return true, if is distinct
+     */
     public boolean isDistinct() {
         return m_distinct;
     }
 
+    /**
+     * Sets the distinct.
+     *
+     * @param distinct
+     *            the new distinct
+     */
     public void setDistinct(final boolean distinct) {
         m_distinct = distinct;
     }
 
+    /**
+     * Gets the limit.
+     *
+     * @return the limit
+     */
     public Integer getLimit() {
         return m_limit;
     }
 
+    /**
+     * Sets the limit.
+     *
+     * @param limit
+     *            the new limit
+     */
     public void setLimit(final Integer limit) {
         m_limit = limit;
     }
 
+    /**
+     * Gets the offset.
+     *
+     * @return the offset
+     */
     public Integer getOffset() {
         return m_offset;
     }
 
+    /**
+     * Sets the offset.
+     *
+     * @param offset
+     *            the new offset
+     */
     public void setOffset(final Integer offset) {
         m_offset = offset;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @param path
+     *            the path
+     * @return the type
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     public Class<?> getType(final String path) throws IntrospectionException {
         return getType(this.getCriteriaClass(), path);
     }
 
+    /**
+     * Gets the type.
+     *
+     * @param clazz
+     *            the clazz
+     * @param path
+     *            the path
+     * @return the type
+     * @throws IntrospectionException
+     *             the introspection exception
+     */
     private Class<?> getType(final Class<?> clazz, final String path) throws IntrospectionException {
         final String[] split = SPLIT_ON.split(path);
         final List<String> pathSections = Arrays.asList(split);
@@ -230,6 +427,7 @@ public class Criteria implements Cloneable {
      *            is necessary.
      * @return The class type that matches.
      * @throws IntrospectionException
+     *             the introspection exception
      */
     private Class<?> getType(final Class<?> clazz, final List<String> pathSections, final List<Alias> aliases)
             throws IntrospectionException {
@@ -281,6 +479,13 @@ public class Criteria implements Cloneable {
         return null;
     }
 
+    /**
+     * Gets the generic return type.
+     *
+     * @param pd
+     *            the pd
+     * @return the generic return type
+     */
     private Type[] getGenericReturnType(final PropertyDescriptor pd) {
         final Method m = pd.getReadMethod();
         if (m != null) {
@@ -293,6 +498,9 @@ public class Criteria implements Cloneable {
         return new Type[0];
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -322,6 +530,9 @@ public class Criteria implements Cloneable {
         return sb.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     public Criteria clone() {
         Criteria retval = new Criteria(getCriteriaClass());

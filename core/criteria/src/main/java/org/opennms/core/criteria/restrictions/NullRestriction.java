@@ -28,17 +28,32 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class NullRestriction.
+ */
 public class NullRestriction extends AttributeRestriction {
 
+    /**
+     * Instantiates a new null restriction.
+     *
+     * @param attribute
+     *            the attribute
+     */
     public NullRestriction(final String attribute) {
         super(RestrictionType.NULL, attribute);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitNull(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeRestriction#toString()
+     */
     @Override
     public String toString() {
         return "NullRestriction [attribute=" + getAttribute() + "]";

@@ -28,14 +28,65 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Interface Restriction.
+ */
 public interface Restriction {
     // don't forget to update RestrictionVisitor
+    /**
+     * The Enum RestrictionType.
+     */
     public static enum RestrictionType {
-        NULL, NOTNULL, EQ, NE, GT, GE, LT, LE, ALL, ANY, LIKE, ILIKE, IN, NOT, BETWEEN, SQL, IPLIKE
+
+        /** The null. */
+        NULL,
+ /** The notnull. */
+ NOTNULL,
+ /** The eq. */
+ EQ,
+ /** The ne. */
+ NE,
+ /** The gt. */
+ GT,
+ /** The ge. */
+ GE,
+ /** The lt. */
+ LT,
+ /** The le. */
+ LE,
+ /** The all. */
+ ALL,
+ /** The any. */
+ ANY,
+ /** The like. */
+ LIKE,
+ /** The ilike. */
+ ILIKE,
+ /** The in. */
+ IN,
+ /** The not. */
+ NOT,
+ /** The between. */
+ BETWEEN,
+ /** The sql. */
+ SQL,
+ /** The iplike. */
+ IPLIKE
     }
 
+    /**
+     * Visit.
+     *
+     * @param visitor
+     *            the visitor
+     */
     public abstract void visit(final RestrictionVisitor visitor);
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public RestrictionType getType();
 
 }

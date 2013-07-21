@@ -28,17 +28,34 @@
 
 package org.opennms.core.criteria.restrictions;
 
+/**
+ * The Class IlikeRestriction.
+ */
 public class IlikeRestriction extends AttributeValueRestriction {
 
+    /**
+     * Instantiates a new ilike restriction.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public IlikeRestriction(final String attribute, final Object value) {
         super(RestrictionType.ILIKE, attribute, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.Restriction#visit(org.opennms.core.criteria.restrictions.RestrictionVisitor)
+     */
     @Override
     public void visit(final RestrictionVisitor visitor) {
         visitor.visitIlike(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.criteria.restrictions.AttributeValueRestriction#toString()
+     */
     @Override
     public String toString() {
         return "IlikeRestriction [attribute=" + getAttribute() + ", value=" + getValue() + "]";

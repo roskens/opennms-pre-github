@@ -30,28 +30,78 @@ package org.opennms.core.criteria;
 
 import org.opennms.core.criteria.restrictions.Restriction;
 
+/**
+ * The Class Alias.
+ */
 public class Alias {
 
+    /**
+     * The Interface AliasVisitor.
+     */
     public static interface AliasVisitor {
+
+        /**
+         * Visit alias.
+         *
+         * @param alias
+         *            the alias
+         */
         public void visitAlias(final String alias);
 
+        /**
+         * Visit association path.
+         *
+         * @param associationPath
+         *            the association path
+         */
         public void visitAssociationPath(final String associationPath);
 
+        /**
+         * Visit type.
+         *
+         * @param type
+         *            the type
+         */
         public void visitType(final JoinType type);
     }
 
+    /**
+     * The Enum JoinType.
+     */
     public enum JoinType {
-        LEFT_JOIN, INNER_JOIN, FULL_JOIN
+
+        /** The left join. */
+        LEFT_JOIN,
+ /** The inner join. */
+ INNER_JOIN,
+ /** The full join. */
+ FULL_JOIN
     }
 
+    /** The m_association path. */
     private final String m_associationPath;
 
+    /** The m_alias. */
     private final String m_alias;
 
+    /** The m_type. */
     private final JoinType m_type;
 
+    /** The m_join condition. */
     private final Restriction m_joinCondition;
 
+    /**
+     * Instantiates a new alias.
+     *
+     * @param associationPath
+     *            the association path
+     * @param alias
+     *            the alias
+     * @param type
+     *            the type
+     * @param joinCondition
+     *            the join condition
+     */
     public Alias(final String associationPath, final String alias, final JoinType type, final Restriction joinCondition) {
         m_alias = alias.intern();
         m_associationPath = associationPath.intern();
@@ -59,30 +109,68 @@ public class Alias {
         m_joinCondition = joinCondition;
     }
 
+    /**
+     * Instantiates a new alias.
+     *
+     * @param associationPath
+     *            the association path
+     * @param alias
+     *            the alias
+     * @param type
+     *            the type
+     */
     public Alias(final String associationPath, final String alias, final JoinType type) {
         this(associationPath, alias, type, null);
     }
 
+    /**
+     * Gets the alias.
+     *
+     * @return the alias
+     */
     public String getAlias() {
         return m_alias;
     }
 
+    /**
+     * Gets the association path.
+     *
+     * @return the association path
+     */
     public String getAssociationPath() {
         return m_associationPath;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public JoinType getType() {
         return m_type;
     }
 
+    /**
+     * Checks for join condition.
+     *
+     * @return true, if successful
+     */
     public boolean hasJoinCondition() {
         return m_joinCondition != null;
     }
 
+    /**
+     * Gets the join condition.
+     *
+     * @return the join condition
+     */
     public Restriction getJoinCondition() {
         return m_joinCondition;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -94,6 +182,9 @@ public class Alias {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -126,6 +217,9 @@ public class Alias {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Alias [associationPath=" + m_associationPath + ", alias=" + m_alias + ", type=" + m_type
