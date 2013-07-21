@@ -36,15 +36,32 @@ import java.util.Set;
  * <p>
  * LazySet class.
  * </p>
+ *
+ * @param <E>
+ *            the element type
  */
 public class LazySet<E> extends JdbcSet<E> {
 
+    /**
+     * The Interface Loader.
+     *
+     * @param <E>
+     *            the element type
+     */
     public static interface Loader<E> {
+
+        /**
+         * Load.
+         *
+         * @return the sets the
+         */
         Set<E> load();
     }
 
+    /** The m_loader. */
     private Loader<E> m_loader;
 
+    /** The m_loaded. */
     private boolean m_loaded = false;
 
     /**
@@ -147,6 +164,7 @@ public class LazySet<E> extends JdbcSet<E> {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -156,6 +174,9 @@ public class LazySet<E> extends JdbcSet<E> {
         return super.toString();
     }
 
+    /**
+     * Load.
+     */
     private void load() {
         if (!m_loaded) {
             setElements(m_loader.load());
@@ -167,6 +188,7 @@ public class LazySet<E> extends JdbcSet<E> {
      * <p>
      * isLoaded
      * </p>
+     * .
      *
      * @return a boolean.
      */

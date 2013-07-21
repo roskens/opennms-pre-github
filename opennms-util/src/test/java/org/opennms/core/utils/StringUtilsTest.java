@@ -37,21 +37,34 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+/**
+ * The Class StringUtilsTest.
+ */
 public class StringUtilsTest {
 
+    /** The m_expected. */
     private String[] m_expected = { "The", "quick", "fox" };
 
+    /**
+     * Test simple command array.
+     */
     @Test
     public void testSimpleCommandArray() {
         String arg = "The   quick fox";
         testCreateCmdArray(m_expected, arg);
     }
 
+    /**
+     * Test quoted command array.
+     */
     @Test
     public void testQuotedCommandArray() {
         testCreateCmdArray(m_expected, "\"The\" \"quick\" \"fox\"");
     }
 
+    /**
+     * Test windows paths.
+     */
     @Test
     public void testWindowsPaths() {
         if (File.separatorChar != '\\')
@@ -70,11 +83,27 @@ public class StringUtilsTest {
         }
     }
 
+    /**
+     * Test create cmd array.
+     *
+     * @param expected
+     *            the expected
+     * @param arg
+     *            the arg
+     */
     private void testCreateCmdArray(String[] expected, String arg) {
         String[] actual = StringUtils.createCommandArray(arg, '@');
         assertArrayEquals(expected, actual);
     }
 
+    /**
+     * Assert array equals.
+     *
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     */
     private void assertArrayEquals(String[] expected, String[] actual) {
         assertEquals(Arrays.asList(expected), Arrays.asList(actual));
     }

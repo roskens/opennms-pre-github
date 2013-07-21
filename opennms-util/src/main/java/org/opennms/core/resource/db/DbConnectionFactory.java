@@ -44,6 +44,7 @@ import java.sql.SQLException;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public interface DbConnectionFactory {
+
     /**
      * Initialize a database factory with the given URL, driver classname, and
      * database credentials. Will guarantee that the JDBC driver is loaded and
@@ -60,10 +61,10 @@ public interface DbConnectionFactory {
      *            the name to use to authenticate us with the database
      * @param password
      *            the credentials use to authenticate the username
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws SQLException
+     *             the sQL exception
      */
     public void init(String dbUrl, String dbDriver, String username, String password) throws ClassNotFoundException,
             SQLException;
@@ -73,20 +74,17 @@ public interface DbConnectionFactory {
      * database connection factory. Makes this factory unavailable for new
      * connection requests.
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void destroy() throws SQLException;
 
     /**
      * Retrieve a connection from the given database connection pool.
      *
-     * @throws java.lang.IllegalStateException
-     *             If the factory has not been initialized or has been
-     *             destroyed.
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public Connection getConnection() throws SQLException;
 
@@ -96,11 +94,8 @@ public interface DbConnectionFactory {
      *
      * @param connection
      *            the connection to release
-     * @throws java.lang.IllegalStateException
-     *             If the factory has not been initialized or has been
-     *             destroyed.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void releaseConnection(Connection connection) throws SQLException;
 

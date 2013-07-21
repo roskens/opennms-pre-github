@@ -34,6 +34,8 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 /**
+ * The Class SIUtilsTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class SIUtilsTest extends TestCase {

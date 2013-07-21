@@ -31,6 +31,19 @@ package org.opennms.core.utils;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * The Interface SocketWrapper.
+ */
 public interface SocketWrapper {
+
+    /**
+     * Wrap socket.
+     *
+     * @param socket
+     *            the socket
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     Socket wrapSocket(Socket socket) throws IOException;
 }

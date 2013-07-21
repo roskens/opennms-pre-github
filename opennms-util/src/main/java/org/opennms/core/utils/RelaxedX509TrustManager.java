@@ -57,6 +57,7 @@ public class RelaxedX509TrustManager implements X509TrustManager {
      * <p>
      * getAcceptedIssuers
      * </p>
+     * .
      *
      * @return an array of {@link java.security.cert.X509Certificate} objects.
      */

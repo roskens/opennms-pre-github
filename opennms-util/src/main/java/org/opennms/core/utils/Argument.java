@@ -29,14 +29,15 @@
 package org.opennms.core.utils;
 
 /**
- * This is a data class to store the argument information for a Command
+ * This is a data class to store the argument information for a Command.
  *
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  */
 public class Argument {
+
     /**
      * The switch that the Notify class identifies with the value of this
-     * argument
+     * argument.
      */
     private String m_switch;
 
@@ -46,9 +47,7 @@ public class Argument {
      */
     private String m_substitution;
 
-    /**
-     * The value of the argument
-     */
+    /** The value of the argument. */
     private String m_value;
 
     /**
@@ -58,7 +57,7 @@ public class Argument {
     private boolean m_streamed;
 
     /**
-     * Default constructor, initializes the members
+     * Default constructor, initializes the members.
      *
      * @param aSwitch
      *            a {@link java.lang.String} object.
@@ -77,7 +76,7 @@ public class Argument {
     }
 
     /**
-     * Sets the switch member
+     * Sets the switch member.
      *
      * @param aValue
      *            the value of the switch
@@ -87,7 +86,7 @@ public class Argument {
     }
 
     /**
-     * Sets the substitution switch
+     * Sets the substitution switch.
      *
      * @param aValue
      *            the value of the substitution
@@ -97,7 +96,7 @@ public class Argument {
     }
 
     /**
-     * Sets the value of the argument
+     * Sets the value of the argument.
      *
      * @param aValue
      *            the value of the argument
@@ -107,7 +106,7 @@ public class Argument {
     }
 
     /**
-     * Returns the switch
+     * Returns the switch.
      *
      * @return String, the switch string
      */
@@ -116,7 +115,7 @@ public class Argument {
     }
 
     /**
-     * Returns the substitution switch
+     * Returns the substitution switch.
      *
      * @return String, the substitution
      */
@@ -125,7 +124,7 @@ public class Argument {
     }
 
     /**
-     * Returns the value of the argument
+     * Returns the value of the argument.
      *
      * @return String, the value of the argument
      */
@@ -135,7 +134,7 @@ public class Argument {
 
     /**
      * Sets the boolean indicating if this argument should be sent to an input
-     * stream
+     * stream.
      *
      * @param aBool
      *            true if the argument should be sent to a input stream, false
@@ -158,7 +157,7 @@ public class Argument {
 
     /**
      * Returns a string representation of the argument, for purposes of
-     * debugging
+     * debugging.
      *
      * @return String, a string representation
      */

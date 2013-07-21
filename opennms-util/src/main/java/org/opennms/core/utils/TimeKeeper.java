@@ -31,11 +31,29 @@ package org.opennms.core.utils;
 import java.util.Date;
 import java.util.TimeZone;
 
+/**
+ * The Interface TimeKeeper.
+ */
 public interface TimeKeeper {
 
+    /**
+     * Gets the current time.
+     *
+     * @return the current time
+     */
     long getCurrentTime();
 
+    /**
+     * Gets the current date.
+     *
+     * @return the current date
+     */
     Date getCurrentDate();
 
+    /**
+     * Gets the time zone.
+     *
+     * @return the time zone
+     */
     TimeZone getTimeZone();
 }

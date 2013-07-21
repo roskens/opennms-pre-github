@@ -33,8 +33,14 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class StringReplaceOperationTest.
+ */
 public class StringReplaceOperationTest extends TestCase {
 
+    /**
+     * Test replace first.
+     */
     public void testReplaceFirst() {
         String orig = "There was once a quick brown fox. There was once a lazy dog.";
         String expected = "The quick brown fox. There was once a lazy dog.";
@@ -42,6 +48,9 @@ public class StringReplaceOperationTest extends TestCase {
         assertEquals(op.replace(orig), expected);
     }
 
+    /**
+     * Test replace all.
+     */
     public void testReplaceAll() {
         String orig = "There was once a quick brown fox. There was once a lazy dog.";
         String expected = "There was twice a quick brown fox. There was twice a lazy dog.";
@@ -49,6 +58,9 @@ public class StringReplaceOperationTest extends TestCase {
         assertEquals(op.replace(orig), expected);
     }
 
+    /**
+     * Test first all first.
+     */
     public void testFirstAllFirst() {
         String orig = "There was once a quick brown fox. There was once a lazy dog.";
         String expected = "On the roof was once one quick brown fox. In the basement was once one lazy dog.";

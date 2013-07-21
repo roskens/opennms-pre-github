@@ -30,5 +30,8 @@ package org.opennms.core.concurrent;
 
 import java.util.concurrent.Callable;
 
+/**
+ * The Interface WaterfallCallable.
+ */
 public interface WaterfallCallable extends Callable<Callable<?>> {
 }

@@ -41,6 +41,9 @@ import java.util.Comparator;
  */
 public class ByteArrayComparator implements Comparator<byte[]> {
 
+    /* (non-Javadoc)
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
     @Override
     public int compare(byte[] a, byte[] b) {
         if (a == null && b == null) {
@@ -69,6 +72,13 @@ public class ByteArrayComparator implements Comparator<byte[]> {
         }
     }
 
+    /**
+     * Unsigned byte to int.
+     *
+     * @param b
+     *            the b
+     * @return the int
+     */
     private static int unsignedByteToInt(byte b) {
         return b < 0 ? ((int) b) + 256 : ((int) b);
     }

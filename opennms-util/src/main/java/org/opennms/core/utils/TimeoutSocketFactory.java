@@ -32,24 +32,53 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * A factory for creating TimeoutSocket objects.
+ */
 public class TimeoutSocketFactory {
 
+    /** The m_timeout. */
     private final int m_timeout;
 
+    /** The m_socket wrapper. */
     private final SocketWrapper m_socketWrapper;
 
+    /**
+     * Instantiates a new timeout socket factory.
+     *
+     * @param timeout
+     *            the timeout
+     */
     public TimeoutSocketFactory(final int timeout) {
         this(timeout, null);
     }
 
     /**
-     * Oh noes, dyslexia!!!
+     * Oh noes, dyslexia!!!.
+     *
+     * @param timeout
+     *            the timeout
+     * @param wocketSrapper
+     *            the wocket srapper
      */
     public TimeoutSocketFactory(final int timeout, final SocketWrapper wocketSrapper) {
         m_timeout = timeout;
         m_socketWrapper = wocketSrapper;
     }
 
+    /**
+     * Creates a new TimeoutSocket object.
+     *
+     * @param host
+     *            the host
+     * @param port
+     *            the port
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @SuppressWarnings("resource")
     public Socket createSocket(final String host, final int port) throws IOException, UnknownHostException {
         Socket socket = new Socket(host, port);

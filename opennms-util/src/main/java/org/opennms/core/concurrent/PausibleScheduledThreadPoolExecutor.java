@@ -35,23 +35,40 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * PausibleScheduledThreadPoolExecutor
+ * PausibleScheduledThreadPoolExecutor.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExecutor {
 
+    /** The is paused. */
     private AtomicBoolean isPaused = new AtomicBoolean(false);
 
+    /** The pause lock. */
     private ReentrantLock pauseLock = new ReentrantLock();
 
+    /** The unpaused. */
     private Condition unpaused = pauseLock.newCondition();
 
+    /**
+     * Instantiates a new pausible scheduled thread pool executor.
+     *
+     * @param corePoolSize
+     *            the core pool size
+     */
     public PausibleScheduledThreadPoolExecutor(final int corePoolSize) {
         super(corePoolSize);
     }
 
+    /**
+     * Instantiates a new pausible scheduled thread pool executor.
+     *
+     * @param corePoolSize
+     *            the core pool size
+     * @param threadFactory
+     *            the thread factory
+     */
     public PausibleScheduledThreadPoolExecutor(final int corePoolSize, final ThreadFactory threadFactory) {
         super(corePoolSize, threadFactory);
     }
@@ -60,6 +77,7 @@ public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExec
      * <p>
      * isPaused
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -86,6 +104,7 @@ public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExec
      * <p>
      * pause
      * </p>
+     * .
      */
     public void pause() {
         pauseLock.lock();
@@ -100,6 +119,7 @@ public class PausibleScheduledThreadPoolExecutor extends ScheduledThreadPoolExec
      * <p>
      * resume
      * </p>
+     * .
      */
     public void resume() {
         pauseLock.lock();

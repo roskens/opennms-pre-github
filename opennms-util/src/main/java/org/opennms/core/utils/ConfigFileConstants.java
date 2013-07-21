@@ -36,46 +36,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class holds all OpenNMS related config filenames
+ * This class holds all OpenNMS related config filenames.
  */
 public final class ConfigFileConstants {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConfigFileConstants.class);
 
+    /** The Constant FILE_ID_TO_NAME. */
     private static final String[] FILE_ID_TO_NAME;
 
-    /**
-     * The opennms database config file
-     */
+    /** The opennms database config file. */
     public static final int DB_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms jms config file
-     */
+    /** The opennms jms config file. */
     public static final int JMS_CONFIG_FILE_NAME;
 
     //
     // the OpenNMS services' config files
     //
 
-    /**
-     * The opennms actiond config file
-     */
+    /** The opennms actiond config file. */
     public static final int ACTIOND_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms capsd config file
-     */
+    /** The opennms capsd config file. */
     public static final int CAPSD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms discovery config file
-     */
+    /** The opennms discovery config file. */
     public static final int DISCOVERY_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms eventd config file
-     */
+    /** The opennms eventd config file. */
     public static final int EVENTD_CONFIG_FILE_NAME;
 
     /**
@@ -83,101 +73,63 @@ public final class ConfigFileConstants {
      */
     public static final int REPORT_HTML_XSL;
 
-    /**
-     * The opennms dhcpd config file
-     */
+    /** The opennms dhcpd config file. */
     public static final int DHCPD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms notifd config file
-     */
+    /** The opennms notifd config file. */
     public static final int NOTIFD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms outage manager config file
-     */
+    /** The opennms outage manager config file. */
     public static final int OUTAGE_MANAGER_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms poller config file
-     */
+    /** The opennms poller config file. */
     public static final int POLLER_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms poll outages config file
-     */
+    /** The opennms poll outages config file. */
     public static final int POLL_OUTAGES_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms SNMP poller config file
-     */
+    /** The opennms SNMP poller config file. */
     public static final int SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms rtc config file
-     */
+    /** The opennms rtc config file. */
     public static final int RTC_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms trapd config file
-     */
+    /** The opennms trapd config file. */
     public static final int TRAPD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms manager config file
-     */
+    /** The opennms manager config file. */
     public static final int MANAGER_CONFIG_FILE_NAME;
 
-    /**
-     * The services config file
-     */
+    /** The services config file. */
     public static final int SERVICE_CONF_FILE_NAME;
 
-    /**
-     * The events archiver config file
-     */
+    /** The events archiver config file. */
     public static final int EVENTS_ARCHIVER_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms collectd config file
-     */
+    /** The opennms collectd config file. */
     public static final int COLLECTD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms threshd config file
-     */
+    /** The opennms threshd config file. */
     public static final int THRESHD_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms vulnscand config file
-     */
+    /** The opennms vulnscand config file. */
     public static final int VULNSCAND_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms scriptd config file
-     */
+    /** The opennms scriptd config file. */
     public static final int SCRIPTD_CONFIG_FILE_NAME;
 
-    /**
-     * The vacuumd config file
-     */
+    /** The vacuumd config file. */
     public static final int VACUUMD_CONFIG_FILE_NAME;
 
     //
 
-    /**
-     * The opennms xmlrpcd config file
-     */
+    /** The opennms xmlrpcd config file. */
     public static final int XMLRPCD_CONFIG_FILE_NAME;
 
-    /**
-     * The config file specifying the rrd config (ie JRobin vs JNI)
-     */
+    /** The config file specifying the rrd config (ie JRobin vs JNI). */
     public static final int RRD_CONFIG_FILE_NAME;
 
-    /**
-     * The config file specifying the JavaMailer config (ie SMTP HOST)
-     */
+    /** The config file specifying the JavaMailer config (ie SMTP HOST). */
 
     public static final int JAVA_MAIL_CONFIG_FILE_NAME;
 
@@ -186,24 +138,16 @@ public final class ConfigFileConstants {
      */
     public static final int XMPP_CONFIG_FILE_NAME;
 
-    /**
-     * JFree Chart configuration file
-     */
+    /** JFree Chart configuration file. */
     public static final int CHART_CONFIG_FILE_NAME;
 
-    /**
-     * JFree Chart configuration file
-     */
+    /** JFree Chart configuration file. */
     public static final int TRANSLATOR_CONFIG_FILE_NAME;
 
-    /**
-     * The config file for specifying JMX MBeans
-     */
+    /** The config file for specifying JMX MBeans. */
     public static final int JMX_DATA_COLLECTION_CONF_FILE_NAME;
 
-    /**
-     * The config file for syslogd
-     */
+    /** The config file for syslogd. */
     public static final int SYSLOGD_CONFIG_FILE_NAME;
 
     //
@@ -214,128 +158,82 @@ public final class ConfigFileConstants {
     // Other config files
     //
 
-    /**
-     * The administrator pitXML file for the Swing GUI
-     */
+    /** The administrator pitXML file for the Swing GUI. */
     public static final int ADMIN_PITXML_FILE_NAME;
 
-    /**
-     * The "magic" users config file
-     */
+    /** The "magic" users config file. */
     public static final int MAGIC_USERS_CONF_FILE_NAME;
 
-    /**
-     * The "poller-config" config file
-     */
+    /** The "poller-config" config file. */
     public static final int POLLER_CONF_FILE_NAME;
 
     /**
      * The properties file that contains a list of event uies to exclude from
-     * the notification wizard
+     * the notification wizard.
      */
     public static final int EXCLUDE_UEI_FILE_NAME;
 
-    /**
-     * The users config file
-     */
+    /** The users config file. */
     public static final int USERS_CONF_FILE_NAME;
 
-    /**
-     * The user views config file
-     */
+    /** The user views config file. */
     public static final int VIEWS_CONF_FILE_NAME;
 
-    /**
-     * The categories config file
-     */
+    /** The categories config file. */
     public static final int CATEGORIES_CONF_FILE_NAME;
 
-    /**
-     * The user groups config file
-     */
+    /** The user groups config file. */
     public static final int GROUPS_CONF_FILE_NAME;
 
-    /**
-     * The views display config file
-     */
+    /** The views display config file. */
     public static final int VIEWS_DISPLAY_CONF_FILE_NAME;
 
-    /**
-     * the notifications conf file
-     */
+    /** the notifications conf file. */
     public static final int NOTIFICATIONS_CONF_FILE_NAME;
 
-    /**
-     * the notification commands file
-     */
+    /** the notification commands file. */
     public static final int NOTIF_COMMANDS_CONF_FILE_NAME;
 
-    /**
-     * the destination paths for notifications
-     */
+    /** the destination paths for notifications. */
     public static final int DESTINATION_PATHS_CONF_FILE_NAME;
 
-    /**
-     * The SNMP config file
-     */
+    /** The SNMP config file. */
     public static final int SNMP_CONF_FILE_NAME;
 
-    /**
-     * the event conf file
-     */
+    /** the event conf file. */
     public static final int EVENT_CONF_FILE_NAME;
 
-    /**
-     * the database schema file
-     */
+    /** the database schema file. */
     public static final int DB_SCHEMA_FILE_NAME;
 
-    /**
-     * the SNMP data collection conf file
-     */
+    /** the SNMP data collection conf file. */
     public static final int DATA_COLLECTION_CONF_FILE_NAME;
 
-    /**
-     * a store for general information needed to configure
-     */
+    /** a store for general information needed to configure. */
     public static final int BASE_CONFIGURATION_FILE_NAME;
 
-    /**
-     * the thresholding config file
-     */
+    /** the thresholding config file. */
     public static final int THRESHOLDING_CONF_FILE_NAME;
 
-    /**
-     * This is the name of the path of the webui colors dtd
-     */
+    /** This is the name of the path of the webui colors dtd. */
     public static final int WEBUI_COLORS_FILE_NAME;
 
-    /**
-     * This is the name of the path of the webui colors dtd
-     */
+    /** This is the name of the path of the webui colors dtd. */
     public static final int KSC_REPORT_FILE_NAME;
 
-    /**
-     * The opennms server config file
-     */
+    /** The opennms server config file. */
     public static final int OPENNMS_SERVER_CONFIG_FILE_NAME;
 
-    /**
-     * The opennms surveillance views config file
-     */
+    /** The opennms surveillance views config file. */
     public static final int SURVEILLANCE_VIEWS_FILE_NAME;
 
-    /**
-     * The opennms surveillance views config file
-     */
+    /** The opennms surveillance views config file. */
     public static final int SITE_STATUS_VIEWS_FILE_NAME;
 
-    /** Constant <code>HTTP_COLLECTION_CONFIG_FILE_NAME</code> */
+    /** Constant <code>HTTP_COLLECTION_CONFIG_FILE_NAME</code>. */
     public static final int HTTP_COLLECTION_CONFIG_FILE_NAME;
 
-    /**
-     * The config file for maps Adapter
-     */
+    /** The config file for maps Adapter. */
     public static final int MAPS_ADAPTER_CONFIG_FILE_NAME;
 
     //
@@ -346,44 +244,28 @@ public final class ConfigFileConstants {
     // XSL files used by reports
     //
 
-    /**
-     * The reporting pdf xsl file
-     */
+    /** The reporting pdf xsl file. */
     public static final int REPORT_PDF_XSL;
 
-    /**
-     * The reporting svg xsl file
-     */
+    /** The reporting svg xsl file. */
     public static final int REPORT_SVG_XSL;
 
-    /**
-     * The Events reporting xsl file
-     */
+    /** The Events reporting xsl file. */
     public static final int EVENT_REPORT;
 
-    /**
-     * The Outages reporting xsl file
-     */
+    /** The Outages reporting xsl file. */
     public static final int OUTAGE_REPORT;
 
-    /**
-     * The Outages reporting xsl file
-     */
+    /** The Outages reporting xsl file. */
     public static final int NOTIFY_REPORT;
 
-    /**
-     * The Linkd discovery configuration file
-     */
+    /** The Linkd discovery configuration file. */
     public static final int LINKD_CONFIG_FILE_NAME;
 
-    /**
-     * The OpenNMS DataSourceConfiguration file
-     */
+    /** The OpenNMS DataSourceConfiguration file. */
     public static final int OPENNMS_DATASOURCE_CONFIG_FILE_NAME;
 
-    /**
-     * The map properties config file
-     */
+    /** The map properties config file. */
     public static final int MAP_PROPERTIES_FILE_NAME;
 
     //
@@ -394,65 +276,40 @@ public final class ConfigFileConstants {
     // DTDs used by reports
     //
 
-    /**
-     * This is the name of the path of the event report dtd
-     */
+    /** This is the name of the path of the event report dtd. */
     public static final int EVENT_REPORT_DTD;
 
-    /**
-     * This is the name of the path of the event report dtd
-     */
+    /** This is the name of the path of the event report dtd. */
     public static final int OUTAGE_REPORT_DTD;
 
-    /**
-     * This is the name of the path of the notification report dtd
-     */
+    /** This is the name of the path of the notification report dtd. */
     public static final int NOTIFY_REPORT_DTD;
 
-    /**
-     * The NSClient data collection configuration file
-     */
+    /** The NSClient data collection configuration file. */
     public static final int NSCLIENT_COLLECTION_CONFIG_FILE_NAME;
 
-    /**
-     * The NSClient data collection configuration file
-     */
+    /** The NSClient data collection configuration file. */
     public static final int NSCLIENT_CONFIG_FILE_NAME;
 
-    /**
-     * The WMI agent configuration file
-     */
+    /** The WMI agent configuration file. */
     public static final int WMI_CONFIG_FILE_NAME;
 
-    /**
-     * The XMP data collection configuration file
-     */
+    /** The XMP data collection configuration file. */
     public static final int XMP_COLLECTION_CONFIG_FILE_NAME;
 
-    /**
-     * The XMP agent configuration file
-     */
+    /** The XMP agent configuration file. */
     public static final int XMP_CONFIG_FILE_NAME;
 
-    /**
-     * The RWS (RestFul Web Service) configuration file
-     * used to access Rancid
-     */
+    /** The RWS (RestFul Web Service) configuration file used to access Rancid. */
     public static final int RWS_CONFIG_FILE_NAME;
 
-    /**
-     * The Rancid Provisioning Adapter configuration file
-     */
+    /** The Rancid Provisioning Adapter configuration file. */
     public static final int RANCID_CONFIG_FILE_NAME;
 
-    /**
-     * The SNMP Asset Provisioning Adapter configuration file
-     */
+    /** The SNMP Asset Provisioning Adapter configuration file. */
     public static final int SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME;
 
-    /**
-     * The WMI collection configuration file
-     */
+    /** The WMI collection configuration file. */
     public static final int WMI_COLLECTION_CONFIG_FILE_NAME;
 
     /**
@@ -460,14 +317,10 @@ public final class ConfigFileConstants {
      */
     public static final int ASTERISK_CONFIG_FILE_NAME;
 
-    /**
-     * The AMI agent configuration file
-     */
+    /** The AMI agent configuration file. */
     public static final int AMI_CONFIG_FILE_NAME;
 
-    /**
-     * The config file for microblog notifications and acks
-     */
+    /** The config file for microblog notifications and acks. */
     public static final int MICROBLOG_CONFIG_FILE_NAME;
 
     /**
@@ -742,10 +595,8 @@ public final class ConfigFileConstants {
      * @param id
      *            The identifer for the configuration file.
      * @return The File handle to the passed identifier.
-     * @throws java.io.FileNotFoundException
-     *             Thrown if the file cannot be located.
-     * @throws java.io.IOException
-     *             Thrown if an error occurs accessing the file system.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static final File getFile(int id) throws IOException {
         // Recover the home directory from the system properties.
@@ -789,10 +640,8 @@ public final class ConfigFileConstants {
      * @param fname
      *            The base file name of the configuration file.
      * @return The File handle to the named file.
-     * @throws java.io.FileNotFoundException
-     *             Thrown if the file cannot be located.
-     * @throws java.io.IOException
-     *             Thrown if an error occurs accessing the file system.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static final File getConfigFileByName(String fname) throws IOException {
         // Recover the home directory from the system properties.
@@ -825,6 +674,7 @@ public final class ConfigFileConstants {
      * <p>
      * getHome
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -865,6 +715,7 @@ public final class ConfigFileConstants {
      * <p>
      * getTimezoneFileDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -872,6 +723,6 @@ public final class ConfigFileConstants {
         return File.separator + "usr" + File.separator + "share" + File.separator + "zoneinfo" + File.separator + "US";
     }
 
-    /** Constant <code>RRD_DS_MAX_SIZE=19</code> */
+    /** Constant <code>RRD_DS_MAX_SIZE=19</code>. */
     public static final int RRD_DS_MAX_SIZE = 19;
 }

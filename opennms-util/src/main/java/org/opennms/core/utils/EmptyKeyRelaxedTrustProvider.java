@@ -33,9 +33,17 @@ package org.opennms.core.utils;
 
 import java.security.Provider;
 
+/**
+ * The Class EmptyKeyRelaxedTrustProvider.
+ */
 public final class EmptyKeyRelaxedTrustProvider extends Provider {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -543349021655585769L;
 
+    /**
+     * Instantiates a new empty key relaxed trust provider.
+     */
     public EmptyKeyRelaxedTrustProvider() {
         super(EmptyKeyRelaxedTrustSSLContext.ALGORITHM + "Provider", 1.0, null);
         put("SSLContext." + EmptyKeyRelaxedTrustSSLContext.ALGORITHM, EmptyKeyRelaxedTrustSSLContext.class.getName());

@@ -42,6 +42,8 @@ import javax.sql.DataSource;
  * @version $Id: $
  */
 public class DataSourceDbConnectionFactory implements DbConnectionFactory {
+
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /**
@@ -60,9 +62,10 @@ public class DataSourceDbConnectionFactory implements DbConnectionFactory {
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public void destroy() throws SQLException {
@@ -72,10 +75,11 @@ public class DataSourceDbConnectionFactory implements DbConnectionFactory {
      * <p>
      * getConnection
      * </p>
+     * .
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public Connection getConnection() throws SQLException {

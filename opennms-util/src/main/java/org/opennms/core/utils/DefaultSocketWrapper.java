@@ -31,7 +31,14 @@ package org.opennms.core.utils;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * The Class DefaultSocketWrapper.
+ */
 public class DefaultSocketWrapper implements SocketWrapper {
+
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.SocketWrapper#wrapSocket(java.net.Socket)
+     */
     @Override
     public Socket wrapSocket(Socket socket) throws IOException {
         return socket;

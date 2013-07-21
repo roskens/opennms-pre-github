@@ -44,9 +44,13 @@ import java.util.Comparator;
  * <li><code>Inet6Address</code> instances that are link-local ordered by
  * scopeId</li>
  * </ul>
+ * .
  */
 public class InetAddressComparator implements Comparator<InetAddress> {
 
+    /* (non-Javadoc)
+     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     */
     @Override
     public int compare(InetAddress addr1, InetAddress addr2) {
         if (addr1 == null) {

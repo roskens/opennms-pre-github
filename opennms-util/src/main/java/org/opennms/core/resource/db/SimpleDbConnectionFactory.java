@@ -52,10 +52,14 @@ import java.sql.SQLException;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public class SimpleDbConnectionFactory extends Object implements DbConnectionFactory {
+
+    /** The url. */
     protected String url = null;
 
+    /** The username. */
     protected String username = null;
 
+    /** The password. */
     protected String password = null;
 
     /**
@@ -97,8 +101,8 @@ public class SimpleDbConnectionFactory extends Object implements DbConnectionFac
      * those will be used when creating the new connection.
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     @Override
     public Connection getConnection() throws SQLException {

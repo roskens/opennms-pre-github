@@ -37,15 +37,16 @@ package org.opennms.core.queue;
  * possible to read elements from the queue, so long as it is not empty.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public interface ClosableFifoQueue<T> extends FifoQueue<T> {
+
     /**
      * Returns true if the queue is currently open.
      *
      * @return True if the queue is open.
-     * @param <T>
-     *            a T object.
      */
     public boolean isOpen();
 
@@ -61,10 +62,8 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      * allow elements already in the queue to be removed, but new elements
      * should not be added.
      *
-     * @exception org.opennms.core.queue.FifoQueueException
-     *                Thrown if an error occurs closing the queue.
-     * @throws org.opennms.core.queue.FifoQueueException
-     *             if any.
+     * @throws FifoQueueException
+     *             the fifo queue exception
      */
     public void close() throws FifoQueueException;
 
@@ -72,10 +71,8 @@ public interface ClosableFifoQueue<T> extends FifoQueue<T> {
      * Ensures that the queue is open and new elements can be added to the
      * queue.
      *
-     * @exception org.opennms.core.queue.FifoQueueException
-     *                Thrown if an error occurs opening the queue.
-     * @throws org.opennms.core.queue.FifoQueueException
-     *             if any.
+     * @throws FifoQueueException
+     *             the fifo queue exception
      */
     public void open() throws FifoQueueException;
 }

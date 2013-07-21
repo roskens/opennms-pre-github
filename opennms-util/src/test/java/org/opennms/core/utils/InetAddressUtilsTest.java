@@ -44,8 +44,17 @@ import org.xbill.DNS.Lookup;
 import org.xbill.DNS.Record;
 import org.xbill.DNS.Type;
 
+/**
+ * The Class InetAddressUtilsTest.
+ */
 public class InetAddressUtilsTest {
 
+    /**
+     * Test prefer i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testPreferIPv6() throws Exception {
@@ -65,6 +74,12 @@ public class InetAddressUtilsTest {
         InetAddressUtils.resolveHostname("ipv6.www.yahoo.com", true);
     }
 
+    /**
+     * Test lookup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testLookup() throws Exception {
@@ -74,6 +89,9 @@ public class InetAddressUtilsTest {
 
     /**
      * Make sure this test is FIRST.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore
@@ -85,6 +103,12 @@ public class InetAddressUtilsTest {
         assertNotNull(fb);
     }
 
+    /**
+     * Test mac address functions.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMacAddressFunctions() throws Exception {
         byte[] expected = new byte[] { (byte) 0xff, (byte) 0x80, (byte) 0x0f, (byte) 0xf0, (byte) 0x01, (byte) 0x00 };
@@ -117,6 +141,12 @@ public class InetAddressUtilsTest {
         }
     }
 
+    /**
+     * Test nm s4972.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNMS4972() throws Exception {
         String ip1 = "1.1.1.1";
@@ -124,6 +154,12 @@ public class InetAddressUtilsTest {
         Assert.assertFalse(BigInteger.ZERO.compareTo(InetAddressUtils.difference(ip1, ip2)) < 0);
     }
 
+    /**
+     * Test cidr functions.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCidrFunctions() throws Exception {
         assertEquals("255.0.0.0", str(InetAddressUtils.convertCidrToInetAddressV4(8)));

@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public abstract class HttpUtils extends Object {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpUtils.class);
 
     /** Default buffer size for reading data. (Default is one kilobyte.) */
@@ -58,9 +60,9 @@ public abstract class HttpUtils extends Object {
      * @param dataStream
      *            an input stream containing the data to send
      * @return An <code>InputStream</code> that the programmer can read from
-     * to get the HTTP server's response.
-     * @throws java.io.IOException
-     *             if any.
+     *         to get the HTTP server's response.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static InputStream post(URL url, InputStream dataStream) throws IOException {
         return (post(url, dataStream, null, null, DEFAULT_POST_BUFFER_SIZE));
@@ -79,9 +81,9 @@ public abstract class HttpUtils extends Object {
      * @param password
      *            the password to use in the BASIC authentication
      * @return An <code>InputStream</code> that the programmer can read from
-     * to get the HTTP server's response.
-     * @throws java.io.IOException
-     *             if any.
+     *         to get the HTTP server's response.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static InputStream post(URL url, InputStream dataStream, String username, String password)
             throws IOException {
@@ -104,9 +106,9 @@ public abstract class HttpUtils extends Object {
      *            the size of the buffer to read from <code>dataStream</code>
      *            and write to the HTTP server
      * @return An <code>InputStream</code> that the programmer can read from
-     * to get the HTTP server's response.
-     * @throws java.io.IOException
-     *             if any.
+     *         to get the HTTP server's response.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static InputStream post(URL url, InputStream dataStream, String username, String password, int bufSize)
             throws IOException {
@@ -181,9 +183,9 @@ public abstract class HttpUtils extends Object {
      *            the size of the buffer to read from <code>dataStream</code>
      *            and write to the HTTP server
      * @return An <code>InputStream</code> that the programmer can read from
-     * to get the HTTP server's response.
-     * @throws java.io.IOException
-     *             if any.
+     *         to get the HTTP server's response.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static InputStream post(URL url, Reader dataReader, String username, String password, int bufSize)
             throws IOException {

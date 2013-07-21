@@ -55,18 +55,25 @@ import org.xbill.DNS.Type;
  */
 public abstract class InetAddressUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InetAddressUtils.class);
 
+    /** The Constant s_BYTE_ARRAY_COMPARATOR. */
     private static final ByteArrayComparator s_BYTE_ARRAY_COMPARATOR = new ByteArrayComparator();
 
+    /** The Constant UNPINGABLE_ADDRESS. */
     public static final InetAddress UNPINGABLE_ADDRESS;
 
+    /** The Constant UNPINGABLE_ADDRESS_IPV6. */
     public static final InetAddress UNPINGABLE_ADDRESS_IPV6;
 
+    /** The Constant ZEROS. */
     public static final InetAddress ZEROS = addr("0.0.0.0");
 
+    /** The Constant TWO_FIFTY_FIVES. */
     public static final InetAddress TWO_FIFTY_FIVES = addr("255.255.255.255");
 
+    /** The Constant ONE_TWENTY_SEVEN. */
     public static final InetAddress ONE_TWENTY_SEVEN = addr("127.0.0.1");
 
     static {
@@ -98,10 +105,22 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * The Enum AddressType.
+     */
     public static enum AddressType {
-        IPv4, IPv6
+
+        /** The I pv4. */
+        IPv4,
+ /** The I pv6. */
+ IPv6
     }
 
+    /**
+     * Gets the local host address.
+     *
+     * @return the local host address
+     */
     public static InetAddress getLocalHostAddress() {
         try {
             return InetAddress.getLocalHost();
@@ -112,11 +131,21 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Gets the local host address as string.
+     *
+     * @return the local host address as string
+     */
     public static String getLocalHostAddressAsString() {
         final String localhost = str(getLocalHostAddress());
         return localhost == null ? "127.0.0.1" : localhost;
     }
 
+    /**
+     * Gets the local host name.
+     *
+     * @return the local host name
+     */
     public static String getLocalHostName() {
         final InetAddress localHostAddress = getLocalHostAddress();
         if (localHostAddress == null) {
@@ -126,19 +155,55 @@ public abstract class InetAddressUtils {
         return localHostAddress.getHostName();
     }
 
+    /**
+     * Incr.
+     *
+     * @param address
+     *            the address
+     * @return the string
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static String incr(final String address) throws UnknownHostException {
         return InetAddressUtils.toIpAddrString(incr(InetAddressUtils.toIpAddrBytes(address)));
     }
 
+    /**
+     * Incr.
+     *
+     * @param address
+     *            the address
+     * @return the byte[]
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static byte[] incr(final byte[] address) throws UnknownHostException {
         final BigInteger addr = new BigInteger(1, address).add(BigInteger.ONE);
         return convertBigIntegerIntoInetAddress(addr).getAddress();
     }
 
+    /**
+     * Decr.
+     *
+     * @param address
+     *            the address
+     * @return the string
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static String decr(final String address) throws UnknownHostException {
         return InetAddressUtils.toIpAddrString(decr(InetAddressUtils.toIpAddrBytes(address)));
     }
 
+    /**
+     * Decr.
+     *
+     * @param address
+     *            the address
+     * @return the byte[]
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static byte[] decr(final byte[] address) throws UnknownHostException {
         final BigInteger addr = new BigInteger(1, address).subtract(BigInteger.ONE);
         return convertBigIntegerIntoInetAddress(addr).getAddress();
@@ -148,9 +213,14 @@ public abstract class InetAddressUtils {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
-     * @param ipAddrOctets
-     *            an array of byte.
+     * @param octets
+     *            the octets
+     * @param offset
+     *            the offset
+     * @param length
+     *            the length
      * @return a {@link java.net.InetAddress} object.
      */
     public static InetAddress getInetAddress(final int[] octets, final int offset, final int length) {
@@ -165,6 +235,7 @@ public abstract class InetAddressUtils {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @param ipAddrOctets
      *            an array of byte.
@@ -184,6 +255,7 @@ public abstract class InetAddressUtils {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @param dottedNotation
      *            a {@link java.lang.String} object.
@@ -197,6 +269,17 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Resolve hostname.
+     *
+     * @param hostname
+     *            the hostname
+     * @param preferInet6Address
+     *            the prefer inet6 address
+     * @return the inet address
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static InetAddress resolveHostname(final String hostname, final boolean preferInet6Address)
             throws UnknownHostException {
         return resolveHostname(hostname, preferInet6Address, true);
@@ -205,6 +288,16 @@ public abstract class InetAddressUtils {
     /**
      * This function is used inside XSLT documents, do a string search before
      * refactoring.
+     *
+     * @param hostname
+     *            the hostname
+     * @param preferInet6Address
+     *            the prefer inet6 address
+     * @param throwException
+     *            the throw exception
+     * @return the inet address
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public static InetAddress resolveHostname(final String hostname, final boolean preferInet6Address,
             final boolean throwException) throws UnknownHostException {
@@ -322,6 +415,7 @@ public abstract class InetAddressUtils {
      * <p>
      * toIpAddrBytes
      * </p>
+     * .
      *
      * @param dottedNotation
      *            a {@link java.lang.String} object.
@@ -335,6 +429,7 @@ public abstract class InetAddressUtils {
      * <p>
      * toIpAddrString
      * </p>
+     * .
      *
      * @param addr
      *            IP address
@@ -374,6 +469,7 @@ public abstract class InetAddressUtils {
      * <p>
      * toIpAddrString
      * </p>
+     * .
      *
      * @param addr
      *            an array of byte.
@@ -420,20 +516,60 @@ public abstract class InetAddressUtils {
         return s_BYTE_ARRAY_COMPARATOR.compare(originalBytes, lowestBytes) == 0 ? null : lowest;
     }
 
+    /**
+     * Difference.
+     *
+     * @param addr1
+     *            the addr1
+     * @param addr2
+     *            the addr2
+     * @return the big integer
+     */
     public static BigInteger difference(final String addr1, final String addr2) {
         return difference(getInetAddress(addr1), getInetAddress(addr2));
     }
 
+    /**
+     * Difference.
+     *
+     * @param addr1
+     *            the addr1
+     * @param addr2
+     *            the addr2
+     * @return the big integer
+     */
     public static BigInteger difference(final InetAddress addr1, final InetAddress addr2) {
         return new BigInteger(1, addr1.getAddress()).subtract(new BigInteger(1, addr2.getAddress()));
     }
 
+    /**
+     * Checks if is inet address in range.
+     *
+     * @param laddr
+     *            the laddr
+     * @param beginString
+     *            the begin string
+     * @param endString
+     *            the end string
+     * @return true, if is inet address in range
+     */
     public static boolean isInetAddressInRange(final byte[] laddr, final String beginString, final String endString) {
         final byte[] begin = InetAddressUtils.toIpAddrBytes(beginString);
         final byte[] end = InetAddressUtils.toIpAddrBytes(endString);
         return isInetAddressInRange(laddr, begin, end);
     }
 
+    /**
+     * Checks if is inet address in range.
+     *
+     * @param addrString
+     *            the addr string
+     * @param beginString
+     *            the begin string
+     * @param endString
+     *            the end string
+     * @return true, if is inet address in range
+     */
     public static boolean isInetAddressInRange(final String addrString, final String beginString, final String endString) {
         final byte[] addr = InetAddressUtils.toIpAddrBytes(addrString);
         final byte[] begin = InetAddressUtils.toIpAddrBytes(beginString);
@@ -451,6 +587,15 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * In same scope.
+     *
+     * @param addr1
+     *            the addr1
+     * @param addr2
+     *            the addr2
+     * @return true, if successful
+     */
     public static boolean inSameScope(final InetAddress addr1, final InetAddress addr2) {
         if (addr1 instanceof Inet4Address) {
             if (addr2 instanceof Inet4Address) {
@@ -468,6 +613,17 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Checks if is inet address in range.
+     *
+     * @param addr
+     *            the addr
+     * @param begin
+     *            the begin
+     * @param end
+     *            the end
+     * @return true, if is inet address in range
+     */
     public static boolean isInetAddressInRange(final byte[] addr, final byte[] begin, final byte[] end) {
         if (s_BYTE_ARRAY_COMPARATOR.compare(addr, begin) > 0) {
             if (s_BYTE_ARRAY_COMPARATOR.compare(addr, end) <= 0) {
@@ -482,10 +638,28 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Checks if is inet address in range.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param begin
+     *            the begin
+     * @param end
+     *            the end
+     * @return true, if is inet address in range
+     */
     public static boolean isInetAddressInRange(final String ipAddr, final byte[] begin, final byte[] end) {
         return isInetAddressInRange(InetAddressUtils.toIpAddrBytes(ipAddr), begin, end);
     }
 
+    /**
+     * Convert cidr to inet address v4.
+     *
+     * @param cidr
+     *            the cidr
+     * @return the inet address
+     */
     public static InetAddress convertCidrToInetAddressV4(int cidr) {
         if (cidr < 0 || cidr > 32) {
             throw new IllegalArgumentException("Illegal IPv4 CIDR mask length: " + cidr);
@@ -505,6 +679,13 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Convert cidr to inet address v6.
+     *
+     * @param cidr
+     *            the cidr
+     * @return the inet address
+     */
     public static InetAddress convertCidrToInetAddressV6(int cidr) {
         if (cidr < 0 || cidr > 128) {
             throw new IllegalArgumentException("Illegal IPv6 CIDR mask length: " + cidr);
@@ -524,6 +705,15 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Convert big integer into inet address.
+     *
+     * @param i
+     *            the i
+     * @return the inet address
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static InetAddress convertBigIntegerIntoInetAddress(final BigInteger i) throws UnknownHostException {
         if (i.compareTo(BigInteger.ZERO) < 0) {
             throw new IllegalArgumentException("BigInteger is negative, cannot convert into an IP address: "
@@ -587,6 +777,13 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Addr.
+     *
+     * @param ipAddrString
+     *            the ip addr string
+     * @return the inet address
+     */
     public static InetAddress addr(final String ipAddrString) {
         return ipAddrString == null ? null : getInetAddress(ipAddrString.trim());
     }
@@ -596,19 +793,44 @@ public abstract class InetAddressUtils {
      * fully-qualified
      * format without any "::" segments for an IPv6 address.
      * FIXME: do we lose
+     *
+     * @param ipAddrString
+     *            the ip addr string
+     * @return the string
      */
     public static String normalize(final String ipAddrString) {
         return ipAddrString == null ? null : toIpAddrString(addr(ipAddrString.trim()));
     }
 
+    /**
+     * Str.
+     *
+     * @param addr
+     *            the addr
+     * @return the string
+     */
     public static String str(final InetAddress addr) {
         return addr == null ? null : toIpAddrString(addr);
     }
 
+    /**
+     * To integer.
+     *
+     * @param ipAddress
+     *            the ip address
+     * @return the big integer
+     */
     public static BigInteger toInteger(final InetAddress ipAddress) {
         return new BigInteger(1, ipAddress.getAddress());
     }
 
+    /**
+     * To oid.
+     *
+     * @param addr
+     *            the addr
+     * @return the string
+     */
     public static String toOid(final InetAddress addr) {
         if (addr == null)
             return null;
@@ -632,6 +854,13 @@ public abstract class InetAddressUtils {
         }
     }
 
+    /**
+     * Mac address string to bytes.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the byte[]
+     */
     public static byte[] macAddressStringToBytes(String macAddress) {
         if (macAddress == null) {
             throw new IllegalArgumentException("Cannot decode null MAC address");
@@ -658,6 +887,13 @@ public abstract class InetAddressUtils {
         return contents;
     }
 
+    /**
+     * Mac address bytes to string.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the string
+     */
     public static String macAddressBytesToString(byte[] macAddress) {
         if (macAddress.length != 6) {
             throw new IllegalArgumentException("Cannot decode MAC address: " + macAddress);
@@ -670,6 +906,13 @@ public abstract class InetAddressUtils {
                              macAddress[5]);
     }
 
+    /**
+     * Normalize mac address.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the string
+     */
     public static String normalizeMacAddress(String macAddress) {
         return macAddressBytesToString(macAddressStringToBytes(macAddress));
     }

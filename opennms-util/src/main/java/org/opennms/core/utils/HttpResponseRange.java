@@ -31,13 +31,26 @@ package org.opennms.core.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class HttpResponseRange.
+ */
 public class HttpResponseRange {
+
+    /** The Constant RANGE_PATTERN. */
     private static final Pattern RANGE_PATTERN = Pattern.compile("([1-5][0-9][0-9])(?:-([1-5][0-9][0-9]))?");
 
+    /** The m_begin. */
     private final int m_begin;
 
+    /** The m_end. */
     private final int m_end;
 
+    /**
+     * Instantiates a new http response range.
+     *
+     * @param rangeSpec
+     *            the range spec
+     */
     public HttpResponseRange(String rangeSpec) {
         Matcher matcher = RANGE_PATTERN.matcher(rangeSpec);
         if (!matcher.matches()) {
@@ -56,10 +69,20 @@ public class HttpResponseRange {
         }
     }
 
+    /**
+     * Contains.
+     *
+     * @param responseCode
+     *            the response code
+     * @return true, if successful
+     */
     public boolean contains(int responseCode) {
         return (m_begin <= responseCode && responseCode <= m_end);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         if (m_begin == m_end) {

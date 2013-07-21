@@ -34,17 +34,36 @@ import java.util.concurrent.ThreadFactory;
 
 import org.slf4j.MDC;
 
+/**
+ * A factory for creating LogPreservingThread objects.
+ */
 public class LogPreservingThreadFactory implements ThreadFactory {
+
+    /** The m_slot numbers. */
     private final BitSet m_slotNumbers;
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_pool size. */
     private final int m_poolSize;
 
+    /** The m_mdc. */
     private Map m_mdc = null;
 
+    /** The m_counter. */
     private int m_counter = 0;
 
+    /**
+     * Instantiates a new log preserving thread factory.
+     *
+     * @param poolName
+     *            the pool name
+     * @param poolSize
+     *            the pool size
+     * @param preserveMDC
+     *            the preserve mdc
+     */
     public LogPreservingThreadFactory(String poolName, int poolSize, boolean preserveMDC) {
         m_name = poolName;
         m_poolSize = poolSize;
@@ -57,6 +76,9 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
+     */
     @Override
     public Thread newThread(final Runnable r) {
         if (m_poolSize == Integer.MAX_VALUE) {
@@ -68,10 +90,21 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }
     }
 
+    /**
+     * Gets the copy of context map.
+     *
+     * @return the copy of context map
+     */
     private Map getCopyOfContextMap() {
         return MDC.getCopyOfContextMap();
     }
 
+    /**
+     * Sets the context map.
+     *
+     * @param map
+     *            the new context map
+     */
     private void setContextMap(Map map) {
         if (map == null) {
             MDC.clear();
@@ -80,6 +113,13 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }
     }
 
+    /**
+     * Gets the incrementing thread.
+     *
+     * @param r
+     *            the r
+     * @return the incrementing thread
+     */
     private Thread getIncrementingThread(final Runnable r) {
         String name = String.format("%s-Thread-%d", m_name, ++m_counter);
         return new Thread(new Runnable() {
@@ -98,6 +138,13 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }, name);
     }
 
+    /**
+     * Gets the single thread.
+     *
+     * @param r
+     *            the r
+     * @return the single thread
+     */
     private Thread getSingleThread(final Runnable r) {
         String name = String.format("%s-Thread", m_name);
         return new Thread(new Runnable() {
@@ -116,6 +163,13 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }, name);
     }
 
+    /**
+     * Gets the pooled thread.
+     *
+     * @param r
+     *            the r
+     * @return the pooled thread
+     */
     private Thread getPooledThread(final Runnable r) {
         final int threadNumber = getOpenThreadSlot(m_slotNumbers);
         String name = String.format("%s-Thread-%d-of-%d", m_name, threadNumber, m_poolSize);
@@ -141,6 +195,13 @@ public class LogPreservingThreadFactory implements ThreadFactory {
         }, name);
     }
 
+    /**
+     * Gets the open thread slot.
+     *
+     * @param bs
+     *            the bs
+     * @return the open thread slot
+     */
     private static int getOpenThreadSlot(BitSet bs) {
         synchronized (bs) {
             // Start at 1 so that we always return a positive integer

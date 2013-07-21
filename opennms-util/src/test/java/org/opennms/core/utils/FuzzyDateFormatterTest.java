@@ -33,11 +33,21 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 /**
+ * The Class FuzzyDateFormatterTest.
+ *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public class FuzzyDateFormatterTest extends TestCase {
+
+    /** The now. */
     protected Date now = new Date();
 
+    /**
+     * Test fuzzy.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFuzzy() throws Exception {
         assertEquals("1 second", FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - 1000L), now));
         assertEquals("30 seconds", FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - 30000L), now));

@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AlphaNumeric extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlphaNumeric.class);
 
     /**

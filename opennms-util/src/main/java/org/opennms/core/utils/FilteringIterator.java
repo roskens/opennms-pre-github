@@ -35,26 +35,48 @@ import java.util.Iterator;
  * Abstract FilteringIterator class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
 
+    /**
+     * The Class PeekableIterator.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static final class PeekableIterator<T> implements Iterator<T> {
 
+        /** The m_it. */
         Iterator<T> m_it;
 
+        /** The m_peeked. */
         T m_peeked = null;
 
+        /**
+         * Instantiates a new peekable iterator.
+         *
+         * @param it
+         *            the it
+         */
         public PeekableIterator(Iterator<T> it) {
             m_it = it;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#hasNext()
+         */
         @Override
         public boolean hasNext() {
             return (m_peeked != null || m_it.hasNext());
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#next()
+         */
         @Override
         public T next() {
             if (m_peeked != null) {
@@ -66,6 +88,11 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
             }
         }
 
+        /**
+         * Peek.
+         *
+         * @return the t
+         */
         public T peek() {
             if (m_peeked == null && m_it.hasNext()) {
                 m_peeked = m_it.next();
@@ -74,6 +101,9 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
             return m_peeked;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Iterator#remove()
+         */
         @Override
         public void remove() {
             m_it.remove();
@@ -81,6 +111,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
 
     }
 
+    /** The m_it. */
     private PeekableIterator<T> m_it;
 
     /**
@@ -111,6 +142,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * hasNext
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -120,6 +152,9 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
         return m_it.hasNext();
     }
 
+    /**
+     * Skip non matching.
+     */
     private void skipNonMatching() {
         while (m_it.hasNext() && !matches(m_it.peek())) {
             m_it.next();
@@ -133,6 +168,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param item
      *            a T object.
@@ -144,6 +180,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * next
      * </p>
+     * .
      *
      * @return a T object.
      */
@@ -157,6 +194,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * remove
      * </p>
+     * .
      */
     @Override
     public void remove() {
@@ -167,6 +205,7 @@ public abstract class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */

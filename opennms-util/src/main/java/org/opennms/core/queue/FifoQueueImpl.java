@@ -41,6 +41,8 @@ import java.util.concurrent.TimeUnit;
  * in the removal of the next element, or the oldest element in the queue.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class FifoQueueImpl<T> implements FifoQueue<T> {
@@ -65,14 +67,8 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
      *
      * @param element
      *            The object to append to the queue.
-     * @exception org.opennms.core.queue.FifoQueueException
-     *                Thrown if a queue error occurs.
-     * @exception java.lang.InterruptedException
-     *                Thrown if the thread is interrupted.
-     * @throws org.opennms.core.queue.FifoQueueException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public void add(T element) throws InterruptedException {
@@ -97,15 +93,9 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
     /**
      * Removes the oldest element from the queue.
      *
-     * @exception org.opennms.core.queue.FifoQueueException
-     *                Thrown if a queue error occurs.
-     * @exception java.lang.InterruptedException
-     *                Thrown if the thread is interrupted.
      * @return The oldest object in the queue.
-     * @throws org.opennms.core.queue.FifoQueueException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Override
     public T remove() throws InterruptedException {

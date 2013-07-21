@@ -50,8 +50,11 @@ import java.net.URLStreamHandler;
  * @since 1.8.1
  */
 public class GenericURLStreamHandler extends URLStreamHandler {
+
+    /** The url connection class. */
     private Class<? extends URLConnection> urlConnectionClass;
 
+    /** The default port. */
     private int defaultPort = -1;
 
     /**

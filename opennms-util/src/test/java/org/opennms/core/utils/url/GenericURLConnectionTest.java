@@ -46,16 +46,24 @@ import org.junit.Test;
  */
 public class GenericURLConnectionTest extends TestCase {
 
+    /** The m_generic url connection. */
     private GenericURLConnection m_genericURLConnection;
 
+    /** The m_base url. */
     private URL m_baseUrl;
 
+    /** The m_user only url. */
     private URL m_userOnlyUrl;
 
+    /** The m_user pass url. */
     private URL m_userPassUrl;
 
+    /** The m_base url path query string. */
     private URL m_baseUrlPathQueryString;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -66,6 +74,9 @@ public class GenericURLConnectionTest extends TestCase {
                                            "http://host.subdomain.domain.tld/path1/path2?arg1=value1&arg2=value2&arg3=value3");
     }
 
+    /**
+     * Test url components.
+     */
     @Test
     public void testUrlComponents() {
         m_genericURLConnection = new StubGenericURLConnection(m_baseUrl);
@@ -75,42 +86,63 @@ public class GenericURLConnectionTest extends TestCase {
         assertEquals("Test protocol", m_genericURLConnection.getURL().getProtocol(), "http");
     }
 
+    /**
+     * Test base url username.
+     */
     @Test
     public void testBaseUrlUsername() {
         m_genericURLConnection = new StubGenericURLConnection(m_baseUrl);
         assertNull("Test user URL", m_genericURLConnection.getUsername());
     }
 
+    /**
+     * Test base url password.
+     */
     @Test
     public void testBaseUrlPassword() {
         m_genericURLConnection = new StubGenericURLConnection(m_baseUrl);
         assertNull("Test base URL", m_genericURLConnection.getPassword());
     }
 
+    /**
+     * Test user only url username.
+     */
     @Test
     public void testUserOnlyUrlUsername() {
         m_genericURLConnection = new StubGenericURLConnection(m_userOnlyUrl);
         assertEquals("Test user only URL", m_genericURLConnection.getUsername(), "user");
     }
 
+    /**
+     * Test user only url password.
+     */
     @Test
     public void testUserOnlyUrlPassword() {
         m_genericURLConnection = new StubGenericURLConnection(m_userOnlyUrl);
         assertEquals("Test user only URL", m_genericURLConnection.getPassword(), "");
     }
 
+    /**
+     * Test user pass url username.
+     */
     @Test
     public void testUserPassUrlUsername() {
         m_genericURLConnection = new StubGenericURLConnection(m_userPassUrl);
         assertEquals("Test user pass URL", m_genericURLConnection.getUsername(), "user");
     }
 
+    /**
+     * Test user pass url password.
+     */
     @Test
     public void testUserPassUrlPassword() {
         m_genericURLConnection = new StubGenericURLConnection(m_userPassUrl);
         assertEquals("Test user pass URL", m_genericURLConnection.getPassword(), "pass");
     }
 
+    /**
+     * Test query string.
+     */
     @Test
     public void testQueryString() {
         m_genericURLConnection = new StubGenericURLConnection(m_baseUrlPathQueryString);
@@ -119,6 +151,9 @@ public class GenericURLConnectionTest extends TestCase {
         assertEquals("Argument 3", m_genericURLConnection.getQueryArgs().get("arg3"), "value3");
     }
 
+    /**
+     * Test query string with path.
+     */
     @Test
     public void testQueryStringWithPath() {
         m_genericURLConnection = new StubGenericURLConnection(m_baseUrlPathQueryString);

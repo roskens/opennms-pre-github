@@ -37,6 +37,7 @@ package org.opennms.core.utils;
  * @author <A HREF="mike@opennms.org">Mike </A>
  */
 public class TimeConverter {
+
     /**
      * <P>
      * Converts the passed time string to a time value that is measured in
@@ -80,11 +81,8 @@ public class TimeConverter {
      * @param valueToConvert
      *            The string to convert to milliseconds.
      * @return Returns the string converted to a millisecond value.
-     * @exception java.lang.NumberFormatException
-     *                Thrown if the string is malformed and a number cannot be
-     *                extracted from the value.
-     * @throws java.lang.NumberFormatException
-     *             if any.
+     * @throws NumberFormatException
+     *             the number format exception
      */
     public static long convertToMillis(String valueToConvert) throws NumberFormatException {
         valueToConvert = valueToConvert.trim();

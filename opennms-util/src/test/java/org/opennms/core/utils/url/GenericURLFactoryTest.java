@@ -44,9 +44,7 @@ import org.junit.Test;
  */
 public class GenericURLFactoryTest {
 
-    /**
-     * URL factory to test
-     */
+    /** URL factory to test. */
     GenericURLFactory m_genericURLFactory;
 
     /**
@@ -54,7 +52,7 @@ public class GenericURLFactoryTest {
      * setUp
      * </p>
      * <p/>
-     * Initialize an instance for the test
+     * Initialize an instance for the test.
      */
     @Before
     public void setUp() {
@@ -66,7 +64,7 @@ public class GenericURLFactoryTest {
      * testGetInstance
      * </p>
      * <p/>
-     * Try to get a singleton instance of the factory
+     * Try to get a singleton instance of the factory.
      */
     @Test
     public void testGetInstance() {
@@ -78,7 +76,7 @@ public class GenericURLFactoryTest {
      * testAddURLConnection
      * </p>
      * <p/>
-     * Try to add a new protocol with class mapping
+     * Try to add a new protocol with class mapping.
      */
     @Test
     public void testAddURLConnection() {
@@ -92,7 +90,7 @@ public class GenericURLFactoryTest {
      * testRemoveURLConnection
      * </p>
      * <p/>
-     * Try to remove a previously added protocol
+     * Try to remove a previously added protocol.
      */
     @Test
     public void testRemoveURLConnection() {

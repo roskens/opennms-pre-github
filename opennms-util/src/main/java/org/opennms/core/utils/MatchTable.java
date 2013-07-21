@@ -30,8 +30,12 @@ package org.opennms.core.utils;
 
 import java.util.regex.Matcher;
 
+/**
+ * The Class MatchTable.
+ */
 public class MatchTable implements PropertiesUtils.SymbolTable {
 
+    /** The m_matcher. */
     private Matcher m_matcher;
 
     /**

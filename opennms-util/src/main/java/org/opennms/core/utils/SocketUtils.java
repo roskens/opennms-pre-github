@@ -43,17 +43,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class SocketUtils.
+ *
  * @author <a href="mailto:seth@opennms.org">Seth</a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
  */
 public abstract class SocketUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SocketUtils.class);
 
+    /**
+     * Wrap socket in ssl context.
+     *
+     * @param socket
+     *            the socket
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static Socket wrapSocketInSslContext(Socket socket) throws IOException {
         return wrapSocketInSslContext(socket, null);
     }
 
+    /**
+     * Wrap socket in ssl context.
+     *
+     * @param socket
+     *            the socket
+     * @param cipherSuites
+     *            the cipher suites
+     * @return the socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static Socket wrapSocketInSslContext(Socket socket, String[] cipherSuites) throws IOException {
         TrustManager[] tm = { new RelaxedX509TrustManager() };
         SSLContext sslContext = null;

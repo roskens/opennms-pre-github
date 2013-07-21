@@ -43,10 +43,14 @@ import org.springframework.beans.PropertyAccessorUtils;
  * @version $Id: $
  */
 public class PropertyPath {
+
+    /** The parent. */
     private PropertyPath parent = null;
 
+    /** The property name. */
     private String propertyName;
 
+    /** The key. */
     private String key;
 
     /**
@@ -71,6 +75,13 @@ public class PropertyPath {
         }
     }
 
+    /**
+     * Compute key.
+     *
+     * @param property
+     *            the property
+     * @return the string
+     */
     private String computeKey(String property) {
         int keyPrefix = property.indexOf(PropertyAccessor.PROPERTY_KEY_PREFIX_CHAR);
         if (keyPrefix < 0) {
@@ -131,10 +142,13 @@ public class PropertyPath {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @param root
      *            a {@link java.lang.Object} object.
      * @return a {@link java.lang.Object} object.
+     * @throws InvalidPropertyException
+     *             the invalid property exception
      */
     public Object getValue(Object root) throws InvalidPropertyException {
         return getValue(PropertyAccessorFactory.forBeanPropertyAccess(root));
@@ -144,10 +158,13 @@ public class PropertyPath {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @param beanWrapper
      *            a {@link org.springframework.beans.BeanWrapper} object.
      * @return a {@link java.lang.Object} object.
+     * @throws InvalidPropertyException
+     *             the invalid property exception
      */
     public Object getValue(BeanWrapper beanWrapper) throws InvalidPropertyException {
         return beanWrapper.getPropertyValue(toString());

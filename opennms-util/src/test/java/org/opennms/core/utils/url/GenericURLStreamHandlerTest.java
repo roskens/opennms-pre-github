@@ -49,16 +49,28 @@ import org.junit.Test;
  * @since 1.8.1
  */
 public class GenericURLStreamHandlerTest {
+
+    /** The m_generic url factory. */
     private GenericURLFactory m_genericURLFactory = GenericURLFactory.getInstance();
 
+    /** The m_gener generic url stream handler. */
     private GenericURLStreamHandler m_generGenericURLStreamHandler;
 
+    /** The m_gener generic url stream handler_port. */
     private GenericURLStreamHandler m_generGenericURLStreamHandler_port;
 
+    /** The m_test class. */
     private Class<? extends URLConnection> m_testClass;
 
+    /** The m_default port. */
     private int m_defaultPort = 42;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_testClass = StubGenericURLConnection.class;
@@ -94,6 +106,9 @@ public class GenericURLStreamHandlerTest {
         }
     }
 
+    /**
+     * Test get default port.
+     */
     @Test
     public void testGetDefaultPort() {
         Assert.assertEquals("Default should be -1", new GenericURLStreamHandler(m_testClass).getDefaultPort(), -1);
@@ -101,6 +116,9 @@ public class GenericURLStreamHandlerTest {
                             new GenericURLStreamHandler(m_testClass, m_defaultPort).getDefaultPort(), m_defaultPort);
     }
 
+    /**
+     * Test open url connection.
+     */
     @Test
     public void testOpenUrlConnection() {
 

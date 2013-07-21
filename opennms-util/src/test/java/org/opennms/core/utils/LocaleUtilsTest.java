@@ -36,43 +36,70 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class LocaleUtilsTest.
+ */
 public abstract class LocaleUtilsTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
     }
 
+    /**
+     * Single underscore.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void singleUnderscore() {
         System.err.println(LocaleUtils.parseLocale("_").getDisplayName());
     }
 
+    /**
+     * Double underscore.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void doubleUnderscore() {
         System.err.println(LocaleUtils.parseLocale("__").getDisplayName());
     }
 
+    /**
+     * Triple underscore.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void tripleUnderscore() {
         System.err.println(LocaleUtils.parseLocale("_-_").getDisplayName());
     }
 
+    /**
+     * Spaces1.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void spaces1() {
         System.err.println(LocaleUtils.parseLocale("_US").getDisplayName());
     }
 
+    /**
+     * Spaces2.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void spaces2() {
         System.err.println(LocaleUtils.parseLocale("  _US").getDisplayName());
     }
 
+    /**
+     * Spaces3.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void spaces3() {
         System.err.println(LocaleUtils.parseLocale("en  -  US__ -_").getDisplayName());
     }
 
+    /**
+     * Test parse locale.
+     */
     @Test
     public void testParseLocale() {
         assertEquals(new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), LocaleUtils.parseLocale("en-us"));
@@ -96,6 +123,9 @@ public abstract class LocaleUtilsTest {
         assertFalse(new Locale(Locale.GERMAN.getLanguage(), Locale.US.getCountry()).equals(LocaleUtils.parseLocale("en_us")));
     }
 
+    /**
+     * Test trivial case.
+     */
     @Test
     public void testTrivialCase() {
         assertEquals(LocaleUtils.parseLocale("en-us"),
@@ -112,6 +142,9 @@ public abstract class LocaleUtilsTest {
                                             new Locale[] { LocaleUtils.parseLocale("de") }));
     }
 
+    /**
+     * Test language only.
+     */
     @Test
     public void testLanguageOnly() {
         assertEquals(LocaleUtils.parseLocale("en"),
@@ -128,6 +161,9 @@ public abstract class LocaleUtilsTest {
                                             new Locale[] { LocaleUtils.parseLocale("de-de") }));
     }
 
+    /**
+     * Test case insensitivity.
+     */
     @Test
     public void testCaseInsensitivity() {
         assertEquals(LocaleUtils.parseLocale("en-us"),
@@ -150,6 +186,9 @@ public abstract class LocaleUtilsTest {
                                             new Locale[] { LocaleUtils.parseLocale("EN-US") }));
     }
 
+    /**
+     * Test acceptable variant.
+     */
     @Test
     public void testAcceptableVariant() {
         assertEquals(LocaleUtils.parseLocale("fr-ca"),

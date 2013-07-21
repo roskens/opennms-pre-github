@@ -37,8 +37,11 @@ import java.util.regex.Pattern;
  * </p>
  */
 public abstract class StringReplaceOperation {
+
+    /** The m_pattern. */
     protected String m_pattern;
 
+    /** The m_replacement. */
     protected String m_replacement;
 
     /**
@@ -67,6 +70,7 @@ public abstract class StringReplaceOperation {
      * <p>
      * getPattern
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -78,6 +82,7 @@ public abstract class StringReplaceOperation {
      * <p>
      * getReplacement
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -89,6 +94,7 @@ public abstract class StringReplaceOperation {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +107,7 @@ public abstract class StringReplaceOperation {
      * <p>
      * replace
      * </p>
+     * .
      *
      * @param input
      *            a {@link java.lang.String} object.

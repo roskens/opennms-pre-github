@@ -50,8 +50,8 @@ public abstract class StreamUtils {
      *            a data source
      * @param out
      *            a data sink
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void streamToStream(Reader in, Writer out) throws IOException {
         streamToStream(in, out, 1024);
@@ -68,8 +68,8 @@ public abstract class StreamUtils {
      * @param bufferSize
      *            the size of the <code>char</code> buffer to use for each
      *            read/write
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void streamToStream(Reader in, Writer out, int bufferSize) throws IOException {
         if (in == null || out == null) {
@@ -97,8 +97,8 @@ public abstract class StreamUtils {
      *            a data source
      * @param out
      *            a data sink
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void streamToStream(InputStream in, OutputStream out) throws IOException {
         streamToStream(in, out, 1024);
@@ -115,8 +115,8 @@ public abstract class StreamUtils {
      * @param bufferSize
      *            the size of the <code>byte</code> buffer to use for each
      *            read/write
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void streamToStream(InputStream in, OutputStream out, int bufferSize) throws IOException {
         byte[] b = new byte[bufferSize];

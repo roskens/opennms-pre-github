@@ -30,7 +30,7 @@ package org.opennms.core.queue;
 
 /**
  * <p>
- * The root of all exceptions dealing with queues that implement the
+ * The root of all exceptions dealing with queues that implement the.
  * {@link FifoQueue FifoQueue} interface. This exception is the general purpose
  * exception that is thrown when a queue error occurs.
  * </p>
@@ -38,9 +38,8 @@ package org.opennms.core.queue;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class FifoQueueException extends RuntimeException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4596596920225763462L;
 
     /**

@@ -52,23 +52,17 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.Output." + GenericURLFactory.class.getName());
 
-    /**
-     * Map with protocol and URL connections
-     */
+    /** Map with protocol and URL connections. */
     private HashMap<String, String> urlConnections = new HashMap<String, String>();
 
-    /**
-     * Map with protocol and URL default ports
-     */
+    /** Map with protocol and URL default ports. */
     private HashMap<String, Integer> urlDefaultPorts = new HashMap<String, Integer>();
 
-    /**
-     * URL factory
-     */
+    /** URL factory. */
     private static GenericURLFactory genericUrlFactory = new GenericURLFactory();
 
     /**
-     * Default constructor to initialize URL connections
+     * Default constructor to initialize URL connections.
      */
     private GenericURLFactory() {
         // Map the protocol dns against the DNS implementation
@@ -81,7 +75,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * initialize
      * </p>
      * <p/>
-     * Initializing the URL Factory
+     * Initializing the URL Factory.
      */
     public static void initialize() {
         try {
@@ -96,7 +90,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * getInstance
      * </p>
      * <p/>
-     * Implement the GenericURLFactory as singleton
+     * Implement the GenericURLFactory as singleton.
      *
      * @return a {org.opennms.core.utils.url.GenericURLFactory} object.
      */
@@ -109,7 +103,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * addURLConnection
      * </p>
      * <p/>
-     * Add protocol URL connection handler with specific class name
+     * Add protocol URL connection handler with specific class name.
      *
      * @param protocol
      *            name as {@link java.lang.String} object.
@@ -117,6 +111,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      *            full qualified classname as {@link java.lang.String} object.
      * @param defaultPort
      *            the default port for given protocol as            {@java.lang.int
+     *
      * } object.
      */
     public void addURLConnection(String protocol, String classname, int defaultPort) {
@@ -129,7 +124,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * addURLConnection
      * </p>
      * <p/>
-     * Add protocol URL connection handler with specific class name
+     * Add protocol URL connection handler with specific class name.
      *
      * @param protocol
      *            name as {@link java.lang.String} object.
@@ -145,7 +140,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * removeURLConnection
      * </p>
      * <p/>
-     * Remove a protocol URL connection handler
+     * Remove a protocol URL connection handler.
      *
      * @param protocol
      *            name as {@link java.lang.String} object.
@@ -164,7 +159,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * </p>
      * <p/>
      * Get the map with protocol and implementation classes for customized URL
-     * connections
+     * connections.
      *
      * @return a {@link java.util.HashMap} object
      */
@@ -177,7 +172,7 @@ public class GenericURLFactory implements URLStreamHandlerFactory {
      * createURLStreamHandler
      * </p>
      * <p/>
-     * Create stream handler
+     * Create stream handler.
      *
      * @param protocol
      *            name as {@link java.lang.String} object.

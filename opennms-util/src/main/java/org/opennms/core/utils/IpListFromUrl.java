@@ -46,17 +46,18 @@ import org.slf4j.LoggerFactory;
  */
 public class IpListFromUrl extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpListFromUrl.class);
 
     /**
      * The string indicating the start of the comments in a line containing the
-     * IP address in a file URL
+     * IP address in a file URL.
      */
     private static final String COMMENT_STR = " #";
 
     /**
      * This character at the start of a line indicates a comment line in a URL
-     * file
+     * file.
      */
     private static final char COMMENT_CHAR = '#';
 

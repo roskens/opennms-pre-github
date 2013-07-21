@@ -40,24 +40,60 @@ import java.net.InetAddress;
  */
 public abstract class IPLike {
 
+    /**
+     * The Interface RangeMatcher.
+     */
     private interface RangeMatcher {
+
+        /**
+         * Match.
+         *
+         * @param value
+         *            the value
+         * @param range
+         *            the range
+         * @return true, if successful
+         */
         boolean match(final String value, final String range);
     }
 
+    /**
+     * The Class HexRangeMatcher.
+     */
     private static class HexRangeMatcher implements RangeMatcher {
+
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.IPLike.RangeMatcher#match(java.lang.String, java.lang.String)
+         */
         @Override
         public boolean match(final String value, final String range) {
             return matchRangeHex(value, range);
         }
     }
 
+    /**
+     * The Class DecimalRangeMatcher.
+     */
     private static class DecimalRangeMatcher implements RangeMatcher {
+
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.IPLike.RangeMatcher#match(java.lang.String, java.lang.String)
+         */
         @Override
         public boolean match(final String value, final String range) {
             return matchRange(value, range);
         }
     }
 
+    /**
+     * Matches.
+     *
+     * @param address
+     *            the address
+     * @param pattern
+     *            the pattern
+     * @return true, if successful
+     */
     public static boolean matches(final InetAddress address, final String pattern) {
         return matches(InetAddressUtils.str(address), pattern);
     }
@@ -66,6 +102,7 @@ public abstract class IPLike {
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.lang.String} object.
@@ -128,6 +165,15 @@ public abstract class IPLike {
         return true;
     }
 
+    /**
+     * Match numeric list or range.
+     *
+     * @param value
+     *            the value
+     * @param patterns
+     *            the patterns
+     * @return true, if successful
+     */
     public static boolean matchNumericListOrRange(final String value, final String patterns) {
         return matchNumericListOrRange(value, patterns, new DecimalRangeMatcher());
     }
@@ -137,12 +183,14 @@ public abstract class IPLike {
      * such as:
      * "200-300" or "200,300,501-700"
      * "*" matches any
-     * This method is commonly used for matching IP octets or ports
+     * This method is commonly used for matching IP octets or ports.
      *
      * @param value
      *            a {@link java.lang.String} object.
      * @param patterns
      *            a {@link java.lang.String} object.
+     * @param matcher
+     *            the matcher
      * @return a boolean.
      */
     public static boolean matchNumericListOrRange(final String value, final String patterns, final RangeMatcher matcher) {
@@ -156,7 +204,7 @@ public abstract class IPLike {
     }
 
     /**
-     * Helper method in support of matchNumericListOrRange
+     * Helper method in support of matchNumericListOrRange.
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -184,7 +232,7 @@ public abstract class IPLike {
     }
 
     /**
-     * Helper method in support of matchNumericListOrRange
+     * Helper method in support of matchNumericListOrRange.
      *
      * @param value
      *            a {@link java.lang.String} object.
@@ -216,6 +264,7 @@ public abstract class IPLike {
      * <p>
      * countChar
      * </p>
+     * .
      *
      * @param charIn
      *            a char.

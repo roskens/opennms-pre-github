@@ -51,24 +51,47 @@ import org.apache.commons.io.IOUtils;
  */
 public class PropertiesCache {
 
+    /** The Constant CHECK_LAST_MODIFY_STRING. */
     public static final String CHECK_LAST_MODIFY_STRING = "org.opennms.utils.propertiesCache.enableCheckFileModified";
 
+    /**
+     * The Class PropertiesHolder.
+     */
     private static class PropertiesHolder {
+
+        /** The m_properties. */
         private Properties m_properties;
 
+        /** The m_file. */
         private final File m_file;
 
+        /** The lock. */
         private final Lock lock = new ReentrantLock();
 
+        /** The m_last modify. */
         private long m_lastModify = 0;
 
+        /** The m_check last modify. */
         private boolean m_checkLastModify = Boolean.getBoolean(CHECK_LAST_MODIFY_STRING);
 
+        /**
+         * Instantiates a new properties holder.
+         *
+         * @param file
+         *            the file
+         */
         PropertiesHolder(File file) {
             m_file = file;
             m_properties = null;
         }
 
+        /**
+         * Read.
+         *
+         * @return the properties
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         private Properties read() throws IOException {
             if (!m_file.canRead()) {
                 return null;
@@ -88,6 +111,12 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Write.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         private void write() throws IOException {
             m_file.getParentFile().mkdirs();
             OutputStream out = null;
@@ -99,6 +128,13 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Gets the.
+         *
+         * @return the properties
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public Properties get() throws IOException {
             lock.lock();
             try {
@@ -115,6 +151,14 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Read with default.
+         *
+         * @param deflt
+         *            the deflt
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         private void readWithDefault(Properties deflt) throws IOException {
             // this is
             if (deflt == null && !m_file.canRead()) {
@@ -132,6 +176,14 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Put.
+         *
+         * @param properties
+         *            the properties
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public void put(Properties properties) throws IOException {
             lock.lock();
             try {
@@ -142,6 +194,14 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Update.
+         *
+         * @param props
+         *            the props
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public void update(Map<String, String> props) throws IOException {
             if (props == null) return;
             lock.lock();
@@ -161,6 +221,16 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Sets the property.
+         *
+         * @param key
+         *            the key
+         * @param value
+         *            the value
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public void setProperty(String key, String value) throws IOException {
             lock.lock();
             try {
@@ -175,6 +245,13 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Find.
+         *
+         * @return the properties
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public Properties find() throws IOException {
             lock.lock();
             try {
@@ -187,6 +264,15 @@ public class PropertiesCache {
             }
         }
 
+        /**
+         * Gets the property.
+         *
+         * @param key
+         *            the key
+         * @return the property
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public String getProperty(String key) throws IOException {
             lock.lock();
             try {
@@ -199,8 +285,18 @@ public class PropertiesCache {
 
     }
 
+    /** The m_cache. */
     Map<String, PropertiesHolder> m_cache = new TreeMap<String, PropertiesHolder>();
 
+    /**
+     * Gets the holder.
+     *
+     * @param propFile
+     *            the prop file
+     * @return the holder
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private PropertiesHolder getHolder(File propFile) throws IOException {
         String key = propFile.getCanonicalPath();
         synchronized (m_cache) {
@@ -217,6 +313,7 @@ public class PropertiesCache {
      * <p>
      * clear
      * </p>
+     * .
      */
     public void clear() {
         synchronized (m_cache) {
@@ -225,13 +322,13 @@ public class PropertiesCache {
     }
 
     /**
-     * Get the current properties object from the cache loading it in memory
+     * Get the current properties object from the cache loading it in memory.
      *
      * @param propFile
      *            a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
      * @return a {@link java.util.Properties} object.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Properties getProperties(File propFile) throws IOException {
         return getHolder(propFile).get();
@@ -241,12 +338,13 @@ public class PropertiesCache {
      * <p>
      * findProperties
      * </p>
+     * .
      *
      * @param propFile
      *            a {@link java.io.File} object.
      * @return a {@link java.util.Properties} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Properties findProperties(File propFile) throws IOException {
         return getHolder(propFile).find();
@@ -256,13 +354,14 @@ public class PropertiesCache {
      * <p>
      * saveProperties
      * </p>
+     * .
      *
      * @param propFile
      *            a {@link java.io.File} object.
      * @param properties
      *            a {@link java.util.Properties} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void saveProperties(File propFile, Properties properties) throws IOException {
         getHolder(propFile).put(properties);
@@ -272,13 +371,14 @@ public class PropertiesCache {
      * <p>
      * updateProperties
      * </p>
+     * .
      *
      * @param propFile
      *            a {@link java.io.File} object.
      * @param props
      *            a {@link java.util.Map} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void updateProperties(File propFile, Map<String, String> props) throws IOException {
         getHolder(propFile).update(props);
@@ -288,6 +388,7 @@ public class PropertiesCache {
      * <p>
      * setProperty
      * </p>
+     * .
      *
      * @param propFile
      *            a {@link java.io.File} object.
@@ -295,8 +396,8 @@ public class PropertiesCache {
      *            a {@link java.lang.String} object.
      * @param value
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void setProperty(File propFile, String key, String value) throws IOException {
         getHolder(propFile).setProperty(key, value);
@@ -306,14 +407,15 @@ public class PropertiesCache {
      * <p>
      * getProperty
      * </p>
+     * .
      *
      * @param propFile
      *            a {@link java.io.File} object.
      * @param key
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getProperty(File propFile, String key) throws IOException {
         return getHolder(propFile).getProperty(key);

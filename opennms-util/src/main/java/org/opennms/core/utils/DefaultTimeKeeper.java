@@ -42,6 +42,7 @@ public class DefaultTimeKeeper implements TimeKeeper {
      * <p>
      * getCurrentDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -54,6 +55,7 @@ public class DefaultTimeKeeper implements TimeKeeper {
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -62,6 +64,9 @@ public class DefaultTimeKeeper implements TimeKeeper {
         return System.currentTimeMillis();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.TimeKeeper#getTimeZone()
+     */
     @Override
     public TimeZone getTimeZone() {
         return TimeZone.getDefault();

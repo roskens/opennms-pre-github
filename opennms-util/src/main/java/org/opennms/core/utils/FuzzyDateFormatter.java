@@ -63,6 +63,7 @@ public class FuzzyDateFormatter {
      * <p>
      * formatNumber
      * </p>
+     * .
      *
      * @param number
      *            a {@link java.lang.Double} object.
@@ -90,6 +91,7 @@ public class FuzzyDateFormatter {
      * <p>
      * calculateDifference
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.

@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.core.utils;
 
 import java.security.KeyManagementException;
@@ -51,12 +78,18 @@ import org.slf4j.LoggerFactory;
  */
 public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EmptyKeyRelaxedTrustSSLContext.class);
 
+    /** The Constant ALGORITHM. */
     public static final String ALGORITHM = "EmptyKeyRelaxedTrust";
 
+    /** The m_delegate. */
     private final SSLContext m_delegate;
 
+    /**
+     * Instantiates a new empty key relaxed trust ssl context.
+     */
     public EmptyKeyRelaxedTrustSSLContext() {
         SSLContext customContext = null;
 
@@ -92,36 +125,57 @@ public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
         m_delegate = customContext;
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineCreateSSLEngine()
+     */
     @Override
     protected SSLEngine engineCreateSSLEngine() {
         return m_delegate.createSSLEngine();
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineCreateSSLEngine(java.lang.String, int)
+     */
     @Override
     protected SSLEngine engineCreateSSLEngine(String arg0, int arg1) {
         return m_delegate.createSSLEngine(arg0, arg1);
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineGetClientSessionContext()
+     */
     @Override
     protected SSLSessionContext engineGetClientSessionContext() {
         return m_delegate.getClientSessionContext();
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineGetServerSessionContext()
+     */
     @Override
     protected SSLSessionContext engineGetServerSessionContext() {
         return m_delegate.getServerSessionContext();
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineGetServerSocketFactory()
+     */
     @Override
     protected SSLServerSocketFactory engineGetServerSocketFactory() {
         return m_delegate.getServerSocketFactory();
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineGetSocketFactory()
+     */
     @Override
     protected javax.net.ssl.SSLSocketFactory engineGetSocketFactory() {
         return m_delegate.getSocketFactory();
     }
 
+    /* (non-Javadoc)
+     * @see javax.net.ssl.SSLContextSpi#engineInit(javax.net.ssl.KeyManager[], javax.net.ssl.TrustManager[], java.security.SecureRandom)
+     */
     @Override
     protected void engineInit(KeyManager[] km, TrustManager[] tm, SecureRandom arg2) throws KeyManagementException {
         // Don't do anything, we've already initialized everything in the

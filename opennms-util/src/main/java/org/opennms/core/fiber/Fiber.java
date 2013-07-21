@@ -30,7 +30,7 @@ package org.opennms.core.fiber;
 
 /**
  * <p>
- * The <code>Fiber</code> interface is similar to the core Java language
+ * The <code>Fiber</code> interface is similar to the core Java language.
  * {@link java.lang.Thread Thread}class. The <code>Fiber</code> class is used to
  * define a working <em>context</em>, which is the basic feature of a
  * <code>Thread</code>. The differences end there since the <code>Thread</code>

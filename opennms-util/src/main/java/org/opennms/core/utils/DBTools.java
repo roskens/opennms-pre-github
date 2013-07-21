@@ -43,8 +43,10 @@ import java.util.regex.PatternSyntaxException;
  */
 public class DBTools {
 
+    /** The _counter. */
     private static int _counter;
 
+    /** The _instance. */
     private static DBTools _instance;
 
     /**
@@ -54,14 +56,10 @@ public class DBTools {
      */
     public static final String JDBC_HOST = "OPENNMS_JDBC_HOSTNAME";
 
-    /**
-     * Minimal port range
-     */
+    /** Minimal port range. */
     public static final int MIN_PORT_VALUE = 1024;
 
-    /**
-     * Maximum port range
-     */
+    /** Maximum port range. */
     public static final int MAX_PORT_VALUE = 65535;
 
     /**
@@ -91,12 +89,11 @@ public class DBTools {
      */
     public static final String DEFAULT_DATABASE_PASSWORD = "";
 
-    /**
-     * Default vendor protocol, like jdbc:sybase:Tds:
-     */
+    /** Default vendor protocol, like jdbc:sybase:Tds:. */
     public static final String DEFAULT_URL = "jdbc:sybase:Tds:" + JDBC_HOST + "/tempdb";
 
     // Pattern for the JDBC_HOST
+    /** The Constant _pattern. */
     private static final Pattern _pattern = Pattern.compile(JDBC_HOST);
 
     /**
@@ -121,7 +118,7 @@ public class DBTools {
     }
 
     /**
-     * Return how many instances of this objects are loaded now
+     * Return how many instances of this objects are loaded now.
      *
      * @return int Number of instances on this JVM
      */
@@ -134,17 +131,17 @@ public class DBTools {
      * have the form: <br>
      * <code>jdbc:<protocol:<b>hostname</b>:<b>4100</b></code>
      *
-     * @param hostname_
-     *            The hostname where the database server is
      * @param url_
      *            (for example jdbc:sybase:Tds:@{link #JDBC_HOST
      *            JDBC_HOST}:4100/tempdb). The JDBC_HOST is replaced by the real
      *            hostname
-     * @throws java.lang.NullPointerException
-     *             If one of the arguments is null
-     * @throws java.lang.IllegalArgumentException
-     *             If the JDBC_HOST is not part of the JDBC url
+     * @param hostname_
+     *            The hostname where the database server is
      * @return a {@link java.lang.String} object.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws NullPointerException
+     *             the null pointer exception
      */
     public static String constructUrl(String url_, String hostname_) throws IllegalArgumentException,
             NullPointerException {

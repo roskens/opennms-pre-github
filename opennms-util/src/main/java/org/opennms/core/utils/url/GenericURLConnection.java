@@ -52,38 +52,26 @@ public abstract class GenericURLConnection extends URLConnection {
      */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.Output." + GenericURLConnection.class.getName());
 
-    /**
-     * URL for connection
-     */
+    /** URL for connection. */
     private URL m_url;
 
-    /**
-     * User and password delimiter for URL user:pass@host
-     */
+    /** User and password delimiter for URL user:pass@host. */
     private static final String USERINFO_DELIMITER = ":";
 
-    /**
-     * Default encoding for URL
-     */
+    /** Default encoding for URL. */
     private static final String UTF8_ENCODING = "UTF-8";
 
-    /**
-     * Delimiter for URL arguments
-     */
+    /** Delimiter for URL arguments. */
     private static final String URL_QUERY_ARGS_DELIMITERS = "[&;]";
 
-    /**
-     * Delimiter for argument and values
-     */
+    /** Delimiter for argument and values. */
     private static final String KEY_VALUE_DELIMITER = "=";
 
-    /**
-     * Empty String
-     */
+    /** Empty String. */
     private static final String EMPTY_STRING = "";
 
     /**
-     * Default constructor
+     * Default constructor.
      *
      * @param url
      *            a {java.net.URL} object
@@ -94,7 +82,7 @@ public abstract class GenericURLConnection extends URLConnection {
     }
 
     /**
-     * Get user name from a given URL
+     * Get user name from a given URL.
      *
      * @return a {@link java.lang.String} user name
      */
@@ -115,7 +103,7 @@ public abstract class GenericURLConnection extends URLConnection {
     }
 
     /**
-     * Get password from a given url
+     * Get password from a given url.
      *
      * @return a {@link java.lang.String} password
      */
@@ -136,7 +124,7 @@ public abstract class GenericURLConnection extends URLConnection {
     }
 
     /**
-     * Get all URL query arguments
+     * Get all URL query arguments.
      *
      * @return a {@link java.util.HashMap} with arguments as key value map
      */

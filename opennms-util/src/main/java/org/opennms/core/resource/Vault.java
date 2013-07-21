@@ -71,6 +71,7 @@ public class Vault extends Object {
      */
     protected static String homeDir = "/opt/opennms/";
 
+    /** The s_data source. */
     private static DataSource s_dataSource;
 
     /**
@@ -83,6 +84,7 @@ public class Vault extends Object {
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -99,6 +101,7 @@ public class Vault extends Object {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -114,8 +117,8 @@ public class Vault extends Object {
      * Retrieve a database connection from the datasource.
      *
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Connection getDbConnection() throws SQLException {
         if (s_dataSource == null) {
@@ -130,9 +133,8 @@ public class Vault extends Object {
      *
      * @param connection
      *            the connection to release
-     * @throws java.sql.SQLException
-     *             If a SQL error occurs while calling connection.close() on the
-     *             connection.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void releaseDbConnection(Connection connection) throws SQLException {
         connection.close();
@@ -216,20 +218,21 @@ public class Vault extends Object {
      * system {@link java.util.Properties#getPropertyget property} to find the
      * supplementary property information. The returned value should be in the
      * form of a list of file names, each separated by the system
-     * {@link java.io.File#pathSeparatorCharpath separator} character.
-     * </P>
-     * <P>
-     * Once the list of files is recovered, each file is visited and loaded into
-     * the system properties. If any file cannot be loaded due to an I/O error
-     * then it is skipped as a whole. No partial key sets are loaded into the
-     * system properties. Also, this method will not overwrite an existing key
-     * in the currently loaded properties.
-     * </P>
      *
      * @param key
      *            The key name used to lookup the property path values.
      * @return True if all properties loaded correctly, false if any property
-     *         file failed to load.
+     *         file failed to load. {@link java.io.File#pathSeparatorCharpath
+     *         separator} character.
+     *         </P>
+     *         <P>
+     *         Once the list of files is recovered, each file is visited and
+     *         loaded into the system properties. If any file cannot be loaded
+     *         due to an I/O error then it is skipped as a whole. No partial key
+     *         sets are loaded into the system properties. Also, this method
+     *         will not overwrite an existing key in the currently loaded
+     *         properties.
+     *         </P>
      */
     public static boolean supplementSystemPropertiesFromKey(String key) {
         boolean loadedOK = true;

@@ -33,10 +33,18 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The Class IteratorIterator.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
 
+    /** The m_iter iter. */
     private Iterator<Iterator<T>> m_iterIter;
 
+    /** The m_current iter. */
     private Iterator<T> m_currentIter;
 
     /**
@@ -46,8 +54,6 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
      *
      * @param iterators
      *            a {@link java.util.Iterator} object.
-     * @param <T>
-     *            a T object.
      */
     public IteratorIterator(Iterator<T>... iterators) {
         /*
@@ -77,6 +83,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * hasNext
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -94,6 +101,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * next
      * </p>
+     * .
      *
      * @return a T object.
      */
@@ -109,6 +117,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * remove
      * </p>
+     * .
      */
     @Override
     public void remove() {
@@ -119,6 +128,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */

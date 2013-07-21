@@ -45,10 +45,13 @@ import org.slf4j.LoggerFactory;
  */
 public class ProcessExec {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ProcessExec.class);
 
+    /** The m_out. */
     PrintStream m_out = null;
 
+    /** The m_err. */
     PrintStream m_err = null;
 
     /**
@@ -70,14 +73,15 @@ public class ProcessExec {
      * <p>
      * exec
      * </p>
+     * .
      *
      * @param cmd
      *            an array of {@link java.lang.String} objects.
      * @return a int.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public int exec(String[] cmd) throws IOException, InterruptedException {
         Process p = Runtime.getRuntime().exec(cmd);
@@ -99,16 +103,33 @@ public class ProcessExec {
         return exitVal;
     }
 
+    /**
+     * The Class PrintInputStream.
+     */
     public class PrintInputStream implements Runnable {
+
+        /** The m_input stream. */
         private InputStream m_inputStream;
 
+        /** The m_print stream. */
         private PrintStream m_printStream;
 
+        /**
+         * Instantiates a new prints the input stream.
+         *
+         * @param inputStream
+         *            the input stream
+         * @param printStream
+         *            the print stream
+         */
         public PrintInputStream(InputStream inputStream, PrintStream printStream) {
             m_inputStream = inputStream;
             m_printStream = printStream;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             InputStreamReader isr = null;

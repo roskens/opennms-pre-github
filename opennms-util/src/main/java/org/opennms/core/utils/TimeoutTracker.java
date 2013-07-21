@@ -42,20 +42,28 @@ import java.util.concurrent.TimeUnit;
  */
 public class TimeoutTracker {
 
+    /** The m_retry. */
     private final int m_retry;
 
+    /** The m_timeout in nanos. */
     private final long m_timeoutInNanos;
 
+    /** The m_timeout in millis. */
     private final long m_timeoutInMillis;
 
+    /** The m_timeout in seconds. */
     private final long m_timeoutInSeconds;
 
+    /** The m_strict timeouts. */
     private final boolean m_strictTimeouts;
 
+    /** The m_attempt. */
     private int m_attempt = 0;
 
+    /** The m_next retry time nanos. */
     private long m_nextRetryTimeNanos = -1L;
 
+    /** The m_attempt start time nanos. */
     private long m_attemptStartTimeNanos = -1L;
 
     /**
@@ -88,6 +96,7 @@ public class TimeoutTracker {
      * <p>
      * shouldRetry
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -99,6 +108,7 @@ public class TimeoutTracker {
      * <p>
      * getTimeoutInMillis
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -110,6 +120,7 @@ public class TimeoutTracker {
      * <p>
      * getTimeoutInSeconds
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -121,12 +132,16 @@ public class TimeoutTracker {
      * <p>
      * reset
      * </p>
+     * .
      */
     public void reset() {
         m_attempt = 0;
         resetAttemptStartTime();
     }
 
+    /**
+     * Reset attempt start time.
+     */
     private void resetAttemptStartTime() {
         m_attemptStartTimeNanos = -1L;
     }
@@ -135,6 +150,7 @@ public class TimeoutTracker {
      * <p>
      * nextAttempt
      * </p>
+     * .
      */
     public void nextAttempt() {
         m_attempt++;
@@ -145,6 +161,7 @@ public class TimeoutTracker {
      * <p>
      * getAttempt
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -156,6 +173,7 @@ public class TimeoutTracker {
      * <p>
      * startAttempt
      * </p>
+     * .
      */
     public void startAttempt() {
         long now = System.nanoTime();
@@ -169,6 +187,12 @@ public class TimeoutTracker {
 
     }
 
+    /**
+     * Sleep.
+     *
+     * @param nanos
+     *            the nanos
+     */
     private void sleep(long nanos) {
         long millis = nanos / 1000000L;
         int remainingNanos = (int) (nanos % 1000000L);
@@ -180,6 +204,9 @@ public class TimeoutTracker {
         }
     }
 
+    /**
+     * Assert started.
+     */
     private void assertStarted() {
         if (m_attemptStartTimeNanos < 0) {
             throw new IllegalStateException(
@@ -191,6 +218,7 @@ public class TimeoutTracker {
      * <p>
      * elapsedTimeInMillis
      * </p>
+     * .
      *
      * @return a double.
      */
@@ -202,6 +230,7 @@ public class TimeoutTracker {
      * <p>
      * elapsedTimeNanos
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -215,6 +244,7 @@ public class TimeoutTracker {
      * <p>
      * elapsedTime
      * </p>
+     * .
      *
      * @param unit
      *            a {@link java.util.concurrent.TimeUnit} object.
@@ -224,6 +254,15 @@ public class TimeoutTracker {
         return convertFromNanos(elapsedTimeNanos(), unit);
     }
 
+    /**
+     * Convert from nanos.
+     *
+     * @param nanos
+     *            the nanos
+     * @param unit
+     *            the unit
+     * @return the double
+     */
     private double convertFromNanos(double nanos, TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
         return nanos / nanosPerUnit;
@@ -240,6 +279,7 @@ public class TimeoutTracker {
      * <p>
      * getSoTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -251,6 +291,7 @@ public class TimeoutTracker {
      * <p>
      * getConnectionTimeout
      * </p>
+     * .
      *
      * @return a int.
      */

@@ -45,9 +45,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+/**
+ * The Class StringUtils.
+ */
 public abstract class StringUtils {
+
+    /** The Constant s_headless. */
     static final boolean s_headless = Boolean.getBoolean("java.awt.headless");
 
+    /** The Constant s_windowsDrive. */
     static final Pattern s_windowsDrive = Pattern.compile("^[A-Za-z]\\:\\\\");
 
     /**
@@ -72,9 +78,6 @@ public abstract class StringUtils {
      * @param delim
      *            a char that does not already exist in <code>s</code>
      * @return An array of strings split by spaces outside of quotes.
-     * @throws java.lang.IllegalArgumentException
-     *             If <code>s</code> is null or if <code>delim</code> already
-     *             exists in <code>s</code>.
      */
     public static String[] createCommandArray(String s, char delim) {
         if (s == null) {
@@ -127,6 +130,7 @@ public abstract class StringUtils {
      * <p>
      * truncate
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -140,6 +144,13 @@ public abstract class StringUtils {
         return name.substring(0, length);
     }
 
+    /**
+     * Checks if is local windows path.
+     *
+     * @param path
+     *            the path
+     * @return true, if is local windows path
+     */
     public static boolean isLocalWindowsPath(final String path) {
         if (File.separatorChar != '\\')
             return false;
@@ -166,6 +177,14 @@ public abstract class StringUtils {
     /**
      * Uses the Xalan javax.transform classes to indent an XML string properly
      * so that it is easier to read.
+     *
+     * @param xml
+     *            the xml
+     * @return the string
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     * @throws TransformerException
+     *             the transformer exception
      */
     public static String prettyXml(String xml) throws UnsupportedEncodingException, TransformerException {
         StringWriter out = new StringWriter();

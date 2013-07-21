@@ -45,10 +45,19 @@ import java.net.URL;
  */
 public class ProtectedStubGenericURLConnection extends GenericURLConnection {
 
+    /**
+     * Instantiates a new protected stub generic url connection.
+     *
+     * @param url
+     *            the url
+     */
     protected ProtectedStubGenericURLConnection(URL url) {
         super(url);
     }
 
+    /* (non-Javadoc)
+     * @see java.net.URLConnection#connect()
+     */
     @Override
     public void connect() throws IOException {
         // No operation for JUnit test

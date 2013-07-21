@@ -31,17 +31,34 @@ package org.opennms.core.utils;
 import java.io.IOException;
 import java.net.Socket;
 
+/**
+ * The Class SslSocketWrapper.
+ */
 public class SslSocketWrapper implements SocketWrapper {
+
+    /** The m_cipher suites. */
     private final String[] m_cipherSuites;
 
+    /**
+     * Instantiates a new ssl socket wrapper.
+     */
     public SslSocketWrapper() {
         this(null);
     }
 
+    /**
+     * Instantiates a new ssl socket wrapper.
+     *
+     * @param cipherSuites
+     *            the cipher suites
+     */
     public SslSocketWrapper(String[] cipherSuites) {
         m_cipherSuites = cipherSuites;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.utils.SocketWrapper#wrapSocket(java.net.Socket)
+     */
     @Override
     public Socket wrapSocket(Socket socket) throws IOException {
         return SocketUtils.wrapSocketInSslContext(socket, m_cipherSuites);

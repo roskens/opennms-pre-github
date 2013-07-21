@@ -34,14 +34,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class LocaleUtils.
+ *
  * @author Seth
  */
 public abstract class LocaleUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LocaleUtils.class);
 
+    /** The Constant DEFAULT_LOCALE. */
     public static final Locale DEFAULT_LOCALE = new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry());
 
+    /**
+     * Parses the locale.
+     *
+     * @param string
+     *            the string
+     * @return the locale
+     */
     public static Locale parseLocale(String string) {
         String[] segments = string.split("[-_]");
         if (segments.length == 1) {
@@ -70,6 +81,15 @@ public abstract class LocaleUtils {
         }
     }
 
+    /**
+     * Best locale.
+     *
+     * @param preferredLocales
+     *            the preferred locales
+     * @param availableLocales
+     *            the available locales
+     * @return the locale
+     */
     public static Locale bestLocale(Locale[] preferredLocales, Locale[] availableLocales) {
         boolean hasCountry = false;
         boolean hasVariant = false;

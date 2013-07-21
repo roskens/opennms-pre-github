@@ -38,13 +38,19 @@ import java.util.Set;
  * <p>
  * JdbcSet class.
  * </p>
+ *
+ * @param <E>
+ *            the element type
  */
 public class JdbcSet<E> extends AbstractSet<E> {
 
+    /** The m_added. */
     LinkedHashSet<E> m_added = new LinkedHashSet<E>();
 
+    /** The m_entries. */
     LinkedHashSet<E> m_entries = new LinkedHashSet<E>();
 
+    /** The m_removed. */
     LinkedHashSet<E> m_removed = new LinkedHashSet<E>();
 
     /**
@@ -54,8 +60,6 @@ public class JdbcSet<E> extends AbstractSet<E> {
      *
      * @param c
      *            a {@link java.util.Collection} object.
-     * @param <E>
-     *            a E object.
      */
     public JdbcSet(Collection<E> c) {
         m_entries.addAll(c);
@@ -74,6 +78,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * setElements
      * </p>
+     * .
      *
      * @param c
      *            a {@link java.util.Collection} object.
@@ -82,21 +87,39 @@ public class JdbcSet<E> extends AbstractSet<E> {
         m_entries.addAll(c);
     }
 
+    /**
+     * The Class JdbcSetIterator.
+     */
     public class JdbcSetIterator extends IteratorIterator<E> {
 
+        /** The m_last. */
         private E m_last;
 
+        /**
+         * Instantiates a new jdbc set iterator.
+         *
+         * @param entriesIter
+         *            the entries iter
+         * @param addedIter
+         *            the added iter
+         */
         @SuppressWarnings("unchecked")
         public JdbcSetIterator(Iterator<E> entriesIter, Iterator<E> addedIter) {
             super(entriesIter, addedIter);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.IteratorIterator#next()
+         */
         @Override
         public E next() {
             m_last = super.next();
             return m_last;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.IteratorIterator#remove()
+         */
         @Override
         public void remove() {
             m_removed.add(m_last);
@@ -109,6 +132,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -121,6 +145,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * size
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -133,6 +158,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param o
      *            a E object.
@@ -151,6 +177,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * getRemoved
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -162,6 +189,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * getAdded
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -173,6 +201,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * getRemaining
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -184,6 +213,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
      * <p>
      * reset
      * </p>
+     * .
      */
     public void reset() {
         m_entries.addAll(m_added);

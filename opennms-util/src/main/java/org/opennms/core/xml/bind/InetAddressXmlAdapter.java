@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import org.opennms.core.utils.InetAddressUtils;
 
 /**
- * InetAddresssXmlAdapter
+ * InetAddresssXmlAdapter.
  *
  * @author brozow
  * @version $Id: $

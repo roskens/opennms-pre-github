@@ -85,7 +85,7 @@ public class BundleLists extends Object {
 
     /**
      * Parses a Object array and puts them into a array of substrings, using a
-     * comma as a delimiter
+     * comma as a delimiter.
      *
      * @param objArray
      *            The object array to be formatted as a comma-delimited string.
@@ -97,13 +97,13 @@ public class BundleLists extends Object {
 
     /**
      * Parses a Object array and puts them into a array of substrings, using a
-     * comma as a delimiter
+     * comma as a delimiter.
      *
      * @param objArray
      *            The object array to be formatted as a comma-delimited string.
-     * @return The comma-delimited string.
      * @param delimiter
      *            a {@link java.lang.String} object.
+     * @return The comma-delimited string.
      */
     public static String createBundleList(Object[] objArray, String delimiter) {
         if (objArray == null || delimiter == null) {

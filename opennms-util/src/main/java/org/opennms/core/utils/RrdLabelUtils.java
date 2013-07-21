@@ -28,8 +28,20 @@
 
 package org.opennms.core.utils;
 
+/**
+ * The Class RrdLabelUtils.
+ */
 public abstract class RrdLabelUtils {
 
+    /**
+     * Compute name for rrd.
+     *
+     * @param ifname
+     *            the ifname
+     * @param ifdescr
+     *            the ifdescr
+     * @return the string
+     */
     public static String computeNameForRRD(String ifname, String ifdescr) {
         String label = null;
         if (ifname != null && !ifname.equals("")) {
@@ -41,6 +53,13 @@ public abstract class RrdLabelUtils {
 
     }
 
+    /**
+     * Compute phys addr for rrd.
+     *
+     * @param physaddr
+     *            the physaddr
+     * @return the string
+     */
     public static String computePhysAddrForRRD(String physaddr) {
         String physAddrForRRD = null;
 
@@ -55,6 +74,17 @@ public abstract class RrdLabelUtils {
 
     }
 
+    /**
+     * Compute label for rrd.
+     *
+     * @param ifname
+     *            the ifname
+     * @param ifdescr
+     *            the ifdescr
+     * @param physaddr
+     *            the physaddr
+     * @return the string
+     */
     public static String computeLabelForRRD(String ifname, String ifdescr, String physaddr) {
         String name = computeNameForRRD(ifname, ifdescr);
         String physAddrForRRD = computePhysAddrForRRD(physaddr);

@@ -35,10 +35,17 @@ import java.util.List;
 import junit.framework.TestCase;
 
 /**
+ * The Class CollectionMathTest.
+ *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public class CollectionMathTest extends TestCase {
 
+    /**
+     * Gets the test collection.
+     *
+     * @return the test collection
+     */
     private List<BigDecimal> getTestCollection() {
         List<BigDecimal> c = new ArrayList<BigDecimal>();
         c.add(null);
@@ -49,37 +56,58 @@ public class CollectionMathTest extends TestCase {
         return c;
     }
 
+    /**
+     * Test empty.
+     */
     public void testEmpty() {
         List<BigDecimal> c = new ArrayList<BigDecimal>();
         assertNull(CollectionMath.percentNotNull(c));
         assertNull(CollectionMath.percentNull(c));
     }
 
+    /**
+     * Test percent not null.
+     */
     public void testPercentNotNull() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(new BigDecimal(60).doubleValue(), CollectionMath.percentNotNull(c).doubleValue());
     }
 
+    /**
+     * Test percent null.
+     */
     public void testPercentNull() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(new BigDecimal(40).doubleValue(), CollectionMath.percentNull(c).doubleValue());
     }
 
+    /**
+     * Test count not null.
+     */
     public void testCountNotNull() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(3, CollectionMath.countNotNull(c));
     }
 
+    /**
+     * Test count null.
+     */
     public void testCountNull() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(2, CollectionMath.countNull(c));
     }
 
+    /**
+     * Test average.
+     */
     public void testAverage() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(new BigDecimal(39).doubleValue(), CollectionMath.average(c).doubleValue());
     }
 
+    /**
+     * Test median.
+     */
     public void testMedian() {
         List<BigDecimal> c = getTestCollection();
         assertEquals(new BigDecimal(16).doubleValue(), CollectionMath.median(c).doubleValue());

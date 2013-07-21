@@ -35,9 +35,8 @@ package org.opennms.core.queue;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class FifoQueueClosedException extends FifoQueueException {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9088896767584630679L;
 
     /**

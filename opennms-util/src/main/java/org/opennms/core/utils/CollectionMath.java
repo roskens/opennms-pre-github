@@ -44,7 +44,7 @@ import java.util.List;
 public class CollectionMath {
 
     /**
-     * Get the number of null entries in a {@link List}
+     * Get the number of null entries in a {@link List}.
      *
      * @param list
      *            the {@link List}
@@ -61,7 +61,7 @@ public class CollectionMath {
     }
 
     /**
-     * Get the number of non-null entries in a {@link List}
+     * Get the number of non-null entries in a {@link List}.
      *
      * @param list
      *            the list
@@ -73,7 +73,7 @@ public class CollectionMath {
 
     /**
      * Get the percentage of null entries in a {@link List} of {@link Number}
-     * values
+     * values.
      *
      * @param list
      *            the {@link List} of {@link Number} values
@@ -84,12 +84,12 @@ public class CollectionMath {
     }
 
     /**
-     * Get the percentage of null entries in a {@link List} of
-     * {@link BigDecimal} values
+     * Get the percentage of null entries in a {@link List} of.
      *
      * @param list
      *            the {@link List} of {@link BigDecimal} values
      * @return the percentage of null values as a {@link BigDecimal} value
+     *         {@link BigDecimal} values
      */
     private static BigDecimal percentNullBigDecimal(List<BigDecimal> list) {
         if (list.size() > 0) {
@@ -101,24 +101,24 @@ public class CollectionMath {
     }
 
     /**
-     * Get the percentage of not-null entries in a {@link List} of
-     * {@link Number} values
+     * Get the percentage of not-null entries in a {@link List} of.
      *
      * @param list
      *            the {@link List} of {@link Number} values
      * @return the percentage of not-null values as a {@link Number} value
+     *         {@link Number} values
      */
     public static Number percentNotNull(List<? extends Number> list) {
         return percentNotNullBigDecimal(convertNumberToBigDecimal(list));
     }
 
     /**
-     * Get the percentage of not-null entries in a {@link List} of
-     * {@link BigDecimal} values
+     * Get the percentage of not-null entries in a {@link List} of.
      *
      * @param list
      *            the {@link List} of {@link BigDecimal} values
      * @return the percentage of not-null values as a {@link BigDecimal} value
+     *         {@link BigDecimal} values
      */
     private static BigDecimal percentNotNullBigDecimal(List<BigDecimal> list) {
         if (list.size() > 0) {
@@ -131,7 +131,7 @@ public class CollectionMath {
 
     /**
      * Get the average of the contents of a {@link List} of {@link Number}
-     * values, excluding null entries
+     * values, excluding null entries.
      *
      * @param list
      *            the {@link List} of {@link Number} values
@@ -143,7 +143,7 @@ public class CollectionMath {
 
     /**
      * Get the average of the contents of a {@link List} of {@link BigDecimal}
-     * values, excluding null entries
+     * values, excluding null entries.
      *
      * @param list
      *            the {@link List} of {@link BigDecimal} values
@@ -165,7 +165,7 @@ public class CollectionMath {
 
     /**
      * Get the median of the contents of a {@link List} of {@link Number}
-     * values, excluding null entries
+     * values, excluding null entries.
      *
      * @param list
      *            the {@link List} of {@link Number} values
@@ -177,7 +177,7 @@ public class CollectionMath {
 
     /**
      * Get the median of the contents of a {@link List} of {@link BigDecimal}
-     * values, excluding null entries
+     * values, excluding null entries.
      *
      * @param list
      *            the {@link List} of {@link BigDecimal} values
@@ -203,12 +203,12 @@ public class CollectionMath {
     }
 
     /**
-     * Utility method, converts a {@link Number} {@link List} into a
-     * {@link BigDecimal} {@link List}
+     * Utility method, converts a {@link Number} {@link List} into a.
      *
-     * @param list
-     *            a {@link List} of {@link Number} values
-     * @return a {@link List} of {@link BigDecimal} values
+     * @param c
+     *            the c
+     * @return a {@link List} of {@link BigDecimal} values {@link BigDecimal}
+     *         {@link List}
      */
     private static List<BigDecimal> convertNumberToBigDecimal(List<? extends Number> c) {
         List<BigDecimal> bd = new ArrayList<BigDecimal>();
@@ -223,7 +223,7 @@ public class CollectionMath {
     }
 
     /**
-     * Utility method, gets not-null-entries from a {@link List}
+     * Utility method, gets not-null-entries from a {@link List}.
      *
      * @param list
      *            the {@link List} to search

@@ -43,10 +43,19 @@ import java.net.URL;
  */
 public class StubGenericURLConnection extends GenericURLConnection {
 
+    /**
+     * Instantiates a new stub generic url connection.
+     *
+     * @param url
+     *            the url
+     */
     public StubGenericURLConnection(URL url) {
         super(url);
     }
 
+    /* (non-Javadoc)
+     * @see java.net.URLConnection#connect()
+     */
     @Override
     public void connect() throws IOException {
         // No operation for JUnit test

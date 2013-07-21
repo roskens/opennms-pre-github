@@ -32,12 +32,20 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class PropertiesUtilsTest.
+ */
 public class PropertiesUtilsTest extends TestCase {
 
+    /** The m_props one. */
     private Properties m_propsOne;
 
+    /** The m_props two. */
     private Properties m_propsTwo;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         m_propsOne = new Properties();
@@ -58,14 +66,23 @@ public class PropertiesUtilsTest extends TestCase {
         m_propsTwo.setProperty("prop.foo", "first geek ordinal");
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test null.
+     */
     public void testNull() {
         assertNull(PropertiesUtils.substitute(null, m_propsOne));
     }
 
+    /**
+     * Test no substitution.
+     */
     public void testNoSubstitution() {
         assertEquals("nosubst", PropertiesUtils.substitute("nosubst", m_propsOne));
         assertEquals("no${subst", PropertiesUtils.substitute("no${subst", m_propsOne));
@@ -74,6 +91,9 @@ public class PropertiesUtilsTest extends TestCase {
         assertEquals("no\nsubst", PropertiesUtils.substitute("no" + (char) 0x0A + "subst", m_propsOne));
     }
 
+    /**
+     * Test single substitution.
+     */
     public void testSingleSubstitution() {
         assertEquals("xonex", PropertiesUtils.substitute("x${prop.one}x", m_propsOne));
         assertEquals("onebegin", PropertiesUtils.substitute("${prop.one}begin", m_propsOne));
@@ -82,6 +102,9 @@ public class PropertiesUtilsTest extends TestCase {
         assertEquals("subst\none", PropertiesUtils.substitute("subst" + (char) 0x0A + "${prop.one}", m_propsOne));
     }
 
+    /**
+     * Test multi substition.
+     */
     public void testMultiSubstition() {
         assertEquals("xoneytwoz", PropertiesUtils.substitute("x${prop.one}y${prop.two}z", m_propsOne));
         assertEquals("wonextwoy3z", PropertiesUtils.substitute("w${prop.one}x${prop.two}y${prop.three}z", m_propsOne));
@@ -90,12 +113,18 @@ public class PropertiesUtilsTest extends TestCase {
         assertEquals("two\none", PropertiesUtils.substitute("${prop.two}" + (char) 0x0A + "${prop.one}", m_propsOne));
     }
 
+    /**
+     * Test recursive substitution.
+     */
     public void testRecursiveSubstitution() {
         assertEquals("a3+1b", PropertiesUtils.substitute("a${prop.four}b", m_propsOne));
         assertEquals("a3+twob", PropertiesUtils.substitute("a${prop.five}b", m_propsOne));
         assertEquals("a3+two+oneb", PropertiesUtils.substitute("a${prop.six}b", m_propsOne));
     }
 
+    /**
+     * Test simple infinite recursion.
+     */
     public void testSimpleInfiniteRecursion() {
         try {
             String val = PropertiesUtils.substitute("a${prop.infinite1}b", m_propsOne);
@@ -105,6 +134,9 @@ public class PropertiesUtilsTest extends TestCase {
         }
     }
 
+    /**
+     * Test complex infinite recursion.
+     */
     public void testComplexInfiniteRecursion() {
         try {
             String val = PropertiesUtils.substitute("a${prop.infinite5}b", m_propsOne);
@@ -114,6 +146,9 @@ public class PropertiesUtilsTest extends TestCase {
         }
     }
 
+    /**
+     * Test multi props substitution.
+     */
     public void testMultiPropsSubstitution() {
         assertEquals("eff oh oh", PropertiesUtils.substitute("${prop.foo}", m_propsOne, m_propsTwo));
         assertEquals("first geek ordinal", PropertiesUtils.substitute("${prop.foo}", m_propsTwo, m_propsOne));

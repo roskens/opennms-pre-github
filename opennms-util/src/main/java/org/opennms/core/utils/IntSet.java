@@ -36,6 +36,8 @@ import java.util.Set;
  * Provides set functionality for ints.
  */
 public class IntSet {
+
+    /** The m_set. */
     private Set<Integer> m_set = new HashSet<Integer>();
 
     /*
@@ -46,6 +48,7 @@ public class IntSet {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param n
      *            a int.
@@ -63,6 +66,7 @@ public class IntSet {
      * <p>
      * addAll
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.core.utils.IntSet} object.
@@ -80,6 +84,7 @@ public class IntSet {
      * <p>
      * clear
      * </p>
+     * .
      */
     public void clear() {
         m_set.clear();
@@ -93,6 +98,7 @@ public class IntSet {
      * <p>
      * contains
      * </p>
+     * .
      *
      * @param n
      *            a int.
@@ -110,6 +116,7 @@ public class IntSet {
      * <p>
      * containsAll
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.core.utils.IntSet} object.
@@ -127,6 +134,7 @@ public class IntSet {
      * <p>
      * isEmpty
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -142,6 +150,7 @@ public class IntSet {
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -157,6 +166,7 @@ public class IntSet {
      * <p>
      * remove
      * </p>
+     * .
      *
      * @param n
      *            a int.
@@ -174,6 +184,7 @@ public class IntSet {
      * <p>
      * removeAll
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.core.utils.IntSet} object.
@@ -191,6 +202,7 @@ public class IntSet {
      * <p>
      * retainAll
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.core.utils.IntSet} object.
@@ -208,6 +220,7 @@ public class IntSet {
      * <p>
      * size
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -223,6 +236,7 @@ public class IntSet {
      * <p>
      * toArray
      * </p>
+     * .
      *
      * @return an array of int.
      */
