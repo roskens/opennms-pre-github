@@ -41,12 +41,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class PropertyOidContainer.
+ */
 public class PropertyOidContainer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PropertyOidContainer.class);
 
+    /** The m_tree. */
     private final NavigableMap<SnmpObjId, SnmpValue> m_tree = new TreeMap<SnmpObjId, SnmpValue>();
 
+    /**
+     * Instantiates a new property oid container.
+     *
+     * @param resource
+     *            the resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public PropertyOidContainer(final Resource resource) throws IOException {
         MockSnmpValueFactory factory = new MockSnmpValueFactory();
         final Properties moProps = new Properties();
@@ -78,6 +91,13 @@ public class PropertyOidContainer {
         }
     }
 
+    /**
+     * Find value for oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the snmp value
+     */
     public SnmpValue findValueForOid(final SnmpObjId oid) {
         final SnmpValue value = m_tree.get(oid);
         if (value == null) {
@@ -90,6 +110,13 @@ public class PropertyOidContainer {
         return value;
     }
 
+    /**
+     * Find next oid for oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the snmp obj id
+     */
     public SnmpObjId findNextOidForOid(final SnmpObjId oid) {
         final NavigableMap<SnmpObjId, SnmpValue> next = m_tree.tailMap(oid, false);
         if (next.size() == 0) {
@@ -99,6 +126,13 @@ public class PropertyOidContainer {
         }
     }
 
+    /**
+     * Find next value for oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the snmp value
+     */
     public SnmpValue findNextValueForOid(final SnmpObjId oid) {
         final SnmpObjId nextOid = findNextOidForOid(oid);
         if (nextOid == null) {
@@ -108,11 +142,29 @@ public class PropertyOidContainer {
         }
     }
 
+    /**
+     * Sets the.
+     *
+     * @param oid
+     *            the oid
+     * @param value
+     *            the value
+     * @return the snmp value
+     */
     public SnmpValue set(final SnmpObjId oid, final SnmpValue value) {
         m_tree.put(oid, value);
         return value;
     }
 
+    /**
+     * Sets the.
+     *
+     * @param oids
+     *            the oids
+     * @param values
+     *            the values
+     * @return the snmp value[]
+     */
     public SnmpValue[] set(final SnmpObjId[] oids, final SnmpValue[] values) {
         for (int i = 0; i < oids.length; i++) {
             m_tree.put(oids[i], values[i]);

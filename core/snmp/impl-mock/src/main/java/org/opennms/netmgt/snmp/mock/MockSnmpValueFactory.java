@@ -42,26 +42,43 @@ import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory for creating MockSnmpValue objects.
+ */
 public class MockSnmpValueFactory implements SnmpValueFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockSnmpValueFactory.class);
 
+    /** The m_default charset. */
     final Charset m_defaultCharset;
 
+    /**
+     * Instantiates a new mock snmp value factory.
+     */
     public MockSnmpValueFactory() {
         m_defaultCharset = Charset.defaultCharset();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getOctetString(byte[])
+     */
     @Override
     public SnmpValue getOctetString(final byte[] bytes) {
         return new MockSnmpValue.OctetStringSnmpValue(bytes);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getCounter32(long)
+     */
     @Override
     public SnmpValue getCounter32(final long val) {
         return new MockSnmpValue.Counter32SnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getCounter64(java.math.BigInteger)
+     */
     @Override
     public SnmpValue getCounter64(final BigInteger val) {
         if (val == null)
@@ -69,16 +86,25 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
         return new MockSnmpValue.Counter64SnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getGauge32(long)
+     */
     @Override
     public SnmpValue getGauge32(final long val) {
         return new MockSnmpValue.Gauge32SnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getInt32(int)
+     */
     @Override
     public SnmpValue getInt32(final int val) {
         return new MockSnmpValue.Integer32SnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getIpAddress(java.net.InetAddress)
+     */
     @Override
     public SnmpValue getIpAddress(final InetAddress val) {
         if (val == null)
@@ -86,16 +112,25 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
         return new MockSnmpValue.IpAddressSnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getObjectId(org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue getObjectId(final SnmpObjId objId) {
         return new MockSnmpValue.OidSnmpValue(objId);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getTimeTicks(long)
+     */
     @Override
     public SnmpValue getTimeTicks(final long val) {
         return new MockSnmpValue.TimeticksSnmpValue(val);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getValue(int, byte[])
+     */
     @Override
     public SnmpValue getValue(int type, byte[] bytes) {
         switch (type) {
@@ -130,18 +165,32 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getNull()
+     */
     @Override
     public SnmpValue getNull() {
         return MockSnmpValue.NULL_VALUE;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getOpaque(byte[])
+     */
     @Override
     public SnmpValue getOpaque(final byte[] bs) {
         throw new IllegalArgumentException("Unable to handle opaque types in MockSnmpValue");
     }
 
+    /** The Constant HEX_CHUNK_PATTERN. */
     private static final Pattern HEX_CHUNK_PATTERN = Pattern.compile("(..)[ :]?");
 
+    /**
+     * Parses the mib value.
+     *
+     * @param mibVal
+     *            the mib val
+     * @return the snmp value
+     */
     SnmpValue parseMibValue(final String mibVal) {
         if (mibVal.startsWith("OID:")) {
             return getObjectId(SnmpObjId.get(mibVal.substring("OID:".length()).trim()));

@@ -55,25 +55,51 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class MockSnmpStrategy.
+ */
 public class MockSnmpStrategy implements SnmpStrategy {
+
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(MockSnmpStrategy.class);
 
+    /** The Constant ALL_AGENTS. */
     public static final SnmpAgentAddress ALL_AGENTS = new SnmpAgentAddress(InetAddrUtils.addr("0.0.0.0"), 161);
 
+    /** The Constant EMPTY_SNMP_VALUE_ARRAY. */
     private static final SnmpValue[] EMPTY_SNMP_VALUE_ARRAY = new SnmpValue[0];
 
     // TOG's enterprise ID
+    /** The s_enterprise id. */
     private static int s_enterpriseId = 5813;
 
+    /** The m_loaders. */
     private static Map<SnmpAgentAddress, PropertyOidContainer> m_loaders = new HashMap<SnmpAgentAddress, PropertyOidContainer>();
 
+    /**
+     * Instantiates a new mock snmp strategy.
+     */
     public MockSnmpStrategy() {
     }
 
+    /**
+     * Gets the oid container.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @return the oid container
+     */
     protected PropertyOidContainer getOidContainer(final SnmpAgentConfig agentConfig) {
         return getOidContainer(new SnmpAgentAddress(agentConfig.getAddress(), agentConfig.getPort()));
     }
 
+    /**
+     * Gets the oid container.
+     *
+     * @param aa
+     *            the aa
+     * @return the oid container
+     */
     protected PropertyOidContainer getOidContainer(final SnmpAgentAddress aa) {
         if (m_loaders.containsKey(aa)) {
             return m_loaders.get(aa);
@@ -82,6 +108,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#createWalker(org.opennms.netmgt.snmp.SnmpAgentConfig, java.lang.String, org.opennms.netmgt.snmp.CollectionTracker)
+     */
     @Override
     public SnmpWalker createWalker(final SnmpAgentConfig agentConfig, final String name, final CollectionTracker tracker) {
         LOG.debug("createWalker({}/{}, {}, {})", InetAddrUtils.str(agentConfig.getAddress()), agentConfig.getPort(),
@@ -92,6 +121,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
                                   agentConfig.getMaxVarsPerPdu());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#set(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+     */
     @Override
     public SnmpValue set(final SnmpAgentConfig agentConfig, final SnmpObjId oid, final SnmpValue value) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
@@ -100,6 +132,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return oidContainer.set(oid, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#set(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[], org.opennms.netmgt.snmp.SnmpValue[])
+     */
     @Override
     public SnmpValue[] set(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids, final SnmpValue[] values) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
@@ -108,6 +143,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return oidContainer.set(oids, values);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#get(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue get(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
@@ -121,6 +159,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return val;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#get(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] get(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer container = getOidContainer(agentConfig);
@@ -134,6 +175,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return values.toArray(EMPTY_SNMP_VALUE_ARRAY);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getNext(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue getNext(final SnmpAgentConfig agentConfig, final SnmpObjId oid) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
@@ -142,6 +186,9 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return oidContainer.findNextValueForOid(oid);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getNext(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] getNext(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         final PropertyOidContainer oidContainer = getOidContainer(agentConfig);
@@ -155,73 +202,112 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return values.toArray(EMPTY_SNMP_VALUE_ARRAY);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getBulk(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] getBulk(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids) {
         return getNext(agentConfig, oids);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, java.net.InetAddress, int)
+     */
     @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
             final InetAddress address, final int snmpTrapPort) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, int)
+     */
     @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
             final int snmpTrapPort) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, java.net.InetAddress, int, java.util.List)
+     */
     @Override
     public void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory,
             InetAddress address, int snmpTrapPort, List<SnmpV3User> snmpv3Users) throws IOException {
         LOG.warn("Can't register for traps.  No network in the MockSnmpStrategy!");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#unregisterForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, java.net.InetAddress, int)
+     */
     @Override
     public void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address,
             final int snmpTrapPort) throws IOException {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#unregisterForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, int)
+     */
     @Override
     public void unregisterForTraps(final TrapNotificationListener listener, final int snmpTrapPort) throws IOException {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getValueFactory()
+     */
     @Override
     public SnmpValueFactory getValueFactory() {
         return new MockSnmpValueFactory();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV1TrapBuilder()
+     */
     @Override
     public SnmpV1TrapBuilder getV1TrapBuilder() {
         throw new UnsupportedOperationException("Not yet implemented!");
         // return new NullSnmpV1TrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV2TrapBuilder()
+     */
     @Override
     public SnmpTrapBuilder getV2TrapBuilder() {
         throw new UnsupportedOperationException("Not yet implemented!");
         // return new NullSnmpTrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV3TrapBuilder()
+     */
     @Override
     public SnmpV3TrapBuilder getV3TrapBuilder() {
         throw new UnsupportedOperationException("Not yet implemented!");
         // return new NullSnmpV3TrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV2InformBuilder()
+     */
     @Override
     public SnmpV2TrapBuilder getV2InformBuilder() {
         throw new UnsupportedOperationException("Not yet implemented!");
         // return new NullSnmpV2TrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV3InformBuilder()
+     */
     @Override
     public SnmpV3TrapBuilder getV3InformBuilder() {
         throw new UnsupportedOperationException("Not yet implemented!");
         // return new NullSnmpV3TrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getLocalEngineID()
+     */
     @Override
     public byte[] getLocalEngineID() {
         // lovingly stolen from SNMP4J
@@ -252,15 +338,34 @@ public class MockSnmpStrategy implements SnmpStrategy {
         return bytes;
     }
 
+    /**
+     * Sets the data for address.
+     *
+     * @param agentAddress
+     *            the agent address
+     * @param resource
+     *            the resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static void setDataForAddress(final SnmpAgentAddress agentAddress, final Resource resource)
             throws IOException {
         m_loaders.put(agentAddress, new PropertyOidContainer(resource));
     }
 
+    /**
+     * Removes the host.
+     *
+     * @param agentAddr
+     *            the agent addr
+     */
     public static void removeHost(final SnmpAgentAddress agentAddr) {
         m_loaders.remove(agentAddr);
     }
 
+    /**
+     * Reset data.
+     */
     public static void resetData() {
         m_loaders.clear();
     }

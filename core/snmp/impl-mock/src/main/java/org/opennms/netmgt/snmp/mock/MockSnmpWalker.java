@@ -44,69 +44,145 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class MockSnmpWalker.
+ */
 public class MockSnmpWalker extends SnmpWalker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockSnmpWalker.class);
 
+    /**
+     * The Class MockPduBuilder.
+     */
     private static class MockPduBuilder extends WalkerPduBuilder {
+
+        /** The m_oids. */
         private List<SnmpObjId> m_oids = new ArrayList<SnmpObjId>();
 
+        /**
+         * Instantiates a new mock pdu builder.
+         *
+         * @param maxVarsPerPdu
+         *            the max vars per pdu
+         */
         public MockPduBuilder(final int maxVarsPerPdu) {
             super(maxVarsPerPdu);
             reset();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.SnmpWalker.WalkerPduBuilder#reset()
+         */
         @Override
         public void reset() {
             m_oids.clear();
         }
 
+        /**
+         * Gets the oids.
+         *
+         * @return the oids
+         */
         public List<SnmpObjId> getOids() {
             return new ArrayList<SnmpObjId>(m_oids);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#addOid(org.opennms.netmgt.snmp.SnmpObjId)
+         */
         @Override
         public void addOid(final SnmpObjId snmpObjId) {
             m_oids.add(snmpObjId);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setNonRepeaters(int)
+         */
         @Override
         public void setNonRepeaters(final int numNonRepeaters) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setMaxRepetitions(int)
+         */
         @Override
         public void setMaxRepetitions(final int maxRepetitions) {
         }
     }
 
+    /**
+     * The Class MockVarBind.
+     */
     private static class MockVarBind {
+
+        /** The m_oid. */
         SnmpObjId m_oid;
 
+        /** The m_value. */
         SnmpValue m_value;
 
+        /**
+         * Instantiates a new mock var bind.
+         *
+         * @param oid
+         *            the oid
+         * @param value
+         *            the value
+         */
         public MockVarBind(SnmpObjId oid, SnmpValue value) {
             m_oid = oid;
             m_value = value;
         }
 
+        /**
+         * Gets the oid.
+         *
+         * @return the oid
+         */
         public SnmpObjId getOid() {
             return m_oid;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public SnmpValue getValue() {
             return m_value;
         }
 
     }
 
+    /** The m_agent address. */
     private final SnmpAgentAddress m_agentAddress;
 
+    /** The m_snmp version. */
     private final int m_snmpVersion;
 
+    /** The m_container. */
     private final PropertyOidContainer m_container;
 
+    /** The m_executor. */
     private final ExecutorService m_executor;
 
+    /**
+     * Instantiates a new mock snmp walker.
+     *
+     * @param agentAddress
+     *            the agent address
+     * @param snmpVersion
+     *            the snmp version
+     * @param container
+     *            the container
+     * @param name
+     *            the name
+     * @param tracker
+     *            the tracker
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     */
     public MockSnmpWalker(final SnmpAgentAddress agentAddress, int snmpVersion, final PropertyOidContainer container,
             final String name, final CollectionTracker tracker, int maxVarsPerPdu) {
         super(agentAddress.getAddress(), name, maxVarsPerPdu, 1, tracker);
@@ -117,11 +193,17 @@ public class MockSnmpWalker extends SnmpWalker {
                                                                                       false));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#createPduBuilder(int)
+     */
     @Override
     protected WalkerPduBuilder createPduBuilder(final int maxVarsPerPdu) {
         return new MockPduBuilder(maxVarsPerPdu);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#sendNextPdu(org.opennms.netmgt.snmp.SnmpWalker.WalkerPduBuilder)
+     */
     @Override
     protected void sendNextPdu(final WalkerPduBuilder pduBuilder) throws IOException {
         final MockPduBuilder builder = (MockPduBuilder) pduBuilder;
@@ -131,65 +213,106 @@ public class MockSnmpWalker extends SnmpWalker {
         m_executor.submit(new ResponseHandler(oids));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleDone()
+     */
     @Override
     protected void handleDone() {
         LOG.debug("handleDone()");
         super.handleDone();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleAuthError(java.lang.String)
+     */
     @Override
     protected void handleAuthError(final String msg) {
         LOG.debug("handleAuthError({})", msg);
         super.handleAuthError(msg);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleError(java.lang.String)
+     */
     @Override
     protected void handleError(final String msg) {
         LOG.debug("handleError({})", msg);
         super.handleError(msg);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleError(java.lang.String, java.lang.Throwable)
+     */
     @Override
     protected void handleError(final String msg, final Throwable t) {
         LOG.debug("handleError({}, {})", msg, t.getLocalizedMessage(), t);
         super.handleError(msg, t);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleFatalError(java.lang.Throwable)
+     */
     @Override
     protected void handleFatalError(final Throwable e) {
         LOG.debug("handleFatalError({})", e.getLocalizedMessage(), e);
         super.handleFatalError(e);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#handleTimeout(java.lang.String)
+     */
     @Override
     protected void handleTimeout(final String msg) {
         LOG.debug("handleTimeout({})", msg);
         super.handleTimeout(msg);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#close()
+     */
     @Override
     protected void close() throws IOException {
         m_executor.shutdown();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#buildAndSendNextPdu()
+     */
     @Override
     protected void buildAndSendNextPdu() throws IOException {
         LOG.debug("buildAndSendNextPdu()");
         super.buildAndSendNextPdu();
     }
 
+    /**
+     * The Class ResponseHandler.
+     */
     private final class ResponseHandler implements Runnable {
+
+        /** The m_oids. */
         private final List<SnmpObjId> m_oids;
 
+        /**
+         * Instantiates a new response handler.
+         *
+         * @param oids
+         *            the oids
+         */
         private ResponseHandler(final List<SnmpObjId> oids) {
             m_oids = oids;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             handleResponses();
         }
 
+        /**
+         * Handle responses.
+         */
         protected void handleResponses() {
             LOG.debug("handleResponses({})", m_oids);
             try {
