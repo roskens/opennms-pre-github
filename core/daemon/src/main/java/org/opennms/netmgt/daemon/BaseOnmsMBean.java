@@ -66,6 +66,7 @@ public interface BaseOnmsMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,6 +76,7 @@ public interface BaseOnmsMBean {
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

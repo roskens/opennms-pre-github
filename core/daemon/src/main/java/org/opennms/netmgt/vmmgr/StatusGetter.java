@@ -42,17 +42,38 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The Class StatusGetter.
+ */
 public class StatusGetter {
+
+    /**
+     * The Enum Status.
+     */
     public enum Status {
-        UNKNOWN, RUNNING, PARTIALLY_RUNNING, NOT_RUNNING, CONNECTION_REFUSED
+
+        /** The unknown. */
+        UNKNOWN,
+ /** The running. */
+ RUNNING,
+ /** The partially running. */
+ PARTIALLY_RUNNING,
+ /** The not running. */
+ NOT_RUNNING,
+ /** The connection refused. */
+ CONNECTION_REFUSED
     }
 
+    /** The Constant DEFAULT_INVOKE_URL. */
     private static final URL DEFAULT_INVOKE_URL;
 
+    /** The m_verbose. */
     private boolean m_verbose = false;
 
+    /** The m_invoke url. */
     private URL m_invokeURL = DEFAULT_INVOKE_URL;
 
+    /** The m_status. */
     private Status m_status = Status.UNKNOWN;
 
     static {
@@ -77,6 +98,7 @@ public class StatusGetter {
      * <p>
      * isVerbose
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -88,6 +110,7 @@ public class StatusGetter {
      * <p>
      * setVerbose
      * </p>
+     * .
      *
      * @param verbose
      *            a boolean.
@@ -100,6 +123,7 @@ public class StatusGetter {
      * <p>
      * getInvokeURL
      * </p>
+     * .
      *
      * @return a {@link java.net.URL} object.
      */
@@ -111,6 +135,7 @@ public class StatusGetter {
      * <p>
      * setInvokeURL
      * </p>
+     * .
      *
      * @param invokeURL
      *            a {@link java.net.URL} object.
@@ -123,6 +148,7 @@ public class StatusGetter {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.vmmgr.StatusGetter.Status} object.
      */
@@ -134,11 +160,12 @@ public class StatusGetter {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(String[] argv) throws Exception {
         StatusGetter statusGetter = new StatusGetter();
@@ -190,9 +217,10 @@ public class StatusGetter {
      * <p>
      * queryStatus
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void queryStatus() throws Exception {
 

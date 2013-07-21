@@ -30,18 +30,30 @@ package org.opennms.netmgt.vmmgr;
 
 import org.opennms.netmgt.daemon.AbstractServiceDaemon;
 
+/**
+ * The Class TestDaemon.
+ */
 public class TestDaemon extends AbstractServiceDaemon {
 
+    /**
+     * Instantiates a new test daemon.
+     */
     public TestDaemon() {
         super("test-daemon");
         System.err.println("Creating: " + getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onPause()
+     */
     @Override
     protected void onPause() {
         System.err.println("Pausing: " + getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#status()
+     */
     @Override
     public String status() {
         String status = super.getStatusText();
@@ -49,21 +61,33 @@ public class TestDaemon extends AbstractServiceDaemon {
         return status;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onResume()
+     */
     @Override
     protected void onResume() {
         System.err.println("Resuming: " + getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onStart()
+     */
     @Override
     protected void onStart() {
         System.err.println("Starting: " + getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onStop()
+     */
     @Override
     protected void onStop() {
         System.err.println("Stopping: " + getName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onInit()
+     */
     @Override
     protected void onInit() {
     }

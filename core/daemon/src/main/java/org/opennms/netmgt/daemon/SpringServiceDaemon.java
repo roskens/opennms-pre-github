@@ -40,13 +40,15 @@ import org.springframework.beans.factory.InitializingBean;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public interface SpringServiceDaemon extends InitializingBean, DisposableBean {
+
     /**
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     void start() throws Exception;
 }

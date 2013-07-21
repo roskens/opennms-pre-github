@@ -30,12 +30,16 @@ package org.opennms.netmgt.vmmgr;
 
 import java.util.List;
 
+/**
+ * The Interface SpringBoardMBean.
+ */
 public interface SpringBoardMBean {
 
     /**
      * <p>
      * getContextDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -45,6 +49,7 @@ public interface SpringBoardMBean {
      * <p>
      * setContextDir
      * </p>
+     * .
      *
      * @param contextDir
      *            a {@link java.lang.String} object.
@@ -55,6 +60,7 @@ public interface SpringBoardMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     public void start();
 
@@ -62,6 +68,7 @@ public interface SpringBoardMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -71,6 +78,7 @@ public interface SpringBoardMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     public void stop();
 

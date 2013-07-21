@@ -29,7 +29,7 @@
 package org.opennms.netmgt.daemon;
 
 /**
- * SimpleSpringContextJmxServiceDaemon
+ * SimpleSpringContextJmxServiceDaemon.
  *
  * @author brozow
  * @version $Id: $
@@ -37,14 +37,17 @@ package org.opennms.netmgt.daemon;
 public class SimpleSpringContextJmxServiceDaemon extends AbstractSpringContextJmxServiceDaemon<SpringServiceDaemon>
         implements SimpleSpringContextJmxServiceDaemonMBean {
 
+    /** The m_logging prefix. */
     private String m_loggingPrefix;
 
+    /** The m_spring context. */
     private String m_springContext;
 
     /**
      * <p>
      * getLoggingPrefix
      * </p>
+     * .
      *
      * @return the loggingPrefix
      */
@@ -63,6 +66,7 @@ public class SimpleSpringContextJmxServiceDaemon extends AbstractSpringContextJm
      * <p>
      * getSpringContext
      * </p>
+     * .
      *
      * @return the springContext
      */

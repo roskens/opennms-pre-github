@@ -37,16 +37,22 @@ import org.opennms.netmgt.model.ServiceDaemon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class DaemonManagerDefault.
+ */
 public class DaemonManagerDefault implements DaemonManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DaemonManagerDefault.class);
 
+    /** The m_service daemons. */
     private List<ServiceDaemon> m_serviceDaemons;
 
     /**
      * <p>
      * setServiceDaemons
      * </p>
+     * .
      *
      * @param serviceDaemons
      *            a {@link java.util.List} object.
@@ -59,6 +65,7 @@ public class DaemonManagerDefault implements DaemonManager {
      * <p>
      * pause
      * </p>
+     * .
      */
     @Override
     public void pause() {
@@ -71,6 +78,7 @@ public class DaemonManagerDefault implements DaemonManager {
      * <p>
      * resume
      * </p>
+     * .
      */
     @Override
     public void resume() {
@@ -83,6 +91,7 @@ public class DaemonManagerDefault implements DaemonManager {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -95,6 +104,7 @@ public class DaemonManagerDefault implements DaemonManager {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -111,6 +121,7 @@ public class DaemonManagerDefault implements DaemonManager {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -120,6 +131,12 @@ public class DaemonManagerDefault implements DaemonManager {
         System.exit(0);
     }
 
+    /**
+     * Stop service.
+     *
+     * @param serviceDaemon
+     *            the service daemon
+     */
     private void stopService(ServiceDaemon serviceDaemon) {
         try {
             serviceDaemon.stop();

@@ -33,15 +33,22 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
+ * The Class InvokerResult.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerResult {
+
+    /** The m_service. */
     private Service m_service;
 
+    /** The m_mbean. */
     private ObjectInstance m_mbean;
 
+    /** The m_result. */
     private Object m_result;
 
+    /** The m_throwable. */
     private Throwable m_throwable;
 
     /**
@@ -69,6 +76,7 @@ class InvokerResult {
      * <p>
      * getMbean
      * </p>
+     * .
      *
      * @return a {@link javax.management.ObjectInstance} object.
      */
@@ -80,6 +88,7 @@ class InvokerResult {
      * <p>
      * getResult
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -91,6 +100,7 @@ class InvokerResult {
      * <p>
      * getThrowable
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -102,6 +112,7 @@ class InvokerResult {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.service.Service} object.
      */

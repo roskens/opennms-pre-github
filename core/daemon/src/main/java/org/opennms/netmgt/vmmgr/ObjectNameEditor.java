@@ -33,6 +33,9 @@ import java.beans.PropertyEditorSupport;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
+/**
+ * The Class ObjectNameEditor.
+ */
 public class ObjectNameEditor extends PropertyEditorSupport {
 
     /** {@inheritDoc} */

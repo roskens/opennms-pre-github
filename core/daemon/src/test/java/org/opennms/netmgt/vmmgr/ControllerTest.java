@@ -41,18 +41,39 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.core.test.MockLogAppender;
 
+/**
+ * The Class ControllerTest.
+ */
 public class ControllerTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Run test.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void runTest() throws Throwable {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test client timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testClientTimeout() throws Exception {
         final ServerSocket server = new ServerSocket(0);

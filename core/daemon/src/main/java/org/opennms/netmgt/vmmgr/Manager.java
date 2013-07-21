@@ -78,6 +78,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Manager implements ManagerMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Manager.class);
 
     /**
@@ -85,6 +86,7 @@ public class Manager implements ManagerMBean {
      */
     private static final String LOG4J_CATEGORY = "manager";
 
+    /** The Constant m_osName. */
     private static final String m_osName = System.getProperty("os.name") == null ? ""
         : System.getProperty("os.name").toLowerCase();
 
@@ -92,6 +94,7 @@ public class Manager implements ManagerMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -102,6 +105,12 @@ public class Manager implements ManagerMBean {
         }
     }
 
+    /**
+     * Stop.
+     *
+     * @param server
+     *            the server
+     */
     private void stop(MBeanServer server) {
         LOG.debug("Beginning shutdown");
         Invoker invoker = new Invoker();
@@ -122,6 +131,7 @@ public class Manager implements ManagerMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -136,6 +146,13 @@ public class Manager implements ManagerMBean {
         return result;
     }
 
+    /**
+     * Status.
+     *
+     * @param server
+     *            the server
+     * @return the list
+     */
     private List<String> status(final MBeanServer server) {
         LOG.debug("Beginning status check");
         final Invoker invoker = new Invoker();
@@ -188,6 +205,9 @@ public class Manager implements ManagerMBean {
         System.exit(1);
     }
 
+    /**
+     * Dump threads.
+     */
     private void dumpThreads() {
         Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
         int daemons = 0;
@@ -221,6 +241,9 @@ public class Manager implements ManagerMBean {
         LOG.debug("Thread dump completed.");
     }
 
+    /**
+     * Shutdown logging.
+     */
     private void shutdownLogging() {
     }
 
@@ -228,6 +251,7 @@ public class Manager implements ManagerMBean {
      * <p>
      * doTestLoadLibraries
      * </p>
+     * .
      */
     @Override
     public void doTestLoadLibraries() {
@@ -236,6 +260,9 @@ public class Manager implements ManagerMBean {
         testGetLocalHost();
     }
 
+    /**
+     * Test get local host.
+     */
     private void testGetLocalHost() {
         try {
             InetAddress.getLocalHost();
@@ -244,6 +271,9 @@ public class Manager implements ManagerMBean {
         }
     }
 
+    /**
+     * Test pinger.
+     */
     private void testPinger() {
         final Pinger pinger = PingerFactory.getInstance();
 
@@ -291,6 +321,14 @@ public class Manager implements ManagerMBean {
         // ahead
     }
 
+    /**
+     * Throw ping error.
+     *
+     * @param message
+     *            the message
+     * @throws IllegalStateException
+     *             the illegal state exception
+     */
     private void throwPingError(final String message) throws IllegalStateException {
         String errorMessage = message;
         if (m_osName.contains("win")) {
@@ -299,10 +337,18 @@ public class Manager implements ManagerMBean {
         throw new IllegalStateException(errorMessage);
     }
 
+    /**
+     * Sets the log prefix.
+     */
     private void setLogPrefix() {
         Logging.putPrefix(LOG4J_CATEGORY);
     }
 
+    /**
+     * Gets the m bean servers.
+     *
+     * @return the m bean servers
+     */
     private List<MBeanServer> getMBeanServers() {
         return MBeanServerFactory.findMBeanServer(null);
     }

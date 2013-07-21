@@ -31,15 +31,21 @@ package org.opennms.netmgt.daemon;
 import org.junit.Test;
 
 /**
+ * The Class AbstractSpringContextJmxServiceDaemonTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class AbstractSpringContextJmxServiceDaemonTest {
+
     /**
      * This is a test for bug #2479 where we would see an NPE in manager.log
      * if we tried to call stop() on a daemon that hadn't been successfully
      * init()ed. This happens when this daemon, or one before it fails to
      * initialize and the manager application still tries to shutdown all
      * daemons.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testStopWithNoInit() throws Exception {
@@ -47,23 +53,46 @@ public class AbstractSpringContextJmxServiceDaemonTest {
         daemon.stop();
     }
 
+    /**
+     * The Class MockDaemon.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public class MockDaemon<T extends SpringServiceDaemon> extends AbstractSpringContextJmxServiceDaemon<T> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon#getSpringContext()
+         */
         @Override
         public String getSpringContext() {
             return "thisIsABogusSpringContext";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon#getLoggingPrefix()
+         */
         @Override
         public String getLoggingPrefix() {
             return "thisIsABogusLoggingPrefix";
         }
     }
 
+    /**
+     * The Class MockServiceDaemon.
+     */
     public class MockServiceDaemon extends AbstractServiceDaemon {
+
+        /**
+         * Instantiates a new mock service daemon.
+         */
         public MockServiceDaemon() {
             super("mock-service-daemon");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.daemon.AbstractServiceDaemon#onInit()
+         */
         @Override
         protected void onInit() {
         }

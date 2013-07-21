@@ -30,14 +30,19 @@ package org.opennms.netmgt.vmmgr;
 
 import org.springframework.context.ApplicationContext;
 
+/**
+ * The Class Registry.
+ */
 public class Registry {
 
+    /** The s_app context. */
     private static ApplicationContext s_appContext;
 
     /**
      * <p>
      * setAppContext
      * </p>
+     * .
      *
      * @param appContext
      *            a {@link org.springframework.context.ApplicationContext}
@@ -51,6 +56,7 @@ public class Registry {
      * <p>
      * containsBean
      * </p>
+     * .
      *
      * @param beanName
      *            a {@link java.lang.String} object.
@@ -64,6 +70,7 @@ public class Registry {
      * <p>
      * getBean
      * </p>
+     * .
      *
      * @param beanName
      *            a {@link java.lang.String} object.

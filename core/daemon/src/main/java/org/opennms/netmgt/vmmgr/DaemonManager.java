@@ -30,12 +30,16 @@ package org.opennms.netmgt.vmmgr;
 
 import java.util.Map;
 
+/**
+ * The Interface DaemonManager.
+ */
 public interface DaemonManager {
 
     /**
      * <p>
      * start
      * </p>
+     * .
      */
     public void start();
 
@@ -43,6 +47,7 @@ public interface DaemonManager {
      * <p>
      * stop
      * </p>
+     * .
      */
     public void stop();
 
@@ -50,6 +55,7 @@ public interface DaemonManager {
      * <p>
      * pause
      * </p>
+     * .
      */
     public void pause();
 
@@ -57,6 +63,7 @@ public interface DaemonManager {
      * <p>
      * resume
      * </p>
+     * .
      */
     public void resume();
 
@@ -64,6 +71,7 @@ public interface DaemonManager {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

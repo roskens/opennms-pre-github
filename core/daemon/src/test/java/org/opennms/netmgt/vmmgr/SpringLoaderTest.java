@@ -38,13 +38,22 @@ import org.junit.Test;
 import org.opennms.core.fiber.Fiber;
 import org.opennms.netmgt.model.ServiceDaemon;
 
+/**
+ * The Class SpringLoaderTest.
+ */
 public class SpringLoaderTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.setProperty("opennms.startup.context", "classpath:/startup.xml");
     }
 
+    /**
+     * Test start.
+     */
     @Test
     @Ignore("broken")
     public void testStart() {
@@ -60,6 +69,9 @@ public class SpringLoaderTest {
         assertEquals(Fiber.RUNNING, daemon.getStatus());
     }
 
+    /**
+     * Test contexts.
+     */
     @Test
     @Ignore("broken")
     public void testContexts() {
@@ -69,22 +81,40 @@ public class SpringLoaderTest {
         assertEquals(Fiber.RUNNING, daemon.getStatus());
     }
 
+    /**
+     * Test status.
+     */
     @Test
     @Ignore("broken")
     public void testStatus() {
         SpringLoader.main(new String[] { "status" });
     }
 
+    /**
+     * Test stop.
+     */
     @Test
     @Ignore("broken")
     public void testStop() {
         SpringLoader.main(new String[] { "stop" });
     }
 
+    /**
+     * Assert no such bean.
+     *
+     * @param beanName
+     *            the bean name
+     */
     private void assertNoSuchBean(String beanName) {
         assertFalse(Registry.containsBean(beanName));
     }
 
+    /**
+     * Assert bean exists.
+     *
+     * @param beanName
+     *            the bean name
+     */
     private void assertBeanExists(String beanName) {
         assertTrue(Registry.containsBean(beanName));
     }

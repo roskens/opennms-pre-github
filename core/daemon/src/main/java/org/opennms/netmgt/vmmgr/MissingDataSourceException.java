@@ -28,21 +28,49 @@
 
 package org.opennms.netmgt.vmmgr;
 
+/**
+ * The Class MissingDataSourceException.
+ */
 public class MissingDataSourceException extends Exception {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5312239709158792029L;
 
+    /**
+     * Instantiates a new missing data source exception.
+     */
     public MissingDataSourceException() {
         super();
     }
 
+    /**
+     * Instantiates a new missing data source exception.
+     *
+     * @param message
+     *            the message
+     */
     public MissingDataSourceException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new missing data source exception.
+     *
+     * @param cause
+     *            the cause
+     */
     public MissingDataSourceException(final Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Instantiates a new missing data source exception.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public MissingDataSourceException(final String message, final Throwable cause) {
         super(message, cause);
     }

@@ -34,10 +34,15 @@ import java.util.List;
 
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+/**
+ * The Class SpringBoard.
+ */
 public class SpringBoard implements SpringBoardMBean {
 
+    /** The context dir. */
     private File contextDir;
 
+    /** The m_context. */
     private FileSystemXmlApplicationContext m_context;
 
     /**
@@ -63,6 +68,7 @@ public class SpringBoard implements SpringBoardMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -76,6 +82,7 @@ public class SpringBoard implements SpringBoardMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -88,6 +95,7 @@ public class SpringBoard implements SpringBoardMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {

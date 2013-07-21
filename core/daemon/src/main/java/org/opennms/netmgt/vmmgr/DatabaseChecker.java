@@ -62,12 +62,16 @@ import org.springframework.core.io.FileSystemResource;
  */
 public class DatabaseChecker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DatabaseChecker.class);
 
+    /** The m_required. */
     private static List<String> m_required = new ArrayList<String>();
 
+    /** The m_optional. */
     private static List<String> m_optional = new ArrayList<String>();
 
+    /** The m_data sources. */
     private Map<String, JdbcDataSource> m_dataSources = new HashMap<String, JdbcDataSource>();
 
     static {
@@ -76,24 +80,18 @@ public class DatabaseChecker {
     }
 
     /**
-     * Protected constructor
+     * Protected constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     protected DatabaseChecker(final String configFile) throws IOException, MarshalException, ValidationException,
             ClassNotFoundException {
@@ -109,20 +107,14 @@ public class DatabaseChecker {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     protected DatabaseChecker() throws IOException, MarshalException, ValidationException, ClassNotFoundException {
         this(ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME).getPath());
@@ -189,11 +181,12 @@ public class DatabaseChecker {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(final String[] argv) throws Exception {
         final DatabaseChecker checker = new DatabaseChecker();

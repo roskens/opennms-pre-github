@@ -74,8 +74,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Controller {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
+    /** The Constant JMX_HTTP_ADAPTER_NAME. */
     private static final String JMX_HTTP_ADAPTER_NAME = ":Name=HttpAdaptorMgmt";
 
     /**
@@ -95,12 +97,16 @@ public class Controller {
      */
     private static final int DEFAULT_HTTP_REQUEST_READ_TIMEOUT = 0;
 
+    /** The m_verbose. */
     private boolean m_verbose = false;
 
+    /** The m_invoke url. */
     private String m_invokeUrl = DEFAULT_INVOKER_URL;
 
+    /** The m_authenticator. */
     private Authenticator m_authenticator;
 
+    /** The m_http request read timeout. */
     private int m_httpRequestReadTimeout = DEFAULT_HTTP_REQUEST_READ_TIMEOUT;
 
     /**
@@ -116,6 +122,7 @@ public class Controller {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.
@@ -192,6 +199,7 @@ public class Controller {
      * <p>
      * stop
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -203,6 +211,7 @@ public class Controller {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -255,6 +264,7 @@ public class Controller {
      * <p>
      * check
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -272,6 +282,7 @@ public class Controller {
      * <p>
      * exit
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -279,6 +290,13 @@ public class Controller {
         return invokeOperation("doSystemExit");
     }
 
+    /**
+     * Invoke operation.
+     *
+     * @param operation
+     *            the operation
+     * @return the int
+     */
     int invokeOperation(String operation) {
         Authenticator.setDefault(getAuthenticator());
 
@@ -314,6 +332,11 @@ public class Controller {
     /*
      * Create an Authenticator so that we can provide authentication, if
      * needed, when go to connect to the URL
+     */
+    /**
+     * Creates the authenticator using config credentials.
+     *
+     * @return the authenticator
      */
     Authenticator createAuthenticatorUsingConfigCredentials() {
         Service service = getConfiguredService(JMX_HTTP_ADAPTER_NAME);
@@ -382,6 +405,11 @@ public class Controller {
         };
     }
 
+    /**
+     * Gets the service config factory.
+     *
+     * @return the service config factory
+     */
     private ServiceConfigFactory getServiceConfigFactory() {
         try {
             ServiceConfigFactory.init();
@@ -391,6 +419,13 @@ public class Controller {
         }
     }
 
+    /**
+     * Gets the configured service.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the configured service
+     */
     private Service getConfiguredService(String serviceName) {
         ServiceConfigFactory sfact = getServiceConfigFactory();
 
@@ -409,6 +444,7 @@ public class Controller {
      * <p>
      * isVerbose
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -420,6 +456,7 @@ public class Controller {
      * <p>
      * setVerbose
      * </p>
+     * .
      *
      * @param verbose
      *            a boolean.
@@ -432,6 +469,7 @@ public class Controller {
      * <p>
      * getInvokeUrl
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -443,6 +481,7 @@ public class Controller {
      * <p>
      * setInvokeUrl
      * </p>
+     * .
      *
      * @param invokerUrl
      *            a {@link java.lang.String} object.
@@ -455,6 +494,7 @@ public class Controller {
      * <p>
      * getAuthenticator
      * </p>
+     * .
      *
      * @return a {@link java.net.Authenticator} object.
      */
@@ -466,6 +506,7 @@ public class Controller {
      * <p>
      * setAuthenticator
      * </p>
+     * .
      *
      * @param authenticator
      *            a {@link java.net.Authenticator} object.
@@ -478,6 +519,7 @@ public class Controller {
      * <p>
      * getHttpRequestReadTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -489,6 +531,7 @@ public class Controller {
      * <p>
      * setHttpRequestReadTimeout
      * </p>
+     * .
      *
      * @param httpRequestReadTimeout
      *            a int.

@@ -44,27 +44,29 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Abstract AbstractSpringContextJmxServiceDaemon class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServiceDaemon> implements BaseOnmsMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringContextJmxServiceDaemon.class);
 
-    /** Constant <code>DAEMON_BEAN_NAME="daemon"</code> */
+    /** Constant <code>DAEMON_BEAN_NAME="daemon"</code>. */
     public static final String DAEMON_BEAN_NAME = "daemon";
 
+    /** The m_context. */
     private ClassPathXmlApplicationContext m_context;
 
+    /** The m_status. */
     private int m_status = Fiber.START_PENDING;
 
     /**
      * <p>
      * Constructor for AbstractSpringContextJmxServiceDaemon.
      * </p>
-     *
-     * @param <T>
-     *            a T object.
      */
     public AbstractSpringContextJmxServiceDaemon() {
         super();
@@ -74,6 +76,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * getSpringContext
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +86,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * getLoggingPrefix
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +105,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public final void init() {
@@ -124,6 +129,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public final void start() {
@@ -178,6 +184,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public final void stop() {
@@ -202,6 +209,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -210,6 +218,12 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     private void setStatus(int status) {
         m_status = status;
     }
@@ -218,6 +232,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +257,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

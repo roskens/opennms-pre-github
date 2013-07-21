@@ -37,8 +37,12 @@ import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The Class SpringLoader.
+ */
 public class SpringLoader {
 
+    /** The m_app context. */
     private ApplicationContext m_appContext;
 
     /**
@@ -48,8 +52,8 @@ public class SpringLoader {
      *
      * @param operation
      *            a {@link java.lang.String} object.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     public SpringLoader(String operation) throws Throwable {
         String startupUrl = getStartupResource();
@@ -80,6 +84,11 @@ public class SpringLoader {
 
     }
 
+    /**
+     * Gets the startup resource.
+     *
+     * @return the startup resource
+     */
     private String getStartupResource() {
         String startupUrl = System.getProperty("opennms.startup.context");
         if (startupUrl != null)
@@ -95,6 +104,11 @@ public class SpringLoader {
         return "classpath:/META-INF/opennms/default-startup.xml";
     }
 
+    /**
+     * Gets the etc dir.
+     *
+     * @return the etc dir
+     */
     private String getEtcDir() {
         String etcDir = System.getProperty("opennms.etc");
         if (etcDir != null)
@@ -111,14 +125,22 @@ public class SpringLoader {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     public void start() throws Throwable {
         getDaemonMgr().start();
     }
 
+    /**
+     * Gets the daemon mgr.
+     *
+     * @return the daemon mgr
+     * @throws Throwable
+     *             the throwable
+     */
     private DaemonManager getDaemonMgr() throws Throwable {
         try {
             return (DaemonManager) m_appContext.getBean("daemonMgr");
@@ -130,18 +152,42 @@ public class SpringLoader {
         }
     }
 
+    /**
+     * Stop.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     private void stop() throws Throwable {
         getDaemonMgr().stop();
     }
 
+    /**
+     * Pause.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     private void pause() throws Throwable {
         getDaemonMgr().pause();
     }
 
+    /**
+     * Resume.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     private void resume() throws Throwable {
         getDaemonMgr().resume();
     }
 
+    /**
+     * Status.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     private void status() throws Throwable {
 
         Map<String, String> stati = getDaemonMgr().status();
@@ -154,6 +200,7 @@ public class SpringLoader {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
@@ -188,6 +235,9 @@ public class SpringLoader {
 
     }
 
+    /**
+     * Usage.
+     */
     private static void usage() {
         System.err.println("opennms.sh [start|pause|resume|stop|status]");
         System.exit(1);

@@ -79,16 +79,22 @@ import org.slf4j.LoggerFactory;
  */
 public class Invoker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
 
+    /** The m_server. */
     private MBeanServer m_server;
 
+    /** The m_at type. */
     private InvokeAtType m_atType;
 
+    /** The m_reverse. */
     private boolean m_reverse = false;
 
+    /** The m_fail fast. */
     private boolean m_failFast = true;
 
+    /** The m_services. */
     private List<InvokerService> m_services;
 
     /**
@@ -104,6 +110,7 @@ public class Invoker {
      * <p>
      * getDefaultServiceConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ServiceConfigFactory} object.
      */
@@ -120,6 +127,7 @@ public class Invoker {
      * <p>
      * instantiateClasses
      * </p>
+     * .
      */
     public void instantiateClasses() {
 
@@ -172,6 +180,9 @@ public class Invoker {
      * <p>
      * getObjectInstances
      * </p>
+     * .
+     *
+     * @return the object instances
      */
     public void getObjectInstances() {
         for (InvokerService invokerService : getServices()) {
@@ -194,6 +205,7 @@ public class Invoker {
      * <p>
      * invokeMethods
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -252,8 +264,6 @@ public class Invoker {
     /**
      * Get the last pass for a set of InvokerServices.
      *
-     * @param invokerServices
-     *            list to look at
      * @return highest pass value found for all Invoke objects in the
      *         invokerServices list
      */
@@ -278,6 +288,17 @@ public class Invoker {
         return end;
     }
 
+    /**
+     * Invoke.
+     *
+     * @param invoke
+     *            the invoke
+     * @param mbean
+     *            the mbean
+     * @return the object
+     * @throws Throwable
+     *             the throwable
+     */
     private Object invoke(Invoke invoke, ObjectInstance mbean) throws Throwable {
         Argument[] args = invoke.getArgument();
         Object[] parms = new Object[0];
@@ -318,6 +339,15 @@ public class Invoker {
         return object;
     }
 
+    /**
+     * Gets the attribute.
+     *
+     * @param attrib
+     *            the attrib
+     * @return the attribute
+     * @throws Exception
+     *             the exception
+     */
     private Attribute getAttribute(org.opennms.netmgt.config.service.Attribute attrib) throws Exception {
         Class<?> attribClass = Class.forName(attrib.getValue().getType());
         Constructor<?> construct = attribClass.getConstructor(new Class[] { String.class });
@@ -333,6 +363,27 @@ public class Invoker {
         return new Attribute(attrib.getName(), value);
     }
 
+    /**
+     * Gets the argument.
+     *
+     * @param arg
+     *            the arg
+     * @return the argument
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws SecurityException
+     *             the security exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     */
     private Object getArgument(Argument arg) throws ClassNotFoundException, SecurityException, NoSuchMethodException,
             IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Class<?> argClass = Class.forName(arg.getType());
@@ -350,6 +401,7 @@ public class Invoker {
      * <p>
      * getAtType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.service.types.InvokeAtType}
      *         object.
@@ -362,6 +414,7 @@ public class Invoker {
      * <p>
      * setAtType
      * </p>
+     * .
      *
      * @param atType
      *            a {@link org.opennms.netmgt.config.service.types.InvokeAtType}
@@ -375,6 +428,7 @@ public class Invoker {
      * <p>
      * isFailFast
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -386,6 +440,7 @@ public class Invoker {
      * <p>
      * setFailFast
      * </p>
+     * .
      *
      * @param failFast
      *            a boolean.
@@ -398,6 +453,7 @@ public class Invoker {
      * <p>
      * isReverse
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -409,6 +465,7 @@ public class Invoker {
      * <p>
      * setReverse
      * </p>
+     * .
      *
      * @param reverse
      *            a boolean.
@@ -421,6 +478,7 @@ public class Invoker {
      * <p>
      * getServer
      * </p>
+     * .
      *
      * @return a {@link javax.management.MBeanServer} object.
      */
@@ -432,6 +490,7 @@ public class Invoker {
      * <p>
      * setServer
      * </p>
+     * .
      *
      * @param server
      *            a {@link javax.management.MBeanServer} object.
@@ -444,6 +503,7 @@ public class Invoker {
      * <p>
      * getServices
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -455,6 +515,7 @@ public class Invoker {
      * <p>
      * setServices
      * </p>
+     * .
      *
      * @param services
      *            a {@link java.util.List} object.

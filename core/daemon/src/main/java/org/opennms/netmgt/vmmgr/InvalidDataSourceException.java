@@ -28,21 +28,49 @@
 
 package org.opennms.netmgt.vmmgr;
 
+/**
+ * The Class InvalidDataSourceException.
+ */
 public class InvalidDataSourceException extends Exception {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1236387740430245142L;
 
+    /**
+     * Instantiates a new invalid data source exception.
+     */
     public InvalidDataSourceException() {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * Instantiates a new invalid data source exception.
+     *
+     * @param message
+     *            the message
+     */
     public InvalidDataSourceException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new invalid data source exception.
+     *
+     * @param cause
+     *            the cause
+     */
     public InvalidDataSourceException(final Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Instantiates a new invalid data source exception.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public InvalidDataSourceException(final String message, final Throwable cause) {
         super(message, cause);
     }

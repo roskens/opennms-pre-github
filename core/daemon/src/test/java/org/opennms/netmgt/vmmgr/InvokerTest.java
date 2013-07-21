@@ -50,13 +50,25 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
+/**
+ * The Class InvokerTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({ OpenNMSConfigurationExecutionListener.class, DirtiesContextTestExecutionListener.class })
 public class InvokerTest {
+
+    /** The m_services. */
     private List<InvokerService> m_services = null;
 
+    /** The m_server. */
     private MBeanServer m_server;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Before
     public void setUp() throws Throwable {
         m_server = MBeanServerFactory.createMBeanServer("OpenNMS");
@@ -73,6 +85,12 @@ public class InvokerTest {
         Thread.sleep(1000);
     }
 
+    /**
+     * Try status.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void tryStatus() throws Throwable {
         Invoker invoker = new Invoker();
@@ -86,6 +104,12 @@ public class InvokerTest {
         invokeMethods(invoker);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void tearDown() throws Throwable {
         Invoker invoker = new Invoker();
@@ -100,6 +124,14 @@ public class InvokerTest {
         invokeMethods(invoker);
     }
 
+    /**
+     * Invoke methods.
+     *
+     * @param invoker
+     *            the invoker
+     * @throws Throwable
+     *             the throwable
+     */
     private static void invokeMethods(Invoker invoker) throws Throwable {
         for (InvokerService iservice : invoker.getServices()) {
             Service service = iservice.getService();
@@ -120,11 +152,25 @@ public class InvokerTest {
         }
     }
 
+    /**
+     * Gets the object instance string.
+     *
+     * @param objectInstance
+     *            the object instance
+     * @return the object instance string
+     */
     private static String getObjectInstanceString(ObjectInstance objectInstance) {
         return new ToStringBuilder(objectInstance).append("class", objectInstance.getClassName()).append("object",
                                                                                                          objectInstance.getObjectName()).toString();
     }
 
+    /**
+     * Gets the service list.
+     *
+     * @return the service list
+     * @throws Exception
+     *             the exception
+     */
     private static Service[] getServiceList() throws Exception {
         List<Service> serviceList = new ArrayList<Service>();
 
@@ -161,12 +207,26 @@ public class InvokerTest {
         return serviceList.toArray(new Service[0]);
     }
 
+    /**
+     * Gets the result string.
+     *
+     * @param result
+     *            the result
+     * @return the result string
+     */
     private static String getResultString(InvokerResult result) {
         return new ToStringBuilder(result).append("result", result.getResult()).append("mbean", result.getMbean()).append("service",
                                                                                                                           getServiceString(result.getService())).append("throwable",
                                                                                                                                                                         result.getThrowable()).toString();
     }
 
+    /**
+     * Gets the service string.
+     *
+     * @param service
+     *            the service
+     * @return the service string
+     */
     private static String getServiceString(Service service) {
         return new ToStringBuilder(service).append("name", service.getName()).append("class", service.getClassName()).append("attributes",
                                                                                                                              service.getAttributeCollection()).append("invoke",

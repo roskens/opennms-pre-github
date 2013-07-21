@@ -30,11 +30,16 @@ package org.opennms.netmgt.vmmgr;
 
 import java.util.List;
 
+/**
+ * The Interface ManagerMBean.
+ */
 public interface ManagerMBean {
+
     /**
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -44,6 +49,7 @@ public interface ManagerMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     public void stop();
 
@@ -51,6 +57,7 @@ public interface ManagerMBean {
      * <p>
      * doSystemExit
      * </p>
+     * .
      */
     public void doSystemExit();
 
@@ -58,6 +65,7 @@ public interface ManagerMBean {
      * <p>
      * doTestLoadLibraries
      * </p>
+     * .
      */
     public void doTestLoadLibraries();
 }

@@ -85,6 +85,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Starter {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Starter.class);
 
     /**
@@ -92,6 +93,9 @@ public class Starter {
      */
     private static final String LOG4J_CATEGORY = "manager";
 
+    /**
+     * Sets the log prefix.
+     */
     private void setLogPrefix() {
         Logging.putPrefix(LOG4J_CATEGORY);
     }
@@ -100,6 +104,7 @@ public class Starter {
      * <p>
      * startDaemon
      * </p>
+     * .
      */
     public void startDaemon() {
         try {
@@ -119,10 +124,17 @@ public class Starter {
         }
     }
 
+    /**
+     * The Class Mx4jSlf4JLogger.
+     */
     private static class Mx4jSlf4JLogger extends mx4j.log.Logger {
 
+        /** The m_slf4j logger. */
         Logger m_slf4jLogger;
 
+        /* (non-Javadoc)
+         * @see mx4j.log.Logger#log(int, java.lang.Object, java.lang.Throwable)
+         */
         @Override
         protected void log(int priority, Object msg, Throwable t) {
             switch (priority) {
@@ -141,6 +153,9 @@ public class Starter {
             }
         }
 
+        /* (non-Javadoc)
+         * @see mx4j.log.Logger#setCategory(java.lang.String)
+         */
         @Override
         protected void setCategory(String category) {
             super.setCategory(category);
@@ -149,14 +164,23 @@ public class Starter {
 
     }
 
+    /**
+     * Setup mx4j logger.
+     */
     private void setupMx4jLogger() {
         mx4j.log.Log.redirectTo(new Mx4jSlf4JLogger());
     }
 
+    /**
+     * Configure log4j.
+     */
     private void configureLog4j() {
 
     }
 
+    /**
+     * Sets the default properties.
+     */
     private void setDefaultProperties() {
         setupFileResourceProperty("opennms.library.jicmp", System.mapLibraryName("jicmp"),
                                   "Initialization of ICMP socket will likely fail.");
@@ -166,6 +190,16 @@ public class Starter {
                                   "Initialization of JCIFS will likely fail or may be improperly configured.");
     }
 
+    /**
+     * Setup file resource property.
+     *
+     * @param propertyName
+     *            the property name
+     * @param file
+     *            the file
+     * @param notFoundWarning
+     *            the not found warning
+     */
     private void setupFileResourceProperty(String propertyName, String file, String notFoundWarning) {
         if (System.getProperty(propertyName) == null) {
             LOG.debug("System property '{}' not set.  Searching for file '{}' in the class path.", propertyName, file);
@@ -182,6 +216,9 @@ public class Starter {
         }
     }
 
+    /**
+     * Load global properties.
+     */
     private void loadGlobalProperties() {
         // Log system properties, sorted by property name
         TreeMap<Object, Object> sortedProps = new TreeMap<Object, Object>(System.getProperties());
@@ -240,10 +277,21 @@ public class Starter {
         System.exit(1);
     }
 
+    /**
+     * Die.
+     *
+     * @param message
+     *            the message
+     */
     public void die(String message) {
         die(message, null);
     }
 
+    /**
+     * Gets the properties file.
+     *
+     * @return the properties file
+     */
     private File getPropertiesFile() {
         String homeDir = System.getProperty("opennms.home");
         File etcDir = new File(homeDir, "etc");
@@ -251,6 +299,9 @@ public class Starter {
         return propertiesFile;
     }
 
+    /**
+     * Start.
+     */
     private void start() {
         LOG.debug("Beginning startup");
 

@@ -36,23 +36,39 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
+ * The Class InvokerService.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerService {
+
+    /** The m_service. */
     private Service m_service;
 
+    /** The m_mbean. */
     private ObjectInstance m_mbean;
 
+    /** The m_bad throwable. */
     private Throwable m_badThrowable;
 
     /**
      * No public constructor. Use @{link
      * InvokerService#createServiceArray(Service[])}.
+     *
+     * @param service
+     *            the service
      */
     private InvokerService(Service service) {
         setService(service);
     }
 
+    /**
+     * Creates the service list.
+     *
+     * @param services
+     *            the services
+     * @return the list
+     */
     static List<InvokerService> createServiceList(Service[] services) {
         List<InvokerService> invokerServices = new ArrayList<InvokerService>(services.length);
 
@@ -63,26 +79,59 @@ class InvokerService {
         return invokerServices;
     }
 
+    /**
+     * Sets the bad throwable.
+     *
+     * @param badThrowable
+     *            the new bad throwable
+     */
     void setBadThrowable(Throwable badThrowable) {
         m_badThrowable = badThrowable;
     }
 
+    /**
+     * Gets the bad throwable.
+     *
+     * @return the bad throwable
+     */
     Throwable getBadThrowable() {
         return m_badThrowable;
     }
 
+    /**
+     * Gets the mbean.
+     *
+     * @return the mbean
+     */
     ObjectInstance getMbean() {
         return m_mbean;
     }
 
+    /**
+     * Sets the mbean.
+     *
+     * @param mbean
+     *            the new mbean
+     */
     void setMbean(ObjectInstance mbean) {
         m_mbean = mbean;
     }
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     Service getService() {
         return m_service;
     }
 
+    /**
+     * Sets the service.
+     *
+     * @param service
+     *            the new service
+     */
     private void setService(Service service) {
         m_service = service;
     }
@@ -91,6 +140,7 @@ class InvokerService {
      * <p>
      * isBadService
      * </p>
+     * .
      *
      * @return a boolean.
      */
