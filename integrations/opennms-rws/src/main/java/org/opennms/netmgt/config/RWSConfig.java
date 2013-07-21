@@ -46,10 +46,12 @@ import org.opennms.rancid.ConnectionProperties;
  * @version $Id: $
  */
 public interface RWSConfig {
+
     /**
      * <p>
      * getBase
      * </p>
+     * .
      *
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
@@ -59,6 +61,7 @@ public interface RWSConfig {
      * <p>
      * getStandBy
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.rancid.ConnectionProperties}
      *         objects.
@@ -69,6 +72,7 @@ public interface RWSConfig {
      * <p>
      * getNextStandBy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
@@ -78,6 +82,7 @@ public interface RWSConfig {
      * <p>
      * getBaseUrl
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.rws.BaseUrl} object.
      */
@@ -87,6 +92,7 @@ public interface RWSConfig {
      * <p>
      * getStanbyUrls
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.config.rws.StandbyUrl}
      *         objects.
@@ -97,6 +103,7 @@ public interface RWSConfig {
      * <p>
      * getNextStandbyUrl
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.rws.StandbyUrl} object.
      */
@@ -106,12 +113,23 @@ public interface RWSConfig {
      * <p>
      * hasStandbyUrl
      * </p>
+     * .
      *
      * @return a boolean.
      */
     public boolean hasStandbyUrl();
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock();
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock();
 }

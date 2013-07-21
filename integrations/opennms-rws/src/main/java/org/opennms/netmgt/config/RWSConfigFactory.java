@@ -59,11 +59,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class RWSConfigFactory extends RWSConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RWSConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static RWSConfig m_singleton = null;
 
     /**
@@ -71,9 +71,7 @@ public final class RWSConfigFactory extends RWSConfigManager {
      */
     private static boolean m_loaded = false;
 
-    /**
-     * Loaded version
-     */
+    /** Loaded version. */
     private long m_currentVersion = -1L;
 
     /**
@@ -85,12 +83,12 @@ public final class RWSConfigFactory extends RWSConfigManager {
      *            a long.
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public RWSConfigFactory(final long currentVersion, final InputStream stream) throws MarshalException,
             ValidationException, IOException {
@@ -102,18 +100,12 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -140,8 +132,6 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized RWSConfig getInstance() {
         if (!m_loaded) {
@@ -154,6 +144,7 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.config.RWSConfig} object.
@@ -164,18 +155,12 @@ public final class RWSConfigFactory extends RWSConfigManager {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -199,13 +184,14 @@ public final class RWSConfigFactory extends RWSConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void update() throws IOException, MarshalException, ValidationException {
         getWriteLock().lock();

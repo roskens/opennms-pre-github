@@ -54,16 +54,23 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public abstract class RWSConfigManager implements RWSConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RWSConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The m_cursor. */
     private int m_cursor = 0;
 
+    /** The m_config. */
     private RwsConfiguration m_config;
 
     /**
@@ -81,22 +88,28 @@ public abstract class RWSConfigManager implements RWSConfig {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public RWSConfigManager(final InputStream stream) throws MarshalException, ValidationException, IOException {
         reloadXML(stream);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.RWSConfig#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.RWSConfig#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -106,6 +119,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getBase
      * </p>
+     * .
      *
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
@@ -133,6 +147,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getNextStandBy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
@@ -165,6 +180,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getStandBy
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.rancid.ConnectionProperties}
      *         objects.
@@ -178,6 +194,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getBaseUrl
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.rws.BaseUrl} object.
      */
@@ -195,6 +212,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getStanbyUrls
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.config.rws.StandbyUrl}
      *         objects.
@@ -213,6 +231,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * getNextStandbyUrl
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.rws.StandbyUrl} object.
      */
@@ -237,6 +256,7 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * hasStandbyUrl
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -254,15 +274,16 @@ public abstract class RWSConfigManager implements RWSConfig {
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void reloadXML(final InputStream stream) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
