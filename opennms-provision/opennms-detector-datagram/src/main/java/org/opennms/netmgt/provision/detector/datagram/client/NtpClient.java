@@ -40,6 +40,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class NtpClient.
+ */
 @Component
 /**
  * <p>NtpClient class.</p>
@@ -50,18 +53,23 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class NtpClient implements Client<NtpMessage, DatagramPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NtpClient.class);
 
+    /** The m_socket. */
     private DatagramSocket m_socket;
 
+    /** The m_port. */
     private int m_port;
 
+    /** The m_address. */
     private InetAddress m_address;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -82,12 +90,13 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public DatagramPacket receiveBanner() throws IOException, Exception {
@@ -99,15 +108,16 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link org.opennms.netmgt.provision.support.ntp.NtpMessage}
      *            object.
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public DatagramPacket sendRequest(final NtpMessage request) throws IOException, Exception {
@@ -126,6 +136,7 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -138,6 +149,7 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -149,6 +161,7 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -161,6 +174,7 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */

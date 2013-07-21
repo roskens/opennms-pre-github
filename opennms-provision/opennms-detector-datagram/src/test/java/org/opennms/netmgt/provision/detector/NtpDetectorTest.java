@@ -51,16 +51,25 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class NtpDetectorTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/detectors.xml" })
 public class NtpDetectorTest implements ApplicationContextAware {
 
+    /** The m_application context. */
     private ApplicationContext m_applicationContext;
 
+    /** The m_detector. */
     public NtpDetector m_detector;
 
+    /** The m_server. */
     private SimpleUDPServer m_server;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -94,12 +103,24 @@ public class NtpDetectorTest implements ApplicationContextAware {
         m_server.setInetAddress(InetAddressUtils.getLocalHostAddress());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @After
     public void tearDown() throws IOException {
         m_server.stopServer();
         m_server = null;
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws Exception {
         m_server.onInit();
@@ -112,6 +133,12 @@ public class NtpDetectorTest implements ApplicationContextAware {
                    m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_server.onInit();
@@ -124,6 +151,12 @@ public class NtpDetectorTest implements ApplicationContextAware {
     }
 
     // This test is no longer valid because setIpToValidate is no longer needed.
+    /**
+     * Test detector fail incorrect ip.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Ignore
     @Test(timeout = 90000)
     public void testDetectorFailIncorrectIp() throws Exception {
@@ -136,6 +169,13 @@ public class NtpDetectorTest implements ApplicationContextAware {
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
 
+    /**
+     * Gets the detector.
+     *
+     * @param detectorClass
+     *            the detector class
+     * @return the detector
+     */
     private NtpDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
@@ -143,6 +183,9 @@ public class NtpDetectorTest implements ApplicationContextAware {
         return (NtpDetector) bean;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

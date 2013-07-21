@@ -54,25 +54,30 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DnsDetector.class);
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "DNS";
 
+    /** The Constant DEFAULT_PORT. */
     private static final int DEFAULT_PORT = 53;
 
+    /** The Constant DEFAULT_LOOKUP. */
     private static final String DEFAULT_LOOKUP = "localhost";
 
+    /** The m_lookup. */
     private String m_lookup = DEFAULT_LOOKUP;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public DnsDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
 
     /**
-     * Constructor for creating a non-default service based on this protocol
+     * Constructor for creating a non-default service based on this protocol.
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -87,6 +92,7 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -95,8 +101,11 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
     }
 
     /**
+     * Verify response.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the response validator
      */
     private static ResponseValidator<DatagramPacket> verifyResponse(final DNSAddressRequest request) {
 
@@ -118,19 +127,35 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
         };
     }
 
+    /**
+     * Addr request.
+     *
+     * @param host
+     *            the host
+     * @return the dNS address request
+     */
     private static DNSAddressRequest addrRequest(final String host) {
         return new DNSAddressRequest(host);
     }
 
+    /**
+     * Encode.
+     *
+     * @param dnsPacket
+     *            the dns packet
+     * @return the datagram packet
+     */
     private static DatagramPacket encode(final DNSAddressRequest dnsPacket) {
         final byte[] data = buildRequest(dnsPacket);
         return new DatagramPacket(data, data.length);
     }
 
     /**
+     * Builds the request.
+     *
      * @param request
-     * @return
-     * @throws IOException
+     *            the request
+     * @return the byte[]
      */
     private static byte[] buildRequest(final DNSAddressRequest request) {
         try {
@@ -155,6 +180,7 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
      * <p>
      * setLookup
      * </p>
+     * .
      *
      * @param lookup
      *            the lookup to set
@@ -167,6 +193,7 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
      * <p>
      * getLookup
      * </p>
+     * .
      *
      * @return the lookup
      */

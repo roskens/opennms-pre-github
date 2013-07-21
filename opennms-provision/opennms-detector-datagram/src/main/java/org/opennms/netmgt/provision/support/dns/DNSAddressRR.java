@@ -141,11 +141,8 @@ public final class DNSAddressRR {
      *            time for which this RR is valid
      * @param dnsIn
      *            inputstream for this RR
-     * @exception java.io.IOException
-     *                Thrown if an error occurs decoding data from the passed
-     *                DNSInputStream.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public DNSAddressRR(final String name, final int type, final int clas, final long ttl, final DNSInputStream dnsIn)
             throws IOException {
@@ -182,10 +179,8 @@ public final class DNSAddressRR {
      * </P>
      *
      * @return The InetAddress of the address
-     * @exception java.net.UnknownHostException
-     *                Thrown if the InetAddress object cannot be constructed.
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public InetAddress getInetAddress() throws UnknownHostException {
         return InetAddressUtils.addr(addressToByteString());

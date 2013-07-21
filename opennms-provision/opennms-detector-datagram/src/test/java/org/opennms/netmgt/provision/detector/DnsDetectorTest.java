@@ -50,6 +50,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class DnsDetectorTest.
+ *
  * @author Donald Desloge
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,8 +60,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @JUnitDNSServer(port = 9153, zones = { @DNSZone(name = "google.com.", entries = { @DNSEntry(hostname = "www", address = "72.14.204.99") }) })
 public class DnsDetectorTest {
 
+    /** The m_detector. */
     private DnsDetector m_detector;
 
+    /**
+     * Sets the up.
+     *
+     * @throws SocketException
+     *             the socket exception
+     */
     @Before
     public void setUp() throws SocketException {
         MockLogAppender.setupLogging();
@@ -72,11 +81,20 @@ public class DnsDetectorTest {
         // m_serverThread.start();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         // m_serverThread.stop();
     }
 
+    /**
+     * Test detector success.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorSuccess() throws UnknownHostException {
         m_detector.setPort(9153);
@@ -86,6 +104,12 @@ public class DnsDetectorTest {
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("localhost")));
     }
 
+    /**
+     * Test detector fail wrong port.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test(timeout = 90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         m_detector.setPort(5000);

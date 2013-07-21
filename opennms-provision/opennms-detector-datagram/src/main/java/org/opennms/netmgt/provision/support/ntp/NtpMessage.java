@@ -88,8 +88,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * The Class NtpMessage.
+ */
 public class NtpMessage {
 
+    /** The Constant NTP_FRACTION_FORMAT. */
     private static final DecimalFormat NTP_FRACTION_FORMAT = new DecimalFormat(".000000");
 
     /**
@@ -256,7 +260,7 @@ public class NtpMessage {
     }
 
     /**
-     * Constructs a new NtpMessage
+     * Constructs a new NtpMessage.
      *
      * @param leapIndicator
      *            a byte.
@@ -359,7 +363,7 @@ public class NtpMessage {
     }
 
     /**
-     * Returns a string representation of a NtpMessage
+     * Returns a string representation of a NtpMessage.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -414,7 +418,7 @@ public class NtpMessage {
     }
 
     /**
-     * Encodes a timestamp in the specified position in the message
+     * Encodes a timestamp in the specified position in the message.
      *
      * @param array
      *            an array of byte.

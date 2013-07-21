@@ -186,6 +186,7 @@ public class DNSAddressRequest {
      */
     private static int globalID = 1;
 
+    /** The Constant CODENAMES. */
     private static final String[] CODENAMES = { "Format error", "Server failure", "Name not known", "Not implemented",
             "Refused" };
 
@@ -194,6 +195,11 @@ public class DNSAddressRequest {
      * Decodes the integer to get the flags - refer header for more info on the
      * flags.
      * </P>
+     *
+     * @param flags
+     *            the flags
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void decodeFlags(final int flags) throws IOException {
         //
@@ -272,8 +278,8 @@ public class DNSAddressRequest {
      * </P>
      *
      * @return A byte array containing the request.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public byte[] buildRequest() throws IOException {
         final ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
@@ -310,11 +316,9 @@ public class DNSAddressRequest {
      *            The byte array containing the response.
      * @param length
      *            The length of the byte array.
-     * @exception IOException
-     *                Thrown if there is an error while reading the recieved
-     *                packet
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Thrown if there is an error while reading the recieved
+     *             packet
      */
     public void receiveResponse(final byte[] data, final int length) throws IOException {
         /*
@@ -379,11 +383,9 @@ public class DNSAddressRequest {
      *            The byte array containing the response.
      * @param length
      *            The length of the byte array.
-     * @exception IOException
-     *                Thrown if there is an error while reading the recieved
-     *                packet
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Thrown if there is an error while reading the recieved
+     *             packet
      */
     public void verifyResponse(final byte[] data, final int length) throws IOException {
         /*

@@ -41,6 +41,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class NtpDetector.
+ */
 @Component
 /**
  * <p>NtpDetector class.</p>
@@ -51,8 +54,10 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NtpDetector.class);
 
+    /** The m_client. */
     private final NtpClient m_client;
 
     /**
@@ -77,6 +82,11 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
         send(createNtpMessage(), validateResponse());
     }
 
+    /**
+     * Validate response.
+     *
+     * @return the response validator
+     */
     private ResponseValidator<DatagramPacket> validateResponse() {
         return new ResponseValidator<DatagramPacket>() {
 
@@ -98,6 +108,11 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
         };
     }
 
+    /**
+     * Creates the ntp message.
+     *
+     * @return the request builder
+     */
     private RequestBuilder<NtpMessage> createNtpMessage() {
         return new RequestBuilder<NtpMessage>() {
 
@@ -109,11 +124,22 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
         };
     }
 
+    /**
+     * Sets the ip to validate.
+     *
+     * @param address
+     *            the new ip to validate
+     */
     public void setIpToValidate(String address) {
         // This method only exists for compatibility purposes, this won't be
         // used. The address to be used will be the one defined on the client.
     }
 
+    /**
+     * Gets the ip to validate.
+     *
+     * @return the ip to validate
+     */
     public String getIpToValidate() {
         // This method only exists for compatibility purposes, this won't be
         // used. The address to be used will be the one defined on the client.

@@ -47,8 +47,10 @@ import org.slf4j.LoggerFactory;
  */
 public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DatagramClient.class);
 
+    /** The m_socket. */
     private DatagramSocket m_socket;
 
     /*
@@ -59,6 +61,7 @@ public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -89,10 +92,11 @@ public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public DatagramPacket receiveBanner() throws IOException {
@@ -111,12 +115,13 @@ public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a {@link java.net.DatagramPacket} object.
      * @return a {@link java.net.DatagramPacket} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public DatagramPacket sendRequest(final DatagramPacket request) throws IOException {
