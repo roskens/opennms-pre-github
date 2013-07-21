@@ -32,11 +32,14 @@ import java.util.List;
 
 import org.opennms.netmgt.model.OnmsCriteria;
 
+/**
+ * The Interface NCSComponentRepository.
+ */
 public interface NCSComponentRepository {
 
     /**
      * This is used to lock the table in order to implement upsert type
-     * operations
+     * operations.
      */
     void lock();
 
@@ -44,6 +47,7 @@ public interface NCSComponentRepository {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -54,6 +58,7 @@ public interface NCSComponentRepository {
      * <p>
      * flush
      * </p>
+     * .
      */
     void flush();
 
@@ -61,6 +66,7 @@ public interface NCSComponentRepository {
      * <p>
      * clear
      * </p>
+     * .
      */
     void clear();
 
@@ -68,6 +74,7 @@ public interface NCSComponentRepository {
      * <p>
      * countAll
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -77,6 +84,10 @@ public interface NCSComponentRepository {
      * <p>
      * delete
      * </p>
+     * .
+     *
+     * @param component
+     *            the component
      */
     void delete(NCSComponent component);
 
@@ -84,6 +95,7 @@ public interface NCSComponentRepository {
      * <p>
      * findAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -93,6 +105,7 @@ public interface NCSComponentRepository {
      * <p>
      * findMatching
      * </p>
+     * .
      *
      * @param criteria
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -104,6 +117,7 @@ public interface NCSComponentRepository {
      * <p>
      * countMatching
      * </p>
+     * .
      *
      * @param onmsCrit
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
@@ -115,6 +129,11 @@ public interface NCSComponentRepository {
      * <p>
      * get
      * </p>
+     * .
+     *
+     * @param id
+     *            the id
+     * @return the nCS component
      */
     NCSComponent get(Long id);
 
@@ -122,6 +141,11 @@ public interface NCSComponentRepository {
      * <p>
      * load
      * </p>
+     * .
+     *
+     * @param id
+     *            the id
+     * @return the nCS component
      */
     NCSComponent load(Long id);
 
@@ -129,6 +153,10 @@ public interface NCSComponentRepository {
      * <p>
      * save
      * </p>
+     * .
+     *
+     * @param component
+     *            the component
      */
     void save(NCSComponent component);
 
@@ -136,6 +164,10 @@ public interface NCSComponentRepository {
      * <p>
      * saveOrUpdate
      * </p>
+     * .
+     *
+     * @param component
+     *            the component
      */
     void saveOrUpdate(NCSComponent component);
 
@@ -143,34 +175,61 @@ public interface NCSComponentRepository {
      * <p>
      * update
      * </p>
+     * .
+     *
+     * @param component
+     *            the component
      */
     void update(NCSComponent component);
 
     /**
+     * Find by type.
+     *
      * @param type
+     *            the type
+     * @return the list
      */
     List<NCSComponent> findByType(String type);
 
     /**
+     * Find by type and foreign identity.
+     *
      * @param type
+     *            the type
      * @param foreignSource
+     *            the foreign source
      * @param foreignId
+     *            the foreign id
+     * @return the nCS component
      */
     NCSComponent findByTypeAndForeignIdentity(String type, String foreignSource, String foreignId);
 
     /**
+     * Find components that depend on.
+     *
      * @param component
+     *            the component
+     * @return the list
      */
     List<NCSComponent> findComponentsThatDependOn(NCSComponent component);
 
     /**
+     * Find components with attribute.
+     *
      * @param attrKey
+     *            the attr key
      * @param attrValue
+     *            the attr value
+     * @return the list
      */
     List<NCSComponent> findComponentsWithAttribute(String attrKey, String attrValue);
 
     /**
+     * Find components by node id.
+     *
      * @param nodeid
+     *            the nodeid
+     * @return the list
      */
     List<NCSComponent> findComponentsByNodeId(int nodeid);
 }

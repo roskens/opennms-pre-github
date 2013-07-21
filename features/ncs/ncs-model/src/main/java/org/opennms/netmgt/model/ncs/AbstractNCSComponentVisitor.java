@@ -28,12 +28,21 @@
 
 package org.opennms.netmgt.model.ncs;
 
+/**
+ * The Class AbstractNCSComponentVisitor.
+ */
 public class AbstractNCSComponentVisitor implements NCSComponentVisitor {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.ncs.NCSComponentVisitor#visitComponent(org.opennms.netmgt.model.ncs.NCSComponent)
+     */
     @Override
     public void visitComponent(NCSComponent component) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.ncs.NCSComponentVisitor#completeComponent(org.opennms.netmgt.model.ncs.NCSComponent)
+     */
     @Override
     public void completeComponent(NCSComponent component) {
     }

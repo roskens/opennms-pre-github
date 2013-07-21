@@ -46,8 +46,17 @@ import javax.xml.validation.SchemaFactory;
 import org.junit.Test;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 
+/**
+ * The Class JAXBTest.
+ */
 public class JAXBTest {
 
+    /**
+     * Test marshall.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMarshall() throws Exception {
 

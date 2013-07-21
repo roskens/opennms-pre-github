@@ -28,10 +28,25 @@
 
 package org.opennms.netmgt.model.ncs;
 
+/**
+ * The Interface NCSComponentVisitor.
+ */
 public interface NCSComponentVisitor {
 
+    /**
+     * Visit component.
+     *
+     * @param component
+     *            the component
+     */
     public void visitComponent(NCSComponent component);
 
+    /**
+     * Complete component.
+     *
+     * @param component
+     *            the component
+     */
     public void completeComponent(NCSComponent component);
 
 }

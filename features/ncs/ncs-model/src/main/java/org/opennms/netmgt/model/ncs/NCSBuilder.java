@@ -31,24 +31,38 @@ package org.opennms.netmgt.model.ncs;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 import org.opennms.netmgt.model.ncs.NCSComponent.NodeIdentification;
 
+/**
+ * The Class NCSBuilder.
+ */
 public class NCSBuilder {
 
+    /** The m_parent. */
     private final NCSBuilder m_parent;
 
+    /** The m_component. */
     private final NCSComponent m_component;
 
     /**
+     * Instantiates a new nCS builder.
+     *
      * @param type
+     *            the type
      * @param foreignSource
+     *            the foreign source
      * @param foreignId
+     *            the foreign id
      */
     public NCSBuilder(String type, String foreignSource, String foreignId) {
         this(null, new NCSComponent(type, foreignSource, foreignId));
     }
 
     /**
+     * Instantiates a new nCS builder.
+     *
      * @param parent
+     *            the parent
      * @param component
+     *            the component
      */
     public NCSBuilder(NCSBuilder parent, NCSComponent component) {
         m_parent = parent;
@@ -56,7 +70,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the foreign source.
+     *
      * @param foreignSource
+     *            the foreign source
+     * @return the nCS builder
      */
     public NCSBuilder setForeignSource(String foreignSource) {
         m_component.setForeignSource(foreignSource);
@@ -64,7 +82,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the foreign id.
+     *
      * @param foreignId
+     *            the foreign id
+     * @return the nCS builder
      */
     public NCSBuilder setForeignId(String foreignId) {
         m_component.setForeignId(foreignId);
@@ -72,8 +94,13 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the node identity.
+     *
      * @param nodeForeignSource
+     *            the node foreign source
      * @param nodeForeignId
+     *            the node foreign id
+     * @return the nCS builder
      */
     public NCSBuilder setNodeIdentity(String nodeForeignSource, String nodeForeignId) {
         m_component.setNodeIdentification(new NodeIdentification(nodeForeignSource, nodeForeignId));
@@ -81,7 +108,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the type.
+     *
      * @param type
+     *            the type
+     * @return the nCS builder
      */
     public NCSBuilder setType(String type) {
         m_component.setType(type);
@@ -89,7 +120,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name
+     *            the name
+     * @return the nCS builder
      */
     public NCSBuilder setName(String name) {
         m_component.setName(name);
@@ -97,7 +132,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the up event uei.
+     *
      * @param upEventUei
+     *            the up event uei
+     * @return the nCS builder
      */
     public NCSBuilder setUpEventUei(String upEventUei) {
         m_component.setUpEventUei(upEventUei);
@@ -105,7 +144,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the down event uei.
+     *
      * @param downEventUei
+     *            the down event uei
+     * @return the nCS builder
      */
     public NCSBuilder setDownEventUei(String downEventUei) {
         m_component.setDownEventUei(downEventUei);
@@ -113,8 +156,13 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the attribute.
+     *
      * @param key
+     *            the key
      * @param value
+     *            the value
+     * @return the nCS builder
      */
     public NCSBuilder setAttribute(String key, String value) {
         m_component.setAttribute(key, value);
@@ -122,7 +170,11 @@ public class NCSBuilder {
     }
 
     /**
+     * Sets the dependencies required.
+     *
      * @param requirements
+     *            the requirements
+     * @return the nCS builder
      */
     public NCSBuilder setDependenciesRequired(DependencyRequirements requirements) {
         m_component.setDependenciesRequired(requirements);
@@ -130,9 +182,15 @@ public class NCSBuilder {
     }
 
     /**
+     * Push component.
+     *
      * @param type
+     *            the type
      * @param foreignSource
+     *            the foreign source
      * @param foreignId
+     *            the foreign id
+     * @return the nCS builder
      */
     public NCSBuilder pushComponent(String type, String foreignSource, String foreignId) {
         NCSComponent sub = new NCSComponent(type, foreignSource, foreignId);
@@ -140,10 +198,20 @@ public class NCSBuilder {
         return new NCSBuilder(this, sub);
     }
 
+    /**
+     * Pop component.
+     *
+     * @return the nCS builder
+     */
     public NCSBuilder popComponent() {
         return m_parent;
     }
 
+    /**
+     * Gets the.
+     *
+     * @return the nCS component
+     */
     public NCSComponent get() {
         return m_component;
     }

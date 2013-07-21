@@ -40,49 +40,91 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * The Class JAXBMapAdapter.
+ */
 @XmlTransient
 public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<String, String>> {
 
+    /**
+     * The Class JAXBMap.
+     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlRootElement(name = "attributes")
     public static class JAXBMap {
+
+        /** The a. */
         @XmlElement(name = "attribute", required = true)
         private final List<JAXBMapEntry> a = new ArrayList<JAXBMapEntry>();
 
+        /**
+         * Gets the a.
+         *
+         * @return the a
+         */
         public List<JAXBMapEntry> getA() {
             return this.a;
         }
     }
 
+    /**
+     * The Class JAXBMapEntry.
+     */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlRootElement(name = "attribute")
     public static class JAXBMapEntry {
 
+        /** The key. */
         @XmlElement(name = "key", required = true)
         private final String key;
 
+        /** The value. */
         @XmlElement(name = "value", required = true)
         private final String value;
 
+        /**
+         * Instantiates a new jAXB map entry.
+         *
+         * @param key
+         *            the key
+         * @param value
+         *            the value
+         */
         public JAXBMapEntry(String key, String value) {
             this.key = key;
             this.value = value;
         }
 
+        /**
+         * Instantiates a new jAXB map entry.
+         */
         public JAXBMapEntry() {
             this.key = null;
             this.value = null;
         }
 
+        /**
+         * Gets the key.
+         *
+         * @return the key
+         */
         public String getKey() {
             return key;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public String getValue() {
             return value;
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public JAXBMap marshal(Map<String, String> v) throws Exception {
         if (v.isEmpty())
@@ -95,6 +137,9 @@ public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<Strin
         return myMap;
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public Map<String, String> unmarshal(JAXBMap v) throws Exception {
         Map<String, String> map = new LinkedHashMap<String, String>();
