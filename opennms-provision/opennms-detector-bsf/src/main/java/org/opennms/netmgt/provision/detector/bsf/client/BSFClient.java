@@ -58,26 +58,35 @@ import org.slf4j.LoggerFactory;
  */
 public class BSFClient implements Client<BSFRequest, BSFResponse> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BSFClient.class);
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_file name. */
     private String m_fileName;
 
+    /** The m_lang class. */
     private String m_langClass;
 
+    /** The m_bsf engine. */
     private String m_bsfEngine;
 
+    /** The m_file extensions. */
     private String[] m_fileExtensions = {};
 
+    /** The m_run type. */
     private String m_runType = "eval";
 
+    /** The m_results. */
     private HashMap<String, String> m_results;
 
     /**
      * <p>
      * close
      * </p>
+     * .
      */
     @Override
     public void close() {
@@ -160,14 +169,15 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
      * <p>
      * receiveBanner
      * </p>
+     * .
      *
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
+     *             object.
      */
     @Override
     public BSFResponse receiveBanner() throws IOException, Exception {
@@ -180,72 +190,144 @@ public class BSFClient implements Client<BSFRequest, BSFResponse> {
      * <p>
      * sendRequest
      * </p>
+     * .
      *
      * @param request
      *            a
-     *            {@link org.opennms.netmgt.provision.detector.bsf.request.BSFRequest}
-     *            object.
      * @return a
-     *         {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
-     *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.provision.detector.bsf.request.BSFRequest}
+     *             object.
+     *             {@link org.opennms.netmgt.provision.detector.bsf.response.BSFResponse}
+     *             object.
      */
     @Override
     public BSFResponse sendRequest(final BSFRequest request) throws IOException, Exception {
         return null;
     }
 
+    /**
+     * Gets the service name.
+     *
+     * @return the service name
+     */
     public String getServiceName() {
         return m_serviceName;
     }
 
+    /**
+     * Sets the service name.
+     *
+     * @param serviceName
+     *            the new service name
+     */
     public void setServiceName(String serviceName) {
         this.m_serviceName = serviceName;
     }
 
+    /**
+     * Gets the file name.
+     *
+     * @return the file name
+     */
     public String getFileName() {
         return m_fileName;
     }
 
+    /**
+     * Sets the file name.
+     *
+     * @param fileName
+     *            the new file name
+     */
     public void setFileName(String fileName) {
         this.m_fileName = fileName;
     }
 
+    /**
+     * Gets the lang class.
+     *
+     * @return the lang class
+     */
     public String getLangClass() {
         return m_langClass;
     }
 
+    /**
+     * Sets the lang class.
+     *
+     * @param langClass
+     *            the new lang class
+     */
     public void setLangClass(String langClass) {
         this.m_langClass = langClass;
     }
 
+    /**
+     * Gets the bsf engine.
+     *
+     * @return the bsf engine
+     */
     public String getBsfEngine() {
         return m_bsfEngine;
     }
 
+    /**
+     * Sets the bsf engine.
+     *
+     * @param bsfEngine
+     *            the new bsf engine
+     */
     public void setBsfEngine(String bsfEngine) {
         this.m_bsfEngine = bsfEngine;
     }
 
+    /**
+     * Gets the file extensions.
+     *
+     * @return the file extensions
+     */
     public String[] getFileExtensions() {
         return m_fileExtensions;
     }
 
+    /**
+     * Sets the file extensions.
+     *
+     * @param fileExtensions
+     *            the new file extensions
+     */
     public void setFileExtensions(String[] fileExtensions) {
         this.m_fileExtensions = fileExtensions;
     }
 
+    /**
+     * Gets the run type.
+     *
+     * @return the run type
+     */
     public String getRunType() {
         return m_runType;
     }
 
+    /**
+     * Sets the run type.
+     *
+     * @param runType
+     *            the new run type
+     */
     public void setRunType(String runType) {
         this.m_runType = runType;
     }
 
+    /**
+     * Gets the parameters map.
+     *
+     * @return the parameters map
+     */
     private Map<String, Object> getParametersMap() {
         final Map<String, Object> map = new HashMap<String, Object>();
         map.put("file-name", getFileName());

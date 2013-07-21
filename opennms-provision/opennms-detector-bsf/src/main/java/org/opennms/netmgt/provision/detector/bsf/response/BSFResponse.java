@@ -40,8 +40,15 @@ import java.util.HashMap;
  */
 public class BSFResponse {
 
+    /** The m_results. */
     private HashMap<String, String> m_results;
 
+    /**
+     * Instantiates a new bSF response.
+     *
+     * @param results
+     *            the results
+     */
     public BSFResponse(HashMap<String, String> results) {
         m_results = results;
     }
@@ -50,6 +57,7 @@ public class BSFResponse {
      * <p>
      * validate
      * </p>
+     * .
      *
      * @param banner
      *            a {@link java.lang.String} object.

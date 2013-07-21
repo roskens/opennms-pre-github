@@ -37,6 +37,9 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * The Class BSFDetector.
+ */
 @Component
 /**
  * <p>BSFDetector class.</p>
@@ -47,14 +50,19 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class BSFDetector extends BasicDetector<BSFRequest, BSFResponse> {
 
+    /** The m_file name. */
     private String m_fileName;
 
+    /** The m_lang class. */
     private String m_langClass;
 
+    /** The m_bsf engine. */
     private String m_bsfEngine;
 
+    /** The m_file extensions. */
     private String m_fileExtensions = "";
 
+    /** The m_run type. */
     private String m_runType = "eval";
 
     /**
@@ -85,6 +93,13 @@ public class BSFDetector extends BasicDetector<BSFRequest, BSFResponse> {
         expectBanner(responseMatches("OK"));
     }
 
+    /**
+     * Response matches.
+     *
+     * @param banner
+     *            the banner
+     * @return the response validator
+     */
     private static ResponseValidator<BSFResponse> responseMatches(final String banner) {
         return new ResponseValidator<BSFResponse>() {
 
@@ -96,42 +111,97 @@ public class BSFDetector extends BasicDetector<BSFRequest, BSFResponse> {
         };
     }
 
+    /**
+     * Gets the file name.
+     *
+     * @return the file name
+     */
     public String getFileName() {
         return m_fileName;
     }
 
+    /**
+     * Sets the file name.
+     *
+     * @param fileName
+     *            the new file name
+     */
     public void setFileName(String fileName) {
         this.m_fileName = fileName;
     }
 
+    /**
+     * Gets the lang class.
+     *
+     * @return the lang class
+     */
     public String getLangClass() {
         return m_langClass;
     }
 
+    /**
+     * Sets the lang class.
+     *
+     * @param langClass
+     *            the new lang class
+     */
     public void setLangClass(String langClass) {
         this.m_langClass = langClass;
     }
 
+    /**
+     * Gets the bsf engine.
+     *
+     * @return the bsf engine
+     */
     public String getBsfEngine() {
         return m_bsfEngine;
     }
 
+    /**
+     * Sets the bsf engine.
+     *
+     * @param bsfEngine
+     *            the new bsf engine
+     */
     public void setBsfEngine(String bsfEngine) {
         this.m_bsfEngine = bsfEngine;
     }
 
+    /**
+     * Gets the file extensions.
+     *
+     * @return the file extensions
+     */
     public String getFileExtensions() {
         return m_fileExtensions;
     }
 
+    /**
+     * Sets the file extensions.
+     *
+     * @param fileExtensions
+     *            the new file extensions
+     */
     public void setFileExtensions(String fileExtensions) {
         this.m_fileExtensions = fileExtensions;
     }
 
+    /**
+     * Gets the run type.
+     *
+     * @return the run type
+     */
     public String getRunType() {
         return m_runType;
     }
 
+    /**
+     * Sets the run type.
+     *
+     * @param runType
+     *            the new run type
+     */
     public void setRunType(String runType) {
         this.m_runType = runType;
     }
