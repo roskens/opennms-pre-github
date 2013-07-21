@@ -78,35 +78,77 @@ import org.springframework.util.Assert;
  */
 @EventListener(name = "MapsProvisioningAdapter")
 public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapProvisioningAdapter.class);
 
+    /**
+     * The Class XY.
+     */
     private class XY {
+
+        /** The x. */
         int x;
 
+        /** The y. */
         int y;
 
+        /**
+         * Instantiates a new xy.
+         */
         protected XY() {
 
         }
 
+        /**
+         * Gets the x.
+         *
+         * @return the x
+         */
         public int getX() {
             return x;
         }
 
+        /**
+         * Sets the x.
+         *
+         * @param x
+         *            the new x
+         */
         public void setX(int x) {
             this.x = x;
         }
 
+        /**
+         * Gets the y.
+         *
+         * @return the y
+         */
         public int getY() {
             return y;
         }
 
+        /**
+         * Sets the y.
+         *
+         * @param y
+         *            the new y
+         */
         public void setY(int y) {
             this.y = y;
         }
 
     }
 
+    /**
+     * Gets the xy.
+     *
+     * @param map
+     *            the map
+     * @param mapElementSize
+     *            the map element size
+     * @return the xy
+     */
     private XY getXY(OnmsMap map, int mapElementSize) {
         int deltaX = m_mapsAdapterConfig.getMapElementDimension();
         int deltaY = deltaX / 2;
@@ -139,40 +181,56 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         return xy;
     }
 
+    /** The m_lock. */
     private Object m_lock = new Object();
 
+    /** The m_onms node dao. */
     private NodeDao m_onmsNodeDao;
 
+    /** The m_onms map dao. */
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_onms map element dao. */
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_maps adapter config. */
     private MapsAdapterConfig m_mapsAdapterConfig;
 
+    /** The m_template. */
     private TransactionTemplate m_template;
 
+    /** The m_map name map size list map. */
     private static volatile ConcurrentMap<String, Integer> m_mapNameMapSizeListMap;
 
+    /** The Constant MESSAGE_PREFIX. */
     private static final String MESSAGE_PREFIX = "Dynamic Map provisioning failed: ";
 
+    /** The Constant ADAPTER_NAME. */
     private static final String ADAPTER_NAME = "MAP Provisioning Adapter";
 
+    /** The Constant RESYNC_TIMEOUT. */
     private static final long RESYNC_TIMEOUT = 300000;
 
+    /** The m_deletes. */
     private Set<Integer> m_deletes;
 
+    /** The m_adds. */
     private Set<Integer> m_adds;
 
+    /** The m_updates. */
     private Set<Integer> m_updates;
 
+    /** The do sync. */
     private boolean doSync = false;
 
     /**
      * <p>
      * getOnmsMapDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.OnmsMapDao} object.
      */
@@ -184,6 +242,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setOnmsMapDao
      * </p>
+     * .
      *
      * @param onmsMapDao
      *            a {@link org.opennms.netmgt.dao.api.OnmsMapDao} object.
@@ -196,6 +255,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getOnmsMapElementDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.OnmsMapElementDao} object.
      */
@@ -207,6 +267,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setOnmsMapElementDao
      * </p>
+     * .
      *
      * @param onmsMapElementDao
      *            a {@link org.opennms.netmgt.dao.api.OnmsMapElementDao} object.
@@ -219,6 +280,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getMapsAdapterConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.MapsAdapterConfig} object.
      */
@@ -230,6 +292,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setMapsAdapterConfig
      * </p>
+     * .
      *
      * @param mapsAdapterConfig
      *            a {@link org.opennms.netmgt.config.MapsAdapterConfig} object.
@@ -242,6 +305,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -255,6 +319,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -266,6 +331,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getOnmsNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -277,6 +343,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setOnmsNodeDao
      * </p>
+     * .
      *
      * @param onmsNodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -289,6 +356,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getTemplate
      * </p>
+     * .
      *
      * @return a
      *         {@link org.springframework.transaction.support.TransactionTemplate}
@@ -302,6 +370,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * setTemplate
      * </p>
+     * .
      *
      * @param template
      *            a
@@ -316,6 +385,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * handleReloadConfigEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -333,6 +403,13 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
 
@@ -355,6 +432,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -369,8 +447,14 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         return true;
     }
 
+    /**
+     * The Class MapSyncExecutor.
+     */
     class MapSyncExecutor implements Runnable {
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             syncMaps();
@@ -435,6 +519,18 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
 
     }
 
+    /**
+     * Re sync map.
+     *
+     * @param deletes
+     *            the deletes
+     * @param adds
+     *            the adds
+     * @param updates
+     *            the updates
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
+     */
     private void reSyncMap(final Set<Integer> deletes, final Set<Integer> adds, final Set<Integer> updates)
             throws ProvisioningAdapterException {
         m_mapsAdapterConfig.rebuildPackageIpListMap();
@@ -682,9 +778,10 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -707,6 +804,12 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         new Thread(e, MapSyncExecutor.class.getSimpleName()).start();
     }
 
+    /**
+     * Sync maps.
+     *
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
+     */
     private void syncMaps() throws ProvisioningAdapterException {
 
         try {
@@ -893,6 +996,12 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         }
     }
 
+    /**
+     * Send and throw.
+     *
+     * @param e
+     *            the e
+     */
     private void sendAndThrow(final Throwable e) {
         final Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED).addParam("reason",
                                                                                             MESSAGE_PREFIX
@@ -902,6 +1011,13 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         throw new ProvisioningAdapterException(MESSAGE_PREFIX, e);
     }
 
+    /**
+     * Builds the event.
+     *
+     * @param uei
+     *            the uei
+     * @return the event builder
+     */
     private EventBuilder buildEvent(final String uei) {
         return new EventBuilder(uei, "Provisioner", new Date());
     }
@@ -910,6 +1026,7 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
      * <p>
      * getSuitableIp
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -928,20 +1045,29 @@ public class MapProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
         return str(primaryInterface.getIpAddress());
     }
 
+    /**
+     * Gets the label.
+     *
+     * @param FQDN
+     *            the fqdn
+     * @return the label
+     */
     private String getLabel(final String FQDN) {
         if (FQDN.indexOf(".") > 0 && !validate(FQDN))
             return FQDN.substring(0, FQDN.indexOf("."));
         return FQDN;
     }
 
+    /** The Constant IPADDRESS_PATTERN. */
     private static final String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
             + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
+    /** The Constant m_pattern. */
     private static final Pattern m_pattern = Pattern.compile(IPADDRESS_PATTERN);
 
     /**
-     * Validate ip address with regular expression
+     * Validate ip address with regular expression.
      *
      * @param ip
      *            ip address for validation

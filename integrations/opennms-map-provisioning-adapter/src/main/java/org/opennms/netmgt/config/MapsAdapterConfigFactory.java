@@ -51,11 +51,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapsAdapterConfigFactory.class);
 
-    /**
-     * The singleton instance of this factory
-     */
+    /** The singleton instance of this factory. */
     private static MapsAdapterConfigFactory m_singleton = null;
 
     /**
@@ -63,20 +63,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      */
     private static boolean m_loaded = false;
 
-    /**
-     * Loaded version
-     */
+    /** Loaded version. */
     private long m_currentVersion = -1L;
 
     /**
-     * constructor constructor
+     * constructor constructor.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
      * @param currentVersion
      *            a long.
      * @param reader
@@ -85,12 +77,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      *            a {@link java.lang.String} object.
      * @param verifyServer
      *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MapsAdapterConfigFactory(long currentVersion, InputStream reader, String localServer, boolean verifyServer)
             throws MarshalException, ValidationException, IOException {
@@ -102,18 +94,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * Load the config from the default config file and create the singleton
      * instance of this factory.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, MarshalException, ValidationException {
         if (m_loaded) {
@@ -138,20 +124,14 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void reload() throws IOException, MarshalException, ValidationException {
         init();
@@ -162,8 +142,6 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public static synchronized MapsAdapterConfigFactory getInstance() {
         if (!m_loaded) {
@@ -172,6 +150,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         return m_singleton;
     }
 
+    /**
+     * Sets the instance.
+     *
+     * @param instance
+     *            the new instance
+     */
     private static void setInstance(final MapsAdapterConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;
@@ -181,11 +165,12 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -209,13 +194,14 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {

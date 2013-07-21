@@ -72,12 +72,17 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapsAdapterConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
     /**
@@ -85,19 +90,19 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * Constructor for MapsAdapterConfigManager.
      * </p>
      *
-     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @param verifyServer
-     *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
      * @param serverName
      *            a {@link java.lang.String} object.
+     * @param verifyServer
+     *            a boolean.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
      */
     public MapsAdapterConfigManager(final InputStream reader, final String serverName, final boolean verifyServer)
             throws MarshalException, ValidationException, IOException {
@@ -106,9 +111,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
         reloadXML(reader);
     }
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private MapsAdapterConfiguration m_config;
 
     /**
@@ -117,14 +120,12 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      */
     private static boolean m_verifyServer;
 
-    /**
-     * The name of the local OpenNMS server
-     */
+    /** The name of the local OpenNMS server. */
     private static String m_localServer;
 
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
-     * in each - so as to avoid file reads
+     * in each - so as to avoid file reads.
      */
     private Map<String, List<String>> m_urlIPMap;
 
@@ -134,14 +135,10 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
 
-    /**
-     * A mapping of the configured sub-maps to a list of maps
-     */
+    /** A mapping of the configured sub-maps to a list of maps. */
     private Map<String, List<String>> m_submapNameMapNameMap;
 
-    /**
-     * A mapping of the configured mapName to cmaps
-     */
+    /** A mapping of the configured mapName to cmaps. */
     private Map<String, Cmap> m_mapNameCmapMap;
 
     /**
@@ -152,11 +149,17 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     public MapsAdapterConfigManager() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.MapsAdapterConfig#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.MapsAdapterConfig#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -166,15 +169,16 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * reloadXML
      * </p>
+     * .
      *
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void reloadXML(final InputStream reader) throws MarshalException, ValidationException, IOException {
         getWriteLock().lock();
@@ -191,6 +195,11 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
+    /**
+     * Checks for cmaps.
+     *
+     * @return true, if successful
+     */
     private boolean hasCmaps() {
         return (m_config.getCmaps() != null);
     }
@@ -235,7 +244,10 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * Verify that no loop are in maps definition
+     * Verify that no loop are in maps definition.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
 
     private void verifyMapConsistency() throws ValidationException {
@@ -248,7 +260,10 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
     /**
-     * Verify that all maps are well defined
+     * Verify that all maps are well defined.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
 
     private void verifyMapHasLoop() throws ValidationException {
@@ -279,6 +294,13 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
          */
     }
 
+    /**
+     * Cmap exist.
+     *
+     * @param mapName
+     *            the map name
+     * @return true, if successful
+     */
     private boolean cmapExist(final String mapName) {
         if (hasCmaps()) {
             for (Cmap cmap : m_config.getCmaps().getCmapCollection()) {
@@ -292,7 +314,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
-     * time so that repeated file reads can be avoided
+     * time so that repeated file reads can be avoided.
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
@@ -342,6 +364,13 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
+    /**
+     * Gets the ip list.
+     *
+     * @param pkg
+     *            the pkg
+     * @return the ip list
+     */
     private List<InetAddress> getIpList(final Package pkg) {
         final StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
         if (m_verifyServer) {
@@ -500,6 +529,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * packages
      * </p>
+     * .
      *
      * @return a {@link java.lang.Iterable} object.
      */
@@ -516,6 +546,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * includeURLs
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.map.adapter.Package}
@@ -553,6 +584,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * getAllMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -622,6 +654,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * getMapElementDimension
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -662,6 +695,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * getsubMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -687,6 +721,7 @@ public abstract class MapsAdapterConfigManager implements MapsAdapterConfig {
      * <p>
      * getCelements
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

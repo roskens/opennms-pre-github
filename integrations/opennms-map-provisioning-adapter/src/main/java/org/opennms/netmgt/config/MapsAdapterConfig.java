@@ -53,6 +53,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getMapElementDimension
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -62,6 +63,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getAllMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -71,6 +73,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getSubMaps
      * </p>
+     * .
      *
      * @param mapName
      *            a {@link java.lang.String} object.
@@ -82,6 +85,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getContainerMaps
      * </p>
+     * .
      *
      * @param submapName
      *            a {@link java.lang.String} object.
@@ -93,6 +97,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getsubMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -102,6 +107,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getElementByAddress
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -113,6 +119,7 @@ public interface MapsAdapterConfig {
      * <p>
      * getCelements
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -122,6 +129,7 @@ public interface MapsAdapterConfig {
      * <p>
      * rebuildPackageIpListMap
      * </p>
+     * .
      */
     public void rebuildPackageIpListMap();
 
@@ -129,17 +137,28 @@ public interface MapsAdapterConfig {
      * <p>
      * update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void update() throws IOException, MarshalException, ValidationException;
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock();
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock();
 }
