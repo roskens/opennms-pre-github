@@ -41,20 +41,28 @@ import org.opennms.nrtg.api.model.CollectionJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SimpleJobPublisher.
+ */
 @Deprecated
 /**
  * Do not use, it's just a basic sample for jms communication
  */
 public class SimpleJobPublisher implements JobPublisher {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(JobPublisher.class);
 
     // URL of the JMS server. DEFAULT_BROKER_URL will just mean
     // that JMS server is on localhost
+    /** The url. */
     private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
 
     // Name of the queue we will be sending messages to
     // private static String subject = "TESTQUEUE";
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.commander.internal.JobPublisher#publishJob(org.opennms.nrtg.api.model.CollectionJob, java.lang.String)
+     */
     @Override
     public void publishJob(CollectionJob job, String site) {
         try {

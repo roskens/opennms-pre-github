@@ -38,15 +38,25 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 /**
+ * The Class CollectionCommanderStarter.
+ *
  * @author Markus Neumann
  */
 @Component
 public class CollectionCommanderStarter {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(CollectionCommanderStarter.class);
 
+    /** The context. */
     private static AbstractApplicationContext context;
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         context = new AnnotationConfigApplicationContext(AppConfig.class);
         context.registerShutdownHook();
@@ -54,6 +64,9 @@ public class CollectionCommanderStarter {
         context.close();
     }
 
+    /**
+     * Start.
+     */
     public void start() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(4);
@@ -88,6 +101,11 @@ public class CollectionCommanderStarter {
         }
     }
 
+    /**
+     * Gets the context.
+     *
+     * @return the context
+     */
     public static AbstractApplicationContext getContext() {
         return context;
     }

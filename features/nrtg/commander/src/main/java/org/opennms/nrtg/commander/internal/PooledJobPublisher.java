@@ -44,30 +44,46 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 /**
- * generates {@link CollectionJob}s and publish them via jms
+ * generates {@link CollectionJob}s and publish them via jms.
  *
  * @author Markus Neumann
  */
 public class PooledJobPublisher implements JobPublisher, Runnable {
 
+    /** The Constant logger. */
     private static final Logger logger = LoggerFactory.getLogger(PooledJobPublisher.class);
 
+    /** The jms template. */
     private final JmsTemplate jmsTemplate;
 
+    /** The task. */
     private final CollectionTask task;
 
+    /** The job. */
     private CollectionJob job = null;
 
+    /**
+     * Instantiates a new pooled job publisher.
+     *
+     * @param task
+     *            the task
+     */
     public PooledJobPublisher(CollectionTask task) {
         this.jmsTemplate = (JmsTemplate) CollectionCommanderStarter.getContext().getBean("JmsTemplate");
         this.task = task;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.commander.internal.JobPublisher#publishJob(org.opennms.nrtg.api.model.CollectionJob, java.lang.String)
+     */
     @Override
     public void publishJob(CollectionJob job, String site) {
         jmsTemplate.convertAndSend(site, job);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         for (int i = 0; i < task.getCount(); i++) {
@@ -88,6 +104,11 @@ public class PooledJobPublisher implements JobPublisher, Runnable {
         }
     }
 
+    /**
+     * Creates the test job.
+     *
+     * @return the collection job
+     */
     private CollectionJob createTestJob() {
         if (this.job == null) {
             TreeSet<String> destinationSet = new TreeSet<String>();

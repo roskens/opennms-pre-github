@@ -39,6 +39,8 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 /**
+ * The Class AppConfig.
+ *
  * @author Markus Neumann
  */
 @Configuration
@@ -47,6 +49,11 @@ public class AppConfig {
     // private static final Logger logger =
     // LoggerFactory.getLogger(AppConfig.class);
 
+    /**
+     * Connection factory.
+     *
+     * @return the caching connection factory
+     */
     @Bean(name = "connectionFactory")
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
@@ -57,6 +64,11 @@ public class AppConfig {
         return cachingConnectionFactory;
     }
 
+    /**
+     * Amq connection factory.
+     *
+     * @return the connection factory
+     */
     @Bean(name = "amqConnectionFactory")
     public ConnectionFactory amqConnectionFactory() {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
@@ -64,6 +76,11 @@ public class AppConfig {
         return connectionFactory;
     }
 
+    /**
+     * Jms template.
+     *
+     * @return the jms template
+     */
     @Bean(name = "JmsTemplate")
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory());
@@ -74,6 +91,11 @@ public class AppConfig {
         return jmsTemplate;
     }
 
+    /**
+     * Jms exception listener.
+     *
+     * @return the jms exception listener
+     */
     @Bean(name = "JmsExceptionListener")
     public JmsExceptionListener jmsExceptionListener() {
         return new JmsExceptionListener();

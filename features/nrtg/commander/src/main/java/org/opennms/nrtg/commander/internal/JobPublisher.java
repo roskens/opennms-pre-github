@@ -31,8 +31,19 @@ package org.opennms.nrtg.commander.internal;
 import org.opennms.nrtg.api.model.CollectionJob;
 
 /**
+ * The Interface JobPublisher.
+ *
  * @author Markus Neumann
  */
 interface JobPublisher {
+
+    /**
+     * Publish job.
+     *
+     * @param job
+     *            the job
+     * @param site
+     *            the site
+     */
     public void publishJob(CollectionJob job, String site);
 }
