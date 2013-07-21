@@ -46,10 +46,13 @@ import org.opennms.netmgt.daemon.AbstractServiceDaemon;
  */
 public class AsteriskGateway extends AbstractServiceDaemon {
 
+    /** The m_agi server thread. */
     AgiServerThread m_agiServerThread;
 
+    /** The m_port. */
     private int m_port = 4573;
 
+    /** The m_max pool size. */
     private int m_maxPoolSize = 10;
 
     /**

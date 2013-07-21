@@ -49,6 +49,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class AsteriskOriginateNotificationStrategy implements NotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsteriskOriginateNotificationStrategy.class);
 
     /**
@@ -78,6 +80,15 @@ public class AsteriskOriginateNotificationStrategy implements NotificationStrate
         return 0;
     }
 
+    /**
+     * Builds the originator.
+     *
+     * @param arguments
+     *            the arguments
+     * @return the asterisk originator
+     * @throws AsteriskOriginatorException
+     *             the asterisk originator exception
+     */
     private AsteriskOriginator buildOriginator(List<Argument> arguments) throws AsteriskOriginatorException {
         AsteriskOriginator ao = new AsteriskOriginator();
         for (Argument arg : arguments) {

@@ -52,91 +52,125 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Originates a call using the Asterisk Manager API
+ * Originates a call using the Asterisk Manager API.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @version $Id: $
  */
 public class AsteriskOriginator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsteriskOriginator.class);
 
+    /** The Constant DEFAULT_AMI_HOST. */
     private static final String DEFAULT_AMI_HOST = "127.0.0.1";
 
+    /** The Constant DEFAULT_ORIGINATOR_DEBUG. */
     private static final boolean DEFAULT_ORIGINATOR_DEBUG = true;
 
+    /** The Constant DEFAULT_RESPONSE_TIMEOUT. */
     private static final long DEFAULT_RESPONSE_TIMEOUT = 10000;
 
+    /** The Constant DEFAULT_LEGA_CALLER_ID. */
     private static final String DEFAULT_LEGA_CALLER_ID = "OpenNMS<9195551212>";
 
+    /** The Constant DEFAULT_LEGA_TIMEOUT. */
     private static final long DEFAULT_LEGA_TIMEOUT = 30000;
 
+    /** The Constant DEFAULT_LEGA_CHANNEL_PATTERN. */
     private static final String DEFAULT_LEGA_CHANNEL_PATTERN = "Local/${exten}@default";
 
+    /** The Constant DEFAULT_LEGB_CONTEXT. */
     private static final String DEFAULT_LEGB_CONTEXT = "default";
 
+    /** The Constant DEFAULT_LEGB_EXTENSION. */
     private static final String DEFAULT_LEGB_EXTENSION = "noc";
 
+    /** The Constant DEFAULT_LEGB_PRIORITY. */
     private static final int DEFAULT_LEGB_PRIORITY = 1;
 
     // private static final String DEFAULT_LEGB_APP = "Playback";
     // private static final String DEFAULT_LEGB_APP_DATA = "tt-monkeysintro";
 
+    /** The m_manager connection. */
     private DefaultManagerConnection m_managerConnection = null;
 
+    /** The m_originate action. */
     private OriginateAction m_originateAction = null;
 
+    /** The m_manager response. */
     private ManagerResponse m_managerResponse = null;
 
     /*
      * properties from configuration
      */
+    /** The m_ami props. */
     private Properties m_amiProps;
 
     /*
      * fields from properties used for deterministic behavior of the originator
      */
+    /** The m_debug. */
     private boolean m_debug;
 
+    /** The m_response timeout. */
     private long m_responseTimeout;
 
+    /** The m_ami host. */
     private InetAddress m_amiHost;
 
+    /** The m_leg a channel pattern. */
     private String m_legAChannelPattern;
 
+    /** The m_caller id. */
     private String m_callerId;
 
+    /** The m_dial timeout. */
     private long m_dialTimeout;
 
+    /** The m_leg b context. */
     private String m_legBContext;
 
+    /** The m_leg b priority. */
     private int m_legBPriority;
 
+    /** The m_leg b extension. */
     private String m_legBExtension;
 
+    /** The m_leg b is app. */
     private boolean m_legBIsApp;
 
+    /** The m_leg b app pattern. */
     private String m_legBAppPattern;
 
+    /** The m_leg b app data pattern. */
     private String m_legBAppDataPattern;
 
+    /** The m_leg b app. */
     private String m_legBApp;
 
+    /** The m_leg b app data. */
     private String m_legBAppData;
 
     /*
      * Basic call fields
      */
+    /** The m_leg a extension. */
     private String m_legAExtension;
 
+    /** The m_leg a channel. */
     private String m_legAChannel;
 
+    /** The m_subject. */
     private String m_subject;
 
+    /** The m_message text. */
     private String m_messageText;
 
     /*
      * A Map for setting channel variables
      */
+    /** The m_channel vars. */
     private Map<String, String> m_channelVars;
 
     /**
@@ -146,8 +180,8 @@ public class AsteriskOriginator {
      *
      * @param amiProps
      *            a {@link java.util.Properties} object.
-     * @throws org.opennms.netmgt.asterisk.utils.AsteriskOriginatorException
-     *             if any.
+     * @throws AsteriskOriginatorException
+     *             the asterisk originator exception
      */
     public AsteriskOriginator(Properties amiProps) throws AsteriskOriginatorException {
 
@@ -187,8 +221,8 @@ public class AsteriskOriginator {
      * Default constructor. Default properties from asterisk-properties are set
      * into session.
      *
-     * @throws org.opennms.netmgt.asterisk.utils.AsteriskOriginatorException
-     *             if any.
+     * @throws AsteriskOriginatorException
+     *             the asterisk originator exception
      */
     public AsteriskOriginator() throws AsteriskOriginatorException {
         this(new Properties());
@@ -201,7 +235,10 @@ public class AsteriskOriginator {
      * compatibility but configuration
      * will probably change soon.
      *
+     * @param amiProps
+     *            the ami props
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
 
     private void configureProperties(Properties amiProps) throws IOException {
@@ -246,8 +283,8 @@ public class AsteriskOriginator {
     /**
      * Originates a call based on properties set on this bean.
      *
-     * @throws org.opennms.netmgt.asterisk.utils.AsteriskOriginatorException
-     *             if any.
+     * @throws AsteriskOriginatorException
+     *             the asterisk originator exception
      */
     public void originateCall() throws AsteriskOriginatorException {
         m_originateAction = buildOriginateAction();
@@ -305,8 +342,8 @@ public class AsteriskOriginator {
      *
      * @return completed OriginateAction, ready to be passed to
      *         ManagerConnection.sendAction
-     * @throws org.opennms.netmgt.asterisk.utils.AsteriskOriginatorException
-     *             if any of the underlying operations fail
+     * @throws AsteriskOriginatorException
+     *             the asterisk originator exception
      */
     public OriginateAction buildOriginateAction() throws AsteriskOriginatorException {
         OriginateAction action = new OriginateAction();
@@ -327,6 +364,13 @@ public class AsteriskOriginator {
         return action;
     }
 
+    /**
+     * Expand pattern.
+     *
+     * @param pattern
+     *            the pattern
+     * @return the string
+     */
     private String expandPattern(String pattern) {
         LOG.debug("Expanding pattern {}", pattern);
         String expanded = AsteriskUtils.expandPattern(pattern);
@@ -340,7 +384,9 @@ public class AsteriskOriginator {
     }
 
     /**
-     * @return
+     * Creates the call log msg.
+     *
+     * @return the string
      */
     private String createCallLogMsg() {
         StringBuffer sb = new StringBuffer();
@@ -373,6 +419,7 @@ public class AsteriskOriginator {
      * <p>
      * getCallerId
      * </p>
+     * .
      *
      * @return Returns the Caller ID
      */
@@ -384,6 +431,7 @@ public class AsteriskOriginator {
      * <p>
      * setCallerId
      * </p>
+     * .
      *
      * @param cid
      *            The from address to set.
@@ -396,6 +444,7 @@ public class AsteriskOriginator {
      * <p>
      * getAmiHost
      * </p>
+     * .
      *
      * @return Returns the AMI host.
      */
@@ -407,11 +456,12 @@ public class AsteriskOriginator {
      * <p>
      * setAmiHost
      * </p>
+     * .
      *
      * @param amiHost
      *            Sets the mail host.
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void setAmiHost(String amiHost) throws UnknownHostException {
         m_amiHost = InetAddressUtils.addr(amiHost);
@@ -421,6 +471,7 @@ public class AsteriskOriginator {
      * <p>
      * getMessageText
      * </p>
+     * .
      *
      * @return Returns the message text.
      */
@@ -432,6 +483,7 @@ public class AsteriskOriginator {
      * <p>
      * setMessageText
      * </p>
+     * .
      *
      * @param messageText
      *            Sets the message text.
@@ -444,6 +496,7 @@ public class AsteriskOriginator {
      * <p>
      * getSubject
      * </p>
+     * .
      *
      * @return Returns the message Subject.
      */
@@ -455,6 +508,7 @@ public class AsteriskOriginator {
      * <p>
      * setSubject
      * </p>
+     * .
      *
      * @param subject
      *            Sets the message Subject.
@@ -467,6 +521,7 @@ public class AsteriskOriginator {
      * <p>
      * getLegAExtension
      * </p>
+     * .
      *
      * @return Returns the extension for Leg A
      */
@@ -478,6 +533,7 @@ public class AsteriskOriginator {
      * <p>
      * setLegAExtension
      * </p>
+     * .
      *
      * @param exten
      *            Sets the extension for Leg A
@@ -490,6 +546,7 @@ public class AsteriskOriginator {
      * <p>
      * getLegAChannel
      * </p>
+     * .
      *
      * @return Returns the channel for Leg A
      */
@@ -501,6 +558,7 @@ public class AsteriskOriginator {
      * <p>
      * setLegAChannel
      * </p>
+     * .
      *
      * @param chan
      *            Sets the channelfor Leg A
@@ -513,6 +571,7 @@ public class AsteriskOriginator {
      * <p>
      * isDebug
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -524,6 +583,7 @@ public class AsteriskOriginator {
      * <p>
      * setDebug
      * </p>
+     * .
      *
      * @param debug
      *            a boolean.
@@ -543,7 +603,7 @@ public class AsteriskOriginator {
     }
 
     /**
-     * Sets a variable on the channel used for the originated call
+     * Sets a variable on the channel used for the originated call.
      *
      * @param name
      *            Name of variable to set
@@ -555,7 +615,7 @@ public class AsteriskOriginator {
     }
 
     /**
-     * Retrieves a Map of channel variables for the originated call
+     * Retrieves a Map of channel variables for the originated call.
      *
      * @return A Map of channel variable names and values
      */
@@ -564,7 +624,7 @@ public class AsteriskOriginator {
     }
 
     /**
-     * Retrieves a named channel variable for the originated call
+     * Retrieves a named channel variable for the originated call.
      *
      * @param name
      *            Name of variable to retrieve

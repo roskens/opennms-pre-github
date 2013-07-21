@@ -33,18 +33,18 @@ import java.util.Properties;
 import org.opennms.core.utils.PropertiesUtils;
 
 /**
- * Given a pattern, expands embedded Asterisk-related property values
+ * Given a pattern, expands embedded Asterisk-related property values.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
- * @param pattern
- *            A pattern to expand
  * @version $Id: $
  */
 public class AsteriskUtils {
+
     /**
      * <p>
      * expandPattern
      * </p>
+     * .
      *
      * @param pattern
      *            a {@link java.lang.String} object.

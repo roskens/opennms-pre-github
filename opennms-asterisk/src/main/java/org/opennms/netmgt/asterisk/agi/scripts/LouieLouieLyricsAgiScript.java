@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A fairly useless AGI script that reads the lyrics of
- * "Louie, Louie" by The Kingsmen to the called party
+ * "Louie, Louie" by The Kingsmen to the called party.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class LouieLouieLyricsAgiScript extends BaseOnmsAgiScript {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LouieLouieLyricsAgiScript.class);
 
     /** {@inheritDoc} */

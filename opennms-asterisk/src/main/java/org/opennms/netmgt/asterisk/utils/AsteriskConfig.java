@@ -45,14 +45,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class AsteriskConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AsteriskConfig.class);
 
     /**
      * This loads the configuration file.
      *
      * @return a Properties object representing the configuration properties
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static synchronized Properties getProperties() throws IOException {
         LOG.debug("Loading Asterisk configuration properties.");

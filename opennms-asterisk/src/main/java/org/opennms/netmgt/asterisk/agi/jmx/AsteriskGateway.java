@@ -30,6 +30,9 @@ package org.opennms.netmgt.asterisk.agi.jmx;
 
 import org.opennms.netmgt.daemon.AbstractSpringContextJmxServiceDaemon;
 
+/**
+ * The Class AsteriskGateway.
+ */
 public class AsteriskGateway extends
         AbstractSpringContextJmxServiceDaemon<org.opennms.netmgt.asterisk.agi.AsteriskGateway> implements
         AsteriskGatewayMBean {

@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * An AGI script that reads the node ID and service name of
- * an OpenNMS notice to the called party
+ * an OpenNMS notice to the called party.
  *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReadNoticeDetailsAgiScript.class);
 
     /** {@inheritDoc} */
@@ -61,9 +63,10 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
      * <p>
      * authenticateUser
      * </p>
+     * .
      *
-     * @throws org.asteriskjava.fastagi.AgiException
-     *             if any.
+     * @throws AgiException
+     *             the agi exception
      */
     public void authenticateUser() throws AgiException {
         String actualPin = getVariable(VAR_OPENNMS_USER_PIN);
@@ -94,9 +97,10 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
      * <p>
      * sayNode
      * </p>
+     * .
      *
-     * @throws org.asteriskjava.fastagi.AgiException
-     *             if any.
+     * @throws AgiException
+     *             the agi exception
      */
     public void sayNode() throws AgiException {
         String nodeID = null;
@@ -126,9 +130,10 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
      * <p>
      * sayIpAddr
      * </p>
+     * .
      *
-     * @throws org.asteriskjava.fastagi.AgiException
-     *             if any.
+     * @throws AgiException
+     *             the agi exception
      */
     public void sayIpAddr() throws AgiException {
         String ipAddr = null;
@@ -147,9 +152,10 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
      * <p>
      * sayServiceName
      * </p>
+     * .
      *
-     * @throws org.asteriskjava.fastagi.AgiException
-     *             if any.
+     * @throws AgiException
+     *             the agi exception
      */
     public void sayServiceName() throws AgiException {
         String svcName = null;

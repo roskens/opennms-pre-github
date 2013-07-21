@@ -30,6 +30,9 @@ package org.opennms.netmgt.asterisk.agi.jmx;
 
 import org.opennms.netmgt.daemon.BaseOnmsMBean;
 
+/**
+ * The Interface AsteriskGatewayMBean.
+ */
 public interface AsteriskGatewayMBean extends BaseOnmsMBean {
 
 }
