@@ -32,8 +32,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * The Class TemplateTest.
+ */
 public class TemplateTest {
 
+    /**
+     * Test.
+     */
     @Test
     public void test() {
 

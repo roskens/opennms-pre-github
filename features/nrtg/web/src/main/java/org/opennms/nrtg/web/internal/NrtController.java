@@ -50,40 +50,73 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class NrtController.
+ *
  * @author Markus Neumann
  * @author Christian Pape
  */
 public class NrtController {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtController.class);
 
+    /** The m_graph dao. */
     private GraphDao m_graphDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_snmp agent config factory. */
     private SnmpAgentConfigFactory m_snmpAgentConfigFactory;
 
+    /** The m_nrt broker. */
     private NrtBroker m_nrtBroker;
 
+    /**
+     * The Class MetricTuple.
+     */
     protected class MetricTuple {
 
+        /** The m_metric id. */
         private String m_metricId;
 
+        /** The m_onms logic metric id. */
         private String m_onmsLogicMetricId;
 
+        /**
+         * Instantiates a new metric tuple.
+         *
+         * @param metricId
+         *            the metric id
+         * @param onmsLogicMetricId
+         *            the onms logic metric id
+         */
         public MetricTuple(String metricId, String onmsLogicMetricId) {
             m_onmsLogicMetricId = onmsLogicMetricId;
             m_metricId = metricId;
         }
 
+        /**
+         * Gets the metric id.
+         *
+         * @return the metric id
+         */
         public String getMetricId() {
             return m_metricId;
         }
 
+        /**
+         * Gets the onms logic metric id.
+         *
+         * @return the onms logic metric id
+         */
         public String getOnmsLogicMetricId() {
             return m_onmsLogicMetricId;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object object) {
             if (object instanceof MetricTuple) {
@@ -93,6 +126,9 @@ public class NrtController {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             int hash = 7;
@@ -101,6 +137,17 @@ public class NrtController {
         }
     }
 
+    /**
+     * Nrt start.
+     *
+     * @param resourceId
+     *            the resource id
+     * @param report
+     *            the report
+     * @param httpSession
+     *            the http session
+     * @return the model and view
+     */
     public ModelAndView nrtStart(String resourceId, String report, HttpSession httpSession) {
 
         assert (resourceId != null);
@@ -152,7 +199,9 @@ public class NrtController {
      * nrtCollectionTaskId.
      *
      * @param nrtCollectionTaskId
+     *            the nrt collection task id
      * @param httpSession
+     *            the http session
      */
     public void nrtCollectionJobTrigger(String nrtCollectionTaskId, HttpSession httpSession) {
         logger.debug("Republish CollectionJobTrigger for '{}'", nrtCollectionTaskId);
@@ -176,9 +225,10 @@ public class NrtController {
     /**
      * Will be called by the JS-Graphing-Frontend as http/GET Get Measurements
      * from NrtBroker, transform them into Json and return
-     * them to the JS-Graphing-Frontend
+     * them to the JS-Graphing-Frontend.
      *
      * @param nrtCollectionTaskId
+     *            the nrt collection task id
      * @return Json Representation of MeasurementeSets for the given
      *         nrtCollectionTaskId
      */
@@ -199,10 +249,12 @@ public class NrtController {
 
     /**
      * Provides all CollectionJobs resolved by nrtCollectionTaskId from the
-     * Session
+     * Session.
      *
      * @param httpSession
+     *            the http session
      * @param create
+     *            the create
      * @return Map of nrtCollectionTaskId to CollectionJob
      */
     private Map<String, CollectionJob> getCollectionJobMap(HttpSession httpSession, boolean create) {
@@ -217,6 +269,17 @@ public class NrtController {
         }
     }
 
+    /**
+     * Creates the collection jobs.
+     *
+     * @param reportResource
+     *            the report resource
+     * @param prefabGraph
+     *            the prefab graph
+     * @param nrtCollectionTaskId
+     *            the nrt collection task id
+     * @return the list
+     */
     private List<CollectionJob> createCollectionJobs(OnmsResource reportResource, PrefabGraph prefabGraph,
             String nrtCollectionTaskId) {
         List<CollectionJob> collectionJobs = new ArrayList<CollectionJob>();
@@ -263,6 +326,15 @@ public class NrtController {
         return collectionJobs;
     }
 
+    /**
+     * Gets the required rrd graph attributes.
+     *
+     * @param reportResource
+     *            the report resource
+     * @param prefabGraph
+     *            the prefab graph
+     * @return the required rrd graph attributes
+     */
     public Set<RrdGraphAttribute> getRequiredRrdGraphAttributes(OnmsResource reportResource, PrefabGraph prefabGraph) {
         Map<String, RrdGraphAttribute> available = reportResource.getRrdGraphAttributes();
         Set<RrdGraphAttribute> reqAttrs = new LinkedHashSet<RrdGraphAttribute>();
@@ -275,6 +347,15 @@ public class NrtController {
         return reqAttrs;
     }
 
+    /**
+     * Gets the required external property attributes.
+     *
+     * @param reportResource
+     *            the report resource
+     * @param prefabGraph
+     *            the prefab graph
+     * @return the required external property attributes
+     */
     public Map<String, String> getRequiredExternalPropertyAttributes(final OnmsResource reportResource,
             final PrefabGraph prefabGraph) {
         final Map<String, String> attributes = reportResource.getExternalValueAttributes();
@@ -291,6 +372,15 @@ public class NrtController {
         return reqAttributes;
     }
 
+    /**
+     * Gets the required string property attributes.
+     *
+     * @param reportResource
+     *            the report resource
+     * @param prefabGraph
+     *            the prefab graph
+     * @return the required string property attributes
+     */
     public Map<String, String> getRequiredStringPropertyAttributes(final OnmsResource reportResource,
             final PrefabGraph prefabGraph) {
         final Map<String, String> attributes = reportResource.getStringPropertyAttributes();
@@ -307,6 +397,13 @@ public class NrtController {
         return reqAttributes;
     }
 
+    /**
+     * Gets the rrd graph attributes to metric ids.
+     *
+     * @param onmsResourceNamesToMetaDataLines
+     *            the onms resource names to meta data lines
+     * @return the rrd graph attributes to metric ids
+     */
     private Map<String, String> getRrdGraphAttributesToMetricIds(Map<String, String> onmsResourceNamesToMetaDataLines) {
         Map<String, String> rrdGraphAttributesToMetricIds = new HashMap<String, String>();
         for (String onmsResouceName : onmsResourceNamesToMetaDataLines.keySet()) {
@@ -317,6 +414,13 @@ public class NrtController {
         return rrdGraphAttributesToMetricIds;
     }
 
+    /**
+     * Gets the meta data for report.
+     *
+     * @param rrdGraphAttributes
+     *            the rrd graph attributes
+     * @return the meta data for report
+     */
     private Map<String, String> getMetaDataForReport(final Set<RrdGraphAttribute> rrdGraphAttributes) {
         Map<String, String> metaData = new HashMap<String, String>();
 
@@ -344,15 +448,31 @@ public class NrtController {
         return metaData;
     }
 
+    /** The protocoldelimiter. */
     private final String PROTOCOLDELIMITER = "_";
 
+    /** The metricid delimiter. */
     private final String METRICID_DELIMITER = "=";
 
+    /**
+     * Gets the protocol from meta data line.
+     *
+     * @param metaDataLine
+     *            the meta data line
+     * @return the protocol from meta data line
+     */
     private String getProtocolFromMetaDataLine(String metaDataLine) {
         String protocol = metaDataLine.substring(0, metaDataLine.indexOf(PROTOCOLDELIMITER));
         return protocol;
     }
 
+    /**
+     * Gets the metric id from meta data line.
+     *
+     * @param metaDataLine
+     *            the meta data line
+     * @return the metric id from meta data line
+     */
     private String getMetricIdFromMetaDataLine(String metaDataLine) {
         String metricId = metaDataLine.substring(metaDataLine.indexOf(PROTOCOLDELIMITER) + 1,
                                                  metaDataLine.lastIndexOf(METRICID_DELIMITER));
@@ -385,22 +505,51 @@ public class NrtController {
         return metricIdsByProtocol;
     }
 
+    /**
+     * Sets the graph dao.
+     *
+     * @param graphDao
+     *            the new graph dao
+     */
     public void setGraphDao(GraphDao graphDao) {
         m_graphDao = graphDao;
     }
 
+    /**
+     * Sets the resource dao.
+     *
+     * @param resourceDao
+     *            the new resource dao
+     */
     public void setResourceDao(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
 
+    /**
+     * Sets the snmp agent config factory.
+     *
+     * @param snmpAgentConfigFactory
+     *            the new snmp agent config factory
+     */
     public void setSnmpAgentConfigFactory(SnmpAgentConfigFactory snmpAgentConfigFactory) {
         m_snmpAgentConfigFactory = snmpAgentConfigFactory;
     }
 
+    /**
+     * Gets the nrt broker.
+     *
+     * @return the nrt broker
+     */
     public NrtBroker getNrtBroker() {
         return m_nrtBroker;
     }
 
+    /**
+     * Sets the nrt broker.
+     *
+     * @param nrtBroker
+     *            the new nrt broker
+     */
     public void setNrtBroker(NrtBroker nrtBroker) {
         this.m_nrtBroker = nrtBroker;
     }

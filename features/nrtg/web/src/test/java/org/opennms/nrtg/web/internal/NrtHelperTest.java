@@ -33,13 +33,21 @@ import org.junit.Test;
 import org.opennms.netmgt.model.PrefabGraph;
 
 /**
+ * The Class NrtHelperTest.
+ *
  * @author Markus@OpenNMS.org
  */
 public class NrtHelperTest {
+
+    /** The m_empty map. */
     private final Map<String, String> m_emptyMap = Collections.emptyMap();
 
+    /** The nrt helper. */
     private NrtHelper nrtHelper = new NrtHelper();
 
+    /**
+     * Test string properties.
+     */
     @Test
     public void testStringProperties() {
         String rawString = "--title='Current TCP Connections' --vertical-label='Current Connections ({ifSpeed})' DEF:currEstab={rrd1}:tcpCurrEstab:AVERAGE DEF:minCurrEstab={rrd1}:tcpCurrEstab:MIN DEF:maxCurrEstab={rrd1}:tcpCurrEstab:MAX LINE2:currEstab#00ff00:'Current ' GPRINT:currEstab:AVERAGE:'Avg  \n: %8.2lf %s' GPRINT:currEstab:MIN:'Min  \n: %8.2lf %s' GPRINT:currEstab:MAX:'Max  \n: %8.2lf %s\n'";
@@ -52,6 +60,9 @@ public class NrtHelperTest {
         assertTrue(graphString.contains("(monkey)"));
     }
 
+    /**
+     * Test generate metric mapping current tcp connections.
+     */
     @Test
     public void testGenerateMetricMappingCurrentTcpConnections() {
         System.out.println("metrics mapping for Tcp Connections");
@@ -72,6 +83,9 @@ public class NrtHelperTest {
         assertEquals(expectedResult, mappingResult);
     }
 
+    /**
+     * Test generate metric mapping system memory stats.
+     */
     @Test
     public void testGenerateMetricMappingSystemMemoryStats() {
         System.out.println("metrics mapping for System Memory Stats");
@@ -110,6 +124,9 @@ public class NrtHelperTest {
         assertEquals(expectedResult, mappingResult);
     }
 
+    /**
+     * Test generate metric mapping tcp open connections.
+     */
     @Test
     public void testGenerateMetricMappingTcpOpenConnections() {
         System.out.println("metrics mapping for TCP Open Connections");
@@ -131,6 +148,9 @@ public class NrtHelperTest {
         assertEquals(expectedResult, mappingResult);
     }
 
+    /**
+     * Test generate metric mapping tca.
+     */
     @Test
     public void testGenerateMetricMappingTca() {
         System.out.println("metrics mapping for TCA");

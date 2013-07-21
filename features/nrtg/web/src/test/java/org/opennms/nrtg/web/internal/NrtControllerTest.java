@@ -32,17 +32,28 @@ import org.junit.Test;
 import org.opennms.nrtg.web.internal.NrtController.MetricTuple;
 
 /**
+ * The Class NrtControllerTest.
+ *
  * @author Markus Neumann
  */
 public class NrtControllerTest {
 
+    /** The nrt controller. */
     private NrtController nrtController;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         nrtController = new NrtController();
     }
 
+    /**
+     * Gets the metric ids by protocol test.
+     *
+     * @return the metric ids by protocol test
+     */
     @Test
     public void getMetricIdsByProtocolTest() {
         Map<String, String> rrdGraphAttributesMetaData = new HashMap<String, String>();

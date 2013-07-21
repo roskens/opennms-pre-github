@@ -30,12 +30,26 @@ import java.util.regex.Pattern;
 import org.opennms.netmgt.model.PrefabGraph;
 
 /**
+ * The Class NrtHelper.
+ *
  * @author Markus@OpenNMS.org
  */
 public class NrtHelper {
 
+    /** The Constant RRD_KEYWORDS. */
     public static final List<String> RRD_KEYWORDS = Arrays.asList("--", "DEF", "CDEF", "LINE", "GPRINT");
 
+    /**
+     * Clean up rrd graph string for web ui.
+     *
+     * @param prefabGraph
+     *            the prefab graph
+     * @param externalPropertyAttributes
+     *            the external property attributes
+     * @param stringPropertyAttributes
+     *            the string property attributes
+     * @return the string
+     */
     public String cleanUpRrdGraphStringForWebUi(final PrefabGraph prefabGraph,
             final Map<String, String> externalPropertyAttributes, final Map<String, String> stringPropertyAttributes) {
         String graphString = prefabGraph.getCommand();
@@ -69,6 +83,15 @@ public class NrtHelper {
         return graphString;
     }
 
+    /**
+     * Generate js mapping object.
+     *
+     * @param rrdCommand
+     *            the rrd command
+     * @param rrdGraphAttributesToMetricIds
+     *            the rrd graph attributes to metric ids
+     * @return the string
+     */
     public String generateJsMappingObject(String rrdCommand, final Map<String, String> rrdGraphAttributesToMetricIds) {
         final StringBuilder stringBuilder = new StringBuilder();
         final String command = rrdCommand;

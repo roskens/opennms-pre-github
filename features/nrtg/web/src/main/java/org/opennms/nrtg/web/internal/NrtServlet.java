@@ -39,16 +39,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The Class NrtServlet.
+ */
 public class NrtServlet extends HttpServlet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The m_controller. */
     private NrtController m_controller;
 
+    /**
+     * Sets the controller.
+     *
+     * @param controller
+     *            the new controller
+     */
     public void setController(NrtController controller) {
         m_controller = controller;
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -78,6 +92,15 @@ public class NrtServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Gets the template as string.
+     *
+     * @param templateName
+     *            the template name
+     * @return the template as string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public String getTemplateAsString(String templateName) throws IOException {
 
         BufferedReader r = null;
