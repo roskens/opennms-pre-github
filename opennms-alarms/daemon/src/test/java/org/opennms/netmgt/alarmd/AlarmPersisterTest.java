@@ -42,7 +42,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * AlarmPersting tests
+ * AlarmPersting tests.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -56,23 +56,32 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class AlarmPersisterTest implements InitializingBean {
 
+    /** The m_mock event ipc manager. */
     @Autowired
     @SuppressWarnings("unused")
     private MockEventIpcManager m_mockEventIpcManager;
 
+    /** The m_alarm dao. */
     @Autowired
     @SuppressWarnings("unused")
     private AlarmDao m_alarmDao;
 
+    /** The m_event dao. */
     @Autowired
     @SuppressWarnings("unused")
     private EventDao m_eventDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test process.
+     */
     @Test
     public void testProcess() {
         // Do something?

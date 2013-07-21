@@ -33,7 +33,7 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * AlarmPersting Interface
+ * AlarmPersting Interface.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -44,10 +44,11 @@ public interface AlarmPersister {
      * <p>
      * persist
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @return
+     * @return the onms alarm
      */
     @Transactional
     public abstract OnmsAlarm persist(Event event);

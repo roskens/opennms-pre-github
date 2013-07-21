@@ -56,15 +56,20 @@ import org.springframework.beans.factory.DisposableBean;
  */
 @EventListener(name = Alarmd.NAME, logPrefix = "alarmd")
 public class Alarmd implements SpringServiceDaemon, DisposableBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Alarmd.class);
 
-    /** Constant <code>NAME="Alarmd"</code> */
+    /** Constant <code>NAME="Alarmd"</code>. */
     public static final String NAME = "Alarmd";
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_northbound interfaces. */
     private List<Northbounder> m_northboundInterfaces;
 
+    /** The m_persister. */
     private AlarmPersister m_persister;
 
     // Get all events
@@ -72,6 +77,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * onEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -95,6 +101,12 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
 
     }
 
+    /**
+     * Handle reload event.
+     *
+     * @param e
+     *            the e
+     */
     @EventHandler(uei = "uei.opennms.org/internal/reloadDaemonConfig")
     private void handleReloadEvent(Event e) {
         LOG.info("Received reload configuration event: {}", e);
@@ -128,6 +140,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setPersister
      * </p>
+     * .
      *
      * @param persister
      *            a {@link org.opennms.netmgt.alarmd.AlarmPersister} object.
@@ -140,6 +153,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getPersister
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.alarmd.AlarmPersister} object.
      */
@@ -151,6 +165,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -162,6 +177,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -176,9 +192,10 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -193,9 +210,10 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -205,6 +223,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -216,26 +235,54 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {
     }
 
+    /**
+     * On northbounder registered.
+     *
+     * @param northbounder
+     *            the northbounder
+     * @param properties
+     *            the properties
+     */
     public void onNorthbounderRegistered(final Northbounder northbounder, final Map<String, String> properties) {
         northbounder.start();
     }
 
+    /**
+     * On northbounder unregistered.
+     *
+     * @param northbounder
+     *            the northbounder
+     * @param properties
+     *            the properties
+     */
     public void onNorthbounderUnregistered(final Northbounder northbounder, final Map<String, String> properties) {
         northbounder.stop();
     }
 
+    /**
+     * Gets the northbound interfaces.
+     *
+     * @return the northbound interfaces
+     */
     public List<Northbounder> getNorthboundInterfaces() {
         return m_northboundInterfaces;
     }
 
+    /**
+     * Sets the northbound interfaces.
+     *
+     * @param northboundInterfaces
+     *            the new northbound interfaces
+     */
     public void setNorthboundInterfaces(List<Northbounder> northboundInterfaces) {
         m_northboundInterfaces = northboundInterfaces;
     }

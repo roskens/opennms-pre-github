@@ -75,6 +75,9 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class AlarmdTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -86,71 +89,118 @@ import org.springframework.util.StringUtils;
 @JUnitTemporaryDatabase(dirtiesContext = false, tempDbClass = MockDatabase.class)
 public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, InitializingBean {
 
+    /**
+     * The Class MockNorthbounder.
+     */
     public class MockNorthbounder implements Northbounder {
 
+        /** The m_start called. */
         private boolean m_startCalled = false;
 
+        /** The m_alarms. */
         private List<NorthboundAlarm> m_alarms = new ArrayList<NorthboundAlarm>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.alarmd.api.Northbounder#start()
+         */
         @Override
         public void start() throws NorthbounderException {
             m_startCalled = true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.alarmd.api.Northbounder#onAlarm(org.opennms.netmgt.alarmd.api.NorthboundAlarm)
+         */
         @Override
         public void onAlarm(final NorthboundAlarm alarm) throws NorthbounderException {
             m_alarms.add(alarm);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.alarmd.api.Northbounder#stop()
+         */
         @Override
         public void stop() throws NorthbounderException {
         }
 
+        /**
+         * Checks if is initialized.
+         *
+         * @return true, if is initialized
+         */
         public boolean isInitialized() {
             return m_startCalled;
         }
 
+        /**
+         * Gets the alarms.
+         *
+         * @return the alarms
+         */
         public List<NorthboundAlarm> getAlarms() {
             return m_alarms;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.alarmd.api.Northbounder#getName()
+         */
         @Override
         public String getName() {
             return "MockNorthbounder";
         }
     }
 
+    /** The m_mock network. */
     private MockNetwork m_mockNetwork = new MockNetwork();
 
+    /** The m_alarmd. */
     @Autowired
     private Alarmd m_alarmd;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_jdbc template. */
     @Autowired
     private JdbcTemplate m_jdbcTemplate;
 
+    /** The m_eventd ipc mgr. */
     @Autowired
     private MockEventIpcManager m_eventdIpcMgr;
 
+    /** The m_registry. */
     @Autowired
     private ServiceRegistry m_registry;
 
+    /** The m_database. */
     private MockDatabase m_database;
 
+    /** The m_northbounder. */
     private MockNorthbounder m_northbounder;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseAware#setTemporaryDatabase(org.opennms.core.test.db.TemporaryDatabase)
+     */
     @Override
     public void setTemporaryDatabase(final MockDatabase database) {
         m_database = database;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_mockNetwork.createStandardNetwork();
@@ -168,11 +218,23 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         m_registry.register(m_northbounder, Northbounder.class);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_alarmd.destroy();
     }
 
+    /**
+     * Test persist alarm.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase(tempDbClass = MockDatabase.class)
     // Relies on specific IDs so we need a fresh database
@@ -212,6 +274,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
                              });
     }
 
+    /**
+     * Test persist many alarms at once.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase(tempDbClass = MockDatabase.class)
     public void testPersistManyAlarmsAtOnce() throws InterruptedException {
@@ -303,6 +371,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
 
     }
 
+    /**
+     * Test null event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNullEvent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -315,6 +389,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test northbounder.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase(tempDbClass = MockDatabase.class)
     // Relies on specific IDs so we need a fresh database
@@ -336,6 +416,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         assertTrue(alarms.size() > 0);
     }
 
+    /**
+     * Test no logmsg.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNoLogmsg() throws Exception {
         EventBuilder bldr = new EventBuilder("testNoLogmsg", "AlarmdTest");
@@ -351,6 +437,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test no alarm data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNoAlarmData() throws Exception {
         EventBuilder bldr = new EventBuilder("testNoAlarmData", "AlarmdTest");
@@ -359,6 +451,12 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         m_alarmd.getPersister().persist(bldr.getEvent());
     }
 
+    /**
+     * Test no dbid.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNoDbid() throws Exception {
         EventBuilder bldr = new EventBuilder("testNoDbid", "AlarmdTest");
@@ -375,6 +473,14 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         ta.verifyAnticipated();
     }
 
+    /**
+     * Change fields.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     @JUnitTemporaryDatabase(tempDbClass = MockDatabase.class)
     public void changeFields() throws InterruptedException, SQLException {
@@ -470,6 +576,16 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
     }
 
     // Supporting method for test
+    /**
+     * Send node down event dont change log msg.
+     *
+     * @param reductionKey
+     *            the reduction key
+     * @param node
+     *            the node
+     * @param logMsg
+     *            the log msg
+     */
     private void sendNodeDownEventDontChangeLogMsg(String reductionKey, MockNode node, String logMsg) {
 
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
@@ -499,6 +615,16 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         m_eventdIpcMgr.sendNow(event.getEvent());
     }
 
+    /**
+     * Send node down event change log msg.
+     *
+     * @param reductionKey
+     *            the reduction key
+     * @param node
+     *            the node
+     * @param logMsg
+     *            the log msg
+     */
     private void sendNodeDownEventChangeLogMsg(String reductionKey, MockNode node, String logMsg) {
 
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
@@ -528,6 +654,18 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         m_eventdIpcMgr.sendNow(event.getEvent());
     }
 
+    /**
+     * Send node down event with update field severity.
+     *
+     * @param reductionKey
+     *            the reduction key
+     * @param node
+     *            the node
+     * @param severity
+     *            the severity
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void sendNodeDownEventWithUpdateFieldSeverity(String reductionKey, MockNode node, OnmsSeverity severity)
             throws SQLException {
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
@@ -559,6 +697,16 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         m_eventdIpcMgr.sendNow(event.getEvent());
     }
 
+    /**
+     * Send node down event.
+     *
+     * @param reductionKey
+     *            the reduction key
+     * @param node
+     *            the node
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void sendNodeDownEvent(String reductionKey, MockNode node) throws SQLException {
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
 

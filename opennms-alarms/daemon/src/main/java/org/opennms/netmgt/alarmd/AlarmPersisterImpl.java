@@ -46,10 +46,14 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class AlarmPersisterImpl implements AlarmPersister {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmPersisterImpl.class);
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_event dao. */
     private EventDao m_eventDao;
 
     /**
@@ -68,6 +72,13 @@ public class AlarmPersisterImpl implements AlarmPersister {
         return addOrReduceEventAsAlarm(event);
     }
 
+    /**
+     * Adds the or reduce event as alarm.
+     *
+     * @param event
+     *            the event
+     * @return the onms alarm
+     */
     private OnmsAlarm addOrReduceEventAsAlarm(Event event) {
         // TODO: Understand why we use Assert
         Assert.notNull(event, "Incoming event was null, aborting");
@@ -104,6 +115,16 @@ public class AlarmPersisterImpl implements AlarmPersister {
         return alarm;
     }
 
+    /**
+     * Reduce event.
+     *
+     * @param e
+     *            the e
+     * @param alarm
+     *            the alarm
+     * @param event
+     *            the event
+     */
     private static void reduceEvent(OnmsEvent e, OnmsAlarm alarm, Event event) {
 
         // Always set these
@@ -178,6 +199,15 @@ public class AlarmPersisterImpl implements AlarmPersister {
         e.setAlarm(alarm);
     }
 
+    /**
+     * Creates the new alarm.
+     *
+     * @param e
+     *            the e
+     * @param event
+     *            the event
+     * @return the onms alarm
+     */
     private static OnmsAlarm createNewAlarm(OnmsEvent e, Event event) {
         OnmsAlarm alarm;
         alarm = new OnmsAlarm();
@@ -211,6 +241,13 @@ public class AlarmPersisterImpl implements AlarmPersister {
         return alarm;
     }
 
+    /**
+     * Check event sanity and do we process.
+     *
+     * @param event
+     *            the event
+     * @return true, if successful
+     */
     private static boolean checkEventSanityAndDoWeProcess(final Event event) {
         Assert.notNull(event, "event argument must not be null");
 
@@ -236,6 +273,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
      * <p>
      * setAlarmDao
      * </p>
+     * .
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -248,6 +286,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
      * <p>
      * getAlarmDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
      */
@@ -259,6 +298,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
      * <p>
      * setEventDao
      * </p>
+     * .
      *
      * @param eventDao
      *            a {@link org.opennms.netmgt.dao.api.EventDao} object.
@@ -271,6 +311,7 @@ public class AlarmPersisterImpl implements AlarmPersister {
      * <p>
      * getEventDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */
