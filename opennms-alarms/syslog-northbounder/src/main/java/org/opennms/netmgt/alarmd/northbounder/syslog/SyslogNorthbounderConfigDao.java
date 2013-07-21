@@ -30,18 +30,32 @@ package org.opennms.netmgt.alarmd.northbounder.syslog;
 
 import org.opennms.core.xml.AbstractJaxbConfigDao;
 
+/**
+ * The Class SyslogNorthbounderConfigDao.
+ */
 public class SyslogNorthbounderConfigDao extends
         AbstractJaxbConfigDao<SyslogNorthbounderConfig, SyslogNorthbounderConfig> {
 
+    /**
+     * Instantiates a new syslog northbounder config dao.
+     */
     public SyslogNorthbounderConfigDao() {
         super(SyslogNorthbounderConfig.class, "Config for Syslog Northbounder");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.xml.AbstractJaxbConfigDao#translateConfig(java.lang.Object)
+     */
     @Override
     protected SyslogNorthbounderConfig translateConfig(SyslogNorthbounderConfig config) {
         return config;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public SyslogNorthbounderConfig getConfig() {
         return getContainer().getObject();
     }

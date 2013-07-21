@@ -39,19 +39,29 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
+/**
+ * The Class SyslogNorthbounderManager.
+ */
 public class SyslogNorthbounderManager implements InitializingBean, DisposableBean {
 
+    /** The m_service registry. */
     @Autowired
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_config dao. */
     @Autowired
     private SyslogNorthbounderConfigDao m_configDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_registration. */
     private Registration m_registration = null;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
 
@@ -71,6 +81,9 @@ public class SyslogNorthbounderManager implements InitializingBean, DisposableBe
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.DisposableBean#destroy()
+     */
     @Override
     public void destroy() throws Exception {
         m_registration.unregister();

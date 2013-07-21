@@ -63,7 +63,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Tests the Syslog North Bound Interface
+ * Tests the Syslog North Bound Interface.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -74,20 +74,28 @@ import org.springframework.test.context.ContextConfiguration;
 // @JUnitSyslogServer(port=8514)
 public class SyslogNorthBounderTest {
 
+    /** The Constant TEST_NODE_ID. */
     private static final int TEST_NODE_ID = 777;
 
+    /** The Constant SERVER_HOST. */
     private static final String SERVER_HOST = "127.0.0.1";
 
+    /** The Constant MESSAGE_LENGTH. */
     public static final int MESSAGE_LENGTH = 1024;
 
+    /** The Constant SERVER_PORT. */
     private static final int SERVER_PORT = 8514;
 
+    /** The Constant SERVER_PROTOCOL. */
     private static final String SERVER_PROTOCOL = "UDP";
 
+    /** The Constant FACILITY. */
     private static final String FACILITY = "LOCAL0";
 
+    /** The m_server. */
     public SyslogServerIF m_server;
 
+    /** The m_log stream. */
     public TestPrintStream m_logStream;
 
     /**
@@ -98,13 +106,22 @@ public class SyslogNorthBounderTest {
      */
     class StringOutputStream extends OutputStream {
 
+        /** The m_buf. */
         StringBuilder m_buf = new StringBuilder(MESSAGE_LENGTH);
 
+        /* (non-Javadoc)
+         * @see java.io.OutputStream#write(int)
+         */
         @Override
         public synchronized void write(int inByte) throws IOException {
             m_buf.append((char) inByte);
         }
 
+        /**
+         * Gets the string.
+         *
+         * @return the string
+         */
         public synchronized String getString() {
             String buffer = m_buf.toString();
             m_buf.setLength(0);
@@ -123,13 +140,25 @@ public class SyslogNorthBounderTest {
      */
     class TestPrintStream extends PrintStream {
 
+        /** The m_out. */
         private StringOutputStream m_out;
 
+        /**
+         * Instantiates a new test print stream.
+         *
+         * @param out
+         *            the out
+         */
         public TestPrintStream(StringOutputStream out) {
             super(out);
             m_out = out;
         }
 
+        /**
+         * Read stream.
+         *
+         * @return the string
+         */
         public String readStream() {
             return m_out.getString();
         }
@@ -139,6 +168,7 @@ public class SyslogNorthBounderTest {
      * Getting ready for tests.
      *
      * @throws InterruptedException
+     *             the interrupted exception
      */
     @Before
     public void startServer() throws InterruptedException {
@@ -162,6 +192,7 @@ public class SyslogNorthBounderTest {
      * Cleans up the Syslog server after each test runs.
      *
      * @throws InterruptedException
+     *             the interrupted exception
      */
     @After
     public void stopServer() throws InterruptedException {
@@ -173,6 +204,7 @@ public class SyslogNorthBounderTest {
      * verify the LOG_LEVEL agrees with the Severity based on our algorithm.
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testForwardAlarms() throws Exception {
@@ -316,6 +348,11 @@ public class SyslogNorthBounderTest {
 
     }
 
+    /**
+     * Generate config xml.
+     *
+     * @return the string
+     */
     private String generateConfigXml() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
                 + "<syslog-northbounder-config>\n"

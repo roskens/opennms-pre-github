@@ -36,8 +36,12 @@ import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class SyslogConfigDaoTest.
+ */
 public class SyslogConfigDaoTest {
 
+    /** The xml. */
     String xml = "" + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<syslog-northbounder-config>" + "  <enabled>true</enabled>" + "  <nagles-delay>10000</nagles-delay>"
             + "  <batch-size>10</batch-size>" + "  <queue-size>100</queue-size>"
@@ -49,6 +53,7 @@ public class SyslogConfigDaoTest {
             + "   </destination>" + "	<uei>uei.opennms.org/nodes/nodeDown</uei>\n"
             + "	<uei>uei.opennms.org/nodes/nodeUp</uei>\n" + "</syslog-northbounder-config>\n" + "";
 
+    /** The xml no ueis. */
     String xmlNoUeis = "" + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<syslog-northbounder-config>" + "  <enabled>true</enabled>" + "  <nagles-delay>10000</nagles-delay>"
             + "  <batch-size>10</batch-size>" + "  <queue-size>100</queue-size>"
@@ -60,6 +65,12 @@ public class SyslogConfigDaoTest {
             + "    <first-occurrence-only>true</first-occurrence-only>" + ">\n" + "   </destination>"
             + "</syslog-northbounder-config>\n" + "";
 
+    /**
+     * Test load.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testLoad() throws InterruptedException {
 
@@ -98,6 +109,9 @@ public class SyslogConfigDaoTest {
 
     }
 
+    /**
+     * Test load no ueis.
+     */
     @Test
     public void testLoadNoUeis() {
         Resource resource = new ByteArrayResource(xmlNoUeis.getBytes());

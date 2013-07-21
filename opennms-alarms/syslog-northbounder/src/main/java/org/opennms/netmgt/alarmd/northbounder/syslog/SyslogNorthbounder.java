@@ -61,22 +61,39 @@ import org.springframework.beans.factory.InitializingBean;
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 public class SyslogNorthbounder extends AbstractNorthbounder implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogNorthbounder.class);
 
+    /** The Constant NBI_NAME. */
     private static final String NBI_NAME = "SyslogNBI";
 
+    /** The m_config. */
     private SyslogNorthbounderConfig m_config;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_destination. */
     private SyslogDestination m_destination;
 
+    /**
+     * Instantiates a new syslog northbounder.
+     *
+     * @param config
+     *            the config
+     * @param destination
+     *            the destination
+     */
     public SyslogNorthbounder(SyslogNorthbounderConfig config, SyslogDestination destination) {
         super(NBI_NAME + ":" + destination);
         m_config = config;
         m_destination = destination;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
 
@@ -100,6 +117,10 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
      * The abstraction makes a call here to determine if the alarm should be
      * placed
      * on the queue of alarms to be sent northerly.
+     *
+     * @param alarm
+     *            the alarm
+     * @return true, if successful
      */
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
@@ -124,6 +145,11 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
      * algorithmic) and the worker
      * thread that processes the queue calls this method to send alarms to the
      * northern NMS.
+     *
+     * @param alarms
+     *            the alarms
+     * @throws NorthbounderException
+     *             the northbounder exception
      */
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
@@ -189,6 +215,15 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         }
     }
 
+    /**
+     * Creates the mapping.
+     *
+     * @param alarmMappings
+     *            the alarm mappings
+     * @param alarm
+     *            the alarm
+     * @return the map
+     */
     private Map<String, String> createMapping(Map<Integer, Map<String, String>> alarmMappings, NorthboundAlarm alarm) {
         Map<String, String> mapping;
         mapping = new HashMap<String, String>();
@@ -252,6 +287,14 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         return mapping;
     }
 
+    /**
+     * Builds the parm mappings.
+     *
+     * @param alarm
+     *            the alarm
+     * @param mapping
+     *            the mapping
+     */
     protected void buildParmMappings(final NorthboundAlarm alarm, final Map<String, String> mapping) {
         List<EventParm<?>> parmCollection = new LinkedList<EventParm<?>>();
         String parms = alarm.getEventParms();
@@ -278,25 +321,61 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         }
     }
 
+    /**
+     * The Class EventParm.
+     *
+     * @param <T>
+     *            the generic type
+     */
     protected class EventParm<T extends Object> {
+
+        /** The m_parm name. */
         private String m_parmName;
 
+        /** The m_parm value. */
         private T m_parmValue;
 
+        /**
+         * Instantiates a new event parm.
+         *
+         * @param name
+         *            the name
+         * @param value
+         *            the value
+         */
         EventParm(String name, T value) {
             m_parmName = name;
             m_parmValue = value;
         }
 
+        /**
+         * Gets the parm name.
+         *
+         * @return the parm name
+         */
         public String getParmName() {
             return m_parmName;
         }
 
+        /**
+         * Gets the parm value.
+         *
+         * @return the parm value
+         */
         public T getParmValue() {
             return (T) m_parmValue;
         }
     }
 
+    /**
+     * Null safe to string.
+     *
+     * @param obj
+     *            the obj
+     * @param defaultString
+     *            the default string
+     * @return the string
+     */
     private String nullSafeToString(Object obj, String defaultString) {
         if (obj != null) {
             defaultString = obj.toString();
@@ -310,6 +389,9 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
      * This allows generic 127.0.0.1:UDP/514 to work with OpenNMS having no
      * configuration. This is
      * trickery in its finest hour.
+     *
+     * @throws SyslogRuntimeException
+     *             the syslog runtime exception
      */
     private void createNorthboundInstance() throws SyslogRuntimeException {
 
@@ -336,6 +418,17 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 
     }
 
+    /**
+     * Creates the config.
+     *
+     * @param dest
+     *            the dest
+     * @param protocol
+     *            the protocol
+     * @param fac
+     *            the fac
+     * @return the syslog config if
+     */
     private SyslogConfigIF createConfig(final SyslogDestination dest, final SyslogProtocol protocol, int fac) {
         SyslogConfigIF config;
         switch (protocol) {
@@ -351,6 +444,13 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         return config;
     }
 
+    /**
+     * Convert facility.
+     *
+     * @param facility
+     *            the facility
+     * @return the int
+     */
     private int convertFacility(final SyslogFacility facility) {
         int fac;
         switch (facility) {
@@ -420,6 +520,13 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         return fac;
     }
 
+    /**
+     * Determine log level.
+     *
+     * @param severity
+     *            the severity
+     * @return the int
+     */
     private int determineLogLevel(final OnmsSeverity severity) {
         int level;
         switch (severity) {
@@ -449,6 +556,11 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         return level;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public SyslogNorthbounderConfig getConfig() {
 
         if (m_config == null) {
@@ -459,6 +571,12 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
         return m_config;
     }
 
+    /**
+     * Sets the config.
+     *
+     * @param config
+     *            the new config
+     */
     public void setConfig(final SyslogNorthbounderConfig config) {
 
         if (config == null) {
@@ -469,10 +587,21 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
