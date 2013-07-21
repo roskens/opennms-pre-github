@@ -35,11 +35,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The listener interface for receiving jmsException events.
+ * The class that is interested in processing a jmsException
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addJmsExceptionListener<code> method. When
+ * the jmsException event occurs, that object's appropriate
+ * method is invoked.
+ *
  * @author Markus Neumann
  */
 public class JmsExceptionListener implements ExceptionListener {
+
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + JmsExceptionListener.class);
 
+    /* (non-Javadoc)
+     * @see javax.jms.ExceptionListener#onException(javax.jms.JMSException)
+     */
     @Override
     public void onException(final JMSException e) {
         logger.error("JmsException '{}'", e.getMessage());

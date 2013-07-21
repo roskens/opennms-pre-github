@@ -47,27 +47,40 @@ import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
 
 /**
+ * The Class NrtBrokerJms.
+ *
  * @author Markus Neumann
  * @author Christian Pape
  */
 public class NrtBrokerJms implements NrtBroker {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtBrokerJms.class);
 
+    /** The m_jms template. */
     private JmsTemplate m_jmsTemplate;
 
+    /** The simple message converter. */
     private final SimpleMessageConverter simpleMessageConverter = new SimpleMessageConverter();
 
+    /** The m_message store. */
     Map<String, List<String>> m_messageStore = new HashMap<String, List<String>>();
 
+    /** The m_last message polled. */
     Map<String, Date> m_lastMessagePolled = new HashMap<String, Date>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.NrtBroker#publishCollectionJob(org.opennms.nrtg.api.model.CollectionJob)
+     */
     @Override
     public void publishCollectionJob(CollectionJob collectionJob) {
         logger.debug("JmsTemplate '{}'", m_jmsTemplate);
         m_jmsTemplate.convertAndSend("NrtCollectMe", collectionJob);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.NrtBroker#receiveMeasurementSets(java.lang.String)
+     */
     @Override
     public List<MeasurementSet> receiveMeasurementSets(String nrtCollectionTaskId) {
         List<MeasurementSet> result = new ArrayList<MeasurementSet>();
@@ -98,6 +111,12 @@ public class NrtBrokerJms implements NrtBroker {
         return result;
     }
 
+    /**
+     * Sets the jms template.
+     *
+     * @param jmsTemplate
+     *            the new jms template
+     */
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         m_jmsTemplate = jmsTemplate;
     }
