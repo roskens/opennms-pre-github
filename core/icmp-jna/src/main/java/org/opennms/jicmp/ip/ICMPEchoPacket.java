@@ -31,42 +31,86 @@ package org.opennms.jicmp.ip;
 import java.nio.ByteBuffer;
 
 /**
- * ICMPEchoReply
+ * ICMPEchoReply.
  *
  * @author brozow
  */
 public class ICMPEchoPacket extends ICMPPacket {
 
+    /**
+     * Instantiates a new iCMP echo packet.
+     *
+     * @param size
+     *            the size
+     */
     public ICMPEchoPacket(int size) {
         super(size);
     }
 
+    /**
+     * Instantiates a new iCMP echo packet.
+     *
+     * @param icmpPacket
+     *            the icmp packet
+     */
     public ICMPEchoPacket(ICMPPacket icmpPacket) {
         super(icmpPacket);
     }
 
+    /**
+     * Gets the content buffer.
+     *
+     * @return the content buffer
+     */
     public ByteBuffer getContentBuffer() {
         ByteBuffer content = m_packetData.duplicate();
         content.position(8);
         return content.slice();
     }
 
+    /**
+     * Gets the packet length.
+     *
+     * @return the packet length
+     */
     public int getPacketLength() {
         return m_packetData.limit();
     }
 
+    /**
+     * Gets the identifier.
+     *
+     * @return the identifier
+     */
     public int getIdentifier() {
         return getUnsignedShort(4);
     }
 
+    /**
+     * Sets the identifier.
+     *
+     * @param id
+     *            the new identifier
+     */
     public void setIdentifier(int id) {
         setUnsignedShort(4, id);
     }
 
+    /**
+     * Gets the sequence number.
+     *
+     * @return the sequence number
+     */
     public int getSequenceNumber() {
         return getUnsignedShort(6);
     }
 
+    /**
+     * Sets the sequence number.
+     *
+     * @param sn
+     *            the new sequence number
+     */
     public void setSequenceNumber(int sn) {
         setUnsignedShort(6, sn);
     }

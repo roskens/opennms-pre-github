@@ -43,12 +43,18 @@ import org.opennms.jicmp.jna.NativeDatagramSocket;
 import com.sun.jna.Platform;
 
 /**
- * PingListener
+ * PingListener.
  *
  * @author brozow
  */
 public class V4Pinger extends AbstractPinger<Inet4Address> {
 
+    /**
+     * Instantiates a new v4 pinger.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public V4Pinger() throws Exception {
         super(NativeDatagramSocket.create(NativeDatagramSocket.PF_INET,
                                           Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
@@ -69,6 +75,9 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         try {
@@ -98,10 +107,20 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
         }
     }
 
+    /**
+     * Gets the iP payload.
+     *
+     * @param datagram
+     *            the datagram
+     * @return the iP payload
+     */
     private ByteBuffer getIPPayload(NativeDatagramPacket datagram) {
         return new IPPacket(datagram.getContent()).getPayload();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.AbstractPinger#ping(java.net.InetAddress, int, int, int, long)
+     */
     @Override
     public PingReplyMetric ping(Inet4Address addr, int id, int sequenceNumber, int count, long interval)
             throws InterruptedException {

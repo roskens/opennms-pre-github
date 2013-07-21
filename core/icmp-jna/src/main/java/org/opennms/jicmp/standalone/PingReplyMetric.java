@@ -33,24 +33,38 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * PingReplyMetric
+ * PingReplyMetric.
  *
  * @author brozow
  */
 public class PingReplyMetric extends Metric implements PingReplyListener {
 
+    /** The m_latch. */
     CountDownLatch m_latch;
 
+    /** The m_count. */
     int m_count;
 
+    /** The m_interval. */
     long m_interval;
 
+    /**
+     * Instantiates a new ping reply metric.
+     *
+     * @param count
+     *            the count
+     * @param interval
+     *            the interval
+     */
     public PingReplyMetric(int count, long interval) {
         m_latch = new CountDownLatch(count);
         m_count = count;
         m_interval = interval;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReplyListener#onPingReply(java.net.InetAddress, org.opennms.jicmp.standalone.PingReply)
+     */
     @Override
     public void onPingReply(InetAddress address, PingReply reply) {
         try {
@@ -60,6 +74,12 @@ public class PingReplyMetric extends Metric implements PingReplyListener {
         }
     }
 
+    /**
+     * Await.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void await() throws InterruptedException {
         m_latch.await(m_interval * m_count + 1000, TimeUnit.MILLISECONDS);
     }

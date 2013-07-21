@@ -28,24 +28,49 @@
 
 package org.opennms.jicmp.jna;
 
+/**
+ * The Class UnsupportedPlatformException.
+ */
 public class UnsupportedPlatformException extends RuntimeException {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4010892038492000300L;
 
+    /**
+     * Instantiates a new unsupported platform exception.
+     */
     public UnsupportedPlatformException() {
         super();
     }
 
+    /**
+     * Instantiates a new unsupported platform exception.
+     *
+     * @param message
+     *            the message
+     */
     public UnsupportedPlatformException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new unsupported platform exception.
+     *
+     * @param throwable
+     *            the throwable
+     */
     public UnsupportedPlatformException(final Throwable throwable) {
         super(throwable);
     }
 
+    /**
+     * Instantiates a new unsupported platform exception.
+     *
+     * @param message
+     *            the message
+     * @param throwable
+     *            the throwable
+     */
     public UnsupportedPlatformException(final String message, final Throwable throwable) {
         super(message, throwable);
     }

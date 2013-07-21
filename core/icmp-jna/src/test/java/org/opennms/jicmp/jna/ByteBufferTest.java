@@ -45,7 +45,7 @@ import com.sun.jna.Native;
 import com.sun.jna.ptr.IntByReference;
 
 /**
- * ByteBufferTest
+ * ByteBufferTest.
  *
  * @author brozow
  */
@@ -55,20 +55,85 @@ public class ByteBufferTest {
         Native.register((String) null);
     }
 
+    /**
+     * Socket.
+     *
+     * @param domain
+     *            the domain
+     * @param type
+     *            the type
+     * @param protocol
+     *            the protocol
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int socket(int domain, int type, int protocol) throws LastErrorException;
 
+    /**
+     * Sendto.
+     *
+     * @param socket
+     *            the socket
+     * @param buffer
+     *            the buffer
+     * @param buflen
+     *            the buflen
+     * @param flags
+     *            the flags
+     * @param dest_addr
+     *            the dest_addr
+     * @param dest_addr_len
+     *            the dest_addr_len
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int sendto(int socket, Buffer buffer, int buflen, int flags, sockaddr_in dest_addr, int dest_addr_len)
             throws LastErrorException;
 
+    /**
+     * Recvfrom.
+     *
+     * @param socket
+     *            the socket
+     * @param buffer
+     *            the buffer
+     * @param buflen
+     *            the buflen
+     * @param flags
+     *            the flags
+     * @param in_addr
+     *            the in_addr
+     * @param in_addr_len
+     *            the in_addr_len
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sockaddr_in in_addr,
             IntByReference in_addr_len) throws LastErrorException;
 
     // public native int close(int socket) throws LastErrorException;
 
+    /**
+     * Printf.
+     *
+     * @param fmt
+     *            the fmt
+     * @param args
+     *            the args
+     */
     public void printf(String fmt, Object... args) {
         System.err.print(String.format(fmt, args));
     }
 
+    /**
+     * Test wrap.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWrap() throws Exception {
 
@@ -87,6 +152,9 @@ public class ByteBufferTest {
 
     }
 
+    /**
+     * Test string decoding.
+     */
     @Test
     public void testStringDecoding() {
 
@@ -105,6 +173,12 @@ public class ByteBufferTest {
 
     }
 
+    /**
+     * Test passing.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPassing() throws Exception {
         Server server = new Server(7777);

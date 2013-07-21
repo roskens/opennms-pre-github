@@ -34,16 +34,33 @@ import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Main
+ * Main.
  *
  * @author brozow
  */
 public class Main {
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws Exception
+     *             the exception
+     */
     public static void main(String[] args) throws Exception {
         System.exit(new Main().execute(args));
     }
 
+    /**
+     * Execute.
+     *
+     * @param args
+     *            the args
+     * @return the int
+     * @throws Exception
+     *             the exception
+     */
     public int execute(String[] args) throws Exception {
         if (args.length < 1) {
             System.err.println("java -jar jna-jicmp-VERSION.jar <hostname or ip address>");

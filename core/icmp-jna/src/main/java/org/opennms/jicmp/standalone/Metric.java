@@ -31,23 +31,30 @@ package org.opennms.jicmp.standalone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Metric
+ * Metric.
  *
  * @author brozow
  */
 public class Metric {
 
+    /** The m_count. */
     private int m_count = 0;
 
+    /** The m_sum of squares of differences. */
     private double m_sumOfSquaresOfDifferences = 0.0;
 
+    /** The m_average. */
     private double m_average = 0.0;
 
+    /** The m_min. */
     private long m_min = Long.MAX_VALUE;
 
+    /** The m_max. */
     private long m_max = Long.MIN_VALUE;
 
     /**
+     * Gets the count.
+     *
      * @return the count
      */
     public int getCount() {
@@ -55,6 +62,8 @@ public class Metric {
     }
 
     /**
+     * Gets the sum of squares of differences.
+     *
      * @return the sumOfSquaresOfDifferences
      */
     public double getSumOfSquaresOfDifferences() {
@@ -62,6 +71,8 @@ public class Metric {
     }
 
     /**
+     * Gets the standard deviation.
+     *
      * @return the stdDevElapsedNanos
      */
     public double getStandardDeviation() {
@@ -69,6 +80,8 @@ public class Metric {
     }
 
     /**
+     * Gets the average.
+     *
      * @return the avgElapsedNanos
      */
     public double getAverage() {
@@ -76,6 +89,8 @@ public class Metric {
     }
 
     /**
+     * Gets the minimum.
+     *
      * @return the minElapsedNanos
      */
     public long getMinimum() {
@@ -83,6 +98,8 @@ public class Metric {
     }
 
     /**
+     * Gets the maximum.
+     *
      * @return the maxElapsedNanos
      */
     public long getMaximum() {
@@ -90,7 +107,10 @@ public class Metric {
     }
 
     /**
-     * update of nanos value
+     * update of nanos value.
+     *
+     * @param sample
+     *            the sample
      */
     public void update(long sample) {
         m_count++;
@@ -101,6 +121,13 @@ public class Metric {
         m_max = Math.max(m_max, sample);
     }
 
+    /**
+     * Gets the summary.
+     *
+     * @param unit
+     *            the unit
+     * @return the summary
+     */
     public String getSummary(TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
         return String.format("cnt/min/avg/max/stddev = %d/%.3f/%.3f/%.3f/%.3f", getCount(),

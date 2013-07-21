@@ -42,12 +42,13 @@ import org.opennms.jicmp.ip.IPPacket.Protocol;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 
 /**
- * IPPacketTest
+ * IPPacketTest.
  *
  * @author brozow
  */
 public class PacketTest {
 
+    /** The ip. */
     byte[] ip = new byte[] { (byte) 0x45, (byte) 0x00, (byte) 0x40, (byte) 0x00, (byte) 0x1e, (byte) 0x92, (byte) 0x00,
             (byte) 0x00, (byte) 0x80, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x7f, (byte) 0x00, (byte) 0x00,
             (byte) 0x01, (byte) 0x7f, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x5e,
@@ -60,6 +61,12 @@ public class PacketTest {
             (byte) 0x2b, (byte) 0x2c, (byte) 0x2d, (byte) 0x2e, (byte) 0x2f, (byte) 0x30, (byte) 0x31, (byte) 0x32,
             (byte) 0x33, (byte) 0x34, (byte) 0x35, (byte) 0x36, (byte) 0x37, };
 
+    /**
+     * Test ip header gets.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIPHeaderGets() throws Exception {
 
@@ -84,6 +91,12 @@ public class PacketTest {
         assertThat(payload.get(24), is(equalTo((byte) 16)));
     }
 
+    /**
+     * Test icmp packet gets.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testICMPPacketGets() throws Exception {
 
@@ -110,6 +123,12 @@ public class PacketTest {
 
     }
 
+    /**
+     * Test icmp packet sets.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testICMPPacketSets() throws Exception {
 

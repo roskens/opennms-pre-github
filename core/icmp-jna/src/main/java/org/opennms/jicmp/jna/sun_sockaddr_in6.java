@@ -33,20 +33,39 @@ import java.net.UnknownHostException;
 
 import com.sun.jna.Structure;
 
+/**
+ * The Class sun_sockaddr_in6.
+ */
 public class sun_sockaddr_in6 extends Structure {
 
+    /** The sin6_family. */
     public short sin6_family;
 
+    /** The sin6_port. */
     public byte[] sin6_port = new byte[2]; /* Transport layer port # (in_port_t) */
 
+    /** The sin6_flowinfo. */
     public byte[] sin6_flowinfo = new byte[4]; /* IP6 flow information */
 
+    /** The sin6_addr. */
     public byte[] sin6_addr = new byte[16]; /* IP6 address */
 
+    /** The sin6_scope_id. */
     public byte[] sin6_scope_id = new byte[4]; /* scope zone index */
 
+    /** The __sin6_src_id. */
     public byte[] __sin6_src_id = new byte[4]; /* impl. specific - UDP replies */
 
+    /**
+     * Instantiates a new sun_sockaddr_in6.
+     *
+     * @param family
+     *            the family
+     * @param addr
+     *            the addr
+     * @param port
+     *            the port
+     */
     public sun_sockaddr_in6(int family, byte[] addr, byte[] port) {
         sin6_family = (short) (0xffff & family);
         assertLen("port", port, 2);
@@ -57,15 +76,36 @@ public class sun_sockaddr_in6 extends Structure {
         sin6_scope_id = new byte[4];
     }
 
+    /**
+     * Instantiates a new sun_sockaddr_in6.
+     */
     public sun_sockaddr_in6() {
         this((byte) 0, new byte[16], new byte[2]);
     }
 
+    /**
+     * Instantiates a new sun_sockaddr_in6.
+     *
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     */
     public sun_sockaddr_in6(InetAddress address, int port) {
         this(NativeDatagramSocket.AF_INET6, address.getAddress(), new byte[] { (byte) (0xff & (port >> 8)),
                 (byte) (0xff & port) });
     }
 
+    /**
+     * Assert len.
+     *
+     * @param field
+     *            the field
+     * @param addr
+     *            the addr
+     * @param len
+     *            the len
+     */
     private void assertLen(String field, byte[] addr, int len) {
         if (addr.length != len) {
             throw new IllegalArgumentException(field + " length must be " + len + " bytes but was " + addr.length
@@ -73,6 +113,11 @@ public class sun_sockaddr_in6 extends Structure {
         }
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     public InetAddress getAddress() {
         try {
             return InetAddress.getByAddress(sin6_addr);
@@ -82,12 +127,23 @@ public class sun_sockaddr_in6 extends Structure {
         }
     }
 
+    /**
+     * Sets the address.
+     *
+     * @param address
+     *            the new address
+     */
     public void setAddress(InetAddress address) {
         byte[] addr = address.getAddress();
         assertLen("address", addr, 16);
         sin6_addr = addr;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         int port = 0;
         for (int i = 0; i < 2; i++) {
@@ -96,6 +152,12 @@ public class sun_sockaddr_in6 extends Structure {
         return port;
     }
 
+    /**
+     * Sets the port.
+     *
+     * @param port
+     *            the new port
+     */
     public void setPort(int port) {
         byte[] p = new byte[] { (byte) (0xff & (port >> 8)), (byte) (0xff & port) };
         assertLen("port", p, 2);

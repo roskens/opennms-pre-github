@@ -34,20 +34,38 @@ import java.util.concurrent.TimeUnit;
 import org.opennms.jicmp.ipv6.ICMPv6EchoPacket;
 import org.opennms.jicmp.ipv6.ICMPv6Packet;
 
+/**
+ * The Class V6PingReply.
+ */
 class V6PingReply extends ICMPv6EchoPacket implements PingReply {
 
     // The below long is equivalent to the next line and is more efficient than
     // manipulation as a string
     // Charset.forName("US-ASCII").encode("OpenNMS!").getLong(0);
+    /** The Constant COOKIE. */
     public static final long COOKIE = 0x4F70656E4E4D5321L;
 
+    /** The m_received time nanos. */
     private long m_receivedTimeNanos;
 
+    /**
+     * Instantiates a new v6 ping reply.
+     *
+     * @param icmpPacket
+     *            the icmp packet
+     * @param receivedTimeNanos
+     *            the received time nanos
+     */
     public V6PingReply(ICMPv6Packet icmpPacket, long receivedTimeNanos) {
         super(icmpPacket);
         m_receivedTimeNanos = receivedTimeNanos;
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
         /*
@@ -57,31 +75,51 @@ class V6PingReply extends ICMPv6EchoPacket implements PingReply {
         return content.limit() >= 16 && COOKIE == content.getLong(0);
     }
 
+    /**
+     * Checks if is echo reply.
+     *
+     * @return true, if is echo reply
+     */
     public boolean isEchoReply() {
         return Type.EchoReply.equals(getType());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReply#getSentTimeNanos()
+     */
     @Override
     public long getSentTimeNanos() {
         return getContentBuffer().getLong(8);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReply#getReceivedTimeNanos()
+     */
     @Override
     public long getReceivedTimeNanos() {
         return m_receivedTimeNanos;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReply#elapsedTime(java.util.concurrent.TimeUnit)
+     */
     @Override
     public double elapsedTime(TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
         return getElapsedTimeNanos() / nanosPerUnit;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReply#getElapsedTimeNanos()
+     */
     @Override
     public long getElapsedTimeNanos() {
         return getReceivedTimeNanos() - getSentTimeNanos();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.standalone.PingReply#getThreadId()
+     */
     @Override
     public long getThreadId() {
         return getIdentifier();

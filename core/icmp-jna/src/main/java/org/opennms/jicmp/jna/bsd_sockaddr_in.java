@@ -33,13 +33,19 @@ import java.net.UnknownHostException;
 
 import com.sun.jna.Structure;
 
+/**
+ * The Class bsd_sockaddr_in.
+ */
 public class bsd_sockaddr_in extends Structure {
 
+    /** The sin_len. */
     public byte sin_len;
 
+    /** The sin_family. */
     public byte sin_family;
 
     /* we use an array of bytes rather than int16 to avoid jna byte reordering */
+    /** The sin_port. */
     public byte[] sin_port;
 
     /*
@@ -47,10 +53,22 @@ public class bsd_sockaddr_in extends Structure {
      * to avoid having jna to byte-order swapping.. They are already in
      * network byte order in java
      */
+    /** The sin_addr. */
     public byte[] sin_addr;
 
+    /** The sin_zero. */
     public byte[] sin_zero = new byte[8];
 
+    /**
+     * Instantiates a new bsd_sockaddr_in.
+     *
+     * @param family
+     *            the family
+     * @param addr
+     *            the addr
+     * @param port
+     *            the port
+     */
     public bsd_sockaddr_in(int family, byte[] addr, byte[] port) {
         sin_family = (byte) (0xff & family);
         assertLen("port", port, 2);
@@ -60,21 +78,47 @@ public class bsd_sockaddr_in extends Structure {
         sin_len = (byte) (0xff & size());
     }
 
+    /**
+     * Instantiates a new bsd_sockaddr_in.
+     */
     public bsd_sockaddr_in() {
         this((byte) 0, new byte[4], new byte[2]);
     }
 
+    /**
+     * Instantiates a new bsd_sockaddr_in.
+     *
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     */
     public bsd_sockaddr_in(InetAddress address, int port) {
         this(NativeDatagramSocket.AF_INET, address.getAddress(), new byte[] { (byte) (0xff & (port >> 8)),
                 (byte) (0xff & port) });
     }
 
+    /**
+     * Assert len.
+     *
+     * @param field
+     *            the field
+     * @param addr
+     *            the addr
+     * @param len
+     *            the len
+     */
     private void assertLen(String field, byte[] addr, int len) {
         if (addr.length != len) {
             throw new IllegalArgumentException(field + " length must be " + len + " bytes");
         }
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     public InetAddress getAddress() {
         try {
             return InetAddress.getByAddress(sin_addr);
@@ -85,12 +129,23 @@ public class bsd_sockaddr_in extends Structure {
         }
     }
 
+    /**
+     * Sets the address.
+     *
+     * @param address
+     *            the new address
+     */
     public void setAddress(InetAddress address) {
         byte[] addr = address.getAddress();
         assertLen("address", addr, 4);
         sin_addr = addr;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         int port = 0;
         for (int i = 0; i < 2; i++) {
@@ -99,6 +154,12 @@ public class bsd_sockaddr_in extends Structure {
         return port;
     }
 
+    /**
+     * Sets the port.
+     *
+     * @param port
+     *            the new port
+     */
     public void setPort(int port) {
         byte[] p = new byte[] { (byte) (0xff & (port >> 8)), (byte) (0xff & port) };
         assertLen("port", p, 2);

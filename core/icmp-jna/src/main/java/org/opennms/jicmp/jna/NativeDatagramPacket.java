@@ -32,60 +32,130 @@ import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
 /**
- * NativeDatagramPacketBase
+ * NativeDatagramPacketBase.
  *
  * @author brozow
  */
 public class NativeDatagramPacket {
 
+    /** The m_data. */
     private ByteBuffer m_data;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_port. */
     private int m_port;
 
+    /**
+     * Instantiates a new native datagram packet.
+     *
+     * @param data
+     *            the data
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     */
     public NativeDatagramPacket(ByteBuffer data, InetAddress address, int port) {
         m_data = data;
         m_address = address;
         m_port = port;
     }
 
+    /**
+     * Instantiates a new native datagram packet.
+     *
+     * @param size
+     *            the size
+     */
     public NativeDatagramPacket(int size) {
         this(ByteBuffer.allocate(size), null, -1);
     }
 
+    /**
+     * Instantiates a new native datagram packet.
+     *
+     * @param data
+     *            the data
+     * @param host
+     *            the host
+     * @param port
+     *            the port
+     */
     public NativeDatagramPacket(byte[] data, InetAddress host, int port) {
         this(ByteBuffer.wrap(data), host, port);
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     public InetAddress getAddress() {
         return m_address;
     }
 
+    /**
+     * Sets the address.
+     *
+     * @param addr
+     *            the new address
+     */
     public void setAddress(InetAddress addr) {
         m_address = addr;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         return m_port;
     }
 
+    /**
+     * Sets the port.
+     *
+     * @param port
+     *            the new port
+     */
     public void setPort(int port) {
         m_port = port;
     }
 
+    /**
+     * Gets the length.
+     *
+     * @return the length
+     */
     public int getLength() {
         return m_data.limit();
     }
 
+    /**
+     * Sets the length.
+     *
+     * @param length
+     *            the new length
+     */
     public void setLength(int length) {
         m_data.limit(length);
     }
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public ByteBuffer getContent() {
         return m_data.duplicate();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
 

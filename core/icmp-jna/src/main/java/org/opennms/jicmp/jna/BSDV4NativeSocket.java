@@ -35,7 +35,7 @@ import com.sun.jna.LastErrorException;
 import com.sun.jna.Native;
 
 /**
- * UnixNativeSocketFactory
+ * UnixNativeSocketFactory.
  *
  * @author brozow
  */
@@ -45,26 +45,107 @@ public class BSDV4NativeSocket extends NativeDatagramSocket {
         Native.register((String) null);
     }
 
+    /** The m_sock. */
     private int m_sock;
 
+    /**
+     * Instantiates a new bSD v4 native socket.
+     *
+     * @param family
+     *            the family
+     * @param type
+     *            the type
+     * @param protocol
+     *            the protocol
+     * @throws Exception
+     *             the exception
+     */
     public BSDV4NativeSocket(int family, int type, int protocol) throws Exception {
         m_sock = socket(family, type, protocol);
     }
 
+    /**
+     * Socket.
+     *
+     * @param domain
+     *            the domain
+     * @param type
+     *            the type
+     * @param protocol
+     *            the protocol
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int socket(int domain, int type, int protocol) throws LastErrorException;
 
+    /**
+     * Sendto.
+     *
+     * @param socket
+     *            the socket
+     * @param buffer
+     *            the buffer
+     * @param buflen
+     *            the buflen
+     * @param flags
+     *            the flags
+     * @param dest_addr
+     *            the dest_addr
+     * @param dest_addr_len
+     *            the dest_addr_len
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int sendto(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in dest_addr,
             int dest_addr_len) throws LastErrorException;
 
+    /**
+     * Recvfrom.
+     *
+     * @param socket
+     *            the socket
+     * @param buffer
+     *            the buffer
+     * @param buflen
+     *            the buflen
+     * @param flags
+     *            the flags
+     * @param in_addr
+     *            the in_addr
+     * @param in_addr_len
+     *            the in_addr_len
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, bsd_sockaddr_in in_addr,
             int[] in_addr_len) throws LastErrorException;
 
+    /**
+     * Close.
+     *
+     * @param socket
+     *            the socket
+     * @return the int
+     * @throws LastErrorException
+     *             the last error exception
+     */
     public native int close(int socket) throws LastErrorException;
 
+    /**
+     * Gets the sock.
+     *
+     * @return the sock
+     */
     private int getSock() {
         return m_sock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.jna.NativeDatagramSocket#receive(org.opennms.jicmp.jna.NativeDatagramPacket)
+     */
     @Override
     public int receive(NativeDatagramPacket p) {
         bsd_sockaddr_in in_addr = new bsd_sockaddr_in();
@@ -80,6 +161,9 @@ public class BSDV4NativeSocket extends NativeDatagramSocket {
         return n;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.jna.NativeDatagramSocket#send(org.opennms.jicmp.jna.NativeDatagramPacket)
+     */
     @Override
     public int send(NativeDatagramPacket p) {
         bsd_sockaddr_in destAddr = new bsd_sockaddr_in(p.getAddress(), p.getPort());
@@ -87,6 +171,9 @@ public class BSDV4NativeSocket extends NativeDatagramSocket {
         return sendto(getSock(), buf, buf.remaining(), 0, destAddr, destAddr.size());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.jna.NativeDatagramSocket#close()
+     */
     @Override
     public int close() {
         return close(getSock());

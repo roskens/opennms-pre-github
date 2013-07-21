@@ -38,12 +38,18 @@ import org.opennms.jicmp.jna.NativeDatagramSocket;
 import com.sun.jna.Platform;
 
 /**
- * Dumper
+ * Dumper.
  *
  * @author brozow
  */
 public class Dumper {
 
+    /**
+     * Dump.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void dump() throws Exception {
         NativeDatagramSocket m_pingSocket = NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6,
                                                                         Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
@@ -72,6 +78,14 @@ public class Dumper {
 
     }
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws Exception
+     *             the exception
+     */
     public static void main(String[] args) throws Exception {
         new Dumper().dump();
     }

@@ -34,40 +34,77 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The Class Server.
+ */
 class Server implements Runnable {
 
+    /** The m_exception. */
     private AtomicReference<Throwable> m_exception = new AtomicReference<Throwable>();
 
+    /** The m_stopped. */
     private AtomicBoolean m_stopped = new AtomicBoolean(false);
 
+    /** The m_latch. */
     private CountDownLatch m_latch = new CountDownLatch(1);
 
+    /** The m_thread. */
     private Thread m_thread;
 
+    /** The m_port. */
     private int m_port;
 
+    /**
+     * Instantiates a new server.
+     *
+     * @param port
+     *            the port
+     */
     Server(int port) {
         m_port = port;
     }
 
+    /**
+     * Start.
+     */
     public void start() {
         m_thread = new Thread(this);
         m_thread.start();
     }
 
+    /**
+     * Wait for start.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void waitForStart() throws InterruptedException {
         m_latch.await();
     }
 
+    /**
+     * Checks if is stopped.
+     *
+     * @return true, if is stopped
+     */
     public boolean isStopped() {
         return m_stopped.get();
     }
 
+    /**
+     * Stop.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void stop() throws InterruptedException {
         m_stopped.set(true);
         m_thread.join();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         DatagramSocket socket = null;

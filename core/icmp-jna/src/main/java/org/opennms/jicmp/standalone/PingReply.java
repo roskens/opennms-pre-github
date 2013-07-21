@@ -31,20 +31,47 @@ package org.opennms.jicmp.standalone;
 import java.util.concurrent.TimeUnit;
 
 /**
- * PingReply
+ * PingReply.
  *
  * @author brozow
  */
 interface PingReply {
 
+    /**
+     * Gets the sent time nanos.
+     *
+     * @return the sent time nanos
+     */
     public abstract long getSentTimeNanos();
 
+    /**
+     * Gets the received time nanos.
+     *
+     * @return the received time nanos
+     */
     public abstract long getReceivedTimeNanos();
 
+    /**
+     * Gets the elapsed time nanos.
+     *
+     * @return the elapsed time nanos
+     */
     public abstract long getElapsedTimeNanos();
 
+    /**
+     * Elapsed time.
+     *
+     * @param unit
+     *            the unit
+     * @return the double
+     */
     public abstract double elapsedTime(TimeUnit unit);
 
+    /**
+     * Gets the thread id.
+     *
+     * @return the thread id
+     */
     public abstract long getThreadId();
 
 }

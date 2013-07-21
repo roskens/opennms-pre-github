@@ -42,16 +42,24 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * NativeSocketTest
+ * NativeSocketTest.
  *
  * @author brozow
  */
 public class NativeSocketTest {
 
+    /** The Constant UTF_8. */
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
+    /** The m_server. */
     Server m_server;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_server = new Server(7777);
@@ -59,15 +67,35 @@ public class NativeSocketTest {
         m_server.waitForStart();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @After
     public void tearDown() throws InterruptedException {
         m_server.stop();
     }
 
+    /**
+     * Printf.
+     *
+     * @param fmt
+     *            the fmt
+     * @param args
+     *            the args
+     */
     public void printf(String fmt, Object... args) {
         System.err.print(String.format(fmt, args));
     }
 
+    /**
+     * Test server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServer() throws Exception {
         String[] cmds = new String[] { "echo", "echo2", "quit" };
@@ -101,16 +129,38 @@ public class NativeSocketTest {
         }
     }
 
+    /**
+     * Test native v4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNativeV4() throws Exception {
         testNative(NativeDatagramSocket.PF_INET, InetAddress.getByName("127.0.0.1"));
     }
 
+    /**
+     * Test native v6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNativeV6() throws Exception {
         testNative(NativeDatagramSocket.PF_INET6, InetAddress.getByName("::1"));
     }
 
+    /**
+     * Test native.
+     *
+     * @param family
+     *            the family
+     * @param address
+     *            the address
+     * @throws Exception
+     *             the exception
+     */
     private void testNative(int family, InetAddress address) throws Exception {
         String[] cmds = new String[] { "nativeEcho", "nativeEcho2", "quitNative" };
         NativeDatagramSocket socket = null;
@@ -145,6 +195,12 @@ public class NativeSocketTest {
         }
     }
 
+    /**
+     * Test close in receive.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(timeout = 10000)
     @Ignore("This is ignored since I haven't found a way to interrupt a socket blocked on recvfrom in linux")
     public void testCloseInReceive() throws Exception {

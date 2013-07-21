@@ -40,22 +40,37 @@ import org.junit.Test;
 import com.sun.jna.Platform;
 
 /**
- * PingThreadTest
+ * PingThreadTest.
  *
  * @author brozow
  */
 
 public class PingThreadTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         assumeTrue(Platform.isMac());
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
     }
 
+    /**
+     * Test multi thread socket use.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMultiThreadSocketUse() throws Exception {
         int pingCount = 10;
@@ -72,6 +87,12 @@ public class PingThreadTest {
         }
     }
 
+    /**
+     * Test many thread socket use.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testManyThreadSocketUse() throws Exception {
         V4Pinger listener = new V4Pinger();
@@ -103,6 +124,17 @@ public class PingThreadTest {
         }
     }
 
+    /**
+     * Ping thead.
+     *
+     * @param listener
+     *            the listener
+     * @param id
+     *            the id
+     * @param count
+     *            the count
+     * @return the thread
+     */
     private Thread pingThead(final V4Pinger listener, final int id, final int count) {
         return new Thread() {
             @Override

@@ -34,30 +34,68 @@ import java.nio.ByteBuffer;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 
 /**
- * ICMPPacket
+ * ICMPPacket.
  *
  * @author brozow
  */
 public class ICMPPacket {
 
+    /** The Constant CHECKSUM_INDEX. */
     public static final int CHECKSUM_INDEX = 2;
 
+    /**
+     * The Enum Type.
+     */
     public enum Type {
-        EchoReply(0), DestUnreachable(3), SourceQuench(4), Redirect(5), EchoRequest(8), TimeExceeded(11), Traceroute(30),
+
+        /** The Echo reply. */
+        EchoReply(0),
+ /** The Dest unreachable. */
+ DestUnreachable(3),
+ /** The Source quench. */
+ SourceQuench(4),
+ /** The Redirect. */
+ Redirect(5),
+ /** The Echo request. */
+ EchoRequest(8),
+ /** The Time exceeded. */
+ TimeExceeded(11),
+ /** The Traceroute. */
+ Traceroute(30),
 
         // this is used to represent a type code that we have not handled
+        /** The Other. */
         Other(-1);
 
+        /** The m_code. */
         private int m_code;
 
+        /**
+         * Instantiates a new type.
+         *
+         * @param code
+         *            the code
+         */
         private Type(int code) {
             m_code = code;
         }
 
+        /**
+         * Gets the code.
+         *
+         * @return the code
+         */
         public int getCode() {
             return m_code;
         }
 
+        /**
+         * To type.
+         *
+         * @param code
+         *            the code
+         * @return the type
+         */
         public static Type toType(int code) {
             for (Type p : Type.values()) {
                 if (code == p.getCode()) {
@@ -69,45 +107,99 @@ public class ICMPPacket {
 
     }
 
+    /** The m_packet data. */
     ByteBuffer m_packetData;
 
+    /**
+     * Instantiates a new iCMP packet.
+     *
+     * @param ipPayload
+     *            the ip payload
+     */
     public ICMPPacket(ByteBuffer ipPayload) {
         m_packetData = ipPayload;
     }
 
+    /**
+     * Instantiates a new iCMP packet.
+     *
+     * @param icmpPacket
+     *            the icmp packet
+     */
     public ICMPPacket(ICMPPacket icmpPacket) {
         this(icmpPacket.m_packetData.duplicate());
     }
 
+    /**
+     * Instantiates a new iCMP packet.
+     *
+     * @param size
+     *            the size
+     */
     public ICMPPacket(int size) {
         this(ByteBuffer.allocate(size));
         // this(ByteBuffer.allocateDirect(size));
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type
+     */
     public Type getType() {
         return Type.toType(m_packetData.get(0));
     }
 
+    /**
+     * Sets the type.
+     *
+     * @param t
+     *            the new type
+     */
     public void setType(Type t) {
         m_packetData.put(0, ((byte) (t.getCode())));
     }
 
+    /**
+     * Gets the code.
+     *
+     * @return the code
+     */
     public int getCode() {
         return 0xff & m_packetData.get(1);
     }
 
+    /**
+     * Sets the code.
+     *
+     * @param code
+     *            the new code
+     */
     public void setCode(int code) {
         m_packetData.put(1, ((byte) code));
     }
 
+    /**
+     * Gets the checksum.
+     *
+     * @return the checksum
+     */
     public int getChecksum() {
         return getUnsignedShort(2);
     }
 
+    /**
+     * Sets the checksum.
+     */
     public void setChecksum() {
         setUnsignedShort(2, computeChecksum());
     }
 
+    /**
+     * Compute checksum.
+     *
+     * @return the int
+     */
     public int computeChecksum() {
 
         int sum = 0;
@@ -141,9 +233,13 @@ public class ICMPPacket {
     }
 
     /**
+     * Sets the bytes.
+     *
      * @param index
      *            The byte offset into the packet where the bytes will
      *            be inserted
+     * @param b
+     *            the b
      */
     public void setBytes(int index, byte[] b) {
         ByteBuffer payload = m_packetData;
@@ -156,20 +252,34 @@ public class ICMPPacket {
         }
     }
 
+    /**
+     * Make unsigned short.
+     *
+     * @param b1
+     *            the b1
+     * @param b0
+     *            the b0
+     * @return the int
+     */
     public int makeUnsignedShort(byte b1, byte b0) {
         return 0xffff & (((b1 & 0xff) << 8) | ((b0 & 0xff) << 0));
     }
 
     /**
+     * Gets the unsigned short.
+     *
      * @param index
      *            The byte offset into the packet where the value
      *            can be found
+     * @return the unsigned short
      */
     public int getUnsignedShort(int index) {
         return m_packetData.getShort(index) & 0xffff;
     }
 
     /**
+     * Sets the unsigned short.
+     *
      * @param index
      *            The byte offset into the packet where the value
      *            can be found
@@ -180,6 +290,13 @@ public class ICMPPacket {
         m_packetData.putShort(index, ((short) (us & 0xffff)));
     }
 
+    /**
+     * To datagram packet.
+     *
+     * @param destinationAddress
+     *            the destination address
+     * @return the native datagram packet
+     */
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {
         // compute and set the ICMP Header checksum
         setChecksum();

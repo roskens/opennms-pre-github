@@ -35,25 +35,55 @@ import java.nio.ByteBuffer;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 
 /**
- * IPPacket
+ * IPPacket.
  *
  * @author brozow
  */
 public class IPPacket {
 
+    /**
+     * The Enum Protocol.
+     */
     public enum Protocol {
-        ICMP(1), TCP(6), UDP(17), V6_OVER_V4(41);
 
+        /** The icmp. */
+        ICMP(1),
+ /** The tcp. */
+ TCP(6),
+ /** The udp. */
+ UDP(17),
+ /** The V6_ ove r_ v4. */
+ V6_OVER_V4(41);
+
+        /** The m_code. */
         private int m_code;
 
+        /**
+         * Instantiates a new protocol.
+         *
+         * @param code
+         *            the code
+         */
         private Protocol(int code) {
             m_code = code;
         }
 
+        /**
+         * Gets the code.
+         *
+         * @return the code
+         */
         public int getCode() {
             return m_code;
         }
 
+        /**
+         * To protocol.
+         *
+         * @param code
+         *            the code
+         * @return the protocol
+         */
         public static Protocol toProtocol(int code) {
             for (Protocol p : Protocol.values()) {
                 if (code == p.getCode()) {
@@ -65,33 +95,66 @@ public class IPPacket {
 
     }
 
+    /** The m_buffer. */
     private ByteBuffer m_buffer;
 
+    /**
+     * Instantiates a new iP packet.
+     *
+     * @param p
+     *            the p
+     */
     public IPPacket(IPPacket p) {
         this(p.m_buffer.duplicate());
     }
 
+    /**
+     * Instantiates a new iP packet.
+     *
+     * @param buffer
+     *            the buffer
+     */
     public IPPacket(ByteBuffer buffer) {
         m_buffer = buffer;
     }
 
+    /**
+     * Instantiates a new iP packet.
+     *
+     * @param data
+     *            the data
+     * @param offset
+     *            the offset
+     * @param length
+     *            the length
+     */
     public IPPacket(byte[] data, int offset, int length) {
         this(ByteBuffer.wrap(data, offset, length).slice());
     }
 
+    /**
+     * Instantiates a new iP packet.
+     *
+     * @param datagram
+     *            the datagram
+     */
     public IPPacket(NativeDatagramPacket datagram) {
         this(datagram.getContent());
     }
 
     /**
-     * Returns the version of the IP Packet which must be '4'
+     * Returns the version of the IP Packet which must be '4'.
+     *
+     * @return the version
      */
     public int getVersion() {
         return ((m_buffer.get(0) & 0xf0) >> 4);
     }
 
     /**
-     * Returns the length of the header in bytes
+     * Returns the length of the header in bytes.
+     *
+     * @return the header length
      */
     public int getHeaderLength() {
         // Specifies the length of the IP packet header in 32 bit words. The
@@ -101,6 +164,13 @@ public class IPPacket {
                                              // bytes per 32 bit word)
     }
 
+    /**
+     * Gets the addr at offset.
+     *
+     * @param offset
+     *            the offset
+     * @return the addr at offset
+     */
     private InetAddress getAddrAtOffset(int offset) {
         byte[] addr = new byte[4];
         int oldPos = m_buffer.position();
@@ -122,28 +192,58 @@ public class IPPacket {
 
     }
 
+    /**
+     * Gets the time to live.
+     *
+     * @return the time to live
+     */
     public int getTimeToLive() {
         return 0xff & m_buffer.get(8);
     }
 
+    /**
+     * Gets the protocol.
+     *
+     * @return the protocol
+     */
     public Protocol getProtocol() {
         return Protocol.toProtocol(m_buffer.get(9));
     }
 
+    /**
+     * Gets the source address.
+     *
+     * @return the source address
+     */
     public InetAddress getSourceAddress() {
         return getAddrAtOffset(12);
     }
 
+    /**
+     * Gets the destination address.
+     *
+     * @return the destination address
+     */
     public InetAddress getDestinationAddress() {
         return getAddrAtOffset(16);
     }
 
+    /**
+     * Gets the payload.
+     *
+     * @return the payload
+     */
     public ByteBuffer getPayload() {
         ByteBuffer data = m_buffer.duplicate();
         data.position(getHeaderLength());
         return data.slice();
     }
 
+    /**
+     * Gets the payload length.
+     *
+     * @return the payload length
+     */
     public int getPayloadLength() {
         return getPayload().remaining();
     }

@@ -35,14 +35,28 @@ import org.opennms.jicmp.ip.ICMPEchoPacket;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
+/**
+ * The Class V4PingRequest.
+ */
 class V4PingRequest extends ICMPEchoPacket {
 
+    /**
+     * Instantiates a new v4 ping request.
+     */
     public V4PingRequest() {
         super(64);
         setType(Type.EchoRequest);
         setCode(0);
     }
 
+    /**
+     * Instantiates a new v4 ping request.
+     *
+     * @param id
+     *            the id
+     * @param seqNum
+     *            the seq num
+     */
     public V4PingRequest(int id, int seqNum) {
         super(64);
         setType(Type.EchoRequest);
@@ -55,6 +69,9 @@ class V4PingRequest extends ICMPEchoPacket {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.ip.ICMPPacket#toDatagramPacket(java.net.InetAddress)
+     */
     @Override
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {
         ByteBuffer contentBuffer = getContentBuffer();
@@ -63,6 +80,14 @@ class V4PingRequest extends ICMPEchoPacket {
         return super.toDatagramPacket(destinationAddress);
     }
 
+    /**
+     * Send.
+     *
+     * @param socket
+     *            the socket
+     * @param addr
+     *            the addr
+     */
     public void send(NativeDatagramSocket socket, InetAddress addr) {
         socket.send(toDatagramPacket(addr));
     }

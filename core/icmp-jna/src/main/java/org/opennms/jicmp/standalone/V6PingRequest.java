@@ -35,14 +35,28 @@ import org.opennms.jicmp.ipv6.ICMPv6EchoPacket;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
+/**
+ * The Class V6PingRequest.
+ */
 class V6PingRequest extends ICMPv6EchoPacket {
 
+    /**
+     * Instantiates a new v6 ping request.
+     */
     public V6PingRequest() {
         super(64);
         setType(Type.EchoRequest);
         setCode(0);
     }
 
+    /**
+     * Instantiates a new v6 ping request.
+     *
+     * @param id
+     *            the id
+     * @param seqNum
+     *            the seq num
+     */
     public V6PingRequest(int id, int seqNum) {
         super(64);
         setType(Type.EchoRequest);
@@ -55,6 +69,9 @@ class V6PingRequest extends ICMPv6EchoPacket {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.ipv6.ICMPv6Packet#toDatagramPacket(java.net.InetAddress)
+     */
     @Override
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {
         ByteBuffer contentBuffer = getContentBuffer();
@@ -63,6 +80,14 @@ class V6PingRequest extends ICMPv6EchoPacket {
         return super.toDatagramPacket(destinationAddress);
     }
 
+    /**
+     * Send.
+     *
+     * @param socket
+     *            the socket
+     * @param addr
+     *            the addr
+     */
     public void send(NativeDatagramSocket socket, InetAddress addr) {
         socket.send(toDatagramPacket(addr));
     }
