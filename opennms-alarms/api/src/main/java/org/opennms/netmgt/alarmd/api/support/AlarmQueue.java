@@ -48,19 +48,52 @@ import org.slf4j.LoggerFactory;
  * just-in-case
  * the NBI implementations don't set the batch size, etc.
  *
+ * @param <T>
+ *            the generic type
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 class AlarmQueue<T extends Preservable> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmQueue.class);
 
+    /**
+     * The Class State.
+     */
     public abstract class State {
+
+        /**
+         * Gets the alarms to forward.
+         *
+         * @return the alarms to forward
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         abstract List<T> getAlarmsToForward() throws InterruptedException;
 
+        /**
+         * Forward successful.
+         *
+         * @param alarms
+         *            the alarms
+         */
         abstract void forwardSuccessful(List<T> alarms);
 
+        /**
+         * Forward failed.
+         *
+         * @param alarms
+         *            the alarms
+         */
         abstract void forwardFailed(List<T> alarms);
 
+        /**
+         * Adds the to preserved queue.
+         *
+         * @param a
+         *            the a
+         */
         protected void addToPreservedQueue(T a) {
             if (m_preservedQueue.size() >= m_maxPreservedAlarms) {
                 m_nextBatch.clear();
@@ -70,6 +103,9 @@ class AlarmQueue<T extends Preservable> {
             m_preservedQueue.offer(a);
         }
 
+        /**
+         * Discard non preserved alarms.
+         */
         protected void discardNonPreservedAlarms() {
             List<T> alarms = new ArrayList<T>(m_queue.size());
             m_queue.drainTo(alarms);
@@ -77,6 +113,12 @@ class AlarmQueue<T extends Preservable> {
             addPreservedToPreservedQueue(alarms);
         }
 
+        /**
+         * Adds the preserved to preserved queue.
+         *
+         * @param alarms
+         *            the alarms
+         */
         protected void addPreservedToPreservedQueue(List<T> alarms) {
             for (Iterator<T> it = alarms.iterator(); it.hasNext();) {
                 T a = it.next();
@@ -86,12 +128,16 @@ class AlarmQueue<T extends Preservable> {
             }
         }
 
+        /**
+         * Load next batch.
+         */
         protected void loadNextBatch() {
             m_preservedQueue.drainTo(m_nextBatch, m_maxBatchSize - m_nextBatch.size());
         }
 
     }
 
+    /** The forwarding. */
     private final State FORWARDING = new State() {
 
         @Override
@@ -146,6 +192,7 @@ class AlarmQueue<T extends Preservable> {
 
     };
 
+    /** The failing. */
     private final State FAILING = new State() {
 
         @Override
@@ -180,6 +227,7 @@ class AlarmQueue<T extends Preservable> {
 
     };
 
+    /** The recovering. */
     private final State RECOVERING = new State() {
 
         @Override
@@ -209,88 +257,181 @@ class AlarmQueue<T extends Preservable> {
     };
 
     // operational parameters
+    /** The m_max preserved alarms. */
     private int m_maxPreservedAlarms = 300000;
 
+    /** The m_max batch size. */
     private int m_maxBatchSize = 100;
 
+    /** The m_nagles delay. */
     private long m_naglesDelay = 1000;
 
     // queue for all alarms to be forwarded
+    /** The m_queue. */
     private BlockingQueue<T> m_queue = new LinkedBlockingQueue<T>();
 
     // queue for preserving alarms that are being saved during a forwarding
     // failure
+    /** The m_preserved queue. */
     private BlockingQueue<T> m_preservedQueue = new LinkedBlockingQueue<T>();
 
     // a list of alarms that are pending due to a forwarding failure
+    /** The m_next batch. */
     private List<T> m_nextBatch;
 
     // used to define the behavior of the getNext and forwardSuccessful and
     // forwardFailed
+    /** The m_state. */
     private State m_state = FORWARDING;
 
     // creates messages use to indicate that a connection failure has
     // occurred or queue has overflowed
+    /** The m_status factory. */
     private StatusFactory<T> m_statusFactory;
 
+    /**
+     * Instantiates a new alarm queue.
+     *
+     * @param statusFactory
+     *            the status factory
+     */
     public AlarmQueue(StatusFactory<T> statusFactory) {
         m_statusFactory = statusFactory;
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     private void setState(State state) {
         m_state = state;
         LOG.debug("Setting state of AlarmQueue to {}", m_state);
     }
 
+    /**
+     * Gets the nagles delay.
+     *
+     * @return the nagles delay
+     */
     public long getNaglesDelay() {
         return m_naglesDelay;
     }
 
+    /**
+     * Sets the nagles delay.
+     *
+     * @param delay
+     *            the new nagles delay
+     */
     public void setNaglesDelay(long delay) {
         m_naglesDelay = delay;
     }
 
+    /**
+     * Gets the max preserved alarms.
+     *
+     * @return the max preserved alarms
+     */
     public int getMaxPreservedAlarms() {
         return m_maxPreservedAlarms;
     }
 
+    /**
+     * Sets the max preserved alarms.
+     *
+     * @param maxPreservedAlarms
+     *            the new max preserved alarms
+     */
     public void setMaxPreservedAlarms(int maxPreservedAlarms) {
         m_maxPreservedAlarms = maxPreservedAlarms;
     }
 
+    /**
+     * Gets the max batch size.
+     *
+     * @return the max batch size
+     */
     public int getMaxBatchSize() {
         return m_maxBatchSize;
     }
 
+    /**
+     * Sets the max batch size.
+     *
+     * @param maxBatchSize
+     *            the new max batch size
+     */
     public void setMaxBatchSize(int maxBatchSize) {
         m_maxBatchSize = maxBatchSize;
     }
 
+    /**
+     * Inits the.
+     */
     public void init() {
         m_nextBatch = new ArrayList<T>(m_maxBatchSize);
     }
 
+    /**
+     * Discard.
+     *
+     * @param a
+     *            the a
+     */
     public void discard(T a) {
         // do nothing
     }
 
+    /**
+     * Accept.
+     *
+     * @param a
+     *            the a
+     */
     public void accept(T a) {
         m_queue.offer(a);
     }
 
+    /**
+     * Preserve.
+     *
+     * @param a
+     *            the a
+     */
     public void preserve(T a) {
         a.setPreserved(true);
         m_queue.offer(a);
     }
 
+    /**
+     * Gets the alarms to forward.
+     *
+     * @return the alarms to forward
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public List<T> getAlarmsToForward() throws InterruptedException {
         return m_state.getAlarmsToForward();
     }
 
+    /**
+     * Forward successful.
+     *
+     * @param alarms
+     *            the alarms
+     */
     public void forwardSuccessful(List<T> alarms) {
         m_state.forwardSuccessful(alarms);
     }
 
+    /**
+     * Forward failed.
+     *
+     * @param alarms
+     *            the alarms
+     */
     public void forwardFailed(List<T> alarms) {
         m_state.forwardFailed(alarms);
     }

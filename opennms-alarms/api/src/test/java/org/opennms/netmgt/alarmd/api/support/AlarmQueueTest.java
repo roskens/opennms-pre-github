@@ -39,15 +39,21 @@ import org.opennms.netmgt.alarmd.api.NorthboundAlarm;
 import org.opennms.netmgt.model.OnmsAlarm;
 
 /**
- * Tests the AlarmQueue for NBI
+ * Tests the AlarmQueue for NBI.
  *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class AlarmQueueTest implements StatusFactory<NorthboundAlarm> {
 
+    /** The alarm number. */
     public int alarmNumber = 0;
 
+    /**
+     * Creates the alarm.
+     *
+     * @return the northbound alarm
+     */
     private NorthboundAlarm createAlarm() {
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setId(++alarmNumber);
@@ -56,6 +62,12 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm> {
         return new NorthboundAlarm(alarm);
     }
 
+    /**
+     * Test regular forwarding.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testRegularForwarding() throws InterruptedException {
         AlarmQueue<NorthboundAlarm> queue = new AlarmQueue<NorthboundAlarm>(this);
@@ -91,6 +103,12 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm> {
 
     }
 
+    /**
+     * Test failure.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void testFailure() throws InterruptedException {
         AlarmQueue<NorthboundAlarm> queue = new AlarmQueue<NorthboundAlarm>(this);
         queue.setMaxBatchSize(3);
@@ -161,11 +179,24 @@ public class AlarmQueueTest implements StatusFactory<NorthboundAlarm> {
 
     }
 
+    /**
+     * Assert preserved alarm.
+     *
+     * @param alarms
+     *            the alarms
+     * @param index
+     *            the index
+     * @param id
+     *            the id
+     */
     private void assertPreservedAlarm(List<NorthboundAlarm> alarms, int index, int id) {
         assertTrue(alarms.get(index).isPreserved());
         assertEquals(id, alarms.get(index).getId().intValue());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.StatusFactory#createSyncLostMessage()
+     */
     @Override
     public NorthboundAlarm createSyncLostMessage() {
         return NorthboundAlarm.SYNC_LOST_ALARM;

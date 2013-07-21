@@ -30,7 +30,7 @@ package org.opennms.netmgt.alarmd.api;
 
 /**
  * North bound Interface API Exception
- * Intention is to wrap all Throwables as a Runtime Exception
+ * Intention is to wrap all Throwables as a Runtime Exception.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -38,16 +38,37 @@ package org.opennms.netmgt.alarmd.api;
 
 public class NorthbounderException extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Instantiates a new northbounder exception.
+     *
+     * @param t
+     *            the t
+     */
     public NorthbounderException(Throwable t) {
         super(t);
     }
 
+    /**
+     * Instantiates a new northbounder exception.
+     *
+     * @param message
+     *            the message
+     */
     public NorthbounderException(String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new northbounder exception.
+     *
+     * @param message
+     *            the message
+     * @param t
+     *            the t
+     */
     public NorthbounderException(String message, Throwable t) {
         super(message, t);
     }

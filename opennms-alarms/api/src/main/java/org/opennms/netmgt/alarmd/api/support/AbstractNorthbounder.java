@@ -50,38 +50,76 @@ import org.opennms.netmgt.alarmd.api.NorthbounderException;
 
 public abstract class AbstractNorthbounder implements Northbounder, Runnable, StatusFactory<NorthboundAlarm> {
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_queue. */
     private final AlarmQueue<NorthboundAlarm> m_queue;
 
+    /** The m_thread. */
     private Thread m_thread;
 
+    /** The m_stopped. */
     private volatile boolean m_stopped = true;
 
+    /** The m_retry interval. */
     private long m_retryInterval = 1000;
 
+    /**
+     * Instantiates a new abstract northbounder.
+     *
+     * @param name
+     *            the name
+     */
     protected AbstractNorthbounder(String name) {
         m_name = name;
         m_queue = new AlarmQueue<NorthboundAlarm>(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.Northbounder#getName()
+     */
     @Override
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the nagles delay.
+     *
+     * @param delay
+     *            the new nagles delay
+     */
     public void setNaglesDelay(long delay) {
         m_queue.setNaglesDelay(delay);
     }
 
+    /**
+     * Sets the retry interval.
+     *
+     * @param retryInterval
+     *            the new retry interval
+     */
     public void setRetryInterval(int retryInterval) {
         m_retryInterval = retryInterval;
     }
 
+    /**
+     * Sets the max batch size.
+     *
+     * @param maxBatchSize
+     *            the new max batch size
+     */
     public void setMaxBatchSize(int maxBatchSize) {
         m_queue.setMaxBatchSize(maxBatchSize);
     }
 
+    /**
+     * Sets the max preserved alarms.
+     *
+     * @param maxPreservedAlarms
+     *            the new max preserved alarms
+     */
     public void setMaxPreservedAlarms(int maxPreservedAlarms) {
         m_queue.setMaxPreservedAlarms(maxPreservedAlarms);
     }
@@ -94,6 +132,9 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     protected void onPostStart() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.Northbounder#start()
+     */
     @Override
     public final void start() throws NorthbounderException {
         if (!m_stopped)
@@ -106,6 +147,9 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
         this.onPostStart();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.Northbounder#onAlarm(org.opennms.netmgt.alarmd.api.NorthboundAlarm)
+     */
     @Override
     public final void onAlarm(NorthboundAlarm alarm) throws NorthbounderException {
         if (accepts(alarm)) {
@@ -113,12 +157,35 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
         }
     };
 
+    /**
+     * Accepts.
+     *
+     * @param alarm
+     *            the alarm
+     * @return true, if successful
+     */
     protected abstract boolean accepts(NorthboundAlarm alarm);
 
+    /**
+     * Preserve.
+     *
+     * @param alarm
+     *            the alarm
+     * @throws NorthbounderException
+     *             the northbounder exception
+     */
     protected void preserve(NorthboundAlarm alarm) throws NorthbounderException {
         m_queue.preserve(alarm);
     }
 
+    /**
+     * Discard.
+     *
+     * @param alarm
+     *            the alarm
+     * @throws NorthbounderException
+     *             the northbounder exception
+     */
     protected void discard(NorthboundAlarm alarm) throws NorthbounderException {
         m_queue.discard(alarm);
     }
@@ -127,12 +194,18 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     protected void onStop() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.Northbounder#stop()
+     */
     @Override
     public final void stop() throws NorthbounderException {
         this.onStop();
         m_stopped = true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
 
@@ -161,11 +234,22 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.StatusFactory#createSyncLostMessage()
+     */
     @Override
     public NorthboundAlarm createSyncLostMessage() {
         return NorthboundAlarm.SYNC_LOST_ALARM;
     }
 
+    /**
+     * Forward alarms.
+     *
+     * @param alarms
+     *            the alarms
+     * @throws NorthbounderException
+     *             the northbounder exception
+     */
     public abstract void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException;
 
 }
