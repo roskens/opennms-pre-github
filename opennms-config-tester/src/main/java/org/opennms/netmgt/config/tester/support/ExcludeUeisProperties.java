@@ -36,17 +36,41 @@ import java.util.Properties;
 import org.opennms.core.utils.BundleLists;
 import org.opennms.core.utils.ConfigFileConstants;
 
+/**
+ * The Class ExcludeUeisProperties.
+ */
 public class ExcludeUeisProperties {
+
+    /** The m_ueis. */
     private String[] m_ueis;
 
+    /**
+     * Gets the ueis.
+     *
+     * @return the ueis
+     */
     public String[] getUeis() {
         return m_ueis;
     }
 
+    /**
+     * Sets the ueis.
+     *
+     * @param ueis
+     *            the new ueis
+     */
     public void setUeis(String[] ueis) {
         m_ueis = ueis;
     }
 
+    /**
+     * Instantiates a new exclude ueis properties.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public ExcludeUeisProperties() throws FileNotFoundException, IOException {
         Properties excludeProperties = new Properties();
         excludeProperties.load(new FileInputStream(

@@ -38,62 +38,110 @@ import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+/**
+ * The Class ConfigTesterDataSource.
+ */
 class ConfigTesterDataSource implements DataSource {
 
+    /** The m_connection get attempts. */
     private List<SQLException> m_connectionGetAttempts = new ArrayList<SQLException>();
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#getLogWriter()
+     */
     @Override
     public PrintWriter getLogWriter() throws SQLException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#getLoginTimeout()
+     */
     @Override
     public int getLoginTimeout() throws SQLException {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#setLogWriter(java.io.PrintWriter)
+     */
     @Override
     public void setLogWriter(PrintWriter arg0) throws SQLException {
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#setLoginTimeout(int)
+     */
     @Override
     public void setLoginTimeout(int arg0) throws SQLException {
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.CommonDataSource#getParentLogger()
+     */
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         throw new SQLFeatureNotSupportedException("getParentLogger not supported");
     }
 
+    /* (non-Javadoc)
+     * @see java.sql.Wrapper#isWrapperFor(java.lang.Class)
+     */
     @Override
     public boolean isWrapperFor(Class<?> arg0) throws SQLException {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.sql.Wrapper#unwrap(java.lang.Class)
+     */
     @Override
     public <T> T unwrap(Class<T> arg0) throws SQLException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.DataSource#getConnection()
+     */
     @Override
     public Connection getConnection() throws SQLException {
         return createStoreAndThrowException();
     }
 
+    /* (non-Javadoc)
+     * @see javax.sql.DataSource#getConnection(java.lang.String, java.lang.String)
+     */
     @Override
     public Connection getConnection(String arg0, String arg1) throws SQLException {
         return createStoreAndThrowException();
     }
 
+    /**
+     * Creates the store and throw exception.
+     *
+     * @return the connection
+     * @throws SQLException
+     *             the sQL exception
+     */
     private Connection createStoreAndThrowException() throws SQLException {
         SQLException e = createException();
         m_connectionGetAttempts.add(e);
         throw e;
     }
 
+    /**
+     * Creates the exception.
+     *
+     * @return the sQL exception
+     */
     private SQLException createException() {
         return new SQLException("No database connections should be requested when reading a configuration file, dude.");
     }
 
+    /**
+     * Gets the connection get attempts.
+     *
+     * @return the connection get attempts
+     */
     public List<SQLException> getConnectionGetAttempts() {
         return m_connectionGetAttempts;
     }

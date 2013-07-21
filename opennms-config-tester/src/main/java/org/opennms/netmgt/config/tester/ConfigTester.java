@@ -43,34 +43,75 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/**
+ * The Class ConfigTester.
+ */
 public class ConfigTester implements ApplicationContextAware {
+
+    /** The m_context. */
     private ApplicationContext m_context;
 
+    /** The m_configs. */
     private Map<String, String> m_configs;
 
+    /**
+     * Gets the configs.
+     *
+     * @return the configs
+     */
     public Map<String, String> getConfigs() {
         return m_configs;
     }
 
+    /**
+     * Sets the configs.
+     *
+     * @param configs
+     *            the configs
+     */
     public void setConfigs(Map<String, String> configs) {
         m_configs = configs;
     }
 
+    /**
+     * Gets the application context.
+     *
+     * @return the application context
+     */
     public ApplicationContext getApplicationContext() {
         return m_context;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
+     */
     @Override
     public void setApplicationContext(ApplicationContext context) throws BeansException {
         m_context = context;
     }
 
+    /**
+     * Test config.
+     *
+     * @param name
+     *            the name
+     * @param ignoreUnknown
+     *            the ignore unknown
+     */
     public void testConfig(String name, boolean ignoreUnknown) {
         checkConfigNameValid(name, ignoreUnknown);
 
         m_context.getBean(m_configs.get(name));
     }
 
+    /**
+     * Check config name valid.
+     *
+     * @param name
+     *            the name
+     * @param ignoreUnknown
+     *            the ignore unknown
+     */
     private void checkConfigNameValid(String name, boolean ignoreUnknown) {
         if (!m_configs.containsKey(name)) {
             if (ignoreUnknown) {
@@ -81,6 +122,12 @@ public class ConfigTester implements ApplicationContextAware {
         }
     }
 
+    /**
+     * The main method.
+     *
+     * @param argv
+     *            the arguments
+     */
     public static void main(String[] argv) {
 
         ApplicationContext context = BeanUtils.getFactory("configTesterContext", ClassPathXmlApplicationContext.class);
@@ -147,6 +194,16 @@ public class ConfigTester implements ApplicationContextAware {
         }
     }
 
+    /**
+     * Test config.
+     *
+     * @param configFile
+     *            the config file
+     * @param verbose
+     *            the verbose
+     * @param ignoreUnknown
+     *            the ignore unknown
+     */
     private void testConfig(String configFile, boolean verbose, boolean ignoreUnknown) {
         if (verbose) {
             System.out.print("Testing " + configFile + " ... ");
