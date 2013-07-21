@@ -39,45 +39,73 @@ import org.opennms.protocols.snmp.SnmpPduTrap;
 import org.opennms.protocols.snmp.SnmpSyntax;
 import org.opennms.protocols.snmp.SnmpVarBind;
 
+/**
+ * The Class JoeSnmpV1TrapBuilder.
+ */
 public class JoeSnmpV1TrapBuilder implements SnmpV1TrapBuilder {
 
+    /** The trap. */
     SnmpPduTrap trap = new SnmpPduTrap();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setEnterprise(org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public void setEnterprise(SnmpObjId enterpriseId) {
         trap.setEnterprise(new SnmpObjectId(enterpriseId.getIds()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setAgentAddress(java.net.InetAddress)
+     */
     @Override
     public void setAgentAddress(InetAddress agentAddress) {
         trap.setAgentAddress(new SnmpIPAddress(agentAddress));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setGeneric(int)
+     */
     @Override
     public void setGeneric(int generic) {
         trap.setGeneric(generic);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setSpecific(int)
+     */
     @Override
     public void setSpecific(int specific) {
         trap.setSpecific(specific);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setTimeStamp(long)
+     */
     @Override
     public void setTimeStamp(long timeStamp) {
         trap.setTimeStamp(timeStamp);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#send(java.lang.String, int, java.lang.String)
+     */
     @Override
     public void send(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.send(destAddr, destPort, community, trap);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#sendTest(java.lang.String, int, java.lang.String)
+     */
     @Override
     public void sendTest(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.sendTest(destAddr, destPort, community, trap);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#addVarBind(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+     */
     @Override
     public void addVarBind(SnmpObjId name, SnmpValue value) {
         SnmpSyntax val = ((JoeSnmpValue) value).getSnmpSyntax();

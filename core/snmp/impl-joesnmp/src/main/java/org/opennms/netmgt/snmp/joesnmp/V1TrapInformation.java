@@ -40,13 +40,12 @@ import org.opennms.protocols.snmp.SnmpPduTrap;
 import org.opennms.protocols.snmp.SnmpVarBind;
 
 /**
- * V1 trap element for processing by the queue reader
+ * V1 trap element for processing by the queue reader.
  */
 
 public class V1TrapInformation extends TrapInformation {
-    /**
-     * The received PDU
-     */
+
+    /** The received PDU. */
     private SnmpPduTrap m_pdu;
 
     /**
@@ -67,36 +66,61 @@ public class V1TrapInformation extends TrapInformation {
         m_pdu = pdu;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getPduLength()
+     */
     @Override
     protected int getPduLength() {
         return m_pdu.getLength();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTimeStamp()
+     */
     @Override
     protected long getTimeStamp() {
         return m_pdu.getTimeStamp();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTrapIdentity()
+     */
     @Override
     protected TrapIdentity getTrapIdentity() {
         return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getIdentifiers()), m_pdu.getGeneric(),
                                 m_pdu.getSpecific());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTrapAddress()
+     */
     @Override
     protected InetAddress getTrapAddress() {
         return SnmpIPAddress.toInetAddress(m_pdu.getAgentAddress());
     }
 
+    /**
+     * Gets the var bind at.
+     *
+     * @param index
+     *            the index
+     * @return the var bind at
+     */
     private SnmpVarBind getVarBindAt(int index) {
         return m_pdu.getVarBindAt(index);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getVersion()
+     */
     @Override
     protected String getVersion() {
         return "v1";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#processVarBindAt(int)
+     */
     @Override
     protected void processVarBindAt(int i) {
         SnmpObjId name = SnmpObjId.get(getVarBindAt(i).getName().getIdentifiers());

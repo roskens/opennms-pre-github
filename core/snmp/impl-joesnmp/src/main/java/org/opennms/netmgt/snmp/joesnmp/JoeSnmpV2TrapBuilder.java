@@ -37,25 +37,41 @@ import org.opennms.protocols.snmp.SnmpPduRequest;
 import org.opennms.protocols.snmp.SnmpSyntax;
 import org.opennms.protocols.snmp.SnmpVarBind;
 
+/**
+ * The Class JoeSnmpV2TrapBuilder.
+ */
 public class JoeSnmpV2TrapBuilder implements SnmpTrapBuilder {
 
+    /** The m_pdu. */
     SnmpPduRequest m_pdu;
 
+    /**
+     * Instantiates a new joe snmp v2 trap builder.
+     */
     public JoeSnmpV2TrapBuilder() {
         m_pdu = new SnmpPduRequest(SnmpPduPacket.V2TRAP);
         m_pdu.setRequestId(SnmpPduPacket.nextSequence());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#send(java.lang.String, int, java.lang.String)
+     */
     @Override
     public void send(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.send(destAddr, destPort, community, m_pdu);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#sendTest(java.lang.String, int, java.lang.String)
+     */
     @Override
     public void sendTest(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.sendTest(destAddr, destPort, community, m_pdu);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpTrapBuilder#addVarBind(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+     */
     @Override
     public void addVarBind(SnmpObjId name, SnmpValue value) {
         SnmpSyntax val = ((JoeSnmpValue) value).getSnmpSyntax();

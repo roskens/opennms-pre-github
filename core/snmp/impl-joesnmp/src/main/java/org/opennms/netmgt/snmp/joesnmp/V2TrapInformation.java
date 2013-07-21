@@ -46,41 +46,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * V2 Trap information object for processing by the queue reader
+ * V2 Trap information object for processing by the queue reader.
  */
 public class V2TrapInformation extends TrapInformation {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(V2TrapInformation.class);
 
-    /**
-     * The received PDU
-     */
+    /** The received PDU. */
     private SnmpPduPacket m_pdu;
 
-    /**
-     * The snmp sysUpTime OID is the first varbind
-     */
+    /** The snmp sysUpTime OID is the first varbind. */
     static final int SNMP_SYSUPTIME_OID_INDEX = 0;
 
-    /**
-     * The snmp trap OID is the second varbind
-     */
+    /** The snmp trap OID is the second varbind. */
     static final int SNMP_TRAP_OID_INDEX = 1;
 
-    /**
-     * The sysUpTimeOID, which should be the first varbind in a V2 trap
-     */
+    /** The sysUpTimeOID, which should be the first varbind in a V2 trap. */
     static final String SNMP_SYSUPTIME_OID = ".1.3.6.1.2.1.1.3.0";
 
     /**
      * The sysUpTimeOID, which should be the first varbind in a V2 trap, but in
-     * the case of Extreme Networks only mostly
+     * the case of Extreme Networks only mostly.
      */
     static final String EXTREME_SNMP_SYSUPTIME_OID = ".1.3.6.1.2.1.1.3";
 
-    /**
-     * The snmpTrapOID, which should be the second varbind in a V2 trap
-     */
+    /** The snmpTrapOID, which should be the second varbind in a V2 trap. */
     static final String SNMP_TRAP_OID = ".1.3.6.1.6.3.1.1.4.1.0";
 
     /**
@@ -101,11 +92,17 @@ public class V2TrapInformation extends TrapInformation {
         m_pdu = pdu;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getPduLength()
+     */
     @Override
     protected int getPduLength() {
         return m_pdu.getLength();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTimeStamp()
+     */
     @Override
     protected long getTimeStamp() {
 
@@ -124,6 +121,9 @@ public class V2TrapInformation extends TrapInformation {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTrapIdentity()
+     */
     @Override
     protected TrapIdentity getTrapIdentity() {
         // Get the value for the snmpTrapOID
@@ -134,20 +134,36 @@ public class V2TrapInformation extends TrapInformation {
                                 SnmpObjId.get(lastVarBindOid.getIdentifiers()), new JoeSnmpValue(lastVarBindValue));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getTrapAddress()
+     */
     @Override
     protected InetAddress getTrapAddress() {
         return getAgentAddress();
     }
 
+    /**
+     * Gets the var bind at.
+     *
+     * @param index
+     *            the index
+     * @return the var bind at
+     */
     private SnmpVarBind getVarBindAt(int index) {
         return m_pdu.getVarBindAt(index);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#getVersion()
+     */
     @Override
     protected String getVersion() {
         return "v2";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#validate()
+     */
     @Override
     protected void validate() {
         //
@@ -187,6 +203,9 @@ public class V2TrapInformation extends TrapInformation {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapInformation#processVarBindAt(int)
+     */
     @Override
     protected void processVarBindAt(int i) {
         if (i < 2) {

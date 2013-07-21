@@ -47,85 +47,155 @@ import org.opennms.protocols.snmp.SnmpVarBind;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JoeSnmpWalker.
+ */
 public class JoeSnmpWalker extends SnmpWalker {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpWalker.class);
 
+    /**
+     * The Class JoeSnmpPduBuilder.
+     */
     public abstract static class JoeSnmpPduBuilder extends WalkerPduBuilder {
+
+        /**
+         * Instantiates a new joe snmp pdu builder.
+         *
+         * @param maxVarsPerPdu
+         *            the max vars per pdu
+         */
         public JoeSnmpPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
 
+        /**
+         * Gets the pdu.
+         *
+         * @return the pdu
+         */
         public abstract SnmpPduPacket getPdu();
 
     }
 
+    /**
+     * The Class GetNextBuilder.
+     */
     public static class GetNextBuilder extends JoeSnmpPduBuilder {
+
+        /** The m_next pdu. */
         private SnmpPduRequest m_nextPdu = null;
 
+        /**
+         * Instantiates a new gets the next builder.
+         *
+         * @param maxVarsPerPdu
+         *            the max vars per pdu
+         */
         private GetNextBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
             reset();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.SnmpWalker.WalkerPduBuilder#reset()
+         */
         @Override
         public void reset() {
             m_nextPdu = new SnmpPduRequest(SnmpPduRequest.GETNEXT);
             m_nextPdu.setRequestId(SnmpPduPacket.nextSequence());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.joesnmp.JoeSnmpWalker.JoeSnmpPduBuilder#getPdu()
+         */
         @Override
         public SnmpPduPacket getPdu() {
             return m_nextPdu;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#addOid(org.opennms.netmgt.snmp.SnmpObjId)
+         */
         @Override
         public void addOid(SnmpObjId snmpObjId) {
             SnmpVarBind varBind = new SnmpVarBind(new SnmpObjectId(snmpObjId.getIds()));
             m_nextPdu.addVarBind(varBind);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setNonRepeaters(int)
+         */
         @Override
         public void setNonRepeaters(int numNonRepeaters) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setMaxRepetitions(int)
+         */
         @Override
         public void setMaxRepetitions(int maxRepetitions) {
         }
 
     }
 
+    /**
+     * The Class GetBulkBuilder.
+     */
     public class GetBulkBuilder extends JoeSnmpPduBuilder {
 
+        /** The m_bulk pdu. */
         private SnmpPduBulk m_bulkPdu;
 
+        /**
+         * Instantiates a new gets the bulk builder.
+         *
+         * @param maxVarsPerPdu
+         *            the max vars per pdu
+         */
         public GetBulkBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
             reset();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.SnmpWalker.WalkerPduBuilder#reset()
+         */
         @Override
         public void reset() {
             m_bulkPdu = new SnmpPduBulk();
             m_bulkPdu.setRequestId(SnmpPduPacket.nextSequence());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.joesnmp.JoeSnmpWalker.JoeSnmpPduBuilder#getPdu()
+         */
         @Override
         public SnmpPduPacket getPdu() {
             return m_bulkPdu;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#addOid(org.opennms.netmgt.snmp.SnmpObjId)
+         */
         @Override
         public void addOid(SnmpObjId snmpObjId) {
             SnmpVarBind varBind = new SnmpVarBind(new SnmpObjectId(snmpObjId.getIds()));
             m_bulkPdu.addVarBind(varBind);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setNonRepeaters(int)
+         */
         @Override
         public void setNonRepeaters(int numNonRepeaters) {
             m_bulkPdu.setNonRepeaters(numNonRepeaters);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setMaxRepetitions(int)
+         */
         @Override
         public void setMaxRepetitions(int maxRepetitions) {
             m_bulkPdu.setMaxRepititions(maxRepetitions);
@@ -133,8 +203,14 @@ public class JoeSnmpWalker extends SnmpWalker {
 
     }
 
+    /**
+     * The Class JoeSnmpResponseHandler.
+     */
     public class JoeSnmpResponseHandler implements SnmpHandler {
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpHandler#snmpReceivedPdu(org.opennms.protocols.snmp.SnmpSession, int, org.opennms.protocols.snmp.SnmpPduPacket)
+         */
         @Override
         public void snmpReceivedPdu(SnmpSession session, int command, SnmpPduPacket pdu) {
 
@@ -156,11 +232,17 @@ public class JoeSnmpWalker extends SnmpWalker {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpHandler#snmpInternalError(org.opennms.protocols.snmp.SnmpSession, int, org.opennms.protocols.snmp.SnmpSyntax)
+         */
         @Override
         public void snmpInternalError(SnmpSession session, int err, SnmpSyntax pdu) {
             handleError(getName() + ": snmpInternalError: " + err + " for: " + getAddress());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.protocols.snmp.SnmpHandler#snmpTimeoutError(org.opennms.protocols.snmp.SnmpSession, org.opennms.protocols.snmp.SnmpSyntax)
+         */
         @Override
         public void snmpTimeoutError(SnmpSession session, SnmpSyntax pdu) {
             handleTimeout(getName() + ": snmpTimeoutError for: " + getAddress());
@@ -168,14 +250,28 @@ public class JoeSnmpWalker extends SnmpWalker {
 
     }
 
+    /** The m_handler. */
     private JoeSnmpResponseHandler m_handler;
 
+    /** The m_peer. */
     private SnmpPeer m_peer;
 
+    /** The m_session. */
     private SnmpSession m_session;
 
+    /** The m_agent config. */
     private JoeSnmpAgentConfig m_agentConfig;
 
+    /**
+     * Instantiates a new joe snmp walker.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param name
+     *            the name
+     * @param tracker
+     *            the tracker
+     */
     public JoeSnmpWalker(JoeSnmpAgentConfig agentConfig, String name, CollectionTracker tracker) {
         super(agentConfig.getAddress(), name, agentConfig.getMaxVarsPerPdu(), agentConfig.getMaxRepetitions(), tracker);
         m_agentConfig = agentConfig;
@@ -183,6 +279,13 @@ public class JoeSnmpWalker extends SnmpWalker {
         m_handler = new JoeSnmpResponseHandler();
     }
 
+    /**
+     * Gets the peer.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @return the peer
+     */
     private SnmpPeer getPeer(JoeSnmpAgentConfig agentConfig) {
         SnmpPeer peer = new SnmpPeer(agentConfig.getAddress());
         peer.getParameters().setVersion(agentConfig.getVersion());
@@ -194,6 +297,9 @@ public class JoeSnmpWalker extends SnmpWalker {
         return peer;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#start()
+     */
     @Override
     public void start() {
         LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(),
@@ -201,12 +307,18 @@ public class JoeSnmpWalker extends SnmpWalker {
         super.start();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#createPduBuilder(int)
+     */
     @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
         return (getVersion() == SnmpSMI.SNMPV1 ? (JoeSnmpPduBuilder) new GetNextBuilder(maxVarsPerPdu)
             : (JoeSnmpPduBuilder) new GetBulkBuilder(maxVarsPerPdu));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#sendNextPdu(org.opennms.netmgt.snmp.SnmpWalker.WalkerPduBuilder)
+     */
     @Override
     protected void sendNextPdu(WalkerPduBuilder pduBuilder) throws SocketException {
         JoeSnmpPduBuilder joePduBuilder = (JoeSnmpPduBuilder) pduBuilder;
@@ -216,10 +328,18 @@ public class JoeSnmpWalker extends SnmpWalker {
         m_session.send(joePduBuilder.getPdu(), m_handler);
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     protected int getVersion() {
         return m_peer.getParameters().getVersion();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpWalker#close()
+     */
     @Override
     protected void close() {
         if (m_session != null) {

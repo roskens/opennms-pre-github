@@ -38,12 +38,25 @@ import org.opennms.protocols.snmp.SnmpPduTrap;
 import org.opennms.protocols.snmp.SnmpTrapHandler;
 import org.opennms.protocols.snmp.SnmpTrapSession;
 
+/**
+ * The Class JoeSnmpTrapNotifier.
+ */
 public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
 
+    /** The m_trap processor factory. */
     private TrapProcessorFactory m_trapProcessorFactory;
 
+    /** The m_listener. */
     private TrapNotificationListener m_listener;
 
+    /**
+     * Instantiates a new joe snmp trap notifier.
+     *
+     * @param listener
+     *            the listener
+     * @param factory
+     *            the factory
+     */
     public JoeSnmpTrapNotifier(TrapNotificationListener listener, TrapProcessorFactory factory) {
         m_listener = listener;
         m_trapProcessorFactory = factory;
@@ -102,6 +115,13 @@ public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
      * Processes an error condition that occurs in the SnmpTrapSession. The
      * errors are logged and ignored by the trapd class.
      * </P>
+     *
+     * @param session
+     *            the session
+     * @param error
+     *            the error
+     * @param ref
+     *            the ref
      */
     @Override
     public void snmpTrapSessionError(SnmpTrapSession session, int error, Object ref) {

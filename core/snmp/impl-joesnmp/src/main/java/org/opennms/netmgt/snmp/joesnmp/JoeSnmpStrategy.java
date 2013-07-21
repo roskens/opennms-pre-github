@@ -65,21 +65,34 @@ import org.opennms.protocols.snmp.SnmpTrapSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JoeSnmpStrategy.
+ */
 public class JoeSnmpStrategy implements SnmpStrategy {
 
+    /** The Constant LOG. */
     public static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpStrategy.class);
 
+    /** The s_registrations. */
     private static Map<TrapNotificationListener, RegistrationInfo> s_registrations = new HashMap<TrapNotificationListener, RegistrationInfo>();
 
+    /** The s_trap session. */
     private static SnmpTrapSession s_trapSession;
 
+    /** The m_value factory. */
     private JoeSnmpValueFactory m_valueFactory;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#createWalker(org.opennms.netmgt.snmp.SnmpAgentConfig, java.lang.String, org.opennms.netmgt.snmp.CollectionTracker)
+     */
     @Override
     public SnmpWalker createWalker(SnmpAgentConfig snmpAgentConfig, String name, CollectionTracker tracker) {
         return new JoeSnmpWalker(new JoeSnmpAgentConfig(snmpAgentConfig), name, tracker);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#set(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+     */
     @Override
     public SnmpValue set(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid, SnmpValue value) {
         SnmpObjId[] oids = { oid };
@@ -87,6 +100,9 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return set(snmpAgentConfig, oids, values)[0];
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#set(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[], org.opennms.netmgt.snmp.SnmpValue[])
+     */
     @Override
     public SnmpValue[] set(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids, SnmpValue[] values) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
@@ -122,12 +138,18 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return values;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#get(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue get(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
         return get(snmpAgentConfig, oids)[0];
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#get(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] get(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
@@ -157,12 +179,18 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return values;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getNext(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue getNext(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
         return getNext(snmpAgentConfig, oids)[0];
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getNext(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] getNext(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
@@ -194,10 +222,11 @@ public class JoeSnmpStrategy implements SnmpStrategy {
     }
 
     /**
-     * Convert JoeSnmp SnmpSyntax array to OpenNMS SnmpValue array
+     * Convert JoeSnmp SnmpSyntax array to OpenNMS SnmpValue array.
      *
      * @param results
-     * @return
+     *            the results
+     * @return the snmp value[]
      *         values as an OpenNMS SnmpValue array
      */
     private SnmpValue[] convertSnmpSyntaxs(SnmpSyntax[] results) {
@@ -216,10 +245,12 @@ public class JoeSnmpStrategy implements SnmpStrategy {
     }
 
     /**
-     * Convert the OpenNMS Generic SnmpObjId[] array to a JoeSnmp SnmpObjectId[]
+     * Convert the OpenNMS Generic SnmpObjId[] array to a JoeSnmp
+     * SnmpObjectId[].
      *
      * @param oids
-     * @return
+     *            the oids
+     * @return the snmp object id[]
      *         An array of JoeSnmp SnmpObjectIds
      */
     private SnmpObjectId[] convertOids(SnmpObjId[] oids) {
@@ -232,38 +263,81 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return jOids;
     }
 
+    /**
+     * Configure peer.
+     *
+     * @param peer
+     *            the peer
+     * @param agentConfig
+     *            the agent config
+     */
     private void configurePeer(SnmpPeer peer, JoeSnmpAgentConfig agentConfig) {
         peer.setPort(agentConfig.getPort());
         peer.setRetries(agentConfig.getRetries());
         peer.setTimeout(agentConfig.getTimeout());
     }
 
+    /**
+     * Creates the peer.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @return the snmp peer
+     */
     private SnmpPeer createPeer(JoeSnmpAgentConfig agentConfig) {
         return new SnmpPeer(agentConfig.getAddress());
     }
 
+    /**
+     * Sets the parameters.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param params
+     *            the params
+     */
     private void setParameters(JoeSnmpAgentConfig agentConfig, SnmpParameters params) {
         params.setVersion(agentConfig.getVersion());
         params.setReadCommunity(agentConfig.getReadCommunity());
         params.setWriteCommunity(agentConfig.getWriteCommunity());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getBulk(org.opennms.netmgt.snmp.SnmpAgentConfig, org.opennms.netmgt.snmp.SnmpObjId[])
+     */
     @Override
     public SnmpValue[] getBulk(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         throw new UnsupportedOperationException("JoeSnmpStrategy.getBulk() not yet implemented.");
     }
 
+    /**
+     * The Class RegistrationInfo.
+     */
     public static class RegistrationInfo {
+
+        /** The m_listener. */
         private TrapNotificationListener m_listener;
 
+        /** The m_address. */
         private InetAddress m_address;
 
+        /** The m_port. */
         private int m_port;
 
+        /** The m_trap session. */
         SnmpTrapSession m_trapSession;
 
+        /** The m_trap handler. */
         JoeSnmpTrapNotifier m_trapHandler;
 
+        /**
+         * Instantiates a new registration info.
+         *
+         * @param listener
+         *            the listener
+         * @param trapPort
+         *            the trap port
+         */
         public RegistrationInfo(final TrapNotificationListener listener, final int trapPort) {
             if (listener == null) {
                 throw new NullPointerException("listener is null");
@@ -273,41 +347,89 @@ public class JoeSnmpStrategy implements SnmpStrategy {
             m_port = trapPort;
         }
 
+        /**
+         * Instantiates a new registration info.
+         *
+         * @param listener
+         *            the listener
+         * @param address
+         *            the address
+         * @param snmpTrapPort
+         *            the snmp trap port
+         */
         public RegistrationInfo(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
             m_listener = listener;
             m_address = address;
             m_port = snmpTrapPort;
         }
 
+        /**
+         * Sets the session.
+         *
+         * @param trapSession
+         *            the new session
+         */
         public void setSession(final SnmpTrapSession trapSession) {
             m_trapSession = trapSession;
         }
 
+        /**
+         * Gets the session.
+         *
+         * @return the session
+         */
         public SnmpTrapSession getSession() {
             return m_trapSession;
         }
 
+        /**
+         * Sets the handler.
+         *
+         * @param trapHandler
+         *            the new handler
+         */
         public void setHandler(final JoeSnmpTrapNotifier trapHandler) {
             m_trapHandler = trapHandler;
         }
 
+        /**
+         * Gets the handler.
+         *
+         * @return the handler
+         */
         public JoeSnmpTrapNotifier getHandler() {
             return m_trapHandler;
         }
 
+        /**
+         * Gets the address.
+         *
+         * @return the address
+         */
         public InetAddress getAddress() {
             return m_address;
         }
 
+        /**
+         * Gets the port.
+         *
+         * @return the port
+         */
         public int getPort() {
             return m_port;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             return (m_listener.hashCode() + m_address.hashCode() ^ m_port);
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(final Object obj) {
             if (obj instanceof RegistrationInfo) {
@@ -321,6 +443,9 @@ public class JoeSnmpStrategy implements SnmpStrategy {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, java.net.InetAddress, int)
+     */
     @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
             InetAddress address, int snmpTrapPort) throws IOException {
@@ -333,30 +458,45 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         s_registrations.put(listener, info);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, java.net.InetAddress, int, java.util.List)
+     */
     @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
             final InetAddress address, final int snmpTrapPort, final List<SnmpV3User> snmpv3Users) throws IOException {
         registerForTraps(listener, processorFactory, address, snmpTrapPort);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#registerForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, org.opennms.netmgt.snmp.TrapProcessorFactory, int)
+     */
     @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory,
             final int snmpTrapPort) throws IOException {
         registerForTraps(listener, processorFactory, null, snmpTrapPort);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#unregisterForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, java.net.InetAddress, int)
+     */
     @Override
     public void unregisterForTraps(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
         RegistrationInfo info = s_registrations.remove(listener);
         info.getSession().close();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#unregisterForTraps(org.opennms.netmgt.snmp.TrapNotificationListener, int)
+     */
     @Override
     public void unregisterForTraps(final TrapNotificationListener listener, final int snmpTrapPort) {
         RegistrationInfo info = s_registrations.remove(listener);
         info.getSession().close();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getValueFactory()
+     */
     @Override
     public SnmpValueFactory getValueFactory() {
         if (m_valueFactory == null) {
@@ -366,16 +506,36 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return m_valueFactory;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV1TrapBuilder()
+     */
     @Override
     public SnmpV1TrapBuilder getV1TrapBuilder() {
         return new JoeSnmpV1TrapBuilder();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV2TrapBuilder()
+     */
     @Override
     public SnmpTrapBuilder getV2TrapBuilder() {
         return new JoeSnmpV2TrapBuilder();
     }
 
+    /**
+     * Send.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @param trap
+     *            the trap
+     * @throws Exception
+     *             the exception
+     */
     public static void send(String destAddr, int destPort, String community, SnmpPduTrap trap) throws Exception {
         SnmpTrapSession trapSession = getTrapSession();
         SnmpPeer peer = new SnmpPeer(InetAddress.getByName(destAddr), destPort);
@@ -385,6 +545,20 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         trapSession.send(peer, trap);
     }
 
+    /**
+     * Send.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @param pdu
+     *            the pdu
+     * @throws Exception
+     *             the exception
+     */
     public static void send(final String destAddr, final int destPort, final String community, final SnmpPduRequest pdu)
             throws Exception {
         SnmpTrapSession trapSession = getTrapSession();
@@ -395,6 +569,13 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         trapSession.send(peer, pdu);
     }
 
+    /**
+     * Gets the trap session.
+     *
+     * @return the trap session
+     * @throws SocketException
+     *             the socket exception
+     */
     private static synchronized SnmpTrapSession getTrapSession() throws SocketException {
         if (s_trapSession == null) {
             s_trapSession = new SnmpTrapSession(null, null, -1);
@@ -402,6 +583,20 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         return s_trapSession;
     }
 
+    /**
+     * Send test.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @param pdu
+     *            the pdu
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static void sendTest(final String destAddr, final int destPort, final String community,
             final SnmpPduRequest pdu) throws UnknownHostException {
         final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
@@ -413,6 +608,20 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
     }
 
+    /**
+     * Send test.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @param pdu
+     *            the pdu
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public static void sendTest(String destAddr, int destPort, String community, SnmpPduTrap pdu)
             throws UnknownHostException {
         final InetAddress agentAddress = InetAddrUtils.addr(destAddr);
@@ -424,21 +633,33 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV3TrapBuilder()
+     */
     @Override
     public SnmpV3TrapBuilder getV3TrapBuilder() {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV2InformBuilder()
+     */
     @Override
     public SnmpV2TrapBuilder getV2InformBuilder() {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getV3InformBuilder()
+     */
     @Override
     public SnmpV3TrapBuilder getV3InformBuilder() {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpStrategy#getLocalEngineID()
+     */
     @Override
     public byte[] getLocalEngineID() {
         throw new UnsupportedOperationException();

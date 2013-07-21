@@ -50,13 +50,32 @@ import org.opennms.protocols.snmp.SnmpSyntax;
 import org.opennms.protocols.snmp.SnmpTimeTicks;
 import org.opennms.protocols.snmp.SnmpUInt32;
 
+/**
+ * The Class JoeSnmpValue.
+ */
 class JoeSnmpValue extends AbstractSnmpValue {
+
+    /** The m_value. */
     SnmpSyntax m_value;
 
+    /**
+     * Instantiates a new joe snmp value.
+     *
+     * @param value
+     *            the value
+     */
     JoeSnmpValue(final SnmpSyntax value) {
         m_value = value;
     }
 
+    /**
+     * Instantiates a new joe snmp value.
+     *
+     * @param typeId
+     *            the type id
+     * @param bytes
+     *            the bytes
+     */
     JoeSnmpValue(final int typeId, final byte[] bytes) {
         switch (typeId) {
         case SnmpSMI.SMI_COUNTER64: {
@@ -116,6 +135,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#getBytes()
+     */
     @Override
     public byte[] getBytes() {
         switch (m_value.typeId()) {
@@ -142,11 +164,17 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#isEndOfMib()
+     */
     @Override
     public boolean isEndOfMib() {
         return m_value instanceof SnmpEndOfMibView;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#isError()
+     */
     @Override
     public boolean isError() {
         switch (getType()) {
@@ -159,6 +187,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#isNumeric()
+     */
     @Override
     public boolean isNumeric() {
         switch (m_value.typeId()) {
@@ -173,6 +204,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toInt()
+     */
     @Override
     public int toInt() {
         switch (m_value.typeId()) {
@@ -189,6 +223,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toLong()
+     */
     @Override
     public long toLong() {
         switch (m_value.typeId()) {
@@ -207,15 +244,26 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /**
+     * Convert string to long.
+     *
+     * @return the long
+     */
     private long convertStringToLong() {
         return Double.valueOf(m_value.toString()).longValue();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#getType()
+     */
     @Override
     public int getType() {
         return m_value.typeId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toDisplayString()
+     */
     @Override
     public String toDisplayString() {
 
@@ -229,6 +277,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toInetAddress()
+     */
     @Override
     public InetAddress toInetAddress() {
         switch (m_value.typeId()) {
@@ -239,6 +290,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toHexString()
+     */
     @Override
     public String toHexString() {
         switch (m_value.typeId()) {
@@ -249,11 +303,17 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return toDisplayString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toBigInteger()
+     */
     @Override
     public BigInteger toBigInteger() {
         switch (m_value.typeId()) {
@@ -270,6 +330,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#toSnmpObjId()
+     */
     @Override
     public SnmpObjId toSnmpObjId() {
         switch (m_value.typeId()) {
@@ -280,6 +343,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#isDisplayable()
+     */
     @Override
     public boolean isDisplayable() {
         if (isNumeric())
@@ -295,15 +361,26 @@ class JoeSnmpValue extends AbstractSnmpValue {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValue#isNull()
+     */
     @Override
     public boolean isNull() {
         return getType() == SnmpValue.SNMP_NULL;
     }
 
+    /**
+     * Gets the snmp syntax.
+     *
+     * @return the snmp syntax
+     */
     public SnmpSyntax getSnmpSyntax() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         if (m_value == null)
@@ -311,6 +388,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         return m_value.hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (obj == null)
