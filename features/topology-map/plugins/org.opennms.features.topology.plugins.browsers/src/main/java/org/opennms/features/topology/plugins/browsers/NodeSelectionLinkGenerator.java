@@ -47,28 +47,49 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.themes.BaseTheme;
 
+/**
+ * The Class NodeSelectionLinkGenerator.
+ */
 public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNotifier {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1072007643387089006L;
 
+    /** The m_node id property. */
     private final String m_nodeIdProperty;
 
+    /** The m_generator. */
     private final ColumnGenerator m_generator;
 
-    /**
-     * TODO: Fix concurrent access to this field
-     */
+    /** TODO: Fix concurrent access to this field. */
     private Collection<SelectionListener> m_selectionListeners = new HashSet<SelectionListener>();
 
+    /**
+     * Instantiates a new node selection link generator.
+     *
+     * @param nodeIdProperty
+     *            the node id property
+     */
     public NodeSelectionLinkGenerator(String nodeIdProperty) {
         this(nodeIdProperty, new ToStringColumnGenerator());
     }
 
+    /**
+     * Instantiates a new node selection link generator.
+     *
+     * @param nodeIdProperty
+     *            the node id property
+     * @param generator
+     *            the generator
+     */
     public NodeSelectionLinkGenerator(String nodeIdProperty, ColumnGenerator generator) {
         m_nodeIdProperty = nodeIdProperty;
         m_generator = generator;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         final Property<Integer> nodeIdProperty = source.getContainerProperty(itemId, m_nodeIdProperty);
@@ -100,6 +121,9 @@ public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNot
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#addSelectionListener(org.opennms.features.topology.api.SelectionListener)
+     */
     @Override
     public void addSelectionListener(SelectionListener listener) {
         if (listener != null) {
@@ -107,16 +131,28 @@ public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNot
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#setSelectionListeners(java.util.Set)
+     */
     @Override
     public void setSelectionListeners(Set<SelectionListener> listeners) {
         m_selectionListeners = listeners;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#removeSelectionListener(org.opennms.features.topology.api.SelectionListener)
+     */
     @Override
     public void removeSelectionListener(SelectionListener listener) {
         m_selectionListeners.remove(listener);
     }
 
+    /**
+     * Fire selection changed event.
+     *
+     * @param context
+     *            the context
+     */
     protected void fireSelectionChangedEvent(SelectionContext context) {
         for (SelectionListener listener : m_selectionListeners) {
             listener.selectionChanged(context);

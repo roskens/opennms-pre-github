@@ -18,8 +18,20 @@ package org.opennms.features.topology.plugins.browsers;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.opennms.netmgt.model.OnmsSeverity;
 
+/**
+ * The Class AlarmCellStyleRenderer.
+ */
 public class AlarmCellStyleRenderer {
 
+    /**
+     * Gets the style.
+     *
+     * @param severityObject
+     *            the severity object
+     * @param acknowledged
+     *            the acknowledged
+     * @return the style
+     */
     public String getStyle(Integer severityObject, boolean acknowledged) {
         int severity = severityObject == null ? OnmsSeverity.INDETERMINATE.getId() : severityObject.intValue();
         StringBuffer retVal = new StringBuffer();
@@ -45,6 +57,13 @@ public class AlarmCellStyleRenderer {
         return retVal.toString();
     }
 
+    /**
+     * Gets the style.
+     *
+     * @param alarm
+     *            the alarm
+     * @return the style
+     */
     public String getStyle(OnmsAlarm alarm) {
         if (alarm == null)
             return getStyle(null, false);

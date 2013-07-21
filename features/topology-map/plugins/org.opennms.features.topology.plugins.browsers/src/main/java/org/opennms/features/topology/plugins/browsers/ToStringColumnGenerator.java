@@ -39,8 +39,12 @@ import com.vaadin.ui.Table.ColumnGenerator;
  */
 public class ToStringColumnGenerator implements ColumnGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4393828566619243806L;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         Property<String> property = source.getContainerProperty(itemId, columnId);

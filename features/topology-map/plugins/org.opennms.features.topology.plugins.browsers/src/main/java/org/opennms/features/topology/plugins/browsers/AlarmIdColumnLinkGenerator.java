@@ -45,15 +45,25 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 import com.vaadin.ui.themes.BaseTheme;
 
+/**
+ * The Class AlarmIdColumnLinkGenerator.
+ */
 public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 621311104480258016L;
 
+    /** The alarm id property name. */
     private final String alarmIdPropertyName;
 
+    /** The alarm dao. */
     private final AlarmDao alarmDao;
 
     /**
+     * Instantiates a new alarm id column link generator.
+     *
+     * @param alarmDao
+     *            the alarm dao
      * @param alarmIdPropertyName
      *            Property name of the alarm Id property (e.g. "id")
      */
@@ -62,6 +72,9 @@ public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
         this.alarmDao = alarmDao;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(final Table source, Object itemId, Object columnId) {
         if (source == null)

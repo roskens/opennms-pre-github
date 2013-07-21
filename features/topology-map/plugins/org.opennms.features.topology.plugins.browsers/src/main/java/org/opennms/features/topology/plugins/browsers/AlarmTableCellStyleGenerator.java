@@ -19,12 +19,20 @@ import com.vaadin.data.Property;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.CellStyleGenerator;
 
+/**
+ * The Class AlarmTableCellStyleGenerator.
+ */
 public class AlarmTableCellStyleGenerator implements CellStyleGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5083664924723259566L;
 
+    /** The renderer. */
     private final AlarmCellStyleRenderer renderer = new AlarmCellStyleRenderer();
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.CellStyleGenerator#getStyle(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public String getStyle(Table source, Object itemId, Object propertyId) {
         if (propertyId == null && source.getContainerProperty(itemId, "severityId") != null) {

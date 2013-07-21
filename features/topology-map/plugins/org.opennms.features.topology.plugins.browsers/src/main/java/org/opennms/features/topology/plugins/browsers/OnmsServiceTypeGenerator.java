@@ -34,10 +34,17 @@ import com.vaadin.data.Property;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 
+/**
+ * The Class OnmsServiceTypeGenerator.
+ */
 public class OnmsServiceTypeGenerator implements ColumnGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7806832669018164281L;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         Property<OnmsServiceType> property = source.getContainerProperty(itemId, columnId);

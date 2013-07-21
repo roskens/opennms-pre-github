@@ -43,26 +43,49 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 
+/**
+ * The Class CheckboxGenerator.
+ */
 public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2L;
 
+    /** The m_value property. */
     private final String m_valueProperty;
 
+    /** The m_checkboxes. */
     protected final Set<CheckBox> m_checkboxes = new HashSet<CheckBox>();
 
+    /** The m_selected checkboxes. */
     protected Set<Integer> m_selectedCheckboxes = new TreeSet<Integer>();
 
+    /** The m_not selected checkboxes. */
     protected Set<Integer> m_notSelectedCheckboxes = new TreeSet<Integer>(); // Explizit
                                                                              // not
                                                                              // set
 
-    private boolean m_selectAll = false;
+    /**
+                                                                                 * The
+                                                                                 * m_select
+                                                                                 * all
+                                                                                 * .
+                                                                                 */
+                                                                             private boolean m_selectAll = false;
 
+    /**
+     * Instantiates a new checkbox generator.
+     *
+     * @param valueProperty
+     *            the value property
+     */
     public CheckboxGenerator(String valueProperty) {
         m_valueProperty = valueProperty;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         final Property<Integer> property = source.getContainerProperty(itemId, m_valueProperty);
@@ -92,10 +115,24 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
         }
     }
 
+    /**
+     * Checks if is selected.
+     *
+     * @param id
+     *            the id
+     * @return true, if is selected
+     */
     private boolean isSelected(Integer id) {
         return (m_selectAll || m_selectedCheckboxes.contains(id)) && !m_notSelectedCheckboxes.contains(id);
     }
 
+    /**
+     * Gets the selected ids.
+     *
+     * @param source
+     *            the source
+     * @return the selected ids
+     */
     public Set<Integer> getSelectedIds(Table source) {
         if (m_selectAll) {
             Set<Integer> selected = new TreeSet<Integer>();
@@ -113,6 +150,12 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
         return Collections.unmodifiableSet(m_selectedCheckboxes);
     }
 
+    /**
+     * Clear selected ids.
+     *
+     * @param source
+     *            the source
+     */
     public void clearSelectedIds(Table source) {
         m_selectAll = false;
 
@@ -124,6 +167,12 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
         m_notSelectedCheckboxes.clear();
     }
 
+    /**
+     * Select all.
+     *
+     * @param source
+     *            the source
+     */
     public void selectAll(Table source) {
         m_selectAll = true;
 
@@ -136,6 +185,9 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.ItemSetChangeListener#containerItemSetChange(com.vaadin.data.Container.ItemSetChangeEvent)
+     */
     @Override
     public void containerItemSetChange(ItemSetChangeEvent event) {
         // Delete all of the checkboxes, they will be regenerated during

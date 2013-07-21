@@ -25,22 +25,42 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.CellStyleGenerator;
 
+/**
+ * The Class NodeTableCellStyleGenerator.
+ */
 public class NodeTableCellStyleGenerator implements CellStyleGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1L;
 
+    /** The cell style renderer. */
     private final AlarmCellStyleRenderer cellStyleRenderer = new AlarmCellStyleRenderer();
 
+    /** The alarm dao. */
     private AlarmDao alarmDao;
 
+    /**
+     * Gets the alarm dao.
+     *
+     * @return the alarm dao
+     */
     protected AlarmDao getAlarmDao() {
         return alarmDao;
     }
 
+    /**
+     * Sets the alarm dao.
+     *
+     * @param alarmDao
+     *            the new alarm dao
+     */
     public void setAlarmDao(AlarmDao alarmDao) {
         this.alarmDao = alarmDao;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.CellStyleGenerator#getStyle(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public String getStyle(Table source, Object itemId, Object propertyId) {
         if (itemId == null || !(itemId instanceof Integer))
@@ -49,6 +69,13 @@ public class NodeTableCellStyleGenerator implements CellStyleGenerator {
         return cellStyleRenderer.getStyle(alarm);
     }
 
+    /**
+     * Gets the alarm.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the alarm
+     */
     public OnmsAlarm getAlarm(int nodeId) {
         CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
         builder.alias("node", "node");

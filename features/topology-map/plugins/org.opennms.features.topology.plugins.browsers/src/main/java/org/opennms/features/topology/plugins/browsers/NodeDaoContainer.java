@@ -41,20 +41,36 @@ import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.PrimaryType;
 
+/**
+ * The Class NodeDaoContainer.
+ */
 public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode, Integer> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5697472655705494537L;
 
+    /**
+     * Instantiates a new node dao container.
+     *
+     * @param dao
+     *            the dao
+     */
     public NodeDaoContainer(NodeDao dao) {
         super(OnmsNode.class, dao);
         addBeanToHibernatePropertyMapping("primaryInterface", "ipInterfaces.ipAddress");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#getId(java.lang.Object)
+     */
     @Override
     protected Integer getId(OnmsNode bean) {
         return bean == null ? null : bean.getId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#addAdditionalCriteriaOptions(org.opennms.core.criteria.Criteria, org.opennms.features.topology.plugins.browsers.OnmsDaoContainer.Page, boolean)
+     */
     @Override
     protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
         if (!doOrder)
@@ -65,11 +81,17 @@ public class NodeDaoContainer extends OnmsDaoContainer<OnmsNode, Integer> {
                                                                                     PrimaryType.PRIMARY)) }));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#doItemAddedCallBack(int, java.io.Serializable, java.lang.Object)
+     */
     @Override
     protected void doItemAddedCallBack(int rowNumber, Integer id, OnmsNode eachBean) {
         eachBean.getPrimaryInterface();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#selectionChanged(org.opennms.features.topology.api.SelectionContext)
+     */
     @Override
     public void selectionChanged(SelectionContext selectionContext) {
         List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter() {

@@ -28,9 +28,20 @@
 
 package org.opennms.features.topology.plugins.browsers;
 
+/**
+ * The Class NodeTable.
+ */
 @SuppressWarnings("serial")
 public class NodeTable extends SelectionAwareTable {
 
+    /**
+     * Instantiates a new node table.
+     *
+     * @param caption
+     *            the caption
+     * @param container
+     *            the container
+     */
     @SuppressWarnings("unchecked")
     // Because Aries Blueprint cannot handle generics
     public NodeTable(String caption, NodeDaoContainer container) {

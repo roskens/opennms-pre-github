@@ -41,26 +41,41 @@ import org.opennms.features.topology.api.SelectionNotifier;
 
 import com.vaadin.ui.Table;
 
+/**
+ * The Class SelectionAwareTable.
+ */
 public class SelectionAwareTable extends Table implements SelectionListener, SelectionNotifier {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2761774077365441249L;
 
+    /** The m_container. */
     private final OnmsDaoContainer<?, ? extends Serializable> m_container;
 
+    /** The m_selection notifiers. */
     private final Set<SelectionNotifier> m_selectionNotifiers = new CopyOnWriteArraySet<SelectionNotifier>();
 
+    /** The non collapsible columns. */
     private List<String> nonCollapsibleColumns = new ArrayList<String>();
 
     /**
      * Leave OnmsDaoContainer without generics; the Aries blueprint code cannot
      * match up
      * the arguments if you put the generic types in.
+     *
+     * @param caption
+     *            the caption
+     * @param container
+     *            the container
      */
     public SelectionAwareTable(String caption, OnmsDaoContainer container) {
         super(caption, container);
         m_container = container;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionListener#selectionChanged(org.opennms.features.topology.api.SelectionContext)
+     */
     @Override
     public void selectionChanged(SelectionContext selectionManager) {
         m_container.selectionChanged(selectionManager);
@@ -68,6 +83,9 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
 
     /**
      * Delegate {@link SelectionNotifier} calls to the container.
+     *
+     * @param listener
+     *            the listener
      */
     @Override
     public void addSelectionListener(SelectionListener listener) {
@@ -81,6 +99,9 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
 
     /**
      * Delegate {@link SelectionNotifier} calls to the container.
+     *
+     * @param listener
+     *            the listener
      */
     @Override
     public void removeSelectionListener(SelectionListener listener) {
@@ -92,6 +113,9 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
 
     /**
      * Delegate {@link SelectionNotifier} calls to the container.
+     *
+     * @param listeners
+     *            the new selection listeners
      */
     @Override
     public void setSelectionListeners(Set<SelectionListener> listeners) {
@@ -105,8 +129,10 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
      * Call this method before any of the {@link SelectionNotifier} methods to
      * ensure
      * that the {@link SelectionListener} instances are registered with all of
-     * the {@link ColumnGenerator} classes that also implement
-     * {@link SelectionNotifier}.
+     * the {@link ColumnGenerator} classes that also implement.
+     *
+     * @param generators
+     *            the new column generators {@link SelectionNotifier}.
      */
     public void setColumnGenerators(@SuppressWarnings("unchecked")
     Map generators) {
@@ -127,14 +153,19 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
      * Call this method before any of the {@link SelectionNotifier} methods to
      * ensure
      * that the {@link SelectionListener} instances are registered with all of
-     * the {@link ColumnGenerator} classes that also implement
-     * {@link SelectionNotifier}.
+     * the {@link ColumnGenerator} classes that also implement.
+     *
+     * @param generator
+     *            the new cell style generator {@link SelectionNotifier}.
      */
     @Override
     public void setCellStyleGenerator(CellStyleGenerator generator) {
         super.setCellStyleGenerator(generator);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.AbstractField#toString()
+     */
     @Override
     public String toString() {
         Object value = getValue();
@@ -149,6 +180,7 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
      * Sets the non collapsbile columns.
      *
      * @param nonCollapsibleColumns
+     *            the new non collapsible columns
      */
     public void setNonCollapsibleColumns(List<String> nonCollapsibleColumns) {
         // set all elements to collapsible

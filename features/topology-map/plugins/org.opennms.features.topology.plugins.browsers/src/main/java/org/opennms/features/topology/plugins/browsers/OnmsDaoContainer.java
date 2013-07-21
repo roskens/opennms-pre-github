@@ -54,22 +54,48 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 
+/**
+ * The Class OnmsDaoContainer.
+ *
+ * @param <T>
+ *            the generic type
+ * @param <K>
+ *            the key type
+ */
 public abstract class OnmsDaoContainer<T, K extends Serializable> implements Container, Container.Sortable,
         Container.Ordered, Container.Indexed, Container.ItemSetChangeNotifier, SelectionNotifier, SelectionListener {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9131723065433979979L;
 
+    /** The Constant DEFAULT_PAGE_SIZE. */
     protected static final int DEFAULT_PAGE_SIZE = 200; // items per page/cache
 
+    /** The Constant DEFAULT_SIZE_RELOAD_TIME. */
     protected static final int DEFAULT_SIZE_RELOAD_TIME = 10000; // ms
 
+    /**
+     * The Class Page.
+     */
     protected static class Page {
+
+        /** The length. */
         protected int length;
 
+        /** The offset. */
         protected int offset;
 
+        /** The size. */
         protected final Size size;
 
+        /**
+         * Instantiates a new page.
+         *
+         * @param length
+         *            the length
+         * @param size
+         *            the size
+         */
         public Page(int length, Size size) {
             this.length = length;
             this.size = size;
@@ -80,6 +106,7 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
          * was changed or not.
          *
          * @param index
+         *            the index
          * @return true when the offset has changed, false otherwise.
          */
         public boolean updateOffset(int index) {
@@ -90,91 +117,193 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
             return oldOffset != offset; // an update has been made
         }
 
+        /**
+         * Gets the start.
+         *
+         * @return the start
+         */
         public int getStart() {
             return offset;
         }
     }
 
+    /**
+     * The Class Size.
+     */
     protected static class Size {
+
+        /** The last update. */
         private Date lastUpdate = null;
 
+        /** The value. */
         private int value;
 
+        /** The reload timer. */
         private int reloadTimer; // in ms
 
+        /** The reload strategy. */
         private final SizeReloadStrategy reloadStrategy;
 
+        /**
+         * Instantiates a new size.
+         *
+         * @param reloadTimer
+         *            the reload timer
+         * @param reloadStrategy
+         *            the reload strategy
+         */
         protected Size(int reloadTimer, SizeReloadStrategy reloadStrategy) {
             this.reloadTimer = reloadTimer == 0 ? DEFAULT_SIZE_RELOAD_TIME : reloadTimer;
             this.reloadStrategy = reloadStrategy;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public final synchronized int getValue() {
             if (isOutdated())
                 reloadSize();
             return value;
         }
 
+        /**
+         * Checks if is outdated.
+         *
+         * @return true, if is outdated
+         */
         private boolean isOutdated() {
             return lastUpdate == null || lastUpdate.getTime() + reloadTimer < new Date().getTime();
         }
 
+        /**
+         * Reload size.
+         */
         private synchronized void reloadSize() {
             value = reloadStrategy.reload();
             lastUpdate = new Date();
         }
 
+        /**
+         * Sets the outdated.
+         */
         private void setOutdated() {
             lastUpdate = null;
         }
     }
 
+    /**
+     * The Interface SizeReloadStrategy.
+     */
     protected static interface SizeReloadStrategy {
+
+        /**
+         * Reload.
+         *
+         * @return the int
+         */
         int reload();
     }
 
+    /**
+     * The Class SortEntry.
+     */
     protected static class SortEntry implements Comparable<SortEntry> {
+
+        /** The property id. */
         private final String propertyId;
 
+        /** The ascending. */
         private final boolean ascending;
 
+        /**
+         * Instantiates a new sort entry.
+         *
+         * @param propertyId
+         *            the property id
+         * @param ascending
+         *            the ascending
+         */
         private SortEntry(String propertyId, boolean ascending) {
             this.propertyId = propertyId;
             this.ascending = ascending;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Comparable#compareTo(java.lang.Object)
+         */
         @Override
         public int compareTo(SortEntry o) {
             return propertyId.compareTo(o.propertyId);
         }
     }
 
+    /**
+     * The Class Cache.
+     */
     protected class Cache {
         // Maps each itemId to a item.
+        /** The cache content. */
         private Map<K, BeanItem<T>> cacheContent = new HashMap<K, BeanItem<T>>();
 
         // Maps each row to an itemId
+        /** The row map. */
         private Map<Integer, K> rowMap = new HashMap<Integer, K>();
 
+        /**
+         * Instantiates a new cache.
+         */
         private Cache() {
         }
 
+        /**
+         * Contains item id.
+         *
+         * @param itemId
+         *            the item id
+         * @return true, if successful
+         */
         public boolean containsItemId(K itemId) {
             if (itemId == null)
                 return false;
             return cacheContent.containsKey(itemId);
         }
 
+        /**
+         * Contains index.
+         *
+         * @param index
+         *            the index
+         * @return true, if successful
+         */
         public boolean containsIndex(int index) {
             return rowMap.containsKey(Integer.valueOf(index));
         }
 
+        /**
+         * Gets the item.
+         *
+         * @param itemId
+         *            the item id
+         * @return the item
+         */
         public BeanItem<T> getItem(K itemId) {
             if (containsItemId(itemId))
                 return cacheContent.get(itemId);
             return null;
         }
 
+        /**
+         * Adds the item.
+         *
+         * @param rowNumber
+         *            the row number
+         * @param itemId
+         *            the item id
+         * @param bean
+         *            the bean
+         */
         public void addItem(int rowNumber, K itemId, T bean) {
             if (containsItemId(itemId))
                 return; // already added
@@ -182,6 +311,13 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
             rowMap.put(rowNumber, itemId);
         }
 
+        /**
+         * Gets the index.
+         *
+         * @param itemId
+         *            the item id
+         * @return the index
+         */
         public int getIndex(K itemId) {
             for (Map.Entry<Integer, K> eachRow : rowMap.entrySet()) {
                 if (eachRow.getValue().equals(itemId))
@@ -190,15 +326,31 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
             return -1; // not found
         }
 
+        /**
+         * Reset.
+         */
         public void reset() {
             cacheContent.clear();
             rowMap.clear();
         }
 
+        /**
+         * Gets the item id.
+         *
+         * @param rowIndex
+         *            the row index
+         * @return the item id
+         */
         public K getItemId(int rowIndex) {
             return rowMap.get(Integer.valueOf(rowIndex));
         }
 
+        /**
+         * Reload.
+         *
+         * @param page
+         *            the page
+         */
         public void reload(Page page) {
             size.setOutdated(); // force to be outdated
             reset();
@@ -214,38 +366,52 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /** The m_dao. */
     private final OnmsDao<T, K> m_dao;
 
     // ORDER/SORTING
+    /** The m_orders. */
     private final List<Order> m_orders = new ArrayList<Order>();
 
     // FILTERING
+    /** The m_restrictions. */
     private final List<Restriction> m_restrictions = new ArrayList<Restriction>();
 
+    /** The m_sort entries. */
     private final List<SortEntry> m_sortEntries = new ArrayList<SortEntry>();
 
-    /**
-     * TODO: Fix concurrent access to this field
-     */
+    /** TODO: Fix concurrent access to this field. */
     private final Collection<ItemSetChangeListener> m_itemSetChangeListeners = new HashSet<ItemSetChangeListener>();
 
-    /**
-     * TODO: Fix concurrent access to this field
-     */
+    /** TODO: Fix concurrent access to this field. */
     private Collection<SelectionListener> m_selectionListeners = new HashSet<SelectionListener>();
 
+    /** The m_bean to hibernate property mapping. */
     private final Map<String, String> m_beanToHibernatePropertyMapping = new HashMap<String, String>();
 
+    /** The size. */
     private final Size size;
 
+    /** The page. */
     private final Page page;
 
+    /** The cache. */
     private final Cache cache;
 
+    /** The m_item class. */
     private final Class<T> m_itemClass;
 
+    /** The m_properties. */
     private Map<Object, Class<?>> m_properties;
 
+    /**
+     * Instantiates a new onms dao container.
+     *
+     * @param itemClass
+     *            the item class
+     * @param dao
+     *            the dao
+     */
     public OnmsDaoContainer(Class<T> itemClass, OnmsDao<T, K> dao) {
         m_itemClass = itemClass;
         m_dao = dao;
@@ -260,6 +426,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         cache = new Cache();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#containsId(java.lang.Object)
+     */
     @Override
     public boolean containsId(Object itemId) {
         if (itemId == null)
@@ -270,6 +439,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return index >= 0;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getContainerProperty(java.lang.Object, java.lang.Object)
+     */
     @Override
     public Property<?> getContainerProperty(Object itemId, Object propertyId) {
         Item item = getItem(itemId);
@@ -280,6 +452,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getContainerPropertyIds()
+     */
     @Override
     public Collection<?> getContainerPropertyIds() {
         loadPropertiesIfNull();
@@ -287,6 +462,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return Collections.unmodifiableCollection(m_properties.keySet());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getItem(java.lang.Object)
+     */
     @Override
     public Item getItem(Object itemId) {
         if (itemId == null)
@@ -303,34 +481,61 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return cache.getItem((K) itemId);
     }
 
+    /**
+     * Gets the item class.
+     *
+     * @return the item class
+     */
     public Class<T> getItemClass() {
         return m_itemClass;
     }
 
+    /**
+     * Gets the id.
+     *
+     * @param bean
+     *            the bean
+     * @return the id
+     */
     protected abstract K getId(T bean);
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getType(java.lang.Object)
+     */
     @Override
     public Class<?> getType(Object propertyId) {
         return m_properties.get(propertyId);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#removeAllItems()
+     */
     @Override
     public boolean removeAllItems() throws UnsupportedOperationException {
         m_dao.clear();
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#removeItem(java.lang.Object)
+     */
     @Override
     public boolean removeItem(Object itemId) throws UnsupportedOperationException {
         m_dao.delete((K) itemId);
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#size()
+     */
     @Override
     public int size() {
         return size.getValue();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#firstItemId()
+     */
     @Override
     public Object firstItemId() {
         if (!cache.containsIndex(0)) {
@@ -339,6 +544,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return cache.getItemId(0);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#lastItemId()
+     */
     @Override
     public Object lastItemId() {
         int lastIndex = size() - 1;
@@ -348,11 +556,20 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return cache.getItemId(lastIndex);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#isFirstId(java.lang.Object)
+     */
     @Override
     public boolean isFirstId(Object itemId) {
         return firstItemId().equals(itemId);
     }
 
+    /**
+     * Update page.
+     *
+     * @param index
+     *            the index
+     */
     private void updatePage(final int index) {
         boolean changed = page.updateOffset(index);
         if (changed) {
@@ -360,11 +577,17 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#isLastId(java.lang.Object)
+     */
     @Override
     public boolean isLastId(Object itemId) {
         return lastItemId().equals(itemId);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#nextItemId(java.lang.Object)
+     */
     @Override
     public Object nextItemId(Object itemId) {
         if (itemId == null)
@@ -376,6 +599,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return cache.getItemId(nextIdIndex);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#prevItemId(java.lang.Object)
+     */
     @Override
     public Object prevItemId(Object itemId) {
         if (itemId == null)
@@ -389,12 +615,17 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
 
     /**
      * This function returns {@link #getContainerPropertyIds()}.
+     *
+     * @return the sortable container property ids
      */
     @Override
     public Collection<?> getSortableContainerPropertyIds() {
         return this.getContainerPropertyIds();
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Sortable#sort(java.lang.Object[], boolean[])
+     */
     @Override
     public void sort(Object[] propertyId, boolean[] ascending) {
         List<SortEntry> newSortEntries = createSortEntries(propertyId, ascending);
@@ -417,6 +648,15 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /**
+     * Creates the sort entries.
+     *
+     * @param propertyId
+     *            the property id
+     * @param ascending
+     *            the ascending
+     * @return the list
+     */
     protected List<SortEntry> createSortEntries(Object[] propertyId, boolean[] ascending) {
         List<SortEntry> sortEntries = new ArrayList<SortEntry>();
         for (int i = 0; i < propertyId.length; i++) {
@@ -425,29 +665,47 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return sortEntries;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionListener#selectionChanged(org.opennms.features.topology.api.SelectionContext)
+     */
     @Override
     public abstract void selectionChanged(SelectionContext selectionContext);
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.ItemSetChangeNotifier#addListener(com.vaadin.data.Container.ItemSetChangeListener)
+     */
     @Override
     public void addListener(ItemSetChangeListener listener) {
         addItemSetChangeListener(listener);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.ItemSetChangeNotifier#removeListener(com.vaadin.data.Container.ItemSetChangeListener)
+     */
     @Override
     public void removeListener(ItemSetChangeListener listener) {
         removeItemSetChangeListener(listener);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.ItemSetChangeNotifier#addItemSetChangeListener(com.vaadin.data.Container.ItemSetChangeListener)
+     */
     @Override
     public void addItemSetChangeListener(ItemSetChangeListener listener) {
         m_itemSetChangeListeners.add(listener);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.ItemSetChangeNotifier#removeItemSetChangeListener(com.vaadin.data.Container.ItemSetChangeListener)
+     */
     @Override
     public void removeItemSetChangeListener(ItemSetChangeListener listener) {
         m_itemSetChangeListeners.remove(listener);
     }
 
+    /**
+     * Fire item set changed event.
+     */
     protected void fireItemSetChangedEvent() {
         ItemSetChangeEvent event = new ItemSetChangeEvent() {
             private static final long serialVersionUID = -2796401359570611938L;
@@ -462,6 +720,12 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /**
+     * Sets the restrictions.
+     *
+     * @param newRestrictions
+     *            the new restrictions
+     */
     public void setRestrictions(List<Restriction> newRestrictions) {
         m_restrictions.clear();
         if (newRestrictions == null)
@@ -469,10 +733,18 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         m_restrictions.addAll(newRestrictions);
     }
 
+    /**
+     * Gets the restrictions.
+     *
+     * @return the restrictions
+     */
     public List<Restriction> getRestrictions() {
         return Collections.unmodifiableList(m_restrictions);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#addSelectionListener(org.opennms.features.topology.api.SelectionListener)
+     */
     @Override
     public void addSelectionListener(SelectionListener listener) {
         if (listener != null) {
@@ -480,25 +752,45 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#setSelectionListeners(java.util.Set)
+     */
     @Override
     public void setSelectionListeners(Set<SelectionListener> listeners) {
         m_selectionListeners = listeners;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.SelectionNotifier#removeSelectionListener(org.opennms.features.topology.api.SelectionListener)
+     */
     @Override
     public void removeSelectionListener(SelectionListener listener) {
         m_selectionListeners.remove(listener);
     }
 
+    /**
+     * Adds the bean to hibernate property mapping.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public void addBeanToHibernatePropertyMapping(final String key, final String value) {
         m_beanToHibernatePropertyMapping.put(key, value);
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#getItemIds()
+     */
     @Override
     public Collection<?> getItemIds() {
         return getItemIds(0, size());
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Indexed#getItemIds(int, int)
+     */
     @Override
     public List<?> getItemIds(int startIndex, int numberOfItems) {
         int endIndex = startIndex + numberOfItems;
@@ -511,6 +803,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return itemIds;
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Indexed#indexOfId(java.lang.Object)
+     */
     @Override
     public int indexOfId(Object itemId) {
         if (cache.containsItemId(((K) itemId)))
@@ -541,6 +836,9 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
         return -1; // not found
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Indexed#getIdByIndex(int)
+     */
     @Override
     public Object getIdByIndex(int index) {
         if (cache.containsIndex(index))
@@ -550,26 +848,41 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
                                        // exist
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Indexed#addItemAt(int)
+     */
     @Override
     public Object addItemAt(int index) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add new items to this container");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Indexed#addItemAt(int, java.lang.Object)
+     */
     @Override
     public Item addItemAt(int index, Object newItemId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add new items to this container");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#addItemAfter(java.lang.Object)
+     */
     @Override
     public Object addItemAfter(Object previousItemId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add new items to this container");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container.Ordered#addItemAfter(java.lang.Object, java.lang.Object)
+     */
     @Override
     public Item addItemAfter(Object previousItemId, Object newItemId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add new items to this container");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#addContainerProperty(java.lang.Object, java.lang.Class, java.lang.Object)
+     */
     @Override
     public final boolean addContainerProperty(Object propertyId, Class<?> type, Object defaultValue)
             throws UnsupportedOperationException {
@@ -578,6 +891,10 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
 
     /**
      * Can be overridden if you want to support adding items.
+     *
+     * @return the object
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @Override
     public Object addItem() throws UnsupportedOperationException {
@@ -586,17 +903,32 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
 
     /**
      * Can be overridden if you want to support adding items.
+     *
+     * @param itemId
+     *            the item id
+     * @return the item
+     * @throws UnsupportedOperationException
+     *             the unsupported operation exception
      */
     @Override
     public Item addItem(Object itemId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot add new items to this container");
     }
 
+    /* (non-Javadoc)
+     * @see com.vaadin.data.Container#removeContainerProperty(java.lang.Object)
+     */
     @Override
     public final boolean removeContainerProperty(Object propertyId) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Cannot remove properties from objects in this container");
     }
 
+    /**
+     * Update container property ids.
+     *
+     * @param properties
+     *            the properties
+     */
     protected void updateContainerPropertyIds(Map<Object, Class<?>> properties) {
         // by default we do nothing with the properties;
     }
@@ -607,8 +939,10 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
      * restriction.
      *
      * @param page
+     *            the page
      * @param doOrder
-     * @return
+     *            the do order
+     * @return the criteria
      */
     protected Criteria getCriteria(Page page, boolean doOrder) {
         Criteria tmpCriteria = new Criteria(getItemClass());
@@ -627,26 +961,68 @@ public abstract class OnmsDaoContainer<T, K extends Serializable> implements Con
     }
 
     // must be overwritten by subclass if you want to add some alias and so on
+    /**
+     * Adds the additional criteria options.
+     *
+     * @param criteria
+     *            the criteria
+     * @param page
+     *            the page
+     * @param doOrder
+     *            the do order
+     */
     protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
 
     }
 
+    /**
+     * Do item added call back.
+     *
+     * @param rowNumber
+     *            the row number
+     * @param id
+     *            the id
+     * @param eachBean
+     *            the each bean
+     */
     protected void doItemAddedCallBack(int rowNumber, K id, T eachBean) {
 
     }
 
+    /**
+     * Gets the items for cache.
+     *
+     * @param dao
+     *            the dao
+     * @param page
+     *            the page
+     * @return the items for cache
+     */
     protected List<T> getItemsForCache(final OnmsDao<T, K> dao, final Page page) {
         return dao.findMatching(getCriteria(page, true));
     }
 
+    /**
+     * Gets the cache.
+     *
+     * @return the cache
+     */
     protected Cache getCache() {
         return cache;
     }
 
+    /**
+     * Gets the page.
+     *
+     * @return the page
+     */
     protected Page getPage() {
         return page;
     }
 
+    /**
+     * Load properties if null.
+     */
     private synchronized void loadPropertiesIfNull() {
         if (m_properties == null) {
             m_properties = new TreeMap<Object, Class<?>>();

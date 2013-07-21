@@ -35,10 +35,17 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 
+/**
+ * The Class SeverityGenerator.
+ */
 public class SeverityGenerator implements ColumnGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8625586472077387770L;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         Property<OnmsSeverity> property = source.getContainerProperty(itemId, columnId);
@@ -53,6 +60,13 @@ public class SeverityGenerator implements ColumnGenerator {
         }
     }
 
+    /**
+     * Escape html.
+     *
+     * @param html
+     *            the html
+     * @return the string
+     */
     private String escapeHtml(String html) {
         if (html == null) {
             return null;

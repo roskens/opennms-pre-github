@@ -36,10 +36,17 @@ import com.vaadin.data.Property;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.ColumnGenerator;
 
+/**
+ * The Class InetAddressGenerator.
+ */
 public class InetAddressGenerator implements ColumnGenerator {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3202605200928035972L;
 
+    /* (non-Javadoc)
+     * @see com.vaadin.ui.Table.ColumnGenerator#generateCell(com.vaadin.ui.Table, java.lang.Object, java.lang.Object)
+     */
     @Override
     public Object generateCell(Table source, Object itemId, Object columnId) {
         Property property = source.getContainerProperty(itemId, columnId);

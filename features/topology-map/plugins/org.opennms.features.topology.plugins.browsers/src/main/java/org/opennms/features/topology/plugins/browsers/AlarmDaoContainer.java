@@ -72,15 +72,28 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.opennms.netmgt.dao.api.AlarmDao;
 import org.opennms.netmgt.model.OnmsAlarm;
 
+/**
+ * The Class AlarmDaoContainer.
+ */
 public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm, Integer> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4026870931086916312L;
 
+    /**
+     * Instantiates a new alarm dao container.
+     *
+     * @param dao
+     *            the dao
+     */
     public AlarmDaoContainer(AlarmDao dao) {
         super(OnmsAlarm.class, dao);
         addBeanToHibernatePropertyMapping("nodeLabel", "node.label");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#updateContainerPropertyIds(java.util.Map)
+     */
     @Override
     protected void updateContainerPropertyIds(Map<Object, Class<?>> properties) {
         // Causes problems because it is a map of values
@@ -91,11 +104,17 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm, Integer> {
         properties.remove("distPoller");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#getId(java.lang.Object)
+     */
     @Override
     protected Integer getId(OnmsAlarm bean) {
         return bean == null ? null : bean.getId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#getSortableContainerPropertyIds()
+     */
     @Override
     public Collection<?> getSortableContainerPropertyIds() {
         Collection<Object> propertyIds = new HashSet<Object>();
@@ -107,11 +126,17 @@ public class AlarmDaoContainer extends OnmsDaoContainer<OnmsAlarm, Integer> {
         return Collections.unmodifiableCollection(propertyIds);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#addAdditionalCriteriaOptions(org.opennms.core.criteria.Criteria, org.opennms.features.topology.plugins.browsers.OnmsDaoContainer.Page, boolean)
+     */
     @Override
     protected void addAdditionalCriteriaOptions(Criteria criteria, Page page, boolean doOrder) {
         criteria.setAliases(Arrays.asList(new Alias[] { new Alias("node", "node", JoinType.LEFT_JOIN) }));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.browsers.OnmsDaoContainer#selectionChanged(org.opennms.features.topology.api.SelectionContext)
+     */
     @Override
     public void selectionChanged(SelectionContext selectionContext) {
         List<Restriction> newRestrictions = new SelectionContextToRestrictionConverter() {

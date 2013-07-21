@@ -30,23 +30,40 @@ package org.opennms.features.topology.plugins.browsers;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Class Profiler.
+ */
 public class Profiler {
 
+    /**
+     * The Class Timer.
+     */
     public static class Timer {
+
+        /** The start time. */
         long startTime;
 
+        /** The end time. */
         long endTime;
 
+        /** The count. */
         int count;
 
+        /** The sum. */
         int sum;
 
+        /**
+         * Start.
+         */
         public synchronized void start() {
             if (!isStarted())
                 startTime = System.currentTimeMillis();
             count++;
         }
 
+        /**
+         * Stop.
+         */
         public synchronized void stop() {
             endTime = System.currentTimeMillis();
             sum += (endTime - startTime);
@@ -54,35 +71,71 @@ public class Profiler {
             endTime = 0;
         }
 
+        /**
+         * Checks if is started.
+         *
+         * @return true, if is started
+         */
         public synchronized boolean isStarted() {
             return startTime > 0;
         }
 
+        /**
+         * Gets the sum.
+         *
+         * @return the sum
+         */
         public synchronized long getSum() {
             return sum;
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public synchronized int getCount() {
             return count;
         }
 
+        /**
+         * Gets the avg.
+         *
+         * @return the avg
+         */
         public synchronized double getAVG() {
             return ((double) getSum()) / ((double) count); // ms
         }
     }
 
+    /** The timer map. */
     protected final Map<String, Timer> timerMap = new HashMap<String, Timer>();
 
+    /**
+     * Start.
+     *
+     * @param key
+     *            the key
+     */
     public void start(final String key) {
         if (timerMap.get(key) == null)
             timerMap.put(key, new Timer());
         timerMap.get(key).start();
     }
 
+    /**
+     * Stop.
+     *
+     * @param key
+     *            the key
+     */
     public void stop(final String key) {
         timerMap.get(key).stop();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         final String HEADER = "%-60s%10s%20s%20s\n";
@@ -98,6 +151,13 @@ public class Profiler {
     }
 
     // sum is ms
+    /**
+     * To seconds.
+     *
+     * @param sum
+     *            the sum
+     * @return the double
+     */
     private double toSeconds(double sum) {
         return sum / 1000.0;
     }

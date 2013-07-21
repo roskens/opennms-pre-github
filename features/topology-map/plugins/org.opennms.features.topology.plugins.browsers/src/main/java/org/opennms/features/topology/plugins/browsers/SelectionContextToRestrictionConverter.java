@@ -37,13 +37,31 @@ import org.opennms.features.topology.api.SelectionContext;
 import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SelectionContextToRestrictionConverter.
+ */
 abstract class SelectionContextToRestrictionConverter {
+
+    /**
+     * Gets the restrictions.
+     *
+     * @param selectionContext
+     *            the selection context
+     * @return the restrictions
+     */
     public List<Restriction> getRestrictions(SelectionContext selectionContext) {
         List<Restriction> restrictions = new ArrayList<Restriction>();
         restrictions.add(getAnyRestriction(selectionContext));
         return restrictions;
     }
 
+    /**
+     * Gets the any restriction.
+     *
+     * @param selectionContext
+     *            the selection context
+     * @return the any restriction
+     */
     private AnyRestriction getAnyRestriction(SelectionContext selectionContext) {
         List<Restriction> restrictions = new ArrayList<Restriction>();
         for (VertexRef eachRef : selectionContext.getSelectedVertexRefs()) {
@@ -58,5 +76,12 @@ abstract class SelectionContextToRestrictionConverter {
         return new AnyRestriction(restrictions.toArray(new Restriction[restrictions.size()]));
     }
 
+    /**
+     * Creates the restriction.
+     *
+     * @param ref
+     *            the ref
+     * @return the restriction
+     */
     protected abstract Restriction createRestriction(VertexRef ref);
 }
