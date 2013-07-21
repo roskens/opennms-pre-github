@@ -37,11 +37,17 @@ import org.osgi.framework.BundleContext;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of the default OSGi bundle activator
+ * Extension of the default OSGi bundle activator.
  */
 public final class ExampleActivator implements BundleActivator {
+
     /**
-     * Called whenever the OSGi framework starts our bundle
+     * Called whenever the OSGi framework starts our bundle.
+     *
+     * @param bc
+     *            the bc
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start(BundleContext bc) throws Exception {
@@ -58,7 +64,12 @@ public final class ExampleActivator implements BundleActivator {
     }
 
     /**
-     * Called whenever the OSGi framework stops our bundle
+     * Called whenever the OSGi framework stops our bundle.
+     *
+     * @param bc
+     *            the bc
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void stop(BundleContext bc) throws Exception {

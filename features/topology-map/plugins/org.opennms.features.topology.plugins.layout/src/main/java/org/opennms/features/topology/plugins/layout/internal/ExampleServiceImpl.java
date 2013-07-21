@@ -35,11 +35,14 @@ import java.util.List;
 import org.opennms.features.topology.plugins.layout.ExampleService;
 
 /**
- * Internal implementation of our example OSGi service
+ * Internal implementation of our example OSGi service.
  */
 public final class ExampleServiceImpl implements ExampleService {
     // implementation methods go here...
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.plugins.layout.ExampleService#scramble(java.lang.String)
+     */
     @Override
     public String scramble(String text) {
         List<Character> charList = new ArrayList<Character>();
