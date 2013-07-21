@@ -43,8 +43,10 @@ import junit.framework.TestSuite;
  */
 public class PropertySettingTestSuite extends TestSuite {
 
+    /** The m_property name. */
     String m_propertyName;
 
+    /** The m_property value. */
     String m_propertyValue;
 
     /**
@@ -127,6 +129,9 @@ public class PropertySettingTestSuite extends TestSuite {
         super.runTest(test, result);
     }
 
+    /**
+     * Sets the property.
+     */
     private void setProperty() {
         System.setProperty(m_propertyName, m_propertyValue);
     }

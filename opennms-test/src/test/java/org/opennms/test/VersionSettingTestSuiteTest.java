@@ -31,28 +31,52 @@ package org.opennms.test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+/**
+ * The Class VersionSettingTestSuiteTest.
+ */
 public class VersionSettingTestSuiteTest extends TestCase {
 
+    /** The version. */
     public int version = 0;
 
+    /**
+     * Suite.
+     *
+     * @return the test suite
+     */
     public static TestSuite suite() {
         return new VersionSettingTestSuite(VersionSettingTestSuiteTest.class, "Version 1 Suite", 1);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test that version is set.
+     */
     public void testThatVersionIsSet() {
         assertEquals(1, version);
     }
 
+    /**
+     * Sets the version.
+     *
+     * @param v
+     *            the new version
+     */
     public void setVersion(int v) {
         version = v;
     }

@@ -40,43 +40,78 @@ import junit.framework.TestCase;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class FileAnticipatorTest extends TestCase {
+
+    /** The m_anticipator. */
     private FileAnticipator m_anticipator;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
         m_anticipator = new FileAnticipator();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     public void tearDown() {
         m_anticipator.tearDown();
     }
 
+    /**
+     * Test constructor.
+     */
     public void testConstructor() {
         // Empty... this effectively tests that setUp() works.
         assertTrue("anticipator should be initialized, but said it wasn't", m_anticipator.isInitialized());
     }
 
+    /**
+     * Test constructor no initialize.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstructorNoInitialize() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
         assertFalse("anticipator should not be initialized, but said it was", fa.isInitialized());
     }
 
+    /**
+     * Test expecting.
+     */
     public void testExpecting() {
         String file = "/FileAnticipatorTest_bogus_" + System.currentTimeMillis();
         m_anticipator.expecting(file);
     }
 
+    /**
+     * Test expecting with parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testExpectingWithParent() throws Exception {
         File parent = m_anticipator.tempDir("parent");
         String file = "/FileAnticipatorTest_bogus_" + System.currentTimeMillis();
         m_anticipator.expecting(parent, file);
     }
 
+    /**
+     * Test delete expected.
+     */
     public void testDeleteExpected() {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test expecting delete expected.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testExpectingDeleteExpected() throws Exception {
         String file = "FileAnticipatorTest_" + System.currentTimeMillis();
         File tempFile = m_anticipator.expecting(file);
@@ -84,6 +119,9 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test expecting delete expected bogus.
+     */
     public void testExpectingDeleteExpectedBogus() {
         String file = "FileAnticipatorTest_bogus_" + System.currentTimeMillis();
 
@@ -103,6 +141,12 @@ public class FileAnticipatorTest extends TestCase {
 
     }
 
+    /**
+     * Test temp dir.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempDir() throws Exception {
         String file = "FileAnticipatorTest_tempDir_" + System.currentTimeMillis();
         File f = m_anticipator.tempDir(file);
@@ -112,6 +156,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp dir null name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempDirNullName() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("name argument cannot be null"));
@@ -124,6 +174,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp dir with parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempDirWithParent() throws Exception {
         File parent = m_anticipator.tempDir("parent");
 
@@ -135,6 +191,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFile() throws Exception {
         String file = "FileAnticipatorTest_tempFile_" + System.currentTimeMillis();
         File f = m_anticipator.tempFile(file);
@@ -143,6 +205,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp file null name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileNullName() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("name argument cannot be null"));
@@ -155,6 +223,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithParent() throws Exception {
         File parent = m_anticipator.tempDir("parent");
 
@@ -166,6 +240,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp file with parent null parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithParentNullParent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("parent argument cannot be null"));
@@ -178,6 +258,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with parent null name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithParentNullName() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("name argument cannot be null"));
@@ -190,6 +276,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with contents.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContents() throws Exception {
         String file = "FileAnticipatorTest_tempFile_" + System.currentTimeMillis();
         String contents = "yay!";
@@ -210,6 +302,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp file with contents null name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsNullName() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("name argument cannot be null"));
@@ -222,6 +320,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with contents null contents.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsNullContents() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("contents argument cannot be null"));
@@ -234,6 +338,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with contents and parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsAndParent() throws Exception {
         File parent = m_anticipator.tempDir("parent");
 
@@ -257,6 +367,12 @@ public class FileAnticipatorTest extends TestCase {
         m_anticipator.deleteExpected();
     }
 
+    /**
+     * Test temp file with contents and parent null parent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsAndParentNullParent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("parent argument cannot be null"));
@@ -269,6 +385,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with contents and parent null name.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsAndParentNullName() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("name argument cannot be null"));
@@ -281,6 +403,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test temp file with contents and parent null contents.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testTempFileWithContentsAndParentNullContents() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("contents argument cannot be null"));
@@ -293,12 +421,24 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then initialize.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenInitialize() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
         fa.initialize();
         assertTrue("anticipator should be initialized, but said it wasn't", m_anticipator.isInitialized());
     }
 
+    /**
+     * Test not initialized then get temp dir.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenGetTempDir() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -312,6 +452,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then temp file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenTempFile() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -325,6 +471,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then temp file with contents.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenTempFileWithContents() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -338,6 +490,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then temp dir.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenTempDir() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -351,6 +509,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then expecting.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenExpecting() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -364,6 +528,12 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then deleted expected.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenDeletedExpected() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
 
@@ -377,11 +547,20 @@ public class FileAnticipatorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test not initialized then tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNotInitializedThenTearDown() throws Exception {
         FileAnticipator fa = new FileAnticipator(false);
         fa.tearDown();
     }
 
+    /**
+     * Test generate random hex string.
+     */
     public void testGenerateRandomHexString() {
         /*
          * Generate a very long string, in hopes that one of the bytes will
@@ -395,6 +574,9 @@ public class FileAnticipatorTest extends TestCase {
         assertEquals("random hex string length", length * 2, s.length());
     }
 
+    /**
+     * Test generate random hex string no duplication.
+     */
     public void testGenerateRandomHexStringNoDuplication() {
         // This should be long enough to have a very low change of dups
         final int length = 8;

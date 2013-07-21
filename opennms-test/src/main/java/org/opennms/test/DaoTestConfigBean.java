@@ -48,14 +48,20 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class DaoTestConfigBean implements InitializingBean {
+
+    /** The m_relative home directory. */
     private String m_relativeHomeDirectory = null;
 
+    /** The m_rrd binary. */
     private String m_rrdBinary = "/bin/true";
 
+    /** The m_relative rrd base directory. */
     private String m_relativeRrdBaseDirectory = "target/test/opennms-home/share/rrd";
 
+    /** The m_relative importer directory. */
     private final String m_relativeImporterDirectory = "target/test/opennms-home/etc/imports";
 
+    /** The m_relative foreign source directory. */
     private final String m_relativeForeignSourceDirectory = "target/test/opennms-home/etc/foreign-sources";
 
     /**
@@ -70,6 +76,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -121,6 +128,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * getRelativeHomeDirectory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,6 +140,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * setRelativeHomeDirectory
      * </p>
+     * .
      *
      * @param relativeHomeDirectory
      *            a {@link java.lang.String} object.
@@ -144,6 +153,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * getRelativeRrdBaseDirectory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,6 +165,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * setRelativeRrdBaseDirectory
      * </p>
+     * .
      *
      * @param rrdBaseDirectory
      *            a {@link java.lang.String} object.
@@ -167,6 +178,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * getRrdBinary
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -178,6 +190,7 @@ public class DaoTestConfigBean implements InitializingBean {
      * <p>
      * setRrdBinary
      * </p>
+     * .
      *
      * @param rrdBinary
      *            a {@link java.lang.String} object.

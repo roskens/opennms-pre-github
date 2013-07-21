@@ -63,16 +63,22 @@ import org.slf4j.LoggerFactory;
  */
 public class FileAnticipator extends Assert {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FileAnticipator.class);
 
+    /** The Constant JAVA_IO_TMPDIR. */
     private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
 
+    /** The m_expecting. */
     private LinkedList<File> m_expecting = new LinkedList<File>();
 
+    /** The m_delete me. */
     private LinkedList<File> m_deleteMe = new LinkedList<File>();
 
+    /** The m_temp dir. */
     private File m_tempDir = null;
 
+    /** The m_initialized. */
     private boolean m_initialized = false;
 
     /**
@@ -80,8 +86,8 @@ public class FileAnticipator extends Assert {
      * Constructor for FileAnticipator.
      * </p>
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public FileAnticipator() throws IOException {
         this(true);
@@ -94,8 +100,8 @@ public class FileAnticipator extends Assert {
      *
      * @param initialize
      *            a boolean.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public FileAnticipator(boolean initialize) throws IOException {
         if (initialize) {
@@ -113,6 +119,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * tearDown
      * </p>
+     * .
      */
     public void tearDown() {
         if (!isInitialized()) {
@@ -169,9 +176,10 @@ public class FileAnticipator extends Assert {
      * <p>
      * initialize
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void initialize() throws IOException {
         if (m_initialized) {
@@ -195,6 +203,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * generateRandomHexString
      * </p>
+     * .
      *
      * @param length
      *            a int.
@@ -235,6 +244,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * getTempDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -244,6 +254,9 @@ public class FileAnticipator extends Assert {
         return m_tempDir;
     }
 
+    /**
+     * Assert initialized.
+     */
     private void assertInitialized() {
         if (!isInitialized()) {
             throw new IllegalStateException("not initialized");
@@ -254,12 +267,13 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempFile
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempFile(String name) throws IOException {
         if (name == null) {
@@ -275,14 +289,15 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempFile
      * </p>
+     * .
      *
      * @param parent
      *            a {@link java.io.File} object.
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempFile(File parent, String name) throws IOException {
         if (parent == null) {
@@ -301,14 +316,15 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempFile
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @param contents
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempFile(String name, String contents) throws IOException {
         if (name == null) {
@@ -327,6 +343,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempFile
      * </p>
+     * .
      *
      * @param parent
      *            a {@link java.io.File} object.
@@ -335,8 +352,8 @@ public class FileAnticipator extends Assert {
      * @param contents
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempFile(File parent, String name, String contents) throws IOException {
         if (parent == null) {
@@ -355,12 +372,15 @@ public class FileAnticipator extends Assert {
     }
 
     /**
-     * Non-asserting version of tempDir that can be used in initialize()
+     * Non-asserting version of tempDir that can be used in initialize().
      *
      * @param parent
+     *            the parent
      * @param name
+     *            the name
      * @return object representing the newly created temporary directory
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private File internalTempDir(File parent, String name) throws IOException {
         File f = new File(parent, name);
@@ -370,6 +390,17 @@ public class FileAnticipator extends Assert {
         return f;
     }
 
+    /**
+     * Internal temp file.
+     *
+     * @param parent
+     *            the parent
+     * @param name
+     *            the name
+     * @return the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private File internalTempFile(File parent, String name) throws IOException {
         File f = new File(parent, name);
         assertFalse("temporary file exists but it shouldn't: " + f.getAbsolutePath(), f.exists());
@@ -378,6 +409,19 @@ public class FileAnticipator extends Assert {
         return f;
     }
 
+    /**
+     * Internal temp file.
+     *
+     * @param parent
+     *            the parent
+     * @param name
+     *            the name
+     * @param contents
+     *            the contents
+     * @return the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private File internalTempFile(File parent, String name, String contents) throws IOException {
         File f = internalTempFile(parent, name);
         FileOutputStream out = null;
@@ -400,12 +444,13 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempDir
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempDir(String name) throws IOException {
         if (name == null) {
@@ -419,14 +464,15 @@ public class FileAnticipator extends Assert {
      * <p>
      * tempDir
      * </p>
+     * .
      *
      * @param parent
      *            a {@link java.io.File} object.
      * @param name
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public File tempDir(File parent, String name) throws IOException {
         if (parent == null) {
@@ -445,6 +491,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * expecting
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -463,6 +510,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * expecting
      * </p>
+     * .
      *
      * @param parent
      *            a {@link java.io.File} object.
@@ -483,6 +531,15 @@ public class FileAnticipator extends Assert {
         return internalExpecting(parent, name);
     }
 
+    /**
+     * Internal expecting.
+     *
+     * @param parent
+     *            the parent
+     * @param name
+     *            the name
+     * @return the file
+     */
     private File internalExpecting(File parent, String name) {
         File f = new File(parent, name);
         m_expecting.add(f);
@@ -504,10 +561,6 @@ public class FileAnticipator extends Assert {
      * @param ignoreNonExistantFiles
      *            if true, non-existant files will be
      *            ignored and will not throw an AssertionFailedError
-     * @throws AssertionFailedError
-     *             if ignoreNonExistantFiles is false
-     *             and an expected file does not exist, or if a file cannot be
-     *             deleted
      */
     public void deleteExpected(boolean ignoreNonExistantFiles) {
         assertInitialized();
@@ -563,6 +616,7 @@ public class FileAnticipator extends Assert {
      * <p>
      * isInitialized
      * </p>
+     * .
      *
      * @return a boolean.
      */

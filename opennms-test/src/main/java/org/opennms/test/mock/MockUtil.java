@@ -42,6 +42,7 @@ public class MockUtil {
      * <p>
      * printEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -53,6 +54,7 @@ public class MockUtil {
      * <p>
      * println
      * </p>
+     * .
      *
      * @param string
      *            a {@link java.lang.String} object.

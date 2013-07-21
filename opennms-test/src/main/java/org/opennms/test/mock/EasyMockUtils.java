@@ -40,6 +40,8 @@ import org.easymock.EasyMock;
  * @version $Id: $
  */
 public class EasyMockUtils {
+
+    /** The m_mocks. */
     private List<Object> m_mocks;
 
     /**
@@ -55,11 +57,12 @@ public class EasyMockUtils {
      * <p>
      * createMock
      * </p>
+     * .
      *
-     * @param clazz
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param clazz
+     *            a {@link java.lang.Class} object.
      * @return a T object.
      */
     public <T> T createMock(Class<T> clazz) {
@@ -72,6 +75,7 @@ public class EasyMockUtils {
      * <p>
      * replayAll
      * </p>
+     * .
      */
     public void replayAll() {
         for (Object o : m_mocks) {
@@ -83,6 +87,7 @@ public class EasyMockUtils {
      * <p>
      * verifyAll
      * </p>
+     * .
      */
     public void verifyAll() {
         for (Object o : m_mocks) {
@@ -91,6 +96,12 @@ public class EasyMockUtils {
         }
     }
 
+    /**
+     * Removes the.
+     *
+     * @param o
+     *            the o
+     */
     public void remove(Object o) {
         m_mocks.remove(o);
     }

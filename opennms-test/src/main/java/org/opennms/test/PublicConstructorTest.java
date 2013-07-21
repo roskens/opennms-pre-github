@@ -46,17 +46,19 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class PublicConstructorTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PublicConstructorTest.class);
 
     /**
      * <p>
      * testPublicConstructors
      * </p>
+     * .
      *
-     * @throws java.lang.NoSuchMethodException
-     *             if any.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testPublicConstructors() throws NoSuchMethodException, Exception {
@@ -78,8 +80,8 @@ public abstract class PublicConstructorTest {
      * constructors.
      *
      * @return a {@link java.util.List} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected abstract List<Class<? extends Object>> getClasses() throws Exception;
 }

@@ -41,6 +41,13 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  */
 public class OpenNMSConfigurationExecutionListener extends AbstractTestExecutionListener {
 
+    /**
+     * Find annotation.
+     *
+     * @param testContext
+     *            the test context
+     * @return the j unit configuration environment
+     */
     private JUnitConfigurationEnvironment findAnnotation(final TestContext testContext) {
         JUnitConfigurationEnvironment anno = null;
         final Method testMethod = testContext.getTestMethod();
@@ -54,6 +61,9 @@ public class OpenNMSConfigurationExecutionListener extends AbstractTestExecution
         return anno;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#prepareTestInstance(org.springframework.test.context.TestContext)
+     */
     @Override
     public void prepareTestInstance(TestContext testContext) throws Exception {
         final JUnitConfigurationEnvironment anno = findAnnotation(testContext);

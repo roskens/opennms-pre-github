@@ -46,6 +46,7 @@ import junit.framework.TestSuite;
  */
 public class VersionSettingTestSuite extends TestSuite {
 
+    /** The m_version. */
     int m_version;
 
     /**
@@ -110,6 +111,12 @@ public class VersionSettingTestSuite extends TestSuite {
         m_version = version;
     }
 
+    /**
+     * Check for version method.
+     *
+     * @param theClass
+     *            the the class
+     */
     private void checkForVersionMethod(final Class<?> theClass) {
         try {
             getSetVersionMethod(theClass);
@@ -124,6 +131,15 @@ public class VersionSettingTestSuite extends TestSuite {
 
     }
 
+    /**
+     * Gets the sets the version method.
+     *
+     * @param theClass
+     *            the the class
+     * @return the sets the version method
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     */
     private Method getSetVersionMethod(final Class<?> theClass) throws NoSuchMethodException {
         return theClass.getMethod("setVersion", new Class[] { Integer.TYPE });
     }
@@ -135,6 +151,12 @@ public class VersionSettingTestSuite extends TestSuite {
         super.runTest(test, result);
     }
 
+    /**
+     * Sets the version.
+     *
+     * @param test
+     *            the new version
+     */
     private void setVersion(Test test) {
         try {
             Method m = getSetVersionMethod(test.getClass());

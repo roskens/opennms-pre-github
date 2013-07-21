@@ -31,33 +31,60 @@ package org.opennms.test;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
+/**
+ * The Class ThrowableAnticipatorTest.
+ */
 public class ThrowableAnticipatorTest extends TestCase {
+
+    /** The m_anticipator. */
     private ThrowableAnticipator m_anticipator;
 
+    /** The m_throwable. */
     private Throwable m_throwable = new Throwable("our test throwable");
 
+    /**
+     * Instantiates a new throwable anticipator test.
+     */
     public ThrowableAnticipatorTest() {
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         m_anticipator = new ThrowableAnticipator();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_anticipator.verifyAnticipated();
     }
 
+    /**
+     * Test constructor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testConstructor() throws Exception {
         setUp();
     }
 
+    /**
+     * Test anticipate.
+     */
     public void testAnticipate() {
         m_anticipator.anticipate(m_throwable);
         m_anticipator.reset();
     }
 
+    /**
+     * Test throwable received void.
+     */
     public void testThrowableReceivedVoid() {
         try {
             m_anticipator.throwableReceived(null);
@@ -74,6 +101,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         fail("Did not receive expected IllegalArgumentException.");
     }
 
+    /**
+     * Test throwable received void message.
+     */
     public void testThrowableReceivedVoidMessage() {
         try {
             m_anticipator.throwableReceived(new Exception());
@@ -90,6 +120,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         fail("Did not receive expected AssertionFailedError.");
     }
 
+    /**
+     * Test throwable received ignore message.
+     */
     public void testThrowableReceivedIgnoreMessage() {
         m_anticipator.anticipate(new Exception(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
@@ -101,11 +134,17 @@ public class ThrowableAnticipatorTest extends TestCase {
         }
     }
 
+    /**
+     * Test throwable received.
+     */
     public void testThrowableReceived() {
         m_anticipator.anticipate(m_throwable);
         m_anticipator.throwableReceived(m_throwable);
     }
 
+    /**
+     * Test throwable received not anticipated.
+     */
     public void testThrowableReceivedNotAnticipated() {
         try {
             m_anticipator.throwableReceived(m_throwable);
@@ -122,6 +161,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         fail("Did not receive expected AssertionFailedError.");
     }
 
+    /**
+     * Test throwable received not anticipated check cause.
+     */
     public void testThrowableReceivedNotAnticipatedCheckCause() {
         try {
             m_anticipator.throwableReceived(m_throwable);
@@ -142,12 +184,18 @@ public class ThrowableAnticipatorTest extends TestCase {
         fail("Did not receive expected AssertionFailedError.");
     }
 
+    /**
+     * Test set fail fast.
+     */
     public void testSetFailFast() {
         assertTrue(m_anticipator.isFailFast());
         m_anticipator.setFailFast(false);
         assertFalse(m_anticipator.isFailFast());
     }
 
+    /**
+     * Test set fail fast with unanticipated.
+     */
     public void testSetFailFastWithUnanticipated() {
         assertTrue(m_anticipator.isFailFast());
         m_anticipator.setFailFast(false);
@@ -169,6 +217,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         fail("Did not receive expected AssertionFailedError.");
     }
 
+    /**
+     * Test reset.
+     */
     public void testReset() {
         m_anticipator.setFailFast(false);
         m_anticipator.anticipate(m_throwable);
@@ -178,6 +229,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         m_anticipator.reset();
     }
 
+    /**
+     * Test verify anticipated.
+     */
     public void testVerifyAnticipated() {
         m_anticipator.verifyAnticipated();
     }
