@@ -43,7 +43,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * ReferenceFactoryBeanTest
+ * ReferenceFactoryBeanTest.
  *
  * @author brozow
  */
@@ -52,15 +52,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class ReferenceFactoryBeanTest implements InitializingBean {
 
+    /** The service registry. */
     @Autowired
     ServiceRegistry serviceRegistry;
 
+    /** The hello. */
     @Autowired
     Hello hello;
 
+    /** The goodbye. */
     @Autowired
     Goodbye goodbye;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         assertNotNull(serviceRegistry);
@@ -68,6 +74,12 @@ public class ReferenceFactoryBeanTest implements InitializingBean {
         assertNotNull(goodbye);
     }
 
+    /**
+     * Test find reference.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @DirtiesContext
     public void testFindReference() throws IOException {

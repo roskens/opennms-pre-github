@@ -40,87 +40,143 @@ import org.junit.Test;
 import org.opennms.core.soa.Filter;
 
 /**
- * FilterParserTest
+ * FilterParserTest.
  *
  * @author brozow
  */
 public class FilterParserTest {
 
+    /**
+     * Parses the filter then validate string.
+     *
+     * @param filterString
+     *            the filter string
+     */
     private void parseFilterThenValidateString(String filterString) {
         parseFilterThenValidateString(filterString, filterString);
     }
 
+    /**
+     * Parses the filter then validate string.
+     *
+     * @param filterString
+     *            the filter string
+     * @param expectedString
+     *            the expected string
+     */
     private void parseFilterThenValidateString(String filterString, String expectedString) {
         Filter filter = new FilterParser().parse(filterString);
         assertThat("Unable to parse filter", filter, notNullValue());
         assertThat("Unexpected string value for filter", filter.toString(), equalTo(expectedString));
     }
 
+    /**
+     * Parses the greater than filter.
+     */
     @Test
     public void parseGreaterThanFilter() {
         parseFilterThenValidateString("(a>=2)");
     }
 
+    /**
+     * Parses the less than filter.
+     */
     @Test
     public void parseLessThanFilter() {
         parseFilterThenValidateString("(a<=2)");
     }
 
+    /**
+     * Parses the not filter.
+     */
     @Test
     public void parseNotFilter() {
         parseFilterThenValidateString("(!(a<=1))");
     }
 
+    /**
+     * Parses the and filter.
+     */
     @Test
     public void parseAndFilter() {
         parseFilterThenValidateString("(&(a>=1)(a<=2))");
     }
 
+    /**
+     * Parses the or filter.
+     */
     @Test
     public void parseOrFilter() {
         parseFilterThenValidateString("(|(a>=1)(a<=2))");
     }
 
+    /**
+     * Parses the nested filter.
+     */
     @Test
     public void parseNestedFilter() {
         parseFilterThenValidateString("(| (&(a>=1)(a<=2)) (&(b>=1)(b<=2)) )", "(|(&(a>=1)(a<=2))(&(b>=1)(b<=2)))");
     }
 
+    /**
+     * Parses the presence filter.
+     */
     @Test
     public void parsePresenceFilter() {
         parseFilterThenValidateString("(a=*)");
     }
 
+    /**
+     * Parses the simple filter.
+     */
     @Test
     public void parseSimpleFilter() {
         parseFilterThenValidateString("(a=1)");
     }
 
+    /**
+     * Parses the simple filter with escaped paren.
+     */
     @Test
     public void parseSimpleFilterWithEscapedParen() {
         parseFilterThenValidateString("(a=\\))");
     }
 
+    /**
+     * Parses the simple filter with escaped star.
+     */
     @Test
     public void parseSimpleFilterWithEscapedStar() {
         parseFilterThenValidateString("(a=\\*)");
     }
 
+    /**
+     * Parses the simple filter with escaped backslash.
+     */
     @Test
     public void parseSimpleFilterWithEscapedBackslash() {
         parseFilterThenValidateString("(a=\\\\)");
     }
 
+    /**
+     * Parses the pattern matching filter.
+     */
     @Test
     public void parsePatternMatchingFilter() {
         parseFilterThenValidateString("(a=a*c)");
     }
 
+    /**
+     * Parses the pattern matching filter with escaped star.
+     */
     @Test
     public void parsePatternMatchingFilterWithEscapedStar() {
         parseFilterThenValidateString("(a=a\\)*\\**c)");
     }
 
+    /**
+     * Test and filter.
+     */
     @Test
     public void testAndFilter() {
         Map<String, String> dict = new HashMap<String, String>();

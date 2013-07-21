@@ -39,25 +39,32 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * RegistrationListenerBean
+ * RegistrationListenerBean.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
 public class RegistrationListenerBean<T> implements RegistrationListener<T>, InitializingBean {
 
+    /** The m_service interface. */
     private Class<T> m_serviceInterface;
 
+    /** The m_target. */
     private Object m_target;
 
+    /** The m_bind method. */
     private String m_bindMethod;
 
+    /** The m_unbind method. */
     private String m_unbindMethod;
 
     /**
      * <p>
      * getServiceInterface
      * </p>
+     * .
      *
      * @return the serviceInterface
      */
@@ -69,6 +76,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * setServiceInterface
      * </p>
+     * .
      *
      * @param serviceInterface
      *            the serviceInterface to set
@@ -81,6 +89,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * getTarget
      * </p>
+     * .
      *
      * @return the target
      */
@@ -92,6 +101,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * setTarget
      * </p>
+     * .
      *
      * @param target
      *            the target to set
@@ -104,6 +114,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * getBindMethod
      * </p>
+     * .
      *
      * @return the bindMethod
      */
@@ -115,6 +126,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * setBindMethod
      * </p>
+     * .
      *
      * @param bindMethod
      *            the bindMethod to set
@@ -127,6 +139,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * getUnbindMethod
      * </p>
+     * .
      *
      * @return the unbindMethod
      */
@@ -138,6 +151,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * setUnbindMethod
      * </p>
+     * .
      *
      * @param unbindMethod
      *            the unbindMethod to set
@@ -150,9 +164,10 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -173,12 +188,31 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
 
     }
 
+    /**
+     * Gets the method.
+     *
+     * @param name
+     *            the name
+     * @return the method
+     * @throws SecurityException
+     *             the security exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     */
     private Method getMethod(String name) throws SecurityException, NoSuchMethodException {
         Method method = m_target.getClass().getMethod(name, m_serviceInterface, Map.class);
         Assert.notNull(name, "Unable to find method named " + name);
         return method;
     }
 
+    /**
+     * Invoke method.
+     *
+     * @param methodName
+     *            the method name
+     * @param registration
+     *            the registration
+     */
     private void invokeMethod(String methodName, Registration registration) {
         try {
             Method method = getMethod(methodName);

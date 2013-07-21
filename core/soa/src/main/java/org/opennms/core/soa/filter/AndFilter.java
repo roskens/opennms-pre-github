@@ -35,22 +35,38 @@ import java.util.Map;
 import org.opennms.core.soa.Filter;
 
 /**
- * AndFilter
+ * AndFilter.
  *
  * @author brozow
  */
 public class AndFilter extends AbstractFilter {
 
+    /** The m_filters. */
     List<Filter> m_filters;
 
+    /**
+     * Instantiates a new and filter.
+     *
+     * @param filters
+     *            the filters
+     */
     public AndFilter(List<Filter> filters) {
         m_filters = filters;
     }
 
+    /**
+     * Instantiates a new and filter.
+     *
+     * @param filters
+     *            the filters
+     */
     public AndFilter(Filter... filters) {
         this(Arrays.asList(filters));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#match(java.util.Map)
+     */
     @Override
     public boolean match(Map<String, String> properties) {
         for (Filter f : m_filters) {
@@ -61,6 +77,9 @@ public class AndFilter extends AbstractFilter {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();

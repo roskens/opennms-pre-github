@@ -39,35 +39,54 @@ import org.opennms.core.soa.RegistrationListener;
 import org.opennms.core.soa.ServiceRegistry;
 
 /**
- * ReferenceListFactoryBeanTest
+ * ReferenceListFactoryBeanTest.
  *
  * @author brozow
  */
 public class ReferenceListFactoryBeanTest {
 
     /**
-     * RegistrationListenerImplementation
+     * RegistrationListenerImplementation.
      *
      * @author brozow
      */
     private final class CountingListener implements RegistrationListener<Hello> {
+
+        /** The m_total provided. */
         private int m_totalProvided = 0;
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationListener#providerRegistered(org.opennms.core.soa.Registration, java.lang.Object)
+         */
         @Override
         public void providerRegistered(Registration registration, Hello provider) {
             m_totalProvided++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationListener#providerUnregistered(org.opennms.core.soa.Registration, java.lang.Object)
+         */
         @Override
         public void providerUnregistered(Registration registration, Hello provider) {
             m_totalProvided--;
         }
 
+        /**
+         * Gets the total provided.
+         *
+         * @return the total provided
+         */
         public int getTotalProvided() {
             return m_totalProvided;
         }
     }
 
+    /**
+     * Test dynamic list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDynamicList() throws Exception {
 
@@ -100,10 +119,25 @@ public class ReferenceListFactoryBeanTest {
 
     }
 
+    /**
+     * Gets the object.
+     *
+     * @param bean
+     *            the bean
+     * @return the object
+     * @throws Exception
+     *             the exception
+     */
     private List<Hello> getObject(ReferenceListFactoryBean<Hello> bean) throws Exception {
         return bean.getObject();
     }
 
+    /**
+     * Test list listeners.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testListListeners() throws Exception {
 

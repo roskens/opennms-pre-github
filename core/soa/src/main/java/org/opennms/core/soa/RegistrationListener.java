@@ -29,8 +29,10 @@
 package org.opennms.core.soa;
 
 /**
- * RegistrationListener
+ * RegistrationListener.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
@@ -40,12 +42,11 @@ public interface RegistrationListener<T> {
      * <p>
      * providerRegistered
      * </p>
+     * .
      *
      * @param registration
      *            a {@link org.opennms.core.soa.Registration} object.
      * @param provider
-     *            a T object.
-     * @param <T>
      *            a T object.
      */
     public void providerRegistered(Registration registration, T provider);
@@ -54,6 +55,7 @@ public interface RegistrationListener<T> {
      * <p>
      * providerUnregistered
      * </p>
+     * .
      *
      * @param registration
      *            a {@link org.opennms.core.soa.Registration} object.

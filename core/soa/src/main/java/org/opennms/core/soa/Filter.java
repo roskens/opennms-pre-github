@@ -31,20 +31,44 @@ package org.opennms.core.soa;
 import java.util.Map;
 
 /**
- * Filter
+ * Filter.
  *
  * @author brozow
  */
 public interface Filter {
 
+    /**
+     * Match.
+     *
+     * @param properties
+     *            the properties
+     * @return true, if successful
+     */
     public boolean match(Map<String, String> properties);
 
+    /**
+     * Equals.
+     *
+     * @param obj
+     *            the obj
+     * @return true, if successful
+     */
     @Override
     public boolean equals(Object obj);
 
+    /**
+     * Hash code.
+     *
+     * @return the int
+     */
     @Override
     public int hashCode();
 
+    /**
+     * To string.
+     *
+     * @return the string
+     */
     @Override
     public String toString();
 

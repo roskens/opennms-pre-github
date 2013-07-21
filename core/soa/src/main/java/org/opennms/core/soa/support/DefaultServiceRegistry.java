@@ -44,7 +44,7 @@ import org.opennms.core.soa.ServiceRegistry;
 import org.opennms.core.soa.filter.FilterParser;
 
 /**
- * DefaultServiceRegistry
+ * DefaultServiceRegistry.
  *
  * @author brozow
  * @version $Id: $
@@ -52,12 +52,15 @@ import org.opennms.core.soa.filter.FilterParser;
 public class DefaultServiceRegistry implements ServiceRegistry {
 
     /**
-     * AnyFilter
+     * AnyFilter.
      *
      * @author brozow
      */
     public class AnyFilter implements Filter {
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Filter#match(java.util.Map)
+         */
         @Override
         public boolean match(Map<String, String> properties) {
             return true;
@@ -65,35 +68,61 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     }
 
-    /** Constant <code>INSTANCE</code> */
+    /** Constant <code>INSTANCE</code>. */
     public static final DefaultServiceRegistry INSTANCE = new DefaultServiceRegistry();
 
+    /**
+     * The Class ServiceRegistration.
+     */
     private class ServiceRegistration implements Registration {
 
+        /** The m_unregistered. */
         private boolean m_unregistered = false;
 
+        /** The m_provider. */
         private Object m_provider;
 
+        /** The m_properties. */
         private Map<String, String> m_properties;
 
+        /** The m_service interfaces. */
         private Class<?>[] m_serviceInterfaces;
 
+        /**
+         * Instantiates a new service registration.
+         *
+         * @param provider
+         *            the provider
+         * @param properties
+         *            the properties
+         * @param serviceInterfaces
+         *            the service interfaces
+         */
         public ServiceRegistration(Object provider, Map<String, String> properties, Class<?>[] serviceInterfaces) {
             m_provider = provider;
             m_properties = properties;
             m_serviceInterfaces = serviceInterfaces;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#getProperties()
+         */
         @Override
         public Map<String, String> getProperties() {
             return m_properties == null ? null : Collections.unmodifiableMap(m_properties);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#getProvidedInterfaces()
+         */
         @Override
         public Class<?>[] getProvidedInterfaces() {
             return m_serviceInterfaces;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#getProvider(java.lang.Class)
+         */
         @Override
         public <T> T getProvider(Class<T> serviceInterface) {
 
@@ -109,21 +138,33 @@ public class DefaultServiceRegistry implements ServiceRegistry {
             throw new IllegalArgumentException("Provider not registered with interface " + serviceInterface);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#getProvider()
+         */
         @Override
         public Object getProvider() {
             return m_provider;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#getRegistry()
+         */
         @Override
         public ServiceRegistry getRegistry() {
             return DefaultServiceRegistry.this;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#isUnregistered()
+         */
         @Override
         public boolean isUnregistered() {
             return m_unregistered;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.Registration#unregister()
+         */
         @Override
         public void unregister() {
             m_unregistered = true;
@@ -133,10 +174,13 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     }
 
+    /** The m_registration map. */
     private MultivaluedMap<Class<?>, ServiceRegistration> m_registrationMap = MultivaluedMapImpl.synchronizedMultivaluedMap();
 
+    /** The m_listener map. */
     private MultivaluedMap<Class<?>, RegistrationListener<?>> m_listenerMap = MultivaluedMapImpl.synchronizedMultivaluedMap();
 
+    /** The m_hooks. */
     private List<RegistrationHook> m_hooks = new CopyOnWriteArrayList<RegistrationHook>();
 
     /** {@inheritDoc} */
@@ -181,6 +225,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param serviceProvider
      *            a {@link java.lang.Object} object.
@@ -197,6 +242,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param serviceProvider
      *            a {@link java.lang.Object} object.
@@ -225,23 +271,50 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     }
 
+    /**
+     * Fire registration added.
+     *
+     * @param registration
+     *            the registration
+     */
     private void fireRegistrationAdded(ServiceRegistration registration) {
         for (RegistrationHook hook : m_hooks) {
             hook.registrationAdded(registration);
         }
     }
 
+    /**
+     * Fire registration removed.
+     *
+     * @param registration
+     *            the registration
+     */
     private void fireRegistrationRemoved(ServiceRegistration registration) {
         for (RegistrationHook hook : m_hooks) {
             hook.registrationRemoved(registration);
         }
     }
 
+    /**
+     * Gets the registrations.
+     *
+     * @param <T>
+     *            the generic type
+     * @param serviceInterface
+     *            the service interface
+     * @return the registrations
+     */
     private <T> Set<ServiceRegistration> getRegistrations(Class<T> serviceInterface) {
         Set<ServiceRegistration> copy = m_registrationMap.getCopy(serviceInterface);
         return (copy == null ? Collections.<ServiceRegistration> emptySet() : copy);
     }
 
+    /**
+     * Unregister.
+     *
+     * @param registration
+     *            the registration
+     */
     private void unregister(ServiceRegistration registration) {
 
         for (Class<?> serviceInterface : registration.getProvidedInterfaces()) {
@@ -292,6 +365,16 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         m_listenerMap.remove(service, listener);
     }
 
+    /**
+     * Fire provider registered.
+     *
+     * @param <T>
+     *            the generic type
+     * @param serviceInterface
+     *            the service interface
+     * @param registration
+     *            the registration
+     */
     private <T> void fireProviderRegistered(Class<T> serviceInterface, Registration registration) {
         Set<RegistrationListener<T>> listeners = getListeners(serviceInterface);
 
@@ -300,6 +383,16 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         }
     }
 
+    /**
+     * Fire provider unregistered.
+     *
+     * @param <T>
+     *            the generic type
+     * @param serviceInterface
+     *            the service interface
+     * @param registration
+     *            the registration
+     */
     private <T> void fireProviderUnregistered(Class<T> serviceInterface, Registration registration) {
         Set<RegistrationListener<T>> listeners = getListeners(serviceInterface);
 
@@ -309,12 +402,24 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     }
 
+    /**
+     * Gets the listeners.
+     *
+     * @param <T>
+     *            the generic type
+     * @param serviceInterface
+     *            the service interface
+     * @return the listeners
+     */
     @SuppressWarnings("unchecked")
     private <T> Set<RegistrationListener<T>> getListeners(Class<T> serviceInterface) {
         Set<RegistrationListener<?>> listeners = m_listenerMap.getCopy(serviceInterface);
         return (Set<RegistrationListener<T>>) (listeners == null ? Collections.emptySet() : listeners);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.ServiceRegistry#addRegistrationHook(org.opennms.core.soa.RegistrationHook, boolean)
+     */
     @Override
     public void addRegistrationHook(RegistrationHook hook, boolean notifyForExistingProviders) {
         if (notifyForExistingProviders) {
@@ -335,11 +440,19 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.ServiceRegistry#removeRegistrationHook(org.opennms.core.soa.RegistrationHook)
+     */
     @Override
     public void removeRegistrationHook(RegistrationHook hook) {
         m_hooks.remove(hook);
     }
 
+    /**
+     * Gets the all registrations.
+     *
+     * @return the all registrations
+     */
     private Set<ServiceRegistration> getAllRegistrations() {
         Set<ServiceRegistration> registrations = new LinkedHashSet<ServiceRegistration>();
 

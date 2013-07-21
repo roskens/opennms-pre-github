@@ -31,7 +31,7 @@ package org.opennms.core.soa;
 import java.util.Map;
 
 /**
- * Registration
+ * Registration.
  *
  * @author brozow
  * @version $Id: $
@@ -42,6 +42,7 @@ public interface Registration {
      * <p>
      * getRegistry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.soa.ServiceRegistry} object.
      */
@@ -51,6 +52,7 @@ public interface Registration {
      * <p>
      * getProvidedInterfaces
      * </p>
+     * .
      *
      * @return an array of {@link java.lang.Class} objects.
      */
@@ -60,21 +62,28 @@ public interface Registration {
      * <p>
      * getProvider
      * </p>
+     * .
      *
-     * @param service
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
      * @return a T object.
      */
     public <T> T getProvider(Class<T> service);
 
+    /**
+     * Gets the provider.
+     *
+     * @return the provider
+     */
     public Object getProvider();
 
     /**
      * <p>
      * getProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -84,6 +93,7 @@ public interface Registration {
      * <p>
      * isUnregistered
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -93,6 +103,7 @@ public interface Registration {
      * <p>
      * unregister
      * </p>
+     * .
      */
     public void unregister();
 

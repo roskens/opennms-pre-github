@@ -62,15 +62,16 @@ import org.w3c.dom.NodeList;
  */
 public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-    /** Constant <code>REF_ATTR="ref"</code> */
+    /** Constant <code>REF_ATTR="ref"</code>. */
     public static final String REF_ATTR = "ref";
 
-    /** Constant <code>INTERFACE_ATTR="interface"</code> */
+    /** Constant <code>INTERFACE_ATTR="interface"</code>. */
     public static final String INTERFACE_ATTR = "interface";
 
-    /** Constant <code>INTERFACES_ELEM="interfaces"</code> */
+    /** Constant <code>INTERFACES_ELEM="interfaces"</code>. */
     public static final String INTERFACES_ELEM = "interfaces";
 
+    /** The Constant PROPS_ELEM. */
     public static final String PROPS_ELEM = "service-properties";
 
     /** {@inheritDoc} */

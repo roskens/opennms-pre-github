@@ -32,17 +32,20 @@ import org.opennms.core.soa.ServiceRegistry;
 import org.springframework.aop.target.AbstractLazyCreationTargetSource;
 
 /**
- * ServiceRegistryTargetSource
+ * ServiceRegistryTargetSource.
  *
  * @author brozow
  * @version $Id: $
  */
 public class ServiceRegistryTargetSource extends AbstractLazyCreationTargetSource {
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_service interface. */
     private Class<?> m_serviceInterface;
 
+    /** The m_filter. */
     private String m_filter;
 
     /**
@@ -53,6 +56,7 @@ public class ServiceRegistryTargetSource extends AbstractLazyCreationTargetSourc
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
      * @param filter
+     *            the filter
      * @param serviceInterface
      *            a {@link java.lang.Class} object.
      */

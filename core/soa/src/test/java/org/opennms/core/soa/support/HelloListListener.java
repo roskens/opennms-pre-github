@@ -30,18 +30,55 @@ package org.opennms.core.soa.support;
 
 import java.util.Map;
 
+/**
+ * The listener interface for receiving helloList events.
+ * The class that is interested in processing a helloList
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHelloListListener<code> method. When
+ * the helloList event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see HelloListEvent
+ */
 public class HelloListListener {
 
+    /** The m_total providers. */
     private int m_totalProviders;
 
+    /**
+     * Bind.
+     *
+     * @param hello
+     *            the hello
+     * @param proeprties
+     *            the proeprties
+     * @throws Exception
+     *             the exception
+     */
     public void bind(Hello hello, Map<String, String> proeprties) throws Exception {
         m_totalProviders++;
     }
 
+    /**
+     * Unbind.
+     *
+     * @param hello
+     *            the hello
+     * @param properties
+     *            the properties
+     * @throws Exception
+     *             the exception
+     */
     public void unbind(Hello hello, Map<String, String> properties) throws Exception {
         m_totalProviders--;
     }
 
+    /**
+     * Gets the total providers.
+     *
+     * @return the total providers
+     */
     public int getTotalProviders() {
         return m_totalProviders;
     }

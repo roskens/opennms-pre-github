@@ -31,7 +31,7 @@ package org.opennms.core.soa.config;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
- * OnmSGINamespaceHandler
+ * OnmSGINamespaceHandler.
  *
  * @author brozow
  * @version $Id: $
@@ -42,6 +42,7 @@ public class OnmSGINamespaceHandler extends NamespaceHandlerSupport {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {

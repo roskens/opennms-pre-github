@@ -30,40 +30,74 @@ package org.opennms.core.soa.support;
 
 import java.io.IOException;
 
+/**
+ * The Class MyProvider.
+ */
 public class MyProvider implements Hello, Goodbye {
 
+    /** The m_name. */
     String m_name;
 
+    /** The m_hello said. */
     int m_helloSaid = 0;
 
+    /** The m_goodbye said. */
     int m_goodbyeSaid = 0;
 
+    /**
+     * Instantiates a new my provider.
+     */
     public MyProvider() {
         this("provider");
     }
 
+    /**
+     * Instantiates a new my provider.
+     *
+     * @param name
+     *            the name
+     */
     public MyProvider(String name) {
         m_name = name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.support.Hello#sayHello()
+     */
     @Override
     public void sayHello() throws IOException {
         m_helloSaid++;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.support.Goodbye#sayGoodbye()
+     */
     @Override
     public void sayGoodbye() throws IOException {
         m_goodbyeSaid++;
     }
 
+    /**
+     * Hello said.
+     *
+     * @return the int
+     */
     public int helloSaid() {
         return m_helloSaid;
     }
 
+    /**
+     * Goodbye said.
+     *
+     * @return the int
+     */
     public int goodbyeSaid() {
         return m_goodbyeSaid;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return m_name;

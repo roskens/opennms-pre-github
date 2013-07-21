@@ -39,18 +39,24 @@ import org.junit.Test;
 import org.opennms.core.soa.Filter;
 
 /**
- * FilterTest
+ * FilterTest.
  *
  * @author brozow
  */
 public class FilterTest {
 
+    /**
+     * Test null properties.
+     */
     @Test
     public void testNullProperties() {
         Filter findA = new PresenceFilter("a");
         assertThat("a is not in null map", findA.match(null), is(false));
     }
 
+    /**
+     * Test presence.
+     */
     @Test
     public void testPresence() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -65,6 +71,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Tet simple equals.
+     */
     @Test
     public void tetSimpleEquals() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -81,6 +90,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test pattern match.
+     */
     @Test
     public void testPatternMatch() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -103,6 +115,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test less than.
+     */
     @Test
     public void testLessThan() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -124,6 +139,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test greater than.
+     */
     @Test
     public void testGreaterThan() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -145,6 +163,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test and filter.
+     */
     @Test
     public void testAndFilter() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -165,6 +186,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test or filter.
+     */
     @Test
     public void testOrFilter() {
         Map<String, String> dict = new HashMap<String, String>();
@@ -185,6 +209,9 @@ public class FilterTest {
 
     }
 
+    /**
+     * Test not filter.
+     */
     @Test
     public void testNotFilter() {
         Map<String, String> dict = new HashMap<String, String>();

@@ -32,8 +32,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * MultivaluedMap
+ * MultivaluedMap.
  *
+ * @param <K>
+ *            the key type
+ * @param <V>
+ *            the value type
  * @author brozow
  * @version $Id: $
  */
@@ -43,14 +47,11 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param key
      *            a K object.
      * @param value
-     *            a V object.
-     * @param <K>
-     *            a K object.
-     * @param <V>
      *            a V object.
      */
     public void add(K key, V value);
@@ -59,6 +60,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * <p>
      * remove
      * </p>
+     * .
      *
      * @param key
      *            a K object.
@@ -72,6 +74,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * <p>
      * getCopy
      * </p>
+     * .
      *
      * @param key
      *            a K object.

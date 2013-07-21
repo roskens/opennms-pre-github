@@ -30,6 +30,16 @@ package org.opennms.core.soa.support;
 
 import java.io.IOException;
 
+/**
+ * The Interface Hello.
+ */
 public interface Hello {
+
+    /**
+     * Say hello.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void sayHello() throws IOException;
 }

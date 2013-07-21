@@ -45,58 +45,102 @@ import org.opennms.core.soa.RegistrationListener;
 import org.opennms.core.soa.ServiceRegistry;
 
 /**
- * DefaultServiceRegistryTest
+ * DefaultServiceRegistryTest.
  *
  * @author brozow
  */
 public class DefaultServiceRegistryTest {
 
+    /** The m_registry. */
     private ServiceRegistry m_registry = new DefaultServiceRegistry();
 
+    /**
+     * The Class Listener.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public static class Listener<T> implements RegistrationListener<T> {
 
+        /** The m_providers. */
         Set<T> m_providers = new LinkedHashSet<T>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationListener#providerRegistered(org.opennms.core.soa.Registration, java.lang.Object)
+         */
         @Override
         public void providerRegistered(Registration registration, T provider) {
             m_providers.add(provider);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationListener#providerUnregistered(org.opennms.core.soa.Registration, java.lang.Object)
+         */
         @Override
         public void providerUnregistered(Registration registration, T provider) {
             m_providers.remove(provider);
         }
 
+        /**
+         * Size.
+         *
+         * @return the int
+         */
         public int size() {
             return m_providers.size();
         }
 
+        /**
+         * Contains.
+         *
+         * @param provider
+         *            the provider
+         * @return true, if successful
+         */
         public boolean contains(T provider) {
             return m_providers.contains(provider);
         }
 
     }
 
+    /**
+     * The Class Hook.
+     */
     public static class Hook implements RegistrationHook {
 
+        /** The m_registration count. */
         private int m_registrationCount = 0;
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationHook#registrationAdded(org.opennms.core.soa.Registration)
+         */
         @Override
         public void registrationAdded(Registration registration) {
             m_registrationCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.soa.RegistrationHook#registrationRemoved(org.opennms.core.soa.Registration)
+         */
         @Override
         public void registrationRemoved(Registration registration) {
             m_registrationCount--;
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public int getCount() {
             return m_registrationCount;
         }
 
     }
 
+    /**
+     * Test register unregister.
+     */
     @Test
     public void testRegisterUnregister() {
 
@@ -131,6 +175,9 @@ public class DefaultServiceRegistryTest {
 
     }
 
+    /**
+     * Test register unregister using filters.
+     */
     @Test
     public void testRegisterUnregisterUsingFilters() {
 
@@ -198,6 +245,9 @@ public class DefaultServiceRegistryTest {
 
     }
 
+    /**
+     * Test registration listener.
+     */
     @Test
     public void testRegistrationListener() {
 

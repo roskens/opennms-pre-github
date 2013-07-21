@@ -29,21 +29,33 @@
 package org.opennms.core.soa.filter;
 
 /**
- * PresenceFilter
+ * PresenceFilter.
  *
  * @author brozow
  */
 public class PresenceFilter extends AttributeComparisonFilter {
 
+    /**
+     * Instantiates a new presence filter.
+     *
+     * @param attribute
+     *            the attribute
+     */
     public PresenceFilter(String attribute) {
         super(attribute);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#valueMatches(java.lang.String)
+     */
     @Override
     protected boolean valueMatches(String value) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#toString()
+     */
     @Override
     public String toString() {
         return new StringBuilder().append("(").append(getAttribute()).append("=*)").toString();

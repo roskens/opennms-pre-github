@@ -45,9 +45,10 @@ import org.w3c.dom.Element;
  */
 public class ReferenceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
-    /** Constant <code>INTERFACE_ATTR="interface"</code> */
+    /** Constant <code>INTERFACE_ATTR="interface"</code>. */
     public static final String INTERFACE_ATTR = "interface";
 
+    /** The Constant FILTER_ATTR. */
     public static final String FILTER_ATTR = "filter";
 
     /** {@inheritDoc} */

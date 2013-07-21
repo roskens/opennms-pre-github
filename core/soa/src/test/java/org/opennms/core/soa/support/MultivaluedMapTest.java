@@ -40,14 +40,18 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
- * MultivaluedMapTest
+ * MultivaluedMapTest.
  *
  * @author brozow
  */
 public class MultivaluedMapTest {
 
+    /** The map. */
     private MultivaluedMap<String, String> map = new MultivaluedMapImpl<String, String>();
 
+    /**
+     * Test add remove.
+     */
     @Test
     public void testAddRemove() {
 
@@ -80,6 +84,9 @@ public class MultivaluedMapTest {
 
     }
 
+    /**
+     * Test get copy.
+     */
     @Test
     public void testGetCopy() {
 

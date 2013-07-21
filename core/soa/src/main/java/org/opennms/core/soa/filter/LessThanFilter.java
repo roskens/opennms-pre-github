@@ -29,18 +29,31 @@
 package org.opennms.core.soa.filter;
 
 /**
- * GreaterThanFilter
+ * GreaterThanFilter.
  *
  * @author brozow
  */
 public class LessThanFilter extends AttributeComparisonFilter {
+
+    /** The m_value. */
     private String m_value;
 
+    /**
+     * Instantiates a new less than filter.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public LessThanFilter(String attribute, String value) {
         super(attribute);
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#valueMatches(java.lang.String)
+     */
     @Override
     protected boolean valueMatches(String value) {
         try {
@@ -50,6 +63,9 @@ public class LessThanFilter extends AttributeComparisonFilter {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();

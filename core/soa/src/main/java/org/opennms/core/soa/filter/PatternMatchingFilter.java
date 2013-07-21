@@ -31,28 +31,51 @@ package org.opennms.core.soa.filter;
 import java.util.regex.Pattern;
 
 /**
- * PatternMatchingFilter
+ * PatternMatchingFilter.
  *
  * @author brozow
  */
 public class PatternMatchingFilter extends AttributeComparisonFilter {
 
+    /** The m_pattern. */
     private Pattern m_pattern;
 
+    /**
+     * Instantiates a new pattern matching filter.
+     *
+     * @param attribute
+     *            the attribute
+     * @param pattern
+     *            the pattern
+     */
     private PatternMatchingFilter(String attribute, Pattern pattern) {
         super(attribute);
         m_pattern = pattern;
     }
 
+    /**
+     * Instantiates a new pattern matching filter.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public PatternMatchingFilter(String attribute, String value) {
         this(attribute, toRegex(value));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#valueMatches(java.lang.String)
+     */
     @Override
     protected boolean valueMatches(String value) {
         return m_pattern.matcher(value).matches();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
@@ -64,6 +87,13 @@ public class PatternMatchingFilter extends AttributeComparisonFilter {
         return buf.toString();
     }
 
+    /**
+     * To regex.
+     *
+     * @param value
+     *            the value
+     * @return the pattern
+     */
     public static Pattern toRegex(String value) {
         // a pattern matching filter - convert value to regexp
         // 1. first hide 'escaped' stars so the aren't replaced later
@@ -88,6 +118,13 @@ public class PatternMatchingFilter extends AttributeComparisonFilter {
         return pattern;
     }
 
+    /**
+     * To filter match.
+     *
+     * @param pattern
+     *            the pattern
+     * @return the string
+     */
     public static String toFilterMatch(Pattern pattern) {
         String value = pattern.pattern();
 
@@ -106,6 +143,15 @@ public class PatternMatchingFilter extends AttributeComparisonFilter {
         return value;
     }
 
+    /**
+     * Escape all.
+     *
+     * @param input
+     *            the input
+     * @param chars
+     *            the chars
+     * @return the string
+     */
     public static String escapeAll(String input, String chars) {
         String output = input;
         for (int i = 0; i < chars.length(); i++) {

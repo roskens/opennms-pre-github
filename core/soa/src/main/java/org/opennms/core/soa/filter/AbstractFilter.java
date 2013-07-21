@@ -33,18 +33,27 @@ import java.util.Map;
 import org.opennms.core.soa.Filter;
 
 /**
- * AbstractFilter
+ * AbstractFilter.
  *
  * @author brozow
  */
 public abstract class AbstractFilter implements Filter {
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.Filter#match(java.util.Map)
+     */
     @Override
     public abstract boolean match(Map<String, String> properties);
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public abstract String toString();
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (o instanceof Filter) {
@@ -54,6 +63,9 @@ public abstract class AbstractFilter implements Filter {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return toString().hashCode();

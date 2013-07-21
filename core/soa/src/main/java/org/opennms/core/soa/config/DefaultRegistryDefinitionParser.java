@@ -37,7 +37,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
 /**
- * DefaultRegistryDefinitionParser
+ * DefaultRegistryDefinitionParser.
  *
  * @author brozow
  * @version $Id: $

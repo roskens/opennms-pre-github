@@ -41,27 +41,35 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * ReferenceFactoryBean
+ * ReferenceFactoryBean.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
 public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean, RegistrationListener<T> {
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_service interface. */
     private Class<T> m_serviceInterface;
 
+    /** The m_listeners. */
     private List<RegistrationListener<T>> m_listeners = new CopyOnWriteArrayList<RegistrationListener<T>>();
 
+    /** The m_provider registrations. */
     private List<T> m_providerRegistrations = new CopyOnWriteArrayList<T>();
 
+    /** The m_filter. */
     private Filter m_filter;
 
     /**
      * <p>
      * setServiceRegistry
      * </p>
+     * .
      *
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
@@ -74,6 +82,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * setServiceInterface
      * </p>
+     * .
      *
      * @param serviceInterface
      *            a {@link java.lang.Class} object.
@@ -82,6 +91,12 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
         m_serviceInterface = serviceInterface;
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param filter
+     *            the new filter
+     */
     public void setFilter(String filter) {
         m_filter = (filter == null ? null : new FilterParser().parse(filter));
     }
@@ -90,10 +105,11 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public List<T> getObject() throws Exception {
@@ -104,6 +120,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -116,6 +133,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -128,9 +146,10 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -177,6 +196,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * setListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.
@@ -189,6 +209,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * addListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.
@@ -201,6 +222,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
      * <p>
      * removeListener
      * </p>
+     * .
      *
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.

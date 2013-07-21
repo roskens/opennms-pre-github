@@ -28,10 +28,25 @@
 
 package org.opennms.core.soa;
 
+/**
+ * The Interface RegistrationHook.
+ */
 public interface RegistrationHook {
 
+    /**
+     * Registration added.
+     *
+     * @param registration
+     *            the registration
+     */
     public void registrationAdded(Registration registration);
 
+    /**
+     * Registration removed.
+     *
+     * @param registration
+     *            the registration
+     */
     public void registrationRemoved(Registration registration);
 
 }

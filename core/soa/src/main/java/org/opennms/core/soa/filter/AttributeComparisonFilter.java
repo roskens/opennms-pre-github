@@ -31,22 +31,37 @@ package org.opennms.core.soa.filter;
 import java.util.Map;
 
 /**
- * AttributeComparisonFilter
+ * AttributeComparisonFilter.
  *
  * @author brozow
  */
 public abstract class AttributeComparisonFilter extends AbstractFilter {
 
+    /** The m_attribute. */
     private String m_attribute;
 
+    /**
+     * Instantiates a new attribute comparison filter.
+     *
+     * @param attribute
+     *            the attribute
+     */
     protected AttributeComparisonFilter(String attribute) {
         m_attribute = attribute;
     }
 
+    /**
+     * Gets the attribute.
+     *
+     * @return the attribute
+     */
     protected String getAttribute() {
         return m_attribute;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#match(java.util.Map)
+     */
     @Override
     public boolean match(Map<String, String> properties) {
         if (properties == null || !properties.containsKey(m_attribute)) {
@@ -56,8 +71,18 @@ public abstract class AttributeComparisonFilter extends AbstractFilter {
         }
     }
 
+    /**
+     * Value matches.
+     *
+     * @param value
+     *            the value
+     * @return true, if successful
+     */
     protected abstract boolean valueMatches(String value);
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#toString()
+     */
     @Override
     public abstract String toString();
 

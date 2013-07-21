@@ -29,24 +29,39 @@
 package org.opennms.core.soa.filter;
 
 /**
- * EqFilter
+ * EqFilter.
  *
  * @author brozow
  */
 public class EqFilter extends AttributeComparisonFilter {
 
+    /** The m_value. */
     private String m_value;
 
+    /**
+     * Instantiates a new eq filter.
+     *
+     * @param attribute
+     *            the attribute
+     * @param value
+     *            the value
+     */
     public EqFilter(String attribute, String value) {
         super(attribute);
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#valueMatches(java.lang.String)
+     */
     @Override
     protected boolean valueMatches(String value) {
         return m_value.equals(value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AttributeComparisonFilter#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
@@ -59,6 +74,13 @@ public class EqFilter extends AttributeComparisonFilter {
 
     }
 
+    /**
+     * Escaped.
+     *
+     * @param value
+     *            the value
+     * @return the string
+     */
     private String escaped(String value) {
         return value.replace("\\", "\\\\").replace("*", "\\*").replace(")", "\\)").replace("(", "\\(");
     }

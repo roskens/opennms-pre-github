@@ -30,6 +30,16 @@ package org.opennms.core.soa.support;
 
 import java.io.IOException;
 
+/**
+ * The Interface Goodbye.
+ */
 public interface Goodbye {
+
+    /**
+     * Say goodbye.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void sayGoodbye() throws IOException;
 }

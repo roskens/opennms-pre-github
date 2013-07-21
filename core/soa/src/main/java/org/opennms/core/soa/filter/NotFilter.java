@@ -33,23 +33,36 @@ import java.util.Map;
 import org.opennms.core.soa.Filter;
 
 /**
- * NotFilter
+ * NotFilter.
  *
  * @author brozow
  */
 public class NotFilter extends AbstractFilter {
 
+    /** The m_filter. */
     Filter m_filter;
 
+    /**
+     * Instantiates a new not filter.
+     *
+     * @param filter
+     *            the filter
+     */
     public NotFilter(Filter filter) {
         m_filter = filter;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#match(java.util.Map)
+     */
     @Override
     public boolean match(Map<String, String> properties) {
         return !m_filter.match(properties);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.filter.AbstractFilter#toString()
+     */
     @Override
     public String toString() {
         return new StringBuilder().append("(!").append(m_filter).append(")").toString();

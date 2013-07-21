@@ -35,25 +35,32 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * ReferenceFactoryBean
+ * ReferenceFactoryBean.
  *
+ * @param <T>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
 public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean {
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_service interface. */
     private Class<T> m_serviceInterface;
 
+    /** The m_filter. */
     private String m_filter;
 
+    /** The m_provider. */
     private T m_provider;
 
     /**
      * <p>
      * setServiceRegistry
      * </p>
+     * .
      *
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
@@ -66,6 +73,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * setServiceInterface
      * </p>
+     * .
      *
      * @param serviceInterface
      *            a {@link java.lang.Class} object.
@@ -78,9 +86,10 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * setServiceInterface
      * </p>
+     * .
      *
-     * @param serviceInterface
-     *            a {@link java.lang.Class} object.
+     * @param filter
+     *            the new filter
      */
     public void setFilter(String filter) {
         m_filter = filter;
@@ -90,10 +99,11 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public T getObject() throws Exception {
@@ -110,6 +120,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -122,6 +133,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -134,9 +146,10 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

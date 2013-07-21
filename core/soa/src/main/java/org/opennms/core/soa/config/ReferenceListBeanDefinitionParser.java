@@ -52,10 +52,13 @@ import org.w3c.dom.Element;
  */
 public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
+    /** The Constant INTERFACE_ATTR. */
     private static final String INTERFACE_ATTR = "interface";
 
+    /** The Constant FILTER_ATTR. */
     private static final String FILTER_ATTR = "filter";
 
+    /** The m_service interface. */
     private String m_serviceInterface = null;
 
     /** {@inheritDoc} */
@@ -84,11 +87,26 @@ public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionPar
         return factory.getBeanDefinition();
     }
 
+    /**
+     * Parses the list.
+     *
+     * @param childElements
+     *            the child elements
+     * @param factory
+     *            the factory
+     */
     private void parseList(List<Element> childElements, BeanDefinitionBuilder factory) {
         BeanDefinitionBuilder listener = parseListener((Element) childElements.get(0));
         factory.addPropertyValue("listener", listener.getBeanDefinition());
     }
 
+    /**
+     * Parses the listener.
+     *
+     * @param element
+     *            the element
+     * @return the bean definition builder
+     */
     private BeanDefinitionBuilder parseListener(Element element) {
         BeanDefinitionBuilder listener = BeanDefinitionBuilder.rootBeanDefinition(RegistrationListenerBean.class);
         listener.addPropertyReference("target", element.getAttribute("ref"));

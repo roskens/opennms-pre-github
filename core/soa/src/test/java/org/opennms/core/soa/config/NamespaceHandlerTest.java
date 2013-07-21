@@ -54,7 +54,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * NamespaceHandlerTest
+ * NamespaceHandlerTest.
  *
  * @author brozow
  */
@@ -62,48 +62,65 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class NamespaceHandlerTest {
 
+    /** The m_provider. */
     @Resource(name = "myProvider")
     MyProvider m_provider;
 
+    /** The m_big provider. */
     @Resource(name = "bigProvider")
     MyProvider m_bigProvider;
 
+    /** The m_small provider. */
     @Resource(name = "smallProvider")
     MyProvider m_smallProvider;
 
+    /** The m_simple registration. */
     @Resource(name = "simple")
     Registration m_simpleRegistration;
 
+    /** The m_nested registration. */
     @Resource(name = "nested")
     Registration m_nestedRegistration;
 
+    /** The m_big registration. */
     @Resource(name = "big")
     Registration m_bigRegistration;
 
+    /** The m_small registration. */
     @Resource(name = "small")
     Registration m_smallRegistration;
 
+    /** The m_hello. */
     @Resource(name = "hello")
     Hello m_hello;
 
+    /** The m_big goodbye. */
     @Resource(name = "bigGoodbye")
     Goodbye m_bigGoodbye;
 
+    /** The m_small goodbye. */
     @Resource(name = "smallGoodbye")
     Goodbye m_smallGoodbye;
 
+    /** The m_hello list. */
     @Resource(name = "helloList")
     List<Hello> m_helloList;
 
+    /** The m_big goodbye list. */
     @Resource(name = "bigGoodbyeList")
     List<Goodbye> m_bigGoodbyeList;
 
+    /** The m_default service registry. */
     @Resource(name = "serviceRegistry")
     ServiceRegistry m_defaultServiceRegistry;
 
+    /** The m_hello list listener. */
     @Resource(name = "helloListListener")
     HelloListListener m_helloListListener;
 
+    /**
+     * Test injected.
+     */
     @Test
     @DirtiesContext
     public void testInjected() {
@@ -118,6 +135,9 @@ public class NamespaceHandlerTest {
 
     }
 
+    /**
+     * Test service properties.
+     */
     @Test
     @DirtiesContext
     public void testServiceProperties() {
@@ -131,6 +151,12 @@ public class NamespaceHandlerTest {
         assertEquals("small", m_smallRegistration.getProperties().get("size"));
     }
 
+    /**
+     * Test reference bean definition.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @DirtiesContext
     public void testReferenceBeanDefinition() throws IOException {
@@ -145,6 +171,12 @@ public class NamespaceHandlerTest {
         assertEquals(expected, m_provider.helloSaid());
     }
 
+    /**
+     * Test filtered reference bean definition.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @DirtiesContext
     public void testFilteredReferenceBeanDefinition() throws IOException {
@@ -168,6 +200,9 @@ public class NamespaceHandlerTest {
         assertEquals(smallExpected, m_smallProvider.goodbyeSaid());
     }
 
+    /**
+     * Test reference list bean definition.
+     */
     @Test
     @DirtiesContext
     public void testReferenceListBeanDefinition() {
@@ -188,6 +223,9 @@ public class NamespaceHandlerTest {
 
     }
 
+    /**
+     * Test filtered reference list bean definition.
+     */
     @Test
     @DirtiesContext
     public void testFilteredReferenceListBeanDefinition() {
@@ -217,6 +255,9 @@ public class NamespaceHandlerTest {
 
     }
 
+    /**
+     * Test registration listener bean definition.
+     */
     @Test
     @DirtiesContext
     public void testRegistrationListenerBeanDefinition() {
@@ -239,6 +280,14 @@ public class NamespaceHandlerTest {
 
     }
 
+    /**
+     * Assert contains.
+     *
+     * @param provided
+     *            the provided
+     * @param expected
+     *            the expected
+     */
     private void assertContains(Class<?>[] provided, Class<?>... expected) {
 
         Set<Class<?>> actual = new HashSet<Class<?>>(Arrays.asList(provided));

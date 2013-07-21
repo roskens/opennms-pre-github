@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * ServiceRegistrationBean
+ * ServiceRegistrationBean.
  *
  * @author brozow
  * @version $Id: $
@@ -50,18 +50,25 @@ import org.springframework.util.StringUtils;
 public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactoryAware, InitializingBean,
         DisposableBean {
 
+    /** The m_bean factory. */
     private BeanFactory m_beanFactory;
 
+    /** The m_service registry. */
     private ServiceRegistry m_serviceRegistry;
 
+    /** The m_target bean name. */
     private String m_targetBeanName;
 
+    /** The m_target. */
     private Object m_target;
 
+    /** The m_service interfaces. */
     private Class<?>[] m_serviceInterfaces;
 
+    /** The m_service properties. */
     private Map<String, String> m_serviceProperties;
 
+    /** The m_registration. */
     private Registration m_registration;
 
     /** {@inheritDoc} */
@@ -74,6 +81,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * setTargetBeanName
      * </p>
+     * .
      *
      * @param targetBeanName
      *            a {@link java.lang.String} object.
@@ -86,6 +94,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * setTarget
      * </p>
+     * .
      *
      * @param target
      *            a {@link java.lang.Object} object.
@@ -98,6 +107,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * setInterfaces
      * </p>
+     * .
      *
      * @param serviceInterfaces
      *            an array of {@link java.lang.Class} objects.
@@ -110,9 +120,10 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * setServiceProperties
      * </p>
+     * .
      *
-     * @param serviceInterfaces
-     *            an array of {@link java.lang.Class} objects.
+     * @param serviceProperties
+     *            the service properties
      */
     public void setServiceProperties(Map<String, String> serviceProperties) {
         m_serviceProperties = serviceProperties;
@@ -122,6 +133,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * setServiceRegistry
      * </p>
+     * .
      *
      * @param serviceRegistry
      *            a {@link org.opennms.core.soa.ServiceRegistry} object.
@@ -134,9 +146,10 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -159,9 +172,10 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -174,10 +188,11 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.soa.Registration} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public Registration getObject() throws Exception {
@@ -188,6 +203,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -200,6 +216,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -42,24 +42,37 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class ServiceReferenceIntegrationTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class ServiceReferenceIntegrationTest {
 
+    /** The m_hello. */
     @Autowired
     @Qualifier("reference")
     Hello m_hello;
 
+    /** The m_goodbye. */
     @Autowired
     @Qualifier("reference")
     Goodbye m_goodbye;
 
+    /** The m_service registry. */
     @Autowired
     ServiceRegistry m_serviceRegistry;
 
+    /** The m_my provider. */
     @Autowired
     MyProvider m_myProvider;
 
+    /**
+     * Test wiring.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @DirtiesContext
     public void testWiring() throws IOException {

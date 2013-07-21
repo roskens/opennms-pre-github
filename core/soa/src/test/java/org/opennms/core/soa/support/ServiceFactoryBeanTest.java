@@ -42,7 +42,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * ServiceRegistrationBeanTest
+ * ServiceRegistrationBeanTest.
  *
  * @author brozow
  */
@@ -51,15 +51,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class ServiceFactoryBeanTest {
 
+    /** The m_provider. */
     @Autowired
     MyProvider m_provider;
 
+    /** The m_registration. */
     @Autowired
     Registration m_registration;
 
+    /** The m_registry. */
     @Autowired
     ServiceRegistry m_registry;
 
+    /**
+     * Test registration.
+     */
     @Test
     @DirtiesContext
     public void testRegistration() {

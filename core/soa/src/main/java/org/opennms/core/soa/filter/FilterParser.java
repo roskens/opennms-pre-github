@@ -34,25 +34,43 @@ import java.util.List;
 import org.opennms.core.soa.Filter;
 
 /**
- * FilterUtils
+ * FilterUtils.
  *
  * @author brozow
  */
 public class FilterParser {
 
+    /**
+     * The Class Lexer.
+     */
     private class Lexer {
+
+        /** The m_input. */
         private String m_input;
 
+        /** The m_ptr. */
         private int m_ptr;
 
+        /** The m_peeked token. */
         private String m_peekedToken;
 
+        /**
+         * Instantiates a new lexer.
+         *
+         * @param input
+         *            the input
+         */
         Lexer(String input) {
             m_input = input;
             m_ptr = 0;
             m_peekedToken = null;
         }
 
+        /**
+         * Next char.
+         *
+         * @return the character
+         */
         Character nextChar() {
             if (m_ptr >= m_input.length()) {
                 return null;
@@ -62,6 +80,11 @@ public class FilterParser {
 
         }
 
+        /**
+         * Peek char.
+         *
+         * @return the character
+         */
         Character peekChar() {
             if (m_ptr >= m_input.length()) {
                 return null;
@@ -84,6 +107,13 @@ public class FilterParser {
          * text == '[^()&|!=<>*]|\[()&|!=<>*\]'
          */
 
+        /**
+         * Checks if is token start.
+         *
+         * @param ch
+         *            the ch
+         * @return true, if is token start
+         */
         boolean isTokenStart(Character ch) {
             if (ch == null) {
                 return true;
@@ -105,6 +135,11 @@ public class FilterParser {
 
         }
 
+        /**
+         * Read text.
+         *
+         * @return the string
+         */
         String readText() {
             StringBuilder bldr = new StringBuilder();
             Character ch = peekChar();
@@ -124,6 +159,11 @@ public class FilterParser {
             return bldr.toString();
         }
 
+        /**
+         * Peek token.
+         *
+         * @return the string
+         */
         String peekToken() {
             if (m_peekedToken == null) {
                 m_peekedToken = nextToken();
@@ -131,6 +171,11 @@ public class FilterParser {
             return m_peekedToken;
         }
 
+        /**
+         * Next token.
+         *
+         * @return the string
+         */
         String nextToken() {
             // return a peeked token first
             if (m_peekedToken != null) {
@@ -170,6 +215,13 @@ public class FilterParser {
 
         }
 
+        /**
+         * Chars til.
+         *
+         * @param token
+         *            the token
+         * @return the string
+         */
         String charsTil(char token) {
             if (m_peekedToken != null) {
                 throw new IllegalStateException("Cannot compute charTil while a peeked token exists.");
@@ -191,17 +243,33 @@ public class FilterParser {
 
     }
 
+    /** The m_lexer. */
     private Lexer m_lexer;
 
+    /**
+     * Instantiates a new filter parser.
+     */
     public FilterParser() {
 
     }
 
+    /**
+     * Parses the.
+     *
+     * @param filterString
+     *            the filter string
+     * @return the filter
+     */
     public Filter parse(String filterString) {
         m_lexer = new Lexer(filterString);
         return filter();
     }
 
+    /**
+     * Filter.
+     *
+     * @return the filter
+     */
     private Filter filter() {
         skipWhitespace();
         match("(");
@@ -211,6 +279,11 @@ public class FilterParser {
         return filter;
     }
 
+    /**
+     * Filter comp.
+     *
+     * @return the filter
+     */
     private Filter filterComp() {
         skipWhitespace();
         String token = m_lexer.peekToken();
@@ -225,24 +298,44 @@ public class FilterParser {
         }
     }
 
+    /**
+     * And.
+     *
+     * @return the filter
+     */
     private Filter and() {
         match("&");
         List<Filter> filters = filterList();
         return new AndFilter(filters);
     }
 
+    /**
+     * Or.
+     *
+     * @return the filter
+     */
     private Filter or() {
         match("|");
         List<Filter> filters = filterList();
         return new OrFilter(filters);
     }
 
+    /**
+     * Not.
+     *
+     * @return the filter
+     */
     private Filter not() {
         match("!");
         Filter filter = filter();
         return new NotFilter(filter);
     }
 
+    /**
+     * Filter list.
+     *
+     * @return the linked list
+     */
     private LinkedList<Filter> filterList() {
         LinkedList<Filter> filters;
         Filter filter = filter();
@@ -257,6 +350,11 @@ public class FilterParser {
         return filters;
     }
 
+    /**
+     * Operation.
+     *
+     * @return the filter
+     */
     private Filter operation() {
 
         String attribute = matchAttribute();
@@ -275,6 +373,13 @@ public class FilterParser {
         }
     }
 
+    /**
+     * Eq.
+     *
+     * @param attribute
+     *            the attribute
+     * @return the filter
+     */
     private Filter eq(String attribute) {
         match("=");
 
@@ -294,12 +399,27 @@ public class FilterParser {
 
     }
 
+    /**
+     * Assert not end.
+     *
+     * @param token
+     *            the token
+     * @param msg
+     *            the msg
+     */
     private void assertNotEnd(String token, String msg) {
         if (token == null) {
             parseError("Unexpected end of input. " + msg);
         }
     }
 
+    /**
+     * Less than.
+     *
+     * @param attribute
+     *            the attribute
+     * @return the filter
+     */
     private Filter lessThan(String attribute) {
         match("<=");
 
@@ -310,6 +430,13 @@ public class FilterParser {
         return new LessThanFilter(attribute, value);
     }
 
+    /**
+     * Greater than.
+     *
+     * @param attribute
+     *            the attribute
+     * @return the filter
+     */
     private Filter greaterThan(String attribute) {
         match(">=");
 
@@ -320,6 +447,11 @@ public class FilterParser {
         return new GreaterThanFilter(attribute, value);
     }
 
+    /**
+     * Match attribute.
+     *
+     * @return the string
+     */
     private String matchAttribute() {
         String token = m_lexer.nextToken();
         assertNotEnd(token, "Expected an attribute name.");
@@ -328,6 +460,14 @@ public class FilterParser {
         return attr;
     }
 
+    /**
+     * Ensure attr does not contain.
+     *
+     * @param attr
+     *            the attr
+     * @param invalidChars
+     *            the invalid chars
+     */
     private void ensureAttrDoesNotContain(String attr, String invalidChars) {
         for (int i = 0; i < invalidChars.length(); i++) {
             char ch = invalidChars.charAt(i);
@@ -337,6 +477,13 @@ public class FilterParser {
         }
     }
 
+    /**
+     * Match.
+     *
+     * @param expected
+     *            the expected
+     * @return the string
+     */
     private String match(String expected) {
         String actual = m_lexer.nextToken();
         assertNotEnd(actual, "Expected " + expected);
@@ -347,6 +494,9 @@ public class FilterParser {
         return actual;
     }
 
+    /**
+     * Skip whitespace.
+     */
     private void skipWhitespace() {
         String token = m_lexer.peekToken();
         if (token != null && "".equals(token.trim())) {
@@ -355,6 +505,12 @@ public class FilterParser {
         }
     }
 
+    /**
+     * Parses the error.
+     *
+     * @param msg
+     *            the msg
+     */
     void parseError(String msg) {
         throw new IllegalArgumentException(msg);
     }

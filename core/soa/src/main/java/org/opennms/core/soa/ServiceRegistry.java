@@ -32,7 +32,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * ServiceRegistry
+ * ServiceRegistry.
  *
  * @author brozow
  * @version $Id: $
@@ -43,6 +43,7 @@ public interface ServiceRegistry {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param serviceProvider
      *            a {@link java.lang.Object} object.
@@ -56,6 +57,7 @@ public interface ServiceRegistry {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param serviceProvider
      *            a {@link java.lang.Object} object.
@@ -71,11 +73,12 @@ public interface ServiceRegistry {
      * <p>
      * findProvider
      * </p>
+     * .
      *
-     * @param seviceInterface
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param seviceInterface
+     *            a {@link java.lang.Class} object.
      * @return a T object.
      */
     public <T> T findProvider(Class<T> seviceInterface);
@@ -84,13 +87,14 @@ public interface ServiceRegistry {
      * <p>
      * findProvider
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param serviceInterface
      *            a {@link java.lang.Class} object.
      * @param filter
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      * @return a T object.
      */
     public <T> T findProvider(Class<T> serviceInterface, String filter);
@@ -99,11 +103,12 @@ public interface ServiceRegistry {
      * <p>
      * findProviders
      * </p>
+     * .
      *
-     * @param service
-     *            a {@link java.lang.Class} object.
      * @param <T>
      *            a T object.
+     * @param service
+     *            a {@link java.lang.Class} object.
      * @return a {@link java.util.Collection} object.
      */
     public <T> Collection<T> findProviders(Class<T> service);
@@ -112,13 +117,14 @@ public interface ServiceRegistry {
      * <p>
      * findProviders
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param service
      *            a {@link java.lang.Class} object.
      * @param filter
      *            a {@link java.lang.String} object.
-     * @param <T>
-     *            a T object.
      * @return a {@link java.util.Collection} object.
      */
     public <T> Collection<T> findProviders(Class<T> service, String filter);
@@ -127,13 +133,14 @@ public interface ServiceRegistry {
      * <p>
      * addListener
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param service
      *            a {@link java.lang.Class} object.
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.
-     * @param <T>
-     *            a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener);
 
@@ -141,15 +148,16 @@ public interface ServiceRegistry {
      * <p>
      * addListener
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param service
      *            a {@link java.lang.Class} object.
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.
      * @param notifyForExistingProviders
      *            a boolean.
-     * @param <T>
-     *            a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener, boolean notifyForExistingProviders);
 
@@ -157,13 +165,14 @@ public interface ServiceRegistry {
      * <p>
      * removeListener
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param service
      *            a {@link java.lang.Class} object.
      * @param listener
      *            a {@link org.opennms.core.soa.RegistrationListener} object.
-     * @param <T>
-     *            a T object.
      */
     public <T> void removeListener(Class<T> service, RegistrationListener<T> listener);
 
@@ -171,6 +180,7 @@ public interface ServiceRegistry {
      * <p>
      * addRegistrationHook
      * </p>
+     * .
      *
      * @param hook
      *            a {@link org.opennms.core.soa.RegistrationHook} object.
@@ -183,6 +193,7 @@ public interface ServiceRegistry {
      * <p>
      * removeRegistrationHook
      * </p>
+     * .
      *
      * @param hook
      *            a {@link org.opennms.core.soa.RegistrationHook} object.

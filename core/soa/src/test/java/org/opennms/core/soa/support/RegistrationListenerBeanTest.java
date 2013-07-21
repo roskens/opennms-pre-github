@@ -37,14 +37,21 @@ import org.opennms.core.soa.Registration;
 import org.opennms.core.soa.ServiceRegistry;
 
 /**
- * RegistrationListenerBeanTest
+ * RegistrationListenerBeanTest.
  *
  * @author brozow
  */
 public class RegistrationListenerBeanTest {
 
+    /** The m_total provided. */
     private int m_totalProvided = 0;
 
+    /**
+     * Test call bind unbind methods.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCallBindUnbindMethods() throws Exception {
 
@@ -85,14 +92,35 @@ public class RegistrationListenerBeanTest {
 
     }
 
+    /**
+     * Gets the total provided.
+     *
+     * @return the total provided
+     */
     public int getTotalProvided() {
         return m_totalProvided;
     }
 
+    /**
+     * Bind.
+     *
+     * @param hello
+     *            the hello
+     * @param properties
+     *            the properties
+     */
     public void bind(Hello hello, Map<String, String> properties) {
         m_totalProvided++;
     }
 
+    /**
+     * Unbind.
+     *
+     * @param hello
+     *            the hello
+     * @param properties
+     *            the properties
+     */
     public void unbind(Hello hello, Map<String, String> properties) {
         m_totalProvided--;
     }
