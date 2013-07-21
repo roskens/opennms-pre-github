@@ -48,7 +48,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public interface QoSD {
 
     /**
-     * provides an interface to OpenNMS which provides a unified api
+     * provides an interface to OpenNMS which provides a unified api.
      *
      * @param _ossDao
      *            the ossDao to set
@@ -58,7 +58,7 @@ public interface QoSD {
     /**
      * Used by Spring Application context to pass in OnmsAlarmOssjMapper
      * The OnmsAlarmOssjMapper class maps OpenNMS alarms to OSS/J alarms and
-     * events
+     * events.
      *
      * @param _onmsAlarmOssjMapper
      *            the onmsAlarmOssjMapper to set
@@ -66,7 +66,7 @@ public interface QoSD {
     public abstract void setOnmsAlarmOssjMapper(OnmsAlarmOssjMapper _onmsAlarmOssjMapper);
 
     /**
-     * Used by Spring Application context to pass in AssetRecordDao
+     * Used by Spring Application context to pass in AssetRecordDao.
      *
      * @param ar
      *            a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
@@ -74,7 +74,7 @@ public interface QoSD {
     public abstract void setAssetRecordDao(AssetRecordDao ar);
 
     /**
-     * Used by Spring Application context to pass in NodeDaof
+     * Used by Spring Application context to pass in NodeDaof.
      *
      * @param nodedao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -82,7 +82,7 @@ public interface QoSD {
     public abstract void setNodeDao(NodeDao nodedao);
 
     /**
-     * Used by Spring Application context to pass in EventIpcManager
+     * Used by Spring Application context to pass in EventIpcManager.
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -91,7 +91,7 @@ public interface QoSD {
     public abstract void setEventIpcManager(EventIpcManager eventIpcManager);
 
     /**
-     * Used by Spring Application context to pass in alarmDao
+     * Used by Spring Application context to pass in alarmDao.
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -99,7 +99,7 @@ public interface QoSD {
     public abstract void setAlarmDao(AlarmDao alarmDao);
 
     /**
-     * Used by Spring Application context to pass in AlarmListConnectionManager
+     * Used by Spring Application context to pass in AlarmListConnectionManager.
      *
      * @param alcm
      *            a
@@ -109,7 +109,7 @@ public interface QoSD {
     public abstract void setAlarmListConnectionManager(AlarmListConnectionManager alcm);
 
     /**
-     * Used by jmx mbean QoSD to pass in Spring Application context
+     * Used by jmx mbean QoSD to pass in Spring Application context.
      *
      * @param m_context
      *            - application context for this bean to use
@@ -121,13 +121,13 @@ public interface QoSD {
 
     /**
      * Method to set up the fiber
-     * Note - not used in Spring activation
+     * Note - not used in Spring activation.
      */
     public abstract void init();
 
     /**
      * The start() method loads the configuration for the QosD daemon and
-     * registers for events
+     * registers for events.
      */
     public abstract void start();
 
@@ -151,14 +151,14 @@ public interface QoSD {
     public abstract void pause();
 
     /**
-     * Returns the Log category name
+     * Returns the Log category name.
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getName();
 
     /**
-     * lets OpenNMS know what state the daemon is in
+     * lets OpenNMS know what state the daemon is in.
      *
      * @return a int.
      */
@@ -189,7 +189,7 @@ public interface QoSD {
     public abstract void unregisterListener();
 
     /**
-     * not used but needed for initialisation
+     * not used but needed for initialisation.
      *
      * @return stats
      */
@@ -197,7 +197,7 @@ public interface QoSD {
 
     /**
      * A method to request an alarm list from the OpenNMS database
-     * and send the "unacked" alarms to the remote AlarmMonitor bean
+     * and send the "unacked" alarms to the remote AlarmMonitor bean.
      */
     public abstract void sendAlarms();
 

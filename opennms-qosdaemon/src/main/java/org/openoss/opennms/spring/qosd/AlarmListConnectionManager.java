@@ -47,23 +47,23 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public interface AlarmListConnectionManager {
 
     // states for status
-    /** Constant <code>CONNECTED=0</code> */
+    /** Constant <code>CONNECTED=0</code>. */
     public static final int CONNECTED = 0;
 
-    /** Constant <code>DISCONNECTED=1</code> */
+    /** Constant <code>DISCONNECTED=1</code>. */
     public static final int DISCONNECTED = 1;
 
-    /** Constant <code>STOP=2</code> */
+    /** Constant <code>STOP=2</code>. */
     public static final int STOP = 2;
 
     // states for send_status
-    /** Constant <code>SEND=0</code> */
+    /** Constant <code>SEND=0</code>. */
     public static final int SEND = 0;
 
-    /** Constant <code>SENT=1</code> */
+    /** Constant <code>SENT=1</code>. */
     public static final int SENT = 1;
 
-    /** Constant <code>REBUILD=2</code> */
+    /** Constant <code>REBUILD=2</code>. */
     public static final int REBUILD = 2;
 
     /**
@@ -77,7 +77,7 @@ public interface AlarmListConnectionManager {
     public abstract void reset_list(String _rebuilt_message);
 
     /**
-     * Sends the AlarmList to the AlarmMonitorBean
+     * Sends the AlarmList to the AlarmMonitorBean.
      *
      * @param alarmList
      *            a {@link java.util.Hashtable} object.
@@ -85,15 +85,15 @@ public interface AlarmListConnectionManager {
     public abstract void send(Hashtable<AlarmKey, AlarmValue> alarmList);
 
     /**
-     * Starts the ConnectionManagerThread
+     * Starts the ConnectionManagerThread.
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     public abstract void run() throws IllegalStateException;
 
     /**
-     * Initialises the ConnectionManagerThread
+     * Initialises the ConnectionManagerThread.
      *
      * @param props
      *            The PropertiesLoader method which reads the Qosd.properties
@@ -105,7 +105,7 @@ public interface AlarmListConnectionManager {
     public abstract void init(PropertiesLoader props, Properties env);
 
     /**
-     * Stops the ConnectionManagerThread
+     * Stops the ConnectionManagerThread.
      */
     /*
      * Thread.stop() is unsafe so ending run method by changing
@@ -119,14 +119,14 @@ public interface AlarmListConnectionManager {
      * states for status:
      * CONNECTED = 0;
      * DISCONNECTED = 1;
-     * STOP = 2;
+     * STOP = 2;.
      *
      * @return a int.
      */
     public abstract int getStatus();
 
     /**
-     * Causes the thread supporting the connection Manager to start
+     * Causes the thread supporting the connection Manager to start.
      */
     public void start();
 
@@ -148,7 +148,7 @@ public interface AlarmListConnectionManager {
     public abstract javax.oss.fm.monitor.AlarmValue makeAlarmValueFromSpec();
 
     /**
-     * Used by jmx mbean QoSD to pass in Spring Application context
+     * Used by jmx mbean QoSD to pass in Spring Application context.
      *
      * @param m_context
      *            - application context for this bean to use

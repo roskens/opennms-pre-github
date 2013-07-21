@@ -50,30 +50,43 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class AlarmListJ2eeConnectionManagerThread extends Thread implements AlarmListConnectionManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmListJ2eeConnectionManagerThread.class);
 
+    /** The status. */
     private int status = DISCONNECTED;
 
+    /** The props. */
     private PropertiesLoader props;
 
+    /** The env. */
     public Properties env;
 
+    /** The home. */
     private JVTAlarmMonitorHome home;
 
+    /** The session. */
     private JVTAlarmMonitorSession session;
 
+    /** The ref. */
     private Object ref;
 
+    /** The alarm internals. */
     private AlarmMonitor alarmInternals;
 
+    /** The alarm list. */
     private Hashtable<AlarmKey, AlarmValue> alarmList; // current alarm list -
                                                        // omit cleared and
                                                        // acknowledged alarms
 
-    private int send_status = SENT;
+    /** The send_status. */
+                                                       private int send_status = SENT;
 
+    /** The init. */
     private boolean init = false;
 
+    /** The rebuilt_message. */
     private String rebuilt_message = "not set";
 
     /*
@@ -112,9 +125,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
      * <p>
      * run
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void run() throws IllegalStateException {
@@ -266,6 +280,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
      * <p>
      * kill
      * </p>
+     * .
      */
     @Override
     public void kill() {
@@ -291,6 +306,11 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 
     /**
      * Method to find and connect to the remote bean.
+     *
+     * @throws NamingException
+     *             the naming exception
+     * @throws RemoteException
+     *             the remote exception
      */
     private void lookupBean() throws NamingException, RemoteException {
 
@@ -338,7 +358,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
     }
 
     /**
-     * Private method to finally clean up the connections
+     * Private method to finally clean up the connections.
      */
     private void cleanUp() {
         try {
@@ -378,7 +398,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 
     /**
      * used to hold a local reference to the application context from which this
-     * bean was started
+     * bean was started.
      */
     private ClassPathXmlApplicationContext m_context = null; // used to
                                                              // passapplication

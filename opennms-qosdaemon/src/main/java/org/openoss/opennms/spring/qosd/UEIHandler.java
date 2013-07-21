@@ -41,8 +41,11 @@ import org.xml.sax.helpers.DefaultHandler;
  * @version $Id: $
  */
 public class UEIHandler extends DefaultHandler {
+
+    /** The raiseid. */
     public String raiseid = null;
 
+    /** The clearid. */
     public String clearid = null;
 
     /** {@inheritDoc} */

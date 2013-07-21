@@ -45,6 +45,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QoSD.class);
 
     /**
@@ -56,11 +58,18 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
         super(NAME);
     }
 
+    /** The Constant NAME. */
     private static final String NAME = org.openoss.opennms.spring.qosd.QoSDimpl2.NAME;
 
+    /** The m_context. */
     private ClassPathXmlApplicationContext m_context;
 
     // used only for testing
+    /**
+     * Gets the context.
+     *
+     * @return the context
+     */
     ApplicationContext getContext() {
         return m_context;
     }
@@ -69,6 +78,7 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -78,6 +88,7 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -130,6 +141,7 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -142,6 +154,7 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -150,7 +163,7 @@ public class QoSD extends AbstractServiceDaemon implements QoSDMBean {
     }
 
     /**
-     * Returns the qosd singleton
+     * Returns the qosd singleton.
      *
      * @return qosd
      */

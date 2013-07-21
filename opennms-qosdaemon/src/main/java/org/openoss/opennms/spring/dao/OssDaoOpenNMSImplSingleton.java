@@ -57,17 +57,24 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @version $Id: $
  */
 public class OssDaoOpenNMSImplSingleton {
+
+    /** The alarm dao. */
     private static AlarmDao alarmDao;
 
+    /** The asset record dao. */
     private static AssetRecordDao assetRecordDao;
 
+    /** The data source. */
     private static DataSource dataSource;
 
+    /** The node dao. */
     private static NodeDao nodeDao;
 
+    /** The trans template. */
     @SuppressWarnings("unused")
     private static TransactionTemplate transTemplate;
 
+    /** The instance. */
     private static OssDao instance = null;
 
     // This will return a single instance of this call (creating one if none

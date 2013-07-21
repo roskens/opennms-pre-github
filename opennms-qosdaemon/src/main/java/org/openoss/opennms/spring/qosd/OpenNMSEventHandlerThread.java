@@ -52,14 +52,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class OpenNMSEventHandlerThread extends Thread {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSEventHandlerThread.class);
 
     // ---------------SPRING DAO DECLARATIONS----------------
 
+    /** The oss dao. */
     private static OssDao ossDao;
 
     /**
-     * provides an interface to OpenNMS which provides a unified api
+     * provides an interface to OpenNMS which provides a unified api.
      *
      * @param _ossDao
      *            the ossDao to set
@@ -69,33 +72,43 @@ public class OpenNMSEventHandlerThread extends Thread {
     }
 
     // Business Methods
+    /** The send list. */
     private static boolean sendList = false; // true if alarm list is to be
                                              // updated and sent when the thread
                                              // wakes up
 
-    private static boolean updateNCache = false; // true if node list is to be
+    /** The update n cache. */
+                                             private static boolean updateNCache = false; // true if node list is to be
                                                  // updated when the thread
                                                  // wakes up
 
-    private static boolean runThread = false; // true if this thread is to keep
+    /** The run thread. */
+                                                 private static boolean runThread = false; // true if this thread is to keep
                                               // running. If false, the thread
                                               // will exit
 
-    private static boolean init = false; // true if this thread has been
+    /** The init. */
+                                              private static boolean init = false; // true if this thread has been
                                          // initialised
 
     // private static OpenNMSEventHandlerThread instance =null; // used to hold
     // instance of this thread
 
     /**
-     * Run method loops until kill() called.
-     * It wakes up if sendAlarmList() is called and updates the alarmlist
-     * It wakes up if updateNodeCache() is called and updates the node list
-     * init() must be called before the run() method.
-     *
-     * @throws java.lang.IllegalStateException
-     *             if any.
-     */
+                                             * Run method loops until kill()
+                                             * called.
+                                             * It wakes up if sendAlarmList() is
+                                             * called and updates the alarmlist
+                                             * It wakes up if updateNodeCache()
+                                             * is called and updates the node
+                                             * list
+                                             * init() must be called before the
+                                             * run() method.
+                                             *
+                                             * @throws IllegalStateException
+                                             *             the illegal state
+                                             *             exception
+                                             */
     @Override
     public void run() throws IllegalStateException {
         // instance=this;

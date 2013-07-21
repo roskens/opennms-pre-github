@@ -58,32 +58,32 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @version $Id: $
  */
 public class OssDaoOpenNMSImpl implements OssDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OssDaoOpenNMSImpl.class);
 
     /**
-     * local store for OpenNMS alarm list indexed by OpenNMS AlarmID as Integer
+     * local store for OpenNMS alarm list indexed by OpenNMS AlarmID as Integer.
      */
     private final Map<Integer, OnmsAlarm> alarmCacheByID = new ConcurrentHashMap<Integer, OnmsAlarm>();
 
     /**
      * local store for OpenNMS alarm list indexed by
-     * ApplicationDN+OssPrimaryKey() as string
+     * ApplicationDN+OssPrimaryKey() as string.
      */
     private final Map<String, OnmsAlarm> alarmCacheByUniqueKey = new ConcurrentHashMap<String, OnmsAlarm>();
 
-    /**
-     * local store for OpenNMS node list indexed by OpenNMS NodeID as Integer
-     */
+    /** local store for OpenNMS node list indexed by OpenNMS NodeID as Integer. */
     private final Map<Integer, OnmsNode> nodeCacheByID = new ConcurrentHashMap<Integer, OnmsNode>();
 
     /**
-     * local store for OpenNMS node list indexed by OpenNMS NodeLabel as String
+     * local store for OpenNMS node list indexed by OpenNMS NodeLabel as String.
      */
     private final Map<String, OnmsNode> nodeCacheByLabel = new ConcurrentHashMap<String, OnmsNode>();
 
     /**
      * local store for OpenNMS node list indexed by
-     * ManagedObjectInstance+ManagedObjectType as string
+     * ManagedObjectInstance+ManagedObjectType as string.
      */
     private final Map<String, OnmsNode> nodeCacheByUniqueID = new ConcurrentHashMap<String, OnmsNode>();
 
@@ -91,9 +91,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
     // Spring DAO setters
     // ****************
 
-    /**
-     * Used to create new Lazy objects
-     */
+    /** Used to create new Lazy objects. */
     protected DataSource _dataSource;
 
     /*
@@ -108,9 +106,8 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * Used to obtain opennms asset information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.AssetRecordDao
+     * Used to obtain opennms asset information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.AssetRecordDao
      */
     protected AssetRecordDao _assetRecordDao;
 
@@ -127,9 +124,8 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * Used to obtain opennms node information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.NodeDao
+     * Used to obtain opennms node information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.NodeDao
      */
     protected NodeDao _nodeDao;
 
@@ -146,9 +142,8 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * Used to search and update opennms alarm list
-     *
-     * @see org.opennms.netmgt.dao.api.AlarmDao
+     * Used to search and update opennms alarm list. @see
+     * org.opennms.netmgt.dao.api.AlarmDao
      */
     protected AlarmDao _alarmDao;
 
@@ -166,7 +161,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
 
     /**
      * Used to ensure that objects retreived from OpenNMS through Hibernate
-     * contain all of their internal objects populated with values
+     * contain all of their internal objects populated with values.
      */
     protected TransactionTemplate transTemplate;
 
@@ -188,9 +183,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
 
     /**
      * Used to provide a call back interface to QoSD for forwarding changes to
-     * alarm list
-     *
-     * @param alarmDao
+     * alarm list.
      */
     private QoSD qoSD = null;
 
@@ -210,6 +203,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
     // initialise method
     // ******************
 
+    /** The initialised. */
     private boolean initialised = false; // true if init() has initialised class
 
     /*
@@ -220,6 +214,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public synchronized void init() {
@@ -421,7 +416,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
 
     /**
      * forces an update of the alarm cache from the OpenNMS database
-     * Not Thread Safe - only to be called from within the synchronised methods
+     * Not Thread Safe - only to be called from within the synchronised methods.
      */
     private void localUpdateAlarmCache() {
         transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -433,7 +428,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * method to run in transaction to update from database
+     * method to run in transaction to update from database.
      */
     private void localUpdateAlarmCacheTransaction() {
         Collection<OnmsAlarm> c = _alarmDao.findAll();
@@ -475,9 +470,10 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * <p>
      * updateAlarmCache
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public synchronized void updateAlarmCache() throws IllegalStateException {
@@ -493,9 +489,10 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * <p>
      * updateAlarmCacheAndSendAlarms
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public synchronized void updateAlarmCacheAndSendAlarms() throws IllegalStateException {
@@ -511,6 +508,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * <p>
      * getAlarmCache
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.model.OnmsAlarm} objects.
      */
@@ -532,9 +530,6 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * If QoSD not running. Logs a debug message and returns
      * Note this is NOT synchronized as it is always called from within a
      * synchronized method in this class
-     *
-     * @throws an
-     *             IllegalStateException if qoSD not running.
      */
     private void sendAlarms() {
         if (qoSD != null) {
@@ -551,7 +546,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
 
     /**
      * search the current alarm cache for alarm with unique ApplicationDN and
-     * Unique PrimaryKey
+     * Unique PrimaryKey.
      *
      * @param applicationDN
      *            - unique ApplicationDN to search for
@@ -572,9 +567,10 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * Debug method to print out opennms alarms (brief summary)
+     * Debug method to print out opennms alarms (brief summary).
      *
      * @param alarm
+     *            the alarm
      * @return string to print out
      */
     private static String alarmToStringBrief(OnmsAlarm alarm) {
@@ -595,7 +591,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
     }
 
     /**
-     * Debug method to print out opennms alarms
+     * Debug method to print out opennms alarms.
      *
      * @param alarm
      *            a {@link org.opennms.netmgt.model.OnmsAlarm} object.
@@ -724,6 +720,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
      * <p>
      * updateNodeCaches
      * </p>
+     * .
      */
     @Override
     public synchronized void updateNodeCaches() {
@@ -733,7 +730,7 @@ public class OssDaoOpenNMSImpl implements OssDao {
     /**
      * Update the node cache from the OpenNMS database
      * This must be run at least once to ensure that node data is available
-     * Not Thread Safe - only to be called from within the synchronised methods
+     * Not Thread Safe - only to be called from within the synchronised methods.
      */
     private void localUpdateNodeCaches() {
         try {

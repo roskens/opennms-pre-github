@@ -44,10 +44,21 @@ import java.util.Set;
  * @version $Id: $
  */
 public class PropertiesLoader {
+
+    /** The instance. */
     private static PropertiesLoader instance = null;
 
+    /** The properties. */
     private final HashMap<String, String> properties = new HashMap<String, String>();
 
+    /**
+     * Instantiates a new properties loader.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private PropertiesLoader() throws FileNotFoundException, IOException {
 
         // Load the properties file using the filename given as the VM startup
@@ -80,10 +91,10 @@ public class PropertiesLoader {
      *
      * @return a {@link org.openoss.opennms.spring.qosd.PropertiesLoader}
      *         object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static PropertiesLoader getInstance() throws FileNotFoundException, IOException {
         if (instance == null) // test if an instance exists, if so then return
@@ -107,12 +118,13 @@ public class PropertiesLoader {
      * <p>
      * getProperty
      * </p>
+     * .
      *
      * @param propertyName
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public String getProperty(String propertyName) throws IllegalArgumentException {
         String _out = (String) properties.get(propertyName);
@@ -125,6 +137,7 @@ public class PropertiesLoader {
      * <p>
      * getPropertyNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */

@@ -51,10 +51,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class AlarmListConnectionManagerSpringImpl implements AlarmListConnectionManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AlarmListConnectionManagerSpringImpl.class);
 
+    /** The init. */
     boolean init = false; // set true if init called
 
+    /** The status. */
     int status = DISCONNECTED; // this changes to CONNECTED when the bean is
                                // instantiated
 
@@ -62,7 +66,8 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
     // Spring DAO setters
     // ************************
 
-    AlarmMonitorDao alarmMonitorDao; // j2ee alarmMonitorDao - to be
+    /** The alarm monitor dao. */
+                               AlarmMonitorDao alarmMonitorDao; // j2ee alarmMonitorDao - to be
                                      // encapsulated in spring
 
     /**
@@ -79,7 +84,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 
     /**
      * used to hold a local reference to the application context from which this
-     * bean was started
+     * bean was started.
      */
     private ClassPathXmlApplicationContext m_context = null; // used to
                                                              // passapplication
@@ -158,6 +163,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
      * <p>
      * kill
      * </p>
+     * .
      */
     @Override
     public void kill() {
@@ -190,9 +196,10 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
      * <p>
      * run
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void run() throws IllegalStateException {
@@ -222,6 +229,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {

@@ -43,9 +43,10 @@ import org.springframework.core.io.FileSystemResource;
  */
 public class QoSDConfigFactory {
 
+    /** The config. */
     private static QoSDConfiguration config;
 
-    /** Constant <code>is_loaded=false</code> */
+    /** Constant <code>is_loaded=false</code>. */
     public static boolean is_loaded = false;
 
     // XXX Don't use opennms.home directly and don't use "/"
@@ -53,13 +54,14 @@ public class QoSDConfigFactory {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static void reload() throws IOException, MarshalException, ValidationException {
 
@@ -81,12 +83,12 @@ public class QoSDConfigFactory {
      *
      * @return a {@link org.openoss.opennms.spring.qosd.QoSDConfiguration}
      *         object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static QoSDConfiguration getConfig() throws IOException, MarshalException, ValidationException {
         if (!is_loaded) {

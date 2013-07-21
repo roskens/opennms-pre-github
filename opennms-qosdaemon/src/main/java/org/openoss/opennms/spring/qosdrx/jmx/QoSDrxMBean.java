@@ -39,10 +39,12 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * @version $Id: $
  */
 public interface QoSDrxMBean extends BaseOnmsMBean {
+
     /**
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -52,6 +54,7 @@ public interface QoSDrxMBean extends BaseOnmsMBean {
      * <p>
      * getRuntimeStatistics
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

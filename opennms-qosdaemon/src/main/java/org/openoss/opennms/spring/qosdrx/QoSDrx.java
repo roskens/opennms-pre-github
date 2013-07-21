@@ -47,6 +47,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class QoSDrx extends AbstractServiceDaemon {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QoSDrx.class);
 
     /**
@@ -80,15 +82,14 @@ public class QoSDrx extends AbstractServiceDaemon {
     }
 
     /**
-     * Used to obtain opennms asset information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.AssetRecordDao
+     * Used to obtain opennms asset information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.AssetRecordDao
      */
     @SuppressWarnings("unused")
     private static AssetRecordDao _assetRecordDao;
 
     /**
-     * Used by Spring Application context to pass in AssetRecordDao
+     * Used by Spring Application context to pass in AssetRecordDao.
      *
      * @param ar
      *            a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
@@ -98,15 +99,14 @@ public class QoSDrx extends AbstractServiceDaemon {
     }
 
     /**
-     * Used to obtain opennms node information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.NodeDao
+     * Used to obtain opennms node information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.NodeDao
      */
     @SuppressWarnings("unused")
     private static NodeDao _nodeDao;
 
     /**
-     * Used by Spring Application context to pass in NodeDaof
+     * Used by Spring Application context to pass in NodeDaof.
      *
      * @param nodedao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -116,15 +116,14 @@ public class QoSDrx extends AbstractServiceDaemon {
     }
 
     /**
-     * Used to search and update opennms alarm list
-     *
-     * @see org.opennms.netmgt.dao.api.AlarmDao
+     * Used to search and update opennms alarm list. @see
+     * org.opennms.netmgt.dao.api.AlarmDao
      */
     @SuppressWarnings("unused")
     private static AlarmDao _alarmDao;
 
     /**
-     * Used by Spring Application context to pass in alarmDao
+     * Used by Spring Application context to pass in alarmDao.
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -135,7 +134,7 @@ public class QoSDrx extends AbstractServiceDaemon {
 
     /**
      * used to hold a local reference to the spring application context from
-     * which this bean was started
+     * which this bean was started.
      */
     private ClassPathXmlApplicationContext m_context = null; // used to
                                                              // passapplication
@@ -143,19 +142,28 @@ public class QoSDrx extends AbstractServiceDaemon {
                                                              // OssBeans
 
     /**
-     * Used by jmx mbean QoSDrx to pass in Spring Application context
-     *
-     * @param context
-     *            the application context
-     */
+                                                                 * Used by jmx
+                                                                 * mbean QoSDrx
+                                                                 * to pass in
+                                                                 * Spring
+                                                                 * Application
+                                                                 * context.
+                                                                 *
+                                                                 * @param context
+                                                                 *            the
+                                                                 *            application
+                                                                 *            context
+                                                                 */
     public void setApplicationContext(ClassPathXmlApplicationContext context) {
         this.m_context = context;
     }
 
     /*---------------VARIABLE DECLARATIONS----------------*/
 
+    /** The Constant NAME. */
     public static final String NAME = "oss-qosdrx";
 
+    /** The m_stats. */
     private static String m_stats = null; // not used but needed for
                                           // initialisation
 
@@ -180,7 +188,7 @@ public class QoSDrx extends AbstractServiceDaemon {
 
     /**
      * The start() method loads the configuration for the QoSDrx daemon and
-     * starts the initialOssBeanRunner
+     * starts the initialOssBeanRunner.
      */
     @Override
     protected void onStart() {
@@ -250,7 +258,7 @@ public class QoSDrx extends AbstractServiceDaemon {
     }
 
     /**
-     * Method to return statistics from the running receivers
+     * Method to return statistics from the running receivers.
      *
      * @return string representation of the statistics for the running receivers
      */
@@ -265,7 +273,7 @@ public class QoSDrx extends AbstractServiceDaemon {
     }
 
     /**
-     * not used but needed for initialisation
+     * not used but needed for initialisation.
      *
      * @return stats
      */

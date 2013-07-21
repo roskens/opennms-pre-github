@@ -129,6 +129,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, QoSD {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QoSDimpl2.class);
 
     /**
@@ -142,6 +144,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
     // ---------------SPRING DAO DECLARATIONS----------------
 
+    /** The oss dao. */
     private OssDao ossDao;
 
     /**
@@ -153,6 +156,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
         ossDao = _ossDao;
     }
 
+    /** The onms alarm ossj mapper. */
     private OnmsAlarmOssjMapper onmsAlarmOssjMapper;
 
     /**
@@ -167,9 +171,8 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     }
 
     /**
-     * Used to obtain opennms asset information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.AssetRecordDao
+     * Used to obtain opennms asset information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.AssetRecordDao
      */
     @SuppressWarnings("unused")
     private AssetRecordDao assetRecordDao;
@@ -184,9 +187,8 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     }
 
     /**
-     * Used to obtain opennms node information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.NodeDao
+     * Used to obtain opennms node information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.NodeDao
      */
     @SuppressWarnings("unused")
     private NodeDao nodeDao;
@@ -200,9 +202,8 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     }
 
     /**
-     * Used to register for opennms events
-     *
-     * @see org.opennms.netmgt.model.events.EventIpcManager
+     * Used to register for opennms events. @see
+     * org.opennms.netmgt.model.events.EventIpcManager
      */
     private EventIpcManager eventIpcManager;
 
@@ -216,9 +217,8 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     }
 
     /**
-     * Used to search and update opennms alarm list
-     *
-     * @see org.opennms.netmgt.dao.api.AlarmDao
+     * Used to search and update opennms alarm list. @see
+     * org.opennms.netmgt.dao.api.AlarmDao
      */
     @SuppressWarnings("unused")
     private AlarmDao alarmDao;
@@ -233,10 +233,9 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
     /**
      * AlarmListConnectionManager connects to the alarm list and allows the QosD
-     * to send alarm updates
-     * This is used by spring to provide a proxy for the J2EE AlarmMonitor bean
-     * or for the local spring
-     * AlarmMonitor if J2EE is not being used
+     * to send alarm updates This is used by spring to provide a proxy for the
+     * J2EE AlarmMonitor bean or for the local spring AlarmMonitor if J2EE is not
+     * being used.
      */
     private AlarmListConnectionManager alarmListConnectionManager;
 
@@ -251,7 +250,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
     /**
      * used to hold a local reference to the application context from which this
-     * bean was started
+     * bean was started.
      */
     private ClassPathXmlApplicationContext m_context = null; // used to
                                                              // passapplication
@@ -275,29 +274,37 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
      * STARTING, RUNNING, STOP_PENDING, STOPPED
      */
 
+    /** The config. */
     private QoSDConfiguration config = null;
 
+    /** The props. */
     public PropertiesLoader props;
 
+    /** The env. */
     private Properties env;
 
+    /** The trigger uei list. */
     private Hashtable<String, String> triggerUeiList;
 
+    /** The Constant NAME. */
     public static final String NAME = "oss-qosd";
 
+    /** The m_stats. */
     private String m_stats = null; // not used but needed for initialisation
 
     // TODO - need to make this a configuration option
+    /** The use uei list. */
     public boolean useUeiList = false; // if true only alarms with event id's in
                                        // the UEI list are sent
 
-    OpenNMSEventHandlerThread openNMSEventHandlerThread;
+    /** The open nms event handler thread. */
+                                       OpenNMSEventHandlerThread openNMSEventHandlerThread;
 
     /*----------------START OF PUBLIC METHODS---------------*/
 
     /**
      * Method to set up the fiber
-     * Note - not used in Spring activation
+     * Note - not used in Spring activation.
      */
     @Override
     protected void onInit() {
@@ -306,7 +313,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
 
     /**
      * The start() method loads the configuration for the QosD daemon and
-     * registers for events
+     * registers for events.
      */
     @Override
     protected void onStart() {
@@ -782,7 +789,7 @@ public class QoSDimpl2 extends AbstractServiceDaemon implements EventListener, Q
     }
 
     /**
-     * not used but needed for initialization
+     * not used but needed for initialization.
      *
      * @return stats
      */

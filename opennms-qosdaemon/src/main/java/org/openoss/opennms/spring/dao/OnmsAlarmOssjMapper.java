@@ -61,10 +61,13 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class OnmsAlarmOssjMapper {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OnmsAlarmOssjMapper.class);
 
     // pattern for recognising simple <HTML> tags ;
     // used to strip HTML characters from log messages etc
+    /** The p. */
     private static Pattern p = Pattern.compile("<[^>]*>");
 
     // p= Pattern.compile("\\Q&lt;\\E[^\\Q&gt;\\E]*\\Q&gt;\\E");
@@ -73,13 +76,11 @@ public class OnmsAlarmOssjMapper {
 
     // ---------------SPRING DAO DECLARATIONS----------------
 
-    /**
-     * Used by Spring Application context to pass in distPollerDao;
-     */
+    /** Used by Spring Application context to pass in distPollerDao;. */
     private DistPollerDao distPollerDao;
 
     /**
-     * Used by Spring Application context to pass in distPollerDao;
+     * Used by Spring Application context to pass in distPollerDao;.
      *
      * @param _distPollerDao
      *            a {@link org.opennms.netmgt.dao.api.DistPollerDao} object.
@@ -89,15 +90,14 @@ public class OnmsAlarmOssjMapper {
     }
 
     /**
-     * Used to obtain opennms asset information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.AssetRecordDao
+     * Used to obtain opennms asset information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.AssetRecordDao
      */
     @SuppressWarnings("unused")
     private AssetRecordDao _assetRecordDao;
 
     /**
-     * Used by Spring Application context to pass in AssetRecordDao
+     * Used by Spring Application context to pass in AssetRecordDao.
      *
      * @param ar
      *            a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
@@ -107,15 +107,14 @@ public class OnmsAlarmOssjMapper {
     }
 
     /**
-     * Used to obtain opennms node information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.NodeDao
+     * Used to obtain opennms node information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.NodeDao
      */
     @SuppressWarnings("unused")
     private NodeDao _nodeDao;
 
     /**
-     * Used by Spring Application context to pass in NodeDaof
+     * Used by Spring Application context to pass in NodeDaof.
      *
      * @param nodedao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -124,10 +123,11 @@ public class OnmsAlarmOssjMapper {
         _nodeDao = nodedao;
     }
 
+    /** The oss dao. */
     private OssDao ossDao;
 
     /**
-     * provides an interface to OpenNMS which provides a unified api
+     * provides an interface to OpenNMS which provides a unified api.
      *
      * @param _ossDao
      *            the ossDao to set
@@ -155,15 +155,16 @@ public class OnmsAlarmOssjMapper {
      */
     public static int USE_TYPE_INSTANCE = 2;
 
+    /** The alarm update behaviour str. */
     private static String[] alarmUpdateBehaviourStr = { "SPECIFY_OUTSTATION", "USE_TYPE_INSTANCE" };
 
     /**
-     * REturns string value of alarmUpdateBehaviour
+     * REturns string value of alarmUpdateBehaviour.
      *
      * @param aub
      *            valid value for <code>alarmUpdateBehaviour</code>
      *            SPECIFY_OUTSTATION, or USE_TYPE_INSTANCE
-     * @return
+     * @return the alarm update behaviour for int
      */
     private static String getAlarmUpdateBehaviourForInt(Integer aub) {
         try {
@@ -178,7 +179,7 @@ public class OnmsAlarmOssjMapper {
     // ****************
 
     /**
-     * This method maps an OSS/J AlarmValue to OpenNMS alarm
+     * This method maps an OSS/J AlarmValue to OpenNMS alarm.
      *
      * @param onmsAlarm
      *            OnmsAlarm object to be populated
@@ -194,10 +195,10 @@ public class OnmsAlarmOssjMapper {
      *            name of node to be updated if
      *            almUpdateBehaviour==SPECIFY_OUTSTATION
      * @return the OnmsAlarm populated with OSS/J NotifyNewAlarmEvent data
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
-     * @throws javax.oss.UnsupportedAttributeException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws UnsupportedAttributeException
+     *             the unsupported attribute exception
      */
     public OnmsAlarm populateOnmsAlarmFromOssjAlarm(OnmsAlarm onmsAlarm, AlarmValue alarmValue,
             Integer almUpdateBehaviour, String defaultUpdateNodeLabel) throws IllegalArgumentException,
@@ -407,18 +408,18 @@ public class OnmsAlarmOssjMapper {
 
     /**
      * This method maps OpenNMS alarm to an OSS/J alarms and adds additional
-     * information
+     * information.
      *
-     * @param _openNMSalarm
-     *            data to use to populate the OSS/J alarm
      * @param alarmValueSpecification
      *            AlarmValue object to be populated - Invariant (Specifcation)
      *            values should be already populated
+     * @param _openNMSalarm
+     *            data to use to populate the OSS/J alarm
      * @return the _av OSS/J AlarmValue populated with opennms data
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
-     * @throws javax.oss.UnsupportedAttributeException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws UnsupportedAttributeException
+     *             the unsupported attribute exception
      */
     public AlarmValue populateOssjAlarmFromOpenNMSAlarm(AlarmValue alarmValueSpecification, OnmsAlarm _openNMSalarm)
             throws IllegalArgumentException, UnsupportedAttributeException {
@@ -748,8 +749,8 @@ public class OnmsAlarmOssjMapper {
      * @param ossjseverity
      *            the severity value according to ossj / X733
      * @return the severity value according to opennms
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public static OnmsSeverity ossjSeveritytoOnmsSeverity(short ossjseverity) throws IllegalArgumentException {
 
@@ -796,6 +797,8 @@ public class OnmsAlarmOssjMapper {
      * @param onmsSeverity
      *            the severity value according to opennms
      * @return the severity value according to ossj / X733
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     private static short onmsSeverityToOssjSeverity(OnmsSeverity onmsSeverity) throws IllegalArgumentException {
 
@@ -833,7 +836,7 @@ public class OnmsAlarmOssjMapper {
     }
 
     /**
-     * Maps OSS/J alarm types to OpenNMS uei types
+     * Maps OSS/J alarm types to OpenNMS uei types.
      *
      * @param alarmType
      *            String representing OSS/J alarm Type

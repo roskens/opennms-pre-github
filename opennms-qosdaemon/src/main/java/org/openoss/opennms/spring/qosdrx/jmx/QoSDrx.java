@@ -45,6 +45,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QoSDrx.class);
 
     /**
@@ -56,11 +58,18 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
         super(NAME);
     }
 
+    /** The Constant NAME. */
     private static final String NAME = org.openoss.opennms.spring.qosdrx.QoSDrx.NAME;
 
+    /** The m_context. */
     private ClassPathXmlApplicationContext m_context;
 
     // used only for testing
+    /**
+     * Gets the context.
+     *
+     * @return the context
+     */
     ApplicationContext getContext() {
         return m_context;
     }
@@ -69,6 +78,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -78,6 +88,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -136,6 +147,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -145,7 +157,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
     }
 
     /**
-     * Method to return statistics from the running receivers to MX4J
+     * Method to return statistics from the running receivers to MX4J.
      *
      * @return string representation of the statistics for the running receivers
      */
@@ -158,6 +170,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
      * <p>
      * getStats
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,7 +180,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
     }
 
     /**
-     * Returns the qosdrx singleton
+     * Returns the qosdrx singleton.
      *
      * @return qosdrx
      */

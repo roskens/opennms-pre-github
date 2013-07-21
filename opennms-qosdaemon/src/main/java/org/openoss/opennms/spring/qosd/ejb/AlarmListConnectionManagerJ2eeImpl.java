@@ -51,6 +51,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionManager {
 
+    /** The cmt. */
     AlarmListJ2eeConnectionManagerThread cmt;
 
     /**
@@ -66,6 +67,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -84,6 +86,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
      * <p>
      * kill
      * </p>
+     * .
      */
     @Override
     public void kill() {
@@ -100,9 +103,10 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
      * <p>
      * run
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void run() throws IllegalStateException {
@@ -117,7 +121,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
     }
 
     /**
-     * Causes the thread supporting the connection Manager to start
+     * Causes the thread supporting the connection Manager to start.
      */
     @Override
     public void start() {

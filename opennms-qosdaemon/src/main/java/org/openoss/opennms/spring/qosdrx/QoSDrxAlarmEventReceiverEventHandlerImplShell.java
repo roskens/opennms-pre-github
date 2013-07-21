@@ -46,14 +46,17 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This provides a shell implimentation into which business methods can
- * be added
+ * be added.
  *
  * @author ranger
  * @version $Id: $
  */
 public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEventReceiverEventHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(QoSDrxAlarmEventReceiverEventHandlerImplShell.class);
 
+    /** The initialised. */
     private static boolean initialised = false; // true if init() has
                                                 // initialised class
 
@@ -62,15 +65,17 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
     // ************************
 
     /**
-     * Used to obtain opennms asset information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.AssetRecordDao
-     */
+                                                 * Used to obtain opennms asset
+                                                 * information for inclusion in
+                                                 * alarms. @see
+                                                 * org.opennms.netmgt
+                                                 * .dao.api.AssetRecordDao
+                                                 */
     @SuppressWarnings("unused")
     private static AssetRecordDao _assetRecordDao;
 
     /**
-     * Used by Spring Application context to pass in AssetRecordDao
+     * Used by Spring Application context to pass in AssetRecordDao.
      *
      * @param ar
      *            a {@link org.opennms.netmgt.dao.api.AssetRecordDao} object.
@@ -80,15 +85,14 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
     }
 
     /**
-     * Used to obtain opennms node information for inclusion in alarms
-     *
-     * @see org.opennms.netmgt.dao.api.NodeDao
+     * Used to obtain opennms node information for inclusion in alarms. @see
+     * org.opennms.netmgt.dao.api.NodeDao
      */
     @SuppressWarnings("unused")
     private static NodeDao _nodeDao;
 
     /**
-     * Used by Spring Application context to pass in NodeDaof
+     * Used by Spring Application context to pass in NodeDaof.
      *
      * @param nodedao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -98,15 +102,14 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
     }
 
     /**
-     * Used to search and update opennms alarm list
-     *
-     * @see org.opennms.netmgt.dao.api.AlarmDao
+     * Used to search and update opennms alarm list. @see
+     * org.opennms.netmgt.dao.api.AlarmDao
      */
     @SuppressWarnings("unused")
     private static AlarmDao _alarmDao;
 
     /**
-     * Used by Spring Application context to pass in alarmDao
+     * Used by Spring Application context to pass in alarmDao.
      *
      * @param alarmDao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.
@@ -117,7 +120,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 
     /**
      * called to initialise the AlarmEventReceiverEventHandler
-     * must be called before all other classes
+     * must be called before all other classes.
      */
     @Override
     public void init() {

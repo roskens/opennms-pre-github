@@ -52,6 +52,7 @@ public interface OssDao {
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            The dataSource to set
@@ -84,7 +85,7 @@ public interface OssDao {
 
     /**
      * Used by Spring Application context to pass in a Spring transaction
-     * manager
+     * manager.
      *
      * @param transTemplate
      *            a
@@ -94,7 +95,7 @@ public interface OssDao {
     void setTransTemplate(TransactionTemplate transTemplate);
 
     /**
-     * Used by running QoSD to set up OssDao to call back alarm list updates
+     * Used by running QoSD to set up OssDao to call back alarm list updates.
      *
      * @param qoSD
      *            a {@link org.openoss.opennms.spring.qosd.QoSD} object.
@@ -104,7 +105,7 @@ public interface OssDao {
     /**
      * Initialises the Node and Alarm caches
      * Must be called before any other methods to ensure that ossDao is
-     * initialised
+     * initialised.
      */
     void init();
 
@@ -118,17 +119,6 @@ public interface OssDao {
      * @param alarm
      *            - alarm to add.
      * @return added alarm with new alarmID
-     * @throws If
-     *             alarm AlarmID not null throws
-     *             <code>IllegalArgumentException</code>.
-     *             If ApplicationDN() and OssPrimaryKey() not unique in Current
-     *             Alarm list throws <code>IllegalArgumentException</code> If
-     *             alarm type not type 1 throws
-     *             <code>IllegalArgumentException</code>.
-     *             If ApplicationDN()==null or "" or OssPrimaryKey()==null or
-     *             "", throws <code>IllegalArgumentException</code>.
-     *             Note any new locally generated OpenNMS alarms will have
-     *             ApplictionDN or OssPrimaryKey ==null or "" and so are ignored
      */
     OnmsAlarm addCurrentAlarmForUniqueKey(final OnmsAlarm alarm);
 
@@ -142,15 +132,6 @@ public interface OssDao {
      * @param alarm
      *            - alarm to add.
      * @return added alarm with new alarmID from OpenNMS Database
-     * @throws If
-     *             alarm AlarmID not null throws
-     *             <code>IllegalArgumentException</code>.
-     *             If alarm type not type 1 throws
-     *             <code>IllegalArgumentException</code>.
-     *             If ApplicationDN()==null or "" or OssPrimaryKey()==null or
-     *             "", throws <code>IllegalArgumentException</code>.
-     *             Note any new locally generated OpenNMS alarms will have
-     *             ApplictionDN or OssPrimaryKey ==null or "" and so are ignored
      */
     OnmsAlarm updateCurrentAlarmForUniqueKey(final OnmsAlarm alarm);
 
@@ -158,23 +139,24 @@ public interface OssDao {
      * <p>
      * getCurrentAlarmForUniqueKey
      * </p>
+     * .
      *
-     * @return the first found alarm from current alarm list with matching
-     *         parameters.
-     *         Returns Null if no such alarm.
      * @param applicationDN
      *            a {@link java.lang.String} object.
      * @param ossPrimaryKey
      *            a {@link java.lang.String} object.
+     * @return the first found alarm from current alarm list with matching
+     *         parameters.
+     *         Returns Null if no such alarm.
      */
     OnmsAlarm getCurrentAlarmForUniqueKey(String applicationDN, String ossPrimaryKey);
 
     /**
      * Used to force an update to the local cache from latest alarm list in
-     * database
+     * database.
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     void updateAlarmCache() throws IllegalStateException;
 
@@ -187,8 +169,8 @@ public interface OssDao {
      * current alarm list is always sent by QoSD
      * If QoSD not running. Logs a debug message and returns
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     void updateAlarmCacheAndSendAlarms() throws IllegalStateException;
 
@@ -206,7 +188,7 @@ public interface OssDao {
      * matching label
      * Note for this to work, the configuration of OpenNMS must ensure that the
      * node label is unique
-     * otherwise only the first instance will be returned
+     * otherwise only the first instance will be returned.
      *
      * @param label
      *            NodeLabel of node to look for
@@ -230,14 +212,14 @@ public interface OssDao {
      * @param managedObjectType
      *            a {@link java.lang.String} object.
      * @return the node object
-     * @throws java.lang.IllegalArgumentException
-     *             Note: Accesses the Node Cache
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     OnmsNode findNodeByInstanceAndType(String managedObjectInstance, String managedObjectType)
             throws IllegalArgumentException;
 
     /**
-     * Returns the OnmsNode for the supplied node id
+     * Returns the OnmsNode for the supplied node id.
      *
      * @param nodeid
      *            a {@link java.lang.Integer} object.
@@ -247,7 +229,7 @@ public interface OssDao {
 
     /**
      * Synchronized method to Update the node cache from the OpenNMS database
-     * May be called from Qosd on receipt of an asset register update event
+     * May be called from Qosd on receipt of an asset register update event.
      */
     void updateNodeCaches();
 
