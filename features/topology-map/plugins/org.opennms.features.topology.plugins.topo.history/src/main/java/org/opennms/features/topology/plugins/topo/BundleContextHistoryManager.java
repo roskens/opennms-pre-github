@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.features.topology.plugins.topo;
 
 import java.io.FileInputStream;
@@ -18,16 +45,30 @@ import org.opennms.features.topology.api.support.SavedHistory;
 import org.osgi.framework.BundleContext;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class BundleContextHistoryManager.
+ */
 public class BundleContextHistoryManager extends AbstractHistoryManager {
 
+    /** The m_bundle context. */
     private final BundleContext m_bundleContext;
 
+    /** The Constant DATA_FILE_NAME. */
     public static final String DATA_FILE_NAME = BundleContextHistoryManager.class.getName() + ".properties";
 
+    /**
+     * Instantiates a new bundle context history manager.
+     *
+     * @param bundleContext
+     *            the bundle context
+     */
     public BundleContextHistoryManager(BundleContext bundleContext) {
         m_bundleContext = bundleContext;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.support.AbstractHistoryManager#saveHistory(java.lang.String, org.opennms.features.topology.api.support.SavedHistory)
+     */
     @Override
     protected synchronized void saveHistory(String userId, SavedHistory hist) {
         Properties props = loadProperties(m_bundleContext);
@@ -46,6 +87,9 @@ public class BundleContextHistoryManager extends AbstractHistoryManager {
         storeProperties(m_bundleContext, props);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.support.AbstractHistoryManager#getHistory(java.lang.String, java.lang.String)
+     */
     @Override
     protected synchronized SavedHistory getHistory(String userId, String fragmentId) {
         if (fragmentId != null) {
@@ -62,11 +106,21 @@ public class BundleContextHistoryManager extends AbstractHistoryManager {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.features.topology.api.HistoryManager#getHistoryForUser(java.lang.String)
+     */
     @Override
     public synchronized String getHistoryForUser(String userId) {
         return loadProperties(m_bundleContext).getProperty(userId);
     }
 
+    /**
+     * Load properties.
+     *
+     * @param context
+     *            the context
+     * @return the properties
+     */
     private static Properties loadProperties(BundleContext context) {
         Properties props = new Properties();
         try {
@@ -80,6 +134,14 @@ public class BundleContextHistoryManager extends AbstractHistoryManager {
         return props;
     }
 
+    /**
+     * Store properties.
+     *
+     * @param context
+     *            the context
+     * @param props
+     *            the props
+     */
     private static void storeProperties(BundleContext context, Properties props) {
         try {
             props.store(new FileOutputStream(context.getDataFile(DATA_FILE_NAME)),
