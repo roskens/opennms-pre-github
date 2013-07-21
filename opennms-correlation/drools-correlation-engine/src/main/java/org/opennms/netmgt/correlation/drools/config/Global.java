@@ -71,13 +71,21 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Global implements Serializable {
 
+    /**
+     * The Class SimplePropertyEditorRegistry.
+     */
     private static class SimplePropertyEditorRegistry extends PropertyEditorRegistrySupport {
+
+        /**
+         * Instantiates a new simple property editor registry.
+         */
         public SimplePropertyEditorRegistry() {
             registerDefaultEditors();
         }
 
     }
 
+    /** The m_editor registry. */
     @XmlTransient
     private PropertyEditorRegistrySupport m_editorRegistry = new SimplePropertyEditorRegistry();
 
@@ -85,9 +93,7 @@ public class Global implements Serializable {
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * This is the name as it is defined in the rules file
-     */
+    /** This is the name as it is defined in the rules file. */
     @XmlAttribute(name = "name")
     private String _name;
 
@@ -123,6 +129,9 @@ public class Global implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new global.
+     */
     public Global() {
 
     }
@@ -196,7 +205,10 @@ public class Global implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -209,16 +221,19 @@ public class Global implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
@@ -282,20 +297,23 @@ public class Global implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Global
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Global
      */
     public static Global unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Global) Unmarshaller.unmarshal(Global.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
@@ -305,6 +323,9 @@ public class Global implements Serializable {
         validator.validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -316,6 +337,9 @@ public class Global implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -348,6 +372,17 @@ public class Global implements Serializable {
         return true;
     }
 
+    /**
+     * Convert string to.
+     *
+     * @param <T>
+     *            the generic type
+     * @param value
+     *            the value
+     * @param typeClass
+     *            the type class
+     * @return the t
+     */
     public <T> T convertStringTo(String value, Class<T> typeClass) {
         if (typeClass == String.class) {
             return typeClass.cast(value);
@@ -362,14 +397,33 @@ public class Global implements Serializable {
         }
     }
 
+    /**
+     * Gets the type class.
+     *
+     * @return the type class
+     */
     public Class<?> getTypeClass() {
         return getType() == null ? Object.class : convertStringTo(getType(), Class.class);
     }
 
+    /**
+     * Gets the value as type.
+     *
+     * @param typeClass
+     *            the type class
+     * @return the value as type
+     */
     public Object getValueAsType(Class<?> typeClass) {
         return getValue() == null ? null : convertStringTo(getValue(), typeClass);
     }
 
+    /**
+     * Construct value.
+     *
+     * @param context
+     *            the context
+     * @return the object
+     */
     public Object constructValue(final ApplicationContext context) {
         Class<?> typeClass = getTypeClass();
 
@@ -384,6 +438,13 @@ public class Global implements Serializable {
         throw new IllegalArgumentException("One of either the value or the ref must be specified");
     }
 
+    /**
+     * Gets the default editor.
+     *
+     * @param clazz
+     *            the clazz
+     * @return the default editor
+     */
     private PropertyEditor getDefaultEditor(Class<?> clazz) {
         return m_editorRegistry.getDefaultEditor(clazz);
     }

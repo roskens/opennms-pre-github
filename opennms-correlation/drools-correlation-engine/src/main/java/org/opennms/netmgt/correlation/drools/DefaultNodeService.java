@@ -42,6 +42,7 @@ import org.springframework.util.Assert;
  */
 public class DefaultNodeService implements NodeService {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
     /** {@inheritDoc} */
@@ -58,6 +59,7 @@ public class DefaultNodeService implements NodeService {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.

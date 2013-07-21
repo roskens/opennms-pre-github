@@ -39,20 +39,29 @@ import java.util.Date;
  * @version $Id: $
  */
 public class Flap {
+
+    /** The m_nodeid. */
     Long m_nodeid;
 
+    /** The m_ip addr. */
     String m_ipAddr;
 
+    /** The m_svc name. */
     String m_svcName;
 
+    /** The m_start time. */
     Date m_startTime;
 
+    /** The m_end time. */
     Date m_endTime;
 
+    /** The m_location monitor. */
     Integer m_locationMonitor;
 
+    /** The m_counted. */
     boolean m_counted;
 
+    /** The m_timer id. */
     Integer m_timerId;
 
     /**
@@ -86,6 +95,7 @@ public class Flap {
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -97,6 +107,7 @@ public class Flap {
      * <p>
      * setEndTime
      * </p>
+     * .
      *
      * @param end
      *            a {@link java.util.Date} object.
@@ -109,6 +120,7 @@ public class Flap {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +132,7 @@ public class Flap {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -132,6 +145,7 @@ public class Flap {
      * <p>
      * getLocationMonitor
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -143,6 +157,7 @@ public class Flap {
      * <p>
      * setLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a {@link java.lang.Integer} object.
@@ -155,6 +170,7 @@ public class Flap {
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -166,6 +182,7 @@ public class Flap {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.Long} object.
@@ -178,6 +195,7 @@ public class Flap {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -189,6 +207,7 @@ public class Flap {
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param start
      *            a {@link java.util.Date} object.
@@ -201,6 +220,7 @@ public class Flap {
      * <p>
      * getSvcName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -212,6 +232,7 @@ public class Flap {
      * <p>
      * setSvcName
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -224,6 +245,7 @@ public class Flap {
      * <p>
      * isCounted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -235,6 +257,7 @@ public class Flap {
      * <p>
      * setCounted
      * </p>
+     * .
      *
      * @param counted
      *            a boolean.
@@ -247,6 +270,7 @@ public class Flap {
      * <p>
      * getTimerId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -258,6 +282,7 @@ public class Flap {
      * <p>
      * setTimerId
      * </p>
+     * .
      *
      * @param timerId
      *            a {@link java.lang.Integer} object.

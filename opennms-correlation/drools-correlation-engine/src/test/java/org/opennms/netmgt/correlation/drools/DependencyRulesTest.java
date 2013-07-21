@@ -36,9 +36,20 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class DependencyRulesTest.
+ */
 public class DependencyRulesTest extends CorrelationRulesTestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /**
+     * Test initialize.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInitialize() throws Exception {
 
@@ -73,6 +84,15 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Creates the initialized event.
+     *
+     * @param symptom
+     *            the symptom
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createInitializedEvent(int symptom, int cause) {
         return new EventBuilder("initialized", "Drools").getEvent();
     }
@@ -83,27 +103,85 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     // cause)).getEvent();
     // }
 
+    /**
+     * Creates the node down event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node up event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeUpEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node lost service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the node regained service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the svc event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName) {
         return new EventBuilder(uei, "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).setService(svcName).getEvent();
 
     }
 
+    /**
+     * Creates the node event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeEvent(String uei, int nodeid) {
         return new EventBuilder(uei, "test").setNodeid(nodeid).getEvent();
     }

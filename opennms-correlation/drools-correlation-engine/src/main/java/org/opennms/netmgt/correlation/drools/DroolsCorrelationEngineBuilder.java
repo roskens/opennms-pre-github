@@ -60,24 +60,51 @@ import org.springframework.util.Assert;
  */
 public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySupport implements InitializingBean,
         ApplicationListener<ApplicationEvent> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DroolsCorrelationEngineBuilder.class);
 
+    /** The Constant PLUGIN_CONFIG_FILE_NAME. */
     public static final String PLUGIN_CONFIG_FILE_NAME = "drools-engine.xml";
 
+    /**
+     * The Class PluginConfiguration.
+     */
     private static class PluginConfiguration {
+
+        /** The m_config resource. */
         private Resource m_configResource;
 
+        /** The m_configuration. */
         private EngineConfiguration m_configuration;
 
+        /**
+         * Instantiates a new plugin configuration.
+         *
+         * @param configResource
+         *            the config resource
+         */
         public PluginConfiguration(Resource configResource) {
             m_configResource = configResource;
         }
 
+        /**
+         * Read config.
+         */
         public void readConfig() {
             LOG.info("Parsing drools engine configuration at {}.", m_configResource);
             m_configuration = JaxbUtils.unmarshal(EngineConfiguration.class, m_configResource);
         }
 
+        /**
+         * Construct engines.
+         *
+         * @param appContext
+         *            the app context
+         * @param eventIpcManager
+         *            the event ipc manager
+         * @return the correlation engine[]
+         */
         public CorrelationEngine[] constructEngines(ApplicationContext appContext, EventIpcManager eventIpcManager) {
             LOG.info("Creating drools engins for configuration {}.", m_configResource);
 
@@ -87,15 +114,20 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
     }
 
     // injected
+    /** The m_config directory. */
     private File m_configDirectory;
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_correlator. */
     private CorrelationEngineRegistrar m_correlator;
 
     // built
+    /** The m_plugin configurations. */
     private PluginConfiguration[] m_pluginConfigurations;
 
     /**
@@ -111,6 +143,7 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * assertSet
      * </p>
+     * .
      *
      * @param obj
      *            a {@link java.lang.Object} object.
@@ -125,9 +158,10 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -141,6 +175,12 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
         readConfiguration();
     }
 
+    /**
+     * Register engines.
+     *
+     * @param appContext
+     *            the app context
+     */
     private void registerEngines(final ApplicationContext appContext) {
         for (PluginConfiguration pluginConfig : m_pluginConfigurations) {
             m_correlator.addCorrelationEngines(pluginConfig.constructEngines(appContext, m_eventIpcManager));
@@ -152,6 +192,7 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -165,6 +206,7 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * setConfigurationResource
      * </p>
+     * .
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -177,6 +219,7 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * setConfigurationDirectory
      * </p>
+     * .
      *
      * @param configDirectory
      *            a {@link java.io.File} object.
@@ -189,6 +232,7 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
      * <p>
      * setCorrelationEngineRegistrar
      * </p>
+     * .
      *
      * @param correlator
      *            a
@@ -199,6 +243,12 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
         m_correlator = correlator;
     }
 
+    /**
+     * Read configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void readConfiguration() throws Exception {
         m_pluginConfigurations = locatePluginConfigurations();
 
@@ -209,6 +259,13 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
 
     }
 
+    /**
+     * Locate plugin configurations.
+     *
+     * @return the plugin configuration[]
+     * @throws Exception
+     *             the exception
+     */
     private PluginConfiguration[] locatePluginConfigurations() throws Exception {
         List<PluginConfiguration> pluginConfigs = new LinkedList<PluginConfiguration>();
 
@@ -236,6 +293,13 @@ public class DroolsCorrelationEngineBuilder extends PropertyEditorRegistrySuppor
         return pluginConfigs.toArray(new PluginConfiguration[0]);
     }
 
+    /**
+     * Gets the plugin dirs.
+     *
+     * @return the plugin dirs
+     * @throws Exception
+     *             the exception
+     */
     private File[] getPluginDirs() throws Exception {
 
         LOG.debug("Checking {} for drools correlation plugins", m_configDirectory);

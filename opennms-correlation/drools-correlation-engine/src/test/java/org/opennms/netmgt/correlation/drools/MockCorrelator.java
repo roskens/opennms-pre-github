@@ -35,20 +35,33 @@ import java.util.List;
 import org.opennms.netmgt.correlation.CorrelationEngine;
 import org.opennms.netmgt.correlation.CorrelationEngineRegistrar;
 
+/**
+ * The Class MockCorrelator.
+ */
 public class MockCorrelator implements CorrelationEngineRegistrar {
 
+    /** The m_engines. */
     List<CorrelationEngine> m_engines = new LinkedList<CorrelationEngine>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.CorrelationEngineRegistrar#addCorrelationEngine(org.opennms.netmgt.correlation.CorrelationEngine)
+     */
     @Override
     public void addCorrelationEngine(CorrelationEngine engine) {
         m_engines.add(engine);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.CorrelationEngineRegistrar#addCorrelationEngines(org.opennms.netmgt.correlation.CorrelationEngine[])
+     */
     @Override
     public void addCorrelationEngines(CorrelationEngine... engines) {
         m_engines.addAll(Arrays.asList(engines));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.CorrelationEngineRegistrar#findEngineByName(java.lang.String)
+     */
     @Override
     public CorrelationEngine findEngineByName(String name) {
         for (CorrelationEngine engine : m_engines) {
@@ -59,6 +72,9 @@ public class MockCorrelator implements CorrelationEngineRegistrar {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.CorrelationEngineRegistrar#getEngines()
+     */
     @Override
     public List<CorrelationEngine> getEngines() {
         return m_engines;

@@ -39,16 +39,21 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class EventParameter {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_value. */
     private Object m_value;
 
+    /** The m_event. */
     private Event m_event;
 
     /**
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -60,6 +65,7 @@ public class EventParameter {
      * <p>
      * setEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -72,6 +78,7 @@ public class EventParameter {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +90,7 @@ public class EventParameter {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -95,6 +103,7 @@ public class EventParameter {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -106,6 +115,7 @@ public class EventParameter {
      * <p>
      * setValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Object} object.

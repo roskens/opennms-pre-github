@@ -38,8 +38,15 @@ package org.opennms.netmgt.correlation.drools;
  */
 public class TimerExpired {
 
+    /** The m_id. */
     private Integer m_id;
 
+    /**
+     * Instantiates a new timer expired.
+     *
+     * @param id
+     *            the id
+     */
     TimerExpired(final Integer id) {
         m_id = id;
     }
@@ -48,6 +55,7 @@ public class TimerExpired {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

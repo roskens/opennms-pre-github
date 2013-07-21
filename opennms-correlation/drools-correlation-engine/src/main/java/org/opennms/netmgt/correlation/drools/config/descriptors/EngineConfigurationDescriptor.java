@@ -82,6 +82,9 @@ public class EngineConfigurationDescriptor extends org.exolab.castor.xml.util.XM
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new engine configuration descriptor.
+     */
     public EngineConfigurationDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/drools-engine";

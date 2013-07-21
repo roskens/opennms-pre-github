@@ -79,6 +79,8 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "engine-configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EngineConfiguration implements Serializable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EngineConfiguration.class);
 
     // --------------------------/
@@ -95,6 +97,9 @@ public class EngineConfiguration implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new engine configuration.
+     */
     public EngineConfiguration() {
         this._ruleSetList = new ArrayList<RuleSet>();
     }
@@ -104,7 +109,10 @@ public class EngineConfiguration implements Serializable {
     // -----------/
 
     /**
+     * Adds the rule set.
+     *
      * @param vRuleSet
+     *            the v rule set
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -114,8 +122,12 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
+     * Adds the rule set.
+     *
      * @param index
+     *            the index
      * @param vRuleSet
+     *            the v rule set
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -138,12 +150,13 @@ public class EngineConfiguration implements Serializable {
      * Method getRuleSet.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         RuleSet at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public RuleSet getRuleSet(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -216,7 +229,10 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -229,22 +245,26 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
     /**
+     * Removes the all rule set.
      */
     public void removeAllRuleSet() {
         this._ruleSetList.clear();
@@ -254,6 +274,7 @@ public class EngineConfiguration implements Serializable {
      * Method removeRuleSet.
      *
      * @param vRuleSet
+     *            the v rule set
      * @return true if the object was removed from the collection.
      */
     public boolean removeRuleSet(final RuleSet vRuleSet) {
@@ -264,6 +285,7 @@ public class EngineConfiguration implements Serializable {
      * Method removeRuleSetAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public RuleSet removeRuleSetAt(final int index) {
@@ -271,8 +293,12 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
+     * Sets the rule set.
+     *
      * @param index
+     *            the index
      * @param vRuleSet
+     *            the v rule set
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -288,7 +314,10 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
+     * Sets the rule set.
+     *
      * @param vRuleSetArray
+     *            the new rule set
      */
     public void setRuleSet(final RuleSet[] vRuleSetArray) {
         this.setRuleSet(Arrays.asList(vRuleSetArray));
@@ -312,9 +341,9 @@ public class EngineConfiguration implements Serializable {
      * Sets the value of '_ruleSetList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param ruleSetList
      *            the Vector to set.
+     * @deprecated
      */
     public void setRuleSetCollection(final List<RuleSet> ruleSetList) {
         this._ruleSetList = ruleSetList;
@@ -324,20 +353,23 @@ public class EngineConfiguration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         EngineConfiguration
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         EngineConfiguration
      */
     public static EngineConfiguration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (EngineConfiguration) Unmarshaller.unmarshal(EngineConfiguration.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
@@ -347,6 +379,9 @@ public class EngineConfiguration implements Serializable {
         validator.validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -355,6 +390,9 @@ public class EngineConfiguration implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -372,6 +410,17 @@ public class EngineConfiguration implements Serializable {
         return true;
     }
 
+    /**
+     * Construct engines.
+     *
+     * @param basePath
+     *            the base path
+     * @param appContext
+     *            the app context
+     * @param eventIpcManager
+     *            the event ipc manager
+     * @return the correlation engine[]
+     */
     public CorrelationEngine[] constructEngines(Resource basePath, ApplicationContext appContext,
             EventIpcManager eventIpcManager) {
 

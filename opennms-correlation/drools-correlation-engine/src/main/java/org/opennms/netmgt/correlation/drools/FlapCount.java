@@ -41,18 +41,26 @@ import org.springframework.core.style.ToStringCreator;
  * @version $Id: $
  */
 public class FlapCount {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FlapCount.class);
 
+    /** The m_nodeid. */
     Long m_nodeid;
 
+    /** The m_ip addr. */
     String m_ipAddr;
 
+    /** The m_svc name. */
     String m_svcName;
 
+    /** The m_location monitor. */
     Integer m_locationMonitor;
 
+    /** The m_alerted. */
     boolean m_alerted;
 
+    /** The m_count. */
     Integer m_count;
 
     /**
@@ -84,6 +92,7 @@ public class FlapCount {
      * <p>
      * increment
      * </p>
+     * .
      */
     public void increment() {
         m_count += 1;
@@ -94,6 +103,7 @@ public class FlapCount {
      * <p>
      * decrement
      * </p>
+     * .
      */
     public void decrement() {
         m_count -= 1;
@@ -104,6 +114,7 @@ public class FlapCount {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -115,6 +126,7 @@ public class FlapCount {
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a {@link java.lang.Integer} object.
@@ -127,6 +139,7 @@ public class FlapCount {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -138,6 +151,7 @@ public class FlapCount {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -150,6 +164,7 @@ public class FlapCount {
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -161,6 +176,7 @@ public class FlapCount {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.Long} object.
@@ -173,6 +189,7 @@ public class FlapCount {
      * <p>
      * getSvcName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -184,6 +201,7 @@ public class FlapCount {
      * <p>
      * setSvcName
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -196,6 +214,7 @@ public class FlapCount {
      * <p>
      * isAlerted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -207,6 +226,7 @@ public class FlapCount {
      * <p>
      * setAlerted
      * </p>
+     * .
      *
      * @param alerted
      *            a boolean.
@@ -219,6 +239,7 @@ public class FlapCount {
      * <p>
      * getLocationMonitor
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -230,6 +251,7 @@ public class FlapCount {
      * <p>
      * setLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a {@link java.lang.Integer} object.
@@ -242,6 +264,7 @@ public class FlapCount {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

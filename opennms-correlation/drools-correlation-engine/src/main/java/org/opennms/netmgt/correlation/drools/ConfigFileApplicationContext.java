@@ -36,13 +36,30 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ConfigFileApplicationContext.
+ */
 public class ConfigFileApplicationContext extends AbstractXmlApplicationContext {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConfigFileApplicationContext.class);
 
+    /** The m_resource. */
     private Resource m_resource;
 
+    /** The m_config file location. */
     private String m_configFileLocation;
 
+    /**
+     * Instantiates a new config file application context.
+     *
+     * @param basePath
+     *            the base path
+     * @param configFileLocation
+     *            the config file location
+     * @param parent
+     *            the parent
+     */
     public ConfigFileApplicationContext(Resource basePath, final String configFileLocation,
             final ApplicationContext parent) {
         super(parent);
@@ -51,6 +68,9 @@ public class ConfigFileApplicationContext extends AbstractXmlApplicationContext 
         refresh();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.context.support.AbstractRefreshableConfigApplicationContext#getConfigLocations()
+     */
     @Override
     protected String[] getConfigLocations() {
         if (m_configFileLocation == null) {
@@ -59,6 +79,9 @@ public class ConfigFileApplicationContext extends AbstractXmlApplicationContext 
         return new String[] { m_configFileLocation };
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.core.io.DefaultResourceLoader#getResourceByPath(java.lang.String)
+     */
     @Override
     protected Resource getResourceByPath(final String path) {
         try {

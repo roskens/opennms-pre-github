@@ -34,14 +34,26 @@ import org.junit.Test;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class LocationMonitorRulesTest.
+ */
 public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
+    /** The Constant WS_OUTAGE_UEI. */
     private static final String WS_OUTAGE_UEI = "uei.opennms.org/correlation/remote/wideSpreadOutage";
 
+    /** The Constant WS_RESOLVED_UEI. */
     private static final String WS_RESOLVED_UEI = "uei.opennms.org/correlation/remote/wideSpreadOutageResolved";
 
+    /** The Constant SERVICE_FLAPPING_UEI. */
     private static final String SERVICE_FLAPPING_UEI = "uei.opennms.org/correlation/serviceFlapping";
 
+    /**
+     * Test wide spread location monitor outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWideSpreadLocationMonitorOutage() throws Exception {
 
@@ -84,6 +96,12 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test single location monitor outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSingleLocationMonitorOutage() throws Exception {
 
@@ -114,6 +132,12 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         verify(engine);
     }
 
+    /**
+     * Test double location monitor outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDoubleLocationMonitorOutage() throws Exception {
 
@@ -145,6 +169,12 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         verify(engine);
     }
 
+    /**
+     * Test flapping monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFlappingMonitor() throws Exception {
 
@@ -223,6 +253,12 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test dont flap when only two outages.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDontFlapWhenOnlyTwoOutages() throws Exception {
 
@@ -274,18 +310,34 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Anticipate wide spread outage event.
+     */
     private void anticipateWideSpreadOutageEvent() {
         anticipate(createWideSpreadOutageEvent());
     }
 
+    /**
+     * Creates the wide spread outage event.
+     *
+     * @return the event
+     */
     private Event createWideSpreadOutageEvent() {
         return new EventBuilder(WS_OUTAGE_UEI, "Drools").setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
+    /**
+     * Anticipate wide spread outage resolved event.
+     */
     private void anticipateWideSpreadOutageResolvedEvent() {
         anticipate(createWideSpreadOutageResolvedEvent());
     }
 
+    /**
+     * Creates the wide spread outage resolved event.
+     *
+     * @return the event
+     */
     private Event createWideSpreadOutageResolvedEvent() {
         EventBuilder bldr = new EventBuilder(WS_RESOLVED_UEI, "Drools");
         bldr.setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP");
@@ -294,10 +346,18 @@ public class LocationMonitorRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Anticipate service flapping event.
+     */
     private void anticipateServiceFlappingEvent() {
         anticipate(createServiceFlappingEvent());
     }
 
+    /**
+     * Creates the service flapping event.
+     *
+     * @return the event
+     */
     private Event createServiceFlappingEvent() {
         return new EventBuilder(SERVICE_FLAPPING_UEI, "Drools").setNodeid(1).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }

@@ -36,9 +36,20 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class NodeParentRulesTest.
+ */
 public class NodeParentRulesTest extends CorrelationRulesTestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /**
+     * Test parent node down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testParentNodeDown() throws Exception {
 
@@ -65,6 +76,15 @@ public class NodeParentRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Creates the root cause resolved event.
+     *
+     * @param symptom
+     *            the symptom
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createRootCauseResolvedEvent(int symptom, int cause) {
         return new EventBuilder(createNodeEvent("rootCauseResolved", cause)).getEvent();
 
@@ -76,14 +96,37 @@ public class NodeParentRulesTest extends CorrelationRulesTestCase {
     // cause)).getEvent();
     // }
 
+    /**
+     * Creates the node down event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node up event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeUpEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeEvent(String uei, int nodeid) {
         return new EventBuilder(uei, "test").setNodeid(nodeid).getEvent();
     }

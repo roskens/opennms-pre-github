@@ -40,18 +40,33 @@ import java.util.List;
  * @version $Id: $
  */
 public class Affliction {
+
+    /** The m_nodeid. */
     Long m_nodeid;
 
+    /** The m_ip addr. */
     String m_ipAddr;
 
+    /** The m_svc name. */
     String m_svcName;
 
+    /**
+     * The Enum Type.
+     */
     public static enum Type {
-        UNDECIDED, ISOLATED, WIDE_SPREAD
+
+        /** The undecided. */
+        UNDECIDED,
+ /** The isolated. */
+ ISOLATED,
+ /** The wide spread. */
+ WIDE_SPREAD
     }
 
+    /** The m_reporters. */
     private List<Integer> m_reporters = new ArrayList<Integer>();
 
+    /** The m_type. */
     private Type m_type = Type.UNDECIDED;
 
     /**
@@ -79,6 +94,7 @@ public class Affliction {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +106,7 @@ public class Affliction {
      * <p>
      * setIpAddr
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -102,6 +119,7 @@ public class Affliction {
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -113,6 +131,7 @@ public class Affliction {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a {@link java.lang.Long} object.
@@ -125,6 +144,7 @@ public class Affliction {
      * <p>
      * getReporters
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -136,6 +156,7 @@ public class Affliction {
      * <p>
      * setReporters
      * </p>
+     * .
      *
      * @param reporters
      *            a {@link java.util.List} object.
@@ -148,6 +169,7 @@ public class Affliction {
      * <p>
      * getSvcName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,6 +181,7 @@ public class Affliction {
      * <p>
      * setSvcName
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -171,6 +194,7 @@ public class Affliction {
      * <p>
      * getReporterCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -182,6 +206,7 @@ public class Affliction {
      * <p>
      * addReporter
      * </p>
+     * .
      *
      * @param reporter
      *            a {@link java.lang.Integer} object.
@@ -194,6 +219,7 @@ public class Affliction {
      * <p>
      * removeReporter
      * </p>
+     * .
      *
      * @param reporter
      *            a {@link java.lang.Integer} object.
@@ -206,6 +232,7 @@ public class Affliction {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.correlation.drools.Affliction.Type}
      *         object.
@@ -218,6 +245,7 @@ public class Affliction {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a

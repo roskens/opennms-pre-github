@@ -45,6 +45,7 @@ public interface NodeService {
      * <p>
      * getParentNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link java.lang.Long} object.

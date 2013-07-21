@@ -82,6 +82,9 @@ public class RuleSetDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new rule set descriptor.
+     */
     public RuleSetDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/drools-engine";

@@ -46,6 +46,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class DroolsCorrelationEngineBuilderTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -56,18 +59,30 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DroolsCorrelationEngineBuilderTest implements InitializingBean {
+
+    /** The m_drools correlation engine builder. */
     @Autowired
     private DroolsCorrelationEngineBuilder m_droolsCorrelationEngineBuilder;
 
+    /** The m_mock correlator. */
     @Autowired
     private CorrelationEngineRegistrar m_mockCorrelator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         assertNotNull(m_droolsCorrelationEngineBuilder);
         assertNotNull(m_mockCorrelator);
     }
 
+    /**
+     * Test it.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIt() throws Exception {
         List<CorrelationEngine> engines = m_mockCorrelator.getEngines();

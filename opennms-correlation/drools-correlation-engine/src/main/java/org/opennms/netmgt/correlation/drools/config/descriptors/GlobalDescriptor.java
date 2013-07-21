@@ -82,6 +82,9 @@ public class GlobalDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new global descriptor.
+     */
     public GlobalDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/drools-engine";

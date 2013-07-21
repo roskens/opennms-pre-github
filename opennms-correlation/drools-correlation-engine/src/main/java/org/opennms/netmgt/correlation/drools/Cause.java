@@ -44,18 +44,32 @@ import org.opennms.netmgt.xml.event.Event;
  */
 public class Cause {
 
+    /**
+     * The Enum Type.
+     */
     public enum Type {
-        POSSIBLE, IMPACT, ROOT
+
+        /** The possible. */
+        POSSIBLE,
+ /** The impact. */
+ IMPACT,
+ /** The root. */
+ ROOT
     }
 
+    /** The m_type. */
     private Type m_type;
 
+    /** The m_cause. */
     private Long m_cause;
 
+    /** The m_symptom. */
     private Event m_symptom;
 
+    /** The m_timer id. */
     private Integer m_timerId;
 
+    /** The m_impacted. */
     private final Set<Cause> m_impacted = new HashSet<Cause>();
 
     /**
@@ -101,6 +115,7 @@ public class Cause {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
      *         object.
@@ -113,6 +128,7 @@ public class Cause {
      * <p>
      * setType
      * </p>
+     * .
      *
      * @param type
      *            a {@link org.opennms.netmgt.correlation.drools.Cause.Type}
@@ -126,6 +142,7 @@ public class Cause {
      * <p>
      * getCause
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -137,6 +154,7 @@ public class Cause {
      * <p>
      * setCause
      * </p>
+     * .
      *
      * @param causeNodeId
      *            a {@link java.lang.Long} object.
@@ -149,6 +167,7 @@ public class Cause {
      * <p>
      * getSymptom
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -160,6 +179,7 @@ public class Cause {
      * <p>
      * setSymptom
      * </p>
+     * .
      *
      * @param symptomEvent
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -172,6 +192,7 @@ public class Cause {
      * <p>
      * getImpacted
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -183,6 +204,7 @@ public class Cause {
      * <p>
      * addImpacted
      * </p>
+     * .
      *
      * @param cause
      *            a {@link org.opennms.netmgt.correlation.drools.Cause} object.
@@ -195,6 +217,7 @@ public class Cause {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -208,6 +231,7 @@ public class Cause {
      * <p>
      * getTimerId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -219,6 +243,7 @@ public class Cause {
      * <p>
      * setTimerId
      * </p>
+     * .
      *
      * @param timerId
      *            a {@link java.lang.Integer} object.

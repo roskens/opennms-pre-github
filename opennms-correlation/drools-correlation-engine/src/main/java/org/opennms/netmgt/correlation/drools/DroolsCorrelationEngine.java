@@ -62,18 +62,26 @@ import org.springframework.core.io.Resource;
  * @version $Id: $
  */
 public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DroolsCorrelationEngine.class);
 
+    /** The m_working memory. */
     private WorkingMemory m_workingMemory;
 
+    /** The m_interesting events. */
     private List<String> m_interestingEvents;
 
+    /** The m_rules. */
     private List<Resource> m_rules;
 
+    /** The m_globals. */
     private Map<String, Object> m_globals = new HashMap<String, Object>();
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_assert behaviour. */
     private String m_assertBehaviour;
 
     /** {@inheritDoc} */
@@ -105,6 +113,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * setInterestingEvents
      * </p>
+     * .
      *
      * @param ueis
      *            a {@link java.util.List} object.
@@ -117,6 +126,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * setRulesResources
      * </p>
+     * .
      *
      * @param rules
      *            a {@link java.util.List} object.
@@ -129,6 +139,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * setGlobals
      * </p>
+     * .
      *
      * @param globals
      *            a {@link java.util.Map} object.
@@ -141,9 +152,10 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * initialize
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void initialize() throws Exception {
         final Properties props = new Properties();
@@ -176,6 +188,16 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
 
     }
 
+    /**
+     * Load rules.
+     *
+     * @param builder
+     *            the builder
+     * @throws DroolsParserException
+     *             the drools parser exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void loadRules(final PackageBuilder builder) throws DroolsParserException, IOException {
 
         for (final Resource rulesFile : m_rules) {
@@ -194,6 +216,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * getMemorySize
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -209,6 +232,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * getMemoryObjects
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -220,6 +244,11 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         return objects;
     }
 
+    /**
+     * Gets the working memory.
+     *
+     * @return the working memory
+     */
     public WorkingMemory getWorkingMemory() {
         return m_workingMemory;
     }
@@ -228,6 +257,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -240,6 +270,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +283,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
      * <p>
      * setGlobal
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -262,6 +294,12 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         m_workingMemory.setGlobal(name, value);
     }
 
+    /**
+     * Sets the assert behaviour.
+     *
+     * @param assertBehaviour
+     *            the new assert behaviour
+     */
     public void setAssertBehaviour(String assertBehaviour) {
         m_assertBehaviour = assertBehaviour;
     }

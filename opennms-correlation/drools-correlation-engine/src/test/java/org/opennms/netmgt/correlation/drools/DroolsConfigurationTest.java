@@ -39,21 +39,52 @@ import org.opennms.netmgt.correlation.drools.config.RuleSet;
 
 import bsh.ParseException;
 
+/**
+ * The Class DroolsConfigurationTest.
+ */
 public class DroolsConfigurationTest extends XmlTest<EngineConfiguration> {
 
+    /**
+     * Instantiates a new drools configuration test.
+     *
+     * @param schemaFile
+     *            the schema file
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     */
     public DroolsConfigurationTest(String schemaFile, EngineConfiguration sampleObject, String sampleXml) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * The Class ConfigBuilder.
+     */
     static class ConfigBuilder {
+
+        /** The m_engine configuration. */
         EngineConfiguration m_engineConfiguration = new EngineConfiguration();
 
+        /** The m_current rule set. */
         RuleSet m_currentRuleSet;
 
+        /**
+         * Gets the.
+         *
+         * @return the engine configuration
+         */
         public EngineConfiguration get() {
             return m_engineConfiguration;
         }
 
+        /**
+         * Adds the rule set.
+         *
+         * @param name
+         *            the name
+         * @return the config builder
+         */
         public ConfigBuilder addRuleSet(String name) {
             m_currentRuleSet = new RuleSet();
             m_currentRuleSet.setName(name);
@@ -62,21 +93,55 @@ public class DroolsConfigurationTest extends XmlTest<EngineConfiguration> {
             return this;
         }
 
+        /**
+         * Adds the rule file.
+         *
+         * @param path
+         *            the path
+         * @return the config builder
+         */
         public ConfigBuilder addRuleFile(String path) {
             m_currentRuleSet.addRuleFile(path);
             return this;
         }
 
+        /**
+         * Adds the event.
+         *
+         * @param uei
+         *            the uei
+         * @return the config builder
+         */
         public ConfigBuilder addEvent(String uei) {
             m_currentRuleSet.addEvent(uei);
             return this;
         }
 
+        /**
+         * Sets the app context.
+         *
+         * @param path
+         *            the path
+         * @return the config builder
+         */
         public ConfigBuilder setAppContext(String path) {
             m_currentRuleSet.setAppContext(path);
             return this;
         }
 
+        /**
+         * Adds the global value.
+         *
+         * @param <T>
+         *            the generic type
+         * @param name
+         *            the name
+         * @param type
+         *            the type
+         * @param val
+         *            the val
+         * @return the config builder
+         */
         public <T> ConfigBuilder addGlobalValue(String name, Class<T> type, T val) {
             Global global = new Global();
             global.setName(name);
@@ -88,6 +153,17 @@ public class DroolsConfigurationTest extends XmlTest<EngineConfiguration> {
             return this;
         }
 
+        /**
+         * Adds the global ref.
+         *
+         * @param name
+         *            the name
+         * @param type
+         *            the type
+         * @param ref
+         *            the ref
+         * @return the config builder
+         */
         public ConfigBuilder addGlobalRef(String name, Class<?> type, String ref) {
             Global global = new Global();
             global.setName(name);
@@ -101,6 +177,13 @@ public class DroolsConfigurationTest extends XmlTest<EngineConfiguration> {
 
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
