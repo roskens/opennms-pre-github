@@ -45,7 +45,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * TODO Tak refactor this test to be snmp and not tca
+ * TODO Tak refactor this test to be snmp and not tca.
  *
  * @author Markus Neumann
  */
@@ -55,29 +55,46 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitSnmpAgent(port = 9161, host = "127.0.0.1", resource = "classpath:SnmpSample.properties")
 public class SnmpProtocolCollectorTest implements InitializingBean {
 
+    /** The protocol collector. */
     @Autowired
     private ProtocolCollector protocolCollector;
 
+    /** The collection job. */
     private CollectionJob collectionJob;
 
+    /** The localhost. */
     private InetAddress localhost;
 
+    /** The snmp agent config. */
     private SnmpAgentConfig snmpAgentConfig;
 
+    /** The destinations. */
     private Set<String> destinations;
 
+    /** The test metric. */
     private final String testMetric = ".1.3.6.1.2.1.1.1.0";
 
+    /** The test metric value. */
     private final String testMetricValue = "Mock Juniper TCA Device";
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
@@ -89,6 +106,9 @@ public class SnmpProtocolCollectorTest implements InitializingBean {
         destinations.add("test");
     }
 
+    /**
+     * Test collect.
+     */
     @Test
     public void testCollect() {
         collectionJob.setService("SNMP");
@@ -101,11 +121,20 @@ public class SnmpProtocolCollectorTest implements InitializingBean {
         Assert.assertEquals(result.getMetricValue(testMetric), testMetricValue);
     }
 
+    /**
+     * Test get protocol.
+     */
     @Test
     public void testGetProtocol() {
         Assert.assertEquals("SNMP", protocolCollector.getProtcol());
     }
 
+    /**
+     * Test agent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAgent() throws Exception {
         SnmpValue snmpValue = SnmpUtils.get(snmpAgentConfig, SnmpObjId.get(".1.3.6.1.2.1.1.1.0"));

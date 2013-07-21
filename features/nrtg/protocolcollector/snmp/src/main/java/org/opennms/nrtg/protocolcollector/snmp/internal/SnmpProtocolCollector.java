@@ -48,26 +48,47 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A ProtocolCollector to execute CollectionJobs for SNMP
+ * A ProtocolCollector to execute CollectionJobs for SNMP.
  *
  * @author Markus Neumann
  */
 public class SnmpProtocolCollector implements ProtocolCollector {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(SnmpProtocolCollector.class);
 
+    /** The Constant PROTOCOL. */
     private static final String PROTOCOL = "SNMP";
 
+    /** The m_snmp strategy. */
     private SnmpStrategy m_snmpStrategy;
 
+    /**
+     * Gets the snmp strategy.
+     *
+     * @return the snmp strategy
+     */
     public SnmpStrategy getSnmpStrategy() {
         return m_snmpStrategy;
     }
 
+    /**
+     * Sets the snmp strategy.
+     *
+     * @param snmpStrategy
+     *            the new snmp strategy
+     */
     public void setSnmpStrategy(SnmpStrategy snmpStrategy) {
         m_snmpStrategy = snmpStrategy;
     }
 
+    /**
+     * Type to string.
+     *
+     * @param type
+     *            the type
+     * @return the string
+     */
     private String typeToString(int type) {
         switch (type) {
         case SnmpValue.SNMP_COUNTER32:
@@ -95,6 +116,9 @@ public class SnmpProtocolCollector implements ProtocolCollector {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.ProtocolCollector#collect(org.opennms.nrtg.api.model.CollectionJob)
+     */
     @Override
     public CollectionJob collect(final CollectionJob collectionJob) {
         logger.info("SnmpProtocolCollector is collecting collectionJob '{}'", collectionJob.getId());
