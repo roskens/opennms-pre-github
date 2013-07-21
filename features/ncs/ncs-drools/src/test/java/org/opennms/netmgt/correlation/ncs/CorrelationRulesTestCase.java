@@ -49,6 +49,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * The Class CorrelationRulesTestCase.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:META-INF/opennms/applicationContext-datasource.xml",
         "classpath:META-INF/opennms/applicationContext-testDao.xml",
@@ -58,23 +61,41 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @JUnitConfigurationEnvironment
 public abstract class CorrelationRulesTestCase {
 
+    /** The m_event ipc mgr. */
     @Autowired
     @Qualifier("mock")
     private MockEventIpcManager m_eventIpcMgr;
 
+    /** The m_anticipated memory size. */
     protected Integer m_anticipatedMemorySize = 0;
 
+    /** The m_correlator. */
     @Autowired
     private CorrelationEngineRegistrar m_correlator;
 
+    /**
+     * Instantiates a new correlation rules test case.
+     */
     protected CorrelationRulesTestCase() {
         ConfigurationTestUtils.setRelativeHomeDirectory("src/test/opennms-home");
     }
 
+    /**
+     * Sets the correlation engine registrar.
+     *
+     * @param correlator
+     *            the new correlation engine registrar
+     */
     public void setCorrelationEngineRegistrar(CorrelationEngineRegistrar correlator) {
         m_correlator = correlator;
     }
 
+    /**
+     * Verify.
+     *
+     * @param engine
+     *            the engine
+     */
     protected void verify(DroolsCorrelationEngine engine) {
         getAnticipator().verifyAnticipated(0, 0, 0, 0, 0);
         if (m_anticipatedMemorySize != null) {
@@ -83,38 +104,113 @@ public abstract class CorrelationRulesTestCase {
         }
     }
 
+    /**
+     * Find engine by name.
+     *
+     * @param engineName
+     *            the engine name
+     * @return the drools correlation engine
+     */
     protected DroolsCorrelationEngine findEngineByName(String engineName) {
         return (DroolsCorrelationEngine) m_correlator.findEngineByName(engineName);
     }
 
+    /**
+     * Anticipate.
+     *
+     * @param events
+     *            the events
+     */
     protected void anticipate(Event... events) {
         anticipate(Arrays.asList(events));
     }
 
+    /**
+     * Anticipate.
+     *
+     * @param events
+     *            the events
+     */
     protected void anticipate(Collection<Event> events) {
         for (Event event : events) {
             getAnticipator().anticipateEvent(event);
         }
     }
 
+    /**
+     * Creates the remote node lost service event.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @param locationMonitor
+     *            the location monitor
+     * @return the event
+     */
     protected Event createRemoteNodeLostServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
         return createEvent(EventConstants.REMOTE_NODE_LOST_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
+    /**
+     * Creates the remote node regained service event.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @param locationMonitor
+     *            the location monitor
+     * @return the event
+     */
     protected Event createRemoteNodeRegainedServiceEvent(int nodeId, String ipAddr, String svcName, int locationMonitor) {
         return createEvent(EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI, nodeId, ipAddr, svcName, locationMonitor);
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @param locationMonitor
+     *            the location monitor
+     * @return the event
+     */
     protected Event createEvent(String uei, int nodeId, String ipAddr, String svcName, int locationMonitor) {
         return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr(ipAddr)).setService(svcName).addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                                                        locationMonitor).getEvent();
     }
 
+    /**
+     * Creates the service event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     protected Event createServiceEvent(String uei, int nodeId, String ipAddr, String svcName) {
         return new EventBuilder(uei, "test").setNodeid(nodeId).setInterface(addr("192.168.1.1")).setService("HTTP").getEvent();
     }
 
     /**
+     * Gets the anticipator.
+     *
      * @return the anticipator
      */
     protected EventAnticipator getAnticipator() {

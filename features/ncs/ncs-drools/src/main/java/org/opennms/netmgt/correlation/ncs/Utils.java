@@ -28,8 +28,20 @@
 
 package org.opennms.netmgt.correlation.ncs;
 
+/**
+ * The Class Utils.
+ */
 public abstract class Utils {
 
+    /**
+     * Null safe equals.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @return true, if successful
+     */
     public static boolean nullSafeEquals(Object a, Object b) {
         return a == null ? b == null : a.equals(b);
     }

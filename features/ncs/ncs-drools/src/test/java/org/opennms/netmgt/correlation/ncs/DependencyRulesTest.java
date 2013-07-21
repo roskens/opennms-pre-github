@@ -57,31 +57,73 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+/**
+ * The Class DependencyRulesTest.
+ */
 public class DependencyRulesTest extends CorrelationRulesTestCase {
 
+    /**
+     * The Interface Predicate.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static interface Predicate<T> {
+
+        /**
+         * Accept.
+         *
+         * @param t
+         *            the t
+         * @return true, if successful
+         */
         public boolean accept(T t);
     }
 
+    /**
+     * The Interface Transform.
+     *
+     * @param <A>
+     *            the generic type
+     * @param <B>
+     *            the generic type
+     */
     private static interface Transform<A, B> {
+
+        /**
+         * Transform.
+         *
+         * @param a
+         *            the a
+         * @return the b
+         */
         public B transform(A a);
     }
 
+    /** The m_repository. */
     @Autowired
     NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_pe1 node id. */
     int m_pe1NodeId;
 
+    /** The m_pe2 node id. */
     int m_pe2NodeId;
 
+    /** The m_svc. */
     private NCSComponent m_svc;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -158,6 +200,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test dependency any rules.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     @Ignore("Non Deterministic!!!")
@@ -208,6 +256,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test simple down up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testSimpleDownUpCase() throws Exception {
@@ -246,6 +300,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test two cause down up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testTwoCauseDownUpCase() throws Exception {
@@ -322,6 +382,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     // "jnxVpnIfVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp
     // send-event.pl --parm "jnxVpnPwVpnName ge-1/3/2.1" --parm
     // "jnxVpnPwVpnType 5" -n 5 uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp
+    /**
+     * Test two outages two resolutions case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testTwoOutagesTwoResolutionsCase() throws Exception {
@@ -403,6 +469,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test node down up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testNodeDownUpCase() throws Exception {
@@ -446,6 +518,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test multiple down and single up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     // @Ignore("not yet implemented")
@@ -489,6 +567,12 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test two outages case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testTwoOutagesCase() throws Exception {
@@ -573,6 +657,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     // ignore duplicate cause events
     // ignore duplicate resolution events
 
+    /**
+     * Creates the mpls lsp path down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathDownEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
@@ -582,6 +679,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the mpls lsp path up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathUpEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
@@ -590,6 +700,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -599,6 +724,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -608,6 +748,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn if down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnIfDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -617,6 +772,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn if up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnIfUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -632,33 +802,109 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     // cause)).getEvent();
     // }
 
+    /**
+     * Creates the component impacted event.
+     *
+     * @param component
+     *            the component
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentImpactedEvent(NCSComponent component, int cause) {
         return createComponentImpactedEvent(component.getType(), component.getName(), component.getForeignSource(),
                                             component.getForeignId(), cause);
     }
 
+    /**
+     * Creates the component impacted event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentImpactedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
         return createComponentEvent("uei.opennms.org/internal/ncs/componentImpacted", type, name, foreignSource,
                                     foreignId, cause);
     }
 
+    /**
+     * Creates the component resolved event.
+     *
+     * @param component
+     *            the component
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentResolvedEvent(NCSComponent component, int cause) {
         return createComponentResolvedEvent(component.getType(), component.getName(), component.getForeignSource(),
                                             component.getForeignId(), cause);
     }
 
+    /**
+     * Creates the component resolved event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentResolvedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
         return createComponentEvent("uei.opennms.org/internal/ncs/componentResolved", type, name, foreignSource,
                                     foreignId, cause);
     }
 
+    /**
+     * Creates the component event.
+     *
+     * @param uei
+     *            the uei
+     * @param component
+     *            the component
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentEvent(String uei, NCSComponent component, int cause) {
         return createComponentEvent(uei, component.getType(), component.getName(), component.getForeignSource(),
                                     component.getForeignId(), cause);
     }
 
+    /**
+     * Creates the component event.
+     *
+     * @param uei
+     *            the uei
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentEvent(String uei, String type, String name, String foreignSource, String foreignId,
             int cause) {
         return new EventBuilder(uei, "Component Correlator").addParam("componentType", type).addParam("componentName",
@@ -668,31 +914,95 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                  cause).getEvent();
     }
 
+    /**
+     * Creates the node down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeDownEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeDown", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
+    /**
+     * Creates the node up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeUpEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeUp", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
+    /**
+     * Creates the node lost service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the node regained service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the svc event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName) {
         return new EventBuilder(uei, "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).setService(svcName).getEvent();
 
     }
 
+    /**
+     * Find subcomponent.
+     *
+     * @param svc
+     *            the svc
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the nCS component
+     */
     private NCSComponent findSubcomponent(NCSComponent svc, String foreignSource, String foreignId) {
         Set<NCSComponent> components = findMatchingComponents(svc, byId(foreignSource, foreignId));
 
@@ -708,10 +1018,30 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return components.iterator().next();
     }
 
+    /**
+     * Find subcomponents on node.
+     *
+     * @param svc
+     *            the svc
+     * @param nodeForeignSource
+     *            the node foreign source
+     * @param nodeForeignId
+     *            the node foreign id
+     * @return the sets the
+     */
     private Set<NCSComponent> findSubcomponentsOnNode(NCSComponent svc, String nodeForeignSource, String nodeForeignId) {
         return findMatchingComponents(svc, byNode(nodeForeignSource, nodeForeignId));
     }
 
+    /**
+     * Find matching components.
+     *
+     * @param c
+     *            the c
+     * @param pred
+     *            the pred
+     * @return the sets the
+     */
     private Set<NCSComponent> findMatchingComponents(NCSComponent c, final Predicate<NCSComponent> pred) {
 
         VisitorWithReturn<Set<NCSComponent>> visitor = new VisitorWithReturn<Set<NCSComponent>>() {
@@ -729,12 +1059,36 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Visit with ret val.
+     *
+     * @param <T>
+     *            the generic type
+     * @param c
+     *            the c
+     * @param visitor
+     *            the visitor
+     * @param initialValue
+     *            the initial value
+     * @return the t
+     */
     private <T> T visitWithRetVal(NCSComponent c, VisitorWithReturn<T> visitor, T initialValue) {
         visitor.setRetVal(initialValue);
         c.visit(visitor);
         return visitor.getRetVal();
     }
 
+    /**
+     * Find path to subcomponent.
+     *
+     * @param svc
+     *            the svc
+     * @param subForeignSource
+     *            the sub foreign source
+     * @param subForeignId
+     *            the sub foreign id
+     * @return the list
+     */
     private List<NCSComponent> findPathToSubcomponent(NCSComponent svc, final String subForeignSource,
             final String subForeignId) {
 
@@ -760,6 +1114,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Transform.
+     *
+     * @param <A>
+     *            the generic type
+     * @param <B>
+     *            the generic type
+     * @param as
+     *            the as
+     * @param transformer
+     *            the transformer
+     * @return the sets the
+     */
     private <A, B> Set<B> transform(Set<A> as, Transform<A, B> transformer) {
         Set<B> bs = new LinkedHashSet<B>();
 
@@ -770,6 +1137,19 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return bs;
     }
 
+    /**
+     * Transform.
+     *
+     * @param <A>
+     *            the generic type
+     * @param <B>
+     *            the generic type
+     * @param as
+     *            the as
+     * @param transformer
+     *            the transformer
+     * @return the list
+     */
     private <A, B> List<B> transform(List<A> as, Transform<A, B> transformer) {
         List<B> bs = new LinkedList<B>();
 
@@ -780,6 +1160,15 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         return bs;
     }
 
+    /**
+     * By node.
+     *
+     * @param nodeForeignSource
+     *            the node foreign source
+     * @param nodeForeignId
+     *            the node foreign id
+     * @return the predicate
+     */
     private Predicate<NCSComponent> byNode(final String nodeForeignSource, final String nodeForeignId) {
         return new Predicate<NCSComponent>() {
 
@@ -793,6 +1182,15 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         };
     }
 
+    /**
+     * By id.
+     *
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the predicate
+     */
     private Predicate<NCSComponent> byId(final String foreignSource, final String foreignId) {
         return new Predicate<NCSComponent>() {
 
@@ -804,6 +1202,11 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         };
     }
 
+    /**
+     * Foreign identifiers.
+     *
+     * @return the transform
+     */
     private Transform<NCSComponent, String> foreignIdentifiers() {
         return new Transform<NCSComponent, String>() {
 
@@ -815,6 +1218,15 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         };
     }
 
+    /**
+     * To component event.
+     *
+     * @param uei
+     *            the uei
+     * @param cause
+     *            the cause
+     * @return the transform
+     */
     private Transform<NCSComponent, Event> toComponentEvent(final String uei, final int cause) {
         return new Transform<NCSComponent, Event>() {
 
@@ -826,30 +1238,75 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
         };
     }
 
+    /**
+     * To component impacted event.
+     *
+     * @param cause
+     *            the cause
+     * @return the transform
+     */
     private Transform<NCSComponent, Event> toComponentImpactedEvent(final int cause) {
         return toComponentEvent("uei.opennms.org/internal/ncs/componentImpacted", cause);
     }
 
+    /**
+     * To component resolved event.
+     *
+     * @param cause
+     *            the cause
+     * @return the transform
+     */
     private Transform<NCSComponent, Event> toComponentResolvedEvent(final int cause) {
         return toComponentEvent("uei.opennms.org/internal/ncs/componentResolved", cause);
     }
 
+    /**
+     * The Class VisitorWithReturn.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static class VisitorWithReturn<T> extends AbstractNCSComponentVisitor {
+
+        /** The ret val. */
         private T retVal = null;
 
+        /**
+         * Sets the ret val.
+         *
+         * @param r
+         *            the new ret val
+         */
         public void setRetVal(T r) {
             retVal = r;
         }
 
+        /**
+         * Gets the ret val.
+         *
+         * @return the ret val
+         */
         public T getRetVal() {
             return retVal;
         }
     }
 
+    /**
+     * Of events.
+     *
+     * @return the event[]
+     */
     private Event[] ofEvents() {
         return new Event[0];
     }
 
+    /**
+     * Uniq.
+     *
+     * @param components
+     *            the components
+     * @return the sets the
+     */
     private static Set<NCSComponent> uniq(Set<NCSComponent> components) {
         Set<NCSComponent> results = new LinkedHashSet<NCSComponent>();
         Set<String> ids = new HashSet<String>();

@@ -30,8 +30,19 @@ package org.opennms.netmgt.correlation.ncs;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class ComponentDownEvent.
+ */
 public class ComponentDownEvent extends ComponentEvent {
 
+    /**
+     * Instantiates a new component down event.
+     *
+     * @param component
+     *            the component
+     * @param event
+     *            the event
+     */
     public ComponentDownEvent(Component component, Event event) {
         super(component, event);
     }

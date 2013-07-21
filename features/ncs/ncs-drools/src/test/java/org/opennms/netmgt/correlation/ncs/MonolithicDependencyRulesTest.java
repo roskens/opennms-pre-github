@@ -48,21 +48,32 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+/**
+ * The Class MonolithicDependencyRulesTest.
+ */
 public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
+    /** The m_repository. */
     @Autowired
     NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_pe1 node id. */
     int m_pe1NodeId;
 
+    /** The m_pe2 node id. */
     int m_pe2NodeId;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -139,6 +150,12 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test dependency any rules.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     @Ignore("Non Deterministic!!!")
@@ -199,6 +216,12 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test simple up down case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testSimpleUpDownCase() throws Exception {
@@ -249,6 +272,12 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test multiple down and single up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     @Ignore("not yet implemented")
@@ -314,18 +343,53 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
     // ignore duplicate cause events
     // ignore duplicate resolution events
 
+    /**
+     * Creates the mpls lsp path down event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathDownEvent(int nodeid, String ipaddr, String lspname) {
 
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
                                                                                                                                                       lspname).getEvent();
     }
 
+    /**
+     * Creates the mpls lsp path up event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathUpEvent(int nodeid, String ipaddr, String lspname) {
 
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("mplsLspName",
                                                                                                                                                       lspname).getEvent();
     }
 
+    /**
+     * Creates the vpn pw down event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwDownEvent(int nodeid, String ipaddr, String pwtype, String pwname) {
 
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -333,6 +397,19 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                     pwname).getEvent();
     }
 
+    /**
+     * Creates the vpn pw up event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwUpEvent(int nodeid, String ipaddr, String pwtype, String pwname) {
 
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -346,6 +423,21 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
     // cause)).getEvent();
     // }
 
+    /**
+     * Creates the component impacted event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentImpactedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
 
@@ -357,6 +449,21 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                                              cause).getEvent();
     }
 
+    /**
+     * Creates the component resolved event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentResolvedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
         return new EventBuilder("uei.opennms.org/internal/ncs/componentResolved", "Component Correlator").addParam("componentType",
@@ -367,27 +474,85 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                                              cause).getEvent();
     }
 
+    /**
+     * Creates the node down event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node up event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     public Event createNodeUpEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
 
+    /**
+     * Creates the node lost service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the node regained service event.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName) {
         return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
 
+    /**
+     * Creates the svc event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param svcName
+     *            the svc name
+     * @return the event
+     */
     private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName) {
         return new EventBuilder(uei, "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).setService(svcName).getEvent();
 
     }
 
+    /**
+     * Creates the node event.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeEvent(String uei, int nodeid) {
         return new EventBuilder(uei, "test").setNodeid(nodeid).getEvent();
     }

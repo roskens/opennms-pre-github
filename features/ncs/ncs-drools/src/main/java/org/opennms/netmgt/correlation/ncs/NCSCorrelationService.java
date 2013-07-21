@@ -35,18 +35,44 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
+/**
+ * The Interface NCSCorrelationService.
+ */
 public interface NCSCorrelationService {
 
+    /**
+     * The Class AttrParmMap.
+     */
     public static class AttrParmMap {
+
+        /** The m_attribute name. */
         String m_attributeName;
 
+        /** The m_paramter index. */
         int m_paramterIndex;
 
+        /**
+         * Instantiates a new attr parm map.
+         *
+         * @param attributeName
+         *            the attribute name
+         * @param parameterIndex
+         *            the parameter index
+         */
         public AttrParmMap(String attributeName, int parameterIndex) {
             m_attributeName = attributeName;
             m_paramterIndex = parameterIndex;
         }
 
+        /**
+         * Matches.
+         *
+         * @param component
+         *            the component
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         public boolean matches(NCSComponent component, Event e) {
             if (!component.getAttributes().containsKey(m_attributeName))
                 return false;
@@ -68,12 +94,44 @@ public interface NCSCorrelationService {
 
     }
 
+    /**
+     * Find components that depend on.
+     *
+     * @param componentId
+     *            the component id
+     * @return the list
+     */
     List<NCSComponent> findComponentsThatDependOn(Long componentId);
 
+    /**
+     * Find sub components.
+     *
+     * @param componentId
+     *            the component id
+     * @return the list
+     */
     List<NCSComponent> findSubComponents(Long componentId);
 
+    /**
+     * Find components by node id and attr parm maps.
+     *
+     * @param e
+     *            the e
+     * @param parameterMap
+     *            the parameter map
+     * @return the list
+     */
     List<NCSComponent> findComponentsByNodeIdAndAttrParmMaps(Event e, AttrParmMap... parameterMap);
 
+    /**
+     * Find components by node id and event parameters.
+     *
+     * @param e
+     *            the e
+     * @param parameterNames
+     *            the parameter names
+     * @return the list
+     */
     List<NCSComponent> findComponentsByNodeIdAndEventParameters(Event e, String... parameterNames);
 
 }

@@ -32,41 +32,85 @@ import static org.opennms.netmgt.correlation.ncs.Utils.nullSafeEquals;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class Impacted.
+ */
 public class Impacted {
 
+    /** The m_target. */
     private Component m_target;
 
+    /** The m_cause. */
     private Event m_cause;
 
+    /**
+     * Instantiates a new impacted.
+     */
     public Impacted() {
     }
 
+    /**
+     * Instantiates a new impacted.
+     *
+     * @param target
+     *            the target
+     * @param cause
+     *            the cause
+     */
     public Impacted(Component target, Event cause) {
         m_target = target;
         m_cause = cause;
     }
 
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
     public Component getTarget() {
         return m_target;
     }
 
+    /**
+     * Sets the target.
+     *
+     * @param target
+     *            the new target
+     */
     public void setTarget(Component target) {
         m_target = target;
     }
 
+    /**
+     * Gets the cause.
+     *
+     * @return the cause
+     */
     public Event getCause() {
         return m_cause;
     }
 
+    /**
+     * Sets the cause.
+     *
+     * @param cause
+     *            the new cause
+     */
     public void setCause(Event cause) {
         m_cause = cause;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Impacted[ target=" + m_target + ", cause=" + m_cause.getUei() + "(" + m_cause.getDbid() + ")" + " ]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -76,6 +120,9 @@ public class Impacted {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

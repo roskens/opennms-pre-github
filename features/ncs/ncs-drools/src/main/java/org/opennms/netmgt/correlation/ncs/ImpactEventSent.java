@@ -28,33 +28,71 @@
 
 package org.opennms.netmgt.correlation.ncs;
 
+/**
+ * The Class ImpactEventSent.
+ */
 public class ImpactEventSent {
 
+    /** The m_component. */
     private Component m_component;
 
+    /** The m_cause. */
     private ComponentDownEvent m_cause;
 
+    /**
+     * Instantiates a new impact event sent.
+     *
+     * @param component
+     *            the component
+     * @param cause
+     *            the cause
+     */
     public ImpactEventSent(Component component, ComponentDownEvent cause) {
         m_component = component;
         m_cause = cause;
     }
 
+    /**
+     * Gets the component.
+     *
+     * @return the component
+     */
     public Component getComponent() {
         return m_component;
     }
 
+    /**
+     * Sets the component.
+     *
+     * @param component
+     *            the new component
+     */
     public void setComponent(Component component) {
         m_component = component;
     }
 
+    /**
+     * Gets the cause.
+     *
+     * @return the cause
+     */
     public ComponentDownEvent getCause() {
         return m_cause;
     }
 
+    /**
+     * Sets the cause.
+     *
+     * @param cause
+     *            the new cause
+     */
     public void setCause(ComponentDownEvent cause) {
         m_cause = cause;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -64,6 +102,9 @@ public class ImpactEventSent {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

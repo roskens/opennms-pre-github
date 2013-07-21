@@ -56,23 +56,35 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+/**
+ * The Class EventMappingRulesTest.
+ */
 public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
+    /** The m_repository. */
     @Autowired
     NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_pe1 node id. */
     int m_pe1NodeId;
 
+    /** The m_pe2 node id. */
     int m_pe2NodeId;
 
+    /** The m_svc. */
     private NCSComponent m_svc;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -149,6 +161,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test node down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testNodeDown() throws Exception {
@@ -158,6 +176,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test node up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testNodeUp() throws Exception {
@@ -167,6 +191,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map pw down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapPwDown() throws Exception {
@@ -178,6 +208,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test dup pw down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     // @Ignore( "Not ready for this yet")
     @DirtiesContext
@@ -191,6 +227,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map pw up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapPwUp() throws Exception {
@@ -202,6 +244,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map if down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapIfDown() throws Exception {
@@ -212,6 +260,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map if up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapIfUp() throws Exception {
@@ -222,6 +276,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map mpls lsp path down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapMplsLspPathDown() throws Exception {
@@ -233,6 +293,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test map mpls lsp path up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testMapMplsLspPathUp() throws Exception {
@@ -243,6 +309,20 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
                          "9876,lspA-PE2-PE1");
     }
 
+    /**
+     * Test event mapping.
+     *
+     * @param event
+     *            the event
+     * @param componentEventClass
+     *            the component event class
+     * @param componentType
+     *            the component type
+     * @param componentForeignSource
+     *            the component foreign source
+     * @param componentForeignId
+     *            the component foreign id
+     */
     private void testEventMapping(Event event, Class<? extends ComponentEvent> componentEventClass,
             String componentType, String componentForeignSource, String componentForeignId) {
         // Get engine
@@ -272,6 +352,16 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         assertEquals(componentForeignId, component.getForeignId());
     }
 
+    /**
+     * Test node event mapping.
+     *
+     * @param event
+     *            the event
+     * @param componentEventClass
+     *            the component event class
+     * @param componentIds
+     *            the component ids
+     */
     private void testNodeEventMapping(Event event, Class<? extends ComponentEvent> componentEventClass,
             Set<String> componentIds) {
         // Get engine
@@ -305,6 +395,22 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         }
     }
 
+    /**
+     * Test event dup.
+     *
+     * @param event
+     *            the event
+     * @param event2
+     *            the event2
+     * @param componentEventClass
+     *            the component event class
+     * @param componentType
+     *            the component type
+     * @param componentForeignSource
+     *            the component foreign source
+     * @param componentForeignId
+     *            the component foreign id
+     */
     private void testEventDup(Event event, Event event2, Class<? extends ComponentEvent> componentEventClass,
             String componentType, String componentForeignSource, String componentForeignId) {
         // Get engine
@@ -370,6 +476,19 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
     // ignore duplicate cause events
     // ignore duplicate resolution events
 
+    /**
+     * Creates the mpls lsp path down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathDownEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -379,6 +498,19 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the mpls lsp path up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     private Event createMplsLspPathUpEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -387,6 +519,21 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -396,6 +543,21 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -405,6 +567,21 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn if down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnIfDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -414,6 +591,21 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn if up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnIfUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("1.2.3.1",
@@ -423,18 +615,47 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the node down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeDownEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeDown", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
+    /**
+     * Creates the node up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @return the event
+     */
     private Event createNodeUpEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeUp", "Test").setNodeid(nodeid).getEvent();
         event.setDbid(dbId);
         return event;
     }
 
+    /**
+     * Find subcomponents on node.
+     *
+     * @param svc
+     *            the svc
+     * @param nodeForeignSource
+     *            the node foreign source
+     * @param nodeForeignId
+     *            the node foreign id
+     * @return the sets the
+     */
     private Set<String> findSubcomponentsOnNode(NCSComponent svc, String nodeForeignSource, String nodeForeignId) {
         final Set<String> expectedIds = new HashSet<String>();
 

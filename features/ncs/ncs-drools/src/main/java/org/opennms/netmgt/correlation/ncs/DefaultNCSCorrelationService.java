@@ -41,15 +41,23 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DefaultNCSCorrelationService.
+ */
 @Transactional
 public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
+    /** The m_component repo. */
     @Autowired
     NCSComponentRepository m_componentRepo;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.ncs.NCSCorrelationService#findComponentsThatDependOn(java.lang.Long)
+     */
     @Override
     public List<NCSComponent> findComponentsThatDependOn(Long componentId) {
 
@@ -66,6 +74,9 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.ncs.NCSCorrelationService#findComponentsByNodeIdAndEventParameters(org.opennms.netmgt.xml.event.Event, java.lang.String[])
+     */
     @Override
     public List<NCSComponent> findComponentsByNodeIdAndEventParameters(Event e, String... parameterNames) {
 
@@ -84,6 +95,17 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
         return matching;
     }
 
+    /**
+     * Matches.
+     *
+     * @param component
+     *            the component
+     * @param e
+     *            the e
+     * @param parameters
+     *            the parameters
+     * @return true, if successful
+     */
     private boolean matches(NCSComponent component, Event e, String... parameters) {
 
         for (String key : parameters) {
@@ -102,6 +124,9 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.ncs.NCSCorrelationService#findSubComponents(java.lang.Long)
+     */
     @Override
     public List<NCSComponent> findSubComponents(Long componentId) {
 
@@ -118,6 +143,9 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.correlation.ncs.NCSCorrelationService#findComponentsByNodeIdAndAttrParmMaps(org.opennms.netmgt.xml.event.Event, org.opennms.netmgt.correlation.ncs.NCSCorrelationService.AttrParmMap[])
+     */
     @Override
     public List<NCSComponent> findComponentsByNodeIdAndAttrParmMaps(Event e, AttrParmMap... parameterMap) {
         assert e.getNodeid() != null;
@@ -135,6 +163,17 @@ public class DefaultNCSCorrelationService implements NCSCorrelationService {
         return matching;
     }
 
+    /**
+     * Matches.
+     *
+     * @param component
+     *            the component
+     * @param e
+     *            the e
+     * @param parameterMap
+     *            the parameter map
+     * @return true, if successful
+     */
     private boolean matches(NCSComponent component, Event e, AttrParmMap[] parameterMap) {
         for (AttrParmMap map : parameterMap) {
             if (!map.matches(component, e)) {

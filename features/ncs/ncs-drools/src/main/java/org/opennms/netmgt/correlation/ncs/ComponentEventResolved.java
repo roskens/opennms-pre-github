@@ -28,38 +28,79 @@
 
 package org.opennms.netmgt.correlation.ncs;
 
+/**
+ * The Class ComponentEventResolved.
+ */
 public class ComponentEventResolved {
 
+    /** The m_cause. */
     private ComponentDownEvent m_cause;
 
+    /** The m_resolution. */
     private ComponentUpEvent m_resolution;
 
+    /**
+     * Instantiates a new component event resolved.
+     *
+     * @param cause
+     *            the cause
+     * @param resolution
+     *            the resolution
+     */
     public ComponentEventResolved(ComponentDownEvent cause, ComponentUpEvent resolution) {
         m_cause = cause;
         m_resolution = resolution;
     }
 
+    /**
+     * Gets the cause.
+     *
+     * @return the cause
+     */
     public ComponentDownEvent getCause() {
         return m_cause;
     }
 
+    /**
+     * Sets the cause.
+     *
+     * @param cause
+     *            the new cause
+     */
     public void setCause(ComponentDownEvent cause) {
         m_cause = cause;
     }
 
+    /**
+     * Gets the resolution.
+     *
+     * @return the resolution
+     */
     public ComponentUpEvent getResolution() {
         return m_resolution;
     }
 
+    /**
+     * Sets the resolution.
+     *
+     * @param resolution
+     *            the new resolution
+     */
     public void setResolution(ComponentUpEvent resolution) {
         m_resolution = resolution;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Resolved[ " + "cause=" + m_cause + ", resolution=" + m_resolution + " ]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -69,6 +110,9 @@ public class ComponentEventResolved {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

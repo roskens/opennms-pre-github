@@ -28,25 +28,53 @@
 
 package org.opennms.netmgt.correlation.ncs;
 
+/**
+ * The Class Any.
+ */
 public class Any {
+
+    /** The m_component. */
     private Component m_component;
 
+    /**
+     * Instantiates a new any.
+     */
     public Any() {
     }
 
+    /**
+     * Instantiates a new any.
+     *
+     * @param component
+     *            the component
+     */
     public Any(Component component) {
         m_component = component;
 
     }
 
+    /**
+     * Gets the component.
+     *
+     * @return the component
+     */
     public Component getComponent() {
         return m_component;
     }
 
+    /**
+     * Sets the component.
+     *
+     * @param component
+     *            the new component
+     */
     public void setComponent(Component component) {
         m_component = component;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Any [component=" + m_component + "]";

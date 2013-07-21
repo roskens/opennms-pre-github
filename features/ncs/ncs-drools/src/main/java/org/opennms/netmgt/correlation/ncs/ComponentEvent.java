@@ -30,39 +30,80 @@ package org.opennms.netmgt.correlation.ncs;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class ComponentEvent.
+ */
 public class ComponentEvent {
 
+    /** The m_component. */
     protected Component m_component;
 
+    /** The m_event. */
     protected Event m_event;
 
+    /**
+     * Instantiates a new component event.
+     *
+     * @param component
+     *            the component
+     * @param event
+     *            the event
+     */
     protected ComponentEvent(Component component, Event event) {
         m_component = component;
         m_event = event;
     }
 
+    /**
+     * Gets the component.
+     *
+     * @return the component
+     */
     public Component getComponent() {
         return m_component;
     }
 
+    /**
+     * Sets the component.
+     *
+     * @param component
+     *            the new component
+     */
     public void setComponent(Component component) {
         m_component = component;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Event getEvent() {
         return m_event;
     }
 
+    /**
+     * Sets the event.
+     *
+     * @param event
+     *            the new event
+     */
     public void setEvent(Event event) {
         m_event = event;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return getClass().getSimpleName() + " [" + "component=" + m_component + ", event=" + m_event.getUei() + "("
                 + m_event.getDbid() + ")" + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -73,6 +114,9 @@ public class ComponentEvent {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

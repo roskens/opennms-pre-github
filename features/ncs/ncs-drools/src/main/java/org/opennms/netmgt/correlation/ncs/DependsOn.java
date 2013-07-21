@@ -30,40 +30,85 @@ package org.opennms.netmgt.correlation.ncs;
 
 import static org.opennms.netmgt.correlation.ncs.Utils.nullSafeEquals;
 
+/**
+ * The Class DependsOn.
+ */
 public class DependsOn {
+
+    /** The m_a. */
     private Component m_a;
 
+    /** The m_b. */
     private Component m_b;
 
+    /**
+     * Instantiates a new depends on.
+     */
     public DependsOn() {
     }
 
+    /**
+     * Instantiates a new depends on.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     */
     public DependsOn(Component a, Component b) {
         m_a = a;
         m_b = b;
     }
 
+    /**
+     * Gets the a.
+     *
+     * @return the a
+     */
     public Component getA() {
         return m_a;
     }
 
+    /**
+     * Sets the a.
+     *
+     * @param a
+     *            the new a
+     */
     public void setA(Component a) {
         m_a = a;
     }
 
+    /**
+     * Gets the b.
+     *
+     * @return the b
+     */
     public Component getB() {
         return m_b;
     }
 
+    /**
+     * Sets the b.
+     *
+     * @param b
+     *            the new b
+     */
     public void setB(Component b) {
         m_b = b;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "DependsOn[ a=" + m_a + ", b=" + m_b + " ]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -73,6 +118,9 @@ public class DependsOn {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

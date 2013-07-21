@@ -50,21 +50,32 @@ import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+/**
+ * The Class DependencyLoadingRulesTest.
+ */
 public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
+    /** The m_repository. */
     @Autowired
     private NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_engine. */
     private DroolsCorrelationEngine m_engine;
 
+    /** The m_anticipated working memory. */
     private List<Object> m_anticipatedWorkingMemory = new ArrayList<Object>();
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
 
@@ -148,6 +159,9 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test single request to load dependencies of type all.
+     */
     @Test
     @DirtiesContext
     public void testSingleRequestToLoadDependenciesOfTypeAll() {
@@ -175,6 +189,9 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test single request to load dependencies of type all and withdrawn.
+     */
     @Test
     @DirtiesContext
     public void testSingleRequestToLoadDependenciesOfTypeAllAndWithdrawn() {
@@ -210,6 +227,9 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test single request to load dependencies of type all and withdrawn twice.
+     */
     @Test
     @DirtiesContext
     public void testSingleRequestToLoadDependenciesOfTypeAllAndWithdrawnTwice() {
@@ -264,6 +284,9 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test multiple requests to load dependencies of type all.
+     */
     @Test
     @DirtiesContext
     public void testMultipleRequestsToLoadDependenciesOfTypeAll() {
@@ -302,6 +325,10 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
         verifyFacts();
     }
 
+    /**
+     * Test multiple requests to load dependencies of type all and one
+     * withdrawn.
+     */
     @Test
     @DirtiesContext
     public void testMultipleRequestsToLoadDependenciesOfTypeAllAndOneWithdrawn() {
@@ -348,6 +375,10 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
         verifyFacts();
     }
 
+    /**
+     * Test multiple requests to load dependencies of type all and all
+     * withdrawn.
+     */
     @Test
     @DirtiesContext
     public void testMultipleRequestsToLoadDependenciesOfTypeAllAndAllWithdrawn() {
@@ -422,30 +453,66 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
     // other rules
     // based on DependsOn with that component as a target can fire
 
+    /**
+     * Creates the component.
+     *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the component
+     */
     private Component createComponent(String type, String foreignSource, String foreignId) {
         NCSComponent ncsComp = m_repository.findByTypeAndForeignIdentity(type, foreignSource, foreignId);
         return new Component(ncsComp);
     }
 
+    /**
+     * Reset facts.
+     */
     private void resetFacts() {
         m_anticipatedWorkingMemory.clear();
     }
 
+    /**
+     * Anticipate facts.
+     *
+     * @param facts
+     *            the facts
+     */
     private void anticipateFacts(Object... facts) {
         m_anticipatedWorkingMemory.addAll(Arrays.asList(facts));
     }
 
+    /**
+     * Insert fact and fire rules.
+     *
+     * @param fact
+     *            the fact
+     * @return the fact handle
+     */
     private FactHandle insertFactAndFireRules(Object fact) {
         FactHandle handle = m_engine.getWorkingMemory().insert(fact);
         m_engine.getWorkingMemory().fireAllRules();
         return handle;
     }
 
+    /**
+     * Retract fact and fire rules.
+     *
+     * @param fact
+     *            the fact
+     */
     private void retractFactAndFireRules(FactHandle fact) {
         m_engine.getWorkingMemory().retract(fact);
         m_engine.getWorkingMemory().fireAllRules();
     }
 
+    /**
+     * Verify facts.
+     */
     private void verifyFacts() {
         List<Object> memObjects = m_engine.getMemoryObjects();
 

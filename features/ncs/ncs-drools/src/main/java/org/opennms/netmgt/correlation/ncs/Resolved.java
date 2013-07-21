@@ -30,32 +30,71 @@ package org.opennms.netmgt.correlation.ncs;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class Resolved.
+ */
 public class Resolved {
+
+    /** The m_cause. */
     private Event m_cause;
 
+    /** The m_resolution. */
     private Event m_resolution;
 
+    /**
+     * Instantiates a new resolved.
+     *
+     * @param cause
+     *            the cause
+     * @param resolution
+     *            the resolution
+     */
     public Resolved(Event cause, Event resolution) {
         m_cause = cause;
         m_resolution = resolution;
     }
 
+    /**
+     * Gets the cause.
+     *
+     * @return the cause
+     */
     public Event getCause() {
         return m_cause;
     }
 
+    /**
+     * Sets the cause.
+     *
+     * @param cause
+     *            the new cause
+     */
     public void setCause(Event cause) {
         m_cause = cause;
     }
 
+    /**
+     * Gets the resolution.
+     *
+     * @return the resolution
+     */
     public Event getResolution() {
         return m_resolution;
     }
 
+    /**
+     * Sets the resolution.
+     *
+     * @param resolution
+     *            the new resolution
+     */
     public void setResolution(Event resolution) {
         m_resolution = resolution;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Resolved[ " + "cause=" + m_cause + ", resolution=" + m_resolution + " ]";

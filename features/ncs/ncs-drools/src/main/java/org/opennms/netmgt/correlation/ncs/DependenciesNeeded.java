@@ -28,38 +28,79 @@
 
 package org.opennms.netmgt.correlation.ncs;
 
+/**
+ * The Class DependenciesNeeded.
+ */
 public class DependenciesNeeded {
 
+    /** The m_component. */
     private Component m_component;
 
+    /** The m_requestor. */
     private Object m_requestor;
 
+    /**
+     * Instantiates a new dependencies needed.
+     *
+     * @param component
+     *            the component
+     * @param requestor
+     *            the requestor
+     */
     public DependenciesNeeded(Component component, Object requestor) {
         m_component = component;
         m_requestor = requestor;
     }
 
+    /**
+     * Gets the component.
+     *
+     * @return the component
+     */
     public Component getComponent() {
         return m_component;
     }
 
+    /**
+     * Sets the component.
+     *
+     * @param component
+     *            the new component
+     */
     public void setComponent(Component component) {
         m_component = component;
     }
 
+    /**
+     * Gets the requestor.
+     *
+     * @return the requestor
+     */
     public Object getRequestor() {
         return m_requestor;
     }
 
+    /**
+     * Sets the requestor.
+     *
+     * @param requestor
+     *            the new requestor
+     */
     public void setRequestor(Object requestor) {
         m_requestor = requestor;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "DependenciesNeeded [component=" + m_component + ", requestor=" + m_requestor + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -69,6 +110,9 @@ public class DependenciesNeeded {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

@@ -30,41 +30,85 @@ package org.opennms.netmgt.correlation.ncs;
 
 import static org.opennms.netmgt.correlation.ncs.Utils.nullSafeEquals;
 
+/**
+ * The Class ComponentImpacted.
+ */
 public class ComponentImpacted {
 
+    /** The m_target. */
     private Component m_target;
 
+    /** The m_cause. */
     private ComponentDownEvent m_cause;
 
+    /**
+     * Instantiates a new component impacted.
+     */
     public ComponentImpacted() {
     }
 
+    /**
+     * Instantiates a new component impacted.
+     *
+     * @param target
+     *            the target
+     * @param cause
+     *            the cause
+     */
     public ComponentImpacted(Component target, ComponentDownEvent cause) {
         m_target = target;
         m_cause = cause;
     }
 
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
     public Component getTarget() {
         return m_target;
     }
 
+    /**
+     * Sets the target.
+     *
+     * @param target
+     *            the new target
+     */
     public void setTarget(Component target) {
         m_target = target;
     }
 
+    /**
+     * Gets the cause.
+     *
+     * @return the cause
+     */
     public ComponentDownEvent getCause() {
         return m_cause;
     }
 
+    /**
+     * Sets the cause.
+     *
+     * @param cause
+     *            the new cause
+     */
     public void setCause(ComponentDownEvent cause) {
         m_cause = cause;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "ComponentImpacted[ target=" + m_target + ", cause=" + m_cause + " ]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -74,6 +118,9 @@ public class ComponentImpacted {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

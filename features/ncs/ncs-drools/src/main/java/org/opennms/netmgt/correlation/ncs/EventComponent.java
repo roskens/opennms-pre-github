@@ -30,33 +30,71 @@ package org.opennms.netmgt.correlation.ncs;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class EventComponent.
+ */
 public class EventComponent {
 
+    /** The m_component. */
     private Component m_component;
 
+    /** The m_event. */
     private Event m_event;
 
+    /**
+     * Instantiates a new event component.
+     *
+     * @param component
+     *            the component
+     * @param event
+     *            the event
+     */
     public EventComponent(Component component, Event event) {
         m_component = component;
         m_event = event;
     }
 
+    /**
+     * Gets the component.
+     *
+     * @return the component
+     */
     public Component getComponent() {
         return m_component;
     }
 
+    /**
+     * Sets the component.
+     *
+     * @param component
+     *            the new component
+     */
     public void setComponent(Component component) {
         m_component = component;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Event getEvent() {
         return m_event;
     }
 
+    /**
+     * Sets the event.
+     *
+     * @param event
+     *            the new event
+     */
     public void setEvent(Event event) {
         m_event = event;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "EventComponent [" + "component=" + m_component + ", event=" + m_event.getUei() + "("

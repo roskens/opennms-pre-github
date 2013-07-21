@@ -56,27 +56,46 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
+/**
+ * The Class ImpactProgagationRulesTest.
+ */
 public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 
+    /** The m_repository. */
     @Autowired
     private NCSComponentRepository m_repository;
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_pe1 node id. */
     private int m_pe1NodeId;
 
+    /** The m_pe2 node id. */
     private int m_pe2NodeId;
 
+    /** The m_pw comp id. */
     private long m_pwCompId;
 
+    /** The m_engine. */
     private DroolsCorrelationEngine m_engine;
 
+    /** The m_anticipated working memory. */
     private List<Object> m_anticipatedWorkingMemory = new ArrayList<Object>();
 
+    /**
+     * Sets the up.
+     *
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     @Before
     public void setUp() throws JAXBException, UnsupportedEncodingException {
 
@@ -177,6 +196,12 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test simple down up case.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testSimpleDownUpCase() throws Exception {
@@ -226,6 +251,12 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Test simple all rules propagation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testSimpleALLRulesPropagation() throws Exception {
@@ -296,11 +327,37 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 
     // add test for two different outages on the same component
 
+    /**
+     * Creates the component.
+     *
+     * @param type
+     *            the type
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @return the component
+     */
     private Component createComponent(String type, String foreignSource, String foreignId) {
         NCSComponent ncsComp = m_repository.findByTypeAndForeignIdentity(type, foreignSource, foreignId);
         return new Component(ncsComp);
     }
 
+    /**
+     * Creates the component impacted event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentImpactedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
 
@@ -312,6 +369,21 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                                              cause).getEvent();
     }
 
+    /**
+     * Creates the component resolved event.
+     *
+     * @param type
+     *            the type
+     * @param name
+     *            the name
+     * @param foreignSource
+     *            the foreign source
+     * @param foreignId
+     *            the foreign id
+     * @param cause
+     *            the cause
+     * @return the event
+     */
     private Event createComponentResolvedEvent(String type, String name, String foreignSource, String foreignId,
             int cause) {
         return new EventBuilder("uei.opennms.org/internal/ncs/componentResolved", "Component Correlator").addParam("componentType",
@@ -322,6 +394,19 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
                                                                                                                                                                                              cause).getEvent();
     }
 
+    /**
+     * Creates the mpls lsp path down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     @SuppressWarnings("unused")
     private Event createMplsLspPathDownEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
@@ -332,6 +417,19 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the mpls lsp path up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param lspname
+     *            the lspname
+     * @return the event
+     */
     @SuppressWarnings("unused")
     private Event createMplsLspPathUpEvent(int dbId, int nodeid, String ipaddr, String lspname) {
 
@@ -341,6 +439,21 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw down event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwDownEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -350,6 +463,21 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Creates the vpn pw up event.
+     *
+     * @param dbId
+     *            the db id
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @param pwtype
+     *            the pwtype
+     * @param pwname
+     *            the pwname
+     * @return the event
+     */
     private Event createVpnPwUpEvent(int dbId, int nodeid, String ipaddr, String pwtype, String pwname) {
 
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test").setNodeid(nodeid).setInterface(addr(ipaddr)).addParam("jnxVpnPwVpnType",
@@ -359,25 +487,50 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
         return event;
     }
 
+    /**
+     * Reset facts.
+     */
     private void resetFacts() {
         m_anticipatedWorkingMemory.clear();
     }
 
+    /**
+     * Anticipate facts.
+     *
+     * @param facts
+     *            the facts
+     */
     private void anticipateFacts(Object... facts) {
         m_anticipatedWorkingMemory.addAll(Arrays.asList(facts));
     }
 
+    /**
+     * Insert fact and fire rules.
+     *
+     * @param fact
+     *            the fact
+     * @return the fact handle
+     */
     private FactHandle insertFactAndFireRules(Object fact) {
         FactHandle handle = m_engine.getWorkingMemory().insert(fact);
         m_engine.getWorkingMemory().fireAllRules();
         return handle;
     }
 
+    /**
+     * Retract fact and fire rules.
+     *
+     * @param fact
+     *            the fact
+     */
     private void retractFactAndFireRules(FactHandle fact) {
         m_engine.getWorkingMemory().retract(fact);
         m_engine.getWorkingMemory().fireAllRules();
     }
 
+    /**
+     * Verify facts.
+     */
     private void verifyFacts() {
         List<Object> memObjects = m_engine.getMemoryObjects();
 
@@ -393,16 +546,28 @@ public class ImpactProgagationRulesTest extends CorrelationRulesTestCase {
 
     }
 
+    /**
+     * Reset events.
+     */
     private void resetEvents() {
         getAnticipator().reset();
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param events
+     *            the events
+     */
     private void anticipateEvent(Event... events) {
         for (Event event : events) {
             getAnticipator().anticipateEvent(event);
         }
     }
 
+    /**
+     * Verify events.
+     */
     private void verifyEvents() {
         getAnticipator().verifyAnticipated();
     }
