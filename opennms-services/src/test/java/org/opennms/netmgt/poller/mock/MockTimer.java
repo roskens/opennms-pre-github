@@ -31,16 +31,17 @@ package org.opennms.netmgt.poller.mock;
 import org.opennms.netmgt.scheduler.Timer;
 
 /**
- * Represents a MockTimer
+ * Represents a MockTimer.
  *
  * @author brozow
  */
 public class MockTimer implements Timer {
 
+    /** The m_current time. */
     private long m_currentTime;
 
     /**
-     *
+     * Instantiates a new mock timer.
      */
     public MockTimer() {
         m_currentTime = 0L;
@@ -55,6 +56,12 @@ public class MockTimer implements Timer {
         return m_currentTime;
     }
 
+    /**
+     * Sets the current time.
+     *
+     * @param currentTime
+     *            the new current time
+     */
     public void setCurrentTime(long currentTime) {
         m_currentTime = currentTime;
     }

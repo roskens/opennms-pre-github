@@ -47,6 +47,7 @@ public interface IfInfoGetter {
      * <p>
      * getIfInfoForNodeAndLabel
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -60,6 +61,7 @@ public interface IfInfoGetter {
      * <p>
      * getIfLabel
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.

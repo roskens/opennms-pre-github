@@ -44,8 +44,10 @@ import org.opennms.netmgt.config.threshd.Threshold;
  */
 public class ThresholdConfigWrapper extends BaseThresholdDefConfigWrapper {
 
+    /** The m_threshold. */
     private Threshold m_threshold;
 
+    /** The m_data sources. */
     private Collection<String> m_dataSources;
 
     /**

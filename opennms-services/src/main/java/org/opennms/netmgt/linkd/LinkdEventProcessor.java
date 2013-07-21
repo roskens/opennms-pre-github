@@ -34,6 +34,8 @@ import org.opennms.netmgt.model.events.annotations.EventListener;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
+ * The Class LinkdEventProcessor.
+ *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @author <a href="mailto:matt@opennms.org">Matt Brozowski </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
@@ -41,9 +43,12 @@ import org.opennms.netmgt.xml.event.Event;
 @EventListener(name = "OpenNMS.Linkd", logPrefix = "linkd")
 public final class LinkdEventProcessor {
 
+    /** The m_linkd. */
     private Linkd m_linkd;
 
     /**
+     * Sets the linkd.
+     *
      * @param linkd
      *            the linkd to set
      */
@@ -51,14 +56,22 @@ public final class LinkdEventProcessor {
         this.m_linkd = linkd;
     }
 
+    /**
+     * Gets the linkd.
+     *
+     * @return the linkd
+     */
     public Linkd getLinkd() {
         return m_linkd;
     }
 
     /**
-     * Handle a Node Deleted Event
+     * Handle a Node Deleted Event.
      *
      * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeleted(Event event) throws InsufficientInformationException {
@@ -73,9 +86,12 @@ public final class LinkdEventProcessor {
     }
 
     /**
-     * Handle Interface Deleted Event
+     * Handle Interface Deleted Event.
      *
      * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.INTERFACE_DELETED_EVENT_UEI)
     public void handleInterfaceDeleted(Event event) throws InsufficientInformationException {
@@ -93,9 +109,12 @@ public final class LinkdEventProcessor {
     }
 
     /**
-     * Handle a Node Gained Service Event if service is SNMP
+     * Handle a Node Gained Service Event if service is SNMP.
      *
      * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
     public void handleNodeGainedService(Event event) throws InsufficientInformationException {
@@ -106,9 +125,12 @@ public final class LinkdEventProcessor {
     }
 
     /**
-     * Handle a Node Lost Service Event when service lost is SNMP
+     * Handle a Node Lost Service Event when service lost is SNMP.
      *
      * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_LOST_SERVICE_EVENT_UEI)
     public void handleNodeLostService(Event event) throws InsufficientInformationException {
@@ -122,9 +144,12 @@ public final class LinkdEventProcessor {
     }
 
     /**
-     * Handle a Node Regained Service Event where service is SNMP
+     * Handle a Node Regained Service Event where service is SNMP.
      *
      * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI)
     public void handleRegainedService(Event event) throws InsufficientInformationException {

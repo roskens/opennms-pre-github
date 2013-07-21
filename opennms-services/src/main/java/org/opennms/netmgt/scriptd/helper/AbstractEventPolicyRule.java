@@ -30,22 +30,35 @@ package org.opennms.netmgt.scriptd.helper;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class AbstractEventPolicyRule.
+ */
 public abstract class AbstractEventPolicyRule implements EventPolicyRule {
 
+    /** The forward. */
     private boolean forward;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventPolicyRule#addForwardRule(org.opennms.netmgt.scriptd.helper.EventMatch)
+     */
     @Override
     public void addForwardRule(EventMatch match) {
         m_filter.add(match);
         m_forwardes.add(Boolean.TRUE);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventPolicyRule#addDropRule(org.opennms.netmgt.scriptd.helper.EventMatch)
+     */
     @Override
     public void addDropRule(EventMatch match) {
         m_filter.add(match);
         m_forwardes.add(Boolean.FALSE);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventPolicyRule#filter(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public Event filter(Event event) {
         forward = true;
@@ -62,6 +75,13 @@ public abstract class AbstractEventPolicyRule implements EventPolicyRule {
         return null;
     }
 
+    /**
+     * Expand.
+     *
+     * @param event
+     *            the event
+     * @return the event
+     */
     protected abstract Event expand(Event event);
 
 }

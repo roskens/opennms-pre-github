@@ -35,26 +35,51 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SyslogNGParser.
+ */
 public class SyslogNGParser extends SyslogParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogNGParser.class);
 
     // <PRI> IDENT TIMESTAMP HOST PROCESS/ID MESSAGE
+    /** The Constant m_syslogNGPattern. */
     private static final Pattern m_syslogNGPattern = Pattern.compile("^<(\\d{1,3})>(?:(\\S*?)(?::? )?)((?:\\d\\d\\d\\d-\\d\\d-\\d\\d)|(?:\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)) (\\S+) (?:(\\S+?)(?:\\[(\\d+)\\])?:\\s+){0,1}(\\S.*?)$",
                                                                      Pattern.MULTILINE);
 
+    /**
+     * Instantiates a new syslog ng parser.
+     *
+     * @param text
+     *            the text
+     */
     protected SyslogNGParser(final String text) {
         super(text);
     }
 
+    /**
+     * Gets the parser.
+     *
+     * @param text
+     *            the text
+     * @return the parser
+     */
     public static SyslogParser getParser(final String text) {
         return new SyslogNGParser(text);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#getPattern()
+     */
     @Override
     protected Pattern getPattern() {
         return m_syslogNGPattern;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#parse()
+     */
     @Override
     public SyslogMessage parse() throws SyslogParserException {
         if (!this.find()) {

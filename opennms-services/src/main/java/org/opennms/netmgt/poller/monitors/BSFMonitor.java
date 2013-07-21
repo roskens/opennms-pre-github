@@ -50,6 +50,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // This might actually be usable in the remote poller with some work
+/**
+ * The Class BSFMonitor.
+ */
 @Distributable(DistributionContext.DAEMON)
 /**
  * <P>
@@ -126,14 +129,20 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org">OpenNMS</A>
  */
 public class BSFMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BSFMonitor.class);
 
+    /** The Constant STATUS_UNKNOWN. */
     private static final String STATUS_UNKNOWN = "UNK";
 
+    /** The Constant STATUS_UNRESPONSIVE. */
     private static final String STATUS_UNRESPONSIVE = "UNR";
 
+    /** The Constant STATUS_AVAILABLE. */
     private static final String STATUS_AVAILABLE = "OK";
 
+    /** The Constant STATUS_UNAVAILABLE. */
     private static final String STATUS_UNAVAILABLE = "NOK";
 
     /** {@inheritDoc} */
@@ -245,6 +254,16 @@ public class BSFMonitor extends AbstractServiceMonitor {
         return pollStatus;
     }
 
+    /**
+     * Log.
+     *
+     * @param level
+     *            the level
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     public void log(String level, String format, Object... args) {
         if ("TRACE".equals(level))
             LOG.trace(format, args);

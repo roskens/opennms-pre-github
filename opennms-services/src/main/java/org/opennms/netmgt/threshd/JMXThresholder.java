@@ -81,6 +81,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXThresholder implements ServiceThresholder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JMXThresholder.class);
 
     /**
@@ -93,20 +94,14 @@ public abstract class JMXThresholder implements ServiceThresholder {
      */
     private static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
-    /**
-     * Default age before which a data point is considered "out of date"
-     */
+    /** Default age before which a data point is considered "out of date". */
 
     private static final int DEFAULT_RANGE = 0; // 300s or 5m
 
-    /**
-     * Interface attribute key used to store the interface's node id
-     */
+    /** Interface attribute key used to store the interface's node id. */
     static final String NODE_ID_KEY = "org.opennms.netmgt.collectd.JMXThresholder.NodeId";
 
-    /**
-     * Interface attribute key used to store the interface's node id
-     */
+    /** Interface attribute key used to store the interface's node id. */
     static final String RRD_REPOSITORY_KEY = "org.opennms.netmgt.collectd.JMXThresholder.RrdRepository";
 
     /**
@@ -130,8 +125,10 @@ public abstract class JMXThresholder implements ServiceThresholder {
      */
     static final String ALL_IF_THRESHOLD_MAP_KEY = "org.opennms.netmgt.collectd.JMXThresholder.AllIfThresholdMap";
 
+    /** The service name. */
     private String serviceName = null;
 
+    /** The use friendly name. */
     private boolean useFriendlyName = false;
 
     /**
@@ -175,6 +172,7 @@ public abstract class JMXThresholder implements ServiceThresholder {
      * <p>
      * reinitialize
      * </p>
+     * .
      */
     @Override
     public void reinitialize() {
@@ -483,6 +481,19 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
     }
 
+    /**
+     * Gets the threshold values.
+     *
+     * @param directory
+     *            the directory
+     * @param range
+     *            the range
+     * @param interval
+     *            the interval
+     * @param requiredDatasources
+     *            the required datasources
+     * @return the threshold values
+     */
     private Map<String, Double> getThresholdValues(File directory, int range, int interval,
             Collection<String> requiredDatasources) {
         Map<String, Double> values = new HashMap<String, Double>();
@@ -659,6 +670,20 @@ public abstract class JMXThresholder implements ServiceThresholder {
         }
     }
 
+    /**
+     * Complete event list and add to events.
+     *
+     * @param events
+     *            the events
+     * @param eventList
+     *            the event list
+     * @param nodeId
+     *            the node id
+     * @param primary
+     *            the primary
+     * @param ifDataMap
+     *            the if data map
+     */
     private void completeEventListAndAddToEvents(Events events, List<Event> eventList, Integer nodeId,
             InetAddress primary, Map<String, String> ifDataMap) {
         for (Event event : eventList) {
@@ -701,6 +726,16 @@ public abstract class JMXThresholder implements ServiceThresholder {
 
     }
 
+    /**
+     * Populate if data map.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ifLabel
+     *            the if label
+     * @param ifDataMap
+     *            the if data map
+     */
     private void populateIfDataMap(Integer nodeId, String ifLabel, Map<String, String> ifDataMap) {
         ifDataMap.putAll(IfLabel.getInterfaceInfoFromIfLabel(nodeId.intValue(), ifLabel));
         // Add ifLabel value to the map for potential when creating events

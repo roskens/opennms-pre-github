@@ -35,19 +35,42 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.ThreshdConfigManager;
 
+/**
+ * The Class MockThreshdConfigManager.
+ */
 public class MockThreshdConfigManager extends ThreshdConfigManager {
 
+    /**
+     * Instantiates a new mock threshd config manager.
+     *
+     * @param stream
+     *            the stream
+     * @param localServer
+     *            the local server
+     * @param verifyServer
+     *            the verify server
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public MockThreshdConfigManager(InputStream stream, String localServer, boolean verifyServer)
             throws MarshalException, ValidationException {
         super(stream, localServer, verifyServer);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.ThreshdConfigManager#reloadXML()
+     */
     @Override
     public void reloadXML() throws IOException, MarshalException, ValidationException {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.ThreshdConfigManager#saveXML(java.lang.String)
+     */
     @Override
     protected void saveXML(String xmlString) throws IOException {
         // TODO Auto-generated method stub

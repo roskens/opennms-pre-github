@@ -54,12 +54,21 @@ import org.slf4j.LoggerFactory;
  */
 public class EventCreator implements TrapProcessor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventCreator.class);
 
+    /** The m_event builder. */
     private EventBuilder m_eventBuilder;
 
+    /** The m_trapd ip mgr. */
     private TrapdIpMgr m_trapdIpMgr;
 
+    /**
+     * Instantiates a new event creator.
+     *
+     * @param trapdIpMgr
+     *            the trapd ip mgr
+     */
     public EventCreator(TrapdIpMgr trapdIpMgr) {
         m_trapdIpMgr = trapdIpMgr;
 
@@ -84,14 +93,32 @@ public class EventCreator implements TrapProcessor {
         m_eventBuilder.setSnmpVersion(version);
     }
 
+    /**
+     * Sets the generic.
+     *
+     * @param generic
+     *            the new generic
+     */
     private void setGeneric(int generic) {
         m_eventBuilder.setGeneric(generic);
     }
 
+    /**
+     * Sets the specific.
+     *
+     * @param specific
+     *            the new specific
+     */
     private void setSpecific(int specific) {
         m_eventBuilder.setSpecific(specific);
     }
 
+    /**
+     * Sets the enterprise id.
+     *
+     * @param enterpriseId
+     *            the new enterprise id
+     */
     private void setEnterpriseId(String enterpriseId) {
         m_eventBuilder.setEnterpriseId(enterpriseId);
     }
@@ -132,6 +159,11 @@ public class EventCreator implements TrapProcessor {
         LOG.debug("setTrapIdentity: SNMP trap {}", trapIdentity);
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Event getEvent() {
         return m_eventBuilder.getEvent();
     }

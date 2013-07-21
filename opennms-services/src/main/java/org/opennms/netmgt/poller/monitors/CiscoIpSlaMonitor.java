@@ -67,6 +67,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaMonitor.class);
 
     /**
@@ -110,54 +111,162 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
     private static final String RTT_LATEST_OID = ".1.3.6.1.4.1.9.9.42.1.2.10.1.1";
 
     /**
-     * Implement the rttMonCtrlOperState
+     * Implement the rttMonCtrlOperState.
      */
     private enum RTT_MON_OPER_STATE {
-        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(6), RESTART(7);
 
+        /** The reset. */
+        RESET(1),
+ /** The orderly stop. */
+ ORDERLY_STOP(2),
+ /** The immediate stop. */
+ IMMEDIATE_STOP(3),
+ /** The pending. */
+ PENDING(4),
+ /** The inactive. */
+ INACTIVE(5),
+ /** The active. */
+ ACTIVE(6),
+ /** The restart. */
+ RESTART(7);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new rtt mon oper state.
+         *
+         * @param s
+         *            the s
+         */
         RTT_MON_OPER_STATE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
     };
 
     /**
-     * Implement the rttMonCtrlOperSense
+     * Implement the rttMonCtrlOperSense.
      */
     private enum RTT_MON_OPER_SENSE {
-        OTHER(0), OK(1), DISCONNECTED(2), OVER_THRESHOLD(3), TIMEOUT(4), BUSY(5), NOT_CONNECTED(6), DROPPED(7), SEQUENCE_ERROR(
-                8), VERIFY_ERROR(9), APPLICATION_SPECIFIC(10), DNS_SERVER_TIMEOUT(11), TCP_CONNECT_TIMEOUT(12), HTTP_TRANSACTION_TIMEOUT(
-                13), DNS_QUERY_ERROR(14), HTTP_ERROR(15), ERROR(16);
 
+        /** The other. */
+        OTHER(0),
+ /** The ok. */
+ OK(1),
+ /** The disconnected. */
+ DISCONNECTED(2),
+ /** The over threshold. */
+ OVER_THRESHOLD(3),
+ /** The timeout. */
+ TIMEOUT(4),
+ /** The busy. */
+ BUSY(5),
+ /** The not connected. */
+ NOT_CONNECTED(6),
+ /** The dropped. */
+ DROPPED(7),
+ /** The sequence error. */
+ SEQUENCE_ERROR(
+                8),
+ /** The verify error. */
+ VERIFY_ERROR(9),
+ /** The application specific. */
+ APPLICATION_SPECIFIC(10),
+ /** The dns server timeout. */
+ DNS_SERVER_TIMEOUT(11),
+ /** The tcp connect timeout. */
+ TCP_CONNECT_TIMEOUT(12),
+ /** The http transaction timeout. */
+ HTTP_TRANSACTION_TIMEOUT(
+                13),
+ /** The dns query error. */
+ DNS_QUERY_ERROR(14),
+ /** The http error. */
+ HTTP_ERROR(15),
+ /** The error. */
+ ERROR(16);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new rtt mon oper sense.
+         *
+         * @param s
+         *            the s
+         */
         RTT_MON_OPER_SENSE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
     };
 
     /**
-     * Implement the rttMonCtrlAdminRttType
+     * Implement the rttMonCtrlAdminRttType.
      */
     private enum RTT_MON_ADMIN_TYPE {
-        ECHO(1), PATH_ECHO(2), FILE_IO(3), SCRIPT(4), UDP_ECHO(5), TCP_CONNECT(6), HTTP(7), DNS(8), JITTER(9), DLSW(10), DHCP(
-                11), FTP(12);
 
+        /** The echo. */
+        ECHO(1),
+ /** The path echo. */
+ PATH_ECHO(2),
+ /** The file io. */
+ FILE_IO(3),
+ /** The script. */
+ SCRIPT(4),
+ /** The udp echo. */
+ UDP_ECHO(5),
+ /** The tcp connect. */
+ TCP_CONNECT(6),
+ /** The http. */
+ HTTP(7),
+ /** The dns. */
+ DNS(8),
+ /** The jitter. */
+ JITTER(9),
+ /** The dlsw. */
+ DLSW(10),
+ /** The dhcp. */
+ DHCP(
+                11),
+ /** The ftp. */
+ FTP(12);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new rtt mon admin type.
+         *
+         * @param s
+         *            the s
+         */
         RTT_MON_ADMIN_TYPE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
@@ -206,9 +315,6 @@ public final class CiscoIpSlaMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents
-     *                the interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

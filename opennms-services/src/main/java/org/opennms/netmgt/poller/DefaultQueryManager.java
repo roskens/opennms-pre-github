@@ -64,12 +64,16 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultQueryManager implements QueryManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultQueryManager.class);
 
+    /** The Constant SQL_RETRIEVE_INTERFACES. */
     static final String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.serviceid = service.serviceid AND service.servicename = ? AND ifServices.status='A'";
 
+    /** The Constant SQL_RETRIEVE_SERVICE_IDS. */
     static final String SQL_RETRIEVE_SERVICE_IDS = "SELECT serviceid,servicename  FROM service";
 
+    /** The Constant SQL_RETRIEVE_SERVICE_STATUS. */
     static final String SQL_RETRIEVE_SERVICE_STATUS = "SELECT ifregainedservice,iflostservice FROM outages WHERE nodeid = ? AND ipaddr = ? AND serviceid = ? AND iflostservice = (SELECT max(iflostservice) FROM outages WHERE nodeid = ? AND ipaddr = ? AND serviceid = ?)";
 
     /**
@@ -91,8 +95,10 @@ public class DefaultQueryManager implements QueryManager {
      */
     static final String SQL_FETCH_IFSERVICES_TO_POLL = "SELECT if.serviceid FROM ifservices if, service s WHERE if.serviceid = s.serviceid AND if.status = 'A' AND if.ipaddr = ?";
 
+    /** The Constant SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE. */
     static final String SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE = "SELECT ipaddr,servicename FROM ifservices,service WHERE nodeid= ? AND ifservices.serviceid=service.serviceid";
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /** {@inheritDoc} */
@@ -105,6 +111,7 @@ public class DefaultQueryManager implements QueryManager {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -113,6 +120,13 @@ public class DefaultQueryManager implements QueryManager {
         return m_dataSource;
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws SQLException
+     *             the sQL exception
+     */
     private Connection getConnection() throws SQLException {
         return getDataSource().getConnection();
     }
@@ -381,6 +395,7 @@ public class DefaultQueryManager implements QueryManager {
      * <p>
      * convertEventTimeToTimeStamp
      * </p>
+     * .
      *
      * @param time
      *            a {@link java.lang.String} object.
@@ -491,6 +506,7 @@ public class DefaultQueryManager implements QueryManager {
      * <p>
      * getServiceID
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -533,6 +549,9 @@ public class DefaultQueryManager implements QueryManager {
         return cpath;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getNodeServices(int)
+     */
     @Override
     public List<String[]> getNodeServices(int nodeId) {
         final LinkedList<String[]> servicemap = new LinkedList<String[]>();

@@ -29,13 +29,14 @@
 package org.opennms.netmgt.poller.pollables;
 
 /**
- * Represents a LockUnavailable
+ * Represents a LockUnavailable.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class LockUnavailable extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6054183865580259303L;
 
     /**

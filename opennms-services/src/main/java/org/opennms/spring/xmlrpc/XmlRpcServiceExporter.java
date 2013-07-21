@@ -56,12 +56,16 @@ import org.springframework.util.MethodInvoker;
  */
 public class XmlRpcServiceExporter extends RemoteExporter implements InitializingBean, DisposableBean, XmlRpcHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlRpcServiceExporter.class);
 
+    /** The web server. */
     private WebServer webServer;
 
+    /** The proxy. */
     private Object proxy;
 
+    /** The service name. */
     private String serviceName;
 
     /**
@@ -114,9 +118,10 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -138,9 +143,10 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -151,17 +157,29 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
         }
     }
 
+    /**
+     * The Class MsgPreservingXmlRpcException.
+     */
     public static class MsgPreservingXmlRpcException extends XmlRpcException {
 
-        /**
-         *
-         */
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = -4693127622262382452L;
 
+        /**
+         * Instantiates a new msg preserving xml rpc exception.
+         *
+         * @param code
+         *            the code
+         * @param message
+         *            the message
+         */
         public MsgPreservingXmlRpcException(int code, String message) {
             super(code, message);
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Throwable#toString()
+         */
         @Override
         public String toString() {
             return getMessage();
@@ -221,6 +239,13 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
 
     }
 
+    /**
+     * To arg list.
+     *
+     * @param params
+     *            the params
+     * @return the string
+     */
     private String toArgList(@SuppressWarnings("unchecked")
     Vector params) {
         StringBuffer sb = new StringBuffer();
@@ -232,6 +257,13 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
         return sb.toString();
     }
 
+    /**
+     * Gets the method name.
+     *
+     * @param method
+     *            the method
+     * @return the method name
+     */
     private String getMethodName(String method) {
         if (this.serviceName == null || "".equals(serviceName))
             return method;

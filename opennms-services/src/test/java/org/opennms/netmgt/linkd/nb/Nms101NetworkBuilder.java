@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.netmgt.linkd.nb;
 
 import java.net.InetAddress;
@@ -7,168 +34,252 @@ import java.util.Map;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsNode;
 
+/**
+ * The Class Nms101NetworkBuilder.
+ */
 public class Nms101NetworkBuilder extends LinkdNetworkBuilder {
 
+    /** The Constant LAPTOP_IP. */
     protected static final String LAPTOP_IP = "10.1.1.2";
 
+    /** The Constant LAPTOP_NAME. */
     protected static final String LAPTOP_NAME = "laptop";
 
+    /** The Constant LAPTOP_SYSOID. */
     protected static final String LAPTOP_SYSOID = ".1.3.6.1.4.1.8072.3.2.255";
 
+    /** The Constant LAPTOP_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> LAPTOP_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant LAPTOP_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> LAPTOP_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant LAPTOP_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> LAPTOP_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant LAPTOP_IF_MAC_MAP. */
     protected static final Map<Integer, String> LAPTOP_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant LAPTOP_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> LAPTOP_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant LAPTOP_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> LAPTOP_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO7200A_IP. */
     protected static final String CISCO7200A_IP = "10.1.1.1";
 
+    /** The Constant CISCO7200A_NAME. */
     protected static final String CISCO7200A_NAME = "cisco7200ATM.befunk.com";
 
+    /** The Constant CISCO7200A_SYSOID. */
     protected static final String CISCO7200A_SYSOID = ".1.3.6.1.4.1.9.1.222";
 
+    /** The Constant CISCO7200A_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO7200A_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO7200A_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO7200A_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200A_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO7200A_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200A_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO7200A_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200A_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO7200A_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200A_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO7200A_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO7200B_IP. */
     protected static final String CISCO7200B_IP = "10.1.2.2";
 
+    /** The Constant CISCO7200B_NAME. */
     protected static final String CISCO7200B_NAME = "cisco7200";
 
+    /** The Constant CISCO7200B_SYSOID. */
     protected static final String CISCO7200B_SYSOID = ".1.3.6.1.4.1.9.1.222";
 
+    /** The Constant CISCO7200B_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO7200B_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO7200B_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO7200B_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200B_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO7200B_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200B_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO7200B_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200B_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO7200B_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO7200B_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO7200B_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO3700_IP. */
     protected static final String CISCO3700_IP = "10.1.3.2";
 
+    /** The Constant CISCO3700_NAME. */
     protected static final String CISCO3700_NAME = "cisco3700";
 
+    /** The Constant CISCO3700_SYSOID. */
     protected static final String CISCO3700_SYSOID = ".1.3.6.1.4.1.9.1.122";
 
+    /** The Constant CISCO3700_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO3700_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO3700_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO3700_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3700_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO3700_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3700_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO3700_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3700_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO3700_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3700_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO3700_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO2691_IP. */
     protected static final String CISCO2691_IP = "10.1.4.2";
 
+    /** The Constant CISCO2691_NAME. */
     protected static final String CISCO2691_NAME = "cisco2691";
 
+    /** The Constant CISCO2691_SYSOID. */
     protected static final String CISCO2691_SYSOID = ".1.3.6.1.4.1.9.1.122";
 
+    /** The Constant CISCO2691_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO2691_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO2691_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO2691_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO2691_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO2691_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO2691_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO2691_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO2691_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO2691_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO2691_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO2691_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO1700B_IP. */
     protected static final String CISCO1700B_IP = "10.1.5.1";
 
+    /** The Constant CISCO1700B_NAME. */
     protected static final String CISCO1700B_NAME = "cisco1700b";
 
+    /** The Constant CISCO1700B_SYSOID. */
     protected static final String CISCO1700B_SYSOID = ".1.3.6.1.4.1.9.1.200";
 
+    /** The Constant CISCO1700B_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO1700B_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO1700B_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO1700B_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700B_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO1700B_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700B_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO1700B_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700B_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO1700B_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700B_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO1700B_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO3600_IP. */
     protected static final String CISCO3600_IP = "10.1.6.2";
 
+    /** The Constant CISCO3600_NAME. */
     protected static final String CISCO3600_NAME = "cisco3600";
 
+    /** The Constant CISCO3600_SYSOID. */
     protected static final String CISCO3600_SYSOID = ".1.3.6.1.4.1.9.1.122";
 
+    /** The Constant CISCO3600_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO3600_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO3600_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO3600_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3600_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO3600_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3600_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO3600_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3600_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO3600_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO3600_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO3600_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CISCO1700_IP. */
     protected static final String CISCO1700_IP = "10.1.5.2";
 
+    /** The Constant CISCO1700_NAME. */
     protected static final String CISCO1700_NAME = "cisco1700";
 
+    /** The Constant CISCO1700_SYSOID. */
     protected static final String CISCO1700_SYSOID = ".1.3.6.1.4.1.9.1.200";
 
+    /** The Constant CISCO1700_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO1700_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CISCO1700_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO1700_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO1700_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO1700_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> CISCO1700_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CISCO1700_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> CISCO1700_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant EXAMPLECOM_IP. */
     protected static final String EXAMPLECOM_IP = "192.168.1.10";
 
+    /** The Constant EXAMPLECOM_NAME. */
     protected static final String EXAMPLECOM_NAME = "test.example.com";
 
+    /** The Constant EXAMPLECOM_SYSOID. */
     protected static final String EXAMPLECOM_SYSOID = ".1.3.6.1.4.1.1724.81";
 
+    /** The Constant EXAMPLECOM_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> EXAMPLECOM_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant EXAMPLECOM_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> EXAMPLECOM_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant EXAMPLECOM_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> EXAMPLECOM_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant EXAMPLECOM_IF_MAC_MAP. */
     protected static final Map<Integer, String> EXAMPLECOM_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant EXAMPLECOM_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> EXAMPLECOM_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant EXAMPLECOM_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> EXAMPLECOM_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
     static {
@@ -344,53 +455,98 @@ public class Nms101NetworkBuilder extends LinkdNetworkBuilder {
         CISCO1700B_IF_MAC_MAP.put(1, "d00297a60001");
     }
 
+    /**
+     * Gets the laptop.
+     *
+     * @return the laptop
+     */
     protected OnmsNode getLaptop() {
         return getNode(LAPTOP_NAME, LAPTOP_SYSOID, LAPTOP_IP, LAPTOP_IP_IF_MAP, LAPTOP_IF_IFNAME_MAP,
                        LAPTOP_IF_MAC_MAP, LAPTOP_IF_IFDESCR_MAP, LAPTOP_IF_IFALIAS_MAP, LAPTOP_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco7200a.
+     *
+     * @return the cisco7200a
+     */
     protected OnmsNode getCisco7200a() {
         return getNode(CISCO7200A_NAME, CISCO7200A_SYSOID, CISCO7200A_IP, CISCO7200A_IP_IF_MAP,
                        CISCO7200A_IF_IFNAME_MAP, CISCO7200A_IF_MAC_MAP, CISCO7200A_IF_IFDESCR_MAP,
                        CISCO7200A_IF_IFALIAS_MAP, CISCO7200A_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco7200b.
+     *
+     * @return the cisco7200b
+     */
     protected OnmsNode getCisco7200b() {
         return getNode(CISCO7200B_NAME, CISCO7200B_SYSOID, CISCO7200B_IP, CISCO7200B_IP_IF_MAP,
                        CISCO7200B_IF_IFNAME_MAP, CISCO7200B_IF_MAC_MAP, CISCO7200B_IF_IFDESCR_MAP,
                        CISCO7200B_IF_IFALIAS_MAP, CISCO7200B_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco3700.
+     *
+     * @return the cisco3700
+     */
     protected OnmsNode getCisco3700() {
         return getNode(CISCO3700_NAME, CISCO3700_SYSOID, CISCO3700_IP, CISCO3700_IP_IF_MAP, CISCO3700_IF_IFNAME_MAP,
                        CISCO3700_IF_MAC_MAP, CISCO3700_IF_IFDESCR_MAP, CISCO3700_IF_IFALIAS_MAP,
                        CISCO3700_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco2691.
+     *
+     * @return the cisco2691
+     */
     protected OnmsNode getCisco2691() {
         return getNode(CISCO2691_NAME, CISCO2691_SYSOID, CISCO2691_IP, CISCO2691_IP_IF_MAP, CISCO2691_IF_IFNAME_MAP,
                        CISCO2691_IF_MAC_MAP, CISCO2691_IF_IFDESCR_MAP, CISCO2691_IF_IFALIAS_MAP,
                        CISCO2691_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco1700.
+     *
+     * @return the cisco1700
+     */
     protected OnmsNode getCisco1700() {
         return getNode(CISCO1700_NAME, CISCO1700_SYSOID, CISCO1700_IP, CISCO1700_IP_IF_MAP, CISCO1700_IF_IFNAME_MAP,
                        CISCO1700_IF_MAC_MAP, CISCO1700_IF_IFDESCR_MAP, CISCO1700_IF_IFALIAS_MAP,
                        CISCO1700_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco3600.
+     *
+     * @return the cisco3600
+     */
     protected OnmsNode getCisco3600() {
         return getNode(CISCO3600_NAME, CISCO3600_SYSOID, CISCO3600_IP, CISCO3600_IP_IF_MAP, CISCO3600_IF_IFNAME_MAP,
                        CISCO3600_IF_MAC_MAP, CISCO3600_IF_IFDESCR_MAP, CISCO3600_IF_IFALIAS_MAP,
                        CISCO3600_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the cisco1700b.
+     *
+     * @return the cisco1700b
+     */
     protected OnmsNode getCisco1700b() {
         return getNode(CISCO1700B_NAME, CISCO1700B_SYSOID, CISCO1700B_IP, CISCO1700B_IP_IF_MAP,
                        CISCO1700B_IF_IFNAME_MAP, CISCO1700B_IF_MAC_MAP, CISCO1700B_IF_IFDESCR_MAP,
                        CISCO1700B_IF_IFALIAS_MAP, CISCO1700B_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the example com.
+     *
+     * @return the example com
+     */
     protected OnmsNode getExampleCom() {
         return getNode(EXAMPLECOM_NAME, EXAMPLECOM_SYSOID, EXAMPLECOM_IP, EXAMPLECOM_IP_IF_MAP,
                        EXAMPLECOM_IF_IFNAME_MAP, EXAMPLECOM_IF_MAC_MAP, EXAMPLECOM_IF_IFDESCR_MAP,

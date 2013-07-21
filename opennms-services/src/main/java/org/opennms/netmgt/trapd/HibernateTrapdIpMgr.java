@@ -51,13 +51,13 @@ import org.springframework.util.Assert;
  */
 public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HibernateTrapdIpMgr.class);
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
-    /**
-     * A Map of IP addresses and node IDs
-     */
+    /** A Map of IP addresses and node IDs. */
     private Map<InetAddress, Integer> m_knownips = new HashMap<InetAddress, Integer>();
 
     /**
@@ -74,6 +74,7 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * dataSourceSync
      * </p>
+     * .
      */
     @Transactional(readOnly = true)
     @Override
@@ -138,12 +139,20 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * clearKnownIpsMap
      * </p>
+     * .
      */
     @Override
     public synchronized void clearKnownIpsMap() {
         m_knownips.clear();
     }
 
+    /**
+     * Long value.
+     *
+     * @param result
+     *            the result
+     * @return the long
+     */
     private static long longValue(Integer result) {
         return (result == null ? -1 : result.longValue());
     }
@@ -152,9 +161,10 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -165,6 +175,7 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * getIpInterfaceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -176,6 +187,7 @@ public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * setIpInterfaceDao
      * </p>
+     * .
      *
      * @param ipInterfaceDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.

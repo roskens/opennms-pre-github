@@ -64,11 +64,10 @@ import org.slf4j.LoggerFactory;
  */
 public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingVisitor.class);
 
-    /**
-     * Holds thresholds configuration for a node/interface/service
-     */
+    /** Holds thresholds configuration for a node/interface/service. */
     final CollectorThresholdingSet m_thresholdingSet;
 
     /**
@@ -76,6 +75,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      */
     final Map<String, CollectionAttribute> m_attributesMap = new HashMap<String, CollectionAttribute>();
 
+    /** The m_collection timestamp. */
     private Date m_collectionTimestamp;
 
     /**
@@ -129,12 +129,17 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
         m_collectionTimestamp = new Date();
     }
 
+    /**
+     * Checks for thresholds.
+     *
+     * @return true, if successful
+     */
     public boolean hasThresholds() {
         return m_thresholdingSet.hasThresholds();
     }
 
     /**
-     * Get a list of thresholds groups (for junit only at this time)
+     * Get a list of thresholds groups (for junit only at this time).
      *
      * @return a {@link java.util.List} object.
      */
@@ -142,28 +147,42 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
         return m_thresholdingSet.m_thresholdGroups;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionSetVisitor#visitCollectionSet(org.opennms.netmgt.config.collector.CollectionSet)
+     */
     @Override
     public void visitCollectionSet(CollectionSet set) {
         m_collectionTimestamp = set.getCollectionTimestamp();
     }
 
     /**
-     * Force reload thresholds configuration, and merge threshold states
+     * Force reload thresholds configuration, and merge threshold states.
      */
     public void reload() {
         m_thresholdingSet.reinitialize();
     }
 
+    /**
+     * Reload scheduled outages.
+     */
     public void reloadScheduledOutages() {
         m_thresholdingSet.updateScheduledOutages();
     }
 
+    /**
+     * Checks if is node in outage.
+     *
+     * @return true, if is node in outage
+     */
     public boolean isNodeInOutage() {
         return m_thresholdingSet.isNodeInOutage();
     }
 
     /**
-     * Clear required attributes map
+     * Clear required attributes map.
+     *
+     * @param resource
+     *            the resource
      */
     @Override
     public void visitResource(CollectionResource resource) {
@@ -176,6 +195,9 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      * reference to their attributes.
      * (The way to get attribute is against {@link AttributeGroup} object
      * contained on {@link CollectionResource} implementations).
+     *
+     * @param attribute
+     *            the attribute
      */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
@@ -208,6 +230,11 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     /*
      * Return the collection timestamp passed in at construct time. Typically
      * used by tests, but might be useful elsewhere
+     */
+    /**
+     * Gets the collection timestamp.
+     *
+     * @return the collection timestamp
      */
     public Date getCollectionTimestamp() {
         return this.m_collectionTimestamp;

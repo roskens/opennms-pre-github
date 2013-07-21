@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class JavaMailNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailNotificationStrategy.class);
 
     /**
@@ -81,7 +82,10 @@ public class JavaMailNotificationStrategy implements NotificationStrategy {
      * parameters passed in the notification.
      *
      * @param arguments
+     *            the arguments
+     * @return the java mailer
      * @throws JavaMailerException
+     *             the java mailer exception
      */
     private JavaMailer buildMessage(List<Argument> arguments) throws JavaMailerException {
 

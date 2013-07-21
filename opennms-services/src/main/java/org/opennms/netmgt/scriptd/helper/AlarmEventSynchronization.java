@@ -46,20 +46,33 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * The Class AlarmEventSynchronization.
+ */
 public class AlarmEventSynchronization implements EventSynchronization {
 
+    /** The m_forwarders. */
     List<EventForwarder> m_forwarders = new ArrayList<EventForwarder>();
 
+    /**
+     * Instantiates a new alarm event synchronization.
+     */
     public AlarmEventSynchronization() {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventSynchronization#addEventForwarder(org.opennms.netmgt.scriptd.helper.EventForwarder)
+     */
     @Override
     public void addEventForwarder(EventForwarder forwarder) {
         if (forwarder != null)
             m_forwarders.add(forwarder);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventSynchronization#sync()
+     */
     @Override
     public void sync() {
 
@@ -72,6 +85,13 @@ public class AlarmEventSynchronization implements EventSynchronization {
         }
     }
 
+    /**
+     * Gets the xML event.
+     *
+     * @param alarm
+     *            the alarm
+     * @return the xML event
+     */
     private Event getXMLEvent(OnmsAlarm alarm) {
         Event event = new Event();
 
@@ -154,6 +174,9 @@ public class AlarmEventSynchronization implements EventSynchronization {
         return event;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventSynchronization#getEvents()
+     */
     @Override
     public List<Event> getEvents() {
         BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");

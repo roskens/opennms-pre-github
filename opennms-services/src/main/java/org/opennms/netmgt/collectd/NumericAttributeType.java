@@ -44,14 +44,18 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NumericAttributeType extends SnmpAttributeType {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NumericAttributeType.class);
 
+    /** The s_supported types. */
     private static String[] s_supportedTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
 
     /**
      * <p>
      * supportsType
      * </p>
+     * .
      *
      * @param rawType
      *            a {@link java.lang.String} object.
@@ -67,6 +71,7 @@ public class NumericAttributeType extends SnmpAttributeType {
         return false;
     }
 
+    /** The Constant DST_COUNTER. */
     static final String DST_COUNTER = "COUNTER";
 
     /**
@@ -105,6 +110,9 @@ public class NumericAttributeType extends SnmpAttributeType {
         persister.persistNumericAttribute(attribute);
     }
 
+    /**
+     * Log name too long.
+     */
     void logNameTooLong() {
         LOG.warn("buildDataSourceList: Mib object name/alias '{}' exceeds 19 char maximum for RRD data source names, truncating.",
                  getAlias());

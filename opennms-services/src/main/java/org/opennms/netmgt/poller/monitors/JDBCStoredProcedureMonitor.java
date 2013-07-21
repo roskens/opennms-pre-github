@@ -52,15 +52,16 @@ import org.opennms.netmgt.model.PollStatus;
  * @version $Id: $
  */
 public final class JDBCStoredProcedureMonitor extends JDBCMonitor {
+
     /**
      * Class constructor.
      *
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
      */
     public JDBCStoredProcedureMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
     }

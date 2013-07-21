@@ -71,14 +71,21 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * The Class OpenNMSProvisionerTest.
+ */
 public class OpenNMSProvisionerTest {
 
+    /** The m_provisioner. */
     private OpenNMSProvisioner m_provisioner;
 
+    /** The m_capsd config. */
     private TestCapsdConfigManager m_capsdConfig;
 
+    /** The m_poller config. */
     private TestPollerConfigManager m_pollerConfig;
 
+    /** The Constant POLLER_CONFIG. */
     public static final String POLLER_CONFIG = "\n" + "<poller-configuration\n" + "   threads=\"10\"\n"
             + "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" + "   serviceUnresponsiveEnabled=\"false\">\n"
             + "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n"
@@ -106,6 +113,7 @@ public class OpenNMSProvisionerTest {
             + "   <monitor service=\"MyTcp\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n"
             + "</poller-configuration>\n";
 
+    /** The Constant CAPSD_CONFIG. */
     private static final String CAPSD_CONFIG = "\n"
             + "<capsd-configuration max-suspect-thread-pool-size=\"2\" max-rescan-thread-pool-size=\"3\"\n"
             + "   delete-propagation-enabled=\"true\">\n"
@@ -113,14 +121,24 @@ public class OpenNMSProvisionerTest {
             + "   <protocol-plugin protocol=\"MyTcp\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n"
             + "</capsd-configuration>\n";
 
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_strategy. */
     private RrdStrategy<?, ?> m_strategy = m_mocks.createMock(RrdStrategy.class);
 
+    /** The m_event manager. */
     private MockEventIpcManager m_eventManager;
 
+    /** The m_syncer. */
     private JdbcCapsdDbSyncer m_syncer;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -174,20 +192,50 @@ public class OpenNMSProvisionerTest {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * The Class TestPollerConfigManager.
+     */
     static class TestPollerConfigManager extends PollerConfigManager {
+
+        /** The m_xml. */
         String m_xml;
 
+        /**
+         * Instantiates a new test poller config manager.
+         *
+         * @param xml
+         *            the xml
+         * @param localServer
+         *            the local server
+         * @param verifyServer
+         *            the verify server
+         * @throws MarshalException
+         *             the marshal exception
+         * @throws ValidationException
+         *             the validation exception
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public TestPollerConfigManager(String xml, String localServer, boolean verifyServer) throws MarshalException,
                 ValidationException, IOException {
             super(new ByteArrayInputStream(xml.getBytes("UTF-8")), localServer, verifyServer);
             save();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.PollerConfigManager#update()
+         */
         @SuppressWarnings("deprecation")
         @Override
         public void update() throws IOException, MarshalException, ValidationException {
@@ -195,28 +243,70 @@ public class OpenNMSProvisionerTest {
             setUpInternalData();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.PollerConfigManager#saveXml(java.lang.String)
+         */
         @Override
         protected void saveXml(String xml) throws IOException {
             m_xml = xml;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.PollerConfigManager#getIpList(org.opennms.netmgt.config.poller.Package)
+         */
         @Override
         public List<InetAddress> getIpList(Package pkg) {
             return new ArrayList<InetAddress>(0);
         }
 
+        /**
+         * Gets the xml.
+         *
+         * @return the xml
+         */
         public String getXml() {
             return m_xml;
         }
 
     }
 
+    /**
+     * Test get service configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetServiceConfiguration() throws Exception {
         checkServiceConfiguration("default", "ICMP", 2, 3000, 300000, 300000, 30000);
         checkTcpConfiguration("MyTcp", "MyTcp", 3, 314159, 1234, 17, 1492, 1776, "Right back at ya!");
     }
 
+    /**
+     * Check tcp configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param port
+     *            the port
+     * @param banner
+     *            the banner
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkTcpConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, int port, String banner) throws Exception {
         Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
@@ -226,6 +316,27 @@ public class OpenNMSProvisionerTest {
         return configParams;
     }
 
+    /**
+     * Check service configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkServiceConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration) throws Exception {
         Map<String, Object> configParams = m_provisioner.getServiceConfiguration(pkgName, svcName);
@@ -257,6 +368,9 @@ public class OpenNMSProvisionerTest {
         return configParams;
     }
 
+    /**
+     * Test get service config null pkg name.
+     */
     @Test
     public void testGetServiceConfigNullPkgName() {
         try {
@@ -267,6 +381,9 @@ public class OpenNMSProvisionerTest {
         }
     }
 
+    /**
+     * Test get service config null service id.
+     */
     @Test
     public void testGetServiceConfigNullServiceId() {
         try {
@@ -277,6 +394,9 @@ public class OpenNMSProvisionerTest {
         }
     }
 
+    /**
+     * Test get service config invalid pkg.
+     */
     @Test
     public void testGetServiceConfigInvalidPkg() {
         try {
@@ -287,6 +407,9 @@ public class OpenNMSProvisionerTest {
         }
     }
 
+    /**
+     * Test get service config invalid service id.
+     */
     @Test
     public void testGetServiceConfigInvalidServiceId() {
         try {
@@ -297,6 +420,12 @@ public class OpenNMSProvisionerTest {
         }
     }
 
+    /**
+     * Test add service icmp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceIcmp() throws Exception {
 
@@ -312,6 +441,12 @@ public class OpenNMSProvisionerTest {
     }
 
     // TODO: Add test for exception on save of XML file
+    /**
+     * Test add service database.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceDatabase() throws Exception {
         expectUpdateEvent();
@@ -326,6 +461,12 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Test add service dns.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceDNS() throws Exception {
         expectUpdateEvent();
@@ -338,6 +479,12 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Test add service http.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceHTTP() throws Exception {
         expectUpdateEvent();
@@ -352,6 +499,12 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Test add service http no response code.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceHTTPNoResponseCode() throws Exception {
         expectUpdateEvent();
@@ -366,6 +519,43 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Check http configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param hostName
+     *            the host name
+     * @param port
+     *            the port
+     * @param responseCode
+     *            the response code
+     * @param contentCheck
+     *            the content check
+     * @param url
+     *            the url
+     * @param user
+     *            the user
+     * @param passwd
+     *            the passwd
+     * @param agent
+     *            the agent
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkHTTPConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode,
             String contentCheck, String url, String user, String passwd, String agent) throws Exception {
@@ -382,6 +572,12 @@ public class OpenNMSProvisionerTest {
         return configParams;
     }
 
+    /**
+     * Test add service https.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceHTTPS() throws Exception {
         expectUpdateEvent();
@@ -396,6 +592,43 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Check https configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param hostName
+     *            the host name
+     * @param port
+     *            the port
+     * @param responseCode
+     *            the response code
+     * @param contentCheck
+     *            the content check
+     * @param url
+     *            the url
+     * @param user
+     *            the user
+     * @param passwd
+     *            the passwd
+     * @param agent
+     *            the agent
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkHTTPSConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode,
             String contentCheck, String url, String user, String passwd, String agent) throws Exception {
@@ -403,6 +636,12 @@ public class OpenNMSProvisionerTest {
                                       hostName, port, responseCode, contentCheck, url, user, passwd, agent);
     }
 
+    /**
+     * Test add service tcp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAddServiceTCP() throws Exception {
         expectUpdateEvent();
@@ -415,15 +654,27 @@ public class OpenNMSProvisionerTest {
         verifyEvents();
     }
 
+    /**
+     * Expect update event.
+     */
     private void expectUpdateEvent() {
         m_eventManager.getEventAnticipator().anticipateEvent(MockEventUtil.createEventBuilder("Test",
                                                                                               EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI).getEvent());
     }
 
+    /**
+     * Verify events.
+     */
     private void verifyEvents() {
         m_eventManager.getEventAnticipator().verifyAnticipated(1000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test readd service tcp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testReaddServiceTCP() throws Exception {
         testAddServiceTCP();
@@ -444,6 +695,31 @@ public class OpenNMSProvisionerTest {
 
     // TODO: ensure the data gets saved to the config file
 
+    /**
+     * Check tcp configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param port
+     *            the port
+     * @param contentCheck
+     *            the content check
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkTCPConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, int port, String contentCheck) throws Exception {
         Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
@@ -453,6 +729,31 @@ public class OpenNMSProvisionerTest {
         return configParams;
     }
 
+    /**
+     * Check dns configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param port
+     *            the port
+     * @param lookup
+     *            the lookup
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkDNSConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, int port, String lookup) throws Exception {
         Map<String, Object> configParams = checkServiceConfiguration(pkgName, svcName, retries, timeout, interval,
@@ -462,6 +763,35 @@ public class OpenNMSProvisionerTest {
         return configParams;
     }
 
+    /**
+     * Check database configuration.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param svcName
+     *            the svc name
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downtimeInterval
+     *            the downtime interval
+     * @param downtimeDuration
+     *            the downtime duration
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     * @param driver
+     *            the driver
+     * @param dbUrl
+     *            the db url
+     * @return the map
+     * @throws Exception
+     *             the exception
+     */
     private Map<String, Object> checkDatabaseConfiguration(String pkgName, String svcName, int retries, int timeout,
             int interval, int downtimeInterval, int downtimeDuration, String username, String password, String driver,
             String dbUrl) throws Exception {

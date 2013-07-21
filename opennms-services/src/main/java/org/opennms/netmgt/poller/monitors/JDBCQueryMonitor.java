@@ -50,30 +50,43 @@ import org.slf4j.LoggerFactory;
  */
 public final class JDBCQueryMonitor extends JDBCMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(JDBCQueryMonitor.class);
 
+    /** The Constant OPERATOR_MAP_EQUALS. */
     private static final int OPERATOR_MAP_EQUALS = 0;
 
+    /** The Constant OPERATOR_MAP_LESS_THAN. */
     private static final int OPERATOR_MAP_LESS_THAN = 1;
 
+    /** The Constant OPERATOR_MAP_GREATER_THAN. */
     private static final int OPERATOR_MAP_GREATER_THAN = 2;
 
+    /** The Constant OPERATOR_MAP_NOT_EQUAL. */
     private static final int OPERATOR_MAP_NOT_EQUAL = 3;
 
+    /** The Constant OPERATOR_MAP_LESS_THAN_EQUAL_TO. */
     private static final int OPERATOR_MAP_LESS_THAN_EQUAL_TO = 4;
 
+    /** The Constant OPERATOR_MAP_GREATER_THAN_EQUAL_TO. */
     private static final int OPERATOR_MAP_GREATER_THAN_EQUAL_TO = 5;
 
+    /** The Constant QUERY_ACTION_ROW_COUNT. */
     private static final int QUERY_ACTION_ROW_COUNT = 0;
 
+    /** The Constant QUERY_ACTION_COMPARE_STRING. */
     private static final int QUERY_ACTION_COMPARE_STRING = 1;
 
+    /** The Constant QUERY_ACTION_COMPARE_INT. */
     private static final int QUERY_ACTION_COMPARE_INT = 2;
 
+    /** The Constant QUERY_ACTION_COMPARE_BOOLEAN. */
     private static final int QUERY_ACTION_COMPARE_BOOLEAN = 3;
 
+    /** The operator map. */
     private static Map<String, Integer> operatorMap = new HashMap<String, Integer>();
 
+    /** The action map. */
     private static Map<String, Integer> actionMap = new HashMap<String, Integer>();
 
     /**
@@ -81,12 +94,12 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
      * Constructor for JDBCQueryMonitor.
      * </p>
      *
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
      */
     public JDBCQueryMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
@@ -176,6 +189,17 @@ public final class JDBCQueryMonitor extends JDBCMonitor {
         return ps;
     }
 
+    /**
+     * Integer check.
+     *
+     * @param val
+     *            the val
+     * @param expected
+     *            the expected
+     * @param operator
+     *            the operator
+     * @return true, if successful
+     */
     private boolean integerCheck(int val, int expected, String operator) {
 
         switch (operatorMap.get(operator).intValue()) {

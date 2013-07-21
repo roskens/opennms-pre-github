@@ -47,28 +47,39 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ReportDefinition implements InitializingBean {
+
+    /** The m_report. */
     private PackageReport m_report;
 
+    /** The m_report class. */
     private Class<? extends AttributeStatisticVisitorWithResults> m_reportClass;
 
+    /** The m_count. */
     private Integer m_count;
 
+    /** The m_consolidation function. */
     private String m_consolidationFunction;
 
+    /** The m_relative time. */
     private RelativeTime m_relativeTime;
 
+    /** The m_resource type match. */
     private String m_resourceTypeMatch;
 
+    /** The m_attribute match. */
     private String m_attributeMatch;
 
+    /** The m_resource attribute key. */
     private String m_resourceAttributeKey;
 
+    /** The m_resource attribute value match. */
     private String m_resourceAttributeValueMatch;
 
     /**
      * <p>
      * getAttributeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -80,6 +91,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setAttributeMatch
      * </p>
+     * .
      *
      * @param attributeMatch
      *            a {@link java.lang.String} object.
@@ -92,6 +104,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getConsolidationFunction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +116,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setConsolidationFunction
      * </p>
+     * .
      *
      * @param consolidationFunction
      *            a {@link java.lang.String} object.
@@ -115,6 +129,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -126,6 +141,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a {@link java.lang.Integer} object.
@@ -138,6 +154,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getResourceTypeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,6 +166,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setResourceTypeMatch
      * </p>
+     * .
      *
      * @param resourceTypeMatch
      *            a {@link java.lang.String} object.
@@ -161,6 +179,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getReportClass
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -172,6 +191,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setReportClass
      * </p>
+     * .
      *
      * @param reportClass
      *            a {@link java.lang.Class} object.
@@ -192,6 +212,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getRelativeTime
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.statsd.RelativeTime} object.
      */
@@ -203,6 +224,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setRelativeTime
      * </p>
+     * .
      *
      * @param relativeTime
      *            a {@link org.opennms.netmgt.statsd.RelativeTime} object.
@@ -215,6 +237,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.statsd.model.PackageReport}
      *         object.
@@ -227,6 +250,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.config.statsd.model.PackageReport}
@@ -240,6 +264,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setResourceAttributeKey
      * </p>
+     * .
      *
      * @param resourceAttributeKey
      *            a {@link java.lang.String} object.
@@ -252,6 +277,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * setResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @param resourceAttributeValueMatch
      *            a {@link java.lang.String} object.
@@ -264,6 +290,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getResourceAttributeKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -275,6 +302,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -286,6 +314,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getCronExpression
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -297,6 +326,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -308,6 +338,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -319,6 +350,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * getRetainInterval
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -330,7 +362,10 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * createReport
      * </p>
+     * .
      *
+     * @param nodeDao
+     *            the node dao
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      * @param rrdDao
@@ -338,8 +373,8 @@ public class ReportDefinition implements InitializingBean {
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
      * @return a {@link org.opennms.netmgt.statsd.ReportInstance} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public ReportInstance createReport(NodeDao nodeDao, ResourceDao resourceDao, RrdDao rrdDao, FilterDao filterDao)
             throws Exception {
@@ -409,6 +444,7 @@ public class ReportDefinition implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

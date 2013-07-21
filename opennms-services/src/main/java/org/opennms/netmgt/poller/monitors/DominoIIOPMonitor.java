@@ -62,6 +62,8 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public final class DominoIIOPMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DominoIIOPMonitor.class);
 
     /**
@@ -69,9 +71,7 @@ public final class DominoIIOPMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_PORT = 63148;
 
-    /**
-     * Default port of where to find the IOR via HTTP
-     */
+    /** Default port of where to find the IOR via HTTP. */
     private static final int DEFAULT_IORPORT = 80;
 
     /**
@@ -199,6 +199,9 @@ public final class DominoIIOPMonitor extends AbstractServiceMonitor {
      *            the host name which has the IOR
      * @param port
      *            the port to find the IOR via HTTP
+     * @return the string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private String retrieveIORText(String host, int port) throws IOException {
         String IOR = "";

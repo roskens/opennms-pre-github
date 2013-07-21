@@ -39,6 +39,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class StatsdTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-mockDao.xml",
@@ -49,19 +52,33 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 // @JUnitTemporaryDatabase
 public class StatsdTest implements InitializingBean {
+
+    /** The m_statsd. */
     @Autowired
     Statsd m_statsd;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test startup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testStartup() throws Exception {
         m_statsd.start();

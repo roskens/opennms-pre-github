@@ -56,16 +56,21 @@ import org.snmp4j.util.TableEvent;
 import org.snmp4j.util.TableUtils;
 
 /**
- * Represents a MockAgentTest
+ * Represents a MockAgentTest.
  *
  * @author brozow
  */
 public class MockAgentTest extends TestCase {
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_proxy. */
     private MockProxy m_proxy;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected final void setUp() throws Exception {
         MockUtil.println("------------ Begin Test " + getName() + " --------------------------");
@@ -108,6 +113,9 @@ public class MockAgentTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected final void tearDown() throws Exception {
         m_proxy.stop();
@@ -117,6 +125,12 @@ public class MockAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test walk system.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public final void testWalkSystem() throws IOException {
 
         Snmp snmp = new Snmp(new DefaultUdpTransportMapping());
@@ -145,6 +159,12 @@ public class MockAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test get sys name.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public final void testGetSysName() throws IOException {
 
         Snmp snmp = new Snmp(new DefaultUdpTransportMapping());

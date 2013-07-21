@@ -46,10 +46,12 @@ import javax.management.MBeanServerConnection;
  * @version $Id: $
  */
 public interface ConnectionWrapper {
+
     /**
      * <p>
      * getMBeanServer
      * </p>
+     * .
      *
      * @return a {@link javax.management.MBeanServerConnection} object.
      */
@@ -59,6 +61,7 @@ public interface ConnectionWrapper {
      * <p>
      * close
      * </p>
+     * .
      */
     public void close();
 

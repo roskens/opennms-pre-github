@@ -41,11 +41,17 @@ import org.opennms.netmgt.config.datacollection.Parameter;
  */
 public class PersistAllSelectorStrategy implements PersistenceSelectorStrategy {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.PersistenceSelectorStrategy#shouldPersist(org.opennms.netmgt.config.collector.CollectionResource)
+     */
     @Override
     public boolean shouldPersist(CollectionResource resource) {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.PersistenceSelectorStrategy#setParameters(java.util.List)
+     */
     @Override
     public void setParameters(List<Parameter> parameterCollection) {
     }

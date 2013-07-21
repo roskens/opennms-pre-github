@@ -42,6 +42,7 @@ public interface Tl1Client {
      * <p>
      * start
      * </p>
+     * .
      */
     void start();
 
@@ -49,6 +50,7 @@ public interface Tl1Client {
      * <p>
      * stop
      * </p>
+     * .
      */
     void stop();
 
@@ -56,6 +58,7 @@ public interface Tl1Client {
      * <p>
      * getHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -65,6 +68,7 @@ public interface Tl1Client {
      * <p>
      * setHost
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -75,6 +79,7 @@ public interface Tl1Client {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -84,6 +89,7 @@ public interface Tl1Client {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -94,6 +100,7 @@ public interface Tl1Client {
      * <p>
      * getReconnectionDelay
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -103,6 +110,7 @@ public interface Tl1Client {
      * <p>
      * setReconnectionDelay
      * </p>
+     * .
      *
      * @param reconnectionDelay
      *            a long.
@@ -113,6 +121,7 @@ public interface Tl1Client {
      * <p>
      * getTl1Queue
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.BlockingQueue} object.
      */
@@ -122,6 +131,7 @@ public interface Tl1Client {
      * <p>
      * setTl1Queue
      * </p>
+     * .
      *
      * @param queue
      *            a {@link java.util.concurrent.BlockingQueue} object.
@@ -132,6 +142,7 @@ public interface Tl1Client {
      * <p>
      * getMessageProcessor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessageProcessor}
      *         object.
@@ -142,6 +153,7 @@ public interface Tl1Client {
      * <p>
      * setMessageProcessor
      * </p>
+     * .
      *
      * @param messageProcessor
      *            a

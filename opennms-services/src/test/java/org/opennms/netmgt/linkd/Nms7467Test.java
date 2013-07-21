@@ -82,6 +82,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class Nms7467Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -95,40 +98,59 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_stp node dao. */
     @Autowired
     private StpNodeDao m_stpNodeDao;
 
+    /** The m_stp interface dao. */
     @Autowired
     private StpInterfaceDao m_stpInterfaceDao;
 
+    /** The m_ip route interface dao. */
     @Autowired
     private IpRouteInterfaceDao m_ipRouteInterfaceDao;
 
+    /** The m_at interface dao. */
     @Autowired
     private AtInterfaceDao m_atInterfaceDao;
 
+    /** The m_vlan dao. */
     @Autowired
     private VlanDao m_vlanDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -145,6 +167,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -154,6 +182,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -162,6 +196,16 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         m_nodeDao.flush();
     }
 
+    /**
+     * Test default configuration.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testDefaultConfiguration() throws MarshalException, ValidationException, IOException {
 
@@ -212,6 +256,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Test all together.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"
@@ -318,6 +368,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         assertEquals(47, ciscoaplinktociscows.getParentIfIndex().intValue());
     }
 
+    /**
+     * Test cisco ws c2948 collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + CISCO_WS_C2948_IP + "-walk.txt") })
@@ -411,6 +467,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         assertEquals(50, m_stpInterfaceDao.findAll().size());
     }
 
+    /**
+     * Test cisco c870 collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_C870_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + CISCO_C870_IP + "-walk.txt") })
@@ -527,6 +589,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Test net gear sw108 collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = NETGEAR_SW_108_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + NETGEAR_SW_108_IP + "-walk.txt") })
@@ -626,6 +694,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Test linux ubuntu collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = LINUX_UBUNTU_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + LINUX_UBUNTU_IP + "-walk.txt") })
@@ -705,6 +779,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Test darwin108 collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = DARWIN_10_8_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + DARWIN_10_8_IP + "-walk.txt") })
@@ -789,6 +869,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         assertEquals(0, m_stpInterfaceDao.findAll().size());
     }
 
+    /**
+     * Test work station.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testWorkStation() throws Exception {
         m_nodeDao.save(getNodeWithoutSnmp(WORKSTATION_NAME, WORKSTATION_IP));
@@ -801,6 +887,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     /*
      * DARWIN_10_8:port4 ------> port 1 :NETGEAR_SW_108
+     */
+    /**
+     * Test link darwin netgear.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -846,6 +938,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     /*
      * NETGEAR_SW_108:port8------> port 2/1 (ifindex 9):CISCO_WS_C2948_IP
+     */
+    /**
+     * Test link netgear cisco ws.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -898,6 +996,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
     /*
      * LINUX_UBUNTU:port4 ------> port 2/3 (ifindex 11):CISCO_WS_C2948_IP
      */
+    /**
+     * Test linux ubuntu cisco ws.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"
@@ -944,6 +1048,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
      * WORKSTATION: linked to a wireless ------> port 2/29 (ifindex
      * 47):CISCO_WS_C2948_IP
      * should be the same port for cisco wireless device.....
+     */
+    /**
+     * Test workstation cisco ws.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"
@@ -992,6 +1102,14 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Test get nodeid from ip.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     public void testGetNodeidFromIp() throws UnknownHostException, SQLException {
         m_nodeDao.save(getCiscoC870());
@@ -1003,6 +1121,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
         assertEquals(m_nodeDao.findByForeignId("linkd", CISCO_C870_NAME).getId().intValue(), nodeid);
     }
 
+    /**
+     * Test get if index by name.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     @Transactional
     public void testGetIfIndexByName() throws SQLException {
@@ -1025,6 +1149,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
     /*
      * CISCO_C870: FastEthernet2 3 ------> port 2/44 (ifindex
      * 52):CISCO_WS_C2948_IP
+     */
+    /**
+     * Test cisco router cisco ws using cdp.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -1089,6 +1219,12 @@ public class Nms7467Test extends Nms7467NetworkBuilder implements InitializingBe
     /*
      * ACCESSPOINT: GigabitEthernet (but no ifindex because no snmp on) ------>
      * port 2/39 (ifindex 47):CISCO_WS_C2948_IP
+     */
+    /**
+     * Test cisco access point cisco ws using cdp.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"

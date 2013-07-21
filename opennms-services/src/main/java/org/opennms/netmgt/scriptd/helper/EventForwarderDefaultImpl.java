@@ -30,22 +30,37 @@ package org.opennms.netmgt.scriptd.helper;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class EventForwarderDefaultImpl.
+ */
 public class EventForwarderDefaultImpl extends AbstractEventForwarder implements EventForwarder {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushEvent(Event event) {
         super.filter(event);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushSyncEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushSyncEvent(Event event) {
         super.filter(event);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendStartSync()
+     */
     @Override
     public void sendStartSync() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendEndSync()
+     */
     @Override
     public void sendEndSync() {
     }

@@ -54,8 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JMXPlugin.class);
 
+    /** The protocol name. */
     private String protocolName = null;
 
     /*
@@ -80,6 +82,7 @@ public abstract class JMXPlugin extends AbstractPlugin {
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param parameterMap
      *            a {@link java.util.Map} object.

@@ -37,8 +37,12 @@ import java.util.TreeMap;
 import org.opennms.netmgt.scheduler.ReadyRunnable;
 import org.opennms.netmgt.scheduler.Scheduler;
 
+/**
+ * The Class MockScheduler.
+ */
 public class MockScheduler implements Scheduler {
 
+    /** The m_timer. */
     private MockTimer m_timer;
 
     /*
@@ -46,16 +50,29 @@ public class MockScheduler implements Scheduler {
      * Commented out because it is not currently used in this monitor
      */
     // private long m_currentTime = 0;
+    /** The m_schedule entries. */
     private SortedMap<Long, List<ReadyRunnable>> m_scheduleEntries = new TreeMap<Long, List<ReadyRunnable>>();
 
+    /**
+     * Instantiates a new mock scheduler.
+     */
     public MockScheduler() {
         this(new MockTimer());
     }
 
+    /**
+     * Instantiates a new mock scheduler.
+     *
+     * @param timer
+     *            the timer
+     */
     public MockScheduler(MockTimer timer) {
         m_timer = timer;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#schedule(long, org.opennms.netmgt.scheduler.ReadyRunnable)
+     */
     @Override
     public void schedule(long interval, ReadyRunnable schedule) {
         Long nextTime = Long.valueOf(getCurrentTime() + interval);
@@ -69,14 +86,29 @@ public class MockScheduler implements Scheduler {
         entries.add(schedule);
     }
 
+    /**
+     * Gets the entry count.
+     *
+     * @return the entry count
+     */
     public int getEntryCount() {
         return m_scheduleEntries.size();
     }
 
+    /**
+     * Gets the entries.
+     *
+     * @return the entries
+     */
     public Map<Long, List<ReadyRunnable>> getEntries() {
         return m_scheduleEntries;
     }
 
+    /**
+     * Gets the next time.
+     *
+     * @return the next time
+     */
     public long getNextTime() {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
@@ -86,6 +118,11 @@ public class MockScheduler implements Scheduler {
         return nextTime.longValue();
     }
 
+    /**
+     * Next.
+     *
+     * @return the long
+     */
     public long next() {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
@@ -103,6 +140,13 @@ public class MockScheduler implements Scheduler {
         return getCurrentTime();
     }
 
+    /**
+     * Tick.
+     *
+     * @param step
+     *            the step
+     * @return the long
+     */
     public long tick(int step) {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
@@ -117,28 +161,46 @@ public class MockScheduler implements Scheduler {
         return getCurrentTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#getCurrentTime()
+     */
     @Override
     public long getCurrentTime() {
         return m_timer.getCurrentTime();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#start()
+     */
     @Override
     public void start() {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#stop()
+     */
     @Override
     public void stop() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#pause()
+     */
     @Override
     public void pause() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#resume()
+     */
     @Override
     public void resume() {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.Scheduler#getStatus()
+     */
     @Override
     public int getStatus() {
         return 0;

@@ -42,8 +42,10 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  */
 public class PollJob extends QuartzJobBean {
 
+    /** The m_polled service. */
     private PolledService m_polledService;
 
+    /** The m_poller front end. */
     private PollerFrontEnd m_pollerFrontEnd;
 
     /** {@inheritDoc} */
@@ -57,6 +59,7 @@ public class PollJob extends QuartzJobBean {
      * <p>
      * setPolledService
      * </p>
+     * .
      *
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
@@ -70,6 +73,7 @@ public class PollJob extends QuartzJobBean {
      * <p>
      * setPollerFrontEnd
      * </p>
+     * .
      *
      * @param pollerFrontEnd
      *            a {@link org.opennms.netmgt.poller.remote.PollerFrontEnd}

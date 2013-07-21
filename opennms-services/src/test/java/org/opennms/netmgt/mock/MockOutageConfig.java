@@ -30,27 +30,43 @@ package org.opennms.netmgt.mock;
 
 import org.opennms.netmgt.config.OutageManagerConfig;
 
+/**
+ * The Class MockOutageConfig.
+ */
 public class MockOutageConfig implements OutageManagerConfig {
 
+    /** The m_get next outage id. */
     private String m_getNextOutageID;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.OutageManagerConfig#deletePropagation()
+     */
     @Override
     public boolean deletePropagation() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.OutageManagerConfig#getGetNextOutageID()
+     */
     @Override
     public String getGetNextOutageID() {
         return m_getNextOutageID;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.OutageManagerConfig#getWriters()
+     */
     @Override
     public int getWriters() {
         return 1;
     }
 
     /**
+     * Sets the gets the next outage id.
+     *
      * @param nextOutageIdStatement
+     *            the new gets the next outage id
      */
     public void setGetNextOutageID(String nextOutageIdStatement) {
         m_getNextOutageID = nextOutageIdStatement;

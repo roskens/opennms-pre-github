@@ -74,9 +74,7 @@ public class RTCNode {
      */
     private RTCNodeSvcTimesList m_svcTimesList;
 
-    /**
-     * List of the categories this node belongs to
-     */
+    /** List of the categories this node belongs to. */
     private List<String> m_categories;
 
     /**

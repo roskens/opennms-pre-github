@@ -34,20 +34,30 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpUtils;
 
+/**
+ * The Class LldpLocTableEntry.
+ */
 public class LldpLocTableEntry extends SnmpStore {
 
+    /** The Constant LLDP_LOC_PORTNUM_ALIAS. */
     public static final String LLDP_LOC_PORTNUM_ALIAS = "lldpLocPortNum";
 
+    /** The Constant LLDP_LOC_PORTID_SUBTYPE_ALIAS. */
     public static final String LLDP_LOC_PORTID_SUBTYPE_ALIAS = "lldpLocPortIdSubtype";
 
+    /** The Constant LLDP_LOC_PORTID_ALIAS. */
     public static final String LLDP_LOC_PORTID_ALIAS = "lldpLocPortId";
 
+    /** The Constant LLDP_LOC_PORTNUM_OID. */
     public static final String LLDP_LOC_PORTNUM_OID = ".1.0.8802.1.1.2.1.3.7.1.1";
 
+    /** The Constant LLDP_LOC_PORTID_SUBTYPE_OID. */
     public static final String LLDP_LOC_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.7.1.2";
 
+    /** The Constant LLDP_LOC_PORTID_OID. */
     public static final String LLDP_LOC_PORTID_OID = ".1.0.8802.1.1.2.1.3.7.1.3";
 
+    /** The Constant lldploctable_elemList. */
     public static final NamedSnmpVar[] lldploctable_elemList = new NamedSnmpVar[] {
 
     new NamedSnmpVar(NamedSnmpVar.SNMPINT32, LLDP_LOC_PORTNUM_ALIAS, LLDP_LOC_PORTNUM_OID, 1),
@@ -66,33 +76,70 @@ public class LldpLocTableEntry extends SnmpStore {
 
     };
 
+    /** The Constant TABLE_OID. */
     public static final String TABLE_OID = ".1.0.8802.1.1.2.1.3.7.1"; // start
                                                                       // of
                                                                       // table
                                                                       // (GETNEXT)
 
-    private boolean hasLldpLocPortId = false;
+    /**
+                                                                         * The
+                                                                         * has
+                                                                         * lldp
+                                                                         * loc
+                                                                         * port
+                                                                         * id.
+                                                                         */
+                                                                      private boolean hasLldpLocPortId = false;
 
+    /**
+     * Instantiates a new lldp loc table entry.
+     */
     public LldpLocTableEntry() {
         super(lldploctable_elemList);
     }
 
+    /**
+     * Gets the lldp loc port num.
+     *
+     * @return the lldp loc port num
+     */
     public Integer getLldpLocPortNum() {
         return getInt32(LLDP_LOC_PORTNUM_ALIAS);
     }
 
+    /**
+     * Gets the lldp loc port id subtype.
+     *
+     * @return the lldp loc port id subtype
+     */
     public Integer getLldpLocPortIdSubtype() {
         return getInt32(LLDP_LOC_PORTID_SUBTYPE_ALIAS);
     }
 
+    /**
+     * Gets the lldp loc portid.
+     *
+     * @return the lldp loc portid
+     */
     public String getLldpLocPortid() {
         return getDisplayString(LLDP_LOC_PORTID_ALIAS);
     }
 
+    /**
+     * Gets the lldp loc mac address.
+     *
+     * @return the lldp loc mac address
+     */
     public String getLldpLocMacAddress() {
         return getHexString(LLDP_LOC_PORTID_ALIAS);
     }
 
+    /**
+     * Gets the lldp loc ip address.
+     *
+     * @return the lldp loc ip address
+     */
     public InetAddress getLldpLocIpAddress() {
         return getIPAddress(LLDP_LOC_PORTID_ALIAS);
     }

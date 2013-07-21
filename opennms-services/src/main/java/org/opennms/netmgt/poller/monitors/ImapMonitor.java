@@ -77,6 +77,8 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public final class ImapMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ImapMonitor.class);
 
     /**
@@ -95,24 +97,16 @@ public final class ImapMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_TIMEOUT = 3000;
 
-    /**
-     * The start of the initial banner received from the server
-     */
+    /** The start of the initial banner received from the server. */
     private static String IMAP_START_RESPONSE_PREFIX = "* OK ";
 
-    /**
-     * The LOGOUT request sent to the server to close the connection
-     */
+    /** The LOGOUT request sent to the server to close the connection. */
     private static String IMAP_LOGOUT_REQUEST = "ONMSPOLLER LOGOUT\r\n";
 
-    /**
-     * The BYE response received from the server in response to the logout
-     */
+    /** The BYE response received from the server in response to the logout. */
     private static String IMAP_BYE_RESPONSE_PREFIX = "* BYE ";
 
-    /**
-     * The LOGOUT response received from the server in response to the logout
-     */
+    /** The LOGOUT response received from the server in response to the logout. */
     private static String IMAP_LOGOUT_RESPONSE_PREFIX = "ONMSPOLLER OK ";
 
     /**

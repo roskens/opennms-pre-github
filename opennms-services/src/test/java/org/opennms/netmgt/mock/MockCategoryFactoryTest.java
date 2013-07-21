@@ -38,20 +38,30 @@ import org.opennms.netmgt.config.CategoryFactory;
 import org.opennms.netmgt.config.categories.CatFactory;
 import org.opennms.netmgt.config.categories.Category;
 
+/**
+ * The Class MockCategoryFactoryTest.
+ */
 public class MockCategoryFactoryTest extends TestCase {
 
+    /** The m_mock cat factory. */
     protected MockCategoryFactory m_mockCatFactory;
 
+    /** The m_cat factory. */
     protected CatFactory m_catFactory;
 
+    /** The Constant CATLABEL. */
     private static final String CATLABEL = "Network Interfaces";
 
+    /** The Constant CATRULE. */
     private static final String CATRULE = "(isICMP | isSNMP) & (ipaddr != \"0.0.0.0\")";
 
+    /** The Constant EFFECTIVE_RULE. */
     private static final String EFFECTIVE_RULE = "(ipaddr IPLIKE *.*.*.*) & ((isICMP | isSNMP) & (ipaddr != \"0.0.0.0\"))";
 
+    /** The Constant CATCOMMENT. */
     private static final String CATCOMMENT = "This is a very simple category";
 
+    /** The Constant MOCK_CATEGORY_CONFIG. */
     private static final String MOCK_CATEGORY_CONFIG = "<catinfo>" + " <header>" + "  <rev>1.3</rev>"
             + "  <created>Wednesday, February 6, 2002 10:10:00 AM EST</created>" + "  <mstation>checkers</mstation>"
             + " </header>" + " <categorygroup>" + "  <name>WebConsole</name>"
@@ -63,6 +73,9 @@ public class MockCategoryFactoryTest extends TestCase {
             + "    <rule><![CDATA[(isICMP | isSNMP) & (ipaddr != \"0.0.0.0\")]]></rule>" + "   </category>"
             + "  </categories>" + " </categorygroup>" + "</catinfo>";
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -71,11 +84,17 @@ public class MockCategoryFactoryTest extends TestCase {
         m_catFactory = CategoryFactory.getInstance();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test get category.
+     */
     public void testGetCategory() {
 
         Category category = m_catFactory.getCategory(CATLABEL);
@@ -88,6 +107,9 @@ public class MockCategoryFactoryTest extends TestCase {
 
     }
 
+    /**
+     * Test get effective rule.
+     */
     public void testGetEffectiveRule() {
         assertEquals(EFFECTIVE_RULE, m_catFactory.getEffectiveRule(CATLABEL));
     }

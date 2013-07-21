@@ -34,13 +34,18 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
- * DefaultTimeAdjustmentTest
+ * DefaultTimeAdjustmentTest.
  *
  * @author brozow
  */
 public class DefaultTimeAdjustmentTest {
+
+    /** The Constant m_jitter. */
     private static final long m_jitter = 2;
 
+    /**
+     * Test no time difference.
+     */
     @Test
     public void testNoTimeDifference() {
 
@@ -53,6 +58,9 @@ public class DefaultTimeAdjustmentTest {
         assertEqualsWithin(time, adjusted, m_jitter);
     }
 
+    /**
+     * Test server time matches.
+     */
     @Test
     public void testServerTimeMatches() {
 
@@ -68,6 +76,9 @@ public class DefaultTimeAdjustmentTest {
 
     }
 
+    /**
+     * Test server behind.
+     */
     @Test
     public void testServerBehind() {
 
@@ -83,6 +94,9 @@ public class DefaultTimeAdjustmentTest {
 
     }
 
+    /**
+     * Test server ahead.
+     */
     @Test
     public void testServerAhead() {
 
@@ -98,6 +112,9 @@ public class DefaultTimeAdjustmentTest {
 
     }
 
+    /**
+     * Test assert equals within.
+     */
     @Test
     public void testAssertEqualsWithin() {
         assertEqualsWithin(5, 7, 2);
@@ -116,6 +133,16 @@ public class DefaultTimeAdjustmentTest {
         }
     }
 
+    /**
+     * Assert equals within.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     * @param distance
+     *            the distance
+     */
     private void assertEqualsWithin(final long a, final long b, final long distance) {
         boolean fail = false;
         if (a + distance < b) {

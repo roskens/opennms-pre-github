@@ -31,23 +31,65 @@ package org.opennms.netmgt.collectd.jmxhelper;
 import javax.management.openmbean.CompositeData;
 
 /**
+ * The Interface JmxTestMBean.
+ *
  * @author Markus Neumann <Markus@OpenNMS.org>
  */
 public interface JmxTestMBean {
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName();
 
+    /**
+     * Gets the a.
+     *
+     * @return the a
+     */
     public int getA();
 
+    /**
+     * Gets the b.
+     *
+     * @return the b
+     */
     public int getB();
 
+    /**
+     * Gets the c.
+     *
+     * @return the c
+     */
     public int getC();
 
+    /**
+     * Gets the d.
+     *
+     * @return the d
+     */
     public int getD();
 
+    /**
+     * Gets the integer null.
+     *
+     * @return the integer null
+     */
     public Integer getIntegerNull();
 
+    /**
+     * Gets the string null.
+     *
+     * @return the string null
+     */
     public String getStringNull();
 
+    /**
+     * Gets the composite data.
+     *
+     * @return the composite data
+     */
     public CompositeData getCompositeData();
 }

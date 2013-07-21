@@ -42,6 +42,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class BroadcastEventProcessor.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:jamesz@opennms.com">James Zuo </a>
@@ -49,11 +51,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
-    /**
-     * The location where incoming events of interest are enqueued
-     */
+    /** The location where incoming events of interest are enqueued. */
     private final FifoQueue<Event> m_eventQ;
 
     /**
@@ -61,18 +63,23 @@ final class BroadcastEventProcessor implements EventListener {
      */
     private final int m_maxQSize;
 
-    /**
-     * Subscribed events for this listener
-     */
+    /** Subscribed events for this listener. */
     private final HashSet<String> m_events;
 
-    /**
-     * Suffix used to create a unique name for event registration
-     */
+    /** Suffix used to create a unique name for event registration. */
     private final String m_nameSuffix;
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
+     *
+     * @param nameSuffix
+     *            the name suffix
+     * @param eventQ
+     *            the event q
+     * @param maxQSize
+     *            the max q size
+     * @param eventList
+     *            the event list
      */
     BroadcastEventProcessor(final String nameSuffix, final FifoQueue<Event> eventQ, final int maxQSize,
             final List<SubscribedEvent> eventList) {
@@ -95,7 +102,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         EventIpcManagerFactory.getIpcManager().removeEventListener(this);
@@ -141,7 +148,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */

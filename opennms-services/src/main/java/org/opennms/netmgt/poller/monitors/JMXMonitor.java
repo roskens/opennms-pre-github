@@ -51,6 +51,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 
+/**
+ * The Class JMXMonitor.
+ */
 @Distributable
 /**
  * <p>Abstract JMXMonitor class.</p>
@@ -60,12 +63,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(JMXMonitor.class);
 
     /**
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param parameterMap
      *            a {@link java.util.Map} object.

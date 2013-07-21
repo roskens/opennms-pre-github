@@ -85,30 +85,47 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.SimpleTransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * The Class CollectdTest.
+ */
 public class CollectdTest extends TestCase {
 
+    /** The m_easy mock utils. */
     EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
+    /** The m_collectd. */
     private Collectd m_collectd;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_collector config dao. */
     private CollectorConfigDao m_collectorConfigDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip if dao. */
     private IpInterfaceDao m_ipIfDao;
 
+    /** The m_collector. */
     private ServiceCollector m_collector;
 
+    /** The m_scheduler. */
     private MockScheduler m_scheduler;
 
+    /** The m_transaction manager. */
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_collectd package. */
     private CollectdPackage m_collectdPackage;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
 
@@ -220,6 +237,9 @@ public class CollectdTest extends TestCase {
                                                                             ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public void runTest() throws Throwable {
         super.runTest();
@@ -228,31 +248,64 @@ public class CollectdTest extends TestCase {
         EasyMock.verify(m_filterDao);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Gets the collector.
+     *
+     * @return the collector
+     */
     private ServiceCollector getCollector() {
         return m_collector;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     private IpInterfaceDao getIpInterfaceDao() {
         return m_ipIfDao;
     }
 
+    /**
+     * Gets the collector config dao.
+     *
+     * @return the collector config dao
+     */
     private CollectorConfigDao getCollectorConfigDao() {
         return m_collectorConfigDao;
     }
 
+    /**
+     * Gets the event ipc manager.
+     *
+     * @return the event ipc manager
+     */
     private EventIpcManager getEventIpcManager() {
         return m_eventIpcManager;
     }
 
+    /**
+     * Gets the interface.
+     *
+     * @return the interface
+     */
     private OnmsIpInterface getInterface() {
         OnmsNode node = new OnmsNode();
         node.setId(1);
@@ -261,6 +314,12 @@ public class CollectdTest extends TestCase {
         return iface;
     }
 
+    /**
+     * Test create.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     public void testCreate() throws CollectionInitializationException {
 
         setupTransactionManager();
@@ -287,7 +346,7 @@ public class CollectdTest extends TestCase {
 
     /**
      * Test override of read community string and max repetitions in Collectd
-     * configuration parameters
+     * configuration parameters.
      */
     public void testOverrides() {
         Map<String, Object> map = new HashMap<String, Object>();
@@ -311,6 +370,12 @@ public class CollectdTest extends TestCase {
         assertEquals("Overriding read community failed.", "notPublic", s);
     }
 
+    /**
+     * Test no matching specs.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     public void testNoMatchingSpecs() throws CollectionInitializationException {
         String svcName = "SNMP";
 
@@ -333,6 +398,14 @@ public class CollectdTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test one matching spec.
+     *
+     * @throws CollectionException
+     *             the collection exception
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     public void testOneMatchingSpec() throws CollectionException, CollectionInitializationException {
         String svcName = "SNMP";
         OnmsIpInterface iface = getInterface();
@@ -389,6 +462,15 @@ public class CollectdTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Checks if is a collection.
+     *
+     * @param <K>
+     *            the key type
+     * @param innerClass
+     *            the inner class
+     * @return the collection
+     */
     @SuppressWarnings("unchecked")
     private <K> Collection<K> isACollection(Class<K> innerClass) {
         return isA(Collection.class);
@@ -401,11 +483,27 @@ public class CollectdTest extends TestCase {
      * }
      */
 
+    /**
+     * Checks if is a map.
+     *
+     * @param <K>
+     *            the key type
+     * @param <V>
+     *            the value type
+     * @param keyClass
+     *            the key class
+     * @param valueClass
+     *            the value class
+     * @return the map
+     */
     @SuppressWarnings("unchecked")
     private static <K, V> Map<K, V> isAMap(Class<K> keyClass, Class<V> valueClass) {
         return isA(Map.class);
     }
 
+    /**
+     * Setup transaction manager.
+     */
     private void setupTransactionManager() {
         m_transactionManager = m_easyMockUtils.createMock(PlatformTransactionManager.class);
         TransactionTemplate transactionTemplate = new TransactionTemplate(m_transactionManager);
@@ -418,11 +516,25 @@ public class CollectdTest extends TestCase {
         expectLastCall().anyTimes();
     }
 
+    /**
+     * Sets the up interface.
+     *
+     * @param iface
+     *            the new up interface
+     */
     private void setupInterface(OnmsIpInterface iface) {
         expect(m_ipIfDao.findByServiceType("SNMP")).andReturn(Collections.singletonList(iface));
         expect(m_ipIfDao.load(iface.getId())).andReturn(iface).atLeastOnce();
     }
 
+    /**
+     * Sets the up collector.
+     *
+     * @param svcName
+     *            the new up collector
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private void setupCollector(String svcName) throws CollectionInitializationException {
         Collector collector = new Collector();
         collector.setService(svcName);
@@ -439,44 +551,76 @@ public class CollectdTest extends TestCase {
         expect(m_collectorConfigDao.getCollectors()).andReturn(Collections.singleton(collector));
     }
 
+    /**
+     * The Class MockServiceCollector.
+     */
     public static class MockServiceCollector implements ServiceCollector {
+
+        /** The s_delegate. */
         private static ServiceCollector s_delegate;
 
+        /**
+         * Instantiates a new mock service collector.
+         */
         public MockServiceCollector() {
 
         }
 
+        /**
+         * Sets the delegate.
+         *
+         * @param delegate
+         *            the new delegate
+         */
         public static void setDelegate(ServiceCollector delegate) {
             s_delegate = delegate;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)
+         */
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
                 throws CollectionException {
             return s_delegate.collect(agent, eproxy, parameters);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
+         */
         @Override
         public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
             s_delegate.initialize(parameters);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt.collectd.CollectionAgent, java.util.Map)
+         */
         @Override
         public void initialize(CollectionAgent agent, Map<String, Object> parameters)
                 throws CollectionInitializationException {
             s_delegate.initialize(agent, parameters);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#release()
+         */
         @Override
         public void release() {
             s_delegate.release();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt.collectd.CollectionAgent)
+         */
         @Override
         public void release(CollectionAgent agent) {
             s_delegate.release(agent);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang.String)
+         */
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();

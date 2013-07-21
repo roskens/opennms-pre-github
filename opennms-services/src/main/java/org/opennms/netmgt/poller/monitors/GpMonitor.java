@@ -61,6 +61,8 @@ import org.slf4j.LoggerFactory;
 // opennms
 @Distributable(DistributionContext.DAEMON)
 public final class GpMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GpMonitor.class);
 
     /**

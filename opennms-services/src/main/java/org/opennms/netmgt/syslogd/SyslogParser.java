@@ -40,26 +40,48 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SyslogParser.
+ */
 public class SyslogParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogParser.class);
 
+    /** The m_pattern. */
     private static Pattern m_pattern = Pattern.compile("^.*$");
 
+    /** The m_matcher. */
     private Matcher m_matcher = null;
 
+    /** The m_text. */
     private final String m_text;
 
+    /** The m_found. */
     private Boolean m_found = null;
 
+    /** The m_matched. */
     private Boolean m_matched = null;
 
+    /** The m_trace enabled. */
     private boolean m_traceEnabled = false;
 
+    /**
+     * Instantiates a new syslog parser.
+     *
+     * @param text
+     *            the text
+     */
     protected SyslogParser(final String text) {
         m_text = text;
         m_traceEnabled = LOG.isTraceEnabled();
     }
 
+    /**
+     * Find.
+     *
+     * @return true, if successful
+     */
     public boolean find() {
         if (m_found == null) {
             getMatcher().reset();
@@ -68,6 +90,11 @@ public class SyslogParser {
         return m_found;
     }
 
+    /**
+     * Matches.
+     *
+     * @return true, if successful
+     */
     public boolean matches() {
         if (m_matched == null) {
             getMatcher().reset();
@@ -76,35 +103,76 @@ public class SyslogParser {
         return m_matched;
     }
 
+    /**
+     * Matched.
+     *
+     * @return the boolean
+     */
     protected Boolean matched() {
         return m_matched;
     }
 
+    /**
+     * Gets the text.
+     *
+     * @return the text
+     */
     protected String getText() {
         return m_text;
     }
 
+    /**
+     * Trace enabled.
+     *
+     * @return true, if successful
+     */
     protected boolean traceEnabled() {
         return m_traceEnabled;
     }
 
     /* override this to return your own class */
+    /**
+     * Gets the parser.
+     *
+     * @param text
+     *            the text
+     * @return the parser
+     * @throws SyslogParserException
+     *             the syslog parser exception
+     */
     public static SyslogParser getParser(final String text) throws SyslogParserException {
         throw new UnsupportedOperationException("You must implement getParser() in your subclass!");
     }
 
     /* override this to get your custom pattern */
+    /**
+     * Gets the pattern.
+     *
+     * @return the pattern
+     */
     protected Pattern getPattern() {
         return m_pattern;
     }
 
     /* override this to parse data from the matcher */
+    /**
+     * Parses the.
+     *
+     * @return the syslog message
+     * @throws SyslogParserException
+     *             the syslog parser exception
+     */
     public SyslogMessage parse() throws SyslogParserException {
         final SyslogMessage message = new SyslogMessage();
         message.setMessage(getMatcher().group().trim());
         return message;
     }
 
+    /**
+     * Gets the matcher.
+     *
+     * @return the matcher
+     */
     protected Matcher getMatcher() {
         if (m_matcher == null) {
             m_matcher = getPattern().matcher(m_text);
@@ -112,6 +180,13 @@ public class SyslogParser {
         return m_matcher;
     }
 
+    /**
+     * Parses the date.
+     *
+     * @param dateString
+     *            the date string
+     * @return the date
+     */
     protected Date parseDate(final String dateString) {
         Date date;
         try {

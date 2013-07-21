@@ -50,11 +50,17 @@ import com.novell.ldap.LDAPConnection;
 @Distributable
 public final class LdapsMonitor extends LdapMonitor {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.monitors.LdapMonitor#determinePort(java.util.Map)
+     */
     @Override
     protected int determinePort(Map<String, Object> parameters) {
         return ParameterMap.getKeyedInteger(parameters, "port", LDAPConnection.DEFAULT_SSL_PORT);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.monitors.LdapMonitor#getSocketWrapper()
+     */
     @Override
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();

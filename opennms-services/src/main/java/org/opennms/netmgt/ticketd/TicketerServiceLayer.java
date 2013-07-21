@@ -33,7 +33,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * OpenNMS Trouble Ticket API
+ * OpenNMS Trouble Ticket API.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
@@ -49,6 +49,8 @@ public interface TicketerServiceLayer {
      *
      * @param alarmId
      *            a int.
+     * @param attributes
+     *            the attributes
      */
     public void createTicketForAlarm(int alarmId, Map<String, String> attributes);
 

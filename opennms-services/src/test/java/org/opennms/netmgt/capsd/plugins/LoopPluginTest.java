@@ -37,13 +37,22 @@ import junit.framework.TestCase;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.capsd.Plugin;
 
+/**
+ * The Class LoopPluginTest.
+ */
 public class LoopPluginTest extends TestCase {
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -52,6 +61,9 @@ public class LoopPluginTest extends TestCase {
     /*
      * Test method for
      * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.getProtocolName()'
+     */
+    /**
+     * Test get protocol name.
      */
     public void testGetProtocolName() {
         Plugin plugin = new LoopPlugin();
@@ -62,6 +74,12 @@ public class LoopPluginTest extends TestCase {
      * Test method for
      * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress)'
      */
+    /**
+     * Test is protocol supported inet address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testIsProtocolSupportedInetAddress() throws UnknownHostException {
         Plugin plugin = new LoopPlugin();
         assertFalse(plugin.isProtocolSupported(InetAddressUtils.addr("127.0.0.1")));
@@ -71,6 +89,12 @@ public class LoopPluginTest extends TestCase {
      * Test method for
      * 'org.opennms.netmgt.capsd.plugins.LoopPlugin.isProtocolSupported(InetAddress,
      * Map)'
+     */
+    /**
+     * Test is protocol supported inet address map.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testIsProtocolSupportedInetAddressMap() throws UnknownHostException {
         Map<String, Object> qualifiers = new HashMap<String, Object>();

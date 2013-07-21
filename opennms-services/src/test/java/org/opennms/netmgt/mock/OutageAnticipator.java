@@ -45,32 +45,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Anticipates outages based on events
+ * Anticipates outages based on events.
  *
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
 public class OutageAnticipator implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OutageAnticipator.class);
 
+    /** The m_db. */
     private final MockDatabase m_db;
 
+    /** The m_expected open count. */
     private int m_expectedOpenCount;
 
+    /** The m_expected outage count. */
     private int m_expectedOutageCount;
 
+    /** The m_pending opens. */
     private final Map<EventWrapper, List<Outage>> m_pendingOpens = new HashMap<EventWrapper, List<Outage>>();
 
+    /** The m_pending closes. */
     private final Map<EventWrapper, List<Outage>> m_pendingCloses = new HashMap<EventWrapper, List<Outage>>();
 
+    /** The m_expected outages. */
     private final Set<Outage> m_expectedOutages = new HashSet<Outage>();
 
+    /**
+     * Instantiates a new outage anticipator.
+     *
+     * @param db
+     *            the db
+     */
     public OutageAnticipator(MockDatabase db) {
         m_db = db;
         reset();
     }
 
     /**
-     *
+     * Reset.
      */
     public synchronized void reset() {
         m_expectedOpenCount = m_db.countOpenOutages();
@@ -81,8 +95,12 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Anticipate outage opened.
+     *
      * @param element
+     *            the element
      * @param lostService
+     *            the lost service
      */
     public synchronized void anticipateOutageOpened(MockElement element, final Event lostService) {
         MockVisitor outageCounter = new MockVisitorAdapter() {
@@ -101,13 +119,25 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Anticipates close.
+     *
      * @param svc
-     * @return
+     *            the svc
+     * @return true, if successful
      */
     protected synchronized boolean anticipatesClose(MockService svc) {
         return anticipates(m_pendingCloses, svc);
     }
 
+    /**
+     * Anticipates.
+     *
+     * @param pending
+     *            the pending
+     * @param svc
+     *            the svc
+     * @return true, if successful
+     */
     private synchronized boolean anticipates(Map<EventWrapper, List<Outage>> pending, MockService svc) {
         for (List<Outage> outageList : pending.values()) {
             for (Outage outage : outageList) {
@@ -120,9 +150,14 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Adds the to outage list.
+     *
      * @param outageMap
+     *            the outage map
      * @param outageEvent
-     * @param svc
+     *            the outage event
+     * @param outage
+     *            the outage
      */
     protected synchronized void addToOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent,
             Outage outage) {
@@ -135,6 +170,16 @@ public class OutageAnticipator implements EventListener {
         list.add(outage);
     }
 
+    /**
+     * Removes the from outage list.
+     *
+     * @param outageMap
+     *            the outage map
+     * @param outageEvent
+     *            the outage event
+     * @param outage
+     *            the outage
+     */
     protected synchronized void removeFromOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent,
             Outage outage) {
         EventWrapper w = new EventWrapper(outageEvent);
@@ -146,6 +191,14 @@ public class OutageAnticipator implements EventListener {
 
     }
 
+    /**
+     * Deanticipate outage closed.
+     *
+     * @param element
+     *            the element
+     * @param regainService
+     *            the regain service
+     */
     public synchronized void deanticipateOutageClosed(MockElement element, final Event regainService) {
         MockVisitor outageCounter = new MockVisitorAdapter() {
             @Override
@@ -166,6 +219,14 @@ public class OutageAnticipator implements EventListener {
 
     }
 
+    /**
+     * Anticipate outage closed.
+     *
+     * @param element
+     *            the element
+     * @param regainService
+     *            the regain service
+     */
     public synchronized void anticipateOutageClosed(MockElement element, final Event regainService) {
         MockVisitor outageCounter = new MockVisitorAdapter() {
             @Override
@@ -186,29 +247,57 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Anticipates open.
+     *
      * @param svc
-     * @return
+     *            the svc
+     * @return true, if successful
      */
     protected boolean anticipatesOpen(MockService svc) {
         return anticipates(m_pendingOpens, svc);
     }
 
+    /**
+     * Gets the expected opens.
+     *
+     * @return the expected opens
+     */
     public int getExpectedOpens() {
         return m_expectedOpenCount;
     }
 
+    /**
+     * Gets the actual opens.
+     *
+     * @return the actual opens
+     */
     public int getActualOpens() {
         return m_db.countOpenOutages();
     }
 
+    /**
+     * Gets the expected outages.
+     *
+     * @return the expected outages
+     */
     public int getExpectedOutages() {
         return m_expectedOutageCount;
     }
 
+    /**
+     * Gets the actual outages.
+     *
+     * @return the actual outages
+     */
     public int getActualOutages() {
         return m_db.countOutages();
     }
 
+    /**
+     * Check anticipated.
+     *
+     * @return true, if successful
+     */
     public synchronized boolean checkAnticipated() {
         int openCount = m_db.countOpenOutages();
         int outageCount = m_db.countOutages();
@@ -267,6 +356,14 @@ public class OutageAnticipator implements EventListener {
         clearOutageList(m_pendingCloses, e);
     }
 
+    /**
+     * Close expected outages.
+     *
+     * @param e
+     *            the e
+     * @param pendingOutage
+     *            the pending outage
+     */
     private synchronized void closeExpectedOutages(Event e, Outage pendingOutage) {
         for (Outage outage : m_expectedOutages) {
             if (pendingOutage.equals(outage)) {
@@ -276,17 +373,25 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Clear outage list.
+     *
      * @param pending
+     *            the pending
      * @param e
+     *            the e
      */
     private synchronized void clearOutageList(Map<EventWrapper, List<Outage>> pending, Event e) {
         pending.remove(new EventWrapper(e));
     }
 
     /**
+     * Gets the outage list.
+     *
      * @param pending
+     *            the pending
      * @param e
-     * @return
+     *            the e
+     * @return the outage list
      */
     private synchronized List<Outage> getOutageList(Map<EventWrapper, List<Outage>> pending, Event e) {
         EventWrapper w = new EventWrapper(e);
@@ -298,9 +403,14 @@ public class OutageAnticipator implements EventListener {
     }
 
     /**
+     * Anticipate reparent.
+     *
      * @param ipAddr
+     *            the ip addr
      * @param nodeId
+     *            the node id
      * @param nodeId2
+     *            the node id2
      */
     public void anticipateReparent(String ipAddr, int nodeId, int nodeId2) {
 

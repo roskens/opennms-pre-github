@@ -50,12 +50,14 @@ import javax.management.MBeanServer;
  */
 public class MBeanServerProxy implements InvocationHandler {
 
+    /** The remote server. */
     private Object remoteServer;
 
+    /** The Constant INTERFACES. */
     private static final Class<?>[] INTERFACES = { MBeanServer.class };
 
     /**
-     * Creates a new instance of Proxy
+     * Creates a new instance of Proxy.
      *
      * @param remoteServer
      *            a {@link java.lang.Object} object.
@@ -68,6 +70,7 @@ public class MBeanServerProxy implements InvocationHandler {
      * <p>
      * invoke
      * </p>
+     * .
      *
      * @param proxy
      *            a {@link java.lang.Object} object.
@@ -76,8 +79,8 @@ public class MBeanServerProxy implements InvocationHandler {
      * @param args
      *            an array of {@link java.lang.Object} objects.
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     public Object invoke(Object proxy, Method m, Object[] args) throws Throwable {
@@ -95,6 +98,7 @@ public class MBeanServerProxy implements InvocationHandler {
      * <p>
      * buildServerProxy
      * </p>
+     * .
      *
      * @param server
      *            a {@link java.lang.Object} object.

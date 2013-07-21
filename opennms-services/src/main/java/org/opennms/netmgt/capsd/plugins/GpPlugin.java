@@ -57,21 +57,17 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ayres@net.orst.edu">Bill Ayres</a>
  */
 public final class GpPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GpPlugin.class);
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "GP";
 
-    /**
-     * Default number of retries for GP requests
-     */
+    /** Default number of retries for GP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for GP requests
-     */
+    /** Default timeout (in milliseconds) for GP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
@@ -97,6 +93,7 @@ public final class GpPlugin extends AbstractPlugin {
      * @param regex
      *            The regular expression used to determine banner match
      * @param bannerResult
+     *            the banner result
      * @param hoption
      *            The option string passed to the exec for the IP address
      *            (hostname)

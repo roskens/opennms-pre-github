@@ -39,23 +39,35 @@ import org.opennms.netmgt.mock.OutageAnticipator;
 import org.opennms.netmgt.translator.EventTranslator;
 
 /**
+ * The Class EventTranslatorConfigFactoryTest.
+ *
  * @author mhuot
  */
 public class EventTranslatorConfigFactoryTest extends OpenNMSTestCase {
+
+    /** The m_translator. */
     private EventTranslator m_translator;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_passive status configuration. */
     private String m_passiveStatusConfiguration = getStandardConfig();
 
+    /** The m_config. */
     private EventTranslatorConfigFactory m_config;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_outage anticipator. */
     private OutageAnticipator m_outageAnticipator;
 
     /*
      * @see TestCase#setUp()
+     */
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.OpenNMSTestCase#setUp()
      */
     @Override
     protected void setUp() throws Exception {
@@ -87,6 +99,9 @@ public class EventTranslatorConfigFactoryTest extends OpenNMSTestCase {
     /*
      * @see TestCase#tearDown()
      */
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.OpenNMSTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -94,16 +109,27 @@ public class EventTranslatorConfigFactoryTest extends OpenNMSTestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.OpenNMSTestCase#testDoNothing()
+     */
     @Override
     public void testDoNothing() {
         // FIXME: This is because the below test is commented out
     }
 
+    /**
+     * Creates the anticipators.
+     */
     private void createAnticipators() {
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
     }
 
+    /**
+     * Gets the standard config.
+     *
+     * @return the standard config
+     */
     private String getStandardConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<event-translator-configuration \n"

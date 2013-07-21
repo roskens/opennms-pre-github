@@ -46,6 +46,8 @@ import org.opennms.netmgt.config.threshd.Threshold;
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
 public abstract class BaseThresholdDefConfigWrapper {
+
+    /** The m_base def. */
     Basethresholddef m_baseDef;
 
     /**
@@ -65,15 +67,16 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getConfigWrapper
      * </p>
+     * .
      *
      * @param baseDef
      *            a {@link org.opennms.netmgt.config.threshd.Basethresholddef}
      *            object.
      * @return a
-     *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
-     *         object.
-     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException
-     *             if any.
+     * @throws ThresholdExpressionException
+     *             the threshold expression exception
+     *             {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *             object.
      */
     public static BaseThresholdDefConfigWrapper getConfigWrapper(Basethresholddef baseDef)
             throws ThresholdExpressionException {
@@ -89,6 +92,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getDatasourceExpression
      * </p>
+     * .
      *
      * @return a descriptive string for the data source - typically either a
      *         data source name, or an expression of data source names
@@ -96,7 +100,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public abstract String getDatasourceExpression();
 
     /**
-     * Returns the names of the datasources required to evaluate this threshold
+     * Returns the names of the datasources required to evaluate this threshold.
      *
      * @return Collection of the names of datasources
      */
@@ -104,13 +108,13 @@ public abstract class BaseThresholdDefConfigWrapper {
 
     /**
      * Evaluate the threshold expression/datasource in terms of the named values
-     * supplied, and return that value
+     * supplied, and return that value.
      *
      * @param values
      *            named values to use in evaluating the expression/data source
      * @return the value of the evaluated expression
-     * @throws org.opennms.netmgt.threshd.ThresholdExpressionException
-     *             if any.
+     * @throws ThresholdExpressionException
+     *             the threshold expression exception
      */
     public abstract double evaluate(Map<String, Double> values) throws ThresholdExpressionException;
 
@@ -118,6 +122,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getDsType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -129,6 +134,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getDsLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +146,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getRearm
      * </p>
+     * .
      *
      * @return a double.
      */
@@ -151,6 +158,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getTrigger
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -162,6 +170,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -173,6 +182,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a double.
      */
@@ -184,6 +194,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * hasRearm
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -195,6 +206,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * hasTrigger
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -206,6 +218,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * hasValue
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -217,6 +230,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getTriggeredUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -228,6 +242,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getRearmedUEI
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -239,6 +254,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * getBasethresholddef
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.threshd.Basethresholddef}
      *         object.
@@ -283,12 +299,13 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * identical
      * </p>
+     * .
      *
      * @param o
      *            a
-     *            {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
+     *         object.
      */
     public boolean identical(BaseThresholdDefConfigWrapper o) {
         return equals(o)
@@ -306,6 +323,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * <p>
      * merge
      * </p>
+     * .
      *
      * @param threshold
      *            a

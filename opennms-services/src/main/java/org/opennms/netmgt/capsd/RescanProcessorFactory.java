@@ -42,6 +42,7 @@ public interface RescanProcessorFactory {
      * <p>
      * createRescanProcessor
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -53,6 +54,7 @@ public interface RescanProcessorFactory {
      * <p>
      * createForcedRescanProcessor
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.

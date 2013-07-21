@@ -38,24 +38,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PollableElement
+ * Represents a PollableElement.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public abstract class PollableElement {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollableElement.class);
 
+    /** The m_scope. */
     private final Scope m_scope;
 
+    /** The m_parent. */
     private volatile PollableContainer m_parent;
 
+    /** The m_status. */
     private volatile PollStatus m_status = PollStatus.unknown();
 
+    /** The m_status changed. */
     private volatile boolean m_statusChanged = false;
 
+    /** The m_cause. */
     private volatile PollEvent m_cause;
 
+    /** The m_deleted. */
     private volatile boolean m_deleted;
 
     /**
@@ -65,10 +73,10 @@ public abstract class PollableElement {
      *
      * @param parent
      *            a
-     *            {@link org.opennms.netmgt.poller.pollables.PollableContainer}
-     *            object.
      * @param scope
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
+     *            {@link org.opennms.netmgt.poller.pollables.PollableContainer}
+     *            object.
      */
     protected PollableElement(PollableContainer parent, Scope scope) {
         m_parent = parent;
@@ -82,6 +90,7 @@ public abstract class PollableElement {
      * <p>
      * getParent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableContainer}
      *         object.
@@ -94,6 +103,7 @@ public abstract class PollableElement {
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param newParent
      *            a
@@ -108,6 +118,7 @@ public abstract class PollableElement {
      * <p>
      * getScope
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.Scope} object.
      */
@@ -119,6 +130,7 @@ public abstract class PollableElement {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param v
      *            a {@link org.opennms.netmgt.poller.pollables.PollableVisitor}
@@ -132,6 +144,7 @@ public abstract class PollableElement {
      * <p>
      * visitThis
      * </p>
+     * .
      *
      * @param v
      *            a {@link org.opennms.netmgt.poller.pollables.PollableVisitor}
@@ -145,6 +158,7 @@ public abstract class PollableElement {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -152,6 +166,12 @@ public abstract class PollableElement {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     private void setStatus(PollStatus status) {
         m_status = status;
     }
@@ -160,6 +180,7 @@ public abstract class PollableElement {
      * <p>
      * isStatusChanged
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -167,6 +188,12 @@ public abstract class PollableElement {
         return m_statusChanged;
     }
 
+    /**
+     * Sets the status changed.
+     *
+     * @param statusChanged
+     *            the new status changed
+     */
     private void setStatusChanged(boolean statusChanged) {
         m_statusChanged = statusChanged;
     }
@@ -175,6 +202,7 @@ public abstract class PollableElement {
      * <p>
      * updateStatus
      * </p>
+     * .
      *
      * @param newStatus
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -193,6 +221,7 @@ public abstract class PollableElement {
      * <p>
      * resetStatusChanged
      * </p>
+     * .
      */
     public void resetStatusChanged() {
         setStatusChanged(false);
@@ -202,6 +231,7 @@ public abstract class PollableElement {
      * <p>
      * recalculateStatus
      * </p>
+     * .
      */
     public void recalculateStatus() {
         // do nothing for just an element
@@ -211,6 +241,7 @@ public abstract class PollableElement {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -220,6 +251,7 @@ public abstract class PollableElement {
      * <p>
      * doPoll
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.netmgt.poller.pollables.PollableElement}
@@ -238,6 +270,7 @@ public abstract class PollableElement {
      * <p>
      * getLockRoot
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
      *         object.
@@ -251,6 +284,7 @@ public abstract class PollableElement {
      * <p>
      * isTreeLockAvailable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -262,6 +296,7 @@ public abstract class PollableElement {
      * <p>
      * obtainTreeLock
      * </p>
+     * .
      *
      * @param timeout
      *            a long.
@@ -274,6 +309,7 @@ public abstract class PollableElement {
      * <p>
      * releaseTreeLock
      * </p>
+     * .
      */
     public void releaseTreeLock() {
         getLockRoot().releaseTreeLock();
@@ -283,6 +319,7 @@ public abstract class PollableElement {
      * <p>
      * withTreeLock
      * </p>
+     * .
      *
      * @param r
      *            a {@link java.lang.Runnable} object.
@@ -295,11 +332,12 @@ public abstract class PollableElement {
      * <p>
      * withTreeLock
      * </p>
+     * .
      *
-     * @param c
-     *            a {@link java.util.concurrent.Callable} object.
      * @param <T>
      *            a T object.
+     * @param c
+     *            a {@link java.util.concurrent.Callable} object.
      * @return a T object.
      */
     public <T> T withTreeLock(Callable<T> c) {
@@ -310,6 +348,7 @@ public abstract class PollableElement {
      * <p>
      * withTreeLock
      * </p>
+     * .
      *
      * @param r
      *            a {@link java.lang.Runnable} object.
@@ -324,13 +363,14 @@ public abstract class PollableElement {
      * <p>
      * withTreeLock
      * </p>
+     * .
      *
+     * @param <T>
+     *            a T object.
      * @param c
      *            a {@link java.util.concurrent.Callable} object.
      * @param timeout
      *            a long.
-     * @param <T>
-     *            a T object.
      * @return a T object.
      */
     public <T> T withTreeLock(Callable<T> c, long timeout) {
@@ -350,6 +390,7 @@ public abstract class PollableElement {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -359,6 +400,7 @@ public abstract class PollableElement {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param elem
      *            a {@link org.opennms.netmgt.poller.pollables.PollableElement}
@@ -376,6 +418,7 @@ public abstract class PollableElement {
      * <p>
      * selectPollElement
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
      *         object.
@@ -388,6 +431,7 @@ public abstract class PollableElement {
      * <p>
      * createDownEvent
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -399,6 +443,7 @@ public abstract class PollableElement {
      * <p>
      * createUpEvent
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -410,6 +455,7 @@ public abstract class PollableElement {
      * <p>
      * createOutage
      * </p>
+     * .
      *
      * @param cause
      *            TODO
@@ -422,6 +468,7 @@ public abstract class PollableElement {
      * <p>
      * resolveOutage
      * </p>
+     * .
      *
      * @param resolution
      *            TODO
@@ -434,6 +481,7 @@ public abstract class PollableElement {
      * <p>
      * hasOpenOutage
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -445,6 +493,7 @@ public abstract class PollableElement {
      * <p>
      * setCause
      * </p>
+     * .
      *
      * @param cause
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -458,6 +507,7 @@ public abstract class PollableElement {
      * <p>
      * getCause
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
      */
@@ -469,6 +519,7 @@ public abstract class PollableElement {
      * <p>
      * processStatusChange
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -485,6 +536,7 @@ public abstract class PollableElement {
      * <p>
      * processComingUp
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -500,6 +552,7 @@ public abstract class PollableElement {
      * <p>
      * processResolution
      * </p>
+     * .
      *
      * @param cause
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -516,6 +569,7 @@ public abstract class PollableElement {
      * <p>
      * processGoingDown
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
@@ -529,6 +583,7 @@ public abstract class PollableElement {
      * <p>
      * processCause
      * </p>
+     * .
      *
      * @param cause
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -543,6 +598,7 @@ public abstract class PollableElement {
      * <p>
      * resolveAllOutages
      * </p>
+     * .
      *
      * @param resolvedCause
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -560,6 +616,7 @@ public abstract class PollableElement {
      * <p>
      * isDeleted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -571,6 +628,7 @@ public abstract class PollableElement {
      * <p>
      * delete
      * </p>
+     * .
      */
     public void delete() {
         Runnable r = new Runnable() {
@@ -590,6 +648,7 @@ public abstract class PollableElement {
      * <p>
      * processLingeringCauses
      * </p>
+     * .
      *
      * @param resolvedCause
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -613,6 +672,7 @@ public abstract class PollableElement {
      * <p>
      * extrapolateCause
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
      */
@@ -629,6 +689,7 @@ public abstract class PollableElement {
      * <p>
      * doExtrapolateCause
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollEvent} object.
      */
@@ -640,6 +701,7 @@ public abstract class PollableElement {
      * <p>
      * inheritParentalCause
      * </p>
+     * .
      */
     public void inheritParentalCause() {
         withTreeLock(new Runnable() {
@@ -656,6 +718,7 @@ public abstract class PollableElement {
      * <p>
      * doInheritParentalCause
      * </p>
+     * .
      */
     protected void doInheritParentalCause() {
         if (getParent() == null)

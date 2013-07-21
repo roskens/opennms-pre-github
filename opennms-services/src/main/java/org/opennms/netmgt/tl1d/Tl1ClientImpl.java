@@ -46,31 +46,43 @@ import org.slf4j.LoggerFactory;
  */
 public class Tl1ClientImpl implements Tl1Client {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Tl1ClientImpl.class);
 
+    /** The m_host. */
     String m_host;
 
+    /** The m_port. */
     int m_port;
 
+    /** The m_started. */
     private volatile boolean m_started = false;
 
+    /** The m_tl1 socket. */
     private Socket m_tl1Socket;
 
+    /** The m_socket reader. */
     private Thread m_socketReader;
 
+    /** The m_tl1 queue. */
     private BlockingQueue<Tl1AutonomousMessage> m_tl1Queue;
 
+    /** The m_reader. */
     private BufferedReader m_reader;
 
+    /** The m_sleeper. */
     private TimeoutSleeper m_sleeper;
 
+    /** The m_message processor. */
     private Tl1AutonomousMessageProcessor m_messageProcessor;
 
     // private long m_reconnectionDelay = 30000;
+    /** The m_reconnection delay. */
     private long m_reconnectionDelay; // see configuration xsd for default and
                                       // set by Tl1d after instantiation
 
-    private int m_reconnectAttempts = 0;
+    /** The m_reconnect attempts. */
+                                      private int m_reconnectAttempts = 0;
 
     /**
      * <p>
@@ -89,12 +101,12 @@ public class Tl1ClientImpl implements Tl1Client {
      *            a {@link java.util.concurrent.BlockingQueue} object.
      * @param element
      *            a {@link org.opennms.netmgt.config.tl1d.Tl1Element} object.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
@@ -115,6 +127,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -143,6 +156,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -159,6 +173,13 @@ public class Tl1ClientImpl implements Tl1Client {
         }
     }
 
+    /**
+     * Gets the reader.
+     *
+     * @return the reader
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private BufferedReader getReader() throws InterruptedException {
         if (m_reader == null) {
             m_reader = createReader();
@@ -166,6 +187,13 @@ public class Tl1ClientImpl implements Tl1Client {
         return m_reader;
     }
 
+    /**
+     * Creates the reader.
+     *
+     * @return the buffered reader
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private BufferedReader createReader() throws InterruptedException {
         BufferedReader reader;
 
@@ -188,12 +216,21 @@ public class Tl1ClientImpl implements Tl1Client {
         return null;
     }
 
+    /**
+     * Reset timeout.
+     */
     private void resetTimeout() {
         LOG.debug("resetTimeout: Resetting timeout Thread");
         m_reconnectAttempts = 0;
         m_sleeper = null;
     }
 
+    /**
+     * Wait until next connect time.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private void waitUntilNextConnectTime() throws InterruptedException {
         LOG.debug("waitUntilNextConnectTime: current connection attempts: {}", m_reconnectAttempts);
 
@@ -215,6 +252,11 @@ public class Tl1ClientImpl implements Tl1Client {
         }
     }
 
+    /**
+     * Compute wait.
+     *
+     * @return the long
+     */
     private long computeWait() {
         long waitTime = m_reconnectionDelay;
 
@@ -226,6 +268,9 @@ public class Tl1ClientImpl implements Tl1Client {
         return waitTime;
     }
 
+    /**
+     * Read messages.
+     */
     private void readMessages() {
         StringBuilder rawMessageBuilder = new StringBuilder();
 
@@ -270,6 +315,12 @@ public class Tl1ClientImpl implements Tl1Client {
         LOG.info("TL1 client stopped for: {}:{}", m_host, String.valueOf(m_port));
     }
 
+    /**
+     * Creates the and queue tl1 message.
+     *
+     * @param rawMessageBuilder
+     *            the raw message builder
+     */
     private void createAndQueueTl1Message(StringBuilder rawMessageBuilder) {
         LOG.debug("readMessages: offering message to queue: {}", rawMessageBuilder.toString());
         Tl1AutonomousMessage message = detectMessageType(rawMessageBuilder);
@@ -282,6 +333,13 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     // TODO: Lots of work to do here
+    /**
+     * Detect message type.
+     *
+     * @param rawMessage
+     *            the raw message
+     * @return the tl1 autonomous message
+     */
     private Tl1AutonomousMessage detectMessageType(StringBuilder rawMessage) {
 
         // check token 5 to see if this is a reply message. This implies that
@@ -297,10 +355,23 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     // TODO: Lots of work to do here
+    /**
+     * Checks if is autonomous message.
+     *
+     * @param rawMessage
+     *            the raw message
+     * @return true, if is autonomous message
+     */
     private boolean isAutonomousMessage(StringBuilder rawMessage) {
         return true;
     }
 
+    /**
+     * Reset reader.
+     *
+     * @param ex
+     *            the ex
+     */
     private void resetReader(IOException ex) {
 
         if (ex != null) {
@@ -335,6 +406,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * getHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -361,6 +433,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -387,6 +460,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * getReconnectionDelay
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -409,6 +483,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * getTl1Queue
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.BlockingQueue} object.
      */
@@ -427,6 +502,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * getMessageProcessor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessageProcessor}
      *         object.
@@ -446,6 +522,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * setStarted
      * </p>
+     * .
      *
      * @param started
      *            a boolean.
@@ -458,6 +535,7 @@ public class Tl1ClientImpl implements Tl1Client {
      * <p>
      * isStarted
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -465,8 +543,19 @@ public class Tl1ClientImpl implements Tl1Client {
         return m_started;
     }
 
+    /**
+     * The Class TimeoutSleeper.
+     */
     private class TimeoutSleeper {
 
+        /**
+         * Sleep.
+         *
+         * @param sleepTime
+         *            the sleep time
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void sleep(long sleepTime) throws InterruptedException {
             Thread.sleep(sleepTime);
         }

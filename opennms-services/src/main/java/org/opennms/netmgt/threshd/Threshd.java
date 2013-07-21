@@ -64,6 +64,7 @@ import org.springframework.dao.DataRetrievalFailureException;
  */
 public final class Threshd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Threshd.class);
 
     /**
@@ -74,9 +75,7 @@ public final class Threshd extends AbstractServiceDaemon {
      */
     private static final String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.status = 'A' AND ifServices.serviceid = service.serviceid AND service.servicename = ?";
 
-    /**
-     * Singleton instance of the Threshd class
-     */
+    /** Singleton instance of the Threshd class. */
     private static final Threshd m_singleton = new Threshd();
 
     /**
@@ -84,26 +83,19 @@ public final class Threshd extends AbstractServiceDaemon {
      */
     private final List<ThresholdableService> m_thresholdableServices;
 
-    /**
-     * Reference to the threshd scheduler
-     */
+    /** Reference to the threshd scheduler. */
     private volatile LegacyScheduler m_scheduler;
 
-    /**
-     * Indicates if all the existing interfaces have been scheduled
-     */
+    /** Indicates if all the existing interfaces have been scheduled. */
     private volatile boolean m_schedulingCompleted = false;
 
-    /**
-     * Reference to the event processor
-     */
+    /** Reference to the event processor. */
     private volatile BroadcastEventProcessor m_receiver;
 
-    /**
-     * Map of all available ServiceThresholder objects indexed by service name
-     */
+    /** Map of all available ServiceThresholder objects indexed by service name. */
     private static volatile Map<String, ServiceThresholder> m_svcThresholders = new ConcurrentSkipListMap<String, ServiceThresholder>();
 
+    /** The m_threshd config. */
     private ThreshdConfigManager m_threshdConfig;
 
     /**
@@ -119,6 +111,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -154,6 +147,9 @@ public final class Threshd extends AbstractServiceDaemon {
 
     }
 
+    /**
+     * Creates the broadcast event processor.
+     */
     private void createBroadcastEventProcessor() {
         try {
             LOG.debug("start: Creating event broadcast event processor");
@@ -165,6 +161,9 @@ public final class Threshd extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Schedule background init task.
+     */
     private void scheduleBackgroundInitTask() {
         ReadyRunnable interfaceScheduler = new ReadyRunnable() {
 
@@ -190,6 +189,9 @@ public final class Threshd extends AbstractServiceDaemon {
         m_scheduler.schedule(interfaceScheduler, 0);
     }
 
+    /**
+     * Initialize scheduler.
+     */
     private void initializeScheduler() {
         try {
             LOG.debug("start: Creating threshd scheduler");
@@ -201,6 +203,9 @@ public final class Threshd extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Initialize thresholders.
+     */
     private void initializeThresholders() {
         Enumeration<Thresholder> eiter = m_threshdConfig.getConfiguration().enumerateThresholder();
         while (eiter.hasMoreElements()) {
@@ -232,6 +237,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * reinitializeThresholders
      * </p>
+     * .
      */
     public void reinitializeThresholders() {
         for (String key : m_svcThresholders.keySet()) {
@@ -246,6 +252,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -270,6 +277,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -283,6 +291,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -293,6 +302,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -309,7 +319,7 @@ public final class Threshd extends AbstractServiceDaemon {
     }
 
     /**
-     * Returns reference to the scheduler
+     * Returns reference to the scheduler.
      *
      * @return a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
      */
@@ -331,9 +341,6 @@ public final class Threshd extends AbstractServiceDaemon {
 
     /**
      * Schedule existing interfaces for thresholding.
-     *
-     * @throws SQLException
-     *             if database errors encountered.
      */
     private void scheduleExistingInterfaces() {
 
@@ -479,6 +486,12 @@ public final class Threshd extends AbstractServiceDaemon {
     /**
      * Returns true if specified address/pkg pair is already represented in the
      * thresholdable services list. False otherwise.
+     *
+     * @param ipAddress
+     *            the ip address
+     * @param pkgName
+     *            the pkg name
+     * @return true, if successful
      */
     private boolean alreadyScheduled(String ipAddress, String pkgName) {
         synchronized (m_thresholdableServices) {
@@ -498,6 +511,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * isSchedulingCompleted
      * </p>
+     * .
      *
      * @return Returns the schedulingCompleted.
      */
@@ -509,6 +523,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * setSchedulingCompleted
      * </p>
+     * .
      *
      * @param schedulingCompleted
      *            The schedulingCompleted to set.
@@ -521,6 +536,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * refreshServicePackages
      * </p>
+     * .
      */
     public void refreshServicePackages() {
         for (ThresholdableService thisService : m_thresholdableServices) {
@@ -532,6 +548,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * setThreshdConfig
      * </p>
+     * .
      *
      * @param threshdConfig
      *            a {@link org.opennms.netmgt.config.ThreshdConfigManager}
@@ -545,6 +562,7 @@ public final class Threshd extends AbstractServiceDaemon {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

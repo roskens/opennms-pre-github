@@ -67,11 +67,11 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class TrivialTimeMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeMonitor.class);
 
-    /**
-     * Default layer-4 protocol to use
-     */
+    /** Default layer-4 protocol to use. */
     private static final String DEFAULT_PROTOCOL = "tcp"; // Use TCP by default
 
     /**
@@ -90,21 +90,17 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout
 
-    /**
-     * Default permissible skew between the remote and local clocks
-     */
+    /** Default permissible skew between the remote and local clocks. */
     private static final int DEFAULT_ALLOWED_SKEW = 30; // 30 second skew
 
     /**
-     * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp
-     * to make it comparable to a 1900-01-01 00:00:00-based timestamp from
-     * the trivial time service (actually adding a negative value)
+     * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp to
+     * make it comparable to a 1900-01-01 00:00:00-based timestamp from the
+     * trivial time service (actually adding a negative value).
      */
     private static final int EPOCH_ADJ_FACTOR = 2085978496;
 
-    /**
-     * Whether to persist the skew value in addition to the response latency
-     */
+    /** Whether to persist the skew value in addition to the response latency. */
     private static final boolean DEFAULT_PERSIST_SKEW = false;
 
     /**
@@ -180,6 +176,7 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
      * <p>
      * storeResult
      * </p>
+     * .
      *
      * @param serviceStatus
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -204,6 +201,7 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
      * <p>
      * pollTimeTcp
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
@@ -298,6 +296,7 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
      * <p>
      * pollTimeUdp
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
@@ -388,6 +387,23 @@ public final class TrivialTimeMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
+    /**
+     * Qualify time.
+     *
+     * @param remoteTime
+     *            the remote time
+     * @param localTime
+     *            the local time
+     * @param allowedSkew
+     *            the allowed skew
+     * @param serviceStatus
+     *            the service status
+     * @param responseTime
+     *            the response time
+     * @param persistSkew
+     *            the persist skew
+     * @return the poll status
+     */
     private PollStatus qualifyTime(int remoteTime, int localTime, int allowedSkew, PollStatus serviceStatus,
             double responseTime, boolean persistSkew) {
         LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime,

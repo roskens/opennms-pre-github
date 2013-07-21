@@ -42,7 +42,14 @@ import org.opennms.test.mock.MockUtil;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ThreshdIntegrationTest.
+ */
 public class ThreshdIntegrationTest extends ThresholderTestCase {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -77,11 +84,20 @@ public class ThreshdIntegrationTest extends ThresholderTestCase {
         PollOutagesConfigFactory.setInstance(factory);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         MockUtil.println("------------ End Test " + getName() + " --------------------------");
     }
 
+    /**
+     * Test threshd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testThreshd() throws Exception {
         Threshd threshd = new Threshd();
         ThreshdConfigManager config = new MockThreshdConfigManager(

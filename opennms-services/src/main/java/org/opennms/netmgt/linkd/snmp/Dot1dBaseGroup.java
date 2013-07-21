@@ -50,21 +50,20 @@ import org.slf4j.LoggerFactory;
  */
 public final class Dot1dBaseGroup extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Dot1dBaseGroup.class);
 
-    /**
-     * the bridge type
-     */
+    /** the bridge type. */
     //
     // Lookup strings for specific table entries
     //
     /** Constant <code>BASE_BRIDGE_ADDRESS="dot1dBaseBridgeAddress"</code> */
     public static final String BASE_BRIDGE_ADDRESS = "dot1dBaseBridgeAddress";
 
-    /** Constant <code>BASE_NUM_PORTS="dot1dBaseNumPorts"</code> */
+    /** Constant <code>BASE_NUM_PORTS="dot1dBaseNumPorts"</code>. */
     public static final String BASE_NUM_PORTS = "dot1dBaseNumPorts";
 
-    /** Constant <code>BASE_NUM_TYPE="dot1dBaseType"</code> */
+    /** Constant <code>BASE_NUM_TYPE="dot1dBaseType"</code>. */
     public static final String BASE_NUM_TYPE = "dot1dBaseType";
 
     /**
@@ -117,8 +116,10 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      */
     public static final String SYSTEM_OID = ".1.3.6.1.2.1.17.1";
 
+    /** The m_store. */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
     /**
@@ -160,6 +161,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      * <p>
      * getBridgeAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,6 +173,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      * <p>
      * getNumberOfPorts
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -182,6 +185,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
      * <p>
      * getBridgeType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -189,6 +193,13 @@ public final class Dot1dBaseGroup extends AggregateTracker {
         return m_store.getInt32(BASE_NUM_TYPE);
     }
 
+    /**
+     * Gets the onms stp node.
+     *
+     * @param node
+     *            the node
+     * @return the onms stp node
+     */
     public OnmsStpNode getOnmsStpNode(OnmsStpNode node) {
         if (getBridgeAddress() == null)
             return node;

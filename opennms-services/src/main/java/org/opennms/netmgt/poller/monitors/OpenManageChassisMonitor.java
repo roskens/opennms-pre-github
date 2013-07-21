@@ -64,6 +64,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisMonitor.class);
 
     /**
@@ -97,17 +98,41 @@ public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
     private static final String SERVICE_TAG_OID = ".1.3.6.1.4.1.674.10892.1.300.10.1.11.1";
 
     /**
-     * Implement the dell status
+     * Implement the dell status.
      */
     private enum DELL_STATUS {
-        OTHER(1), UNKNOWN(2), OK(3), NON_CRITICAL(4), CRITICAL(5), NON_RECOVERABLE(6);
 
+        /** The other. */
+        OTHER(1),
+ /** The unknown. */
+ UNKNOWN(2),
+ /** The ok. */
+ OK(3),
+ /** The non critical. */
+ NON_CRITICAL(4),
+ /** The critical. */
+ CRITICAL(5),
+ /** The non recoverable. */
+ NON_RECOVERABLE(6);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new dell status.
+         *
+         * @param s
+         *            the s
+         */
         DELL_STATUS(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
@@ -117,6 +142,7 @@ public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
      * <P>
      * Returns the name of the service that the plug-in monitors
      * </P>
+     * .
      *
      * @return The service that the plug-in monitors.
      */
@@ -155,9 +181,6 @@ public final class OpenManageChassisMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents
-     *                the interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

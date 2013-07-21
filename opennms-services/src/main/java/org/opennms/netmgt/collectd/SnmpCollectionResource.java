@@ -54,10 +54,13 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SnmpCollectionResource implements CollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectionResource.class);
 
+    /** The m_resource type. */
     private ResourceType m_resourceType;
 
+    /** The m_groups. */
     private Map<AttributeGroupType, AttributeGroup> m_groups = new HashMap<AttributeGroupType, AttributeGroup>();
 
     /**
@@ -76,6 +79,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * getResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.ResourceType} object.
      */
@@ -87,6 +91,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * getCollectionAgent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -102,6 +107,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * getOwnerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,6 +124,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -128,6 +135,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -140,6 +148,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * setAttributeValue
      * </p>
+     * .
      *
      * @param type
      *            a {@link org.opennms.netmgt.collectd.SnmpAttributeType}
@@ -152,12 +161,25 @@ public abstract class SnmpCollectionResource implements CollectionResource {
         addAttribute(attr);
     }
 
+    /**
+     * Adds the attribute.
+     *
+     * @param attr
+     *            the attr
+     */
     private void addAttribute(final SnmpAttribute attr) {
         AttributeGroup group = getGroup(attr.getAttributeType().getGroupType());
         LOG.debug("Adding attribute {}: {} to group {}", attr.getClass().getName(), attr, group);
         group.addAttribute(attr);
     }
 
+    /**
+     * Gets the group.
+     *
+     * @param groupType
+     *            the group type
+     * @return the group
+     */
     private AttributeGroup getGroup(final AttributeGroupType groupType) {
         AttributeGroup group = m_groups.get(groupType);
         if (group == null) {
@@ -183,6 +205,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -190,6 +213,9 @@ public abstract class SnmpCollectionResource implements CollectionResource {
         return m_groups.values();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

@@ -55,8 +55,10 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
  */
 public final class Scriptd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Scriptd.class);
 
+    /** The Constant NAME. */
     public static final String NAME = "scriptd";
 
     /**
@@ -64,9 +66,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      */
     private static final Scriptd m_singleton = new Scriptd();
 
-    /**
-     * The execution launcher
-     */
+    /** The execution launcher. */
     private Executor m_execution;
 
     /**
@@ -131,6 +131,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -146,6 +147,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -168,6 +170,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -178,6 +181,7 @@ public final class Scriptd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {

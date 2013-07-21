@@ -58,6 +58,7 @@ import org.springframework.util.Assert;
  */
 public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UdpEventReceiver.class);
 
     /**
@@ -71,9 +72,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      */
     private UdpReceiver m_receiver;
 
-    /**
-     * The user datagram packet processor
-     */
+    /** The user datagram packet processor. */
     private UdpProcessor m_processor;
 
     /**
@@ -116,9 +115,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      */
     private int m_dgPort;
 
-    /**
-     * The log prefix
-     */
+    /** The log prefix. */
     private String m_logPrefix;
 
     /**
@@ -162,6 +159,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -210,6 +208,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public synchronized void stop() {
@@ -240,6 +239,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +252,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -264,6 +265,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -276,6 +278,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -288,6 +291,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -297,6 +301,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {
@@ -306,6 +311,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -317,6 +323,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -339,6 +346,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -378,6 +386,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * getEventHandlers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -389,6 +398,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      * <p>
      * setEventHandlers
      * </p>
+     * .
      *
      * @param eventHandlers
      *            a {@link java.util.List} object.
@@ -415,6 +425,9 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
         m_logPrefix = prefix;
     }
 
+    /**
+     * Assert not running.
+     */
     private void assertNotRunning() {
         Assert.state(m_status == START_PENDING || m_status == STOPPED,
                      "The fiber is already running and cannot be modified or started");

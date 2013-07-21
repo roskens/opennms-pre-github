@@ -36,7 +36,7 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Represents a PollContext
+ * Represents a PollContext.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -48,6 +48,7 @@ public interface PollContext {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -57,6 +58,7 @@ public interface PollContext {
      * <p>
      * setServiceName
      * </p>
+     * .
      *
      * @param serviceName
      *            a {@link java.lang.String} object.
@@ -67,6 +69,7 @@ public interface PollContext {
      * <p>
      * sendEvent
      * </p>
+     * .
      *
      * @param event
      *            the event to send
@@ -77,6 +80,7 @@ public interface PollContext {
      * <p>
      * createEvent
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -86,9 +90,9 @@ public interface PollContext {
      *            a {@link java.lang.String} object.
      * @param date
      *            a {@link java.util.Date} object.
-     * @return the event
      * @param snmpinterface
      *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
+     * @return the event
      */
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface);
 
@@ -96,6 +100,7 @@ public interface PollContext {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -109,6 +114,7 @@ public interface PollContext {
      * <p>
      * getPollableNodesByIp
      * </p>
+     * .
      *
      * @param ipaddr
      *            the ip address of the node.
@@ -120,13 +126,14 @@ public interface PollContext {
      * <p>
      * getPollableNodes
      * </p>
+     * .
      *
      * @return The List of OnmsIpInterfaces to be polled
      */
     public List<OnmsIpInterface> getPollableNodes();
 
     /**
-     * Update the OnmsSnmpInterface
+     * Update the OnmsSnmpInterface.
      *
      * @param snmpinteface
      *            a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.

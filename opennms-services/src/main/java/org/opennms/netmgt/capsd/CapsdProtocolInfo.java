@@ -39,6 +39,10 @@ import java.util.Map;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class CapsdProtocolInfo {
+
+    /**
+     * The Enum Action.
+     */
     public enum Action {
         /**
          * This is used to represent the protocol scan
@@ -60,9 +64,7 @@ public final class CapsdProtocolInfo {
         AUTO_SET
     };
 
-    /**
-     * The plugin used to poll the interface
-     */
+    /** The plugin used to poll the interface. */
     private Plugin m_plugin;
 
     /**
@@ -70,9 +72,7 @@ public final class CapsdProtocolInfo {
      */
     private String m_protocol;
 
-    /**
-     * the map or parameters passed to the plugin
-     */
+    /** the map or parameters passed to the plugin. */
     private Map<String, Object> m_parameters;
 
     /**
@@ -101,7 +101,7 @@ public final class CapsdProtocolInfo {
     }
 
     /**
-     * Returns the protocol name
+     * Returns the protocol name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,7 +110,7 @@ public final class CapsdProtocolInfo {
     }
 
     /**
-     * Returns the plugin module
+     * Returns the plugin module.
      *
      * @return a {@link org.opennms.netmgt.capsd.Plugin} object.
      */
@@ -119,7 +119,7 @@ public final class CapsdProtocolInfo {
     }
 
     /**
-     * Returns the input parameters for the plugin
+     * Returns the input parameters for the plugin.
      *
      * @return a {@link java.util.Map} object.
      */

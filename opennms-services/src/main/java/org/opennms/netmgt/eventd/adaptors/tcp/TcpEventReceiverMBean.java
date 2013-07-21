@@ -69,10 +69,10 @@ public interface TcpEventReceiverMBean extends BaseOnmsMBean {
      *
      * @param name
      *            The name of the handler to add.
-     * @throws javax.management.MalformedObjectNameException
-     *             Thrown if the passed name is not a valid ObjectName.
-     * @throws javax.management.InstanceNotFoundException
-     *             Thrown if no managed bean can be found that matches the name.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     void addEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
@@ -82,15 +82,15 @@ public interface TcpEventReceiverMBean extends BaseOnmsMBean {
      *
      * @param name
      *            The name of the handler to remove.
-     * @throws javax.management.MalformedObjectNameException
-     *             Thrown if the passed name is not a valid ObjectName.
-     * @throws javax.management.InstanceNotFoundException
-     *             Thrown if no managed bean can be found that matches the name.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     void removeEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
     /**
-     * The logging prefix to use
+     * The logging prefix to use.
      *
      * @param prefix
      *            a {@link java.lang.String} object.

@@ -39,13 +39,21 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class EventExpanderTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventExpanderTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_event conf dao. */
     private EventConfDao m_eventConfDao = m_mocks.createMock(EventConfDao.class);
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -53,6 +61,9 @@ public class EventExpanderTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test after properties set with no event conf dao.
+     */
     public void testAfterPropertiesSetWithNoEventConfDao() {
         m_mocks.replayAll();
 
@@ -70,6 +81,9 @@ public class EventExpanderTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set.
+     */
     public void testAfterPropertiesSet() {
         m_mocks.replayAll();
 
@@ -78,6 +92,9 @@ public class EventExpanderTest extends TestCase {
         expander.afterPropertiesSet();
     }
 
+    /**
+     * Test expand event with no dao matches.
+     */
     public void testExpandEventWithNoDaoMatches() {
 
         String uei = "uei.opennms.org/internal/capsd/snmpConflictsWithDb";

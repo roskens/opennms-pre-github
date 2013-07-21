@@ -91,14 +91,17 @@ import org.springframework.util.ClassUtils;
  */
 public class Collectd extends AbstractServiceDaemon implements EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Collectd.class);
 
+    /** The s_instrumentation. */
     private static CollectdInstrumentation s_instrumentation = null;
 
     /**
      * <p>
      * instrumentation
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectdInstrumentation}
      *         object.
@@ -118,14 +121,10 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         return s_instrumentation;
     }
 
-    /**
-     * Log4j category
-     */
+    /** Log4j category. */
     static final String LOG4J_CATEGORY = "collectd";
 
-    /**
-     * Instantiated service collectors specified in config file
-     */
+    /** Instantiated service collectors specified in config file. */
     private final Map<String, ServiceCollector> m_collectors = new HashMap<String, ServiceCollector>(4);
 
     /**
@@ -133,37 +132,54 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      */
     private final List<CollectableService> m_collectableServices;
 
-    /**
-     * Reference to the collection scheduler
-     */
+    /** Reference to the collection scheduler. */
     private volatile Scheduler m_scheduler;
 
-    /**
-     * Indicates if scheduling of existing interfaces has been completed
-     */
+    /** Indicates if scheduling of existing interfaces has been completed. */
     private volatile CollectorConfigDao m_collectorConfigDao;
 
+    /** The m_iface dao. */
     private volatile IpInterfaceDao m_ifaceDao;
 
+    /**
+     * The Class SchedulingCompletedFlag.
+     */
     static class SchedulingCompletedFlag {
+
+        /** The m_scheduling completed. */
         volatile boolean m_schedulingCompleted = false;
 
+        /**
+         * Sets the scheduling completed.
+         *
+         * @param schedulingCompleted
+         *            the new scheduling completed
+         */
         public synchronized void setSchedulingCompleted(boolean schedulingCompleted) {
             m_schedulingCompleted = schedulingCompleted;
         }
 
+        /**
+         * Checks if is scheduling completed.
+         *
+         * @return true, if is scheduling completed
+         */
         public synchronized boolean isSchedulingCompleted() {
             return m_schedulingCompleted;
         }
 
     }
 
+    /** The m_scheduling completed flag. */
     private final SchedulingCompletedFlag m_schedulingCompletedFlag = new SchedulingCompletedFlag();
 
+    /** The m_event ipc manager. */
     private volatile EventIpcManager m_eventIpcManager;
 
+    /** The m_trans template. */
     private volatile TransactionTemplate m_transTemplate;
 
+    /** The m_node dao. */
     private volatile NodeDao m_nodeDao;
 
     /**
@@ -179,6 +195,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -200,6 +217,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         installMessageSelectors();
     }
 
+    /**
+     * Install message selectors.
+     */
     private void installMessageSelectors() {
         // Add the EventListeners for the UEIs in which this service is
         // interested
@@ -251,6 +271,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -264,6 +285,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * getEventIpcManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -271,6 +293,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         return m_eventIpcManager;
     }
 
+    /**
+     * If scheduler.
+     *
+     * @return the ready runnable
+     */
     private ReadyRunnable ifScheduler() {
         // Schedule existing interfaces for data collection
 
@@ -301,6 +328,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         return interfaceScheduler;
     }
 
+    /**
+     * Creates the scheduler.
+     */
     private void createScheduler() {
         Logging.withPrefix("collectd", new Runnable() {
             @Override
@@ -381,6 +411,12 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         }
     }
 
+    /**
+     * Schedule interfaces with service.
+     *
+     * @param svcName
+     *            the svc name
+     */
     private void scheduleInterfacesWithService(String svcName) {
         instrumentation().beginScheduleInterfacesWithService(svcName);
         try {
@@ -395,6 +431,13 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         }
     }
 
+    /**
+     * Find interfaces with service.
+     *
+     * @param svcName
+     *            the svc name
+     * @return the collection
+     */
     private Collection<OnmsIpInterface> findInterfacesWithService(String svcName) {
         instrumentation().beginFindInterfacesWithService(svcName);
         int count = -1;
@@ -439,6 +482,14 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         scheduleInterface(iface, svc.getServiceType().getName(), existing);
     }
 
+    /**
+     * Schedule node.
+     *
+     * @param nodeId
+     *            the node id
+     * @param existing
+     *            the existing
+     */
     private void scheduleNode(final int nodeId, final boolean existing) {
 
         getCollectorConfigDao().rebuildPackageIpListMap();
@@ -454,12 +505,31 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         });
     }
 
+    /**
+     * Gets the ip interface.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ipAddress
+     *            the ip address
+     * @return the ip interface
+     */
     private OnmsIpInterface getIpInterface(int nodeId, String ipAddress) {
         OnmsNode node = m_nodeDao.load(nodeId);
         OnmsIpInterface iface = node.getIpInterfaceByIpAddress(ipAddress);
         return iface;
     }
 
+    /**
+     * Schedule interface.
+     *
+     * @param iface
+     *            the iface
+     * @param svcName
+     *            the svc name
+     * @param existing
+     *            the existing
+     */
     private void scheduleInterface(OnmsIpInterface iface, String svcName, boolean existing) {
 
         final String ipAddress = str(iface.getIpAddress());
@@ -553,6 +623,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * getSpecificationsForInterface
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -603,8 +674,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      *            TODO
      * @param spec
      *            TODO
-     * @param svcName
-     *            TODO
+     * @return true, if successful
      */
     private boolean alreadyScheduled(OnmsIpInterface iface, CollectionSpecification spec) {
         String ipAddress = str(iface.getIpAddress());
@@ -648,6 +718,8 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
     }
 
     /**
+     * Sets the scheduling completed.
+     *
      * @param schedulingCompleted
      *            The schedulingCompleted to set.
      */
@@ -655,12 +727,20 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         m_schedulingCompletedFlag.setSchedulingCompleted(schedulingCompleted);
     }
 
+    /**
+     * Refresh service packages.
+     */
     private void refreshServicePackages() {
         for (CollectableService thisService : m_collectableServices) {
             thisService.refreshPackage(getCollectorConfigDao());
         }
     }
 
+    /**
+     * Gets the collectable services.
+     *
+     * @return the collectable services
+     */
     private List<CollectableService> getCollectableServices() {
         return m_collectableServices;
     }
@@ -694,6 +774,12 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
 
     }
 
+    /**
+     * On event in transaction.
+     *
+     * @param event
+     *            the event
+     */
     private void onEventInTransaction(Event event) {
         // print out the uei
         //
@@ -734,6 +820,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * handleInsufficientInfo
      * </p>
+     * .
      *
      * @param e
      *            a
@@ -744,10 +831,24 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         LOG.info(e.getMessage());
     }
 
+    /**
+     * Handle dup node deleted.
+     *
+     * @param event
+     *            the event
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     */
     private void handleDupNodeDeleted(Event event) throws InsufficientInformationException {
         handleNodeDeleted(event);
     }
 
+    /**
+     * Handle scheduled outages changed.
+     *
+     * @param event
+     *            the event
+     */
     private void handleScheduledOutagesChanged(Event event) {
         try {
             LOG.info("Reloading Collectd config factory");
@@ -803,6 +904,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleInterfaceDeleted(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -867,6 +969,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleInterfaceReparented(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -963,6 +1066,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleNodeDeleted(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -981,6 +1085,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleNodeCategoryMembershipChanged(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -995,6 +1100,12 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
 
     }
 
+    /**
+     * Unschedule node and mark for deletion.
+     *
+     * @param nodeId
+     *            the node id
+     */
     private void unscheduleNodeAndMarkForDeletion(Long nodeId) {
         // Iterate over the collectable service list and mark any entries
         // which match the deleted nodeId for deletion.
@@ -1038,6 +1149,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleNodeGainedService(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -1048,6 +1160,12 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         scheduleForCollection(event);
     }
 
+    /**
+     * Handle reload daemon config.
+     *
+     * @param event
+     *            the event
+     */
     private void handleReloadDaemonConfig(Event event) {
         final String daemonName = "Threshd";
         boolean isTarget = false;
@@ -1111,6 +1229,12 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         }
     }
 
+    /**
+     * Schedule for collection.
+     *
+     * @param event
+     *            the event
+     */
     private void scheduleForCollection(Event event) {
         // This moved to here from the scheduleInterface() for better behavior
         // during initialization
@@ -1134,6 +1258,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handlePrimarySnmpInterfaceChanged(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -1236,6 +1361,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleReinitializePrimarySnmpInterface(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -1288,6 +1414,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleServiceDeleted(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
@@ -1353,6 +1480,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.Scheduler} object.
@@ -1361,6 +1489,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         m_scheduler = scheduler;
     }
 
+    /**
+     * Gets the scheduler.
+     *
+     * @return the scheduler
+     */
     private Scheduler getScheduler() {
         if (m_scheduler == null) {
             createScheduler();
@@ -1372,6 +1505,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setCollectorConfigDao
      * </p>
+     * .
      *
      * @param collectorConfigDao
      *            a {@link org.opennms.netmgt.dao.api.CollectorConfigDao}
@@ -1381,6 +1515,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         m_collectorConfigDao = collectorConfigDao;
     }
 
+    /**
+     * Gets the collector config dao.
+     *
+     * @return the collector config dao
+     */
     private CollectorConfigDao getCollectorConfigDao() {
         return m_collectorConfigDao;
     }
@@ -1389,6 +1528,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setIpInterfaceDao
      * </p>
+     * .
      *
      * @param ifSvcDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
@@ -1397,6 +1537,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         m_ifaceDao = ifSvcDao;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     private IpInterfaceDao getIpInterfaceDao() {
         return m_ifaceDao;
     }
@@ -1405,6 +1550,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setTransactionTemplate
      * </p>
+     * .
      *
      * @param transTemplate
      *            a
@@ -1419,6 +1565,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -1431,6 +1578,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setServiceCollector
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -1445,6 +1593,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * getServiceCollector
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -1458,6 +1607,7 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
      * <p>
      * getCollectorNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -1465,6 +1615,9 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         return m_collectors.keySet();
     }
 
+    /**
+     * Instantiate collectors.
+     */
     private void instantiateCollectors() {
         LOG.debug("instantiateCollectors: Loading collectors");
 
@@ -1492,6 +1645,11 @@ public class Collectd extends AbstractServiceDaemon implements EventListener {
         }
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }

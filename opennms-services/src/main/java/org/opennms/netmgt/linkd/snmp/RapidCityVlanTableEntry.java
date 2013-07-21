@@ -51,8 +51,10 @@ public final class RapidCityVlanTableEntry extends Vlan {
     // Lookup strings for specific table entries
     //
 
+    /** The vlan index oid. */
     private static String VLAN_INDEX_OID = ".1.3.6.1.4.1.2272.1.3.2.1.1";
 
+    /** The vlan name oid. */
     private static String VLAN_NAME_OID = ".1.3.6.1.4.1.2272.1.3.2.1.2";
 
     /**
@@ -93,16 +95,25 @@ public final class RapidCityVlanTableEntry extends Vlan {
         super(rcVlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
         return VlanStatus.UNKNOWN;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         return VlanType.CISCO_VTP_ETHERNET;

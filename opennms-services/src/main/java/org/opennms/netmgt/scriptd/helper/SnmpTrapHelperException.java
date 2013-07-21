@@ -40,6 +40,7 @@ package org.opennms.netmgt.scriptd.helper;
  */
 public class SnmpTrapHelperException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7866108381105769823L;
 
     /**

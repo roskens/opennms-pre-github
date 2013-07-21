@@ -35,14 +35,21 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class OspfGeneralGroup.
+ */
 public final class OspfGeneralGroup extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OspfGeneralGroup.class);
 
+    /** The Constant OSPF_ROUTER_ID_ALIAS. */
     public static final String OSPF_ROUTER_ID_ALIAS = "ospfRouterId";
 
+    /** The Constant OSPF_ROUTER_ID_OID. */
     public static final String OSPF_ROUTER_ID_OID = ".1.3.6.1.2.1.14.1.1";
 
+    /** The ms_elem list. */
     public static NamedSnmpVar[] ms_elemList = null;
 
     static {
@@ -62,18 +69,32 @@ public final class OspfGeneralGroup extends AggregateTracker {
 
     }
 
+    /** The Constant OSPF_GENERAL_GROUP_OID. */
     public static final String OSPF_GENERAL_GROUP_OID = ".1.3.6.1.2.1.14.1";
 
+    /** The m_store. */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /**
+     * Instantiates a new ospf general group.
+     *
+     * @param address
+     *            the address
+     */
     public OspfGeneralGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
         m_store = new SnmpStore(ms_elemList);
     }
 
+    /**
+     * Gets the ospf router id.
+     *
+     * @return the ospf router id
+     */
     public InetAddress getOspfRouterId() {
         return m_store.getIPAddress(OSPF_ROUTER_ID_ALIAS);
     }
@@ -96,6 +117,11 @@ public final class OspfGeneralGroup extends AggregateTracker {
         log().info("Error retrieving lldpLocalGroup from " + m_address + ". " + msg);
     }
 
+    /**
+     * Log.
+     *
+     * @return the logger
+     */
     private Logger log() {
         return LOG;
     }

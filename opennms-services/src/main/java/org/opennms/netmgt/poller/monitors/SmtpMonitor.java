@@ -68,6 +68,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class SmtpMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(SmtpMonitor.class);
 
     /**

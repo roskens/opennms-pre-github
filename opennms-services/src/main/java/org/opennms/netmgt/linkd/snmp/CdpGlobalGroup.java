@@ -48,16 +48,16 @@ import org.slf4j.LoggerFactory;
  */
 public final class CdpGlobalGroup extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CdpGlobalGroup.class);
 
-    /**
-     * the bridge type
-     */
+    /** the bridge type. */
     //
     // Lookup strings for specific table entries
     //
     public static final String CDP_GLOBAL_DEVICEID = "cdpGlobalDeviceId";
 
+    /** The Constant ms_elemList. */
     public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
     /**
      * <P>
@@ -82,6 +82,7 @@ public final class CdpGlobalGroup extends AggregateTracker {
      */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
     /**
@@ -123,6 +124,7 @@ public final class CdpGlobalGroup extends AggregateTracker {
      * <p>
      * getBridgeAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Notifd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Notifd.class);
 
     /**
@@ -72,14 +73,10 @@ public final class Notifd extends AbstractServiceDaemon {
      */
     private static final Notifd m_singleton = new Notifd();
 
-    /**
-     * The map for holding different notice queues
-     */
+    /** The map for holding different notice queues. */
     private final Map<String, NoticeQueue> m_noticeQueues = new HashMap<String, NoticeQueue>();
 
-    /**
-     *
-     */
+    /** The m_queue handlers. */
     private final Map<String, NotifdQueueHandler> m_queueHandlers = new HashMap<String, NotifdQueueHandler>();
 
     /**
@@ -88,22 +85,31 @@ public final class Notifd extends AbstractServiceDaemon {
     private volatile BroadcastEventProcessor m_eventReader;
 
     // Would be better if these were final but the are initialized in setters
+    /** The m_event manager. */
     private volatile EventIpcManager m_eventManager;
 
+    /** The m_config manager. */
     private volatile NotifdConfigManager m_configManager;
 
+    /** The m_notification manager. */
     private volatile NotificationManager m_notificationManager;
 
+    /** The m_group manager. */
     private volatile GroupManager m_groupManager;
 
+    /** The m_user manager. */
     private volatile UserManager m_userManager;
 
+    /** The m_destination path manager. */
     private volatile DestinationPathManager m_destinationPathManager;
 
+    /** The m_notification command manager. */
     private volatile NotificationCommandManager m_notificationCommandManager;
 
+    /** The m_poll outages config manager. */
     private volatile PollOutagesConfigManager m_pollOutagesConfigManager;
 
+    /** The m_node dao. */
     private volatile NodeDao m_nodeDao;
 
     /**
@@ -117,6 +123,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -168,6 +175,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getConfigManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
      */
@@ -179,6 +187,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setConfigManager
      * </p>
+     * .
      *
      * @param manager
      *            a {@link org.opennms.netmgt.config.NotifdConfigManager}
@@ -192,6 +201,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getGroupManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -203,6 +213,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setGroupManager
      * </p>
+     * .
      *
      * @param manager
      *            a {@link org.opennms.netmgt.config.GroupManager} object.
@@ -215,6 +226,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getUserManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.UserManager} object.
      */
@@ -226,6 +238,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setUserManager
      * </p>
+     * .
      *
      * @param manager
      *            a {@link org.opennms.netmgt.config.UserManager} object.
@@ -238,6 +251,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getDestinationPathManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.DestinationPathManager}
      *         object.
@@ -250,6 +264,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setDestinationPathManager
      * </p>
+     * .
      *
      * @param manager
      *            a {@link org.opennms.netmgt.config.DestinationPathManager}
@@ -263,6 +278,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getNotificationCommandManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotificationCommandManager}
      *         object.
@@ -275,6 +291,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setNotificationCommandManager
      * </p>
+     * .
      *
      * @param manager
      *            a {@link org.opennms.netmgt.config.NotificationCommandManager}
@@ -288,6 +305,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getNotificationManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotificationManager} object.
      */
@@ -299,6 +317,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setNotificationManager
      * </p>
+     * .
      *
      * @param notificationManager
      *            a {@link org.opennms.netmgt.config.NotificationManager}
@@ -312,6 +331,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getBroadcastEventProcessor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.notifd.BroadcastEventProcessor}
      *         object.
@@ -324,6 +344,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -336,6 +357,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -357,6 +379,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -369,6 +392,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -391,6 +415,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -402,6 +427,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            The eventManager to set.
@@ -414,6 +440,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setPollOutagesConfigManager
      * </p>
+     * .
      *
      * @param configManager
      *            a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
@@ -427,6 +454,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getPollOutagesConfigManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
      *         object.
@@ -439,6 +467,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -451,6 +480,7 @@ public final class Notifd extends AbstractServiceDaemon {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */

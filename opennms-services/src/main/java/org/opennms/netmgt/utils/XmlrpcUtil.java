@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class XmlrpcUtil {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlrpcUtil.class);
 
     /**

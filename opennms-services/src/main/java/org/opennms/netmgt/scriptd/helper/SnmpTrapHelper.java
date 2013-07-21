@@ -60,45 +60,33 @@ import org.opennms.netmgt.xml.event.Value;
  */
 public class SnmpTrapHelper {
 
-    /**
-     * The sysUpTimeOID, which should be the first varbind in a V2 trap
-     */
+    /** The sysUpTimeOID, which should be the first varbind in a V2 trap. */
     private static final String SNMP_SYSUPTIME_OID = ".1.3.6.1.2.1.1.3.0";
 
-    /**
-     * The snmpTrapOID, which should be the second varbind in a V2 trap
-     */
+    /** The snmpTrapOID, which should be the second varbind in a V2 trap. */
     private static final String SNMP_TRAP_OID = ".1.3.6.1.6.3.1.1.4.1.0";
 
-    /**
-     * The snmpTrapAddress, which may occur in a V2 trap
-     */
+    /** The snmpTrapAddress, which may occur in a V2 trap. */
     private static final String SNMP_TRAP_ADDRESS_OID = ".1.3.6.1.6.3.18.1.3.0";
 
-    /**
-     * The snmpTrapCommunity, which may occur in a V2 trap
-     */
+    /** The snmpTrapCommunity, which may occur in a V2 trap. */
     private static final String SNMP_TRAP_COMMUNITY_OID = ".1.3.6.1.6.3.18.1.4.0";
 
     /**
      * The SNMP trap enterprise OID, which if present in a V2 trap is the last
-     * varbind
+     * varbind.
      */
     private static final String SNMP_TRAP_ENTERPRISE_OID = ".1.3.6.1.6.3.1.1.4.3.0";
 
-    /**
-     * OID prefix for generic SNMP traps
-     */
+    /** OID prefix for generic SNMP traps. */
     private static final String SNMP_TRAPS = ".1.3.6.1.6.3.1.1.5";
 
-    /**
-     * The SNMP generic value for an enterprise-specific trap
-     */
+    /** The SNMP generic value for an enterprise-specific trap. */
     private static final int ENTERPRISE_SPECIFIC = 6;
 
     /**
      * Map of factories for generating different types of SNMP variable binding
-     * content
+     * content.
      */
     private HashMap<String, Object> m_factoryMap;
 
@@ -133,9 +121,10 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Common interface for all variabe binding factories
+     * Common interface for all variabe binding factories.
      */
     private interface VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value is assumed to have been encoded with the specified encoding
@@ -152,25 +141,26 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
                 throws SnmpTrapHelperException;
     }
 
     /**
-     * Variable binding factory for SnmpOctetString
+     * Variable binding factory for SnmpOctetString.
      */
     private class SnmpOctetStringFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpOctetString. The value is assumed to
          * have been encoded with the specified encoding (i.e.
          * XML_ENCODING_TEXT, XML_ENCODING_BASE64, or XML_ENCODING_MAC_ADDRESS).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -181,10 +171,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -205,15 +193,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpInt32
+     * Variable binding factory for SnmpInt32.
      */
     private class SnmpInt32Factory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpInt32. The value is assumed to have
          * been encoded with the specified encoding (only XML_ENCODING_TEXT is
          * supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -223,10 +214,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -251,14 +240,17 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpNull
+     * Variable binding factory for SnmpNull.
      */
     private class SnmpNullFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpNull.The value and encoding
          * parameters are ignored.
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -275,15 +267,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpObjectId
+     * Variable binding factory for SnmpObjectId.
      */
     private class SnmpObjectIdFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpObjectId. The value is assumed to
          * have been encoded with the specified encoding (only XML_ENCODING_TEXT
          * is supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -293,10 +288,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -311,15 +304,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpIPAddress
+     * Variable binding factory for SnmpIPAddress.
      */
     private class SnmpIPAddressFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpIPAddress. The value is assumed to
          * have been encoded with the specified encoding (only XML_ENCODING_TEXT
          * is supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -329,10 +325,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -352,15 +346,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpTimeTicks
+     * Variable binding factory for SnmpTimeTicks.
      */
     private class SnmpTimeTicksFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpTimeTicks. The value is assumed to
          * have been encoded with the specified encoding (only XML_ENCODING_TEXT
          * is supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -370,10 +367,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -403,15 +398,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpCounter32
+     * Variable binding factory for SnmpCounter32.
      */
     private class SnmpCounter32Factory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpCounter32. The value is assumed to
          * have been encoded with the specified encoding (only XML_ENCODING_TEXT
          * is supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -421,10 +419,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -454,15 +450,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpGauge32
+     * Variable binding factory for SnmpGauge32.
      */
     private class SnmpGauge32Factory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpGauge32. The value is assumed to have
          * been encoded with the specified encoding (only XML_ENCODING_TEXT is
          * supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -472,10 +471,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -504,15 +501,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpOpaque
+     * Variable binding factory for SnmpOpaque.
      */
     private class SnmpOpaqueFactory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpOpaque. The value is assumed to have
          * been encoded with the specified encoding (only XML_ENCODING_BASE64 is
          * supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -522,10 +522,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -541,15 +539,18 @@ public class SnmpTrapHelper {
     }
 
     /**
-     * Variable binding factory for SnmpCounter64
+     * Variable binding factory for SnmpCounter64.
      */
     private class SnmpCounter64Factory implements VarBindFactory {
+
         /**
          * Constructs a new SnmpVarBind with the specified name and value. The
          * value will be encoded as an SnmpCounter64. The value is assumed to
          * have been encoded with the specified encoding (only XML_ENCODING_TEXT
          * is supported).
          *
+         * @param trap
+         *            the trap
          * @param name
          *            The name (a.k.a. "id") of the variable binding to be
          *            created
@@ -559,10 +560,8 @@ public class SnmpTrapHelper {
          * @param value
          *            The variable binding value
          * @return The newly-created variable binding
-         * @exception Throws
-         *                SnmpTrapHelperException if the variable binding cannot
-         *                be created for any reason (e.g. encoding not
-         *                supported, invalid value, etc.).
+         * @throws SnmpTrapHelperException
+         *             the snmp trap helper exception
          */
         @Override
         public void addVarBind(SnmpTrapBuilder trap, String name, String encoding, String value)
@@ -602,8 +601,8 @@ public class SnmpTrapHelper {
      * @param timeStamp
      *            The time stamp for the trap.
      * @return The newly-created trap.
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public SnmpV1TrapBuilder createV1Trap(String entId, String agentAddr, int generic, int specific, long timeStamp)
             throws UnknownHostException {
@@ -627,11 +626,8 @@ public class SnmpTrapHelper {
      * @param sysUpTime
      *            The system up time.
      * @return The newly-created trap.
-     * @exception Throws
-     *                SnmpTrapHelperException if the trap cannot be created for
-     *                any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public SnmpTrapBuilder createV2Trap(String trapOid, String sysUpTime) throws SnmpTrapHelperException {
 
@@ -652,11 +648,8 @@ public class SnmpTrapHelper {
      * @param sysUpTime
      *            The system up time.
      * @return The newly-created trap.
-     * @exception Throws
-     *                SnmpTrapHelperException if the trap cannot be created for
-     *                any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public SnmpV2TrapBuilder createV2Inform(String trapOid, String sysUpTime) throws SnmpTrapHelperException {
 
@@ -677,11 +670,8 @@ public class SnmpTrapHelper {
      * @param sysUpTime
      *            The system up time.
      * @return The newly-created trap.
-     * @exception Throws
-     *                SnmpTrapHelperException if the trap cannot be created for
-     *                any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public SnmpV3TrapBuilder createV3Trap(String trapOid, String sysUpTime) throws SnmpTrapHelperException {
 
@@ -702,11 +692,8 @@ public class SnmpTrapHelper {
      * @param sysUpTime
      *            The system up time.
      * @return The newly-created trap.
-     * @exception Throws
-     *                SnmpTrapHelperException if the trap cannot be created for
-     *                any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public SnmpV3TrapBuilder createV3Inform(String trapOid, String sysUpTime) throws SnmpTrapHelperException {
 
@@ -723,7 +710,7 @@ public class SnmpTrapHelper {
      * administrator to set up authentication
      * An snmpv3 trap is sent using the sender
      * EngineID that needs to be known
-     * over remote trap receivers
+     * over remote trap receivers.
      *
      * @return The local engine ID
      */
@@ -743,11 +730,8 @@ public class SnmpTrapHelper {
      *            The type of variable binding to be created
      * @param value
      *            The variable binding value
-     * @exception Throws
-     *                SnmpTrapHelperException if the variable binding cannot be
-     *                added to the trap for any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public void addVarBinding(SnmpTrapBuilder trap, String name, String type, String value)
             throws SnmpTrapHelperException {
@@ -768,11 +752,8 @@ public class SnmpTrapHelper {
      *            (i.e. XML_ENCODING_TEXT, or XML_ENCODING_BASE64)
      * @param value
      *            The variable binding value
-     * @exception Throws
-     *                SnmpTrapHelperException if the variable binding cannot be
-     *                added to the trap for any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public void addVarBinding(SnmpTrapBuilder trap, String name, String type, String encoding, String value)
             throws SnmpTrapHelperException {
@@ -802,11 +783,8 @@ public class SnmpTrapHelper {
      *            The address to which the trap should be forwarded
      * @param destPort
      *            The port to which the trap should be forwarded
-     * @exception Throws
-     *                SnmpTrapHelperException if the variable binding cannot be
-     *                added to the trap for any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public void forwardV1Trap(Event event, String destAddr, int destPort) throws SnmpTrapHelperException {
         // the event must correspond to an SNMP trap
@@ -923,6 +901,20 @@ public class SnmpTrapHelper {
         sendTrap(destAddr, destPort, snmpInfo.getCommunity(), trap);
     }
 
+    /**
+     * Send trap.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @param trap
+     *            the trap
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     private void sendTrap(String destAddr, int destPort, String community, SnmpTrapBuilder trap)
             throws SnmpTrapHelperException {
         try {
@@ -944,11 +936,8 @@ public class SnmpTrapHelper {
      *            The address to which the trap should be forwarded
      * @param destPort
      *            The port to which the trap should be forwarded
-     * @exception Throws
-     *                SnmpTrapHelperException if the variable binding cannot be
-     *                added to the trap for any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public void forwardV2Trap(Event event, String destAddr, int destPort) throws SnmpTrapHelperException {
 
@@ -1077,11 +1066,8 @@ public class SnmpTrapHelper {
      *            The address to which the trap should be forwarded
      * @param destPort
      *            The port to which the trap should be forwarded
-     * @exception Throws
-     *                SnmpTrapHelperException if the variable binding cannot be
-     *                added to the trap for any reason.
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
      */
     public void forwardTrap(Event event, String destAddr, int destPort) throws SnmpTrapHelperException {
 
@@ -1119,22 +1105,10 @@ public class SnmpTrapHelper {
      *            The SNMP version ("v1" or "v2c") of the trap
      * @param community
      *            The SNMP community string for the trap (defaults to "public")
-     * @throws org.opennms.netmgt.scriptd.helper.SnmpTrapHelperException
-     *             if any.
-     * @throws java.net.UnknownHostException
-     *             if any.
-     * @exception Throws
-     *                SnmpTrapHelperException if the event is not of the
-     *                appropriate type.
-     * @exception Throws
-     *                UnknownHostException if agent-addr resolution fails for
-     *                the case of an SNMPv1 trap
-     * @exception Throws
-     *                SnmpTrapHelperException if the event is not of the
-     *                appropriate type.
-     * @exception Throws
-     *                UnknownHostException if agent-addr resolution fails for
-     *                the case of an SNMPv1 trap
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void sendTL1AutonomousMsgTrap(Event event, String destAddr, int destPort, String trapVersion,
             String community) throws SnmpTrapHelperException, UnknownHostException {

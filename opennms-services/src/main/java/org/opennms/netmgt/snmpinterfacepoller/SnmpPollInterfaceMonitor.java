@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpPollInterfaceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpPollInterfaceMonitor.class);
 
     /**
@@ -68,6 +69,7 @@ public class SnmpPollInterfaceMonitor {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param agentConfig
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.

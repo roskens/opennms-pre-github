@@ -40,7 +40,14 @@ import junit.framework.TestCase;
 
 import org.opennms.netmgt.poller.remote.PollerBackEnd;
 
+/**
+ * The Class ServerUnreachableAdaptorTest.
+ */
 public class ServerUnreachableAdaptorTest extends TestCase {
+
+    /**
+     * Test poller starting when back end returns false.
+     */
     public void testPollerStartingWhenBackEndReturnsFalse() {
         int id = 1;
         Map<String, String> details = new HashMap<String, String>();

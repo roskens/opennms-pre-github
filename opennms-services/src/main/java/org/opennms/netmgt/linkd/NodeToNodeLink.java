@@ -40,12 +40,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class NodeToNodeLink {
 
+    /** The m_node id. */
     final int m_nodeId;
 
+    /** The m_if index. */
     final int m_ifIndex;
 
+    /** The m_node parent id. */
     int m_nodeParentId;
 
+    /** The m_parent if index. */
     int m_parentIfIndex;
 
     /**
@@ -77,6 +81,7 @@ public class NodeToNodeLink {
      * <p>
      * getNodeparentid
      * </p>
+     * .
      *
      * @return Returns the nodeparentid.
      */
@@ -88,6 +93,7 @@ public class NodeToNodeLink {
      * <p>
      * setNodeparentid
      * </p>
+     * .
      *
      * @param nodeParentId
      *            The nodeparentid to set.
@@ -100,6 +106,7 @@ public class NodeToNodeLink {
      * <p>
      * getParentifindex
      * </p>
+     * .
      *
      * @return Returns the parentifindex.
      */
@@ -111,6 +118,7 @@ public class NodeToNodeLink {
      * <p>
      * setParentifindex
      * </p>
+     * .
      *
      * @param parentIfIndex
      *            The parentifindex to set.
@@ -123,6 +131,7 @@ public class NodeToNodeLink {
      * <p>
      * getIfindex
      * </p>
+     * .
      *
      * @return Returns the ifindex.
      */
@@ -134,6 +143,7 @@ public class NodeToNodeLink {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */

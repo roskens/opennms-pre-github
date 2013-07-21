@@ -64,6 +64,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class BgpSessionMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(BgpSessionMonitor.class);
 
     /**
@@ -97,33 +98,74 @@ public final class BgpSessionMonitor extends SnmpMonitorStrategy {
     private static final String BGP_PEER_FSM_EST_TIME_OID = ".1.3.6.1.2.1.15.3.1.16";
 
     /**
-     * Implement the BGP Peer states
+     * Implement the BGP Peer states.
      */
     private enum BGP_PEER_STATE {
-        IDLE(1), CONNECT(2), ACTIVE(3), OPEN_SENT(4), OPEN_CONFIRM(5), ESTABLISHED(6);
 
+        /** The idle. */
+        IDLE(1),
+ /** The connect. */
+ CONNECT(2),
+ /** The active. */
+ ACTIVE(3),
+ /** The open sent. */
+ OPEN_SENT(4),
+ /** The open confirm. */
+ OPEN_CONFIRM(5),
+ /** The established. */
+ ESTABLISHED(6);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new bgp peer state.
+         *
+         * @param s
+         *            the s
+         */
         BGP_PEER_STATE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
     };
 
     /**
-     * Implement the BGP Peer admin states
+     * Implement the BGP Peer admin states.
      */
     private static enum BGP_PEER_ADMIN_STATE {
-        STOP(1), START(2);
+
+        /** The stop. */
+        STOP(1),
+ /** The start. */
+ START(2);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new bgp peer admin state.
+         *
+         * @param s
+         *            the s
+         */
         BGP_PEER_ADMIN_STATE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }
@@ -172,9 +214,6 @@ public final class BgpSessionMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

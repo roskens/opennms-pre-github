@@ -29,7 +29,7 @@
 package org.opennms.netmgt.scheduler;
 
 /**
- * Represents a ScheduleInterval
+ * Represents a ScheduleInterval.
  *
  * @author brozow
  * @version $Id: $
@@ -40,6 +40,7 @@ public interface ScheduleInterval {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -49,6 +50,7 @@ public interface ScheduleInterval {
      * <p>
      * scheduledSuspension
      * </p>
+     * .
      *
      * @return a boolean.
      */

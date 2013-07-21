@@ -44,6 +44,8 @@ import org.opennms.netmgt.xml.event.Log;
 import org.xml.sax.InputSource;
 
 /**
+ * The Class UdpReceivedEvent.
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
@@ -89,9 +91,9 @@ final class UdpReceivedEvent {
      *
      * @param packet
      *            The datagram received from the remote agent.
-     * @throws java.io.UnsupportedEncodingException
-     *             Thrown if the data buffer cannot be decoded using the
-     *             US-ASCII encoding.
+     * @return the udp received event
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
      */
     static UdpReceivedEvent make(DatagramPacket packet) throws UnsupportedEncodingException {
         return make(packet.getAddress(), packet.getPort(), packet.getData(), packet.getLength());
@@ -110,9 +112,9 @@ final class UdpReceivedEvent {
      *            The XML data in US-ASCII encoding.
      * @param len
      *            The length of the XML data in the buffer.
-     * @throws java.io.UnsupportedEncodingException
-     *             Thrown if the data buffer cannot be decoded using the
-     *             US-ASCII encoding.
+     * @return the udp received event
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
      */
     static UdpReceivedEvent make(InetAddress addr, int port, byte[] data, int len) throws UnsupportedEncodingException {
         UdpReceivedEvent e = new UdpReceivedEvent();
@@ -129,11 +131,10 @@ final class UdpReceivedEvent {
      * datagram had malformed XML then an exception is generated.
      *
      * @return The toplevel <code>Log</code> element of the XML document.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             Throws if the documents data does not match the defined XML
-     *             Schema Definition.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             Thrown if the XML is malformed and cannot be converted.
+     * @throws ValidationException
+     *             the validation exception
+     * @throws MarshalException
+     *             the marshal exception
      */
     Log unmarshal() throws ValidationException, MarshalException {
         if (m_log == null) {
@@ -158,6 +159,8 @@ final class UdpReceivedEvent {
 
     /**
      * Returns the raw XML data as a string.
+     *
+     * @return the xml data
      */
     String getXmlData() {
         return m_eventXML;
@@ -165,20 +168,24 @@ final class UdpReceivedEvent {
 
     /**
      * Returns the sender's address.
+     *
+     * @return the sender
      */
     InetAddress getSender() {
         return m_sender;
     }
 
     /**
-     * Returns the sender's port
+     * Returns the sender's port.
+     *
+     * @return the port
      */
     int getPort() {
         return m_port;
     }
 
     /**
-     * Get the acknowledged events
+     * Get the acknowledged events.
      *
      * @return a {@link java.util.List} object.
      */

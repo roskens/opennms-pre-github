@@ -54,14 +54,19 @@ import org.slf4j.LoggerFactory;
  */
 public class CollectionSpecification {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectionSpecification.class);
 
+    /** The m_package. */
     private CollectdPackage m_package;
 
+    /** The m_svc name. */
     private String m_svcName;
 
+    /** The m_collector. */
     private ServiceCollector m_collector;
 
+    /** The m_parameters. */
     private Map<String, Object> m_parameters;
 
     /**
@@ -88,6 +93,7 @@ public class CollectionSpecification {
      * <p>
      * getPackageName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,26 +101,56 @@ public class CollectionSpecification {
         return m_package.getName();
     }
 
+    /**
+     * Store by if alias.
+     *
+     * @return the string
+     */
     private String storeByIfAlias() {
         return m_package.storeByIfAlias();
     }
 
+    /**
+     * If alias comment.
+     *
+     * @return the string
+     */
     private String ifAliasComment() {
         return m_package.ifAliasComment();
     }
 
+    /**
+     * Store flag override.
+     *
+     * @return the string
+     */
     private String storeFlagOverride() {
         return m_package.getStorFlagOverride();
     }
 
+    /**
+     * If alias domain.
+     *
+     * @return the string
+     */
     private String ifAliasDomain() {
         return m_package.ifAliasDomain();
     }
 
+    /**
+     * Store by node id.
+     *
+     * @return the string
+     */
     private String storeByNodeId() {
         return m_package.storeByNodeId();
     }
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     private Service getService() {
         return m_package.getService(m_svcName);
     }
@@ -123,6 +159,7 @@ public class CollectionSpecification {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +167,12 @@ public class CollectionSpecification {
         return m_svcName;
     }
 
+    /**
+     * Sets the package.
+     *
+     * @param pkg
+     *            the new package
+     */
     private void setPackage(CollectdPackage pkg) {
         m_package = pkg;
     }
@@ -138,6 +181,7 @@ public class CollectionSpecification {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -150,6 +194,7 @@ public class CollectionSpecification {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -158,10 +203,20 @@ public class CollectionSpecification {
         return m_svcName + '/' + m_package.getName();
     }
 
+    /**
+     * Gets the collector.
+     *
+     * @return the collector
+     */
     private ServiceCollector getCollector() {
         return m_collector;
     }
 
+    /**
+     * Gets the property map.
+     *
+     * @return the property map
+     */
     private Map<String, Object> getPropertyMap() {
         return m_parameters;
     }
@@ -178,14 +233,31 @@ public class CollectionSpecification {
         return Collections.unmodifiableMap(m_parameters);
     }
 
+    /**
+     * Checks if is true.
+     *
+     * @param stg
+     *            the stg
+     * @return true, if is true
+     */
     private boolean isTrue(String stg) {
         return stg.equalsIgnoreCase("yes") || stg.equalsIgnoreCase("on") || stg.equalsIgnoreCase("true");
     }
 
+    /**
+     * Checks if is false.
+     *
+     * @param stg
+     *            the stg
+     * @return true, if is false
+     */
     private boolean isFalse(String stg) {
         return stg.equalsIgnoreCase("no") || stg.equalsIgnoreCase("off") || stg.equalsIgnoreCase("false");
     }
 
+    /**
+     * Initialize parameters.
+     */
     private void initializeParameters() {
         final Map<String, Object> m = new TreeMap<String, Object>();
         m.put("SERVICE", m_svcName);
@@ -247,9 +319,12 @@ public class CollectionSpecification {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     public void initialize(CollectionAgent agent) throws CollectionInitializationException {
         Collectd.instrumentation().beginCollectorInitialize(agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -264,6 +339,7 @@ public class CollectionSpecification {
      * <p>
      * release
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
@@ -281,13 +357,14 @@ public class CollectionSpecification {
      * <p>
      * collect
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      * @return a {@link org.opennms.netmgt.config.collector.CollectionSet}
      *         object.
-     * @throws org.opennms.netmgt.collectd.CollectionException
-     *             if any.
+     * @throws CollectionException
+     *             the collection exception
      */
     public CollectionSet collect(CollectionAgent agent) throws CollectionException {
         Collectd.instrumentation().beginCollectorCollect(agent.getNodeId(), agent.getHostAddress(), m_svcName);
@@ -302,6 +379,7 @@ public class CollectionSpecification {
      * <p>
      * scheduledOutage
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
@@ -340,6 +418,7 @@ public class CollectionSpecification {
      * <p>
      * refresh
      * </p>
+     * .
      *
      * @param collectorConfigDao
      *            a {@link org.opennms.netmgt.dao.api.CollectorConfigDao}
@@ -356,6 +435,7 @@ public class CollectionSpecification {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.

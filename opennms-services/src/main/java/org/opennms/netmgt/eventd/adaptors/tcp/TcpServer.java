@@ -54,6 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 final class TcpServer implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpServer.class);
 
     /**
@@ -98,9 +99,7 @@ final class TcpServer implements Runnable {
      */
     private LinkedList<TcpStreamHandler> m_receivers;
 
-    /**
-     * The thread which is executing the server context
-     */
+    /** The thread which is executing the server context. */
     private Thread m_context;
 
     /**
@@ -108,21 +107,16 @@ final class TcpServer implements Runnable {
      */
     private Fiber m_parent;
 
-    /**
-     * The list of event handlers
-     */
+    /** The list of event handlers. */
     private List<EventHandler> m_handlers;
 
-    /**
-     * The logging context
-     */
+    /** The logging context. */
     private String m_logPrefix;
 
-    /**
-     * the events per connection
-     */
+    /** the events per connection. */
     private int m_recsPerConn;
 
+    /** The m_ip address. */
     private InetAddress m_ipAddress;
 
     /**
@@ -133,8 +127,8 @@ final class TcpServer implements Runnable {
      *            The parent fiber
      * @param handlers
      *            a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public TcpServer(Fiber parent, List<EventHandler> handlers) throws IOException {
         this(parent, handlers, TCP_PORT, InetAddressUtils.addr(DEFAULT_IP_ADDRESS));
@@ -146,14 +140,14 @@ final class TcpServer implements Runnable {
      *
      * @param parent
      *            The parent fiber
+     * @param handlers
+     *            a {@link java.util.List} object.
      * @param port
      *            The port to listen on.
      * @param address
      *            TODO
-     * @param handlers
-     *            a {@link java.util.List} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public TcpServer(Fiber parent, List<EventHandler> handlers, int port, InetAddress address) throws IOException {
         m_parent = parent;
@@ -180,8 +174,8 @@ final class TcpServer implements Runnable {
      * This is called inform the current execution of this object is stopped.
      * Once called the object cannot be reused in another thread.
      *
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void stop() throws InterruptedException {
         LOG.debug("stop method invoked");
@@ -379,6 +373,7 @@ final class TcpServer implements Runnable {
      * <p>
      * setLogPrefix
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.
@@ -391,6 +386,7 @@ final class TcpServer implements Runnable {
      * <p>
      * setEventsPerConnection
      * </p>
+     * .
      *
      * @param number
      *            a int.

@@ -39,26 +39,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PendingPollEvent
+ * Represents a PendingPollEvent.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class PendingPollEvent extends PollEvent {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PendingPollEvent.class);
 
     // how long to wait, in milliseconds, before giving up on waiting for a poll
     // event to get an event ID, defaults to 10 minutes
+    /** The Constant PENDING_EVENT_TIMEOUT. */
     private static final long PENDING_EVENT_TIMEOUT = Long.getLong("org.opennms.netmgt.poller.pendingEventTimeout",
                                                                    1000L * 60L * 10L);
 
+    /** The m_event. */
     private final Event m_event;
 
+    /** The m_date. */
     private Date m_date;
 
+    /** The m_expiration time in millis. */
     private long m_expirationTimeInMillis;
 
+    /** The m_pending. */
     private boolean m_pending = true;
 
+    /** The m_pending outages. */
     private List<Runnable> m_pendingOutages = new LinkedList<Runnable>();
 
     /**
@@ -85,6 +93,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -97,6 +106,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * getEventId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -109,6 +119,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * addPending
      * </p>
+     * .
      *
      * @param r
      *            a {@link java.lang.Runnable} object.
@@ -124,6 +135,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -135,6 +147,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * isPending
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -148,6 +161,11 @@ public class PendingPollEvent extends PollEvent {
         return m_pending;
     }
 
+    /**
+     * Checks if is timed out.
+     *
+     * @return true, if is timed out
+     */
     boolean isTimedOut() {
         return System.currentTimeMillis() > m_expirationTimeInMillis;
     }
@@ -156,6 +174,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * complete
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -168,6 +187,7 @@ public class PendingPollEvent extends PollEvent {
      * <p>
      * processPending
      * </p>
+     * .
      */
     public void processPending() {
         for (Runnable r : m_pendingOutages) {
@@ -177,12 +197,21 @@ public class PendingPollEvent extends PollEvent {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     public String toString() {
         return m_event + ", uei: " + m_event.getUei() + ", id: " + m_event.getDbid() + ", isPending: " + m_pending
                 + ", list size: " + m_pendingOutages.size();
     }
 
     // for unit testing
+    /**
+     * Sets the expiration time in millis.
+     *
+     * @param time
+     *            the new expiration time in millis
+     */
     void setExpirationTimeInMillis(final long time) {
         m_expirationTimeInMillis = time;
     }

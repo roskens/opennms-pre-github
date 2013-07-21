@@ -29,7 +29,7 @@
 package org.opennms.netmgt.poller.pollables;
 
 /**
- * Represents a PollableVisitor
+ * Represents a PollableVisitor.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -40,6 +40,7 @@ public interface PollableVisitor {
      * <p>
      * visitService
      * </p>
+     * .
      *
      * @param service
      *            a {@link org.opennms.netmgt.poller.pollables.PollableService}
@@ -51,6 +52,7 @@ public interface PollableVisitor {
      * <p>
      * visitInterface
      * </p>
+     * .
      *
      * @param interface1
      *            a
@@ -63,6 +65,7 @@ public interface PollableVisitor {
      * <p>
      * visitNode
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.poller.pollables.PollableNode}
@@ -74,6 +77,7 @@ public interface PollableVisitor {
      * <p>
      * visitNetwork
      * </p>
+     * .
      *
      * @param network
      *            a {@link org.opennms.netmgt.poller.pollables.PollableNetwork}
@@ -85,6 +89,7 @@ public interface PollableVisitor {
      * <p>
      * visitContainer
      * </p>
+     * .
      *
      * @param container
      *            a
@@ -97,6 +102,7 @@ public interface PollableVisitor {
      * <p>
      * visitElement
      * </p>
+     * .
      *
      * @param element
      *            a {@link org.opennms.netmgt.poller.pollables.PollableElement}

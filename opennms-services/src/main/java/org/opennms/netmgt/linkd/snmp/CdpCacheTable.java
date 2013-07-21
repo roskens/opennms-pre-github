@@ -56,9 +56,9 @@ public class CdpCacheTable extends SnmpTable<CdpCacheTableEntry> {
      * </EM> to inform other threads.
      * </P>
      *
-     * @see CdpCacheTableEntry
      * @param address
      *            a {@link java.net.InetAddress} object.
+     * @see CdpCacheTableEntry
      */
     public CdpCacheTable(InetAddress address) {
         super(address, "cdpCacheTable", CdpCacheTableEntry.cdpCache_elemList);

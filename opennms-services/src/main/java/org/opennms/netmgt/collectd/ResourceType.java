@@ -44,12 +44,16 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ResourceType {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(ResourceType.class);
 
+    /** The m_agent. */
     private CollectionAgent m_agent;
 
+    /** The m_snmp collection. */
     private OnmsSnmpCollection m_snmpCollection;
 
+    /** The m_attribute types. */
     private Collection<SnmpAttributeType> m_attributeTypes;
 
     /**
@@ -72,6 +76,7 @@ public abstract class ResourceType {
      * <p>
      * getAgent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -83,6 +88,7 @@ public abstract class ResourceType {
      * <p>
      * getCollectionName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -94,6 +100,7 @@ public abstract class ResourceType {
      * <p>
      * getCollection
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.OnmsSnmpCollection} object.
      */
@@ -105,6 +112,7 @@ public abstract class ResourceType {
      * <p>
      * getAttributeTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -119,6 +127,7 @@ public abstract class ResourceType {
      * <p>
      * loadAttributeTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -128,6 +137,7 @@ public abstract class ResourceType {
      * <p>
      * hasDataToCollect
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -153,6 +163,7 @@ public abstract class ResourceType {
      * <p>
      * findResource
      * </p>
+     * .
      *
      * @param inst
      *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
@@ -165,6 +176,7 @@ public abstract class ResourceType {
      * <p>
      * findAliasedResource
      * </p>
+     * .
      *
      * @param inst
      *            a {@link org.opennms.netmgt.snmp.SnmpInstId} object.
@@ -179,6 +191,7 @@ public abstract class ResourceType {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

@@ -47,6 +47,7 @@ public class StringAttributeType extends SnmpAttributeType {
      * <p>
      * supportsType
      * </p>
+     * .
      *
      * @param rawType
      *            a {@link java.lang.String} object.

@@ -76,8 +76,10 @@ import org.springframework.util.Assert;
  */
 public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory, TrapNotificationListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Trapd.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "trapd";
 
     /**
@@ -85,14 +87,10 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      */
     private int m_status = START_PENDING;
 
-    /**
-     * The thread pool that processes traps
-     */
+    /** The thread pool that processes traps. */
     private ExecutorService m_backlogQ;
 
-    /**
-     * The queue processing thread
-     */
+    /** The queue processing thread. */
     @Autowired
     private TrapQueueProcessorFactory m_processorFactory;
 
@@ -108,15 +106,19 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     @Autowired
     private TrapdIpMgr m_trapdIpMgr;
 
+    /** The m_snmp trap address. */
     @Resource(name = "snmpTrapAddress")
     private String m_snmpTrapAddress;
 
+    /** The m_snmp trap port. */
     @Resource(name = "snmpTrapPort")
     private Integer m_snmpTrapPort;
 
+    /** The m_snmp v3 users. */
     @Resource(name = "snmpV3Users")
     private List<SnmpV3User> m_snmpV3Users;
 
+    /** The m_registered for traps. */
     private boolean m_registeredForTraps;
 
     /**
@@ -137,6 +139,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * createTrapProcessor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.TrapProcessor} object.
      */
@@ -155,6 +158,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     public synchronized void onInit() {
@@ -201,6 +205,11 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
         }
     }
 
+    /**
+     * Gets the inet address.
+     *
+     * @return the inet address
+     */
     private InetAddress getInetAddress() {
         if (m_snmpTrapAddress.equals("*")) {
             return null;
@@ -212,8 +221,6 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * Create the SNMP trap session and create the communication channel
      * to communicate with eventd.
      *
-     * @exception java.lang.reflect.UndeclaredThrowableException
-     *                if an unexpected database, or IO exception occurs.
      * @see org.opennms.protocols.snmp.SnmpTrapSession
      * @see org.opennms.protocols.snmp.SnmpTrapHandler
      */
@@ -229,7 +236,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * Pauses Trapd
+     * Pauses Trapd.
      */
     @Override
     public void onPause() {
@@ -247,7 +254,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     }
 
     /**
-     * Resumes Trapd
+     * Resumes Trapd.
      */
     @Override
     public void onResume() {
@@ -321,6 +328,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * getEventReader
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor}
      *         object.
@@ -333,6 +341,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * setEventReader
      * </p>
+     * .
      *
      * @param eventReader
      *            a {@link org.opennms.netmgt.trapd.BroadcastEventProcessor}
@@ -346,6 +355,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * getBacklogQ
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.ExecutorService} object.
      */
@@ -357,6 +367,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      * <p>
      * setBacklogQ
      * </p>
+     * .
      *
      * @param backlogQ
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -365,6 +376,11 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
         m_backlogQ = backlogQ;
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }

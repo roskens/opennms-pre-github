@@ -43,20 +43,26 @@ import java.util.Set;
  */
 public class ThresholdGroup {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_rrd repository. */
     private File m_rrdRepository;
 
+    /** The m_node resource type. */
     private ThresholdResourceType m_nodeResourceType;
 
+    /** The m_if resource type. */
     private ThresholdResourceType m_ifResourceType;
 
+    /** The m_generic resource type map. */
     private Map<String, ThresholdResourceType> m_genericResourceTypeMap = new HashMap<String, ThresholdResourceType>();
 
     /**
      * <p>
      * getIfResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
      *         object.
@@ -69,6 +75,7 @@ public class ThresholdGroup {
      * <p>
      * setIfResourceType
      * </p>
+     * .
      *
      * @param ifResourceType
      *            a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
@@ -82,6 +89,7 @@ public class ThresholdGroup {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -106,6 +114,7 @@ public class ThresholdGroup {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,6 +126,7 @@ public class ThresholdGroup {
      * <p>
      * setRrdRepository
      * </p>
+     * .
      *
      * @param rrdRepository
      *            a {@link java.io.File} object.
@@ -129,6 +139,7 @@ public class ThresholdGroup {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -140,6 +151,7 @@ public class ThresholdGroup {
      * <p>
      * setNodeResourceType
      * </p>
+     * .
      *
      * @param nodeResourceType
      *            a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
@@ -154,6 +166,7 @@ public class ThresholdGroup {
      * <p>
      * getNodeResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
      *         object.
@@ -170,6 +183,7 @@ public class ThresholdGroup {
      * <p>
      * getGenericResourceTypeMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -181,6 +195,7 @@ public class ThresholdGroup {
      * <p>
      * setGenericResourceTypeMap
      * </p>
+     * .
      *
      * @param genericResourceTypeMap
      *            a {@link java.util.Map} object.
@@ -193,6 +208,7 @@ public class ThresholdGroup {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -223,6 +239,7 @@ public class ThresholdGroup {
      * <p>
      * delete
      * </p>
+     * .
      */
     public void delete() {
         delete(getNodeResourceType());
@@ -231,6 +248,12 @@ public class ThresholdGroup {
             delete(getGenericResourceTypeMap().get(type));
     }
 
+    /**
+     * Delete.
+     *
+     * @param type
+     *            the type
+     */
     private void delete(ThresholdResourceType type) {
         Map<String, Set<ThresholdEntity>> entityMap = type.getThresholdMap();
         for (String key : entityMap.keySet())

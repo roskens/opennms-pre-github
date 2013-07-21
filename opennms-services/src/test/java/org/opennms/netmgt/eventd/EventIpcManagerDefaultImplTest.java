@@ -45,21 +45,33 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class EventIpcManagerDefaultImplTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventIpcManagerDefaultImplTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_manager. */
     private EventIpcManagerDefaultImpl m_manager;
 
+    /** The m_event handler. */
     private EventHandler m_eventHandler = m_mocks.createMock(EventHandler.class);
 
+    /** The m_listener. */
     private MockEventListener m_listener = new MockEventListener();
 
+    /** The m_caught throwable. */
     private Throwable m_caughtThrowable = null;
 
+    /** The m_caught throwable thread. */
     private Thread m_caughtThrowableThread = null;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
         m_manager = new EventIpcManagerDefaultImpl();
@@ -76,6 +88,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         });
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public void runTest() throws Throwable {
         super.runTest();
@@ -88,6 +103,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         }
     }
 
+    /**
+     * Test init with no handler pool size.
+     */
     public void testInitWithNoHandlerPoolSize() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("handlerPoolSize not set"));
@@ -104,6 +122,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test init with no event handler.
+     */
     public void testInitWithNoEventHandler() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("eventHandler not set"));
@@ -120,6 +141,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test init.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInit() throws Exception {
         EventIpcManagerDefaultImpl manager = new EventIpcManagerDefaultImpl();
         manager.setEventHandler(m_eventHandler);
@@ -127,6 +154,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         manager.afterPropertiesSet();
     }
 
+    /**
+     * Test broadcast with no listeners.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBroadcastWithNoListeners() throws Exception {
         EventBuilder bldr = new EventBuilder(null, "testBroadcastWithNoListeners");
 
@@ -138,6 +171,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test send now null event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSendNowNullEvent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("event argument cannot be null"));
@@ -151,6 +190,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test send now null event log.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSendNowNullEventLog() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("eventLog argument cannot be null"));
@@ -164,6 +209,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -177,6 +228,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder(null, "testAddEventListenerAndBroadcast");
         Event event = bldr.getEvent();
@@ -192,6 +249,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(event));
     }
 
+    /**
+     * Test add event listener two argument list null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentListNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -205,6 +268,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener two argument list null uei list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentListNullUeiList() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("ueilist argument cannot be null"));
@@ -218,6 +287,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener two argument string and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringAndBroadcast");
         Event e = bldr.getEvent();
@@ -233,6 +308,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
+    /**
+     * Test add event listener two argument string with uei part and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast");
@@ -249,6 +330,13 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
+    /**
+     * Test add event listener two argument string with uei part multiple trim
+     * and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast");
@@ -265,6 +353,13 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
+    /**
+     * Test add event listener two argument string with uei part too little and
+     * broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast");
@@ -279,6 +374,13 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add event listener two argument string with uei part too much and
+     * broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast");
@@ -293,6 +395,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add event listener with uei and sub uei match and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast");
@@ -310,6 +418,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
+    /**
+     * Test add event listener two argument string null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -323,6 +437,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener two argument string null uei list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerTwoArgumentStringNullUeiList() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("uei argument cannot be null"));
@@ -336,6 +456,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test remove event listener null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRemoveEventListenerNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -349,6 +475,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test remove event listener two argument list null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRemoveEventListenerTwoArgumentListNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -362,6 +494,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test remove event listener two argument list null uei list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRemoveEventListenerTwoArgumentListNullUeiList() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("ueilist argument cannot be null"));
@@ -375,6 +513,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test remove event listener two argument string null listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRemoveEventListenerTwoArgumentStringNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -388,6 +532,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test remove event listener two argument string null uei list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRemoveEventListenerTwoArgumentStringNullUeiList() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("uei argument cannot be null"));
@@ -401,6 +551,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener then add event listener with uei and broadcast.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerThenAddEventListenerWithUeiAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerThenAddEventListenerWithUeiAndBroadcast");
@@ -418,6 +574,12 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
 
+    /**
+     * Test add event listener with uei and broadcast then add event listener.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAddEventListenerWithUeiAndBroadcastThenAddEventListener() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo",
                                              "testAddEventListenerWithUeiAndBroadcastThenAddEventListener");
@@ -453,6 +615,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
      * org.opennms.core.concurrent.RunnableConsumerThreadPool$FiberThreadImpl.
      * run(RunnableConsumerThreadPool.java:412)
      * at java.lang.Thread.run(Thread.java:613)
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public void testNoDateDate() throws InterruptedException {
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_LOST_SERVICE_EVENT_UEI, "the one true event source");
@@ -468,19 +633,43 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * The listener interface for receiving mockEvent events.
+     * The class that is interested in processing a mockEvent
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addMockEventListener<code> method. When
+     * the mockEvent event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see MockEventEvent
+     */
     public class MockEventListener implements EventListener {
+
+        /** The m_events. */
         private List<Event> m_events = new ArrayList<Event>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.events.EventListener#getName()
+         */
         @Override
         public String getName() {
             return "party on, Wayne";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.events.EventListener#onEvent(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public void onEvent(Event e) {
             m_events.add(e);
         }
 
+        /**
+         * Gets the events.
+         *
+         * @return the events
+         */
         public List<Event> getEvents() {
             return m_events;
         }

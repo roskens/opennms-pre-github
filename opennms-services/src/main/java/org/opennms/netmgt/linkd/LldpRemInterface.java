@@ -30,16 +30,35 @@ package org.opennms.netmgt.linkd;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class LldpRemInterface.
+ */
 public class LldpRemInterface {
 
+    /** The m_lldp rem chassid subtype. */
     private final Integer m_lldpRemChassidSubtype;
 
+    /** The m_lldp rem chassisid. */
     private final String m_lldpRemChassisid;
 
+    /** The m_lldp rem if index. */
     private final Integer m_lldpRemIfIndex;
 
+    /** The m_lldp loc if index. */
     private final Integer m_lldpLocIfIndex;
 
+    /**
+     * Instantiates a new lldp rem interface.
+     *
+     * @param lldpRemChassidSubtype
+     *            the lldp rem chassid subtype
+     * @param lldpRemChassisid
+     *            the lldp rem chassisid
+     * @param lldpRemIfIndex
+     *            the lldp rem if index
+     * @param lldpLocIfIndex
+     *            the lldp loc if index
+     */
     public LldpRemInterface(Integer lldpRemChassidSubtype, String lldpRemChassisid, Integer lldpRemIfIndex,
             Integer lldpLocIfIndex) {
         super();
@@ -49,18 +68,38 @@ public class LldpRemInterface {
         m_lldpLocIfIndex = lldpLocIfIndex;
     }
 
+    /**
+     * Gets the lldp rem chassid subtype.
+     *
+     * @return the lldp rem chassid subtype
+     */
     public Integer getLldpRemChassidSubtype() {
         return m_lldpRemChassidSubtype;
     }
 
+    /**
+     * Gets the lldp rem chassisid.
+     *
+     * @return the lldp rem chassisid
+     */
     public String getLldpRemChassisid() {
         return m_lldpRemChassisid;
     }
 
+    /**
+     * Gets the lldp rem if index.
+     *
+     * @return the lldp rem if index
+     */
     public Integer getLldpRemIfIndex() {
         return m_lldpRemIfIndex;
     }
 
+    /**
+     * Gets the lldp loc if index.
+     *
+     * @return the lldp loc if index
+     */
     public Integer getLldpLocIfIndex() {
         return m_lldpLocIfIndex;
     }
@@ -69,6 +108,7 @@ public class LldpRemInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

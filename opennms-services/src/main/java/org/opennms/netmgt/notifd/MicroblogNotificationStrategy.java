@@ -56,12 +56,16 @@ import twitter4j.TwitterException;
  */
 public class MicroblogNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogNotificationStrategy.class);
 
+    /** The Constant UBLOG_PROFILE_NAME. */
     private static final String UBLOG_PROFILE_NAME = "notifd";
 
+    /** The m_microblog configuration dao. */
     protected MicroblogConfigurationDao m_microblogConfigurationDao;
 
+    /** The m_config dao. */
     protected MicroblogConfigurationDao m_configDao;
 
     /**
@@ -69,8 +73,8 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * Constructor for MicroblogNotificationStrategy.
      * </p>
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MicroblogNotificationStrategy() throws IOException {
         this(findDefaultConfigResource());
@@ -117,6 +121,7 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * buildUblogService
      * </p>
+     * .
      *
      * @param arguments
      *            a {@link java.util.List} object.
@@ -166,6 +171,7 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * buildMessageBody
      * </p>
+     * .
      *
      * @param arguments
      *            a {@link java.util.List} object.
@@ -201,6 +207,7 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * findDestName
      * </p>
+     * .
      *
      * @param arguments
      *            a {@link java.util.List} object.
@@ -221,10 +228,11 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * findDefaultConfigResource
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.Resource} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected static Resource findDefaultConfigResource() throws IOException {
         File configFile = ConfigFileConstants.getFile(ConfigFileConstants.MICROBLOG_CONFIG_FILE_NAME);
@@ -235,6 +243,7 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * setMicroblogConfigurationDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao}
@@ -248,6 +257,7 @@ public class MicroblogNotificationStrategy implements NotificationStrategy {
      * <p>
      * getMicroblogConfigurationDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.MicroblogConfigurationDao}
      *         object.

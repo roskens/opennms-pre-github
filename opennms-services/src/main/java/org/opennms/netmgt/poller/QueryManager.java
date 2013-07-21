@@ -46,10 +46,12 @@ import javax.sql.DataSource;
  * @version $Id: $
  */
 public interface QueryManager {
+
     /**
      * <p>
      * activeServiceExists
      * </p>
+     * .
      *
      * @param whichEvent
      *            a {@link java.lang.String} object.
@@ -67,12 +69,13 @@ public interface QueryManager {
      * <p>
      * getActiveServiceIdsForInterface
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a {@link java.util.List} object.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<Integer> getActiveServiceIdsForInterface(String ipaddr) throws SQLException;
 
@@ -80,12 +83,13 @@ public interface QueryManager {
      * <p>
      * getNodeIDForInterface
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a int.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getNodeIDForInterface(String ipaddr) throws SQLException;
 
@@ -93,12 +97,13 @@ public interface QueryManager {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a {@link java.lang.String} object.
+     * @throws SQLException
+     *             the sQL exception
      */
     public String getNodeLabel(int nodeId) throws SQLException;
 
@@ -106,12 +111,13 @@ public interface QueryManager {
      * <p>
      * getServiceCountForInterface
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a int.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getServiceCountForInterface(String ipaddr) throws SQLException;
 
@@ -119,12 +125,13 @@ public interface QueryManager {
      * <p>
      * getInterfacesWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a {@link java.util.List} object.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<IfKey> getInterfacesWithService(String svcName) throws SQLException;
 
@@ -132,6 +139,7 @@ public interface QueryManager {
      * <p>
      * getServiceLostDate
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -149,6 +157,7 @@ public interface QueryManager {
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -159,6 +168,7 @@ public interface QueryManager {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -169,7 +179,10 @@ public interface QueryManager {
      * <p>
      * openOutage
      * </p>
+     * .
      *
+     * @param outageIdSQL
+     *            a {@link java.lang.String} object.
      * @param nodeId
      *            a int.
      * @param ipAddr
@@ -180,8 +193,6 @@ public interface QueryManager {
      *            a int.
      * @param time
      *            a {@link java.lang.String} object.
-     * @param outageIdSQL
-     *            a {@link java.lang.String} object.
      */
     public void openOutage(String outageIdSQL, int nodeId, String ipAddr, String svcName, int dbid, String time);
 
@@ -189,6 +200,7 @@ public interface QueryManager {
      * <p>
      * resolveOutage
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -207,6 +219,7 @@ public interface QueryManager {
      * <p>
      * reparentOutages
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.
@@ -221,6 +234,7 @@ public interface QueryManager {
      * <p>
      * getCriticalPath
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -228,6 +242,13 @@ public interface QueryManager {
      */
     public String[] getCriticalPath(int nodeId);
 
+    /**
+     * Gets the node services.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the node services
+     */
     public List<String[]> getNodeServices(int nodeId);
 
 }

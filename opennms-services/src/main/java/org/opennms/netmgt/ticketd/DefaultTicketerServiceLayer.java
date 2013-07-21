@@ -58,14 +58,19 @@ import org.springframework.util.Assert;
  */
 public class DefaultTicketerServiceLayer implements TicketerServiceLayer, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultTicketerServiceLayer.class);
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_ticketer plugin. */
     private Plugin m_ticketerPlugin;
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The Constant COMMS_ERROR_UEI. */
     static final String COMMS_ERROR_UEI = "uei.opennms.org/troubleTicket/communicationError";
 
     /**
@@ -103,8 +108,8 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * ticket
      * plugin API.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -139,6 +144,16 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     }
 
+    /**
+     * Sets the ticket state.
+     *
+     * @param ticketId
+     *            the ticket id
+     * @param state
+     *            the state
+     * @throws PluginException
+     *             the plugin exception
+     */
     private void setTicketState(String ticketId, State state) throws PluginException {
         try {
             Ticket ticket = m_ticketerPlugin.get(ticketId);
@@ -275,6 +290,13 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     // TODO what if the alarm doesn't exist?
 
+    /**
+     * Creates the event.
+     *
+     * @param reason
+     *            the reason
+     * @return the event
+     */
     private Event createEvent(String reason) {
         EventBuilder bldr = new EventBuilder(COMMS_ERROR_UEI, "Ticketd");
         bldr.addParam("reason", reason);
@@ -285,6 +307,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * <p>
      * getEventIpcManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -296,6 +319,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param ipcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}

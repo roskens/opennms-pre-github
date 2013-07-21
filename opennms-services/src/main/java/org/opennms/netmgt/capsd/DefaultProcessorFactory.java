@@ -38,14 +38,17 @@ package org.opennms.netmgt.capsd;
  */
 public class DefaultProcessorFactory implements SuspectEventProcessorFactory, RescanProcessorFactory {
 
+    /** The m_capsd db syncer. */
     private CapsdDbSyncer m_capsdDbSyncer;
 
+    /** The m_plugin manager. */
     private PluginManager m_pluginManager;
 
     /**
      * <p>
      * setCapsdDbSyncer
      * </p>
+     * .
      *
      * @param capsdDbSyncer
      *            a {@link org.opennms.netmgt.capsd.CapsdDbSyncer} object.
@@ -58,6 +61,7 @@ public class DefaultProcessorFactory implements SuspectEventProcessorFactory, Re
      * <p>
      * setPluginManager
      * </p>
+     * .
      *
      * @param pluginManager
      *            a {@link org.opennms.netmgt.capsd.PluginManager} object.

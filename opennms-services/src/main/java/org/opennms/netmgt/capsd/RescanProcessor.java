@@ -86,8 +86,10 @@ import org.slf4j.LoggerFactory;
  */
 public final class RescanProcessor implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RescanProcessor.class);
 
+    /** The Constant ZERO_ZERO_ZERO_ZERO. */
     private static final InetAddress ZERO_ZERO_ZERO_ZERO = addr("0.0.0.0");
 
     /**
@@ -105,28 +107,36 @@ public final class RescanProcessor implements Runnable {
 
     /**
      * SQL statements used to reparent an interface and its associated services
-     * under a new parent nodeid
+     * under a new parent nodeid.
      */
     static final String SQL_DB_REPARENT_IP_INTERFACE_LOOKUP = "SELECT ipaddr, ifindex FROM ipinterface "
             + "WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
 
+    /** The Constant SQL_DB_REPARENT_IP_INTERFACE_DELETE. */
     static final String SQL_DB_REPARENT_IP_INTERFACE_DELETE = "DELETE FROM ipinterface "
             + "WHERE nodeID=? AND ipaddr=?";
 
+    /** The Constant SQL_DB_REPARENT_IP_INTERFACE. */
     static final String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND ipaddr=? AND isManaged!='D'";
 
+    /** The Constant SQL_DB_REPARENT_SNMP_IF_LOOKUP. */
     static final String SQL_DB_REPARENT_SNMP_IF_LOOKUP = "SELECT id FROM snmpinterface WHERE nodeID=? AND snmpifindex=?";
 
+    /** The Constant SQL_DB_REPARENT_SNMP_IF_DELETE. */
     static final String SQL_DB_REPARENT_SNMP_IF_DELETE = "DELETE FROM snmpinterface "
             + "WHERE nodeID=? AND snmpifindex=?";
 
+    /** The Constant SQL_DB_REPARENT_SNMP_INTERFACE. */
     static final String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=? AND snmpifindex=?";
 
+    /** The Constant SQL_DB_REPARENT_IF_SERVICES_LOOKUP. */
     static final String SQL_DB_REPARENT_IF_SERVICES_LOOKUP = "SELECT serviceid FROM ifservices "
             + "WHERE nodeID=? AND ipaddr=? AND ifindex = ? " + "AND status!='D'";
 
+    /** The Constant SQL_DB_REPARENT_IF_SERVICES_DELETE. */
     static final String SQL_DB_REPARENT_IF_SERVICES_DELETE = "DELETE FROM ifservices WHERE nodeID=? AND ipaddr=? ";
 
+    /** The Constant SQL_DB_REPARENT_IF_SERVICES. */
     static final String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND ipaddr=? AND status!='D'";
 
     /**
@@ -135,13 +145,15 @@ public final class RescanProcessor implements Runnable {
      */
     static final String SQL_DB_DELETE_DUP_INTERFACE = "DELETE FROM ipinterface WHERE nodeID=?";
 
+    /** The Constant SQL_DB_DELETE_DUP_SERVICES. */
     static final String SQL_DB_DELETE_DUP_SERVICES = "DELETE FROM ifservices WHERE nodeid=?";
 
+    /** The Constant SQL_DB_DELETE_DUP_SNMPINTERFACE. */
     static final String SQL_DB_DELETE_DUP_SNMPINTERFACE = "DELETE FROM snmpinterface WHERE nodeid =?";
 
     /**
      * SQL statement used to retrieve service IDs so that service name can be
-     * determined from ID, and map of service names
+     * determined from ID, and map of service names.
      */
     private static final String SQL_RETRIEVE_SERVICE_IDS = "SELECT serviceid,servicename  FROM service";
 
@@ -173,16 +185,20 @@ public final class RescanProcessor implements Runnable {
     /**
      * Set during the rescan to true if a new interface is added to the
      * snmpInterfaces table or if any key fields of the node's snmpIntefaces
-     * table were modified (such as ifIndex or ifType)
+     * table were modified (such as ifIndex or ifType).
      */
     private boolean m_snmpIfTableChangedFlag;
 
+    /** The m_capsd db syncer. */
     private CapsdDbSyncer m_capsdDbSyncer;
 
+    /** The m_plugin manager. */
     private PluginManager m_pluginManager;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_queued rescan tracker. */
     private static Set<Integer> m_queuedRescanTracker;
 
     /**
@@ -194,6 +210,10 @@ public final class RescanProcessor implements Runnable {
      * @param forceRescan
      *            True if a forced rescan is to be performed (all interfaces not
      *            just managed interfaces scanned), false otherwise.
+     * @param capsdDbSyncer
+     *            the capsd db syncer
+     * @param pluginManager
+     *            the plugin manager
      */
     RescanProcessor(Scheduler.NodeInfo nodeInfo, boolean forceRescan, CapsdDbSyncer capsdDbSyncer,
             PluginManager pluginManager) {
@@ -565,6 +585,19 @@ public final class RescanProcessor implements Runnable {
 
     /**
      * SnmpInterface table updates for non-IP interface.
+     *
+     * @param dbc
+     *            the dbc
+     * @param node
+     *            the node
+     * @param ifIndex
+     *            the if index
+     * @param snmpc
+     *            the snmpc
+     * @param ifAddr
+     *            the if addr
+     * @throws SQLException
+     *             the sQL exception
      */
     private void updateSnmpInfoForNonIpInterface(Connection dbc, DbNodeEntry node, int ifIndex, IfSnmpCollector snmpc,
             InetAddress ifAddr) throws SQLException {
@@ -631,6 +664,12 @@ public final class RescanProcessor implements Runnable {
 
     /**
      * Find the ifTable entry for this interface.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param snmpc
+     *            the snmpc
+     * @return the if table entry
      */
     private static IfTableEntry findEntryByIfIndex(int ifIndex, IfSnmpCollector snmpc) {
 
@@ -644,6 +683,12 @@ public final class RescanProcessor implements Runnable {
 
     /**
      * Find the ifXTable entry for this interface.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param snmpc
+     *            the snmpc
+     * @return the if x table entry
      */
     private static IfXTableEntry findXEntryByIfIndex(int ifIndex, IfSnmpCollector snmpc) {
         if (snmpc.hasIfXTable()) {
@@ -653,6 +698,16 @@ public final class RescanProcessor implements Runnable {
         return null;
     }
 
+    /**
+     * Update alias.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param snmpc
+     *            the snmpc
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateAlias(int ifIndex, IfSnmpCollector snmpc, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         // alias (from interface extensions table)
         String ifAlias = snmpc.getIfAlias(ifIndex);
@@ -663,6 +718,16 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update name.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param snmpc
+     *            the snmpc
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateName(int ifIndex, IfSnmpCollector snmpc, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         // name (from interface extensions table)
         String ifName = snmpc.getIfName(ifIndex);
@@ -671,6 +736,14 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update operational status.
+     *
+     * @param ifte
+     *            the ifte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateOperationalStatus(IfTableEntry ifte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         Integer sint = ifte.getIfOperStatus();
         if (sint == null) {
@@ -680,6 +753,14 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update admin status.
+     *
+     * @param ifte
+     *            the ifte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateAdminStatus(IfTableEntry ifte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         Integer sint = ifte.getIfAdminStatus();
         if (sint == null) {
@@ -689,6 +770,14 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update type.
+     *
+     * @param ifte
+     *            the ifte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateType(IfTableEntry ifte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         Integer sint = ifte.getIfType();
         if (sint == null) {
@@ -698,6 +787,16 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update description.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param ifte
+     *            the ifte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updateDescription(int ifIndex, IfTableEntry ifte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         String str = ifte.getIfDescr();
         LOG.debug("updateNonIpInterface: ifIndex: {} has ifDescription: {}", ifIndex, str);
@@ -706,6 +805,16 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update physical address.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param ifte
+     *            the ifte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     private static void updatePhysicalAddress(int ifIndex, IfTableEntry ifte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
         String physAddr = ifte.getPhysAddr();
 
@@ -716,6 +825,18 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Update speed.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param ifte
+     *            the ifte
+     * @param ifxte
+     *            the ifxte
+     * @param dbSnmpIfEntry
+     *            the db snmp if entry
+     */
     static void updateSpeed(int ifIndex, IfTableEntry ifte, IfXTableEntry ifxte, DbSnmpInterfaceEntry dbSnmpIfEntry) {
 
         long speed = 0;
@@ -731,6 +852,15 @@ public final class RescanProcessor implements Runnable {
 
     }
 
+    /**
+     * Gets the interface speed.
+     *
+     * @param ifte
+     *            the ifte
+     * @param ifxte
+     *            the ifxte
+     * @return the interface speed
+     */
     private static long getInterfaceSpeed(IfTableEntry ifte, IfXTableEntry ifxte) {
         if (ifxte != null && ifxte.getIfHighSpeed() != null && ifxte.getIfHighSpeed() > 4294) {
             return ifxte.getIfHighSpeed() * 1000000L;
@@ -976,6 +1106,8 @@ public final class RescanProcessor implements Runnable {
      *            Database Connection
      * @param duplicateNode
      *            Duplicate node to delete.
+     * @throws SQLException
+     *             the sQL exception
      */
     private static void deleteDuplicateNode(Connection dbc, DbNodeEntry duplicateNode) throws SQLException {
 
@@ -1016,6 +1148,9 @@ public final class RescanProcessor implements Runnable {
      *            Ip address being verified.
      * @param nodeId
      *            Node Id of the node being rescanned
+     * @return true, if is duplicate interface
+     * @throws SQLException
+     *             the sQL exception
      */
     private static boolean isDuplicateInterface(Connection dbc, InetAddress ifaddr, int nodeId) throws SQLException {
 
@@ -1057,14 +1192,12 @@ public final class RescanProcessor implements Runnable {
      *            Node entry for the node being rescanned.
      * @param dbIpIfEntry
      *            interface entry of the updating interface.
-     * @param snmpc
-     *            SNMP collector or null if SNMP not supported.
+     * @param currIpIfEntry
+     *            the curr ip if entry
      * @param isNewIpEntry
      *            if dbIpIfEntry is a new entry.
      * @param isReparented
      *            if dbIpIfEntry is reparented.
-     * @param doesSnmp
-     *            if node supports SNMP.
      * @throws SQLException
      *             if there is a problem updating the ipinterface table.
      */
@@ -1180,6 +1313,16 @@ public final class RescanProcessor implements Runnable {
      * retrieved for the interface via the collector. If doesSnmp is set to
      * <i>true</i>, this entry must <b>not</b> be stored to the database until
      * the corresponding DbSnmpInterfaceEntry is stored.
+     *
+     * @param node
+     *            the node
+     * @param snmpc
+     *            the snmpc
+     * @param doesSnmp
+     *            the does snmp
+     * @param ifaddr
+     *            the ifaddr
+     * @return the new db ip interface entry
      */
     private static DbIpInterfaceEntry getNewDbIpInterfaceEntry(DbNodeEntry node, IfSnmpCollector snmpc,
             boolean doesSnmp, InetAddress ifaddr) {
@@ -1403,6 +1546,17 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Checks if is service polled.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled
+     */
     private static boolean isServicePolled(String ifAddr, String svcName, org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
         if (ipPkg != null) {
@@ -1413,6 +1567,17 @@ public final class RescanProcessor implements Runnable {
         return svcToBePolled;
     }
 
+    /**
+     * Checks if is service polled locally.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled locally
+     */
     private static boolean isServicePolledLocally(String ifAddr, String svcName,
             org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
@@ -1426,7 +1591,7 @@ public final class RescanProcessor implements Runnable {
 
     /**
      * This method is responsible for updating the status of services for an
-     * interface during a forced rescan
+     * interface during a forced rescan.
      *
      * @param node
      *            Node entry for the node being rescanned
@@ -1592,10 +1757,12 @@ public final class RescanProcessor implements Runnable {
      *            Database Connection
      * @param node
      *            Node entry for the node being rescanned
-     * @param dbIpIfEntry
-     *            interface entry of the updating interface
      * @param snmpc
      *            SNMP collector or null if SNMP not supported.
+     * @param ifaddr
+     *            the ifaddr
+     * @param ifIndex
+     *            the if index
      * @throws SQLException
      *             if there is a problem updating the snmpInterface table.
      */
@@ -1816,6 +1983,8 @@ public final class RescanProcessor implements Runnable {
      *            Database connection
      * @param ifAddr
      *            Interface to be reparented.
+     * @param ifIndex
+     *            the if index
      * @param newNodeId
      *            Interface's new node identifier
      * @param oldNodeId
@@ -2377,6 +2546,8 @@ public final class RescanProcessor implements Runnable {
      * @param nodeId
      *            Node identifier to check
      * @return TRUE if node has been marked as deleted, FALSE otherwise.
+     * @throws SQLException
+     *             the sQL exception
      */
     private static boolean isNodeDeleted(Connection dbc, int nodeId) throws SQLException {
         boolean nodeDeleted = false;
@@ -2749,13 +2920,14 @@ public final class RescanProcessor implements Runnable {
      * <p>
      * scannableInterface
      * </p>
+     * .
      *
      * @param dbInterfaces
      *            an array of
-     *            {@link org.opennms.netmgt.capsd.DbIpInterfaceEntry} objects.
      * @param ifaddr
      *            a {@link java.net.InetAddress} object.
-     * @return a boolean.
+     * @return a boolean. {@link org.opennms.netmgt.capsd.DbIpInterfaceEntry}
+     *         objects.
      */
     protected static boolean scannableInterface(final DbIpInterfaceEntry[] dbInterfaces, final InetAddress ifaddr) {
         final String ifaddrString = str(ifaddr);
@@ -2768,10 +2940,26 @@ public final class RescanProcessor implements Runnable {
         return scannable;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     private int getNodeId() {
         return m_nodeId;
     }
 
+    /**
+     * Scan primary snmp interface.
+     *
+     * @param oldPrimarySnmpInterface
+     *            the old primary snmp interface
+     * @param collectorMap
+     *            the collector map
+     * @param probedAddrs
+     *            the probed addrs
+     * @return true, if successful
+     */
     private boolean scanPrimarySnmpInterface(DbIpInterfaceEntry oldPrimarySnmpInterface,
             Map<String, IfCollector> collectorMap, Set<InetAddress> probedAddrs) {
         boolean gotSnmpCollection = false;
@@ -2808,6 +2996,21 @@ public final class RescanProcessor implements Runnable {
         return gotSnmpCollection;
     }
 
+    /**
+     * Update primary snmp interface.
+     *
+     * @param dbc
+     *            the dbc
+     * @param dbNodeEntry
+     *            the db node entry
+     * @param collectorMap
+     *            the collector map
+     * @param oldPriIf
+     *            the old pri if
+     * @return the inet address
+     * @throws SQLException
+     *             the sQL exception
+     */
     private InetAddress updatePrimarySnmpInterface(Connection dbc, DbNodeEntry dbNodeEntry,
             Map<String, IfCollector> collectorMap, InetAddress oldPriIf) throws SQLException {
         /*
@@ -2896,8 +3099,11 @@ public final class RescanProcessor implements Runnable {
     }
 
     /**
+     * Find snmp collector.
+     *
      * @param collectorMap
-     * @return
+     *            the collector map
+     * @return the if snmp collector
      */
     private static IfSnmpCollector findSnmpCollector(Map<String, IfCollector> collectorMap) {
         for (Iterator<IfCollector> iter = collectorMap.values().iterator(); iter.hasNext();) {
@@ -2909,6 +3115,13 @@ public final class RescanProcessor implements Runnable {
         return null;
     }
 
+    /**
+     * Gets the interfaces.
+     *
+     * @param dbNodeEntry
+     *            the db node entry
+     * @return the interfaces
+     */
     private DbIpInterfaceEntry[] getInterfaces(DbNodeEntry dbNodeEntry) {
         /*
          * If this is a forced rescan then retrieve all the interfaces
@@ -2938,6 +3151,11 @@ public final class RescanProcessor implements Runnable {
         return dbInterfaces;
     }
 
+    /**
+     * Gets the node.
+     *
+     * @return the node
+     */
     private DbNodeEntry getNode() {
         DbNodeEntry dbNodeEntry = null;
 
@@ -3011,18 +3229,58 @@ public final class RescanProcessor implements Runnable {
         }
     }
 
+    /**
+     * Event builder.
+     *
+     * @param uei
+     *            the uei
+     * @return the event builder
+     */
     private static EventBuilder eventBuilder(String uei) {
         return new EventBuilder(uei, "OpenNMS.Capsd").setHost(Capsd.getLocalHostAddress());
     }
 
+    /**
+     * Node event builder.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @return the event builder
+     */
     private static EventBuilder nodeEventBuilder(String uei, long nodeId) {
         return eventBuilder(uei).setNodeid(nodeId);
     }
 
+    /**
+     * Interface event builder.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @return the event builder
+     */
     private static EventBuilder interfaceEventBuilder(String uei, long nodeId, String ipAddr) {
         return eventBuilder(uei).setNodeid(nodeId).setInterface(addr(ipAddr));
     }
 
+    /**
+     * Service event builder.
+     *
+     * @param uei
+     *            the uei
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param svc
+     *            the svc
+     * @return the event builder
+     */
     private static EventBuilder serviceEventBuilder(String uei, long nodeId, String ipAddr, String svc) {
         return eventBuilder(uei).setNodeid(nodeId).setInterface(addr(ipAddr)).setService(svc);
     }
@@ -3035,6 +3293,7 @@ public final class RescanProcessor implements Runnable {
      *            Updated node entry object
      * @param originalEntry
      *            Original node entry object
+     * @return the event
      */
     private static Event createNodeLabelChangedEvent(DbNodeEntry updatedEntry, DbNodeEntry originalEntry) {
         LOG.debug("createNodeLabelChangedEvent: nodeId: {} oldLabel: '{}' oldSource: '{}' newLabel: '{}' newLabelSource: '{}'",
@@ -3068,6 +3327,7 @@ public final class RescanProcessor implements Runnable {
      *            Updated node entry object
      * @param originalEntry
      *            Original node entry object
+     * @return the event
      */
     private static Event createNodeInfoChangedEvent(DbNodeEntry updatedEntry, DbNodeEntry originalEntry) {
         LOG.debug("createNodeInfoChangedEvent: nodeId: {}", updatedEntry.getNodeId());
@@ -3131,7 +3391,7 @@ public final class RescanProcessor implements Runnable {
      *            new primary SNMP interface address
      * @param oldPrimaryIf
      *            old primary SNMP interface address
-     * @return
+     * @return the event
      */
     private static Event createPrimarySnmpInterfaceChangedEvent(final int nodeId, final InetAddress newPrimaryIf,
             final InetAddress oldPrimaryIf) {
@@ -3174,7 +3434,7 @@ public final class RescanProcessor implements Runnable {
      *            updated IP interface database entry
      * @param originalEntry
      *            original IP interface database entry
-     * @return
+     * @return the event
      */
     private static Event createInterfaceIndexChangedEvent(final DbIpInterfaceEntry updatedEntry,
             final DbIpInterfaceEntry originalEntry) {
@@ -3202,7 +3462,7 @@ public final class RescanProcessor implements Runnable {
      *            updated IP interface database entry
      * @param originalEntry
      *            original IP interface database entry
-     * @return
+     * @return the event
      */
     private static Event createIpHostNameChangedEvent(final DbIpInterfaceEntry updatedEntry,
             final DbIpInterfaceEntry originalEntry) {
@@ -3239,7 +3499,7 @@ public final class RescanProcessor implements Runnable {
      *            Node identifier of node from which the interface was removed.
      * @param reparentedIf
      *            Reparented interface
-     * @return
+     * @return the event
      */
     private static Event createInterfaceReparentedEvent(final DbNodeEntry newNode, final int oldNodeId,
             final InetAddress reparentedIf) {
@@ -3288,7 +3548,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param deletedNode
      *            Entry of duplciate node which was deleted.
-     * @return
+     * @return the event
      */
     private static Event createDuplicateNodeDeletedEvent(DbNodeEntry deletedNode) {
         LOG.debug("createDuplicateNodeDeletedEvent: delete nodeid: {}", deletedNode.getNodeId());
@@ -3308,7 +3568,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param ifEntry
      *            Entry of new interface.
-     * @return
+     * @return the event
      */
     private static Event createNodeGainedInterfaceEvent(DbIpInterfaceEntry ifEntry) {
         final String ifAddress = str(ifEntry.getIfAddress());
@@ -3336,7 +3596,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param ifEntry
      *            Entry of new interface.
-     * @return
+     * @return the event
      */
     private static Event createDuplicateIpAddressEvent(final DbIpInterfaceEntry ifEntry) {
         final String ifAddress = str(ifEntry.getIfAddress());
@@ -3368,7 +3628,7 @@ public final class RescanProcessor implements Runnable {
      *            Entry of interface which has gained a service
      * @param svcName
      *            Service name
-     * @return
+     * @return the event
      */
     private static Event createNodeGainedServiceEvent(final DbNodeEntry nodeEntry, final DbIpInterfaceEntry ifEntry,
             final String svcName) {
@@ -3410,7 +3670,7 @@ public final class RescanProcessor implements Runnable {
      *            Entry of interface which a service is to be polled
      * @param svcName
      *            Service name
-     * @return
+     * @return the event
      */
     private static Event createSuspendPollingServiceEvent(final DbNodeEntry nodeEntry,
             final DbIpInterfaceEntry ifEntry, final String svcName) {
@@ -3449,7 +3709,7 @@ public final class RescanProcessor implements Runnable {
      *            Entry of interface which a service is to be polled
      * @param svcName
      *            Service name
-     * @return
+     * @return the event
      */
     private static Event createResumePollingServiceEvent(final DbNodeEntry nodeEntry, final DbIpInterfaceEntry ifEntry,
             final String svcName) {
@@ -3484,7 +3744,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param nodeEntry
      *            Entry of node for which a conflict exits
-     * @return
+     * @return the event
      */
     private static Event createSnmpConflictsWithDbEvent(DbNodeEntry nodeEntry) {
 
@@ -3515,7 +3775,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param nodeEntry
      *            Entry of node which was rescanned
-     * @return
+     * @return the event
      */
     private static Event createRescanCompletedEvent(DbNodeEntry nodeEntry) {
 
@@ -3536,7 +3796,7 @@ public final class RescanProcessor implements Runnable {
      *
      * @param ifEntry
      *            Entry of interface which has gained a service
-     * @return
+     * @return the event
      */
     private static Event createInterfaceSupportsSNMPEvent(final DbIpInterfaceEntry ifEntry) {
         final String ifAddress = str(ifEntry.getIfAddress());
@@ -3561,7 +3821,7 @@ public final class RescanProcessor implements Runnable {
      *            Nodeid of node being rescanned.
      * @param primarySnmpIf
      *            Primary SNMP interface address.
-     * @return
+     * @return the event
      */
     private static Event createReinitializePrimarySnmpInterfaceEvent(final int nodeId, final InetAddress primarySnmpIf) {
         final String primaryAddress = str(primarySnmpIf);
@@ -3591,7 +3851,7 @@ public final class RescanProcessor implements Runnable {
     }
 
     /**
-     * Is a rescan already enqueued for a given node ID?
+     * Is a rescan already enqueued for a given node ID?.
      *
      * @param nodeId
      *            a {@link java.lang.Integer} object.

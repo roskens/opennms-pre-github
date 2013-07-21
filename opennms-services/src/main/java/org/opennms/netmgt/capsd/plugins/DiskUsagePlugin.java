@@ -58,11 +58,10 @@ import org.slf4j.LoggerFactory;
  */
 public final class DiskUsagePlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DiskUsagePlugin.class);
 
-    /**
-     * The protocol supported by this plugin
-     */
+    /** The protocol supported by this plugin. */
     private static final String PROTOCOL_NAME = "DiskUsage";
 
     /**
@@ -70,17 +69,19 @@ public final class DiskUsagePlugin extends AbstractPlugin {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
+    /** The Constant hrStorageDescr. */
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
 
-    /**
-     * The available match-types for this plugin
-     */
+    /** The available match-types for this plugin. */
     private static final int MATCH_TYPE_EXACT = 0;
 
+    /** The Constant MATCH_TYPE_STARTSWITH. */
     private static final int MATCH_TYPE_STARTSWITH = 1;
 
+    /** The Constant MATCH_TYPE_ENDSWITH. */
     private static final int MATCH_TYPE_ENDSWITH = 2;
 
+    /** The Constant MATCH_TYPE_REGEX. */
     private static final int MATCH_TYPE_REGEX = 3;
 
     /**
@@ -111,6 +112,15 @@ public final class DiskUsagePlugin extends AbstractPlugin {
 
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oid
+     *            the oid
+     * @return the value
+     */
     private String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         return (val == null ? null : val.toString());
@@ -220,6 +230,17 @@ public final class DiskUsagePlugin extends AbstractPlugin {
 
     }
 
+    /**
+     * Checks if is match.
+     *
+     * @param candidate
+     *            the candidate
+     * @param target
+     *            the target
+     * @param matchType
+     *            the match type
+     * @return true, if is match
+     */
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);

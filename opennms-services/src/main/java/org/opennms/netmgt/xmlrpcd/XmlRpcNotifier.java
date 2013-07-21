@@ -69,6 +69,8 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public final class XmlRpcNotifier {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlRpcNotifier.class);
 
     /**
@@ -119,14 +121,12 @@ public final class XmlRpcNotifier {
     private static final String XMLRPC_INTERFACE_DOWN_COMMAND = "sendInterfaceDownEvent";
 
     /**
-     * The external xmlrpc server procedure to process a generic event
-     * RPC (instead of making an RPC that's specific to the message)
+     * The external xmlrpc server procedure to process a generic event RPC
+     * (instead of making an RPC that's specific to the message).
      */
     private static final String XMLRPC_GENERIC_COMMAND = "sendEvent";
 
-    /**
-     * The external xmlrpc server procedure to process an SNMP trap event
-     */
+    /** The external xmlrpc server procedure to process an SNMP trap event. */
     private static final String XMLRPC_SNMP_TRAP_COMMAND = "sendSnmpTrapEvent";
 
     /**
@@ -156,20 +156,16 @@ public final class XmlRpcNotifier {
      */
     private boolean m_verifyServer;
 
-    /**
-     * The host NMS server name
-     */
+    /** The host NMS server name. */
     private String m_localServer;
 
     // private ExternalEventRecipient m_recipient;
 
     /**
-     * The constructor
+     * The constructor.
      *
      * @param rpcServers
      *            an array of
-     *            {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcServer}
-     *            objects.
      * @param retries
      *            a int.
      * @param elapseTime
@@ -178,6 +174,8 @@ public final class XmlRpcNotifier {
      *            a boolean.
      * @param localServer
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.config.xmlrpcd.XmlrpcServer}
+     *            objects.
      */
     public XmlRpcNotifier(final XmlrpcServer[] rpcServers, final int retries, final int elapseTime,
             final boolean verifyServer, final String localServer) {
@@ -323,6 +321,13 @@ public final class XmlRpcNotifier {
         return sendXmlrpcRequest(XMLRPC_SERVICE_DOWN_COMMAND, params);
     }
 
+    /**
+     * Gets the event host.
+     *
+     * @param event
+     *            the event
+     * @return the event host
+     */
     private String getEventHost(final Event event) {
         return (m_verifyServer ? m_localServer : event.getHost());
     }
@@ -558,6 +563,13 @@ public final class XmlRpcNotifier {
         }
     }
 
+    /**
+     * Gets the label for event node.
+     *
+     * @param event
+     *            the event
+     * @return the label for event node
+     */
     private String getLabelForEventNode(final Event event) {
         return getNodeLabel(event.getNodeid());
     }
@@ -569,6 +581,7 @@ public final class XmlRpcNotifier {
      *
      * @param nodeId
      *            the nodeId to retrieve the node label for.
+     * @return the node label
      */
     private String getNodeLabel(final long nodeId) {
         Connection dbConn = null;
@@ -613,6 +626,7 @@ public final class XmlRpcNotifier {
      * @param params
      *            a list of parameters need for the external server command to
      *            process the request.
+     * @return true, if successful
      */
     private boolean sendXmlrpcRequest(final String command, final Vector<Object> params) {
         if (m_xmlrpcClient == null) {

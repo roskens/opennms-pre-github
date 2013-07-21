@@ -69,6 +69,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class TrapHandlerTestCase.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:META-INF/opennms/mockEventIpcManager.xml",
@@ -78,41 +81,63 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 public class TrapHandlerTestCase implements InitializingBean {
 
+    /** The m_trapd. */
     @Autowired
     private Trapd m_trapd = null;
 
+    /** The m_event mgr. */
     @Autowired
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_trapd ip mgr. */
     @Autowired
     private MockTrapdIpMgr m_trapdIpMgr;
 
+    /** The m_processor factory. */
     @Autowired
     private TrapQueueProcessorFactory m_processorFactory;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_localhost. */
     private InetAddress m_localhost = null;
 
+    /** The m_snmp trap port. */
     @Resource(name = "snmpTrapPort")
     private Integer m_snmpTrapPort;
 
+    /** The m_do stop. */
     private boolean m_doStop = false;
 
+    /** The Constant m_ip. */
     private static final String m_ip = "127.0.0.1";
 
+    /** The Constant m_nodeId. */
     private static final long m_nodeId = 1;
 
+    /**
+     * Sets the up logging.
+     */
     @BeforeClass
     public static void setUpLogging() {
         MockLogAppender.setupLogging();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_anticipator = new EventAnticipator();
@@ -127,6 +152,11 @@ public class TrapHandlerTestCase implements InitializingBean {
         m_doStop = true;
     }
 
+    /**
+     * Finish up.
+     *
+     * @return the collection
+     */
     public Collection<Event> finishUp() {
         try {
             Thread.sleep(1000);
@@ -138,6 +168,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         return m_anticipator.getAnticipatedEventsRecieved();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_trapd != null && m_doStop) {
@@ -147,6 +183,12 @@ public class TrapHandlerTestCase implements InitializingBean {
 
     }
 
+    /**
+     * Test v1 trap no new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1TrapNoNewSuspect() throws Exception {
@@ -154,6 +196,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         anticipateAndSend(false, false, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
+    /**
+     * Test v2 trap no new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2TrapNoNewSuspect() throws Exception {
@@ -161,6 +209,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         anticipateAndSend(false, false, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
+    /**
+     * Test v1 trap new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1TrapNewSuspect() throws Exception {
@@ -168,6 +222,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         anticipateAndSend(true, false, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
+    /**
+     * Test v2 trap new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2TrapNewSuspect() throws Exception {
@@ -175,12 +235,24 @@ public class TrapHandlerTestCase implements InitializingBean {
         anticipateAndSend(true, false, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericMatch() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v1", ".1.3.6.1.2.1.15.7", 6, 1);
     }
 
+    /**
+     * Test v2 enterprise id and generic and specific match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2EnterpriseIdAndGenericAndSpecificMatch() throws Exception {
@@ -188,6 +260,12 @@ public class TrapHandlerTestCase implements InitializingBean {
                           1);
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific and match with varbinds.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds() throws Exception {
@@ -203,6 +281,12 @@ public class TrapHandlerTestCase implements InitializingBean {
                           ".1.3.6.1.4.1.11.2.14.12.1", 6, 5, varbinds);
     }
 
+    /**
+     * Test v2 enterprise id and generic and specific and match with varbinds.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbinds() throws Exception {
@@ -220,6 +304,13 @@ public class TrapHandlerTestCase implements InitializingBean {
 
     // These exist to provide testing for the new Textual Convention feature
     // See EventConfDataTest for the other part of this testing
+    /**
+     * Test v1 enterprise id and generic and specific and match with varbinds
+     * and tc.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC() throws Exception {
@@ -249,6 +340,13 @@ public class TrapHandlerTestCase implements InitializingBean {
 
     // FIXME: these exist to provide testing for the new Textual Convention
     // feature
+    /**
+     * Test v2 enterprise id and generic and specific and match with varbinds
+     * and tc.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC() throws Exception {
@@ -281,6 +379,14 @@ public class TrapHandlerTestCase implements InitializingBean {
         assertTrue("Did not find expected MAC address parm", foundMacAddress);
     }
 
+    /**
+     * Assert byte array equals.
+     *
+     * @param macAddr
+     *            the mac addr
+     * @param bytes
+     *            the bytes
+     */
     private void assertByteArrayEquals(byte[] macAddr, byte[] bytes) {
         assertEquals("expect length: " + macAddr.length, macAddr.length, bytes.length);
         for (int i = 0; i < macAddr.length; i++) {
@@ -288,6 +394,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
     }
 
+    /**
+     * Test v2 enterprise id and generic and specific match with zero.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2EnterpriseIdAndGenericAndSpecificMatchWithZero() throws Exception {
@@ -295,30 +407,60 @@ public class TrapHandlerTestCase implements InitializingBean {
                           6, 1);
     }
 
+    /**
+     * Test v2 enterprise id and generic and specific miss with extra zeros.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2EnterpriseIdAndGenericAndSpecificMissWithExtraZeros() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v2c", ".1.3.6.1.2.1.15.7.0.0", 6, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific miss with wrong generic.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongGeneric() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", ".1.3.6.1.2.1.15.7", 5, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific miss with wrong specific.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongSpecific() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", ".1.3.6.1.2.1.15.7", 6, 50);
     }
 
+    /**
+     * Test v1 generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1GenericMatch() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/generic/traps/SNMP_Cold_Start", "v1", null, 0, 0);
     }
 
+    /**
+     * Test v2 generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2GenericMatch() throws Exception {
@@ -326,30 +468,60 @@ public class TrapHandlerTestCase implements InitializingBean {
                           0, 0);
     }
 
+    /**
+     * Test v1 trap dropped event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1TrapDroppedEvent() throws Exception {
         anticipateAndSend(false, true, null, "v1", ".1.3.6.1.2.1.15.7", 6, 2);
     }
 
+    /**
+     * Test v2 trap dropped event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2TrapDroppedEvent() throws Exception {
         anticipateAndSend(false, true, null, "v2c", ".1.3.6.1.2.1.15.7", 6, 2);
     }
 
+    /**
+     * Test v1 trap default event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV1TrapDefaultEvent() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v1", null, 6, 1);
     }
 
+    /**
+     * Test v2 trap default event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testV2TrapDefaultEvent() throws Exception {
         anticipateAndSend(false, true, "uei.opennms.org/default/trap", "v2c", null, 6, 1);
     }
 
+    /**
+     * Test node gained modifies ip mgr.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testNodeGainedModifiesIpMgr() throws Exception {
@@ -372,6 +544,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         finishUp();
     }
 
+    /**
+     * Test interface reparented modifies ip mgr.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testInterfaceReparentedModifiesIpMgr() throws Exception {
@@ -394,6 +572,12 @@ public class TrapHandlerTestCase implements InitializingBean {
         finishUp();
     }
 
+    /**
+     * Test interface deleted modifies ip mgr.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @DirtiesContext
     public void testInterfaceDeletedModifiesIpMgr() throws Exception {
@@ -418,10 +602,28 @@ public class TrapHandlerTestCase implements InitializingBean {
         finishUp();
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param uei
+     *            the uei
+     * @return the event
+     */
     public Event anticipateEvent(String uei) {
         return anticipateEvent(uei, m_ip, m_nodeId);
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param uei
+     *            the uei
+     * @param ip
+     *            the ip
+     * @param nodeId
+     *            the node id
+     * @return the event
+     */
     public Event anticipateEvent(String uei, String ip, long nodeId) {
         EventBuilder bldr = new EventBuilder(uei, "TrapHandlerTestCase");
         bldr.setNodeid(nodeId);
@@ -430,12 +632,35 @@ public class TrapHandlerTestCase implements InitializingBean {
         return bldr.getEvent();
     }
 
+    /**
+     * Anticipate and send.
+     *
+     * @param newSuspectOnTrap
+     *            the new suspect on trap
+     * @param nodeKnown
+     *            the node known
+     * @param event
+     *            the event
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @return the collection
+     * @throws Exception
+     *             the exception
+     */
     public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown, String event,
             String version, String enterprise, int generic, int specific) throws Exception {
         return anticipateAndSend(newSuspectOnTrap, nodeKnown, event, version, enterprise, generic, specific, null);
     }
 
     /**
+     * Anticipate and send.
+     *
      * @param newSuspectOnTrap
      *            Will a new suspect event be triggered by the trap?
      * @param nodeKnown
@@ -447,8 +672,15 @@ public class TrapHandlerTestCase implements InitializingBean {
      *            <code>v2c</code>
      * @param enterprise
      *            Enterprise ID of the trap
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
      * @param varbinds
      *            Varbinds attached to the trap
+     * @return the collection
+     * @throws Exception
+     *             the exception
      */
     public Collection<Event> anticipateAndSend(boolean newSuspectOnTrap, boolean nodeKnown, String event,
             String snmpTrapVersion, String enterprise, int generic, int specific,
@@ -481,6 +713,20 @@ public class TrapHandlerTestCase implements InitializingBean {
         return finishUp();
     }
 
+    /**
+     * Send trap.
+     *
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @throws Exception
+     *             the exception
+     */
     public void sendTrap(String version, String enterprise, int generic, int specific) throws Exception {
         if (enterprise == null) {
             enterprise = ".0.0";
@@ -495,6 +741,22 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
     }
 
+    /**
+     * Send trap.
+     *
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param varbinds
+     *            the varbinds
+     * @throws Exception
+     *             the exception
+     */
     private void sendTrap(String version, String enterprise, int generic, int specific,
             LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
         if (enterprise == null) {
@@ -510,6 +772,18 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
     }
 
+    /**
+     * Send v1 trap.
+     *
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @throws Exception
+     *             the exception
+     */
     public void sendV1Trap(String enterprise, int generic, int specific) throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
         pdu.setEnterprise(SnmpObjId.get(enterprise));
@@ -521,10 +795,29 @@ public class TrapHandlerTestCase implements InitializingBean {
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
     }
 
+    /**
+     * Gets the host address.
+     *
+     * @return the host address
+     */
     private String getHostAddress() {
         return InetAddressUtils.str(m_localhost);
     }
 
+    /**
+     * Send v1 trap.
+     *
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param varbinds
+     *            the varbinds
+     * @throws Exception
+     *             the exception
+     */
     public void sendV1Trap(String enterprise, int generic, int specific, LinkedHashMap<String, SnmpValue> varbinds)
             throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
@@ -541,6 +834,16 @@ public class TrapHandlerTestCase implements InitializingBean {
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
     }
 
+    /**
+     * Send v2 trap.
+     *
+     * @param enterprise
+     *            the enterprise
+     * @param specific
+     *            the specific
+     * @throws Exception
+     *             the exception
+     */
     public void sendV2Trap(String enterprise, int specific) throws Exception {
         SnmpObjId enterpriseId = SnmpObjId.get(enterprise);
         boolean isGeneric = false;
@@ -565,6 +868,18 @@ public class TrapHandlerTestCase implements InitializingBean {
         pdu.send(getHostAddress(), m_snmpTrapPort, "public");
     }
 
+    /**
+     * Send v2 trap.
+     *
+     * @param enterprise
+     *            the enterprise
+     * @param specific
+     *            the specific
+     * @param varbinds
+     *            the varbinds
+     * @throws Exception
+     *             the exception
+     */
     public void sendV2Trap(String enterprise, int specific, LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
         SnmpObjId enterpriseId = SnmpObjId.get(enterprise);
         boolean isGeneric = false;

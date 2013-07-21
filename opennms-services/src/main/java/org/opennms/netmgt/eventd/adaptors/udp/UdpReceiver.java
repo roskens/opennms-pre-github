@@ -41,11 +41,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class UdpReceiver.
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
 class UdpReceiver implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UdpReceiver.class);
 
     /**
@@ -63,18 +66,19 @@ class UdpReceiver implements Runnable {
      */
     private DatagramSocket m_dgSock;
 
-    /**
-     * The context thread
-     */
+    /** The context thread. */
     private Thread m_context;
 
-    /**
-     * The log prefix
-     */
+    /** The log prefix. */
     private String m_logPrefix;
 
     /**
-     * construct a new receiver
+     * construct a new receiver.
+     *
+     * @param sock
+     *            the sock
+     * @param xchange
+     *            the xchange
      */
     UdpReceiver(DatagramSocket sock, List<UdpReceivedEvent> xchange) {
         m_eventsIn = xchange;
@@ -84,7 +88,10 @@ class UdpReceiver implements Runnable {
     }
 
     /**
-     * stop the current receiver
+     * stop the current receiver.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;
@@ -99,7 +106,9 @@ class UdpReceiver implements Runnable {
     }
 
     /**
-     * Return true if this receiver is alive
+     * Return true if this receiver is alive.
+     *
+     * @return true, if is alive
      */
     boolean isAlive() {
         return (m_context == null ? false : m_context.isAlive());
@@ -193,6 +202,12 @@ class UdpReceiver implements Runnable {
 
     }
 
+    /**
+     * Sets the log prefix.
+     *
+     * @param prefix
+     *            the new log prefix
+     */
     void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }

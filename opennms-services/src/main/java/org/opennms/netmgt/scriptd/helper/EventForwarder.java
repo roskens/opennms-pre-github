@@ -40,23 +40,26 @@ public interface EventForwarder {
 
     /**
      * Method to add a policy rule
-     * to match event to be forwarded or dropped
+     * to match event to be forwarded or dropped.
      *
      * @param filter
+     *            the new event policy rule
      */
     public void setEventPolicyRule(EventPolicyRule filter);
 
     /**
-     * Method used to flush Event
+     * Method used to flush Event.
      *
      * @param event
+     *            the event
      */
     public void flushEvent(Event event);
 
     /**
-     * Method used to flush Sync Event
+     * Method used to flush Sync Event.
      *
      * @param event
+     *            the event
      */
     public void flushSyncEvent(Event event);
 
@@ -65,7 +68,7 @@ public interface EventForwarder {
      * flushing sync events
      * The class implementation should
      * send the "startSync" event
-     * in the preferred format
+     * in the preferred format.
      */
     public void sendStartSync();
 

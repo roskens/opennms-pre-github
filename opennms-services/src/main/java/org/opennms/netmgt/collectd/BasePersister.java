@@ -57,16 +57,22 @@ import org.slf4j.LoggerFactory;
  */
 public class BasePersister extends AbstractCollectionSetVisitor implements Persister {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BasePersister.class);
 
+    /** The m_ignore persist. */
     private boolean m_ignorePersist = false;
 
+    /** The m_params. */
     private ServiceParameters m_params;
 
+    /** The m_repository. */
     private RrdRepository m_repository;
 
+    /** The m_stack. */
     private LinkedList<Boolean> m_stack = new LinkedList<Boolean>();
 
+    /** The m_builder. */
     private PersistOperationBuilder m_builder;
 
     /**
@@ -85,10 +91,10 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      *
      * @param params
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
-     *            object.
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
      */
     public BasePersister(ServiceParameters params, RrdRepository repository) {
         super();
@@ -100,6 +106,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * commitBuilder
      * </p>
+     * .
      */
     protected void commitBuilder() {
         if (isPersistDisabled())
@@ -114,6 +121,11 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         }
     }
 
+    /**
+     * Checks if is persist disabled.
+     *
+     * @return true, if is persist disabled
+     */
     private boolean isPersistDisabled() {
         return m_params != null && m_params.getParameters().containsKey("storing-enabled")
                 && m_params.getParameters().get("storing-enabled").equals("false");
@@ -141,15 +153,16 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * createBuilder
      * </p>
+     * .
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param name
      *            a {@link java.lang.String} object.
      * @param attributeType
      *            a
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
      *            object.
      */
@@ -161,15 +174,16 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * createBuilder
      * </p>
+     * .
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param name
      *            a {@link java.lang.String} object.
      * @param attributeTypes
      *            a {@link java.util.Set} object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     protected void createBuilder(CollectionResource resource, String name, Set<AttributeDefinition> attributeTypes) {
         m_builder = new PersistOperationBuilder(getRepository(), resource, name);
@@ -187,6 +201,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * getRepository
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
@@ -198,6 +213,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * setRepository
      * </p>
+     * .
      *
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
@@ -239,6 +255,11 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         }
     }
 
+    /**
+     * Pop.
+     *
+     * @return true, if successful
+     */
     private boolean pop() {
         boolean top = top();
         m_stack.removeLast();
@@ -249,6 +270,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * popShouldPersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -256,6 +278,12 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         return pop();
     }
 
+    /**
+     * Push.
+     *
+     * @param b
+     *            the b
+     */
     private void push(boolean b) {
         m_stack.addLast(Boolean.valueOf(b));
     }
@@ -264,6 +292,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * pushShouldPersist
      * </p>
+     * .
      *
      * @param attribute
      *            a
@@ -278,6 +307,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * pushShouldPersist
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.config.collector.AttributeGroup}
@@ -287,6 +317,12 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         pushShouldPersist(group.shouldPersist(m_params));
     }
 
+    /**
+     * Push should persist.
+     *
+     * @param shouldPersist
+     *            the should persist
+     */
     private void pushShouldPersist(boolean shouldPersist) {
         push(top() && shouldPersist);
     }
@@ -295,6 +331,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * pushShouldPersist
      * </p>
+     * .
      *
      * @param resource
      *            a
@@ -309,6 +346,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * shouldPersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -320,6 +358,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * storeAttribute
      * </p>
+     * .
      *
      * @param attribute
      *            a
@@ -335,6 +374,11 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         }
     }
 
+    /**
+     * Top.
+     *
+     * @return true, if successful
+     */
     private boolean top() {
         return m_stack.getLast();
     }
@@ -363,6 +407,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * isIgnorePersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -374,6 +419,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * setIgnorePersist
      * </p>
+     * .
      *
      * @param ignore
      *            a boolean.
@@ -386,6 +432,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
      * <p>
      * getBuilder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.PersistOperationBuilder}
      *         object.

@@ -46,6 +46,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * suspend
      * </p>
+     * .
      */
     public void suspend();
 
@@ -53,6 +54,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * isSuspended
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -62,6 +64,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * wakeUp
      * </p>
+     * .
      */
     public void wakeUp();
 
@@ -69,6 +72,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * unschedule
      * </p>
+     * .
      */
     public void unschedule();
 
@@ -76,6 +80,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * schedule
      * </p>
+     * .
      */
     public void schedule();
 
@@ -83,6 +88,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * getInfo
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -92,6 +98,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * getPackageName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +108,7 @@ public interface ReadyRunnable extends Runnable {
      * <p>
      * setPackageName
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link java.lang.String} object.

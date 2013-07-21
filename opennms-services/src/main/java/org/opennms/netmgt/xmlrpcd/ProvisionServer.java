@@ -41,12 +41,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class ProvisionServer {
 
+    /** The m_context. */
     private ClassPathXmlApplicationContext m_context;
 
     /**
      * <p>
      * run
      * </p>
+     * .
      */
     public void run() {
         m_context = new ClassPathXmlApplicationContext("**/*-context.xml");
@@ -56,6 +58,7 @@ public class ProvisionServer {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
@@ -69,6 +72,7 @@ public class ProvisionServer {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a {@link org.springframework.context.ApplicationContext} object.
      */

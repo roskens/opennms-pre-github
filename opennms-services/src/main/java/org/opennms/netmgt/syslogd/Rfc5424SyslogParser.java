@@ -39,28 +39,54 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class Rfc5424SyslogParser.
+ */
 public class Rfc5424SyslogParser extends SyslogParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Rfc5424SyslogParser.class);
 
     // <PRI>VERSION TIMESTAMP HOST APP PROC MSGID STRUCTURED MSG
+    /** The Constant m_rfc5424Pattern. */
     private static final Pattern m_rfc5424Pattern = Pattern.compile("^<(\\d{1,3})>(\\d{0,2}?) (\\S+T\\S+) (\\S*) (\\S*) (\\d+|-) (\\S*) ((?:\\[.*?\\])*|-)(?: (?:BOM)?(.*?))?$",
                                                                     Pattern.MULTILINE);
 
+    /** The Constant m_dateWithOffset. */
     private static final Pattern m_dateWithOffset = Pattern.compile("^(.*[\\-\\+]\\d\\d):?(\\d\\d)$");
 
+    /**
+     * Instantiates a new rfc5424 syslog parser.
+     *
+     * @param text
+     *            the text
+     */
     protected Rfc5424SyslogParser(final String text) {
         super(text);
     }
 
+    /**
+     * Gets the parser.
+     *
+     * @param text
+     *            the text
+     * @return the parser
+     */
     public static SyslogParser getParser(final String text) {
         return new Rfc5424SyslogParser(text);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#getPattern()
+     */
     @Override
     protected Pattern getPattern() {
         return m_rfc5424Pattern;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#parse()
+     */
     @Override
     public SyslogMessage parse() throws SyslogParserException {
         if (!this.find()) {
@@ -113,6 +139,9 @@ public class Rfc5424SyslogParser extends SyslogParser {
         return message;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#parseDate(java.lang.String)
+     */
     @Override
     protected Date parseDate(final String dateString) {
         if (dateString.endsWith("Z")) {

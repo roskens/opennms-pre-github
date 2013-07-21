@@ -34,32 +34,48 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpUtils;
 
+/**
+ * The Class LldpRemTableEntry.
+ */
 public class LldpRemTableEntry extends SnmpStore {
 
+    /** The Constant LLDP_REM_LOCAL_PORTNUM_ALIAS. */
     public static final String LLDP_REM_LOCAL_PORTNUM_ALIAS = "lldpRemLocalPortNum";
 
+    /** The Constant LLDP_REM_CHASSISID_SUBTYPE_ALIAS. */
     public static final String LLDP_REM_CHASSISID_SUBTYPE_ALIAS = "lldpRemChassisIdSubtype";
 
+    /** The Constant LLDP_REM_CHASSISID_ALIAS. */
     public static final String LLDP_REM_CHASSISID_ALIAS = "lldpRemChassisId";
 
+    /** The Constant LLDP_REM_PORTID_SUBTYPE_ALIAS. */
     public static final String LLDP_REM_PORTID_SUBTYPE_ALIAS = "lldpRemPortIdSubtype";
 
+    /** The Constant LLDP_REM_PORTID_ALIAS. */
     public static final String LLDP_REM_PORTID_ALIAS = "lldpRemPortId";
 
+    /** The Constant LLDP_REM_SYSNAME_ALIAS. */
     public static final String LLDP_REM_SYSNAME_ALIAS = "lldpRemSysName";
 
+    /** The Constant LLDP_REM_LOCAL_PORTNUM_OID. */
     public static final String LLDP_REM_LOCAL_PORTNUM_OID = ".1.0.8802.1.1.2.1.4.1.1.2";
 
+    /** The Constant LLDP_REM_CHASSISID_SUBTYPE_OID. */
     public static final String LLDP_REM_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.4";
 
+    /** The Constant LLDP_REM_CHASSISID_OID. */
     public static final String LLDP_REM_CHASSISID_OID = ".1.0.8802.1.1.2.1.4.1.1.5";
 
+    /** The Constant LLDP_REM_PORTID_SUBTYPE_OID. */
     public static final String LLDP_REM_PORTID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.4.1.1.6";
 
+    /** The Constant LLDP_REM_PORTID_OID. */
     public static final String LLDP_REM_PORTID_OID = ".1.0.8802.1.1.2.1.4.1.1.7";
 
+    /** The Constant LLDP_REM_SYSNAME_OID. */
     public static final String LLDP_REM_SYSNAME_OID = ".1.0.8802.1.1.2.1.4.1.1.9";
 
+    /** The Constant lldpremtable_elemList. */
     public static final NamedSnmpVar[] lldpremtable_elemList = new NamedSnmpVar[] {
 
     new NamedSnmpVar(NamedSnmpVar.SNMPINT32, LLDP_REM_LOCAL_PORTNUM_ALIAS, LLDP_REM_LOCAL_PORTNUM_OID, 1),
@@ -95,45 +111,97 @@ public class LldpRemTableEntry extends SnmpStore {
 
     };
 
+    /** The Constant TABLE_OID. */
     public static final String TABLE_OID = ".1.0.8802.1.1.2.1.4.1.1"; // start
                                                                       // of
                                                                       // table
                                                                       // (GETNEXT)
 
-    private boolean hasLldpLocPortId = false;
+    /**
+                                                                         * The
+                                                                         * has
+                                                                         * lldp
+                                                                         * loc
+                                                                         * port
+                                                                         * id.
+                                                                         */
+                                                                      private boolean hasLldpLocPortId = false;
 
+    /**
+     * Instantiates a new lldp rem table entry.
+     */
     public LldpRemTableEntry() {
         super(lldpremtable_elemList);
     }
 
+    /**
+     * Gets the lldp rem local port num.
+     *
+     * @return the lldp rem local port num
+     */
     public Integer getLldpRemLocalPortNum() {
         return getInt32(LLDP_REM_LOCAL_PORTNUM_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem chassisid subtype.
+     *
+     * @return the lldp rem chassisid subtype
+     */
     public Integer getLldpRemChassisidSubtype() {
         return getInt32(LLDP_REM_CHASSISID_SUBTYPE_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem chassiid.
+     *
+     * @return the lldp rem chassiid
+     */
     public String getLldpRemChassiid() {
         return getHexString(LLDP_REM_CHASSISID_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem portid subtype.
+     *
+     * @return the lldp rem portid subtype
+     */
     public Integer getLldpRemPortidSubtype() {
         return getInt32(LLDP_REM_PORTID_SUBTYPE_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem portid.
+     *
+     * @return the lldp rem portid
+     */
     public String getLldpRemPortid() {
         return getDisplayString(LLDP_REM_PORTID_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem sysname.
+     *
+     * @return the lldp rem sysname
+     */
     public String getLldpRemSysname() {
         return getDisplayString(LLDP_REM_SYSNAME_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem mac address.
+     *
+     * @return the lldp rem mac address
+     */
     public String getLldpRemMacAddress() {
         return getHexString(LLDP_REM_PORTID_ALIAS);
     }
 
+    /**
+     * Gets the lldp rem ip address.
+     *
+     * @return the lldp rem ip address
+     */
     public InetAddress getLldpRemIpAddress() {
         return getIPAddress(LLDP_REM_PORTID_ALIAS);
     }

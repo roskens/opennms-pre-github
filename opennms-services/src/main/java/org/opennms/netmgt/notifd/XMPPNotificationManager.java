@@ -64,36 +64,52 @@ import org.slf4j.LoggerFactory;
  */
 public class XMPPNotificationManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XMPPNotificationManager.class);
 
+    /** The props. */
     private final Properties props = new Properties();
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "notifd";
 
+    /** The Constant XMPP_RESOURCE. */
     private static final String XMPP_RESOURCE = "notifd";
 
+    /** The Constant TRUST_STORE_PASSWORD. */
     private static final String TRUST_STORE_PASSWORD = "changeit";
 
+    /** The Constant XMPP_PORT. */
     private static final String XMPP_PORT = "5222";
 
+    /** The xmpp. */
     private final XMPPConnection xmpp;
 
+    /** The xmpp config. */
     private final ConnectionConfiguration xmppConfig;
 
+    /** The xmpp server. */
     private final String xmppServer;
 
+    /** The xmpp service name. */
     private final String xmppServiceName;
 
+    /** The xmpp user. */
     private final String xmppUser;
 
+    /** The xmpp password. */
     private final String xmppPassword;
 
+    /** The xmpp port. */
     private final int xmppPort;
 
+    /** The rooms. */
     private final HashMap<String, MultiUserChat> rooms = new HashMap<String, MultiUserChat>();
 
+    /** The instance. */
     private static XMPPNotificationManager instance = null;
 
+    /** The conlistener. */
     private ConnectionListener conlistener = new ConnectionListener() {
         @Override
         public void connectionClosed() {
@@ -195,6 +211,9 @@ public class XMPPNotificationManager {
         }
     }
 
+    /**
+     * Connect to server.
+     */
     private void connectToServer() {
         try {
             LOG.debug("Attempting vanilla XMPP Connection to {}:{}", xmppServer, xmppPort);
@@ -239,7 +258,7 @@ public class XMPPNotificationManager {
     }
 
     /**
-     * get an instance of the XMPPNotificationManager
+     * get an instance of the XMPPNotificationManager.
      *
      * @return instance of XMPPNotificationManager
      */
@@ -257,6 +276,7 @@ public class XMPPNotificationManager {
      * <p>
      * isLoggedIn
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -267,14 +287,15 @@ public class XMPPNotificationManager {
     /**
      * send an xmpp message to a specified recipient.
      *
-     * @param xmppTo
-     *            recipient of the xmpp message
-     * @param xmppMessage
-     *            text to be sent in the body of the message
      * @return true if message is sent, false otherwise
+     * @see NullMessageEvent
      */
 
     private static class NullMessageListener implements MessageListener {
+
+        /* (non-Javadoc)
+         * @see org.jivesoftware.smack.MessageListener#processMessage(org.jivesoftware.smack.Chat, org.jivesoftware.smack.packet.Message)
+         */
         @Override
         public void processMessage(Chat chat, Message message) {
         }
@@ -284,6 +305,7 @@ public class XMPPNotificationManager {
      * <p>
      * sendMessage
      * </p>
+     * .
      *
      * @param xmppTo
      *            a {@link java.lang.String} object.

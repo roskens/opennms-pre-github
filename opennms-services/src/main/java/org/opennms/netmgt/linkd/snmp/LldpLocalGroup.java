@@ -35,21 +35,33 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class LldpLocalGroup.
+ */
 public final class LldpLocalGroup extends AggregateTracker {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LldpLocalGroup.class);
 
+    /** The Constant LLDP_LOC_CHASSISID_SUBTYPE_ALIAS. */
     public static final String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
 
+    /** The Constant LLDP_LOC_CHASSISID_SUBTYPE_OID. */
     public static final String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
 
+    /** The Constant LLDP_LOC_CHASSISID_ALIAS. */
     public static final String LLDP_LOC_CHASSISID_ALIAS = "lldpLocChassisId";
 
+    /** The Constant LLDP_LOC_CHASSISID_OID. */
     public static final String LLDP_LOC_CHASSISID_OID = ".1.0.8802.1.1.2.1.3.2";
 
+    /** The Constant LLDP_LOC_SYSNAME_ALIAS. */
     public static final String LLDP_LOC_SYSNAME_ALIAS = "lldpLocSysName";
 
+    /** The Constant LLDP_LOC_SYSNAME_OID. */
     public static final String LLDP_LOC_SYSNAME_OID = ".1.0.8802.1.1.2.1.3.3";
 
+    /** The ms_elem list. */
     public static NamedSnmpVar[] ms_elemList = null;
 
     static {
@@ -85,18 +97,32 @@ public final class LldpLocalGroup extends AggregateTracker {
                                               LLDP_LOC_SYSNAME_OID);
     }
 
+    /** The Constant LLDP_LOC_OID. */
     public static final String LLDP_LOC_OID = ".1.0.8802.1.1.2.1.3";
 
+    /** The m_store. */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /**
+     * Instantiates a new lldp local group.
+     *
+     * @param address
+     *            the address
+     */
     public LldpLocalGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
         m_store = new SnmpStore(ms_elemList);
     }
 
+    /**
+     * Gets the lldp loc chassisid sub type.
+     *
+     * @return the lldp loc chassisid sub type
+     */
     public Integer getLldpLocChassisidSubType() {
         Integer type = m_store.getInt32(LLDP_LOC_CHASSISID_SUBTYPE_ALIAS);
         if (type == null) {
@@ -106,10 +132,20 @@ public final class LldpLocalGroup extends AggregateTracker {
 
     }
 
+    /**
+     * Gets the lldp loc chassisid.
+     *
+     * @return the lldp loc chassisid
+     */
     public String getLldpLocChassisid() {
         return m_store.getHexString(LLDP_LOC_CHASSISID_ALIAS);
     }
 
+    /**
+     * Gets the lldp loc sysname.
+     *
+     * @return the lldp loc sysname
+     */
     public String getLldpLocSysname() {
         return m_store.getDisplayString(LLDP_LOC_SYSNAME_ALIAS);
     }

@@ -71,24 +71,32 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(OmsaStorageMonitor.class);
 
+    /** The Constant m_serviceName. */
     private static final String m_serviceName = "OMSAStorage";
 
+    /** The Constant virtualDiskRollUpStatus. */
     private static final String virtualDiskRollUpStatus = ".1.3.6.1.4.1.674.10893.1.20.140.1.1.19";
 
+    /** The Constant arrayDiskLogicalConnectionVirtualDiskNumber. */
     private static final String arrayDiskLogicalConnectionVirtualDiskNumber = ".1.3.6.1.4.1.674.10893.1.20.140.3.1.5";
 
+    /** The Constant arrayDiskNexusID. */
     private static final String arrayDiskNexusID = ".1.3.6.1.4.1.674.10893.1.20.130.4.1.26";
 
+    /** The Constant arrayDiskLogicalConnectionArrayDiskNumber. */
     private static final String arrayDiskLogicalConnectionArrayDiskNumber = ".1.3.6.1.4.1.674.10893.1.20.140.3.1.3";
 
+    /** The Constant arrayDiskState. */
     private static final String arrayDiskState = ".1.3.6.1.4.1.674.10893.1.20.130.4.1.4";
 
     /**
      * <p>
      * serviceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +121,7 @@ public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
@@ -222,6 +231,19 @@ public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
         return status;
     }
 
+    /**
+     * Configure agent.
+     *
+     * @param parameters
+     *            the parameters
+     * @param iface
+     *            the iface
+     * @param ipaddr
+     *            the ipaddr
+     * @return the snmp agent config
+     * @throws RuntimeException
+     *             the runtime exception
+     */
     private SnmpAgentConfig configureAgent(Map<String, Object> parameters, NetworkInterface<InetAddress> iface,
             InetAddress ipaddr) throws RuntimeException {
         // Retrieve this interface's SNMP peer object
@@ -238,6 +260,13 @@ public final class OmsaStorageMonitor extends SnmpMonitorStrategy {
         return agentConfig;
     }
 
+    /**
+     * Gets the array disk status.
+     *
+     * @param diskValue
+     *            the disk value
+     * @return the array disk status
+     */
     private String getArrayDiskStatus(SnmpValue diskValue) {
         switch (diskValue.toInt()) {
         case 1:

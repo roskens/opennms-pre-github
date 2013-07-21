@@ -43,10 +43,12 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
 public interface SyslogHandlerMBean extends BaseOnmsMBean {
+
     /**
      * <p>
      * destroy
      * </p>
+     * .
      */
     void destroy();
 
@@ -54,6 +56,7 @@ public interface SyslogHandlerMBean extends BaseOnmsMBean {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a {@link java.lang.Integer} object.
@@ -64,6 +67,7 @@ public interface SyslogHandlerMBean extends BaseOnmsMBean {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -73,13 +77,14 @@ public interface SyslogHandlerMBean extends BaseOnmsMBean {
      * <p>
      * addEventHandler
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException
-     *             if any.
-     * @throws javax.management.InstanceNotFoundException
-     *             if any.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     void addEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
@@ -87,13 +92,14 @@ public interface SyslogHandlerMBean extends BaseOnmsMBean {
      * <p>
      * removeEventHandler
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException
-     *             if any.
-     * @throws javax.management.InstanceNotFoundException
-     *             if any.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     void removeEventHandler(String name) throws MalformedObjectNameException, InstanceNotFoundException;
 
@@ -101,6 +107,7 @@ public interface SyslogHandlerMBean extends BaseOnmsMBean {
      * <p>
      * setLogPrefix
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.

@@ -29,7 +29,7 @@
 package org.opennms.netmgt.poller.pollables;
 
 /**
- * Represents a PollableVisitorAdaptor
+ * Represents a PollableVisitorAdaptor.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $

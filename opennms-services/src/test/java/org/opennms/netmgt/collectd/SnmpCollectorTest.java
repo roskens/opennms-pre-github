@@ -74,6 +74,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class SnmpCollectorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @TestExecutionListeners({ JUnitCollectorExecutionListener.class })
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -88,35 +91,54 @@ import org.springframework.transaction.annotation.Transactional;
 // test
 public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_context. */
     private TestContext m_context;
 
+    /** The m_test host name. */
     private String m_testHostName;
 
+    /** The Constant TEST_NODE_LABEL. */
     private static final String TEST_NODE_LABEL = "TestNode";
 
+    /** The m_collection specification. */
     private CollectionSpecification m_collectionSpecification;
 
+    /** The m_collection agent. */
     private CollectionAgent m_collectionAgent;
 
+    /** The m_agent config. */
     private SnmpAgentConfig m_agentConfig;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -161,12 +183,24 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         m_agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.getLocalHostAddress());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockUtil.println("------------ End Test --------------------------");
         // MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test collect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", datacollectionType = "snmp", anticipateFiles = {
             "1", "1/fw0" }, anticipateRrds = { "1/tcpActiveOpens", "1/tcpAttemptFails", "1/tcpPassiveOpens",
@@ -201,6 +235,12 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test persist.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-persistTest-config.xml", datacollectionType = "snmp", anticipateFiles = {
@@ -256,6 +296,12 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test using fetch.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", datacollectionType = "snmp", anticipateRrds = { "test" })
@@ -291,6 +337,12 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
                                                                               stepSize * 1000, stepSize * 1000));
     }
 
+    /**
+     * Test brocade collect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-config.xml", datacollectionType = "snmp", anticipateRrds = {
@@ -335,6 +387,12 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test bug2447_ generic indexed only collect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-no-ifaces-config.xml", datacollectionType = "snmp", anticipateRrds = {
@@ -380,10 +438,20 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Rrd.
+     *
+     * @param file
+     *            the file
+     * @return the string
+     */
     private static String rrd(String file) {
         return file + RrdUtils.getExtension();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.TestContextAware#setTestContext(org.springframework.test.context.TestContext)
+     */
     @Override
     public void setTestContext(TestContext context) {
         m_context = context;

@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
  */
 final class LatencyThresholder implements ServiceThresholder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LatencyThresholder.class);
 
     /**
@@ -77,25 +78,17 @@ final class LatencyThresholder implements ServiceThresholder {
      */
     static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
-    /**
-     * Default age before which a data point is considered "out of date"
-     */
+    /** Default age before which a data point is considered "out of date". */
 
     static final int DEFAULT_RANGE = 0;
 
-    /**
-     * Interface attribute key used to store the interface's node id
-     */
+    /** Interface attribute key used to store the interface's node id. */
     static final String RRD_REPOSITORY_KEY = "org.opennms.netmgt.collectd.LatencyThresholder.RrdRepository";
 
-    /**
-     * Interface attribute key used to store configured thresholds
-     */
+    /** Interface attribute key used to store configured thresholds. */
     static final String THRESHOLD_MAP_KEY = "org.opennms.netmgt.collectd.LatencyThresholder.ThresholdMap";
 
-    /**
-     * Interface attribute key used to store the interface's node id
-     */
+    /** Interface attribute key used to store the interface's node id. */
     static final String NODE_ID_KEY = "org.opennms.netmgt.collectd.SnmpThresholder.NodeId";
 
     /**
@@ -137,6 +130,7 @@ final class LatencyThresholder implements ServiceThresholder {
      * <p>
      * reinitialize
      * </p>
+     * .
      */
     @Override
     public void reinitialize() {
@@ -363,6 +357,16 @@ final class LatencyThresholder implements ServiceThresholder {
         }
     }
 
+    /**
+     * Send events.
+     *
+     * @param eproxy
+     *            the eproxy
+     * @param events
+     *            the events
+     * @throws EventProxyException
+     *             the event proxy exception
+     */
     private void sendEvents(EventProxy eproxy, Events events) throws EventProxyException {
         if (events != null && events.getEventCount() > 0) {
             Log eventLog = new Log();
@@ -380,27 +384,11 @@ final class LatencyThresholder implements ServiceThresholder {
      *            TODO
      * @param latParms
      *            TODO
-     * @param parameters
-     * @param iface
-     * @param directory
-     *            RRD repository directory
-     * @param m_nodeId
-     *            Node identifier of interface being checked
-     * @param ipAddr
-     *            IP address of the interface being checked
-     * @param interval
-     *            Configured thresholding interval
-     * @param date
-     *            Source for timestamp to be used for all generated events
-     * @param thresholdMap
-     *            Map of configured interface level ThresholdEntity objects
-     *            keyed by datasource name.
-     * @param events
-     *            Castor events object containing any events to be generated as
-     *            a result of threshold checking.
+     * @return the events
      * @throws IllegalArgumentException
      *             if path parameter is not a directory.
      * @throws ThresholdingException
+     *             the thresholding exception
      */
     Events checkRrdDir(LatencyInterface latIface, LatencyParameters latParms) throws IllegalArgumentException,
             ThresholdingException {
@@ -439,6 +427,18 @@ final class LatencyThresholder implements ServiceThresholder {
         return events;
     }
 
+    /**
+     * Complete event list and add to events.
+     *
+     * @param events
+     *            the events
+     * @param eventList
+     *            the event list
+     * @param latIface
+     *            the lat iface
+     * @throws ThresholdingException
+     *             the thresholding exception
+     */
     private void completeEventListAndAddToEvents(Events events, List<Event> eventList, LatencyInterface latIface)
             throws ThresholdingException {
         for (Event event : eventList) {

@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ScheduledOutagesDaoImpl implements ScheduledOutagesDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesDaoImpl.class);
 
     /**
@@ -58,6 +59,9 @@ public class ScheduledOutagesDaoImpl implements ScheduledOutagesDao {
         loadScheduledOutagesConfigFactory();
     }
 
+    /**
+     * Load scheduled outages config factory.
+     */
     private void loadScheduledOutagesConfigFactory() {
         // Load up the configuration for the scheduled outages.
         try {

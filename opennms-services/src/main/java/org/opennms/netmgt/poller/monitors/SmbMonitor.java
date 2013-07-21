@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class SmbMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(SmbMonitor.class);
 
     /**
@@ -98,8 +99,12 @@ public final class SmbMonitor extends AbstractServiceMonitor {
      */
     private static final String DO_NODE_STATUS = "do-node-status";
 
+    /** The Constant DO_NODE_STATUS_DEFAULT. */
     private static final boolean DO_NODE_STATUS_DEFAULT = true;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.monitors.AbstractServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map)
+     */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();

@@ -35,6 +35,9 @@ import org.opennms.netmgt.poller.Distributable;
 import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.JMXSecureConnectionFactory;
 
+/**
+ * The Class JMXSecureMonitor.
+ */
 @Distributable
 /**
  * <p>JMXSecureMonitor class.</p>

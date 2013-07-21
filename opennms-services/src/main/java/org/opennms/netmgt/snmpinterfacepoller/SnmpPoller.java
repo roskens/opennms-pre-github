@@ -49,7 +49,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * SnmpPoller daemon class
+ * SnmpPoller daemon class.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
@@ -58,22 +58,29 @@ import org.slf4j.LoggerFactory;
 @EventListener(name = "snmpPoller", logPrefix = "snmp-poller")
 public class SnmpPoller extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpPoller.class);
 
+    /** The Constant m_singleton. */
     private static final SnmpPoller m_singleton = new SnmpPoller();
 
+    /** The m_initialized. */
     private boolean m_initialized = false;
 
+    /** The m_scheduler. */
     private LegacyScheduler m_scheduler = null;
 
+    /** The m_poller config. */
     private SnmpInterfacePollerConfig m_pollerConfig;
 
+    /** The m_network. */
     private PollableNetwork m_network;
 
     /**
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
@@ -87,6 +94,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * setNetwork
      * </p>
+     * .
      *
      * @param pollableNetwork
      *            a
@@ -101,6 +109,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * isInitialized
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -112,6 +121,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
@@ -123,6 +133,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler} object.
@@ -135,6 +146,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * getPollerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
      *         object.
@@ -147,6 +159,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param snmpinterfacepollerConfig
      *            a {@link org.opennms.netmgt.config.SnmpInterfacePollerConfig}
@@ -160,6 +173,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -181,6 +195,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -197,6 +212,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -207,6 +223,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -217,6 +234,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmpinterfacepoller.SnmpPoller}
      *         object.
@@ -257,6 +275,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * scheduleNewSnmpInterface
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -273,6 +292,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * scheduleExistingSnmpInterface
      * </p>
+     * .
      */
     protected void scheduleExistingSnmpInterface() {
 
@@ -285,11 +305,10 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * schedulePollableInterface
      * </p>
+     * .
      *
-     * @param nodeid
-     *            a int.
-     * @param ipaddress
-     *            a {@link java.lang.String} object.
+     * @param iface
+     *            the iface
      */
     protected void schedulePollableInterface(OnmsIpInterface iface) {
         String ipaddress = iface.getIpAddress().getHostAddress();
@@ -308,6 +327,14 @@ public class SnmpPoller extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Schedule snmp collection.
+     *
+     * @param nodeGroup
+     *            the node group
+     * @param pkgName
+     *            the pkg name
+     */
     private void scheduleSnmpCollection(PollableInterface nodeGroup, String pkgName) {
 
         String excludingCriteria = new String(" snmpifindex > 0 ");
@@ -365,6 +392,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Creates the scheduler.
+     */
     private void createScheduler() {
 
         // Create a scheduler
@@ -383,6 +413,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * reloadSnmpConfig
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -427,6 +458,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * reloadConfig
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -447,6 +479,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * primarychangeHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -469,6 +502,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * deleteInterfaceHaldler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -482,6 +516,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * scanCompletedHaldler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -495,6 +530,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * rescanCompletedHaldler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -508,6 +544,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * nodeDeletedHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -521,6 +558,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * serviceGainedHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -537,6 +575,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * serviceDownHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -558,6 +597,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * serviceUpHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -580,6 +620,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * interfaceUpHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -593,6 +634,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * interfaceDownHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -606,6 +648,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * nodeUpHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -620,6 +663,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      * <p>
      * nodeDownHandler
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.

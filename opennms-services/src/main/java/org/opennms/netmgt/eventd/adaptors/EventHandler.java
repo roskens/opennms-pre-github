@@ -40,10 +40,12 @@ import org.opennms.netmgt.xml.event.EventReceipt;
  * @version $Id: $
  */
 public interface EventHandler {
+
     /**
      * <p>
      * processEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -55,6 +57,7 @@ public interface EventHandler {
      * <p>
      * receiptSent
      * </p>
+     * .
      *
      * @param receipt
      *            a {@link org.opennms.netmgt.xml.event.EventReceipt} object.

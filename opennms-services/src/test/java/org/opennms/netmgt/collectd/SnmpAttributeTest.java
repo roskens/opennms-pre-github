@@ -63,17 +63,27 @@ import org.opennms.netmgt.snmp.SnmpValue;
 import org.opennms.netmgt.snmp.snmp4j.Snmp4JValueFactory;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class SnmpAttributeTest.
+ */
 public class SnmpAttributeTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao = m_mocks.createMock(IpInterfaceDao.class);
 
     // Cannot avoid this warning since there is no way to fetch the class object
     // for an interface
     // that uses generics
+    /** The m_rrd strategy. */
     @SuppressWarnings("unchecked")
     private RrdStrategy<Object, Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -81,6 +91,9 @@ public class SnmpAttributeTest extends TestCase {
         RrdUtils.setStrategy(m_rrdStrategy);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -88,39 +101,81 @@ public class SnmpAttributeTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test numeric attribute float value in string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNumericAttributeFloatValueInString() throws Exception {
         String stringValue = "7.69";
         testPersisting(stringValue, new Snmp4JValueFactory().getOctetString(stringValue.getBytes()));
     }
 
+    /**
+     * Test numeric attribute counter value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNumericAttributeCounterValue() throws Exception {
         int intValue = 769;
         testPersisting(Integer.toString(intValue), new Snmp4JValueFactory().getCounter32(intValue));
     }
 
+    /**
+     * Test hex string proto counter64 value small.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testHexStringProtoCounter64ValueSmall() throws Exception {
         testPersisting("769",
                        new Snmp4JValueFactory().getOctetString(new byte[] { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x03, 0x01 }));
     }
 
+    /**
+     * Test hex string proto counter64 value l t2_31.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testHexStringProtoCounter64ValueLT2_31() throws Exception {
         testPersisting("2000000000",
                        new Snmp4JValueFactory().getOctetString(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x77, 0x35,
                                (byte) 0x94, 0x00 }));
     }
 
+    /**
+     * Test hex string proto counter64 value g t2_31.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testHexStringProtoCounter64ValueGT2_31() throws Exception {
         testPersisting("5000000000",
                        new Snmp4JValueFactory().getOctetString(new byte[] { 0x00, 0x00, 0x00, 0x01, 0x2a, 0x05,
                                (byte) 0xf2, 0x00 }));
     }
 
+    /**
+     * Test hex string proto counter64 value near2_63.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testHexStringProtoCounter64ValueNear2_63() throws Exception {
         testPersisting("9223372036854775000",
                        new Snmp4JValueFactory().getOctetString(new byte[] { 0x7f, (byte) 0xff, (byte) 0xff,
                                (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xfc, (byte) 0xd8 }));
     }
 
+    /**
+     * Test numeric attribute hex string value in string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNumericAttributeHexStringValueInString() throws Exception {
         String stringValue = "769";
         byte[] bytes = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
@@ -128,6 +183,16 @@ public class SnmpAttributeTest extends TestCase {
         testPersisting(stringValue, new Snmp4JValueFactory().getOctetString(bytes));
     }
 
+    /**
+     * Test persisting.
+     *
+     * @param matchValue
+     *            the match value
+     * @param snmpValue
+     *            the snmp value
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private void testPersisting(String matchValue, SnmpValue snmpValue) throws Exception {
         OnmsNode node = new OnmsNode();
@@ -199,6 +264,15 @@ public class SnmpAttributeTest extends TestCase {
         persister.commitBuilder();
     }
 
+    /**
+     * Checks if is a list.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the list
+     */
     @SuppressWarnings("unchecked")
     private <T> List<T> isAList(Class<T> clazz) {
         return isA(List.class);

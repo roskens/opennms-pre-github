@@ -76,6 +76,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class PollerBackEndIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/mockEventIpcManager.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -89,37 +92,53 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class PollerBackEndIntegrationTest implements InitializingBean {
 
+    /** The m_back end. */
     @Resource(name = "daemon")
     PollerBackEnd m_backEnd;
 
+    /** The m_session factory. */
     @Autowired
     SessionFactory m_sessionFactory;
 
+    /** The m_jdbc template. */
     @Autowired
     JdbcTemplate m_jdbcTemplate;
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_service type dao. */
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_location monitor dao. */
     @Autowired
     LocationMonitorDao m_locationMonitorDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test register.
+     */
     @Test
     @Transactional
     public void testRegister() {
@@ -139,6 +158,9 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertEquals(initialCount + locations.size(), m_locationMonitorDao.findAll().size());
     }
 
+    /**
+     * Test polling started.
+     */
     @Test
     @Transactional
     public void testPollingStarted() {
@@ -155,6 +177,9 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertEquals("WonkaOS", details.get("os.name"));
     }
 
+    /**
+     * Test polling stopped.
+     */
     @Test
     @Transactional
     public void testPollingStopped() {
@@ -170,6 +195,12 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertEquals(MonitorStatus.STOPPED, m_locationMonitorDao.get(locationMonitorId).getStatus());
     }
 
+    /**
+     * Test poller disconnected.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testPollerDisconnected() throws Exception {
@@ -194,6 +225,9 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get service monitor locators.
+     */
     @Test
     @Transactional
     public void testGetServiceMonitorLocators() {
@@ -205,6 +239,12 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertTrue(results.size() > 0);
     }
 
+    /**
+     * Test report results.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @Transactional
     public void testReportResults() throws InterruptedException {
@@ -253,6 +293,11 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertTrue("rrd file doesn't exist at " + rrdFile.getAbsolutePath(), rrdFile.exists());
     }
 
+    /**
+     * Gets the poller details.
+     *
+     * @return the poller details
+     */
     public Map<String, String> getPollerDetails() {
         final Map<String, String> pollerDetails = new HashMap<String, String>();
         pollerDetails.put("os.name", "WonkaOS");

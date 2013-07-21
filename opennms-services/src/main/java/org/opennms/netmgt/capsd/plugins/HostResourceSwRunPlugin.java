@@ -55,11 +55,10 @@ import antlr.StringUtils;
  */
 public class HostResourceSwRunPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSwRunPlugin.class);
 
-    /**
-     * The protocol supported by this plugin
-     */
+    /** The protocol supported by this plugin. */
     private static final String PROTOCOL_NAME = "HOST-RESOURCES";
 
     /**
@@ -169,6 +168,15 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
 
     }
 
+    /**
+     * Match.
+     *
+     * @param expectedText
+     *            the expected text
+     * @param currentText
+     *            the current text
+     * @return true, if successful
+     */
     private boolean match(String expectedText, String currentText) {
         if (expectedText.startsWith("~")) {
             return currentText.matches(expectedText.replaceFirst("~", ""));
@@ -176,6 +184,13 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
         return currentText.equalsIgnoreCase(expectedText);
     }
 
+    /**
+     * Strip extra quotes.
+     *
+     * @param string
+     *            the string
+     * @return the string
+     */
     private String stripExtraQuotes(String string) {
         return StringUtils.stripFrontBack(string, "\"", "\"");
     }

@@ -53,20 +53,29 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class FilteredReportInstance extends AbstractReportInstance implements ReportInstance, InitializingBean {
+
+    /** The m_attribute statistic visitor. */
     private final AttributeStatisticVisitorWithResults m_attributeStatisticVisitor;
 
+    /** The m_rrd visitor. */
     private final RrdStatisticAttributeVisitor m_rrdVisitor = new RrdStatisticAttributeVisitor();
 
+    /** The m_attribute visitor. */
     private final AttributeMatchingResourceVisitor m_attributeVisitor = new AttributeMatchingResourceVisitor();
 
+    /** The m_resource type visitor. */
     private final ResourceTypeFilteringResourceVisitor m_resourceTypeVisitor = new ResourceTypeFilteringResourceVisitor();
 
+    /** The m_walker. */
     private final FilterResourceWalker m_walker = new FilterResourceWalker();
 
+    /** The m_resource attribute key. */
     private String m_resourceAttributeKey;
 
+    /** The m_resource attribute value match. */
     private String m_resourceAttributeValueMatch;
 
+    /** The m_resource attribute visitor. */
     private ResourceAttributeFilteringResourceVisitor m_resourceAttributeVisitor;
 
     /**
@@ -87,6 +96,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * setFilterDao
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
@@ -99,6 +109,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * setFilter
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.
@@ -111,6 +122,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -123,6 +135,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -135,6 +148,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
@@ -147,6 +161,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * walk
      * </p>
+     * .
      */
     @Override
     public void walk() {
@@ -159,6 +174,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getResults
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -175,6 +191,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getResourceTypeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,6 +219,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getAttributeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -228,6 +246,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -254,6 +273,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -280,6 +300,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getConsolidationFunction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -307,6 +328,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -333,6 +355,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -376,6 +399,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getResourceAttributeKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -388,6 +412,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
      * <p>
      * getResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

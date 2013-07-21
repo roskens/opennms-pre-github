@@ -63,19 +63,24 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public final class StrafePingMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(StrafePingMonitor.class);
 
+    /** The Constant DEFAULT_MULTI_PING_COUNT. */
     private static final int DEFAULT_MULTI_PING_COUNT = 20;
 
+    /** The Constant DEFAULT_PING_INTERVAL. */
     private static final long DEFAULT_PING_INTERVAL = 50;
 
+    /** The Constant DEFAULT_FAILURE_PING_COUNT. */
     private static final int DEFAULT_FAILURE_PING_COUNT = 20;
 
     /**
      * Constructs a new monitor.
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public StrafePingMonitor() throws IOException {
     }

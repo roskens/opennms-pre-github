@@ -49,6 +49,8 @@ import twitter4j.TwitterException;
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogDMNotificationStrategy.class);
 
     /**
@@ -56,8 +58,8 @@ public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrate
      * Constructor for MicroblogDMNotificationStrategy.
      * </p>
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MicroblogDMNotificationStrategy() throws IOException {
         super();

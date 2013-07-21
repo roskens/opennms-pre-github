@@ -70,11 +70,14 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 final class ConvertToEvent {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ConvertToEvent.class);
 
     /**
      * Constant
      * <code>HIDDEN_MESSAGE="The message logged has been removed due"{trunked}</code>
+     * .
      */
     protected static final String HIDDEN_MESSAGE = "The message logged has been removed due to configuration of Syslogd; it may contain sensitive data.";
 
@@ -98,19 +101,25 @@ final class ConvertToEvent {
      */
     private final List<Event> m_ackEvents = new ArrayList<Event>();
 
+    /** The m_event. */
     private Event m_event;
 
+    /** The m_parser class. */
     private static Class<? extends SyslogParser> m_parserClass = null;
 
+    /** The m_patterns. */
     private static Map<String, Pattern> m_patterns = new ConcurrentHashMap<String, Pattern>();
 
     /**
      * Private constructor to prevent the used of <em>new</em> except by the
      * <code>make</code> method.
      *
-     * @param eventXml
-     * @param port
      * @param addr
+     *            the addr
+     * @param port
+     *            the port
+     * @param eventXml
+     *            the event xml
      */
     private ConvertToEvent(InetAddress addr, int port, String eventXml) {
         m_sender = addr;
@@ -118,6 +127,9 @@ final class ConvertToEvent {
         m_eventXML = eventXml;
     }
 
+    /**
+     * Invalidate.
+     */
     public static void invalidate() {
         m_parserClass = null;
         m_patterns.clear();
@@ -130,10 +142,23 @@ final class ConvertToEvent {
      *
      * @param packet
      *            The datagram received from the remote agent.
-     * @throws java.io.UnsupportedEncodingException
-     *             Thrown if the data buffer cannot be decoded using the
-     *             US-ASCII encoding.
+     * @param matchPattern
+     *            the match pattern
+     * @param hostGroup
+     *            the host group
+     * @param messageGroup
+     *            the message group
+     * @param ueiList
+     *            the uei list
+     * @param hideMessage
+     *            the hide message
+     * @param discardUei
+     *            the discard uei
+     * @return the convert to event
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
      * @throws MessageDiscardedException
+     *             the message discarded exception
      */
     static ConvertToEvent make(final DatagramPacket packet, final String matchPattern, final int hostGroup,
             final int messageGroup, final UeiList ueiList, final HideMessage hideMessage, final String discardUei)
@@ -155,10 +180,23 @@ final class ConvertToEvent {
      *            The XML data in US-ASCII encoding.
      * @param len
      *            The length of the XML data in the buffer.
-     * @throws java.io.UnsupportedEncodingException
-     *             Thrown if the data buffer cannot be decoded using the
-     *             US-ASCII encoding.
+     * @param matchPattern
+     *            the match pattern
+     * @param hostGroup
+     *            the host group
+     * @param messageGroup
+     *            the message group
+     * @param ueiList
+     *            the uei list
+     * @param hideMessage
+     *            the hide message
+     * @param discardUei
+     *            the discard uei
+     * @return the convert to event
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
      * @throws MessageDiscardedException
+     *             the message discarded exception
      */
     static ConvertToEvent make(final InetAddress addr, final int port, final byte[] data, final int len,
             final String matchPattern, final int hostGroup, final int messageGroup, final UeiList ueiList,
@@ -335,6 +373,17 @@ final class ConvertToEvent {
         return e;
     }
 
+    /**
+     * Match find.
+     *
+     * @param expression
+     *            the expression
+     * @param input
+     *            the input
+     * @param context
+     *            the context
+     * @return true, if successful
+     */
     private static boolean matchFind(final String expression, final String input, final String context) {
         final Pattern pat = getPattern(expression);
         if (pat == null) {
@@ -347,6 +396,15 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Match host addr.
+     *
+     * @param hostaddrMatch
+     *            the hostaddr match
+     * @param hostAddress
+     *            the host address
+     * @return true, if successful
+     */
     private static boolean matchHostAddr(final HostaddrMatch hostaddrMatch, final String hostAddress) {
         if (hostaddrMatch == null)
             return true;
@@ -362,6 +420,15 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Match hostname.
+     *
+     * @param hostnameMatch
+     *            the hostname match
+     * @param hostName
+     *            the host name
+     * @return true, if successful
+     */
     private static boolean matchHostname(final HostnameMatch hostnameMatch, final String hostName) {
         if (hostnameMatch == null)
             return true;
@@ -377,6 +444,15 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Match process.
+     *
+     * @param processMatch
+     *            the process match
+     * @param processName
+     *            the process name
+     * @return true, if successful
+     */
     private static boolean matchProcess(final ProcessMatch processMatch, final String processName) {
         if (processMatch == null)
             return true;
@@ -392,6 +468,15 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Match severity.
+     *
+     * @param severities
+     *            the severities
+     * @param priorityTxt
+     *            the priority txt
+     * @return true, if successful
+     */
     private static boolean matchSeverity(List<String> severities, String priorityTxt) {
         if (severities.size() == 0)
             return true;
@@ -402,6 +487,15 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Match facility.
+     *
+     * @param facilities
+     *            the facilities
+     * @param facilityTxt
+     *            the facility txt
+     * @return true, if successful
+     */
     private static boolean matchFacility(List<String> facilities, String facilityTxt) {
         if (facilities.size() == 0)
             return true;
@@ -412,6 +506,13 @@ final class ConvertToEvent {
         return false;
     }
 
+    /**
+     * Gets the pattern.
+     *
+     * @param expression
+     *            the expression
+     * @return the pattern
+     */
     private static Pattern getPattern(final String expression) {
         final Pattern msgPat = m_patterns.get(expression);
         if (msgPat == null) {
@@ -426,6 +527,21 @@ final class ConvertToEvent {
         return msgPat;
     }
 
+    /**
+     * Match substring.
+     *
+     * @param discardUei
+     *            the discard uei
+     * @param bldr
+     *            the bldr
+     * @param message
+     *            the message
+     * @param uei
+     *            the uei
+     * @return true, if successful
+     * @throws MessageDiscardedException
+     *             the message discarded exception
+     */
     private static boolean matchSubstring(final String discardUei, final EventBuilder bldr, String message,
             final UeiMatch uei) throws MessageDiscardedException {
         boolean doIMatch = false;
@@ -451,6 +567,21 @@ final class ConvertToEvent {
         return doIMatch;
     }
 
+    /**
+     * Match regex.
+     *
+     * @param message
+     *            the message
+     * @param uei
+     *            the uei
+     * @param bldr
+     *            the bldr
+     * @param discardUei
+     *            the discard uei
+     * @return true, if successful
+     * @throws MessageDiscardedException
+     *             the message discarded exception
+     */
     private static boolean matchRegex(final SyslogMessage message, final UeiMatch uei, final EventBuilder bldr,
             final String discardUei) throws MessageDiscardedException {
         boolean traceEnabled = LOG.isTraceEnabled();
@@ -523,6 +654,8 @@ final class ConvertToEvent {
 
     /**
      * Returns the raw XML data as a string.
+     *
+     * @return the xml data
      */
     String getXmlData() {
         return m_eventXML;
@@ -530,20 +663,24 @@ final class ConvertToEvent {
 
     /**
      * Returns the sender's address.
+     *
+     * @return the sender
      */
     InetAddress getSender() {
         return m_sender;
     }
 
     /**
-     * Returns the sender's port
+     * Returns the sender's port.
+     *
+     * @return the port
      */
     int getPort() {
         return m_port;
     }
 
     /**
-     * Get the acknowledged events
+     * Get the acknowledged events.
      *
      * @return a {@link java.util.List} object.
      */
@@ -555,6 +692,7 @@ final class ConvertToEvent {
      * <p>
      * getEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -593,6 +731,7 @@ final class ConvertToEvent {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

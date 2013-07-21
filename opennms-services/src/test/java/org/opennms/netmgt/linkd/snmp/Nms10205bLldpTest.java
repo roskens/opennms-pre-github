@@ -49,16 +49,28 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms10205bLldpTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test network10205b j63542 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "J6350-42_" + J6350_42_IP + ".txt") })
@@ -83,6 +95,12 @@ public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(J6350_42_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network10205b j63542 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "J6350-42_" + J6350_42_IP + ".txt") })
@@ -106,6 +124,12 @@ public class Nms10205bLldpTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(0, lldpTableEntryCollection.size());
     }
 
+    /**
+     * Test network10205b j63542 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = J6350_42_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "J6350-42_" + J6350_42_IP + ".txt") })

@@ -47,8 +47,10 @@ import java.util.TreeMap;
  */
 public class JMXCollectorEntry extends TreeMap<String, String> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3201821397014064610L;
 
+    /** The m_object name. */
     private String m_objectName;
 
     /**
@@ -78,14 +80,14 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
      * </EM> modifier can be applied to the created object.
      * </P>
      *
+     * @param objectName
+     *            a {@link java.lang.String} object.
      * @param vars
      *            The array of collected JMX variable bindings
      * @param types
      *            String Array of MibObject objects representing each of of the
      *            oid's
      *            configured for collection.
-     * @param objectName
-     *            a {@link java.lang.String} object.
      */
     public JMXCollectorEntry(String objectName, String[] vars, String[] types) {
         this();
@@ -105,6 +107,7 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
      * <p>
      * attributeNames
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -116,6 +119,7 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
      * <p>
      * getObjectName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,6 +131,7 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
      * <p>
      * setObjectName
      * </p>
+     * .
      *
      * @param objectName
      *            a {@link java.lang.String} object.

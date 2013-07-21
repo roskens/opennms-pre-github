@@ -32,14 +32,42 @@ import java.net.UnknownHostException;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class SnmpV3TrapEventForwarder.
+ */
 public class SnmpV3TrapEventForwarder extends SnmpTrapForwarderHelper implements EventForwarder {
 
+    /**
+     * Instantiates a new snmp v3 trap event forwarder.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param securityLevel
+     *            the security level
+     * @param securityname
+     *            the securityname
+     * @param authPassPhrase
+     *            the auth pass phrase
+     * @param authProtocol
+     *            the auth protocol
+     * @param privPassPhrase
+     *            the priv pass phrase
+     * @param privprotocol
+     *            the privprotocol
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpV3TrapEventForwarder(String ip, int port, int securityLevel, String securityname, String authPassPhrase,
             String authProtocol, String privPassPhrase, String privprotocol, SnmpTrapHelper snmpTrapHelper) {
         super(ip, port, securityLevel, securityname, authPassPhrase, authProtocol, privPassPhrase, privprotocol,
               snmpTrapHelper);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushEvent(Event event) {
         event = super.filter(event);
@@ -54,16 +82,25 @@ public class SnmpV3TrapEventForwarder extends SnmpTrapForwarderHelper implements
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushSyncEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushSyncEvent(Event event) {
         flushEvent(event);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendStartSync()
+     */
     @Override
     public void sendStartSync() {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendEndSync()
+     */
     @Override
     public void sendEndSync() {
         throw new UnsupportedOperationException();

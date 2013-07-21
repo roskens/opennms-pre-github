@@ -49,6 +49,7 @@ public interface PollerFrontEnd {
      * <p>
      * getMonitoringLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -58,6 +59,7 @@ public interface PollerFrontEnd {
      * <p>
      * getPolledServices
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -71,7 +73,7 @@ public interface PollerFrontEnd {
     public boolean isRegistered();
 
     /**
-     * Return the monitor name of the poller or null if none exist
+     * Return the monitor name of the poller or null if none exist.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,7 +89,7 @@ public interface PollerFrontEnd {
     public void register(String monitoringLocationName);
 
     /**
-     * Set the initial poll time for a polledService
+     * Set the initial poll time for a polledService.
      *
      * @param polledServiceId
      *            the id of the polledService whose pollTime we are setting
@@ -98,7 +100,7 @@ public interface PollerFrontEnd {
 
     /**
      * Poll the service with id polledServiceId and report the results to the
-     * server
+     * server.
      *
      * @param polledServiceId
      *            The serviceid of the polledService that needs to be polled
@@ -106,14 +108,14 @@ public interface PollerFrontEnd {
     public void pollService(Integer polledServiceId);
 
     /**
-     * Returns whether or not the poller has been started
+     * Returns whether or not the poller has been started.
      *
      * @return a boolean.
      */
     public boolean isStarted();
 
     /**
-     * Returns whether some error occurred and an exit is necessary
+     * Returns whether some error occurred and an exit is necessary.
      *
      * @return a boolean.
      */
@@ -138,6 +140,7 @@ public interface PollerFrontEnd {
      * <p>
      * getPollerPollState
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -145,7 +148,7 @@ public interface PollerFrontEnd {
 
     /**
      * Register a listener to listen for events indication a change
-     * in the poller configuration
+     * in the poller configuration.
      *
      * @param l
      *            a
@@ -155,7 +158,7 @@ public interface PollerFrontEnd {
     public void addConfigurationChangedListener(ConfigurationChangedListener l);
 
     /**
-     * Remove a config change listener
+     * Remove a config change listener.
      *
      * @param l
      *            a
@@ -177,6 +180,7 @@ public interface PollerFrontEnd {
      * <p>
      * removePropertyChangeListener
      * </p>
+     * .
      *
      * @param l
      *            a {@link java.beans.PropertyChangeListener} object.
@@ -184,7 +188,7 @@ public interface PollerFrontEnd {
     public void removePropertyChangeListener(PropertyChangeListener l);
 
     /**
-     * Register a listener for changes in an attribute of a PolledService
+     * Register a listener for changes in an attribute of a PolledService.
      *
      * @param l
      *            a
@@ -197,6 +201,7 @@ public interface PollerFrontEnd {
      * <p>
      * removeServicePollStateChangedListener
      * </p>
+     * .
      *
      * @param l
      *            a

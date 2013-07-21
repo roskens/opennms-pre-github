@@ -48,32 +48,32 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(SnmpMonitorStrategy.class);
 
-    /**
-     * Constant for less-than operand
-     */
+    /** Constant for less-than operand. */
     protected static final String LESS_THAN = "<";
 
-    /** Constant <code>GREATER_THAN=">"</code> */
+    /** Constant <code>GREATER_THAN=">"</code>. */
     protected static final String GREATER_THAN = ">";
 
-    /** Constant <code>LESS_THAN_EQUALS="<="</code> */
+    /** Constant <code>LESS_THAN_EQUALS="<="</code>. */
     protected static final String LESS_THAN_EQUALS = "<=";
 
-    /** Constant <code>GREATER_THAN_EQUALS=">="</code> */
+    /** Constant <code>GREATER_THAN_EQUALS=">="</code>. */
     protected static final String GREATER_THAN_EQUALS = ">=";
 
-    /** Constant <code>EQUALS="="</code> */
+    /** Constant <code>EQUALS="="</code>. */
     protected static final String EQUALS = "=";
 
-    /** Constant <code>NOT_EQUAL="!="</code> */
+    /** Constant <code>NOT_EQUAL="!="</code>. */
     protected static final String NOT_EQUAL = "!=";
 
-    /** Constant <code>MATCHES="~"</code> */
+    /** Constant <code>MATCHES="~"</code>. */
     protected static final String MATCHES = "~";
 
+    /** The hex. */
     boolean hex = false;
 
     /*
@@ -86,6 +86,13 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
     @Override
     public abstract PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
 
+    /**
+     * Gets the string value.
+     *
+     * @param result
+     *            the result
+     * @return the string value
+     */
     public String getStringValue(SnmpValue result) {
         if (hex)
             return result.toHexString();
@@ -139,11 +146,15 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
     }
 
     /**
+     * Check string criteria.
+     *
      * @param operator
+     *            the operator
      * @param operand
-     * @param retVal
+     *            the operand
      * @param value
-     * @return
+     *            the value
+     * @return the boolean
      */
     private Boolean checkStringCriteria(final String operator, String operand, String value) {
         Boolean retVal = null;
@@ -170,11 +181,15 @@ public abstract class SnmpMonitorStrategy extends AbstractServiceMonitor {
     }
 
     /**
+     * Checks if is criteria null.
+     *
      * @param result
+     *            the result
      * @param operator
+     *            the operator
      * @param operand
-     * @param retVal
-     * @return
+     *            the operand
+     * @return the boolean
      */
     private Boolean isCriteriaNull(Object result, String operator, String operand) {
 

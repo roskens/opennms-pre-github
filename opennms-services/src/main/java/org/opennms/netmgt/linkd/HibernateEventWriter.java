@@ -69,41 +69,59 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+/**
+ * The Class HibernateEventWriter.
+ */
 public class HibernateEventWriter extends AbstractQueryManager implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HibernateEventWriter.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_at interface dao. */
     @Autowired
     private AtInterfaceDao m_atInterfaceDao;
 
+    /** The m_vlan dao. */
     @Autowired
     private VlanDao m_vlanDao;
 
+    /** The m_stp node dao. */
     @Autowired
     private StpNodeDao m_stpNodeDao;
 
+    /** The m_stp interface dao. */
     @Autowired
     private StpInterfaceDao m_stpInterfaceDao;
 
+    /** The m_ip route interface dao. */
     @Autowired
     private IpRouteInterfaceDao m_ipRouteInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
     // SELECT node.nodeid, nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON
     // node.nodeid = j.nodeid WHERE nodetype = 'A' AND issnmpprimary = 'P'
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#getSnmpNodeList()
+     */
     @Override
     public List<LinkableNode> getSnmpNodeList() {
         final List<LinkableNode> nodes = new ArrayList<LinkableNode>();
@@ -124,6 +142,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     // SELECT nodesysoid, ipaddr FROM node LEFT JOIN ipinterface ON node.nodeid
     // = ipinterface.nodeid WHERE node.nodeid = ? AND nodetype = 'A' AND
     // issnmpprimary = 'P'
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#getSnmpNode(int)
+     */
     @Override
     public LinkableNode getSnmpNode(final int nodeid) {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);
@@ -143,6 +164,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#updateDeletedNodes()
+     */
     @Override
     public void updateDeletedNodes() {
         // UPDATE atinterface set status = 'D' WHERE nodeid IN (SELECT nodeid
@@ -177,6 +201,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_dataLinkInterfaceDao.flush();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#markOldDataInactive(java.util.Date, int)
+     */
     @Override
     protected void markOldDataInactive(final Date scanTime, final int nodeid) {
         // UPDATE atinterface set status = 'N' WHERE sourcenodeid = ? AND
@@ -205,6 +232,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_stpInterfaceDao.flush();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#deleteOlderData(java.util.Date, int)
+     */
     @Override
     protected void deleteOlderData(final Date scanTime, final int nodeid) {
         m_atInterfaceDao.deleteForNodeSourceIdIfOlderThan(nodeid, scanTime);
@@ -223,6 +253,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_stpInterfaceDao.flush();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#storeSnmpCollection(org.opennms.netmgt.linkd.LinkableNode, org.opennms.netmgt.linkd.SnmpCollection)
+     */
     @Override
     @Transactional
     public LinkableNode storeSnmpCollection(final LinkableNode node, final SnmpCollection snmpColl) {
@@ -277,6 +310,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         return node;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#storeDiscoveryLink(org.opennms.netmgt.linkd.DiscoveryLink)
+     */
     @Override
     public void storeDiscoveryLink(final DiscoveryLink discoveryLink) {
         final Date now = new Date();
@@ -336,6 +372,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
                                                  getLinkd().getSource());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#update(int, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void update(final int nodeid, final StatusType action) {
         m_vlanDao.setStatusForNode(nodeid, action);
@@ -346,6 +385,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         m_dataLinkInterfaceDao.setStatusForNode(nodeid, getLinkd().getSource(), action);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#updateForInterface(int, java.lang.String, int, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void updateForInterface(final int nodeid, final String ipAddr, final int ifIndex, final StatusType action) {
         if (!(ipAddr == null || ipAddr.length() == 0 || "0.0.0.0".equals(ipAddr))) {
@@ -361,6 +403,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
     // SELECT snmpifindex FROM snmpinterface WHERE nodeid = ? AND (snmpifname =
     // ? OR snmpifdescr = ?)
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getIfIndexByName(int, java.lang.String)
+     */
     @Override
     protected int getIfIndexByName(final int targetCdpNodeId, final String cdpTargetDevicePort) {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsSnmpInterface.class);
@@ -382,6 +427,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
     // SELECT node.nodeid FROM node LEFT JOIN ipinterface ON node.nodeid =
     // ipinterface.nodeid WHERE nodetype = 'A' AND ipaddr = ?
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getNodeidFromIp(java.net.InetAddress)
+     */
     @Override
     protected List<Integer> getNodeidFromIp(final InetAddress cdpTargetIpAddr) {
         List<Integer> nodeids = new ArrayList<Integer>();
@@ -403,6 +451,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
     // FROM node LEFT JOIN ipinterface ON node.nodeid = ipinterface.nodeid LEFT
     // JOIN snmpinterface ON ipinterface.snmpinterfaceid = snmpinterface.id
     // WHERE node.nodetype = 'A' AND ipinterface.ipaddr = ?
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getRouteInterface(java.net.InetAddress, int)
+     */
     @Override
     protected List<RouterInterface> getRouteInterface(final InetAddress nexthop, int ifindex) {
 
@@ -431,6 +482,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
 
     // SELECT snmpiftype FROM snmpinterface WHERE nodeid = ? AND snmpifindex =
     // ?"
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getSnmpIfType(int, java.lang.Integer)
+     */
     @Override
     protected int getSnmpIfType(final int nodeId, final Integer ifIndex) {
         Integer snmpIfType = -1;
@@ -442,6 +496,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         return snmpIfType;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getPhysAddrs(int)
+     */
     @Override
     protected List<String> getPhysAddrs(int nodeId) {
         final CriteriaBuilder builder = new CriteriaBuilder(OnmsSnmpInterface.class);
@@ -457,6 +514,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         return addrs;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#saveIpRouteInterface(org.opennms.netmgt.model.OnmsIpRouteInterface)
+     */
     @Override
     protected synchronized void saveIpRouteInterface(final OnmsIpRouteInterface saveMe) {
         new UpsertTemplate<OnmsIpRouteInterface, IpRouteInterfaceDao>(m_transactionManager, m_ipRouteInterfaceDao) {
@@ -503,6 +563,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         }.execute();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#saveVlan(org.opennms.netmgt.model.OnmsVlan)
+     */
     @Override
     protected void saveVlan(final OnmsVlan saveMe) {
         new UpsertTemplate<OnmsVlan, VlanDao>(m_transactionManager, m_vlanDao) {
@@ -541,6 +604,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         }.execute();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#saveStpNode(org.opennms.netmgt.model.OnmsStpNode)
+     */
     @Override
     protected synchronized void saveStpNode(final OnmsStpNode saveMe) {
         new UpsertTemplate<OnmsStpNode, StpNodeDao>(m_transactionManager, m_stpNodeDao) {
@@ -587,6 +653,9 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         }.execute();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#saveStpInterface(org.opennms.netmgt.model.OnmsStpInterface)
+     */
     @Override
     protected void saveStpInterface(final OnmsStpInterface saveMe) {
         new UpsertTemplate<OnmsStpInterface, StpInterfaceDao>(m_transactionManager, m_stpInterfaceDao) {
@@ -633,88 +702,185 @@ public class HibernateEventWriter extends AbstractQueryManager implements Initia
         }.execute();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
         LOG.debug("Initialized {}", this.getClass().getSimpleName());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getNodeDao()
+     */
     @Override
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getIpInterfaceDao()
+     */
     @Override
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(final IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getSnmpInterfaceDao()
+     */
     @Override
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    /**
+     * Sets the snmp interface dao.
+     *
+     * @param snmpInterfaceDao
+     *            the new snmp interface dao
+     */
     public void setSnmpInterfaceDao(final SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getAtInterfaceDao()
+     */
     @Override
     public AtInterfaceDao getAtInterfaceDao() {
         return m_atInterfaceDao;
     }
 
+    /**
+     * Sets the at interface dao.
+     *
+     * @param atInterfaceDao
+     *            the new at interface dao
+     */
     public void setAtInterfaceDao(final AtInterfaceDao atInterfaceDao) {
         m_atInterfaceDao = atInterfaceDao;
     }
 
+    /**
+     * Gets the vlan dao.
+     *
+     * @return the vlan dao
+     */
     public VlanDao getVlanDao() {
         return m_vlanDao;
     }
 
+    /**
+     * Sets the vlan dao.
+     *
+     * @param vlanDao
+     *            the new vlan dao
+     */
     public void setVlanDao(final VlanDao vlanDao) {
         m_vlanDao = vlanDao;
     }
 
+    /**
+     * Gets the stp node dao.
+     *
+     * @return the stp node dao
+     */
     public StpNodeDao getStpNodeDao() {
         return m_stpNodeDao;
     }
 
+    /**
+     * Sets the stp node dao.
+     *
+     * @param stpNodeDao
+     *            the new stp node dao
+     */
     public void setStpNodeDao(final StpNodeDao stpNodeDao) {
         m_stpNodeDao = stpNodeDao;
     }
 
+    /**
+     * Gets the stp interface dao.
+     *
+     * @return the stp interface dao
+     */
     public StpInterfaceDao getStpInterfaceDao() {
         return m_stpInterfaceDao;
     }
 
+    /**
+     * Sets the stp interface dao.
+     *
+     * @param stpInterfaceDao
+     *            the new stp interface dao
+     */
     public void setStpInterfaceDao(final StpInterfaceDao stpInterfaceDao) {
         m_stpInterfaceDao = stpInterfaceDao;
     }
 
+    /**
+     * Gets the ip route interface dao.
+     *
+     * @return the ip route interface dao
+     */
     public IpRouteInterfaceDao getIpRouteInterfaceDao() {
         return m_ipRouteInterfaceDao;
     }
 
+    /**
+     * Sets the ip route interface dao.
+     *
+     * @param ipRouteInterfaceDao
+     *            the new ip route interface dao
+     */
     public void setIpRouteInterfaceDao(final IpRouteInterfaceDao ipRouteInterfaceDao) {
         m_ipRouteInterfaceDao = ipRouteInterfaceDao;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(final DataLinkInterfaceDao dataLinkInterfaceDao) {
         m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.AbstractQueryManager#getFromSysnameIpAddress(java.lang.String, java.net.InetAddress)
+     */
     @Transactional
     @Override
     public Integer getFromSysnameIpAddress(final String lldpRemSysname, final InetAddress lldpRemPortid) {

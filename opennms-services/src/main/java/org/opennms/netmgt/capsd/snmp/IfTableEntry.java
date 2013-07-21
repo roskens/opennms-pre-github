@@ -62,70 +62,70 @@ public final class IfTableEntry extends SnmpStore {
     /** Constant <code>IF_INDEX="AbstractSnmpStore.IFINDEX"</code> */
     public static final String IF_INDEX = AbstractSnmpStore.IFINDEX;
 
-    /** Constant <code>IF_DESCR="ifDescr"</code> */
+    /** Constant <code>IF_DESCR="ifDescr"</code>. */
     public static final String IF_DESCR = "ifDescr";
 
-    /** Constant <code>IF_TYPE="ifType"</code> */
+    /** Constant <code>IF_TYPE="ifType"</code>. */
     public static final String IF_TYPE = "ifType";
 
-    /** Constant <code>IF_MTU="ifMtu"</code> */
+    /** Constant <code>IF_MTU="ifMtu"</code>. */
     public static final String IF_MTU = "ifMtu";
 
-    /** Constant <code>IF_SPEED="ifSpeed"</code> */
+    /** Constant <code>IF_SPEED="ifSpeed"</code>. */
     public static final String IF_SPEED = "ifSpeed";
 
-    /** Constant <code>IF_PHYS_ADDR="ifPhysAddr"</code> */
+    /** Constant <code>IF_PHYS_ADDR="ifPhysAddr"</code>. */
     public static final String IF_PHYS_ADDR = "ifPhysAddr";
 
-    /** Constant <code>IF_ADMIN_STATUS="ifAdminStatus"</code> */
+    /** Constant <code>IF_ADMIN_STATUS="ifAdminStatus"</code>. */
     public static final String IF_ADMIN_STATUS = "ifAdminStatus";
 
-    /** Constant <code>IF_OPER_STATUS="ifOperStatus"</code> */
+    /** Constant <code>IF_OPER_STATUS="ifOperStatus"</code>. */
     public static final String IF_OPER_STATUS = "ifOperStatus";
 
-    /** Constant <code>IF_LAST_CHANGE="ifLastChange"</code> */
+    /** Constant <code>IF_LAST_CHANGE="ifLastChange"</code>. */
     public static final String IF_LAST_CHANGE = "ifLastChange";
 
-    /** Constant <code>IF_IN_OCTETS="ifInOctets"</code> */
+    /** Constant <code>IF_IN_OCTETS="ifInOctets"</code>. */
     public static final String IF_IN_OCTETS = "ifInOctets";
 
-    /** Constant <code>IF_IN_UCAST="ifInUcastPkts"</code> */
+    /** Constant <code>IF_IN_UCAST="ifInUcastPkts"</code>. */
     public static final String IF_IN_UCAST = "ifInUcastPkts";
 
-    /** Constant <code>IF_IN_NUCAST="ifInNUcastPkts"</code> */
+    /** Constant <code>IF_IN_NUCAST="ifInNUcastPkts"</code>. */
     public static final String IF_IN_NUCAST = "ifInNUcastPkts";
 
-    /** Constant <code>IF_IN_DISCARDS="ifInDiscards"</code> */
+    /** Constant <code>IF_IN_DISCARDS="ifInDiscards"</code>. */
     public static final String IF_IN_DISCARDS = "ifInDiscards";
 
-    /** Constant <code>IF_IN_ERRORS="ifInErrors"</code> */
+    /** Constant <code>IF_IN_ERRORS="ifInErrors"</code>. */
     public static final String IF_IN_ERRORS = "ifInErrors";
 
-    /** Constant <code>IF_IN_UKNOWN_PROTOS="ifInUnknownProtos"</code> */
+    /** Constant <code>IF_IN_UKNOWN_PROTOS="ifInUnknownProtos"</code>. */
     public static final String IF_IN_UKNOWN_PROTOS = "ifInUnknownProtos";
 
-    /** Constant <code>IF_OUT_OCTETS="ifOutOctets"</code> */
+    /** Constant <code>IF_OUT_OCTETS="ifOutOctets"</code>. */
     public static final String IF_OUT_OCTETS = "ifOutOctets";
 
-    /** Constant <code>IF_OUT_UCAST="ifOutUcastPkts"</code> */
+    /** Constant <code>IF_OUT_UCAST="ifOutUcastPkts"</code>. */
     public static final String IF_OUT_UCAST = "ifOutUcastPkts";
 
-    /** Constant <code>IF_OUT_NUCAST="ifOutNUcastPkts"</code> */
+    /** Constant <code>IF_OUT_NUCAST="ifOutNUcastPkts"</code>. */
     public static final String IF_OUT_NUCAST = "ifOutNUcastPkts";
 
-    /** Constant <code>IF_OUT_DISCARDS="ifOutDiscards"</code> */
+    /** Constant <code>IF_OUT_DISCARDS="ifOutDiscards"</code>. */
     public static final String IF_OUT_DISCARDS = "ifOutDiscards";
 
-    /** Constant <code>IF_OUT_ERRORS="ifOutErrors"</code> */
+    /** Constant <code>IF_OUT_ERRORS="ifOutErrors"</code>. */
     public static final String IF_OUT_ERRORS = "ifOutErrors";
 
-    /** Constant <code>IF_OUT_QLEN="ifOutQLen"</code> */
+    /** Constant <code>IF_OUT_QLEN="ifOutQLen"</code>. */
     public static final String IF_OUT_QLEN = "ifOutQLen";
 
-    /** Constant <code>IF_SPECIFIC="ifSpecific"</code> */
+    /** Constant <code>IF_SPECIFIC="ifSpecific"</code>. */
     public static final String IF_SPECIFIC = "ifSpecific";
 
-    /** Constant <code>ms_elemList</code> */
+    /** Constant <code>ms_elemList</code>. */
     public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
             new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_INDEX, ".1.3.6.1.2.1.2.2.1.1", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, IF_DESCR, ".1.3.6.1.2.1.2.2.1.2", 2),
@@ -191,6 +191,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -202,6 +203,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getIfAdminStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -213,6 +215,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -224,6 +227,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +239,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getIfOperStatus
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -246,6 +251,7 @@ public final class IfTableEntry extends SnmpStore {
      * <p>
      * getIfSpeed
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */

@@ -34,14 +34,19 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
+ * The Class DemoPollService.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class DemoPollService implements PollService {
 
+    /** The m_repetitions. */
     private int m_repetitions;
 
+    /** The m_poll count. */
     private int m_pollCount;
 
+    /** The m_current status. */
     private PollStatus m_currentStatus;
 
     /**

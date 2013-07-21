@@ -51,10 +51,13 @@ import org.springframework.util.Assert;
  */
 public class BroadcastEventProcessor implements EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
+    /** The m_event ipc manager. */
     private final EventIpcManager m_eventIpcManager;
 
+    /** The m_event conf dao. */
     private final EventConfDao m_eventConfDao;
 
     /**
@@ -79,7 +82,7 @@ public class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
      */
     private void addEventListener() {
         m_eventIpcManager.addEventListener(this, EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI);
@@ -101,8 +104,8 @@ public class BroadcastEventProcessor implements EventListener {
      * ensures that the <code>close</code> method is called <em>at least</em>
      * once during the cycle of this object.
      *
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void finalize() throws Throwable {
@@ -113,6 +116,7 @@ public class BroadcastEventProcessor implements EventListener {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -152,6 +156,13 @@ public class BroadcastEventProcessor implements EventListener {
         }
     }
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
 

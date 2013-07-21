@@ -47,6 +47,8 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdEvaluatorHighLow.class);
 
     /**
@@ -70,15 +72,16 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
         return new ThresholdEvaluatorStateHighLow(threshold);
     }
 
+    /**
+     * The Class ThresholdEvaluatorStateHighLow.
+     */
     public static class ThresholdEvaluatorStateHighLow extends AbstractThresholdEvaluatorState {
         /**
          * Castor Threshold object containing threshold configuration data.
          */
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
 
-        /**
-         * Threshold exceeded count
-         */
+        /** Threshold exceeded count. */
         private int m_exceededCount;
 
         /**
@@ -95,8 +98,15 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
          */
         private boolean m_armed;
 
+        /** The m_last collection resource used. */
         private CollectionResourceWrapper m_lastCollectionResourceUsed;
 
+        /**
+         * Instantiates a new threshold evaluator state high low.
+         *
+         * @param threshold
+         *            the threshold
+         */
         public ThresholdEvaluatorStateHighLow(BaseThresholdDefConfigWrapper threshold) {
             Assert.notNull(threshold, "threshold argument cannot be null");
 
@@ -105,27 +115,58 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             setArmed(true);
         }
 
+        /**
+         * Checks if is armed.
+         *
+         * @return true, if is armed
+         */
         public boolean isArmed() {
             return m_armed;
         }
 
+        /**
+         * Sets the armed.
+         *
+         * @param armed
+         *            the new armed
+         */
         public void setArmed(boolean armed) {
             m_armed = armed;
         }
 
+        /**
+         * Gets the exceeded count.
+         *
+         * @return the exceeded count
+         */
         public int getExceededCount() {
             return m_exceededCount;
         }
 
+        /**
+         * Sets the exceeded count.
+         *
+         * @param exceededCount
+         *            the new exceeded count
+         */
         public void setExceededCount(int exceededCount) {
             m_exceededCount = exceededCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getThresholdConfig()
+         */
         @Override
         public BaseThresholdDefConfigWrapper getThresholdConfig() {
             return m_thresholdConfig;
         }
 
+        /**
+         * Sets the threshold config.
+         *
+         * @param thresholdConfig
+         *            the new threshold config
+         */
         public void setThresholdConfig(BaseThresholdDefConfigWrapper thresholdConfig) {
             Assert.notNull(thresholdConfig.getType(), "threshold must have a 'type' value set");
             Assert.notNull(thresholdConfig.getDatasourceExpression(), "threshold must have a 'ds-name' value set");
@@ -137,10 +178,18 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             m_thresholdConfig = thresholdConfig;
         }
 
+        /**
+         * Gets the type.
+         *
+         * @return the type
+         */
         public String getType() {
             return getThresholdConfig().getType();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#evaluate(double)
+         */
         @Override
         public Status evaluate(double dsValue) {
             if (isThresholdExceeded(dsValue)) {
@@ -176,6 +225,13 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             return Status.NO_CHANGE;
         }
 
+        /**
+         * Checks if is threshold exceeded.
+         *
+         * @param dsValue
+         *            the ds value
+         * @return true, if is threshold exceeded
+         */
         protected boolean isThresholdExceeded(double dsValue) {
             if ("high".equals(getThresholdConfig().getType())) {
                 return dsValue >= getThresholdConfig().getValue();
@@ -187,6 +243,13 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             }
         }
 
+        /**
+         * Checks if is rearm exceeded.
+         *
+         * @param dsValue
+         *            the ds value
+         * @return true, if is rearm exceeded
+         */
         protected boolean isRearmExceeded(double dsValue) {
             if ("high".equals(getThresholdConfig().getType())) {
                 return dsValue <= getThresholdConfig().getRearm();
@@ -198,10 +261,18 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             }
         }
 
+        /**
+         * Checks if is trigger count exceeded.
+         *
+         * @return true, if is trigger count exceeded
+         */
         protected boolean isTriggerCountExceeded() {
             return getExceededCount() >= getThresholdConfig().getTrigger();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getEventForState(org.opennms.netmgt.threshd.ThresholdEvaluatorState.Status, java.util.Date, double, org.opennms.netmgt.threshd.CollectionResourceWrapper)
+         */
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             /*
@@ -259,6 +330,19 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             }
         }
 
+        /**
+         * Creates the basic event.
+         *
+         * @param uei
+         *            the uei
+         * @param date
+         *            the date
+         * @param dsValue
+         *            the ds value
+         * @param resource
+         *            the resource
+         * @return the event
+         */
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("threshold", Double.toString(getThresholdConfig().getValue()));
@@ -267,16 +351,25 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             return createBasicEvent(uei, date, dsValue, resource, params);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getCleanClone()
+         */
         @Override
         public ThresholdEvaluatorState getCleanClone() {
             return new ThresholdEvaluatorStateHighLow(m_thresholdConfig);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#isTriggered()
+         */
         @Override
         public boolean isTriggered() {
             return !isArmed();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#clearState()
+         */
         @Override
         public void clearState() {
             setArmed(true);

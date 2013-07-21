@@ -43,6 +43,8 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class EventIpcManagerEventHandlerProxy implements EventHandler, InitializingBean {
+
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
     /**
@@ -70,6 +72,7 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
      * <p>
      * getEventIpcManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -81,6 +84,7 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -94,9 +98,10 @@ public class EventIpcManagerEventHandlerProxy implements EventHandler, Initializ
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {

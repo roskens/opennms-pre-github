@@ -51,21 +51,26 @@ public final class Dot1qStaticVlanTableEntry extends Vlan {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>VLAN_STATICEGRESSPORTS="dot1qVlanStaticEgressPorts"</code> */
+    /**
+     * Constant <code>VLAN_STATICEGRESSPORTS="dot1qVlanStaticEgressPorts"</code>
+     * .
+     */
     public static final String VLAN_STATICEGRESSPORTS = "dot1qVlanStaticEgressPorts";
 
     /**
      * Constant
      * <code>VLAN_FORBIDDENEGRESSPORTS="dot1qVlanStaticForbiddenEgressPorts"</code>
+     * .
      */
     public static final String VLAN_FORBIDDENEGRESSPORTS = "dot1qVlanStaticForbiddenEgressPorts";
 
     /**
      * Constant
-     * <code>VLAN_STATICUNTAGGEDPORTS="dot1qVlanStaticUntaggedPorts"</code>
+     * <code>VLAN_STATICUNTAGGEDPORTS="dot1qVlanStaticUntaggedPorts"</code>.
      */
     public static final String VLAN_STATICUNTAGGEDPORTS = "dot1qVlanStaticUntaggedPorts";
 
+    /** The vlan name oid. */
     private static String VLAN_NAME_OID = ".1.3.6.1.2.1.17.7.1.4.3.1.1";
 
     /**
@@ -113,16 +118,25 @@ public final class Dot1qStaticVlanTableEntry extends Vlan {
         super(hpVlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
         return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX + getInt32(VLAN_STATUS));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         return VlanType.CISCO_VTP_ETHERNET;

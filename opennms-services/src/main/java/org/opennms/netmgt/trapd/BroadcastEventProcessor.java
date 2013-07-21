@@ -51,10 +51,13 @@ import org.springframework.util.Assert;
  */
 public final class BroadcastEventProcessor implements EventListener, InitializingBean, DisposableBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
+    /** The m_event mgr. */
     private final EventIpcManager m_eventMgr;
 
+    /** The m_trapd ip mgr. */
     private final TrapdIpMgr m_trapdIpMgr;
 
     /**
@@ -77,6 +80,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -88,6 +92,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
      * <p>
      * getTrapdIpMgr
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.trapd.TrapdIpMgr} object.
      */
@@ -96,7 +101,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
      */
     public void open() {
         List<String> ueiList = new ArrayList<String>();
@@ -107,7 +112,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         m_eventMgr.removeEventListener(this);
@@ -117,6 +122,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -128,9 +134,10 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -176,7 +183,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */

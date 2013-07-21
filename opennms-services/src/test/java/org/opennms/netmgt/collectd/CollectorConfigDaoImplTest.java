@@ -51,7 +51,14 @@ import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.core.io.InputStreamResource;
 
+/**
+ * The Class CollectorConfigDaoImplTest.
+ */
 public class CollectorConfigDaoImplTest extends TestCase {
+
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -65,26 +72,64 @@ public class CollectorConfigDaoImplTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public void runTest() throws Throwable {
         super.runTest();
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         MockUtil.println("------------ End Test " + getName() + " --------------------------");
         super.tearDown();
     }
 
+    /**
+     * Gets the input stream for file.
+     *
+     * @param fileName
+     *            the file name
+     * @return the input stream for file
+     */
     private InputStream getInputStreamForFile(String fileName) {
         return getClass().getResourceAsStream(fileName);
     }
 
+    /**
+     * Test instantiate.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws Exception
+     *             the exception
+     */
     public void testInstantiate() throws MarshalException, ValidationException, IOException, Exception {
         initialize();
     }
 
+    /**
+     * Initialize.
+     *
+     * @return the collector config dao
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws Exception
+     *             the exception
+     */
     private CollectorConfigDao initialize() throws IOException, MarshalException, ValidationException, Exception {
         System.setProperty("opennms.home",
                            ConfigurationTestUtils.getDaemonEtcDirectory().getParentFile().getAbsolutePath());

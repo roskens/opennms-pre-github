@@ -49,15 +49,16 @@ public interface ServiceThresholder {
      */
     public static final int THRESHOLDING_UNKNOWN = 0;
 
-    /** Constant <code>THRESHOLDING_SUCCEEDED=1</code> */
+    /** Constant <code>THRESHOLDING_SUCCEEDED=1</code>. */
     public static final int THRESHOLDING_SUCCEEDED = 1;
 
-    /** Constant <code>THRESHOLDING_FAILED=2</code> */
+    /** Constant <code>THRESHOLDING_FAILED=2</code>. */
     public static final int THRESHOLDING_FAILED = 2;
 
     /**
      * Constant
      * <code>statusType="{ Unknown, THRESHOLDING_SUCCEEDED, THRE"{trunked}</code>
+     * .
      */
     public static final String[] statusType = { "Unknown", "THRESHOLDING_SUCCEEDED", "THRESHOLDING_FAILED" };
 
@@ -65,6 +66,7 @@ public interface ServiceThresholder {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.Map} object.
@@ -89,6 +91,7 @@ public interface ServiceThresholder {
      * <p>
      * release
      * </p>
+     * .
      */
     public void release();
 
@@ -96,6 +99,7 @@ public interface ServiceThresholder {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
@@ -109,6 +113,7 @@ public interface ServiceThresholder {
      * <p>
      * release
      * </p>
+     * .
      *
      * @param iface
      *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}

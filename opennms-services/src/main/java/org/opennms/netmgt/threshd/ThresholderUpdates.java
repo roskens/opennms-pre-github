@@ -50,14 +50,11 @@ import java.util.Map;
  * flag indicating that the SNMP service on the interface has a new status.
  */
 final class ThresholderUpdates {
-    /**
-     * Indicates if there are any updates to be processed
-     */
+
+    /** Indicates if there are any updates to be processed. */
     private boolean m_hasUpdates;
 
-    /**
-     * Holds new/modified network interface attributes
-     */
+    /** Holds new/modified network interface attributes. */
     private Map<String, Object> m_properties;
 
     /**
@@ -76,14 +73,10 @@ final class ThresholderUpdates {
      */
     private boolean m_reparentFlag;
 
-    /**
-     * Old nodeId for reparenting
-     */
+    /** Old nodeId for reparenting. */
     private String m_reparentOldNodeId;
 
-    /**
-     * New nodeId for reparenting
-     */
+    /** New nodeId for reparenting. */
     private String m_reparentNewNodeId;
 
     /**
@@ -93,6 +86,9 @@ final class ThresholderUpdates {
         reset();
     }
 
+    /**
+     * Reset.
+     */
     void reset() {
         m_hasUpdates = false;
         m_properties = null;
@@ -105,6 +101,11 @@ final class ThresholderUpdates {
 
     /**
      * Set an attribute.
+     *
+     * @param property
+     *            the property
+     * @param value
+     *            the value
      */
     void setAttribute(String property, Object value) {
         if (m_properties == null)
@@ -117,6 +118,10 @@ final class ThresholderUpdates {
 
     /**
      * Retrieve the attribute with the specfied key.
+     *
+     * @param property
+     *            the property
+     * @return the attribute
      */
     Object getAttribute(String property) {
         Object rc = null;
@@ -143,6 +148,11 @@ final class ThresholderUpdates {
 
     /**
      * Set the reparent flag.
+     *
+     * @param oldNodeId
+     *            the old node id
+     * @param newNodeId
+     *            the new node id
      */
     void markForReparenting(String oldNodeId, String newNodeId) {
         m_reparentFlag = true;
@@ -151,16 +161,28 @@ final class ThresholderUpdates {
         m_hasUpdates = true;
     }
 
+    /**
+     * Gets the reparent old node id.
+     *
+     * @return the reparent old node id
+     */
     String getReparentOldNodeId() {
         return m_reparentOldNodeId;
     }
 
+    /**
+     * Gets the reparent new node id.
+     *
+     * @return the reparent new node id
+     */
     String getReparentNewNodeId() {
         return m_reparentNewNodeId;
     }
 
     /**
-     * Returns state of the hasUpdates flag
+     * Returns state of the hasUpdates flag.
+     *
+     * @return true, if successful
      */
     boolean hasUpdates() {
         return m_hasUpdates;
@@ -168,6 +190,8 @@ final class ThresholderUpdates {
 
     /**
      * Returns the state of the deletion flag.
+     *
+     * @return true, if is deletion flag set
      */
     boolean isDeletionFlagSet() {
         return m_deletionFlag;
@@ -175,6 +199,8 @@ final class ThresholderUpdates {
 
     /**
      * Returns the state of the reinit flag.
+     *
+     * @return true, if is reinitialization flag set
      */
     boolean isReinitializationFlagSet() {
         return m_reinitFlag;
@@ -182,6 +208,8 @@ final class ThresholderUpdates {
 
     /**
      * Returns the state of the reparent flag.
+     *
+     * @return true, if is reparenting flag set
      */
     boolean isReparentingFlagSet() {
         return m_reparentFlag;

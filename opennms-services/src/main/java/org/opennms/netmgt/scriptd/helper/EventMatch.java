@@ -35,16 +35,17 @@ import org.opennms.netmgt.xml.event.Event;
  * is able to specify criteria to match Events
  * An implementation of this interface is a class
  * where you have some criteria to decide if the Event
- * matches or not
+ * matches or not.
  *
  * @author antonio
  */
 public interface EventMatch {
 
     /**
-     * Method to decide if the Event matches
+     * Method to decide if the Event matches.
      *
      * @param event
+     *            the event
      * @return true if the event match
      */
     public boolean match(Event event);

@@ -47,8 +47,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvaluator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdEvaluatorRearmingAbsoluteChange.class);
 
+    /** The Constant TYPE. */
     private static final String TYPE = "rearmingAbsoluteChange";
 
     /** {@inheritDoc} */
@@ -63,24 +66,50 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
         return TYPE.equals(type);
     }
 
+    /**
+     * The Class ThresholdEvaluatorStateRearmingAbsoluteChange.
+     */
     public static class ThresholdEvaluatorStateRearmingAbsoluteChange extends AbstractThresholdEvaluatorState {
+
+        /** The m_threshold config. */
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
 
+        /** The m_last sample. */
         private double m_lastSample = Double.NaN;
 
+        /** The m_previous triggering sample. */
         private double m_previousTriggeringSample = Double.NaN;
 
+        /** The m_trigger count. */
         private int m_triggerCount = 0;
 
+        /**
+         * Instantiates a new threshold evaluator state rearming absolute
+         * change.
+         *
+         * @param threshold
+         *            the threshold
+         */
         public ThresholdEvaluatorStateRearmingAbsoluteChange(BaseThresholdDefConfigWrapper threshold) {
             Assert.notNull(threshold, "threshold argument cannot be null");
             setThresholdConfig(threshold);
         }
 
+        /**
+         * Gets the type.
+         *
+         * @return the type
+         */
         public String getType() {
             return getThresholdConfig().getType().toString();
         }
 
+        /**
+         * Sets the threshold config.
+         *
+         * @param thresholdConfig
+         *            the new threshold config
+         */
         public void setThresholdConfig(BaseThresholdDefConfigWrapper thresholdConfig) {
             Assert.notNull(thresholdConfig.getType(), "threshold must have a 'type' value set");
             Assert.notNull(thresholdConfig.getDatasourceExpression(), "threshold must have a 'ds-name' value set");
@@ -104,11 +133,17 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             m_thresholdConfig = thresholdConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getThresholdConfig()
+         */
         @Override
         public BaseThresholdDefConfigWrapper getThresholdConfig() {
             return m_thresholdConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#evaluate(double)
+         */
         @Override
         public Status evaluate(double dsValue) {
             // log().debug(TYPE +
@@ -135,6 +170,13 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             return Status.NO_CHANGE;
         }
 
+        /**
+         * Was triggered.
+         *
+         * @param dsValue
+         *            the ds value
+         * @return true, if successful
+         */
         private boolean wasTriggered(double dsValue) {
             // Test Code
             // if(Double.valueOf(getPreviousTriggeringSample()).isNaN()) {
@@ -154,14 +196,28 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             return threshold >= getThresholdConfig().getValue();
         }
 
+        /**
+         * Gets the last sample.
+         *
+         * @return the last sample
+         */
         public Double getLastSample() {
             return m_lastSample;
         }
 
+        /**
+         * Sets the last sample.
+         *
+         * @param lastSample
+         *            the new last sample
+         */
         public void setLastSample(double lastSample) {
             m_lastSample = lastSample;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getEventForState(org.opennms.netmgt.threshd.ThresholdEvaluatorState.Status, java.util.Date, double, org.opennms.netmgt.threshd.CollectionResourceWrapper)
+         */
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             if (status == Status.TRIGGERED) {
@@ -183,6 +239,19 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             return null;
         }
 
+        /**
+         * Creates the basic event.
+         *
+         * @param uei
+         *            the uei
+         * @param date
+         *            the date
+         * @param dsValue
+         *            the ds value
+         * @param resource
+         *            the resource
+         * @return the event
+         */
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
@@ -193,25 +262,45 @@ public class ThresholdEvaluatorRearmingAbsoluteChange implements ThresholdEvalua
             return createBasicEvent(uei, date, dsValue, resource, params);
         }
 
+        /**
+         * Gets the previous triggering sample.
+         *
+         * @return the previous triggering sample
+         */
         public double getPreviousTriggeringSample() {
             return m_previousTriggeringSample;
         }
 
+        /**
+         * Sets the previous triggering sample.
+         *
+         * @param previousTriggeringSample
+         *            the new previous triggering sample
+         */
         public void setPreviousTriggeringSample(double previousTriggeringSample) {
             m_previousTriggeringSample = previousTriggeringSample;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getCleanClone()
+         */
         @Override
         public ThresholdEvaluatorState getCleanClone() {
             return new ThresholdEvaluatorStateRearmingAbsoluteChange(m_thresholdConfig);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#isTriggered()
+         */
         @Override
         public boolean isTriggered() {
             return wasTriggered(m_previousTriggeringSample); // TODO Is that
                                                              // right ?
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#clearState()
+         */
         @Override
         public void clearState() {
             // Based on what evaluator does for rearmed state

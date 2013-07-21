@@ -43,14 +43,25 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public interface ThresholdEvaluatorState {
+
+    /**
+     * The Enum Status.
+     */
     public enum Status {
-        NO_CHANGE, TRIGGERED, RE_ARMED
+
+        /** The no change. */
+        NO_CHANGE,
+ /** The triggered. */
+ TRIGGERED,
+ /** The re armed. */
+ RE_ARMED
     }
 
     /**
      * <p>
      * evaluate
      * </p>
+     * .
      *
      * @param dsValue
      *            a double.
@@ -64,11 +75,10 @@ public interface ThresholdEvaluatorState {
      * <p>
      * getEventForState
      * </p>
+     * .
      *
      * @param status
      *            a
-     *            {@link org.opennms.netmgt.threshd.ThresholdEvaluatorState.Status}
-     *            object.
      * @param date
      *            a {@link java.util.Date} object.
      * @param dsValue
@@ -77,11 +87,13 @@ public interface ThresholdEvaluatorState {
      *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
      *            object.
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
+     *         {@link org.opennms.netmgt.threshd.ThresholdEvaluatorState.Status}
+     *         object.
      */
     public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource);
 
     /**
-     * Return true if current state is TRIGGERED
+     * Return true if current state is TRIGGERED.
      *
      * @return a boolean.
      */
@@ -91,6 +103,7 @@ public interface ThresholdEvaluatorState {
      * <p>
      * clearState
      * </p>
+     * .
      */
     public void clearState();
 
@@ -98,6 +111,7 @@ public interface ThresholdEvaluatorState {
      * <p>
      * getThresholdConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
@@ -106,7 +120,7 @@ public interface ThresholdEvaluatorState {
     public BaseThresholdDefConfigWrapper getThresholdConfig();
 
     /**
-     * Returns a "clean" (armed, non-triggered) clone of this object
+     * Returns a "clean" (armed, non-triggered) clone of this object.
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdEvaluatorState}
      *         object.

@@ -81,51 +81,41 @@ import org.slf4j.LoggerFactory;
  */
 public final class RTCManager extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RTCManager.class);
 
+    /**
+     * Log.
+     *
+     * @return the logger
+     */
     private Logger log() {
         return LOG;
     }
 
-    /**
-     * Singleton instance of this class
-     */
+    /** Singleton instance of this class. */
     private static final RTCManager m_singleton = new RTCManager();
 
-    /**
-     * The id for the low threshold timer task
-     */
+    /** The id for the low threshold timer task. */
     private static final String LOWT_TASK = "lowTtask";
 
-    /**
-     * The id for the high threshold timer task
-     */
+    /** The id for the high threshold timer task. */
     private static final String HIGHT_TASK = "highTtask";
 
-    /**
-     * The id for the user refresh timer task
-     */
+    /** The id for the user refresh timer task. */
     private static final String USERTIMER = "userTimer";
 
-    /**
-     * The initial number of updater threads
-     */
+    /** The initial number of updater threads. */
     @SuppressWarnings("unused")
     private static final int NUM_UPDATERS = 5;
 
-    /**
-     * The configurable rolling window read from the properties file
-     */
+    /** The configurable rolling window read from the properties file. */
     private static long m_rollingWindow = -1;
 
-    /**
-     * The RTC timer
-     */
+    /** The RTC timer. */
     private Timer m_timer;
 
-    /**
-     * The low threshold timer task
-     */
+    /** The low threshold timer task. */
     private TimerTask m_lowTtask;
 
     /**
@@ -134,9 +124,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      */
     private long m_lowThresholdInterval = -1;
 
-    /**
-     * The high threshold timer task
-     */
+    /** The high threshold timer task. */
     private TimerTask m_highTtask;
 
     /**
@@ -145,9 +133,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      */
     private long m_highThresholdInterval = -1;
 
-    /**
-     * The user refresh timer task
-     */
+    /** The user refresh timer task. */
     private TimerTask m_userTask;
 
     /**
@@ -156,9 +142,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      */
     private long m_userRefreshInterval = -1;
 
-    /**
-     * The counter keeping track of the number of messages
-     */
+    /** The counter keeping track of the number of messages. */
     private int m_counter = -1;
 
     /**
@@ -167,39 +151,32 @@ public final class RTCManager extends AbstractServiceDaemon {
      */
     private int MAX_EVENTS_BEFORE_RESEND = -1;
 
-    /**
-     * The events receiver
-     */
+    /** The events receiver. */
     private BroadcastEventProcessor m_eventReceiver;
 
     /**
      * The RunnableConsumerThreadPool that runs updaters that interpret and
-     * update the data
+     * update the data.
      */
     private ExecutorService m_updaterPool;
 
-    /**
-     * The DataSender
-     */
+    /** The DataSender. */
     private DataSender m_dataSender;
 
-    /**
-     * manager of the data maintained by the RTC
-     */
+    /** manager of the data maintained by the RTC. */
     private static DataManager m_dataMgr;
 
     /**
      * The timer scheduled task that runs and informs the RTCManager when the
-     * timer goes off
+     * timer goes off.
      */
     private class RTCTimerTask extends TimerTask {
-        /**
-         * The timer id
-         */
+
+        /** The timer id. */
         private String m_id;
 
         /**
-         * Constructor for the timer task
+         * Constructor for the timer task.
          *
          * @param id
          *            the timertask ID
@@ -209,7 +186,7 @@ public final class RTCManager extends AbstractServiceDaemon {
         }
 
         /**
-         * Return the ID
+         * Return the ID.
          *
          * @return the ID
          */
@@ -303,7 +280,7 @@ public final class RTCManager extends AbstractServiceDaemon {
     }
 
     /**
-     * The constructor for the RTCManager
+     * The constructor for the RTCManager.
      */
     public RTCManager() {
         super("rtc");
@@ -417,6 +394,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -520,6 +498,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected synchronized void onStart() {
@@ -572,6 +551,7 @@ public final class RTCManager extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected synchronized void onStop() {

@@ -54,6 +54,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * The Class Nms101CapsdNetworkBuilderTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -76,17 +78,28 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implements InitializingBean {
 
+    /** The m_interface dao. */
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
+    /** The m_capsd. */
     @Autowired
     private Capsd m_capsd;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -98,6 +111,16 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
         assertTrue("Capsd must not be null", m_capsd != null);
     }
 
+    /**
+     * Testcapsd nms101.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = LAPTOP_IP, port = 161, resource = "classpath:linkd/nms101/laptop.properties"),
@@ -132,6 +155,16 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
 
     }
 
+    /**
+     * Test cisco1700b generation.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO1700B_IP, port = 161, resource = "classpath:linkd/nms101/cisco1700b.properties") })
     @Transactional

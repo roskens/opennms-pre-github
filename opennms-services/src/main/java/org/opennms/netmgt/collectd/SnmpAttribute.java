@@ -48,12 +48,16 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpAttribute extends AbstractCollectionAttribute {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(SnmpAttribute.class);
 
+    /** The m_resource. */
     private CollectionResource m_resource;
 
+    /** The m_type. */
     private SnmpAttributeType m_type;
 
+    /** The m_val. */
     private SnmpValue m_val;
 
     /**
@@ -63,13 +67,13 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param type
      *            a {@link org.opennms.netmgt.collectd.SnmpAttributeType}
      *            object.
      * @param val
      *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     public SnmpAttribute(CollectionResource resource, SnmpAttributeType type, SnmpValue val) {
         super();
@@ -92,6 +96,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +117,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
      */
@@ -124,6 +130,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -137,6 +144,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
@@ -144,6 +152,12 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
         return m_val;
     }
 
+    /**
+     * Store.
+     *
+     * @param persister
+     *            the persister
+     */
     void store(Persister persister) {
         getAttributeType().storeAttribute(this, persister);
     }
@@ -158,6 +172,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +185,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,6 +204,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -196,6 +213,9 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
         return getAttributeType().getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         String instance = m_resource.getInstance();
@@ -209,6 +229,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getNumericValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -244,6 +265,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
      * <p>
      * getStringValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

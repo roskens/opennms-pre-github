@@ -33,20 +33,26 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * This class is used to hold an email address
+ * This class is used to hold an email address.
  *
  * @author <a href="mailto:jason@opennms.org">Jason</A>
  * @author <a href="http://www.opennms.org">OpenNMS</A>
  */
 public class EmailAddress {
+
+    /** The address. */
     private String address;
 
+    /** The username. */
     private String username;
 
+    /** The server. */
     private String server;
 
+    /** The domain. */
     private String domain;
 
+    /** The tld. */
     private String tld;
 
     /**

@@ -79,34 +79,48 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
- * CollectdIntegrationTest
+ * CollectdIntegrationTest.
  *
  * @author brozow
  */
 public class CollectdIntegrationTest extends TestCase {
 
+    /** The Constant TEST_KEY_PARM_NAME. */
     private static final String TEST_KEY_PARM_NAME = "key";
 
+    /** The m_tests. */
     private static Map<String, CollectdIntegrationTest> m_tests = new HashMap<String, CollectdIntegrationTest>();
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_collectd. */
     private Collectd m_collectd;
 
+    /** The m_mock utils. */
     private EasyMockUtils m_mockUtils;
 
+    /** The m_collector config dao. */
     private CollectorConfigDao m_collectorConfigDao;
 
+    /** The m_key. */
     private String m_key;
 
+    /** The m_service collector. */
     private MockServiceCollector m_serviceCollector;
 
+    /** The m_iface dao. */
     private IpInterfaceDao m_ifaceDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
 
@@ -198,21 +212,44 @@ public class CollectdIntegrationTest extends TestCase {
         // assertNotNull(m_serviceCollector);
     }
 
+    /**
+     * Sets the service collector in test.
+     *
+     * @param testKey
+     *            the test key
+     * @param collector
+     *            the collector
+     */
     public static void setServiceCollectorInTest(String testKey, MockServiceCollector collector) {
         CollectdIntegrationTest test = m_tests.get(testKey);
         assertNotNull(test);
         test.setServiceCollector(collector);
     }
 
+    /**
+     * Sets the service collector.
+     *
+     * @param collector
+     *            the new service collector
+     */
     private void setServiceCollector(MockServiceCollector collector) {
         m_serviceCollector = collector;
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_tests.remove(m_key);
     }
 
+    /**
+     * Test it.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void testIt() throws InterruptedException {
 
         m_collectd.start();
@@ -232,6 +269,12 @@ public class CollectdIntegrationTest extends TestCase {
         m_mockUtils.verifyAll();
     }
 
+    /**
+     * Creates the get packages expectation.
+     *
+     * @param svc
+     *            the svc
+     */
     private void createGetPackagesExpectation(OnmsMonitoredService svc) {
         String rule = "ipaddr = '" + str(svc.getIpAddress()) + "'";
 
@@ -268,14 +311,24 @@ public class CollectdIntegrationTest extends TestCase {
 
     }
 
+    /**
+     * The Class MockServiceCollector.
+     */
     public static class MockServiceCollector implements ServiceCollector {
 
+        /** The m_collect count. */
         int m_collectCount = 0;
 
+        /**
+         * Instantiates a new mock service collector.
+         */
         public MockServiceCollector() {
             System.err.println("Created a MockServiceCollector");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, java.util.Map)
+         */
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
             m_collectCount++;
@@ -306,10 +359,18 @@ public class CollectdIntegrationTest extends TestCase {
             return collectionSetResult;
         }
 
+        /**
+         * Gets the collect count.
+         *
+         * @return the collect count
+         */
         public Object getCollectCount() {
             return m_collectCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(java.util.Map)
+         */
         @Override
         public void initialize(Map<String, String> parameters) {
             // This fails because collectd does NOT actually passed in
@@ -320,6 +381,9 @@ public class CollectdIntegrationTest extends TestCase {
             // CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#initialize(org.opennms.netmgt.collectd.CollectionAgent, java.util.Map)
+         */
         @Override
         public void initialize(CollectionAgent agent, Map<String, Object> parameters) {
             String testKey = (String) parameters.get(TEST_KEY_PARM_NAME);
@@ -327,16 +391,25 @@ public class CollectdIntegrationTest extends TestCase {
             CollectdIntegrationTest.setServiceCollectorInTest(testKey, this);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#release()
+         */
         @Override
         public void release() {
             throw new UnsupportedOperationException("MockServiceCollector.release() is not yet implemented");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#release(org.opennms.netmgt.collectd.CollectionAgent)
+         */
         @Override
         public void release(CollectionAgent agent) {
             throw new UnsupportedOperationException("MockServiceCollector.release() is not yet implemented");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ServiceCollector#getRrdRepository(java.lang.String)
+         */
         @Override
         public RrdRepository getRrdRepository(String collectionName) {
             RrdRepository repo = new RrdRepository();

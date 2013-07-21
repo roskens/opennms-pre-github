@@ -46,6 +46,7 @@ import org.opennms.core.utils.TimeKeeper;
  */
 public enum RelativeTime {
 
+    /** The thisyear. */
     THISYEAR {
         @Override
         public Date getStart() {
@@ -63,6 +64,7 @@ public enum RelativeTime {
 
     },
 
+    /** The lastthirtyonedays. */
     LASTTHIRTYONEDAYS {
         @Override
         public Date getStart() {
@@ -75,6 +77,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The lastsevendays. */
     LASTSEVENDAYS {
         @Override
         public Date getStart() {
@@ -87,6 +90,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The yesterday. */
     YESTERDAY {
         @Override
         public Date getStart() {
@@ -99,6 +103,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The lasthour. */
     LASTHOUR {
         @Override
         public Date getStart() {
@@ -126,6 +131,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The slidinghour. */
     SLIDINGHOUR {
         @Override
         public Date getStart() {
@@ -151,6 +157,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The SLIDIN g4 hours. */
     SLIDING4HOURS {
         @Override
         public Date getStart() {
@@ -176,6 +183,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The SLIDIN g8 hours. */
     SLIDING8HOURS {
         @Override
         public Date getStart() {
@@ -201,6 +209,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The slidingday. */
     SLIDINGDAY {
         @Override
         public Date getStart() {
@@ -226,6 +235,7 @@ public enum RelativeTime {
         }
     },
 
+    /** The today. */
     TODAY {
         @Override
         public Date getStart() {
@@ -248,6 +258,7 @@ public enum RelativeTime {
      * <p>
      * getStartDate
      * </p>
+     * .
      *
      * @param offset
      *            a int.
@@ -270,6 +281,7 @@ public enum RelativeTime {
      * <p>
      * getStartOfToday
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -289,6 +301,7 @@ public enum RelativeTime {
      * <p>
      * getStart
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -298,19 +311,23 @@ public enum RelativeTime {
      * <p>
      * getEnd
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
     public abstract Date getEnd();
 
+    /** The default time keeper. */
     private static TimeKeeper DEFAULT_TIME_KEEPER = new DefaultTimeKeeper();
 
+    /** The m_time keeper. */
     private TimeKeeper m_timeKeeper = null;
 
     /**
      * <p>
      * getTimeKeeper
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.utils.TimeKeeper} object.
      */
@@ -322,6 +339,7 @@ public enum RelativeTime {
      * <p>
      * setTimeKeeper
      * </p>
+     * .
      *
      * @param timeKeeper
      *            a {@link org.opennms.core.utils.TimeKeeper} object.
@@ -334,6 +352,7 @@ public enum RelativeTime {
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -341,10 +360,20 @@ public enum RelativeTime {
         return myTimeKeeper().getCurrentTime();
     }
 
+    /**
+     * Gets the time zone.
+     *
+     * @return the time zone
+     */
     protected TimeZone getTimeZone() {
         return myTimeKeeper().getTimeZone();
     }
 
+    /**
+     * My time keeper.
+     *
+     * @return the time keeper
+     */
     protected TimeKeeper myTimeKeeper() {
         return getTimeKeeper() == null ? DEFAULT_TIME_KEEPER : getTimeKeeper();
     }

@@ -62,6 +62,7 @@ import org.springframework.util.Assert;
  */
 public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpEventReceiver.class);
 
     /**
@@ -75,9 +76,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      */
     private Thread m_worker;
 
-    /**
-     * The server socket
-     */
+    /** The server socket. */
     private TcpServer m_server;
 
     /**
@@ -92,14 +91,10 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      */
     private volatile int m_status;
 
-    /**
-     * The TCP server to listen on
-     */
+    /** The TCP server to listen on. */
     private int m_tcpPort;
 
-    /**
-     * The logging prefix
-     */
+    /** The logging prefix. */
     private String m_logPrefix;
 
     /**
@@ -117,8 +112,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * Constructs a new TCP/IP event receiver on the default TCP/IP port. The
      * server socket allocation is delayed until the fiber is actually started.
      *
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public TcpEventReceiver() throws UnknownHostException {
         this(TcpServer.TCP_PORT, TcpServer.DEFAULT_IP_ADDRESS);
@@ -132,8 +127,8 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      *            The binding port for the TCP/IP server socket.
      * @param ipAddress
      *            TODO
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public TcpEventReceiver(int port, String ipAddress) throws UnknownHostException {
         m_eventHandlers = new ArrayList<EventHandler>(3);
@@ -151,12 +146,6 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * thread. If an error occurs allocating the server socket or the Fiber is
      * in an erronous state then a {@link java.lang.RuntimeException runtime
      * exception}is thrown.
-     *
-     * @throws java.lang.reflect.UndeclaredThrowableException
-     *             Thrown if an error occurs allocating the server socket.
-     * @throws java.lang.RuntimeException
-     *             Thrown if the fiber is in an erronous state or the underlying
-     *             thread cannot be started.
      */
     @Override
     public synchronized void start() {
@@ -241,6 +230,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -253,6 +243,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -262,7 +253,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * Called when the fiber is initialized
+     * Called when the fiber is initialized.
      */
     @Override
     public void init() {
@@ -270,7 +261,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     }
 
     /**
-     * Called when the fiber is destroyed
+     * Called when the fiber is destroyed.
      */
     @Override
     public void destroy() {
@@ -308,6 +299,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * getEventHandlers
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -319,6 +311,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * setEventHandlers
      * </p>
+     * .
      *
      * @param eventHandlers
      *            a {@link java.util.List} object.
@@ -331,6 +324,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -342,6 +336,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -356,6 +351,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -403,6 +399,9 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
         m_recsPerConn = number.intValue();
     }
 
+    /**
+     * Assert not running.
+     */
     private void assertNotRunning() {
         Assert.state(m_status == START_PENDING || m_status == STOPPED,
                      "The fiber is already running and cannot be modified or started");

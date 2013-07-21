@@ -58,10 +58,10 @@ public class SocketChannelUtil extends Object {
      *            timeout (ms)
      * @return SocketChannel object already connected to the remote host/port
      *         pair.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.lang.InterruptedException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     public static SocketChannel getConnectedSocketChannel(InetAddress host, int port, int timeout) throws IOException,
             InterruptedException {

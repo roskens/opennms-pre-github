@@ -58,6 +58,7 @@ import org.slf4j.LoggerFactory;
  */
 final class Scheduler implements Runnable, PausableFiber {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Scheduler.class);
 
     /**
@@ -98,14 +99,12 @@ final class Scheduler implements Runnable, PausableFiber {
      */
     private List<NodeInfo> m_knownNodes;
 
-    /**
-     * The configured interval (in milliseconds) between rescans
-     */
+    /** The configured interval (in milliseconds) between rescans. */
     private long m_interval;
 
     /**
      * The configured initial sleep (in milliseconds) prior to scheduling
-     * rescans
+     * rescans.
      */
     private long m_initialSleep;
 
@@ -115,6 +114,7 @@ final class Scheduler implements Runnable, PausableFiber {
      */
     private ExecutorService m_rescanQ;
 
+    /** The m_rescan processor factory. */
     private RescanProcessorFactory m_rescanProcessorFactory;
 
     /**
@@ -122,14 +122,29 @@ final class Scheduler implements Runnable, PausableFiber {
      * schedule the node for rescans.
      */
     final class NodeInfo implements Runnable {
+
+        /** The m_node id. */
         int m_nodeId;
 
+        /** The m_last scanned. */
         Timestamp m_lastScanned;
 
+        /** The m_interval. */
         long m_interval;
 
+        /** The m_scheduled. */
         boolean m_scheduled;
 
+        /**
+         * Instantiates a new node info.
+         *
+         * @param nodeId
+         *            the node id
+         * @param lastScanned
+         *            the last scanned
+         * @param interval
+         *            the interval
+         */
         NodeInfo(int nodeId, Timestamp lastScanned, long interval) {
             m_nodeId = nodeId;
             m_lastScanned = lastScanned;
@@ -137,6 +152,16 @@ final class Scheduler implements Runnable, PausableFiber {
             m_scheduled = false;
         }
 
+        /**
+         * Instantiates a new node info.
+         *
+         * @param nodeId
+         *            the node id
+         * @param lastScanned
+         *            the last scanned
+         * @param interval
+         *            the interval
+         */
         NodeInfo(int nodeId, Date lastScanned, long interval) {
             m_nodeId = nodeId;
             m_lastScanned = new Timestamp(lastScanned.getTime());
@@ -144,34 +169,77 @@ final class Scheduler implements Runnable, PausableFiber {
             m_scheduled = false;
         }
 
+        /**
+         * Checks if is scheduled.
+         *
+         * @return true, if is scheduled
+         */
         boolean isScheduled() {
             return m_scheduled;
         }
 
+        /**
+         * Gets the node id.
+         *
+         * @return the node id
+         */
         int getNodeId() {
             return m_nodeId;
         }
 
+        /**
+         * Gets the last scanned.
+         *
+         * @return the last scanned
+         */
         Timestamp getLastScanned() {
             return m_lastScanned;
         }
 
+        /**
+         * Gets the rescan interval.
+         *
+         * @return the rescan interval
+         */
         long getRescanInterval() {
             return m_interval;
         }
 
+        /**
+         * Sets the scheduled.
+         *
+         * @param scheduled
+         *            the new scheduled
+         */
         void setScheduled(boolean scheduled) {
             m_scheduled = scheduled;
         }
 
+        /**
+         * Sets the last scanned.
+         *
+         * @param lastScanned
+         *            the new last scanned
+         */
         void setLastScanned(Date lastScanned) {
             m_lastScanned = new Timestamp(lastScanned.getTime());
         }
 
+        /**
+         * Sets the last scanned.
+         *
+         * @param lastScanned
+         *            the new last scanned
+         */
         void setLastScanned(Timestamp lastScanned) {
             m_lastScanned = lastScanned;
         }
 
+        /**
+         * Time for rescan.
+         *
+         * @return true, if successful
+         */
         boolean timeForRescan() {
             if (System.currentTimeMillis() >= (m_lastScanned.getTime() + m_interval))
                 return true;
@@ -179,6 +247,9 @@ final class Scheduler implements Runnable, PausableFiber {
                 return false;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             try {
@@ -193,8 +264,12 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Constructs a new instance of the scheduler.
      *
+     * @param rescanQ
+     *            the rescan q
      * @param rescanProcessorFactory
      *            TODO
+     * @throws SQLException
+     *             the sQL exception
      */
     Scheduler(ExecutorService rescanQ, RescanProcessorFactory rescanProcessorFactory) throws SQLException {
 
@@ -364,9 +439,6 @@ final class Scheduler implements Runnable, PausableFiber {
 
     /**
      * Starts the fiber.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is already running.
      */
     @Override
     public synchronized void start() {
@@ -384,9 +456,6 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Stops the fiber. If the fiber has never been run then an exception is
      * generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the fiber has never been started.
      */
     @Override
     public synchronized void stop() {
@@ -402,10 +471,6 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Pauses the scheduler if it is current running. If the fiber has not been
      * run or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the operation could not be completed due to the
-     *             fiber's state.
      */
     @Override
     public synchronized void pause() {
@@ -425,10 +490,6 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Resumes the scheduler if it has been paused. If the fiber has not been
      * run or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the operation could not be completed due to the
-     *             fiber's state.
      */
     @Override
     public synchronized void resume() {

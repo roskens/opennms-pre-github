@@ -55,8 +55,10 @@ import org.springframework.util.Assert;
  */
 public class JdbcEventdServiceManager implements InitializingBean, EventdServiceManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcEventdServiceManager.class);
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /**
@@ -118,6 +120,7 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
      * <p>
      * dataSourceSync
      * </p>
+     * .
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -135,9 +138,10 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -148,6 +152,7 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -159,6 +164,7 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.

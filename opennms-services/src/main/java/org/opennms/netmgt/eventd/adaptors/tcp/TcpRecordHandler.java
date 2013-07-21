@@ -52,6 +52,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
  */
 final class TcpRecordHandler implements Runnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpRecordHandler.class);
 
     /**
@@ -59,9 +61,7 @@ final class TcpRecordHandler implements Runnable {
      */
     private volatile boolean m_stop;
 
-    /**
-     * The thread context running this runnable
-     */
+    /** The thread context running this runnable. */
     private Thread m_context;
 
     /**
@@ -69,9 +69,7 @@ final class TcpRecordHandler implements Runnable {
      */
     private List<Object> m_xchange;
 
-    /**
-     * The input stream socket
-     */
+    /** The input stream socket. */
     private Socket m_connection;
 
     /**
@@ -79,9 +77,7 @@ final class TcpRecordHandler implements Runnable {
      */
     private OutputStream m_out;
 
-    /**
-     * The set of state managers
-     */
+    /** The set of state managers. */
     private StateManager[] m_tokenizer;
 
     /**
@@ -89,14 +85,11 @@ final class TcpRecordHandler implements Runnable {
      * TcpRecordHandler, and the transition actions.
      */
     private static class StateManager {
-        /**
-         * The level of this manager
-         */
+
+        /** The level of this manager. */
         protected int m_level;
 
-        /**
-         * The record handler this manager is attached to
-         */
+        /** The record handler this manager is attached to. */
         protected TcpRecordHandler m_handler;
 
         /**
@@ -113,7 +106,9 @@ final class TcpRecordHandler implements Runnable {
         }
 
         /**
-         * The level for this manager
+         * The level for this manager.
+         *
+         * @return the level
          */
         @SuppressWarnings("unused")
         int getLevel() {
@@ -121,7 +116,13 @@ final class TcpRecordHandler implements Runnable {
         }
 
         /**
-         * handle the next character, returns the next level
+         * handle the next character, returns the next level.
+         *
+         * @param ch
+         *            the ch
+         * @return the int
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
          */
         int next(final char ch) throws IOException {
             onTransition(ch);
@@ -130,6 +131,11 @@ final class TcpRecordHandler implements Runnable {
 
         /**
          * Handle the transition from character to character.
+         *
+         * @param ch
+         *            the ch
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
          */
         void onTransition(final char ch) throws IOException {
             m_handler.forward(ch);
@@ -137,7 +143,10 @@ final class TcpRecordHandler implements Runnable {
     }
 
     /**
-     * Closes the current stream if any
+     * Closes the current stream if any.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void closeStream() throws IOException {
         // close the current output stream
@@ -148,7 +157,10 @@ final class TcpRecordHandler implements Runnable {
     }
 
     /**
-     * Allocates a new stream
+     * Allocates a new stream.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void newStream() throws IOException {
         LOG.debug("Opening new PipedOutputStream and adding it to the queue");
@@ -179,6 +191,11 @@ final class TcpRecordHandler implements Runnable {
 
     /**
      * forwards the characters to the attached pipe.
+     *
+     * @param ch
+     *            the ch
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void forward(final char ch) throws IOException {
         try {
@@ -306,7 +323,9 @@ final class TcpRecordHandler implements Runnable {
     }
 
     /**
-     * Returns true if the context is alive
+     * Returns true if the context is alive.
+     *
+     * @return true, if is alive
      */
     boolean isAlive() {
         if (m_context != null) {
@@ -318,6 +337,9 @@ final class TcpRecordHandler implements Runnable {
 
     /**
      * Stops and joins the current context.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;

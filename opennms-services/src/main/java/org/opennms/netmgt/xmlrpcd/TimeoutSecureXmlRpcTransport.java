@@ -34,22 +34,25 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TimeoutSecureXmlRpcTransport.class);
 
+    /** The m_timeout. */
     protected int m_timeout = 0;
 
     /**
      * Create a new TimeoutSecureXmlRpcTransport with the specified URL and
      * basic authorization string.
      *
-     * @deprecated Use setBasicAuthentication instead of passing an encoded
-     *             authentication String.
      * @param url
      *            the url to POST XML-RPC requests to.
      * @param auth
      *            the Base64 encoded HTTP Basic authentication value.
      * @param timeout
      *            a int.
+     * @deprecated Use setBasicAuthentication instead of passing an encoded
+     *             authentication String.
      */
     public TimeoutSecureXmlRpcTransport(final URL url, final String auth, final int timeout) {
         super(url, auth);
@@ -78,8 +81,8 @@ public class TimeoutSecureXmlRpcTransport extends DefaultXmlRpcTransport {
      * @param request
      *            an array of byte.
      * @return a {@link java.io.InputStream} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public InputStream sendXmlRpc(final byte[] request) throws IOException {

@@ -62,6 +62,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Syslogd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Syslogd.class);
 
     /**
@@ -78,6 +79,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * getSingleton
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.syslogd.Syslogd} object.
      */
@@ -85,8 +87,10 @@ public class Syslogd extends AbstractServiceDaemon {
         return m_singleton;
     }
 
+    /** The m_udp event receiver. */
     private SyslogHandler m_udpEventReceiver;
 
+    /** The m_event dao. */
     private EventDao m_eventDao;
 
     /**
@@ -102,6 +106,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -139,6 +144,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -161,6 +167,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -198,6 +205,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * getEventDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventDao} object.
      */
@@ -209,6 +217,7 @@ public class Syslogd extends AbstractServiceDaemon {
      * <p>
      * setEventDao
      * </p>
+     * .
      *
      * @param eventDao
      *            a {@link org.opennms.netmgt.dao.api.EventDao} object.

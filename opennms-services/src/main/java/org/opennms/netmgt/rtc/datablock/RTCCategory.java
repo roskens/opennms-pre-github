@@ -43,20 +43,17 @@ import org.opennms.netmgt.config.categories.Category;
  */
 public class RTCCategory extends Category {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3599148594628072528L;
 
-    /**
-     * The 'effective' rule
-     */
+    /** The 'effective' rule. */
     private String m_effectiveRule;
 
-    /**
-     * The nodes list - list of node IDs
-     */
+    /** The nodes list - list of node IDs. */
     private List<Long> m_nodes;
 
     /**
-     * The default constructor - initializes the values
+     * The default constructor - initializes the values.
      *
      * @param cat
      *            a {@link org.opennms.netmgt.config.categories.Category}
@@ -78,7 +75,7 @@ public class RTCCategory extends Category {
     }
 
     /**
-     * Add to the nodes in this category
+     * Add to the nodes in this category.
      *
      * @param node
      *            the node to add
@@ -91,7 +88,7 @@ public class RTCCategory extends Category {
     }
 
     /**
-     * Add to the nodes in this category
+     * Add to the nodes in this category.
      *
      * @param nodeid
      *            the node ID to add
@@ -104,7 +101,7 @@ public class RTCCategory extends Category {
     }
 
     /**
-     * Delete from the nodes in this category
+     * Delete from the nodes in this category.
      *
      * @param nodeid
      *            the node ID to delete
@@ -117,12 +114,12 @@ public class RTCCategory extends Category {
 
     /**
      * Returns true if the service is in the services list in this category or
-     * if service list is null
+     * if service list is null.
      *
-     * @return true if the service is in the services list in this category or
-     *         if service list is null
      * @param svcname
      *            a {@link java.lang.String} object.
+     * @return true if the service is in the services list in this category or
+     *         if service list is null
      */
     public boolean containsService(String svcname) {
         if (getServiceCount() <= 0) {
@@ -145,7 +142,7 @@ public class RTCCategory extends Category {
     }
 
     /**
-     * Return the 'effective' category rule
+     * Return the 'effective' category rule.
      *
      * @return the 'effective' category rule
      */
@@ -154,7 +151,7 @@ public class RTCCategory extends Category {
     }
 
     /**
-     * Get the node IDs in this category
+     * Get the node IDs in this category.
      *
      * @return the list of node IDs in this category
      */

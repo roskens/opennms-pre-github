@@ -49,16 +49,28 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms17216LldpTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms17216LldpTest extends Nms17216NetworkBuilder implements InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test network17216 switch1 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt") })
     public void testNetwork17216Switch1LLDPLocalBaseCollection() throws Exception {
@@ -82,6 +94,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(SWITCH1_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network17216 switch2 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt") })
     public void testNetwork17216Switch2LLDPLocalBaseCollection() throws Exception {
@@ -105,6 +123,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(SWITCH2_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network17216 switch3 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt") })
     public void testNetwork17216Switch3LLDPLocalBaseCollection() throws Exception {
@@ -128,6 +152,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(SWITCH3_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network17216 switch4 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt") })
     public void testNetwork17216Switch4LLDPLocalBaseCollection() throws Exception {
@@ -151,6 +181,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(SWITCH4_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network17216 switch5 lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt") })
     public void testNetwork17216Switch5LLDPLocalBaseCollection() throws Exception {
@@ -174,6 +210,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(SWITCH5_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network17216 switch1 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt") })
     public void testNetwork17216Switch1LldpRemTableCollection() throws Exception {
@@ -200,6 +242,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch2 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt") })
     public void testNetwork17216Switch2LldpRemTableCollection() throws Exception {
@@ -226,6 +274,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch3 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt") })
     public void testNetwork17216Switch3LldpRemTableCollection() throws Exception {
@@ -252,6 +306,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch4 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt") })
     public void testNetwork17216Switch4LldpRemTableCollection() throws Exception {
@@ -274,6 +334,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(0, lldpTableEntryCollection.size());
     }
 
+    /**
+     * Test network17216 switch5 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt") })
     public void testNetwork17216Switch5LldpRemTableCollection() throws Exception {
@@ -296,6 +362,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         assertEquals(0, lldpTableEntryCollection.size());
     }
 
+    /**
+     * Check switch1 row.
+     *
+     * @param lldpRemTableEntry
+     *            the lldp rem table entry
+     */
     private void checkSwitch1Row(LldpRemTableEntry lldpRemTableEntry) {
         final Integer lldpRemLocalPortNum = lldpRemTableEntry.getLldpRemLocalPortNum();
         final String lldpRemSysname = lldpRemTableEntry.getLldpRemSysname();
@@ -329,6 +401,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch2 row.
+     *
+     * @param lldpRemTableEntry
+     *            the lldp rem table entry
+     */
     private void checkSwitch2Row(LldpRemTableEntry lldpRemTableEntry) {
         final Integer lldpRemLocalPortNum = lldpRemTableEntry.getLldpRemLocalPortNum();
         final String lldpRemSysname = lldpRemTableEntry.getLldpRemSysname();
@@ -371,6 +449,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
 
     }
 
+    /**
+     * Check switch3 row.
+     *
+     * @param lldpRemTableEntry
+     *            the lldp rem table entry
+     */
     private void checkSwitch3Row(LldpRemTableEntry lldpRemTableEntry) {
         final Integer lldpRemLocalPortNum = lldpRemTableEntry.getLldpRemLocalPortNum();
         final String lldpRemSysname = lldpRemTableEntry.getLldpRemSysname();
@@ -397,6 +481,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
 
     }
 
+    /**
+     * Test network17216 switch1 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt") })
     public void testNetwork17216Switch1LldpLocTableCollection() throws Exception {
@@ -423,6 +513,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch2 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt") })
     public void testNetwork17216Switch2LldpLocTableCollection() throws Exception {
@@ -449,6 +545,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch3 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt") })
     public void testNetwork17216Switch3LldpLocTableCollection() throws Exception {
@@ -475,6 +577,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch4 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt") })
     public void testNetwork17216Switch4LldpLocTableCollection() throws Exception {
@@ -501,6 +609,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Test network17216 switch5 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt") })
     public void testNetwork17216Switch5LldpLocTableCollection() throws Exception {
@@ -527,6 +641,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch1 row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkSwitch1Row(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();
@@ -545,6 +665,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch2 row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkSwitch2Row(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();
@@ -565,6 +691,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch3 row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkSwitch3Row(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();
@@ -587,6 +719,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch4 row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkSwitch4Row(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();
@@ -607,6 +745,12 @@ public class Nms17216LldpTest extends Nms17216NetworkBuilder implements Initiali
         }
     }
 
+    /**
+     * Check switch5 row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkSwitch5Row(LldpLocTableEntry lldpLocTableEntry) {
         checkSwitch4Row(lldpLocTableEntry);
     }

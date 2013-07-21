@@ -49,20 +49,22 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class Dot1dStpGroup extends AggregateTracker {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Dot1dStpGroup.class);
 
     //
     // Lookup strings for specific table entries
     //
-    /** Constant <code>STP_PROTOCOL_SPEC="dot1dStpProtocolSpecification"</code> */
+    /** Constant <code>STP_PROTOCOL_SPEC="dot1dStpProtocolSpecification"</code>. */
     public static final String STP_PROTOCOL_SPEC = "dot1dStpProtocolSpecification";
 
-    /** Constant <code>STP_PRIORITY="dot1dStpPriority"</code> */
+    /** Constant <code>STP_PRIORITY="dot1dStpPriority"</code>. */
     public static final String STP_PRIORITY = "dot1dStpPriority";
 
     /**
      * Constant
-     * <code>STP_TIME_LASTTOPCH="dot1dStpTimeSinceLastTopologyChange"</code>
+     * <code>STP_TIME_LASTTOPCH="dot1dStpTimeSinceLastTopologyChange"</code>.
      */
     // public static final String STP_TIME_LASTTOPCH =
     // "dot1dStpTimeSinceLastTopologyChange";
@@ -73,13 +75,13 @@ public final class Dot1dStpGroup extends AggregateTracker {
     /** Constant <code>STP_DESIGNATED_ROOT="dot1dStpDesignatedRoot"</code> */
     public static final String STP_DESIGNATED_ROOT = "dot1dStpDesignatedRoot";
 
-    /** Constant <code>STP_ROOT_COST="dot1dStpRootCost"</code> */
+    /** Constant <code>STP_ROOT_COST="dot1dStpRootCost"</code>. */
     public static final String STP_ROOT_COST = "dot1dStpRootCost";
 
-    /** Constant <code>STP_ROOT_PORT="dot1dStpRootPort"</code> */
+    /** Constant <code>STP_ROOT_PORT="dot1dStpRootPort"</code>. */
     public static final String STP_ROOT_PORT = "dot1dStpRootPort";
 
-    /** Constant <code>STP_MAX_AGE="dot1dStpMaxAge"</code> */
+    /** Constant <code>STP_MAX_AGE="dot1dStpMaxAge"</code>. */
     // public static final String STP_MAX_AGE = "dot1dStpMaxAge";
 
     /** Constant <code>STP_HELLO_TIME="dot1dStpHelloTime"</code> */
@@ -271,8 +273,10 @@ public final class Dot1dStpGroup extends AggregateTracker {
      */
     public static final String SYSTEM_OID = ".1.3.6.1.2.1.17.2";
 
+    /** The m_store. */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
     /**
@@ -314,6 +318,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpProtocolSpecification
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -325,6 +330,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpPriority
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -336,6 +342,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpTimeSinceLastTopologyChange
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
@@ -369,6 +376,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpRootCost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -380,6 +388,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpRootPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -391,7 +400,10 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * <p>
      * getStpMaxAge
      * </p>
+     * .
      *
+     * @param node
+     *            the node
      * @return a int.
      */
     // public int getStpMaxAge(){

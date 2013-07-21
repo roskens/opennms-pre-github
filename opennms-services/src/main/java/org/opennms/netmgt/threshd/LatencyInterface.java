@@ -53,10 +53,13 @@ import org.slf4j.LoggerFactory;
  */
 public class LatencyInterface {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LatencyInterface.class);
 
+    /** The m_iface. */
     private NetworkInterface<InetAddress> m_iface;
 
+    /** The m_service name. */
     private String m_serviceName;
 
     /**
@@ -78,6 +81,7 @@ public class LatencyInterface {
      * <p>
      * getNetworkInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.NetworkInterface} object.
      */
@@ -85,6 +89,11 @@ public class LatencyInterface {
         return m_iface;
     }
 
+    /**
+     * Gets the threshold map.
+     *
+     * @return the threshold map
+     */
     Map<String, ThresholdEntity> getThresholdMap() {
         NetworkInterface<InetAddress> iface = getNetworkInterface();
         // ThresholdEntity map attributes
@@ -93,6 +102,11 @@ public class LatencyInterface {
         return Collections.unmodifiableMap(thresholdMap);
     }
 
+    /**
+     * Gets the inet address.
+     *
+     * @return the inet address
+     */
     InetAddress getInetAddress() {
         return getNetworkInterface().getAddress();
     }
@@ -101,6 +115,7 @@ public class LatencyInterface {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -109,6 +124,13 @@ public class LatencyInterface {
         return m_serviceName;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     * @throws ThresholdingException
+     *             the thresholding exception
+     */
     int getNodeId() throws ThresholdingException {
         NetworkInterface<InetAddress> iface = getNetworkInterface();
 
@@ -127,6 +149,7 @@ public class LatencyInterface {
      * <p>
      * getHostName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +157,13 @@ public class LatencyInterface {
         return InetAddressUtils.str(getInetAddress());
     }
 
+    /**
+     * Gets the latency dir.
+     *
+     * @return the latency dir
+     * @throws ThresholdingException
+     *             the thresholding exception
+     */
     File getLatencyDir() throws ThresholdingException {
         String repository = getNetworkInterface().getAttribute(LatencyThresholder.RRD_REPOSITORY_KEY);
         LOG.debug("check: rrd repository=", repository);
@@ -163,14 +193,9 @@ public class LatencyInterface {
      *            Event identifier
      * @param date
      *            source of event's timestamp
-     * @param m_nodeId
-     *            Node identifier of the affected interface
-     * @param ipAddr
-     *            IP address of the affected interface
-     * @param thresholder
-     *            TODO
      * @return new threshold event to be sent to Eventd
      * @throws ThresholdingException
+     *             the thresholding exception
      */
     Event createEvent(double dsValue, Threshold threshold, String uei, Date date) throws ThresholdingException {
         int nodeId = getNodeId();

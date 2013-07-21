@@ -54,19 +54,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class PollerEventProcessor.
+ *
  * @author <a href="mailto:jamesz@opennms.com">James Zuo </a>
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class PollerEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollerEventProcessor.class);
 
+    /** The m_poller. */
     private final Poller m_poller;
 
+    /** The m_demand poll dao. */
     private volatile DemandPollDao m_demandPollDao;
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
      */
     private void createMessageSelectorAndSubscribe() {
         // Create the selector for the UEIs this service is interested in
@@ -283,7 +289,10 @@ final class PollerEventProcessor implements EventListener {
 
     /**
      * This method is responsible for removing a node's pollable service from
-     * the pollable services list
+     * the pollable services list.
+     *
+     * @param event
+     *            the event
      */
     private void nodeRemovePollableServiceHandler(Event event) {
         Long nodeId = event.getNodeid();
@@ -303,6 +312,9 @@ final class PollerEventProcessor implements EventListener {
     /**
      * This method is responsible for removing the node specified in the
      * nodeDeleted event from the Poller's pollable node map.
+     *
+     * @param event
+     *            the event
      */
     private void nodeDeletedHandler(Event event) {
         Long nodeId = event.getNodeid();
@@ -360,6 +372,12 @@ final class PollerEventProcessor implements EventListener {
 
     }
 
+    /**
+     * Node label changed handler.
+     *
+     * @param event
+     *            the event
+     */
     private void nodeLabelChangedHandler(Event event) {
         Long nodeId = event.getNodeid();
 
@@ -387,7 +405,10 @@ final class PollerEventProcessor implements EventListener {
     }
 
     /**
+     * Interface deleted handler.
      *
+     * @param event
+     *            the event
      */
     private void interfaceDeletedHandler(Event event) {
         Long nodeId = event.getNodeid();
@@ -453,6 +474,9 @@ final class PollerEventProcessor implements EventListener {
      * This method remove a deleted service from the pollable service list of
      * the specified interface, so that it will not be scheduled by the poller.
      * </p>
+     *
+     * @param event
+     *            the event
      */
     private void serviceDeletedHandler(Event event) {
         Long nodeId = event.getNodeid();
@@ -481,10 +505,10 @@ final class PollerEventProcessor implements EventListener {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param pollableServices
-     *            List of all the PollableService objects scheduled for polling
+     * @param poller
+     *            the poller
      */
     PollerEventProcessor(Poller poller) {
 
@@ -496,14 +520,16 @@ final class PollerEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         getEventManager().removeEventListener(this);
     }
 
     /**
-     * @return
+     * Gets the event manager.
+     *
+     * @return the event manager
      */
     private EventIpcManager getEventManager() {
         return getPoller().getEventManager();
@@ -607,6 +633,12 @@ final class PollerEventProcessor implements EventListener {
 
     } // end onEvent()
 
+    /**
+     * Service reschedule.
+     *
+     * @param event
+     *            the event
+     */
     private void serviceReschedule(Event event) {
         PollableNode pnode = getNetwork().getNode(event.getNodeid().intValue());
         Long nodeId = event.getNodeid();
@@ -668,6 +700,14 @@ final class PollerEventProcessor implements EventListener {
         }
     }
 
+    /**
+     * Demand poll service handler.
+     *
+     * @param e
+     *            the e
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     */
     @SuppressWarnings("unused")
     private void demandPollServiceHandler(Event e) throws InsufficientInformationException {
         EventUtils.checkNodeId(e);
@@ -677,6 +717,9 @@ final class PollerEventProcessor implements EventListener {
         m_demandPollDao.get(EventUtils.getIntParm(e, EventConstants.PARM_DEMAND_POLL_ID, -1));
     }
 
+    /**
+     * Scheduled outages change handler.
+     */
     private void scheduledOutagesChangeHandler() {
         try {
             getPollerConfig().update();
@@ -687,12 +730,17 @@ final class PollerEventProcessor implements EventListener {
         getPoller().refreshServicePackages();
     }
 
+    /**
+     * Thresholds config change handler.
+     */
     private void thresholdsConfigChangeHandler() {
         getPoller().refreshServiceThresholds();
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
+     *
+     * @return the name
      */
     @Override
     public String getName() {
@@ -700,24 +748,35 @@ final class PollerEventProcessor implements EventListener {
     }
 
     /**
-     * @return
+     * Gets the poller.
+     *
+     * @return the poller
      */
     private Poller getPoller() {
         return m_poller;
     }
 
     /**
-     * @return
+     * Gets the poller config.
+     *
+     * @return the poller config
      */
     private PollerConfig getPollerConfig() {
         return getPoller().getPollerConfig();
     }
 
+    /**
+     * Gets the network.
+     *
+     * @return the network
+     */
     private PollableNetwork getNetwork() {
         return getPoller().getNetwork();
     }
 
     /**
+     * Checks if is xml rpc enabled.
+     *
      * @return Returns the XMLRPC.
      */
     private boolean isXmlRPCEnabled() {

@@ -54,8 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrapNotificationStrategy.class);
 
+    /** The m_arguments. */
     private List<Argument> m_arguments;
 
     /** {@inheritDoc} */
@@ -91,6 +93,11 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
         return 0;
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     private String getVersion() {
         return getSwitchValue("trapVersion");
     }
@@ -99,9 +106,10 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      * <p>
      * sendV1Trap
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void sendV1Trap() throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
@@ -126,9 +134,10 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      * <p>
      * sendV2Trap
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void sendV2Trap() throws Exception {
 
@@ -162,8 +171,9 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the Host argument.
      *
-     * @return
+     * @return the host inet address
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     private InetAddress getHostInetAddress() throws UnknownHostException {
         String switchValue = getSwitchValue("trapHost");
@@ -180,7 +190,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the port argument.
      *
-     * @return
+     * @return the port
      */
     private int getPort() {
         String switchValue = getSwitchValue("trapPort");
@@ -197,7 +207,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the trap community string argument.
      *
-     * @return
+     * @return the community
      */
     private String getCommunity() {
         String switchValue = getSwitchValue("trapCommunity");
@@ -214,7 +224,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the trap enterprise ID argument.
      *
-     * @return
+     * @return the enterprise id
      */
     private String getEnterpriseId() {
         String switchValue = getSwitchValue("trapEnterprise");
@@ -231,7 +241,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the trap generic ID argument.
      *
-     * @return
+     * @return the generic id
      */
     private int getGenericId() {
         String switchValue = getSwitchValue("trapGeneric");
@@ -248,7 +258,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the trap specific id argument.
      *
-     * @return
+     * @return the specific id
      */
     private int getSpecificId() {
         String switchValue = getSwitchValue("trapSpecific");
@@ -265,7 +275,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
     /**
      * Helper method to get the trap specific id argument.
      *
-     * @return
+     * @return the varbind
      */
     private String getVarbind() {
         String switchValue = getSwitchValue("trapVarbind");
@@ -285,7 +295,8 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      * If the value is an empty String, this method returns null.
      *
      * @param argSwitch
-     * @return
+     *            the arg switch
+     * @return the switch value
      */
     private String getSwitchValue(String argSwitch) {
         String value = null;

@@ -54,9 +54,8 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * @version $Id: $
  */
 public class SnmpPlugin extends AbstractPlugin {
-    /**
-     * The protocol supported by this plugin
-     */
+
+    /** The protocol supported by this plugin. */
     private static final String PROTOCOL_NAME = "SNMP";
 
     /**
@@ -92,6 +91,15 @@ public class SnmpPlugin extends AbstractPlugin {
 
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oid
+     *            the oid
+     * @return the value
+     */
     private String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         if (val == null || val.isNull() || val.isEndOfMib() || val.isError()) {

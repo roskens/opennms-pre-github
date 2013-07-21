@@ -83,6 +83,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -103,6 +104,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -133,6 +135,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -162,6 +165,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * <p>
      * getIfHighSpeed
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.

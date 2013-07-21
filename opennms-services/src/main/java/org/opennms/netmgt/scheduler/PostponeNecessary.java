@@ -29,13 +29,14 @@
 package org.opennms.netmgt.scheduler;
 
 /**
- * Represents a PostponeNecessary
+ * Represents a PostponeNecessary.
  *
  * @author brozow
  * @version $Id: $
  */
 public class PostponeNecessary extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -161577103512338545L;
 
     /**

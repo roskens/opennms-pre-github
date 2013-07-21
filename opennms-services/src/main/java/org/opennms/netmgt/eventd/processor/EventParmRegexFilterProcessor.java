@@ -46,16 +46,25 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
+ * The Class EventParmRegexFilterProcessor.
+ *
  * @author Seth
  * @author <a href="mailto:tfalzone@doubleclick.com">Tim Falzone</a>
  */
 public final class EventParmRegexFilterProcessor implements EventProcessor, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventParmRegexFilterProcessor.class);
 
+    /** The m_event conf dao. */
     private EventConfDao m_eventConfDao;
 
+    /** The m_filter map. */
     private Map<String, org.opennms.netmgt.xml.eventconf.Filter> m_filterMap = new HashMap<String, org.opennms.netmgt.xml.eventconf.Filter>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.events.EventProcessor#process(org.opennms.netmgt.xml.event.Header, org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void process(Header eventHeader, Event event) throws EventProcessorException {
 
@@ -83,6 +92,9 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.state(m_eventConfDao != null, "property eventConfDao must be set");
@@ -92,6 +104,7 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
      * <p>
      * getEventConfDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -103,6 +116,7 @@ public final class EventParmRegexFilterProcessor implements EventProcessor, Init
      * <p>
      * setEventConfDao
      * </p>
+     * .
      *
      * @param eventConfDao
      *            a {@link org.opennms.netmgt.config.EventConfDao} object.

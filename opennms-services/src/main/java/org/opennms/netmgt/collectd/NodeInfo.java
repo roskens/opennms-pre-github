@@ -46,10 +46,13 @@ import org.opennms.netmgt.model.RrdRepository;
  */
 public final class NodeInfo extends SnmpCollectionResource {
 
+    /** The m_entry. */
     private SNMPCollectorEntry m_entry;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_agent. */
     private CollectionAgent m_agent;
 
     /**
@@ -72,6 +75,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -91,6 +95,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -103,6 +108,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * setEntry
      * </p>
+     * .
      *
      * @param nodeEntry
      *            a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry}
@@ -116,6 +122,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
      */
@@ -133,6 +140,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -145,6 +153,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -157,6 +166,7 @@ public final class NodeInfo extends SnmpCollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -165,6 +175,9 @@ public final class NodeInfo extends SnmpCollectionResource {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();

@@ -42,6 +42,7 @@ public interface PollerView {
      * <p>
      * showView
      * </p>
+     * .
      */
     public void showView();
 

@@ -40,7 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * TODO: Kinda a trivial test, remove it at some point?
+ * TODO: Kinda a trivial test, remove it at some point?.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
@@ -52,14 +52,25 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OpenNmsDaemonApplicationContextTest implements InitializingBean {
+
+    /** The m_event ipc manager. */
     @Autowired
     private EventIpcManager m_eventIpcManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test event ipc manager non null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEventIpcManagerNonNull() throws Exception {
         // Just testing @Autowired EventIpcManager

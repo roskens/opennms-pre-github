@@ -34,7 +34,7 @@ import java.net.URL;
 /**
  * Class containing the information for the HTTP POST operations - this gets
  * constructed when each time a subscribe event is received and is basically
- * immutable(except for error count)
+ * immutable(except for error count).
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
@@ -43,33 +43,24 @@ import java.net.URL;
  * @version $Id: $
  */
 public class HttpPostInfo extends Object {
-    /**
-     * The URL to post to
-     */
+
+    /** The URL to post to. */
     private URL m_url;
 
-    /**
-     * The category name related to this URL
-     */
+    /** The category name related to this URL. */
     private String m_catlabel;
 
-    /**
-     * The user name
-     */
+    /** The user name. */
     private String m_user;
 
-    /**
-     * The password
-     */
+    /** The password. */
     private String m_passwd;
 
-    /**
-     * Number of post errors
-     */
+    /** Number of post errors. */
     private int m_errors;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param hurl
      *            a {@link java.net.URL} object.
@@ -89,10 +80,8 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @exception MalformedURLException
-     *                thrown if the string url passed is not a valid url
      * @param hurl
      *            a {@link java.lang.String} object.
      * @param clabel
@@ -101,8 +90,8 @@ public class HttpPostInfo extends Object {
      *            a {@link java.lang.String} object.
      * @param passwd
      *            a {@link java.lang.String} object.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             thrown if the string url passed is not a valid url
      */
     public HttpPostInfo(String hurl, String clabel, String user, String passwd) throws MalformedURLException {
         m_url = new URL(hurl);
@@ -113,14 +102,14 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Increment errors
+     * Increment errors.
      */
     public void incrementErrors() {
         m_errors++;
     }
 
     /**
-     * Clear error count if there were errors earlier
+     * Clear error count if there were errors earlier.
      */
     public void clearErrors() {
         if (m_errors != 0)
@@ -128,7 +117,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the URL
+     * Return the URL.
      *
      * @return the URL
      */
@@ -137,7 +126,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the URL as a string
+     * Return the URL as a string.
      *
      * @return the URL as a string
      */
@@ -146,7 +135,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the category label
+     * Return the category label.
      *
      * @return the category label
      */
@@ -155,7 +144,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the user
+     * Return the user.
      *
      * @return the user
      */
@@ -164,7 +153,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the passwd
+     * Return the passwd.
      *
      * @return the passwd
      */
@@ -173,7 +162,7 @@ public class HttpPostInfo extends Object {
     }
 
     /**
-     * Return the number of errors
+     * Return the number of errors.
      *
      * @return the number of errors
      */

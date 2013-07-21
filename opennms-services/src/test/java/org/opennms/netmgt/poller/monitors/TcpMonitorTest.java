@@ -51,10 +51,20 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class TcpMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class TcpMonitorTest {
+
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -64,6 +74,12 @@ public class TcpMonitorTest {
      * Test method for
      * 'org.opennms.netmgt.poller.monitors.TcpMonitor.poll(NetworkInterface,
      * Map, Package)'
+     */
+    /**
+     * Test external server connection.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     @Test
     public void testExternalServerConnection() throws UnknownHostException {
@@ -92,6 +108,12 @@ public class TcpMonitorTest {
 
     }
 
+    /**
+     * Test localhost connection.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testLocalhostConnection() throws UnknownHostException {
@@ -119,6 +141,12 @@ public class TcpMonitorTest {
         assertNull(status.getReason());
     }
 
+    /**
+     * Test localhost i pv6 connection.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testLocalhostIPv6Connection() throws UnknownHostException {

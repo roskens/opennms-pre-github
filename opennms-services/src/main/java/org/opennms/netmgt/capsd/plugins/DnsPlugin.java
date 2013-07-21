@@ -59,6 +59,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class DnsPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DnsPlugin.class);
 
     /**
@@ -75,9 +77,7 @@ public final class DnsPlugin extends AbstractPlugin {
      */
     private static final int DEFAULT_PORT = 53;
 
-    /**
-     * Default number of retries for DNS requests
-     */
+    /** Default number of retries for DNS requests. */
     private static final int DEFAULT_RETRY = 3;
 
     /**
@@ -85,16 +85,18 @@ public final class DnsPlugin extends AbstractPlugin {
      */
     private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
-    /**
-     * Default DNS lookup
-     */
+    /** Default DNS lookup. */
     private static final String DEFAULT_LOOKUP = "localhost";
 
     /**
+     * Checks if is server.
+     *
      * @param nserver
      *            The address for the name server test.
      * @param port
      *            The port to test for name resolution
+     * @param retries
+     *            the retries
      * @param timeout
      *            Timeout in milliseconds
      * @param lookup

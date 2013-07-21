@@ -75,118 +75,259 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 // so it is not distributable
 @Distributable(DistributionContext.DAEMON)
 public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CiscoPingMibMonitor.class);
 
+    /**
+     * The Class CiscoPingEntry.
+     */
     @SuppressWarnings("unused")
     private static final class CiscoPingEntry {
+
+        /** The m_cisco ping serial number. */
         private int m_ciscoPingSerialNumber;
 
+        /** The m_cisco ping protocol. */
         private int m_ciscoPingProtocol;
 
+        /** The m_cisco ping address. */
         private InetAddress m_ciscoPingAddress;
 
+        /** The m_cisco ping packet count. */
         private int m_ciscoPingPacketCount;
 
+        /** The m_cisco ping packet size. */
         private int m_ciscoPingPacketSize;
 
+        /** The m_cisco ping packet timeout. */
         private int m_ciscoPingPacketTimeout;
 
+        /** The m_cisco ping packet delay. */
         private int m_ciscoPingPacketDelay;
 
+        /** The m_cisco ping entry owner. */
         private String m_ciscoPingEntryOwner;
 
+        /** The m_cisco ping vrf name. */
         private String m_ciscoPingVrfName;
 
+        /** The m_cisco ping entry status. */
         private int m_ciscoPingEntryStatus;
 
+        /**
+         * Gets the cisco ping serial number.
+         *
+         * @return the cisco ping serial number
+         */
         public int getCiscoPingSerialNumber() {
             return m_ciscoPingSerialNumber;
         }
 
+        /**
+         * Sets the cisco ping serial number.
+         *
+         * @param ciscoPingSerialNumber
+         *            the new cisco ping serial number
+         */
         public void setCiscoPingSerialNumber(int ciscoPingSerialNumber) {
             m_ciscoPingSerialNumber = ciscoPingSerialNumber;
         }
 
+        /**
+         * Gets the cisco ping protocol.
+         *
+         * @return the cisco ping protocol
+         */
         public int getCiscoPingProtocol() {
             return m_ciscoPingProtocol;
         }
 
+        /**
+         * Sets the cisco ping protocol.
+         *
+         * @param ciscoPingProtocol
+         *            the new cisco ping protocol
+         */
         public void setCiscoPingProtocol(int ciscoPingProtocol) {
             m_ciscoPingProtocol = ciscoPingProtocol;
         }
 
+        /**
+         * Gets the cisco ping address.
+         *
+         * @return the cisco ping address
+         */
         public InetAddress getCiscoPingAddress() {
             return m_ciscoPingAddress;
         }
 
+        /**
+         * Gets the cisco ping address bytes.
+         *
+         * @return the cisco ping address bytes
+         */
         public byte[] getCiscoPingAddressBytes() {
             return m_ciscoPingAddress.getAddress();
         }
 
+        /**
+         * Sets the cisco ping address.
+         *
+         * @param ciscoPingAddress
+         *            the new cisco ping address
+         */
         public void setCiscoPingAddress(InetAddress ciscoPingAddress) {
             m_ciscoPingAddress = ciscoPingAddress;
         }
 
+        /**
+         * Gets the cisco ping packet count.
+         *
+         * @return the cisco ping packet count
+         */
         public int getCiscoPingPacketCount() {
             return m_ciscoPingPacketCount;
         }
 
+        /**
+         * Sets the cisco ping packet count.
+         *
+         * @param ciscoPingPacketCount
+         *            the new cisco ping packet count
+         */
         public void setCiscoPingPacketCount(int ciscoPingPacketCount) {
             m_ciscoPingPacketCount = ciscoPingPacketCount;
         }
 
+        /**
+         * Gets the cisco ping packet size.
+         *
+         * @return the cisco ping packet size
+         */
         public int getCiscoPingPacketSize() {
             return m_ciscoPingPacketSize;
         }
 
+        /**
+         * Sets the cisco ping packet size.
+         *
+         * @param ciscoPingPacketSize
+         *            the new cisco ping packet size
+         */
         public void setCiscoPingPacketSize(int ciscoPingPacketSize) {
             m_ciscoPingPacketSize = ciscoPingPacketSize;
         }
 
+        /**
+         * Gets the cisco ping packet timeout.
+         *
+         * @return the cisco ping packet timeout
+         */
         public int getCiscoPingPacketTimeout() {
             return m_ciscoPingPacketTimeout;
         }
 
+        /**
+         * Sets the cisco ping packet timeout.
+         *
+         * @param ciscoPingPacketTimeout
+         *            the new cisco ping packet timeout
+         */
         public void setCiscoPingPacketTimeout(int ciscoPingPacketTimeout) {
             m_ciscoPingPacketTimeout = ciscoPingPacketTimeout;
         }
 
+        /**
+         * Gets the cisco ping packet delay.
+         *
+         * @return the cisco ping packet delay
+         */
         public int getCiscoPingPacketDelay() {
             return m_ciscoPingPacketDelay;
         }
 
+        /**
+         * Sets the cisco ping packet delay.
+         *
+         * @param ciscoPingPacketDelay
+         *            the new cisco ping packet delay
+         */
         public void setCiscoPingPacketDelay(int ciscoPingPacketDelay) {
             m_ciscoPingPacketDelay = ciscoPingPacketDelay;
         }
 
+        /**
+         * Gets the cisco ping entry owner.
+         *
+         * @return the cisco ping entry owner
+         */
         public String getCiscoPingEntryOwner() {
             return m_ciscoPingEntryOwner;
         }
 
+        /**
+         * Sets the cisco ping entry owner.
+         *
+         * @param ciscoPingEntryOwner
+         *            the new cisco ping entry owner
+         */
         public void setCiscoPingEntryOwner(String ciscoPingEntryOwner) {
             m_ciscoPingEntryOwner = ciscoPingEntryOwner;
         }
 
+        /**
+         * Gets the cisco ping vrf name.
+         *
+         * @return the cisco ping vrf name
+         */
         public String getCiscoPingVrfName() {
             return m_ciscoPingVrfName;
         }
 
+        /**
+         * Sets the cisco ping vrf name.
+         *
+         * @param ciscoPingVrfName
+         *            the new cisco ping vrf name
+         */
         public void setCiscoPingVrfName(String ciscoPingVrfName) {
             m_ciscoPingVrfName = ciscoPingVrfName;
         }
 
+        /**
+         * Gets the cisco ping entry status.
+         *
+         * @return the cisco ping entry status
+         */
         public int getCiscoPingEntryStatus() {
             return m_ciscoPingEntryStatus;
         }
 
+        /**
+         * Sets the cisco ping entry status.
+         *
+         * @param ciscoPingEntryStatus
+         *            the new cisco ping entry status
+         */
         public void setCiscoPingEntryStatus(int ciscoPingEntryStatus) {
             m_ciscoPingEntryStatus = ciscoPingEntryStatus;
         }
 
+        /**
+         * Calculate min initial wait.
+         *
+         * @return the int
+         */
         public int calculateMinInitialWait() {
             return m_ciscoPingPacketCount * (m_ciscoPingPacketTimeout + m_ciscoPingPacketDelay);
         }
 
+        /**
+         * Generate create oids.
+         *
+         * @return the snmp obj id[]
+         */
         public SnmpObjId[] generateCreateOids() {
             SnmpObjId[] oids = { SnmpObjId.get(PING_ENTRY_OID + "." + PING_PROTOCOL + "." + m_ciscoPingSerialNumber),
                     SnmpObjId.get(PING_ENTRY_OID + "." + PING_ADDRESS + "." + m_ciscoPingSerialNumber),
@@ -200,6 +341,11 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             return oids;
         }
 
+        /**
+         * Generate create values.
+         *
+         * @return the snmp value[]
+         */
         public SnmpValue[] generateCreateValues() {
             SnmpValueFactory vf = SnmpUtils.getValueFactory();
             SnmpValue[] values = { vf.getInt32(m_ciscoPingProtocol),
@@ -210,17 +356,32 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             return values;
         }
 
+        /**
+         * Generate row status oids.
+         *
+         * @return the snmp obj id[]
+         */
         public SnmpObjId[] generateRowStatusOids() {
             SnmpObjId[] oids = { SnmpObjId.get(PING_ENTRY_OID + "." + PING_ENTRY_STATUS + "." + m_ciscoPingSerialNumber) };
             return oids;
         }
 
+        /**
+         * Generate row status values.
+         *
+         * @return the snmp value[]
+         */
         public SnmpValue[] generateRowStatusValues() {
             SnmpValueFactory vf = SnmpUtils.getValueFactory();
             SnmpValue[] values = { vf.getInt32(m_ciscoPingEntryStatus) };
             return values;
         }
 
+        /**
+         * Generate results oids.
+         *
+         * @return the snmp obj id[]
+         */
         public SnmpObjId[] generateResultsOids() {
             SnmpObjId[] oids = {
                     SnmpObjId.get(PING_ENTRY_OID + "." + PING_SENT_PACKETS + "." + m_ciscoPingSerialNumber),
@@ -232,6 +393,9 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             return oids;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder("CiscoPingEntry: [ciscoPingSerialNumber=");
@@ -250,6 +414,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         }
     }
 
+    /** The s_node dao. */
     private static NodeDao s_nodeDao = null;
 
     /**
@@ -259,18 +424,14 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 
     /**
      * Default timeout, in milliseconds, for the SNMP operations underlying this
-     * poll
+     * poll.
      */
     private static final int DEFAULT_TIMEOUT = 1800;
 
-    /**
-     * Default retry count for the SNMP operations underlying this poll
-     */
+    /** Default retry count for the SNMP operations underlying this poll. */
     private static final int DEFAULT_RETRY = 1;
 
-    /**
-     * Identifier of the ciscoPingEntry object
-     */
+    /** Identifier of the ciscoPingEntry object. */
     private static final String PING_ENTRY_OID = ".1.3.6.1.4.1.9.9.16.1.1.1"; // Enterprises
                                                                               // /
                                                                               // cisco
@@ -285,93 +446,134 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
                                                                               // /
                                                                               // ciscoPingEntry
 
-    @SuppressWarnings("unused")
+    /**
+                                                                                 * The
+                                                                                 * Constant
+                                                                                 * PING_SERIAL
+                                                                                 * .
+                                                                                 */
+                                                                              @SuppressWarnings("unused")
     private static final String PING_SERIAL = "1";
 
+    /** The Constant PING_PROTOCOL. */
     private static final String PING_PROTOCOL = "2";
 
+    /** The Constant PING_ADDRESS. */
     private static final String PING_ADDRESS = "3";
 
+    /** The Constant PING_PACKET_COUNT. */
     private static final String PING_PACKET_COUNT = "4";
 
+    /** The Constant PING_PACKET_SIZE. */
     private static final String PING_PACKET_SIZE = "5";
 
+    /** The Constant PING_PACKET_TIMEOUT. */
     private static final String PING_PACKET_TIMEOUT = "6";
 
+    /** The Constant PING_DELAY. */
     private static final String PING_DELAY = "7";
 
+    /** The Constant PING_SENT_PACKETS. */
     private static final String PING_SENT_PACKETS = "9";
 
+    /** The Constant PING_RECEIVED_PACKETS. */
     private static final String PING_RECEIVED_PACKETS = "10";
 
+    /** The Constant PING_MIN_RTT. */
     private static final String PING_MIN_RTT = "11";
 
+    /** The Constant PING_AVG_RTT. */
     private static final String PING_AVG_RTT = "12";
 
+    /** The Constant PING_MAX_RTT. */
     private static final String PING_MAX_RTT = "13";
 
+    /** The Constant PING_COMPLETED. */
     private static final String PING_COMPLETED = "14";
 
+    /** The Constant PING_ENTRY_OWNER. */
     private static final String PING_ENTRY_OWNER = "15";
 
+    /** The Constant PING_ENTRY_STATUS. */
     private static final String PING_ENTRY_STATUS = "16";
 
+    /** The Constant PING_VRF_NAME. */
     private static final String PING_VRF_NAME = "17";
 
+    /** The Constant ROWSTATUS_ACTIVE. */
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_ACTIVE = 1;
 
+    /** The Constant ROWSTATUS_NOT_IN_SERVICE. */
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_NOT_IN_SERVICE = 2;
 
+    /** The Constant ROWSTATUS_NOT_READY. */
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_NOT_READY = 3;
 
+    /** The Constant ROWSTATUS_CREATE_AND_GO. */
     private static final int ROWSTATUS_CREATE_AND_GO = 4;
 
+    /** The Constant ROWSTATUS_CREATE_WAIT. */
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_CREATE_WAIT = 5;
 
+    /** The Constant ROWSTATUS_DESTROY. */
     private static final int ROWSTATUS_DESTROY = 6;
 
+    /** The Constant PING_PROTOCOL_IPV4. */
     private static final int PING_PROTOCOL_IPV4 = 1;
 
+    /** The Constant PING_PROTOCOL_IPV6. */
     private static final int PING_PROTOCOL_IPV6 = 20;
 
     /* Number of ping packets that IOS should send */
+    /** The Constant PARM_PACKET_COUNT. */
     private static final String PARM_PACKET_COUNT = "packet-count";
 
+    /** The Constant PARM_PACKET_COUNT_DEFAULT. */
     private static final int PARM_PACKET_COUNT_DEFAULT = 5;
 
     /* Size in bytes of each ping packet that IOS should send */
+    /** The Constant PARM_PACKET_SIZE. */
     private static final String PARM_PACKET_SIZE = "packet-size";
 
+    /** The Constant PARM_PACKET_SIZE_DEFAULT. */
     private static final int PARM_PACKET_SIZE_DEFAULT = 100;
 
     /* Timeout in milliseconds for each ping packet that IOS will send */
+    /** The Constant PARM_PACKET_TIMEOUT. */
     private static final String PARM_PACKET_TIMEOUT = "packet-timeout";
 
+    /** The Constant PARM_PACKET_TIMEOUT_DEFAULT. */
     private static final int PARM_PACKET_TIMEOUT_DEFAULT = 2000;
 
     /* Delay in milliseconds among the ping packets that IOS will send */
+    /** The Constant PARM_PACKET_DELAY. */
     private static final String PARM_PACKET_DELAY = "packet-delay";
 
+    /** The Constant PARM_PACKET_DELAY_DEFAULT. */
     private static final int PARM_PACKET_DELAY_DEFAULT = 0;
 
     /*
      * A string identifying which management application "owns" this entry in
      * the ciscoPingTable
      */
+    /** The Constant PARM_ENTRY_OWNER. */
     private static final String PARM_ENTRY_OWNER = "entry-owner";
 
+    /** The Constant PARM_ENTRY_OWNER_DEFAULT. */
     private static final String PARM_ENTRY_OWNER_DEFAULT = "OpenNMS CiscoPingMibMonitor";
 
     /*
      * A string indicating the VPN name in which IOS will perform the ping.
      * Normally blank.
      */
+    /** The Constant PARM_VRF_NAME. */
     private static final String PARM_VRF_NAME = "vrf-name";
 
+    /** The Constant PARM_VRF_NAME_DEFAULT. */
     private static final String PARM_VRF_NAME_DEFAULT = "";
 
     /*
@@ -380,30 +582,39 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
      * Set to zero to disable cleanup of the ciscoPingTable. Best to leave set
      * to default.
      */
+    /** The Constant PARM_CLEANUP_INTERVAL. */
     @SuppressWarnings("unused")
     private static final String PARM_CLEANUP_INTERVAL = "cleanup-interval";
 
+    /** The Constant PARM_CLEANUP_INTERVAL_DEFAULT. */
     @SuppressWarnings("unused")
     private static final int PARM_CLEANUP_INTERVAL_DEFAULT = 86400000;
 
     /* The node ID of the node that will act as our IOS ping proxy */
+    /** The Constant PARM_PROXY_NODE_ID. */
     private static final String PARM_PROXY_NODE_ID = "proxy-node-id";
 
     /* The foreign-source name of the node that will act as our IOS ping proxy */
+    /** The Constant PARM_PROXY_FOREIGN_SOURCE. */
     private static final String PARM_PROXY_FOREIGN_SOURCE = "proxy-node-foreign-source";
 
     /* The foreign-id of the node that will act as our IOS ping proxy */
+    /** The Constant PARM_PROXY_FOREIGN_ID. */
     private static final String PARM_PROXY_FOREIGN_ID = "proxy-node-foreign-id";
 
     /* The IP address of the interface to use as our IOS ping proxy */
+    /** The Constant PARM_PROXY_IP_ADDR. */
     private static final String PARM_PROXY_IP_ADDR = "proxy-ip-addr";
 
     /* The IP address of the interface we ultimately want to ping */
+    /** The Constant PARM_TARGET_IP_ADDR. */
     private static final String PARM_TARGET_IP_ADDR = "target-ip-addr";
 
     /* The percent of proxied pings that must succeed for the service to be up */
+    /** The Constant PARM_SUCCESS_PERCENT. */
     private static final String PARM_SUCCESS_PERCENT = "success-percent";
 
+    /** The Constant PARM_SUCCESS_PERCENT_DEFAULT. */
     private static final int PARM_SUCCESS_PERCENT_DEFAULT = 100;
 
     /**
@@ -448,9 +659,6 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
@@ -649,6 +857,16 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         return serviceStatus;
     }
 
+    /**
+     * Cleanup current entry.
+     *
+     * @param pingEntry
+     *            the ping entry
+     * @param proxyIpAddr
+     *            the proxy ip addr
+     * @param agentConfig
+     *            the agent config
+     */
     private void cleanupCurrentEntry(CiscoPingEntry pingEntry, InetAddress proxyIpAddr, SnmpAgentConfig agentConfig) {
         pingEntry.setCiscoPingEntryStatus(ROWSTATUS_DESTROY);
         SnmpValue[] destroyValues = SnmpUtils.set(agentConfig, pingEntry.generateRowStatusOids(),
@@ -661,6 +879,15 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
                      proxyIpAddr, pingEntry.getCiscoPingSerialNumber());
     }
 
+    /**
+     * Determine target address.
+     *
+     * @param svc
+     *            the svc
+     * @param parameters
+     *            the parameters
+     * @return the inet address
+     */
     private InetAddress determineTargetAddress(MonitoredService svc, Map<String, Object> parameters) {
         String rawOverrideTarget = ParameterMap.getKeyedString(parameters, PARM_TARGET_IP_ADDR, null);
         String overrideTarget = rawOverrideTarget;
@@ -686,6 +913,15 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         return svc.getAddress();
     }
 
+    /**
+     * Determine proxy address.
+     *
+     * @param parameters
+     *            the parameters
+     * @param svc
+     *            the svc
+     * @return the inet address
+     */
     private InetAddress determineProxyAddress(Map<String, Object> parameters, MonitoredService svc) {
         LOG.debug("Determining the proxy address on which to set up the ciscoPingEntry for target interface {}",
                   svc.getAddress());
@@ -753,6 +989,13 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         return null;
     }
 
+    /**
+     * Determine addr type.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the int
+     */
     private int determineAddrType(InetAddress ipaddr) {
         if (ipaddr instanceof Inet6Address) {
             LOG.debug("The address {} is IPv6", ipaddr);
@@ -765,6 +1008,13 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         throw new RuntimeException("Cannot work with address " + ipaddr + " because it is neither IPv4 nor IPv6.");
     }
 
+    /**
+     * Gets the service properties.
+     *
+     * @param svc
+     *            the svc
+     * @return the service properties
+     */
     private Properties getServiceProperties(MonitoredService svc) {
         Properties properties = new Properties();
         properties.put("ipaddr", svc.getIpAddr());

@@ -37,11 +37,11 @@ package org.opennms.netmgt.collectd;
  * @version $Id: $
  */
 public class CollectionException extends Exception {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -9090428901522833535L;
 
+    /** The m_error code. */
     private int m_errorCode = ServiceCollector.COLLECTION_FAILED;
 
     /**
@@ -70,10 +70,21 @@ public class CollectionException extends Exception {
         super(message, cause);
     }
 
+    /**
+     * Sets the error code.
+     *
+     * @param errorCode
+     *            the new error code
+     */
     void setErrorCode(int errorCode) {
         m_errorCode = errorCode;
     }
 
+    /**
+     * Gets the error code.
+     *
+     * @return the error code
+     */
     int getErrorCode() {
         return m_errorCode;
     }

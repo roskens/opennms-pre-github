@@ -43,12 +43,14 @@ import org.opennms.netmgt.poller.NetworkInterface;
 import org.opennms.netmgt.poller.ServiceMonitor;
 
 /**
+ * The Class AvailabilityMonitorTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class AvailabilityMonitorTest {
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.poller.monitors.AvailabilityMonitor#poll(org.opennms.netmgt.poller.MonitoredService, Map)}
      * .
      */

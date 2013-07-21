@@ -45,6 +45,9 @@ import org.opennms.netmgt.model.notifd.NotificationStrategy;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class HttpNotificationStrategyTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -54,10 +57,22 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class HttpNotificationStrategyTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
     }
@@ -65,6 +80,9 @@ public class HttpNotificationStrategyTest {
     /*
      * Test method for
      * 'org.opennms.netmgt.notifd.HttpNotificationStrategy.send(List)'
+     */
+    /**
+     * Test send.
      */
     @Test
     @Ignore

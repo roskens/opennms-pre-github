@@ -44,6 +44,7 @@ public interface ServicePollStateChangedListener extends EventListener {
      * <p>
      * pollStateChange
      * </p>
+     * .
      *
      * @param e
      *            a

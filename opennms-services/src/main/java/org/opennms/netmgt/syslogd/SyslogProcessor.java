@@ -53,14 +53,25 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
 final class SyslogProcessor implements EndOfTheWaterfall {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogProcessor.class);
 
+    /** The New suspect on message. */
     private final boolean m_NewSuspectOnMessage;
 
+    /** The m_local addr. */
     private final String m_localAddr;
 
+    /** The m_event. */
     private final ConvertToEvent m_event;
 
+    /**
+     * Instantiates a new syslog processor.
+     *
+     * @param event
+     *            the event
+     */
     public SyslogProcessor(ConvertToEvent event) {
         m_event = event;
         m_NewSuspectOnMessage = SyslogdConfigFactory.getInstance().getNewSuspectOnMessage();
@@ -69,6 +80,8 @@ final class SyslogProcessor implements EndOfTheWaterfall {
 
     /**
      * The event processing execution context.
+     *
+     * @return the callable
      */
     @Override
     public Callable<Void> call() {
@@ -115,6 +128,14 @@ final class SyslogProcessor implements EndOfTheWaterfall {
         return null;
     }
 
+    /**
+     * Send new suspect event.
+     *
+     * @param localAddr
+     *            the local addr
+     * @param trapInterface
+     *            the trap interface
+     */
     private static void sendNewSuspectEvent(String localAddr, String trapInterface) {
         EventBuilder bldr = new EventBuilder(EventConstants.NEW_SUSPECT_INTERFACE_EVENT_UEI, "syslogd");
         bldr.setInterface(addr(trapInterface));

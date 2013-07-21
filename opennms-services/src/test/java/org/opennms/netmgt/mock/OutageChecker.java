@@ -31,10 +31,18 @@ package org.opennms.netmgt.mock;
 import java.sql.ResultSet;
 
 /**
+ * The Interface OutageChecker.
+ *
  * @author brozow
  */
 public interface OutageChecker {
 
+    /**
+     * Process row.
+     *
+     * @param rs
+     *            the rs
+     */
     public void processRow(ResultSet rs);
 
 }

@@ -34,29 +34,24 @@ import org.opennms.core.utils.InetAddressComparator;
 import org.opennms.core.utils.InetAddressUtils;
 
 /**
- * The key used to look up items in the data map
+ * The key used to look up items in the data map.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public class RTCNodeKey implements Comparable<RTCNodeKey> {
-    /**
-     * The node ID
-     */
+
+    /** The node ID. */
     private final long m_nodeID;
 
-    /**
-     * The ip address of the interface of the node
-     */
+    /** The ip address of the interface of the node. */
     private final InetAddress m_ip;
 
-    /**
-     * The service name
-     */
+    /** The service name. */
     private final String m_svcName;
 
     /**
-     * the constructor for this class
+     * the constructor for this class.
      *
      * @param nodeid
      *            the node ID
@@ -73,7 +68,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
     }
 
     /**
-     * Return the node ID
+     * Return the node ID.
      *
      * @return the node ID
      */
@@ -82,7 +77,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
     }
 
     /**
-     * Return the service name
+     * Return the service name.
      *
      * @return the service name
      */
@@ -91,7 +86,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
     }
 
     /**
-     * Return the IP address
+     * Return the IP address.
      *
      * @return the IP address
      */
@@ -100,7 +95,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
     }
 
     /**
-     * Overrides the 'hashCode()' method in the 'Object' superclass
+     * Overrides the 'hashCode()' method in the 'Object' superclass.
      *
      * @return a sum of hashCodes of the individual attributes
      */
@@ -160,7 +155,7 @@ public class RTCNodeKey implements Comparable<RTCNodeKey> {
     }
 
     /**
-     * Returns a string representation of this key
+     * Returns a string representation of this key.
      *
      * @return a string representation of this key
      */

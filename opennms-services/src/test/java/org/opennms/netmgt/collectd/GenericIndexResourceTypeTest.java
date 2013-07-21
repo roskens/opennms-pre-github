@@ -42,6 +42,9 @@ import org.opennms.test.ThrowableAnticipator;
  */
 public class GenericIndexResourceTypeTest {
 
+    /**
+     * Test null resource type.
+     */
     @Test
     public void testNullResourceType() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -54,11 +57,17 @@ public class GenericIndexResourceTypeTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test instantiate.
+     */
     @Test
     public void testInstantiate() {
         instantiate();
     }
 
+    /**
+     * Test get storage strategy.
+     */
     @Test
     public void testGetStorageStrategy() {
         GenericIndexResourceType g = instantiate();
@@ -66,6 +75,11 @@ public class GenericIndexResourceTypeTest {
         Assert.assertNotNull("persistenceSelectorStrategy should not be null", g.getPersistenceSelectorStrategy());
     }
 
+    /**
+     * Instantiate.
+     *
+     * @return the generic index resource type
+     */
     private GenericIndexResourceType instantiate() {
         org.opennms.netmgt.config.datacollection.ResourceType rt = new org.opennms.netmgt.config.datacollection.ResourceType();
 

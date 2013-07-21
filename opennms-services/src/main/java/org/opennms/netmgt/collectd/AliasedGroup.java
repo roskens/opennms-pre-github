@@ -49,8 +49,10 @@ import org.slf4j.LoggerFactory;
  */
 public class AliasedGroup extends AttributeGroup {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AliasedGroup.class);
 
+    /** The m_group. */
     AttributeGroup m_group;
 
     /**
@@ -60,10 +62,10 @@ public class AliasedGroup extends AttributeGroup {
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param group
      *            a {@link org.opennms.netmgt.config.collector.AttributeGroup}
+     *            object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
      *            object.
      */
     public AliasedGroup(CollectionResource resource, AttributeGroup group) {
@@ -75,6 +77,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * addAttribute
      * </p>
+     * .
      *
      * @param attr
      *            a {@link org.opennms.netmgt.collectd.SnmpAttribute} object.
@@ -93,6 +96,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * getAttributes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -105,6 +109,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * getGroupType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
      *         object.
@@ -118,6 +123,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +136,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -148,6 +155,7 @@ public class AliasedGroup extends AttributeGroup {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

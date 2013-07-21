@@ -38,6 +38,8 @@ import org.opennms.core.utils.Argument;
 import org.opennms.netmgt.config.NotificationManager;
 
 /**
+ * The Class IrcCatNotificationStrategyTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class IrcCatNotificationStrategyTest {
@@ -51,6 +53,12 @@ public class IrcCatNotificationStrategyTest {
     }
 
     // @Test
+    /**
+     * Test send.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testSend() throws UnknownHostException {
         IrcCatNotificationStrategy strategy = new IrcCatNotificationStrategy();
         List<Argument> arguments = new ArrayList<Argument>();

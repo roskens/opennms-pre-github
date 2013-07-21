@@ -45,7 +45,7 @@ import org.opennms.test.DaoTestConfigBean;
 import org.springframework.core.io.Resource;
 
 /**
- * TODO: Make this unit test work
+ * TODO: Make this unit test work.
  *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
@@ -53,10 +53,18 @@ import org.springframework.core.io.Resource;
 @JUnitTemporaryDatabase
 public class MicroblogNotificationStrategyTest {
 
+    /** The m_dao. */
     protected DefaultMicroblogConfigurationDao m_dao;
 
+    /** The m_dao config resource. */
     protected Resource m_daoConfigResource;
 
+    /**
+     * Sets the up config dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpConfigDao() throws Exception {
         DaoTestConfigBean daoTestConfig = new DaoTestConfigBean();
@@ -67,6 +75,9 @@ public class MicroblogNotificationStrategyTest {
         Assert.assertTrue(m_daoConfigResource.exists());
     }
 
+    /**
+     * Post notice.
+     */
     @Ignore
     @Test
     public void postNotice() {
@@ -76,6 +87,11 @@ public class MicroblogNotificationStrategyTest {
         Assert.assertEquals("NotificationStrategy should return 0 on success", 0, ns.send(arguments));
     }
 
+    /**
+     * Configure args.
+     *
+     * @return the list
+     */
     public List<Argument> configureArgs() {
         List<Argument> arguments = new ArrayList<Argument>();
         Argument arg = null;

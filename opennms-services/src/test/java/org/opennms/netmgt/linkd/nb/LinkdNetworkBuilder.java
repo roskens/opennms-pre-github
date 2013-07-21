@@ -51,6 +51,8 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.opennms.netmgt.model.SnmpInterfaceBuilder;
 
 /**
+ * The Class LinkdNetworkBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -58,32 +60,80 @@ import org.opennms.netmgt.model.SnmpInterfaceBuilder;
 
 public abstract class LinkdNetworkBuilder {
 
+    /** The m_snmp interface dao. */
     protected SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_ip interface dao. */
     protected IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_node dao. */
     protected NodeDao m_nodeDao;
 
+    /** The m_network builder. */
     NetworkBuilder m_networkBuilder;
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     protected void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Sets the snmp interface dao.
+     *
+     * @param snmpInterfaceDao
+     *            the new snmp interface dao
+     */
     protected void setSnmpInterfaceDao(SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     protected void setIpInterfaceDao(IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /**
+     * Gets the network builder.
+     *
+     * @return the network builder
+     */
     NetworkBuilder getNetworkBuilder() {
         if (m_networkBuilder == null)
             m_networkBuilder = new NetworkBuilder();
         return m_networkBuilder;
     }
 
+    /**
+     * Gets the node.
+     *
+     * @param name
+     *            the name
+     * @param sysoid
+     *            the sysoid
+     * @param primaryip
+     *            the primaryip
+     * @param ipinterfacemap
+     *            the ipinterfacemap
+     * @param ifindextoifnamemap
+     *            the ifindextoifnamemap
+     * @param ifindextomacmap
+     *            the ifindextomacmap
+     * @param ifindextoifdescrmap
+     *            the ifindextoifdescrmap
+     * @param ifindextoifalias
+     *            the ifindextoifalias
+     * @return the node
+     */
     OnmsNode getNode(String name, String sysoid, String primaryip, Map<InetAddress, Integer> ipinterfacemap,
             Map<Integer, String> ifindextoifnamemap, Map<Integer, String> ifindextomacmap,
             Map<Integer, String> ifindextoifdescrmap, Map<Integer, String> ifindextoifalias) {
@@ -91,6 +141,29 @@ public abstract class LinkdNetworkBuilder {
                        ifindextoifdescrmap, ifindextoifalias, new HashMap<Integer, InetAddress>());
     }
 
+    /**
+     * Gets the node.
+     *
+     * @param name
+     *            the name
+     * @param sysoid
+     *            the sysoid
+     * @param primaryip
+     *            the primaryip
+     * @param ipinterfacemap
+     *            the ipinterfacemap
+     * @param ifindextoifnamemap
+     *            the ifindextoifnamemap
+     * @param ifindextomacmap
+     *            the ifindextomacmap
+     * @param ifindextoifdescrmap
+     *            the ifindextoifdescrmap
+     * @param ifindextoifalias
+     *            the ifindextoifalias
+     * @param ifindextonetmaskmap
+     *            the ifindextonetmaskmap
+     * @return the node
+     */
     OnmsNode getNode(String name, String sysoid, String primaryip, Map<InetAddress, Integer> ipinterfacemap,
             Map<Integer, String> ifindextoifnamemap, Map<Integer, String> ifindextomacmap,
             Map<Integer, String> ifindextoifdescrmap, Map<Integer, String> ifindextoifalias,
@@ -122,12 +195,30 @@ public abstract class LinkdNetworkBuilder {
         return nb.getCurrentNode();
     }
 
+    /**
+     * Gets the mask.
+     *
+     * @param ifindextonetmaskmap
+     *            the ifindextonetmaskmap
+     * @param ifIndex
+     *            the if index
+     * @return the mask
+     */
     private InetAddress getMask(Map<Integer, InetAddress> ifindextonetmaskmap, Integer ifIndex) {
         if (ifindextonetmaskmap.containsKey(ifIndex))
             return ifindextonetmaskmap.get(ifIndex);
         return null;
     }
 
+    /**
+     * Gets the suitable string.
+     *
+     * @param ifindextomacmap
+     *            the ifindextomacmap
+     * @param ifIndex
+     *            the if index
+     * @return the suitable string
+     */
     private String getSuitableString(Map<Integer, String> ifindextomacmap, Integer ifIndex) {
         String value = "";
         if (ifindextomacmap.containsKey(ifIndex))
@@ -135,6 +226,15 @@ public abstract class LinkdNetworkBuilder {
         return value;
     }
 
+    /**
+     * Gets the node without snmp.
+     *
+     * @param name
+     *            the name
+     * @param ipaddr
+     *            the ipaddr
+     * @return the node without snmp
+     */
     protected OnmsNode getNodeWithoutSnmp(String name, String ipaddr) {
         NetworkBuilder nb = getNetworkBuilder();
         nb.addNode(name).setForeignSource("linkd").setForeignId(name).setType("A");
@@ -142,6 +242,14 @@ public abstract class LinkdNetworkBuilder {
         return nb.getCurrentNode();
     }
 
+    /**
+     * Prints the route interface.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param route
+     *            the route
+     */
     protected void printRouteInterface(int nodeid, RouterInterface route) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("Local Route nodeid: " + nodeid);
@@ -155,6 +263,14 @@ public abstract class LinkdNetworkBuilder {
         System.err.println("");
     }
 
+    /**
+     * Prints the cdp interface.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param cdp
+     *            the cdp
+     */
     protected void printCdpInterface(int nodeid, CdpInterface cdp) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("Local cdp nodeid: " + nodeid);
@@ -167,6 +283,12 @@ public abstract class LinkdNetworkBuilder {
 
     }
 
+    /**
+     * Prints the cdp row.
+     *
+     * @param cdpCacheTableEntry
+     *            the cdp cache table entry
+     */
     protected void printCdpRow(CdpCacheTableEntry cdpCacheTableEntry) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("getCdpCacheIfIndex: " + cdpCacheTableEntry.getCdpCacheIfIndex());
@@ -182,6 +304,22 @@ public abstract class LinkdNetworkBuilder {
 
     }
 
+    /**
+     * Prints the lldp rem row.
+     *
+     * @param lldpRemLocalPortNum
+     *            the lldp rem local port num
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemChassiid
+     *            the lldp rem chassiid
+     * @param lldpRemChassisidSubtype
+     *            the lldp rem chassisid subtype
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @param lldpRemPortidSubtype
+     *            the lldp rem portid subtype
+     */
     protected void printLldpRemRow(Integer lldpRemLocalPortNum, String lldpRemSysname, String lldpRemChassiid,
             Integer lldpRemChassisidSubtype, String lldpRemPortid, Integer lldpRemPortidSubtype) {
         System.err.println("-----------------------------------------------------------");
@@ -195,6 +333,16 @@ public abstract class LinkdNetworkBuilder {
         System.err.println("");
     }
 
+    /**
+     * Prints the lldp loc row.
+     *
+     * @param lldpLocPortNum
+     *            the lldp loc port num
+     * @param lldpLocPortidSubtype
+     *            the lldp loc portid subtype
+     * @param lldpLocPortid
+     *            the lldp loc portid
+     */
     protected void printLldpLocRow(Integer lldpLocPortNum, Integer lldpLocPortidSubtype, String lldpLocPortid) {
         System.err.println("-----------------------------------------------------------");
         System.err.println("getLldpLocPortNum: " + lldpLocPortNum);
@@ -205,6 +353,12 @@ public abstract class LinkdNetworkBuilder {
 
     }
 
+    /**
+     * Prints the link.
+     *
+     * @param datalinkinterface
+     *            the datalinkinterface
+     */
     protected void printLink(DataLinkInterface datalinkinterface) {
         System.out.println("----------------Link------------------");
         Integer nodeid = datalinkinterface.getNode().getId();
@@ -228,6 +382,20 @@ public abstract class LinkdNetworkBuilder {
 
     }
 
+    /**
+     * Check link.
+     *
+     * @param node
+     *            the node
+     * @param nodeparent
+     *            the nodeparent
+     * @param ifindex
+     *            the ifindex
+     * @param parentifindex
+     *            the parentifindex
+     * @param datalinkinterface
+     *            the datalinkinterface
+     */
     protected void checkLink(OnmsNode node, OnmsNode nodeparent, int ifindex, int parentifindex,
             DataLinkInterface datalinkinterface) {
         printLink(datalinkinterface);
@@ -239,6 +407,12 @@ public abstract class LinkdNetworkBuilder {
         assertEquals(parentifindex, datalinkinterface.getParentIfIndex().intValue());
     }
 
+    /**
+     * Prints the node.
+     *
+     * @param node
+     *            the node
+     */
     protected void printNode(OnmsNode node) {
         System.err.println("----------------Node------------------");
         System.err.println("nodeid: " + node.getId());
@@ -249,6 +423,13 @@ public abstract class LinkdNetworkBuilder {
 
     }
 
+    /**
+     * Gets the start point.
+     *
+     * @param links
+     *            the links
+     * @return the start point
+     */
     protected int getStartPoint(List<DataLinkInterface> links) {
         int start = 0;
         for (final DataLinkInterface link : links) {
@@ -258,11 +439,27 @@ public abstract class LinkdNetworkBuilder {
         return start;
     }
 
+    /**
+     * Printip interface.
+     *
+     * @param nodeStringId
+     *            the node string id
+     * @param ipinterface
+     *            the ipinterface
+     */
     protected void printipInterface(String nodeStringId, OnmsIpInterface ipinterface) {
         System.out.println(nodeStringId + "_IP_IF_MAP.put(InetAddressUtils.addr(\"" + ipinterface.getIpHostName()
                 + "\"), " + ipinterface.getIfIndex() + ");");
     }
 
+    /**
+     * Prints the snmp interface.
+     *
+     * @param nodeStringId
+     *            the node string id
+     * @param snmpinterface
+     *            the snmpinterface
+     */
     protected void printSnmpInterface(String nodeStringId, OnmsSnmpInterface snmpinterface) {
         if (snmpinterface.getIfName() != null)
             System.out.println(nodeStringId + "_IF_IFNAME_MAP.put(" + snmpinterface.getIfIndex() + ", \""
@@ -281,6 +478,14 @@ public abstract class LinkdNetworkBuilder {
                     + ", InetAddressUtils.addr(\"" + snmpinterface.getNetMask().getHostAddress() + "\"));");
     }
 
+    /**
+     * Prints the node.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param prefix
+     *            the prefix
+     */
     protected final void printNode(String ipAddr, String prefix) {
 
         List<OnmsIpInterface> ips = m_ipInterfaceDao.findByIpAddress(ipAddr);

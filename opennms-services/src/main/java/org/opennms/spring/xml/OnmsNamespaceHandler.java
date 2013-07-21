@@ -51,6 +51,7 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -58,8 +59,14 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionDecorator("annotated-subscription", new AnnotatedSubscriptionBeanDefinitionDecorator());
     }
 
+    /**
+     * The Class OnmsServiceBeanDefinitionParser.
+     */
     public class OnmsServiceBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
+        /* (non-Javadoc)
+         * @see org.springframework.beans.factory.xml.AbstractBeanDefinitionParser#parseInternal(org.w3c.dom.Element, org.springframework.beans.factory.xml.ParserContext)
+         */
         @Override
         protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
             BeanDefinitionHolder beanDefHolder = parserContext.getDelegate().parseBeanDefinitionElement(element);
@@ -69,8 +76,14 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
 
     }
 
+    /**
+     * The Class AnnotatedSubscriptionBeanDefinitionDecorator.
+     */
     public class AnnotatedSubscriptionBeanDefinitionDecorator implements BeanDefinitionDecorator {
 
+        /* (non-Javadoc)
+         * @see org.springframework.beans.factory.xml.BeanDefinitionDecorator#decorate(org.w3c.dom.Node, org.springframework.beans.factory.config.BeanDefinitionHolder, org.springframework.beans.factory.xml.ParserContext)
+         */
         @Override
         public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition, ParserContext parserContext) {
             throw new UnsupportedOperationException(

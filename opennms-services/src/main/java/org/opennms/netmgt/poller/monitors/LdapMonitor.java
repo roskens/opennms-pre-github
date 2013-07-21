@@ -67,6 +67,7 @@ import com.novell.ldap.LDAPSocketFactory;
 @Distributable
 public class LdapMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(LdapMonitor.class);
 
     /**
@@ -82,29 +83,47 @@ public class LdapMonitor extends AbstractServiceMonitor {
                                                      // read()
 
     /**
-     * Default search base for an LDAP search
-     */
+                                                         * Default search base
+                                                         * for an LDAP search.
+                                                         */
     private static final String DEFAULT_BASE = "base";
 
-    /**
-     * Default search filter for an LDAP search
-     */
+    /** Default search filter for an LDAP search. */
     private static final String DEFAULT_FILTER = "(objectclass=*)";
 
     /**
      * A class to add a timeout to the socket that the LDAP code uses to access
-     * an LDAP server
+     * an LDAP server.
      */
     private class TimeoutLDAPSocket extends TimeoutSocketFactory implements LDAPSocketFactory {
+
+        /**
+         * Instantiates a new timeout ldap socket.
+         *
+         * @param timeout
+         *            the timeout
+         */
         public TimeoutLDAPSocket(int timeout) {
             super(timeout, getSocketWrapper());
         }
     }
 
+    /**
+     * Gets the socket wrapper.
+     *
+     * @return the socket wrapper
+     */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();
     }
 
+    /**
+     * Determine port.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the int
+     */
     protected int determinePort(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedInteger(parameters, "port", LDAPConnection.DEFAULT_PORT);
     }

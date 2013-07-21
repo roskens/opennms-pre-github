@@ -50,28 +50,65 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.netmgt.model.OnmsServiceType;
 import org.quartz.Scheduler;
 
+/**
+ * The Class PollerTest.
+ */
 public class PollerTest {
 
+    /**
+     * Test schedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSchedule() throws Exception {
         testSchedule(false, getMonitoredService());
     }
 
+    /**
+     * Test reschedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testReschedule() throws Exception {
         testSchedule(true, getMonitoredService());
     }
 
+    /**
+     * Test i pv6 schedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIPv6Schedule() throws Exception {
         testSchedule(false, getIPv6MonitoredService());
     }
 
+    /**
+     * Test i pv6 reschedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIPv6Reschedule() throws Exception {
         testSchedule(true, getIPv6MonitoredService());
     }
 
+    /**
+     * Test schedule.
+     *
+     * @param reschedule
+     *            the reschedule
+     * @param svc
+     *            the svc
+     * @throws Exception
+     *             the exception
+     */
     public void testSchedule(boolean reschedule, OnmsMonitoredService svc) throws Exception {
 
         Scheduler scheduler = createMock(Scheduler.class);
@@ -110,6 +147,11 @@ public class PollerTest {
 
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @return the monitored service
+     */
     private OnmsMonitoredService getMonitoredService() {
         OnmsNode node = new OnmsNode();
         node.setId(1);
@@ -119,6 +161,11 @@ public class PollerTest {
         return svc;
     }
 
+    /**
+     * Gets the i pv6 monitored service.
+     *
+     * @return the i pv6 monitored service
+     */
     private OnmsMonitoredService getIPv6MonitoredService() {
         OnmsNode node = new OnmsNode();
         node.setId(1);

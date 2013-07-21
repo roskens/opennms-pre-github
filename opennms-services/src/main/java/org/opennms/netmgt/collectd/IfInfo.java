@@ -48,12 +48,16 @@ import org.slf4j.LoggerFactory;
  */
 public final class IfInfo extends SnmpCollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfInfo.class);
 
+    /** The m_entry. */
     private SNMPCollectorEntry m_entry;
 
+    /** The m_if alias. */
     private String m_ifAlias;
 
+    /** The m_snmp if data. */
     private SnmpIfData m_snmpIfData;
 
     /**
@@ -74,6 +78,11 @@ public final class IfInfo extends SnmpCollectionResource {
         m_ifAlias = snmpIfData.getIfAlias();
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId() {
         return m_snmpIfData.getNodeId();
     }
@@ -82,6 +91,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -93,6 +103,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -105,6 +116,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -117,6 +129,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * setIfAlias
      * </p>
+     * .
      *
      * @param ifAlias
      *            a {@link java.lang.String} object.
@@ -125,6 +138,11 @@ public final class IfInfo extends SnmpCollectionResource {
         m_ifAlias = ifAlias;
     }
 
+    /**
+     * Gets the current if alias.
+     *
+     * @return the current if alias
+     */
     String getCurrentIfAlias() {
         return m_ifAlias;
     }
@@ -133,6 +151,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * isCollectionEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -144,6 +163,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * setEntry
      * </p>
+     * .
      *
      * @param ifEntry
      *            a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry}
@@ -157,6 +177,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.SNMPCollectorEntry} object.
      */
@@ -168,6 +189,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getAttributesMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -176,8 +198,10 @@ public final class IfInfo extends SnmpCollectionResource {
     }
 
     /**
-     ** @deprecated
-     **/
+     * * @deprecated.
+     *
+     * @return the new if alias
+     */
 
     String getNewIfAlias() {
         // FIXME: This should not be null
@@ -187,16 +211,38 @@ public final class IfInfo extends SnmpCollectionResource {
         return getEntry().getValueForBase(SnmpCollector.IFALIAS_OID);
     }
 
+    /**
+     * Current alias is out of date.
+     *
+     * @param ifAlias
+     *            the if alias
+     * @return true, if successful
+     */
     boolean currentAliasIsOutOfDate(String ifAlias) {
         LOG.debug("currentAliasIsOutOfDate: ifAlias from collection = {}, current ifAlias = {}", ifAlias,
                   getCurrentIfAlias());
         return ifAlias != null && !ifAlias.equals(getCurrentIfAlias());
     }
 
+    /**
+     * Log alias.
+     *
+     * @param ifAlias
+     *            the if alias
+     */
     void logAlias(String ifAlias) {
         LOG.debug("Alias for RRD directory name = {}", ifAlias);
     }
 
+    /**
+     * Gets the alias dir.
+     *
+     * @param ifAlias
+     *            the if alias
+     * @param ifAliasComment
+     *            the if alias comment
+     * @return the alias dir
+     */
     String getAliasDir(String ifAlias, String ifAliasComment) {
         if (ifAlias != null) {
             if (ifAliasComment != null) {
@@ -215,12 +261,23 @@ public final class IfInfo extends SnmpCollectionResource {
         return ifAlias;
     }
 
+    /**
+     * Log force rescan.
+     *
+     * @param ifAlias
+     *            the if alias
+     */
     void logForceRescan(String ifAlias) {
 
         LOG.debug("Forcing rescan.  IfAlias {} for index {} does not match DB value: {}", ifAlias, getIndex(),
                   getCurrentIfAlias());
     }
 
+    /**
+     * Checks if is scheduled for collection.
+     *
+     * @return true, if is scheduled for collection
+     */
     public boolean isScheduledForCollection() {
         LOG.debug("{} .collectionEnabled = {}", this, isCollectionEnabled());
         LOG.debug("selectCollectionOnly = {}", getCollection().isSelectCollectionOnly());
@@ -233,6 +290,11 @@ public final class IfInfo extends SnmpCollectionResource {
 
     }
 
+    /**
+     * Gets the collection.
+     *
+     * @return the collection
+     */
     private OnmsSnmpCollection getCollection() {
         return getResourceType().getCollection();
     }
@@ -249,6 +311,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -257,6 +320,13 @@ public final class IfInfo extends SnmpCollectionResource {
         return "node[" + getNodeId() + "].interfaceSnmp[" + getLabel() + ']';
     }
 
+    /**
+     * Should store.
+     *
+     * @param serviceParameters
+     *            the service parameters
+     * @return true, if successful
+     */
     boolean shouldStore(ServiceParameters serviceParameters) {
         if (serviceParameters.getStoreByNodeID().equals("normal")) {
             return isScheduledForCollection();
@@ -279,6 +349,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -291,6 +362,7 @@ public final class IfInfo extends SnmpCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -301,6 +373,9 @@ public final class IfInfo extends SnmpCollectionResource {
                                              // definition)
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return getCollectionAgent().getStorageDir().toString();

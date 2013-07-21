@@ -70,9 +70,8 @@ import org.opennms.core.utils.InetAddressUtils;
  */
 
 public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry {
-    /**
-     * Lookup strings for specific table entries
-     */
+
+    /** Lookup strings for specific table entries. */
     public static final String IP_ROUTE_PFX_LEN = "ipRoutePfxLen";
 
     /**
@@ -268,6 +267,9 @@ public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry {
         super(ms_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.IpRouteCollectorEntry#getIpRouteMask()
+     */
     @Override
     public InetAddress getIpRouteMask() {
         final Integer prefix = getInt32(InetCidrRouteTableEntry.IP_ROUTE_PFX_LEN);

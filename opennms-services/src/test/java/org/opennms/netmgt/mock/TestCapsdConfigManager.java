@@ -36,24 +36,52 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.CapsdConfigManager;
 
+/**
+ * The Class TestCapsdConfigManager.
+ */
 public class TestCapsdConfigManager extends CapsdConfigManager {
+
+    /** The m_xml. */
     private String m_xml;
 
+    /**
+     * Instantiates a new test capsd config manager.
+     *
+     * @param xml
+     *            the xml
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public TestCapsdConfigManager(String xml) throws MarshalException, ValidationException, IOException {
         super(new ByteArrayInputStream(xml.getBytes("UTF-8")));
         save();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.CapsdConfigManager#saveXml(java.lang.String)
+     */
     @Override
     protected void saveXml(String xml) throws IOException {
         m_xml = xml;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.CapsdConfigManager#update()
+     */
     @Override
     protected void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         loadXml(new ByteArrayInputStream(m_xml.getBytes("UTF-8")));
     }
 
+    /**
+     * Gets the xml.
+     *
+     * @return the xml
+     */
     public String getXml() {
         return m_xml;
     }

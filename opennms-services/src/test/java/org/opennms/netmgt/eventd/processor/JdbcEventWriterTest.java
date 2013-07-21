@@ -45,8 +45,13 @@ import org.opennms.netmgt.xml.event.Event;
  */
 @SuppressWarnings("deprecation")
 public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
+
+    /** The m_jdbc event writer. */
     private JdbcEventWriter m_jdbcEventWriter;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.PopulatedTemporaryDatabaseTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -63,7 +68,7 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
     }
 
     /**
-     * tests sequence of newly initialized db
+     * tests sequence of newly initialized db.
      */
     public void testNextEventId() {
         int nextId = getJdbcTemplate().queryForInt(m_jdbcEventWriter.getGetNextIdString());
@@ -75,7 +80,8 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
     /**
      * Tests writing nulls to postgres db and the db encoding.
      *
-     * @throws SQLException
+     * @throws Exception
+     *             the exception
      */
     public void testWriteEventWithNull() throws Exception {
         EventBuilder bldr = new EventBuilder("testUei", "testSource");
@@ -105,7 +111,8 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
     /**
      * Tests writing nulls to postgres db and the db encoding.
      *
-     * @throws SQLException
+     * @throws Exception
+     *             the exception
      */
     public void testWriteEventDescrWithNull() throws Exception {
         EventBuilder bldr = new EventBuilder("testUei", "testSource");
@@ -121,7 +128,8 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
     /**
      * Tests writing nulls to postgres db and the db encoding.
      *
-     * @throws SQLException
+     * @throws Exception
+     *             the exception
      */
     public void testWriteEventLogmsgWithNull() throws Exception {
         EventBuilder bldr = new EventBuilder("testUei", "testSource");
@@ -134,6 +142,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
         assertEquals("abc%0def", logMessage);
     }
 
+    /**
+     * Test get event host with null host.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetEventHostWithNullHost() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
@@ -148,6 +162,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getEventHost(event));
     }
 
+    /**
+     * Test get event host with host no node id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetEventHostWithHostNoNodeId() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
@@ -163,6 +183,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getEventHost(event));
     }
 
+    /**
+     * Test get event host with one match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetEventHostWithOneMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         long nodeId = jdbcTemplate.queryForLong("SELECT nodeId FROM node LIMIT 1");
@@ -179,6 +205,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getEventHost(event));
     }
 
+    /**
+     * Test get host name with one match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetHostNameWithOneMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
@@ -189,6 +221,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
 
+    /**
+     * Test get host name with one match null hostname.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetHostNameWithOneMatchNullHostname() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
@@ -198,6 +236,12 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
 
+    /**
+     * Test get host name with two match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetHostNameWithTwoMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeLabel) VALUES (nextVal('nodeNxtId'), now(), ?)",
                             "First Node");
@@ -215,11 +259,23 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
                      m_jdbcEventWriter.getHostName(nodeId1, "192.168.1.1"));
     }
 
+    /**
+     * Test get host name with no host match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetHostNameWithNoHostMatch() throws Exception {
         assertEquals("getHostName should return the IP address it was passed", "192.168.1.1",
                      m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
 
+    /**
+     * Test send event with service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSendEventWithService() throws Exception {
         int serviceId = 1;
         String serviceName = "some bogus service";

@@ -28,6 +28,9 @@
 
 package org.opennms.netmgt.linkd.snmp;
 
+/**
+ * The Class LldpMibConstants.
+ */
 public class LldpMibConstants {
 
     /*
@@ -74,18 +77,25 @@ public class LldpMibConstants {
      * local(7)
      * }
      */
+    /** The Constant LLDP_CHASSISID_SUBTYPE_CHASSISCOMPONENT. */
     public static final int LLDP_CHASSISID_SUBTYPE_CHASSISCOMPONENT = 1;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_INTERFACEALIAS. */
     public static final int LLDP_CHASSISID_SUBTYPE_INTERFACEALIAS = 2;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_PORTCOMPONENT. */
     public static final int LLDP_CHASSISID_SUBTYPE_PORTCOMPONENT = 3;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_MACADDRESS. */
     public static final int LLDP_CHASSISID_SUBTYPE_MACADDRESS = 4;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS. */
     public static final int LLDP_CHASSISID_SUBTYPE_NETWORKADDRESS = 5;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_INTERFACENAME. */
     public static final int LLDP_CHASSISID_SUBTYPE_INTERFACENAME = 6;
 
+    /** The Constant LLDP_CHASSISID_SUBTYPE_LOCAL. */
     public static final int LLDP_CHASSISID_SUBTYPE_LOCAL = 7;
 
     /*
@@ -128,18 +138,25 @@ public class LldpMibConstants {
      * local(7)
      * }
      */
+    /** The Constant LLDP_PORTID_SUBTYPE_INTERFACEALIAS. */
     public static final int LLDP_PORTID_SUBTYPE_INTERFACEALIAS = 1;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_PORTCOMPONENT. */
     public static final int LLDP_PORTID_SUBTYPE_PORTCOMPONENT = 2;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_MACADDRESS. */
     public static final int LLDP_PORTID_SUBTYPE_MACADDRESS = 3;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_NETWORKADDRESS. */
     public static final int LLDP_PORTID_SUBTYPE_NETWORKADDRESS = 4;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_INTERFACENAME. */
     public static final int LLDP_PORTID_SUBTYPE_INTERFACENAME = 5;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_AGENTCIRCUITID. */
     public static final int LLDP_PORTID_SUBTYPE_AGENTCIRCUITID = 6;
 
+    /** The Constant LLDP_PORTID_SUBTYPE_LOCAL. */
     public static final int LLDP_PORTID_SUBTYPE_LOCAL = 7;
 
 }

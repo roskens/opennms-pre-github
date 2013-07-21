@@ -39,12 +39,21 @@ import org.opennms.netmgt.EventConstants;
  * @version $Id: $
  */
 public enum Scope {
-    SERVICE, INTERFACE, NODE, NETWORK;
+
+    /** The service. */
+    SERVICE,
+ /** The interface. */
+ INTERFACE,
+ /** The node. */
+ NODE,
+ /** The network. */
+ NETWORK;
 
     /**
      * <p>
      * fromUei
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -65,6 +74,7 @@ public enum Scope {
      * <p>
      * isLargerThan
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
@@ -80,6 +90,7 @@ public enum Scope {
      * <p>
      * isSmallerThan
      * </p>
+     * .
      *
      * @param s
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
@@ -95,6 +106,7 @@ public enum Scope {
      * <p>
      * isLargerThan
      * </p>
+     * .
      *
      * @param a
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
@@ -118,6 +130,7 @@ public enum Scope {
      * <p>
      * isSmallerThan
      * </p>
+     * .
      *
      * @param a
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.

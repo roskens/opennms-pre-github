@@ -55,25 +55,26 @@ import org.springframework.util.Assert;
  */
 public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TroubleTicketer.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "trouble-ticketer";
 
+    /** The m_initialized. */
     private volatile boolean m_initialized = false;
 
-    /**
-     * Typically wired in by Spring (applicationContext-troubleTicketer.xml)
-     *
-     * @param eventIpcManager
-     */
+    /** Typically wired in by Spring (applicationContext-troubleTicketer.xml) */
     private volatile EventIpcManager m_eventIpcManager;
 
+    /** The m_ticketer service layer. */
     private volatile TicketerServiceLayer m_ticketerServiceLayer;
 
     /**
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -87,6 +88,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * <p>
      * setTicketerServiceLayer
      * </p>
+     * .
      *
      * @param ticketerServiceLayer
      *            a {@link org.opennms.netmgt.ticketd.TicketerServiceLayer}
@@ -100,10 +102,8 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * SpringFramework method from implementation of the Spring Interface
      * <code>org.springframework.beans.factory.InitializingBean</code>
      *
-     * @throws java.lang.Exception
-     *             An exception is thrown when detecting an invalid state such
-     *             as data not properly initialized or this method called more
-     *             then once.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -124,9 +124,10 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {
@@ -137,9 +138,10 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -147,7 +149,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
     }
 
     /**
-     * EventListener Interface required implementation
+     * EventListener Interface required implementation.
      *
      * @return <code>java.lang.String</code> representing the name of this
      *         service daemon
@@ -187,6 +189,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * @param e
      *            An OpenNMS event.
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleCloseTicket(Event e) throws InsufficientInformationException {
         EventUtils.requireParm(e, EventConstants.PARM_ALARM_ID);
@@ -207,6 +210,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * @param e
      *            An OpenNMS Event
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleUpdateTicket(Event e) throws InsufficientInformationException {
         EventUtils.requireParm(e, EventConstants.PARM_ALARM_ID);
@@ -227,6 +231,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * @param e
      *            An OpenNMS Event
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleCreateTicket(Event e) throws InsufficientInformationException {
         EventUtils.requireParm(e, EventConstants.PARM_ALARM_ID);
@@ -247,7 +252,9 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
      * OnmsAlarm.
      *
      * @param e
+     *            the e
      * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     private void handleCancelTicket(Event e) throws InsufficientInformationException {
         EventUtils.requireParm(e, EventConstants.PARM_ALARM_ID);
@@ -261,6 +268,13 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
         m_ticketerServiceLayer.cancelTicketForAlarm(alarmId, ticketId);
     }
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
         if (EventConstants.RELOAD_DAEMON_CONFIG_UEI.equals(event.getUei())) {
@@ -276,10 +290,21 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
         return isTarget;
     }
 
+    /**
+     * Handle ticketer reload.
+     *
+     * @param e
+     *            the e
+     */
     private void handleTicketerReload(Event e) {
         m_ticketerServiceLayer.reloadTicketer();
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }

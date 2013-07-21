@@ -61,16 +61,19 @@ import org.slf4j.LoggerFactory;
  */
 public final class TcpEventProxy implements EventProxy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpEventProxy.class);
 
-    /** Constant <code>DEFAULT_PORT=5817</code> */
+    /** Constant <code>DEFAULT_PORT=5817</code>. */
     public static final int DEFAULT_PORT = 5817;
 
-    /** Constant <code>DEFAULT_TIMEOUT=2000</code> */
+    /** Constant <code>DEFAULT_TIMEOUT=2000</code>. */
     public static final int DEFAULT_TIMEOUT = 2000;
 
+    /** The m_address. */
     private InetSocketAddress m_address;
 
+    /** The m_timeout. */
     private int m_timeout = DEFAULT_TIMEOUT;
 
     /**
@@ -78,8 +81,8 @@ public final class TcpEventProxy implements EventProxy {
      * Constructor for TcpEventProxy.
      * </p>
      *
-     * @throws java.net.UnknownHostException
-     *             if any.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public TcpEventProxy() throws UnknownHostException {
         this(new InetSocketAddress(InetAddressUtils.addr("127.0.0.1"), DEFAULT_PORT));
@@ -134,10 +137,8 @@ public final class TcpEventProxy implements EventProxy {
      *
      * @param eventLog
      *            the events to be sent out
-     * @exception UndeclaredThrowableException
-     *                thrown if the send fails for any reason
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             the event proxy exception
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -159,15 +160,29 @@ public final class TcpEventProxy implements EventProxy {
         }
     }
 
+    /**
+     * The Class Connection.
+     */
     private class Connection {
+
+        /** The m_sock. */
         private Socket m_sock;
 
+        /** The m_writer. */
         private Writer m_writer;
 
+        /** The m_input. */
         private InputStream m_input;
 
+        /** The m_rdr thread. */
         private Thread m_rdrThread;
 
+        /**
+         * Instantiates a new connection.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public Connection() throws IOException {
             m_sock = new Socket();
             m_sock.connect(m_address, m_timeout);
@@ -196,10 +211,18 @@ public final class TcpEventProxy implements EventProxy {
             m_rdrThread.start();
         }
 
+        /**
+         * Gets the writer.
+         *
+         * @return the writer
+         */
         public Writer getWriter() {
             return m_writer;
         }
 
+        /**
+         * Close.
+         */
         public void close() {
             if (m_sock != null) {
                 try {
@@ -216,6 +239,9 @@ public final class TcpEventProxy implements EventProxy {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#finalize()
+         */
         @Override
         protected void finalize() throws Throwable {
             close();

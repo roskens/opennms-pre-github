@@ -42,8 +42,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SeveritySubLabels extends ExtendedCategoryAxis {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SeveritySubLabels.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4985544589299368239L;
 
     /**
@@ -76,6 +78,13 @@ public class SeveritySubLabels extends ExtendedCategoryAxis {
         super.addSubLabel(category, convertLabel(label));
     }
 
+    /**
+     * Convert label.
+     *
+     * @param severity
+     *            the severity
+     * @return the string
+     */
     private static String convertLabel(String severity) {
 
         int sev = 0;

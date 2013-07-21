@@ -45,24 +45,29 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public class CdpInterface {
 
-    /**
-     * the int that indicated cdp address type
-     */
+    /** the int that indicated cdp address type. */
 
     public static final int CDP_ADDRESS_TYPE_IP_ADDRESS = 1;
 
-    /**
-     * the ip address
-     */
+    /** the ip address. */
 
     private final int m_cdpIfIndex;
 
+    /** The m_cdp target node id. */
     int m_cdpTargetNodeId;
 
+    /** The m_cdp target if index. */
     int m_cdpTargetIfIndex;
 
+    /** The m_cdp target device id. */
     String m_cdpTargetDeviceId;
 
+    /**
+     * Instantiates a new cdp interface.
+     *
+     * @param ifindex
+     *            the ifindex
+     */
     CdpInterface(int ifindex) {
         m_cdpIfIndex = ifindex;
     }
@@ -124,10 +129,21 @@ public class CdpInterface {
         m_cdpTargetNodeId = cdpTargetNodeId;
     }
 
+    /**
+     * Gets the cdp target device id.
+     *
+     * @return the cdp target device id
+     */
     public String getCdpTargetDeviceId() {
         return m_cdpTargetDeviceId;
     }
 
+    /**
+     * Sets the cdp target device id.
+     *
+     * @param cdpTargetDeviceId
+     *            the new cdp target device id
+     */
     public void setCdpTargetDeviceId(String cdpTargetDeviceId) {
         m_cdpTargetDeviceId = cdpTargetDeviceId;
     }
@@ -136,6 +152,7 @@ public class CdpInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

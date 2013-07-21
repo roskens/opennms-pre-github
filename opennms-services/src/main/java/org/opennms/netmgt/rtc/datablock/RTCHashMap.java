@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * The RTCHashMap has either a nodeid or a nodeid/ip as key and provides
  * convenience methods to add and remove 'RTCNodes' with these values - each key
- * points to a list of 'RTCNode's
+ * points to a list of 'RTCNode's.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
@@ -49,10 +49,11 @@ import java.util.Map;
 // FIXME: 2011-05-18 Seth: OK it is less insane now... but still insane
 public class RTCHashMap {
 
+    /** The m_map. */
     Map<RTCNodeKey, List<RTCNode>> m_map;
 
     /**
-     * constructor
+     * constructor.
      *
      * @param initialCapacity
      *            a int.
@@ -61,6 +62,11 @@ public class RTCHashMap {
         m_map = new HashMap<RTCNodeKey, List<RTCNode>>(initialCapacity);
     }
 
+    /**
+     * Gets the node i ds.
+     *
+     * @return the node i ds
+     */
     private List<Long> getNodeIDs() {
         List<Long> nodes = new LinkedList<Long>();
         for (Iterator<RTCNodeKey> it = m_map.keySet().iterator(); it.hasNext();) {
@@ -71,7 +77,7 @@ public class RTCHashMap {
     }
 
     /**
-     * Add the node with nodeid as key
+     * Add the node with nodeid as key.
      *
      * @param nodeid
      *            the nodeid
@@ -95,7 +101,7 @@ public class RTCHashMap {
     }
 
     /**
-     * Add the rtc node with nodeid and ip as key
+     * Add the rtc node with nodeid and ip as key.
      *
      * @param nodeid
      *            the nodeid
@@ -120,12 +126,24 @@ public class RTCHashMap {
         }
     }
 
+    /**
+     * Adds the.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
+     * @param rtcN
+     *            the rtc n
+     */
     private void add(long nodeid, InetAddress ip, String svcName, RTCNode rtcN) {
         m_map.put(new RTCNodeKey(nodeid, ip, svcName), Collections.singletonList(rtcN));
     }
 
     /**
-     * Add an rtc node
+     * Add an rtc node.
      *
      * @param rtcN
      *            the rtcNode to add
@@ -140,6 +158,7 @@ public class RTCHashMap {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param rtcN
      *            a {@link org.opennms.netmgt.rtc.datablock.RTCNode} object.
@@ -151,7 +170,7 @@ public class RTCHashMap {
     }
 
     /**
-     * Delete the node from list with nodeid as key
+     * Delete the node from list with nodeid as key.
      *
      * @param nodeid
      *            the nodeid
@@ -168,7 +187,7 @@ public class RTCHashMap {
     }
 
     /**
-     * Delete the rtc node from list with nodeid and ip as key
+     * Delete the rtc node from list with nodeid and ip as key.
      *
      * @param nodeid
      *            the nodeid
@@ -186,13 +205,25 @@ public class RTCHashMap {
         }
     }
 
+    /**
+     * Delete.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
+     * @param rtcN
+     *            the rtc n
+     */
     private void delete(long nodeid, InetAddress ip, String svcName, RTCNode rtcN) {
         RTCNodeKey key = new RTCNodeKey(nodeid, ip, svcName);
         m_map.remove(key);
     }
 
     /**
-     * Check if this IP has already been validated for this category
+     * Check if this IP has already been validated for this category.
      *
      * @param nodeid
      *            the node id whose interface is to be validated
@@ -215,7 +246,7 @@ public class RTCHashMap {
 
     /**
      * Get the value (uptime) for a category in the last 'rollingWindow'
-     * starting at current time
+     * starting at current time.
      *
      * @param catLabel
      *            the category to which the node should belong to
@@ -276,7 +307,7 @@ public class RTCHashMap {
 
     /**
      * Get the value (uptime) for the a node that belongs to the category in the
-     * last 'rollingWindow' starting at current time
+     * last 'rollingWindow' starting at current time.
      *
      * @param nodeid
      *            the node for which value is to be calculated
@@ -334,7 +365,7 @@ public class RTCHashMap {
 
     /**
      * Get the count of services for a node in the context of the the specified
-     * category
+     * category.
      *
      * @param nodeid
      *            the node for which servicecount is needed
@@ -358,7 +389,7 @@ public class RTCHashMap {
 
     /**
      * Get the count of services currently down for a node in the context of the
-     * the specified category
+     * the specified category.
      *
      * @param nodeid
      *            the node for which servicecount is needed
@@ -385,6 +416,7 @@ public class RTCHashMap {
      * <p>
      * getRTCNode
      * </p>
+     * .
      *
      * @param key
      *            a {@link org.opennms.netmgt.rtc.datablock.RTCNodeKey} object.
@@ -404,6 +436,7 @@ public class RTCHashMap {
      * <p>
      * getRTCNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -421,6 +454,7 @@ public class RTCHashMap {
      * <p>
      * getRTCNodes
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -438,6 +472,7 @@ public class RTCHashMap {
      * <p>
      * getRTCNodes
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -457,6 +492,7 @@ public class RTCHashMap {
      * <p>
      * deleteNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.

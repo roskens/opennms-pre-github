@@ -52,14 +52,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class BSFNotificationStrategy.
+ *
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  * @author <A HREF="http://www.opennms.org">OpenNMS</A>
  */
 public class BSFNotificationStrategy implements NotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BSFNotificationStrategy.class);
 
+    /** The m_arguments. */
     private List<Argument> m_arguments;
 
+    /** The m_notif params. */
     private Map<String, String> m_notifParams = new HashMap<String, String>();
 
     /*
@@ -136,6 +142,14 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         return returnCode;
     }
 
+    /**
+     * Declare beans.
+     *
+     * @param bsfManager
+     *            the bsf manager
+     * @throws BSFException
+     *             the bSF exception
+     */
     private void declareBeans(BSFManager bsfManager) throws BSFException {
         NodeDao nodeDao = Notifd.getInstance().getNodeDao();
         Integer nodeId;
@@ -211,6 +225,13 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         }
     }
 
+    /**
+     * Gets the switch value.
+     *
+     * @param argSwitch
+     *            the arg switch
+     * @return the switch value
+     */
     @SuppressWarnings("unused")
     private String getSwitchValue(String argSwitch) {
         String value = null;
@@ -225,6 +246,13 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         return value;
     }
 
+    /**
+     * Gets the switch substitution.
+     *
+     * @param argSwitch
+     *            the arg switch
+     * @return the switch substitution
+     */
     private String getSwitchSubstitution(String argSwitch) {
         String value = null;
         for (Argument arg : m_arguments) {
@@ -238,6 +266,12 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         return value;
     }
 
+    /**
+     * Check aberrant script behaviors.
+     *
+     * @param script
+     *            the script
+     */
     private void checkAberrantScriptBehaviors(String script) {
         if (script.matches("(?s)\\.exec\\s*\\(")) {
             // Here we should check for stupid stuff like use of System.exec()
@@ -245,18 +279,38 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         }
     }
 
+    /**
+     * Gets the file name.
+     *
+     * @return the file name
+     */
     private String getFileName() {
         return getSwitchSubstitution("file-name");
     }
 
+    /**
+     * Gets the lang class.
+     *
+     * @return the lang class
+     */
     private String getLangClass() {
         return getSwitchSubstitution("lang-class");
     }
 
+    /**
+     * Gets the bsf engine.
+     *
+     * @return the bsf engine
+     */
     private String getBsfEngine() {
         return getSwitchSubstitution("bsf-engine");
     }
 
+    /**
+     * Gets the file extensions.
+     *
+     * @return the file extensions
+     */
     private String[] getFileExtensions() {
         String exts = getSwitchSubstitution("file-extensions");
         if (exts == null)
@@ -264,12 +318,25 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         return exts.split(",");
     }
 
+    /**
+     * Retrieve params.
+     */
     private void retrieveParams() {
         for (Argument arg : m_arguments) {
             m_notifParams.put(arg.getSwitch(), arg.getValue());
         }
     }
 
+    /**
+     * Log.
+     *
+     * @param level
+     *            the level
+     * @param format
+     *            the format
+     * @param args
+     *            the args
+     */
     public void log(String level, String format, Object... args) {
         if ("TRACE".equals(level))
             LOG.trace(format, args);

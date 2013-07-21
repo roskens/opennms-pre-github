@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IfLabel extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfLabel.class);
 
     /**
@@ -66,8 +67,6 @@ public class IfLabel extends Object {
      *            Interface label of format: <description>- <macAddr>
      * @return Map of SNMP info keyed by 'snmpInterface' table column names for
      *         the interface specified by nodeId and ifLabel args.
-     * @throws SQLException
-     *             if error occurs accessing the database.
      */
     public static Map<String, String> getInterfaceInfoFromIfLabel(int nodeId, String ifLabel) {
         if (ifLabel == null) {
@@ -150,8 +149,8 @@ public class IfLabel extends Object {
      * @param nodeId
      *            a int.
      * @return an array of {@link java.lang.String} objects.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static String[] getIfLabels(int nodeId) throws SQLException {
 
@@ -182,6 +181,7 @@ public class IfLabel extends Object {
      * <p>
      * getIfLabel
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -240,6 +240,7 @@ public class IfLabel extends Object {
      * <p>
      * getIfLabelfromIfIndex
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -308,11 +309,11 @@ public class IfLabel extends Object {
      * for
      * use with non-ip interfaces.
      *
-     * @return String
      * @param nodeId
      *            a int.
      * @param ifIndex
      *            a int.
+     * @return String
      */
     public static String getIfLabelfromSnmpIfIndex(final int nodeId, final int ifIndex) {
 
@@ -360,6 +361,7 @@ public class IfLabel extends Object {
      * <p>
      * getIfLabel
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.

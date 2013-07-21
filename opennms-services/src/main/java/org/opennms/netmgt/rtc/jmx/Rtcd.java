@@ -37,10 +37,12 @@ package org.opennms.netmgt.rtc.jmx;
  * @version $Id: $
  */
 public class Rtcd implements RtcdMBean {
+
     /**
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -51,6 +53,7 @@ public class Rtcd implements RtcdMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -61,6 +64,7 @@ public class Rtcd implements RtcdMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -71,6 +75,7 @@ public class Rtcd implements RtcdMBean {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -83,6 +88,7 @@ public class Rtcd implements RtcdMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +101,7 @@ public class Rtcd implements RtcdMBean {
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

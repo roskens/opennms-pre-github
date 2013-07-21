@@ -60,6 +60,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class CitrixMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(CitrixMonitor.class);
 
     /**

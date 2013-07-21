@@ -51,20 +51,28 @@ import org.opennms.netmgt.poller.NetworkInterface;
  */
 public class PolledService implements MonitoredService, Serializable, Comparable<PolledService> {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2L;
 
+    /** The m_net interface. */
     private final InetNetworkInterface m_netInterface;
 
+    /** The m_monitor configuration. */
     private final Map<String, Object> m_monitorConfiguration;
 
+    /** The m_poll model. */
     private final OnmsPollModel m_pollModel;
 
+    /** The m_service id. */
     private final Integer m_serviceId;
 
+    /** The m_node id. */
     private final Integer m_nodeId;
 
+    /** The m_node label. */
     private final String m_nodeLabel;
 
+    /** The m_svc name. */
     private final String m_svcName;
 
     /**
@@ -96,6 +104,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getServiceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -107,6 +116,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -119,6 +129,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,6 +142,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getNetInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.NetworkInterface} object.
      */
@@ -143,6 +155,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -155,6 +168,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -167,6 +181,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getSvcName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -179,6 +194,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getMonitorConfiguration
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -190,6 +206,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * getPollModel
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.remote.OnmsPollModel} object.
      */
@@ -226,6 +243,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
@@ -243,6 +261,9 @@ public class PolledService implements MonitoredService, Serializable, Comparable
                                                                                                                                                                        that.getServiceId()).toComparison();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.MonitoredService#getSvcUrl()
+     */
     @Override
     public String getSvcUrl() {
         return null;

@@ -67,6 +67,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class SSLCertMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(SSLCertMonitor.class);
 
     /**
@@ -93,17 +94,29 @@ public final class SSLCertMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_DAYS = 7;
 
+    /** The Constant PARAMETER_PORT. */
     public static final String PARAMETER_PORT = "port";
 
+    /** The Constant PARAMETER_DAYS. */
     public static final String PARAMETER_DAYS = "days";
 
+    /** The m_calendar. */
     private static Calendar m_calendar;
 
+    /**
+     * Instantiates a new sSL cert monitor.
+     */
     SSLCertMonitor() {
         super();
         m_calendar = null;
     }
 
+    /**
+     * Instantiates a new sSL cert monitor.
+     *
+     * @param cal
+     *            the cal
+     */
     SSLCertMonitor(final Calendar cal) {
         super();
         m_calendar = cal;
@@ -250,22 +263,27 @@ public final class SSLCertMonitor extends AbstractServiceMonitor {
      * <p>
      * wrapSocket
      * </p>
+     * .
      *
-     * @param socket
-     *            a {@link java.net.Socket} object.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
      */
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();
     }
 
+    /**
+     * Sets the calendar.
+     *
+     * @param cal
+     *            the new calendar
+     */
     public void setCalendar(final Calendar cal) {
         m_calendar = cal;
     }
 
     /**
+     * Gets the calendar.
+     *
      * @return Calendar
      */
     public Calendar getCalendar() {

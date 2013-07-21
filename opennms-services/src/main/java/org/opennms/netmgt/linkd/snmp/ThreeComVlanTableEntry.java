@@ -50,10 +50,10 @@ public final class ThreeComVlanTableEntry extends Vlan {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>VLAN_IN="a3ComVlanindex"</code> */
+    /** Constant <code>VLAN_IN="a3ComVlanindex"</code>. */
     public static final String VLAN_IN = "a3ComVlanIfIndex";
 
-    /** Constant <code>VLAN_IFINFO="a3ComVlanIfInfo"</code> */
+    /** Constant <code>VLAN_IFINFO="a3ComVlanIfInfo"</code>. */
     public static final String VLAN_IFINFO = "a3ComVlanIfInfo";
 
     /**
@@ -100,16 +100,25 @@ public final class ThreeComVlanTableEntry extends Vlan {
         super(threeComVlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
         return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX + getInt32(VLAN_STATUS));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         return VlanType.get(VlanType.THREECOM_STARTING_INDEX + getInt32(VLAN_TYPE));

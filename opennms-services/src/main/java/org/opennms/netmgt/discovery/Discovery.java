@@ -75,6 +75,7 @@ import org.springframework.util.Assert;
 @EventListener(name = "OpenNMS.Discovery", logPrefix = "discover")
 public class Discovery extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Discovery.class);
 
     /**
@@ -82,39 +83,47 @@ public class Discovery extends AbstractServiceDaemon {
      */
     private static final DiscoveryPingResponseCallback cb = new DiscoveryPingResponseCallback();
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "discover";
 
+    /** The Constant PING_IDLE. */
     private static final int PING_IDLE = 0;
 
+    /** The Constant PING_RUNNING. */
     private static final int PING_RUNNING = 1;
 
+    /** The Constant PING_FINISHING. */
     private static final int PING_FINISHING = 2;
 
     /**
      * The SQL query used to get the list of managed IP addresses from the
-     * database
+     * database.
      */
     private static final String ALL_IP_ADDRS_SQL = "SELECT DISTINCT ipAddr FROM ipInterface WHERE isManaged <> 'D'";
 
-    /**
-     * a set of devices to skip discovery on
-     */
+    /** a set of devices to skip discovery on. */
     private Set<String> m_alreadyDiscovered = Collections.synchronizedSet(new HashSet<String>());
 
+    /** The m_discovery factory. */
     private DiscoveryConfigFactory m_discoveryFactory;
 
+    /** The m_timer. */
     private Timer m_timer;
 
+    /** The m_xstatus. */
     private int m_xstatus = PING_IDLE;
 
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
+    /** The m_pinger. */
     private Pinger m_pinger;
 
     /**
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -128,6 +137,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * setPinger
      * </p>
+     * .
      *
      * @param pinger
      *            a {@link JniPinger} object.
@@ -140,6 +150,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -151,6 +162,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * setDiscoveryFactory
      * </p>
+     * .
      *
      * @param discoveryFactory
      *            a {@link org.opennms.netmgt.config.DiscoveryConfigFactory}
@@ -164,6 +176,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * getDiscoveryFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.DiscoveryConfigFactory}
      *         object.
@@ -183,9 +196,10 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     protected void onInit() throws IllegalStateException {
@@ -201,11 +215,24 @@ public class Discovery extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Initialize configuration.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void initializeConfiguration() throws MarshalException, ValidationException, IOException {
         DiscoveryConfigFactory.reload();
         setDiscoveryFactory(DiscoveryConfigFactory.getInstance());
     }
 
+    /**
+     * Do pings.
+     */
     private void doPings() {
         LOG.info("starting ping sweep");
 
@@ -240,6 +267,12 @@ public class Discovery extends AbstractServiceDaemon {
         m_xstatus = PING_IDLE;
     }
 
+    /**
+     * Ping.
+     *
+     * @param pollAddress
+     *            the poll address
+     */
     private void ping(IPPollAddress pollAddress) {
         InetAddress address = pollAddress.getAddress();
         if (address != null) {
@@ -253,6 +286,13 @@ public class Discovery extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Checks if is already discovered.
+     *
+     * @param address
+     *            the address
+     * @return true, if is already discovered
+     */
     private boolean isAlreadyDiscovered(InetAddress address) {
         if (m_alreadyDiscovered.contains(InetAddressUtils.str(address))) {
             return true;
@@ -260,6 +300,9 @@ public class Discovery extends AbstractServiceDaemon {
         return false;
     }
 
+    /**
+     * Start timer.
+     */
     private void startTimer() {
         if (m_timer != null) {
             LOG.debug("startTimer() called, but a previous timer exists; making sure it's cleaned up");
@@ -288,6 +331,9 @@ public class Discovery extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Stop timer.
+     */
     private void stopTimer() {
         if (m_timer != null) {
             LOG.debug("stopping existing timer");
@@ -303,6 +349,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -314,6 +361,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -324,6 +372,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -334,6 +383,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -344,6 +394,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * syncAlreadyDiscovered
      * </p>
+     * .
      */
     protected void syncAlreadyDiscovered() {
         /**
@@ -384,6 +435,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * handleDiscoveryConfigurationChanged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -394,6 +446,9 @@ public class Discovery extends AbstractServiceDaemon {
         reloadAndReStart();
     }
 
+    /**
+     * Reload and re start.
+     */
     private void reloadAndReStart() {
         EventBuilder ebldr = null;
         try {
@@ -425,6 +480,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * reloadDaemonConfig
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -438,6 +494,13 @@ public class Discovery extends AbstractServiceDaemon {
         LOG.info("reloadDaemonConfig: reload daemon event processed.");
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
 
@@ -459,6 +522,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * handleInterfaceDeleted
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -478,6 +542,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * handleDiscoveryResume
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -494,6 +559,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * handleDiscoveryPause
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -510,6 +576,7 @@ public class Discovery extends AbstractServiceDaemon {
      * <p>
      * handleNodeGainedInterface
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -523,6 +590,11 @@ public class Discovery extends AbstractServiceDaemon {
         LOG.debug("Added {} as discovered", iface);
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }

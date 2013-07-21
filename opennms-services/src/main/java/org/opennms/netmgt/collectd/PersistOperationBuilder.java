@@ -57,17 +57,23 @@ import org.opennms.netmgt.rrd.RrdUtils;
  */
 public class PersistOperationBuilder {
 
+    /** The m_repository. */
     private RrdRepository m_repository;
 
+    /** The m_rrd name. */
     private String m_rrdName;
 
+    /** The m_resource. */
     private ResourceIdentifier m_resource;
 
+    /** The m_declarations. */
     private Map<AttributeDefinition, String> m_declarations = new TreeMap<AttributeDefinition, String>(
                                                                                                        new ByNameComparator());
 
+    /** The m_meta data. */
     private Map<String, String> m_metaData = new LinkedHashMap<String, String>();
 
+    /** The m_time keeper. */
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
 
     /**
@@ -76,9 +82,10 @@ public class PersistOperationBuilder {
      */
     static final String DST_GAUGE = "GAUGE";
 
+    /** The Constant DST_COUNTER. */
     static final String DST_COUNTER = "COUNTER";
 
-    /** Constant <code>MAX_DS_NAME_LENGTH=19</code> */
+    /** Constant <code>MAX_DS_NAME_LENGTH=19</code>. */
     public static final int MAX_DS_NAME_LENGTH = 19;
 
     /**
@@ -90,10 +97,10 @@ public class PersistOperationBuilder {
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ResourceIdentifier}
-     *            object.
      * @param rrdName
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.config.collector.ResourceIdentifier}
+     *            object.
      */
     public PersistOperationBuilder(RrdRepository repository, ResourceIdentifier resource, String rrdName) {
         m_repository = repository;
@@ -105,6 +112,7 @@ public class PersistOperationBuilder {
      * <p>
      * getRepository
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
@@ -112,6 +120,13 @@ public class PersistOperationBuilder {
         return m_repository;
     }
 
+    /**
+     * Gets the resource dir.
+     *
+     * @param resource
+     *            the resource
+     * @return the resource dir
+     */
     private File getResourceDir(ResourceIdentifier resource) {
         return resource.getResourceDir(getRepository());
     }
@@ -120,6 +135,7 @@ public class PersistOperationBuilder {
      * <p>
      * declareAttribute
      * </p>
+     * .
      *
      * @param attrType
      *            a
@@ -134,18 +150,27 @@ public class PersistOperationBuilder {
      * <p>
      * setAttributeValue
      * </p>
+     * .
      *
      * @param attrType
      *            a
-     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
-     *            object.
      * @param value
      *            a {@link java.lang.String} object.
+     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *            object.
      */
     public void setAttributeValue(AttributeDefinition attrType, String value) {
         m_declarations.put(attrType, value);
     }
 
+    /**
+     * Sets the attribute metadata.
+     *
+     * @param metricIdentifier
+     *            the metric identifier
+     * @param name
+     *            the name
+     */
     public void setAttributeMetadata(String metricIdentifier, String name) {
         m_metaData.put(metricIdentifier, name);
     }
@@ -174,9 +199,10 @@ public class PersistOperationBuilder {
      * <p>
      * commit
      * </p>
+     * .
      *
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     public void commit() throws RrdException {
         if (m_declarations.size() == 0) {
@@ -192,6 +218,11 @@ public class PersistOperationBuilder {
         RrdUtils.createMetaDataFile(absolutePath, m_rrdName, m_metaData);
     }
 
+    /**
+     * Gets the values.
+     *
+     * @return the values
+     */
     private String getValues() {
         boolean first = true;
         StringBuffer values = new StringBuffer();
@@ -208,10 +239,20 @@ public class PersistOperationBuilder {
         return values.toString();
     }
 
+    /**
+     * Gets the attribute mappings.
+     *
+     * @return the attribute mappings
+     */
     private Map<String, String> getAttributeMappings() {
         return null;
     }
 
+    /**
+     * Gets the data sources.
+     *
+     * @return the data sources
+     */
     private List<RrdDataSource> getDataSources() {
         List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>(m_declarations.size());
         for (AttributeDefinition attrDef : m_declarations.keySet()) {
@@ -239,6 +280,7 @@ public class PersistOperationBuilder {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -250,6 +292,7 @@ public class PersistOperationBuilder {
      * <p>
      * getTimeKeeper
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.utils.TimeKeeper} object.
      */
@@ -261,6 +304,7 @@ public class PersistOperationBuilder {
      * <p>
      * setTimeKeeper
      * </p>
+     * .
      *
      * @param timeKeeper
      *            a {@link org.opennms.core.utils.TimeKeeper} object.

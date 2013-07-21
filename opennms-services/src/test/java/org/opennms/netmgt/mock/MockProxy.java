@@ -57,14 +57,26 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
  */
 public class MockProxy implements CommandResponder {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockProxy.class);
 
+    /** The m_transport. */
     private TransportMapping m_transport;
 
+    /** The m_snmp. */
     private Snmp m_snmp;
 
+    /** The m_agent. */
     private MockAgent m_agent;
 
+    /**
+     * Instantiates a new mock proxy.
+     *
+     * @param port
+     *            the port
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public MockProxy(int port) throws IOException {
         m_transport = new DefaultUdpTransportMapping(new UdpAddress(InetAddress.getLocalHost(), port));
 
@@ -76,6 +88,9 @@ public class MockProxy implements CommandResponder {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.CommandResponder#processPdu(org.snmp4j.CommandResponderEvent)
+     */
     @Override
     public void processPdu(CommandResponderEvent e) {
         PDU command = e.getPDU();
@@ -101,8 +116,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process request.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     private PDU processRequest(PDU request) {
         if (!isRequestPDU(request))
@@ -126,8 +144,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process unhandled.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     private PDU processUnhandled(PDU request) {
         // TODO Auto-generated method stub
@@ -135,8 +156,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process inform.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     private PDU processInform(PDU request) {
         // TODO Auto-generated method stub
@@ -144,8 +168,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process set.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     private PDU processSet(PDU request) {
         // TODO Auto-generated method stub
@@ -153,8 +180,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process get bulk.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     private PDU processGetBulk(PDU request) {
         // TODO Auto-generated method stub
@@ -162,8 +192,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process get.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     @SuppressWarnings("unchecked")
     private PDU processGet(PDU request) {
@@ -194,8 +227,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Process get next.
+     *
      * @param request
-     * @return
+     *            the request
+     * @return the pdu
      */
     @SuppressWarnings("unchecked")
     private PDU processGetNext(PDU request) {
@@ -227,8 +263,11 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Checks if is request pdu.
+     *
      * @param command
-     * @return
+     *            the command
+     * @return true, if is request pdu
      */
     private boolean isRequestPDU(PDU command) {
         return (command.getType() != PDU.TRAP) && (command.getType() != PDU.V1TRAP)
@@ -236,14 +275,20 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
+     * Adds the agent.
+     *
      * @param agent
+     *            the agent
      */
     public void addAgent(MockAgent agent) {
         m_agent = agent;
     }
 
     /**
+     * Stop.
      *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void stop() throws IOException {
         m_snmp.close();

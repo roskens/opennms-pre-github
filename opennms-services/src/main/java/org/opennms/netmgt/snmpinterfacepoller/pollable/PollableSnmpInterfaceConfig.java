@@ -32,15 +32,17 @@ import org.opennms.netmgt.scheduler.ScheduleInterval;
 import org.opennms.netmgt.scheduler.Timer;
 
 /**
- * Represents a PollableSnmpInterfaceConfig
+ * Represents a PollableSnmpInterfaceConfig.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class PollableSnmpInterfaceConfig implements ScheduleInterval {
 
+    /** The m_timer. */
     private Timer m_timer;
 
+    /** The interval. */
     private long interval;
 
     /**
@@ -59,6 +61,7 @@ public class PollableSnmpInterfaceConfig implements ScheduleInterval {
      * <p>
      * scheduledSuspension
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -71,6 +74,7 @@ public class PollableSnmpInterfaceConfig implements ScheduleInterval {
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */

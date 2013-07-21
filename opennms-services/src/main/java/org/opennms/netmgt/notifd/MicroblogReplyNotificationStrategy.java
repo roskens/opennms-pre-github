@@ -50,6 +50,8 @@ import twitter4j.TwitterException;
  * @version $Id: $
  */
 public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogReplyNotificationStrategy.class);
 
     /**
@@ -57,8 +59,8 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
      * Constructor for MicroblogReplyNotificationStrategy.
      * </p>
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public MicroblogReplyNotificationStrategy() throws IOException {
         super();

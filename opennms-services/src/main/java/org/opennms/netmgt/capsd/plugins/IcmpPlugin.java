@@ -48,11 +48,11 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public final class IcmpPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IcmpPlugin.class);
 
-    /**
-     * The name of the protocol that is supported by this plugin
-     */
+    /** The name of the protocol that is supported by this plugin. */
     private static final String PROTOCOL_NAME = "ICMP";
 
     /**

@@ -59,6 +59,9 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
+/**
+ * The Class DnsMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitDNSServer(port = 9153, zones = {
@@ -67,11 +70,23 @@ import org.xbill.DNS.Type;
 @JUnitConfigurationEnvironment
 public class DnsMonitorTest {
 
+    /**
+     * Setup.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setup() throws Exception {
         MockLogAppender.setupLogging(true);
     }
 
+    /**
+     * Test ip v6 response.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testIPV6Response() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -89,6 +104,12 @@ public class DnsMonitorTest {
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test not found.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     // type not found is still considered a valid response with the default
     // response codes
@@ -108,6 +129,12 @@ public class DnsMonitorTest {
         assertEquals("Expected service to be available", PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test not found with custom rcode.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     // type not found is still considered a valid response with the default
     // response codes
@@ -128,6 +155,12 @@ public class DnsMonitorTest {
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test unrecoverable.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testUnrecoverable() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -144,6 +177,12 @@ public class DnsMonitorTest {
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test dnsip v4 response.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testDNSIPV4Response() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -161,6 +200,12 @@ public class DnsMonitorTest {
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test dns java response.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testDnsJavaResponse() throws IOException {
         final Lookup l = new Lookup("example.com");
@@ -176,6 +221,12 @@ public class DnsMonitorTest {
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
 
+    /**
+     * Test dns java quad a record.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testDnsJavaQuadARecord() throws IOException {
         final Lookup l = new Lookup("ipv6.example.com", Type.AAAA);
@@ -191,6 +242,14 @@ public class DnsMonitorTest {
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
 
+    /**
+     * Test dns java with dns server.
+     *
+     * @throws TextParseException
+     *             the text parse exception
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testDnsJavaWithDnsServer() throws TextParseException, UnknownHostException {
         final Lookup l = new Lookup("example.com", Type.AAAA);
@@ -212,6 +271,12 @@ public class DnsMonitorTest {
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
 
+    /**
+     * Test no answer.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitDNSServer(port = 9153, zones = {})
     public void testNoAnswer() throws Exception {

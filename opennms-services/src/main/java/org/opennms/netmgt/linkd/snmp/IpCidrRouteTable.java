@@ -54,16 +54,17 @@ public class IpCidrRouteTable extends SnmpTable<IpCidrRouteTableEntry> {
      * <EM>notified</EM> to inform other threads.
      * </P>
      *
-     * @param session
-     *            The session with the remote agent.
-     * @param signaler
-     *            The object to notify waiters.
+     * @param address
+     *            the address
      * @see InetCidrRouteTableEntry
      */
     public IpCidrRouteTable(InetAddress address) {
         super(address, "ipRouteTable", IpCidrRouteTableEntry.ms_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.SnmpTable#createTableEntry(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpInstId, java.lang.Object)
+     */
     @Override
     protected IpCidrRouteTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IpCidrRouteTableEntry();

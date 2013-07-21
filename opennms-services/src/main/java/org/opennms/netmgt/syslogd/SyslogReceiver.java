@@ -51,13 +51,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class SyslogReceiver.
+ *
  * @deprecated This class should be combined with {@link SyslogHandler}
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  * @author <a href="http://www.oculan.com">Oculan Corporation</a>
  */
 class SyslogReceiver implements Runnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogReceiver.class);
 
+    /** The Constant SOCKET_TIMEOUT. */
     private static final int SOCKET_TIMEOUT = 500;
 
     /**
@@ -70,32 +75,47 @@ class SyslogReceiver implements Runnable {
      */
     private final DatagramSocket m_dgSock;
 
-    /**
-     * The context thread
-     */
+    /** The context thread. */
     private Thread m_context;
 
+    /** The m_match pattern. */
     private final String m_matchPattern;
 
+    /** The m_host group. */
     private final int m_hostGroup;
 
+    /** The m_message group. */
     private final int m_messageGroup;
 
+    /** The m_discard uei. */
     private final String m_discardUei;
 
+    /** The Uei list. */
     private final UeiList m_UeiList;
 
+    /** The Hide messages. */
     private final HideMessage m_HideMessages;
 
+    /** The m_executors. */
     private final List<ExecutorService> m_executors = new ArrayList<ExecutorService>();
 
     /**
-     * construct a new receiver
+     * construct a new receiver.
      *
      * @param sock
+     *            the sock
      * @param matchPattern
+     *            the match pattern
      * @param hostGroup
+     *            the host group
      * @param messageGroup
+     *            the message group
+     * @param ueiList
+     *            the uei list
+     * @param hideMessages
+     *            the hide messages
+     * @param discardUei
+     *            the discard uei
      */
     SyslogReceiver(DatagramSocket sock, String matchPattern, int hostGroup, int messageGroup, UeiList ueiList,
             HideMessage hideMessages, String discardUei) {
@@ -122,6 +142,12 @@ class SyslogReceiver implements Runnable {
     /*
      * stop the current receiver
      * @throws InterruptedException
+     */
+    /**
+     * Stop.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;
@@ -227,6 +253,7 @@ class SyslogReceiver implements Runnable {
      * <p>
      * setLogPrefix
      * </p>
+     * .
      *
      * @param prefix
      *            a {@link java.lang.String} object.

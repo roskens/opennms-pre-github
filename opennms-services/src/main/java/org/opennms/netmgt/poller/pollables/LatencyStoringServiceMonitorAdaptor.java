@@ -66,17 +66,22 @@ import org.slf4j.LoggerFactory;
  */
 public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LatencyStoringServiceMonitorAdaptor.class);
 
-    /** Constant <code>DEFAULT_BASENAME="response-time"</code> */
+    /** Constant <code>DEFAULT_BASENAME="response-time"</code>. */
     public static final String DEFAULT_BASENAME = "response-time";
 
+    /** The m_service monitor. */
     private ServiceMonitor m_serviceMonitor;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_pkg. */
     private Package m_pkg;
 
+    /** The m_thresholding set. */
     private LatencyThresholdingSet m_thresholdingSet;
 
     /**
@@ -107,6 +112,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
@@ -135,6 +141,16 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
         return status;
     }
 
+    /**
+     * Store response time.
+     *
+     * @param svc
+     *            the svc
+     * @param entries
+     *            the entries
+     * @param parameters
+     *            the parameters
+     */
     private void storeResponseTime(MonitoredService svc, LinkedHashMap<String, Number> entries,
             Map<String, Object> parameters) {
         String rrdPath = ParameterMap.getKeyedString(parameters, "rrd-repository", null);
@@ -161,6 +177,18 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
         updateRRD(rrdPath, svc.getAddress(), rrdBaseName, entries);
     }
 
+    /**
+     * Apply thresholds.
+     *
+     * @param rrdPath
+     *            the rrd path
+     * @param service
+     *            the service
+     * @param dsName
+     *            the ds name
+     * @param entries
+     *            the entries
+     */
     private void applyThresholds(String rrdPath, MonitoredService service, String dsName,
             LinkedHashMap<String, Number> entries) {
         try {
@@ -202,12 +230,12 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            path to the RRD file repository
      * @param addr
      *            interface address
+     * @param rrdBaseName
+     *            a {@link java.lang.String} object.
      * @param dsName
      *            the datasource name to update
      * @param value
      *            value to update the RRD file with
-     * @param rrdBaseName
-     *            a {@link java.lang.String} object.
      */
     public void updateRRD(String repository, InetAddress addr, String rrdBaseName, String dsName, long value) {
         LinkedHashMap<String, Number> lhm = new LinkedHashMap<String, Number>();
@@ -223,10 +251,10 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            path to the RRD file repository
      * @param addr
      *            interface address
-     * @param entries
-     *            the entries for the rrd, containing a Map of dsNames to values
      * @param rrdBaseName
      *            a {@link java.lang.String} object.
+     * @param entries
+     *            the entries for the rrd, containing a Map of dsNames to values
      */
     public void updateRRD(String repository, InetAddress addr, String rrdBaseName, LinkedHashMap<String, Number> entries) {
         try {
@@ -277,13 +305,13 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            path to the RRD file repository
      * @param addr
      *            interface address
+     * @param rrdBaseName
+     *            a {@link java.lang.String} object.
      * @param dsName
      *            data source/RRD file name
      * @return true if RRD file successfully created, false otherwise
-     * @param rrdBaseName
-     *            a {@link java.lang.String} object.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @throws RrdException
+     *             the rrd exception
      */
     public boolean createRRD(String repository, InetAddress addr, String rrdBaseName, String dsName)
             throws RrdException {
@@ -302,13 +330,13 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      *            path to the RRD file repository
      * @param addr
      *            interface address
-     * @return true if RRD file successfully created, false otherwise
      * @param rrdBaseName
      *            a {@link java.lang.String} object.
      * @param dsList
      *            a {@link java.util.List} object.
-     * @throws org.opennms.netmgt.rrd.RrdException
-     *             if any.
+     * @return true if RRD file successfully created, false otherwise
+     * @throws RrdException
+     *             the rrd exception
      */
     public boolean createRRD(String repository, InetAddress addr, String rrdBaseName, List<RrdDataSource> dsList)
             throws RrdException {
@@ -327,6 +355,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {
@@ -340,7 +369,7 @@ public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
     }
 
     /**
-     * Should be called when thresholds configuration has been reloaded
+     * Should be called when thresholds configuration has been reloaded.
      */
     public void refreshThresholds() {
         if (m_thresholdingSet != null)

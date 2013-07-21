@@ -57,18 +57,34 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class DiscoveryIntegrationTest implements InitializingBean {
 
+    /** The m_discovery. */
     @Autowired
     private Discovery m_discovery;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
     }
 
+    /**
+     * Test discovery.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDiscovery() throws Exception {
         m_discovery.init();

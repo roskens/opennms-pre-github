@@ -46,6 +46,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  * @version $Id: $
  */
 public class IpRouteTable extends SnmpTable<IpRouteTableEntry> {
+
     /**
      * <P>
      * Constructs an IpRouteTable object that is used to collect the address
@@ -54,9 +55,9 @@ public class IpRouteTable extends SnmpTable<IpRouteTableEntry> {
      * <EM>notified</EM> to inform other threads.
      * </P>
      *
-     * @see IpRouteTableEntry
      * @param address
      *            a {@link java.net.InetAddress} object.
+     * @see IpRouteTableEntry
      */
     public IpRouteTable(InetAddress address) {
         super(address, "ipRouteTable", IpRouteTableEntry.ms_elemList);

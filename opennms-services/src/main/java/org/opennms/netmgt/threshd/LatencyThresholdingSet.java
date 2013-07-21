@@ -63,8 +63,6 @@ public class LatencyThresholdingSet extends ThresholdingSet {
      *            a {@link java.lang.String} object.
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
-     * @param interval
-     *            a long.
      */
     public LatencyThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository) {
         super(nodeId, hostAddress, serviceName, repository);
@@ -79,6 +77,7 @@ public class LatencyThresholdingSet extends ThresholdingSet {
      * <p>
      * hasThresholds
      * </p>
+     * .
      *
      * @param attributes
      *            a {@link java.util.Map} object.

@@ -45,22 +45,33 @@ import org.opennms.spring.xmlrpc.XmlRpcWebServerFactoryBean;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * Represents a XmlRpcTest
+ * Represents a XmlRpcTest.
  *
  * @author brozow
  */
 public class XmlRpcTest {
 
+    /** The m_web server. */
     private static WebServer m_webServer;
 
+    /** The m_provisioner. */
     private Provisioner m_provisioner;
 
+    /** The m_proxy. */
     private Provisioner m_proxy;
 
+    /** The m_exporter. */
     private XmlRpcServiceExporter m_exporter;
 
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -69,6 +80,15 @@ public class XmlRpcTest {
         m_proxy = createRemoteProxy(m_provisioner);
     }
 
+    /**
+     * Creates the remote proxy.
+     *
+     * @param bean
+     *            the bean
+     * @return the provisioner
+     * @throws Exception
+     *             the exception
+     */
     private Provisioner createRemoteProxy(Provisioner bean) throws Exception {
         setUpWebServer();
 
@@ -83,6 +103,15 @@ public class XmlRpcTest {
         return createRemoteProxy("http://localhost:9192/RPC2");
     }
 
+    /**
+     * Creates the remote proxy.
+     *
+     * @param serverUrl
+     *            the server url
+     * @return the provisioner
+     * @throws Exception
+     *             the exception
+     */
     private Provisioner createRemoteProxy(String serverUrl) throws Exception {
         XmlRpcProxyFactoryBean<Provisioner> pfb = new XmlRpcProxyFactoryBean<Provisioner>();
         pfb.setServiceInterface(Provisioner.class);
@@ -91,6 +120,12 @@ public class XmlRpcTest {
         return pfb.getObject();
     }
 
+    /**
+     * Sets the up web server.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void setUpWebServer() throws Exception {
         if (m_webServer == null) {
             // XmlRpc.debug = true;
@@ -103,6 +138,12 @@ public class XmlRpcTest {
         }
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_exporter != null) {
@@ -110,6 +151,12 @@ public class XmlRpcTest {
         }
     }
 
+    /**
+     * Test xml rpc add service icmp.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testXmlRpcAddServiceICMP() throws Throwable {
         EasyMock.expect(m_provisioner.addServiceICMP("RS-ICMP-1", 3, 1000, 300000, 30000, 300000)).andReturn(true);
@@ -119,6 +166,12 @@ public class XmlRpcTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test xml rpc add service icmp illegal arg.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testXmlRpcAddServiceICMPIllegalArg() throws Throwable {
         String msg = "retries must be greater than or equals to zero";
@@ -128,6 +181,9 @@ public class XmlRpcTest {
         m_proxy.addServiceICMP("RS-ICMP-1", -1, 1000, 300000, 30000, 300000);
     }
 
+    /**
+     * Test add service dns.
+     */
     @Test
     public void testAddServiceDNS() {
         EasyMock.expect(m_provisioner.addServiceDNS("RS-DNS-1", 3, 1000, 300000, 30000, 300000, 1234, "www.opennms.org")).andReturn(true);
@@ -137,6 +193,9 @@ public class XmlRpcTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add service tcp.
+     */
     @Test
     public void testAddServiceTCP() {
         EasyMock.expect(m_provisioner.addServiceTCP("RS-TCP-1", 3, 1000, 300000, 30000, 300000, 1234, "HELO")).andReturn(true);
@@ -146,6 +205,12 @@ public class XmlRpcTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add service http.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void testAddServiceHTTP() throws MalformedURLException {
         String url = "http://www.opennms.org";
@@ -158,6 +223,12 @@ public class XmlRpcTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add service http invalid url.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test(expected = MalformedURLException.class)
     public void testAddServiceHTTPInvalidURL() throws MalformedURLException {
         String url = "htt://www.opennms.org";
@@ -168,6 +239,13 @@ public class XmlRpcTest {
                                "OpenNMS Monitor");
     }
 
+    /**
+     * Gets the malformed url exception.
+     *
+     * @param url
+     *            the url
+     * @return the malformed url exception
+     */
     private MalformedURLException getMalformedUrlException(String url) {
         MalformedURLException urlException = null;
         try {
@@ -178,6 +256,12 @@ public class XmlRpcTest {
         return urlException;
     }
 
+    /**
+     * Test add service https.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void testAddServiceHTTPS() throws MalformedURLException {
         String url = "https://www.opennms.org";
@@ -190,6 +274,12 @@ public class XmlRpcTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test add service database.
+     *
+     * @throws MalformedURLException
+     *             the malformed url exception
+     */
     @Test
     public void testAddServiceDatabase() throws MalformedURLException {
         String url = "jdbc://localhost/database";

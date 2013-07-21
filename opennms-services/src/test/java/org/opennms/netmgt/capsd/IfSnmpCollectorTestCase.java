@@ -41,22 +41,40 @@ import org.opennms.netmgt.capsd.snmp.SystemGroup;
 import org.opennms.netmgt.mock.OpenNMSTestCase;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class IfSnmpCollectorTestCase.
+ */
 public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
+
+    /** The Constant HOST_PROPERTY. */
     private static final String HOST_PROPERTY = "mock.snmpHost";
 
+    /** The Constant DEFAULT_HOST. */
     private static final String DEFAULT_HOST = "127.0.0.1";
 
+    /** The Constant PORT. */
     private static final int PORT = 9161;
 
+    /** The m_addr. */
     private InetAddress m_addr;
 
+    /** The m_agent. */
     private volatile MockSnmpAgent m_agent;
 
+    /** The m_if snmpc. */
     private volatile IfSnmpCollector m_ifSnmpc;
 
+    /** The m_has run. */
     private volatile boolean m_hasRun = false;
 
+    /**
+     * The Class JoeSnmpIfSnmpCollectorTestCase.
+     */
     public static class JoeSnmpIfSnmpCollectorTestCase extends IfSnmpCollectorTestCase {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.capsd.IfSnmpCollectorTestCase#setUp()
+         */
         @Override
         public void setUp() throws Exception {
             System.setProperty("org.opennms.snmp.strategyClass", "org.opennms.netmgt.snmp.joesnmp.JoeSnmpStrategy");
@@ -64,7 +82,14 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         }
     }
 
+    /**
+     * The Class SNMP4JIfSnmpCollectorTestCase.
+     */
     public static class SNMP4JIfSnmpCollectorTestCase extends IfSnmpCollectorTestCase {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.capsd.IfSnmpCollectorTestCase#setUp()
+         */
         @Override
         public void setUp() throws Exception {
             System.setProperty("org.opennms.snmp.strategyClass", "org.opennms.netmgt.snmp.snmp4j.Snmp4JStrategy");
@@ -72,6 +97,9 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.OpenNMSTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         setStartEventd(false);
@@ -88,6 +116,9 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         runCollection();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.OpenNMSTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_agent.shutDownAndWait();
@@ -95,10 +126,22 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         super.tearDown();
     }
 
+    /**
+     * Test if snmp collector.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public final void testIfSnmpCollector() throws UnknownHostException {
         assertFalse("collection should not have failed", m_ifSnmpc.failed());
     }
 
+    /**
+     * Test failed.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFailed() throws Exception {
         // We'll shut down the agent and then give things a whirl
         m_agent.shutDownAndWait();
@@ -114,10 +157,19 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
 
     }
 
+    /**
+     * Test has system group.
+     */
     public final void testHasSystemGroup() {
         assertTrue("should have a system group", m_ifSnmpc.hasSystemGroup());
     }
 
+    /**
+     * Test get system group.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public final void testGetSystemGroup() throws UnknownHostException {
         SystemGroup sg = m_ifSnmpc.getSystemGroup();
         assertNotNull("system group should not be null", sg);
@@ -125,10 +177,16 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         assertEquals("system group name", "brozow.local", sg.getSysName());
     }
 
+    /**
+     * Test has if table.
+     */
     public final void testHasIfTable() {
         assertTrue(m_ifSnmpc.hasIfTable());
     }
 
+    /**
+     * Test get if table.
+     */
     public final void testGetIfTable() {
         IfTable ifTable = m_ifSnmpc.getIfTable();
         assertNotNull("should have an ifTable", ifTable);
@@ -136,10 +194,19 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         assertEquals("iftype", 24, ifTable.getIfType(1));
     }
 
+    /**
+     * Test has ip addr table.
+     */
     public final void testHasIpAddrTable() {
         assertTrue("should have an ipAddrTable", m_ifSnmpc.hasIpAddrTable());
     }
 
+    /**
+     * Test get ip addr table.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public final void testGetIpAddrTable() throws UnknownHostException {
         IpAddrTable ipAddrTable = m_ifSnmpc.getIpAddrTable();
 
@@ -153,22 +220,34 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
                    addresses.contains(InetAddressUtils.addr(DEFAULT_HOST)));
     }
 
+    /**
+     * Test has if x table.
+     */
     public final void testHasIfXTable() {
         assertTrue("should have an ifXTable", m_ifSnmpc.hasIfXTable());
     }
 
+    /**
+     * Test get if x table.
+     */
     public final void testGetIfXTable() {
         IfXTable ifXTable = m_ifSnmpc.getIfXTable();
         assertNotNull("ifXTable should not be null", ifXTable);
         assertFalse("ifXTable collection should not have failed", ifXTable.failed());
     }
 
+    /**
+     * Test get collector target address.
+     */
     public final void testGetCollectorTargetAddress() {
         InetAddress target = m_ifSnmpc.getCollectorTargetAddress();
         assertNotNull("target addresss should not be null", target);
         assertEquals("target address", myLocalHost(), target);
     }
 
+    /**
+     * Test get if address and mask.
+     */
     public final void testGetIfAddressAndMask() {
         InetAddress[] addrMask = m_ifSnmpc.getIfAddressAndMask(1);
         assertNotNull("address mask should not be null", addrMask);
@@ -176,39 +255,63 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         assertEquals("localhost mask... mmm... class A.... yummy", "255.0.0.0", InetAddressUtils.str(addrMask[1]));
     }
 
+    /**
+     * Test get admin status.
+     */
     public final void testGetAdminStatus() {
         int adminStatus = m_ifSnmpc.getAdminStatus(1);
         assertEquals("admin status", 1, adminStatus);
     }
 
+    /**
+     * Test get if type.
+     */
     public final void testGetIfType() {
         int ifType = m_ifSnmpc.getIfType(1);
         assertEquals("ifType", 24, ifType);
     }
 
+    /**
+     * Test get if index.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public final void testGetIfIndex() throws UnknownHostException {
         int ifIndex = m_ifSnmpc.getIfIndex(InetAddressUtils.addr("172.20.1.201"));
         assertEquals("ifIndex", 5, ifIndex);
     }
 
+    /**
+     * Test get if name.
+     */
     public final void testGetIfName() {
         String ifName = m_ifSnmpc.getIfName(1);
         assertNotNull("ifName should not be null", ifName);
         assertEquals("ifName", "There's no place like 127.0.0.1", ifName);
     }
 
+    /**
+     * Test get if speed.
+     */
     public final void testGetIfSpeed() {
         Long ifSpeed = m_ifSnmpc.getInterfaceSpeed(4);
         assertNotNull("ifSpeed should not be null", ifSpeed);
         assertEquals("ifSpeed", Long.valueOf(10000000), ifSpeed);
     }
 
+    /**
+     * Test get if alias.
+     */
     public final void testGetIfAlias() {
         String ifAlias = m_ifSnmpc.getIfAlias(1);
         assertNotNull("ifAlias should not be null", ifAlias);
         assertEquals("ifAlias", "We don't need no stinkin' ifAlias!", ifAlias);
     }
 
+    /**
+     * Run collection.
+     */
     private void runCollection() {
         if (m_hasRun) {
             return;

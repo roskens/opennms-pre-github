@@ -30,16 +30,24 @@ package org.opennms.netmgt.linkd.snmp;
 
 import java.net.InetAddress;
 
+/**
+ * The Class OspfIfTableEntry.
+ */
 public class OspfIfTableEntry extends SnmpStore {
 
+    /** The Constant OSPF_IF_IPADDRESS_ALIAS. */
     public static final String OSPF_IF_IPADDRESS_ALIAS = "ospfIfIpAddress";
 
+    /** The Constant OSPF_ADDRESS_LESS_IF_ALIAS. */
     public static final String OSPF_ADDRESS_LESS_IF_ALIAS = "ospfAddressLessIf";
 
+    /** The Constant OSPF_IF_IPADDRESS_ALIAS_OID. */
     public static final String OSPF_IF_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.7.1.1";
 
+    /** The Constant OSPF_ADDRESS_LESS_IF_OID. */
     public static final String OSPF_ADDRESS_LESS_IF_OID = ".1.3.6.1.2.1.14.7.1.2";
 
+    /** The Constant ospfiftable_elemList. */
     public static final NamedSnmpVar[] ospfiftable_elemList = new NamedSnmpVar[] {
 
     /**
@@ -58,18 +66,36 @@ public class OspfIfTableEntry extends SnmpStore {
 
     };
 
+    /** The Constant TABLE_OID. */
     public static final String TABLE_OID = ".1.3.6.1.2.1.14.7.1"; // start of
                                                                   // table
                                                                   // (GETNEXT)
 
-    public OspfIfTableEntry() {
+    /**
+                                                                     * Instantiates
+                                                                     * a new
+                                                                     * ospf if
+                                                                     * table
+                                                                     * entry.
+                                                                     */
+                                                                  public OspfIfTableEntry() {
         super(ospfiftable_elemList);
     }
 
+    /**
+     * Gets the ospf ip address.
+     *
+     * @return the ospf ip address
+     */
     public InetAddress getOspfIpAddress() {
         return getIPAddress(OSPF_IF_IPADDRESS_ALIAS);
     }
 
+    /**
+     * Gets the ospf address less if.
+     *
+     * @return the ospf address less if
+     */
     public Integer getOspfAddressLessIf() {
         return getInt32(OSPF_ADDRESS_LESS_IF_ALIAS);
     }

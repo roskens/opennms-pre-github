@@ -29,7 +29,7 @@
 package org.opennms.netmgt.scheduler;
 
 /**
- * Represents a ScheduleTimer
+ * Represents a ScheduleTimer.
  *
  * @author brozow
  * @version $Id: $
@@ -40,6 +40,7 @@ public interface ScheduleTimer extends Timer {
      * <p>
      * schedule
      * </p>
+     * .
      *
      * @param interval
      *            a long.

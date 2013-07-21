@@ -54,15 +54,16 @@ public class SnmpThresholdConfiguration {
      */
     private static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
-    /**
-     * Default age before which a data point is considered "out of date"
-     */
+    /** Default age before which a data point is considered "out of date". */
     private static final int DEFAULT_RANGE = 0;
 
+    /** The m_threshold group. */
     private ThresholdGroup m_thresholdGroup;
 
+    /** The m_range. */
     private int m_range;
 
+    /** The m_interval. */
     private int m_interval;
 
     /**
@@ -85,6 +86,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getRange
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +98,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setRange
      * </p>
+     * .
      *
      * @param range
      *            a int.
@@ -108,6 +111,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -119,6 +123,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setInterval
      * </p>
+     * .
      *
      * @param interval
      *            a int.
@@ -131,6 +136,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getThresholdGroup
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
      */
@@ -142,6 +148,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setThresholdGroup
      * </p>
+     * .
      *
      * @param thresholdGroup
      *            a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
@@ -154,6 +161,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -165,6 +173,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getGroupName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,6 +185,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getIfResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
      *         object.
@@ -188,6 +198,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setIfResourceType
      * </p>
+     * .
      *
      * @param ifResourceType
      *            a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
@@ -201,6 +212,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getNodeResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
      *         object.
@@ -213,6 +225,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setNodeResourceType
      * </p>
+     * .
      *
      * @param nodeResourceType
      *            a {@link org.opennms.netmgt.threshd.ThresholdResourceType}
@@ -226,6 +239,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * getGenericResourceTypeMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -237,6 +251,7 @@ public class SnmpThresholdConfiguration {
      * <p>
      * setGenericResourceTypeMap
      * </p>
+     * .
      *
      * @param genericResourceTypeMap
      *            a {@link java.util.Map} object.

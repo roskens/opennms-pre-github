@@ -35,8 +35,14 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.opennms.core.utils.IPLike;
 
+/**
+ * The Class IPLikeTest.
+ */
 public class IPLikeTest {
 
+    /**
+     * Test count char.
+     */
     @Test
     public void testCountChar() {
         assertEquals(2, IPLike.countChar('-', "test-this-please"));
@@ -44,6 +50,9 @@ public class IPLikeTest {
         assertEquals(4, IPLike.countChar('-', "-test-this-please-"));
     }
 
+    /**
+     * Test match range.
+     */
     @Test
     public void testMatchRange() {
         assertTrue(IPLike.matchRange("192", "191-193"));
@@ -54,6 +63,9 @@ public class IPLikeTest {
         assertFalse(IPLike.matchRange("192", "1-9"));
     }
 
+    /**
+     * Test match range hex.
+     */
     @Test
     public void testMatchRangeHex() {
         // Test a bunch of case-sensitivity cases
@@ -81,6 +93,9 @@ public class IPLikeTest {
         assertTrue(IPLike.matchRangeHex("5", "1-9"));
     }
 
+    /**
+     * Test match octet.
+     */
     @Test
     public void testMatchOctet() {
         assertTrue(IPLike.matchNumericListOrRange("192", "191,192,193"));
@@ -92,6 +107,9 @@ public class IPLikeTest {
         assertFalse(IPLike.matchNumericListOrRange("505", "200-300,400-500"));
     }
 
+    /**
+     * Test verify ip match.
+     */
     @Test
     public void testVerifyIpMatch() {
         assertTrue(IPLike.matches("192.168.0.1", "*.*.*.*"));

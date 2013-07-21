@@ -66,28 +66,32 @@ import org.slf4j.LoggerFactory;
  * @version 1.1.1.1
  */
 public final class ReparentViaSmb {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReparentViaSmb.class);
 
-    /**
-     * SQL Statements
-     */
+    /** SQL Statements. */
     static final String SQL_DB_RETRIEVE_NODES = "SELECT nodeid,nodenetbiosname FROM node WHERE nodeType!='D' AND nodenetbiosname is not null ORDER BY nodeid";
 
+    /** The Constant SQL_DB_RETRIEVE_NODE. */
     static final String SQL_DB_RETRIEVE_NODE = "SELECT nodesysname,nodesysdescription,nodelabel,nodelabelsource FROM node WHERE nodeid=? AND nodeType!='D'";
 
+    /** The Constant SQL_DB_RETRIEVE_INTERFACES. */
     static final String SQL_DB_RETRIEVE_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND isManaged!='D'";
 
+    /** The Constant SQL_DB_REPARENT_IP_INTERFACE. */
     static final String SQL_DB_REPARENT_IP_INTERFACE = "UPDATE ipinterface SET nodeID=? WHERE nodeID=? AND isManaged!='D'";
 
+    /** The Constant SQL_DB_REPARENT_SNMP_INTERFACE. */
     static final String SQL_DB_REPARENT_SNMP_INTERFACE = "UPDATE snmpinterface SET nodeID=? WHERE nodeID=?";
 
+    /** The Constant SQL_DB_REPARENT_IF_SERVICES. */
     static final String SQL_DB_REPARENT_IF_SERVICES = "UPDATE ifservices SET nodeID=? WHERE nodeID=? AND status!='D'";
 
+    /** The Constant SQL_DB_DELETE_NODE. */
     static final String SQL_DB_DELETE_NODE = "UPDATE node SET nodeType='D' WHERE nodeID=?";
 
-    /**
-     * Database connection
-     */
+    /** Database connection. */
     private java.sql.Connection m_connection;
 
     /**
@@ -135,12 +139,17 @@ public final class ReparentViaSmb {
      * </P>
      */
     private static final class LightWeightIfEntry {
+
+        /** The m_address. */
         private String m_address;
 
+        /** The m_hostname. */
         private String m_hostname;
 
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_old node id. */
         private int m_oldNodeId;
 
         /**
@@ -168,6 +177,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the IP address of the interface.
          * </P>
+         *
+         * @return the address
          */
         public String getAddress() {
             return m_address;
@@ -177,6 +188,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the IP hostname of the interface.
          * </P>
+         *
+         * @return the host name
          */
         public String getHostName() {
             return m_hostname;
@@ -186,6 +199,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the parent node id of the interface.
          * </P>
+         *
+         * @return the parent node id
          */
         public int getParentNodeId() {
             return m_nodeId;
@@ -195,6 +210,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the old parent node id of the interface.
          * </P>
+         *
+         * @return the old parent node id
          */
         public int getOldParentNodeId() {
             return m_oldNodeId;
@@ -206,12 +223,17 @@ public final class ReparentViaSmb {
      * in SMB reparenting.
      */
     private static final class LightWeightNodeEntry {
+
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_netbios name. */
         private String m_netbiosName;
 
+        /** The m_duplicate. */
         private boolean m_duplicate;
 
+        /** The m_hw node entry. */
         private DbNodeEntry m_hwNodeEntry;
 
         /**
@@ -238,6 +260,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the node identifer.
          * </P>
+         *
+         * @return the node id
          */
         int getNodeId() {
             return m_nodeId;
@@ -247,6 +271,8 @@ public final class ReparentViaSmb {
          * <P>
          * Returns the NetBIOS name of the node.
          * </P>
+         *
+         * @return the netbios name
          */
         String getNetbiosName() {
             return m_netbiosName;
@@ -269,27 +295,36 @@ public final class ReparentViaSmb {
          * Returns true if this LightWeightNodeEntry object has been marked as a
          * duplicate, false otherwise.
          * </P>
+         *
+         * @return true, if is duplicate
          */
         boolean isDuplicate() {
             return m_duplicate;
         }
 
         /**
+         * Sets the heavy weight node entry.
          *
+         * @param hwNodeEntry
+         *            the new heavy weight node entry
          */
         void setHeavyWeightNodeEntry(DbNodeEntry hwNodeEntry) {
             m_hwNodeEntry = hwNodeEntry;
         }
 
         /**
+         * Gets the heavy weight node entry.
          *
+         * @return the heavy weight node entry
          */
         DbNodeEntry getHeavyWeightNodeEntry() {
             return m_hwNodeEntry;
         }
 
         /**
+         * Checks for heavy weight node entry.
          *
+         * @return true, if successful
          */
         boolean hasHeavyWeightNodeEntry() {
             if (m_hwNodeEntry == null)
@@ -304,6 +339,8 @@ public final class ReparentViaSmb {
          * LightWeightNodeEntry objects have the same NetBIOS name.
          * </P>
          *
+         * @param o
+         *            the o
          * @return true if this and the passed object are equivalent.
          */
         @Override
@@ -322,6 +359,9 @@ public final class ReparentViaSmb {
                 return false;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             return new HashCodeBuilder(7, 23).append(m_nodeId).append(m_netbiosName).append(m_duplicate).append(m_hwNodeEntry).toHashCode();
@@ -453,8 +493,8 @@ public final class ReparentViaSmb {
      * Performs reparenting if necessary and generates appropriate events to
      * inform other OpenNMS processes of any database changes..
      *
-     * @throws java.sql.SQLException
-     *             if error occurs updating the database
+     * @throws SQLException
+     *             the sQL exception
      */
     public void sync() throws SQLException {
         // Build node lists

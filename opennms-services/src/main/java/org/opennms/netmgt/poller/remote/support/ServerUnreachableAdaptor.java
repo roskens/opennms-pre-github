@@ -55,18 +55,24 @@ import org.springframework.remoting.RemoteAccessException;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ServerUnreachableAdaptor implements PollerBackEnd {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ServerUnreachableAdaptor.class);
 
+    /** The m_monitor name. */
     private String m_monitorName;
 
+    /** The m_remote back end. */
     private PollerBackEnd m_remoteBackEnd;
 
+    /** The m_server unresponsive. */
     private boolean m_serverUnresponsive = false;
 
     /**
      * <p>
      * setRemoteBackEnd
      * </p>
+     * .
      *
      * @param remoteBackEnd
      *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
@@ -80,6 +86,7 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
      * <p>
      * checkForDisconnectedMonitors
      * </p>
+     * .
      */
     @Override
     public void checkForDisconnectedMonitors() {
@@ -90,6 +97,7 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
      * <p>
      * configurationUpdated
      * </p>
+     * .
      */
     @Override
     public void configurationUpdated() {
@@ -100,6 +108,7 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
      * <p>
      * getMonitoringLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -215,6 +224,9 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.PollerBackEnd#saveResponseTimeData(java.lang.String, org.opennms.netmgt.model.OnmsMonitoredService, double, org.opennms.netmgt.config.poller.Package)
+     */
     @Override
     public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime,
             Package pkg) {

@@ -50,8 +50,10 @@ import org.slf4j.LoggerFactory;
  */
 public class IfResourceType extends ResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfResourceType.class);
 
+    /** The m_if map. */
     private TreeMap<Integer, IfInfo> m_ifMap;
 
     /**
@@ -71,14 +73,28 @@ public class IfResourceType extends ResourceType {
         addKnownIfResources();
     }
 
+    /**
+     * Gets the if map.
+     *
+     * @return the if map
+     */
     private Map<Integer, IfInfo> getIfMap() {
         return m_ifMap;
     }
 
+    /**
+     * Adds the if info.
+     *
+     * @param ifInfo
+     *            the if info
+     */
     private void addIfInfo(final IfInfo ifInfo) {
         getIfMap().put(ifInfo.getIndex(), ifInfo);
     }
 
+    /**
+     * Adds the known if resources.
+     */
     private void addKnownIfResources() {
         Set<IfInfo> ifInfos = getAgent().getSnmpInterfaceInfo(this);
 
@@ -118,6 +134,7 @@ public class IfResourceType extends ResourceType {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

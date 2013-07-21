@@ -54,10 +54,17 @@ import org.slf4j.LoggerFactory;
  */
 public class Transaction {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(Transaction.class);
 
+    /** The s_thread tx. */
     private static ThreadLocal<Transaction> s_threadTX = new ThreadLocal<Transaction>();
 
+    /**
+     * Gets the tx.
+     *
+     * @return the tx
+     */
     private static Transaction getTX() {
         Transaction tx = s_threadTX.get();
         if (tx == null) {
@@ -66,6 +73,9 @@ public class Transaction {
         return tx;
     }
 
+    /**
+     * Clear tx.
+     */
     private static void clearTX() {
         s_threadTX.set(null);
     }
@@ -74,6 +84,7 @@ public class Transaction {
      * <p>
      * begin
      * </p>
+     * .
      */
     public static void begin() {
 
@@ -91,12 +102,13 @@ public class Transaction {
      * <p>
      * getConnection
      * </p>
+     * .
      *
      * @param dsName
      *            a {@link java.lang.String} object.
      * @return a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static Connection getConnection(String dsName) throws SQLException {
         return getTX().doGetConnection(dsName);
@@ -106,6 +118,7 @@ public class Transaction {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param stmt
      *            a {@link java.sql.Statement} object.
@@ -118,6 +131,7 @@ public class Transaction {
      * <p>
      * register
      * </p>
+     * .
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
@@ -130,9 +144,10 @@ public class Transaction {
      * <p>
      * rollbackOnly
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void rollbackOnly() throws SQLException {
         getTX().doRollbackOnly();
@@ -142,9 +157,10 @@ public class Transaction {
      * <p>
      * end
      * </p>
+     * .
      *
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void end() throws SQLException {
         LOG.debug("Ending transaction for {}", Thread.currentThread());
@@ -158,30 +174,59 @@ public class Transaction {
         }
     }
 
+    /** The m_connections. */
     private Map<String, Connection> m_connections = new HashMap<String, Connection>();
 
+    /** The m_statements. */
     private List<Statement> m_statements = new LinkedList<Statement>();
 
+    /** The m_result sets. */
     private List<ResultSet> m_resultSets = new LinkedList<ResultSet>();
 
+    /** The m_rollback only. */
     private boolean m_rollbackOnly = false;
 
+    /** The m_db utils. */
     private DBUtils m_dbUtils = new DBUtils(Transaction.class);
 
+    /**
+     * Do register.
+     *
+     * @param stmt
+     *            the stmt
+     */
     private void doRegister(Statement stmt) {
         m_dbUtils.watch(stmt);
         m_statements.add(stmt);
     }
 
+    /**
+     * Do register.
+     *
+     * @param rs
+     *            the rs
+     */
     private void doRegister(ResultSet rs) {
         m_dbUtils.watch(rs);
         m_resultSets.add(rs);
     }
 
+    /**
+     * Do close.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void doClose() throws SQLException {
         m_dbUtils.cleanUp();
     }
 
+    /**
+     * Do end.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void doEnd() throws SQLException {
         try {
             for (Connection conn : m_connections.values()) {
@@ -196,10 +241,25 @@ public class Transaction {
         }
     }
 
+    /**
+     * Do rollback only.
+     *
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void doRollbackOnly() throws SQLException {
         m_rollbackOnly = true;
     }
 
+    /**
+     * Do get connection.
+     *
+     * @param dsName
+     *            the ds name
+     * @return the connection
+     * @throws SQLException
+     *             the sQL exception
+     */
     private Connection doGetConnection(String dsName) throws SQLException {
         if (!m_connections.containsKey(dsName)) {
             DataSource ds = DataSourceFactory.getDataSource(dsName);
@@ -220,6 +280,7 @@ public class Transaction {
      * <p>
      * finalize
      * </p>
+     * .
      */
     @Override
     protected void finalize() {

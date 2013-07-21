@@ -50,9 +50,7 @@ import org.opennms.netmgt.poller.monitors.SshMonitor;
  */
 public final class SshPlugin extends AbstractPlugin {
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "SSH";
 
     /**

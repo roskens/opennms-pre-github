@@ -58,10 +58,13 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractCollectionResource implements CollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionResource.class);
 
+    /** The m_agent. */
     protected CollectionAgent m_agent;
 
+    /** The m_attribute groups. */
     private Map<AttributeGroupType, AttributeGroup> m_attributeGroups;
 
     /**
@@ -81,6 +84,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
      * <p>
      * getOwnerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,7 +100,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
     }
 
     /**
-     * Adds the given attribute into the collection for this resource
+     * Adds the given attribute into the collection for this resource.
      *
      * @param attr
      *            The Attribute to add
@@ -109,13 +113,13 @@ public abstract class AbstractCollectionResource implements CollectionResource {
 
     /**
      * Finds, or creates, and returns the AttributeGroup for the given group
-     * Type
+     * Type.
      *
      * @param groupType
      *            a
-     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
-     *            object.
      * @return a {@link org.opennms.netmgt.config.collector.AttributeGroup}
+     *         object.
+     *         {@link org.opennms.netmgt.config.collector.AttributeGroupType}
      *         object.
      */
     protected AttributeGroup getGroup(AttributeGroupType groupType) {
@@ -141,6 +145,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -151,6 +156,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -165,6 +171,7 @@ public abstract class AbstractCollectionResource implements CollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -173,6 +180,9 @@ public abstract class AbstractCollectionResource implements CollectionResource {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

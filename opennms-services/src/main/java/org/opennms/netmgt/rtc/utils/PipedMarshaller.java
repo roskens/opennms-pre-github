@@ -42,7 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The class that marshalls the object to be sent to a PipedReader
+ * The class that marshalls the object to be sent to a PipedReader.
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
@@ -51,23 +51,44 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class PipedMarshaller {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PipedMarshaller.class);
 
+    /** The m_obj to marshall. */
     private EuiLevel m_objToMarshall;
 
+    /**
+     * The Class MarshalThread.
+     */
     private class MarshalThread implements Runnable {
+
+        /** The m_out. */
         private PipedWriter m_out;
 
+        /** The m_in. */
         private PipedReader m_in;
 
+        /** The m_obj. */
         private EuiLevel m_obj;
 
+        /**
+         * Instantiates a new marshal thread.
+         *
+         * @param inp
+         *            the inp
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         MarshalThread(EuiLevel inp) throws IOException {
             m_obj = inp;
             m_out = new PipedWriter();
             m_in = new PipedReader(m_out);
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             try {
@@ -88,6 +109,11 @@ public class PipedMarshaller {
             }
         }
 
+        /**
+         * Gets the reader.
+         *
+         * @return the reader
+         */
         Reader getReader() {
             return m_in;
         }
@@ -109,10 +135,11 @@ public class PipedMarshaller {
      * <p>
      * getReader
      * </p>
+     * .
      *
      * @return a {@link java.io.Reader} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public Reader getReader() throws IOException {
         try {

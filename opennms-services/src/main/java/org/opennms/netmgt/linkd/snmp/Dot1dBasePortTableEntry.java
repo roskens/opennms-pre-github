@@ -58,22 +58,24 @@ package org.opennms.netmgt.linkd.snmp;
 public final class Dot1dBasePortTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
-    /** Constant <code>BASE_PORT="dot1dBasePort"</code> */
+    /** Constant <code>BASE_PORT="dot1dBasePort"</code>. */
     public static final String BASE_PORT = "dot1dBasePort";
 
-    /** Constant <code>BASE_IFINDEX="dot1dBasePortIfIndex"</code> */
+    /** Constant <code>BASE_IFINDEX="dot1dBasePortIfIndex"</code>. */
     public static final String BASE_IFINDEX = "dot1dBasePortIfIndex";
 
-    /** Constant <code>BASE_PORT_CIRCUIT="dot1dBasePortCircuit"</code> */
+    /** Constant <code>BASE_PORT_CIRCUIT="dot1dBasePortCircuit"</code>. */
     public static final String BASE_PORT_CIRCUIT = "dot1dBasePortCircuit";
 
     /**
      * Constant
-     * <code>BASE_DELAY_EX_DIS="dot1dBasePortDelayExceededDiscards"</code>
+     * <code>BASE_DELAY_EX_DIS="dot1dBasePortDelayExceededDiscards"</code>.
      */
     public static final String BASE_DELAY_EX_DIS = "dot1dBasePortDelayExceededDiscards";
 
-    /** Constant <code>BASE_MTU_EX_DIS="dot1dBasePortMtuExceededDiscards"</code> */
+    /**
+     * Constant <code>BASE_MTU_EX_DIS="dot1dBasePortMtuExceededDiscards"</code>.
+     */
     public static final String BASE_MTU_EX_DIS = "dot1dBasePortMtuExceededDiscards";
 
     /**
@@ -158,6 +160,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      * <p>
      * getBaseBridgePort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -172,6 +175,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      * <p>
      * getBaseBridgePortIfindex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -186,6 +190,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      * <p>
      * getBasePortCircuit
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -197,6 +202,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      * <p>
      * getBasePortDelayExceededDiscards
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -211,6 +217,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
      * <p>
      * getBasePortMtuExceededDiscards
      * </p>
+     * .
      *
      * @return a int.
      */

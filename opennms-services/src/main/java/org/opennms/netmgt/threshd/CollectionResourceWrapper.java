@@ -59,24 +59,34 @@ import org.slf4j.LoggerFactory;
  */
 public class CollectionResourceWrapper {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectionResourceWrapper.class);
 
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_host address. */
     private final String m_hostAddress;
 
+    /** The m_service name. */
     private final String m_serviceName;
 
+    /** The m_label. */
     private String m_label;
 
+    /** The m_iflabel. */
     private String m_iflabel;
 
+    /** The m_ifindex. */
     private String m_ifindex;
 
+    /** The m_repository. */
     private final RrdRepository m_repository;
 
+    /** The m_resource. */
     private final CollectionResource m_resource;
 
+    /** The m_attributes. */
     private final Map<String, CollectionAttribute> m_attributes;
 
     /**
@@ -86,13 +96,24 @@ public class CollectionResourceWrapper {
      * variable collection times and possible
      * collection failures (see NMS-4244)
      * Just a holder class for two associated values; no need for the formality
-     * of accessors
+     * of accessors.
      */
     static class CacheEntry {
+
+        /** The timestamp. */
         final Date timestamp;
 
+        /** The value. */
         final Double value;
 
+        /**
+         * Instantiates a new cache entry.
+         *
+         * @param timestamp
+         *            the timestamp
+         * @param value
+         *            the value
+         */
         public CacheEntry(final Date timestamp, final Double value) {
             if (timestamp == null) {
                 throw new IllegalArgumentException("Illegal null timestamp in cache value");
@@ -107,6 +128,7 @@ public class CollectionResourceWrapper {
     /*
      * Holds last values for counter attributes (in order to calculate delta)
      */
+    /** The Constant s_cache. */
     static final ConcurrentHashMap<String, CacheEntry> s_cache = new ConcurrentHashMap<String, CacheEntry>();
 
     /*
@@ -115,18 +137,21 @@ public class CollectionResourceWrapper {
      * for same resource.
      * See Bug 3193
      */
+    /** The m_local cache. */
     private final Map<String, Double> m_localCache = new HashMap<String, Double>();
 
     /*
      * Holds interface ifInfo data for interface resource only. This avoid
      * multiple calls to database for same resource.
      */
+    /** The m_if info. */
     private Map<String, String> m_ifInfo;
 
     /*
      * Holds the timestamp of the collection being thresholded, for the
      * calculation of counter rates
      */
+    /** The m_collection timestamp. */
     private final Date m_collectionTimestamp;
 
     /**
@@ -134,8 +159,8 @@ public class CollectionResourceWrapper {
      * Constructor for CollectionResourceWrapper.
      * </p>
      *
-     * @param interval
-     *            a long.
+     * @param collectionTimestamp
+     *            the collection timestamp
      * @param nodeId
      *            a int.
      * @param hostAddress
@@ -146,10 +171,10 @@ public class CollectionResourceWrapper {
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param attributes
      *            a {@link java.util.Map} object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     public CollectionResourceWrapper(Date collectionTimestamp, int nodeId, String hostAddress, String serviceName,
             RrdRepository repository, CollectionResource resource, Map<String, CollectionAttribute> attributes) {
@@ -202,6 +227,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -213,6 +239,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getHostAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -224,6 +251,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +263,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getRepository
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
@@ -246,6 +275,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -257,6 +287,7 @@ public class CollectionResourceWrapper {
      * <p>
      * setLabel
      * </p>
+     * .
      *
      * @param label
      *            a {@link java.lang.String} object.
@@ -269,6 +300,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -280,6 +312,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -291,6 +324,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getIfLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +336,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -313,6 +348,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getIfInfoValue
      * </p>
+     * .
      *
      * @param attribute
      *            a {@link java.lang.String} object.
@@ -328,6 +364,7 @@ public class CollectionResourceWrapper {
      * <p>
      * isAnInterfaceResource
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -339,6 +376,7 @@ public class CollectionResourceWrapper {
      * <p>
      * isValidInterfaceResource
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -364,6 +402,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getAttributeValue
      * </p>
+     * .
      *
      * @param ds
      *            a {@link java.lang.String} object.
@@ -400,6 +439,15 @@ public class CollectionResourceWrapper {
 
     /*
      * This will return the rate based on configured collection step
+     */
+    /**
+     * Gets the counter value.
+     *
+     * @param id
+     *            the id
+     * @param current
+     *            the current
+     * @return the counter value
      */
     private Double getCounterValue(String id, Double current) {
         synchronized (m_localCache) {
@@ -465,6 +513,7 @@ public class CollectionResourceWrapper {
      * <p>
      * getLabelValue
      * </p>
+     * .
      *
      * @param ds
      *            a {@link java.lang.String} object.

@@ -51,6 +51,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class SmbPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmbPlugin.class);
 
     /**

@@ -66,6 +66,8 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class NrpeMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NrpeMonitor.class);
 
     /**
@@ -87,13 +89,14 @@ public final class NrpeMonitor extends AbstractServiceMonitor {
                                                      // read()
 
     /**
-     * Whether to use SSL by default
-     */
+                                                         * Whether to use SSL by
+                                                         * default.
+                                                         */
     private static final boolean DEFAULT_USE_SSL = true;
 
     /**
      * List of cipher suites to use when talking SSL to NRPE, which uses
-     * anonymous DH
+     * anonymous DH.
      */
     private static final String[] ADH_CIPHER_SUITES = new String[] { "TLS_DH_anon_WITH_AES_128_CBC_SHA" };
 
@@ -275,14 +278,15 @@ public final class NrpeMonitor extends AbstractServiceMonitor {
      * <p>
      * wrapSocket
      * </p>
+     * .
      *
      * @param socket
      *            a {@link java.net.Socket} object.
      * @param useSsl
      *            a boolean.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected Socket wrapSocket(Socket socket, boolean useSsl) throws IOException {
         if (!useSsl) {

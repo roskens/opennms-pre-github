@@ -34,7 +34,7 @@ import java.util.Date;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Represents a PollContext
+ * Represents a PollContext.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
@@ -45,6 +45,7 @@ public interface PollContext {
      * <p>
      * getCriticalServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -54,6 +55,7 @@ public interface PollContext {
      * <p>
      * isNodeProcessingEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -63,6 +65,7 @@ public interface PollContext {
      * <p>
      * isPollingAllIfCritServiceUndefined
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -72,6 +75,7 @@ public interface PollContext {
      * <p>
      * sendEvent
      * </p>
+     * .
      *
      * @param event
      *            the event to send
@@ -83,6 +87,7 @@ public interface PollContext {
      * <p>
      * createEvent
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -104,6 +109,7 @@ public interface PollContext {
      * <p>
      * openOutage
      * </p>
+     * .
      *
      * @param pSvc
      *            a {@link org.opennms.netmgt.poller.pollables.PollableService}
@@ -118,6 +124,7 @@ public interface PollContext {
      * <p>
      * resolveOutage
      * </p>
+     * .
      *
      * @param pSvc
      *            a {@link org.opennms.netmgt.poller.pollables.PollableService}
@@ -132,6 +139,7 @@ public interface PollContext {
      * <p>
      * isServiceUnresponsiveEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -141,6 +149,7 @@ public interface PollContext {
      * <p>
      * reparentOutages
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.

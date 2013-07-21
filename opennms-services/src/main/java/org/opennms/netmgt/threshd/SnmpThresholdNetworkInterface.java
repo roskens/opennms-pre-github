@@ -44,11 +44,18 @@ import java.util.Set;
 import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.poller.NetworkInterface;
 
+/**
+ * The Class SnmpThresholdNetworkInterface.
+ */
 public class SnmpThresholdNetworkInterface {
+
+    /** The m_network interface. */
     private ThresholdNetworkInterface m_networkInterface;
 
+    /** The m_threshold configuration. */
     private SnmpThresholdConfiguration m_thresholdConfiguration;
 
+    /** The m_all interface map. */
     private Map<String, Map<String, Set<ThresholdEntity>>> m_allInterfaceMap;
 
     /**
@@ -75,6 +82,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getThresholdConfiguration
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.SnmpThresholdConfiguration}
      *         object.
@@ -87,6 +95,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * setThresholdConfiguration
      * </p>
+     * .
      *
      * @param thresholdConfiguration
      *            a
@@ -101,6 +110,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * setAllInterfaceMap
      * </p>
+     * .
      *
      * @param allInterfaceMap
      *            a {@link java.util.Map} object.
@@ -113,6 +123,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getAllInterfaceMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -124,6 +135,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getNetworkInterface
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
      *         object.
@@ -136,6 +148,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * setNetworkInterface
      * </p>
+     * .
      *
      * @param networkInterface
      *            a {@link org.opennms.netmgt.threshd.ThresholdNetworkInterface}
@@ -149,6 +162,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * isIPV4
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -160,6 +174,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -171,6 +186,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -182,6 +198,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -199,6 +216,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getNodeThresholdMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -211,6 +229,7 @@ public class SnmpThresholdNetworkInterface {
      * <p>
      * getInterfaceThresholdMap
      * </p>
+     * .
      *
      * @param ifLabel
      *            a {@link java.lang.String} object.

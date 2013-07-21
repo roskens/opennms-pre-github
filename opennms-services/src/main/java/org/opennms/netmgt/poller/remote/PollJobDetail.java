@@ -40,9 +40,10 @@ import org.quartz.JobDetail;
  */
 public class PollJobDetail extends JobDetail {
 
-    /** Constant <code>GROUP="pollJobGroup"</code> */
+    /** Constant <code>GROUP="pollJobGroup"</code>. */
     public static final String GROUP = "pollJobGroup";
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6499411861193543030L;
 
     /**
@@ -63,6 +64,7 @@ public class PollJobDetail extends JobDetail {
      * <p>
      * setPollService
      * </p>
+     * .
      *
      * @param pollService
      *            a {@link org.opennms.netmgt.poller.remote.PollService} object.
@@ -75,6 +77,7 @@ public class PollJobDetail extends JobDetail {
      * <p>
      * setPolledService
      * </p>
+     * .
      *
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
@@ -88,6 +91,7 @@ public class PollJobDetail extends JobDetail {
      * <p>
      * setPollerFrontEnd
      * </p>
+     * .
      *
      * @param pollerFrontEnd
      *            a {@link org.opennms.netmgt.poller.remote.PollerFrontEnd}

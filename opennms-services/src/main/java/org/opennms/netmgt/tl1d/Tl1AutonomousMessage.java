@@ -77,12 +77,16 @@ public class Tl1AutonomousMessage extends Tl1Message {
      */
     public static final String UEI = "uei.opennms.org/api/tl1d/message/autonomous";
 
+    /** The m_auto header. */
     private AutoHeader m_autoHeader;
 
+    /** The m_auto id. */
     private AutoId m_autoId;
 
+    /** The m_auto block. */
     private AutoBlock m_autoBlock;
 
+    /** The m_terminator. */
     private String m_terminator;
 
     /**
@@ -101,58 +105,124 @@ public class Tl1AutonomousMessage extends Tl1Message {
         m_terminator = ";\n";
     }
 
+    /**
+     * The Class AutoHeader.
+     */
     protected class AutoHeader {
 
+        /** The m_raw message. */
         private String m_rawMessage;
 
+        /** The m_sid. */
         private String m_sid;
 
+        /** The m_date. */
         private String m_date;
 
+        /** The m_time. */
         private String m_time;
 
+        /** The m_timestamp. */
         private Date m_timestamp;
 
+        /**
+         * Gets the raw message.
+         *
+         * @return the raw message
+         */
         public String getRawMessage() {
             return m_rawMessage;
         }
 
+        /**
+         * Sets the raw message.
+         *
+         * @param rawMessage
+         *            the new raw message
+         */
         public void setRawMessage(String rawMessage) {
             m_rawMessage = rawMessage;
         }
 
+        /**
+         * Gets the sid.
+         *
+         * @return the sid
+         */
         public String getSid() {
             return m_sid;
         }
 
+        /**
+         * Sets the sid.
+         *
+         * @param sid
+         *            the new sid
+         */
         public void setSid(String sid) {
             m_sid = sid;
         }
 
+        /**
+         * Gets the date.
+         *
+         * @return the date
+         */
         public String getDate() {
             return m_date;
         }
 
+        /**
+         * Sets the date.
+         *
+         * @param date
+         *            the new date
+         */
         public void setDate(String date) {
             m_date = date;
         }
 
+        /**
+         * Gets the time.
+         *
+         * @return the time
+         */
         public String getTime() {
             return m_time;
         }
 
+        /**
+         * Sets the time.
+         *
+         * @param time
+         *            the new time
+         */
         public void setTime(String time) {
             m_time = time;
         }
 
+        /**
+         * Gets the timestamp.
+         *
+         * @return the timestamp
+         */
         public Date getTimestamp() {
             return m_timestamp;
         }
 
+        /**
+         * Sets the timestamp.
+         *
+         * @param timestamp
+         *            the new timestamp
+         */
         public void setTimestamp(Date timestamp) {
             m_timestamp = timestamp;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return m_rawMessage;
@@ -160,32 +230,62 @@ public class Tl1AutonomousMessage extends Tl1Message {
 
     }
 
+    /**
+     * The Class AutoId.
+     */
     protected class AutoId {
 
+        /** The m_raw message. */
         private String m_rawMessage;
 
+        /** The m_alarm code. */
         private String m_alarmCode;
 
+        /** The m_alarm tag. */
         private String m_alarmTag;
 
+        /** The m_verb. */
         private String m_verb;
 
         // private String m_verbModifier1;
         // private String m_verbModifier2;
+        /** The m_highest severity. */
         private String m_highestSeverity; // derived from alarmCode
 
+        /**
+         * Gets the raw message.
+         *
+         * @return the raw message
+         */
         public String getRawMessage() {
             return m_rawMessage;
         }
 
+        /**
+         * Sets the raw message.
+         *
+         * @param rawMessage
+         *            the new raw message
+         */
         public void setRawMessage(String rawMessage) {
             m_rawMessage = rawMessage;
         }
 
+        /**
+         * Gets the alarm code.
+         *
+         * @return the alarm code
+         */
         public String getAlarmCode() {
             return m_alarmCode;
         }
 
+        /**
+         * Sets the alarm code.
+         *
+         * @param alarmCode
+         *            the new alarm code
+         */
         public void setAlarmCode(String alarmCode) {
             m_alarmCode = alarmCode;
 
@@ -201,75 +301,159 @@ public class Tl1AutonomousMessage extends Tl1Message {
 
         }
 
+        /**
+         * Gets the highest severity.
+         *
+         * @return the highest severity
+         */
         public String getHighestSeverity() {
             return m_highestSeverity;
         }
 
+        /**
+         * Gets the alarm tag.
+         *
+         * @return the alarm tag
+         */
         public String getAlarmTag() {
             return m_alarmTag;
         }
 
+        /**
+         * Sets the alarm tag.
+         *
+         * @param alarmTag
+         *            the new alarm tag
+         */
         public void setAlarmTag(String alarmTag) {
             m_alarmTag = alarmTag;
         }
 
+        /**
+         * Gets the verb.
+         *
+         * @return the verb
+         */
         public String getVerb() {
             return m_verb;
         }
 
+        /**
+         * Sets the verb.
+         *
+         * @param verb
+         *            the new verb
+         */
         public void setVerb(String verb) {
             m_verb = verb;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return m_rawMessage;
         }
     }
 
+    /**
+     * The Class AutoBlock.
+     */
     protected class AutoBlock {
 
+        /** The m_block. */
         private String m_block;
 
+        /** The m_aid. */
         private String m_aid;
 
+        /** The m_ntfcncde. */
         private String m_ntfcncde;
 
         // private String m_severity;
+        /** The m_additional params. */
         private String m_additionalParams;
 
+        /**
+         * Gets the block.
+         *
+         * @return the block
+         */
         public String getBlock() {
             return m_block;
         }
 
+        /**
+         * Sets the block.
+         *
+         * @param block
+         *            the new block
+         */
         public void setBlock(String block) {
             m_block = block;
         }
 
+        /**
+         * Sets the aid.
+         *
+         * @param aid
+         *            the new aid
+         */
         public void setAid(String aid) {
             m_aid = aid;
         }
 
+        /**
+         * Gets the aid.
+         *
+         * @return the aid
+         */
         public String getAid() {
             return m_aid;
         }
 
+        /**
+         * Sets the ntfcncde.
+         *
+         * @param ntfcncde
+         *            the new ntfcncde
+         */
         public void setNtfcncde(String ntfcncde) {
             m_ntfcncde = ntfcncde;
         }
 
+        /**
+         * Gets the ntfcncde.
+         *
+         * @return the ntfcncde
+         */
         public String getNtfcncde() {
             return m_ntfcncde;
         }
 
+        /**
+         * Sets the additional params.
+         *
+         * @param additionalParams
+         *            the new additional params
+         */
         public void setAdditionalParams(String additionalParams) {
             m_additionalParams = additionalParams;
         }
 
+        /**
+         * Gets the additional params.
+         *
+         * @return the additional params
+         */
         public String getAdditionalParams() {
             return m_additionalParams;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return m_block;
@@ -280,6 +464,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * getHeader
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessage.AutoHeader}
      *         object.
@@ -292,6 +477,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * setHeader
      * </p>
+     * .
      *
      * @param header
      *            a
@@ -306,6 +492,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessage.AutoId}
      *         object.
@@ -318,6 +505,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * setId
      * </p>
+     * .
      *
      * @param id
      *            a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessage.AutoId}
@@ -331,6 +519,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * getAutoBlock
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.tl1d.Tl1AutonomousMessage.AutoBlock}
      *         object.
@@ -343,6 +532,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * setAutoBlock
      * </p>
+     * .
      *
      * @param block
      *            a
@@ -357,6 +547,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * getTerminator
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -368,6 +559,7 @@ public class Tl1AutonomousMessage extends Tl1Message {
      * <p>
      * setTerminator
      * </p>
+     * .
      *
      * @param terminator
      *            a {@link java.lang.String} object.

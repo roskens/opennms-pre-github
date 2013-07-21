@@ -48,6 +48,10 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class SnmpStoreTest extends TestCase {
+
+    /**
+     * Test store result with value then end of mib view.
+     */
     public void testStoreResultWithValueThenEndOfMibView() {
         String baseOid = ".1.3.6.1.2.1.31.1.1.1.18";
         String ifAliasName = "ifAlias";

@@ -38,11 +38,20 @@ import junit.framework.TestCase;
 import org.apache.xmlrpc.XmlRpcClient;
 import org.apache.xmlrpc.XmlRpcException;
 
+/**
+ * The Class XmlrpcAnticipatorTest.
+ */
 public class XmlrpcAnticipatorTest extends TestCase {
+
+    /** The Constant PORT. */
     private static final int PORT = 9000;
 
+    /** The m_anticipator. */
     private XmlrpcAnticipator m_anticipator;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -50,6 +59,9 @@ public class XmlrpcAnticipatorTest extends TestCase {
         m_anticipator = new XmlrpcAnticipator(PORT);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         if (m_anticipator != null) {
@@ -61,8 +73,6 @@ public class XmlrpcAnticipatorTest extends TestCase {
 
     /**
      * See if we have any bugs with starting and stopping an anticipator.
-     *
-     * @throws IOException
      */
     public void testSetupAndTearDown() {
         // do nothing, let setUp and tearDown do th work
@@ -73,6 +83,7 @@ public class XmlrpcAnticipatorTest extends TestCase {
      * to back.
      *
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void testSetupTwice() throws IOException {
         // It's already been set up in setUp(), so just shutdown
@@ -82,6 +93,14 @@ public class XmlrpcAnticipatorTest extends TestCase {
         // Let tearDown() do the shutdown
     }
 
+    /**
+     * Test good anticipation.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws XmlRpcException
+     *             the xml rpc exception
+     */
     public void testGoodAnticipation() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();
@@ -107,6 +126,14 @@ public class XmlrpcAnticipatorTest extends TestCase {
         m_anticipator.verifyAnticipated();
     }
 
+    /**
+     * Test anticipated not seen.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws XmlRpcException
+     *             the xml rpc exception
+     */
     public void testAnticipatedNotSeen() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();
@@ -142,6 +169,14 @@ public class XmlrpcAnticipatorTest extends TestCase {
         }
     }
 
+    /**
+     * Test ignore description inside hashtable.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws XmlRpcException
+     *             the xml rpc exception
+     */
     public void testIgnoreDescriptionInsideHashtable() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();

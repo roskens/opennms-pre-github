@@ -47,17 +47,23 @@ import org.slf4j.LoggerFactory;
  * Abstract SnmpTable class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
  * @author ranger
  * @version $Id: $
  */
 public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker implements Collection<T> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTable.class);
 
+    /** The m_results. */
     private final Map<SnmpInstId, T> m_results = new TreeMap<SnmpInstId, T>();
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_table name. */
     private String m_tableName;
 
     /**
@@ -72,8 +78,6 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
      * @param columns
      *            an array of {@link org.opennms.netmgt.capsd.snmp.NamedSnmpVar}
      *            objects.
-     * @param <T>
-     *            a T object.
      */
     protected SnmpTable(InetAddress address, String tableName, NamedSnmpVar[] columns) {
         super(NamedSnmpVar.getTrackersFor(columns));
@@ -96,6 +100,7 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
      * <p>
      * createTableEntry
      * </p>
+     * .
      *
      * @param base
      *            a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
@@ -111,6 +116,7 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
      * <p>
      * getEntries
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -122,6 +128,7 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
      * <p>
      * iterator
      * </p>
+     * .
      *
      * @return a {@link java.util.Iterator} object.
      */
@@ -142,61 +149,97 @@ public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker im
         LOG.info("Error retrieving {} from {}. {}", m_tableName, m_address, msg);
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#add(java.lang.Object)
+     */
     @Override
     public boolean add(T e) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#addAll(java.util.Collection)
+     */
     @Override
     public boolean addAll(Collection<? extends T> c) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#clear()
+     */
     @Override
     public void clear() {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#contains(java.lang.Object)
+     */
     @Override
     public boolean contains(Object o) {
         return m_results.values().contains(o);
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#containsAll(java.util.Collection)
+     */
     @Override
     public boolean containsAll(Collection<?> c) {
         return m_results.values().containsAll(c);
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#isEmpty()
+     */
     @Override
     public boolean isEmpty() {
         return m_results.values().isEmpty();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#remove(java.lang.Object)
+     */
     @Override
     public boolean remove(Object o) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#removeAll(java.util.Collection)
+     */
     @Override
     public boolean removeAll(Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#retainAll(java.util.Collection)
+     */
     @Override
     public boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#size()
+     */
     @Override
     public int size() {
         return m_results.values().size();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#toArray()
+     */
     @Override
     public Object[] toArray() {
         return m_results.values().toArray();
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Collection#toArray(java.lang.Object[])
+     */
     @Override
     public <S> S[] toArray(S[] a) {
         return m_results.values().toArray(a);

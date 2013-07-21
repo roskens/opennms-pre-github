@@ -41,10 +41,20 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public final class IfNumberTracker extends ObjIdMonitor {
 
+    /**
+     * Instantiates a new if number tracker.
+     */
     IfNumberTracker() {
         super(SnmpObjId.get(SnmpCollector.INTERFACES_IFNUMBER), SnmpInstId.INST_ZERO);
     }
 
+    /**
+     * Checks if is changed.
+     *
+     * @param savedIfCount
+     *            the saved if count
+     * @return true, if is changed
+     */
     boolean isChanged(int savedIfCount) {
         return (savedIfCount != -1) && (getIntValue() != savedIfCount);
     }

@@ -36,40 +36,66 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 
 /**
- * Represents a MapSubAgent
+ * Represents a MapSubAgent.
  *
  * @author brozow
  */
 public class MapSubAgent implements SubAgent {
 
+    /** The m_values. */
     private SortedMap<OID, Variable> m_values = new TreeMap<OID, Variable>();
 
+    /** The m_base. */
     private OID m_base;
 
     /**
-     * @param string
+     * Instantiates a new map sub agent.
+     *
+     * @param baseOID
+     *            the base oid
      */
     public MapSubAgent(String baseOID) {
         m_base = new OID(baseOID);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.SubAgent#getBaseOID()
+     */
     @Override
     public OID getBaseOID() {
         return new OID(m_base);
     }
 
+    /**
+     * Put.
+     *
+     * @param oid
+     *            the oid
+     * @param value
+     *            the value
+     */
     public void put(String oid, Variable value) {
         OID oidKey = new OID(m_base);
         oidKey.append(oid);
         m_values.put(oidKey, value);
     }
 
+    /**
+     * Next oid.
+     *
+     * @param requested
+     *            the requested
+     * @return the oid
+     */
     private OID nextOID(OID requested) {
         OID next = new OID(requested);
         next.append(0);
         return next;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.SubAgent#getNext(org.snmp4j.smi.OID)
+     */
     @Override
     public VariableBinding getNext(OID requested) {
         OID successor = nextOID(requested);
@@ -84,6 +110,9 @@ public class MapSubAgent implements SubAgent {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.mock.SubAgent#get(org.snmp4j.smi.OID)
+     */
     @Override
     public VariableBinding get(OID requested) {
         if (!m_values.containsKey(requested)) {

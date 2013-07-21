@@ -51,17 +51,18 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @version $Id: $
  */
 public class DefaultCollectionAgent extends InetNetworkInterface implements CollectionAgent {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionAgent.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6694654071513990997L;
 
     /**
      * <p>
      * create
      * </p>
+     * .
      *
      * @param ifaceId
      *            a {@link java.lang.Integer} object.
@@ -69,9 +70,9 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      * @param transMgr
      *            a
-     *            {@link org.springframework.transaction.PlatformTransactionManager}
-     *            object.
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
+     *         {@link org.springframework.transaction.PlatformTransactionManager}
+     *         object.
      */
     public static CollectionAgent create(final Integer ifaceId, final IpInterfaceDao ifaceDao,
             final PlatformTransactionManager transMgr) {
@@ -79,29 +80,46 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
     }
 
     // miscellaneous junk?
+    /** The m_if count. */
     private int m_ifCount = -1;
 
+    /** The m_sys up time. */
     private long m_sysUpTime = -1;
 
     // cached attributes
+    /** The m_node id. */
     private int m_nodeId = -1;
 
+    /** The m_inet address. */
     private InetAddress m_inetAddress = null;
 
+    /** The m_if index. */
     private int m_ifIndex = -1;
 
+    /** The m_is snmp primary. */
     private PrimaryType m_isSnmpPrimary = null;
 
+    /** The m_sys obj id. */
     private String m_sysObjId = null;
 
+    /** The m_foreign source. */
     private String m_foreignSource = null;
 
+    /** The m_foreign id. */
     private String m_foreignId = null;
 
+    /** The m_agent service. */
     private CollectionAgentService m_agentService;
 
+    /** The m_snmp if data. */
     private Set<SnmpIfData> m_snmpIfData;
 
+    /**
+     * Instantiates a new default collection agent.
+     *
+     * @param agentService
+     *            the agent service
+     */
     private DefaultCollectionAgent(final CollectionAgentService agentService) {
         super(null);
         m_agentService = agentService;
@@ -134,6 +152,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * isStoreByForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -150,6 +169,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getHostAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -176,6 +196,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getSavedIfCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -192,6 +213,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -211,6 +233,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -230,6 +253,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -249,6 +273,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getStorageDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -264,6 +289,11 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return dir;
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     private int getIfIndex() {
         if (m_ifIndex == -1) {
             m_ifIndex = m_agentService.getIfIndex();
@@ -280,6 +310,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getSysObjectId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,6 +324,11 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return m_sysObjId;
     }
 
+    /**
+     * Gets the checks if is snmp primary.
+     *
+     * @return the checks if is snmp primary
+     */
     private PrimaryType getIsSnmpPrimary() {
         if (m_isSnmpPrimary == null) {
             m_isSnmpPrimary = m_agentService.getIsSnmpPrimary();
@@ -301,11 +337,20 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
 
     }
 
+    /**
+     * Log completion.
+     */
     private void logCompletion() {
         LOG.debug("initialize: initialization completed: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}",
                   getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
     }
 
+    /**
+     * Validate sys obj id.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private void validateSysObjId() throws CollectionInitializationException {
         if (getSysObjectId() == null) {
             throw new CollectionInitializationException("System Object ID for interface " + getHostAddress()
@@ -313,11 +358,20 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         }
     }
 
+    /**
+     * Log collection parms.
+     */
     private void logCollectionParms() {
         LOG.debug("initialize: db retrieval info: nodeid = {}, address = {}, primaryIfIndex = {}, isSnmpPrimary = {}, sysoid = {}",
                   getNodeId(), getHostAddress(), getIfIndex(), getIsSnmpPrimary(), getSysObjectId());
     }
 
+    /**
+     * Validate is snmp primary.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private void validateIsSnmpPrimary() throws CollectionInitializationException {
         if (!PrimaryType.PRIMARY.equals(getIsSnmpPrimary())) {
             throw new CollectionInitializationException("Interface " + getHostAddress()
@@ -325,6 +379,9 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         }
     }
 
+    /**
+     * Validate primary if index.
+     */
     private void validatePrimaryIfIndex() {
         if (getIfIndex() < 0) {
             // allow this for nodes without ipAddrTables
@@ -343,8 +400,10 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * validateAgent
      * </p>
+     * .
      *
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     @Override
     public void validateAgent() throws CollectionInitializationException {
@@ -363,6 +422,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -379,6 +439,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -387,6 +448,11 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
         return SnmpPeerFactory.getInstance().getAgentConfig(getInetAddress());
     }
 
+    /**
+     * Gets the snmp interface data.
+     *
+     * @return the snmp interface data
+     */
     private Set<SnmpIfData> getSnmpInterfaceData() {
         if (m_snmpIfData == null) {
             m_snmpIfData = m_agentService.getSnmpInterfaceData();
@@ -428,6 +494,7 @@ public class DefaultCollectionAgent extends InetNetworkInterface implements Coll
      * <p>
      * getSavedSysUpTime
      * </p>
+     * .
      *
      * @return a long.
      */

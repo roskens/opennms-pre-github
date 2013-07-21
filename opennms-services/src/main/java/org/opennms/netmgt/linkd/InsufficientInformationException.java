@@ -41,9 +41,7 @@ package org.opennms.netmgt.linkd;
  */
 public class InsufficientInformationException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8687696175850117574L;
 
     /**

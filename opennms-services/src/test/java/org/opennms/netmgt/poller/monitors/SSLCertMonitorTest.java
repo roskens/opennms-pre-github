@@ -51,16 +51,31 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SSLCertMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class SSLCertMonitorTest {
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test nm s4142.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true)
     public void testNMS4142() throws UnknownHostException {
@@ -78,6 +93,12 @@ public class SSLCertMonitorTest {
         assertFalse(status.isAvailable());
     }
 
+    /**
+     * Test valid date for certificate.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true)
     public void testValidDateForCertificate() throws UnknownHostException {
@@ -102,6 +123,12 @@ public class SSLCertMonitorTest {
         assertTrue(status.isAvailable());
     }
 
+    /**
+     * Test internet website.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @Ignore
     public void testInternetWebsite() throws UnknownHostException {

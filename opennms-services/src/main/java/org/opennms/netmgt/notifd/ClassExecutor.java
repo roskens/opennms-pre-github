@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ClassExecutor implements ExecutorStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ClassExecutor.class);
 
     /**

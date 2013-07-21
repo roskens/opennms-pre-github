@@ -52,6 +52,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
 public final class SyslogHandler implements Fiber {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogHandler.class);
 
     /**
@@ -69,15 +71,16 @@ public final class SyslogHandler implements Fiber {
      */
     private DatagramSocket m_dgSock;
 
+    /** The Forwarding regexp. */
     private final String m_ForwardingRegexp;
 
+    /** The Matching group host. */
     private final int m_MatchingGroupHost;
 
+    /** The Matching group message. */
     private final int m_MatchingGroupMessage;
 
-    /**
-     * A collection of Strings->UEI's
-     */
+    /** A collection of Strings->UEI's. */
     private final UeiList m_UeiList;
 
     /**
@@ -95,16 +98,13 @@ public final class SyslogHandler implements Fiber {
      */
     private String m_dgIp;
 
-    /**
-     * The log prefix
-     */
+    /** The log prefix. */
     private String m_logPrefix;
 
+    /** The Discard uei. */
     private final String m_DiscardUei;
 
-    /**
-     * Set the Trapd configuration
-     */
+    /** Set the Trapd configuration. */
     private static SyslogdConfig m_syslogdConfig;
 
     /**
@@ -142,6 +142,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * setSyslogConfig
      * </p>
+     * .
      *
      * @param syslogdConfig
      *            a {@link org.opennms.netmgt.config.SyslogdConfig} object.
@@ -154,6 +155,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -198,6 +200,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public synchronized void stop() {
@@ -225,6 +228,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -237,6 +241,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -249,6 +254,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * init
      * </p>
+     * .
      */
     public void init() {
     }
@@ -257,6 +263,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * destroy
      * </p>
+     * .
      */
     public void destroy() {
     }
@@ -265,6 +272,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a {@link java.lang.Integer} object.
@@ -280,6 +288,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -291,6 +300,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * setIpAddress
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -304,6 +314,7 @@ public final class SyslogHandler implements Fiber {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      * @since 1.8.1
@@ -315,13 +326,36 @@ public final class SyslogHandler implements Fiber {
         return m_dgIp;
     }
 
+    /**
+     * Sets the log prefix.
+     *
+     * @param prefix
+     *            the new log prefix
+     */
     public void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }
 
+    /**
+     * The Interface EventHandler.
+     */
     public interface EventHandler {
+
+        /**
+         * Process event.
+         *
+         * @param event
+         *            the event
+         * @return true, if successful
+         */
         public boolean processEvent(Event event);
 
+        /**
+         * Receipt sent.
+         *
+         * @param receipt
+         *            the receipt
+         */
         public void receiptSent(EventReceipt receipt);
     }
 }

@@ -38,14 +38,21 @@ import org.opennms.netmgt.model.events.EventProxy;
 import org.opennms.netmgt.utils.TcpEventProxy;
 
 /**
- * MemoryLeakTest
+ * MemoryLeakTest.
  *
  * @author brozow
  */
 public class MemoryLeakTest {
 
+    /** The Constant MINS. */
     private static final long MINS = 8 * 60 * 60 * 1000L;
 
+    /**
+     * Test memory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testMemory() throws Exception {
@@ -68,6 +75,16 @@ public class MemoryLeakTest {
 
     }
 
+    /**
+     * Send event.
+     *
+     * @param proxy
+     *            the proxy
+     * @param count
+     *            the count
+     * @throws Exception
+     *             the exception
+     */
     private void sendEvent(EventProxy proxy, long count) throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/authentication/successfulLogin",
                                              "MemoryLeakTest");

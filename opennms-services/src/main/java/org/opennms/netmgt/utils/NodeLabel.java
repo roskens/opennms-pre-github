@@ -69,35 +69,36 @@ import org.slf4j.LoggerFactory;
  */
 public class NodeLabel {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
 
     /**
      * The SQL statement to update the 'nodelabel' and 'nodelabelsource' fields
-     * of 'node' table
+     * of 'node' table.
      */
     private static final String SQL_DB_UPDATE_NODE_LABEL = "UPDATE node SET nodelabel=?,nodelabelsource=? WHERE nodeid=?";
 
     /**
      * The SQL statement to retrieve the NetBIOS name associated with a
-     * particular nodeID
+     * particular nodeID.
      */
     private static final String SQL_DB_RETRIEVE_NETBIOS_NAME = "SELECT nodenetbiosname FROM node WHERE nodeid=?";
 
     /**
      * The SQL statement to retrieve all managed IP address & hostName values
-     * associated with a particular nodeID
+     * associated with a particular nodeID.
      */
     private static final String SQL_DB_RETRIEVE_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged='M'";
 
     /**
      * The SQL statement to retrieve all non-managed IP address & hostName
-     * values associated with a particular nodeID
+     * values associated with a particular nodeID.
      */
     private static final String SQL_DB_RETRIEVE_NON_MANAGED_INTERFACES = "SELECT ipaddr,iphostname FROM ipinterface WHERE nodeid=? AND ismanaged!='M'";
 
     /**
      * The SQL statement to retrieve the MIB-II sysname field from the node
-     * table
+     * table.
      */
     private static final String SQL_DB_RETRIEVE_SYSNAME = "SELECT nodesysname FROM node WHERE nodeid=?";
 
@@ -107,31 +108,25 @@ public class NodeLabel {
      */
     private static final String SQL_DB_RETRIEVE_NODELABEL = "SELECT nodelabel,nodelabelsource FROM node WHERE nodeid=?";
 
-    /**
-     * Valid values for node label source flag
-     */
+    /** Valid values for node label source flag. */
     public static final char SOURCE_USERDEFINED = 'U';
 
-    /** Constant <code>SOURCE_NETBIOS='N'</code> */
+    /** Constant <code>SOURCE_NETBIOS='N'</code>. */
     public static final char SOURCE_NETBIOS = 'N';
 
-    /** Constant <code>SOURCE_HOSTNAME='H'</code> */
+    /** Constant <code>SOURCE_HOSTNAME='H'</code>. */
     public static final char SOURCE_HOSTNAME = 'H';
 
-    /** Constant <code>SOURCE_SYSNAME='S'</code> */
+    /** Constant <code>SOURCE_SYSNAME='S'</code>. */
     public static final char SOURCE_SYSNAME = 'S';
 
-    /** Constant <code>SOURCE_ADDRESS='A'</code> */
+    /** Constant <code>SOURCE_ADDRESS='A'</code>. */
     public static final char SOURCE_ADDRESS = 'A';
 
-    /**
-     * Initialization value for node label source flag
-     */
+    /** Initialization value for node label source flag. */
     public static final char SOURCE_UNKNOWN = 'X';
 
-    /**
-     * Maximum length for node label
-     */
+    /** Maximum length for node label. */
     public static final int MAX_NODE_LABEL_LENGTH = 256;
 
     /**
@@ -153,14 +148,10 @@ public class NodeLabel {
      */
     private static final String DEFAULT_SELECT_METHOD = SELECT_METHOD_MIN;
 
-    /**
-     * Node label
-     */
+    /** Node label. */
     private final String m_nodeLabel;
 
-    /**
-     * Flag describing source of node label
-     */
+    /** Flag describing source of node label. */
     private final char m_nodeLabelSource;
 
     /**
@@ -170,19 +161,27 @@ public class NodeLabel {
     public static final String PROP_PRIMARY_INTERFACE_SELECT_METHOD = "org.opennms.bluebird.dp.primaryInterfaceSelectMethod";
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public NodeLabel() {
         m_nodeLabel = null;
         m_nodeLabelSource = SOURCE_UNKNOWN;
     }
 
+    /**
+     * Instantiates a new node label.
+     *
+     * @param nodeLabel
+     *            the node label
+     * @param nodeLabelSource
+     *            the node label source
+     */
     public NodeLabel(String nodeLabel, String nodeLabelSource) {
         this(nodeLabel, nodeLabelSource.charAt(0));
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param nodeLabel
      *            Node label
@@ -234,8 +233,8 @@ public class NodeLabel {
      * @param nodeID
      *            Unique identifier of the node to be updated.
      * @return Object containing label and source values.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID) throws SQLException {
@@ -261,8 +260,8 @@ public class NodeLabel {
      * @param dbConnection
      *            SQL database connection
      * @return object initialized with node label & source flag
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID, Connection dbConnection) throws SQLException {
@@ -311,8 +310,8 @@ public class NodeLabel {
      *            Unique identifier of the node to be updated.
      * @param nodeLabel
      *            Object containing label and source values.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Use a
      *             {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)}
      *             method call instead
@@ -339,8 +338,8 @@ public class NodeLabel {
      *            Object containing label and source values.
      * @param dbConnection
      *            SQL database connection
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Use a
      *             {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)}
      *             method call instead
@@ -397,8 +396,8 @@ public class NodeLabel {
      * @param nodeID
      *            Unique identifier of the node to be updated.
      * @return NodeLabel Object containing label and source values
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID) throws SQLException {
@@ -435,8 +434,8 @@ public class NodeLabel {
      *            SQL database connection
      * @return NodeLabel Object containing label and source values or null if
      *         node does not have a primary interface.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID, Connection dbConnection) throws SQLException {

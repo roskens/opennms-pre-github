@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  * The DataSender is responsible to send data out to 'listeners'
  * When the RTCManager's timers go off, the DataSender is prompted to send data,
  * which it does by maintaining a 'SendRequest' runnable queue so as to not
- * block the RTCManager
+ * block the RTCManager.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj</A>
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver</A>
@@ -67,48 +67,42 @@ import org.slf4j.LoggerFactory;
  */
 final class DataSender implements Fiber {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataSender.class);
 
-    /**
-     * The category map
-     */
+    /** The category map. */
     private Map<String, RTCCategory> m_categories;
 
     /**
      * The listeners like the WebUI that send a URL to which the data is to be
-     * sent
+     * sent.
      */
     private Map<String, Set<HttpPostInfo>> m_catUrlMap;
 
-    /**
-     * The data sender thread pool
-     */
+    /** The data sender thread pool. */
     private ExecutorService m_dsrPool;
 
-    /**
-     * The category to XML mapper
-     */
+    /** The category to XML mapper. */
     private EuiLevelMapper m_euiMapper;
 
     /**
      * The allowable number of times posts can have errors before an URL is
-     * automatically unsubscribed
+     * automatically unsubscribed.
      */
     private final int POST_ERROR_LIMIT;
 
-    /**
-     * The current status of this fiber
-     */
+    /** The current status of this fiber. */
     private int m_status;
 
     /**
      * Inner class to send data to all the categories - this runnable prevents
      * the RTCManager from having to block until data is computed, converted to
-     * XML and sent out
+     * XML and sent out.
      */
     private class SendRequest implements Runnable {
+
         /**
-         * Call the 'sendData()' to send the data out for all the categories
+         * Call the 'sendData()' to send the data out for all the categories.
          */
         @Override
         public void run() {
@@ -118,7 +112,11 @@ final class DataSender implements Fiber {
 
     /**
      * Set the current thread's priority to the passed value and return the old
-     * priority
+     * priority.
+     *
+     * @param priority
+     *            the priority
+     * @return the int
      */
     private int setCurrentThreadPriority(int priority) {
         Thread currentThread = Thread.currentThread();
@@ -133,7 +131,7 @@ final class DataSender implements Fiber {
     }
 
     /**
-     * The constructor for this object
+     * The constructor for this object.
      *
      * @param categories
      *            The category map.
@@ -158,7 +156,7 @@ final class DataSender implements Fiber {
     }
 
     /**
-     * Start the data sender thread pool
+     * Start the data sender thread pool.
      */
     @Override
     public synchronized void start() {
@@ -169,7 +167,7 @@ final class DataSender implements Fiber {
 
     /**
      * <P>
-     * Shutdown the data sender thread pool
+     * Shutdown the data sender thread pool.
      */
     @Override
     public synchronized void stop() {
@@ -188,7 +186,7 @@ final class DataSender implements Fiber {
     }
 
     /**
-     * Returns a name/ID for this fiber
+     * Returns a name/ID for this fiber.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -198,7 +196,7 @@ final class DataSender implements Fiber {
     }
 
     /**
-     * Returns the current status
+     * Returns the current status.
      *
      * @return a int.
      */
@@ -304,7 +302,7 @@ final class DataSender implements Fiber {
 
     /**
      * Unsubscribe - remove the received URL and related info from the
-     * category->URLs map so the sendData() will know when it sends data out
+     * category->URLs map so the sendData() will know when it sends data out.
      *
      * @param urlStr
      *            a {@link java.lang.String} object.
@@ -342,7 +340,7 @@ final class DataSender implements Fiber {
 
     /**
      * Loop through the categories and send out data for all categories that
-     * have changed
+     * have changed.
      */
     public synchronized void sendData() {
         LOG.debug("In DataSender sendData()");
@@ -450,7 +448,7 @@ final class DataSender implements Fiber {
 
     /**
      * Notify the DataSender to send data - create a new 'SendRequest' to send
-     * the data and queue to the consumer
+     * the data and queue to the consumer.
      */
     public synchronized void notifyToSend() {
         try {

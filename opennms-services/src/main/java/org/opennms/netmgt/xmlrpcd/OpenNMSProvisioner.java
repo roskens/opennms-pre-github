@@ -63,93 +63,185 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
  */
 public class OpenNMSProvisioner implements Provisioner {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSProvisioner.class);
 
+    /** The Constant JDBC_MONITOR. */
     private static final String JDBC_MONITOR = "org.opennms.netmgt.poller.monitors.JDBCMonitor";
 
+    /** The Constant HTTPS_MONITOR. */
     private static final String HTTPS_MONITOR = "org.opennms.netmgt.poller.monitors.HttpsMonitor";
 
+    /** The Constant HTTP_MONITOR. */
     private static final String HTTP_MONITOR = "org.opennms.netmgt.poller.monitors.HttpMonitor";
 
+    /** The Constant TCP_MONITOR. */
     private static final String TCP_MONITOR = "org.opennms.netmgt.poller.monitors.TcpMonitor";
 
+    /** The Constant DNS_MONITOR. */
     private static final String DNS_MONITOR = "org.opennms.netmgt.poller.monitors.DnsMonitor";
 
+    /** The Constant ICMP_MONITOR. */
     private static final String ICMP_MONITOR = "org.opennms.netmgt.poller.monitors.IcmpMonitor";
 
+    /** The Constant JDBC_PLUGIN. */
     private static final String JDBC_PLUGIN = "org.opennms.netmgt.capsd.plugins.JDBCPlugin";
 
+    /** The Constant HTTPS_PLUGIN. */
     private static final String HTTPS_PLUGIN = "org.opennms.netmgt.capsd.plugins.HttpsPlugin";
 
+    /** The Constant HTTP_PLUGIN. */
     private static final String HTTP_PLUGIN = "org.opennms.netmgt.capsd.plugins.HttpPlugin";
 
+    /** The Constant TCP_PLUGIN. */
     private static final String TCP_PLUGIN = "org.opennms.netmgt.capsd.plugins.TcpPlugin";
 
+    /** The Constant DNS_PLUGIN. */
     private static final String DNS_PLUGIN = "org.opennms.netmgt.capsd.plugins.DnsPlugin";
 
+    /** The Constant ICMP_PLUGIN. */
     private static final String ICMP_PLUGIN = "org.opennms.netmgt.capsd.plugins.IcmpPlugin";
 
+    /**
+     * The Class Parm.
+     */
     private static class Parm {
+
+        /** The m_key. */
         String m_key;
 
+        /** The m_val. */
         String m_val;
 
+        /**
+         * Instantiates a new parm.
+         *
+         * @param key
+         *            the key
+         * @param val
+         *            the val
+         */
         Parm(String key, String val) {
             m_key = key;
             m_val = val;
         }
 
+        /**
+         * Instantiates a new parm.
+         *
+         * @param key
+         *            the key
+         * @param val
+         *            the val
+         */
         Parm(String key, int val) {
             m_key = key;
             m_val = "" + val;
         }
 
+        /**
+         * Gets the key.
+         *
+         * @return the key
+         */
         String getKey() {
             return m_key;
         }
 
+        /**
+         * Gets the val.
+         *
+         * @return the val
+         */
         String getVal() {
             return m_val;
         }
 
     }
 
+    /** The m_capsd config. */
     private CapsdConfig m_capsdConfig;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_event manager. */
     private EventIpcManager m_eventManager;
 
+    /** The m_capsd db syncer. */
     private CapsdDbSyncer m_capsdDbSyncer;
 
+    /**
+     * Check retries.
+     *
+     * @param retries
+     *            the retries
+     */
     private void checkRetries(final int retries) {
         if (retries < 0)
             throw new IllegalArgumentException("Illegal retries " + retries + ". Must be >= 0");
     }
 
+    /**
+     * Check timeout.
+     *
+     * @param timeout
+     *            the timeout
+     */
     private void checkTimeout(final int timeout) {
         if (timeout <= 0)
             throw new IllegalArgumentException("Illegal timeout " + timeout + ". Must be > 0");
     }
 
+    /**
+     * Check interval.
+     *
+     * @param interval
+     *            the interval
+     */
     private void checkInterval(final int interval) {
         if (interval <= 0)
             throw new IllegalArgumentException("Illegal interval " + interval + ". Must be > 0");
     }
 
+    /**
+     * Check downtime interval.
+     *
+     * @param interval
+     *            the interval
+     */
     private void checkDowntimeInterval(final int interval) {
         checkInterval(interval);
     }
 
+    /**
+     * Check downtime duration.
+     *
+     * @param duration
+     *            the duration
+     */
     private void checkDowntimeDuration(final int duration) {
         checkInterval(duration);
     }
 
+    /**
+     * Check port.
+     *
+     * @param port
+     *            the port
+     */
     private void checkPort(final int port) {
         if (port < 1 || port > 65535)
             throw new IllegalArgumentException("Illegal port " + port + ". Must be between 1 and 65535 (inclusive)");
     }
 
+    /**
+     * Check hostname.
+     *
+     * @param hostname
+     *            the hostname
+     */
     private void checkHostname(final String hostname) {
         if (hostname == null)
             throw new NullPointerException("hostname must not be null");
@@ -158,6 +250,12 @@ public class OpenNMSProvisioner implements Provisioner {
                     + ". Hostnames must not be longer than 512 characters");
     }
 
+    /**
+     * Check url.
+     *
+     * @param url
+     *            the url
+     */
     private void checkUrl(final String url) {
         if (url == null)
             throw new NullPointerException("url must not be null");
@@ -167,11 +265,23 @@ public class OpenNMSProvisioner implements Provisioner {
             throw new IllegalArgumentException("Illegal url " + url + ". Must be no more than 512 chars");
     }
 
+    /**
+     * Check content check.
+     *
+     * @param check
+     *            the check
+     */
     private void checkContentCheck(final String check) {
         if (check != null && check.length() > 128)
             throw new IllegalArgumentException("Illegal contentCheck " + check + ". Must be no more than 128 chars.");
     }
 
+    /**
+     * Check response range.
+     *
+     * @param response
+     *            the response
+     */
     private void checkResponseRange(final String response) {
         if (response == null || response.equals(""))
             return;
@@ -193,6 +303,12 @@ public class OpenNMSProvisioner implements Provisioner {
         }
     }
 
+    /**
+     * Check response code.
+     *
+     * @param response
+     *            the response
+     */
     private void checkResponseCode(final String response) {
         if (response == null || response.equals(""))
             return;
@@ -202,6 +318,12 @@ public class OpenNMSProvisioner implements Provisioner {
             throw new IllegalArgumentException("Illegal response code " + code + ". Must be between 100 and 599");
     }
 
+    /**
+     * Check username.
+     *
+     * @param username
+     *            the username
+     */
     private void checkUsername(final String username) {
         if (username == null)
             throw new NullPointerException("username is null");
@@ -210,6 +332,12 @@ public class OpenNMSProvisioner implements Provisioner {
                     + ". username must be no more than than 64 characters");
     }
 
+    /**
+     * Check password.
+     *
+     * @param pw
+     *            the pw
+     */
     private void checkPassword(final String pw) {
         if (pw == null)
             throw new NullPointerException("password is null");
@@ -218,6 +346,12 @@ public class OpenNMSProvisioner implements Provisioner {
                     + ". password must be no more than than 64 charachters");
     }
 
+    /**
+     * Check driver.
+     *
+     * @param driver
+     *            the driver
+     */
     private void checkDriver(final String driver) {
         if (driver == null)
             throw new NullPointerException("driver is null");
@@ -229,6 +363,20 @@ public class OpenNMSProvisioner implements Provisioner {
 
     }
 
+    /**
+     * Validate schedule.
+     *
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downTimeInterval
+     *            the down time interval
+     * @param downTimeDuration
+     *            the down time duration
+     */
     private void validateSchedule(final int retries, final int timeout, final int interval, final int downTimeInterval,
             final int downTimeDuration) {
         checkRetries(retries);
@@ -247,12 +395,56 @@ public class OpenNMSProvisioner implements Provisioner {
                           ICMP_PLUGIN);
     }
 
+    /**
+     * Adds the service.
+     *
+     * @param serviceId
+     *            the service id
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downTimeInterval
+     *            the down time interval
+     * @param downTimeDuration
+     *            the down time duration
+     * @param monitor
+     *            the monitor
+     * @param plugin
+     *            the plugin
+     * @return true, if successful
+     */
     private boolean addService(final String serviceId, final int retries, final int timeout, final int interval,
             final int downTimeInterval, final int downTimeDuration, final String monitor, final String plugin) {
         return addService(serviceId, retries, timeout, interval, downTimeInterval, downTimeDuration, monitor, plugin,
                           new Parm[0]);
     }
 
+    /**
+     * Adds the service.
+     *
+     * @param serviceId
+     *            the service id
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @param interval
+     *            the interval
+     * @param downTimeInterval
+     *            the down time interval
+     * @param downTimeDuration
+     *            the down time duration
+     * @param monitor
+     *            the monitor
+     * @param plugin
+     *            the plugin
+     * @param entries
+     *            the entries
+     * @return true, if successful
+     */
     private boolean addService(final String serviceId, final int retries, final int timeout, final int interval,
             final int downTimeInterval, final int downTimeDuration, final String monitor, final String plugin,
             final Parm[] entries) {
@@ -292,6 +484,9 @@ public class OpenNMSProvisioner implements Provisioner {
         return true;
     }
 
+    /**
+     * Save configs.
+     */
     private void saveConfigs() {
         try {
             m_capsdConfig.save();
@@ -304,10 +499,25 @@ public class OpenNMSProvisioner implements Provisioner {
         }
     }
 
+    /**
+     * Sync services.
+     */
     private void syncServices() {
         getCapsdDbSyncer().syncServicesTable();
     }
 
+    /**
+     * Adds the service to package.
+     *
+     * @param pkg
+     *            the pkg
+     * @param serviceId
+     *            the service id
+     * @param interval
+     *            the interval
+     * @param parms
+     *            the parms
+     */
     private void addServiceToPackage(final Package pkg, final String serviceId, final int interval,
             final Properties parms) {
         Service svc = m_pollerConfig.getServiceInPackage(serviceId, pkg);
@@ -325,6 +535,16 @@ public class OpenNMSProvisioner implements Provisioner {
         }
     }
 
+    /**
+     * Sets the parameter.
+     *
+     * @param svc
+     *            the svc
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     private void setParameter(final Service svc, final String key, final String value) {
         Parameter parm = findParamterWithKey(svc, key);
         if (parm == null) {
@@ -339,6 +559,7 @@ public class OpenNMSProvisioner implements Provisioner {
      * <p>
      * findParamterWithKey
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.config.poller.Service} object.
@@ -357,6 +578,19 @@ public class OpenNMSProvisioner implements Provisioner {
         return null;
     }
 
+    /**
+     * Gets the package.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param interval
+     *            the interval
+     * @param downTimeInterval
+     *            the down time interval
+     * @param downTimeDuration
+     *            the down time duration
+     * @return the package
+     */
     private Package getPackage(final String pkgName, final int interval, final int downTimeInterval,
             final int downTimeDuration) {
         Package pkg = m_pollerConfig.getPackage(pkgName);
@@ -598,6 +832,7 @@ public class OpenNMSProvisioner implements Provisioner {
      * <p>
      * setCapsdConfig
      * </p>
+     * .
      *
      * @param capsdConfig
      *            a {@link org.opennms.netmgt.config.CapsdConfig} object.
@@ -610,6 +845,7 @@ public class OpenNMSProvisioner implements Provisioner {
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param pollerConfig
      *            a {@link org.opennms.netmgt.config.PollerConfig} object.
@@ -622,6 +858,7 @@ public class OpenNMSProvisioner implements Provisioner {
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -631,6 +868,11 @@ public class OpenNMSProvisioner implements Provisioner {
         m_eventManager = eventManager;
     }
 
+    /**
+     * Gets the capsd db syncer.
+     *
+     * @return the capsd db syncer
+     */
     private CapsdDbSyncer getCapsdDbSyncer() {
         return m_capsdDbSyncer;
     }
@@ -639,6 +881,7 @@ public class OpenNMSProvisioner implements Provisioner {
      * <p>
      * setCapsdDbSyncer
      * </p>
+     * .
      *
      * @param capsdDbSyncer
      *            a {@link org.opennms.netmgt.capsd.CapsdDbSyncer} object.

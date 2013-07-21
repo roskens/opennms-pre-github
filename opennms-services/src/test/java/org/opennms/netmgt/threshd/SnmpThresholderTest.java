@@ -63,6 +63,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
+ * The Class SnmpThresholderTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
@@ -70,25 +72,40 @@ import org.springframework.core.io.Resource;
  */
 public class SnmpThresholderTest {
 
+    /** The m_snmp thresholder. */
     @SuppressWarnings("deprecation")
     private SnmpThresholder m_snmpThresholder;
 
+    /** The m_iface. */
     private ThresholdNetworkInterface m_iface;
 
+    /** The m_threshold interface. */
     private SnmpThresholdNetworkInterface m_thresholdInterface;
 
+    /** The m_params. */
     private Map<String, String> m_params;
 
+    /** The m_thresholds dao. */
     private DefaultThresholdsDao m_thresholdsDao;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_if info getter. */
     private IfInfoGetter m_ifInfoGetter;
 
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_out. */
     private FileOutputStream m_out = null;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Before
     public void setUp() throws Exception {
@@ -115,6 +132,9 @@ public class SnmpThresholderTest {
         m_thresholdInterface = new SnmpThresholdNetworkInterface(m_thresholdsDao, m_iface, m_params);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         IOUtils.closeQuietly(m_out);
@@ -123,11 +143,20 @@ public class SnmpThresholderTest {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Sets the up thresholding config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void setUpThresholdingConfig() throws Exception {
         Resource config = new ClassPathResource("/test-thresholds.xml");
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(config.getInputStream()));
     }
 
+    /**
+     * Test check node dir null directory.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullDirectory() {
@@ -142,6 +171,9 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check node dir null threshold network interface.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullThresholdNetworkInterface() {
@@ -158,6 +190,9 @@ public class SnmpThresholderTest {
 
     // FIXME: This doesn't work now that config has been moved into
     // SnmpThresholdNetworkInterface
+    /**
+     * Test check node dir null threshold configuration.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullThresholdConfiguration() {
@@ -172,6 +207,9 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check node dir null date.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullDate() {
@@ -186,6 +224,9 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check node dir null events.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullEvents() {
@@ -200,6 +241,9 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check node dir null snmp iface inet address.
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullSnmpIfaceInetAddress() {
@@ -218,6 +262,12 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test check node dir null foo.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullFoo() throws Exception {
@@ -236,6 +286,12 @@ public class SnmpThresholderTest {
          */
     }
 
+    /**
+     * Test strip rrd extension with valid extension.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtension() throws Exception {
@@ -244,6 +300,12 @@ public class SnmpThresholderTest {
         assertEquals("stripped file name", "foo", strippedName);
     }
 
+    /**
+     * Test strip rrd extension with no extension.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithNoExtension() throws Exception {
@@ -251,6 +313,12 @@ public class SnmpThresholderTest {
         assertNull("stripped file name should be null, but was: " + strippedName, strippedName);
     }
 
+    /**
+     * Test strip rrd extension with valid extension twice.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtensionTwice() throws Exception {
@@ -260,6 +328,12 @@ public class SnmpThresholderTest {
         assertEquals("stripped file name", "foo" + RrdUtils.getExtension(), strippedName);
     }
 
+    /**
+     * Test strip rrd extension with valid extension not at end.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtensionNotAtEnd() throws Exception {
@@ -267,6 +341,12 @@ public class SnmpThresholderTest {
         assertNull("stripped file name should be null, but was: " + strippedName, strippedName);
     }
 
+    /**
+     * Test threshold filters.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testThresholdFilters() throws Exception {
         System.err.println("--------------------------------------------------------");
@@ -281,6 +361,12 @@ public class SnmpThresholderTest {
                                 // defined on test-thresholods.xml
     }
 
+    /**
+     * Test interfaces.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testInterfaces() throws Exception {
@@ -350,6 +436,12 @@ public class SnmpThresholderTest {
                                                  // test-thresholds.xml
     }
 
+    /**
+     * Test threshold with generic resource types.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testThresholdWithGenericResourceTypes() throws Exception {
@@ -425,6 +517,12 @@ public class SnmpThresholderTest {
         }
     }
 
+    /**
+     * Test expression with generic resource types.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testExpressionWithGenericResourceTypes() throws Exception {
@@ -477,6 +575,18 @@ public class SnmpThresholderTest {
         }
     }
 
+    /**
+     * Creates the ds properties.
+     *
+     * @param dir
+     *            the dir
+     * @param sources
+     *            the sources
+     * @param group
+     *            the group
+     * @throws Exception
+     *             the exception
+     */
     private void createDsProperties(File dir, List<String> sources, String group) throws Exception {
         Properties ds = new Properties();
         for (String source : sources) {
@@ -488,6 +598,20 @@ public class SnmpThresholderTest {
         m_out.close();
     }
 
+    /**
+     * Creates the and update rrd.
+     *
+     * @param rrdPath
+     *            the rrd path
+     * @param start
+     *            the start
+     * @param sources
+     *            the sources
+     * @param values
+     *            the values
+     * @throws Exception
+     *             the exception
+     */
     private void createAndUpdateRrd(File rrdPath, long start, List<String> sources, List<String> values)
             throws Exception {
         // Creating RRD

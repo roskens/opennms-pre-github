@@ -60,9 +60,9 @@ public class CiscoVlanTable extends VlanTableBasic {
      * </EM> to inform other threads.
      * </P>
      *
-     * @see CiscoVlanTableEntry
      * @param address
      *            a {@link java.net.InetAddress} object.
+     * @see CiscoVlanTableEntry
      */
     public CiscoVlanTable(InetAddress address) {
         super(address, "ciscoVlanTable", CiscoVlanTableEntry.cisco_vlan_elemList);
@@ -74,6 +74,9 @@ public class CiscoVlanTable extends VlanTableBasic {
         return new CiscoVlanTableEntry();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.VlanTableBasic#getVlansForSnmpCollection()
+     */
     @Override
     public List<OnmsVlan> getVlansForSnmpCollection() {
         List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();

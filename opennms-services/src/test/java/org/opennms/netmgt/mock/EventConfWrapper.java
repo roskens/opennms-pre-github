@@ -37,11 +37,19 @@ import org.opennms.netmgt.xml.eventconf.Operaction;
 import org.opennms.netmgt.xml.eventconf.Script;
 
 /**
- * Need this class because Event doesn't properly implement hashCode
+ * Need this class because Event doesn't properly implement hashCode.
  */
 public class EventConfWrapper {
+
+    /** The m_event. */
     private Event m_event;
 
+    /**
+     * Instantiates a new event conf wrapper.
+     *
+     * @param event
+     *            the event
+     */
     public EventConfWrapper(Event event) {
         m_event = event;
     }
@@ -53,15 +61,26 @@ public class EventConfWrapper {
      * }
      */
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Event getEvent() {
         return m_event;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return m_event.getUei().hashCode();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuffer b = new StringBuffer("Event: ");
@@ -138,6 +157,13 @@ public class EventConfWrapper {
         return b.toString();
     }
 
+    /**
+     * To string.
+     *
+     * @param e
+     *            the e
+     * @return the string
+     */
     public static String toString(Event e) {
         return e == null ? null : new EventConfWrapper(e).toString();
     }

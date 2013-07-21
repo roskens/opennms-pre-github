@@ -70,6 +70,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class JDBCMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(JDBCMonitor.class);
 
     /**
@@ -78,20 +79,18 @@ public class JDBCMonitor extends AbstractServiceMonitor {
      */
     public static final int DEFAULT_TIMEOUT = 3000;
 
-    /**
-     * Default number of times to retry a test
-     */
+    /** Default number of times to retry a test. */
     public static final int DEFAULT_RETRY = 0;
 
     /**
      * Class constructor.
      *
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
-     * @throws java.lang.InstantiationException
-     *             if any.
-     * @throws java.lang.IllegalAccessException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
      */
     public JDBCMonitor() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         LOG.info("JDBCmonitor class loaded");
@@ -108,10 +107,7 @@ public class JDBCMonitor extends AbstractServiceMonitor {
 
     /**
      * Release any used services by the plugin,normally during framework exit
-     * For now this method is just an 'adaptor', does nothing
-     *
-     * @throws java.lang.RuntimeException
-     *             Thrown if an error occurs during deallocation.
+     * For now this method is just an 'adaptor', does nothing.
      */
     @Override
     public void release() {
@@ -122,11 +118,6 @@ public class JDBCMonitor extends AbstractServiceMonitor {
      * This method is called when an interface that support the service is added
      * to the scheduling service.
      *
-     * @throws java.lang.RuntimeException
-     *             Thrown if an unrecoverable error occurs that prevents the
-     *             interface from being monitored.
-     * @throws org.opennms.netmgt.poller.NetworkInterfaceNotSupportedException
-     *             Thrown if the passed interface is invalid for this monitor.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
@@ -255,6 +246,12 @@ public class JDBCMonitor extends AbstractServiceMonitor {
         return status;
     }
 
+    /**
+     * Close connection.
+     *
+     * @param con
+     *            the con
+     */
     private void closeConnection(Connection con) {
         if (con == null)
             return;
@@ -269,6 +266,7 @@ public class JDBCMonitor extends AbstractServiceMonitor {
      * <p>
      * closeStmt
      * </p>
+     * .
      *
      * @param statement
      *            a {@link java.sql.Statement} object.
@@ -282,6 +280,12 @@ public class JDBCMonitor extends AbstractServiceMonitor {
         }
     }
 
+    /**
+     * Close result set.
+     *
+     * @param resultset
+     *            the resultset
+     */
     private void closeResultSet(ResultSet resultset) {
         if (resultset != null) {
             try {
@@ -295,6 +299,7 @@ public class JDBCMonitor extends AbstractServiceMonitor {
      * <p>
      * checkDatabaseStatus
      * </p>
+     * .
      *
      * @param con
      *            a {@link java.sql.Connection} object.

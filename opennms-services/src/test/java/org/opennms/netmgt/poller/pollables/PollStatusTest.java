@@ -35,15 +35,26 @@ import org.junit.Before;
 import org.junit.Test;
 import org.opennms.netmgt.model.PollStatus;
 
+/**
+ * The Class PollStatusTest.
+ */
 public class PollStatusTest {
+
+    /** The status down1. */
     protected PollStatus statusDown1 = null;
 
+    /** The status down2. */
     protected PollStatus statusDown2 = null;
 
+    /** The status down3. */
     protected PollStatus statusDown3 = null;
 
+    /** The status available1. */
     protected PollStatus statusAvailable1 = null;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         statusDown1 = PollStatus.down("test down 1");
@@ -57,6 +68,9 @@ public class PollStatusTest {
      * Test method for
      * 'org.opennms.netmgt.poller.pollables.PollStatus.PollStatus(int, String,
      * String)'
+     */
+    /**
+     * Test poll status.
      */
     @Test
     public void testPollStatus() {

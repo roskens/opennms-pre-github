@@ -54,20 +54,33 @@ public class MailTransportParameters {
     /** Constant <code>KEY="MailTransportParameters.class.getName()"</code> */
     public static final String KEY = MailTransportParameters.class.getName();
 
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 1;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
+    /** The m_parameter map. */
     private Map<String, Object> m_parameterMap;
 
+    /** The m_transport test. */
     private MailTransportTest m_transportTest;
 
+    /** The m_test subject suffix. */
     private String m_testSubjectSuffix;
 
+    /** The m_end2 end test in progress. */
     private boolean m_end2EndTestInProgress = false;
 
+    /** The m_javamail properties. */
     private Properties m_javamailProperties = new Properties();
 
+    /**
+     * Instantiates a new mail transport parameters.
+     *
+     * @param parameterMap
+     *            the parameter map
+     */
     MailTransportParameters(Map<String, Object> parameterMap) {
         m_parameterMap = parameterMap;
         String test = getStringParm("mail-transport-test", null);
@@ -77,6 +90,13 @@ public class MailTransportParameters {
         m_transportTest = parseMailTransportTest(test);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param parameterMap
+     *            the parameter map
+     * @return the mail transport parameters
+     */
     static synchronized MailTransportParameters get(Map<String, Object> parameterMap) {
         MailTransportParameters parms = (MailTransportParameters) parameterMap.get(KEY);
         if (parms == null) {
@@ -86,14 +106,31 @@ public class MailTransportParameters {
         return parms;
     }
 
+    /**
+     * Gets the parameter map.
+     *
+     * @return the parameter map
+     */
     Map<String, Object> getParameterMap() {
         return Collections.unmodifiableMap(m_parameterMap);
     }
 
+    /**
+     * Gets the transport test.
+     *
+     * @return the transport test
+     */
     MailTransportTest getTransportTest() {
         return m_transportTest;
     }
 
+    /**
+     * Parses the mail transport test.
+     *
+     * @param test
+     *            the test
+     * @return the mail transport test
+     */
     MailTransportTest parseMailTransportTest(String test) {
         try {
             return CastorUtils.unmarshal(MailTransportTest.class, new ByteArrayInputStream(test.getBytes("UTF-8")));
@@ -110,10 +147,28 @@ public class MailTransportParameters {
 
     }
 
+    /**
+     * Gets the string parm.
+     *
+     * @param key
+     *            the key
+     * @param deflt
+     *            the deflt
+     * @return the string parm
+     */
     private String getStringParm(String key, String deflt) {
         return ParameterMap.getKeyedString(this.getParameterMap(), key, deflt);
     }
 
+    /**
+     * Gets the int parm.
+     *
+     * @param key
+     *            the key
+     * @param defValue
+     *            the def value
+     * @return the int parm
+     */
     private int getIntParm(String key, int defValue) {
         return ParameterMap.getKeyedInteger(getParameterMap(), key, defValue);
     }
@@ -122,6 +177,7 @@ public class MailTransportParameters {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -133,6 +189,7 @@ public class MailTransportParameters {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -144,6 +201,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +209,11 @@ public class MailTransportParameters {
         return getReadTest().getUserAuth().getPassword();
     }
 
+    /**
+     * Gets the read test.
+     *
+     * @return the read test
+     */
     ReadmailTest getReadTest() {
         return getTransportTest().getMailTest().getReadmailTest();
     }
@@ -159,6 +222,7 @@ public class MailTransportParameters {
      * <p>
      * getTestSubjectSuffix
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +234,7 @@ public class MailTransportParameters {
      * <p>
      * setTestSubjectSuffix
      * </p>
+     * .
      *
      * @param suffix
      *            a {@link java.lang.String} object.
@@ -182,6 +247,7 @@ public class MailTransportParameters {
      * <p>
      * getComputedTestSubject
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -199,6 +265,11 @@ public class MailTransportParameters {
         }
     }
 
+    /**
+     * Gets the send test from.
+     *
+     * @return the send test from
+     */
     String getSendTestFrom() {
         if (getSendTest() == null) {
             throw new IllegalStateException(
@@ -211,6 +282,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestUseAuth
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -226,6 +298,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestCharSet
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -241,6 +314,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestMessageContentType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -256,6 +330,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestDebug
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -271,6 +346,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestMessageEncoding
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -286,6 +362,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestMailer
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -301,6 +378,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -316,6 +394,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestMessageBody
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -331,6 +410,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -346,6 +426,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestIsQuitWait
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -361,6 +442,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -376,6 +458,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestIsSslEnable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -391,6 +474,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestStartTls
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -406,6 +490,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestSubject
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -421,6 +506,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestRecipeint
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -436,6 +522,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestTransport
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -451,6 +538,7 @@ public class MailTransportParameters {
      * <p>
      * isSendTestUseJmta
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -466,6 +554,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestUserName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -477,6 +566,11 @@ public class MailTransportParameters {
         return getSendTest().getUserAuth().getUserName();
     }
 
+    /**
+     * Gets the send test.
+     *
+     * @return the send test
+     */
     SendmailTest getSendTest() {
         return getTransportTest().getMailTest().getSendmailTest();
     }
@@ -485,6 +579,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -502,6 +597,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -513,6 +609,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestUserName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -524,6 +621,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestFolder
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -535,6 +633,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestProtocol
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -546,6 +645,7 @@ public class MailTransportParameters {
      * <p>
      * isReadTestStartTlsEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -557,6 +657,7 @@ public class MailTransportParameters {
      * <p>
      * isReadTestSslEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -568,6 +669,7 @@ public class MailTransportParameters {
      * <p>
      * setEnd2EndTestInProgress
      * </p>
+     * .
      *
      * @param b
      *            a boolean.
@@ -580,6 +682,7 @@ public class MailTransportParameters {
      * <p>
      * isEnd2EndTestInProgress
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -591,6 +694,7 @@ public class MailTransportParameters {
      * <p>
      * getReadTestAttemptInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -602,6 +706,7 @@ public class MailTransportParameters {
      * <p>
      * getSendTestAttemptInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -613,6 +718,7 @@ public class MailTransportParameters {
      * <p>
      * getJavamailProperties
      * </p>
+     * .
      *
      * @return a {@link java.util.Properties} object.
      */
@@ -624,6 +730,7 @@ public class MailTransportParameters {
      * <p>
      * setJavamailProperties
      * </p>
+     * .
      *
      * @param props
      *            a {@link java.util.Properties} object.
@@ -636,6 +743,7 @@ public class MailTransportParameters {
      * <p>
      * setReadTestHost
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -648,6 +756,7 @@ public class MailTransportParameters {
      * <p>
      * setSendTestHost
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.

@@ -62,18 +62,28 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class PersistOperationBuilderTest extends TestCase {
+
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_snmp directory. */
     private File m_snmpDirectory;
 
+    /** The m_intf. */
     private OnmsIpInterface m_intf;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_trans mgr. */
     private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
 
+    /** The m_if dao. */
     private IpInterfaceDao m_ifDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -96,6 +106,9 @@ public class PersistOperationBuilderTest extends TestCase {
         EasyMock.replay(m_ifDao);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -103,6 +116,9 @@ public class PersistOperationBuilderTest extends TestCase {
         m_fileAnticipator.deleteExpected();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_fileAnticipator.deleteExpected(true);
@@ -111,11 +127,22 @@ public class PersistOperationBuilderTest extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Gets the collection agent.
+     *
+     * @return the collection agent
+     */
     private CollectionAgent getCollectionAgent() {
 
         return DefaultCollectionAgent.create(m_intf.getId(), m_ifDao, m_transMgr);
     }
 
+    /**
+     * Test commit with no declared attributes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCommitWithNoDeclaredAttributes() throws Exception {
         RrdRepository repository = createRrdRepository();
 
@@ -135,6 +162,12 @@ public class PersistOperationBuilderTest extends TestCase {
         builder.commit();
     }
 
+    /**
+     * Test commit with declared attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCommitWithDeclaredAttribute() throws Exception {
         File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
         m_fileAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
@@ -175,6 +208,12 @@ public class PersistOperationBuilderTest extends TestCase {
         builder.commit();
     }
 
+    /**
+     * Test commit with declared attribute and value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCommitWithDeclaredAttributeAndValue() throws Exception {
         File nodeDir = m_fileAnticipator.expecting(getSnmpRrdDirectory(), m_node.getId().toString());
         m_fileAnticipator.expecting(nodeDir, "rrdName" + RrdUtils.getExtension());
@@ -216,6 +255,13 @@ public class PersistOperationBuilderTest extends TestCase {
         builder.commit();
     }
 
+    /**
+     * Creates the rrd repository.
+     *
+     * @return the rrd repository
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private RrdRepository createRrdRepository() throws IOException {
         RrdRepository repository = new RrdRepository();
         repository.setRrdBaseDir(getSnmpRrdDirectory());
@@ -225,6 +271,13 @@ public class PersistOperationBuilderTest extends TestCase {
         return repository;
     }
 
+    /**
+     * Gets the snmp rrd directory.
+     *
+     * @return the snmp rrd directory
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private File getSnmpRrdDirectory() throws IOException {
         if (m_snmpDirectory == null) {
             m_snmpDirectory = m_fileAnticipator.tempDir("snmp");

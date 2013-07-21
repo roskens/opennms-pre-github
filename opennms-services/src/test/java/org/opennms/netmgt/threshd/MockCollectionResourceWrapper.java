@@ -37,8 +37,17 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 
+/**
+ * The Class MockCollectionResourceWrapper.
+ */
 public class MockCollectionResourceWrapper extends CollectionResourceWrapper {
 
+    /**
+     * Instantiates a new mock collection resource wrapper.
+     *
+     * @param instance
+     *            the instance
+     */
     public MockCollectionResourceWrapper(final String instance) {
         super(new Date(), 0, null, null, null, new CollectionResource() {
             @Override

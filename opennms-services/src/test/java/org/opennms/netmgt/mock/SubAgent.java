@@ -32,21 +32,34 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.VariableBinding;
 
 /**
- * Represents a SubAgent
+ * Represents a SubAgent.
  *
  * @author brozow
  */
 public interface SubAgent {
+
+    /**
+     * Gets the next.
+     *
+     * @param requested
+     *            the requested
+     * @return the next
+     */
     public VariableBinding getNext(OID requested);
 
     /**
-     * @return
+     * Gets the base oid.
+     *
+     * @return the base oid
      */
     public OID getBaseOID();
 
     /**
+     * Gets the.
+     *
      * @param oid
-     * @return
+     *            the oid
+     * @return the variable binding
      */
     public VariableBinding get(OID oid);
 

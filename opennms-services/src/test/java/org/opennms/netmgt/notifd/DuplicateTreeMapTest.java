@@ -32,7 +32,14 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class DuplicateTreeMapTest.
+ */
 public class DuplicateTreeMapTest extends TestCase {
+
+    /**
+     * Test put item.
+     */
     public void testPutItem() {
         DuplicateTreeMap<Long, String> m = new DuplicateTreeMap<Long, String>();
         m.putItem((long) 1, "foo");

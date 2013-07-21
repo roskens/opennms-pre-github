@@ -65,10 +65,9 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the
+     *            downtime polling interval is in effect
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
      */
     boolean addServiceICMP(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration);
@@ -97,15 +96,14 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the
+     *            downtime polling interval is in effect
      * @param port
      *            <code>int</code> the port to poll for DNS service
      * @param hostname
      *            <code>String</code> the hostname to resolve with the DNS
      *            service
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
      */
     boolean addServiceDNS(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration, int port, String hostname);
@@ -134,7 +132,8 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the
+     *            downtime polling interval is in effect
      * @param port
      *            <code>int</code> the port to attempt to connect to determine
      *            if the service is accepting connections
@@ -142,8 +141,6 @@ public interface Provisioner {
      *            <code>String</code> a string to check for in the returned
      *            banner of the TCP service or "" if no check is desired.
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
      */
     boolean addServiceTCP(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration, int port, String contentCheck);
@@ -172,7 +169,8 @@ public interface Provisioner {
      *            <code>int</code> the downtime polling interval in
      *            milliseconds(downtime model)
      * @param downTimeDuration
-     *            <code>int</code> the amount of time in milliseconds the downtime polling interval is in effect
+     *            <code>int</code> the amount of time in milliseconds the
+     *            downtime polling interval is in effect
      * @param hostName
      *            <code>String</code> the virtual host (requires a url other
      *            than just "/")
@@ -207,10 +205,8 @@ public interface Provisioner {
      *            <code>String</code> the String to use for the User agent field
      *            when communicating with the server
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     boolean addServiceHTTP(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration, String hostName, int port, String responseCode, String contentCheck, String url,
@@ -276,10 +272,8 @@ public interface Provisioner {
      *            <code>String</code> the String to use for the User agent field
      *            when communicating with the server
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     boolean addServiceHTTPS(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration, String hostName, int port, String responseCode, String contentCheck, String url,
@@ -323,8 +317,6 @@ public interface Provisioner {
      *            <code>String</code> the url used to make a JDBC connection to
      *            the database
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
      */
     boolean addServiceDatabase(String serviceId, int retries, int timeout, int interval, int downTimeInterval,
             int downTimeDuration, String username, String password, String driver, String url);
@@ -343,8 +335,6 @@ public interface Provisioner {
      *            Name of the service, i.e. "ICMP" or a custom service
      *            "FastHTTP"
      * @return Always returns true.
-     * @throws java.lang.IllegalArgumentException
-     *             when arguments are outside of ranges
      */
     Map<?, ?> getServiceConfiguration(String pkName, String serviceId);
 

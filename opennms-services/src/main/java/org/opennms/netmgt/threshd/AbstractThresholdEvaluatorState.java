@@ -50,15 +50,18 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractThresholdEvaluatorState implements ThresholdEvaluatorState {
 
+    /** The Constant LOG. */
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(AbstractThresholdEvaluatorState.class);
 
+    /** The Constant UNKNOWN. */
     private static final String UNKNOWN = "Unknown";
 
     /**
      * <p>
      * createBasicEvent
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -137,6 +140,7 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
      * <p>
      * formatValue
      * </p>
+     * .
      *
      * @param value
      *            a {@link java.lang.Double} object.

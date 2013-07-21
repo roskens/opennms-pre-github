@@ -53,8 +53,10 @@ import org.springframework.util.Assert;
  */
 public final class DefaultEventHandlerImpl implements InitializingBean, EventHandler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEventHandlerImpl.class);
 
+    /** The m_event processors. */
     private List<EventProcessor> m_eventProcessors;
 
     /**
@@ -77,12 +79,20 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
         return new EventHandlerRunnable(eventLog);
     }
 
+    /**
+     * The Class EventHandlerRunnable.
+     */
     public class EventHandlerRunnable implements Runnable {
-        /**
-         * log of events
-         */
+
+        /** log of events. */
         private Log m_eventLog;
 
+        /**
+         * Instantiates a new event handler runnable.
+         *
+         * @param eventLog
+         *            the event log
+         */
         public EventHandlerRunnable(Log eventLog) {
             Assert.notNull(eventLog, "eventLog argument must not be null");
 
@@ -149,9 +159,10 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {
@@ -162,6 +173,7 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
      * <p>
      * getEventProcessors
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -173,6 +185,7 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
      * <p>
      * setEventProcessors
      * </p>
+     * .
      *
      * @param eventProcessors
      *            a {@link java.util.List} object.

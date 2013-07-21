@@ -61,6 +61,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class IfTable extends SnmpTable<IfTableEntry> {
 
+    /** The Constant LOG. */
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(IfTable.class);
 
@@ -90,6 +91,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getEntry
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -110,6 +112,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getOperStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -134,6 +137,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getAdminStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -158,6 +162,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -182,6 +187,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -202,6 +208,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getIfSpeed
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -222,6 +229,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.

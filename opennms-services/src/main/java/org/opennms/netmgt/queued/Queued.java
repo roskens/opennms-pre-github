@@ -52,10 +52,13 @@ import org.springframework.util.StringUtils;
  */
 public class Queued extends AbstractServiceDaemon implements EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Queued.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "queued";
 
+    /** The m_event mgr. */
     private volatile EventIpcManager m_eventMgr;
 
     /*
@@ -66,6 +69,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
      * This is the reason why we should use an indirect reference, otherwise we
      * will experiment NMS-4989
      */
+    /** The m_rrd strategy. */
     private volatile RrdStrategy<?, ?> m_rrdStrategy;
 
     /**
@@ -81,6 +85,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -94,6 +99,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
      * <p>
      * getRrdStrategy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
@@ -105,6 +111,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
      * <p>
      * setRrdStrategy
      * </p>
+     * .
      *
      * @param rrdStrategy
      *            a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
@@ -133,10 +140,23 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
         m_rrdStrategy.promoteEnqueuedFiles(files);
     }
 
+    /**
+     * Comma delimited list to set.
+     *
+     * @param fileList
+     *            the file list
+     * @return the sets the
+     */
     private Set<String> commaDelimitedListToSet(String fileList) {
         return StringUtils.commaDelimitedListToSet(fileList);
     }
 
+    /**
+     * Log file promotion.
+     *
+     * @param files
+     *            the files
+     */
     private void logFilePromotion(Set<String> files) {
         if (!LOG.isDebugEnabled()) {
             return;
@@ -147,6 +167,11 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
         }
     }
 
+    /**
+     * Gets the logging cateogy.
+     *
+     * @return the logging cateogy
+     */
     public static String getLoggingCateogy() {
         return LOG4J_CATEGORY;
     }

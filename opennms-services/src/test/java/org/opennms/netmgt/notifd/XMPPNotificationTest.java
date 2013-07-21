@@ -32,9 +32,17 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+/**
+ * The Class XMPPNotificationTest.
+ */
 public class XMPPNotificationTest {
+
+    /** The m_xmpp manager. */
     private XMPPNotificationManager m_xmppManager;
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         System.setProperty("useSystemXMPPConfig", "true");
@@ -47,12 +55,18 @@ public class XMPPNotificationTest {
         m_xmppManager = XMPPNotificationManager.getInstance();
     }
 
+    /**
+     * Test notification.
+     */
     @Test
     @Ignore("requires a working test jabber server")
     public void testNotification() {
         m_xmppManager.sendMessage("test@jabber.example.com", "This is a single-user test.");
     }
 
+    /**
+     * Test group notification.
+     */
     @Test
     @Ignore("requires a working test jabber server")
     public void testGroupNotification() {

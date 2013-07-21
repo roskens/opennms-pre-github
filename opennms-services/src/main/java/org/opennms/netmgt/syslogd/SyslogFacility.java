@@ -28,38 +28,120 @@
 
 package org.opennms.netmgt.syslogd;
 
+/**
+ * The Enum SyslogFacility.
+ */
 public enum SyslogFacility {
-    KERNEL(0, "kernel messages"), USER(1, "user-level messages"), MAIL(2, "mail system"), SYSTEM(3, "system daemons"), AUTH(
-            4, "security/authorization messages"), SYSLOG(5, "messages generated internally by syslogd"), LPD(6,
-            "line printer subsystem"), NEWS(7, "network news subsystem"), UUCP(8, "UUCP subsystem"), CLOCK(9,
-            "clock daemon"), AUTHPRIV(10, "privileged security/authorization messages"), FTP(11, "FTP daemon"), NTP(12,
-            "NTP subsystem"), AUDIT(13, "log audit"), ALERT(14, "log alert"), CRON(15, "cron daemon"), LOCAL0(16,
-            "local use 0"), LOCAL1(17, "local use 1"), LOCAL2(18, "local use 2"), LOCAL3(19, "local use 3"), LOCAL4(20,
-            "local use 4"), LOCAL5(21, "local use 5"), LOCAL6(22, "local use 6"), LOCAL7(23, "local use 7"), UNKNOWN(
+
+    /** The kernel. */
+    KERNEL(0, "kernel messages"),
+ /** The user. */
+ USER(1, "user-level messages"),
+ /** The mail. */
+ MAIL(2, "mail system"),
+ /** The system. */
+ SYSTEM(3, "system daemons"),
+ /** The auth. */
+ AUTH(
+            4, "security/authorization messages"),
+ /** The syslog. */
+ SYSLOG(5, "messages generated internally by syslogd"),
+ /** The lpd. */
+ LPD(6,
+            "line printer subsystem"),
+ /** The news. */
+ NEWS(7, "network news subsystem"),
+ /** The uucp. */
+ UUCP(8, "UUCP subsystem"),
+ /** The clock. */
+ CLOCK(9,
+            "clock daemon"),
+ /** The authpriv. */
+ AUTHPRIV(10, "privileged security/authorization messages"),
+ /** The ftp. */
+ FTP(11, "FTP daemon"),
+ /** The ntp. */
+ NTP(12,
+            "NTP subsystem"),
+ /** The audit. */
+ AUDIT(13, "log audit"),
+ /** The alert. */
+ ALERT(14, "log alert"),
+ /** The cron. */
+ CRON(15, "cron daemon"),
+ /** The LOCA l0. */
+ LOCAL0(16,
+            "local use 0"),
+ /** The LOCA l1. */
+ LOCAL1(17, "local use 1"),
+ /** The LOCA l2. */
+ LOCAL2(18, "local use 2"),
+ /** The LOCA l3. */
+ LOCAL3(19, "local use 3"),
+ /** The LOCA l4. */
+ LOCAL4(20,
+            "local use 4"),
+ /** The LOCA l5. */
+ LOCAL5(21, "local use 5"),
+ /** The LOCA l6. */
+ LOCAL6(22, "local use 6"),
+ /** The LOCA l7. */
+ LOCAL7(23, "local use 7"),
+ /** The unknown. */
+ UNKNOWN(
             99, "unknown");
 
+    /** The Constant MASK. */
     public static final int MASK = 0x03F8;
 
+    /** The m_facility. */
     private final int m_facility;
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_description. */
     private final String m_description;
 
+    /**
+     * Instantiates a new syslog facility.
+     *
+     * @param fac
+     *            the fac
+     * @param description
+     *            the description
+     */
     SyslogFacility(final int fac, final String description) {
         m_facility = fac;
         m_name = name().toLowerCase().intern();
         m_description = description.intern();
     }
 
+    /**
+     * Gets the facility number.
+     *
+     * @return the facility number
+     */
     public int getFacilityNumber() {
         return m_facility;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return m_description;
     }
 
+    /**
+     * Gets the priority.
+     *
+     * @param severity
+     *            the severity
+     * @return the priority
+     */
     public int getPriority(final SyslogSeverity severity) {
         if (severity == null) {
             return m_facility & MASK;
@@ -67,11 +149,21 @@ public enum SyslogFacility {
         return ((m_facility & MASK) | severity.getSeverityNumber());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Enum#toString()
+     */
     @Override
     public String toString() {
         return m_name;
     }
 
+    /**
+     * Gets the facility.
+     *
+     * @param fac
+     *            the fac
+     * @return the facility
+     */
     public static SyslogFacility getFacility(final int fac) {
         final SyslogFacility[] facilities = SyslogFacility.values();
         if (facilities.length < fac) {
@@ -80,6 +172,13 @@ public enum SyslogFacility {
         return facilities[fac];
     }
 
+    /**
+     * Gets the facility for code.
+     *
+     * @param code
+     *            the code
+     * @return the facility for code
+     */
     public static SyslogFacility getFacilityForCode(final int code) {
         return getFacility((code & MASK) >> 3);
     }

@@ -57,8 +57,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS </a>
  */
 public final class SnmpVlanCollection implements ReadyRunnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpVlanCollection.class);
 
+    /** The m_package name. */
     private String m_packageName;
 
     /**
@@ -66,9 +69,7 @@ public final class SnmpVlanCollection implements ReadyRunnable {
      */
     private final SnmpAgentConfig m_agentConfig;
 
-    /**
-     * The IP address to used to collect the SNMP information
-     */
+    /** The IP address to used to collect the SNMP information. */
     private final InetAddress m_address;
 
     /**
@@ -76,33 +77,25 @@ public final class SnmpVlanCollection implements ReadyRunnable {
      */
     private Dot1dBaseGroup m_dot1dBase;
 
-    /**
-     * The Dot1DBridge Ids List
-     */
+    /** The Dot1DBridge Ids List. */
     private Dot1dBasePortTable m_dot1dBaseTable;
 
-    /**
-     * The Dot1dStp base map
-     */
+    /** The Dot1dStp base map. */
     private Dot1dStpGroup m_dot1dStp;
 
-    /**
-     * The Dot1dStp Port table List
-     */
+    /** The Dot1dStp Port table List. */
     private Dot1dStpPortTable m_dot1dStpTable;
 
-    /**
-     * The Dot1dTpFdb table List
-     */
+    /** The Dot1dTpFdb table List. */
     private Dot1dTpFdbTable m_dot1dTpFdbTable;
 
-    /**
-     * The QbridgeDot1dTpFdb table List
-     */
+    /** The QbridgeDot1dTpFdb table List. */
     private QBridgeDot1dTpFdbTable m_dot1qTpFdbTable;
 
+    /** The m_collect stp. */
     private boolean m_collectStp = true;
 
+    /** The m_collect bridge. */
     private boolean m_collectBridge = true;
 
     /**
@@ -132,6 +125,10 @@ public final class SnmpVlanCollection implements ReadyRunnable {
      *
      * @param agentConfig
      *            The SnmpPeer object to collect from.
+     * @param collectStp
+     *            the collect stp
+     * @param collectBridge
+     *            the collect bridge
      */
     SnmpVlanCollection(final SnmpAgentConfig agentConfig, final boolean collectStp, final boolean collectBridge) {
         m_agentConfig = agentConfig;
@@ -147,6 +144,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if any part of the collection failed.
+     *
+     * @return true, if successful
      */
     boolean failed() {
         return !hasDot1dBase() && !hasDot1dBasePortTable() && !hasDot1dStp() && !hasDot1dStpPortTable()
@@ -155,6 +154,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if any part of the collection failed.
+     *
+     * @return true, if successful
      */
     boolean someCollectionFailed() {
         return !hasDot1dBase() || !hasDot1dBasePortTable() || !hasDot1dStp() || !hasDot1dStpPortTable()
@@ -163,6 +164,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DBridge table was collected.
+     *
+     * @return true, if successful
      */
     boolean hasDot1dBase() {
         return (m_dot1dBase != null && !m_dot1dBase.failed() && m_dot1dBase.getBridgeAddress() != null);
@@ -170,6 +173,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1base.
+     *
+     * @return the dot1d base
      */
     Dot1dBaseGroup getDot1dBase() {
         return m_dot1dBase;
@@ -177,6 +182,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DBridge table was collected.
+     *
+     * @return true, if successful
      */
     boolean hasDot1dBasePortTable() {
         return (m_dot1dBaseTable != null && !m_dot1dBaseTable.failed() && !m_dot1dBaseTable.isEmpty());
@@ -184,6 +191,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1dbridge.
+     *
+     * @return the dot1d base port table
      */
     Dot1dBasePortTable getDot1dBasePortTable() {
         return m_dot1dBaseTable;
@@ -191,6 +200,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DStp info was collected.
+     *
+     * @return true, if successful
      */
     boolean hasDot1dStp() {
         return (m_dot1dStp != null && !m_dot1dStp.failed() && m_dot1dStp.getStpDesignatedRoot() != null);
@@ -198,6 +209,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1stp.
+     *
+     * @return the dot1d stp
      */
     Dot1dStpGroup getDot1dStp() {
         return m_dot1dStp;
@@ -205,6 +218,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DStpPortTable info was collected.
+     *
+     * @return true, if successful
      */
     boolean hasDot1dStpPortTable() {
         return (m_dot1dStpTable != null && !m_dot1dStpTable.failed() && !m_dot1dStpTable.isEmpty());
@@ -212,6 +227,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1stp.
+     *
+     * @return the dot1d stp port table
      */
     Dot1dStpPortTable getDot1dStpPortTable() {
         return m_dot1dStpTable;
@@ -219,6 +236,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DStpPortTable info was collected.
+     *
+     * @return true, if successful
      */
     boolean hasDot1dTpFdbTable() {
         return (m_dot1dTpFdbTable != null && !m_dot1dTpFdbTable.failed() && !m_dot1dTpFdbTable.isEmpty());
@@ -226,6 +245,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1stp.
+     *
+     * @return the dot1d fdb table
      */
     Dot1dTpFdbTable getDot1dFdbTable() {
         return m_dot1dTpFdbTable;
@@ -233,6 +254,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns true if the dot1DStpPortTable info was collected.
+     *
+     * @return true, if successful
      */
     boolean hasQBridgeDot1dTpFdbTable() {
         return (m_dot1qTpFdbTable != null && !m_dot1qTpFdbTable.failed() && !m_dot1qTpFdbTable.isEmpty());
@@ -240,6 +263,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the collected dot1stp.
+     *
+     * @return the q bridge dot1d fdb table
      */
     QBridgeDot1dTpFdbTable getQBridgeDot1dFdbTable() {
         return m_dot1qTpFdbTable;
@@ -247,6 +272,8 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
     /**
      * Returns the target address that the collection occured for.
+     *
+     * @return the target
      */
 
     InetAddress getTarget() {
@@ -355,6 +382,7 @@ public final class SnmpVlanCollection implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -363,6 +391,9 @@ public final class SnmpVlanCollection implements ReadyRunnable {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("agentConfig", m_agentConfig).append("address", m_address).append("dot1dBase",
@@ -374,10 +405,21 @@ public final class SnmpVlanCollection implements ReadyRunnable {
                                                                                                                                                                                                                                     m_dot1qTpFdbTable).toString();
     }
 
+    /**
+     * Sets the package name.
+     *
+     * @param packageName
+     *            the new package name
+     */
     public void setPackageName(String packageName) {
         m_packageName = packageName;
     }
 
+    /**
+     * Gets the package name.
+     *
+     * @return the package name
+     */
     public String getPackageName() {
         return m_packageName;
     }

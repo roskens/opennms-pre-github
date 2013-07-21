@@ -40,8 +40,10 @@ import java.util.EventObject;
  */
 public class ServicePollStateChangedEvent extends EventObject {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5224040562319082465L;
 
+    /** The m_index. */
     private int m_index;
 
     /**
@@ -64,6 +66,7 @@ public class ServicePollStateChangedEvent extends EventObject {
      * <p>
      * getPolledService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
@@ -75,6 +78,7 @@ public class ServicePollStateChangedEvent extends EventObject {
      * <p>
      * getIndex
      * </p>
+     * .
      *
      * @return a int.
      */

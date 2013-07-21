@@ -46,26 +46,57 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.utils.TimeKeeper;
 
 /**
+ * The Class RelativeTimeTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(Parameterized.class)
 public class RelativeTimeTest {
+
+    /** The m_time zone. */
     private TimeZone m_timeZone;
 
+    /** The m_offset. */
     private int m_offset;
 
+    /** The m_start year. */
     private int m_startYear;
 
+    /** The m_start month. */
     private int m_startMonth;
 
+    /** The m_start day. */
     private int m_startDay;
 
+    /** The m_end year. */
     private int m_endYear;
 
+    /** The m_end month. */
     private int m_endMonth;
 
+    /** The m_end day. */
     private int m_endDay;
 
+    /**
+     * Instantiates a new relative time test.
+     *
+     * @param timeZone
+     *            the time zone
+     * @param offset
+     *            the offset
+     * @param startYear
+     *            the start year
+     * @param startMonth
+     *            the start month
+     * @param startDay
+     *            the start day
+     * @param endYear
+     *            the end year
+     * @param endMonth
+     *            the end month
+     * @param endDay
+     *            the end day
+     */
     public RelativeTimeTest(final String timeZone, final int offset, final int startYear, final int startMonth,
             final int startDay, final int endYear, final int endMonth, final int endDay) {
         m_timeZone = TimeZone.getTimeZone(timeZone);
@@ -78,6 +109,13 @@ public class RelativeTimeTest {
         m_endDay = endDay;
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
@@ -89,6 +127,9 @@ public class RelativeTimeTest {
                 { "Pacific/Auckland", 12, 2006, Calendar.OCTOBER, 2, 2006, Calendar.MARCH, 20 } });
     }
 
+    /**
+     * Test yesterday beginning dst.
+     */
     @Test
     public void testYesterdayBeginningDST() {
         RelativeTime yesterday = RelativeTime.YESTERDAY;
@@ -139,6 +180,9 @@ public class RelativeTimeTest {
         assertEquals("end date - start date", 82800000, end.getTime() - start.getTime());
     }
 
+    /**
+     * Test yesterday ending dst.
+     */
     @Test
     public void testYesterdayEndingDST() {
         RelativeTime yesterday = RelativeTime.YESTERDAY;

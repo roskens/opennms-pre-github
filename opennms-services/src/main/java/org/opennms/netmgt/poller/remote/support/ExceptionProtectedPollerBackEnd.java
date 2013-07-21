@@ -54,14 +54,18 @@ import org.springframework.remoting.RemoteAccessException;
  * @version $Id: $
  */
 public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ExceptionProtectedPollerBackEnd.class);
 
+    /** The m_delegate. */
     private PollerBackEnd m_delegate;
 
     /**
      * <p>
      * setDelegate
      * </p>
+     * .
      *
      * @param delegate
      *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
@@ -75,6 +79,7 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
      * <p>
      * checkForDisconnectedMonitors
      * </p>
+     * .
      */
     @Override
     public void checkForDisconnectedMonitors() {
@@ -90,6 +95,7 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
      * <p>
      * configurationUpdated
      * </p>
+     * .
      */
     @Override
     public void configurationUpdated() {
@@ -116,6 +122,7 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
      * <p>
      * getMonitoringLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -206,6 +213,9 @@ public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.PollerBackEnd#saveResponseTimeData(java.lang.String, org.opennms.netmgt.model.OnmsMonitoredService, double, org.opennms.netmgt.config.poller.Package)
+     */
     @Override
     public void saveResponseTimeData(String locationMonitor, OnmsMonitoredService monSvc, double responseTime,
             Package pkg) {

@@ -68,10 +68,11 @@ import org.springframework.util.Assert;
 @EventListener(name = "Capsd:BroadcastEventProcessor", logPrefix = "capsd")
 public class BroadcastEventProcessor implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     /**
-     * SQL statement used to add an interface/server mapping into the database;
+     * SQL statement used to add an interface/server mapping into the database;.
      */
     private static String SQL_ADD_INTERFACE_TO_SERVER = "INSERT INTO serverMap VALUES (?, ?)";
 
@@ -128,9 +129,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      */
     private static String SQL_QUERY_SERVICE_MAPPING_EXIST = "SELECT * FROM serviceMap WHERE ipaddr = ? AND servicemapname = ?";
 
-    /**
-     * SQL query to retrieve nodeid of a particulary interface address
-     */
+    /** SQL query to retrieve nodeid of a particulary interface address. */
     private static String SQL_RETRIEVE_NODEID = "select nodeid from ipinterface where ipaddr=? and isManaged!='D'";
 
     /**
@@ -149,7 +148,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Convenience method checking Capsd's config for status of XmlRpc API
+     * Convenience method checking Capsd's config for status of XmlRpc API.
      *
      * @return Returns the xmlrpc.
      */
@@ -157,14 +156,10 @@ public class BroadcastEventProcessor implements InitializingBean {
         return CapsdConfigFactory.getInstance().getXmlrpc().equals("true");
     }
 
-    /**
-     * local openNMS server name
-     */
+    /** local openNMS server name. */
     private String m_localServer = null;
 
-    /**
-     * The Capsd rescan scheduler
-     */
+    /** The Capsd rescan scheduler. */
     private Scheduler m_scheduler;
 
     /**
@@ -172,15 +167,16 @@ public class BroadcastEventProcessor implements InitializingBean {
      */
     private ExecutorService m_suspectQ;
 
+    /** The m_suspect event processor factory. */
     private SuspectEventProcessorFactory m_suspectEventProcessorFactory;
 
     /**
-     * Counts the number of interfaces on the node other than a given interface
+     * Counts the number of interfaces on the node other than a given interface.
      *
      * @param dbConn
      *            the database connection
-     * @param nodeid
-     *            the node to check interfaces for
+     * @param nodeId
+     *            the node id
      * @param ipAddr
      *            the interface not to include in the count
      * @return the numer of interfaces other than the given one
@@ -216,7 +212,7 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Counts the number of other non deleted services associated with the
-     * interface defined by nodeid/ipAddr
+     * interface defined by nodeid/ipAddr.
      *
      * @param dbConn
      *            the database connection
@@ -227,6 +223,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      * @param service
      *            the name of the service not to include
      * @return the number of non deleted services, other than serviceId
+     * @throws SQLException
+     *             the sQL exception
      */
     private int countOtherServicesOnInterface(Connection dbConn, long nodeId, String ipAddr, String service)
             throws SQLException {
@@ -262,7 +260,7 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Counts the number of non deleted services on a node on interfaces other
-     * than a given interface
+     * than a given interface.
      *
      * @param dbConn
      *            the database connection
@@ -271,6 +269,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      * @param ipAddr
      *            the address of the interface not to include
      * @return the number of non deleted services on other interfaces
+     * @throws SQLException
+     *             the sQL exception
      */
     private int countServicesOnOtherInterfaces(Connection dbConn, long nodeId, String ipAddr) throws SQLException {
         final String DB_COUNT_SERVICES_ON_OTHER_INTERFACES = "SELECT count(*) FROM ifservices WHERE nodeID=? and ipAddr != ? and status != 'D'";
@@ -303,11 +303,16 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Helper method used to create add an interface to a node.
      *
      * @param dbConn
+     *            the db conn
      * @param nodeLabel
+     *            the node label
      * @param ipaddr
+     *            the ipaddr
      * @return a LinkedList of events to be sent
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> createInterfaceOnNode(Connection dbConn, String nodeLabel, String ipaddr) throws SQLException,
             FailedOperationException {
@@ -376,6 +381,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      *            the node label to identify the node to create.
      * @param ipaddr
      *            the ipaddress to be added into the ipinterface table.
+     * @return the list
      * @throws SQLException
      *             if a database error occurs
      * @throws FailedOperationException
@@ -425,12 +431,17 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Helper method to add an interface to a node.
      *
      * @param dbConn
+     *            the db conn
      * @param nodeLabel
+     *            the node label
      * @param ipaddr
+     *            the ipaddr
      * @return eventsToSend
      *         A List Object containing events to be sent
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doAddInterface(Connection dbConn, String nodeLabel, String ipaddr) throws SQLException,
             FailedOperationException {
@@ -452,7 +463,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Perform the buld of the work for processing an addNode event
+     * Perform the buld of the work for processing an addNode event.
      *
      * @param dbConn
      *            the database connection
@@ -487,14 +498,19 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Helper method used to update the mapping of interfaces to services.
      *
      * @param dbConn
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
-     * @param action
+     *            the service name
      * @param txNo
+     *            the tx no
      * @return a list of events that need to be sent in response to these
      *         changes
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doAddServiceMapping(Connection dbConn, String ipaddr, String serviceName, long txNo)
             throws SQLException, FailedOperationException {
@@ -520,13 +536,20 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Helper method used to add a service to an interface.
      *
      * @param dbConn
-     * @param sourceUei
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
+     *            the service name
      * @param serviceId
+     *            the service id
      * @param txNo
+     *            the tx no
+     * @return the list
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doAddServiceToInterface(Connection dbConn, String ipaddr, String serviceName, int serviceId,
             long txNo) throws SQLException, FailedOperationException {
@@ -575,13 +598,20 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Currently, add or delete.
      *
      * @param dbConn
-     * @param sourceUei
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
+     *            the service name
      * @param action
+     *            the action
      * @param txNo
+     *            the tx no
+     * @return the list
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doChangeService(Connection dbConn, String ipaddr, String serviceName, String action, long txNo)
             throws SQLException, FailedOperationException {
@@ -609,13 +639,19 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Helper method used to create mapping of interface to service.
      *
      * @param dbConn
+     *            the db conn
      * @param nodeLabel
+     *            the node label
      * @param ipaddr
+     *            the ipaddr
      * @param hostName
+     *            the host name
      * @param txNo
+     *            the tx no
      * @return Collections.singletonList()
      *         A List containing event(s) to send.
      * @throws SQLException
+     *             the sQL exception
      */
     private List<Event> doCreateInterfaceMappings(Connection dbConn, String nodeLabel, String ipaddr, String hostName,
             long txNo) throws SQLException {
@@ -713,17 +749,22 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Helper method to remove all mappings of services to @param nodeLabel, @param
-     * ipaddr
+     * ipaddr.
      *
      * @param dbConn
+     *            the db conn
      * @param nodeLabel
+     *            the node label
      * @param ipaddr
+     *            the ipaddr
      * @param hostName
+     *            the host name
      * @param txNo
-     * @param log
+     *            the tx no
      * @return eventsToSend
      *         a list of events to be sent.
      * @throws SQLException
+     *             the sQL exception
      */
     private List<Event> doDeleteInterfaceMappings(Connection dbConn, String nodeLabel, String ipaddr, String hostName,
             long txNo) throws SQLException {
@@ -796,6 +837,16 @@ public class BroadcastEventProcessor implements InitializingBean {
         return eventsToSend;
     }
 
+    /**
+     * Delete alarms for node.
+     *
+     * @param dbConn
+     *            the db conn
+     * @param nodeId
+     *            the node id
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void deleteAlarmsForNode(Connection dbConn, long nodeId) throws SQLException {
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
@@ -812,6 +863,18 @@ public class BroadcastEventProcessor implements InitializingBean {
         }
     }
 
+    /**
+     * Delete alarms for interface.
+     *
+     * @param dbConn
+     *            the db conn
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void deleteAlarmsForInterface(Connection dbConn, long nodeId, String ipAddr) throws SQLException {
         PreparedStatement stmt = null;
         final DBUtils d = new DBUtils(getClass());
@@ -830,12 +893,12 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Delete alarms for the specified snmp interface
+     * Delete alarms for the specified snmp interface.
      *
      * @param dbConn
      *            the connection to the database
-     * @param nodeid
-     *            the nodeid for the interface to be deleted
+     * @param nodeId
+     *            the node id
      * @param ifIndex
      *            the ifIndex for the interface to be deleted
      * @throws SQLException
@@ -858,6 +921,20 @@ public class BroadcastEventProcessor implements InitializingBean {
         }
     }
 
+    /**
+     * Delete alarms for service.
+     *
+     * @param dbConn
+     *            the db conn
+     * @param nodeId
+     *            the node id
+     * @param ipAddr
+     *            the ip addr
+     * @param service
+     *            the service
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void deleteAlarmsForService(Connection dbConn, long nodeId, String ipAddr, String service)
             throws SQLException {
         PreparedStatement stmt = null;
@@ -942,14 +1019,19 @@ public class BroadcastEventProcessor implements InitializingBean {
      * FIXME: see FIXME in javadoc of the doUpdateService method.
      *
      * @param dbConn
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
-     * @param action
+     *            the service name
      * @param txNo
+     *            the tx no
      * @return An object of type List that may contain events that need to be
      *         sent.
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doDeleteServiceMapping(Connection dbConn, String ipaddr, String serviceName, long txNo)
             throws SQLException, FailedOperationException {
@@ -971,6 +1053,27 @@ public class BroadcastEventProcessor implements InitializingBean {
         }
     }
 
+    /**
+     * Do update server.
+     *
+     * @param dbConn
+     *            the db conn
+     * @param nodeLabel
+     *            the node label
+     * @param ipaddr
+     *            the ipaddr
+     * @param action
+     *            the action
+     * @param hostName
+     *            the host name
+     * @param txNo
+     *            the tx no
+     * @return the list
+     * @throws SQLException
+     *             the sQL exception
+     * @throws FailedOperationException
+     *             the failed operation exception
+     */
     private List<Event> doUpdateServer(Connection dbConn, String nodeLabel, String ipaddr, String action,
             String hostName, long txNo) throws SQLException, FailedOperationException {
 
@@ -1000,13 +1103,22 @@ public class BroadcastEventProcessor implements InitializingBean {
      * verify issues with jUnit tests.
      *
      * @param dbConn
+     *            the db conn
+     * @param nodeLabel
+     *            the node label
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
+     *            the service name
      * @param action
+     *            the action
      * @param txNo
+     *            the tx no
      * @return An object of type List containing events to be sent.
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private List<Event> doUpdateService(Connection dbConn, String nodeLabel, String ipaddr, String serviceName,
             String action, long txNo) throws SQLException, FailedOperationException {
@@ -1035,11 +1147,15 @@ public class BroadcastEventProcessor implements InitializingBean {
      * right here this simple method indicates a problem with the model.
      *
      * @param dbConn
+     *            the db conn
      * @param hostName
+     *            the host name
      * @param ipaddr
+     *            the ipaddr
      * @return A logical evaluation of a service existing for hostname and IP
      *         address
      * @throws SQLException
+     *             the sQL exception
      */
     private boolean existsInServerMap(Connection dbConn, String hostName, String ipaddr) throws SQLException {
         PreparedStatement stmt = null;
@@ -1077,10 +1193,14 @@ public class BroadcastEventProcessor implements InitializingBean {
      * and some as long(s).
      *
      * @param dbConn
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
+     *            the service name
      * @return An int Array of node ids.
      * @throws SQLException
+     *             the sQL exception
      */
     private int[] findNodeIdForServiceAndInterface(Connection dbConn, String ipaddr, String serviceName)
             throws SQLException {
@@ -1119,13 +1239,17 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Helper method for retrieving list of node ids that match @param nodeLabel
-     * and @param ipAddr
+     * and @param ipAddr.
      *
      * @param dbConn
+     *            the db conn
      * @param nodeLabel
+     *            the node label
      * @param ipAddr
+     *            the ip addr
      * @return Array of node ids from the db (JDBC)
      * @throws SQLException
+     *             the sQL exception
      */
     private long[] findNodeIdsForInterfaceAndLabel(Connection dbConn, String nodeLabel, String ipAddr)
             throws SQLException {
@@ -1158,7 +1282,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1173,11 +1297,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event to process.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if the event is missing essential information
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if the operation fails (because of database error for
-     *             example)
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.ADD_INTERFACE_EVENT_UEI)
     public void handleAddInterface(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1229,6 +1352,13 @@ public class BroadcastEventProcessor implements InitializingBean {
         }
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     * @throws SQLException
+     *             the sQL exception
+     */
     private Connection getConnection() throws SQLException {
         return DataSourceFactory.getInstance().getConnection();
     }
@@ -1238,10 +1368,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event to process.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if the event is missing information
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if an error occurs during processing
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.ADD_NODE_EVENT_UEI)
     public void handleAddNode(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1298,10 +1428,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event to process.
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if any.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.CHANGE_SERVICE_EVENT_UEI)
     public void handleChangeService(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1359,10 +1489,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event indicating what interface to delete
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if the required information is not part of the event
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.DELETE_INTERFACE_EVENT_UEI)
     public void handleDeleteInterface(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1432,10 +1562,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event indicating what node to delete
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if the required information is not part of the event
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.DELETE_NODE_EVENT_UEI)
     public void handleDeleteNode(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1499,10 +1629,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event indicating what service to delete
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if the required information is not part of the event
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.DELETE_SERVICE_EVENT_UEI)
     public void handleDeleteService(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1566,8 +1696,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.DUP_NODE_DELETED_EVENT_UEI)
     public void handleDupNodeDeleted(Event event) throws InsufficientInformationException {
@@ -1586,8 +1716,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.FORCE_RESCAN_EVENT_UEI)
     public void handleForceRescan(Event event) throws InsufficientInformationException {
@@ -1658,8 +1788,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NEW_SUSPECT_INTERFACE_EVENT_UEI)
     public void handleNewSuspect(final Event event) throws InsufficientInformationException {
@@ -1690,8 +1820,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_ADDED_EVENT_UEI)
     public void handleNodeAdded(Event event) throws InsufficientInformationException {
@@ -1710,8 +1840,8 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     @EventHandler(uei = EventConstants.NODE_DELETED_EVENT_UEI)
     public void handleNodeDeleted(Event event) throws InsufficientInformationException {
@@ -1732,10 +1862,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if any.
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if any.
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.UPDATE_SERVER_EVENT_UEI)
     public void handleUpdateServer(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1803,10 +1933,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      *
      * @param event
      *            The event to process.
-     * @throws org.opennms.netmgt.capsd.InsufficientInformationException
-     *             if there is missing information in the event
-     * @throws org.opennms.netmgt.capsd.FailedOperationException
-     *             if the operation fails for some reason
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
+     * @throws FailedOperationException
+     *             the failed operation exception
      */
     @EventHandler(uei = EventConstants.UPDATE_SERVICE_EVENT_UEI)
     public void handleUpdateService(Event event) throws InsufficientInformationException, FailedOperationException {
@@ -1866,7 +1996,7 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Returns true if and only an interface with the given ipaddr on a node
-     * with the give label exists
+     * with the give label exists.
      *
      * @param dbConn
      *            a database connection
@@ -1899,10 +2029,12 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Mark all the services associated with a given interface as deleted and
-     * create service deleted events for each one that gets deleted
+     * create service deleted events for each one that gets deleted.
      *
      * @param dbConn
      *            the database connection
+     * @param source
+     *            the source
      * @param nodeId
      *            the node that interface resides on
      * @param ipAddr
@@ -1958,7 +2090,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Mark the given interface deleted
+     * Mark the given interface deleted.
      *
      * @param dbConn
      *            the database connection
@@ -1981,7 +2113,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Mark the given interface deleted
+     * Mark the given interface deleted.
      *
      * @param dbConn
      *            the database connection
@@ -2063,6 +2195,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      * @return a List of events indicating which nodes and services have been
      *         deleted
      * @throws SQLException
+     *             the sQL exception
      */
     private List<Event> markInterfacesAndServicesDeleted(Connection dbConn, String source, long nodeId, long txNo)
             throws SQLException {
@@ -2138,7 +2271,7 @@ public class BroadcastEventProcessor implements InitializingBean {
 
     /**
      * Marks the service deleted in the database and returns a serviceDeleted
-     * event for the service, if and only if the service existed
+     * event for the service, if and only if the service existed.
      *
      * @param dbConn
      *            the database connection
@@ -2186,7 +2319,7 @@ public class BroadcastEventProcessor implements InitializingBean {
     }
 
     /**
-     * Returns true if and only a node with the give label exists
+     * Returns true if and only a node with the give label exists.
      *
      * @param dbConn
      *            a database connection
@@ -2219,10 +2352,14 @@ public class BroadcastEventProcessor implements InitializingBean {
      * Hibernate/DAO code.
      *
      * @param dbConn
+     *            the db conn
      * @param ipaddr
+     *            the ipaddr
      * @param serviceName
-     * @return
+     *            the service name
+     * @return true, if successful
      * @throws SQLException
+     *             the sQL exception
      */
     private boolean serviceMappingExists(Connection dbConn, String ipaddr, String serviceName) throws SQLException {
         boolean mapExists;
@@ -2262,10 +2399,14 @@ public class BroadcastEventProcessor implements InitializingBean {
      * DriverManager JDBC class.
      *
      * @param dbConn
+     *            the db conn
      * @param serviceName
-     * @return
+     *            the service name
+     * @return the int
      * @throws SQLException
+     *             the sQL exception
      * @throws FailedOperationException
+     *             the failed operation exception
      */
     private int verifyServiceExists(Connection dbConn, String serviceName) throws SQLException,
             FailedOperationException {
@@ -2297,6 +2438,20 @@ public class BroadcastEventProcessor implements InitializingBean {
         }
     }
 
+    /**
+     * Verify interface exists.
+     *
+     * @param dbConn
+     *            the db conn
+     * @param nodeLabel
+     *            the node label
+     * @param ipaddr
+     *            the ipaddr
+     * @throws SQLException
+     *             the sQL exception
+     * @throws FailedOperationException
+     *             the failed operation exception
+     */
     private void verifyInterfaceExists(Connection dbConn, String nodeLabel, String ipaddr) throws SQLException,
             FailedOperationException {
         if (!interfaceExists(dbConn, nodeLabel, ipaddr))
@@ -2308,6 +2463,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      * <p>
      * setSuspectEventProcessorFactory
      * </p>
+     * .
      *
      * @param suspectEventProcessorFactory
      *            a
@@ -2322,6 +2478,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.capsd.Scheduler} object.
@@ -2334,6 +2491,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      * <p>
      * setSuspectQueue
      * </p>
+     * .
      *
      * @param suspectQ
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -2346,6 +2504,7 @@ public class BroadcastEventProcessor implements InitializingBean {
      * <p>
      * setLocalServer
      * </p>
+     * .
      *
      * @param localServer
      *            a {@link java.lang.String} object.
@@ -2358,9 +2517,10 @@ public class BroadcastEventProcessor implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

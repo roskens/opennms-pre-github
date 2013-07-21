@@ -52,18 +52,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(RTCNodeSvcTimesList.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2606739258065019820L;
 
-    /**
-     * The time from which the current outtime 'm_outTime' is calculated
-     */
+    /** The time from which the current outtime 'm_outTime' is calculated. */
     private long m_outTimeSince;
 
-    /**
-     * The outage time computed since 'm_outTimeSince'
-     */
+    /** The outage time computed since 'm_outTimeSince'. */
     private long m_outTime;
 
     /**
@@ -141,7 +140,7 @@ public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
     }
 
     /**
-     * Add a new servicetime entry
+     * Add a new servicetime entry.
      *
      * @param losttime
      *            time at which service was lost
@@ -155,7 +154,7 @@ public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
 
     /**
      * Calculate the total downtime in this list of service times for the last
-     * 'rollingWindow' time starting at 'curTime'
+     * 'rollingWindow' time starting at 'curTime'.
      *
      * @param curTime
      *            the current time from which the down time is to be calculated

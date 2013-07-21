@@ -55,102 +55,188 @@ import org.opennms.netmgt.poller.mock.MockMonitoredService;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Test the MockNetwork and related classes
+ * Test the MockNetwork and related classes.
  *
  * @author brozow
  */
 public class MockNetworkTest extends TestCase {
 
+    /**
+     * The Class ElementCounter.
+     */
     static class ElementCounter implements MockVisitor {
 
+        /** The container count. */
         private int containerCount = 0;
 
+        /** The element count. */
         private int elementCount = 0;
 
+        /** The interface count. */
         private int interfaceCount = 0;
 
+        /** The network count. */
         private int networkCount = 0;
 
+        /** The node count. */
         private int nodeCount = 0;
 
+        /** The service count. */
         private int serviceCount = 0;
 
+        /**
+         * Gets the container count.
+         *
+         * @return the container count
+         */
         public int getContainerCount() {
             return containerCount;
         }
 
+        /**
+         * Gets the element count.
+         *
+         * @return the element count
+         */
         public int getElementCount() {
             return elementCount;
         }
 
+        /**
+         * Gets the interface count.
+         *
+         * @return the interface count
+         */
         public int getInterfaceCount() {
             return interfaceCount;
         }
 
+        /**
+         * Gets the network count.
+         *
+         * @return the network count
+         */
         public int getNetworkCount() {
             return networkCount;
         }
 
+        /**
+         * Gets the node count.
+         *
+         * @return the node count
+         */
         public int getNodeCount() {
             return nodeCount;
         }
 
+        /**
+         * Gets the service count.
+         *
+         * @return the service count
+         */
         public int getServiceCount() {
             return serviceCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitContainer(org.opennms.netmgt.mock.MockContainer)
+         */
         @Override
         public void visitContainer(MockContainer<?, ?> c) {
             containerCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitElement(org.opennms.netmgt.mock.MockElement)
+         */
         @Override
         public void visitElement(MockElement e) {
             elementCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitInterface(org.opennms.netmgt.mock.MockInterface)
+         */
         @Override
         public void visitInterface(MockInterface i) {
             interfaceCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitNetwork(org.opennms.netmgt.mock.MockNetwork)
+         */
         @Override
         public void visitNetwork(MockNetwork n) {
             networkCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitNode(org.opennms.netmgt.mock.MockNode)
+         */
         @Override
         public void visitNode(MockNode n) {
             nodeCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitor#visitService(org.opennms.netmgt.mock.MockService)
+         */
         @Override
         public void visitService(MockService s) {
             serviceCount++;
         }
     }
 
+    /**
+     * The Class StatusChecker.
+     */
     class StatusChecker extends MockVisitorAdapter {
+
+        /** The m_expected status. */
         PollStatus m_expectedStatus;
 
+        /** The m_service count. */
         int m_serviceCount = 0;
 
+        /**
+         * Instantiates a new status checker.
+         *
+         * @param status
+         *            the status
+         */
         public StatusChecker(PollStatus status) {
             m_expectedStatus = status;
         }
 
+        /**
+         * Gets the service count.
+         *
+         * @return the service count
+         */
         public int getServiceCount() {
             return m_serviceCount;
         }
 
+        /**
+         * Reset service count.
+         */
         public void resetServiceCount() {
             m_serviceCount = 0;
         }
 
+        /**
+         * Sets the expected status.
+         *
+         * @param status
+         *            the new expected status
+         */
         public void setExpectedStatus(PollStatus status) {
             m_expectedStatus = status;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.mock.MockVisitorAdapter#visitService(org.opennms.netmgt.mock.MockService)
+         */
         @Override
         public void visitService(MockService service) {
             m_serviceCount++;
@@ -160,16 +246,31 @@ public class MockNetworkTest extends TestCase {
         }
     }
 
+    /** The m_down checker. */
     private StatusChecker m_downChecker;
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_up checker. */
     private StatusChecker m_upChecker;
 
+    /** The m_poller config. */
     private MockPollerConfig m_pollerConfig;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /**
+     * Anticipate service events.
+     *
+     * @param anticipator
+     *            the anticipator
+     * @param element
+     *            the element
+     * @param uei
+     *            the uei
+     */
     private void anticipateServiceEvents(final EventAnticipator anticipator, MockElement element, final String uei) {
         MockVisitor eventSetter = new MockVisitorAdapter() {
             @Override
@@ -181,6 +282,9 @@ public class MockNetworkTest extends TestCase {
         element.visit(eventSetter);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         m_network = new MockNetwork();
@@ -217,10 +321,16 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
     }
 
+    /**
+     * Test create interfaces.
+     */
     public void testCreateInterfaces() {
 
         MockNode router = m_network.getNode(1);
@@ -243,6 +353,9 @@ public class MockNetworkTest extends TestCase {
         assertEquals(ipv6, iface4.getNode());
     }
 
+    /**
+     * Test create nodes.
+     */
     public void testCreateNodes() {
 
         MockNode router = m_network.getNode(1);
@@ -261,6 +374,9 @@ public class MockNetworkTest extends TestCase {
         assertEquals(1, ipv6.getMembers().size());
     }
 
+    /**
+     * Test create services.
+     */
     public void testCreateServices() {
 
         MockInterface rtrIface = m_network.getInterface(1, "192.168.1.2");
@@ -278,6 +394,9 @@ public class MockNetworkTest extends TestCase {
         assertFalse(icmpSvc.getId() == httpSvc.getId());
     }
 
+    /**
+     * Test event listeners.
+     */
     public void testEventListeners() {
         Event sentEvent = MockEventUtil.createEvent("Test", EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1,
                                                     "192.168.1.1", "NEW", null);
@@ -319,10 +438,16 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test event mgr.
+     */
     public void testEventMgr() {
         assertNotNull(m_eventMgr);
     }
 
+    /**
+     * Test event processing.
+     */
     public void testEventProcessing() {
         testEventProcessing(m_network.getService(2, "192.168.1.3", "ICMP"));
         testEventProcessing(m_network.getNode(2));
@@ -331,7 +456,10 @@ public class MockNetworkTest extends TestCase {
     }
 
     /**
+     * Test event processing.
+     *
      * @param element
+     *            the element
      */
     private void testEventProcessing(MockElement element) {
         m_pollerConfig.setNodeOutageProcessingEnabled(false);
@@ -397,6 +525,12 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test invalid poll.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testInvalidPoll() throws UnknownHostException {
         m_network.resetInvalidPollCount();
         MonitoredService svc = new MockMonitoredService(99, "InvalidNode", InetAddressUtils.addr("1.1.1.1"), "ICMP");
@@ -406,6 +540,9 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test lookup not there.
+     */
     public void testLookupNotThere() {
         assertNotNull(m_network.getService(1, "192.168.1.1", "ICMP"));
         assertNotNull(m_network.getService(3, "fe80:0000:0000:0000:0000:0000:0000:00ff", "ICMP"));
@@ -417,6 +554,9 @@ public class MockNetworkTest extends TestCase {
         assertNull(m_network.getService(3, "fe80:0000:0000:0000:0000:0000:0000:00ff", "DHCP"));
     }
 
+    /**
+     * Test poller config.
+     */
     public void testPollerConfig() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
         m_pollerConfig.setPollInterval("HTTP", 750L);
@@ -465,11 +605,17 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test poll outage config.
+     */
     public void testPollOutageConfig() {
         PollOutagesConfig pollOutagesConfig = m_pollerConfig;
         assertNotNull(pollOutagesConfig);
     }
 
+    /**
+     * Test poll status.
+     */
     public void testPollStatus() {
         MockNode node = m_network.getNode(1);
         MockInterface iface = m_network.getInterface(1, "192.168.1.2");
@@ -486,6 +632,12 @@ public class MockNetworkTest extends TestCase {
         assertEquals(PollStatus.up(), iface.getPollStatus());
     }
 
+    /**
+     * Test query manager.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testQueryManager() throws Exception {
         QueryManager queryManager = new MockQueryManager(m_network);
         assertNotNull(queryManager);
@@ -518,10 +670,20 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Gets the services for interface.
+     *
+     * @param iface
+     *            the iface
+     * @return the services for interface
+     */
     private Collection<MockService> getServicesForInterface(MockInterface iface) {
         return iface.getServices();
     }
 
+    /**
+     * Test remove.
+     */
     public void testRemove() {
         assertNotNull(m_network.getService(1, "192.168.1.1", "SMTP"));
         m_network.removeService(m_network.getService(1, "192.168.1.1", "SMTP"));
@@ -543,6 +705,9 @@ public class MockNetworkTest extends TestCase {
         assertNull(m_network.getInterface(2, "192.168.1.3"));
     }
 
+    /**
+     * Test scheduled outages.
+     */
     public void testScheduledOutages() {
         long now = System.currentTimeMillis();
         long tenMinutes = 600000L;
@@ -580,6 +745,14 @@ public class MockNetworkTest extends TestCase {
         assertFalse(m_pollerConfig.isNodeIdInOutage(1, "outage4"));
     }
 
+    /**
+     * Test service poll.
+     *
+     * @param element
+     *            the element
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private void testServicePoll(MockElement element) throws UnknownHostException {
 
         element.resetPollCount();
@@ -596,6 +769,12 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test set poll status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSetPollStatus() throws Exception {
 
         // service poll status
@@ -612,6 +791,9 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test visitor.
+     */
     public void testVisitor() {
         ElementCounter counter = new ElementCounter();
         m_network.visit(counter);
@@ -623,6 +805,12 @@ public class MockNetworkTest extends TestCase {
         assertEquals(18, counter.getElementCount());
     }
 
+    /**
+     * Test wait for event.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     public void testWaitForEvent() throws Throwable {
         MockNode node = m_network.getNode(1);
         final Event event1 = MockEventUtil.createNodeDownEvent("Test", node);
@@ -672,6 +860,12 @@ public class MockNetworkTest extends TestCase {
 
     }
 
+    /**
+     * Test wait for poll.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     public void testWaitForPoll() throws Throwable {
 
         final PollAnticipator anticipator = new PollAnticipator();

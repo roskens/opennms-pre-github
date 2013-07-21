@@ -41,6 +41,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class OpenNMSIntegrationTestCaseTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -52,6 +54,9 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class OpenNMSIntegrationTestCaseTest {
 
+    /**
+     * Test home dir created.
+     */
     @Test
     public void testHomeDirCreated() {
 
@@ -62,6 +67,9 @@ public class OpenNMSIntegrationTestCaseTest {
 
     }
 
+    /**
+     * Test etc dir exists.
+     */
     @Test
     public void testEtcDirExists() {
 

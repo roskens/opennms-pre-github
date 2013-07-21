@@ -61,6 +61,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms17216Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -74,25 +77,39 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class Nms17216Test extends Nms17216NetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -106,6 +123,12 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         super.setSnmpInterfaceDao(m_snmpInterfaceDao);
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -115,6 +138,12 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -166,6 +195,12 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * router3 GigabitEthernet0/1 --> 9
      * router4 GigabitEthernet0/1 --> 3
      * switch4 FastEthernet0/1 --> 10001
+     */
+    /**
+     * Test network17216 links.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -350,6 +385,12 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
      * switch3 Fa0/19 --> 10019
      * switch3 Fa0/20 --> 10020
      */
+    /**
+     * Test network17216 lldp links.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt"),
@@ -417,6 +458,12 @@ public class Nms17216Test extends Nms17216NetworkBuilder implements Initializing
         }
     }
 
+    /**
+     * Test network17216 switch4 router4 cdp links.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt"),

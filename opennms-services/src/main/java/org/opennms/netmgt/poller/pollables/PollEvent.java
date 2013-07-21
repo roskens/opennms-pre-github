@@ -40,6 +40,7 @@ import java.util.Date;
  */
 public abstract class PollEvent {
 
+    /** The m_scope. */
     Scope m_scope;
 
     /**
@@ -58,6 +59,7 @@ public abstract class PollEvent {
      * <p>
      * getScope
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.Scope} object.
      */
@@ -69,6 +71,7 @@ public abstract class PollEvent {
      * <p>
      * getEventId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -78,6 +81,7 @@ public abstract class PollEvent {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -87,6 +91,7 @@ public abstract class PollEvent {
      * <p>
      * isNodeDown
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -98,6 +103,7 @@ public abstract class PollEvent {
      * <p>
      * isInterfaceDown
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -109,6 +115,7 @@ public abstract class PollEvent {
      * <p>
      * isNodeLostService
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -120,6 +127,7 @@ public abstract class PollEvent {
      * <p>
      * hasLargerScopeThan
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -134,6 +142,7 @@ public abstract class PollEvent {
      * <p>
      * hasSmallerScopeThan
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -148,6 +157,7 @@ public abstract class PollEvent {
      * <p>
      * hasScopeLargerThan
      * </p>
+     * .
      *
      * @param scope
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
@@ -161,6 +171,7 @@ public abstract class PollEvent {
      * <p>
      * hasScopeSmallerThan
      * </p>
+     * .
      *
      * @param scope
      *            a {@link org.opennms.netmgt.poller.pollables.Scope} object.
@@ -174,6 +185,7 @@ public abstract class PollEvent {
      * <p>
      * hasSameScope
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -188,6 +200,7 @@ public abstract class PollEvent {
      * <p>
      * withLargestScope
      * </p>
+     * .
      *
      * @param a
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}

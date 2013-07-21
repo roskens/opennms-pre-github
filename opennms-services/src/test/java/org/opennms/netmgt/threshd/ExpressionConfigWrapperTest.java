@@ -37,11 +37,19 @@ import org.junit.Test;
 import org.opennms.netmgt.config.threshd.Expression;
 
 /**
+ * The Class ExpressionConfigWrapperTest.
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ExpressionConfigWrapperTest {
 
     /* See NMS-5014 */
+    /**
+     * Test complex expression.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testComplexExpression() throws Exception {
         Expression exp = new Expression();
@@ -66,6 +74,12 @@ public class ExpressionConfigWrapperTest {
     }
 
     /* See NMS-5019 */
+    /**
+     * Test handle invalid ds names.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testHandleInvalidDsNames() throws Exception {
         Expression exp = new Expression();

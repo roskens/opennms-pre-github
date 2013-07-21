@@ -42,6 +42,7 @@ public interface ExternalEventRecipient {
      * <p>
      * notifySuccess
      * </p>
+     * .
      *
      * @param txNo
      *            a long.
@@ -57,6 +58,7 @@ public interface ExternalEventRecipient {
      * <p>
      * notifyFailure
      * </p>
+     * .
      *
      * @param txNo
      *            a long.
@@ -72,6 +74,7 @@ public interface ExternalEventRecipient {
      * <p>
      * notifyReceivedEvent
      * </p>
+     * .
      *
      * @param txNo
      *            a long.
@@ -87,6 +90,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendServiceDownEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -108,6 +112,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendServiceUpEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -130,6 +135,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendInterfaceDownEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -147,6 +153,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendInterfaceUpEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -164,6 +171,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendNodeDownEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -179,6 +187,7 @@ public interface ExternalEventRecipient {
      * <p>
      * sendNodeUpEvent
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.

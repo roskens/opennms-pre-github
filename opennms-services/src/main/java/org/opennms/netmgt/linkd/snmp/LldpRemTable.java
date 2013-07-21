@@ -33,8 +33,17 @@ import java.net.InetAddress;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class LldpRemTable.
+ */
 public class LldpRemTable extends SnmpTable<LldpRemTableEntry> {
 
+    /**
+     * Instantiates a new lldp rem table.
+     *
+     * @param address
+     *            the address
+     */
     public LldpRemTable(InetAddress address) {
         super(address, "lldpRemTable", LldpRemTableEntry.lldpremtable_elemList);
     }

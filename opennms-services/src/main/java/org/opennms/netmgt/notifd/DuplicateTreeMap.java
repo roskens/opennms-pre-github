@@ -37,27 +37,27 @@ import java.util.TreeMap;
  * DuplicateTreeMap class.
  * </p>
  *
+ * @param <K>
+ *            the key type
+ * @param <V>
+ *            the value type
  * @author ranger
  * @version $Id: $
  */
 public class DuplicateTreeMap<K, V> extends TreeMap<K, List<V>> {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8020472612288161254L;
 
     /**
      * <p>
      * putItem
      * </p>
+     * .
      *
      * @param key
      *            a K object.
      * @param value
-     *            a V object.
-     * @param <K>
-     *            a K object.
-     * @param <V>
      *            a V object.
      * @return a V object.
      */

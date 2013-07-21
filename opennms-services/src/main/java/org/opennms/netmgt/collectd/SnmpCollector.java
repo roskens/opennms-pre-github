@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollector.class);
 
     /**
@@ -76,9 +77,7 @@ public class SnmpCollector implements ServiceCollector {
      */
     static final String AnReplEx = "-._";
 
-    /**
-     * Value of MIB-II ifAlias oid
-     */
+    /** Value of MIB-II ifAlias oid. */
     static final String IFALIAS_OID = ".1.3.6.1.2.1.31.1.1.1.18";
 
     /**
@@ -122,8 +121,10 @@ public class SnmpCollector implements ServiceCollector {
      */
     public static String SNMP_STORAGE_PRIMARY = "primary";
 
+    /** The snmp storage all. */
     static String SNMP_STORAGE_ALL = "all";
 
+    /** The snmp storage select. */
     static String SNMP_STORAGE_SELECT = "select";
 
     /**
@@ -242,6 +243,9 @@ public class SnmpCollector implements ServiceCollector {
      * }
      */
 
+    /**
+     * Inits the database connection factory.
+     */
     private void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -279,6 +283,9 @@ public class SnmpCollector implements ServiceCollector {
      * }
      */
 
+    /**
+     * Inits the snmp peer factory.
+     */
     private void initSnmpPeerFactory() {
         try {
             SnmpPeerFactory.init();
@@ -433,6 +440,12 @@ public class SnmpCollector implements ServiceCollector {
      * }
      */
 
+    /**
+     * Log no data to collect.
+     *
+     * @param agent
+     *            the agent
+     */
     private void logNoDataToCollect(CollectionAgent agent) {
         LOG.info("agent {} defines no data to collect.  Skipping.", agent);
     }

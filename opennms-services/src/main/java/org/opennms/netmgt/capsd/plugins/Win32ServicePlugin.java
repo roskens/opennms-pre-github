@@ -45,10 +45,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Win32ServicePlugin extends SnmpPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Win32ServicePlugin.class);
 
+    /** The Constant SV_SVC_OPERATING_STATE_OID. */
     private static final String SV_SVC_OPERATING_STATE_OID = ".1.3.6.1.4.1.77.1.2.3.1.3";
 
+    /** The Constant DEFAULT_SERVICE_NAME. */
     private static final String DEFAULT_SERVICE_NAME = "Server";
 
     /** {@inheritDoc} */

@@ -39,8 +39,17 @@ import org.opennms.netmgt.config.mock.MockNotificationManager;
 import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.test.mock.MockUtil;
 
+/**
+ * The Class NotificationsConfigTest.
+ */
 public class NotificationsConfigTest {
 
+    /**
+     * Test formatted notifications xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFormattedNotificationsXml() throws Exception {
         MockUtil.println("################# Running Test ################");

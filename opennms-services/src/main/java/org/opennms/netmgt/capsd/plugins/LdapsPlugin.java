@@ -63,6 +63,7 @@ import com.novell.ldap.LDAPConnection;
  */
 public class LdapsPlugin extends LdapPlugin {
 
+    /** The Constant PROTOCOL_NAME. */
     private static final String PROTOCOL_NAME = "LDAPS";
 
     /**
@@ -84,6 +85,9 @@ public class LdapsPlugin extends LdapPlugin {
         return PROTOCOL_NAME;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.capsd.plugins.LdapPlugin#determinePorts(java.util.Map)
+     */
     @Override
     protected int[] determinePorts(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedIntegerArray(parameters, "port", DEFAULT_PORTS);

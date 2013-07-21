@@ -41,8 +41,10 @@ import java.util.Set;
  */
 public class ThresholdResourceType {
 
+    /** The m_ds type. */
     private final String m_dsType;
 
+    /** The m_threshold map. */
     private Map<String, Set<ThresholdEntity>> m_thresholdMap;
 
     /**
@@ -61,6 +63,7 @@ public class ThresholdResourceType {
      * <p>
      * getDsType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +75,7 @@ public class ThresholdResourceType {
      * <p>
      * getThresholdMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -83,6 +87,7 @@ public class ThresholdResourceType {
      * <p>
      * setThresholdMap
      * </p>
+     * .
      *
      * @param thresholdMap
      *            a {@link java.util.Map} object.

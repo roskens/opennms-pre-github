@@ -34,50 +34,102 @@ import java.util.List;
 import org.opennms.netmgt.scheduler.ScheduleInterval;
 import org.opennms.netmgt.scheduler.Timer;
 
+/**
+ * The Class MockInterval.
+ */
 public class MockInterval implements ScheduleInterval {
 
+    /** The m_timer. */
     private Timer m_timer;
 
+    /** The m_interval. */
     private long m_interval;
 
+    /** The m_suspensions. */
     private List<Suspension> m_suspensions = new LinkedList<Suspension>();
 
     /**
-     * @param l
+     * Instantiates a new mock interval.
+     *
+     * @param timer
+     *            the timer
+     * @param interval
+     *            the interval
      */
     public MockInterval(Timer timer, long interval) {
         m_timer = timer;
         m_interval = interval;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.ScheduleInterval#getInterval()
+     */
     @Override
     public long getInterval() {
         return m_interval;
     }
 
+    /**
+     * Sets the interval.
+     *
+     * @param interval
+     *            the new interval
+     */
     public void setInterval(long interval) {
         m_interval = interval;
     }
 
+    /**
+     * The Class Suspension.
+     */
     class Suspension {
+
+        /** The m_start. */
         private long m_start;
 
+        /** The m_end. */
         private long m_end;
 
+        /**
+         * Instantiates a new suspension.
+         *
+         * @param start
+         *            the start
+         * @param end
+         *            the end
+         */
         Suspension(long start, long end) {
             m_start = start;
             m_end = end;
         }
 
+        /**
+         * Contains.
+         *
+         * @param time
+         *            the time
+         * @return true, if successful
+         */
         public boolean contains(long time) {
             return m_start <= time && time <= m_end;
         }
     }
 
+    /**
+     * Adds the suspension.
+     *
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     */
     public void addSuspension(long start, long end) {
         m_suspensions.add(new Suspension(start, end));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scheduler.ScheduleInterval#scheduledSuspension()
+     */
     @Override
     public boolean scheduledSuspension() {
         for (Suspension suspension : m_suspensions) {

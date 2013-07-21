@@ -51,15 +51,22 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 final class DataUpdater implements Runnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataUpdater.class);
 
-    /**
-     * The event from which data is to be read
-     */
+    /** The event from which data is to be read. */
     private Event m_event;
 
     /**
-     * If it is a nodeGainedService, create a new entry in the map
+     * If it is a nodeGainedService, create a new entry in the map.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
      */
     private void handleNodeGainedService(long nodeid, InetAddress ip, String svcName) {
 
@@ -77,7 +84,16 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is a nodeLostService, update downtime on the rtcnode
+     * If it is a nodeLostService, update downtime on the rtcnode.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
+     * @param eventTime
+     *            the event time
      */
     private void handleNodeLostService(long nodeid, InetAddress ip, String svcName, long eventTime) {
 
@@ -94,7 +110,14 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is an interfaceDown, update downtime on the appropriate rtcnodes
+     * If it is an interfaceDown, update downtime on the appropriate rtcnodes.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param eventTime
+     *            the event time
      */
     private void handleInterfaceDown(long nodeid, InetAddress ip, long eventTime) {
 
@@ -111,7 +134,12 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is an nodeDown, update downtime on the appropriate rtcnodes
+     * If it is an nodeDown, update downtime on the appropriate rtcnodes.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param eventTime
+     *            the event time
      */
     private void handleNodeDown(long nodeid, long eventTime) {
 
@@ -127,7 +155,12 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is a nodeUp, update regained time on the appropriate rtcnodes
+     * If it is a nodeUp, update regained time on the appropriate rtcnodes.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param eventTime
+     *            the event time
      */
     private void handleNodeUp(long nodeid, long eventTime) {
 
@@ -143,7 +176,15 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is an interfaceUp, update regained time on the appropriate rtcnodes
+     * If it is an interfaceUp, update regained time on the appropriate
+     * rtcnodes.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param eventTime
+     *            the event time
      */
     private void handleInterfaceUp(long nodeid, InetAddress ip, long eventTime) {
 
@@ -160,7 +201,16 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is a nodeRegainedService, update downtime on the rtcnode
+     * If it is a nodeRegainedService, update downtime on the rtcnode.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
+     * @param eventTime
+     *            the event time
      */
     private void handleNodeRegainedService(long nodeid, InetAddress ip, String svcName, long eventTime) {
 
@@ -178,7 +228,14 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is a serviceDeleted, remove corresponding RTC nodes from the map
+     * If it is a serviceDeleted, remove corresponding RTC nodes from the map.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ip
+     *            the ip
+     * @param svcName
+     *            the svc name
      */
     private void handleServiceDeleted(long nodeid, InetAddress ip, String svcName) {
 
@@ -196,7 +253,12 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * Record the interfaceReparented info in the datastore
+     * Record the interfaceReparented info in the datastore.
+     *
+     * @param ip
+     *            the ip
+     * @param list
+     *            the list
      */
     private void handleInterfaceReparented(InetAddress ip, List<Parm> list) {
 
@@ -262,7 +324,10 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * Inform the data sender of the new listener
+     * Inform the data sender of the new listener.
+     *
+     * @param list
+     *            the list
      */
     private void handleRtcSubscribe(List<Parm> list) {
 
@@ -320,7 +385,10 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * Inform the data sender of the listener unsubscribing
+     * Inform the data sender of the listener unsubscribing.
+     *
+     * @param list
+     *            the list
      */
     private void handleRtcUnsubscribe(List<Parm> list) {
 
@@ -359,7 +427,10 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * If it is a assetInfoChanged method, update RTC
+     * If it is a assetInfoChanged method, update RTC.
+     *
+     * @param nodeid
+     *            the nodeid
      */
     private void handleAssetInfoChangedEvent(long nodeid) {
 
@@ -374,7 +445,10 @@ final class DataUpdater implements Runnable {
     /**
      * If a node's surveillance category membership changed,
      * update RTC since RTC categories may include surveillance
-     * categories via "categoryName" or "catinc*" rules
+     * categories via "categoryName" or "catinc*" rules.
+     *
+     * @param nodeid
+     *            the nodeid
      */
     private void handleNodeCategoryMembershipChanged(long nodeid) {
 
@@ -389,7 +463,7 @@ final class DataUpdater implements Runnable {
      * Read the event UEI, node ID, interface and service - depending on the
      * UEI,
      * read event parms, if necessary, and call appropriate methods on the data
-     * manager to update data
+     * manager to update data.
      */
     private void processEvent() {
 
@@ -483,7 +557,7 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * Constructs the DataUpdater object
+     * Constructs the DataUpdater object.
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -493,7 +567,7 @@ final class DataUpdater implements Runnable {
     }
 
     /**
-     * Process the event depending on the UEI and update date
+     * Process the event depending on the UEI and update date.
      */
     @Override
     public void run() {

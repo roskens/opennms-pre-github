@@ -46,14 +46,13 @@ public interface TrapdIpMgr {
      * the method opens a new connection to the database, loads the address, and
      * then closes it's connection.
      *
-     * @throws java.sql.SQLException
-     *             Thrown if the connection cannot be created or a database
-     *             error occurs.
+     * @throws SQLException
+     *             the sQL exception
      */
     public abstract void dataSourceSync() throws SQLException;
 
     /**
-     * Returns the nodeid for the IP Address
+     * Returns the nodeid for the IP Address.
      *
      * @param addr
      *            The IP Address to query.
@@ -85,6 +84,7 @@ public interface TrapdIpMgr {
      * <p>
      * clearKnownIpsMap
      * </p>
+     * .
      */
     public abstract void clearKnownIpsMap();
 

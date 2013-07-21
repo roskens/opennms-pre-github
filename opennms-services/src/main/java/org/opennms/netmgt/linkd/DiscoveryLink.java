@@ -55,28 +55,39 @@ import org.slf4j.LoggerFactory;
  */
 public final class DiscoveryLink implements ReadyRunnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryLink.class);
 
+    /** The package name. */
     private String packageName;
 
+    /** The m_links. */
     private List<NodeToNodeLink> m_links = new ArrayList<NodeToNodeLink>();
 
+    /** The m_maclinks. */
     private List<MacToNodeLink> m_maclinks = new ArrayList<MacToNodeLink>();
 
+    /** The m_bridge nodes. */
     private Map<Integer, LinkableNode> m_bridgeNodes = new HashMap<Integer, LinkableNode>();
 
+    /** The m_router nodes. */
     private List<LinkableNode> m_routerNodes = new ArrayList<LinkableNode>();
 
+    /** The m_lldp nodes. */
     private List<LinkableNode> m_lldpNodes = new ArrayList<LinkableNode>();
 
+    /** The m_ospf nodes. */
     private List<LinkableNode> m_ospfNodes = new ArrayList<LinkableNode>();
 
+    /** The m_cdp nodes. */
     private List<LinkableNode> m_cdpNodes = new ArrayList<LinkableNode>();
 
     // this is the list of MAC address just parsed by discovery process
+    /** The m_macs parsed. */
     private List<String> m_macsParsed = new ArrayList<String>();
 
     // this is the list of MAC address excluded by discovery process
+    /** The macs excluded. */
     private List<String> macsExcluded = new ArrayList<String>();
 
     // this is the list of atinterfaces for which to be discovery link
@@ -84,44 +95,48 @@ public final class DiscoveryLink implements ReadyRunnable {
     // discovered
     // by main processes. This is used by addlinks method.
 
+    /** The discovery using routes. */
     private boolean discoveryUsingRoutes = true;
 
+    /** The discovery using cdp. */
     private boolean discoveryUsingCdp = true;
 
+    /** The discovery using bridge. */
     private boolean discoveryUsingBridge = true;
 
+    /** The discovery using lldp. */
     private boolean discoveryUsingLldp = true;
 
+    /** The discovery using ospf. */
     private boolean discoveryUsingOspf = true;
 
+    /** The suspend collection. */
     private boolean suspendCollection = false;
 
+    /** The is runned. */
     private boolean isRunned = false;
 
-    /**
-     * The scheduler object
-     */
+    /** The scheduler object. */
     private Scheduler m_scheduler;
 
-    /**
-     * The interval default value 30 min
-     */
+    /** The interval default value 30 min. */
     private long snmp_poll_interval = 1800000;
 
     /**
      * The interval default value 5 min It is the time in ms after snmp
-     * collection is started
+     * collection is started.
      */
     private long discovery_interval = 300000;
 
-    /**
-     * The initial sleep time default value 10 min
-     */
+    /** The initial sleep time default value 10 min. */
     private long initial_sleep_time = 600000;
 
+    /** The m_linkd. */
     private Linkd m_linkd;
 
     /**
+     * Sets the linkd.
+     *
      * @param linkd
      *            the linkd to set
      */
@@ -129,6 +144,11 @@ public final class DiscoveryLink implements ReadyRunnable {
         this.m_linkd = linkd;
     }
 
+    /**
+     * Gets the linkd.
+     *
+     * @return the linkd
+     */
     public Linkd getLinkd() {
         return m_linkd;
     }
@@ -244,6 +264,9 @@ public final class DiscoveryLink implements ReadyRunnable {
         reschedule();
     }
 
+    /**
+     * Populate mac to at interface.
+     */
     protected void populateMacToAtInterface() {
         LOG.debug("populateMacToAtInterface: using atNodes to populate macToAtinterface");
         final Map<String, List<AtInterface>> macs = getLinkd().getAtInterfaces(getPackageName());
@@ -267,6 +290,11 @@ public final class DiscoveryLink implements ReadyRunnable {
         LOG.debug("populateMacToAtInterface: end populateMacToAtinterface");
     }
 
+    /**
+     * Gets the links from bridges.
+     *
+     * @return the links from bridges
+     */
     private void getLinksFromBridges() {
         if (m_bridgeNodes.size() > 0) {
             LOG.info("getLinksFromBridges: trying to find links using MAC Address Forwarding Table");
@@ -368,6 +396,11 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     }
 
+    /**
+     * Gets the back bone links from bridges.
+     *
+     * @return the back bone links from bridges
+     */
     private void getBackBoneLinksFromBridges() {
         if (m_bridgeNodes != null && m_bridgeNodes.size() > 0) {
             LOG.info("getBackBoneLinksFromBridges: trying to find backbone ethernet links among bridge nodes using Spanning Tree Protocol");
@@ -552,6 +585,11 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     }
 
+    /**
+     * Gets the links from route table.
+     *
+     * @return the links from route table
+     */
     private void getLinksFromRouteTable() {
         if (m_routerNodes.size() > 0) {
             LOG.info("getLinksFromRouteTable: finding non-ethernet links on Router nodes");
@@ -583,6 +621,15 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     }
 
+    /**
+     * Gets the cdp links.
+     *
+     * @param node1
+     *            the node1
+     * @param node2
+     *            the node2
+     * @return the cdp links
+     */
     private List<NodeToNodeLink> getCdpLinks(LinkableNode node1, LinkableNode node2) {
         int node1Id = node1.getNodeId();
         int node2Id = node2.getNodeId();
@@ -624,6 +671,11 @@ public final class DiscoveryLink implements ReadyRunnable {
         return cdplinks;
     }
 
+    /**
+     * Gets the links from cdp.
+     *
+     * @return the links from cdp
+     */
     private void getLinksFromCdp() {
         LOG.info("getLinksFromCdp: adding links using Cisco Discovery Protocol");
 
@@ -657,6 +709,11 @@ public final class DiscoveryLink implements ReadyRunnable {
     // If node1 has a ospf nbr entry for node2
     // then node2 mast have an ospf nbr entry for node1
     // the parent node is that with nodeid1 < nodeid2
+    /**
+     * Gets the links from ospf.
+     *
+     * @return the links from ospf
+     */
     private void getLinksFromOspf() {
         LOG.info("getLinksFromOspf: adding links using Open Short Path First Protocol");
         int i = 0;
@@ -673,6 +730,15 @@ public final class DiscoveryLink implements ReadyRunnable {
         LOG.info("getLinksFromOspf: done OSPF. Found links # {}.", i);
     }
 
+    /**
+     * Gets the ospf link.
+     *
+     * @param linknode1
+     *            the linknode1
+     * @param linknode2
+     *            the linknode2
+     * @return the ospf link
+     */
     private List<NodeToNodeLink> getOspfLink(LinkableNode linknode1, LinkableNode linknode2) {
         LOG.info("getLinksFromOspf: finding OSPF links between node with id {} and node with id {}.",
                  linknode1.getNodeId(), linknode2.getNodeId());
@@ -695,6 +761,13 @@ public final class DiscoveryLink implements ReadyRunnable {
         return links;
     }
 
+    /**
+     * Gets the subnet address.
+     *
+     * @param ospfinterface
+     *            the ospfinterface
+     * @return the subnet address
+     */
     protected InetAddress getSubnetAddress(OspfNbrInterface ospfinterface) {
         byte[] ip = ospfinterface.getOspfNbrIpAddr().getAddress();
         byte[] nm = ospfinterface.getOspfNbrNetMask().getAddress();
@@ -715,6 +788,11 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     // FIXME We must manage the case in which one of the two device has no
     // RemTable
+    /**
+     * Gets the linkd from lldp.
+     *
+     * @return the linkd from lldp
+     */
     private void getLinkdFromLldp() {
         LOG.info("getLinkdFromLldp: adding links using Layer Link Discovery Protocol");
         int i = 0;
@@ -733,6 +811,15 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     }
 
+    /**
+     * Gets the lldp link.
+     *
+     * @param linknode1
+     *            the linknode1
+     * @param linknode2
+     *            the linknode2
+     * @return the lldp link
+     */
     private List<NodeToNodeLink> getLldpLink(LinkableNode linknode1, LinkableNode linknode2) {
         LOG.info("getLinkdFromLldp: finding LLDP links between node parent with id {} and node with id {}.",
                  linknode1.getNodeId(), linknode2.getNodeId());
@@ -750,6 +837,13 @@ public final class DiscoveryLink implements ReadyRunnable {
         return links;
     }
 
+    /**
+     * Checks if is cdp node.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return true, if is cdp node
+     */
     boolean isCdpNode(int nodeid) {
         for (final LinkableNode curNode : m_cdpNodes) {
             if (nodeid == curNode.getNodeId())
@@ -760,7 +854,10 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
+     * Checks if is bridge node.
+     *
      * @param nodeid
+     *            the nodeid
      * @return LinkableSnmpNode or null if not found
      */
     boolean isBridgeNode(int nodeid) {
@@ -772,7 +869,10 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
+     * Checks if is router node.
+     *
      * @param nodeid
+     *            the nodeid
      * @return true if found
      */
     boolean isRouterNode(int nodeid) {
@@ -783,6 +883,19 @@ public final class DiscoveryLink implements ReadyRunnable {
         return false;
     }
 
+    /**
+     * Checks if is nearest bridge link.
+     *
+     * @param bridge1
+     *            the bridge1
+     * @param bp1
+     *            the bp1
+     * @param bridge2
+     *            the bridge2
+     * @param bp2
+     *            the bp2
+     * @return true, if is nearest bridge link
+     */
     private boolean isNearestBridgeLink(LinkableNode bridge1, int bp1, LinkableNode bridge2, int bp2) {
 
         LOG.debug("isNearestBridgeLink: bridge1/port1 {}/{} bridge2/port2 {}/{}", bridge1.getNodeId(), bp1,
@@ -824,6 +937,19 @@ public final class DiscoveryLink implements ReadyRunnable {
         return true;
     }
 
+    /**
+     * Gets the macs on bridge link.
+     *
+     * @param bridge1
+     *            the bridge1
+     * @param bp1
+     *            the bp1
+     * @param bridge2
+     *            the bridge2
+     * @param bp2
+     *            the bp2
+     * @return the macs on bridge link
+     */
     private Set<String> getMacsOnBridgeLink(LinkableNode bridge1, int bp1, LinkableNode bridge2, int bp2) {
 
         Set<String> macsOnLink = new HashSet<String>();
@@ -847,6 +973,13 @@ public final class DiscoveryLink implements ReadyRunnable {
         return macsOnLink;
     }
 
+    /**
+     * Checks if is mac identifier of bridge node.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return true, if is mac identifier of bridge node
+     */
     private boolean isMacIdentifierOfBridgeNode(String macAddress) {
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
             if (curNode.isBridgeIdentifier(macAddress))
@@ -855,6 +988,13 @@ public final class DiscoveryLink implements ReadyRunnable {
         return false;
     }
 
+    /**
+     * Gets the node from mac identifier of bridge node.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the node from mac identifier of bridge node
+     */
     private LinkableNode getNodeFromMacIdentifierOfBridgeNode(final String macAddress) {
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
             if (curNode.isBridgeIdentifier(macAddress))
@@ -863,6 +1003,13 @@ public final class DiscoveryLink implements ReadyRunnable {
         return null;
     }
 
+    /**
+     * Gets the bridges from macs.
+     *
+     * @param macs
+     *            the macs
+     * @return the bridges from macs
+     */
     private List<LinkableNode> getBridgesFromMacs(final Set<String> macs) {
         List<LinkableNode> bridges = new ArrayList<LinkableNode>();
         for (final LinkableNode curNode : m_bridgeNodes.values()) {
@@ -874,6 +1021,15 @@ public final class DiscoveryLink implements ReadyRunnable {
         return bridges;
     }
 
+    /**
+     * Gets the bridge port on end bridge.
+     *
+     * @param startBridge
+     *            the start bridge
+     * @param endBridge
+     *            the end bridge
+     * @return the bridge port on end bridge
+     */
     private int getBridgePortOnEndBridge(final LinkableNode startBridge, final LinkableNode endBridge) {
 
         int port = -1;
@@ -905,7 +1061,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
-     * Return the Scheduler
+     * Return the Scheduler.
      *
      * @return a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
      */
@@ -914,7 +1070,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
-     * Set the Scheduler
+     * Set the Scheduler.
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
@@ -924,7 +1080,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
-     * This Method is called when DiscoveryLink is initialized
+     * This Method is called when DiscoveryLink is initialized.
      */
     @Override
     public void schedule() {
@@ -935,9 +1091,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     }
 
     /**
-     * Schedule again the job
-     *
-     * @return
+     * Schedule again the job.
      */
     private void reschedule() {
         if (m_scheduler == null)
@@ -949,6 +1103,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getInitialSleepTime
      * </p>
+     * .
      *
      * @return Returns the initial_sleep_time.
      */
@@ -960,6 +1115,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setInitialSleepTime
      * </p>
+     * .
      *
      * @param initial_sleep_time
      *            The initial_sleep_timeto set.
@@ -972,6 +1128,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -984,6 +1141,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getDiscoveryInterval
      * </p>
+     * .
      *
      * @return Returns the discovery_link_interval.
      */
@@ -995,6 +1153,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setSnmpPollInterval
      * </p>
+     * .
      *
      * @param interval
      *            The discovery_link_interval to set.
@@ -1007,6 +1166,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getSnmpPollInterval
      * </p>
+     * .
      *
      * @return Returns the discovery_link_interval.
      */
@@ -1018,6 +1178,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setDiscoveryInterval
      * </p>
+     * .
      *
      * @param interval
      *            The discovery_link_interval to set.
@@ -1042,6 +1203,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getMacLinks
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.linkd.MacToNodeLink}
      *         objects.
@@ -1054,6 +1216,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * isSuspended
      * </p>
+     * .
      *
      * @return Returns the suspendCollection.
      */
@@ -1066,6 +1229,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * suspend
      * </p>
+     * .
      */
     @Override
     public void suspend() {
@@ -1076,6 +1240,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * wakeUp
      * </p>
+     * .
      */
     @Override
     public void wakeUp() {
@@ -1086,6 +1251,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * unschedule
      * </p>
+     * .
      */
     @Override
     public void unschedule() {
@@ -1098,6 +1264,12 @@ public final class DiscoveryLink implements ReadyRunnable {
         }
     }
 
+    /**
+     * Adds the nodeto node link.
+     *
+     * @param nnlink
+     *            the nnlink
+     */
     private void addNodetoNodeLink(NodeToNodeLink nnlink) {
         if (nnlink == null) {
             LOG.warn("addNodetoNodeLink: node link is null.");
@@ -1113,6 +1285,16 @@ public final class DiscoveryLink implements ReadyRunnable {
         m_links.add(nnlink);
     }
 
+    /**
+     * Adds the links.
+     *
+     * @param macs
+     *            the macs
+     * @param nodeid
+     *            the nodeid
+     * @param ifindex
+     *            the ifindex
+     */
     private void addLinks(Set<String> macs, int nodeid, int ifindex) {
         if (macs == null || macs.isEmpty()) {
             LOG.debug("addLinks: MAC address list on link is empty.");
@@ -1159,6 +1341,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getInfo
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1173,6 +1356,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingBridge
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -1196,6 +1380,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingLldp
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -1219,6 +1404,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingLldp
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -1242,6 +1428,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingCdp
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -1265,6 +1452,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingRoutes
      * </p>
+     * .
      *
      * @return a boolean.
      */

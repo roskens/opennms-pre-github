@@ -70,22 +70,31 @@ import org.slf4j.LoggerFactory;
  */
 public class WebPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(WebPlugin.class);
 
+    /** The default timeout. */
     static Integer DEFAULT_TIMEOUT = 3000;
 
+    /** The default port. */
     static Integer DEFAULT_PORT = 80;
 
+    /** The default user agent. */
     static String DEFAULT_USER_AGENT = "OpenNMS WebMonitor";
 
+    /** The default path. */
     static String DEFAULT_PATH = "/";
 
+    /** The default user. */
     static String DEFAULT_USER = "admin";
 
+    /** The default password. */
     static String DEFAULT_PASSWORD = "admin";
 
+    /** The default http status range. */
     static String DEFAULT_HTTP_STATUS_RANGE = "100-399";
 
+    /** The default scheme. */
     static String DEFAULT_SCHEME = "http";
 
     /** {@inheritDoc} */
@@ -227,6 +236,15 @@ public class WebPlugin extends AbstractPlugin {
         return retval;
     }
 
+    /**
+     * In range.
+     *
+     * @param range
+     *            the range
+     * @param val
+     *            the val
+     * @return true, if successful
+     */
     private boolean inRange(String range, Integer val) {
         String[] boundries = range.split("-");
         if (val < new Integer(boundries[0]) || val > new Integer(boundries[1]))

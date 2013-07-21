@@ -56,6 +56,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * The Class Nms7467CapsdIntegrationTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -78,22 +80,43 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implements InitializingBean {
 
+    /** The m_interface dao. */
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
+    /** The m_capsd. */
     @Autowired
     private Capsd m_capsd;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         assertTrue("Capsd must not be null", m_capsd != null);
     }
 
+    /**
+     * Test cisco ws c2948 capsd collection.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_WS_C2948_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + CISCO_WS_C2948_IP + "-walk.txt") })
@@ -126,6 +149,16 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
 
     }
 
+    /**
+     * Test netgears w108 capsd collection.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = NETGEAR_SW_108_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + NETGEAR_SW_108_IP + "-walk.txt") })
@@ -157,6 +190,16 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
 
     }
 
+    /**
+     * Test cisc o870 capsd collection.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = CISCO_C870_IP_PRIMARY, port = 161, resource = "classpath:linkd/nms7467/"
             + CISCO_C870_IP + "-walk.txt") })
@@ -191,6 +234,16 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
 
     }
 
+    /**
+     * Test linuxubuntu capsd collection.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = LINUX_UBUNTU_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + LINUX_UBUNTU_IP + "-walk.txt") })
@@ -230,6 +283,16 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.stop();
     }
 
+    /**
+     * Test darwi n108 capsd collection.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = DARWIN_10_8_IP, port = 161, resource = "classpath:linkd/nms7467/"
             + DARWIN_10_8_IP + "-walk.txt") })

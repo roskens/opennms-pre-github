@@ -88,9 +88,17 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class PollerBackEndTest.
+ */
 public class PollerBackEndTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -98,19 +106,35 @@ public class PollerBackEndTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * The Class EventEquals.
+     */
     public static class EventEquals implements IArgumentMatcher {
 
+        /** The m_expected. */
         private Event m_expected;
 
+        /**
+         * Instantiates a new event equals.
+         *
+         * @param value
+         *            the value
+         */
         EventEquals(Event value) {
             m_expected = value;
         }
 
+        /* (non-Javadoc)
+         * @see org.easymock.IArgumentMatcher#appendTo(java.lang.StringBuffer)
+         */
         @Override
         public void appendTo(StringBuffer buffer) {
             buffer.append(m_expected);
         }
 
+        /* (non-Javadoc)
+         * @see org.easymock.IArgumentMatcher#matches(java.lang.Object)
+         */
         @Override
         public boolean matches(Object argument) {
             Event actual = (Event) argument;
@@ -129,19 +153,42 @@ public class PollerBackEndTest extends TestCase {
                                                                                                                                             -1));
         }
 
+        /**
+         * Null safe equals.
+         *
+         * @param a
+         *            the a
+         * @param b
+         *            the b
+         * @return true, if successful
+         */
         private boolean nullSafeEquals(Object a, Object b) {
             return (a == null ? b == null : a.equals(b));
         }
 
     }
 
+    /**
+     * The Class StatusChecker.
+     */
     private final class StatusChecker implements IAnswer<Object> {
+
+        /** The m_status. */
         private OnmsLocationSpecificStatus m_status;
 
+        /**
+         * Instantiates a new status checker.
+         *
+         * @param status
+         *            the status
+         */
         private StatusChecker(OnmsLocationSpecificStatus status) {
             m_status = status;
         }
 
+        /* (non-Javadoc)
+         * @see org.easymock.IAnswer#answer()
+         */
         @Override
         public Object answer() throws Throwable {
             OnmsLocationSpecificStatus status = (OnmsLocationSpecificStatus) getCurrentArguments()[0];
@@ -155,49 +202,79 @@ public class PollerBackEndTest extends TestCase {
         }
     }
 
+    /** The Constant DISCONNECTED_TIMEOUT. */
     static final int DISCONNECTED_TIMEOUT = 300000;
 
     // the class under test
+    /** The m_back end. */
     private DefaultPollerBackEnd m_backEnd = new DefaultPollerBackEnd();
 
     // mock objects that the class will call
+    /** The m_loc mon dao. */
     private LocationMonitorDao m_locMonDao;
 
+    /** The m_mon svc dao. */
     private MonitoredServiceDao m_monSvcDao;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_time keeper. */
     private TimeKeeper m_timeKeeper;
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
     // helper objects used to respond from the mock objects
+    /** The m_location definition. */
     private OnmsMonitoringLocationDefinition m_locationDefinition;
 
+    /** The m_package. */
     private Package m_package;
 
+    /** The m_service selector. */
     private ServiceSelector m_serviceSelector;
 
+    /** The m_location monitor. */
     private OnmsLocationMonitor m_locationMonitor;
 
+    /** The m_http svc config. */
     private Service m_httpSvcConfig;
 
+    /** The m_dns svc config. */
     private Service m_dnsSvcConfig;
 
+    /** The m_http service. */
     private OnmsMonitoredService m_httpService;
 
+    /** The m_dns service. */
     private OnmsMonitoredService m_dnsService;
 
+    /** The m_mon services. */
     private OnmsMonitoredService[] m_monServices;
 
+    /** The m_http current status. */
     private OnmsLocationSpecificStatus m_httpCurrentStatus;
 
+    /** The m_dns current status. */
     private OnmsLocationSpecificStatus m_dnsCurrentStatus;
 
+    /** The m_start time. */
     private Date m_startTime;
 
+    /** The m_poller details. */
     private HashMap<String, String> m_pollerDetails;
 
+    /**
+     * Adds the parameter.
+     *
+     * @param service
+     *            the service
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     private void addParameter(Service service, String key, String value) {
         Parameter param = new Parameter();
         param.setKey(key);
@@ -205,6 +282,19 @@ public class PollerBackEndTest extends TestCase {
         service.addParameter(param);
     }
 
+    /**
+     * Adds the service.
+     *
+     * @param pkg
+     *            the pkg
+     * @param serviceName
+     *            the service name
+     * @param serviceInterval
+     *            the service interval
+     * @param parms
+     *            the parms
+     * @return the service
+     */
     private Service addService(Package pkg, String serviceName, int serviceInterval, String... parms) {
 
         // assume that parms are key then value pairs
@@ -224,26 +314,49 @@ public class PollerBackEndTest extends TestCase {
         return service;
     }
 
+    /**
+     * Anticipate disconnected event.
+     */
     private void anticipateDisconnectedEvent() {
         anticipateEvent(createDisconnectedEvent());
     }
 
+    /**
+     * Anticipate event.
+     *
+     * @param e
+     *            the e
+     */
     private void anticipateEvent(Event e) {
         m_eventIpcManager.sendNow(eq(e));
     }
 
+    /**
+     * Anticipate monitor started.
+     */
     private void anticipateMonitorStarted() {
         anticipateEvent(createMonitorStartedEvent());
     }
 
+    /**
+     * Anticipate monitor registered event.
+     */
     private void anticipateMonitorRegisteredEvent() {
         anticipateEvent(createMonitorRegisteredEvent());
     }
 
+    /**
+     * Anticipate monitor stopped event.
+     */
     private void anticipateMonitorStoppedEvent() {
         anticipateEvent(createMonitorStoppedEvent());
     }
 
+    /**
+     * Creates the disconnected event.
+     *
+     * @return the event
+     */
     private static Event createDisconnectedEvent() {
         EventBuilder eventBuilder = new EventBuilder(EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI, "PollerBackEnd").addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                                                                  1);
@@ -252,6 +365,11 @@ public class PollerBackEndTest extends TestCase {
         return e;
     }
 
+    /**
+     * Creates the monitor registered event.
+     *
+     * @return the event
+     */
     private static Event createMonitorRegisteredEvent() {
         EventBuilder eventBuilder = new EventBuilder(EventConstants.LOCATION_MONITOR_REGISTERED_UEI, "PollerBackEnd").addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                                                                1);
@@ -260,6 +378,11 @@ public class PollerBackEndTest extends TestCase {
         return e;
     }
 
+    /**
+     * Creates the monitor started event.
+     *
+     * @return the event
+     */
     private static Event createMonitorStartedEvent() {
         EventBuilder eventBuilder = new EventBuilder(EventConstants.LOCATION_MONITOR_STARTED_UEI, "PollerBackEnd").addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                                                             1);
@@ -268,6 +391,11 @@ public class PollerBackEndTest extends TestCase {
         return e;
     }
 
+    /**
+     * Creates the monitor stopped event.
+     *
+     * @return the event
+     */
     private static Event createMonitorStoppedEvent() {
         EventBuilder eventBuilder = new EventBuilder(EventConstants.LOCATION_MONITOR_STOPPED_UEI, "PollerBackEnd").addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                                                             1);
@@ -275,6 +403,15 @@ public class PollerBackEndTest extends TestCase {
         return eventBuilder.getEvent();
     }
 
+    /**
+     * Creates the package.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @param filterRule
+     *            the filter rule
+     * @return the package
+     */
     private static Package createPackage(String pkgName, String filterRule) {
         Package pkg = new Package();
         pkg.setName(pkgName);
@@ -283,6 +420,11 @@ public class PollerBackEndTest extends TestCase {
         return pkg;
     }
 
+    /**
+     * Creates the reconnected event.
+     *
+     * @return the event
+     */
     private static Event createReconnectedEvent() {
         EventBuilder eventBuilder = new EventBuilder(EventConstants.LOCATION_MONITOR_RECONNECTED_UEI, "PollerBackEnd");
         eventBuilder.addParam(EventConstants.PARM_LOCATION_MONITOR_ID, 1);
@@ -290,12 +432,22 @@ public class PollerBackEndTest extends TestCase {
         return eventBuilder.getEvent();
     }
 
+    /**
+     * Eq.
+     *
+     * @param e
+     *            the e
+     * @return the event
+     */
     private static Event eq(Event e) {
         EasyMock.reportMatcher(new EventEquals(e));
         return null;
 
     }
 
+    /**
+     * Expect location monitor started.
+     */
     private void expectLocationMonitorStarted() {
         final Date now = new Date();
         expect(m_timeKeeper.getCurrentDate()).andReturn(now);
@@ -315,6 +467,14 @@ public class PollerBackEndTest extends TestCase {
         });
     }
 
+    /**
+     * Expect location monitor status changed.
+     *
+     * @param oldStatus
+     *            the old status
+     * @param expectedStatus
+     *            the expected status
+     */
     private void expectLocationMonitorStatusChanged(final MonitorStatus oldStatus, final MonitorStatus expectedStatus) {
         final Date now = new Date();
         if (oldStatus != null) {
@@ -340,6 +500,9 @@ public class PollerBackEndTest extends TestCase {
         });
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
 
@@ -414,6 +577,9 @@ public class PollerBackEndTest extends TestCase {
         m_pollerDetails.put("os.version", "1.2.3");
     }
 
+    /**
+     * Test get monitoring locations.
+     */
     public void testGetMonitoringLocations() {
 
         List<OnmsMonitoringLocationDefinition> locations = Collections.singletonList(m_locationDefinition);
@@ -428,6 +594,9 @@ public class PollerBackEndTest extends TestCase {
 
     }
 
+    /**
+     * Test get poller configuration.
+     */
     public void testGetPollerConfiguration() {
 
         expect(m_locMonDao.get(m_locationMonitor.getId())).andReturn(m_locationMonitor);
@@ -461,6 +630,9 @@ public class PollerBackEndTest extends TestCase {
         assertTrue(services.get("DNS").getMonitorConfiguration().containsKey("hostname"));
     }
 
+    /**
+     * Test get poller configuration for deleted monitor.
+     */
     public void testGetPollerConfigurationForDeletedMonitor() {
         expect(m_locMonDao.get(m_locationMonitor.getId())).andReturn(null);
 
@@ -474,6 +646,9 @@ public class PollerBackEndTest extends TestCase {
         assertEquals(0, config.getPolledServices().length);
     }
 
+    /**
+     * Test get service monitor locators.
+     */
     public void testGetServiceMonitorLocators() {
 
         Collection<ServiceMonitorLocator> locators = new ArrayList<ServiceMonitorLocator>();
@@ -488,6 +663,16 @@ public class PollerBackEndTest extends TestCase {
 
     }
 
+    /**
+     * Test global config change.
+     *
+     * @param oldStatus
+     *            the old status
+     * @param newStatus
+     *            the new status
+     * @param e
+     *            the e
+     */
     private void testGlobalConfigChange(MonitorStatus oldStatus, MonitorStatus newStatus, Event e) {
 
         verifyPollerCheckingIn(MonitorStatus.STARTED, MonitorStatus.STARTED, MonitorStatus.STARTED);
@@ -506,23 +691,38 @@ public class PollerBackEndTest extends TestCase {
      * }
      */
 
+    /**
+     * Test poller checking in from disconnected.
+     */
     public void testPollerCheckingInFromDisconnected() {
         verifyPollerCheckingIn(MonitorStatus.DISCONNECTED, MonitorStatus.STARTED, MonitorStatus.STARTED,
                                createReconnectedEvent());
     }
 
+    /**
+     * Test poller checking in from paused.
+     */
     public void testPollerCheckingInFromPaused() {
         verifyPollerCheckingIn(MonitorStatus.PAUSED, MonitorStatus.PAUSED, MonitorStatus.PAUSED);
     }
 
+    /**
+     * Test poller checking in from started.
+     */
     public void testPollerCheckingInFromStarted() {
         verifyPollerCheckingIn(MonitorStatus.STARTED, MonitorStatus.STARTED, MonitorStatus.STARTED);
     }
 
+    /**
+     * Test poller checking in from config changed.
+     */
     public void testPollerCheckingInFromConfigChanged() {
         verifyPollerCheckingIn(MonitorStatus.CONFIG_CHANGED, MonitorStatus.STARTED, MonitorStatus.CONFIG_CHANGED);
     }
 
+    /**
+     * Test poller starting.
+     */
     public void testPollerStarting() {
 
         anticipateMonitorStarted();
@@ -534,6 +734,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.pollerStarting(1, m_pollerDetails);
     }
 
+    /**
+     * Test poller stopping.
+     */
     public void testPollerStopping() {
 
         anticipateMonitorStoppedEvent();
@@ -545,6 +748,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.pollerStopping(1);
     }
 
+    /**
+     * Test poller stopping with bad location monitor id.
+     */
     public void testPollerStoppingWithBadLocationMonitorId() {
         expect(m_locMonDao.get(1)).andReturn(null);
 
@@ -552,6 +758,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.pollerStopping(1);
     }
 
+    /**
+     * Test register location monitor.
+     */
     public void testRegisterLocationMonitor() {
 
         expect(m_locMonDao.findMonitoringLocationDefinition(m_locationDefinition.getName())).andReturn(m_locationDefinition);
@@ -578,6 +787,9 @@ public class PollerBackEndTest extends TestCase {
 
     }
 
+    /**
+     * Test report result with bad location monitor id.
+     */
     public void testReportResultWithBadLocationMonitorId() {
         expect(m_locMonDao.get(1)).andReturn(null);
 
@@ -585,6 +797,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 1, PollStatus.up());
     }
 
+    /**
+     * Test report result with bad service id.
+     */
     public void testReportResultWithBadServiceId() {
         expect(m_locMonDao.get(1)).andReturn(new OnmsLocationMonitor());
         expect(m_monSvcDao.get(1)).andReturn(null);
@@ -593,6 +808,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 1, PollStatus.up());
     }
 
+    /**
+     * Test report result with null poll result.
+     */
     public void testReportResultWithNullPollResult() {
         expect(m_locMonDao.get(1)).andThrow(new RuntimeException("crazy location monitor exception"));
 
@@ -600,6 +818,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 1, null);
     }
 
+    /**
+     * Test status change from down to up.
+     */
     public void testStatusChangeFromDownToUp() {
 
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
@@ -640,6 +861,9 @@ public class PollerBackEndTest extends TestCase {
     // what if we can't find the service with that ID
     // what if we can't find a current status
     // do I send events for status changed
+    /**
+     * Test status change from up to down.
+     */
     public void testStatusChangeFromUpToDown() {
 
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
@@ -666,6 +890,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 1, newStatus);
     }
 
+    /**
+     * Test status down when down.
+     */
     public void testStatusDownWhenDown() {
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
         expect(m_monSvcDao.get(2)).andReturn(m_dnsService);
@@ -682,6 +909,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 2, newStatus);
     }
 
+    /**
+     * Test status down when none known.
+     */
     public void testStatusDownWhenNoneKnown() {
 
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
@@ -709,6 +939,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 2, newStatus);
     }
 
+    /**
+     * Test status up when none known.
+     */
     public void testStatusUpWhenNoneKnown() {
 
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
@@ -738,6 +971,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 2, newStatus);
     }
 
+    /**
+     * Test status up when up.
+     */
     public void testStatusUpWhenUp() {
         expect(m_locMonDao.get(1)).andReturn(m_locationMonitor);
         expect(m_monSvcDao.get(1)).andReturn(m_httpService);
@@ -762,6 +998,9 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.reportResult(1, 1, newStatus);
     }
 
+    /**
+     * Test time out on checkin.
+     */
     public void testTimeOutOnCheckin() {
         final Date now = new Date();
 
@@ -792,16 +1031,41 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.checkForDisconnectedMonitors();
     }
 
+    /**
+     * Update configuration.
+     */
     private void updateConfiguration() {
         expect(m_timeKeeper.getCurrentDate()).andReturn(new Date());
         m_mocks.replayAll();
         m_backEnd.configurationUpdated();
     }
 
+    /**
+     * Verify poller checking in.
+     *
+     * @param oldStatus
+     *            the old status
+     * @param newStatus
+     *            the new status
+     * @param result
+     *            the result
+     */
     private void verifyPollerCheckingIn(MonitorStatus oldStatus, MonitorStatus newStatus, MonitorStatus result) {
         verifyPollerCheckingIn(oldStatus, newStatus, result, null);
     }
 
+    /**
+     * Verify poller checking in.
+     *
+     * @param oldStatus
+     *            the old status
+     * @param newStatus
+     *            the new status
+     * @param result
+     *            the result
+     * @param e
+     *            the e
+     */
     private void verifyPollerCheckingIn(MonitorStatus oldStatus, MonitorStatus newStatus, MonitorStatus result, Event e) {
         m_locationMonitor.setStatus(oldStatus);
         expectLocationMonitorStatusChanged(oldStatus, newStatus);
@@ -815,6 +1079,12 @@ public class PollerBackEndTest extends TestCase {
         assertEquals("Unexpected result state", result, m_backEnd.pollerCheckingIn(1, m_startTime));
     }
 
+    /**
+     * Test save response time data with locale that uses commas for decimals.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSaveResponseTimeDataWithLocaleThatUsesCommasForDecimals() throws Exception {
         @SuppressWarnings("unchecked")
         RrdStrategy<Object, Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
@@ -871,6 +1141,16 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.saveResponseTimeData("Tuvalu", svc, 1.5, pkg);
     }
 
+    /**
+     * Adds the parameter to service.
+     *
+     * @param pkgService
+     *            the pkg service
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     private void addParameterToService(Service pkgService, String key, String value) {
         Parameter param = new Parameter();
         param.setKey(key);
@@ -878,6 +1158,15 @@ public class PollerBackEndTest extends TestCase {
         pkgService.addParameter(param);
     }
 
+    /**
+     * Checks if is a list.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the list
+     */
     @SuppressWarnings("unchecked")
     private static <T> List<T> isAList(Class<T> clazz) {
         return isA(List.class);

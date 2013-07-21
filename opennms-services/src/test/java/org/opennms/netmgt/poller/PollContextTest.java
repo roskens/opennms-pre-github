@@ -55,32 +55,48 @@ import org.opennms.netmgt.poller.pollables.PollableService;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Represents a PollContextTest
+ * Represents a PollContextTest.
  *
  * @author brozow
  */
 public class PollContextTest {
 
+    /** The m_m network. */
     private MockNetwork m_mNetwork;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_poller config. */
     private MockPollerConfig m_pollerConfig;
 
+    /** The m_poll context. */
     private DefaultPollContext m_pollContext;
 
+    /** The m_p network. */
     private PollableNetwork m_pNetwork;
 
+    /** The m_p svc. */
     private PollableService m_pSvc;
 
+    /** The m_m svc. */
     private MockService m_mSvc;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_outage anticipator. */
     private OutageAnticipator m_outageAnticipator;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -147,6 +163,9 @@ public class PollContextTest {
 
     }
 
+    /**
+     * Test get critical service name.
+     */
     @Test
     public void testGetCriticalServiceName() {
         assertEquals("ICMP", m_pollContext.getCriticalServiceName());
@@ -156,6 +175,9 @@ public class PollContextTest {
         assertEquals("HTTP", m_pollContext.getCriticalServiceName());
     }
 
+    /**
+     * Test is node processing enabled.
+     */
     @Test
     public void testIsNodeProcessingEnabled() {
         assertTrue(m_pollContext.isNodeProcessingEnabled());
@@ -166,6 +188,9 @@ public class PollContextTest {
 
     }
 
+    /**
+     * Test is polling all if crit service undefined.
+     */
     @Test
     public void testIsPollingAllIfCritServiceUndefined() {
         assertTrue(m_pollContext.isPollingAllIfCritServiceUndefined());
@@ -175,6 +200,9 @@ public class PollContextTest {
         assertFalse(m_pollContext.isPollingAllIfCritServiceUndefined());
     }
 
+    /**
+     * Test send event.
+     */
     @Test
     public void testSendEvent() {
 
@@ -191,6 +219,12 @@ public class PollContextTest {
 
     }
 
+    /**
+     * Test create event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCreateEvent() throws Exception {
         Date date = new Date(1222222222000L);
@@ -223,6 +257,12 @@ public class PollContextTest {
 
     }
 
+    /**
+     * Test open resolve outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testOpenResolveOutage() throws Exception {
         Event downEvent = m_mSvc.createDownEvent();
@@ -262,7 +302,7 @@ public class PollContextTest {
     }
 
     /**
-     *
+     * Verify outages.
      */
     private void verifyOutages() {
         m_eventMgr.finishProcessingEvents();
@@ -273,6 +313,9 @@ public class PollContextTest {
         assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
     }
 
+    /**
+     * Test is service unresponsive enabled.
+     */
     @Test
     public void testIsServiceUnresponsiveEnabled() {
         assertFalse(m_pollContext.isServiceUnresponsiveEnabled());

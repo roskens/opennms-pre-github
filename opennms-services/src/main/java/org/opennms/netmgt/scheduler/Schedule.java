@@ -34,47 +34,72 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a Schedule
+ * Represents a Schedule.
  *
  * @author brozow
  * @version $Id: $
  */
 public class Schedule {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Schedule.class);
 
-    /** Constant <code>random</code> */
+    /** Constant <code>random</code>. */
     public static final Random random = new Random();
 
+    /** The m_schedulable. */
     private final ReadyRunnable m_schedulable;
 
+    /** The m_interval. */
     private final ScheduleInterval m_interval;
 
+    /** The m_timer. */
     private final ScheduleTimer m_timer;
 
+    /** The m_current expiration code. */
     private volatile int m_currentExpirationCode;
 
+    /** The m_scheduled. */
     private volatile boolean m_scheduled = false;
 
+    /**
+     * The Class ScheduleEntry.
+     */
     class ScheduleEntry implements ReadyRunnable {
+
+        /** The m_expiration code. */
         private final int m_expirationCode;
 
+        /**
+         * Instantiates a new schedule entry.
+         *
+         * @param expirationCode
+         *            the expiration code
+         */
         public ScheduleEntry(int expirationCode) {
             m_expirationCode = expirationCode;
         }
 
         /**
-         * @return
+         * Checks if is expired.
+         *
+         * @return true, if is expired
          */
         private boolean isExpired() {
             return m_expirationCode < m_currentExpirationCode;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.scheduler.ReadyRunnable#isReady()
+         */
         @Override
         public boolean isReady() {
             return isExpired() || m_schedulable.isReady();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             if (isExpired()) {
@@ -105,6 +130,9 @@ public class Schedule {
 
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return "ScheduleEntry[expCode=" + m_expirationCode + "] for " + m_schedulable;
@@ -116,13 +144,13 @@ public class Schedule {
      * Constructor for Schedule.
      * </p>
      *
+     * @param schedulable
+     *            a {@link org.opennms.netmgt.scheduler.ReadyRunnable} object.
      * @param interval
      *            a {@link org.opennms.netmgt.scheduler.ScheduleInterval}
      *            object.
      * @param timer
      *            a {@link org.opennms.netmgt.scheduler.ScheduleTimer} object.
-     * @param schedulable
-     *            a {@link org.opennms.netmgt.scheduler.ReadyRunnable} object.
      */
     public Schedule(ReadyRunnable schedulable, ScheduleInterval interval, ScheduleTimer timer) {
         m_schedulable = schedulable;
@@ -135,12 +163,19 @@ public class Schedule {
      * <p>
      * schedule
      * </p>
+     * .
      */
     public void schedule() {
         m_scheduled = true;
         schedule(0);
     }
 
+    /**
+     * Schedule.
+     *
+     * @param interval
+     *            the interval
+     */
     private void schedule(long interval) {
         if (interval >= 0 && m_scheduled)
             m_timer.schedule(interval, new ScheduleEntry(++m_currentExpirationCode));
@@ -150,6 +185,7 @@ public class Schedule {
      * <p>
      * run
      * </p>
+     * .
      */
     public void run() {
         m_schedulable.run();
@@ -159,6 +195,7 @@ public class Schedule {
      * <p>
      * adjustSchedule
      * </p>
+     * .
      */
     public void adjustSchedule() {
         schedule(m_interval.getInterval());
@@ -168,6 +205,7 @@ public class Schedule {
      * <p>
      * unschedule
      * </p>
+     * .
      */
     public void unschedule() {
         m_scheduled = false;

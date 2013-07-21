@@ -76,20 +76,17 @@ public interface CapsdDbSyncer {
      *
      * <pre>
      * Here is how the statuses are set:
-     *  If an interface is 'unmanaged' based on the capsd configuration,
-     *      ipManaged='U' and status='U'
+     * If an interface is 'unmanaged' based on the capsd configuration,
+     * ipManaged='U' and status='U'
      *
-     *  If an interface is 'managed' based on the capsd configuration,
-     *    1. If the interface is not in any pacakge, ipManaged='N' and status ='N'
-     *    2. If the interface in atleast one package but the service is not polled by
-     *       by any of the packages, ipManaged='M' and status='N'
-     *    3. If the interface in atleast one package and the service is polled by a
-     *       package that this interface belongs to, ipManaged='M' and status'=A'
+     * If an interface is 'managed' based on the capsd configuration,
+     * 1. If the interface is not in any pacakge, ipManaged='N' and status ='N'
+     * 2. If the interface in atleast one package but the service is not polled by
+     * by any of the packages, ipManaged='M' and status='N'
+     * 3. If the interface in atleast one package and the service is polled by a
+     * package that this interface belongs to, ipManaged='M' and status'=A'
      *
      * </pre>
-     *
-     * @exception SQLException
-     *                Thrown if an error occurs while syncing the database.
      */
     void syncManagementState();
 
@@ -98,9 +95,6 @@ public interface CapsdDbSyncer {
      * table based on the capsd and collectd configurations. Note that the
      * 'sync' only takes place for interfaces that are not deleted. Also, it
      * will prefer a loopback interface over other interfaces.
-     *
-     * @exception SQLException
-     *                Thrown if an error occurs while syncing the database.
      */
     void syncSnmpPrimaryState();
 
@@ -108,6 +102,7 @@ public interface CapsdDbSyncer {
      * <p>
      * isInterfaceInDB
      * </p>
+     * .
      *
      * @param ifAddress
      *            a {@link java.net.InetAddress} object.
@@ -119,14 +114,15 @@ public interface CapsdDbSyncer {
      * <p>
      * isInterfaceInDB
      * </p>
+     * .
      *
      * @param dbConn
      *            a {@link java.sql.Connection} object.
      * @param ifAddress
      *            a {@link java.net.InetAddress} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     boolean isInterfaceInDB(Connection dbConn, InetAddress ifAddress) throws SQLException;
 
@@ -145,10 +141,10 @@ public interface CapsdDbSyncer {
      * Returns the service name from the service table that was loaded
      * during class initialization for the specified ID.
      *
-     * @return The result of the lookup, or null if a matching service
-     *         ID wasn't found
      * @param id
      *            a {@link java.lang.Integer} object.
+     * @return The result of the lookup, or null if a matching service
+     *         ID wasn't found
      */
     String getServiceName(Integer id);
 

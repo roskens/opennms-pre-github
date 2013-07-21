@@ -64,6 +64,9 @@ import org.opennms.netmgt.xml.event.Logmsg;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
+/**
+ * The Class EventTranslatorTest.
+ */
 public class EventTranslatorTest {
 
     /*
@@ -77,22 +80,36 @@ public class EventTranslatorTest {
      * modify passive status config to handle specific event with specific parms
      */
 
+    /** The m_translator. */
     private EventTranslator m_translator;
 
+    /** The m_passive status configuration. */
     private String m_passiveStatusConfiguration = getStandardConfig();
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_outage anticipator. */
     private OutageAnticipator m_outageAnticipator;
 
+    /** The m_config. */
     private EventTranslatorConfigFactory m_config;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
@@ -122,6 +139,12 @@ public class EventTranslatorTest {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_eventMgr.finishProcessingEvents();
@@ -133,17 +156,29 @@ public class EventTranslatorTest {
         // super.tearDown();
     }
 
+    /**
+     * Creates the anticipators.
+     */
     private void createAnticipators() {
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
     }
 
+    /**
+     * Creates the mock db.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createMockDb() throws Exception {
         m_db = new MockDatabase();
         m_db.populate(m_network);
         DataSourceFactory.setInstance(m_db);
     }
 
+    /**
+     * Creates the mock network.
+     */
     private void createMockNetwork() {
         m_network = new MockNetwork();
         m_network.setCriticalService("ICMP");
@@ -171,6 +206,12 @@ public class EventTranslatorTest {
         m_network.addService("PSV2");
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -178,6 +219,12 @@ public class EventTranslatorTest {
         }
     }
 
+    /**
+     * Test sub element string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSubElementString() throws Exception {
         m_passiveStatusConfiguration = getSqlSubValueString();
@@ -187,6 +234,12 @@ public class EventTranslatorTest {
 
     }
 
+    /**
+     * Test sub element long.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSubElementLong() throws Exception {
         m_passiveStatusConfiguration = getSqlSubValueLong();
@@ -195,6 +248,12 @@ public class EventTranslatorTest {
         testTranslateEvent();
     }
 
+    /**
+     * Test is translation event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIsTranslationEvent() throws Exception {
         // test non matching uei match fails
@@ -231,6 +290,14 @@ public class EventTranslatorTest {
         assertFalse(m_config.isTranslationEvent(te3));
     }
 
+    /**
+     * Test translate event.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     @Test
     public void testTranslateEvent() throws MarshalException, ValidationException {
 
@@ -273,6 +340,18 @@ public class EventTranslatorTest {
         assertTrue(m_config.translateEvent(te3).isEmpty());
     }
 
+    /**
+     * Test translate link down.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws UnsupportedEncodingException
+     *             the unsupported encoding exception
+     */
     @Test
     public void testTranslateLinkDown() throws MarshalException, ValidationException, SQLException,
             UnsupportedEncodingException {
@@ -302,6 +381,11 @@ public class EventTranslatorTest {
         assertEquals("p-brane", translatedEvents.get(0).getParmCollection().get(2).getValue().getContent());
     }
 
+    /**
+     * Gets the link down translation.
+     *
+     * @return the link down translation
+     */
     private String getLinkDownTranslation() {
         String linkDownConfig = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<event-translator-configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"
@@ -328,6 +412,12 @@ public class EventTranslatorTest {
         return linkDownConfig;
     }
 
+    /**
+     * Validate translated event.
+     *
+     * @param event
+     *            the event
+     */
     private void validateTranslatedEvent(Event event) {
         assertEquals(m_translator.getName(), event.getSource());
         assertEquals(Long.valueOf(3), event.getNodeid());
@@ -339,6 +429,9 @@ public class EventTranslatorTest {
         assertEquals("Down", EventUtils.getParm(event, "passiveStatus"));
     }
 
+    /**
+     * Test uei list.
+     */
     @Test
     public void testUEIList() {
         List<String> ueis = m_config.getUEIList();
@@ -346,6 +439,11 @@ public class EventTranslatorTest {
         assertTrue(ueis.contains("uei.opennms.org/services/translationTest"));
     }
 
+    /**
+     * Creates the link down event.
+     *
+     * @return the event
+     */
     private Event createLinkDownEvent() {
         EventBuilder builder = new EventBuilder("uei.opennms.org/generic/traps/SNMP_Link_Down", "Trapd");
         builder.setField("nodeid", "1");
@@ -353,6 +451,21 @@ public class EventTranslatorTest {
         return builder.getEvent();
     }
 
+    /**
+     * Creates the test event.
+     *
+     * @param type
+     *            the type
+     * @param nodeLabel
+     *            the node label
+     * @param ipAddr
+     *            the ip addr
+     * @param serviceName
+     *            the service name
+     * @param status
+     *            the status
+     * @return the event
+     */
     private Event createTestEvent(String type, String nodeLabel, String ipAddr, String serviceName, String status) {
         final List<Parm> parms = new ArrayList<Parm>();
 
@@ -368,6 +481,15 @@ public class EventTranslatorTest {
         return createEventWithParms("uei.opennms.org/services/" + type, parms);
     }
 
+    /**
+     * Creates the event with parms.
+     *
+     * @param uei
+     *            the uei
+     * @param parms
+     *            the parms
+     * @return the event
+     */
     private Event createEventWithParms(String uei, List<Parm> parms) {
         Event e = MockEventUtil.createEventBuilder("Automation", uei).getEvent();
         e.setHost("localhost");
@@ -379,6 +501,15 @@ public class EventTranslatorTest {
         return e;
     }
 
+    /**
+     * Builds the parm.
+     *
+     * @param parmName
+     *            the parm name
+     * @param parmValue
+     *            the parm value
+     * @return the parm
+     */
     private Parm buildParm(String parmName, String parmValue) {
         Value v = new Value();
         v.setContent(parmValue);
@@ -388,6 +519,11 @@ public class EventTranslatorTest {
         return p;
     }
 
+    /**
+     * Gets the sql sub value long.
+     *
+     * @return the sql sub value long
+     */
     private String getSqlSubValueLong() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<event-translator-configuration \n"
@@ -425,6 +561,11 @@ public class EventTranslatorTest {
                 + "    </event-translation-spec>\n" + "  </translation>\n" + "</event-translator-configuration>\n" + "";
     }
 
+    /**
+     * Gets the sql sub value string.
+     *
+     * @return the sql sub value string
+     */
     private String getSqlSubValueString() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<event-translator-configuration \n"
@@ -462,6 +603,11 @@ public class EventTranslatorTest {
                 + "    </event-translation-spec>\n" + "  </translation>\n" + "</event-translator-configuration>\n" + "";
     }
 
+    /**
+     * Gets the standard config.
+     *
+     * @return the standard config
+     */
     private String getStandardConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                 + "<event-translator-configuration \n"

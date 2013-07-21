@@ -32,20 +32,33 @@ import java.text.SimpleDateFormat;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class Tl1AutonomousMessageProcessorTest.
+ */
 public class Tl1AutonomousMessageProcessorTest extends TestCase {
 
+    /** The m_processor. */
     Tl1AutonomousMessageProcessor m_processor = new Tl1AutonomousMessageProcessor();
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test process.
+     */
     public void testProcess() {
 
         String sampleMessage = "   GPON15000 2008-07-31 18:29:49\n" + "*C 0 REPT ALM BITS\n"
@@ -107,6 +120,16 @@ public class Tl1AutonomousMessageProcessorTest extends TestCase {
 
     }
 
+    /**
+     * Test instanitate class.
+     *
+     * @throws InstantiationException
+     *             the instantiation exception
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     public void testInstanitateClass() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Class.forName("org.opennms.netmgt.tl1d.Tl1ClientImpl").newInstance();
     }

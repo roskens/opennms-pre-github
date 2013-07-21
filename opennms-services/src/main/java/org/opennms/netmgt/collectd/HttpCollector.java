@@ -110,21 +110,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Collect data via URI
+ * Collect data via URI.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
 public class HttpCollector implements ServiceCollector {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollector.class);
 
+    /** The Constant DEFAULT_RETRY_COUNT. */
     private static final int DEFAULT_RETRY_COUNT = 2;
 
+    /** The Constant DEFAULT_SO_TIMEOUT. */
     private static final String DEFAULT_SO_TIMEOUT = "3000";
 
+    /** The Constant PARSER. */
     private static final NumberFormat PARSER;
 
+    /** The rrd formatter. */
     private static NumberFormat RRD_FORMATTER;
 
     static {
@@ -152,33 +157,65 @@ public class HttpCollector implements ServiceCollector {
         return collectionSet;
     }
 
+    /**
+     * The Class HttpCollectionSet.
+     */
     protected class HttpCollectionSet implements CollectionSet {
+
+        /** The m_agent. */
         private CollectionAgent m_agent;
 
+        /** The m_parameters. */
         private Map<String, Object> m_parameters;
 
+        /** The m_uri def. */
         private Uri m_uriDef;
 
+        /** The m_status. */
         private int m_status;
 
+        /** The m_collection resource list. */
         private List<HttpCollectionResource> m_collectionResourceList;
 
+        /** The m_timestamp. */
         private Date m_timestamp;
 
+        /**
+         * Gets the uri def.
+         *
+         * @return the uri def
+         */
         public Uri getUriDef() {
             return m_uriDef;
         }
 
+        /**
+         * Sets the uri def.
+         *
+         * @param uriDef
+         *            the new uri def
+         */
         public void setUriDef(Uri uriDef) {
             m_uriDef = uriDef;
         }
 
+        /**
+         * Instantiates a new http collection set.
+         *
+         * @param agent
+         *            the agent
+         * @param parameters
+         *            the parameters
+         */
         HttpCollectionSet(CollectionAgent agent, Map<String, Object> parameters) {
             m_agent = agent;
             m_parameters = parameters;
             m_status = ServiceCollector.COLLECTION_SUCCEEDED;
         }
 
+        /**
+         * Collect.
+         */
         public void collect() {
             String collectionName = ParameterMap.getKeyedString(m_parameters, "collection", null);
             if (collectionName == null) {
@@ -212,31 +249,67 @@ public class HttpCollector implements ServiceCollector {
             }
         }
 
+        /**
+         * Gets the agent.
+         *
+         * @return the agent
+         */
         public CollectionAgent getAgent() {
             return m_agent;
         }
 
+        /**
+         * Sets the agent.
+         *
+         * @param agent
+         *            the new agent
+         */
         public void setAgent(CollectionAgent agent) {
             m_agent = agent;
         }
 
+        /**
+         * Gets the parameters.
+         *
+         * @return the parameters
+         */
         public Map<String, Object> getParameters() {
             return m_parameters;
         }
 
+        /**
+         * Sets the parameters.
+         *
+         * @param parameters
+         *            the parameters
+         */
         public void setParameters(Map<String, Object> parameters) {
             m_parameters = parameters;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
+         */
         @Override
         public int getStatus() {
             return m_status;
         }
 
+        /**
+         * Store results.
+         *
+         * @param results
+         *            the results
+         * @param collectionResource
+         *            the collection resource
+         */
         public void storeResults(List<HttpCollectionAttribute> results, HttpCollectionResource collectionResource) {
             collectionResource.storeResults(results);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+         */
         @Override
         public void visit(CollectionSetVisitor visitor) {
             visitor.visitCollectionSet(this);
@@ -246,20 +319,37 @@ public class HttpCollector implements ServiceCollector {
             visitor.completeCollectionSet(this);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
+         */
         @Override
         public boolean ignorePersist() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+         */
         @Override
         public Date getCollectionTimestamp() {
             return m_timestamp;
         }
 
+        /**
+         * Sets the collection timestamp.
+         *
+         * @param timestamp
+         *            the new collection timestamp
+         */
         public void setCollectionTimestamp(Date timestamp) {
             this.m_timestamp = timestamp;
         }
 
+        /**
+         * Gets the port.
+         *
+         * @return the port
+         */
         public int getPort() { // This method has been created to deal with
                                // NMS-4886
             int port = getUriDef().getUrl().getPort();
@@ -285,7 +375,11 @@ public class HttpCollector implements ServiceCollector {
      * builds it when a URI is defined.
      *
      * @param collectionSet
+     *            the collection set
+     * @param collectionResource
+     *            the collection resource
      * @throws HttpCollectorException
+     *             the http collector exception
      */
     private void doCollection(final HttpCollectionSet collectionSet, final HttpCollectionResource collectionResource)
             throws HttpCollectorException {
@@ -345,17 +439,40 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * The Class HttpCollectionAttribute.
+     */
     class HttpCollectionAttribute extends AbstractCollectionAttribute implements AttributeDefinition {
+
+        /** The m_alias. */
         String m_alias;
 
+        /** The m_type. */
         String m_type;
 
+        /** The m_value. */
         Object m_value;
 
+        /** The m_resource. */
         HttpCollectionResource m_resource;
 
+        /** The m_attrib type. */
         HttpCollectionAttributeType m_attribType;
 
+        /**
+         * Instantiates a new http collection attribute.
+         *
+         * @param resource
+         *            the resource
+         * @param attribType
+         *            the attrib type
+         * @param alias
+         *            the alias
+         * @param type
+         *            the type
+         * @param value
+         *            the value
+         */
         HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String alias,
                 String type, Number value) {
             super();
@@ -366,6 +483,20 @@ public class HttpCollector implements ServiceCollector {
             m_value = value;
         }
 
+        /**
+         * Instantiates a new http collection attribute.
+         *
+         * @param resource
+         *            the resource
+         * @param attribType
+         *            the attrib type
+         * @param alias
+         *            the alias
+         * @param type
+         *            the type
+         * @param value
+         *            the value
+         */
         HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String alias,
                 String type, String value) {
             super();
@@ -376,20 +507,34 @@ public class HttpCollector implements ServiceCollector {
             m_value = value;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getName()
+         */
         @Override
         public String getName() {
             return m_alias;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttribute#getType()
+         */
         @Override
         public String getType() {
             return m_type;
         }
 
+        /**
+         * Gets the value.
+         *
+         * @return the value
+         */
         public Object getValue() {
             return m_value;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
+         */
         @Override
         public String getNumericValue() {
             Object val = getValue();
@@ -405,11 +550,19 @@ public class HttpCollector implements ServiceCollector {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
+         */
         @Override
         public String getStringValue() {
             return getValue().toString();
         }
 
+        /**
+         * Gets the value as string.
+         *
+         * @return the value as string
+         */
         public String getValueAsString() {
             if (m_value instanceof Number) {
                 return RRD_FORMATTER.format(m_value);
@@ -418,6 +571,9 @@ public class HttpCollector implements ServiceCollector {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(Object obj) {
             if (obj instanceof HttpCollectionAttribute) {
@@ -427,26 +583,41 @@ public class HttpCollector implements ServiceCollector {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType()
+         */
         @Override
         public CollectionAttributeType getAttributeType() {
             return m_attribType;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
+         */
         @Override
         public CollectionResource getResource() {
             return m_resource;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+         */
         @Override
         public boolean shouldPersist(ServiceParameters params) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             return getName().hashCode();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuffer buffer = new StringBuffer();
@@ -459,6 +630,9 @@ public class HttpCollector implements ServiceCollector {
             return buffer.toString();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+         */
         @Override
         public String getMetricIdentifier() {
             return "Not_Supported_Yet_HTTP_" + getAttributeType().getName();
@@ -466,6 +640,19 @@ public class HttpCollector implements ServiceCollector {
 
     }
 
+    /**
+     * Process response.
+     *
+     * @param responseLocale
+     *            the response locale
+     * @param responseBodyAsString
+     *            the response body as string
+     * @param collectionSet
+     *            the collection set
+     * @param collectionResource
+     *            the collection resource
+     * @return the list
+     */
     private List<HttpCollectionAttribute> processResponse(final Locale responseLocale,
             final String responseBodyAsString, final HttpCollectionSet collectionSet,
             HttpCollectionResource collectionResource) {
@@ -573,18 +760,39 @@ public class HttpCollector implements ServiceCollector {
         return butes;
     }
 
+    /**
+     * The Class HttpCollectorException.
+     */
     public class HttpCollectorException extends RuntimeException {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 4413332529546573490L;
 
+        /**
+         * Instantiates a new http collector exception.
+         *
+         * @param message
+         *            the message
+         */
         HttpCollectorException(String message) {
             super(message);
         }
 
+        /**
+         * Instantiates a new http collector exception.
+         *
+         * @param message
+         *            the message
+         * @param e
+         *            the e
+         */
         HttpCollectorException(String message, Throwable e) {
             super(message);
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Throwable#toString()
+         */
         @Override
         public String toString() {
             StringBuffer buffer = new StringBuffer();
@@ -594,6 +802,20 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Persist response.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @param collectionResource
+     *            the collection resource
+     * @param client
+     *            the client
+     * @param response
+     *            the response
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void persistResponse(final HttpCollectionSet collectionSet,
             final HttpCollectionResource collectionResource, final HttpClient client, final HttpResponse response)
             throws IOException {
@@ -642,6 +864,16 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Builds the credentials.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @param client
+     *            the client
+     * @param method
+     *            the method
+     */
     private static void buildCredentials(final HttpCollectionSet collectionSet, final DefaultHttpClient client,
             final HttpUriRequest method) {
         if (collectionSet.getUriDef().getUrl().getUserInfo() != null) {
@@ -657,6 +889,13 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Builds the params.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @return the http params
+     */
     private static HttpParams buildParams(final HttpCollectionSet collectionSet) {
         HttpParams params = new BasicHttpParams();
         params.setParameter(CoreProtocolPNames.PROTOCOL_VERSION, computeVersion(collectionSet.getUriDef()));
@@ -679,16 +918,41 @@ public class HttpCollector implements ServiceCollector {
         return params;
     }
 
+    /**
+     * Determine user agent.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @param params
+     *            the params
+     * @return the string
+     */
     private static String determineUserAgent(final HttpCollectionSet collectionSet, final HttpParams params) {
         String userAgent = collectionSet.getUriDef().getUrl().getUserAgent();
         return (String) (userAgent == null ? params.getParameter(CoreProtocolPNames.USER_AGENT) : userAgent);
     }
 
+    /**
+     * Compute version.
+     *
+     * @param uri
+     *            the uri
+     * @return the http version
+     */
     private static HttpVersion computeVersion(final Uri uri) {
         return new HttpVersion(Integer.parseInt(uri.getUrl().getHttpVersion().substring(0, 1)),
                                Integer.parseInt(uri.getUrl().getHttpVersion().substring(2)));
     }
 
+    /**
+     * Builds the http method.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @return the http uri request
+     * @throws URISyntaxException
+     *             the uRI syntax exception
+     */
     private static HttpUriRequest buildHttpMethod(final HttpCollectionSet collectionSet) throws URISyntaxException {
         HttpUriRequest method;
         URI uri = buildUri(collectionSet);
@@ -701,6 +965,15 @@ public class HttpCollector implements ServiceCollector {
         return method;
     }
 
+    /**
+     * Builds the post method.
+     *
+     * @param uri
+     *            the uri
+     * @param collectionSet
+     *            the collection set
+     * @return the http post
+     */
     private static HttpPost buildPostMethod(final URI uri, final HttpCollectionSet collectionSet) {
         HttpPost method = new HttpPost(uri);
         List<NameValuePair> postParams = buildRequestParameters(collectionSet);
@@ -713,6 +986,15 @@ public class HttpCollector implements ServiceCollector {
         return method;
     }
 
+    /**
+     * Builds the get method.
+     *
+     * @param uri
+     *            the uri
+     * @param collectionSet
+     *            the collection set
+     * @return the http get
+     */
     private static HttpGet buildGetMethod(final URI uri, final HttpCollectionSet collectionSet) {
         URI uriWithQueryString = null;
         List<NameValuePair> queryParams = buildRequestParameters(collectionSet);
@@ -737,6 +1019,13 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Builds the request parameters.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @return the list
+     */
     private static List<NameValuePair> buildRequestParameters(final HttpCollectionSet collectionSet) {
         List<NameValuePair> retval = new ArrayList<NameValuePair>();
         if (collectionSet.getUriDef().getUrl().getParameters() == null) {
@@ -749,6 +1038,15 @@ public class HttpCollector implements ServiceCollector {
         return retval;
     }
 
+    /**
+     * Builds the uri.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @return the uri
+     * @throws URISyntaxException
+     *             the uRI syntax exception
+     */
     private static URI buildUri(final HttpCollectionSet collectionSet) throws URISyntaxException {
         HashMap<String, String> substitutions = new HashMap<String, String>();
         substitutions.put("ipaddr", InetAddressUtils.str(collectionSet.getAgent().getInetAddress()));
@@ -765,6 +1063,17 @@ public class HttpCollector implements ServiceCollector {
         return ub.build();
     }
 
+    /**
+     * Substitute keywords.
+     *
+     * @param substitutions
+     *            the substitutions
+     * @param urlFragment
+     *            the url fragment
+     * @param desc
+     *            the desc
+     * @return the string
+     */
     private static String substituteKeywords(final HashMap<String, String> substitutions, final String urlFragment,
             final String desc) {
         String newFragment = urlFragment;
@@ -794,6 +1103,9 @@ public class HttpCollector implements ServiceCollector {
         initializeRrdRepository();
     }
 
+    /**
+     * Inits the http collection config.
+     */
     private static void initHttpCollectionConfig() {
         try {
             LOG.debug("initialize: Initializing collector: {}", HttpCollector.class.getSimpleName());
@@ -813,11 +1125,23 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Initialize rrd repository.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private static void initializeRrdRepository() throws CollectionInitializationException {
         LOG.debug("initializeRrdRepository: Initializing RRD repo from HttpCollector...");
         initializeRrdDirs();
     }
 
+    /**
+     * Initialize rrd dirs.
+     *
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private static void initializeRrdDirs() throws CollectionInitializationException {
         /*
          * If the RRD file repository directory does NOT already exist, create
@@ -836,6 +1160,9 @@ public class HttpCollector implements ServiceCollector {
         }
     }
 
+    /**
+     * Inits the database connection factory.
+     */
     private static void initDatabaseConnectionFactory() {
         try {
             DataSourceFactory.init();
@@ -872,6 +1199,7 @@ public class HttpCollector implements ServiceCollector {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {
@@ -884,17 +1212,36 @@ public class HttpCollector implements ServiceCollector {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * The Class HttpCollectionResource.
+     */
     class HttpCollectionResource implements CollectionResource {
 
+        /** The m_agent. */
         CollectionAgent m_agent;
 
+        /** The m_attrib group. */
         AttributeGroup m_attribGroup;
 
+        /**
+         * Instantiates a new http collection resource.
+         *
+         * @param agent
+         *            the agent
+         * @param uriDef
+         *            the uri def
+         */
         HttpCollectionResource(CollectionAgent agent, Uri uriDef) {
             m_agent = agent;
             m_attribGroup = new AttributeGroup(this, new AttributeGroupType(uriDef.getName(), "all"));
         }
 
+        /**
+         * Store results.
+         *
+         * @param results
+         *            the results
+         */
         public void storeResults(List<HttpCollectionAttribute> results) {
             for (HttpCollectionAttribute attrib : results) {
                 m_attribGroup.addAttribute(attrib);
@@ -902,26 +1249,41 @@ public class HttpCollector implements ServiceCollector {
         }
 
         // A rescan is never needed for the HttpCollector
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#rescanNeeded()
+         */
         @Override
         public boolean rescanNeeded() {
             return false;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+         */
         @Override
         public boolean shouldPersist(ServiceParameters params) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.ResourceIdentifier#getOwnerName()
+         */
         @Override
         public String getOwnerName() {
             return m_agent.getHostAddress();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.ResourceIdentifier#getResourceDir(org.opennms.netmgt.model.RrdRepository)
+         */
         @Override
         public File getResourceDir(RrdRepository repository) {
             return new File(repository.getRrdBaseDir(), getParent());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+         */
         @Override
         public void visit(CollectionSetVisitor visitor) {
             visitor.visitResource(this);
@@ -929,53 +1291,91 @@ public class HttpCollector implements ServiceCollector {
             visitor.completeResource(this);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getType()
+         */
         @Override
         public int getType() {
             return -1; // Is this right?
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+         */
         @Override
         public String getResourceTypeName() {
             return "node"; // All node resources for HTTP; nothing of interface
                            // or "indexed resource" type
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
+         */
         @Override
         public String getInstance() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getLabel()
+         */
         @Override
         public String getLabel() {
             return null;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+         */
         @Override
         public String getParent() {
             return m_agent.getStorageDir().toString();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionResource#getTimeKeeper()
+         */
         @Override
         public TimeKeeper getTimeKeeper() {
             return null;
         }
     }
 
+    /**
+     * The Class HttpCollectionAttributeType.
+     */
     class HttpCollectionAttributeType implements CollectionAttributeType {
+
+        /** The m_attribute. */
         Attrib m_attribute;
 
+        /** The m_group type. */
         AttributeGroupType m_groupType;
 
+        /**
+         * Instantiates a new http collection attribute type.
+         *
+         * @param attribute
+         *            the attribute
+         * @param groupType
+         *            the group type
+         */
         protected HttpCollectionAttributeType(Attrib attribute, AttributeGroupType groupType) {
             m_groupType = groupType;
             m_attribute = attribute;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType()
+         */
         @Override
         public AttributeGroupType getGroupType() {
             return m_groupType;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.CollectionAttributeType#storeAttribute(org.opennms.netmgt.config.collector.CollectionAttribute, org.opennms.netmgt.config.collector.Persister)
+         */
         @Override
         public void storeAttribute(CollectionAttribute attribute, Persister persister) {
             if (m_attribute.getType().equals("string")) {
@@ -985,11 +1385,17 @@ public class HttpCollector implements ServiceCollector {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
+         */
         @Override
         public String getName() {
             return m_attribute.getAlias();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
+         */
         @Override
         public String getType() {
             return m_attribute.getType();

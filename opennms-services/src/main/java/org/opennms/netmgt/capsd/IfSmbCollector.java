@@ -54,16 +54,13 @@ import org.slf4j.LoggerFactory;
  */
 final class IfSmbCollector implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfSmbCollector.class);
 
-    /**
-     * The MAC address that is returned from a Samba server
-     */
+    /** The MAC address that is returned from a Samba server. */
     private static final String SAMBA_MAC = "00:00:00:00:00:00";
 
-    /**
-     * The target internet address to test for SMB support
-     */
+    /** The target internet address to test for SMB support. */
     private final InetAddress m_target;
 
     /**
@@ -91,9 +88,7 @@ final class IfSmbCollector implements Runnable {
      */
     private NbtAddress[] m_allAddrs;
 
-    /**
-     * The list of available shares on the SMB box, if any
-     */
+    /** The list of available shares on the SMB box, if any. */
     private String[] m_shares;
 
     /**
@@ -159,6 +154,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Returns the current target of this collection.
+     *
+     * @return the target
      */
     InetAddress getTarget() {
         return m_target;
@@ -166,6 +163,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Returns true if the target is a SAMBA server.
+     *
+     * @return true, if is samba
      */
     boolean isSamba() {
         return m_isSamba;
@@ -173,6 +172,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Returns the MAC address, if present.
+     *
+     * @return the mac
      */
     String getMAC() {
         return m_mac;
@@ -180,6 +181,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Returns the primary NetBIOS address for the target if it was recovered.
+     *
+     * @return the nbt address
      */
     NbtAddress getNbtAddress() {
         return m_addr;
@@ -187,6 +190,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Retrns the NetBIOS name associated with the primary NetBIOS address.
+     *
+     * @return the nbt name
      */
     String getNbtName() {
         if (m_addr != null)
@@ -196,7 +201,9 @@ final class IfSmbCollector implements Runnable {
     }
 
     /**
-     * Returns the domain name associated with this NetBIOS address
+     * Returns the domain name associated with this NetBIOS address.
+     *
+     * @return the domain name
      */
     String getDomainName() {
         return m_domain;
@@ -204,6 +211,8 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * Returns the list of all NetBIOS names recovered from the target node.
+     *
+     * @return the all nbt addresses
      */
     NbtAddress[] getAllNbtAddresses() {
         return m_allAddrs;
@@ -212,6 +221,8 @@ final class IfSmbCollector implements Runnable {
     /**
      * Returns the list of all available shares on the target if the call
      * succeeded. If the call failed then a null or empty list is return.
+     *
+     * @return the shares
      */
     String[] getShares() {
         return m_shares;
@@ -220,6 +231,8 @@ final class IfSmbCollector implements Runnable {
     /**
      * Returns the presence of an exchange server. This is the same value as set
      * in the class' constructor.
+     *
+     * @return true, if successful
      */
     boolean hasExchange() {
         return m_hasExchange;
@@ -227,7 +240,7 @@ final class IfSmbCollector implements Runnable {
 
     /**
      * This method inspects the provided netBIOS name for control characters
-     * (chars w/ decimal value less than 20/ <SPACE>
+     * (chars w/ decimal value less than 20/ <SPACE>.
      *
      * @param nbName
      *            NetBIOS name to check

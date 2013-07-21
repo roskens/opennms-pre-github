@@ -43,14 +43,20 @@ import org.slf4j.LoggerFactory;
  * collection to occur in a thread if necessary.
  */
 public final class FdbTableGet {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(FdbTableGet.class);
 
+    /** The Constant FDB_PORT_OID. */
     private static final String FDB_PORT_OID = ".1.3.6.1.2.1.17.4.3.1.2";
 
+    /** The Constant FDB_STATUS_OID. */
     private static final String FDB_STATUS_OID = ".1.3.6.1.2.1.17.4.3.1.3";
 
+    /** The Constant QFDB_PORT_OID. */
     private static final String QFDB_PORT_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.2";
 
+    /** The Constant QFDB_STATUS_OID. */
     private static final String QFDB_STATUS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.3";
 
     /**
@@ -58,6 +64,7 @@ public final class FdbTableGet {
      */
     private SnmpAgentConfig m_agentConfig;
 
+    /** The m_mac. */
     private String m_mac;
 
     /**
@@ -79,6 +86,7 @@ public final class FdbTableGet {
      * <p>
      * getBridgePort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -100,6 +108,7 @@ public final class FdbTableGet {
      * <p>
      * getQBridgePort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -121,6 +130,7 @@ public final class FdbTableGet {
      * <p>
      * getBridgePortStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -141,6 +151,7 @@ public final class FdbTableGet {
      * <p>
      * getQBridgePortStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -157,10 +168,24 @@ public final class FdbTableGet {
 
     }
 
+    /**
+     * Gets the oid.
+     *
+     * @param oid
+     *            the oid
+     * @return the oid
+     */
     private SnmpObjId getOid(String oid) {
         return SnmpObjId.get(oid + "." + m_mac);
     }
 
+    /**
+     * Gets the instance string.
+     *
+     * @param mac
+     *            the mac
+     * @return the instance string
+     */
     private String getInstanceString(String mac) {
 
         return Integer.parseInt(mac.substring(0, 2), 16) + "." + Integer.parseInt(mac.substring(2, 4), 16) + "."

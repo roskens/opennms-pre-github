@@ -46,17 +46,26 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.mock.MockMonitoredService;
 
 /**
- * DNSResolutionMonitorTest
+ * DNSResolutionMonitorTest.
  *
  * @author brozow
  */
 public class DNSResolutionMonitorTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true);
     }
 
+    /**
+     * Test poll.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPoll() throws Exception {
         MockMonitoredService dual = new MockMonitoredService(1, "wipv6day.opennms.org", InetAddress.getLocalHost(),

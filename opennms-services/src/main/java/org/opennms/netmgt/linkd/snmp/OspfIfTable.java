@@ -33,8 +33,17 @@ import java.net.InetAddress;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class OspfIfTable.
+ */
 public class OspfIfTable extends SnmpTable<OspfIfTableEntry> {
 
+    /**
+     * Instantiates a new ospf if table.
+     *
+     * @param address
+     *            the address
+     */
     public OspfIfTable(InetAddress address) {
         super(address, "ospfIfTable", OspfIfTableEntry.ospfiftable_elemList);
     }

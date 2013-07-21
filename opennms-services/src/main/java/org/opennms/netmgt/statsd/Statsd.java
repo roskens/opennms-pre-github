@@ -66,32 +66,44 @@ import org.springframework.util.Assert;
 @EventListener(name = "OpenNMS:Statsd", logPrefix = "statsd")
 public class Statsd implements SpringServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Statsd.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "statsd";
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /** The m_transaction template. */
     private TransactionTemplate m_transactionTemplate;
 
+    /** The m_report persister. */
     private ReportPersister m_reportPersister;
 
+    /** The m_scheduler. */
     private Scheduler m_scheduler;
 
+    /** The m_report definition builder. */
     private ReportDefinitionBuilder m_reportDefinitionBuilder;
 
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
     /**
      * <p>
      * handleReloadConfigEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -130,6 +142,13 @@ public class Statsd implements SpringServiceDaemon {
 
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
 
@@ -157,9 +176,10 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {
@@ -175,6 +195,9 @@ public class Statsd implements SpringServiceDaemon {
         LOG.debug("start: lock released (unless reentrant).");
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.DisposableBean#destroy()
+     */
     @Override
     public void destroy() throws Exception {
         LOG.debug("start: acquiring lock...");
@@ -188,9 +211,10 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * unscheduleReports
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void unscheduleReports() throws Exception {
 
@@ -201,6 +225,22 @@ public class Statsd implements SpringServiceDaemon {
         }
     }
 
+    /**
+     * Schedule report.
+     *
+     * @param reportDef
+     *            the report def
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws ParseException
+     *             the parse exception
+     * @throws SchedulerException
+     *             the scheduler exception
+     * @throws Exception
+     *             the exception
+     */
     private void scheduleReport(ReportDefinition reportDef) throws ClassNotFoundException, NoSuchMethodException,
             ParseException, SchedulerException, Exception {
 
@@ -233,11 +273,12 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * runReport
      * </p>
+     * .
      *
      * @param reportDef
      *            a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     public void runReport(ReportDefinition reportDef) throws Throwable {
         final ReportInstance report;
@@ -265,9 +306,10 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -284,6 +326,8 @@ public class Statsd implements SpringServiceDaemon {
     }
 
     /**
+     * Gets the node dao.
+     *
      * @return the nodeDao
      */
     public NodeDao getNodeDao() {
@@ -291,6 +335,8 @@ public class Statsd implements SpringServiceDaemon {
     }
 
     /**
+     * Sets the node dao.
+     *
      * @param nodeDao
      *            the nodeDao to set
      */
@@ -302,6 +348,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -313,6 +360,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -325,6 +373,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getRrdDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -336,6 +385,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
@@ -348,6 +398,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getTransactionTemplate
      * </p>
+     * .
      *
      * @return a
      *         {@link org.springframework.transaction.support.TransactionTemplate}
@@ -361,6 +412,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setTransactionTemplate
      * </p>
+     * .
      *
      * @param transactionTemplate
      *            a
@@ -375,6 +427,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getReportPersister
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportPersister} object.
      */
@@ -386,6 +439,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setReportPersister
      * </p>
+     * .
      *
      * @param reportPersister
      *            a {@link org.opennms.netmgt.statsd.ReportPersister} object.
@@ -398,6 +452,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.quartz.Scheduler} object.
      */
@@ -409,6 +464,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.quartz.Scheduler} object.
@@ -421,6 +477,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getReportDefinitionBuilder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinitionBuilder}
      *         object.
@@ -433,6 +490,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setReportDefinitionBuilder
      * </p>
+     * .
      *
      * @param reportDefinitionBuilder
      *            a {@link org.opennms.netmgt.statsd.ReportDefinitionBuilder}
@@ -446,6 +504,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getFilterDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
@@ -457,6 +516,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setFilterDao
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
@@ -469,6 +529,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -482,6 +543,7 @@ public class Statsd implements SpringServiceDaemon {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -489,6 +551,11 @@ public class Statsd implements SpringServiceDaemon {
         return m_eventForwarder;
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }

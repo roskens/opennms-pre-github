@@ -42,6 +42,7 @@ public interface ThresholdEvaluator {
      * <p>
      * supportsType
      * </p>
+     * .
      *
      * @param type
      *            a {@link java.lang.String} object.
@@ -53,12 +54,13 @@ public interface ThresholdEvaluator {
      * <p>
      * getThresholdEvaluatorState
      * </p>
+     * .
      *
      * @param threshold
      *            a
-     *            {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
-     *            object.
      * @return a {@link org.opennms.netmgt.threshd.ThresholdEvaluatorState}
+     *         object.
+     *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
      *         object.
      */
     public ThresholdEvaluatorState getThresholdEvaluatorState(BaseThresholdDefConfigWrapper threshold);

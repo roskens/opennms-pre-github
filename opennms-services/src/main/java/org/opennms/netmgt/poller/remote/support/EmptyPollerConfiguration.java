@@ -35,16 +35,20 @@ import org.opennms.netmgt.poller.remote.PolledService;
 import org.opennms.netmgt.poller.remote.PollerConfiguration;
 
 /**
+ * The Class EmptyPollerConfiguration.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class EmptyPollerConfiguration implements PollerConfiguration, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6908427719063336610L;
 
     /**
      * <p>
      * getConfigurationTimestamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -57,6 +61,7 @@ class EmptyPollerConfiguration implements PollerConfiguration, Serializable {
      * <p>
      * getPolledServices
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.poller.remote.PolledService} objects.
@@ -66,6 +71,9 @@ class EmptyPollerConfiguration implements PollerConfiguration, Serializable {
         return new PolledService[0];
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.PollerConfiguration#getServerTime()
+     */
     @Override
     public long getServerTime() {
         return 0;

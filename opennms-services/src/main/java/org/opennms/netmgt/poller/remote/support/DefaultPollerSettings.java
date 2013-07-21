@@ -50,16 +50,20 @@ import org.springframework.util.Assert;
  */
 public class DefaultPollerSettings implements InitializingBean, PollerSettings {
 
+    /** The monitor id key. */
     private final String MONITOR_ID_KEY = "locationMonitorId";
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /** The m_settings. */
     private Properties m_settings;
 
     /**
      * <p>
      * getMonitorId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -80,6 +84,9 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
         save();
     }
 
+    /**
+     * Save.
+     */
     private void save() {
         FileOutputStream out = null;
         try {
@@ -106,6 +113,7 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
      * <p>
      * setConfigurationResource
      * </p>
+     * .
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -118,9 +126,10 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

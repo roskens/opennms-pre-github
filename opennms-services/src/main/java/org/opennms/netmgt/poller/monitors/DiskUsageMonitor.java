@@ -67,25 +67,31 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class DiskUsageMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(DiskUsageMonitor.class);
 
+    /** The Constant m_serviceName. */
     private static final String m_serviceName = "DISK-USAGE";
 
+    /** The Constant hrStorageDescr. */
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
 
+    /** The Constant hrStorageSize. */
     private static final String hrStorageSize = ".1.3.6.1.2.1.25.2.3.1.5";
 
+    /** The Constant hrStorageUsed. */
     private static final String hrStorageUsed = ".1.3.6.1.2.1.25.2.3.1.6";
 
-    /**
-     * The available match-types for this monitor
-     */
+    /** The available match-types for this monitor. */
     private static final int MATCH_TYPE_EXACT = 0;
 
+    /** The Constant MATCH_TYPE_STARTSWITH. */
     private static final int MATCH_TYPE_STARTSWITH = 1;
 
+    /** The Constant MATCH_TYPE_ENDSWITH. */
     private static final int MATCH_TYPE_ENDSWITH = 2;
 
+    /** The Constant MATCH_TYPE_REGEX. */
     private static final int MATCH_TYPE_REGEX = 3;
 
     /**
@@ -130,9 +136,6 @@ public final class DiskUsageMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
@@ -260,6 +263,17 @@ public final class DiskUsageMonitor extends SnmpMonitorStrategy {
         return status;
     }
 
+    /**
+     * Checks if is match.
+     *
+     * @param candidate
+     *            the candidate
+     * @param target
+     *            the target
+     * @param matchType
+     *            the match type
+     * @return true, if is match
+     */
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);

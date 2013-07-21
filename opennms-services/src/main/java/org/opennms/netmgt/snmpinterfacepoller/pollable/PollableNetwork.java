@@ -34,17 +34,20 @@ import java.util.Map;
 import org.opennms.netmgt.scheduler.Schedule;
 
 /**
- * Represents an SNMP PollableNetwork
+ * Represents an SNMP PollableNetwork.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class PollableNetwork {
 
+    /** The m_members. */
     private final Map<String, PollableInterface> m_members = new HashMap<String, PollableInterface>();
 
+    /** The m_node. */
     private final Map<Integer, String> m_node = new HashMap<Integer, String>();
 
+    /** The m_context. */
     private PollContext m_context;
 
     /**
@@ -65,6 +68,7 @@ public class PollableNetwork {
      * <p>
      * create
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -91,17 +95,16 @@ public class PollableNetwork {
      * <p>
      * schedule
      * </p>
+     * .
      *
      * @param node
      *            a
-     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface}
-     *            object.
-     * @param criteria
-     *            a {@link java.lang.String} object.
      * @param interval
      *            a long.
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.Scheduler} object.
+     *            {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface}
+     *            object.
      */
     public void schedule(PollableSnmpInterface node, long interval, org.opennms.netmgt.scheduler.Scheduler scheduler) {
 
@@ -123,6 +126,7 @@ public class PollableNetwork {
      * <p>
      * deleteAll
      * </p>
+     * .
      */
     public void deleteAll() {
         for (PollableInterface pi : m_members.values()) {
@@ -136,6 +140,7 @@ public class PollableNetwork {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -153,6 +158,7 @@ public class PollableNetwork {
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -165,6 +171,7 @@ public class PollableNetwork {
      * <p>
      * refresh
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -180,6 +187,7 @@ public class PollableNetwork {
      * <p>
      * suspend
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -194,6 +202,7 @@ public class PollableNetwork {
      * <p>
      * activate
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -208,6 +217,7 @@ public class PollableNetwork {
      * <p>
      * suspend
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -222,6 +232,7 @@ public class PollableNetwork {
      * <p>
      * activate
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -236,6 +247,7 @@ public class PollableNetwork {
      * <p>
      * getIp
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -245,6 +257,13 @@ public class PollableNetwork {
         return m_node.get(Integer.valueOf(nodeid));
     }
 
+    /**
+     * Gets the interface.
+     *
+     * @param ipaddress
+     *            the ipaddress
+     * @return the interface
+     */
     private PollableInterface getInterface(String ipaddress) {
         if (m_members.containsKey(ipaddress))
             return m_members.get(ipaddress);
@@ -255,6 +274,7 @@ public class PollableNetwork {
      * <p>
      * hasPollableInterface
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -268,6 +288,7 @@ public class PollableNetwork {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
@@ -281,6 +302,7 @@ public class PollableNetwork {
      * <p>
      * setContext
      * </p>
+     * .
      *
      * @param context
      *            a

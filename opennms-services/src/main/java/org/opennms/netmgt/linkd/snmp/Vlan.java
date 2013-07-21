@@ -43,18 +43,30 @@ import org.opennms.netmgt.snmp.SnmpResult;
  */
 public abstract class Vlan extends SnmpStore {
 
+    /** The has vlan index. */
     private boolean hasVlanIndex = false;
 
+    /** The vlan index. */
     private Integer vlanIndex = null;
 
+    /** The Constant VLAN_INDEX. */
     public static final String VLAN_INDEX = "vlanIndex";
 
+    /** The Constant VLAN_NAME. */
     public static final String VLAN_NAME = "vlanName";
 
+    /** The Constant VLAN_STATUS. */
     public static final String VLAN_STATUS = "vlanStatus";
 
+    /** The Constant VLAN_TYPE. */
     public static final String VLAN_TYPE = "vlanType";
 
+    /**
+     * Instantiates a new vlan.
+     *
+     * @param list
+     *            the list
+     */
     public Vlan(NamedSnmpVar[] list) {
         super(list);
     }
@@ -69,22 +81,52 @@ public abstract class Vlan extends SnmpStore {
         super.storeResult(res);
     }
 
+    /**
+     * Checks for vlan index oid.
+     *
+     * @return true, if successful
+     */
     protected abstract boolean hasVlanIndexOid();
 
+    /**
+     * Gets the vlan index.
+     *
+     * @return the vlan index
+     */
     public Integer getVlanIndex() {
         if (hasVlanIndex)
             return vlanIndex;
         return getInt32(VLAN_INDEX);
     }
 
+    /**
+     * Gets the vlan name.
+     *
+     * @return the vlan name
+     */
     public String getVlanName() {
         return getDisplayString(VLAN_NAME);
     }
 
+    /**
+     * Gets the vlan status.
+     *
+     * @return the vlan status
+     */
     public abstract VlanStatus getVlanStatus();
 
+    /**
+     * Gets the vlan type.
+     *
+     * @return the vlan type
+     */
     public abstract VlanType getVlanType();
 
+    /**
+     * Gets the onms vlan.
+     *
+     * @return the onms vlan
+     */
     public OnmsVlan getOnmsVlan() {
         return new OnmsVlan(getVlanIndex(), getVlanName(), getVlanStatus(), getVlanType());
     }

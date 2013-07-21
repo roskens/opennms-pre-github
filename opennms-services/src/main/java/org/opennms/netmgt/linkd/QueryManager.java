@@ -42,12 +42,16 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
  */
 public interface QueryManager {
 
+    /** The Constant SNMP_IF_TYPE_ETHERNET. */
     public static final int SNMP_IF_TYPE_ETHERNET = 6;
 
+    /** The Constant SNMP_IF_TYPE_PROP_VIRTUAL. */
     public static final int SNMP_IF_TYPE_PROP_VIRTUAL = 53;
 
+    /** The Constant SNMP_IF_TYPE_L2_VLAN. */
     public static final int SNMP_IF_TYPE_L2_VLAN = 135;
 
+    /** The Constant SNMP_IF_TYPE_L3_VLAN. */
     public static final int SNMP_IF_TYPE_L3_VLAN = 136;
 
     /**
@@ -94,10 +98,9 @@ public interface QueryManager {
      * <p>
      * getSnmpNodeList
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     List<LinkableNode> getSnmpNodeList();
 
@@ -105,12 +108,11 @@ public interface QueryManager {
      * <p>
      * getSnmpNode
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
      * @return a {@link org.opennms.netmgt.linkd.LinkableNode} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     LinkableNode getSnmpNode(int nodeid);
 
@@ -118,9 +120,7 @@ public interface QueryManager {
      * <p>
      * updateDeletedNodes
      * </p>
-     *
-     * @throws java.sql.SQLException
-     *             if any.
+     * .
      */
     void updateDeletedNodes();
 
@@ -128,14 +128,13 @@ public interface QueryManager {
      * <p>
      * storeSnmpCollection
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.linkd.LinkableNode} object.
      * @param snmpColl
      *            a {@link org.opennms.netmgt.linkd.SnmpCollection} object.
      * @return a {@link org.opennms.netmgt.linkd.LinkableNode} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     LinkableNode storeSnmpCollection(LinkableNode node, SnmpCollection snmpColl);
 
@@ -143,11 +142,10 @@ public interface QueryManager {
      * <p>
      * storeDiscoveryLink
      * </p>
+     * .
      *
      * @param discoveryLink
      *            a {@link org.opennms.netmgt.linkd.DiscoveryLink} object.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     void storeDiscoveryLink(DiscoveryLink discoveryLink);
 
@@ -155,13 +153,12 @@ public interface QueryManager {
      * <p>
      * update
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
      * @param action
      *            a char.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     void update(int nodeid, StatusType action);
 
@@ -169,6 +166,7 @@ public interface QueryManager {
      * <p>
      * updateForInterface
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -178,13 +176,22 @@ public interface QueryManager {
      *            a int.
      * @param action
      *            a char.
-     * @throws java.sql.SQLException
-     *             if any.
      */
     void updateForInterface(int nodeid, String ipAddr, int ifIndex, StatusType action);
 
+    /**
+     * Gets the linkd.
+     *
+     * @return the linkd
+     */
     Linkd getLinkd();
 
+    /**
+     * Sets the linkd.
+     *
+     * @param linkd
+     *            the new linkd
+     */
     void setLinkd(final Linkd linkd);
 
 }

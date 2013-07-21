@@ -58,6 +58,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class KnownIPMgr {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(KnownIPMgr.class);
 
     /**
@@ -71,9 +73,7 @@ final class KnownIPMgr {
      */
     private static final String IP_UPDATE_TIME_SQL = "UPDATE ipInterface SET ipLastCapsdPoll = ? WHERE ipAddr = ? AND nodeid = ?";
 
-    /**
-     * The set of all discovered addresses
-     */
+    /** The set of all discovered addresses. */
     private static Map<InetAddress, Object> m_known = new TreeMap<InetAddress, Object>(new InetAddressComparator());
 
     /**
@@ -140,8 +140,8 @@ final class KnownIPMgr {
          *            The node identifier for the address.
          * @param date
          *            The last date this address was checked.
-         * @throws java.text.ParseException
-         *             Thrown if the date is malformed.
+         * @throws ParseException
+         *             the parse exception
          */
         IPInterface(InetAddress iface, int nodeid, String date) throws ParseException {
             m_interface = iface;
@@ -152,6 +152,8 @@ final class KnownIPMgr {
 
         /**
          * Returns the internet address of the interface.
+         *
+         * @return the address
          */
         InetAddress getAddress() {
             return m_interface;
@@ -159,6 +161,8 @@ final class KnownIPMgr {
 
         /**
          * Returns the node identifier for this interface.
+         *
+         * @return the node id
          */
         int getNodeId() {
             return m_nodeid;
@@ -166,6 +170,8 @@ final class KnownIPMgr {
 
         /**
          * Returns the data on which the interface was last checked.
+         *
+         * @return the last check time
          */
         Timestamp getLastCheckTime() {
             return m_lastCheck;
@@ -173,6 +179,9 @@ final class KnownIPMgr {
 
         /**
          * Sets the time the interface was last checked.
+         *
+         * @param time
+         *            the new last check time
          */
         void setLastCheckTime(Timestamp time) {
             m_lastCheck = time;
@@ -184,8 +193,8 @@ final class KnownIPMgr {
          *
          * @param db
          *            The database to update the result in.
-         * @throws java.sql.SQLException
-         *             Thrown if an error occurs updating the database entry.
+         * @throws SQLException
+         *             the sQL exception
          */
         void update(Connection db) throws SQLException {
             final DBUtils d = new DBUtils(getClass());
@@ -206,9 +215,6 @@ final class KnownIPMgr {
     /**
      * Default construct for the instance. This constructor always throws an
      * exception to the caller.
-     *
-     * @throws java.lang.UnsupportedOperationException
-     *             Always thrown.
      */
     private KnownIPMgr() {
         throw new UnsupportedOperationException("Construction is not supported");
@@ -220,12 +226,8 @@ final class KnownIPMgr {
      * the method opens a new connection to the database, loads the address, and
      * then closes it's connection.
      *
-     * @throws java.util.MissingResourceException
-     *             Thrown if the method cannot find the database configuration
-     *             file.
-     * @throws java.sql.SQLException
-     *             Thrown if the connection cannot be created or a database
-     *             error occurs.
+     * @throws SQLException
+     *             the sQL exception
      */
     static synchronized void dataSourceSync() throws SQLException {
 
@@ -294,14 +296,15 @@ final class KnownIPMgr {
     /**
      * Returns true if the node has been discovered and added to the discovered
      * IP manager. If the address cannot be converted to an
-     * {@link java.net.InetAddressInetAddress} instance then an exception is
-     * generated.
      *
      * @param ipAddr
      *            The IP Address to query.
      * @return True if the address is known to the manager.
-     * @throws java.io.UnknownHostException
-     *             Thrown if the address name could not be converted.
+     * @throws UnknownHostException
+     *             the unknown host exception
+     *             {@link java.net.InetAddressInetAddress} instance then an
+     *             exception is
+     *             generated.
      */
     static boolean isKnown(String ipAddr) throws UnknownHostException {
         return isKnown(InetAddressUtils.addr(ipAddr));
@@ -324,8 +327,8 @@ final class KnownIPMgr {
      * @param addr
      *            The address to add to the discovered set.
      * @return True if the address was not already discovered.
-     * @throws java.net.UnknownHost
-     *             Thrown if the address cannot be converted.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     static boolean addKnown(String addr) throws UnknownHostException {
         return addKnown(InetAddressUtils.addr(addr));

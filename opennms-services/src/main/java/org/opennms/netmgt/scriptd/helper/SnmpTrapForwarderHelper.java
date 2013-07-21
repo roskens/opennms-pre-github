@@ -38,59 +38,124 @@ import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SnmpTrapForwarderHelper.
+ */
 public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder implements EventForwarder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrapForwarderHelper.class);
 
+    /** The source_ip. */
     String source_ip;
 
+    /** The ip. */
     String ip;
 
+    /** The community. */
     String community;
 
+    /** The port. */
     int port;
 
+    /** The timeout. */
     int timeout;
 
+    /** The retries. */
     int retries;
 
+    /** The security level. */
     int securityLevel;
 
+    /** The securityname. */
     String securityname;
 
+    /** The auth pass phrase. */
     String authPassPhrase;
 
+    /** The auth protocol. */
     String authProtocol;
 
+    /** The priv pass phrase. */
     String privPassPhrase;
 
+    /** The privprotocol. */
     String privprotocol;
 
+    /** The snmp trap helper. */
     SnmpTrapHelper snmpTrapHelper;
 
+    /**
+     * Gets the snmp trap helper.
+     *
+     * @return the snmp trap helper
+     */
     public SnmpTrapHelper getSnmpTrapHelper() {
         return snmpTrapHelper;
     }
 
+    /**
+     * Sets the snmp trap helper.
+     *
+     * @param snmpTrapHelper
+     *            the new snmp trap helper
+     */
     public void setSnmpTrapHelper(SnmpTrapHelper snmpTrapHelper) {
         this.snmpTrapHelper = snmpTrapHelper;
     }
 
+    /**
+     * Gets the timeout.
+     *
+     * @return the timeout
+     */
     public int getTimeout() {
         return timeout;
     }
 
+    /**
+     * Sets the timeout.
+     *
+     * @param timeout
+     *            the new timeout
+     */
     public void setTimeout(int timeout) {
         this.timeout = timeout;
     }
 
+    /**
+     * Gets the retries.
+     *
+     * @return the retries
+     */
     public int getRetries() {
         return retries;
     }
 
+    /**
+     * Sets the retries.
+     *
+     * @param retries
+     *            the new retries
+     */
     public void setRetries(int retries) {
         this.retries = retries;
     }
 
+    /**
+     * Instantiates a new snmp trap forwarder helper.
+     *
+     * @param source_ip
+     *            the source_ip
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param community
+     *            the community
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpTrapForwarderHelper(String source_ip, String ip, int port, String community,
             SnmpTrapHelper snmpTrapHelper) {
         this.source_ip = source_ip;
@@ -100,6 +165,18 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         this.snmpTrapHelper = snmpTrapHelper;
     }
 
+    /**
+     * Instantiates a new snmp trap forwarder helper.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param community
+     *            the community
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpTrapForwarderHelper(String ip, int port, String community, SnmpTrapHelper snmpTrapHelper) {
         this.ip = ip;
         this.port = port;
@@ -107,6 +184,22 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         this.snmpTrapHelper = snmpTrapHelper;
     }
 
+    /**
+     * Instantiates a new snmp trap forwarder helper.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param community
+     *            the community
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpTrapForwarderHelper(String ip, int port, String community, int timeout, int retries,
             SnmpTrapHelper snmpTrapHelper) {
         this.ip = ip;
@@ -117,6 +210,28 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         this.retries = retries;
     }
 
+    /**
+     * Instantiates a new snmp trap forwarder helper.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param securityLevel
+     *            the security level
+     * @param securityname
+     *            the securityname
+     * @param authPassPhrase
+     *            the auth pass phrase
+     * @param authProtocol
+     *            the auth protocol
+     * @param privPassPhrase
+     *            the priv pass phrase
+     * @param privprotocol
+     *            the privprotocol
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpTrapForwarderHelper(String ip, int port, int securityLevel, String securityname, String authPassPhrase,
             String authProtocol, String privPassPhrase, String privprotocol, SnmpTrapHelper snmpTrapHelper) {
         super();
@@ -132,6 +247,32 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 
     }
 
+    /**
+     * Instantiates a new snmp trap forwarder helper.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param securityLevel
+     *            the security level
+     * @param securityname
+     *            the securityname
+     * @param authPassPhrase
+     *            the auth pass phrase
+     * @param authProtocol
+     *            the auth protocol
+     * @param privPassPhrase
+     *            the priv pass phrase
+     * @param privprotocol
+     *            the privprotocol
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpTrapForwarderHelper(String ip, int port, int securityLevel, String securityname, String authPassPhrase,
             String authProtocol, String privPassPhrase, String privprotocol, int timeout, int retries,
             SnmpTrapHelper snmpTrapHelper) {
@@ -149,6 +290,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         this.retries = retries;
     }
 
+    /**
+     * Send v1 start sync trap.
+     */
     public void sendV1StartSyncTrap() {
         try {
             SnmpTrapBuilder trap = snmpTrapHelper.createV1Trap(".1.3.6.1.4.1.5813.1", getSource_ip(), 6, 5, 0);
@@ -158,6 +302,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v1 end sync trap.
+     */
     public void sendV1EndSyncTrap() {
         try {
             SnmpTrapBuilder trap = snmpTrapHelper.createV1Trap(".1.3.6.1.4.1.5813.1", getSource_ip(), 6, 6, 0);
@@ -167,6 +314,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 start sync trap.
+     */
     public void sendV2StartSyncTrap() {
         long trapTimeStamp = 0;
         try {
@@ -177,6 +327,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 end sync trap.
+     */
     public void sendV2EndSyncTrap() {
         long trapTimeStamp = 0;
         try {
@@ -187,6 +340,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 start sync inform.
+     */
     public void sendV2StartSyncInform() {
         long trapTimeStamp = 0;
         try {
@@ -198,6 +354,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 end sync inform.
+     */
     public void sendV2EndSyncInform() {
         long trapTimeStamp = 0;
         try {
@@ -209,6 +368,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 start sync trap.
+     */
     public void sendV3StartSyncTrap() {
         long trapTimeStamp = 0;
         try {
@@ -220,6 +382,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 end sync trap.
+     */
     public void sendV3EndSyncTrap() {
         long trapTimeStamp = 0;
         try {
@@ -231,6 +396,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 start sync inform.
+     */
     public void sendV3StartSyncInform() {
         long trapTimeStamp = 0;
         try {
@@ -243,6 +411,9 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 end sync inform.
+     */
     public void sendV3EndSyncInform() {
         long trapTimeStamp = 0;
         try {
@@ -255,6 +426,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v1 alarm trap.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void sendV1AlarmTrap(Event event, boolean sync) throws UnknownHostException {
         SnmpTrapBuilder trap = snmpTrapHelper.createV1Trap(".1.3.6.1.4.1.5813.1", getSource_ip(), 6, 3, 0);
         trap = buildAlarmTrap(event, sync, trap);
@@ -265,6 +446,18 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 alarm trap.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV2AlarmTrap(Event event, boolean sync) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV2Trap(".1.3.6.1.4.1.5813.1.3", Long.toString(trapTimeStamp));
@@ -276,6 +469,18 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 alarm trap.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV3AlarmTrap(Event event, boolean sync) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV3Trap(".1.3.6.1.4.1.5813.1.3", Long.toString(trapTimeStamp));
@@ -289,6 +494,18 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 alarm inform.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV2AlarmInform(Event event, boolean sync) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV2Inform(".1.3.6.1.4.1.5813.1.3", Long.toString(trapTimeStamp));
@@ -301,6 +518,18 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 alarm inform.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV3AlarmInform(Event event, boolean sync) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV3Inform(".1.3.6.1.4.1.5813.1.3", Long.toString(trapTimeStamp));
@@ -314,6 +543,14 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v1 event trap.
+     *
+     * @param event
+     *            the event
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void sendV1EventTrap(Event event) throws UnknownHostException {
         SnmpTrapBuilder trap = snmpTrapHelper.createV1Trap(".1.3.6.1.4.1.5813.1", getSource_ip(), 6, 1, 0);
         trap = buildEventTrap(event, trap, null);
@@ -324,6 +561,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 event trap.
+     *
+     * @param event
+     *            the event
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV2EventTrap(Event event) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV2Trap(".1.3.6.1.4.1.5813.1.1", Long.toString(trapTimeStamp));
@@ -335,6 +582,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 event trap.
+     *
+     * @param event
+     *            the event
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV3EventTrap(Event event) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV3Trap(".1.3.6.1.4.1.5813.1.1", Long.toString(trapTimeStamp));
@@ -348,6 +605,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v2 event inform.
+     *
+     * @param event
+     *            the event
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV2EventInform(Event event) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV2Inform(".1.3.6.1.4.1.5813.1.1", Long.toString(trapTimeStamp));
@@ -360,6 +627,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Send v3 event inform.
+     *
+     * @param event
+     *            the event
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws SnmpTrapHelperException
+     *             the snmp trap helper exception
+     */
     public void sendV3EventInform(Event event) throws UnknownHostException, SnmpTrapHelperException {
         long trapTimeStamp = 0;
         SnmpTrapBuilder trap = snmpTrapHelper.createV3Inform(".1.3.6.1.4.1.5813.1.1", Long.toString(trapTimeStamp));
@@ -373,6 +650,17 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         }
     }
 
+    /**
+     * Builds the alarm trap.
+     *
+     * @param event
+     *            the event
+     * @param sync
+     *            the sync
+     * @param trap
+     *            the trap
+     * @return the snmp trap builder
+     */
     private SnmpTrapBuilder buildAlarmTrap(Event event, boolean sync, SnmpTrapBuilder trap) {
         try {
             if (event.getAlarmData() != null) {
@@ -401,6 +689,17 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         return trap;
     }
 
+    /**
+     * Builds the event trap.
+     *
+     * @param event
+     *            the event
+     * @param trap
+     *            the trap
+     * @param severity
+     *            the severity
+     * @return the snmp trap builder
+     */
     private SnmpTrapBuilder buildEventTrap(Event event, SnmpTrapBuilder trap, String severity) {
         try {
             Integer t_dbid = Integer.valueOf(event.getDbid());
@@ -519,82 +818,192 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
         return trap;
     }
 
+    /**
+     * Gets the source_ip.
+     *
+     * @return the source_ip
+     */
     public String getSource_ip() {
         return source_ip;
     }
 
+    /**
+     * Sets the source_ip.
+     *
+     * @param source_ip
+     *            the new source_ip
+     */
     public void setSource_ip(String source_ip) {
         this.source_ip = source_ip;
     }
 
+    /**
+     * Gets the ip.
+     *
+     * @return the ip
+     */
     public String getIp() {
         return ip;
     }
 
+    /**
+     * Sets the ip.
+     *
+     * @param ip
+     *            the new ip
+     */
     public void setIp(String ip) {
         this.ip = ip;
     }
 
+    /**
+     * Gets the community.
+     *
+     * @return the community
+     */
     public String getCommunity() {
         return community;
     }
 
+    /**
+     * Sets the community.
+     *
+     * @param community
+     *            the new community
+     */
     public void setCommunity(String community) {
         this.community = community;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         return port;
     }
 
+    /**
+     * Sets the port.
+     *
+     * @param port
+     *            the new port
+     */
     public void setPort(int port) {
         this.port = port;
     }
 
+    /**
+     * Gets the security level.
+     *
+     * @return the security level
+     */
     public int getSecurityLevel() {
         return securityLevel;
     }
 
+    /**
+     * Sets the security level.
+     *
+     * @param securityLevel
+     *            the new security level
+     */
     public void setSecurityLevel(int securityLevel) {
         this.securityLevel = securityLevel;
     }
 
+    /**
+     * Gets the securityname.
+     *
+     * @return the securityname
+     */
     public String getSecurityname() {
         return securityname;
     }
 
+    /**
+     * Sets the securityname.
+     *
+     * @param securityname
+     *            the new securityname
+     */
     public void setSecurityname(String securityname) {
         this.securityname = securityname;
     }
 
+    /**
+     * Gets the auth pass phrase.
+     *
+     * @return the auth pass phrase
+     */
     public String getAuthPassPhrase() {
         return authPassPhrase;
     }
 
+    /**
+     * Sets the auth pass phrase.
+     *
+     * @param authPassPhrase
+     *            the new auth pass phrase
+     */
     public void setAuthPassPhrase(String authPassPhrase) {
         this.authPassPhrase = authPassPhrase;
     }
 
+    /**
+     * Gets the auth protocol.
+     *
+     * @return the auth protocol
+     */
     public String getAuthProtocol() {
         return authProtocol;
     }
 
+    /**
+     * Sets the auth protocol.
+     *
+     * @param authProtocol
+     *            the new auth protocol
+     */
     public void setAuthProtocol(String authProtocol) {
         this.authProtocol = authProtocol;
     }
 
+    /**
+     * Gets the priv pass phrase.
+     *
+     * @return the priv pass phrase
+     */
     public String getPrivPassPhrase() {
         return privPassPhrase;
     }
 
+    /**
+     * Sets the priv pass phrase.
+     *
+     * @param privPassPhrase
+     *            the new priv pass phrase
+     */
     public void setPrivPassPhrase(String privPassPhrase) {
         this.privPassPhrase = privPassPhrase;
     }
 
+    /**
+     * Gets the privprotocol.
+     *
+     * @return the privprotocol
+     */
     public String getPrivprotocol() {
         return privprotocol;
     }
 
+    /**
+     * Sets the privprotocol.
+     *
+     * @param privprotocol
+     *            the new privprotocol
+     */
     public void setPrivprotocol(String privprotocol) {
         this.privprotocol = privprotocol;
     }

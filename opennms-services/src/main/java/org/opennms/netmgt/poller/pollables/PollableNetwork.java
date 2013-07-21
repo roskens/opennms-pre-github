@@ -37,13 +37,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PollableNetwork
+ * Represents a PollableNetwork.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PollableNetwork extends PollableContainer {
 
+    /** The m_context. */
     private final PollContext m_context;
 
     /**
@@ -64,6 +65,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -76,6 +78,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * createNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -94,6 +97,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * createNodeIfNecessary
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -114,6 +118,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -128,6 +133,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getNodeCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -139,6 +145,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * createInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -157,6 +164,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -174,6 +182,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * createService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -194,6 +203,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -241,26 +251,46 @@ public class PollableNetwork extends PollableContainer {
         throw new UnsupportedOperationException("No up event for the network");
     }
 
+    /**
+     * The Class DumpVisitor.
+     */
     static class DumpVisitor extends PollableVisitorAdaptor {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(PollableNetwork.DumpVisitor.class);
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.pollables.PollableVisitorAdaptor#visitNode(org.opennms.netmgt.poller.pollables.PollableNode)
+         */
         @Override
         public void visitNode(PollableNode pNode) {
             LOG.debug(" nodeid={} status={}", pNode.getNodeId(), getStatusString(pNode));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.pollables.PollableVisitorAdaptor#visitInterface(org.opennms.netmgt.poller.pollables.PollableInterface)
+         */
         @Override
         public void visitInterface(PollableInterface pIf) {
             ;
             LOG.debug("     interface={} status={}", pIf.getIpAddr(), getStatusString(pIf));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.pollables.PollableVisitorAdaptor#visitService(org.opennms.netmgt.poller.pollables.PollableService)
+         */
         @Override
         public void visitService(PollableService pSvc) {
             LOG.debug("         service={} status={}", pSvc.getSvcName(), getStatusString(pSvc));
         }
 
+        /**
+         * Gets the status string.
+         *
+         * @param e
+         *            the e
+         * @return the status string
+         */
         private String getStatusString(PollableElement e) {
             PollStatus status = e.getStatus();
             boolean up = status.isUp();
@@ -275,6 +305,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * dump
      * </p>
+     * .
      */
     public void dump() {
 
@@ -287,6 +318,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * delete
      * </p>
+     * .
      */
     @Override
     public void delete() {
@@ -311,6 +343,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * recalculateStatus
      * </p>
+     * .
      */
     @Override
     public void recalculateStatus() {
@@ -327,6 +360,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * resetStatusChanged
      * </p>
+     * .
      */
     @Override
     public void resetStatusChanged() {
@@ -344,6 +378,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * getLockRoot
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
      *         object.
@@ -362,6 +397,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * releaseTreeLock
      * </p>
+     * .
      */
     @Override
     public void releaseTreeLock() {
@@ -386,6 +422,7 @@ public class PollableNetwork extends PollableContainer {
      * <p>
      * propagateInitialCause
      * </p>
+     * .
      */
     public void propagateInitialCause() {
         extrapolateCause();

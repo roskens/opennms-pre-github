@@ -52,35 +52,38 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>EXTREME_VLAN_IFINDEX="extremeVlanIfIndex"</code> */
+    /** Constant <code>EXTREME_VLAN_IFINDEX="extremeVlanIfIndex"</code>. */
     public static final String EXTREME_VLAN_IFINDEX = "extremeVlanIfIndex";
 
     /**
      * Constant
-     * <code>EXTREME_VLAN_IGNORE_STP_FLAG="extremeVlanIfIgnoreStpFlag"</code>
+     * <code>EXTREME_VLAN_IGNORE_STP_FLAG="extremeVlanIfIgnoreStpFlag"</code>.
      */
     public static final String EXTREME_VLAN_IGNORE_STP_FLAG = "extremeVlanIfIgnoreStpFlag";
 
     /**
      * Constant
-     * <code>EXTREME_VLAN_IGNORE_BPDU_FLAG="extremeVlanIfIgnoreBpduFlag"</code>
+     * <code>EXTREME_VLAN_IGNORE_BPDU_FLAG="extremeVlanIfIgnoreBpduFlag"</code>.
      */
     public static final String EXTREME_VLAN_IGNORE_BPDU_FLAG = "extremeVlanIfIgnoreBpduFlag";
 
     /**
      * Constant
      * <code>EXTREME_VLAN_IFLOOP_MODE_FLAG="extremeVlanIfLoopbackModeFlag"</code>
+     * .
      */
     public static final String EXTREME_VLAN_IFLOOP_MODE_FLAG = "extremeVlanIfLoopbackModeFlag";
 
     /**
      * Constant
-     * <code>EXTREME_VLAN_GLOBAL_ID="extremeVlanIfGlobalIdentifier"</code>
+     * <code>EXTREME_VLAN_GLOBAL_ID="extremeVlanIfGlobalIdentifier"</code>.
      */
     public static final String EXTREME_VLAN_GLOBAL_ID = "extremeVlanIfGlobalIdentifier";
 
+    /** The vlan index oid. */
     private static String VLAN_INDEX_OID = ".1.3.6.1.4.1.1916.1.2.1.2.1.10";
 
+    /** The vlan name oid. */
     private static String VLAN_NAME_OID = ".1.3.6.1.4.1.1916.1.2.1.2.1.2";
 
     /**
@@ -136,17 +139,26 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
         super(enVlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
 
         return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX + getInt32(VLAN_STATUS));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         if (getInt32(VLAN_TYPE) == 1)

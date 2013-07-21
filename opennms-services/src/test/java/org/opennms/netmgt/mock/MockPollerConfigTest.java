@@ -36,14 +36,20 @@ import org.opennms.netmgt.config.poller.Package;
 import org.opennms.netmgt.config.poller.Service;
 
 /**
+ * The Class MockPollerConfigTest.
+ *
  * @author brozow
  *         TODO To change the template for this generated type comment go to
  *         Window - Preferences - Java - Code Style - Code Templates
  */
 public class MockPollerConfigTest extends TestCase {
 
+    /** The m_poller config. */
     MockPollerConfig m_pollerConfig;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() {
         MockNetwork network = new MockNetwork();
@@ -70,6 +76,9 @@ public class MockPollerConfigTest extends TestCase {
 
     }
 
+    /**
+     * Test poller config.
+     */
     public void testPollerConfig() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
         m_pollerConfig.setPollInterval("HTTP", 750L);

@@ -64,8 +64,11 @@ import com.novell.ldap.LDAPSocketFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class LdapPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LdapPlugin.class);
 
+    /** The Constant PROTOCOL_NAME. */
     private static final String PROTOCOL_NAME = "LDAP";
 
     /**
@@ -88,18 +91,37 @@ public class LdapPlugin extends AbstractPlugin {
 
     /**
      * A class to add a timeout to the socket that the LDAP code uses to access
-     * an LDAP server
+     * an LDAP server.
      */
     private class TimeoutLDAPSocket extends TimeoutSocketFactory implements LDAPSocketFactory {
+
+        /**
+         * Instantiates a new timeout ldap socket.
+         *
+         * @param timeout
+         *            the timeout
+         */
         public TimeoutLDAPSocket(int timeout) {
             super(timeout, getSocketWrapper());
         }
     }
 
+    /**
+     * Gets the socket wrapper.
+     *
+     * @return the socket wrapper
+     */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();
     }
 
+    /**
+     * Determine ports.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the int[]
+     */
     protected int[] determinePorts(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedIntegerArray(parameters, "port", DEFAULT_PORTS);
     }
@@ -116,6 +138,10 @@ public class LdapPlugin extends AbstractPlugin {
      *            The remote host to connect to.
      * @param port
      *            The remote port to connect to.
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
      * @return True if server supports HTTP on the specified port, false
      *         otherwise
      */

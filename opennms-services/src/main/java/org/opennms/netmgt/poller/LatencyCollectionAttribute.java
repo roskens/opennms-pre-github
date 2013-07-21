@@ -45,10 +45,13 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
  */
 public class LatencyCollectionAttribute implements CollectionAttribute {
 
+    /** The m_resource. */
     private LatencyCollectionResource m_resource;
 
+    /** The m_value. */
     private Double m_value;
 
+    /** The m_name. */
     private String m_name;
 
     /**
@@ -75,6 +78,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
@@ -89,6 +93,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -101,6 +106,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getNumericValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +119,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -126,6 +133,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getStringValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -138,6 +146,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -162,6 +171,9 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     public void visit(CollectionSetVisitor visitor) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "Not_Supported_Yet_Poller_Latency_" + getName();

@@ -54,14 +54,17 @@ import org.slf4j.LoggerFactory;
  */
 public final class ThresholdEntity implements Cloneable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdEntity.class);
 
+    /** The s_threshold evaluators. */
     private static List<ThresholdEvaluator> s_thresholdEvaluators;
 
     // Contains a list of evaluators for each used "instance". Is populated with
     // the list for the "default" instance (the "null" key)
     // in the Constructor. Note that this means we must use a null-key capable
     // map like HashMap
+    /** The m_threshold evaluator states. */
     private Map<String, List<ThresholdEvaluatorState>> m_thresholdEvaluatorStates = new HashMap<String, List<ThresholdEvaluatorState>>();
 
     // the commands for these need to be listed in ThresholdController as well
@@ -85,6 +88,7 @@ public final class ThresholdEntity implements Cloneable {
      * <p>
      * getThresholdConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.threshd.BaseThresholdDefConfigWrapper}
@@ -94,12 +98,17 @@ public final class ThresholdEntity implements Cloneable {
         return m_thresholdEvaluatorStates.get(null).get(0).getThresholdConfig();
     }
 
+    /**
+     * Checks for thresholds.
+     *
+     * @return true, if successful
+     */
     private boolean hasThresholds() {
         return m_thresholdEvaluatorStates.get(null).size() != 0;
     }
 
     /**
-     * Get datasource name
+     * Get datasource name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -112,7 +121,7 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * Get datasource type
+     * Get datasource type.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -125,7 +134,7 @@ public final class ThresholdEntity implements Cloneable {
     }
 
     /**
-     * Get datasource Label
+     * Get datasource Label.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -139,7 +148,7 @@ public final class ThresholdEntity implements Cloneable {
 
     /**
      * Returns the names of the dataousrces required to evaluate this threshold
-     * entity
+     * entity.
      *
      * @return Collection of the names of datasources
      */
@@ -227,15 +236,15 @@ public final class ThresholdEntity implements Cloneable {
      * the named instance (or the generic instance if instance is null) and
      * create any events for thresholds.
      *
+     * @param resource
+     *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
+     *            object.
      * @param values
      *            map of values (by datasource name) to evaluate against the
      *            threshold (might be an expression)
      * @param date
      *            Date to use in created events
      * @return List of events
-     * @param resource
-     *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
-     *            object.
      */
     public List<Event> evaluateAndCreateEvents(CollectionResourceWrapper resource, Map<String, Double> values, Date date) {
         List<Event> events = new LinkedList<Event>();
@@ -269,14 +278,15 @@ public final class ThresholdEntity implements Cloneable {
      * <p>
      * fetchLastValue
      * </p>
+     * .
      *
      * @param latIface
      *            a {@link org.opennms.netmgt.threshd.LatencyInterface} object.
      * @param latParms
      *            a {@link org.opennms.netmgt.threshd.LatencyParameters} object.
      * @return a {@link java.lang.Double} object.
-     * @throws org.opennms.netmgt.threshd.ThresholdingException
-     *             if any.
+     * @throws ThresholdingException
+     *             the thresholding exception
      */
     public Double fetchLastValue(LatencyInterface latIface, LatencyParameters latParms) throws ThresholdingException {
         // Assume that this only happens on a simple "Threshold", not an
@@ -330,6 +340,7 @@ public final class ThresholdEntity implements Cloneable {
      * <p>
      * addThreshold
      * </p>
+     * .
      *
      * @param threshold
      *            a
@@ -350,6 +361,13 @@ public final class ThresholdEntity implements Cloneable {
         defaultList.add(evaluator.getThresholdEvaluatorState(threshold));
     }
 
+    /**
+     * Gets the evaluator for threshold.
+     *
+     * @param threshold
+     *            the threshold
+     * @return the evaluator for threshold
+     */
     private ThresholdEvaluator getEvaluatorForThreshold(BaseThresholdDefConfigWrapper threshold) {
         for (ThresholdEvaluator evaluator : getThresholdEvaluators()) {
             if (evaluator.supportsType(threshold.getType())) {
@@ -411,6 +429,9 @@ public final class ThresholdEntity implements Cloneable {
         sendRearmForTriggeredStates();
     }
 
+    /**
+     * Send rearm for triggered states.
+     */
     private void sendRearmForTriggeredStates() {
         for (String instance : m_thresholdEvaluatorStates.keySet()) {
             for (ThresholdEvaluatorState state : m_thresholdEvaluatorStates.get(instance)) {
@@ -434,6 +455,7 @@ public final class ThresholdEntity implements Cloneable {
      * <p>
      * getThresholdEvaluators
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

@@ -44,14 +44,17 @@ import org.springframework.beans.factory.FactoryBean;
  */
 public class TicketerPluginFactory implements FactoryBean<Plugin> {
 
+    /** The m_plugin class. */
     private Class<? extends Plugin> m_pluginClass;
 
+    /** The m_ticketer plugin. */
     private Plugin m_ticketerPlugin;
 
     /**
      * <p>
      * setPluginClass
      * </p>
+     * .
      *
      * @param pluginClass
      *            a {@link java.lang.Class} object.
@@ -64,10 +67,11 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link org.opennms.api.integration.ticketing.Plugin} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public Plugin getObject() throws Exception {
@@ -89,6 +93,7 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -101,6 +106,7 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */

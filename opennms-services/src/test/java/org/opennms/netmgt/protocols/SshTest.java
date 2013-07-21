@@ -40,24 +40,37 @@ import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.protocols.ssh.Ssh;
 
 /**
+ * The Class SshTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  */
 public class SshTest extends TestCase {
+
+    /** The good. */
     InetAddress good;
 
+    /** The Constant bad. */
     private static final InetAddress bad = InetAddressUtils.UNPINGABLE_ADDRESS;
 
+    /** The Constant GOOD_HOST. */
     private static final String GOOD_HOST = "localhost";
 
+    /** The Constant PORT. */
     private static final int PORT = 22;
 
+    /** The Constant TIMEOUT. */
     private static final int TIMEOUT = 2000;
 
+    /** The tt. */
     private TimeoutTracker tt;
 
+    /** The ssh. */
     Ssh ssh;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
         Map<String, String> parameters = new HashMap<String, String>();
@@ -73,11 +86,23 @@ public class SshTest extends TestCase {
         good = InetAddressUtils.addr(GOOD_HOST);
     }
 
+    /**
+     * Test ssh good.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSshGood() throws Exception {
         ssh.setAddress(good);
         assertTrue(ssh.poll(tt).isAvailable());
     }
 
+    /**
+     * Test ssh bad.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSshBad() throws Exception {
         Date start = new Date();
         ssh.setAddress(bad);

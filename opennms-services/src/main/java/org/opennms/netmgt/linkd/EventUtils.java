@@ -32,7 +32,7 @@ import org.opennms.netmgt.xml.event.Event;
 
 /**
  * Provides a collection of utility methods used by Linkd Processor
- * for dealing with Events
+ * for dealing with Events.
  *
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  * @version $Id: $
@@ -40,12 +40,12 @@ import org.opennms.netmgt.xml.event.Event;
 public final class EventUtils {
 
     /**
-     * Ensures the given event has an interface or ifIndex
+     * Ensures the given event has an interface or ifIndex.
      *
      * @param e
      *            the event
-     * @throws org.opennms.netmgt.linkd.InsufficientInformationException
-     *             if neither an interface nor an ifIndex is available
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     public static void checkInterfaceOrIfIndex(Event e) throws InsufficientInformationException {
         if (e == null)
@@ -59,12 +59,12 @@ public final class EventUtils {
     }
 
     /**
-     * Ensures that the given Event has a node id
+     * Ensures that the given Event has a node id.
      *
      * @param e
      *            the event
-     * @throws org.opennms.netmgt.linkd.InsufficientInformationException
-     *             if a node id is not available
+     * @throws InsufficientInformationException
+     *             the insufficient information exception
      */
     public static void checkNodeId(Event e) throws InsufficientInformationException {
         if (e == null) {

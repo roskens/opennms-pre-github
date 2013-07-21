@@ -28,10 +28,20 @@
 
 package org.opennms.netmgt.collectd;
 
+/**
+ * The Class CollectionInitializationException.
+ */
 public class CollectionInitializationException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8181677826055143390L;
 
+    /**
+     * Instantiates a new collection initialization exception.
+     *
+     * @param string
+     *            the string
+     */
     public CollectionInitializationException(String string) {
         super(string);
     }

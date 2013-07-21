@@ -83,17 +83,30 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * The Class LatencyStoringServiceMonitorAdaptorTest.
+ */
 public class LatencyStoringServiceMonitorAdaptorTest {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig = m_mocks.createMock(PollerConfig.class);
 
     // Cannot avoid this warning since there is no way to fetch the class object
     // for an interface
     // that uses generics
+    /** The m_rrd strategy. */
     @SuppressWarnings("unchecked")
     private RrdStrategy<Object, Object> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -105,11 +118,23 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         PollOutagesConfigFactory.init();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void tearDown() throws Throwable {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test update rrd with locale that uses commas for decimals.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     @Test
     public void testUpdateRrdWithLocaleThatUsesCommasForDecimals() throws Exception {
@@ -144,6 +169,12 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         Locale.setDefault(defaultLocale);
     }
 
+    /**
+     * Test thresholds.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testThresholds() throws Exception {
         EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI,
@@ -160,6 +191,12 @@ public class LatencyStoringServiceMonitorAdaptorTest {
 
     // TODO: This test will fail if you have a default locale with >3 characters
     // for month, e.g. Locale.FRENCH
+    /**
+     * Test thresholds with scheduled outage.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testThresholdsWithScheduledOutage() throws Exception {
         DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
@@ -186,6 +223,14 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         anticipator.verifyAnticipated();
     }
 
+    /**
+     * Execute threshold test.
+     *
+     * @param anticipator
+     *            the anticipator
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     private void executeThresholdTest(EventAnticipator anticipator) throws Exception {
         System.setProperty("opennms.home", "src/test/resources");
@@ -256,6 +301,15 @@ public class LatencyStoringServiceMonitorAdaptorTest {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Checks if is a list.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @return the list
+     */
     @SuppressWarnings("unchecked")
     private static <T> List<T> isAList(Class<T> clazz) {
         return isA(List.class);

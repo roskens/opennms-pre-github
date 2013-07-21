@@ -46,10 +46,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class BroadcastEventProcessor.
+ *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson</a>
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     /**
@@ -57,6 +61,7 @@ final class BroadcastEventProcessor implements EventListener {
      */
     private final List<ThresholdableService> m_thresholdableServices;
 
+    /** The m_threshd. */
     private final Threshd m_threshd;
 
     /**
@@ -65,6 +70,8 @@ final class BroadcastEventProcessor implements EventListener {
      * the endpoint for broadcast events. When a new event arrives it is
      * processed and the appropriate action is taken.
      *
+     * @param threshd
+     *            the threshd
      * @param thresholdableServices
      *            List of all the ThresholdableService objects scheduled for
      *            thresholding.
@@ -82,7 +89,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
      */
     private void installMessageSelector() {
         // Create the JMS selector for the UEIs this service is interested in
@@ -144,8 +151,8 @@ final class BroadcastEventProcessor implements EventListener {
      * ensures that the <code>close</code> method is called <em>at least</em>
      * once during the cycle of this object.
      *
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void finalize() throws Throwable {
@@ -156,6 +163,7 @@ final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

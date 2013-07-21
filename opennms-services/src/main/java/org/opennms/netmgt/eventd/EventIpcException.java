@@ -41,6 +41,7 @@ package org.opennms.netmgt.eventd;
  */
 public final class EventIpcException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2603347979765739877L;
 
     /**

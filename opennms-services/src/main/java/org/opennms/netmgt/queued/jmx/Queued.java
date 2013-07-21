@@ -54,6 +54,11 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
         return "queuedContext";
     }
 
+    /**
+     * Gets the rrd strategy.
+     *
+     * @return the rrd strategy
+     */
     private QueuingRrdStrategy getRrdStrategy() {
         return (QueuingRrdStrategy) getDaemon().getRrdStrategy();
     }
@@ -62,6 +67,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getStatsStatus
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -77,6 +83,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getElapsedTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -89,6 +96,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getCreatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -105,6 +113,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getTotalOperationsPending
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -121,6 +130,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -137,6 +147,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getUpdatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -153,6 +164,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getPromotionCount
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -169,6 +181,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getDequeuedItems
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -185,6 +198,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getDequeuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -201,6 +215,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getEnqueuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -217,6 +232,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getSignificantOpsDequeued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -233,6 +249,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getSignificantOpsEnqueued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -249,6 +266,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getSignificantOpsCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -265,6 +283,7 @@ public class Queued extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */

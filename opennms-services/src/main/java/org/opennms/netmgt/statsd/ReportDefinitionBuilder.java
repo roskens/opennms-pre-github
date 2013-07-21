@@ -56,17 +56,20 @@ import org.springframework.util.Assert;
  */
 public class ReportDefinitionBuilder implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReportDefinitionBuilder.class);
 
+    /** The m_statsd config dao. */
     private StatisticsDaemonConfigDao m_statsdConfigDao;
 
     /**
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     public void reload() throws DataAccessResourceFailureException {
         m_statsdConfigDao.reloadConfiguration();
@@ -80,8 +83,8 @@ public class ReportDefinitionBuilder implements InitializingBean {
      *
      * @return a <code>Collection</code> of enabled reports from the
      *         statsd-configuration.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Collection<ReportDefinition> buildReportDefinitions() throws Exception {
         Set<ReportDefinition> reportDefinitions = new HashSet<ReportDefinition>();
@@ -128,6 +131,15 @@ public class ReportDefinitionBuilder implements InitializingBean {
         return reportDefinitions;
     }
 
+    /**
+     * Creates the class for report.
+     *
+     * @param report
+     *            the report
+     * @return the class<? extends attribute statistic visitor with results>
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     @SuppressWarnings("unchecked")
     private Class<? extends AttributeStatisticVisitorWithResults> createClassForReport(Report report)
             throws ClassNotFoundException {
@@ -138,6 +150,7 @@ public class ReportDefinitionBuilder implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -148,6 +161,7 @@ public class ReportDefinitionBuilder implements InitializingBean {
      * <p>
      * getStatsdConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao}
      *         object.
@@ -160,6 +174,7 @@ public class ReportDefinitionBuilder implements InitializingBean {
      * <p>
      * setStatsdConfigDao
      * </p>
+     * .
      *
      * @param statsdConfigDao
      *            a {@link org.opennms.netmgt.dao.api.StatisticsDaemonConfigDao}

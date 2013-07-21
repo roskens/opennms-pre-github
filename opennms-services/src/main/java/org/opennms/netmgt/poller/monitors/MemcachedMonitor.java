@@ -62,6 +62,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class MemcachedMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(MemcachedMonitor.class);
 
     /**
@@ -81,7 +82,8 @@ public final class MemcachedMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
                                                      // read()
 
-    private static final String[] m_keys = new String[] { "uptime", "rusageuser", "rusagesystem", "curritems",
+    /** The Constant m_keys. */
+                                                     private static final String[] m_keys = new String[] { "uptime", "rusageuser", "rusagesystem", "curritems",
             "totalitems", "bytes", "limitmaxbytes", "currconnections", "totalconnections", "connectionstructure",
             "cmdget", "cmdset", "gethits", "getmisses", "evictions", "bytesread", "byteswritten", "threads" };
 

@@ -36,10 +36,15 @@ import junit.framework.TestCase;
 import org.opennms.core.utils.TimeoutTracker;
 
 /**
+ * The Class TimeoutTrackerTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TimeoutTrackerTest extends TestCase {
 
+    /**
+     * Test should retry.
+     */
     public void testShouldRetry() {
 
         int retries = 2;
@@ -57,6 +62,9 @@ public class TimeoutTrackerTest extends TestCase {
         assertEquals("expected one try and 2 retries", 3, count);
     }
 
+    /**
+     * Test elapsed time but no start attempt.
+     */
     public void testElapsedTimeButNoStartAttempt() {
 
         Map<String, ?> emptyMap = Collections.emptyMap();
@@ -71,6 +79,12 @@ public class TimeoutTrackerTest extends TestCase {
 
     }
 
+    /**
+     * Test elapsed time.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public void testElapsedTime() throws InterruptedException {
 
         long sleepTime = 200L;

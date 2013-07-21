@@ -37,20 +37,24 @@ import org.opennms.netmgt.xml.event.Event;
  * An EventFilter is a filter of Events
  * An implementation of this interface is a class
  * where you have some criteria to decide if the Event
- * pass the filter or not
+ * pass the filter or not.
  *
  * @author antonio
  */
 public interface EventPolicyRule {
 
+    /** The m_filter. */
     List<EventMatch> m_filter = new ArrayList<EventMatch>();
 
+    /** The m_forwardes. */
     List<Boolean> m_forwardes = new ArrayList<Boolean>();
 
     /**
      * Method to decide if the event
-     * should be forwarder
+     * should be forwarder.
      *
+     * @param event
+     *            the event
      * @return event
      *         the filtered Event
      *         that can be null or
@@ -59,8 +63,20 @@ public interface EventPolicyRule {
 
     Event filter(Event event);
 
+    /**
+     * Adds the forward rule.
+     *
+     * @param eventMatch
+     *            the event match
+     */
     void addForwardRule(EventMatch eventMatch);
 
+    /**
+     * Adds the drop rule.
+     *
+     * @param eventMatch
+     *            the event match
+     */
     void addDropRule(EventMatch eventMatch);
 
 }

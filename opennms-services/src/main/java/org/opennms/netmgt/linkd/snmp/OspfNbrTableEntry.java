@@ -30,40 +30,60 @@ package org.opennms.netmgt.linkd.snmp;
 
 import java.net.InetAddress;
 
+/**
+ * The Class OspfNbrTableEntry.
+ */
 public class OspfNbrTableEntry extends SnmpStore {
 
+    /** The Constant OSPF_NBR_IPADDRESS_ALIAS. */
     public static final String OSPF_NBR_IPADDRESS_ALIAS = "ospfNbrIpAddr";
 
+    /** The Constant OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS. */
     public static final String OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS = "ospfNbrAddressLessIndex";
 
+    /** The Constant OSPF_NBR_ROUTERID_ALIAS. */
     public static final String OSPF_NBR_ROUTERID_ALIAS = "ospfNbrRtrId";
 
+    /** The Constant OSPF_NBR_STATE_ALIAS. */
     public static final String OSPF_NBR_STATE_ALIAS = "ospfNbrState";
 
+    /** The Constant OSPF_NBR_IPADDRESS_ALIAS_OID. */
     public static final String OSPF_NBR_IPADDRESS_ALIAS_OID = ".1.3.6.1.2.1.14.10.1.1";
 
+    /** The Constant OSPF_NBR_ADDRESS_LESS_INDEX_OID. */
     public static final String OSPF_NBR_ADDRESS_LESS_INDEX_OID = ".1.3.6.1.2.1.14.10.1.2";
 
+    /** The Constant OSPF_NBR_ROUTERID_OID. */
     public static final String OSPF_NBR_ROUTERID_OID = ".1.3.6.1.2.1.14.10.1.3";
 
+    /** The Constant OSPF_NBR_STATE_OID. */
     public static final String OSPF_NBR_STATE_OID = ".1.3.6.1.2.1.14.10.1.6";
 
+    /** The Constant OSPF_NBR_STATE_DOWN. */
     public static final Integer OSPF_NBR_STATE_DOWN = 1;
 
+    /** The Constant OSPF_NBR_STATE_ATTEMPT. */
     public static final Integer OSPF_NBR_STATE_ATTEMPT = 2;
 
+    /** The Constant OSPF_NBR_STATE_INIT. */
     public static final Integer OSPF_NBR_STATE_INIT = 3;
 
+    /** The Constant OSPF_NBR_STATE_TWOWAY. */
     public static final Integer OSPF_NBR_STATE_TWOWAY = 4;
 
+    /** The Constant OSPF_NBR_STATE_EXCHANGESTART. */
     public static final Integer OSPF_NBR_STATE_EXCHANGESTART = 5;
 
+    /** The Constant OSPF_NBR_STATE_EXCHANGE. */
     public static final Integer OSPF_NBR_STATE_EXCHANGE = 6;
 
+    /** The Constant OSPF_NBR_STATE_LOADING. */
     public static final Integer OSPF_NBR_STATE_LOADING = 7;
 
+    /** The Constant OSPF_NBR_STATE_FULL. */
     public static final Integer OSPF_NBR_STATE_FULL = 8;
 
+    /** The Constant ospfnbrtable_elemList. */
     public static final NamedSnmpVar[] ospfnbrtable_elemList = new NamedSnmpVar[] {
 
     /**
@@ -104,26 +124,54 @@ public class OspfNbrTableEntry extends SnmpStore {
 
     };
 
+    /** The Constant TABLE_OID. */
     public static final String TABLE_OID = ".1.3.6.1.2.1.14.7.1"; // start of
                                                                   // table
                                                                   // (GETNEXT)
 
-    public OspfNbrTableEntry() {
+    /**
+                                                                     * Instantiates
+                                                                     * a new
+                                                                     * ospf nbr
+                                                                     * table
+                                                                     * entry.
+                                                                     */
+                                                                  public OspfNbrTableEntry() {
         super(ospfnbrtable_elemList);
     }
 
+    /**
+     * Gets the ospf nbr ip address.
+     *
+     * @return the ospf nbr ip address
+     */
     public InetAddress getOspfNbrIpAddress() {
         return getIPAddress(OSPF_NBR_IPADDRESS_ALIAS);
     }
 
+    /**
+     * Gets the ospf nbr router id.
+     *
+     * @return the ospf nbr router id
+     */
     public InetAddress getOspfNbrRouterId() {
         return getIPAddress(OSPF_NBR_ROUTERID_ALIAS);
     }
 
+    /**
+     * Gets the ospf nbr address less index.
+     *
+     * @return the ospf nbr address less index
+     */
     public Integer getOspfNbrAddressLessIndex() {
         return getInt32(OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS);
     }
 
+    /**
+     * Gets the ospf nbr state.
+     *
+     * @return the ospf nbr state
+     */
     public Integer getOspfNbrState() {
         return getInt32(OSPF_NBR_STATE_ALIAS);
     }

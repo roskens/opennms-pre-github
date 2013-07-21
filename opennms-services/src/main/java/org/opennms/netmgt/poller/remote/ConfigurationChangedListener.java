@@ -45,6 +45,7 @@ public interface ConfigurationChangedListener extends EventListener {
      * <p>
      * configurationChanged
      * </p>
+     * .
      *
      * @param e
      *            a {@link java.beans.PropertyChangeEvent} object.

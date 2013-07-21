@@ -40,15 +40,28 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+/**
+ * The Class SyslogRegexTest.
+ */
 @RunWith(Parameterized.class)
 public class SyslogRegexTest {
 
+    /** The m_count. */
     private final int m_count = 1000000;
 
+    /** The m_match pattern. */
     private String m_matchPattern;
 
+    /** The m_log message. */
     private String m_logMessage;
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
@@ -63,12 +76,23 @@ public class SyslogRegexTest {
                 { "1997", "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1" } });
     }
 
+    /**
+     * Instantiates a new syslog regex test.
+     *
+     * @param matchPattern
+     *            the match pattern
+     * @param logMessage
+     *            the log message
+     */
     public SyslogRegexTest(final String matchPattern, final String logMessage) {
         m_matchPattern = matchPattern;
         m_logMessage = logMessage;
         System.err.println("=== " + m_matchPattern + " ===");
     }
 
+    /**
+     * Test regex.
+     */
     @Test
     @Ignore
     public void testRegex() {
@@ -77,6 +101,14 @@ public class SyslogRegexTest {
         tryPattern(logMessage, matchPattern);
     }
 
+    /**
+     * Try pattern.
+     *
+     * @param logMessage
+     *            the log message
+     * @param matchPattern
+     *            the match pattern
+     */
     private void tryPattern(String logMessage, String matchPattern) {
         Pattern pattern = Pattern.compile(matchPattern, Pattern.MULTILINE);
         long start, end;
@@ -133,6 +165,16 @@ public class SyslogRegexTest {
         printSpeed("find (^.* at beginning, .*$ at end) = " + matches, start, end);
     }
 
+    /**
+     * Prints the speed.
+     *
+     * @param message
+     *            the message
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     */
     private void printSpeed(final String message, long start, long end) {
         System.err.println(String.format("%s: total time: %d, number per second: %8.4f", message, (end - start),
                                          (m_count * 1000.0 / (end - start))));

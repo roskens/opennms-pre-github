@@ -45,8 +45,14 @@ import org.opennms.netmgt.snmp.SnmpResult;
 import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 
+/**
+ * The Class RescanProcessorTest.
+ */
 public class RescanProcessorTest extends TestCase {
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() {
         MockLogAppender.setupLogging();
@@ -72,6 +78,12 @@ public class RescanProcessorTest extends TestCase {
         assertEquals("DbSnmpInterfaceEntry ifSpeed value", 0, dbSnmpInterfaceEntry.getSpeed());
     }
 
+    /**
+     * Test scannable interface.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testScannableInterface() throws UnknownHostException {
         InetAddress ifaddr1 = InetAddressUtils.addr("127.0.0.1");
         DbIpInterfaceEntry[] dbInterfaces = new DbIpInterfaceEntry[1];

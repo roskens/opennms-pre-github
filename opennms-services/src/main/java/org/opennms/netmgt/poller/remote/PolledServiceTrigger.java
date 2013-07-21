@@ -40,8 +40,10 @@ import org.springframework.scheduling.quartz.SimpleTriggerBean;
  */
 public class PolledServiceTrigger extends SimpleTriggerBean {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3224274965842979439L;
 
+    /** The m_polled service. */
     private PolledService m_polledService;
 
     /**
@@ -52,8 +54,8 @@ public class PolledServiceTrigger extends SimpleTriggerBean {
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
      *            object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public PolledServiceTrigger(PolledService polledService) throws Exception {
         super();

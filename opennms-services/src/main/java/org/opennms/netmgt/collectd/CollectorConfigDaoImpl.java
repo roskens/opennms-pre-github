@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CollectorConfigDaoImpl implements CollectorConfigDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectorConfigDaoImpl.class);
 
     /**
@@ -65,6 +66,9 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
 
     }
 
+    /**
+     * Load config factory.
+     */
     private void loadConfigFactory() {
         // Load collectd configuration file
         try {
@@ -82,6 +86,11 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
         }
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     private CollectdConfig getConfig() {
         return CollectdConfigFactory.getInstance().getCollectdConfig();
     }
@@ -90,6 +99,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
      * <p>
      * getSchedulerThreads
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -102,6 +112,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
      * <p>
      * getCollectors
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -114,6 +125,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
      * <p>
      * rebuildPackageIpListMap
      * </p>
+     * .
      */
     @Override
     public void rebuildPackageIpListMap() {
@@ -124,6 +136,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
      * <p>
      * getPackages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

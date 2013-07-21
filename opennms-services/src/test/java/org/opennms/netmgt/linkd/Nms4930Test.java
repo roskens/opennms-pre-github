@@ -60,6 +60,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms4930Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -73,25 +76,39 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // MockLogAppender.setupLogging(true);
@@ -109,6 +126,12 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -118,6 +141,12 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -134,6 +163,12 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
      * Also there is no At interface information
      * c2007db90010 --> 10.1.1.2 ---nothing in the bridge forwarding table...
      * no way to get links...
+     */
+    /**
+     * Test nms4930 network.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {

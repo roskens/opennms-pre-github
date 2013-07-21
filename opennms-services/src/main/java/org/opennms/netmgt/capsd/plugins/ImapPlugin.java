@@ -57,34 +57,22 @@ public final class ImapPlugin extends AbstractTcpPlugin {
      */
     private static final int DEFAULT_PORT = 143;
 
-    /**
-     * Default number of retries for IMAP requests
-     */
+    /** Default number of retries for IMAP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for IMAP requests
-     */
+    /** Default timeout (in milliseconds) for IMAP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
-    /**
-     * The BYE response received from the server in response to the logout
-     */
+    /** The BYE response received from the server in response to the logout. */
     private static String IMAP_BYE_RESPONSE_PREFIX = "* BYE ";
 
-    /**
-     * The LOGOUT request sent to the server to close the connection
-     */
+    /** The LOGOUT request sent to the server to close the connection. */
     private static String IMAP_LOGOUT_REQUEST = "ONMSCAPSD LOGOUT\r\n";
 
-    /**
-     * The LOGOUT response received from the server in response to the logout
-     */
+    /** The LOGOUT response received from the server in response to the logout. */
     private static String IMAP_LOGOUT_RESPONSE_PREFIX = "ONMSCAPSD OK ";
 
-    /**
-     * The start of the initial banner received from the server
-     */
+    /** The start of the initial banner received from the server. */
     private static String IMAP_START_RESPONSE_PREFIX = "* OK ";
 
     /**

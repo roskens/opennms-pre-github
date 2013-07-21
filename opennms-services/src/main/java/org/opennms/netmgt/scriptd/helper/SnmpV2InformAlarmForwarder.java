@@ -32,13 +32,35 @@ import java.net.UnknownHostException;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class SnmpV2InformAlarmForwarder.
+ */
 public class SnmpV2InformAlarmForwarder extends SnmpTrapForwarderHelper implements EventForwarder {
 
+    /**
+     * Instantiates a new snmp v2 inform alarm forwarder.
+     *
+     * @param ip
+     *            the ip
+     * @param port
+     *            the port
+     * @param community
+     *            the community
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param snmpTrapHelper
+     *            the snmp trap helper
+     */
     public SnmpV2InformAlarmForwarder(String ip, int port, String community, int timeout, int retries,
             SnmpTrapHelper snmpTrapHelper) {
         super(ip, port, community, timeout, retries, snmpTrapHelper);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushEvent(Event event) {
         event = super.filter(event);
@@ -53,6 +75,9 @@ public class SnmpV2InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#flushSyncEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public void flushSyncEvent(Event event) {
         event = super.filter(event);
@@ -67,11 +92,17 @@ public class SnmpV2InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendStartSync()
+     */
     @Override
     public void sendStartSync() {
         super.sendV2StartSyncInform();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#sendEndSync()
+     */
     @Override
     public void sendEndSync() {
         super.sendV2EndSyncInform();

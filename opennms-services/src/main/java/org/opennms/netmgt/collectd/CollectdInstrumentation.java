@@ -42,6 +42,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginScheduleExistingInterfaces
      * </p>
+     * .
      */
     public void beginScheduleExistingInterfaces();
 
@@ -49,6 +50,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endScheduleExistingInterfaces
      * </p>
+     * .
      */
     public void endScheduleExistingInterfaces();
 
@@ -56,6 +58,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginScheduleInterfacesWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -66,6 +69,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endScheduleInterfacesWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -76,6 +80,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginFindInterfacesWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -86,6 +91,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endFindInterfacesWithService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -98,6 +104,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginScheduleInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -112,6 +119,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endScheduleInterface
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -126,6 +134,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginCollectorInitialize
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -140,6 +149,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endCollectorInitialize
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -154,6 +164,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginCollectorRelease
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -168,6 +179,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endCollectorRelease
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -182,6 +194,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginCollectorCollect
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -196,6 +209,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endCollectorCollect
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -210,6 +224,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginCollectingServiceData
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -224,6 +239,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endCollectingServiceData
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -238,6 +254,7 @@ public interface CollectdInstrumentation {
      * <p>
      * beginPersistingServiceData
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -252,6 +269,7 @@ public interface CollectdInstrumentation {
      * <p>
      * endPersistingServiceData
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -266,6 +284,7 @@ public interface CollectdInstrumentation {
      * <p>
      * reportCollectionException
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.

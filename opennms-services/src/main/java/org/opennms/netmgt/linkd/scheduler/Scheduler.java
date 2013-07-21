@@ -46,6 +46,8 @@ import org.slf4j.LoggerFactory;
  * to the load until a maximum thread count is reached.
  */
 public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Scheduler.class);
 
     /**
@@ -79,8 +81,12 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
     /**
      * This queue extends the standard FIFO queue instance so that it is
      * possible to peek at an instance without removing it from the queue.
+     *
+     * @param <T>
+     *            the generic type
      */
     public static final class PeekableFifoQueue<T> extends FifoQueueImpl<T> {
+
         /**
          * This method allows the caller to peek at the next object that would
          * be returned on a <code>remove</code> call. If the queue is
@@ -89,11 +95,8 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
          *
          * @return The object that would be returned on the next call to
          *         <code>remove</code>.
-         * @throws java.lang.InterruptedException
-         *             Thrown if the thread is interrupted.
-         * @throws org.opennms.core.queue.FifoQueueException
-         *             Thrown if an error occurs removing an item from the
-         *             queue.
+         * @throws InterruptedException
+         *             the interrupted exception
          */
         public T peek() throws InterruptedException {
             return m_delegate.peek();
@@ -151,8 +154,6 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      *            The element to run when interval expires.
      * @param interval
      *            The queue to add the runnable to.
-     * @throws java.lang.RuntimeException
-     *             Thrown if an error occurs adding the element to the queue.
      */
     public synchronized void schedule(ReadyRunnable runnable, long interval) {
         LOG.debug("schedule: Adding ready runnable at interval {}", interval);
@@ -276,10 +277,10 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      * interval is used as the key for determining which queue to remove the
      * runnable.
      *
-     * @param interval
-     *            The queue to add the runnable to.
      * @param runnable
      *            The element to remove.
+     * @param interval
+     *            The queue to add the runnable to.
      */
     public synchronized void unschedule(ReadyRunnable runnable, long interval) {
         LOG.debug("unschedule: Removing {} at interval {}", runnable.getInfo(), interval);
@@ -356,6 +357,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
      * <p>
      * getReadyRunnable
      * </p>
+     * .
      *
      * @param runnable
      *            a {@link org.opennms.netmgt.linkd.scheduler.ReadyRunnable}
@@ -411,7 +413,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
     }
 
     /**
-     * This returns the current time for the scheduler
+     * This returns the current time for the scheduler.
      *
      * @return a long.
      */
@@ -422,9 +424,6 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 
     /**
      * Starts the fiber.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is already running.
      */
     @Override
     public synchronized void start() {
@@ -441,9 +440,6 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
     /**
      * Stops the fiber. If the fiber has never been run then an exception is
      * generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the fiber has never been started.
      */
     @Override
     public synchronized void stop() {
@@ -460,10 +456,6 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
     /**
      * Pauses the scheduler if it is current running. If the fiber has not been
      * run or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the operation could not be completed due to the
-     *             fiber's state.
      */
     @Override
     public synchronized void pause() {
@@ -483,10 +475,6 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
     /**
      * Resumes the scheduler if it has been paused. If the fiber has not been
      * run or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Throws if the operation could not be completed due to the
-     *             fiber's state.
      */
     @Override
     public synchronized void resume() {

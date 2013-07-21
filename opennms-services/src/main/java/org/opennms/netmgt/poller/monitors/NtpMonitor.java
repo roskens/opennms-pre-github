@@ -62,6 +62,8 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class NtpMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NtpMonitor.class);
 
     /**

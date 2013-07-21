@@ -47,14 +47,19 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, InitializingBean, DisposableBean {
 
+    /** The m_web server. */
     private WebServer m_webServer;
 
+    /** The m_port. */
     private int m_port = -1;
 
+    /** The m_address. */
     private InetAddress m_address = null;
 
+    /** The m_xml rpc server. */
     private XmlRpcServer m_xmlRpcServer = null;
 
+    /** The m_secure. */
     private boolean m_secure = false;
 
     /**
@@ -153,10 +158,11 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public WebServer getObject() throws Exception {
@@ -167,6 +173,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -179,6 +186,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -191,9 +199,10 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -215,9 +224,10 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>, Initi
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {

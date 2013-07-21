@@ -31,6 +31,7 @@ import org.apache.xmlrpc.XmlRpcTransport;
  */
 public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportFactory {
     // Default properties for new http transports
+    /** The timeout. */
     protected int timeout = 0;
 
     /**
@@ -51,13 +52,13 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
     /**
      * Contructor taking a Base64 encoded Basic Authentication string.
      *
-     * @deprecated use setBasicAuthentication method instead
      * @param url
      *            a {@link java.net.URL} object.
      * @param auth
      *            a {@link java.lang.String} object.
      * @param timeout
      *            a int.
+     * @deprecated use setBasicAuthentication method instead
      */
     public TimeoutSecureXmlRpcTransportFactory(final URL url, final String auth, final int timeout) {
         this(url, timeout);
@@ -68,10 +69,11 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
      * <p>
      * createTransport
      * </p>
+     * .
      *
      * @return a {@link org.apache.xmlrpc.XmlRpcTransport} object.
-     * @throws org.apache.xmlrpc.XmlRpcClientException
-     *             if any.
+     * @throws XmlRpcClientException
+     *             the xml rpc client exception
      */
     @SuppressWarnings("deprecation")
     @Override

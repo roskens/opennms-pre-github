@@ -54,11 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Notifd.class);
 
-    /**
-     * Logging category for log4j
-     */
+    /** Logging category for log4j. */
     private static String LOG4J_CATEGORY = "notifd";
 
     /**
@@ -74,6 +73,7 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -148,6 +148,8 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
     }
 
     /**
+     * Gets the notifd.
+     *
      * @return Notifd instance
      */
     private org.opennms.netmgt.notifd.Notifd getNotifd() {
@@ -158,6 +160,7 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -168,6 +171,7 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {

@@ -49,8 +49,14 @@ import org.opennms.netmgt.mock.MockService;
 import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class BroadcastEventProcessorTest.
+ */
 public class BroadcastEventProcessorTest extends NotificationsTestCase {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -59,6 +65,9 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
         m_anticipator.setExpectedDifference(3000);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
@@ -67,8 +76,11 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
 
     /**
      * Test calling expandNotifParms to see if the regular expression in
-     * m_notifdExpandRE is initialized from
-     * {@link BroadcastEventProcessor.NOTIFD_EXPANSION_PARM}.
+     * m_notifdExpandRE is initialized from.
+     *
+     * @throws Exception
+     *             the exception
+     *             {@link BroadcastEventProcessor.NOTIFD_EXPANSION_PARM}.
      */
     @Test
     public void testExpandNotifParms() throws Exception {
@@ -152,8 +164,10 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
     /**
      * Trip a notification and see if the %noticeid% token gets expanded to a
      * numeric
-     * value in the subject and text message
+     * value in the subject and text message.
      *
+     * @throws Exception
+     *             the exception
      * @author Jeff Gehlbach <jeffg@jeffg.org>
      */
     @Test

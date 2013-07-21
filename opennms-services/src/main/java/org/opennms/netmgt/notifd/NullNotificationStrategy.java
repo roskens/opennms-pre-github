@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NullNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NullNotificationStrategy.class);
 
     /**

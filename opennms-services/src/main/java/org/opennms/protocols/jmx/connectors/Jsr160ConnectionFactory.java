@@ -51,10 +51,23 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
+/**
+ * A factory for creating Jsr160Connection objects.
+ */
 public class Jsr160ConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Jsr160ConnectionFactory.class);
 
+    /**
+     * Gets the m bean server connection.
+     *
+     * @param propertiesMap
+     *            the properties map
+     * @param address
+     *            the address
+     * @return the m bean server connection
+     */
     public static Jsr160ConnectionWrapper getMBeanServerConnection(Map<String, ?> propertiesMap, InetAddress address) {
         Jsr160ConnectionWrapper connectionWrapper = null;
         JMXServiceURL url = null;

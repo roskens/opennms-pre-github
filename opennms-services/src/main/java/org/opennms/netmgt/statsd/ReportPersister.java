@@ -37,10 +37,12 @@ package org.opennms.netmgt.statsd;
  * @version $Id: $
  */
 public interface ReportPersister {
+
     /**
      * <p>
      * persist
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.statsd.ReportInstance} object.

@@ -47,27 +47,37 @@ import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
 /**
- * DNSResolutionMonitor
+ * DNSResolutionMonitor.
  *
  * @author brozow
  */
 @Distributable
 public class DNSResolutionMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(DNSResolutionMonitor.class);
 
+    /** The Constant RESOLUTION_TYPE_PARM. */
     public static final String RESOLUTION_TYPE_PARM = "resolution-type";
 
+    /** The Constant RT_V4. */
     public static final String RT_V4 = "v4";
 
+    /** The Constant RT_V6. */
     public static final String RT_V6 = "v6";
 
+    /** The Constant RT_BOTH. */
     public static final String RT_BOTH = "both";
 
+    /** The Constant RT_EITHER. */
     public static final String RT_EITHER = "either";
 
+    /** The Constant RESOLUTION_TYPE_DEFAULT. */
     public static final String RESOLUTION_TYPE_DEFAULT = RT_EITHER;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.monitors.AbstractServiceMonitor#poll(org.opennms.netmgt.poller.MonitoredService, java.util.Map)
+     */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
 
@@ -119,6 +129,15 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
 
     }
 
+    /**
+     * Resolve.
+     *
+     * @param hostname
+     *            the hostname
+     * @return the inet address[]
+     * @throws TextParseException
+     *             the text parse exception
+     */
     InetAddress[] resolve(String hostname) throws TextParseException {
         Record[] aaaaRecords = new Lookup(hostname, Type.AAAA).run();
         Record[] aRecords = new Lookup(hostname, Type.A).run();

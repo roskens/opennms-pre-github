@@ -63,22 +63,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JMXCollectorTest.
+ *
  * @author Markus Neumann <Markus@OpenNMS.org>
  */
 public class JMXCollectorTest {
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(JMXCollectorTest.class);
 
+    /** The jmx collector. */
     private JMXCollector jmxCollector;
 
+    /** The platform m bean server. */
     private MBeanServer platformMBeanServer;
 
+    /** The collection agent. */
     private CollectionAgent collectionAgent;
 
+    /** The jmx node info. */
     private JMXNodeInfo jmxNodeInfo;
 
+    /** The jmx config factory. */
     private JMXDataCollectionConfigFactory jmxConfigFactory;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         jmxNodeInfo = new JMXNodeInfo(0);
@@ -102,6 +116,12 @@ public class JMXCollectorTest {
         JMXDataCollectionConfigFactory.setInstance(jmxConfigFactory);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         jmxNodeInfo = null;
@@ -141,6 +161,9 @@ public class JMXCollectorTest {
         assertEquals("Collection of two dummy values run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Collect single mbean with single attribute.
+     */
     @Test
     public void collectSingleMbeanWithSingleAttribute() {
         String collectionName = "collectSingleMbeanWithSingleAttribute";
@@ -161,7 +184,7 @@ public class JMXCollectorTest {
     }
 
     /**
-     * Single attributes not provided by the agent will be ignored
+     * Single attributes not provided by the agent will be ignored.
      */
     @Test
     public void collectSingleMbeanWithOneNotAvailableAttribute() {
@@ -181,6 +204,10 @@ public class JMXCollectorTest {
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Collect single mbean with one not available attributes and one available
+     * attributes.
+     */
     @Test
     public void collectSingleMbeanWithOneNotAvailableAttributesAndOneAvailableAttributes() {
         String collectionName = "collectSingleMbeanWithOneNotAvailableAttributesAndOneAvailableAttributes";
@@ -199,6 +226,10 @@ public class JMXCollectorTest {
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Collect single mbean with many not available attributes and many
+     * available attributes.
+     */
     @Test
     public void collectSingleMbeanWithManyNotAvailableAttributesAndManyAvailableAttributes() {
         String collectionName = "collectSingleMbeanWithManyNotAvailableAttributesAndManyAvailableAttributes";
@@ -217,6 +248,9 @@ public class JMXCollectorTest {
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Collect single mbean with one comp attrib with all its comp members.
+     */
     @Test
     public void collectSingleMbeanWithOneCompAttribWithAllItsCompMembers() {
         String collectionName = "collectSingleMbeanWithOneCompAttribWithAllItsCompMembers";
@@ -234,6 +268,9 @@ public class JMXCollectorTest {
         assertEquals("Collection: " + collectionName + " run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Collect single mbean with one comp attrib with one ignored comp members.
+     */
     @Test
     public void collectSingleMbeanWithOneCompAttribWithOneIgnoredCompMembers() {
         String collectionName = "collectSingleMbeanWithOneCompAttribWithOneIgnoredCompMembers";
@@ -252,7 +289,7 @@ public class JMXCollectorTest {
     }
 
     /**
-     * Check if CompositeAttributes will be collected
+     * Check if CompositeAttributes will be collected.
      */
     @Test
     public void collectJvmDefaultComposites() {
@@ -282,10 +319,23 @@ public class JMXCollectorTest {
         assertEquals("Collection of one Jvm default value run successfully", 1, collectionSet.getStatus());
     }
 
+    /**
+     * Generate data source map.
+     *
+     * @param attributeMap
+     *            the attribute map
+     * @return the map
+     */
     private Map<String, JMXDataSource> generateDataSourceMap(Map<String, List<Attrib>> attributeMap) {
         return jmxCollector.buildDataSourceList("foo", attributeMap);
     }
 
+    /**
+     * Prints the debug attribute group.
+     *
+     * @param group
+     *            the group
+     */
     private void printDebugAttributeGroup(AttributeGroup group) {
         for (CollectionAttribute collectionAttribute : group.getAttributes()) {
             logger.debug("Attribute Type   '{}'", collectionAttribute.getAttributeType());
@@ -295,8 +345,14 @@ public class JMXCollectorTest {
         }
     }
 
+    /**
+     * The Class JMXCollectorImpl.
+     */
     public class JMXCollectorImpl extends JMXCollector {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.JMXCollector#getMBeanServerConnection(java.util.Map, java.net.InetAddress)
+         */
         @Override
         public ConnectionWrapper getMBeanServerConnection(Map<String, Object> map, InetAddress address) {
             return new ConnectionWrapper() {

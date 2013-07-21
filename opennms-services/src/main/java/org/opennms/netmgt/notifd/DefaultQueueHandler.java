@@ -47,6 +47,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 public class DefaultQueueHandler implements NotifdQueueHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultQueueHandler.class);
 
     /**
@@ -54,14 +56,10 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      */
     private NoticeQueue m_noticeQueue;
 
-    /**
-     * The name of this Fiber
-     */
+    /** The name of this Fiber. */
     private String m_queueID;
 
-    /**
-     * How long to sleep between processing more notices
-     */
+    /** How long to sleep between processing more notices. */
     private long m_interval;
 
     /**
@@ -157,6 +155,7 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      * <p>
      * processQueue
      * </p>
+     * .
      */
     @Override
     public void processQueue() {
@@ -184,6 +183,12 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
         }
     }
 
+    /**
+     * Start task.
+     *
+     * @param task
+     *            the task
+     */
     private void startTask(final NotificationTask task) {
         if (!task.isStarted())
             task.start();
@@ -196,9 +201,6 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      * RUNNING</code> when the fiber finishes initializing and begins processing
      * the
      * encapsulated queue.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void start() {
@@ -212,9 +214,6 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      * Stops a currently running fiber. If the fiber has already been stopped
      * then the command is silently ignored. If the fiber was never started then
      * an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber was never started.
      */
     @Override
     public synchronized void stop() {
@@ -228,9 +227,6 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      * Pauses a currently running fiber. If the fiber was not in a running or
      * resuming state then the command is silently discarded. If the fiber is
      * not running or has terminated then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void pause() {
@@ -244,9 +240,6 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
      * Resumes the fiber if it is paused. If the fiber was not in a paused or
      * pause pending state then the request is discarded. If the fiber has not
      * been started or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void resume() {

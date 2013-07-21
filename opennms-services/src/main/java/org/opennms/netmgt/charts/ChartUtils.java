@@ -81,6 +81,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ChartUtils {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ChartUtils.class);
 
     /**
@@ -116,14 +117,14 @@ public abstract class ChartUtils {
      * @param chartName
      *            Name specified in chart-configuration.xml
      * @return <code>JFreeChart</code> constructed from the chartName
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static JFreeChart getBarChart(String chartName) throws MarshalException, ValidationException, IOException,
             SQLException {
@@ -153,9 +154,12 @@ public abstract class ChartUtils {
     }
 
     /**
+     * Adds the sub labels.
+     *
      * @param barChart
      *            TODO
      * @param subLabelClass
+     *            the sub label class
      */
     private static void addSubLabels(JFreeChart barChart, String subLabelClass) {
         ExtendedCategoryAxis subLabels;
@@ -177,9 +181,12 @@ public abstract class ChartUtils {
     }
 
     /**
+     * Customize series.
+     *
      * @param barChart
      *            TODO
      * @param chartConfig
+     *            the chart config
      */
     private static void customizeSeries(JFreeChart barChart, BarChart chartConfig) {
 
@@ -221,8 +228,12 @@ public abstract class ChartUtils {
     }
 
     /**
+     * Adds the sub titles.
+     *
      * @param chartConfig
+     *            the chart config
      * @param barChart
+     *            the bar chart
      */
     private static void addSubTitles(BarChart chartConfig, JFreeChart barChart) {
         Iterator<SubTitle> it;
@@ -238,9 +249,13 @@ public abstract class ChartUtils {
     }
 
     /**
+     * Creates the bar chart.
+     *
      * @param chartConfig
+     *            the chart config
      * @param baseDataSet
-     * @return
+     *            the base data set
+     * @return the j free chart
      */
     private static JFreeChart createBarChart(BarChart chartConfig, DefaultCategoryDataset baseDataSet) {
         PlotOrientation po = (chartConfig.getPlotOrientation() == "horizontal" ? PlotOrientation.HORIZONTAL
@@ -269,9 +284,13 @@ public abstract class ChartUtils {
     }
 
     /**
+     * Builds the category data set.
+     *
      * @param chartConfig
-     * @param baseDataSet
+     *            the chart config
+     * @return the default category dataset
      * @throws SQLException
+     *             the sQL exception
      */
     private static DefaultCategoryDataset buildCategoryDataSet(BarChart chartConfig) throws SQLException {
         DefaultCategoryDataset baseDataSet = new DefaultCategoryDataset();
@@ -310,14 +329,15 @@ public abstract class ChartUtils {
      *            a {@link java.lang.String} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @return the bar chart
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void getBarChart(String chartName, OutputStream out) throws MarshalException, ValidationException,
             IOException, SQLException {
@@ -347,14 +367,15 @@ public abstract class ChartUtils {
      *            a {@link java.lang.String} object.
      * @param out
      *            a {@link java.io.OutputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @return the bar chart png
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static void getBarChartPNG(String chartName, OutputStream out) throws MarshalException, ValidationException,
             IOException, SQLException {
@@ -384,6 +405,14 @@ public abstract class ChartUtils {
 
     }
 
+    /**
+     * Sets the plot background color.
+     *
+     * @param chartConfig
+     *            the chart config
+     * @param chart
+     *            the chart
+     */
     private static void setPlotBackgroundColor(BarChart chartConfig, JFreeChart chart) {
         Red red = chartConfig.getPlotBackgroundColor().getRgb().getRed();
         Blue blue = chartConfig.getPlotBackgroundColor().getRgb().getBlue();
@@ -392,6 +421,14 @@ public abstract class ChartUtils {
         chart.getPlot().setBackgroundPaint(new Color(red.getRgbColor(), green.getRgbColor(), blue.getRgbColor()));
     }
 
+    /**
+     * Sets the chart background color.
+     *
+     * @param chartConfig
+     *            the chart config
+     * @param chart
+     *            the chart
+     */
     private static void setChartBackgroundColor(BarChart chartConfig, JFreeChart chart) {
         Red red = chartConfig.getChartBackgroundColor().getRgb().getRed();
         Blue blue = chartConfig.getChartBackgroundColor().getRgb().getBlue();
@@ -405,14 +442,14 @@ public abstract class ChartUtils {
      * @param chartName
      *            a {@link java.lang.String} object.
      * @return a byte array
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static byte[] getBarChartAsPNGByteArray(String chartName) throws MarshalException, ValidationException,
             IOException, SQLException {
@@ -438,14 +475,14 @@ public abstract class ChartUtils {
      * @param chartName
      *            a {@link java.lang.String} object.
      * @return a <code>BufferedImage</code>
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
      */
     public static BufferedImage getChartAsBufferedImage(String chartName) throws MarshalException, ValidationException,
             IOException, SQLException {
@@ -468,17 +505,17 @@ public abstract class ChartUtils {
     }
 
     /**
-     * Helper method used to retrieve the XML defined BarChart (castor class)
+     * Helper method used to retrieve the XML defined BarChart (castor class).
      *
      * @param chartName
      *            a {@link java.lang.String} object.
      * @return a derived Castor class: BarChart
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static BarChart getBarChartConfigByName(String chartName) throws MarshalException, ValidationException,
             IOException {
@@ -493,15 +530,15 @@ public abstract class ChartUtils {
     }
 
     /**
-     * Helper method used to fetch an Iterator for all defined Charts
+     * Helper method used to fetch an Iterator for all defined Charts.
      *
      * @return <code>BarChart</code> Iterator
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static Iterator<BarChart> getChartCollectionIterator() throws IOException, MarshalException,
             ValidationException {

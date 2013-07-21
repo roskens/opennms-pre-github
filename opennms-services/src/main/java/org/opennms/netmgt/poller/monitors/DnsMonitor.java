@@ -68,6 +68,8 @@ import org.xbill.DNS.Type;
  */
 @Distributable
 public final class DnsMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DnsMonitor.class);
 
     /**
@@ -161,6 +163,21 @@ public final class DnsMonitor extends AbstractServiceMonitor {
         return serviceStatus;
     }
 
+    /**
+     * Poll dns.
+     *
+     * @param timeoutTracker
+     *            the timeout tracker
+     * @param port
+     *            the port
+     * @param address
+     *            the address
+     * @param lookup
+     *            the lookup
+     * @param fatalCodes
+     *            the fatal codes
+     * @return the poll status
+     */
     private PollStatus pollDNS(final TimeoutTracker timeoutTracker, final int port, final InetAddress address,
             final String lookup, final List<Integer> fatalCodes) {
         final String addr = InetAddressUtils.str(address);

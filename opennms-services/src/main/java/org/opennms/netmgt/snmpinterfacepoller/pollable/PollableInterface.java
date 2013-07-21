@@ -41,33 +41,35 @@ import org.opennms.netmgt.config.SnmpPeerFactory;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
- * Represents an SNMP PollableInterface
+ * Represents an SNMP PollableInterface.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class PollableInterface {
 
+    /** The m_nodeid. */
     private int m_nodeid;
 
+    /** The m_ipaddress. */
     private String m_ipaddress;
 
+    /** The m_parent. */
     private PollableNetwork m_parent;
 
+    /** The m_pollablesnmpinterface. */
     private HashMap<String, PollableSnmpInterface> m_pollablesnmpinterface;
 
+    /** The m_package name. */
     private String m_packageName;
 
+    /** The polling. */
     private boolean polling = true;
 
     /**
      * <P>
      * Initialize the service monitor.
      * </P>
-     *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                plug-in from functioning.
      */
     protected void initialize() {
         // Initialize the SnmpPeerFactory
@@ -85,6 +87,7 @@ public class PollableInterface {
      * <p>
      * getNodeid
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +99,7 @@ public class PollableInterface {
      * <p>
      * setNodeid
      * </p>
+     * .
      *
      * @param nodeid
      *            a int.
@@ -108,6 +112,7 @@ public class PollableInterface {
      * <p>
      * getIpaddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +124,7 @@ public class PollableInterface {
      * <p>
      * setIpaddress
      * </p>
+     * .
      *
      * @param ipaddress
      *            a {@link java.lang.String} object.
@@ -146,6 +152,7 @@ public class PollableInterface {
      * <p>
      * createPollableSnmpInterface
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -200,6 +207,7 @@ public class PollableInterface {
      * <p>
      * refresh
      * </p>
+     * .
      */
     protected void refresh() {
         for (PollableSnmpInterface pi : getSnmpinterfacepollableNodes().values()) {
@@ -211,6 +219,7 @@ public class PollableInterface {
      * <p>
      * suspend
      * </p>
+     * .
      */
     protected void suspend() {
         polling = false;
@@ -220,6 +229,7 @@ public class PollableInterface {
      * <p>
      * activate
      * </p>
+     * .
      */
     protected void activate() {
         polling = true;
@@ -229,6 +239,7 @@ public class PollableInterface {
      * <p>
      * getSnmpinterfacepollableNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.HashMap} object.
      */
@@ -240,6 +251,7 @@ public class PollableInterface {
      * <p>
      * polling
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -251,6 +263,7 @@ public class PollableInterface {
      * <p>
      * delete
      * </p>
+     * .
      */
     protected void delete() {
         for (PollableSnmpInterface node : getSnmpinterfacepollableNodes().values()) {
@@ -262,6 +275,7 @@ public class PollableInterface {
      * <p>
      * getParent
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableNetwork}
@@ -275,6 +289,7 @@ public class PollableInterface {
      * <p>
      * setParent
      * </p>
+     * .
      *
      * @param parent
      *            a
@@ -289,6 +304,7 @@ public class PollableInterface {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
@@ -302,6 +318,7 @@ public class PollableInterface {
      * <p>
      * getPackageName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -313,6 +330,7 @@ public class PollableInterface {
      * <p>
      * setPackageName
      * </p>
+     * .
      *
      * @param packageName
      *            a {@link java.lang.String} object.

@@ -71,6 +71,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class SyslogdTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -84,21 +87,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SyslogdTest implements InitializingBean {
 
+    /** The m_localhost. */
     String m_localhost = "127.0.0.1";
 
+    /** The m_syslogd. */
     private Syslogd m_syslogd;
 
+    /** The m_executor services. */
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
             Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
+    /** The m_event ipc manager. */
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -133,13 +149,19 @@ public class SyslogdTest implements InitializingBean {
         assertTrue(foundMalt);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoErrorOrGreater();
     }
 
     /**
-     * Send a raw syslog message and expect a given event as a result
+     * Send a raw syslog message and expect a given event as a result.
      *
      * @param testPDU
      *            The raw syslog message as it would appear on the wire (just
@@ -151,9 +173,13 @@ public class SyslogdTest implements InitializingBean {
      *            The expected UEI of the resulting event
      * @param expectedLogMsg
      *            The expected contents of the logmsg for the resulting event
+     * @return the list
      * @throws UnknownHostException
+     *             the unknown host exception
      * @throws InterruptedException
+     *             the interrupted exception
      * @throws ExecutionException
+     *             the execution exception
      */
     private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg)
             throws UnknownHostException, InterruptedException, ExecutionException {
@@ -184,6 +210,27 @@ public class SyslogdTest implements InitializingBean {
         return ea.getAnticipatedEventsRecieved();
     }
 
+    /**
+     * Do message test.
+     *
+     * @param testPDU
+     *            the test pdu
+     * @param expectedHost
+     *            the expected host
+     * @param expectedUEI
+     *            the expected uei
+     * @param expectedLogMsg
+     *            the expected log msg
+     * @param expectedParams
+     *            the expected params
+     * @return the list
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws ExecutionException
+     *             the execution exception
+     */
     private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg,
             Map<String, String> expectedParams) throws UnknownHostException, InterruptedException, ExecutionException {
         final List<Event> receivedEvents = doMessageTest(testPDU, expectedHost, expectedUEI, expectedLogMsg);
@@ -203,6 +250,9 @@ public class SyslogdTest implements InitializingBean {
         return receivedEvents;
     }
 
+    /**
+     * Test messaging.
+     */
     @Test
     public void testMessaging() {
         // More of an integrations test
@@ -217,6 +267,9 @@ public class SyslogdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test my patterns syslog ng.
+     */
     @Test
     public void testMyPatternsSyslogNG() {
         SyslogClient s = null;
@@ -228,6 +281,12 @@ public class SyslogdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test regex severity match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexSeverityMatch() throws Exception {
         startSyslogdGracefully();
@@ -257,6 +316,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex facility severity process match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexFacilitySeverityProcessMatch() throws Exception {
         startSyslogdGracefully();
@@ -290,6 +355,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex facility severity match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexFacilitySeverityMatch() throws Exception {
         startSyslogdGracefully();
@@ -322,6 +393,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex facility match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexFacilityMatch() throws Exception {
         startSyslogdGracefully();
@@ -353,6 +430,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex process match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexProcessMatch() throws Exception {
         startSyslogdGracefully();
@@ -384,6 +467,9 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test ip patterns syslog ng.
+     */
     @Test
     public void testIPPatternsSyslogNG() {
         SyslogClient s = null;
@@ -395,6 +481,9 @@ public class SyslogdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test resolve patterns syslog ng.
+     */
     @Test
     public void testResolvePatternsSyslogNG() {
         SyslogClient s = null;
@@ -406,6 +495,9 @@ public class SyslogdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Start syslogd gracefully.
+     */
     private void startSyslogdGracefully() {
         try {
             m_syslogd.start();
@@ -418,12 +510,24 @@ public class SyslogdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test substr uei rewrite.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSubstrUEIRewrite() throws Exception {
         doMessageTest("2007-01-01 localhost A CRISCO message", m_localhost,
                       "uei.opennms.org/tests/syslogd/substrUeiRewriteTest", "A CRISCO message");
     }
 
+    /**
+     * Test regex uei rewrite.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexUEIRewrite() throws Exception {
         MockLogAppender.setupLogging(true, "TRACE");
@@ -431,18 +535,36 @@ public class SyslogdTest implements InitializingBean {
                       "uei.opennms.org/tests/syslogd/regexUeiRewriteTest", "100 out of 666 tests failed for bar");
     }
 
+    /**
+     * Test substr test test that removes atest string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSubstrTESTTestThatRemovesATESTString() throws Exception {
         doMessageTest("2007-01-01 localhost A CRISCO message that is also a TESTHIDING message -- hide me!",
                       m_localhost, "uei.opennms.org/tests/syslogd/substrUeiRewriteTest", ConvertToEvent.HIDDEN_MESSAGE);
     }
 
+    /**
+     * Test regex test test that removes a double secret string.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexTESTTestThatRemovesADoubleSecretString() throws Exception {
         doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for doubleSecret", m_localhost,
                       "uei.opennms.org/tests/syslogd/regexUeiRewriteTest", ConvertToEvent.HIDDEN_MESSAGE);
     }
 
+    /**
+     * Test substr discard.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSubstrDiscard() throws Exception {
         startSyslogdGracefully();
@@ -458,6 +580,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex discard.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexDiscard() throws Exception {
         startSyslogdGracefully();
@@ -473,6 +601,12 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test regex uei with both kinds of parameter assignments.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRegexUEIWithBothKindsOfParameterAssignments() throws Exception {
         final String testPDU = "2007-01-01 127.0.0.1 coffee: Secretly replaced rangerrick's coffee with 42 wombats";
@@ -491,6 +625,12 @@ public class SyslogdTest implements InitializingBean {
         doMessageTest(testPDU, m_localhost, expectedUEI, expectedLogMsg, expectedParms);
     }
 
+    /**
+     * Test regex uei with only user specified parameter assignments.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testRegexUEIWithOnlyUserSpecifiedParameterAssignments() throws InterruptedException {
         startSyslogdGracefully();

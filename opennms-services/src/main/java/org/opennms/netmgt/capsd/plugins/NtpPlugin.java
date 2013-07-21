@@ -53,6 +53,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public final class NtpPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NtpPlugin.class);
 
     /**
@@ -69,9 +71,7 @@ public final class NtpPlugin extends AbstractPlugin {
      */
     private static final int DEFAULT_PORT = 123;
 
-    /**
-     * Default number of retries for DNS requests
-     */
+    /** Default number of retries for DNS requests. */
     private static final int DEFAULT_RETRY = 3;
 
     /**
@@ -80,10 +80,14 @@ public final class NtpPlugin extends AbstractPlugin {
     private static final int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
+     * Checks if is server.
+     *
      * @param nserver
      *            The address for the NTP server test.
      * @param port
      *            The port to test for NTP
+     * @param retries
+     *            the retries
      * @param timeout
      *            Timeout in milliseconds
      * @return True if server, false if not.

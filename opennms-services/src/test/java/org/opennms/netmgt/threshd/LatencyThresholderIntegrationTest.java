@@ -31,7 +31,14 @@ package org.opennms.netmgt.threshd;
 import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.rrd.RrdUtils;
 
+/**
+ * The Class LatencyThresholderIntegrationTest.
+ */
 public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -63,6 +70,9 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         expectRrdStrategyCalls();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         RrdUtils.setStrategy(null);
@@ -70,6 +80,12 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         super.tearDown();
     }
 
+    /**
+     * Xtest icmp double.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void xtestIcmpDouble() throws Exception {
         setupFetchSequence("icmp-double", new double[] { 69000.0, 79000.0, 74999.0, 74998.0 });
         replayMocks();
@@ -77,6 +93,12 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         verifyMocks();
     }
 
+    /**
+     * Test normal value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNormalValue() throws Exception {
         setupFetchSequence("icmp", new double[] { 69000.0, 79000.0, 74999.0, 74998.0 });
 
@@ -85,6 +107,12 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         verifyMocks();
     }
 
+    /**
+     * Test big value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBigValue() throws Exception {
         setupFetchSequence("icmp", new double[] { 79000.0, 80000.0, 84999.0, 84998.0, 97000.0 });
 
@@ -94,6 +122,12 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         verifyMocks();
     }
 
+    /**
+     * Test rearm.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRearm() throws Exception {
         double[] values = { 79000.0, 80000.0, 84999.0, // expect exceeded
                 84998.0, 15000.0, // expect rearm

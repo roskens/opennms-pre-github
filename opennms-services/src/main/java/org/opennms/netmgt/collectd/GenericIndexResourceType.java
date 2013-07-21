@@ -48,14 +48,20 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class GenericIndexResourceType extends ResourceType {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GenericIndexResourceType.class);
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_persistence selector strategy. */
     private PersistenceSelectorStrategy m_persistenceSelectorStrategy;
 
+    /** The m_storage strategy. */
     private StorageStrategy m_storageStrategy;
 
+    /** The m_resource map. */
     private Map<SnmpInstId, GenericIndexResource> m_resourceMap = new HashMap<SnmpInstId, GenericIndexResource>();
 
     /**
@@ -70,8 +76,10 @@ public class GenericIndexResourceType extends ResourceType {
      *            object.
      * @param resourceType
      *            a
-     *            {@link org.opennms.netmgt.config.datacollection.ResourceType}
-     *            object.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     *             {@link org.opennms.netmgt.config.datacollection.ResourceType}
+     *             object.
      */
     public GenericIndexResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection,
             org.opennms.netmgt.config.datacollection.ResourceType resourceType) throws IllegalArgumentException {
@@ -86,6 +94,12 @@ public class GenericIndexResourceType extends ResourceType {
         m_persistenceSelectorStrategy.setParameters(resourceType.getPersistenceSelectorStrategy().getParameterCollection());
     }
 
+    /**
+     * Instantiate persistence selector strategy.
+     *
+     * @param className
+     *            the class name
+     */
     private void instantiatePersistenceSelectorStrategy(String className) {
         Class<?> cinst;
         try {
@@ -105,6 +119,12 @@ public class GenericIndexResourceType extends ResourceType {
         }
     }
 
+    /**
+     * Instantiate storage strategy.
+     *
+     * @param className
+     *            the class name
+     */
     private void instantiateStorageStrategy(String className) {
         Class<?> cinst;
         try {
@@ -159,6 +179,7 @@ public class GenericIndexResourceType extends ResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -170,6 +191,7 @@ public class GenericIndexResourceType extends ResourceType {
      * <p>
      * getStorageStrategy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.StorageStrategy} object.
      */
@@ -177,6 +199,11 @@ public class GenericIndexResourceType extends ResourceType {
         return m_storageStrategy;
     }
 
+    /**
+     * Gets the persistence selector strategy.
+     *
+     * @return the persistence selector strategy
+     */
     public PersistenceSelectorStrategy getPersistenceSelectorStrategy() {
         return m_persistenceSelectorStrategy;
     }

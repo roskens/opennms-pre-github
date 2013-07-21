@@ -44,14 +44,10 @@ import org.opennms.netmgt.capsd.AbstractPlugin;
  */
 public class K5Plugin extends AbstractPlugin {
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "K5Systems";
 
-    /**
-     * Default value for whether or not to use K5
-     */
+    /** Default value for whether or not to use K5. */
     private static final String DEFAULT_ACTIVE = "false";
 
     /**

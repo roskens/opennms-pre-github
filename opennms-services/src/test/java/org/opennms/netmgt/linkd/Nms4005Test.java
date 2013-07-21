@@ -62,6 +62,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms4005Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -75,25 +78,39 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -111,6 +128,12 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
         }
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -120,6 +143,12 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -136,6 +165,12 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
      * (1) <>R3<>
      * 10.1.2.2 <>R3<>
      * <>R2<>10.1.5.1 (2)---(3) 10.1.5.2 <>R3<>
+     */
+    /**
+     * Test nms4005 network.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -187,6 +222,9 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
      * This test is the same as {@link #testNms4005Network()} except that it
      * spawns multiple threads
      * for each scan to ensure that the upsert code is working properly.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {

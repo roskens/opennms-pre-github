@@ -56,13 +56,23 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class HttpMonitorTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class HttpMonitorTest {
 
+    /** The m_run tests. */
     private boolean m_runTests = true;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -72,6 +82,12 @@ public class HttpMonitorTest {
      * Test method for
      * 'org.opennms.netmgt.poller.monitors.HttpMonitor.poll(NetworkInterface,
      * Map, Package)'
+     */
+    /**
+     * Test poll status reason.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     @Test
     public void testPollStatusReason() throws UnknownHostException {
@@ -115,18 +131,38 @@ public class HttpMonitorTest {
          */
     }
 
+    /**
+     * Test response range.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testResponseRange() throws UnknownHostException {
         callTestResponseRange(false);
     }
 
+    /**
+     * Test response range i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testResponseRangeIPv6() throws UnknownHostException {
         callTestResponseRange(true);
     }
 
+    /**
+     * Call test response range.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestResponseRange(boolean preferIPv6) throws UnknownHostException {
         if (m_runTests == false)
             return;
@@ -165,11 +201,16 @@ public class HttpMonitorTest {
 
     /**
      * This throws a java.net.NoRouteToHostException because the
-     * {@link InetAddressUtils#UNPINGABLE_ADDRESS} address is in an unroutable
-     * test range. :-/ Dear reader, if you can find an address that works with
-     * this test, then please replace
-     * {@link InetAddressUtils#UNPINGABLE_ADDRESS} inside
-     * {@link #callTestTimeout(boolean)}.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     *             {@link InetAddressUtils#UNPINGABLE_ADDRESS} address is in an
+     *             unroutable
+     *             test range. :-/ Dear reader, if you can find an address that
+     *             works with
+     *             this test, then please replace
+     *             {@link InetAddressUtils#UNPINGABLE_ADDRESS} inside
+     *             {@link #callTestTimeout(boolean)}.
      */
     @Test
     @Ignore
@@ -186,13 +227,24 @@ public class HttpMonitorTest {
      * <p>
      * This test was created to test the issue documented in NMS-5028.
      * </p>
-     * {@see http://issues.opennms.org/browse/NMS-5028}
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception {@see
+     *             http://issues.opennms.org/browse/NMS-5028}
      */
     @Test
     public void testTimeoutIPv6() throws UnknownHostException {
         callTestTimeout(true);
     }
 
+    /**
+     * Call test timeout.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestTimeout(boolean preferIPv6) throws UnknownHostException {
         if (m_runTests == false)
             return;
@@ -221,18 +273,38 @@ public class HttpMonitorTest {
                    reason.contains("HTTP connection timeout") || reason.contains("No route to host"));
     }
 
+    /**
+     * Test matching text in response.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testMatchingTextInResponse() throws UnknownHostException {
         callTestMatchingTextInResponse(false);
     }
 
+    /**
+     * Test matching text in response i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testMatchingTextInResponseIPv6() throws UnknownHostException {
         callTestMatchingTextInResponse(true);
     }
 
+    /**
+     * Call test matching text in response.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestMatchingTextInResponse(boolean preferIPv6) throws UnknownHostException {
 
         if (m_runTests == false)
@@ -278,6 +350,9 @@ public class HttpMonitorTest {
 
     }
 
+    /**
+     * Test base64 encoding.
+     */
     @Test
     public void testBase64Encoding() {
         if (m_runTests == false)
@@ -289,18 +364,38 @@ public class HttpMonitorTest {
         assertFalse("QWxhZGRpbjpvcZVuIHNlc2FtZQ==".equals(HttpMonitor.determineBasicAuthentication(m)));
     }
 
+    /**
+     * Test basic authentication.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, basicAuth = true)
     public void testBasicAuthentication() throws UnknownHostException {
         callTestBasicAuthentication(false);
     }
 
+    /**
+     * Test basic authentication i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, basicAuth = true)
     public void testBasicAuthenticationIPv6() throws UnknownHostException {
         callTestBasicAuthentication(true);
     }
 
+    /**
+     * Call test basic authentication.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestBasicAuthentication(boolean preferIPv6) throws UnknownHostException {
 
         if (m_runTests == false)
@@ -335,18 +430,38 @@ public class HttpMonitorTest {
 
     }
 
+    /**
+     * Test basic authentication with https.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true, basicAuth = true)
     public void testBasicAuthenticationWithHttps() throws UnknownHostException {
         callTestBasicAuthenticationWithHttps(false);
     }
 
+    /**
+     * Test basic authentication with https i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true, basicAuth = true)
     public void testBasicAuthenticationWithHttpsIPv6() throws UnknownHostException {
         callTestBasicAuthenticationWithHttps(true);
     }
 
+    /**
+     * Call test basic authentication with https.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestBasicAuthenticationWithHttps(boolean preferIPv6) throws UnknownHostException {
 
         if (m_runTests == false)
@@ -379,18 +494,38 @@ public class HttpMonitorTest {
         assertNull(status.getReason());
     }
 
+    /**
+     * Test with url.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testWithUrl() throws UnknownHostException {
         callTestWithUrl(false);
     }
 
+    /**
+     * Test with url i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testWithUrlIPv6() throws UnknownHostException {
         callTestWithUrl(true);
     }
 
+    /**
+     * Call test with url.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestWithUrl(boolean preferIPv6) throws UnknownHostException {
         if (m_runTests == false)
             return;
@@ -417,18 +552,38 @@ public class HttpMonitorTest {
 
     }
 
+    /**
+     * Test with invalid nodelabel host name.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testWithInvalidNodelabelHostName() throws UnknownHostException {
         callTestWithInvalidNodelabelHostName(false);
     }
 
+    /**
+     * Test with invalid nodelabel host name i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testWithInvalidNodelabelHostNameIPv6() throws UnknownHostException {
         callTestWithInvalidNodelabelHostName(true);
     }
 
+    /**
+     * Call test with invalid nodelabel host name.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestWithInvalidNodelabelHostName(boolean preferIPv6) throws UnknownHostException {
         if (m_runTests == false)
             return;
@@ -456,18 +611,38 @@ public class HttpMonitorTest {
 
     }
 
+    /**
+     * Test poll in invalid virtual domain.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "opennms.com" })
     public void testPollInInvalidVirtualDomain() throws UnknownHostException {
         callTestPollInInvalidVirtualDomain(false);
     }
 
+    /**
+     * Test poll in invalid virtual domain i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "opennms.com" })
     public void testPollInInvalidVirtualDomainIPv6() throws UnknownHostException {
         callTestPollInInvalidVirtualDomain(true);
     }
 
+    /**
+     * Call test poll in invalid virtual domain.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestPollInInvalidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
         if (m_runTests == false)
@@ -489,18 +664,38 @@ public class HttpMonitorTest {
         assertEquals("poll status available", PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test poll valid virtual domain.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "www.opennms.org" })
     public void testPollValidVirtualDomain() throws UnknownHostException {
         callTestPollValidVirtualDomain(false);
     }
 
+    /**
+     * Test poll valid virtual domain i pv6.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "www.opennms.org" })
     public void testPollValidVirtualDomainIPv6() throws UnknownHostException {
         callTestPollValidVirtualDomain(true);
     }
 
+    /**
+     * Call test poll valid virtual domain.
+     *
+     * @param preferIPv6
+     *            the prefer i pv6
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void callTestPollValidVirtualDomain(boolean preferIPv6) throws UnknownHostException {
 
         if (m_runTests == false)
@@ -522,6 +717,12 @@ public class HttpMonitorTest {
         assertEquals("poll status not available", PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test nm s2702.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342)
     public void testNMS2702() throws UnknownHostException {

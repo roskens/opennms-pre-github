@@ -41,10 +41,20 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public final class SysUpTimeTracker extends ObjIdMonitor {
 
+    /**
+     * Instantiates a new sys up time tracker.
+     */
     SysUpTimeTracker() {
         super(SnmpObjId.get(SnmpCollector.NODE_SYSUPTIME), SnmpInstId.INST_ZERO);
     }
 
+    /**
+     * Checks if is changed.
+     *
+     * @param savedSysUpTime
+     *            the saved sys up time
+     * @return true, if is changed
+     */
     boolean isChanged(long savedSysUpTime) {
         return (savedSysUpTime != -1) && (getLongValue() < savedSysUpTime);
     }

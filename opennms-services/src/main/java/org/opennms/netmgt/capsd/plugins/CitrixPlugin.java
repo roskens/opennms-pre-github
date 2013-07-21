@@ -78,6 +78,7 @@ public final class CitrixPlugin extends AbstractTcpPlugin {
      * <P>
      * End of input stream value
      * </P>
+     * .
      */
     private static final int EOF = -1;
 

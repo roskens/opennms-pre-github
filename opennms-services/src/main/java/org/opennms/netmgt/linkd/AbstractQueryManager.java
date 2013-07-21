@@ -70,61 +70,202 @@ import org.opennms.netmgt.model.OnmsVlan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class AbstractQueryManager.
+ */
 public abstract class AbstractQueryManager implements QueryManager {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractQueryManager.class);
 
+    /** The m_linkd. */
     protected Linkd m_linkd;
 
+    /** The Constant m_zeroAddress. */
     private static final InetAddress m_zeroAddress = InetAddressUtils.addr("0.0.0.0");
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#setLinkd(org.opennms.netmgt.linkd.Linkd)
+     */
     @Override
     public void setLinkd(final Linkd linkd) {
         m_linkd = linkd;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.QueryManager#getLinkd()
+     */
     @Override
     public Linkd getLinkd() {
         return m_linkd;
     }
 
+    /**
+     * Send new suspect event.
+     *
+     * @param ipaddress
+     *            the ipaddress
+     * @param ipowner
+     *            the ipowner
+     * @param name
+     *            the name
+     */
     protected void sendNewSuspectEvent(final InetAddress ipaddress, final InetAddress ipowner, final String name) {
         getLinkd().sendNewSuspectEvent(ipaddress, ipowner, name);
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public abstract NodeDao getNodeDao();
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public abstract IpInterfaceDao getIpInterfaceDao();
 
+    /**
+     * Gets the at interface dao.
+     *
+     * @return the at interface dao
+     */
     public abstract AtInterfaceDao getAtInterfaceDao();
 
+    /**
+     * Gets the snmp interface dao.
+     *
+     * @return the snmp interface dao
+     */
     public abstract SnmpInterfaceDao getSnmpInterfaceDao();
 
+    /**
+     * Gets the if index by name.
+     *
+     * @param targetCdpNodeId
+     *            the target cdp node id
+     * @param cdpTargetDevicePort
+     *            the cdp target device port
+     * @return the if index by name
+     */
     protected abstract int getIfIndexByName(int targetCdpNodeId, String cdpTargetDevicePort);
 
+    /**
+     * Gets the nodeid from ip.
+     *
+     * @param cdpTargetIpAddr
+     *            the cdp target ip addr
+     * @return the nodeid from ip
+     */
     protected abstract List<Integer> getNodeidFromIp(InetAddress cdpTargetIpAddr);
 
+    /**
+     * Gets the route interface.
+     *
+     * @param nexthop
+     *            the nexthop
+     * @param ifindex
+     *            the ifindex
+     * @return the route interface
+     */
     protected abstract List<RouterInterface> getRouteInterface(InetAddress nexthop, int ifindex);
 
+    /**
+     * Gets the snmp if type.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ifindex
+     *            the ifindex
+     * @return the snmp if type
+     */
     protected abstract int getSnmpIfType(int nodeId, Integer ifindex);
 
+    /**
+     * Save ip route interface.
+     *
+     * @param ipRouteInterface
+     *            the ip route interface
+     */
     protected abstract void saveIpRouteInterface(OnmsIpRouteInterface ipRouteInterface);
 
+    /**
+     * Save vlan.
+     *
+     * @param vlan
+     *            the vlan
+     */
     protected abstract void saveVlan(final OnmsVlan vlan);
 
+    /**
+     * Save stp node.
+     *
+     * @param stpNode
+     *            the stp node
+     */
     protected abstract void saveStpNode(final OnmsStpNode stpNode);
 
+    /**
+     * Save stp interface.
+     *
+     * @param stpInterface
+     *            the stp interface
+     */
     protected abstract void saveStpInterface(final OnmsStpInterface stpInterface);
 
+    /**
+     * Gets the phys addrs.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the phys addrs
+     */
     protected abstract List<String> getPhysAddrs(final int nodeId);
 
+    /**
+     * Mark old data inactive.
+     *
+     * @param now
+     *            the now
+     * @param nodeid
+     *            the nodeid
+     */
     protected abstract void markOldDataInactive(final Date now, final int nodeid);
 
+    /**
+     * Delete older data.
+     *
+     * @param now
+     *            the now
+     * @param nodeid
+     *            the nodeid
+     */
     protected abstract void deleteOlderData(final Date now, final int nodeid);
 
+    /**
+     * Gets the node.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the node
+     */
     protected OnmsNode getNode(Integer nodeId) {
         return getNodeDao().get(nodeId);
     }
 
+    /**
+     * Process ip net to media table.
+     *
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processIpNetToMediaTable(final LinkableNode node, final SnmpCollection snmpcoll, final Date scanTime) {
 
         boolean hasPrimaryIpAsAtinterface = false;
@@ -210,6 +351,12 @@ public abstract class AbstractQueryManager implements QueryManager {
 
     }
 
+    /**
+     * Save primary address at interface.
+     *
+     * @param node
+     *            the node
+     */
     private void savePrimaryAddressAtInterface(final LinkableNode node) {
         LOG.info("savePrimaryAddressAtInterface: try to setting ifindex for linkednode primary ip address '{}' ",
                  node.getSnmpPrimaryIpAddr().getHostAddress());
@@ -236,6 +383,15 @@ public abstract class AbstractQueryManager implements QueryManager {
     // This ifindex is saved in AtInterface object
     // that is used to find the right information for a linked node.
     // AR Dixit
+    /**
+     * Gets the if index.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddress
+     *            the ipaddress
+     * @return the if index
+     */
     protected Integer getIfIndex(Integer nodeid, String ipaddress) {
         OnmsIpInterface ipinterface = getIpInterfaceDao().findByNodeIdAndIpAddress(nodeid, ipaddress);
         if (ipinterface != null && ipinterface.getIfIndex() != null) {
@@ -247,6 +403,16 @@ public abstract class AbstractQueryManager implements QueryManager {
         return -1;
     }
 
+    /**
+     * Process ospf.
+     *
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processOspf(final LinkableNode node, final SnmpCollection snmpcoll, final Date scanTime) {
 
         InetAddress ospfRouterId = snmpcoll.getOspfGeneralGroup().getOspfRouterId();
@@ -301,6 +467,16 @@ public abstract class AbstractQueryManager implements QueryManager {
         node.setOspfinterfaces(ospfinterfaces);
     }
 
+    /**
+     * Process lldp.
+     *
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processLldp(final LinkableNode node, final SnmpCollection snmpcoll, final Date scanTime) {
 
         node.setLldpChassisId(snmpcoll.getLldpLocalGroup().getLldpLocChassisid());
@@ -338,6 +514,13 @@ public abstract class AbstractQueryManager implements QueryManager {
         node.setLldpRemInterfaces(lldpRemInterfaces);
     }
 
+    /**
+     * Gets the local port number to local table entry map.
+     *
+     * @param snmpcoll
+     *            the snmpcoll
+     * @return the local port number to local table entry map
+     */
     private Map<Integer, LldpLocTableEntry> getLocalPortNumberToLocalTableEntryMap(SnmpCollection snmpcoll) {
         Map<Integer, LldpLocTableEntry> localPortNumberToLocTableEntryMap = new HashMap<Integer, LldpLocTableEntry>();
         for (final LldpLocTableEntry lldpLocTableEntry : snmpcoll.getLldpLocTable()) {
@@ -347,6 +530,13 @@ public abstract class AbstractQueryManager implements QueryManager {
 
     }
 
+    /**
+     * Gets the lldp rem if index.
+     *
+     * @param lldpRemTableEntry
+     *            the lldp rem table entry
+     * @return the lldp rem if index
+     */
     private Integer getLldpRemIfIndex(LldpRemTableEntry lldpRemTableEntry) {
         Integer ifindex = -1;
         switch (lldpRemTableEntry.getLldpRemPortidSubtype().intValue()) {
@@ -385,6 +575,15 @@ public abstract class AbstractQueryManager implements QueryManager {
         return ifindex;
     }
 
+    /**
+     * Gets the lldp loc if index.
+     *
+     * @param sysname
+     *            the sysname
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     * @return the lldp loc if index
+     */
     private Integer getLldpLocIfIndex(String sysname, LldpLocTableEntry lldpLocTableEntry) {
         Integer ifindex = -1;
         switch (lldpLocTableEntry.getLldpLocPortIdSubtype().intValue()) {
@@ -418,11 +617,29 @@ public abstract class AbstractQueryManager implements QueryManager {
         return ifindex;
     }
 
+    /**
+     * Gets the from sysname agent circuit id.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @return the from sysname agent circuit id
+     */
     protected Integer getFromSysnameAgentCircuitId(String lldpRemSysname, String lldpRemPortid) {
         LOG.warn("getFromSysnameAgentCircuitId: AgentCircuitId LLDP PortSubTypeId not supported");
         return null;
     }
 
+    /**
+     * Gets the from sysname if name.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @return the from sysname if name
+     */
     protected Integer getFromSysnameIfName(String lldpRemSysname, String lldpRemPortid) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
         criteria.createAlias("node", "node");
@@ -435,8 +652,26 @@ public abstract class AbstractQueryManager implements QueryManager {
         return null;
     }
 
+    /**
+     * Gets the from sysname ip address.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemIpAddr
+     *            the lldp rem ip addr
+     * @return the from sysname ip address
+     */
     protected abstract Integer getFromSysnameIpAddress(String lldpRemSysname, InetAddress lldpRemIpAddr);
 
+    /**
+     * Gets the from sysname mac address.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @return the from sysname mac address
+     */
     protected Integer getFromSysnameMacAddress(String lldpRemSysname, String lldpRemPortid) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
         criteria.createAlias("node", "node");
@@ -449,11 +684,29 @@ public abstract class AbstractQueryManager implements QueryManager {
         return null;
     }
 
+    /**
+     * Gets the from sysname port component.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @return the from sysname port component
+     */
     protected Integer getFromSysnamePortComponent(String lldpRemSysname, String lldpRemPortid) {
         LOG.warn("getFromSysnamePortComponent:PortComponent LLDP PortSubTypeId not supported");
         return null;
     }
 
+    /**
+     * Gets the from sysname if alias.
+     *
+     * @param lldpRemSysname
+     *            the lldp rem sysname
+     * @param lldpRemPortid
+     *            the lldp rem portid
+     * @return the from sysname if alias
+     */
     protected Integer getFromSysnameIfAlias(String lldpRemSysname, String lldpRemPortid) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsSnmpInterface.class);
         criteria.createAlias("node", "node");
@@ -466,6 +719,16 @@ public abstract class AbstractQueryManager implements QueryManager {
         return null;
     }
 
+    /**
+     * Process cdp.
+     *
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processCdp(final LinkableNode node, final SnmpCollection snmpcoll, final Date scanTime) {
         String cdpDeviceid = snmpcoll.getCdpGlobalGroup().getCdpDeviceId();
         LOG.debug("processCdp: Setting CDP device id {} for node {} with ip primary {}", cdpDeviceid, node.getNodeId(),
@@ -563,6 +826,13 @@ public abstract class AbstractQueryManager implements QueryManager {
         node.setCdpInterfaces(cdpInterfaces);
     }
 
+    /**
+     * Gets the node ids from sys name.
+     *
+     * @param targetSysName
+     *            the target sys name
+     * @return the node ids from sys name
+     */
     private List<Integer> getNodeIdsFromSysName(String targetSysName) {
         List<Integer> nodeids = new ArrayList<Integer>();
         final OnmsCriteria criteria = new OnmsCriteria(OnmsNode.class);
@@ -574,6 +844,18 @@ public abstract class AbstractQueryManager implements QueryManager {
         return nodeids;
     }
 
+    /**
+     * Process route table.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processRouteTable(final OnmsNode onmsNode, final LinkableNode node, final SnmpCollection snmpcoll,
             final Date scanTime) {
         if (LOG.isDebugEnabled()) {
@@ -730,6 +1012,18 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Process vlan table.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param snmpcoll
+     *            the snmpcoll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processVlanTable(final OnmsNode onmsNode, final LinkableNode node, final SnmpCollection snmpcoll,
             final Date scanTime) {
         if (LOG.isDebugEnabled()) {
@@ -760,6 +1054,20 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Store snmp vlan collection.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param scanTime
+     *            the scan time
+     */
     protected void storeSnmpVlanCollection(final OnmsNode onmsNode, final LinkableNode node, final OnmsVlan vlan,
             final SnmpVlanCollection snmpVlanColl, final Date scanTime) {
 
@@ -795,6 +1103,20 @@ public abstract class AbstractQueryManager implements QueryManager {
 
     }
 
+    /**
+     * Process dot1d base port and stp port tables.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param scanTime
+     *            the scan time
+     */
     private void processDot1dBasePortAndStpPortTables(final OnmsNode onmsNode, final LinkableNode node,
             final OnmsVlan vlan, final SnmpVlanCollection snmpVlanColl, final Date scanTime) {
         Map<Integer, OnmsStpInterface> stpinterfaces = new HashMap<Integer, OnmsStpInterface>(
@@ -826,6 +1148,20 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Process dot1d base and dot1d stp.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param scanTime
+     *            the scan time
+     */
     private void processDot1dBaseAndDot1dStp(final OnmsNode onmsNode, final LinkableNode node, final OnmsVlan vlan,
             final SnmpVlanCollection snmpVlanColl, final Date scanTime) {
 
@@ -856,6 +1192,16 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Process q bridge dot1d tp fdb table.
+     *
+     * @param node
+     *            the node
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     */
     protected void processQBridgeDot1dTpFdbTable(final LinkableNode node, final OnmsVlan vlan,
             final SnmpVlanCollection snmpVlanColl) {
         if (LOG.isDebugEnabled()) {
@@ -910,6 +1256,18 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Process dot1 d tp fdb table.
+     *
+     * @param node
+     *            the node
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param scanTime
+     *            the scan time
+     */
     protected void processDot1DTpFdbTable(LinkableNode node, final OnmsVlan vlan,
             final SnmpVlanCollection snmpVlanColl, Date scanTime) {
         if (LOG.isDebugEnabled()) {
@@ -962,6 +1320,21 @@ public abstract class AbstractQueryManager implements QueryManager {
         }
     }
 
+    /**
+     * Process dot1 stp port table.
+     *
+     * @param node
+     *            the node
+     * @param scanTime
+     *            the scan time
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param stpinterfaces
+     *            the stpinterfaces
+     * @return the map
+     */
     protected Map<Integer, OnmsStpInterface> processDot1StpPortTable(final LinkableNode node, final Date scanTime,
             final OnmsVlan vlan, SnmpVlanCollection snmpVlanColl, Map<Integer, OnmsStpInterface> stpinterfaces) {
         if (LOG.isDebugEnabled()) {
@@ -991,6 +1364,23 @@ public abstract class AbstractQueryManager implements QueryManager {
         return stpinterfaces;
     }
 
+    /**
+     * Process dot1 d base port table.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param scanTime
+     *            the scan time
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @param stpinterfaces
+     *            the stpinterfaces
+     * @return the map
+     */
     protected Map<Integer, OnmsStpInterface> processDot1DBasePortTable(final OnmsNode onmsNode,
             final LinkableNode node, final Date scanTime, final OnmsVlan vlan, final SnmpVlanCollection snmpVlanColl,
             Map<Integer, OnmsStpInterface> stpinterfaces) {
@@ -1029,6 +1419,21 @@ public abstract class AbstractQueryManager implements QueryManager {
         return stpinterfaces;
     }
 
+    /**
+     * Gets the onms stp node.
+     *
+     * @param onmsNode
+     *            the onms node
+     * @param node
+     *            the node
+     * @param scanTime
+     *            the scan time
+     * @param vlan
+     *            the vlan
+     * @param snmpVlanColl
+     *            the snmp vlan coll
+     * @return the onms stp node
+     */
     protected OnmsStpNode getOnmsStpNode(final OnmsNode onmsNode, final LinkableNode node, final Date scanTime,
             final OnmsVlan vlan, final SnmpVlanCollection snmpVlanColl) {
         LOG.debug("getOnmsStpNode: Starting stpnode processing for Vlan: {}", vlan.getVlanName());

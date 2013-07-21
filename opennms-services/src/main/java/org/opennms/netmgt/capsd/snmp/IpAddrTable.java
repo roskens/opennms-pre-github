@@ -54,6 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpAddrTable.class);
 
     /**
@@ -82,6 +83,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIfAddressAndMask
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -108,6 +110,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -137,10 +140,10 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      * Returns all Internet addresses at the corresponding index. If the address
      * cannot be resolved then a null reference is returned.
      *
-     * @return list of InetAddress objects representing each of the interfaces
-     *         IP addresses.
      * @param index
      *            a int.
+     * @return list of InetAddress objects representing each of the interfaces
+     *         IP addresses.
      */
     public List<InetAddress> getIpAddresses(int index) {
         if (index == -1) {

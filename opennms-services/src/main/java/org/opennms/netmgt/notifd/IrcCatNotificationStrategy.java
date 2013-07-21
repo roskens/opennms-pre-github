@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public class IrcCatNotificationStrategy implements NotificationStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IrcCatNotificationStrategy.class);
 
     /**
@@ -75,14 +76,33 @@ public class IrcCatNotificationStrategy implements NotificationStrategy {
         return 0;
     }
 
+    /**
+     * Gets the remote addr.
+     *
+     * @return the remote addr
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private InetAddress getRemoteAddr() throws UnknownHostException {
         return InetAddressUtils.addr(System.getProperty("irccat.host", "127.0.0.1"));
     }
 
+    /**
+     * Gets the remote port.
+     *
+     * @return the remote port
+     */
     private int getRemotePort() {
         return Integer.parseInt(System.getProperty("irccat.port", "12345"));
     }
 
+    /**
+     * Builds the message.
+     *
+     * @param arguments
+     *            the arguments
+     * @return the string
+     */
     private String buildMessage(List<Argument> arguments) {
         String recipient = null;
         String message = null;

@@ -30,15 +30,29 @@ package org.opennms.netmgt.scriptd.helper;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class AbstractEventForwarder.
+ */
 public abstract class AbstractEventForwarder implements EventForwarder {
 
+    /** The m_filter. */
     EventPolicyRule m_filter;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventForwarder#setEventPolicyRule(org.opennms.netmgt.scriptd.helper.EventPolicyRule)
+     */
     @Override
     public void setEventPolicyRule(EventPolicyRule filter) {
         m_filter = filter;
     }
 
+    /**
+     * Filter.
+     *
+     * @param event
+     *            the event
+     * @return the event
+     */
     public Event filter(Event event) {
         return m_filter.filter(event);
     }

@@ -35,19 +35,21 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A class containing a method to determine if a string represents
- * a vaild IP address
+ * a vaild IP address.
  *
  * @author ranger
  * @version $Id: $
  */
 public class IpValidator extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpValidator.class);
 
     /**
      * <p>
      * isIpValid
      * </p>
+     * .
      *
      * @param ipAddr
      *            a {@link java.lang.String} object.

@@ -47,6 +47,7 @@ public interface PollService {
      * <p>
      * setServiceMonitorLocators
      * </p>
+     * .
      *
      * @param locators
      *            a {@link java.util.Collection} object.
@@ -57,6 +58,7 @@ public interface PollService {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
@@ -68,6 +70,7 @@ public interface PollService {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}
@@ -80,6 +83,7 @@ public interface PollService {
      * <p>
      * release
      * </p>
+     * .
      *
      * @param polledService
      *            a {@link org.opennms.netmgt.poller.remote.PolledService}

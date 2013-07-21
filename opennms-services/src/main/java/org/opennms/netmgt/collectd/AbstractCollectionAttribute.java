@@ -47,12 +47,14 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractCollectionAttribute implements CollectionAttribute {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionAttribute.class);
 
     /**
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.collector.CollectionAttributeType}
@@ -65,6 +67,7 @@ public abstract class AbstractCollectionAttribute implements CollectionAttribute
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -75,6 +78,7 @@ public abstract class AbstractCollectionAttribute implements CollectionAttribute
      * <p>
      * getNumericValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +89,7 @@ public abstract class AbstractCollectionAttribute implements CollectionAttribute
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -96,6 +101,7 @@ public abstract class AbstractCollectionAttribute implements CollectionAttribute
      * <p>
      * getStringValue
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

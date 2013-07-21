@@ -47,13 +47,18 @@ import org.springframework.util.Assert;
  */
 public class DefaultPollService implements PollService {
 
+    /** The m_time adjustment. */
     TimeAdjustment m_timeAdjustment;
 
+    /** The m_locators. */
     Collection<ServiceMonitorLocator> m_locators;
 
+    /** The m_monitors. */
     Map<String, ServiceMonitor> m_monitors;
 
     /**
+     * Sets the time adjustment.
+     *
      * @param timeAdjustment
      *            the timeAdjustment to set
      */
@@ -90,6 +95,13 @@ public class DefaultPollService implements PollService {
         return result;
     }
 
+    /**
+     * Gets the service monitor.
+     *
+     * @param polledService
+     *            the polled service
+     * @return the service monitor
+     */
     private ServiceMonitor getServiceMonitor(PolledService polledService) {
         Assert.notNull(m_monitors, "setServiceMonitorLocators must be called before any other operations");
         ServiceMonitor monitor = (ServiceMonitor) m_monitors.get(polledService.getSvcName());

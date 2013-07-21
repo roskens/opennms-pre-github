@@ -45,17 +45,21 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class EventIpcBroadcastProcessor implements EventProcessor, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventIpcBroadcastProcessor.class);
 
+    /** The m_event ipc broadcaster. */
     private EventIpcBroadcaster m_eventIpcBroadcaster;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {
@@ -76,6 +80,7 @@ public class EventIpcBroadcastProcessor implements EventProcessor, InitializingB
      * <p>
      * getEventIpcBroadcaster
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster}
      *         object.
@@ -88,6 +93,7 @@ public class EventIpcBroadcastProcessor implements EventProcessor, InitializingB
      * <p>
      * setEventIpcBroadcaster
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcBroadcaster}

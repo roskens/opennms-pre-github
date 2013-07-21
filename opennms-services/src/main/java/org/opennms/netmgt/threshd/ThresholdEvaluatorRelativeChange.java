@@ -53,6 +53,7 @@ import org.springframework.util.Assert;
  */
 public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
 
+    /** The Constant TYPE. */
     private static final String TYPE = "relativeChange";
 
     /** {@inheritDoc} */
@@ -67,21 +68,41 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
         return TYPE.equals(type);
     }
 
+    /**
+     * The Class ThresholdEvaluatorStateRelativeChange.
+     */
     public static class ThresholdEvaluatorStateRelativeChange extends AbstractThresholdEvaluatorState {
+
+        /** The m_threshold config. */
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
 
+        /** The m_multiplier. */
         private double m_multiplier;
 
+        /** The m_last sample. */
         private double m_lastSample = 0.0;
 
+        /** The m_previous triggering sample. */
         private double m_previousTriggeringSample;
 
+        /**
+         * Instantiates a new threshold evaluator state relative change.
+         *
+         * @param threshold
+         *            the threshold
+         */
         public ThresholdEvaluatorStateRelativeChange(BaseThresholdDefConfigWrapper threshold) {
             Assert.notNull(threshold, "threshold argument cannot be null");
 
             setThresholdConfig(threshold);
         }
 
+        /**
+         * Sets the threshold config.
+         *
+         * @param thresholdConfig
+         *            the new threshold config
+         */
         public void setThresholdConfig(BaseThresholdDefConfigWrapper thresholdConfig) {
             Assert.notNull(thresholdConfig.getType(), "threshold must have a 'type' value set");
             Assert.notNull(thresholdConfig.getDatasourceExpression(), "threshold must have a 'ds-name' value set");
@@ -107,11 +128,17 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
             setMultiplier(thresholdConfig.getValue());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getThresholdConfig()
+         */
         @Override
         public BaseThresholdDefConfigWrapper getThresholdConfig() {
             return m_thresholdConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#evaluate(double)
+         */
         @Override
         public Status evaluate(double dsValue) {
             // Fix for Bug 2275 so we handle negative numbers
@@ -145,14 +172,28 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
             return Status.NO_CHANGE;
         }
 
+        /**
+         * Gets the last sample.
+         *
+         * @return the last sample
+         */
         public Double getLastSample() {
             return m_lastSample;
         }
 
+        /**
+         * Sets the last sample.
+         *
+         * @param lastSample
+         *            the new last sample
+         */
         public void setLastSample(double lastSample) {
             m_lastSample = lastSample;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getEventForState(org.opennms.netmgt.threshd.ThresholdEvaluatorState.Status, java.util.Date, double, org.opennms.netmgt.threshd.CollectionResourceWrapper)
+         */
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             if (status == Status.TRIGGERED) {
@@ -166,6 +207,19 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
             }
         }
 
+        /**
+         * Creates the basic event.
+         *
+         * @param uei
+         *            the uei
+         * @param date
+         *            the date
+         * @param dsValue
+         *            the ds value
+         * @param resource
+         *            the resource
+         * @return the event
+         */
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String, String> params = new HashMap<String, String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
@@ -177,34 +231,65 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
             return createBasicEvent(uei, date, dsValue, resource, params);
         }
 
+        /**
+         * Gets the previous triggering sample.
+         *
+         * @return the previous triggering sample
+         */
         public double getPreviousTriggeringSample() {
             return m_previousTriggeringSample;
         }
 
+        /**
+         * Sets the previous triggering sample.
+         *
+         * @param previousTriggeringSample
+         *            the new previous triggering sample
+         */
         public void setPreviousTriggeringSample(double previousTriggeringSample) {
             m_previousTriggeringSample = previousTriggeringSample;
         }
 
+        /**
+         * Gets the multiplier.
+         *
+         * @return the multiplier
+         */
         public double getMultiplier() {
             return m_multiplier;
         }
 
+        /**
+         * Sets the multiplier.
+         *
+         * @param multiplier
+         *            the new multiplier
+         */
         public void setMultiplier(double multiplier) {
             m_multiplier = multiplier;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#getCleanClone()
+         */
         @Override
         public ThresholdEvaluatorState getCleanClone() {
             return new ThresholdEvaluatorStateRelativeChange(m_thresholdConfig);
         }
 
         // FIXME This must be implemented correctly
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#isTriggered()
+         */
         @Override
         public boolean isTriggered() {
             return false;
         }
 
         // FIXME This must be implemented correctly
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.threshd.ThresholdEvaluatorState#clearState()
+         */
         @Override
         public void clearState() {
         }

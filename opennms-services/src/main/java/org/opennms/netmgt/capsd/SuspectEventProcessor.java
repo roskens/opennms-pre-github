@@ -86,29 +86,28 @@ import org.springframework.util.Assert;
  */
 final class SuspectEventProcessor implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SuspectEventProcessor.class);
 
+    /** The Constant EVENT_SOURCE. */
     private static final String EVENT_SOURCE = "OpenNMS.Capsd";
 
-    /**
-     * SQL statement to retrieve the node identifier for a given IP address
-     */
+    /** SQL statement to retrieve the node identifier for a given IP address. */
     private static String SQL_RETRIEVE_INTERFACE_NODEID_PREFIX = "SELECT nodeId FROM ipinterface WHERE ";
 
-    /**
-     * SQL statement to retrieve the ipaddresses for a given node ID
-     */
+    /** SQL statement to retrieve the ipaddresses for a given node ID. */
     private static final String SQL_RETRIEVE_IPINTERFACES_ON_NODEID = "SELECT ipaddr FROM ipinterface WHERE nodeid = ? and ismanaged != 'D'";
 
-    /**
-     * IP address of new suspect interface
-     */
+    /** IP address of new suspect interface. */
     String m_suspectIf;
 
+    /** The m_capsd db syncer. */
     private CapsdDbSyncer m_capsdDbSyncer;
 
+    /** The m_plugin manager. */
     private PluginManager m_pluginManager;
 
+    /** The m_queued suspect tracker. */
     private static Set<String> m_queuedSuspectTracker;
 
     /**
@@ -503,6 +502,23 @@ final class SuspectEventProcessor implements Runnable {
         getSubInterfacesForNewInterface(dbc, node, ifaddr, collector, now, nodeId, ifIndex);
     }
 
+    /**
+     * Adds the snmp interfaces.
+     *
+     * @param dbc
+     *            the dbc
+     * @param ifaddr
+     *            the ifaddr
+     * @param nodeId
+     *            the node id
+     * @param collector
+     *            the collector
+     * @param ipIfEntry
+     *            the ip if entry
+     * @return the int
+     * @throws SQLException
+     *             the sQL exception
+     */
     private int addSnmpInterfaces(Connection dbc, InetAddress ifaddr, int nodeId, IfCollector collector,
             DbIpInterfaceEntry ipIfEntry) throws SQLException {
         boolean addedSnmpInterfaceEntry = addIfTableSnmpInterfaces(dbc, ifaddr, nodeId, collector);
@@ -522,6 +538,21 @@ final class SuspectEventProcessor implements Runnable {
         return ifIndex;
     }
 
+    /**
+     * Gets the package for new interface.
+     *
+     * @param dbc
+     *            the dbc
+     * @param ifaddr
+     *            the ifaddr
+     * @param ipIfEntry
+     *            the ip if entry
+     * @param addrUnmanaged
+     *            the addr unmanaged
+     * @return the package for new interface
+     * @throws SQLException
+     *             the sQL exception
+     */
     private org.opennms.netmgt.config.poller.Package getPackageForNewInterface(Connection dbc, InetAddress ifaddr,
             DbIpInterfaceEntry ipIfEntry, boolean addrUnmanaged) throws SQLException {
         if (addrUnmanaged) {
@@ -555,6 +586,21 @@ final class SuspectEventProcessor implements Runnable {
         return ipPkg;
     }
 
+    /**
+     * Gets the if index for new interface.
+     *
+     * @param dbc
+     *            the dbc
+     * @param ifaddr
+     *            the ifaddr
+     * @param collector
+     *            the collector
+     * @param ipIfEntry
+     *            the ip if entry
+     * @return the if index for new interface
+     * @throws SQLException
+     *             the sQL exception
+     */
     private int getIfIndexForNewInterface(Connection dbc, InetAddress ifaddr, IfCollector collector,
             DbIpInterfaceEntry ipIfEntry) throws SQLException {
         if (!collector.hasSnmpCollection()) {
@@ -594,6 +640,27 @@ final class SuspectEventProcessor implements Runnable {
         return ifIndex;
     }
 
+    /**
+     * Gets the sub interfaces for new interface.
+     *
+     * @param dbc
+     *            the dbc
+     * @param node
+     *            the node
+     * @param ifaddr
+     *            the ifaddr
+     * @param collector
+     *            the collector
+     * @param now
+     *            the now
+     * @param nodeId
+     *            the node id
+     * @param ifIndex
+     *            the if index
+     * @return the sub interfaces for new interface
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void getSubInterfacesForNewInterface(Connection dbc, DbNodeEntry node, InetAddress ifaddr,
             IfCollector collector, Date now, int nodeId, int ifIndex) throws SQLException {
         if (!collector.hasSnmpCollection()) {
@@ -610,6 +677,28 @@ final class SuspectEventProcessor implements Runnable {
 
     }
 
+    /**
+     * Adds the sub ip interfaces.
+     *
+     * @param dbc
+     *            the dbc
+     * @param node
+     *            the node
+     * @param collector
+     *            the collector
+     * @param now
+     *            the now
+     * @param nodeId
+     *            the node id
+     * @param cFactory
+     *            the c factory
+     * @param pollerCfgFactory
+     *            the poller cfg factory
+     * @param snmpc
+     *            the snmpc
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void addSubIpInterfaces(Connection dbc, DbNodeEntry node, IfCollector collector, Date now, int nodeId,
             CapsdConfig cFactory, PollerConfig pollerCfgFactory, IfSnmpCollector snmpc) throws SQLException {
 
@@ -704,6 +793,21 @@ final class SuspectEventProcessor implements Runnable {
         }
     }
 
+    /**
+     * Adds the if table snmp interfaces.
+     *
+     * @param dbc
+     *            the dbc
+     * @param ifaddr
+     *            the ifaddr
+     * @param nodeId
+     *            the node id
+     * @param collector
+     *            the collector
+     * @return true, if successful
+     * @throws SQLException
+     *             the sQL exception
+     */
     private boolean addIfTableSnmpInterfaces(Connection dbc, InetAddress ifaddr, int nodeId, IfCollector collector)
             throws SQLException {
         if (!collector.hasSnmpCollection()) {
@@ -837,6 +941,15 @@ final class SuspectEventProcessor implements Runnable {
         return addedSnmpInterfaceEntry;
     }
 
+    /**
+     * Gets the interface speed.
+     *
+     * @param ifte
+     *            the ifte
+     * @param ifxte
+     *            the ifxte
+     * @return the interface speed
+     */
     private long getInterfaceSpeed(IfTableEntry ifte, IfXTableEntry ifxte) {
         if (ifxte != null && ifxte.getIfHighSpeed() != null && ifxte.getIfHighSpeed() > 4294) {
             return ifxte.getIfHighSpeed() * 1000000L;
@@ -925,6 +1038,17 @@ final class SuspectEventProcessor implements Runnable {
         }
     }
 
+    /**
+     * Checks if is service polled.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled
+     */
     private boolean isServicePolled(String ifAddr, String svcName, org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
         if (ipPkg != null) {
@@ -935,6 +1059,17 @@ final class SuspectEventProcessor implements Runnable {
         return svcToBePolled;
     }
 
+    /**
+     * Checks if is service polled locally.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled locally
+     */
     private boolean isServicePolledLocally(String ifAddr, String svcName, org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
         if (ipPkg != null && !ipPkg.getRemote()) {
@@ -1016,8 +1151,6 @@ final class SuspectEventProcessor implements Runnable {
      * @param oldPrimary
      *            Primary interface to be compared against the 'currentIf'
      *            address.
-     * @param method
-     *            Comparison method to be used (either "min" or "max")
      * @return InetAddress object of the primary interface based on the
      *         provided method or null if neither address is eligible to be
      *         primary.
@@ -1420,10 +1553,10 @@ final class SuspectEventProcessor implements Runnable {
      * @param node
      *            DbNodeEntry object representing the interface's parent node
      *            table entry
-     * @throws SQLException
-     *             if an error occurs updating the ipInterface table
      * @return List of Old SNMP primary interface addresses (usually just
      *         one).
+     * @throws SQLException
+     *             if an error occurs updating the ipInterface table
      */
     List<InetAddress> getPrimarySnmpInterfaceFromDb(Connection dbc, DbNodeEntry node) throws SQLException {
         List<InetAddress> priSnmpAddrs = new ArrayList<InetAddress>();
@@ -1528,7 +1661,7 @@ final class SuspectEventProcessor implements Runnable {
     }
 
     /**
-     * Is a suspect scan already enqueued for a given IP address?
+     * Is a suspect scan already enqueued for a given IP address?.
      *
      * @param ipAddr
      *            The IP address of interest
@@ -1716,7 +1849,7 @@ final class SuspectEventProcessor implements Runnable {
 
     /**
      * This method is responsible for creating and sending a 'nodeAdded' event
-     * to Eventd
+     * to Eventd.
      *
      * @param nodeEntry
      *            DbNodeEntry object for the newly created node.
@@ -1733,12 +1866,25 @@ final class SuspectEventProcessor implements Runnable {
 
     }
 
+    /**
+     * Creates the event builder.
+     *
+     * @param uei
+     *            the uei
+     * @return the event builder
+     */
     private EventBuilder createEventBuilder(String uei) {
         EventBuilder bldr = new EventBuilder(uei, EVENT_SOURCE);
         bldr.setHost(Capsd.getLocalHostAddress());
         return bldr;
     }
 
+    /**
+     * Send event.
+     *
+     * @param newEvent
+     *            the new event
+     */
     private void sendEvent(Event newEvent) {
         // Send event to Eventd
         try {
@@ -1750,6 +1896,13 @@ final class SuspectEventProcessor implements Runnable {
         }
     }
 
+    /**
+     * To string.
+     *
+     * @param e
+     *            the e
+     * @return the string
+     */
     private String toString(Event e) {
         StringBuilder buf = new StringBuilder();
         buf.append("Event uei: ").append(e.getUei());
@@ -1759,7 +1912,7 @@ final class SuspectEventProcessor implements Runnable {
 
     /**
      * This method is responsible for creating and sending a
-     * 'duplicateIPAddress' event to Eventd
+     * 'duplicateIPAddress' event to Eventd.
      *
      * @param nodeId
      *            Interface's parent node identifier.
@@ -1779,6 +1932,13 @@ final class SuspectEventProcessor implements Runnable {
 
     }
 
+    /**
+     * Gets the host name.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @return the host name
+     */
     private String getHostName(String ipAddr) {
         String hostName = InetAddressUtils.normalize(ipAddr);
         return hostName == null ? "" : hostName;
@@ -1786,7 +1946,7 @@ final class SuspectEventProcessor implements Runnable {
 
     /**
      * This method is responsible for creating and sending a
-     * 'nodeGainedInterface' event to Eventd
+     * 'nodeGainedInterface' event to Eventd.
      *
      * @param nodeId
      *            Interface's parent node identifier.
@@ -1807,7 +1967,7 @@ final class SuspectEventProcessor implements Runnable {
 
     /**
      * This method is responsible for creating and sending a
-     * 'nodeGainedService' event to Eventd
+     * 'nodeGainedService' event to Eventd.
      *
      * @param nodeEntry
      *            Interface's parent node identifier.
@@ -1851,7 +2011,7 @@ final class SuspectEventProcessor implements Runnable {
 
     /**
      * This method is responsible for creating and sending a
-     * 'suspectScanCompleted' event to Eventd
+     * 'suspectScanCompleted' event to Eventd.
      *
      * @param ipAddr
      *            IP address of the interface for which the suspect scan has

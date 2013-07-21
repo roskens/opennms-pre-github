@@ -56,20 +56,21 @@ import org.slf4j.LoggerFactory;
  */
 public final class IpNetToMediaTableEntry extends SnmpStore {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpNetToMediaTableEntry.class);
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>INTM_INDEX="ipNetToMediaIfIndex"</code> */
+    /** Constant <code>INTM_INDEX="ipNetToMediaIfIndex"</code>. */
     public static final String INTM_INDEX = "ipNetToMediaIfIndex";
 
-    /** Constant <code>INTM_PHYSADDR="ipNetToMediaPhysAddress"</code> */
+    /** Constant <code>INTM_PHYSADDR="ipNetToMediaPhysAddress"</code>. */
     public static final String INTM_PHYSADDR = "ipNetToMediaPhysAddress";
 
-    /** Constant <code>INTM_NETADDR="ipNetToMediaNetAddress"</code> */
+    /** Constant <code>INTM_NETADDR="ipNetToMediaNetAddress"</code>. */
     public static final String INTM_NETADDR = "ipNetToMediaNetAddress";
 
-    /** Constant <code>INTM_TYPE="ipNetToMediatype"</code> */
+    /** Constant <code>INTM_TYPE="ipNetToMediatype"</code>. */
     public static final String INTM_TYPE = "ipNetToMediatype";
 
     /**
@@ -148,6 +149,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      * <p>
      * getIpNetToMediaIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -162,6 +164,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      * <p>
      * getIpNetToMediaPhysAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      * @see {@link org.opennms.netmgt.provision.service.snmp.IfTableEntry#getPhysAddr()}
@@ -197,6 +200,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      * <p>
      * getIpNetToMediaNetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -208,6 +212,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
      * <p>
      * getIpNetToMediatype
      * </p>
+     * .
      *
      * @return a int.
      */

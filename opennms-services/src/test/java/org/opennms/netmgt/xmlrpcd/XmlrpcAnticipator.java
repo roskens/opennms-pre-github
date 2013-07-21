@@ -70,10 +70,21 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
      * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
      */
     public class XmlrpcCall {
+
+        /** The m_method. */
         private String m_method;
 
+        /** The m_vector. */
         private Vector<Object> m_vector;
 
+        /**
+         * Instantiates a new xmlrpc call.
+         *
+         * @param method
+         *            the method
+         * @param vector
+         *            the vector
+         */
         public XmlrpcCall(String method, Vector<Object> vector) {
             assertNotNull("null method not allowed", method);
             assertNotNull("null vector not allowed", vector);
@@ -82,6 +93,9 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             m_vector = vector;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             final StringBuffer b = new StringBuffer();
@@ -92,11 +106,17 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             return b.toString();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#hashCode()
+         */
         @Override
         public int hashCode() {
             return new HashCodeBuilder(9, 3).append(m_method).append(m_vector).toHashCode();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
         @Override
         public boolean equals(final Object o) {
             if (o == null)
@@ -127,6 +147,15 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             return true;
         }
 
+        /**
+         * Hashtables match ignoring description keys.
+         *
+         * @param a
+         *            the a
+         * @param b
+         *            the b
+         * @return true, if successful
+         */
         @SuppressWarnings("unchecked")
         private boolean hashtablesMatchIgnoringDescriptionKeys(Object a, Object b) {
             Hashtable<String, String> ha = (Hashtable<String, String>) a;
@@ -157,22 +186,37 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /** The m_anticipated. */
     private List<XmlrpcCall> m_anticipated = new ArrayList<XmlrpcCall>();
 
+    /** The m_unanticipated. */
     private List<XmlrpcCall> m_unanticipated = new ArrayList<XmlrpcCall>();
 
+    /** The m_web server. */
     private WebServer m_webServer = null;
 
+    /** The m_port. */
     private int m_port;
 
-    /** default port number */
+    /** default port number. */
     private static final int DEFAULT_PORT_NUMBER = 9000;
 
-    /** logger */
+    /** logger. */
     private Logger m_logger = LoggerFactory.getLogger(getClass());
 
+    /** The Constant CHECK_METHOD_NAME. */
     private static final String CHECK_METHOD_NAME = "XmlrpcAnticipatorCheck";
 
+    /**
+     * Instantiates a new xmlrpc anticipator.
+     *
+     * @param port
+     *            the port
+     * @param delayWebServer
+     *            the delay web server
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public XmlrpcAnticipator(int port, boolean delayWebServer) throws IOException {
         m_port = port;
         if (!delayWebServer) {
@@ -180,14 +224,34 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * Instantiates a new xmlrpc anticipator.
+     *
+     * @param port
+     *            the port
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public XmlrpcAnticipator(int port) throws IOException {
         this(port, false);
     }
 
+    /**
+     * Instantiates a new xmlrpc anticipator.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public XmlrpcAnticipator() throws IOException {
         this(DEFAULT_PORT_NUMBER, false);
     }
 
+    /**
+     * Setup web server.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void setupWebServer() throws IOException {
         m_logger.info("XmlrpcAnticipator starting on port number " + m_port);
 
@@ -201,6 +265,9 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
 
     /**
      * Stop listening for OpenNMS events.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void shutdown() throws IOException {
         if (m_webServer == null) {
@@ -213,6 +280,12 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         m_webServer = null;
     }
 
+    /**
+     * Wait for startup.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void waitForStartup() throws IOException {
         boolean keepRunning = true;
         Socket s = null;
@@ -239,6 +312,14 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * Send check call.
+     *
+     * @param s
+     *            the s
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void sendCheckCall(Socket s) throws IOException {
         OutputStream out = null;
         PrintWriter p = null;
@@ -259,6 +340,12 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * Wait for shutdown.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void waitForShutdown() throws IOException {
         boolean keepRunning = true;
         Socket s = null;
@@ -284,6 +371,14 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * Anticipate call.
+     *
+     * @param method
+     *            the method
+     * @param args
+     *            the args
+     */
     public void anticipateCall(String method, Object... args) {
         Vector<Object> params = new Vector<Object>();
         for (Object arg : args) {
@@ -293,6 +388,9 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
     }
 
     // Implements Apache XMLRPC API
+    /* (non-Javadoc)
+     * @see org.apache.xmlrpc.XmlRpcHandler#execute(java.lang.String, java.util.Vector)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public Object execute(String method, Vector vector) {
@@ -308,6 +406,14 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         return vector;
     }
 
+    /**
+     * Our execute.
+     *
+     * @param method
+     *            the method
+     * @param vector
+     *            the vector
+     */
     public synchronized void ourExecute(String method, Vector<Object> vector) {
         // Ignore internal checks
         if (method.equals(CHECK_METHOD_NAME)) {
@@ -322,22 +428,35 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * Gets the anticipated.
+     *
+     * @return the anticipated
+     */
     public synchronized Collection<XmlrpcCall> getAnticipated() {
         return Collections.unmodifiableCollection(m_anticipated);
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         m_anticipated = new ArrayList<XmlrpcCall>();
         m_unanticipated = new ArrayList<XmlrpcCall>();
     }
 
     /**
-     * @return
+     * Unanticipated events.
+     *
+     * @return the collection
      */
     public Collection<XmlrpcCall> unanticipatedEvents() {
         return Collections.unmodifiableCollection(m_unanticipated);
     }
 
+    /**
+     * Verify anticipated.
+     */
     public void verifyAnticipated() {
         StringBuffer problems = new StringBuffer();
 
@@ -357,6 +476,15 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         }
     }
 
+    /**
+     * List calls.
+     *
+     * @param prefix
+     *            the prefix
+     * @param calls
+     *            the calls
+     * @return the string
+     */
     private static String listCalls(String prefix, Collection<XmlrpcCall> calls) {
         StringBuffer b = new StringBuffer();
 
@@ -370,6 +498,9 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         return b.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#finalize()
+     */
     @Override
     protected void finalize() {
         try {

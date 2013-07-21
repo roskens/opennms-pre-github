@@ -46,13 +46,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Provisioner implements ProvisionerMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Provisioner.class);
 
+    /** The m_context. */
     private ClassPathXmlApplicationContext m_context;
 
+    /** The m_status. */
     int m_status = Fiber.START_PENDING;
 
     // used only for testing
+    /**
+     * Gets the context.
+     *
+     * @return the context
+     */
     ApplicationContext getContext() {
         return m_context;
     }
@@ -61,6 +69,7 @@ public class Provisioner implements ProvisionerMBean {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -71,6 +80,7 @@ public class Provisioner implements ProvisionerMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -85,6 +95,7 @@ public class Provisioner implements ProvisionerMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -108,6 +119,7 @@ public class Provisioner implements ProvisionerMBean {
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -120,6 +132,7 @@ public class Provisioner implements ProvisionerMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

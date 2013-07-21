@@ -49,13 +49,13 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
 
-    /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code> */
+    /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code>. */
     public static final String FDB_ADDRESS = "dot1dTpFdbAddress";
 
-    /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code> */
+    /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code>. */
     public static final String FDB_PORT = "dot1dTpFdbPort";
 
-    /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code> */
+    /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code>. */
     public static final String FDB_STATUS = "dot1dTpFdbStatus";
 
     /**
@@ -152,6 +152,7 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getDot1dTpFdbAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -163,6 +164,7 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getDot1dTpFdbPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -177,6 +179,7 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getDot1dTpFdbStatus
      * </p>
+     * .
      *
      * @return a int.
      */

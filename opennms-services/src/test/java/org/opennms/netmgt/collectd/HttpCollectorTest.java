@@ -74,6 +74,8 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
+ * The Class HttpCollectorTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 
@@ -89,45 +91,70 @@ import org.springframework.transaction.PlatformTransactionManager;
 @JUnitTemporaryDatabase
 public class HttpCollectorTest implements TestContextAware, InitializingBean {
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_collectd. */
     @Autowired
     private Collectd m_collectd;
 
+    /** The m_context. */
     private TestContext m_context;
 
+    /** The m_dist poller. */
     private final OnmsDistPoller m_distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
 
+    /** The m_test host name. */
     private final String m_testHostName = "127.0.0.1";
 
+    /** The m_collector. */
     private HttpCollector m_collector;
 
+    /** The m_collection specification. */
     private CollectionSpecification m_collectionSpecification;
 
+    /** The m_https collection specification. */
     private CollectionSpecification m_httpsCollectionSpecification;
 
+    /** The m_collection agent. */
     private CollectionAgent m_collectionAgent;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.TestContextAware#setTestContext(org.springframework.test.context.TestContext)
+     */
     @Override
     public void setTestContext(TestContext t) {
         m_context = t;
     }
 
+    /**
+     * Gets the service type.
+     *
+     * @param name
+     *            the name
+     * @return the service type
+     */
     private OnmsServiceType getServiceType(String name) {
         OnmsServiceType serviceType = m_serviceTypeDao.findByName(name);
         if (serviceType == null) {
@@ -138,6 +165,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         return serviceType;
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -170,15 +203,21 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.noWarningsOrHigherLogged();
     }
 
     /**
-     * Test method for
-     * {@link org.opennms.netmgt.collectd.HttpCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, Map)}
-     * .
+     * Test method for.
+     *
+     * @throws Exception
+     *             the exception
+     *             {@link org.opennms.netmgt.collectd.HttpCollector#collect(org.opennms.netmgt.collectd.CollectionAgent, org.opennms.netmgt.model.events.EventProxy, Map)}
+     *             .
      */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
@@ -194,6 +233,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test persist.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-persist-test-config.xml", datacollectionType = "http", anticipateRrds = {
@@ -202,6 +247,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         doTestPersist(m_collectionSpecification);
     }
 
+    /**
+     * Test persist https.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" }, https = true)
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-persist-https-test-config.xml", datacollectionType = "https", anticipateRrds = {
@@ -210,6 +261,14 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         doTestPersist(m_httpsCollectionSpecification);
     }
 
+    /**
+     * Do test persist.
+     *
+     * @param spec
+     *            the spec
+     * @throws Exception
+     *             the exception
+     */
     public final void doTestPersist(CollectionSpecification spec) throws Exception {
         File snmpRrdDirectory = (File) m_context.getAttribute("rrdDirectory");
         FileAnticipator anticipator = (FileAnticipator) m_context.getAttribute("fileAnticipator");
@@ -250,6 +309,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test persist apache stats.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", datacollectionType = "http", anticipateRrds = {
@@ -292,6 +357,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test broken regex.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-broken-regex.xml", datacollectionType = "http")
@@ -305,6 +376,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Test persist apache stats via capsd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-persist-apache-stats.xml", datacollectionType = "http", anticipateRrds = {
@@ -328,6 +405,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         m_collectd.stop();
     }
 
+    /**
+     * Test persist apache stats alternate locale.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public final void testPersistApacheStatsAlternateLocale() throws Exception {
         final Locale defaultLocale = Locale.getDefault();
 
@@ -373,6 +456,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         }
     }
 
+    /**
+     * Test nm s4886with http.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" })
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-config-NMS4886.xml", datacollectionType = "http", anticipateRrds = {
@@ -381,6 +470,12 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         doTestNMS4886("HTTP");
     }
 
+    /**
+     * Test nm s4886with https.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, vhosts = { "127.0.0.1" }, https = true)
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/http-datacollection-config-NMS4886-https.xml", datacollectionType = "https", anticipateRrds = {
@@ -389,6 +484,14 @@ public class HttpCollectorTest implements TestContextAware, InitializingBean {
         doTestNMS4886("HTTPS");
     }
 
+    /**
+     * Do test nm s4886.
+     *
+     * @param svcName
+     *            the svc name
+     * @throws Exception
+     *             the exception
+     */
     public final void doTestNMS4886(String svcName) throws Exception {
         HttpCollector collector = new HttpCollector();
         Map<String, String> parameters = new HashMap<String, String>();

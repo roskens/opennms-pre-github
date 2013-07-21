@@ -38,13 +38,14 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Represents a PollableInterface
+ * Represents a PollableInterface.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PollableInterface extends PollableContainer {
 
+    /** The m_addr. */
     private final InetAddress m_addr;
 
     /**
@@ -67,6 +68,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getNode
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableNode}
      *         object.
@@ -75,6 +77,12 @@ public class PollableInterface extends PollableContainer {
         return (PollableNode) getParent();
     }
 
+    /**
+     * Sets the node.
+     *
+     * @param newNode
+     *            the new node
+     */
     private void setNode(PollableNode newNode) {
         setParent(newNode);
     }
@@ -83,6 +91,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableNetwork}
      *         object.
@@ -95,6 +104,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -107,6 +117,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,6 +129,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -129,6 +141,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -140,6 +153,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +165,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * createService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -176,6 +191,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * getService
      * </p>
+     * .
      *
      * @param svcName
      *            a {@link java.lang.String} object.
@@ -204,6 +220,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * recalculateStatus
      * </p>
+     * .
      */
     @Override
     public void recalculateStatus() {
@@ -217,7 +234,9 @@ public class PollableInterface extends PollableContainer {
     }
 
     /**
-     * @return
+     * Gets the critical service.
+     *
+     * @return the critical service
      */
     private PollableService getCriticalService() {
         return getService(getContext().getCriticalServiceName());
@@ -227,6 +246,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * selectPollElement
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
      *         object.
@@ -285,6 +305,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -297,6 +318,7 @@ public class PollableInterface extends PollableContainer {
      * <p>
      * reparentTo
      * </p>
+     * .
      *
      * @param newNode
      *            a {@link org.opennms.netmgt.poller.pollables.PollableNode}

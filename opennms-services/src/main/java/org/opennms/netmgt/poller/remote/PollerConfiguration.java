@@ -45,6 +45,8 @@ public interface PollerConfiguration {
      * configuration
      * to the client in millis since the epoch UTC.
      * (Same as returned by System.currentTimeMillis())
+     *
+     * @return the server time
      */
     long getServerTime();
 
@@ -52,6 +54,7 @@ public interface PollerConfiguration {
      * <p>
      * getConfigurationTimestamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -61,6 +64,7 @@ public interface PollerConfiguration {
      * <p>
      * getPolledServices
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.poller.remote.PolledService} objects.

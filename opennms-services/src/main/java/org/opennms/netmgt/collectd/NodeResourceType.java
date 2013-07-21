@@ -45,8 +45,10 @@ import org.slf4j.LoggerFactory;
  */
 public class NodeResourceType extends ResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeResourceType.class);
 
+    /** The m_node info. */
     private NodeInfo m_nodeInfo;
 
     /**
@@ -69,6 +71,7 @@ public class NodeResourceType extends ResourceType {
      * <p>
      * getNodeInfo
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.NodeInfo} object.
      */
@@ -95,6 +98,7 @@ public class NodeResourceType extends ResourceType {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

@@ -33,24 +33,50 @@ import java.net.InetAddress;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.utils.InetAddressUtils;
 
+/**
+ * The Class RouterInterface.
+ */
 public class RouterInterface {
 
+    /** The m_if index. */
     private int m_ifIndex;
 
+    /** The m_next hop node id. */
     private final int m_nextHopNodeId;
 
+    /** The m_next hop if index. */
     private final int m_nextHopIfIndex;
 
+    /** The m_next hop netmask. */
     private final InetAddress m_nextHopNetmask;
 
+    /** The m_next hop. */
     private InetAddress m_nextHop;
 
+    /**
+     * Instantiates a new router interface.
+     *
+     * @param nextHopNodeId
+     *            the next hop node id
+     * @param nextHopIfIndex
+     *            the next hop if index
+     * @param nextHopNetmask
+     *            the next hop netmask
+     */
     RouterInterface(final int nextHopNodeId, final int nextHopIfIndex, final InetAddress nextHopNetmask) {
         m_nextHopNodeId = nextHopNodeId;
         m_nextHopIfIndex = nextHopIfIndex;
         m_nextHopNetmask = nextHopNetmask;
     }
 
+    /**
+     * Instantiates a new router interface.
+     *
+     * @param nextHopNodeId
+     *            the next hop node id
+     * @param nextHopIfIndex
+     *            the next hop if index
+     */
     RouterInterface(final int nextHopNodeId, final int nextHopIfIndex) {
         m_nextHopNodeId = nextHopNodeId;
         m_nextHopIfIndex = nextHopIfIndex;
@@ -72,6 +98,7 @@ public class RouterInterface {
      * <p>
      * getNetmask
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -83,6 +110,7 @@ public class RouterInterface {
      * <p>
      * getNextHopNodeid
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -113,6 +141,11 @@ public class RouterInterface {
         m_ifIndex = ifindex;
     }
 
+    /**
+     * Gets the next hop.
+     *
+     * @return the next hop
+     */
     public InetAddress getNextHop() {
         return m_nextHop;
     }
@@ -121,6 +154,7 @@ public class RouterInterface {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,6 +166,12 @@ public class RouterInterface {
                                                                                                                                                            m_nextHopNetmask).toString();
     }
 
+    /**
+     * Sets the next hop.
+     *
+     * @param nexthop
+     *            the new next hop
+     */
     public void setNextHop(InetAddress nexthop) {
         m_nextHop = nexthop;
     }

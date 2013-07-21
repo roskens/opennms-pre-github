@@ -48,8 +48,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DatabaseReportPersister implements ReportPersister, InitializingBean {
+
+    /** The m_statistics report dao. */
     private StatisticsReportDao m_statisticsReportDao;
 
+    /** The m_resource reference dao. */
     private ResourceReferenceDao m_resourceReferenceDao;
 
     /** {@inheritDoc} */
@@ -77,6 +80,13 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
         m_statisticsReportDao.save(dbReport);
     }
 
+    /**
+     * Gets the resource reference.
+     *
+     * @param id
+     *            the id
+     * @return the resource reference
+     */
     private ResourceReference getResourceReference(String id) {
         ResourceReference resource = m_resourceReferenceDao.getByResourceId(id);
         if (resource != null) {
@@ -94,6 +104,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -105,6 +116,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
      * <p>
      * getStatisticsReportDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.StatisticsReportDao} object.
      */
@@ -116,6 +128,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
      * <p>
      * setStatisticsReportDao
      * </p>
+     * .
      *
      * @param statisticsReportDao
      *            a {@link org.opennms.netmgt.dao.api.StatisticsReportDao}
@@ -129,6 +142,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
      * <p>
      * getResourceReferenceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceReferenceDao} object.
      */
@@ -140,6 +154,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
      * <p>
      * setResourceReferenceDao
      * </p>
+     * .
      *
      * @param resourceReferenceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceReferenceDao}

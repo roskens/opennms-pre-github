@@ -40,15 +40,26 @@ import junit.framework.TestCase;
 
 import org.opennms.core.utils.InetAddressUtils;
 
+/**
+ * The Class FtpPluginTest.
+ */
 public class FtpPluginTest extends TestCase {
+
+    /** The m_plugin. */
     private FtpPlugin m_plugin = new FtpPlugin();
 
+    /** The m_server socket. */
     private ServerSocket m_serverSocket = null;
 
+    /** The m_server thread. */
     private Thread m_serverThread = null;
 
+    /** The timeout. */
     private static int TIMEOUT = 2000;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -57,6 +68,9 @@ public class FtpPluginTest extends TestCase {
         m_serverSocket.bind(null); // don't care what address, just gimme a port
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         if (m_serverSocket != null && !m_serverSocket.isClosed()) {
@@ -71,17 +85,35 @@ public class FtpPluginTest extends TestCase {
     }
 
     // Let's not depend on external systems if we don't have to
+    /**
+     * SKI ptest opennms org ftp success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void SKIPtestOpennmsOrgFtpSuccess() throws Exception {
         assertTrue("Test for protocol FTP on ftp.opennms.org should have passed",
                    m_plugin.isProtocolSupported(InetAddressUtils.addr("ftp.opennms.org")));
     }
 
     // Let's not depend on external systems if we don't have to
+    /**
+     * SKI ptest random ftp failure.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void SKIPtestRandomFtpFailure() throws Exception {
         assertFalse("Test for protocol FTP on 1.1.1.1 should have failed (on most networks, at least)",
                     m_plugin.isProtocolSupported(InetAddressUtils.addr("1.1.1.1")));
     }
 
+    /**
+     * Test success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSuccess() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -106,6 +138,12 @@ public class FtpPluginTest extends TestCase {
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
 
+    /**
+     * Test success multi line response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSuccessMultiLineResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -133,6 +171,12 @@ public class FtpPluginTest extends TestCase {
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
 
+    /**
+     * Test failure with bogus response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFailureWithBogusResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -152,6 +196,12 @@ public class FtpPluginTest extends TestCase {
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
+    /**
+     * Test monitor failure with no response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorFailureWithNoResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -171,12 +221,23 @@ public class FtpPluginTest extends TestCase {
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
+    /**
+     * Test monitor failure with closed port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorFailureWithClosedPort() throws Exception {
         m_serverSocket.close();
 
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
+    /**
+     * Do check.
+     *
+     * @return true, if successful
+     */
     private boolean doCheck() {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("port", m_serverSocket.getLocalPort());

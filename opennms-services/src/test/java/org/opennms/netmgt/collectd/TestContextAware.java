@@ -36,5 +36,12 @@ import org.springframework.test.context.TestContext;
  * can be injected into the test class.
  */
 public interface TestContextAware {
+
+    /**
+     * Sets the test context.
+     *
+     * @param database
+     *            the new test context
+     */
     public void setTestContext(TestContext database);
 }

@@ -52,43 +52,56 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class DominoIIOPPlugin extends AbstractTcpPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DominoIIOPPlugin.class);
 
     /**
      * Encapsulates the configuration characteristics unique to a DominoIIOP
-     * connection
+     * connection.
      *
      * @author Matt Brozowski
      */
     public static class DominoConnectionConfig extends ConnectionConfig {
 
+        /** The m_ior port. */
         int m_iorPort;
 
         /**
+         * Instantiates a new domino connection config.
+         *
          * @param inetAddress
-         * @param qualifiers
-         * @param defaultPort
-         * @param defaultTimeout
-         * @param defaultRetries
+         *            the inet address
+         * @param port
+         *            the port
          */
         public DominoConnectionConfig(InetAddress inetAddress, int port) {
             super(inetAddress, port);
 
         }
 
+        /**
+         * Gets the ior port.
+         *
+         * @return the ior port
+         */
         public int getIorPort() {
             return m_iorPort;
         }
 
+        /**
+         * Sets the ior port.
+         *
+         * @param iorPort
+         *            the new ior port
+         */
         public void setIorPort(int iorPort) {
             m_iorPort = iorPort;
         }
 
     }
 
-    /**
-     * Default port of where to find the IOR via HTTP
-     */
+    /** Default port of where to find the IOR via HTTP. */
     private static final int DEFAULT_IORPORT = 80;
 
     /**
@@ -96,19 +109,13 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
      */
     private static final int DEFAULT_PORT = 63148;
 
-    /**
-     * Default number of retries for TCP requests
-     */
+    /** Default number of retries for TCP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for TCP requests
-     */
+    /** Default timeout (in milliseconds) for TCP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "DominoIIOP";
 
     /**
@@ -194,6 +201,9 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
      *            the host name which has the IOR
      * @param port
      *            the port to find the IOR via HTTP
+     * @return the string
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private String retrieveIORText(String host, int port) throws IOException {
         String IOR = "";
@@ -232,6 +242,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
      * <p>
      * saveConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.

@@ -41,7 +41,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 /**
- * PersistRegexSelectorStrategy
+ * PersistRegexSelectorStrategy.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -51,34 +51,58 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
  */
 public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PersistRegexSelectorStrategy.class);
 
+    /** The Constant MATCH_EXPRESSION. */
     public static final String MATCH_EXPRESSION = "match-expression";
 
+    /** The Constant MATCH_STRATEGY. */
     public static final String MATCH_STRATEGY = "match-strategy";
 
+    /** The Constant MATCH_BEHAVIOR. */
     public static final String MATCH_BEHAVIOR = "match-behavior";
 
+    /** The m_parameter collection. */
     private List<Parameter> m_parameterCollection;
 
+    /**
+     * The Class EvaluatorContextVisitor.
+     */
     protected class EvaluatorContextVisitor extends AbstractCollectionSetVisitor {
+
+        /** The context. */
         private StandardEvaluationContext context;
 
+        /**
+         * Instantiates a new evaluator context visitor.
+         */
         public EvaluatorContextVisitor() {
             context = new StandardEvaluationContext();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.AbstractCollectionSetVisitor#visitAttribute(org.opennms.netmgt.config.collector.CollectionAttribute)
+         */
         @Override
         public void visitAttribute(CollectionAttribute attribute) {
             if (StringAttributeType.supportsType(attribute.getType()))
                 context.setVariable(attribute.getName(), attribute.getStringValue());
         }
 
+        /**
+         * Gets the evaluation context.
+         *
+         * @return the evaluation context
+         */
         public StandardEvaluationContext getEvaluationContext() {
             return context;
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.PersistenceSelectorStrategy#shouldPersist(org.opennms.netmgt.config.collector.CollectionResource)
+     */
     @Override
     public boolean shouldPersist(CollectionResource resource) {
         LOG.debug("shouldPersist: checking resource {}", resource);
@@ -107,6 +131,9 @@ public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.PersistenceSelectorStrategy#setParameters(java.util.List)
+     */
     @Override
     public void setParameters(List<Parameter> parameterCollection) {
         m_parameterCollection = parameterCollection;

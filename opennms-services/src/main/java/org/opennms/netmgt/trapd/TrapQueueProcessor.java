@@ -48,7 +48,7 @@ import org.springframework.util.Assert;
 
 /**
  * The TrapQueueProcessor handles the conversion of V1 and V2 traps to events
- * and sending them out the JSDT channel that eventd is listening on
+ * and sending them out the JSDT channel that eventd is listening on.
  *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
@@ -59,6 +59,7 @@ import org.springframework.util.Assert;
  */
 class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TrapQueueProcessor.class);
 
     /**
@@ -68,7 +69,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
     /**
      * Whether or not a newSuspect event should be generated with a trap from an
-     * unknown IP address
+     * unknown IP address.
      */
     private Boolean m_newSuspect;
 
@@ -82,6 +83,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      */
     private EventConfDao m_eventConfDao;
 
+    /** The m_trap notification. */
     private TrapNotification m_trapNotification;
 
     /**
@@ -105,14 +107,14 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      *
      *
      *
-     *            value of snmpTrapOID.0                generic-trap
-     *            ===============================       ============
-     *            1.3.6.1.6.3.1.1.5.1 (coldStart)                  0
-     *            1.3.6.1.6.3.1.1.5.2 (warmStart)                  1
-     *            1.3.6.1.6.3.1.1.5.3 (linkDown)                   2
-     *            1.3.6.1.6.3.1.1.5.4 (linkUp)                     3
-     *            1.3.6.1.6.3.1.1.5.5 (authenticationFailure)      4
-     *            1.3.6.1.6.3.1.1.5.6 (egpNeighborLoss)            5
+     * value of snmpTrapOID.0                generic-trap
+     * ===============================       ============
+     * 1.3.6.1.6.3.1.1.5.1 (coldStart)                  0
+     * 1.3.6.1.6.3.1.1.5.2 (warmStart)                  1
+     * 1.3.6.1.6.3.1.1.5.3 (linkDown)                   2
+     * 1.3.6.1.6.3.1.1.5.4 (linkUp)                     3
+     * 1.3.6.1.6.3.1.1.5.5 (authenticationFailure)      4
+     * 1.3.6.1.6.3.1.1.5.6 (egpNeighborLoss)            5
      *
      *
      *
@@ -144,6 +146,8 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * In any event, the snmpTrapEnterprise.0 varBind (if present) is ignored in
      * this case.
      * </p>
+     *
+     * @return the callable
      */
     @Override
     public Callable<Void> call() {
@@ -161,6 +165,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * processTrapEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -200,7 +205,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * Send a newSuspect event for the interface
+     * Send a newSuspect event for the interface.
      *
      * @param trapInterface
      *            The interface for which the newSuspect event is to be
@@ -217,7 +222,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
     }
 
     /**
-     * The constructor
+     * The constructor.
      */
     public TrapQueueProcessor() {
     }
@@ -226,6 +231,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * getEventConfDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.EventConfDao} object.
      */
@@ -237,6 +243,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * setEventConfDao
      * </p>
+     * .
      *
      * @param eventConfDao
      *            a {@link org.opennms.netmgt.config.EventConfDao} object.
@@ -249,6 +256,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * getEventMgr
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -260,6 +268,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * setEventMgr
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -273,6 +282,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * isNewSuspect
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -284,6 +294,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * <p>
      * setNewSuspect
      * </p>
+     * .
      *
      * @param newSuspect
      *            a {@link java.lang.Boolean} object.
@@ -292,14 +303,28 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
         m_newSuspect = newSuspect;
     }
 
+    /**
+     * Gets the trap notification.
+     *
+     * @return the trap notification
+     */
     public TrapNotification getTrapNotification() {
         return m_trapNotification;
     }
 
+    /**
+     * Sets the trap notification.
+     *
+     * @param info
+     *            the new trap notification
+     */
     public void setTrapNotification(TrapNotification info) {
         m_trapNotification = info;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws IllegalStateException {
         Assert.state(m_eventConfDao != null, "property eventConfDao must be set");

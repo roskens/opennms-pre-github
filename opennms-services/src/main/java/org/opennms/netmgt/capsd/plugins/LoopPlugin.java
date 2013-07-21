@@ -46,6 +46,7 @@ import org.opennms.netmgt.capsd.Plugin;
  */
 public class LoopPlugin implements Plugin {
 
+    /** The m_protocol name. */
     private final String m_protocolName = "LOOP";
 
     /*
@@ -56,6 +57,7 @@ public class LoopPlugin implements Plugin {
      * <p>
      * getProtocolName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,10 +100,24 @@ public class LoopPlugin implements Plugin {
 
     }
 
+    /**
+     * Checks if is supported.
+     *
+     * @param parameters
+     *            the parameters
+     * @return true, if is supported
+     */
     private boolean isSupported(Map<String, Object> parameters) {
         return ParameterMap.getKeyedString(parameters, "is-supported", "false").equalsIgnoreCase("true");
     }
 
+    /**
+     * Gets the ip match.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the ip match
+     */
     private String getIpMatch(Map<String, Object> parameters) {
         return ParameterMap.getKeyedString(parameters, "ip-match", "*.*.*.*");
     }

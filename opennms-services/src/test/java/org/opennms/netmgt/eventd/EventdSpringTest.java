@@ -62,12 +62,18 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class EventdSpringTest implements InitializingBean {
+
+    /** The m_daemon. */
     @Autowired
     Eventd m_daemon;
 
+    /** The m_event conf dao. */
     @Autowired
     EventConfDao m_eventConfDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -78,6 +84,9 @@ public class EventdSpringTest implements InitializingBean {
      * this file because having more seems to cause OutOfMemory errors within
      * Eclipse when there are multiple tests due to the large number of events
      * that are loaded by default.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testDaemon() throws Exception {
@@ -85,6 +94,12 @@ public class EventdSpringTest implements InitializingBean {
         m_daemon.onStop();
     }
 
+    /**
+     * Test event conf severities.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEventConfSeverities() throws Exception {
         List<String> validSeverities = Arrays.asList(new String[] { "Critical", "Major", "Minor", "Warning", "Normal",

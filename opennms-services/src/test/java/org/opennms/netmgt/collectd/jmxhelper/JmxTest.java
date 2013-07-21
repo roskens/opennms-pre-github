@@ -34,50 +34,78 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JmxTest.
+ *
  * @author Markus Neumann <Markus@OpenNMS.org>
  */
 public class JmxTest implements JmxTestMBean {
 
+    /** The log. */
     @SuppressWarnings("unused")
     private static Logger LOG = LoggerFactory.getLogger(JmxTest.class);
 
+    /** The name. */
     String name = "Jmx Test";
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getName()
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getStringNull()
+     */
     @Override
     public String getStringNull() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getA()
+     */
     @Override
     public int getA() {
         return 1;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getB()
+     */
     @Override
     public int getB() {
         return 2;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getC()
+     */
     @Override
     public int getC() {
         return 3;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getD()
+     */
     @Override
     public int getD() {
         return 4;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getIntegerNull()
+     */
     @Override
     public Integer getIntegerNull() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.jmxhelper.JmxTestMBean#getCompositeData()
+     */
     @Override
     public CompositeData getCompositeData() {
         return null;

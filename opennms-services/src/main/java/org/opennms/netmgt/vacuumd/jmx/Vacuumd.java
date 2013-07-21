@@ -48,6 +48,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -67,6 +68,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -81,6 +83,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -95,6 +98,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -111,6 +115,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,6 +132,7 @@ public class Vacuumd implements VacuumdMBean {
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +141,11 @@ public class Vacuumd implements VacuumdMBean {
         return org.opennms.core.fiber.Fiber.STATUS_NAMES[getStatus()];
     }
 
+    /**
+     * Gets the vacuumd.
+     *
+     * @return the vacuumd
+     */
     private org.opennms.netmgt.vacuumd.Vacuumd getVacuumd() {
         return org.opennms.netmgt.vacuumd.Vacuumd.getSingleton();
     }

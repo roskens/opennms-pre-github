@@ -37,21 +37,40 @@ import org.opennms.netmgt.config.SyslogdConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class CustomSyslogParser.
+ */
 public class CustomSyslogParser extends SyslogParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CustomSyslogParser.class);
 
+    /** The Constant m_messageIdPattern. */
     private static final Pattern m_messageIdPattern = Pattern.compile("^((\\S+):\\s*)");
 
+    /** The Constant m_datePattern. */
     private static final Pattern m_datePattern = Pattern.compile("^((\\d\\d\\d\\d-\\d\\d-\\d\\d)\\s+)");
 
+    /** The Constant m_oldDatePattern. */
     private static final Pattern m_oldDatePattern = Pattern.compile("^\\s*(\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)\\s+");
 
+    /** The m_forwarding pattern. */
     private Pattern m_forwardingPattern;
 
+    /** The m_matching group host. */
     private int m_matchingGroupHost;
 
+    /** The m_matching group message. */
     private int m_matchingGroupMessage;
 
+    /**
+     * Instantiates a new custom syslog parser.
+     *
+     * @param text
+     *            the text
+     * @throws SyslogParserException
+     *             the syslog parser exception
+     */
     protected CustomSyslogParser(final String text) throws SyslogParserException {
         super(text);
 
@@ -65,10 +84,22 @@ public class CustomSyslogParser extends SyslogParser {
         m_matchingGroupMessage = config.getMatchingGroupMessage();
     }
 
+    /**
+     * Gets the parser.
+     *
+     * @param text
+     *            the text
+     * @return the parser
+     * @throws SyslogParserException
+     *             the syslog parser exception
+     */
     public static SyslogParser getParser(final String text) throws SyslogParserException {
         return new CustomSyslogParser(text);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#parse()
+     */
     @Override
     public SyslogMessage parse() throws SyslogParserException {
         final SyslogMessage syslogMessage = new SyslogMessage();

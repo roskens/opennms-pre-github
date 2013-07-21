@@ -53,10 +53,13 @@ import org.springframework.remoting.support.UrlBasedRemoteAccessor;
  */
 public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements MethodInterceptor {
 
+    /** The client. */
     SecureXmlRpcClient client;
 
+    /** The service name. */
     String serviceName;
 
+    /** The secure. */
     boolean secure = false;
 
     /**
@@ -103,6 +106,11 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
         }
     }
 
+    /**
+     * Gets the client.
+     *
+     * @return the client
+     */
     private XmlRpcClient getClient() {
         if (client == null) {
             try {

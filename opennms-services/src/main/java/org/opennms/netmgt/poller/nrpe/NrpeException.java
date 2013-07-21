@@ -38,6 +38,7 @@ package org.opennms.netmgt.poller.nrpe;
  */
 public class NrpeException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5110369631753106937L;
 
     /**

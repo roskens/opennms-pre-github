@@ -36,7 +36,14 @@ import org.junit.Test;
 import org.opennms.core.utils.Argument;
 import org.opennms.netmgt.model.notifd.NotificationStrategy;
 
+/**
+ * The Class MicroblogDMNotificationStrategyTest.
+ */
 public class MicroblogDMNotificationStrategyTest extends MicroblogNotificationStrategyTest {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.MicroblogNotificationStrategyTest#postNotice()
+     */
     @Ignore
     @Test
     @Override
@@ -47,6 +54,9 @@ public class MicroblogDMNotificationStrategyTest extends MicroblogNotificationSt
         Assert.assertEquals("NotificationStrategy should return 0 on success", 0, ns.send(arguments));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.MicroblogNotificationStrategyTest#configureArgs()
+     */
     @Override
     public List<Argument> configureArgs() {
         List<Argument> arguments = super.configureArgs();

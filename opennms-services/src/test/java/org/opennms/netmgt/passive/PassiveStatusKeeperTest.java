@@ -62,6 +62,9 @@ import org.opennms.netmgt.xml.event.Logmsg;
 import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
+/**
+ * The Class PassiveStatusKeeperTest.
+ */
 public class PassiveStatusKeeperTest {
 
     /*
@@ -75,18 +78,30 @@ public class PassiveStatusKeeperTest {
      * modify passive status config to handle specific event with specific parms
      */
 
+    /** The m_psk. */
     private PassiveStatusKeeper m_psk;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_outage anticipator. */
     private OutageAnticipator m_outageAnticipator;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
@@ -113,6 +128,12 @@ public class PassiveStatusKeeperTest {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_eventMgr.finishProcessingEvents();
@@ -123,17 +144,29 @@ public class PassiveStatusKeeperTest {
         // MockUtil.println("------------ End Test "+getName()+" --------------------------");
     }
 
+    /**
+     * Creates the anticipators.
+     */
     private void createAnticipators() {
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
     }
 
+    /**
+     * Creates the mock db.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void createMockDb() throws Exception {
         m_db = new MockDatabase();
         m_db.populate(m_network);
         DataSourceFactory.setInstance(m_db);
     }
 
+    /**
+     * Creates the mock network.
+     */
     private void createMockNetwork() {
         m_network = new MockNetwork();
         m_network.setCriticalService("ICMP");
@@ -161,6 +194,12 @@ public class PassiveStatusKeeperTest {
         m_network.addService("PSV2");
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -185,8 +224,10 @@ public class PassiveStatusKeeperTest {
      * This is a test for the method that verifies valid passive status events
      * for the passive status keeper.
      *
-     * @throws ValidationException
      * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Test
     public void testIsPassiveStatusEvent() throws MarshalException, ValidationException {
@@ -204,17 +245,35 @@ public class PassiveStatusKeeperTest {
 
     }
 
+    /**
+     * Test set status.
+     */
     @Test
     public void testSetStatus() {
         testSetStatus("localhost", "127.0.0.1", "PSV", PollStatus.up());
 
     }
 
+    /**
+     * Test set status.
+     *
+     * @param nodeLabel
+     *            the node label
+     * @param ipAddr
+     *            the ip addr
+     * @param svcName
+     *            the svc name
+     * @param pollStatus
+     *            the poll status
+     */
     private void testSetStatus(String nodeLabel, String ipAddr, String svcName, PollStatus pollStatus) {
         PassiveStatusKeeper.getInstance().setStatus(nodeLabel, ipAddr, svcName, pollStatus);
         assertEquals(pollStatus, PassiveStatusKeeper.getInstance().getStatus(nodeLabel, ipAddr, svcName));
     }
 
+    /**
+     * Test restart.
+     */
     @Test
     public void testRestart() {
         testSetStatus("localhost", "127.0.0.1", "PSV", PollStatus.up());
@@ -237,6 +296,14 @@ public class PassiveStatusKeeperTest {
         assertEquals(PollStatus.down(), PassiveStatusKeeper.getInstance().getStatus("localhost", "127.0.0.1", "PSV2"));
     }
 
+    /**
+     * Test down passive status.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testDownPassiveStatus() throws InterruptedException, UnknownHostException {
 
@@ -259,6 +326,19 @@ public class PassiveStatusKeeperTest {
         assertEquals(ps, ps2);
     }
 
+    /**
+     * Creates the passive status event.
+     *
+     * @param nodeLabel
+     *            the node label
+     * @param ipAddr
+     *            the ip addr
+     * @param serviceName
+     *            the service name
+     * @param status
+     *            the status
+     * @return the event
+     */
     private Event createPassiveStatusEvent(String nodeLabel, String ipAddr, String serviceName, String status) {
         final List<Parm> parms = new ArrayList<Parm>();
 
@@ -274,6 +354,15 @@ public class PassiveStatusKeeperTest {
         return createEventWithParms("uei.opennms.org/services/passiveServiceStatus", parms);
     }
 
+    /**
+     * Creates the event with parms.
+     *
+     * @param uei
+     *            the uei
+     * @param parms
+     *            the parms
+     * @return the event
+     */
     private Event createEventWithParms(String uei, List<Parm> parms) {
         Event e = MockEventUtil.createEventBuilder("Test", uei).getEvent();
         e.setHost("localhost");
@@ -285,6 +374,15 @@ public class PassiveStatusKeeperTest {
         return e;
     }
 
+    /**
+     * Builds the parm.
+     *
+     * @param parmName
+     *            the parm name
+     * @param parmValue
+     *            the parm value
+     * @return the parm
+     */
     private Parm buildParm(String parmName, String parmValue) {
         Value v = new Value();
         v.setContent(parmValue);
@@ -294,6 +392,11 @@ public class PassiveStatusKeeperTest {
         return p;
     }
 
+    /**
+     * Gets the translation test config.
+     *
+     * @return the translation test config
+     */
     @SuppressWarnings("unused")
     private String getTranslationTestConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -331,6 +434,11 @@ public class PassiveStatusKeeperTest {
                 + "    </event-translation-spec>\n" + "  </translation>\n" + "</passive-status-configuration>\n" + "";
     }
 
+    /**
+     * Gets the standard config.
+     *
+     * @return the standard config
+     */
     @SuppressWarnings("unused")
     private String getStandardConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -379,6 +487,11 @@ public class PassiveStatusKeeperTest {
                 + "</passive-status-configuration>\n" + "";
     }
 
+    /**
+     * Gets the literal field config.
+     *
+     * @return the literal field config
+     */
     @SuppressWarnings("unused")
     private String getLiteralFieldConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<this:passive-status-configuration \n"
@@ -397,6 +510,11 @@ public class PassiveStatusKeeperTest {
                 + "  </this:passive-events>\n" + "</this:passive-status-configuration>\n" + "";
     }
 
+    /**
+     * Gets the literal parm config.
+     *
+     * @return the literal parm config
+     */
     @SuppressWarnings("unused")
     private String getLiteralParmConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<this:passive-status-configuration \n"
@@ -415,6 +533,11 @@ public class PassiveStatusKeeperTest {
                 + "  </this:passive-events>\n" + "</this:passive-status-configuration>\n" + "";
     }
 
+    /**
+     * Gets the reg ex field config.
+     *
+     * @return the reg ex field config
+     */
     @SuppressWarnings("unused")
     private String getRegExFieldConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -439,6 +562,11 @@ public class PassiveStatusKeeperTest {
                 + "  </this:passive-events>\n" + "</this:passive-status-configuration>\n" + "";
     }
 
+    /**
+     * Gets the reg ex parm config.
+     *
+     * @return the reg ex parm config
+     */
     @SuppressWarnings("unused")
     private String getRegExParmConfig() {
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<this:passive-status-configuration \n"

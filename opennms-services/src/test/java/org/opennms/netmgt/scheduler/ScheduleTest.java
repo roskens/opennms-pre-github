@@ -35,34 +35,56 @@ import org.opennms.netmgt.poller.mock.MockInterval;
 import org.opennms.netmgt.poller.mock.MockScheduler;
 
 /**
- * Represents a ScheduleTest
+ * Represents a ScheduleTest.
  *
  * @author brozow
  */
 public class ScheduleTest extends TestCase {
 
+    /** The m_schedulable. */
     private MockSchedulable m_schedulable;
 
+    /** The m_interval. */
     private MockInterval m_interval;
 
+    /** The m_scheduler. */
     private MockScheduler m_scheduler;
 
+    /** The m_sched. */
     private Schedule m_sched;
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     */
     public static void main(String[] args) {
         junit.textui.TestRunner.run(ScheduleTest.class);
     }
 
+    /**
+     * The Class MockSchedulable.
+     */
     class MockSchedulable implements ReadyRunnable {
+
+        /** The run count. */
         private volatile int runCount = 0;
 
+        /** The m_calling adjust schedule. */
         private volatile boolean m_callingAdjustSchedule;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.scheduler.ReadyRunnable#isReady()
+         */
         @Override
         public boolean isReady() {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Runnable#run()
+         */
         @Override
         public void run() {
             runCount++;
@@ -70,14 +92,30 @@ public class ScheduleTest extends TestCase {
                 m_sched.adjustSchedule();
         }
 
+        /**
+         * Gets the run count.
+         *
+         * @return the run count
+         */
         public int getRunCount() {
             return runCount;
         }
 
+        /**
+         * Sets the calling adjust schedule.
+         *
+         * @param callingAdjustSchedule
+         *            the new calling adjust schedule
+         */
         public void setCallingAdjustSchedule(boolean callingAdjustSchedule) {
             m_callingAdjustSchedule = callingAdjustSchedule;
         }
 
+        /**
+         * Checks if is calling adjust schedule.
+         *
+         * @return true, if is calling adjust schedule
+         */
         public boolean isCallingAdjustSchedule() {
             return m_callingAdjustSchedule;
         }
@@ -86,6 +124,9 @@ public class ScheduleTest extends TestCase {
 
     /*
      * @see TestCase#setUp()
+     */
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
      */
     @Override
     protected void setUp() throws Exception {
@@ -100,12 +141,18 @@ public class ScheduleTest extends TestCase {
     /*
      * @see TestCase#tearDown()
      */
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
         super.tearDown();
     }
 
+    /**
+     * Test schedule.
+     */
     public void testSchedule() {
         m_sched.schedule();
 
@@ -120,6 +167,9 @@ public class ScheduleTest extends TestCase {
         assertRunAndScheduled(1000, 1000, 2, 1);
     }
 
+    /**
+     * Test adjust schedule.
+     */
     public void testAdjustSchedule() {
 
         m_sched.schedule();
@@ -165,6 +215,9 @@ public class ScheduleTest extends TestCase {
 
     }
 
+    /**
+     * Test unschedule.
+     */
     public void testUnschedule() {
         m_sched.schedule();
 
@@ -186,6 +239,9 @@ public class ScheduleTest extends TestCase {
         assertRunAndScheduled(2000, -1, 2, 0);
     }
 
+    /**
+     * Test temporarily suspend.
+     */
     public void testTemporarilySuspend() {
         m_interval.addSuspension(1500, 2500);
 
@@ -212,6 +268,9 @@ public class ScheduleTest extends TestCase {
         assertRunAndScheduled(3000, 1000, 3, 1);
     }
 
+    /**
+     * Test adjust schedule within run.
+     */
     public void testAdjustScheduleWithinRun() {
         m_schedulable.setCallingAdjustSchedule(true);
 
@@ -228,6 +287,18 @@ public class ScheduleTest extends TestCase {
         assertRunAndScheduled(1000, 1000, 2, 1);
     }
 
+    /**
+     * Assert run and scheduled.
+     *
+     * @param currentTime
+     *            the current time
+     * @param interval
+     *            the interval
+     * @param count
+     *            the count
+     * @param entryCount
+     *            the entry count
+     */
     private void assertRunAndScheduled(long currentTime, long interval, int count, int entryCount) {
         assertEquals(count, m_schedulable.getRunCount());
         assertEquals(currentTime, m_scheduler.getCurrentTime());

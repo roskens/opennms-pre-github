@@ -53,18 +53,19 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
 
-    /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code> */
+    /** Constant <code>FDB_ADDRESS="dot1dTpFdbAddress"</code>. */
     public static final String FDB_ADDRESS = "dot1dTpFdbAddress";
 
     /** Constant <code>FDB_ADDRESS_OID=".1.3.6.1.2.1.17.7.1.2.2.1.1"</code> */
     public static final String FDB_ADDRESS_OID = ".1.3.6.1.2.1.17.7.1.2.2.1.1";
 
-    /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code> */
+    /** Constant <code>FDB_PORT="dot1dTpFdbPort"</code>. */
     public static final String FDB_PORT = "dot1dTpFdbPort";
 
-    /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code> */
+    /** Constant <code>FDB_STATUS="dot1dTpFdbStatus"</code>. */
     public static final String FDB_STATUS = "dot1dTpFdbStatus";
 
+    /** The has fdb address from base. */
     private boolean hasFdbAddressFromBase = false;
 
     /**
@@ -173,6 +174,7 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getQBridgeDot1dTpFdbAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -187,6 +189,7 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getQBridgeDot1dTpFdbPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -202,6 +205,7 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
      * <p>
      * getQBridgeDot1dTpFdbStatus
      * </p>
+     * .
      *
      * @return a int.
      */

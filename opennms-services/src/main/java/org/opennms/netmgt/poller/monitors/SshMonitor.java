@@ -60,14 +60,17 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class SshMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SshMonitor.class);
 
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 0;
 
-    /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
+    /** Constant <code>DEFAULT_TIMEOUT=3000</code>. */
     public static final int DEFAULT_TIMEOUT = 3000;
 
-    /** Constant <code>DEFAULT_PORT=22</code> */
+    /** Constant <code>DEFAULT_PORT=22</code>. */
     public static final int DEFAULT_PORT = 22;
 
     /**

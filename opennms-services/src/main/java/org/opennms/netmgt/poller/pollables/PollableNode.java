@@ -38,24 +38,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PollableNode
+ * Represents a PollableNode.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PollableNode extends PollableContainer {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollableNode.class);
 
     /**
-     * Represents a Lock
+     * Represents a Lock.
      *
      * @author brozow
      */
     public class Lock {
+
+        /** The m_owner. */
         private Thread m_owner = null;
 
+        /** The m_obtain count. */
         private int m_obtainCount = 0;
 
+        /**
+         * Obtain.
+         */
         public synchronized void obtain() {
 
             if (m_owner != Thread.currentThread()) {
@@ -73,6 +81,12 @@ public class PollableNode extends PollableContainer {
             m_obtainCount++;
         }
 
+        /**
+         * Obtain.
+         *
+         * @param timeout
+         *            the timeout
+         */
         public synchronized void obtain(long timeout) {
 
             if (m_owner != Thread.currentThread()) {
@@ -95,6 +109,9 @@ public class PollableNode extends PollableContainer {
             m_obtainCount++;
         }
 
+        /**
+         * Release.
+         */
         public synchronized void release() {
             if (m_owner == Thread.currentThread()) {
                 m_obtainCount--;
@@ -107,7 +124,9 @@ public class PollableNode extends PollableContainer {
         }
 
         /**
-         * @return
+         * Checks if is lock available.
+         *
+         * @return true, if is lock available
          */
         public synchronized boolean isLockAvailable() {
             return m_owner == null;
@@ -115,10 +134,13 @@ public class PollableNode extends PollableContainer {
 
     }
 
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_node label. */
     private String m_nodeLabel;
 
+    /** The m_lock. */
     private final Lock m_lock = new Lock();
 
     /**
@@ -144,6 +166,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -155,6 +178,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getNodeLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -166,6 +190,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * setNodeLabel
      * </p>
+     * .
      *
      * @param nodeLabel
      *            a {@link java.lang.String} object.
@@ -178,6 +203,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * createInterface
      * </p>
+     * .
      *
      * @param addr
      *            a {@link java.net.InetAddress} object.
@@ -202,6 +228,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getInterface
      * </p>
+     * .
      *
      * @param addr
      *            a {@link java.net.InetAddress} object.
@@ -216,6 +243,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getNetwork
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableNetwork}
      *         object.
@@ -228,6 +256,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollContext} object.
      */
@@ -247,11 +276,12 @@ public class PollableNode extends PollableContainer {
      * <p>
      * createService
      * </p>
+     * .
      *
-     * @param svcName
-     *            a {@link java.lang.String} object.
      * @param addr
      *            a {@link java.net.InetAddress} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
      *         object.
      */
@@ -275,11 +305,12 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getService
      * </p>
+     * .
      *
-     * @param svcName
-     *            a {@link java.lang.String} object.
      * @param addr
      *            a {@link java.net.InetAddress} object.
+     * @param svcName
+     *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableService}
      *         object.
      */
@@ -313,6 +344,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -325,6 +357,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * getLockRoot
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.pollables.PollableElement}
      *         object.
@@ -338,6 +371,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * isTreeLockAvailable
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -359,6 +393,7 @@ public class PollableNode extends PollableContainer {
      * <p>
      * releaseTreeLock
      * </p>
+     * .
      */
     @Override
     public void releaseTreeLock() {

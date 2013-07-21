@@ -70,6 +70,7 @@ public class PassiveServiceMonitor implements ServiceMonitor {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {
@@ -86,6 +87,7 @@ public class PassiveServiceMonitor implements ServiceMonitor {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.

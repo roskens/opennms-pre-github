@@ -66,6 +66,7 @@ import org.springframework.util.Assert;
  */
 public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcCapsdDbSyncer.class);
 
     /**
@@ -77,27 +78,35 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * </P>
      */
     protected static final class LightWeightIfEntry {
-        /**
-         * Represents NULL value for 'ifIndex' field in the ipInterface table
-         */
+
+        /** Represents NULL value for 'ifIndex' field in the ipInterface table. */
         protected static final int NULL_IFINDEX = -1;
 
+        /** The Constant NULL_IFTYPE. */
         protected static final int NULL_IFTYPE = -1;
 
+        /** The Constant LOOPBACK_IFTYPE. */
         protected static final int LOOPBACK_IFTYPE = 24;
 
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_if index. */
         private int m_ifIndex;
 
+        /** The m_if type. */
         private int m_ifType;
 
+        /** The m_address. */
         private String m_address;
 
+        /** The m_management state. */
         private char m_managementState;
 
+        /** The m_snmp primary state. */
         private char m_snmpPrimaryState;
 
+        /** The m_primary state changed. */
         private boolean m_primaryStateChanged;
 
         /**
@@ -133,6 +142,8 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
          * <P>
          * Returns the IP address of the interface.
          * </P>
+         *
+         * @return the address
          */
         public String getAddress() {
             return m_address;
@@ -142,6 +153,8 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
          * <P>
          * Returns the parent node id of the interface.
          * </P>
+         *
+         * @return the node id
          */
         public int getNodeId() {
             return m_nodeId;
@@ -151,6 +164,8 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
          * <P>
          * Returns the ifIndex of the interface.
          * </P>
+         *
+         * @return the if index
          */
         public int getIfIndex() {
             return m_ifIndex;
@@ -160,27 +175,36 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
          * <P>
          * Returns the ifType of the interface.
          * </P>
+         *
+         * @return the if type
          */
         public int getIfType() {
             return m_ifType;
         }
 
         /**
+         * Gets the management state.
          *
+         * @return the management state
          */
         public char getManagementState() {
             return m_managementState;
         }
 
         /**
+         * Gets the snmp primary state.
          *
+         * @return the snmp primary state
          */
         public char getSnmpPrimaryState() {
             return m_snmpPrimaryState;
         }
 
         /**
+         * Sets the snmp primary state.
          *
+         * @param state
+         *            the new snmp primary state
          */
         public void setSnmpPrimaryState(char state) {
             if (state != m_snmpPrimaryState) {
@@ -190,7 +214,9 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
         }
 
         /**
+         * Checks for snmp primary state changed.
          *
+         * @return true, if successful
          */
         public boolean hasSnmpPrimaryStateChanged() {
             return m_primaryStateChanged;
@@ -245,16 +271,17 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
 
     /**
      * The SQL statement which updates the 'isManaged' field in the ipInterface
-     * table for a specific node/ipAddr pair
+     * table for a specific node/ipAddr pair.
      */
     private static final String SQL_DB_UPDATE_IP_INTERFACE = "UPDATE ipinterface SET ismanaged=? WHERE nodeid=? AND ipaddr=? AND isManaged!='D' AND isManaged!='F'";
 
     /**
      * The SQL statement which updates the 'status' field in the ifServices
-     * table for a specific node/ipAddr pair
+     * table for a specific node/ipAddr pair.
      */
     private static final String SQL_DB_UPDATE_ALL_SERVICES_FOR_NIP = "UPDATE ifservices SET status=? WHERE nodeid=? AND ipaddr=? AND status!='D' AND status!='F'";
 
+    /** The Constant SQL_DB_UPDATE_SERVICE_FOR_NIP. */
     private static final String SQL_DB_UPDATE_SERVICE_FOR_NIP = "UPDATE ifservices SET status=? WHERE nodeid=? AND ipaddr=? AND serviceid=? AND status!='D' AND status!='F'";
 
     // /**
@@ -286,9 +313,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      */
     private static final String SVCTBL_LOAD_SQL = "SELECT serviceID, serviceName FROM service";
 
-    /**
-     * The SQL statement used to add a new entry into the service table
-     */
+    /** The SQL statement used to add a new entry into the service table. */
     private static final String SVCTBL_ADD_SQL = "INSERT INTO service (serviceID, serviceName) VALUES (?,?)";
 
     /**
@@ -322,6 +347,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
             + "JOIN node as n ON ip.nodeid = n.nodeid " + "WHERE ip.ipaddr=? " + "AND ip.ismanaged!='D'"
             + "AND n.foreignSource is null";
 
+    /** The m_capsd config. */
     private CapsdConfig m_capsdConfig;
 
     /**
@@ -336,14 +362,19 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      */
     private Map<String, Integer> m_serviceNameToId = new HashMap<String, Integer>();
 
+    /** The m_opennms server config. */
     private OpennmsServerConfigFactory m_opennmsServerConfig;
 
+    /** The m_collectd config. */
     private CollectdConfigFactory m_collectdConfig;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_next svc id sql. */
     private String m_nextSvcIdSql = DEFAULT_NEXT_SVC_ID_SQL;
 
+    /** The m_jdbc template. */
     private JdbcTemplate m_jdbcTemplate;
 
     /**
@@ -385,6 +416,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncServices
      * </p>
+     * .
      */
     @Override
     public void syncServices() {
@@ -402,11 +434,12 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncServices
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void syncServices(Connection conn) throws SQLException {
 
@@ -455,6 +488,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncServicesTable
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -474,12 +508,13 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncServicesTable
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
      * @return a {@link java.util.List} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public List<String> syncServicesTable(Connection conn) throws SQLException {
         LOG.debug("syncServicesTable: synchronizing services list with the database");
@@ -553,6 +588,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncManagementState
      * </p>
+     * .
      */
     @Override
     public void syncManagementState() {
@@ -571,11 +607,12 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncManagementState
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public void syncManagementState(Connection conn) throws SQLException {
         boolean verifyServer = getOpennmsServerConfig().verifyServer();
@@ -821,6 +858,17 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
         }
     }
 
+    /**
+     * Checks if is service polled.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled
+     */
     private boolean isServicePolled(final String ifAddr, final String svcName,
             final org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
@@ -838,6 +886,17 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
         return svcToBePolled;
     }
 
+    /**
+     * Checks if is service polled locally.
+     *
+     * @param ifAddr
+     *            the if addr
+     * @param svcName
+     *            the svc name
+     * @param ipPkg
+     *            the ip pkg
+     * @return true, if is service polled locally
+     */
     private boolean isServicePolledLocally(final String ifAddr, final String svcName,
             final org.opennms.netmgt.config.poller.Package ipPkg) {
         boolean svcToBePolled = false;
@@ -863,6 +922,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncSnmpPrimaryState
      * </p>
+     * .
      */
     @Override
     public void syncSnmpPrimaryState() {
@@ -881,11 +941,12 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * syncSnmpPrimaryState
      * </p>
+     * .
      *
      * @param conn
      *            a {@link java.sql.Connection} object.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public synchronized void syncSnmpPrimaryState(Connection conn) throws SQLException {
         if (conn == null) {
@@ -1098,6 +1159,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getCapsdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.CapsdConfig} object.
      */
@@ -1109,6 +1171,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setCapsdConfig
      * </p>
+     * .
      *
      * @param capsdConfig
      *            a {@link org.opennms.netmgt.config.CapsdConfig} object.
@@ -1121,6 +1184,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getOpennmsServerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
      *         object.
@@ -1133,6 +1197,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setOpennmsServerConfig
      * </p>
+     * .
      *
      * @param serverConfigFactory
      *            a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
@@ -1146,6 +1211,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getPollerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PollerConfig} object.
      */
@@ -1157,6 +1223,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param pollerConfig
      *            a {@link org.opennms.netmgt.config.PollerConfig} object.
@@ -1169,6 +1236,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getCollectdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.CollectdConfigFactory} object.
      */
@@ -1180,6 +1248,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setCollectdConfig
      * </p>
+     * .
      *
      * @param collectdConfigFactory
      *            a {@link org.opennms.netmgt.config.CollectdConfigFactory}
@@ -1193,6 +1262,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -1212,6 +1282,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getInterfaceDbNodeId
      * </p>
+     * .
      *
      * @param dbConn
      *            a {@link java.sql.Connection} object.
@@ -1220,8 +1291,8 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * @param ifIndex
      *            a int.
      * @return a int.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int getInterfaceDbNodeId(Connection dbConn, InetAddress ifAddress, int ifIndex) throws SQLException {
         LOG.debug("getInterfaceDbNodeId: attempting to lookup interface {}/ifindex: {} in the database.",
@@ -1312,6 +1383,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setNextSvcIdSql
      * </p>
+     * .
      *
      * @param nextSvcIdSql
      *            a {@link java.lang.String} object.
@@ -1324,6 +1396,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * getNextSvcIdSql
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1335,6 +1408,7 @@ public class JdbcCapsdDbSyncer implements InitializingBean, CapsdDbSyncer {
      * <p>
      * setJdbcTemplate
      * </p>
+     * .
      *
      * @param jdbcTemplate
      *            a {@link org.springframework.jdbc.core.JdbcTemplate} object.

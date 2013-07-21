@@ -49,16 +49,17 @@ public class AliasedAttribute extends SnmpAttribute {
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param attr
      *            a {@link org.opennms.netmgt.collectd.SnmpAttribute} object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
+     *            object.
      */
     public AliasedAttribute(CollectionResource resource, SnmpAttribute attr) {
         super(resource, attr.getAttributeType(), attr.getValue());
         m_attr = attr;
     }
 
+    /** The m_attr. */
     private SnmpAttribute m_attr;
 
     /** {@inheritDoc} */
@@ -71,6 +72,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * getAttributeType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
      */
@@ -83,6 +85,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +98,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +111,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * getValue
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      */
@@ -119,6 +124,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -137,6 +143,7 @@ public class AliasedAttribute extends SnmpAttribute {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

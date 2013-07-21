@@ -60,21 +60,16 @@ import org.slf4j.LoggerFactory;
  */
 public final class SSLCertPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SSLCertPlugin.class);
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "SSLCert";
 
-    /**
-     * Default number of retries for TCP requests
-     */
+    /** Default number of retries for TCP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for TCP requests
-     */
+    /** Default timeout (in milliseconds) for TCP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
     /**
@@ -82,10 +77,13 @@ public final class SSLCertPlugin extends AbstractPlugin {
      */
     private static final int DEFAULT_PORT = -1;
 
+    /** The Constant PARAMETER_TIMEOUT. */
     public static final String PARAMETER_TIMEOUT = "timeout";
 
+    /** The Constant PARAMETER_RETRY. */
     public static final String PARAMETER_RETRY = "retry";
 
+    /** The Constant PARAMETER_PORT. */
     public static final String PARAMETER_PORT = "port";
 
     /**
@@ -182,12 +180,9 @@ public final class SSLCertPlugin extends AbstractPlugin {
      * <p>
      * wrapSocket
      * </p>
+     * .
      *
-     * @param socket
-     *            a {@link java.net.Socket} object.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
      */
     protected SocketWrapper getSocketWrapper() {
         return new SslSocketWrapper();

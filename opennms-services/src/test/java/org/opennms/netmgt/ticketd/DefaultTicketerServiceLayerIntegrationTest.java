@@ -73,33 +73,50 @@ import org.springframework.test.context.ContextConfiguration;
 // Set opennms.ticketer.plugin to a value for unit testing
 "opennms.ticketer.plugin=org.opennms.netmgt.ticketd.DefaultTicketerServiceLayerIntegrationTest.TestTicketerPlugin" })
 public class DefaultTicketerServiceLayerIntegrationTest implements InitializingBean {
+
+    /** The m_ticketer service layer. */
     @Autowired
     private TicketerServiceLayer m_ticketerServiceLayer;
 
+    /** The m_ticketer plugin. */
     @Autowired
     private TestTicketerPlugin m_ticketerPlugin;
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_databasePopulator.resetDatabase();
     }
 
+    /**
+     * Test wire.
+     */
     @Test
     public void testWire() {
         assertNotNull(m_ticketerServiceLayer);
@@ -136,8 +153,14 @@ public class DefaultTicketerServiceLayerIntegrationTest implements InitializingB
 
     }
 
+    /**
+     * The Class TestTicketerPlugin.
+     */
     public static class TestTicketerPlugin implements Plugin {
 
+        /* (non-Javadoc)
+         * @see org.opennms.api.integration.ticketing.Plugin#get(java.lang.String)
+         */
         @Override
         public Ticket get(String ticketId) {
             Ticket ticket = new Ticket();
@@ -145,6 +168,9 @@ public class DefaultTicketerServiceLayerIntegrationTest implements InitializingB
             return ticket;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.api.integration.ticketing.Plugin#saveOrUpdate(org.opennms.api.integration.ticketing.Ticket)
+         */
         @Override
         public void saveOrUpdate(Ticket ticket) {
             ticket.setId("testId");

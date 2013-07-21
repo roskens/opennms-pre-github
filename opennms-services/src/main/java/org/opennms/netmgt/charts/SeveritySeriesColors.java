@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SeveritySeriesColors implements CustomSeriesColors {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SeveritySeriesColors.class);
 
     /**

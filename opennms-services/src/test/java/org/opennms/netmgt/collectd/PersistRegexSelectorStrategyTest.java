@@ -64,20 +64,30 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * Test class for PersistRegexSelectorStrategy
+ * Test class for PersistRegexSelectorStrategy.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class PersistRegexSelectorStrategyTest {
 
+    /** The ip interface dao. */
     private IpInterfaceDao ipInterfaceDao;
 
+    /** The resource a. */
     private GenericIndexResource resourceA;
 
+    /** The resource b. */
     private GenericIndexResource resourceB;
 
+    /** The service params. */
     private ServiceParameters serviceParams;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         ipInterfaceDao = EasyMock.createMock(IpInterfaceDao.class);
@@ -143,17 +153,35 @@ public class PersistRegexSelectorStrategyTest {
         resourceB = new GenericIndexResource(resourceType, rt.getName(), new SnmpInstId("1.2.3.4.5.6.7.8.9.1.2"));
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         EasyMock.verify(ipInterfaceDao);
     }
 
+    /**
+     * Test persist selector.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPersistSelector() throws Exception {
         Assert.assertTrue(resourceA.shouldPersist(serviceParams));
         Assert.assertFalse(resourceB.shouldPersist(serviceParams));
     }
 
+    /**
+     * Test spring el.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSpringEl() throws Exception {
         ExpressionParser parser = new SpelExpressionParser();

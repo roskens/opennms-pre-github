@@ -50,14 +50,20 @@ import org.opennms.core.utils.ParameterMap;
  * @version $Id: $
  */
 public class ConnectionConfig {
+
+    /** The m_inet address. */
     InetAddress m_inetAddress;
 
+    /** The m_qualifiers. */
     Map<String, Object> m_qualifiers;
 
+    /** The m_port. */
     int m_port;
 
+    /** The m_timeout. */
     int m_timeout;
 
+    /** The m_retry. */
     int m_retry;
 
     /**
@@ -65,10 +71,10 @@ public class ConnectionConfig {
      * Constructor for ConnectionConfig.
      * </p>
      *
-     * @param qualifiers
-     *            a {@link java.util.Map} object.
      * @param inetAddress
      *            a {@link java.net.InetAddress} object.
+     * @param qualifiers
+     *            a {@link java.util.Map} object.
      * @param port
      *            a int.
      * @param timeout
@@ -122,6 +128,7 @@ public class ConnectionConfig {
      * <p>
      * getSocketAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetSocketAddress} object.
      */
@@ -133,6 +140,7 @@ public class ConnectionConfig {
      * <p>
      * setQualifiers
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -145,6 +153,7 @@ public class ConnectionConfig {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return Returns the address.
      */
@@ -156,6 +165,7 @@ public class ConnectionConfig {
      * <p>
      * setInetAddress
      * </p>
+     * .
      *
      * @param inetAddress
      *            The inetAddresss to set.
@@ -168,6 +178,7 @@ public class ConnectionConfig {
      * <p>
      * getKeyedInteger
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -186,6 +197,7 @@ public class ConnectionConfig {
      * <p>
      * getKeyedBoolean
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -204,6 +216,7 @@ public class ConnectionConfig {
      * <p>
      * getKeyedString
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -222,6 +235,7 @@ public class ConnectionConfig {
      * <p>
      * saveKeyedInteger
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -237,6 +251,7 @@ public class ConnectionConfig {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return Returns the port.
      */
@@ -248,6 +263,7 @@ public class ConnectionConfig {
      * <p>
      * getRetry
      * </p>
+     * .
      *
      * @return Returns the retries.
      */
@@ -259,6 +275,7 @@ public class ConnectionConfig {
      * <p>
      * setRetry
      * </p>
+     * .
      *
      * @param retry
      *            The retries to set.
@@ -271,6 +288,7 @@ public class ConnectionConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return Returns the timeout.
      */
@@ -282,6 +300,7 @@ public class ConnectionConfig {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            The timeout to set.

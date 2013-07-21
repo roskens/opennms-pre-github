@@ -49,8 +49,10 @@ import org.slf4j.LoggerFactory;
  */
 public class DiscoveryPingResponseCallback implements PingResponseCallback {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryPingResponseCallback.class);
 
+    /** The Constant EVENT_SOURCE_VALUE. */
     static final String EVENT_SOURCE_VALUE = "OpenNMS.Discovery";
 
     /** {@inheritDoc} */

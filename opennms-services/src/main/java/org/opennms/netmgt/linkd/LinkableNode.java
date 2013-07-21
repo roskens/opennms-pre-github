@@ -52,94 +52,171 @@ import org.springframework.util.Assert;
  */
 public class LinkableNode {
 
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_snmpprimaryaddr. */
     private final InetAddress m_snmpprimaryaddr;
 
+    /** The m_sysoid. */
     private final String m_sysoid;
 
+    /** The m_cdp device id. */
     private String m_cdpDeviceId;
 
+    /** The m_lldp sysname. */
     private String m_lldpSysname;
 
+    /** The m_lldp chassis id. */
     private String m_lldpChassisId;
 
+    /** The m_lldp chassis id subtype. */
     private Integer m_lldpChassisIdSubtype;
 
+    /** The m_ospf router id. */
     private InetAddress m_ospfRouterId;
 
+    /**
+     * Gets the cdp device id.
+     *
+     * @return the cdp device id
+     */
     public String getCdpDeviceId() {
         return m_cdpDeviceId;
     }
 
+    /**
+     * Sets the cdp device id.
+     *
+     * @param cdpDeviceId
+     *            the new cdp device id
+     */
     public void setCdpDeviceId(String cdpDeviceId) {
         m_cdpDeviceId = cdpDeviceId;
     }
 
+    /**
+     * Gets the ospf router id.
+     *
+     * @return the ospf router id
+     */
     public InetAddress getOspfRouterId() {
         return m_ospfRouterId;
     }
 
+    /**
+     * Sets the ospf router id.
+     *
+     * @param ospfRouterId
+     *            the new ospf router id
+     */
     public void setOspfRouterId(InetAddress ospfRouterId) {
         m_ospfRouterId = ospfRouterId;
     }
 
+    /**
+     * Sets the lldp sysname.
+     *
+     * @param lldpSysname
+     *            the new lldp sysname
+     */
     public void setLldpSysname(String lldpSysname) {
         m_lldpSysname = lldpSysname;
     }
 
+    /**
+     * Sets the lldp chassis id.
+     *
+     * @param lldpChassisId
+     *            the new lldp chassis id
+     */
     public void setLldpChassisId(String lldpChassisId) {
         m_lldpChassisId = lldpChassisId;
     }
 
+    /**
+     * Sets the lldp chassis id subtype.
+     *
+     * @param lldpChassisIdSubtype
+     *            the new lldp chassis id subtype
+     */
     public void setLldpChassisIdSubtype(Integer lldpChassisIdSubtype) {
         m_lldpChassisIdSubtype = lldpChassisIdSubtype;
     }
 
+    /**
+     * Gets the lldp sysname.
+     *
+     * @return the lldp sysname
+     */
     public String getLldpSysname() {
         return m_lldpSysname;
     }
 
+    /**
+     * Gets the lldp chassis id.
+     *
+     * @return the lldp chassis id
+     */
     public String getLldpChassisId() {
         return m_lldpChassisId;
     }
 
+    /**
+     * Gets the lldp chassis id subtype.
+     *
+     * @return the lldp chassis id subtype
+     */
     public Integer getLldpChassisIdSubtype() {
         return m_lldpChassisIdSubtype;
     }
 
+    /** The m_cdpinterfaces. */
     private List<CdpInterface> m_cdpinterfaces = new ArrayList<CdpInterface>();
 
+    /** The m_lldpreminterfaces. */
     private List<LldpRemInterface> m_lldpreminterfaces = new ArrayList<LldpRemInterface>();
 
+    /** The m_hascdpinterfaces. */
     private boolean m_hascdpinterfaces = false;
 
+    /** The m_routeinterfaces. */
     private List<RouterInterface> m_routeinterfaces = new ArrayList<RouterInterface>();
 
+    /** The m_ospfinterfaces. */
     private List<OspfNbrInterface> m_ospfinterfaces = new ArrayList<OspfNbrInterface>();
 
+    /** The m_hasrouteinterfaces. */
     private boolean m_hasrouteinterfaces = false;
 
+    /** The m_is bridge node. */
     private boolean m_isBridgeNode = false;
 
     /**
-     * the list of bridge port that are backbone bridge ports ou that are
-     * link between switches
+     * the list of bridge port that are backbone bridge ports ou that are link
+     * between switches.
      */
     private List<Integer> m_backBoneBridgePorts = new java.util.ArrayList<Integer>();
 
+    /** The m_bridge identifiers. */
     private List<String> m_bridgeIdentifiers = new java.util.ArrayList<String>();
 
+    /** The m_bridge stp interfaces. */
     private Map<Integer, List<OnmsStpInterface>> m_bridgeStpInterfaces = new HashMap<Integer, List<OnmsStpInterface>>();
 
+    /** The m_vlan bridge identifiers. */
     private Map<Integer, String> m_vlanBridgeIdentifiers = new HashMap<Integer, String>();
 
+    /** The m_port macs. */
     private Map<Integer, Set<String>> m_portMacs = new HashMap<Integer, Set<String>>();
 
+    /** The m_macs vlan. */
     private Map<String, Integer> m_macsVlan = new HashMap<String, Integer>();
 
+    /** The m_vlan stp root. */
     private Map<Integer, String> m_vlanStpRoot = new HashMap<Integer, String>();
 
+    /** The m_bridge port ifindex. */
     private Map<Integer, Integer> m_bridgePortIfindex = new HashMap<Integer, Integer>();
 
     /**
@@ -149,8 +226,8 @@ public class LinkableNode {
      *
      * @param nodeId
      *            a int.
-     * @param snmprimaryaddr
-     *            a {@link java.net.InetAddress} object.
+     * @param snmpPrimaryAddr
+     *            the snmp primary addr
      * @param sysoid
      *            a {@link java.lang.String} object.
      */
@@ -164,6 +241,7 @@ public class LinkableNode {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -177,6 +255,7 @@ public class LinkableNode {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -188,6 +267,7 @@ public class LinkableNode {
      * <p>
      * getSnmpPrimaryIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -195,18 +275,40 @@ public class LinkableNode {
         return m_snmpprimaryaddr;
     }
 
+    /**
+     * Gets the lldp rem interfaces.
+     *
+     * @return the lldp rem interfaces
+     */
     public List<LldpRemInterface> getLldpRemInterfaces() {
         return m_lldpreminterfaces;
     }
 
+    /**
+     * Sets the lldp rem interfaces.
+     *
+     * @param lldpreminterfaces
+     *            the new lldp rem interfaces
+     */
     public void setLldpRemInterfaces(List<LldpRemInterface> lldpreminterfaces) {
         m_lldpreminterfaces = lldpreminterfaces;
     }
 
+    /**
+     * Gets the ospfinterfaces.
+     *
+     * @return the ospfinterfaces
+     */
     public List<OspfNbrInterface> getOspfinterfaces() {
         return m_ospfinterfaces;
     }
 
+    /**
+     * Sets the ospfinterfaces.
+     *
+     * @param ospfinterfaces
+     *            the new ospfinterfaces
+     */
     public void setOspfinterfaces(List<OspfNbrInterface> ospfinterfaces) {
         m_ospfinterfaces = ospfinterfaces;
     }
@@ -215,6 +317,7 @@ public class LinkableNode {
      * <p>
      * getCdpInterfaces
      * </p>
+     * .
      *
      * @return Returns the m_cdpinterfaces.
      */
@@ -226,6 +329,7 @@ public class LinkableNode {
      * <p>
      * setCdpInterfaces
      * </p>
+     * .
      *
      * @param cdpinterfaces
      *            The m_cdpinterfaces to set.
@@ -241,6 +345,7 @@ public class LinkableNode {
      * <p>
      * hasCdpInterfaces
      * </p>
+     * .
      *
      * @return Returns the m_hascdpinterfaces.
      */
@@ -252,6 +357,7 @@ public class LinkableNode {
      * <p>
      * getRouteInterfaces
      * </p>
+     * .
      *
      * @return Returns the m_routeinterfaces.
      */
@@ -263,6 +369,7 @@ public class LinkableNode {
      * <p>
      * setRouteInterfaces
      * </p>
+     * .
      *
      * @param routeinterfaces
      *            a {@link java.util.List} object.
@@ -278,6 +385,7 @@ public class LinkableNode {
      * <p>
      * hasRouteInterfaces
      * </p>
+     * .
      *
      * @return Returns the m_hascdpinterfaces.
      */
@@ -289,6 +397,7 @@ public class LinkableNode {
      * <p>
      * isBridgeNode
      * </p>
+     * .
      *
      * @return Returns the isBridgeNode.
      */
@@ -297,6 +406,8 @@ public class LinkableNode {
     }
 
     /**
+     * Gets the back bone bridge ports.
+     *
      * @return Returns the backBoneBridgePorts.
      */
     public List<Integer> getBackBoneBridgePorts() {
@@ -304,6 +415,8 @@ public class LinkableNode {
     }
 
     /**
+     * Sets the back bone bridge ports.
+     *
      * @param backBoneBridgePorts
      *            The backBoneBridgePorts to set.
      */
@@ -312,19 +425,21 @@ public class LinkableNode {
     }
 
     /**
-     * return true if bridgeport is a backbone port
+     * return true if bridgeport is a backbone port.
      *
      * @param bridgeport
-     * @return
+     *            the bridgeport
+     * @return true, if is back bone bridge port
      */
     public boolean isBackBoneBridgePort(final int bridgeport) {
         return m_backBoneBridgePorts.contains(bridgeport);
     }
 
     /**
-     * add bridgeport to backbone ports
+     * add bridgeport to backbone ports.
      *
      * @param bridgeport
+     *            the bridgeport
      */
     public void addBackBoneBridgePorts(final int bridgeport) {
         if (m_backBoneBridgePorts.contains(bridgeport))
@@ -333,6 +448,8 @@ public class LinkableNode {
     }
 
     /**
+     * Gets the bridge identifiers.
+     *
      * @return Returns the bridgeIdentifiers.
      */
     public List<String> getBridgeIdentifiers() {
@@ -340,6 +457,8 @@ public class LinkableNode {
     }
 
     /**
+     * Sets the bridge identifiers.
+     *
      * @param bridgeIdentifiers
      *            The bridgeIdentifiers to set.
      */
@@ -350,15 +469,36 @@ public class LinkableNode {
         m_isBridgeNode = true;
     }
 
+    /**
+     * Adds the bridge identifier.
+     *
+     * @param bridge
+     *            the bridge
+     * @param vlan
+     *            the vlan
+     */
     public void addBridgeIdentifier(final String bridge, final Integer vlan) {
         m_vlanBridgeIdentifiers.put(vlan, bridge);
         addBridgeIdentifier(bridge);
     }
 
+    /**
+     * Checks if is bridge identifier.
+     *
+     * @param bridge
+     *            the bridge
+     * @return true, if is bridge identifier
+     */
     public boolean isBridgeIdentifier(final String bridge) {
         return m_bridgeIdentifiers.contains(bridge);
     }
 
+    /**
+     * Adds the bridge identifier.
+     *
+     * @param bridge
+     *            the bridge
+     */
     public void addBridgeIdentifier(final String bridge) {
         if (m_bridgeIdentifiers.contains(bridge))
             return;
@@ -366,10 +506,27 @@ public class LinkableNode {
         m_isBridgeNode = true;
     }
 
+    /**
+     * Gets the bridge identifier.
+     *
+     * @param vlan
+     *            the vlan
+     * @return the bridge identifier
+     */
     public String getBridgeIdentifier(final Integer vlan) {
         return m_vlanBridgeIdentifiers.get(vlan);
     }
 
+    /**
+     * Adds the mac address.
+     *
+     * @param bridgeport
+     *            the bridgeport
+     * @param macAddress
+     *            the mac address
+     * @param vlan
+     *            the vlan
+     */
     public void addMacAddress(final int bridgeport, final String macAddress, final Integer vlan) {
         Set<String> macs = new HashSet<String>();
         if (m_portMacs.containsKey(bridgeport)) {
@@ -381,6 +538,13 @@ public class LinkableNode {
         m_macsVlan.put(macAddress, vlan);
     }
 
+    /**
+     * Checks for mac address.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return true, if successful
+     */
     public boolean hasMacAddress(final String macAddress) {
         for (final Set<String> macs : m_portMacs.values()) {
             if (macs.contains(macAddress)) {
@@ -390,22 +554,55 @@ public class LinkableNode {
         return false;
     }
 
+    /**
+     * Checks for mac addresses.
+     *
+     * @return true, if successful
+     */
     public boolean hasMacAddresses() {
         return !m_portMacs.isEmpty();
     }
 
+    /**
+     * Gets the vlan.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the vlan
+     */
     public Integer getVlan(final String macAddress) {
         return m_macsVlan.get(macAddress);
     }
 
+    /**
+     * Gets the mac addresses on bridge port.
+     *
+     * @param bridgeport
+     *            the bridgeport
+     * @return the mac addresses on bridge port
+     */
     public Set<String> getMacAddressesOnBridgePort(final int bridgeport) {
         return m_portMacs.get(bridgeport);
     }
 
+    /**
+     * Checks for mac addresses on bridge port.
+     *
+     * @param bridgeport
+     *            the bridgeport
+     * @return true, if successful
+     */
     public boolean hasMacAddressesOnBridgePort(final int bridgeport) {
         return (m_portMacs.containsKey(bridgeport) && m_portMacs.get(bridgeport) != null);
     }
 
+    /**
+     * Gets the bridge ports from mac.
+     *
+     * @param macAddress
+     *            the mac address
+     * @return the bridge ports from mac
+     */
     public List<Integer> getBridgePortsFromMac(final String macAddress) {
         List<Integer> ports = new ArrayList<Integer>();
         for (final Integer intePort : m_portMacs.keySet()) {
@@ -416,6 +613,13 @@ public class LinkableNode {
         return ports;
     }
 
+    /**
+     * Gets the ifindex.
+     *
+     * @param bridgeport
+     *            the bridgeport
+     * @return the ifindex
+     */
     public int getIfindex(final int bridgeport) {
         if (m_bridgePortIfindex.containsKey(bridgeport)) {
             return m_bridgePortIfindex.get(bridgeport).intValue();
@@ -423,6 +627,13 @@ public class LinkableNode {
         return -1;
     }
 
+    /**
+     * Gets the bridge port.
+     *
+     * @param ifindex
+     *            the ifindex
+     * @return the bridge port
+     */
     public int getBridgePort(final int ifindex) {
         for (final Integer curBridgePort : m_bridgePortIfindex.keySet()) {
             final Integer curIfIndex = m_bridgePortIfindex.get(curBridgePort);
@@ -432,6 +643,14 @@ public class LinkableNode {
         return -1;
     }
 
+    /**
+     * Sets the if index bridge port.
+     *
+     * @param ifindex
+     *            the ifindex
+     * @param bridgeport
+     *            the bridgeport
+     */
     void setIfIndexBridgePort(final Integer ifindex, final Integer bridgeport) {
         Assert.notNull(ifindex);
         Assert.notNull(bridgeport);
@@ -439,6 +658,8 @@ public class LinkableNode {
     }
 
     /**
+     * Gets the port macs.
+     *
      * @return Returns the portMacs.
      */
     public Map<Integer, Set<String>> getPortMacs() {
@@ -446,6 +667,8 @@ public class LinkableNode {
     }
 
     /**
+     * Sets the port macs.
+     *
      * @param portMacs
      *            The portMacs to set.
      */
@@ -453,15 +676,37 @@ public class LinkableNode {
         m_portMacs = portMacs;
     }
 
+    /**
+     * Sets the vlan stp root.
+     *
+     * @param vlan
+     *            the vlan
+     * @param stproot
+     *            the stproot
+     */
     public void setVlanStpRoot(final Integer vlan, final String stproot) {
         if (stproot != null)
             m_vlanStpRoot.put(vlan, stproot);
     }
 
+    /**
+     * Checks for stp root.
+     *
+     * @param vlan
+     *            the vlan
+     * @return true, if successful
+     */
     public boolean hasStpRoot(final Integer vlan) {
         return m_vlanStpRoot.containsKey(vlan);
     }
 
+    /**
+     * Gets the stp root.
+     *
+     * @param vlan
+     *            the vlan
+     * @return the stp root
+     */
     public String getStpRoot(final Integer vlan) {
         if (m_vlanStpRoot.containsKey(vlan)) {
             return m_vlanStpRoot.get(vlan);
@@ -473,6 +718,7 @@ public class LinkableNode {
      * <p>
      * getStpInterfaces
      * </p>
+     * .
      *
      * @return Returns the stpInterfaces.
      */
@@ -484,6 +730,7 @@ public class LinkableNode {
      * <p>
      * setStpInterfaces
      * </p>
+     * .
      *
      * @param stpInterfaces
      *            The stpInterfaces to set.
@@ -496,6 +743,7 @@ public class LinkableNode {
      * <p>
      * addStpInterface
      * </p>
+     * .
      *
      * @param stpIface
      *            a {@link org.opennms.netmgt.model.OnmsStpInterface} object.
@@ -514,6 +762,7 @@ public class LinkableNode {
      * <p>
      * getSysoid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

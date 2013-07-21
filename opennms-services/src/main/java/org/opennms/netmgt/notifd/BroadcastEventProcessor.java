@@ -82,26 +82,34 @@ import org.slf4j.LoggerFactory;
  */
 public final class BroadcastEventProcessor implements EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
-    /**
-     */
+    /** The m_notice queues. */
     private volatile Map<String, NoticeQueue> m_noticeQueues;
 
+    /** The m_event manager. */
     private volatile EventIpcManager m_eventManager;
 
+    /** The m_poll outages config manager. */
     private volatile PollOutagesConfigManager m_pollOutagesConfigManager;
 
+    /** The m_notification manager. */
     private volatile NotificationManager m_notificationManager;
 
+    /** The m_notifd config manager. */
     private volatile NotifdConfigManager m_notifdConfigManager;
 
+    /** The m_destination path manager. */
     private volatile DestinationPathManager m_destinationPathManager;
 
+    /** The m_user manager. */
     private volatile UserManager m_userManager;
 
+    /** The m_group manager. */
     private volatile GroupManager m_groupManager;
 
+    /** The m_notification command manager. */
     private volatile NotificationCommandManager m_notificationCommandManager;
 
     /**
@@ -124,6 +132,9 @@ public final class BroadcastEventProcessor implements EventListener {
         getEventManager().addEventListener(this);
     }
 
+    /**
+     * Assert properties set.
+     */
     private void assertPropertiesSet() {
         if (m_noticeQueues == null) {
             throw new IllegalStateException("property noticeQueues not set");
@@ -156,7 +167,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         getEventManager().removeEventListener(this);
@@ -204,6 +215,13 @@ public final class BroadcastEventProcessor implements EventListener {
         automaticAcknowledge(event, notifsOn);
     }
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
 
@@ -227,6 +245,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * computeNullSafeStatus
      * </p>
+     * .
      *
      * @return false if status is not defined in configuration as "on".
      */
@@ -247,11 +266,15 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * @author <a href="mailto:billayers@opennms.org">Bill Ayers</a>
+     * Check critical path.
+     *
      * @param event
+     *            the event
      * @param notifsOn
+     *            the notifs on
      * @return boolean representing whether event is not relative to a critical
      *         path
+     * @author <a href="mailto:billayers@opennms.org">Bill Ayers</a>
      */
     private boolean checkCriticalPath(Event event, boolean notifsOn) {
         boolean isPathOk = true;
@@ -290,6 +313,14 @@ public final class BroadcastEventProcessor implements EventListener {
         return isPathOk;
     }
 
+    /**
+     * Automatic acknowledge.
+     *
+     * @param event
+     *            the event
+     * @param notifsOn
+     *            the notifs on
+     */
     private void automaticAcknowledge(Event event, boolean notifsOn) {
         try {
             Collection<AutoAcknowledge> autoAcks = getNotifdConfigManager().getAutoAcknowledges();
@@ -329,6 +360,24 @@ public final class BroadcastEventProcessor implements EventListener {
         }
     }
 
+    /**
+     * Send resolved notifications.
+     *
+     * @param notifIDs
+     *            the notif i ds
+     * @param event
+     *            the event
+     * @param acknowledge
+     *            the acknowledge
+     * @param match
+     *            the match
+     * @param resolutionPrefix
+     *            the resolution prefix
+     * @param skipNumericPrefix
+     *            the skip numeric prefix
+     * @throws Exception
+     *             the exception
+     */
     private void sendResolvedNotifications(Collection<Integer> notifIDs, Event event, String acknowledge,
             String[] match, String resolutionPrefix, boolean skipNumericPrefix) throws Exception {
         for (int notifId : notifIDs) {
@@ -386,6 +435,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * sendResolvedNotificationsToUser
      * </p>
+     * .
      *
      * @param queueID
      *            a {@link java.lang.String} object.
@@ -395,8 +445,8 @@ public final class BroadcastEventProcessor implements EventListener {
      *            an array of {@link java.lang.String} objects.
      * @param params
      *            a {@link java.util.Map} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected void sendResolvedNotificationsToUser(String queueID, String targetName, String[] commands,
             Map<String, String> params) throws Exception {
@@ -431,7 +481,11 @@ public final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This method determines if the notice should continue based on the status
-     * of the notify
+     * of the notify.
+     *
+     * @param event
+     *            the event
+     * @return true, if successful
      */
     private boolean continueWithNotice(Event event) {
         String nodeID = event.hasNodeid() ? String.valueOf(event.getNodeid()) : null;
@@ -476,6 +530,10 @@ public final class BroadcastEventProcessor implements EventListener {
      * set up to acknowledge a nodeDown when a nodeUp is received, passing
      * nodeDown to this method will return true. Should this method be in
      * NotifdConfigFactory?
+     *
+     * @param eventUei
+     *            the event uei
+     * @return true, if successful
      */
     private boolean autoAckExistsForEvent(String eventUei) {
         try {
@@ -493,6 +551,10 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Schedule notices for event.
+     *
+     * @param event
+     *            the event
      */
     private void scheduleNoticesForEvent(Event event) {
 
@@ -654,6 +716,12 @@ public final class BroadcastEventProcessor implements EventListener {
      *            the list of Escalate objects
      * @return the total # of users assigned in each Target and Escalate
      *         objecst.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private int getUserCount(Target[] targets, Escalate[] escalations) throws IOException, MarshalException,
             ValidationException {
@@ -674,7 +742,17 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Gets the users in target.
      *
+     * @param target
+     *            the target
+     * @return the users in target
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private int getUsersInTarget(Target target) throws IOException, MarshalException, ValidationException {
         int count = 0;
@@ -694,10 +772,14 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Sends and event related to a notification
+     * Sends and event related to a notification.
      *
      * @param uei
      *            the UEI for the event
+     * @param logMessage
+     *            the log message
+     * @param description
+     *            the description
      */
     private void sendNotifEvent(String uei, String logMessage, String description) {
         try {
@@ -713,7 +795,15 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Builds the parameter map.
      *
+     * @param notification
+     *            the notification
+     * @param event
+     *            the event
+     * @param noticeId
+     *            the notice id
+     * @return the map
      */
     static Map<String, String> buildParameterMap(Notification notification, Event event, int noticeId) {
         Map<String, String> paramMap = new HashMap<String, String>();
@@ -747,26 +837,82 @@ public final class BroadcastEventProcessor implements EventListener {
 
     }
 
+    /**
+     * Null safe expanded put.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     * @param event
+     *            the event
+     * @param paramMap
+     *            the param map
+     */
     private static void nullSafeExpandedPut(final String key, final String value, final Event event,
             Map<String, String> paramMap) {
         String result = EventUtil.expandParms(value, event);
         paramMap.put(key, (result == null ? value : result));
     }
 
+    /**
+     * Null safe subj.
+     *
+     * @param notification
+     *            the notification
+     * @param noticeId
+     *            the notice id
+     * @return the string
+     */
     private static String nullSafeSubj(Notification notification, int noticeId) {
         return notification.getSubject() != null ? notification.getSubject() : "Notice #" + noticeId;
     }
 
+    /**
+     * Null safe numer msg.
+     *
+     * @param notification
+     *            the notification
+     * @param noticeId
+     *            the notice id
+     * @return the string
+     */
     private static String nullSafeNumerMsg(Notification notification, int noticeId) {
         return notification.getNumericMessage() != null ? notification.getNumericMessage() : "111-" + noticeId;
     }
 
+    /**
+     * Null safe text msg.
+     *
+     * @param notification
+     *            the notification
+     * @return the string
+     */
     private static String nullSafeTextMsg(Notification notification) {
         return notification.getTextMessage() != null ? notification.getTextMessage() : "No text message supplied.";
     }
 
     /**
+     * Process targets.
      *
+     * @param targets
+     *            the targets
+     * @param targetSiblings
+     *            the target siblings
+     * @param noticeQueue
+     *            the notice queue
+     * @param startTime
+     *            the start time
+     * @param params
+     *            the params
+     * @param noticeId
+     *            the notice id
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private void processTargets(Target[] targets, List<NotificationTask> targetSiblings, NoticeQueue noticeQueue,
             long startTime, Map<String, String> params, int noticeId) throws IOException, MarshalException,
@@ -827,6 +973,33 @@ public final class BroadcastEventProcessor implements EventListener {
         }
     }
 
+    /**
+     * Make group tasks.
+     *
+     * @param startTime
+     *            the start time
+     * @param params
+     *            the params
+     * @param noticeId
+     *            the notice id
+     * @param targetName
+     *            the target name
+     * @param command
+     *            the command
+     * @param targetSiblings
+     *            the target siblings
+     * @param autoNotify
+     *            the auto notify
+     * @param interval
+     *            the interval
+     * @return the notification task[]
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     NotificationTask[] makeGroupTasks(long startTime, Map<String, String> params, int noticeId, String targetName,
             String[] command, List<NotificationTask> targetSiblings, String autoNotify, long interval)
             throws IOException, MarshalException, ValidationException {
@@ -856,6 +1029,35 @@ public final class BroadcastEventProcessor implements EventListener {
                                           autoNotify, interval);
     }
 
+    /**
+     * Construct tasks from user list.
+     *
+     * @param users
+     *            the users
+     * @param startTime
+     *            the start time
+     * @param offset
+     *            the offset
+     * @param params
+     *            the params
+     * @param noticeId
+     *            the notice id
+     * @param command
+     *            the command
+     * @param targetSiblings
+     *            the target siblings
+     * @param autoNotify
+     *            the auto notify
+     * @param interval
+     *            the interval
+     * @return the notification task[]
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private NotificationTask[] constructTasksFromUserList(String[] users, long startTime, long offset,
             Map<String, String> params, int noticeId, String[] command, List<NotificationTask> targetSiblings,
             String autoNotify, long interval) throws IOException, MarshalException, ValidationException {
@@ -873,6 +1075,33 @@ public final class BroadcastEventProcessor implements EventListener {
         return taskList.toArray(new NotificationTask[taskList.size()]);
     }
 
+    /**
+     * Make role tasks.
+     *
+     * @param startTime
+     *            the start time
+     * @param params
+     *            the params
+     * @param noticeId
+     *            the notice id
+     * @param targetName
+     *            the target name
+     * @param command
+     *            the command
+     * @param targetSiblings
+     *            the target siblings
+     * @param autoNotify
+     *            the auto notify
+     * @param interval
+     *            the interval
+     * @return the notification task[]
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     NotificationTask[] makeRoleTasks(long startTime, Map<String, String> params, int noticeId, String targetName,
             String[] command, List<NotificationTask> targetSiblings, String autoNotify, long interval)
             throws MarshalException, ValidationException, IOException {
@@ -890,7 +1119,26 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Process escalations.
      *
+     * @param escalations
+     *            the escalations
+     * @param targetSiblings
+     *            the target siblings
+     * @param noticeQueue
+     *            the notice queue
+     * @param startTime
+     *            the start time
+     * @param params
+     *            the params
+     * @param noticeId
+     *            the notice id
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     private void processEscalations(Escalate[] escalations, List<NotificationTask> targetSiblings,
             NoticeQueue noticeQueue, long startTime, Map<String, String> params, int noticeId) throws IOException,
@@ -903,7 +1151,29 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Make user task.
      *
+     * @param sendTime
+     *            the send time
+     * @param parameters
+     *            the parameters
+     * @param noticeId
+     *            the notice id
+     * @param targetName
+     *            the target name
+     * @param commandList
+     *            the command list
+     * @param siblings
+     *            the siblings
+     * @param autoNotify
+     *            the auto notify
+     * @return the notification task
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     NotificationTask makeUserTask(long sendTime, Map<String, String> parameters, int noticeId, String targetName,
             String[] commandList, List<NotificationTask> siblings, String autoNotify) throws IOException,
@@ -936,7 +1206,29 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
+     * Make email task.
      *
+     * @param sendTime
+     *            the send time
+     * @param parameters
+     *            the parameters
+     * @param noticeId
+     *            the notice id
+     * @param address
+     *            the address
+     * @param commandList
+     *            the command list
+     * @param siblings
+     *            the siblings
+     * @param autoNotify
+     *            the auto notify
+     * @return the notification task
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     NotificationTask makeEmailTask(long sendTime, Map<String, String> parameters, int noticeId, String address,
             String[] commandList, List<NotificationTask> siblings, String autoNotify) throws IOException,
@@ -968,7 +1260,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -981,6 +1273,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * rebuildParameterMap
      * </p>
+     * .
      *
      * @param notifId
      *            a int.
@@ -989,8 +1282,8 @@ public final class BroadcastEventProcessor implements EventListener {
      * @param skipNumericPrefix
      *            a boolean.
      * @return a {@link java.util.Map} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public Map<String, String> rebuildParameterMap(final int notifId, final String resolutionPrefix,
             final boolean skipNumericPrefix) throws Exception {
@@ -1004,19 +1297,13 @@ public final class BroadcastEventProcessor implements EventListener {
      * current time and the service's interface. If an outage applies it's name
      * is returned...otherwise null is returned.
      *
-     * @return null if no outage found (indicating a notification may be sent)
-     *         or the outage name, if an applicable outage is found (indicating
-     *         notification should not be sent).
-     * @throws IOException
-     *             if any.
-     * @throws ValidationException
-     *             if any.
-     * @throws MarshalException
-     *             if any.
      * @param nodeId
      *            a long.
      * @param theInterface
      *            a {@link java.lang.String} object.
+     * @return null if no outage found (indicating a notification may be sent)
+     *         or the outage name, if an applicable outage is found (indicating
+     *         notification should not be sent).
      */
     public String scheduledOutage(long nodeId, String theInterface) {
         try {
@@ -1054,10 +1341,18 @@ public final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This method is responsible for generating a pathOutage event and
-     * sending it
+     * sending it.
      *
-     * @param nodeEntry
-     *            Entry of node which was rescanned
+     * @param nodeid
+     *            the nodeid
+     * @param nodeLabel
+     *            the node label
+     * @param intfc
+     *            the intfc
+     * @param svc
+     *            the svc
+     * @param noticeSupressed
+     *            the notice supressed
      */
     private void createPathOutageEvent(int nodeid, String nodeLabel, String intfc, String svc, boolean noticeSupressed) {
         LOG.debug("nodeid = {}, nodeLabel = {}, noticeSupressed = {}", nodeid, nodeLabel, noticeSupressed);
@@ -1083,6 +1378,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getDestinationPathManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.DestinationPathManager}
      *         object.
@@ -1095,6 +1391,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setDestinationPathManager
      * </p>
+     * .
      *
      * @param destinationPathManager
      *            a {@link org.opennms.netmgt.config.DestinationPathManager}
@@ -1108,6 +1405,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -1119,6 +1417,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -1132,6 +1431,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getGroupManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.GroupManager} object.
      */
@@ -1143,6 +1443,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setGroupManager
      * </p>
+     * .
      *
      * @param groupManager
      *            a {@link org.opennms.netmgt.config.GroupManager} object.
@@ -1155,6 +1456,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getNotifdConfigManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotifdConfigManager} object.
      */
@@ -1166,6 +1468,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setNotifdConfigManager
      * </p>
+     * .
      *
      * @param notifdConfigManager
      *            a {@link org.opennms.netmgt.config.NotifdConfigManager}
@@ -1179,6 +1482,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getNotificationCommandManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotificationCommandManager}
      *         object.
@@ -1191,6 +1495,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setNotificationCommandManager
      * </p>
+     * .
      *
      * @param notificationCommandManager
      *            a {@link org.opennms.netmgt.config.NotificationCommandManager}
@@ -1204,6 +1509,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getNotificationManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.NotificationManager} object.
      */
@@ -1215,6 +1521,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setNotificationManager
      * </p>
+     * .
      *
      * @param notificationManager
      *            a {@link org.opennms.netmgt.config.NotificationManager}
@@ -1228,6 +1535,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getPollOutagesConfigManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
      *         object.
@@ -1240,6 +1548,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setPollOutagesConfigManager
      * </p>
+     * .
      *
      * @param pollOutagesConfigManager
      *            a {@link org.opennms.netmgt.config.PollOutagesConfigManager}
@@ -1253,6 +1562,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getUserManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.UserManager} object.
      */
@@ -1264,6 +1574,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setUserManager
      * </p>
+     * .
      *
      * @param userManager
      *            a {@link org.opennms.netmgt.config.UserManager} object.
@@ -1276,6 +1587,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * getNoticeQueues
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -1287,6 +1599,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * <p>
      * setNoticeQueues
      * </p>
+     * .
      *
      * @param noticeQueues
      *            a {@link java.util.Map} object.

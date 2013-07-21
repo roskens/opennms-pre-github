@@ -63,14 +63,19 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class SnmpAttributeType implements AttributeDefinition, CollectionAttributeType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpAttributeType.class);
 
+    /** The m_mib obj. */
     private MibObject m_mibObj;
 
+    /** The m_collection name. */
     private String m_collectionName;
 
+    /** The m_resource type. */
     private ResourceType m_resourceType;
 
+    /** The m_group type. */
     private AttributeGroupType m_groupType;
 
     /**
@@ -97,6 +102,11 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         m_groupType = groupType;
     }
 
+    /**
+     * Gets the mib obj.
+     *
+     * @return the mib obj
+     */
     private MibObject getMibObj() {
         return m_mibObj;
     }
@@ -105,6 +115,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getCollectionName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +130,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getCollectionTrackers
      * </p>
+     * .
      *
      * @param objList
      *            a {@link java.util.Collection} object.
@@ -133,6 +145,11 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         return trackers;
     }
 
+    /**
+     * Gets the collection tracker.
+     *
+     * @return the collection tracker
+     */
     private CollectionTracker getCollectionTracker() {
         SnmpInstId[] instances = m_resourceType.getCollectionInstances();
         if (instances != null
@@ -147,6 +164,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * create
      * </p>
+     * .
      *
      * @param resourceType
      *            a {@link org.opennms.netmgt.collectd.ResourceType} object.
@@ -156,9 +174,9 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      *            a {@link org.opennms.netmgt.config.MibObject} object.
      * @param groupType
      *            a
-     *            {@link org.opennms.netmgt.config.collector.AttributeGroupType}
-     *            object.
      * @return a {@link org.opennms.netmgt.collectd.SnmpAttributeType} object.
+     *         {@link org.opennms.netmgt.config.collector.AttributeGroupType}
+     *         object.
      */
     public static SnmpAttributeType create(ResourceType resourceType, String collectionName, MibObject mibObj,
             AttributeGroupType groupType) {
@@ -177,6 +195,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getResourceType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.ResourceType} object.
      */
@@ -188,6 +207,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getGroupType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.AttributeGroupType}
      *         object.
@@ -201,6 +221,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getGroupName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -208,10 +229,20 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         return m_groupType.getName();
     }
 
+    /**
+     * Gets the maxval.
+     *
+     * @return the maxval
+     */
     public String getMaxval() {
         return m_mibObj.getMaxval();
     }
 
+    /**
+     * Gets the minval.
+     *
+     * @return the minval
+     */
     public String getMinval() {
         return m_mibObj.getMinval();
     }
@@ -220,6 +251,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -231,6 +263,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getOid
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +275,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -257,6 +291,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -265,6 +300,11 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         return m_mibObj.getType();
     }
 
+    /**
+     * Gets the snmp obj id.
+     *
+     * @return the snmp obj id
+     */
     SnmpObjId getSnmpObjId() {
         return m_mibObj.getSnmpObjId();
     }
@@ -277,6 +317,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -293,6 +334,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * storeResult
      * </p>
+     * .
      *
      * @param collectionSet
      *            a {@link org.opennms.netmgt.collectd.SnmpCollectionSet}
@@ -322,6 +364,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -344,6 +387,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -356,6 +400,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * getGroupIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -367,6 +412,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      * <p>
      * matches
      * </p>
+     * .
      *
      * @param base
      *            a {@link org.opennms.netmgt.snmp.SnmpObjId} object.

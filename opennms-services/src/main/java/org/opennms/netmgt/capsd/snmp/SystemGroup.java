@@ -56,39 +56,46 @@ import org.slf4j.LoggerFactory;
  */
 public final class SystemGroup extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SystemGroup.class);
 
     //
     // Lookup strings for specific table entries
     //
-    /** Constant <code>SYS_OBJECTID_ALIAS="sysObjectID"</code> */
+    /** Constant <code>SYS_OBJECTID_ALIAS="sysObjectID"</code>. */
     public static final String SYS_OBJECTID_ALIAS = "sysObjectID";
 
+    /** The Constant SYS_OBJECTID. */
     private static final String SYS_OBJECTID = ".1.3.6.1.2.1.1.2";
 
-    /** Constant <code>SYS_UPTIME_ALIAS="sysUptime"</code> */
+    /** Constant <code>SYS_UPTIME_ALIAS="sysUptime"</code>. */
     public static final String SYS_UPTIME_ALIAS = "sysUptime";
 
+    /** The Constant SYS_UPTIME. */
     private static final String SYS_UPTIME = ".1.3.6.1.2.1.1.3";
 
-    /** Constant <code>SYS_NAME_ALIAS="sysName"</code> */
+    /** Constant <code>SYS_NAME_ALIAS="sysName"</code>. */
     public static final String SYS_NAME_ALIAS = "sysName";
 
+    /** The Constant SYS_NAME. */
     private static final String SYS_NAME = ".1.3.6.1.2.1.1.5";
 
-    /** Constant <code>SYS_DESCR_ALIAS="sysDescr"</code> */
+    /** Constant <code>SYS_DESCR_ALIAS="sysDescr"</code>. */
     public static final String SYS_DESCR_ALIAS = "sysDescr";
 
+    /** The Constant SYS_DESCR. */
     private static final String SYS_DESCR = ".1.3.6.1.2.1.1.1";
 
-    /** Constant <code>SYS_LOCATION_ALIAS="sysLocation"</code> */
+    /** Constant <code>SYS_LOCATION_ALIAS="sysLocation"</code>. */
     public static final String SYS_LOCATION_ALIAS = "sysLocation";
 
+    /** The Constant SYS_LOCATION. */
     private static final String SYS_LOCATION = ".1.3.6.1.2.1.1.6";
 
-    /** Constant <code>SYS_CONTACT_ALIAS="sysContact"</code> */
+    /** Constant <code>SYS_CONTACT_ALIAS="sysContact"</code>. */
     public static final String SYS_CONTACT_ALIAS = "sysContact";
 
+    /** The Constant SYS_CONTACT. */
     private static final String SYS_CONTACT = ".1.3.6.1.2.1.1.4";
 
     /**
@@ -206,8 +213,10 @@ public final class SystemGroup extends AggregateTracker {
      */
     public static final String SYSTEM_OID = ".1.3.6.1.2.1.1";
 
+    /** The m_store. */
     private SnmpStore m_store;
 
+    /** The m_address. */
     private InetAddress m_address;
 
     /**
@@ -231,6 +240,7 @@ public final class SystemGroup extends AggregateTracker {
      * <p>
      * getSysName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +252,7 @@ public final class SystemGroup extends AggregateTracker {
      * <p>
      * getSysObjectID
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -253,6 +264,7 @@ public final class SystemGroup extends AggregateTracker {
      * <p>
      * getSysDescr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -264,6 +276,7 @@ public final class SystemGroup extends AggregateTracker {
      * <p>
      * getSysLocation
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -275,6 +288,7 @@ public final class SystemGroup extends AggregateTracker {
      * <p>
      * getSysContact
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -43,13 +43,22 @@ import org.opennms.core.test.MockLogAppender;
 import org.springframework.remoting.RemoteAccessException;
 
 /**
+ * The Class XmlRpcTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class XmlRpcTest {
 
+    /** The m_web server. */
     private WebServer m_webServer;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -63,12 +72,21 @@ public class XmlRpcTest {
         m_webServer = (WebServer) wsf.getObject();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_webServer.shutdown();
 
     }
 
+    /**
+     * Test xml rpc proxy factory bean and service exporter.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testXmlRpcProxyFactoryBeanAndServiceExporter() throws Throwable {
         TestBean target = new TestBean("myname", 99);
@@ -92,6 +110,12 @@ public class XmlRpcTest {
 
     }
 
+    /**
+     * Test xml rpc proxy factory bean and service exporter with https.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     @Ignore("We're not set up for HTTPS for these tests.")
     public void testXmlRpcProxyFactoryBeanAndServiceExporterWithHttps() throws Throwable {
@@ -116,6 +140,12 @@ public class XmlRpcTest {
 
     }
 
+    /**
+     * Test xml rpc proxy factory bean and service exporter with io exception.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("If you're using OpenDNS, myurl gives an IP address")
     public void testXmlRpcProxyFactoryBeanAndServiceExporterWithIOException() throws Exception {
@@ -144,34 +174,77 @@ public class XmlRpcTest {
         }
     }
 
+    /**
+     * The Interface ITestBean.
+     */
     public static interface ITestBean {
+
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName();
 
+        /**
+         * Gets the age.
+         *
+         * @return the age
+         */
         public int getAge();
 
+        /**
+         * Sets the age.
+         *
+         * @param age
+         *            the new age
+         */
         public void setAge(int age);
     }
 
+    /**
+     * The Class TestBean.
+     */
     static class TestBean implements ITestBean {
+
+        /** The name. */
         private String name;
 
+        /** The age. */
         private int age;
 
+        /**
+         * Instantiates a new test bean.
+         *
+         * @param name
+         *            the name
+         * @param age
+         *            the age
+         */
         TestBean(String name, int age) {
             this.name = name;
             this.age = age;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.spring.xmlrpc.XmlRpcTest.ITestBean#getName()
+         */
         @Override
         public String getName() {
             return this.name;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.spring.xmlrpc.XmlRpcTest.ITestBean#getAge()
+         */
         @Override
         public int getAge() {
             return this.age;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.spring.xmlrpc.XmlRpcTest.ITestBean#setAge(int)
+         */
         @Override
         public void setAge(int age) {
             this.age = age;

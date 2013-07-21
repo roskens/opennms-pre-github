@@ -58,36 +58,26 @@ import org.slf4j.LoggerFactory;
  * @deprecated Thresholding now done in CollectableService (in collectd)
  */
 final class ThresholdableService extends InetNetworkInterface implements ThresholdNetworkInterface, ReadyRunnable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdableService.class);
 
-    /**
-	 *
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2477161545461824755L;
 
-    /**
-     * Interface's parent node identifier
-     */
+    /** Interface's parent node identifier. */
     private int m_nodeId;
 
-    /**
-     * The package information for this interface/service pair
-     */
+    /** The package information for this interface/service pair. */
     private Package m_package;
 
-    /**
-     * The service information for this interface/service pair
-     */
+    /** The service information for this interface/service pair. */
     private final Service m_service;
 
-    /**
-     * Last known/current status
-     */
+    /** Last known/current status. */
     private int m_status;
 
-    /**
-     * The last time a threshold check occurred
-     */
+    /** The last time a threshold check occurred. */
     private long m_lastThresholdCheckTime;
 
     /**
@@ -100,21 +90,16 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      */
     private final EventProxy m_proxy;
 
-    /**
-     * The scheduler for threshd
-     */
+    /** The scheduler for threshd. */
     private final LegacyScheduler m_scheduler;
 
-    /**
-     * Service updates
-     */
+    /** Service updates. */
     private ThresholderUpdates m_updates;
 
-    /**
-     *
-     */
+    /** The Constant ABORT_THRESHOLD_CHECK. */
     private static final boolean ABORT_THRESHOLD_CHECK = true;
 
+    /** The m_thresholder. */
     private ServiceThresholder m_thresholder;
 
     /**
@@ -129,11 +114,14 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      */
     private static Map<String, Map<?, ?>> SVC_PROP_MAP = new ConcurrentSkipListMap<String, Map<?, ?>>();
 
+    /** The m_threshd. */
     private Threshd m_threshd;
 
     /**
      * Constructs a new instance of a ThresholdableService object.
      *
+     * @param threshd
+     *            the threshd
      * @param dbNodeId
      *            The database identifier key for the interfaces' node
      * @param address
@@ -199,7 +187,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Returns node identifier
+     * Returns node identifier.
      *
      * @return a int.
      */
@@ -209,7 +197,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Set node identifier
+     * Set node identifier.
      *
      * @param nodeId
      *            a int.
@@ -219,7 +207,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Returns the service name
+     * Returns the service name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -228,7 +216,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Returns the service name
+     * Returns the service name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -249,7 +237,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     }
 
     /**
-     * Returns updates object
+     * Returns updates object.
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholderUpdates} object.
      */
@@ -293,6 +281,9 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     /**
      * Generate event and send it to eventd via the event proxy.
      * uei Universal event identifier of event to generate.
+     *
+     * @param uei
+     *            the uei
      */
     private void sendEvent(String uei) {
 
@@ -313,6 +304,11 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         LOG.debug("sendEvent: Sent event {} for {}/{}/{}", uei, m_nodeId, getHostAddress(), m_service.getName());
     }
 
+    /**
+     * Gets the host address.
+     *
+     * @return the host address
+     */
     private String getHostAddress() {
         return InetAddressUtils.str(m_address);
     }
@@ -386,6 +382,11 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         return;
     }
 
+    /**
+     * Gets the property map.
+     *
+     * @return the property map
+     */
     Map<?, ?> getPropertyMap() {
         return Collections.unmodifiableMap((Map<?, ?>) SVC_PROP_MAP.get(m_svcPropKey));
     }

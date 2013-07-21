@@ -31,6 +31,8 @@ import org.apache.xmlrpc.secure.SecurityTool;
  * @version $Id: $
  */
 public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
+
+    /** The timeout. */
     protected int timeout;
 
     /**
@@ -54,8 +56,8 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
      *            a {@link java.lang.String} object.
      * @param timeout
      *            a int.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     public TimeoutSecureXmlRpcClient(final String url, final int timeout) throws MalformedURLException {
         super(new URL(url), new TimeoutSecureXmlRpcTransportFactory(new URL(url), timeout));
@@ -72,8 +74,8 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
      *            a int.
      * @param timeout
      *            a int.
-     * @throws java.net.MalformedURLException
-     *             if any.
+     * @throws MalformedURLException
+     *             the malformed url exception
      */
     public TimeoutSecureXmlRpcClient(final String hostname, final int port, final int timeout)
             throws MalformedURLException {
@@ -81,10 +83,10 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
     }
 
     /**
-     * This allows us to setup
+     * This allows us to setup.
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public void setup() throws Exception {
         SecurityTool.setup();
@@ -95,8 +97,8 @@ public class TimeoutSecureXmlRpcClient extends XmlRpcClient {
      *
      * @param args
      *            an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(final String[] args) throws Exception {
         // XmlRpc.setDebug (true);

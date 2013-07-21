@@ -65,6 +65,7 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public final class TcpMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(TcpMonitor.class);
 
     /**
@@ -84,8 +85,13 @@ public final class TcpMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
                                                      // read()
 
-    public static final String PARAMETER_BANNER = "banner";
+    /**
+                                                         * The Constant
+                                                         * PARAMETER_BANNER.
+                                                         */
+                                                     public static final String PARAMETER_BANNER = "banner";
 
+    /** The Constant PARAMETER_PORT. */
     public static final String PARAMETER_PORT = "port";
 
     /**

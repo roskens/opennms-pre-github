@@ -57,13 +57,15 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class IcmpMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IcmpMonitor.class);
 
     /**
      * Constructs a new monitor.
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public IcmpMonitor() throws IOException {
     }

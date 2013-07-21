@@ -52,8 +52,10 @@ import org.springframework.util.Assert;
  */
 public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultThresholdsDao.class);
 
+    /** The m_thresholding config factory. */
     private ThresholdingConfigFactory m_thresholdingConfigFactory;
 
     /** {@inheritDoc} */
@@ -68,6 +70,15 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
         return get(group.getName(), group);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param name
+     *            the name
+     * @param group
+     *            the group
+     * @return the threshold group
+     */
     private ThresholdGroup get(String name, ThresholdGroup group) {
         boolean merge = group != null;
         ThresholdGroup newGroup = new ThresholdGroup(name);
@@ -99,18 +110,46 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
         return newGroup;
     }
 
+    /**
+     * Creates the threshold state map.
+     *
+     * @param groupName
+     *            the group name
+     * @param typeName
+     *            the type name
+     * @return the map
+     */
     private Map<String, Set<ThresholdEntity>> createThresholdStateMap(String groupName, String typeName) {
         Map<String, Set<ThresholdEntity>> thresholdMap = new HashMap<String, Set<ThresholdEntity>>();
         fillThresholdStateMap(groupName, typeName, thresholdMap);
         return thresholdMap;
     }
 
+    /**
+     * Merge threshold state map.
+     *
+     * @param groupName
+     *            the group name
+     * @param type
+     *            the type
+     * @return the map
+     */
     private Map<String, Set<ThresholdEntity>> mergeThresholdStateMap(String groupName, ThresholdResourceType type) {
         Map<String, Set<ThresholdEntity>> thresholdMap = type.getThresholdMap();
         fillThresholdStateMap(groupName, type.getDsType(), thresholdMap);
         return thresholdMap;
     }
 
+    /**
+     * Fill threshold state map.
+     *
+     * @param groupName
+     *            the group name
+     * @param typeName
+     *            the type name
+     * @param thresholdMap
+     *            the threshold map
+     */
     private void fillThresholdStateMap(String groupName, String typeName, Map<String, Set<ThresholdEntity>> thresholdMap) {
         boolean merge = !thresholdMap.isEmpty();
         for (Basethresholddef thresh : getThresholdingConfigFactory().getThresholds(groupName)) {
@@ -184,12 +223,32 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
         }
     }
 
+    /**
+     * Creates the type.
+     *
+     * @param groupName
+     *            the group name
+     * @param typeName
+     *            the type name
+     * @return the threshold resource type
+     */
     private ThresholdResourceType createType(String groupName, String typeName) {
         ThresholdResourceType resourceType = new ThresholdResourceType(typeName);
         resourceType.setThresholdMap(createThresholdStateMap(groupName, typeName));
         return resourceType;
     }
 
+    /**
+     * Merge type.
+     *
+     * @param groupName
+     *            the group name
+     * @param typeName
+     *            the type name
+     * @param type
+     *            the type
+     * @return the threshold resource type
+     */
     private ThresholdResourceType mergeType(String groupName, String typeName, ThresholdResourceType type) {
         ThresholdResourceType resourceType = new ThresholdResourceType(typeName);
         Map<String, Set<ThresholdEntity>> mergedStateMap = type == null ? createThresholdStateMap(groupName, typeName)
@@ -202,6 +261,7 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
      * <p>
      * getThresholdingConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ThresholdingConfigFactory}
      *         object.
@@ -215,6 +275,7 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
      * <p>
      * setThresholdingConfigFactory
      * </p>
+     * .
      *
      * @param thresholdingConfigFactory
      *            a {@link org.opennms.netmgt.config.ThresholdingConfigFactory}
@@ -228,9 +289,10 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

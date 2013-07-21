@@ -54,6 +54,7 @@ import org.springframework.util.Assert;
  */
 public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(LegacyScheduler.class);
 
     /**
@@ -87,8 +88,12 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
     /**
      * This queue extends the standard FIFO queue instance so that it is
      * possible to peek at an instance without removing it from the queue.
+     *
+     * @param <T>
+     *            the generic type
      */
     public static final class PeekableFifoQueue<T> extends FifoQueueImpl<T> {
+
         /**
          * This method allows the caller to peek at the next object that would
          * be returned on a <code>remove</code> call. If the queue is
@@ -97,11 +102,8 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
          *
          * @return The object that would be returned on the next call to
          *         <code>remove</code>.
-         * @throws java.lang.InterruptedException
-         *             Thrown if the thread is interrupted.
-         * @throws org.opennms.core.queue.FifoQueueException
-         *             Thrown if an error occurs removing an item from the
-         *             queue.
+         * @throws InterruptedException
+         *             the interrupted exception
          */
         public T peek() throws InterruptedException {
             return m_delegate.peek();
@@ -158,8 +160,6 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      *            The element to run when interval expires.
      * @param interval
      *            The queue to add the runnable to.
-     * @throws java.lang.RuntimeException
-     *             Thrown if an error occurs adding the element to the queue.
      */
     public synchronized void schedule(ReadyRunnable runnable, long interval) {
         LOG.debug("schedule: Adding ready runnable {} at interval {}", runnable, interval);
@@ -220,6 +220,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -236,6 +237,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -256,6 +258,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public synchronized void stop() {
@@ -276,6 +279,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * pause
      * </p>
+     * .
      */
     @Override
     public synchronized void pause() {
@@ -298,6 +302,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * resume
      * </p>
+     * .
      */
     @Override
     public synchronized void resume() {
@@ -320,6 +325,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */

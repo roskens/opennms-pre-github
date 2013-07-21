@@ -39,15 +39,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class BroadcastEventProcessor.
+ *
  * @author <a href="mailto:joed@opennms.org">Johan Edstrom</a>
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     /**
-     * Create message selector to set to the subscription
+     * Create message selector to set to the subscription.
      */
     BroadcastEventProcessor() {
         // Create the selector for the ueis this service is interested in
@@ -65,7 +69,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         EventIpcManagerFactory.getIpcManager().removeEventListener(this);
@@ -109,7 +113,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */

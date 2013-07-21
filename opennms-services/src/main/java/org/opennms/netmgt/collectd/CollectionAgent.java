@@ -50,6 +50,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * isStoreByForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -59,6 +60,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getHostAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -68,6 +70,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * setSavedIfCount
      * </p>
+     * .
      *
      * @param ifCount
      *            a int.
@@ -78,6 +81,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getSavedIfCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -87,6 +91,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +101,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +111,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -114,6 +121,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getStorageDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -123,6 +131,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getSysObjectId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -132,8 +141,10 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * validateAgent
      * </p>
+     * .
      *
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     public abstract void validateAgent() throws CollectionInitializationException;
 
@@ -141,6 +152,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -151,6 +163,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -161,6 +174,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getSnmpInterfaceInfo
      * </p>
+     * .
      *
      * @param type
      *            a {@link org.opennms.netmgt.collectd.IfResourceType} object.
@@ -172,6 +186,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -181,6 +196,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * getSavedSysUpTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -190,6 +206,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>, StorageS
      * <p>
      * setSavedSysUpTime
      * </p>
+     * .
      *
      * @param sysUpTime
      *            a long.

@@ -40,35 +40,51 @@ import javax.sql.DataSource;
 import org.opennms.netmgt.poller.IfKey;
 import org.opennms.netmgt.poller.QueryManager;
 
+/**
+ * The Class MockQueryManager.
+ */
 public class MockQueryManager implements QueryManager {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#setDataSource(javax.sql.DataSource)
+     */
     @Override
     public void setDataSource(DataSource dataSource) {
         // Don't do anything because this one doesn't use the database.
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getDataSource()
+     */
     @Override
     public DataSource getDataSource() {
         return null;
     }
 
-    /**
-     * Comment for <code>m_network</code>
-     */
+    /** Comment for <code>m_network</code>. */
     private final MockNetwork m_network;
 
     /**
+     * Instantiates a new mock query manager.
+     *
      * @param network
+     *            the network
      */
     public MockQueryManager(MockNetwork network) {
         this.m_network = network;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#activeServiceExists(java.lang.String, int, java.lang.String, java.lang.String)
+     */
     @Override
     public boolean activeServiceExists(String whichEvent, int nodeId, String ipAddr, String serviceName) {
         return m_network.getService(nodeId, ipAddr, serviceName) != null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getActiveServiceIdsForInterface(java.lang.String)
+     */
     @Override
     public List<Integer> getActiveServiceIdsForInterface(final String ipaddr) throws SQLException {
         final Set<Integer> serviceIds = new HashSet<Integer>();
@@ -88,6 +104,9 @@ public class MockQueryManager implements QueryManager {
         return new ArrayList<Integer>(serviceIds);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getInterfacesWithService(java.lang.String)
+     */
     @Override
     public List<IfKey> getInterfacesWithService(final String svcName) throws SQLException {
         final List<IfKey> ifKeys = new ArrayList<IfKey>();
@@ -110,51 +129,78 @@ public class MockQueryManager implements QueryManager {
         return ifKeys;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getNodeIDForInterface(java.lang.String)
+     */
     @Override
     public int getNodeIDForInterface(final String ipaddr) throws SQLException {
         return m_network.getNodeIdForInterface(ipaddr);
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getNodeLabel(int)
+     */
     @Override
     public String getNodeLabel(int nodeId) throws SQLException {
         MockNode node = m_network.getNode(nodeId);
         return (node == null ? null : node.getLabel());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getServiceCountForInterface(java.lang.String)
+     */
     @Override
     public int getServiceCountForInterface(String ipaddr) throws SQLException {
         return getActiveServiceIdsForInterface(ipaddr).size();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getServiceLostDate(int, java.lang.String, java.lang.String, int)
+     */
     @Override
     public Date getServiceLostDate(int nodeId, String ipAddr, String svcName, int serviceId) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#openOutage(java.lang.String, int, java.lang.String, java.lang.String, int, java.lang.String)
+     */
     @Override
     public void openOutage(String outageIdSQL, int nodeId, String ipAddr, String svcName, int dbid, String time) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#resolveOutage(int, java.lang.String, java.lang.String, int, java.lang.String)
+     */
     @Override
     public void resolveOutage(int nodeId, String ipAddr, String svcName, int dbid, String time) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#reparentOutages(java.lang.String, int, int)
+     */
     @Override
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
         // TODO Auto-generated method stub
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getCriticalPath(int)
+     */
     @Override
     public String[] getCriticalPath(int nodeId) {
         throw new UnsupportedOperationException("MockQueryManager.getCriticalPath is not yet implemented");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.QueryManager#getNodeServices(int)
+     */
     @Override
     public List<java.lang.String[]> getNodeServices(int nodeId) {
         return null;

@@ -45,10 +45,19 @@ import org.opennms.netmgt.poller.pollables.PollableNetwork;
 import org.opennms.netmgt.poller.pollables.PollableNode;
 import org.opennms.netmgt.poller.pollables.PollableService;
 
+/**
+ * The Class PassiveServiceMonitorTest.
+ */
 public class PassiveServiceMonitorTest extends PassiveStatusKeeperTest {
 
     // inherit from PassiveStatusKeeperTest so we can inherit all the proper
     // initialization
+    /**
+     * Test poll.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testPoll() throws UnknownHostException {
 
         PassiveStatusKeeper psk = PassiveStatusKeeper.getInstance();
@@ -67,6 +76,21 @@ public class PassiveServiceMonitorTest extends PassiveStatusKeeperTest {
         assertEquals(PollStatus.up(), ps);
     }
 
+    /**
+     * Creates the monitored service.
+     *
+     * @param nodeId
+     *            the node id
+     * @param nodeLabel
+     *            the node label
+     * @param ipAddr
+     *            the ip addr
+     * @param serviceName
+     *            the service name
+     * @return the pollable service
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private PollableService createMonitoredService(int nodeId, String nodeLabel, String ipAddr, String serviceName)
             throws UnknownHostException {
         return new PollableService(new PollableInterface(new PollableNode(new PollableNetwork(new MockPollContext()),

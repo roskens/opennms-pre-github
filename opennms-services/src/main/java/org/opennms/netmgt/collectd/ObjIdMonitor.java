@@ -43,6 +43,8 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * @version $Id: $
  */
 public class ObjIdMonitor extends SingleInstanceTracker {
+
+    /** The value. */
     SnmpValue value;
 
     /**
@@ -60,14 +62,29 @@ public class ObjIdMonitor extends SingleInstanceTracker {
         value = null;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     SnmpValue getValue() {
         return value;
     }
 
+    /**
+     * Gets the int value.
+     *
+     * @return the int value
+     */
     int getIntValue() {
         return (value == null ? -1 : value.toInt());
     }
 
+    /**
+     * Gets the long value.
+     *
+     * @return the long value
+     */
     long getLongValue() {
         return (value == null ? -1L : value.toLong());
     }
@@ -82,6 +99,7 @@ public class ObjIdMonitor extends SingleInstanceTracker {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

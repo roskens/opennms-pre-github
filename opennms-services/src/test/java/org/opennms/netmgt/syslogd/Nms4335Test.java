@@ -67,6 +67,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class Nms4335Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -80,21 +83,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class Nms4335Test implements InitializingBean {
 
+    /** The m_localhost. */
     String m_localhost = "127.0.0.1";
 
+    /** The m_syslogd. */
     private Syslogd m_syslogd;
 
+    /** The m_event ipc manager. */
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_executor services. */
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
             Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(true, "TRACE");
@@ -146,11 +162,23 @@ public class Nms4335Test implements InitializingBean {
         m_syslogd.init();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoErrorOrGreater();
     }
 
+    /**
+     * Test auth failure should log.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAuthFailureShouldLog() throws Exception {
         doMessageTest("Jan 7 12:42:46 192.168.0.1 su[25856]: pam_unix(su:auth): authentication failure; logname=jeffg uid=1004 euid=0 tty=pts/1 ruser=jeffg rhost= user=root",
@@ -158,6 +186,12 @@ public class Nms4335Test implements InitializingBean {
                       "pam_unix(su:auth): authentication failure; logname=jeffg uid=1004 euid=0 tty=pts/1 ruser=jeffg rhost= user=root");
     }
 
+    /**
+     * Test auth failure should not log.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testAuthFailureShouldNotLog() throws Exception {
@@ -167,7 +201,7 @@ public class Nms4335Test implements InitializingBean {
     }
 
     /**
-     * Send a raw syslog message and expect a given event as a result
+     * Send a raw syslog message and expect a given event as a result.
      *
      * @param testPDU
      *            The raw syslog message as it would appear on the wire (just
@@ -179,9 +213,13 @@ public class Nms4335Test implements InitializingBean {
      *            The expected UEI of the resulting event
      * @param expectedLogMsg
      *            The expected contents of the logmsg for the resulting event
+     * @return the list
      * @throws UnknownHostException
+     *             the unknown host exception
      * @throws InterruptedException
+     *             the interrupted exception
      * @throws ExecutionException
+     *             the execution exception
      */
     private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg)
             throws UnknownHostException, InterruptedException, ExecutionException {
@@ -212,6 +250,9 @@ public class Nms4335Test implements InitializingBean {
         return ea.getAnticipatedEventsRecieved();
     }
 
+    /**
+     * Start syslogd gracefully.
+     */
     private void startSyslogdGracefully() {
         try {
             m_syslogd.start();

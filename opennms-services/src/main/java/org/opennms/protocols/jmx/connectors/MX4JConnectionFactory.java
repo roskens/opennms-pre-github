@@ -59,12 +59,14 @@ import org.slf4j.LoggerFactory;
  */
 public class MX4JConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MX4JConnectionFactory.class);
 
     /**
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param propertiesMap
      *            a {@link java.util.Map} object.

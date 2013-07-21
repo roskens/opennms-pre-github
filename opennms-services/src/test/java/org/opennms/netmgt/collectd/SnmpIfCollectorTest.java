@@ -39,12 +39,22 @@ import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.model.OnmsEntity;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
+/**
+ * The Class SnmpIfCollectorTest.
+ */
 public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
 
+    /**
+     * The Class IfInfoVisitor.
+     */
     private final class IfInfoVisitor extends ResourceVisitor {
 
+        /** The if info count. */
         public int ifInfoCount = 0;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.collectd.ResourceVisitor#visitResource(org.opennms.netmgt.config.collector.CollectionResource)
+         */
         @Override
         public void visitResource(CollectionResource resource) {
             if (!(resource instanceof IfInfo))
@@ -57,20 +67,37 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         }
     }
 
+    /**
+     * Suite.
+     *
+     * @return the test suite
+     */
     public static TestSuite suite() {
         return SnmpTestSuiteUtils.createSnmpVersionTestSuite(SnmpIfCollectorTest.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.SnmpCollectorTestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.SnmpCollectorTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test zero vars.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testZeroVars() throws Exception {
         createSnmpInterface(1, 24, "lo", true);
 
@@ -80,6 +107,14 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
 
+    /**
+     * Assert interface mib objects present.
+     *
+     * @param collectionSet
+     *            the collection set
+     * @param expectedIfCount
+     *            the expected if count
+     */
     private void assertInterfaceMibObjectsPresent(CollectionSet collectionSet, int expectedIfCount) {
         assertNotNull(collectionSet);
 
@@ -93,6 +128,12 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
 
     }
 
+    /**
+     * Test invalid var.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInvalidVar() throws Exception {
         addAttribute("invalid", "1.3.6.1.2.1.2.2.2.10", "ifIndex", "counter");
 
@@ -108,6 +149,12 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
 
+    /**
+     * Test bad apple.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBadApple() throws Exception {
 
         addIfSpeed();
@@ -130,6 +177,12 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
 
+    /**
+     * Test many vars.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testManyVars() throws Exception {
         addIfTable();
 
@@ -143,6 +196,15 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         assertInterfaceMibObjectsPresent(collector.getCollectionSet(), 1);
     }
 
+    /**
+     * Creates the snmp if collector.
+     *
+     * @return the snmp if collector
+     * @throws UnknownHostException
+     *             the unknown host exception
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private SnmpIfCollector createSnmpIfCollector() throws UnknownHostException, CollectionInitializationException {
         initializeAgent();
 
@@ -154,6 +216,19 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
         return collector;
     }
 
+    /**
+     * Creates the snmp interface.
+     *
+     * @param ifIndex
+     *            the if index
+     * @param ifType
+     *            the if type
+     * @param ifName
+     *            the if name
+     * @param collectionEnabled
+     *            the collection enabled
+     * @return the onms entity
+     */
     private OnmsEntity createSnmpInterface(final int ifIndex, final int ifType, final String ifName,
             final boolean collectionEnabled) {
         final OnmsSnmpInterface m_snmpIface = new OnmsSnmpInterface();
@@ -167,6 +242,12 @@ public class SnmpIfCollectorTest extends SnmpCollectorTestCase {
 
     }
 
+    /**
+     * Test many ifs.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testManyIfs() throws Exception {
         addIfTable();
 

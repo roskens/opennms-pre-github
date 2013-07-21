@@ -48,15 +48,15 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
-    /**
-     * The location where incoming events of interest are enqueued
-     */
+    /** The location where incoming events of interest are enqueued. */
     private final ExecutorService m_updater;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param updaterQ
      *            The queue where events of interest are added.
@@ -66,7 +66,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Create a list of UEIs of interest to the RTC and subscribe to eventd
+     * Create a list of UEIs of interest to the RTC and subscribe to eventd.
      */
     public void start() {
         List<String> ueisOfInterest = new ArrayList<String>();
@@ -118,7 +118,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public void close() {
         EventIpcManagerFactory.getIpcManager().removeEventListener(this);
@@ -162,7 +162,7 @@ final class BroadcastEventProcessor implements EventListener {
     } // end onEvent()
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */

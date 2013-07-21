@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 final class UdpProcessor implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UdpProcessor.class);
 
     /**
@@ -71,16 +72,22 @@ final class UdpProcessor implements Runnable {
      */
     private List<EventHandler> m_handlers;
 
-    /**
-     * The stop flag
-     */
+    /** The stop flag. */
     private volatile boolean m_stop;
 
-    /**
-     * The log prefix
-     */
+    /** The log prefix. */
     private String m_logPrefix;
 
+    /**
+     * Instantiates a new udp processor.
+     *
+     * @param handlers
+     *            the handlers
+     * @param in
+     *            the in
+     * @param out
+     *            the out
+     */
     UdpProcessor(List<EventHandler> handlers, List<UdpReceivedEvent> in, List<UdpReceivedEvent> out) {
         m_context = null;
         m_stop = false;
@@ -91,14 +98,19 @@ final class UdpProcessor implements Runnable {
     }
 
     /**
-     * Returns true if the thread is still alive
+     * Returns true if the thread is still alive.
+     *
+     * @return true, if is alive
      */
     boolean isAlive() {
         return (m_context == null ? false : m_context.isAlive());
     }
 
     /**
-     * Stops the current context
+     * Stops the current context.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;
@@ -218,6 +230,12 @@ final class UdpProcessor implements Runnable {
         LOG.debug("Context finished, returning");
     }
 
+    /**
+     * Sets the log prefix.
+     *
+     * @param prefix
+     *            the new log prefix
+     */
     void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }

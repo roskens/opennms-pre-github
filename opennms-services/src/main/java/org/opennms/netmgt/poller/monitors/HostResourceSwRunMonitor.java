@@ -82,6 +82,7 @@ import antlr.StringUtils;
 @Distributable(DistributionContext.DAEMON)
 public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSwRunMonitor.class);
 
     /**
@@ -143,9 +144,6 @@ public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */
@@ -342,6 +340,15 @@ public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
         return status;
     }
 
+    /**
+     * Match.
+     *
+     * @param expectedText
+     *            the expected text
+     * @param currentText
+     *            the current text
+     * @return true, if successful
+     */
     private boolean match(String expectedText, String currentText) {
         if (expectedText.startsWith("~")) {
             return currentText.matches(expectedText.replaceFirst("~", ""));
@@ -349,6 +356,13 @@ public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
         return currentText.equalsIgnoreCase(expectedText);
     }
 
+    /**
+     * Strip extra quotes.
+     *
+     * @param string
+     *            the string
+     * @return the string
+     */
     private static String stripExtraQuotes(String string) {
         String stripped;
         try {

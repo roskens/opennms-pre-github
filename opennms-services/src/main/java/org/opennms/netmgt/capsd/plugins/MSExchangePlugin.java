@@ -59,11 +59,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class MSExchangePlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MSExchangePlugin.class);
 
-    /**
-     * The name of this protocol plugin
-     */
+    /** The name of this protocol plugin. */
     private static final String PROTOCOL_NAME = "MSExchange";
 
     /**
@@ -114,6 +114,19 @@ public final class MSExchangePlugin extends AbstractPlugin {
      */
     private static final int IMAP_INDEX = 1;
 
+    /**
+     * Checks if is server.
+     *
+     * @param host
+     *            the host
+     * @param port
+     *            the port
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
+     * @return true, if is server
+     */
     private boolean isServer(InetAddress host, int port, int retries, int timeout) {
 
         boolean isAServer = false;
@@ -186,6 +199,10 @@ public final class MSExchangePlugin extends AbstractPlugin {
      *            The remote ports to test. Port value of -1 indicates that all
      *            ports should be tested, otherwise only the specified
      *            port/protocol will be tested..
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
      * @return The array of supported protocols by the exchange server The
      *         values are in the order POP3, IMAP, MAPI in the returned array.
      */

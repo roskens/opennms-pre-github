@@ -30,17 +30,36 @@ package org.opennms.netmgt.mock;
 
 import org.opennms.netmgt.xml.event.Value;
 
+/**
+ * The Class ValueWrapper.
+ */
 public class ValueWrapper {
+
+    /** The m_value. */
     Value m_value;
 
+    /**
+     * Instantiates a new value wrapper.
+     *
+     * @param value
+     *            the value
+     */
     public ValueWrapper(Value value) {
         m_value = value;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public Value getValue() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return m_value.getType() + "(" + m_value.getEncoding() + "): " + m_value.getContent();

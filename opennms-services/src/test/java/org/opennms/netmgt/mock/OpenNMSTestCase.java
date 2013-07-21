@@ -70,21 +70,35 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * The Class OpenNMSTestCase.
+ */
 public class OpenNMSTestCase extends TestCase {
+
+    /** The m_db. */
     protected static MockDatabase m_db;
 
+    /** The m_network. */
     protected static MockNetwork m_network;
 
+    /** The m_eventd. */
     protected static Eventd m_eventd;
 
+    /** The m_eventd ipc mgr. */
     protected static EventIpcManagerDefaultImpl m_eventdIpcMgr;
 
+    /** The m_run supers. */
     protected static boolean m_runSupers = true;
 
+    /** The proxy port. */
     public static int PROXY_PORT = Integer.getInteger("proxy.port", 5837);
 
     /**
      * String representing snmp-config.xml
+     *
+     * @return the snmp config
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getSnmpConfig() throws IOException {
         return ConfigurationTestUtils.getConfigForResourceWithReplacements(this,
@@ -95,13 +109,14 @@ public class OpenNMSTestCase extends TestCase {
                                                                                    InetAddressUtils.str(myLocalHost()) });
     }
 
+    /** The m_start eventd. */
     private boolean m_startEventd = true;
 
     /**
      * Helper method for getting the ip address of the localhost as a
      * String to be used in the snmp-config.
      *
-     * @return
+     * @return the inet address
      */
     protected InetAddress myLocalHost() {
 
@@ -117,6 +132,11 @@ public class OpenNMSTestCase extends TestCase {
         return InetAddressUtils.getInetAddress("127.0.0.1");
     }
 
+    /**
+     * My version.
+     *
+     * @return the string
+     */
     protected String myVersion() {
         switch (m_version) {
         case SnmpAgentConfig.VERSION1:
@@ -130,16 +150,28 @@ public class OpenNMSTestCase extends TestCase {
         }
     }
 
+    /** The m_version. */
     int m_version = SnmpAgentConfig.VERSION1;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
+    /** The m_trans mgr. */
     protected PlatformTransactionManager m_transMgr;
 
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
     public void setVersion(int version) {
         m_version = version;
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -239,16 +271,28 @@ public class OpenNMSTestCase extends TestCase {
 
     }
 
+    /**
+     * Populate database.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void populateDatabase() throws Exception {
         m_db = new MockDatabase();
         m_db.populate(m_network);
     }
 
+    /**
+     * Creates the mock network.
+     */
     protected void createMockNetwork() {
         m_network = new MockNetwork();
         m_network.createStandardNetwork();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public void runTest() throws Throwable {
         try {
@@ -259,6 +303,9 @@ public class OpenNMSTestCase extends TestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         if (m_runSupers) {
@@ -269,19 +316,39 @@ public class OpenNMSTestCase extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Sets the start eventd.
+     *
+     * @param startEventd
+     *            the new start eventd
+     */
     protected void setStartEventd(boolean startEventd) {
         m_startEventd = startEventd;
     }
 
+    /**
+     * Checks if is start eventd.
+     *
+     * @return true, if is start eventd
+     */
     protected boolean isStartEventd() {
         return m_startEventd;
     }
 
+    /**
+     * Test do nothing.
+     */
     @Test
     public void testDoNothing() {
         sleep(200);
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     protected void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -289,27 +356,56 @@ public class OpenNMSTestCase extends TestCase {
         }
     }
 
+    /**
+     * Gets the event proxy.
+     *
+     * @return the event proxy
+     */
     protected EventProxy getEventProxy() {
         return m_eventProxy;
     }
 
+    /**
+     * Sets the event proxy.
+     *
+     * @param eventProxy
+     *            the new event proxy
+     */
     protected void setEventProxy(EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
 
+    /**
+     * Gets the jdbc template.
+     *
+     * @return the jdbc template
+     */
     public SimpleJdbcTemplate getJdbcTemplate() {
         return m_db.getJdbcTemplate();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#toString()
+     */
     @Override
     public String toString() {
         return super.toString() + " - " + getSnmpImplementation() + " " + myVersion();
     }
 
+    /**
+     * Gets the snmp implementation.
+     *
+     * @return the snmp implementation
+     */
     private static String getSnmpImplementation() {
         return SnmpUtils.getStrategy().getClass().getSimpleName();
     }
 
+    /**
+     * Gets the event ipc manager.
+     *
+     * @return the event ipc manager
+     */
     public EventIpcManager getEventIpcManager() {
         return m_eventdIpcMgr;
     }

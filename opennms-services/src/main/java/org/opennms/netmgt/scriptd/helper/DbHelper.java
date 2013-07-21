@@ -32,8 +32,18 @@ import org.opennms.core.utils.BeanUtils;
 import org.opennms.netmgt.dao.api.NodeDao;
 import org.springframework.beans.factory.access.BeanFactoryReference;
 
+/**
+ * The Class DbHelper.
+ */
 public class DbHelper {
 
+    /**
+     * Gets the node label.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the node label
+     */
     public static String getNodeLabel(Integer nodeid) {
         BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");
         return BeanUtils.getBean(bf, "nodeDao", NodeDao.class).get(nodeid).getLabel();

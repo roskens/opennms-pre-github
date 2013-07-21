@@ -60,6 +60,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms10205bTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -73,25 +76,39 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class Nms10205bTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -106,6 +123,12 @@ public class Nms10205bTest extends Nms10205bNetworkBuilder implements Initializi
         super.setSnmpInterfaceDao(m_snmpInterfaceDao);
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -115,6 +138,12 @@ public class Nms10205bTest extends Nms10205bNetworkBuilder implements Initializi
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -191,6 +220,12 @@ public class Nms10205bTest extends Nms10205bNetworkBuilder implements Initializi
      * Address Interface State ID Pri Dead
      * 172.16.10.1 ge-0/0/0.0 Full 10.205.56.1 128 35 ----> Space_ex_sw1
      * 172.16.9.1 ge-0/0/3.0 Full 192.168.9.1 128 32 ----> Bangalore
+     */
+    /**
+     * Test network10205b links.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -390,6 +425,12 @@ public class Nms10205bTest extends Nms10205bNetworkBuilder implements Initializi
      * support LLDP
      * it has a link to Mysore that does not support LLDP
      */
+    /**
+     * Test network10205b lldp links.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/" + MUMBAI_NAME + "_"
@@ -545,6 +586,12 @@ public class Nms10205bTest extends Nms10205bNetworkBuilder implements Initializi
      * Address Interface State ID Pri Dead
      * 172.16.10.1 ge-0/0/0.0 Full 10.205.56.1 128 35 ----> Space_ex_sw1
      * 172.16.9.1 ge-0/0/3.0 Full 192.168.9.1 128 32 ----> Bangalore
+     */
+    /**
+     * Test network10205b ospf links.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {

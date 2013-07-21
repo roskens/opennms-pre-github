@@ -51,14 +51,19 @@ import org.slf4j.LoggerFactory;
  */
 public class AliasedResource extends SnmpCollectionResource {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AliasedResource.class);
 
+    /** The m_if info. */
     private final IfInfo m_ifInfo;
 
+    /** The m_if alias comment. */
     private final String m_ifAliasComment;
 
+    /** The m_domain. */
     private final String m_domain;
 
+    /** The m_if alias. */
     private final String m_ifAlias;
 
     /**
@@ -90,6 +95,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getIfInfo
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.IfInfo} object.
      */
@@ -97,6 +103,11 @@ public class AliasedResource extends SnmpCollectionResource {
         return m_ifInfo;
     }
 
+    /**
+     * Gets the alias dir.
+     *
+     * @return the alias dir
+     */
     String getAliasDir() {
         return getIfInfo().getAliasDir(m_ifAlias, m_ifAliasComment);
     }
@@ -105,6 +116,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getDomain
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -134,6 +146,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,6 +159,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -162,6 +176,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * isScheduledForCollection
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -182,6 +197,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -207,6 +223,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getGroups
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -219,6 +236,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -233,6 +251,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -242,6 +261,9 @@ public class AliasedResource extends SnmpCollectionResource {
                      // instance
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return null; // For node and interface type resources, use the default
@@ -252,6 +274,7 @@ public class AliasedResource extends SnmpCollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -260,6 +283,9 @@ public class AliasedResource extends SnmpCollectionResource {
         return getDomain() + '/' + getAliasDir();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.SnmpCollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

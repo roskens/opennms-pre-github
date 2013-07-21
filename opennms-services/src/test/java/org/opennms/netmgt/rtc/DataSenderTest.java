@@ -50,11 +50,32 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.xml.sax.SAXException;
 
+/**
+ * The Class DataSenderTest.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DataSenderTest {
     /*
      * This doesn't work unless we have a receiver on the other end.... more of
      * an integration test
+     */
+    /**
+     * Test send data.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FilterParseException
+     *             the filter parse exception
+     * @throws SAXException
+     *             the sAX exception
+     * @throws SQLException
+     *             the sQL exception
+     * @throws RTCException
+     *             the rTC exception
      */
     @Test
     @Ignore

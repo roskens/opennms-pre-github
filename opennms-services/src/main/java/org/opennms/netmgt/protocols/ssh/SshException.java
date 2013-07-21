@@ -38,6 +38,7 @@ package org.opennms.netmgt.protocols.ssh;
  */
 public class SshException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1390108956262402029L;
 
     /**

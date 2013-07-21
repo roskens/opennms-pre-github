@@ -58,16 +58,22 @@ import org.slf4j.LoggerFactory;
  */
 public class EventTranslator extends AbstractServiceDaemon implements EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventTranslator.class);
 
+    /** The s_instance. */
     private static EventTranslator s_instance = new EventTranslator();
 
+    /** The m_event mgr. */
     private volatile EventIpcManager m_eventMgr;
 
+    /** The m_config. */
     private volatile EventTranslatorConfig m_config;
 
+    /** The m_initialized. */
     private volatile boolean m_initialized = false;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /**
@@ -97,6 +103,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param psk
      *            a {@link org.opennms.netmgt.translator.EventTranslator}
@@ -110,6 +117,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.translator.EventTranslator} object.
      */
@@ -121,6 +129,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -133,6 +142,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
         m_initialized = true;
     }
 
+    /**
+     * Check pre requisites.
+     */
     private void checkPreRequisites() {
         if (m_config == null)
             throw new IllegalStateException("config has not been set");
@@ -146,6 +158,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -154,6 +167,9 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
         m_config = null;
     }
 
+    /**
+     * Creates the message selector and subscribe.
+     */
     private void createMessageSelectorAndSubscribe() {
         // Subscribe to eventd
         List<String> ueiList = m_config.getUEIList();
@@ -232,6 +248,13 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
                  m_config.getUEIList().size());
     }
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
 
@@ -256,6 +279,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -267,6 +291,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -280,6 +305,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.EventTranslatorConfig} object.
      */
@@ -291,6 +317,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * setConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.config.EventTranslatorConfig}
@@ -304,6 +331,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -315,6 +343,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventListe
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.

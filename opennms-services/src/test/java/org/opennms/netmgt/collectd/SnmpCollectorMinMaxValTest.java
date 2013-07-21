@@ -72,6 +72,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class SnmpCollectorMinMaxValTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @TestExecutionListeners({ JUnitCollectorExecutionListener.class })
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
@@ -84,37 +87,58 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 @Transactional
 public class SnmpCollectorMinMaxValTest implements TestContextAware, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectorMinMaxValTest.class);
 
+    /** The Constant TEST_HOST_ADDRESS. */
     private static final String TEST_HOST_ADDRESS = "172.20.1.205";
 
+    /** The Constant TEST_NODE_LABEL. */
     private static final String TEST_NODE_LABEL = "TestNode";
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /** The m_context. */
     private TestContext m_context;
 
+    /** The m_collection specification. */
     private CollectionSpecification m_collectionSpecification;
 
+    /** The m_collection agent. */
     private CollectionAgent m_collectionAgent;
 
+    /** The m_agent config. */
     private SnmpAgentConfig m_agentConfig;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         final Properties p = new Properties();
@@ -163,12 +187,24 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         m_collectionAgent = DefaultCollectionAgent.create(iface.getId(), m_ipInterfaceDao, m_transactionManager);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockUtil.println("------------ End Test --------------------------");
         // MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test persist.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitCollector(datacollectionConfig = "/org/opennms/netmgt/config/datacollection-minmax-persistTest-config.xml", datacollectionType = "snmp", anticipateFiles = {
             "1", "1/fw0" }, anticipateRrds = { "1/tcpCurrEstab", "1/fw0/ifInOctets" })
@@ -237,10 +273,20 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         m_collectionSpecification.release(m_collectionAgent);
     }
 
+    /**
+     * Rrd.
+     *
+     * @param file
+     *            the file
+     * @return the string
+     */
     private static String rrd(final String file) {
         return file + RrdUtils.getExtension();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.TestContextAware#setTestContext(org.springframework.test.context.TestContext)
+     */
     @Override
     public void setTestContext(final TestContext context) {
         m_context = context;

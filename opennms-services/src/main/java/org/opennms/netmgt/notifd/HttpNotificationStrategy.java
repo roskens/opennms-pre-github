@@ -64,8 +64,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @version $Id: $
  */
 public class HttpNotificationStrategy implements NotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpNotificationStrategy.class);
 
+    /** The m_arguments. */
     private List<Argument> m_arguments;
 
     /*
@@ -125,6 +128,12 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return statusCode;
     }
 
+    /**
+     * Do sql.
+     *
+     * @param contents
+     *            the contents
+     */
     private void doSql(String contents) {
         if (getSql() == null) {
             LOG.info("send: optional sql argument is null.");
@@ -151,6 +160,11 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         }
     }
 
+    /**
+     * Gets the post arguments.
+     *
+     * @return the post arguments
+     */
     private List<NameValuePair> getPostArguments() {
         List<Argument> args = getArgsByPrefix("post-");
         List<NameValuePair> retval = new ArrayList<NameValuePair>();
@@ -164,6 +178,13 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return retval;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param argValue
+     *            the arg value
+     * @return the value
+     */
     private String getValue(String argValue) {
         if (argValue.equals(NotificationManager.PARAM_DESTINATION))
             return getNotificationValue(NotificationManager.PARAM_DESTINATION);
@@ -207,6 +228,13 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return argValue;
     }
 
+    /**
+     * Gets the notification value.
+     *
+     * @param notificationManagerParamString
+     *            the notification manager param string
+     * @return the notification value
+     */
     private String getNotificationValue(final String notificationManagerParamString) {
         String message = "no notification text message defined for the \"" + notificationManagerParamString
                 + "\" switch.";
@@ -219,6 +247,13 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return message;
     }
 
+    /**
+     * Gets the args by prefix.
+     *
+     * @param argPrefix
+     *            the arg prefix
+     * @return the args by prefix
+     */
     private List<Argument> getArgsByPrefix(String argPrefix) {
         List<Argument> args = new ArrayList<Argument>();
         for (Iterator<Argument> it = m_arguments.iterator(); it.hasNext();) {
@@ -230,10 +265,20 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return args;
     }
 
+    /**
+     * Gets the sql.
+     *
+     * @return the sql
+     */
     private String getSql() {
         return getSwitchValue("sql");
     }
 
+    /**
+     * Gets the url.
+     *
+     * @return the url
+     */
     private String getUrl() {
         String url = getSwitchValue("url");
         if (url == null)
@@ -241,6 +286,11 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         return url;
     }
 
+    /**
+     * Gets the url as prefix.
+     *
+     * @return the url as prefix
+     */
     private String getUrlAsPrefix() {
         String url = null;
         for (Argument arg : getArgsByPrefix("url")) {
@@ -256,7 +306,8 @@ public class HttpNotificationStrategy implements NotificationStrategy {
      * If the value is an empty String, this method returns null.
      *
      * @param argSwitch
-     * @return
+     *            the arg switch
+     * @return the switch value
      */
     private String getSwitchValue(String argSwitch) {
         String value = null;

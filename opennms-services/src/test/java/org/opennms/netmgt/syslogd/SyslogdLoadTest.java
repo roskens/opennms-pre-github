@@ -82,6 +82,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class SyslogdLoadTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -95,30 +98,43 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class SyslogdLoadTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogdLoadTest.class);
 
+    /** The m_event counter. */
     private EventCounter m_eventCounter;
 
+    /** The Constant MATCH_PATTERN. */
     private static final String MATCH_PATTERN = "^.*\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)";
 
+    /** The Constant HOST_GROUP. */
     private static final int HOST_GROUP = 6;
 
+    /** The Constant MESSAGE_GROUP. */
     private static final int MESSAGE_GROUP = 8;
 
+    /** The Constant HIDE_MESSAGE. */
     private static final HideMessage HIDE_MESSAGE = new HideMessage();
 
+    /** The Constant DISCARD_UEI. */
     private static final String DISCARD_UEI = "DISCARD-MATCHING-MESSAGES";
 
+    /** The Constant UEI_LIST. */
     private static final UeiList UEI_LIST = new UeiList();
 
+    /** The m_event ipc manager. */
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_eventd. */
     @Autowired
     private Eventd m_eventd;
 
+    /** The m_syslogd. */
     private Syslogd m_syslogd;
 
+    /** The m_executor services. */
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
             Executors.newFixedThreadPool(3), Executors.newFixedThreadPool(3) });
 
@@ -144,11 +160,20 @@ public class SyslogdLoadTest implements InitializingBean {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(true, "WARN");
@@ -159,6 +184,12 @@ public class SyslogdLoadTest implements InitializingBean {
         this.m_eventIpcManager.addEventListener(m_eventCounter);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (m_syslogd != null) {
@@ -166,6 +197,18 @@ public class SyslogdLoadTest implements InitializingBean {
         }
     }
 
+    /**
+     * Load syslog configuration.
+     *
+     * @param configuration
+     *            the configuration
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void loadSyslogConfiguration(final String configuration) throws IOException, MarshalException,
             ValidationException {
         InputStream stream = null;
@@ -180,6 +223,9 @@ public class SyslogdLoadTest implements InitializingBean {
         }
     }
 
+    /**
+     * Start syslogd gracefully.
+     */
     private void startSyslogdGracefully() {
         ConvertToEvent.invalidate();
         try {
@@ -196,6 +242,12 @@ public class SyslogdLoadTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test default syslogd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testDefaultSyslogd() throws Exception {
@@ -233,6 +285,12 @@ public class SyslogdLoadTest implements InitializingBean {
                                          eventsPerSecond));
     }
 
+    /**
+     * Test rfc syslog.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testRfcSyslog() throws Exception {
@@ -263,6 +321,12 @@ public class SyslogdLoadTest implements InitializingBean {
         assertEquals(1, m_eventCounter.getCount());
     }
 
+    /**
+     * Test ng syslog.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testNGSyslog() throws Exception {
@@ -293,6 +357,12 @@ public class SyslogdLoadTest implements InitializingBean {
         assertEquals(1, m_eventCounter.getCount());
     }
 
+    /**
+     * Test eventd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testEventd() throws Exception {
@@ -332,6 +402,13 @@ public class SyslogdLoadTest implements InitializingBean {
                                          eventsPerSecond));
     }
 
+    /**
+     * Creates the event proxy.
+     *
+     * @return the event proxy
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private static EventProxy createEventProxy() throws UnknownHostException {
         /*
          * Rather than defaulting to localhost all the time, give an option in
@@ -354,17 +431,32 @@ public class SyslogdLoadTest implements InitializingBean {
         return proxy;
     }
 
+    /**
+     * The Class EventCounter.
+     */
     public static class EventCounter implements EventListener {
+
+        /** The m_event count. */
         private AtomicInteger m_eventCount = new AtomicInteger(0);
 
+        /** The m_expected count. */
         private int m_expectedCount = 0;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.events.EventListener#getName()
+         */
         @Override
         public String getName() {
             return "eventCounter";
         }
 
         // Me love you, long time.
+        /**
+         * Wait for finish.
+         *
+         * @param time
+         *            the time
+         */
         public void waitForFinish(final long time) {
             final long start = System.currentTimeMillis();
             while (this.getCount() < m_expectedCount) {
@@ -381,18 +473,35 @@ public class SyslogdLoadTest implements InitializingBean {
             }
         }
 
+        /**
+         * Sets the anticipated.
+         *
+         * @param eventCount
+         *            the new anticipated
+         */
         public void setAnticipated(final int eventCount) {
             m_expectedCount = eventCount;
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public int getCount() {
             return m_eventCount.get();
         }
 
+        /**
+         * Anticipate.
+         */
         public void anticipate() {
             m_expectedCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.events.EventListener#onEvent(org.opennms.netmgt.xml.event.Event)
+         */
         @Override
         public void onEvent(final Event e) {
             final int current = m_eventCount.incrementAndGet();

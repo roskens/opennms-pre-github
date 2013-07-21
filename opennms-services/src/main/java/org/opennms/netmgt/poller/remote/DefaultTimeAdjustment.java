@@ -31,14 +31,18 @@ package org.opennms.netmgt.poller.remote;
 import java.util.Date;
 
 /**
- * DefaultTimeAdjustment
+ * DefaultTimeAdjustment.
  *
  * @author brozow
  */
 public class DefaultTimeAdjustment implements TimeAdjustment {
 
+    /** The m_offset. */
     private long m_offset = 0;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.TimeAdjustment#setMasterTime(long)
+     */
     @Override
     public void setMasterTime(long timeInMillis) {
         if (timeInMillis > 0) {
@@ -46,11 +50,17 @@ public class DefaultTimeAdjustment implements TimeAdjustment {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.TimeAdjustment#adjustTimeToMasterTime(long)
+     */
     @Override
     public long adjustTimeToMasterTime(long localTime) {
         return localTime - m_offset;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.remote.TimeAdjustment#adjustDateToMasterDate(java.util.Date)
+     */
     @Override
     public Date adjustDateToMasterDate(Date localDate) {
         return new Date(adjustTimeToMasterTime(localDate.getTime()));

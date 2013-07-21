@@ -49,10 +49,13 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class AvailabilityMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(AvailabilityMonitor.class);
 
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 3;
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
     /** {@inheritDoc} */
@@ -64,6 +67,7 @@ public class AvailabilityMonitor extends AbstractServiceMonitor {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
@@ -98,6 +102,7 @@ public class AvailabilityMonitor extends AbstractServiceMonitor {
      * <p>
      * release
      * </p>
+     * .
      */
     @Override
     public void release() {

@@ -56,91 +56,95 @@ public final class CdpCacheTableEntry extends SnmpStore {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>CDP_IFINDEX="cdpCacheIfIndex"</code> */
+    /** Constant <code>CDP_IFINDEX="cdpCacheIfIndex"</code>. */
     public static final String CDP_IFINDEX = "cdpCacheIfIndex";
 
-    /** Constant <code>CDP_DEVICEINDEX="cdpCacheDeviceIndex"</code> */
+    /** Constant <code>CDP_DEVICEINDEX="cdpCacheDeviceIndex"</code>. */
     public static final String CDP_DEVICEINDEX = "cdpCacheDeviceIndex";
 
-    /** Constant <code>CDP_ADDRESS_TYPE="cdpCacheAddressType"</code> */
+    /** Constant <code>CDP_ADDRESS_TYPE="cdpCacheAddressType"</code>. */
     public static final String CDP_ADDRESS_TYPE = "cdpCacheAddressType";
 
-    /** Constant <code>CDP_ADDRESS="cdpCacheAddress"</code> */
+    /** Constant <code>CDP_ADDRESS="cdpCacheAddress"</code>. */
     public static final String CDP_ADDRESS = "cdpCacheAddress";
 
-    /** Constant <code>CDP_VERSION="cdpCacheVersion"</code> */
+    /** Constant <code>CDP_VERSION="cdpCacheVersion"</code>. */
     public static final String CDP_VERSION = "cdpCacheVersion";
 
-    /** Constant <code>CDP_DEVICEID="cdpCacheDeviceId"</code> */
+    /** Constant <code>CDP_DEVICEID="cdpCacheDeviceId"</code>. */
     public static final String CDP_DEVICEID = "cdpCacheDeviceId";
 
-    /** Constant <code>CDP_DEVICEPORT="cdpCacheDevicePort"</code> */
+    /** Constant <code>CDP_DEVICEPORT="cdpCacheDevicePort"</code>. */
     public static final String CDP_DEVICEPORT = "cdpCacheDevicePort";
 
-    /** Constant <code>CDP_PLATFORM="cdpPlatform"</code> */
+    /** Constant <code>CDP_PLATFORM="cdpPlatform"</code>. */
     public static final String CDP_PLATFORM = "cdpPlatform";
 
-    /** Constant <code>CDP_CAPS="cdpCacheCapabilities"</code> */
+    /** Constant <code>CDP_CAPS="cdpCacheCapabilities"</code>. */
     public static final String CDP_CAPS = "cdpCacheCapabilities";
 
-    /** Constant <code>CDP_VTP_MGMTDOMAIN="cdpCacheVtpMgmtDomain"</code> */
+    /** Constant <code>CDP_VTP_MGMTDOMAIN="cdpCacheVtpMgmtDomain"</code>. */
     public static final String CDP_VTP_MGMTDOMAIN = "cdpCacheVtpMgmtDomain";
 
-    /** Constant <code>CDP_NATIVEVLAN="cdpCacheNatveVlan"</code> */
+    /** Constant <code>CDP_NATIVEVLAN="cdpCacheNatveVlan"</code>. */
     public static final String CDP_NATIVEVLAN = "cdpCacheNatveVlan";
 
-    /** Constant <code>CDP_DUPLEX="cdpCacheDuplex"</code> */
+    /** Constant <code>CDP_DUPLEX="cdpCacheDuplex"</code>. */
     public static final String CDP_DUPLEX = "cdpCacheDuplex";
 
-    /** Constant <code>CDP_APPLIANCEID="cdpCacheApplianceID"</code> */
+    /** Constant <code>CDP_APPLIANCEID="cdpCacheApplianceID"</code>. */
     public static final String CDP_APPLIANCEID = "cdpCacheApplianceID";
 
-    /** Constant <code>CDP_VLANID="cdpCacheVlanID"</code> */
+    /** Constant <code>CDP_VLANID="cdpCacheVlanID"</code>. */
     public static final String CDP_VLANID = "cdpCacheVlanID";
 
-    /** Constant <code>CDP_POWERCONS="cdpCachePowerConsumption"</code> */
+    /** Constant <code>CDP_POWERCONS="cdpCachePowerConsumption"</code>. */
     public static final String CDP_POWERCONS = "cdpCachePowerConsumption";
 
-    /** Constant <code>CDP_MTU="cdpCacheMTU"</code> */
+    /** Constant <code>CDP_MTU="cdpCacheMTU"</code>. */
     public static final String CDP_MTU = "cdpCacheMTU";
 
-    /** Constant <code>CDP_SYSNAME="cdpCacheSysName"</code> */
+    /** Constant <code>CDP_SYSNAME="cdpCacheSysName"</code>. */
     public static final String CDP_SYSNAME = "cdpCacheSysName";
 
-    /** Constant <code>CDP_SYSOBJID="cdpCacheSysObjectID"</code> */
+    /** Constant <code>CDP_SYSOBJID="cdpCacheSysObjectID"</code>. */
     public static final String CDP_SYSOBJID = "cdpCacheSysObjectID";
 
     /**
      * Constant
-     * <code>CDP_PRIMARYMGMTADDR_TYPE="cdpCachePrimaryMgmtAddressType"</code>
+     * <code>CDP_PRIMARYMGMTADDR_TYPE="cdpCachePrimaryMgmtAddressType"</code>.
      */
     public static final String CDP_PRIMARYMGMTADDR_TYPE = "cdpCachePrimaryMgmtAddressType";
 
-    /** Constant <code>CDP_PRIMARYMGMTADDR="cdpCachePrimaryMgmtAddress"</code> */
+    /** Constant <code>CDP_PRIMARYMGMTADDR="cdpCachePrimaryMgmtAddress"</code>. */
     public static final String CDP_PRIMARYMGMTADDR = "cdpCachePrimaryMgmtAddress";
 
     /**
      * Constant
      * <code>CDP_SECONDARYMGMTADDR_TYPE="cdpCacheSecondaryMgmtAddressType"</code>
+     * .
      */
     public static final String CDP_SECONDARYMGMTADDR_TYPE = "cdpCacheSecondaryMgmtAddressType";
 
     /**
      * Constant
-     * <code>CDP_SECONDARYMGMTADDR="cdpCacheSecondaryMgmtAddress"</code>
+     * <code>CDP_SECONDARYMGMTADDR="cdpCacheSecondaryMgmtAddress"</code>.
      */
     public static final String CDP_SECONDARYMGMTADDR = "cdpCacheSecondaryMgmtAddress";
 
-    /** Constant <code>CDP_PHYSLOC="cdpCachePhysLocation"</code> */
+    /** Constant <code>CDP_PHYSLOC="cdpCachePhysLocation"</code>. */
     public static final String CDP_PHYSLOC = "cdpCachePhysLocation";
 
-    /** Constant <code>CDP_LASTCHANGE="cdpCacheLastChange"</code> */
+    /** Constant <code>CDP_LASTCHANGE="cdpCacheLastChange"</code>. */
     public static final String CDP_LASTCHANGE = "cdpCacheLastChange";
 
+    /** The has if index. */
     private boolean hasIfIndex = false;
 
+    /** The Constant CDP_IFINDEX_OID. */
     private static final String CDP_IFINDEX_OID = ".1.3.6.1.4.1.9.9.23.1.2.1.1.1";
 
+    /** The Constant CDP_DEVICEINDEX_OID. */
     private static final String CDP_DEVICEINDEX_OID = ".1.3.6.1.4.1.9.9.23.1.2.1.1.2";
 
     /**
@@ -445,6 +449,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -456,6 +461,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheDeviceIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -467,6 +473,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheAddressType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -478,6 +485,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -485,6 +493,11 @@ public final class CdpCacheTableEntry extends SnmpStore {
         return getHexString(CdpCacheTableEntry.CDP_ADDRESS);
     }
 
+    /**
+     * Gets the cdp cache ipv4 address.
+     *
+     * @return the cdp cache ipv4 address
+     */
     public InetAddress getCdpCacheIpv4Address() {
         return getIpAddressByHexString(getCdpCacheAddress());
     }
@@ -493,6 +506,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -504,6 +518,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheDeviceId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -515,6 +530,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpCacheDevicePort
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -526,7 +542,10 @@ public final class CdpCacheTableEntry extends SnmpStore {
      * <p>
      * getCdpPlatform
      * </p>
+     * .
      *
+     * @param ipaddrhexstrng
+     *            the ipaddrhexstrng
      * @return a {@link java.lang.String} object.
      */
     // public String getCdpPlatform() {

@@ -42,6 +42,7 @@ package org.opennms.netmgt.archive;
  */
 public class ArchiverException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1724554468082066017L;
 
     /**

@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
  * @version 1.1.1.1
  */
 public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NoticeQueue.class);
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7463770974135218140L;
 
     /** {@inheritDoc} */

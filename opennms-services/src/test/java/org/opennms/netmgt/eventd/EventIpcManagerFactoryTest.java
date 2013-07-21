@@ -40,12 +40,19 @@ import org.opennms.test.ThrowableAnticipator;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventIpcManagerFactoryTest extends TestCase {
+
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         EventIpcManagerFactory.reset();
     }
 
+    /**
+     * Test set ipc manager.
+     */
     public void testSetIpcManager() {
         EventIpcManager manager = createMock(EventIpcManager.class);
         EventIpcManagerFactory.setIpcManager(manager);
@@ -53,6 +60,9 @@ public class EventIpcManagerFactoryTest extends TestCase {
         assertEquals("manager", manager, EventIpcManagerFactory.getIpcManager());
     }
 
+    /**
+     * Test set ipc manager null.
+     */
     public void testSetIpcManagerNull() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument ipcManager must not be null"));
@@ -66,6 +76,9 @@ public class EventIpcManagerFactoryTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get ipc manager not initialized.
+     */
     public void testGetIpcManagerNotInitialized() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("this factory has not been initialized"));

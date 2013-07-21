@@ -52,6 +52,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class CapsdIntegrationTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -68,30 +70,48 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase>, InitializingBean {
 
+    /** The Constant FOREIGN_NODEID. */
     private static final int FOREIGN_NODEID = 77;
 
+    /** The Constant FOREIGN_NODE_IP_ADDRESS. */
     private static final String FOREIGN_NODE_IP_ADDRESS = "172.20.1.201";
 
+    /** The m_mock network. */
     private MockNetwork m_mockNetwork = new MockNetwork();
 
+    /** The m_capsd. */
     @Autowired
     private Capsd m_capsd;
 
+    /** The m_capsd config. */
     @Autowired
     private CapsdConfig m_capsdConfig;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseAware#setTemporaryDatabase(org.opennms.core.test.db.TemporaryDatabase)
+     */
     @Override
     public void setTemporaryDatabase(final MockDatabase database) {
         m_db = database;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         assertEquals(2, m_capsdConfig.getConfiguredProtocols().size());
@@ -107,6 +127,12 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
         m_db.populate(m_mockNetwork);
     }
 
+    /**
+     * Test rescan.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "172.20.1.201", resource = "classpath:org/opennms/netmgt/snmp/snmpTestData1.properties"),
@@ -133,6 +159,9 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
 
     /**
      * Refactored from org.opennms.netmgt.capsd.CapsdTest
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -165,6 +194,13 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
      * Refactored from org.opennms.netmgt.capsd.ScanSuspectTest
      * TODO: Add checks to this unit test to make sure that the suspect scan
      * works correctly
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     @JUnitSnmpAgents(value = {

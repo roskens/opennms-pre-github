@@ -42,6 +42,7 @@ public interface SuspectEventProcessorFactory {
      * <p>
      * createSuspectEventProcessor
      * </p>
+     * .
      *
      * @param ifAddress
      *            a {@link java.lang.String} object.

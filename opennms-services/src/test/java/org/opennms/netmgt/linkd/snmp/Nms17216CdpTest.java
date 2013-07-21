@@ -47,16 +47,28 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms17216CdpTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms17216CdpTest extends Nms17216NetworkBuilder implements InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test network17216 switch1 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH1_IP, port = 161, resource = "classpath:linkd/nms17216/switch1-walk.txt") })
     public void testNetwork17216Switch1CdpCacheTableCollection() throws Exception {
@@ -81,6 +93,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 switch2 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH2_IP, port = 161, resource = "classpath:linkd/nms17216/switch2-walk.txt") })
     public void testNetwork17216Switch2CdpCacheTableCollection() throws Exception {
@@ -105,6 +123,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 switch3 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH3_IP, port = 161, resource = "classpath:linkd/nms17216/switch3-walk.txt") })
     public void testNetwork17216Switch3CdpCacheTableCollection() throws Exception {
@@ -129,6 +153,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 switch4 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH4_IP, port = 161, resource = "classpath:linkd/nms17216/switch4-walk.txt") })
     public void testNetwork17216Switch4CdpCacheTableCollection() throws Exception {
@@ -153,6 +183,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 switch5 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SWITCH5_IP, port = 161, resource = "classpath:linkd/nms17216/switch5-walk.txt") })
     public void testNetwork17216Switch5CdpCacheTableCollection() throws Exception {
@@ -177,6 +213,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 router1 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = ROUTER1_IP, port = 161, resource = "classpath:linkd/nms17216/router1-walk.txt") })
     public void testNetwork17216Router1CdpCacheTableCollection() throws Exception {
@@ -201,6 +243,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 router2 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = ROUTER2_IP, port = 161, resource = "classpath:linkd/nms17216/router2-walk.txt") })
     public void testNetwork17216Router2CdpCacheTableCollection() throws Exception {
@@ -225,6 +273,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 router3 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = ROUTER3_IP, port = 161, resource = "classpath:linkd/nms17216/router3-walk.txt") })
     public void testNetwork17216Router3CdpCacheTableCollection() throws Exception {
@@ -249,6 +303,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         }
     }
 
+    /**
+     * Test network17216 router4 cdp cache table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = ROUTER4_IP, port = 161, resource = "classpath:linkd/nms17216/router4-walk.txt") })
     public void testNetwork17216Router4CdpCacheTableCollection() throws Exception {

@@ -45,12 +45,14 @@ public class TrapQueueProcessorFactory implements InitializingBean {
 
     /**
      * Whether or not a newSuspect event should be generated with a trap from an
-     * unknown IP address
+     * unknown IP address.
      */
     @Resource(name = "newSuspectOnTrap")
     private Boolean m_newSuspectOnTrap;
 
     /**
+     * Gets the new suspect.
+     *
      * @return the newSuspectOnTrap
      */
     public Boolean getNewSuspect() {
@@ -58,6 +60,8 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     }
 
     /**
+     * Sets the new suspect.
+     *
      * @param newSuspectOnTrap
      *            the newSuspectOnTrap to set
      */
@@ -71,6 +75,8 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     private EventIpcManager m_eventManager;
 
     /**
+     * Gets the event manager.
+     *
      * @return the eventMgr
      */
     public EventIpcManager getEventManager() {
@@ -78,6 +84,8 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     }
 
     /**
+     * Sets the event manager.
+     *
      * @param eventManager
      *            the eventMgr to set
      */
@@ -92,11 +100,18 @@ public class TrapQueueProcessorFactory implements InitializingBean {
     private EventConfDao m_eventConfDao;
 
     /**
-     * The constructor
+     * The constructor.
      */
     public TrapQueueProcessorFactory() {
     }
 
+    /**
+     * Gets the single instance of TrapQueueProcessorFactory.
+     *
+     * @param info
+     *            the info
+     * @return single instance of TrapQueueProcessorFactory
+     */
     public TrapQueueProcessor getInstance(TrapNotification info) {
         TrapQueueProcessor retval = new TrapQueueProcessor();
         retval.setEventConfDao(m_eventConfDao);
@@ -107,6 +122,9 @@ public class TrapQueueProcessorFactory implements InitializingBean {
         return retval;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

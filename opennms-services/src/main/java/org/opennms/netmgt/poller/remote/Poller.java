@@ -51,18 +51,23 @@ import org.springframework.util.Assert;
  */
 public class Poller implements InitializingBean, PollObserver, ConfigurationChangedListener, PropertyChangeListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
 
+    /** The m_poller front end. */
     private PollerFrontEnd m_pollerFrontEnd;
 
+    /** The m_scheduler. */
     private Scheduler m_scheduler;
 
+    /** The m_initial spread time. */
     private long m_initialSpreadTime = 300000L;
 
     /**
      * <p>
      * setPollerFrontEnd
      * </p>
+     * .
      *
      * @param pollerFrontEnd
      *            a {@link org.opennms.netmgt.poller.remote.PollerFrontEnd}
@@ -76,6 +81,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.quartz.Scheduler} object.
@@ -88,6 +94,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
      * <p>
      * setInitialSpreadTime
      * </p>
+     * .
      *
      * @param initialSpreadTime
      *            a long.
@@ -100,9 +107,10 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -120,6 +128,12 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 
     }
 
+    /**
+     * Unschedule polls.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void unschedulePolls() throws Exception {
         if (m_scheduler.isShutdown()) {
             // no need to unschedule in this case
@@ -130,6 +144,12 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
         }
     }
 
+    /**
+     * Schedule polls.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void schedulePolls() throws Exception {
 
         LOG.debug("Enter schedulePolls");
@@ -176,6 +196,14 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param propertyValue
+     *            the property value
+     * @param propertyName
+     *            the property name
+     */
     private void assertNotNull(Object propertyValue, String propertyName) {
         Assert.state(propertyValue != null, propertyName + " must be set for instances of " + Poller.class);
     }

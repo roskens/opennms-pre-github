@@ -50,16 +50,28 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms10205bOspfTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test network10205b mumbay ospf general group collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
@@ -82,6 +94,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(MUMBAI_OSPF_ID, m_ospfGeneralGroup.getOspfRouterId());
     }
 
+    /**
+     * Test network10205b srx100 ospf general group collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "SRX-100_" + SRX_100_IP + ".txt") })
@@ -104,6 +122,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(SRX_100_OSPF_ID, m_ospfGeneralGroup.getOspfRouterId());
     }
 
+    /**
+     * Test network10205b mumbay ospf if table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
@@ -132,6 +156,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         }
     }
 
+    /**
+     * Test network10205b srx100 ospf if table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "SRX-100_" + SRX_100_IP + ".txt") })
@@ -155,6 +185,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(0, ospfifTableCollection.size());
     }
 
+    /**
+     * Test network10205b mumbay ospf nbr table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = MUMBAI_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + MUMBAI_NAME + "_" + MUMBAI_IP + ".txt") })
@@ -183,6 +219,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         }
     }
 
+    /**
+     * Test network10205b srx100 ospf nbr table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SRX_100_IP, port = 161, resource = "classpath:linkd/nms10205b/"
             + "SRX-100_" + SRX_100_IP + ".txt") })
@@ -206,6 +248,12 @@ public class Nms10205bOspfTest extends Nms10205bNetworkBuilder implements Initia
         assertEquals(0, ospfNbrTableCollection.size());
     }
 
+    /**
+     * Checkrow.
+     *
+     * @param entry
+     *            the entry
+     */
     private void checkrow(OspfNbrTableEntry entry) {
         InetAddress ip = entry.getOspfNbrIpAddress();
         if (ip.getHostAddress().equals("192.168.5.10")) {

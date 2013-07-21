@@ -43,6 +43,7 @@ import java.lang.reflect.UndeclaredThrowableException;
  */
 public final class UndeclaredEventException extends UndeclaredThrowableException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3138934063775363857L;
 
     /**

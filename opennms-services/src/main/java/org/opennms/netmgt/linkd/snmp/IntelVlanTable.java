@@ -68,6 +68,9 @@ public class IntelVlanTable extends VlanTableBasic {
         return new IntelVlanTableEntry();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.VlanTableBasic#getVlansForSnmpCollection()
+     */
     @Override
     public List<OnmsVlan> getVlansForSnmpCollection() {
         List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();

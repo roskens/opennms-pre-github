@@ -47,6 +47,8 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:opennms@obado.net">Chris Abernethy</A>
  */
 public class XMPPNotificationStrategy implements NotificationStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XMPPNotificationStrategy.class);
 
     /**
@@ -135,8 +137,10 @@ public class XMPPNotificationStrategy implements NotificationStrategy {
      * parameters passed in the notification.
      *
      * @param arguments
+     *            the arguments
      * @return String[]
      * @throws Exception
+     *             the exception
      */
 
     private String[] parseArguments(List<Argument> arguments) throws Exception {

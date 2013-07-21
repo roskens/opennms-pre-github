@@ -85,6 +85,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public final class JdbcEventWriter extends AbstractJdbcPersister implements EventProcessor, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JdbcEventWriter.class);
 
     /**
@@ -148,14 +150,16 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
     }
 
     /**
-     * Insert values into the EVENTS table
+     * Insert values into the EVENTS table.
      *
-     * @exception java.sql.SQLException
-     *                Thrown if there is an error adding the event to the
-     *                database.
-     * @exception java.lang.NullPointerException
-     *                Thrown if a required resource cannot be found in the
-     *                properties file.
+     * @param eventHeader
+     *            the event header
+     * @param event
+     *            the event
+     * @param connection
+     *            the connection
+     * @throws SQLException
+     *             the sQL exception
      */
     private void insertEvent(final Header eventHeader, final Event event, final Connection connection)
             throws SQLException {
@@ -378,9 +382,8 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
      * @param hostip
      *            The event host
      * @return The hostname
-     * @exception java.sql.SQLException
-     *                Thrown if there is an error accessing the stored data or
-     *                the SQL text is malformed.
+     * @throws SQLException
+     *             the sQL exception
      * @see EventdConstants#SQL_DB_HOSTIP_TO_HOSTNAME
      */
 
@@ -396,9 +399,11 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
     }
 
     /**
+     * Gets the event service id.
+     *
      * @param event
-     * @param log
-     * @return
+     *            the event
+     * @return the event service id
      */
     private int getEventServiceId(final Event event) {
         if (event.getService() == null) {
@@ -418,11 +423,10 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
      * <p>
      * getEventHost
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param connection
-     *            a {@link java.sql.Connection} object.
      * @return a {@link java.lang.String} object.
      */
     protected String getEventHost(final Event event) {

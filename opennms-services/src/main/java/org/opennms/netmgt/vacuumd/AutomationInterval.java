@@ -45,6 +45,7 @@ public class AutomationInterval implements ScheduleInterval {
      * @see org.opennms.netmgt.scheduler.ScheduleInterval#getInterval()
      */
 
+    /** The m_interval. */
     private long m_interval;
 
     /**
@@ -63,6 +64,7 @@ public class AutomationInterval implements ScheduleInterval {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -75,6 +77,7 @@ public class AutomationInterval implements ScheduleInterval {
      * <p>
      * setInterval
      * </p>
+     * .
      *
      * @param interval
      *            a long.
@@ -91,6 +94,7 @@ public class AutomationInterval implements ScheduleInterval {
      * <p>
      * scheduledSuspension
      * </p>
+     * .
      *
      * @return a boolean.
      */

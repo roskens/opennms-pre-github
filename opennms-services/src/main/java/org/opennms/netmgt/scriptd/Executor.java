@@ -63,6 +63,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
 final class Executor implements Runnable, PausableFiber {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
 
     /**
@@ -75,9 +77,7 @@ final class Executor implements Runnable, PausableFiber {
      */
     private Thread m_worker;
 
-    /**
-     * The name of this Fiber
-     */
+    /** The name of this Fiber. */
     private final String m_name;
 
     /**
@@ -100,14 +100,10 @@ final class Executor implements Runnable, PausableFiber {
      */
     private Map<String, List<EventScript>> m_eventScriptMap;
 
-    /**
-     * The BSF manager
-     */
+    /** The BSF manager. */
     private BSFManager m_mgr;
 
-    /**
-     * The DAO object for fetching nodes
-     */
+    /** The DAO object for fetching nodes. */
     private NodeDao m_nodeDao;
 
     /**
@@ -345,6 +341,13 @@ final class Executor implements Runnable, PausableFiber {
 
     } // end run
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
 
@@ -374,9 +377,6 @@ final class Executor implements Runnable, PausableFiber {
      * RUNNING</code> when the fiber finishes initializing and begins processing
      * the
      * encapsulaed queue.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void start() {
@@ -436,9 +436,6 @@ final class Executor implements Runnable, PausableFiber {
      * Stops a currently running fiber. If the fiber has already been stopped
      * then the command is silently ignored. If the fiber was never started then
      * an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber was never started.
      */
     @Override
     public synchronized void stop() {
@@ -478,9 +475,6 @@ final class Executor implements Runnable, PausableFiber {
      * Pauses a currently running fiber. If the fiber was not in a running or
      * resuming state then the command is silently discarded. If the fiber is
      * not running or has terminated then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void pause() {
@@ -498,9 +492,6 @@ final class Executor implements Runnable, PausableFiber {
      * Resumes the fiber if it is paused. If the fiber was not in a paused or
      * pause pending state then the request is discarded. If the fiber has not
      * been started or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void resume() {

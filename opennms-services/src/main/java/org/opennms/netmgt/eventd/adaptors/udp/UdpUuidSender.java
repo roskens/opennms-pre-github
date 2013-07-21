@@ -59,6 +59,7 @@ import org.springframework.dao.DataAccessException;
  */
 final class UdpUuidSender implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(UdpUuidSender.class);
 
     /**
@@ -66,9 +67,7 @@ final class UdpUuidSender implements Runnable {
      */
     private List<UdpReceivedEvent> m_eventUuidsOut;
 
-    /**
-     * The stop flag
-     */
+    /** The stop flag. */
     private volatile boolean m_stop;
 
     /**
@@ -76,23 +75,24 @@ final class UdpUuidSender implements Runnable {
      */
     private DatagramSocket m_dgSock;
 
-    /**
-     * The thread context
-     */
+    /** The thread context. */
     private Thread m_context;
 
-    /**
-     * The list of handlers
-     */
+    /** The list of handlers. */
     private List<EventHandler> m_handlers;
 
-    /**
-     * The log prefix
-     */
+    /** The log prefix. */
     private String m_logPrefix;
 
     /**
      * Constructs a new instance of this runnable.
+     *
+     * @param sock
+     *            the sock
+     * @param uuidsOut
+     *            the uuids out
+     * @param handlers
+     *            the handlers
      */
     UdpUuidSender(DatagramSocket sock, List<UdpReceivedEvent> uuidsOut, List<EventHandler> handlers) {
         m_context = null;
@@ -105,6 +105,9 @@ final class UdpUuidSender implements Runnable {
 
     /**
      * Stops the current context.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;
@@ -119,7 +122,9 @@ final class UdpUuidSender implements Runnable {
     }
 
     /**
-     * Returns true if the runnable is still running in its context
+     * Returns true if the runnable is still running in its context.
+     *
+     * @return true, if is alive
      */
     boolean isAlive() {
         return (m_context == null ? false : m_context.isAlive());
@@ -129,6 +134,7 @@ final class UdpUuidSender implements Runnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -242,6 +248,12 @@ final class UdpUuidSender implements Runnable {
         LOG.debug("Context finished, returning");
     }
 
+    /**
+     * Sets the log prefix.
+     *
+     * @param prefix
+     *            the new log prefix
+     */
     void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }

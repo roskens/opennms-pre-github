@@ -30,48 +30,106 @@ package org.opennms.netmgt.linkd;
 
 import java.net.InetAddress;
 
+/**
+ * The Class AtInterface.
+ */
 public class AtInterface {
 
+    /** The m_nodeid. */
     Integer m_nodeid;
 
+    /** The m_if index. */
     Integer m_ifIndex;
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public Integer getIfIndex() {
         return m_ifIndex;
     }
 
+    /**
+     * Sets the if index.
+     *
+     * @param ifIndex
+     *            the new if index
+     */
     public void setIfIndex(Integer ifIndex) {
         m_ifIndex = ifIndex;
     }
 
+    /** The m_mac address. */
     String m_macAddress;
 
+    /** The m_ip address. */
     InetAddress m_ipAddress;
 
+    /**
+     * Gets the nodeid.
+     *
+     * @return the nodeid
+     */
     public Integer getNodeid() {
         return m_nodeid;
     }
 
+    /**
+     * Sets the nodeid.
+     *
+     * @param nodeid
+     *            the new nodeid
+     */
     public void setNodeid(Integer nodeid) {
         m_nodeid = nodeid;
     }
 
+    /**
+     * Gets the mac address.
+     *
+     * @return the mac address
+     */
     public String getMacAddress() {
         return m_macAddress;
     }
 
+    /**
+     * Sets the mac address.
+     *
+     * @param macAddress
+     *            the new mac address
+     */
     public void setMacAddress(String macAddress) {
         m_macAddress = macAddress;
     }
 
+    /**
+     * Gets the ip address.
+     *
+     * @return the ip address
+     */
     public InetAddress getIpAddress() {
         return m_ipAddress;
     }
 
+    /**
+     * Sets the ip address.
+     *
+     * @param ipAddress
+     *            the new ip address
+     */
     public void setIpAddress(InetAddress ipAddress) {
         m_ipAddress = ipAddress;
     }
 
+    /**
+     * Equals.
+     *
+     * @param a
+     *            the a
+     * @return true, if successful
+     */
     public boolean equals(AtInterface a) {
         if (a.getNodeid() != m_nodeid)
             return false;
@@ -84,6 +142,16 @@ public class AtInterface {
         return true;
     }
 
+    /**
+     * Instantiates a new at interface.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param macAddress
+     *            the mac address
+     * @param ipAddress
+     *            the ip address
+     */
     public AtInterface(Integer nodeid, String macAddress, InetAddress ipAddress) {
         super();
         m_nodeid = nodeid;

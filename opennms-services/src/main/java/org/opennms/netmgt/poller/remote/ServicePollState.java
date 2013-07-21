@@ -46,14 +46,19 @@ import org.opennms.netmgt.model.PollStatus;
  */
 public class ServicePollState implements Comparable<ServicePollState>, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8169533436306268574L;
 
+    /** The m_polled service. */
     private PolledService m_polledService;
 
+    /** The m_index. */
     private int m_index;
 
+    /** The m_last poll. */
     private PollStatus m_lastPoll;
 
+    /** The m_initial poll time. */
     private Date m_initialPollTime;
 
     /**
@@ -76,6 +81,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * getLastPoll
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -87,6 +93,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * setLastPoll
      * </p>
+     * .
      *
      * @param lastPoll
      *            a {@link org.opennms.netmgt.model.PollStatus} object.
@@ -99,6 +106,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * getLastPollTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -110,6 +118,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * getNextPollTime
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -125,6 +134,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * getIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -136,6 +146,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * getPolledService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
@@ -147,6 +158,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * setInitialPollTime
      * </p>
+     * .
      *
      * @param initialPollTime
      *            a {@link java.util.Date} object.
@@ -177,6 +189,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
      * <p>
      * compareTo
      * </p>
+     * .
      *
      * @param that
      *            a {@link org.opennms.netmgt.poller.remote.ServicePollState}

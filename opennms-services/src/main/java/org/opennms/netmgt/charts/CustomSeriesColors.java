@@ -44,6 +44,7 @@ public interface CustomSeriesColors {
      * <p>
      * getPaint
      * </p>
+     * .
      *
      * @param cat
      *            a {@link java.lang.Comparable} object.

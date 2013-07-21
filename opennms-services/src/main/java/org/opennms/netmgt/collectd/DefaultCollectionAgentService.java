@@ -56,12 +56,14 @@ import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
  */
 public class DefaultCollectionAgentService implements CollectionAgentService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionAgentService.class);
 
     /**
      * <p>
      * create
      * </p>
+     * .
      *
      * @param ifaceId
      *            a {@link java.lang.Integer} object.
@@ -69,9 +71,9 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      * @param transMgr
      *            a
-     *            {@link org.springframework.transaction.PlatformTransactionManager}
-     *            object.
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgentService}
+     *         object.
+     *         {@link org.springframework.transaction.PlatformTransactionManager}
      *         object.
      */
     public static CollectionAgentService create(Integer ifaceId, final IpInterfaceDao ifaceDao,
@@ -93,14 +95,24 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
     }
 
     // the interface of the Agent
+    /** The m_iface id. */
     private Integer m_ifaceId;
 
+    /** The m_iface dao. */
     private IpInterfaceDao m_ifaceDao;
 
     // Unused; delete
     // private int m_maxVarsPerPdu;
     // private int m_ifCount;
 
+    /**
+     * Instantiates a new default collection agent service.
+     *
+     * @param ifaceId
+     *            the iface id
+     * @param ifaceDao
+     *            the iface dao
+     */
     private DefaultCollectionAgentService(Integer ifaceId, IpInterfaceDao ifaceDao) {
         // we pass in null since we override calls to getAddress and
         // getInetAddress
@@ -108,10 +120,20 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         m_ifaceDao = ifaceDao;
     }
 
+    /**
+     * Gets the ip interface.
+     *
+     * @return the ip interface
+     */
     OnmsIpInterface getIpInterface() {
         return m_ifaceDao.load(m_ifaceId);
     }
 
+    /**
+     * Gets the node.
+     *
+     * @return the node
+     */
     private OnmsNode getNode() {
         return getIpInterface().getNode();
     }
@@ -124,6 +146,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getHostAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +163,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * isStoreByForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -156,6 +180,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -172,6 +197,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -189,6 +215,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -205,6 +232,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getStorageDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -224,6 +252,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -240,6 +269,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getSysObjectId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -252,6 +282,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getIsSnmpPrimary
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PrimaryType} object.
      */
@@ -268,6 +299,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -284,6 +316,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -302,6 +335,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getSnmpInterfaceData
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -321,6 +355,11 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return ifData;
     }
 
+    /**
+     * Gets the snmp interfaces.
+     *
+     * @return the snmp interfaces
+     */
     private Set<OnmsSnmpInterface> getSnmpInterfaces() {
         OnmsNode node = getNode();
 
@@ -332,6 +371,12 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         return snmpIfs;
     }
 
+    /**
+     * Log initialize snmp if.
+     *
+     * @param snmpIface
+     *            the snmp iface
+     */
     private void logInitializeSnmpIf(OnmsSnmpInterface snmpIface) {
         LOG.debug("initialize: snmpifindex = {}, snmpifname = {}, snmpifdescr = {}, snmpphysaddr = -{}-",
                   snmpIface.getIfIndex().intValue(), snmpIface.getIfName(), snmpIface.getIfDescr(),
@@ -343,6 +388,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */

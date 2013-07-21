@@ -42,12 +42,14 @@ import java.util.LinkedList;
  * @version $Id: $
  */
 public class CheckNrpe {
-    /** Constant <code>DEFAULT_PORT=5666</code> */
+
+    /** Constant <code>DEFAULT_PORT=5666</code>. */
     public static final int DEFAULT_PORT = 5666;
 
-    /** Constant <code>DEFAULT_TIMEOUT=10</code> */
+    /** Constant <code>DEFAULT_TIMEOUT=10</code>. */
     public static final int DEFAULT_TIMEOUT = 10;
 
+    /** The Constant s_usage. */
     private static final String s_usage = "Usage: java CheckNrpe -H <host> [-p <port>] [-P <padding>] \\\n"
             + "                      [-t <timeout>] [-c <command>] [-a <arglist ...>]\n"
             + "Note: if the -a option is specified it *must* be the last option\n";
@@ -56,14 +58,15 @@ public class CheckNrpe {
      * <p>
      * executeQuery
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
      * @param buffer
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.nrpe.NrpePacket} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static NrpePacket executeQuery(String host, String buffer) throws Exception {
         return executeQuery(host, DEFAULT_PORT, buffer, NrpePacket.DEFAULT_PADDING);
@@ -73,6 +76,7 @@ public class CheckNrpe {
      * <p>
      * executeQuery
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -81,8 +85,8 @@ public class CheckNrpe {
      * @param padding
      *            a int.
      * @return a {@link org.opennms.netmgt.poller.nrpe.NrpePacket} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static NrpePacket executeQuery(String host, String buffer, int padding) throws Exception {
         return executeQuery(host, DEFAULT_PORT, buffer, padding);
@@ -92,6 +96,7 @@ public class CheckNrpe {
      * <p>
      * executeQuery
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -102,8 +107,8 @@ public class CheckNrpe {
      * @param padding
      *            a int.
      * @return a {@link org.opennms.netmgt.poller.nrpe.NrpePacket} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static NrpePacket executeQuery(String host, int port, String buffer, int padding) throws Exception {
         NrpePacket p = new NrpePacket(NrpePacket.QUERY_PACKET, (short) 0, buffer);
@@ -119,6 +124,7 @@ public class CheckNrpe {
      * <p>
      * sendPacket
      * </p>
+     * .
      *
      * @param type
      *            a short.
@@ -127,8 +133,8 @@ public class CheckNrpe {
      * @param buffer
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.poller.nrpe.NrpePacket} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static NrpePacket sendPacket(short type, short resultCode, String buffer) throws Exception {
         int padding = NrpePacket.DEFAULT_PADDING;
@@ -146,11 +152,12 @@ public class CheckNrpe {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static void main(String[] argv) throws Exception {
         String host = null;
@@ -205,14 +212,15 @@ public class CheckNrpe {
      * <p>
      * nextArg
      * </p>
+     * .
      *
      * @param argv
      *            an array of {@link java.lang.String} objects.
      * @param i
      *            a int.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     public static String nextArg(String[] argv, int i) throws Exception {
         if (i >= argv.length) {

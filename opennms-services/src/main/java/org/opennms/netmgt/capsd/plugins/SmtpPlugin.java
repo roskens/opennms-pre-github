@@ -62,6 +62,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class SmtpPlugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SmtpPlugin.class);
 
     /**
@@ -120,6 +122,10 @@ public final class SmtpPlugin extends AbstractPlugin {
      *            The remote host to connect to.
      * @param port
      *            The remote port on the host.
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
      * @return True if server supports SMTP on the specified port, false
      *         otherwise
      */

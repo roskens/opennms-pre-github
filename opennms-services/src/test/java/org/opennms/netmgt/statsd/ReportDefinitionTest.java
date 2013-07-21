@@ -56,19 +56,30 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class ReportDefinitionTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ReportDefinitionTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao = m_mocks.createMock(NodeDao.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao = m_mocks.createMock(RrdDao.class);
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao = m_mocks.createMock(FilterDao.class);
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -76,6 +87,12 @@ public class ReportDefinitionTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test bogus report class.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("unchecked")
     public void testBogusReportClass() throws Exception {
         // Not replaying anything, but need to do it before verifyAll() happens
@@ -96,6 +113,9 @@ public class ReportDefinitionTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set.
+     */
     public void testAfterPropertiesSet() {
         // Not replaying anything, but need to do it before verifyAll() happens
         m_mocks.replayAll();
@@ -103,6 +123,12 @@ public class ReportDefinitionTest extends TestCase {
         createReportDefinition();
     }
 
+    /**
+     * Test report walking.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testReportWalking() throws Exception {
         EasyMock.expect(m_resourceDao.findTopLevelResources()).andReturn(new ArrayList<OnmsResource>(0));
 
@@ -118,6 +144,12 @@ public class ReportDefinitionTest extends TestCase {
         assertEquals("results size", 0, report.getResults().size());
     }
 
+    /**
+     * Test unfiltered resource attribute filtering with no match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUnfilteredResourceAttributeFilteringWithNoMatch() throws Exception {
         MockResourceType resourceType = new MockResourceType();
         resourceType.setName("interfaceSnmp");
@@ -138,6 +170,12 @@ public class ReportDefinitionTest extends TestCase {
         assertEquals("results size", 0, report.getResults().size());
     }
 
+    /**
+     * Test unfiltered resource attribute filtering with match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUnfilteredResourceAttributeFilteringWithMatch() throws Exception {
         OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
         ExternalValueAttribute externalValueAttribute = new ExternalValueAttribute("ifSpeed", "100000000");
@@ -171,6 +209,12 @@ public class ReportDefinitionTest extends TestCase {
         m_mocks.replayAll();
     }
 
+    /**
+     * Test filtered resource attribute filtering with no match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFilteredResourceAttributeFilteringWithNoMatch() throws Exception {
         final OnmsNode node = new OnmsNode();
         node.setId(1);
@@ -202,6 +246,12 @@ public class ReportDefinitionTest extends TestCase {
         assertEquals("results size", 0, report.getResults().size());
     }
 
+    /**
+     * Test filtered resource attribute filtering with match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFilteredResourceAttributeFilteringWithMatch() throws Exception {
         OnmsAttribute rrdAttribute = new RrdGraphAttribute("IfInOctets", "something", "something else");
         ExternalValueAttribute externalValueAttribute = new ExternalValueAttribute("ifSpeed", "100000000");
@@ -241,6 +291,11 @@ public class ReportDefinitionTest extends TestCase {
         assertEquals("results size", 1, report.getResults().size());
     }
 
+    /**
+     * Creates the report definition.
+     *
+     * @return the report definition
+     */
     private static ReportDefinition createReportDefinition() {
         ReportDefinition def;
         def = new ReportDefinition();
@@ -255,6 +310,11 @@ public class ReportDefinitionTest extends TestCase {
         return def;
     }
 
+    /**
+     * Creates the package report.
+     *
+     * @return the package report
+     */
     private static PackageReport createPackageReport() {
         PackageReport packageReport;
         packageReport = new PackageReport();

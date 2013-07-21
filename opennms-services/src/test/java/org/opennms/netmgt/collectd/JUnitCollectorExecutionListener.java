@@ -56,13 +56,21 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  * <li>Set up {@link FileAnticipator} checks for files created during the unit
  * test execution</li>
  * </ul>
+ * .
+ *
+ * @see JUnitCollectorExecutionEvent
  */
 public class JUnitCollectorExecutionListener extends AbstractTestExecutionListener {
 
+    /** The m_snmp rrd directory. */
     private File m_snmpRrdDirectory;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#beforeTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void beforeTestMethod(TestContext testContext) throws Exception {
         JUnitCollector config = findCollectorAnnotation(testContext);
@@ -122,6 +130,9 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         IOUtils.closeQuietly(is);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.test.context.support.AbstractTestExecutionListener#afterTestMethod(org.springframework.test.context.TestContext)
+     */
     @Override
     public void afterTestMethod(TestContext testContext) throws Exception {
         JUnitCollector config = findCollectorAnnotation(testContext);
@@ -170,6 +181,12 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         }
     }
 
+    /**
+     * Delete resursively.
+     *
+     * @param directory
+     *            the directory
+     */
     private static void deleteResursively(File directory) {
         if (!directory.exists())
             return;
@@ -183,6 +200,13 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         directory.delete();
     }
 
+    /**
+     * Find collector annotation.
+     *
+     * @param testContext
+     *            the test context
+     * @return the j unit collector
+     */
     private static JUnitCollector findCollectorAnnotation(TestContext testContext) {
         Method testMethod = testContext.getTestMethod();
         JUnitCollector config = testMethod.getAnnotation(JUnitCollector.class);

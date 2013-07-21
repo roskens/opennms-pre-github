@@ -77,8 +77,10 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class HttpMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(HttpMonitor.class);
 
+    /** The Constant HEADER_PATTERN. */
     private static final Pattern HEADER_PATTERN = Pattern.compile("header[0-9]+$");
 
     /**
@@ -91,9 +93,7 @@ public class HttpMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default URL to 'GET'
-     */
+    /** Default URL to 'GET'. */
     private static final String DEFAULT_URL = "/";
 
     /**
@@ -104,28 +104,43 @@ public class HttpMonitor extends AbstractServiceMonitor {
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
                                                      // read()
 
-    public static final String PARAMETER_VERBOSE = "verbose";
+    /**
+                                                         * The Constant
+                                                         * PARAMETER_VERBOSE.
+                                                         */
+                                                     public static final String PARAMETER_VERBOSE = "verbose";
 
+    /** The Constant PARAMETER_USER_AGENT. */
     public static final String PARAMETER_USER_AGENT = "user-agent";
 
+    /** The Constant PARAMETER_BASIC_AUTHENTICATION. */
     public static final String PARAMETER_BASIC_AUTHENTICATION = "basic-authentication";
 
+    /** The Constant PARAMETER_USER. */
     public static final String PARAMETER_USER = "user";
 
+    /** The Constant PARAMETER_PASSWORD. */
     public static final String PARAMETER_PASSWORD = "password";
 
+    /** The Constant PARAMETER_RESOLVE_IP. */
     public static final String PARAMETER_RESOLVE_IP = "resolve-ip";
 
+    /** The Constant PARAMETER_NODE_LABEL_HOST_NAME. */
     public static final String PARAMETER_NODE_LABEL_HOST_NAME = "nodelabel-host-name";
 
+    /** The Constant PARAMETER_HOST_NAME. */
     public static final String PARAMETER_HOST_NAME = "host-name";
 
+    /** The Constant PARAMETER_RESPONSE_TEXT. */
     public static final String PARAMETER_RESPONSE_TEXT = "response-text";
 
+    /** The Constant PARAMETER_RESPONSE. */
     public static final String PARAMETER_RESPONSE = "response";
 
+    /** The Constant PARAMETER_URL. */
     public static final String PARAMETER_URL = "url";
 
+    /** The Constant PARAMETER_PORT. */
     public static final String PARAMETER_PORT = "port";
 
     /**
@@ -243,6 +258,14 @@ public class HttpMonitor extends AbstractServiceMonitor {
 
     }
 
+    /**
+     * Log response times.
+     *
+     * @param responseTime
+     *            the response time
+     * @param line
+     *            the line
+     */
     private void logResponseTimes(Double responseTime, String line) {
         LOG.debug("poll: response= {}", line);
         LOG.debug("poll: responseTime= {}ms", responseTime);
@@ -252,22 +275,33 @@ public class HttpMonitor extends AbstractServiceMonitor {
      * <p>
      * wrapSocket
      * </p>
+     * .
      *
-     * @param socket
-     *            a {@link java.net.Socket} object.
      * @return a {@link java.net.Socket} object.
-     * @throws java.io.IOException
-     *             if any.
      */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();
     }
 
+    /**
+     * Determine verbosity.
+     *
+     * @param parameters
+     *            the parameters
+     * @return true, if successful
+     */
     private static boolean determineVerbosity(final Map<String, Object> parameters) {
         final String verbose = ParameterMap.getKeyedString(parameters, PARAMETER_VERBOSE, null);
         return (verbose != null && verbose.equalsIgnoreCase("true")) ? true : false;
     }
 
+    /**
+     * Determine user agent.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the string
+     */
     private static String determineUserAgent(final Map<String, Object> parameters) {
         String agent = ParameterMap.getKeyedString(parameters, PARAMETER_USER_AGENT, null);
         if (isBlank(agent)) {
@@ -276,6 +310,13 @@ public class HttpMonitor extends AbstractServiceMonitor {
         return agent;
     }
 
+    /**
+     * Determine basic authentication.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the string
+     */
     static String determineBasicAuthentication(final Map<String, Object> parameters) {
         String credentials = ParameterMap.getKeyedString(parameters, PARAMETER_BASIC_AUTHENTICATION, null);
 
@@ -296,19 +337,49 @@ public class HttpMonitor extends AbstractServiceMonitor {
         return credentials;
     }
 
+    /**
+     * Determine http header.
+     *
+     * @param parameters
+     *            the parameters
+     * @param key
+     *            the key
+     * @return the string
+     */
     private static String determineHttpHeader(final Map<String, Object> parameters, String key) {
         return ParameterMap.getKeyedString(parameters, key, null);
     }
 
+    /**
+     * Determine response text.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the string
+     */
     private static String determineResponseText(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedString(parameters, PARAMETER_RESPONSE_TEXT, null);
     }
 
+    /**
+     * Determine response.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the string
+     */
     private static String determineResponse(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedString(parameters, PARAMETER_RESPONSE,
                                            determineDefaultResponseRange(determineUrl(parameters)));
     }
 
+    /**
+     * Determine url.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the string
+     */
     private static String determineUrl(final Map<String, Object> parameters) {
         return ParameterMap.getKeyedString(parameters, PARAMETER_URL, DEFAULT_URL);
     }
@@ -317,6 +388,7 @@ public class HttpMonitor extends AbstractServiceMonitor {
      * <p>
      * determinePorts
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.Map} object.
@@ -326,6 +398,13 @@ public class HttpMonitor extends AbstractServiceMonitor {
         return ParameterMap.getKeyedIntegerArray(parameters, PARAMETER_PORT, DEFAULT_PORTS);
     }
 
+    /**
+     * Determine default response range.
+     *
+     * @param url
+     *            the url
+     * @return the string
+     */
     private static String determineDefaultResponseRange(String url) {
         if (url == null || url.equals(DEFAULT_URL)) {
             return "100-499";
@@ -333,49 +412,94 @@ public class HttpMonitor extends AbstractServiceMonitor {
         return "100-399";
     }
 
+    /**
+     * Checks if is not blank.
+     *
+     * @param str
+     *            the str
+     * @return true, if is not blank
+     */
     private static boolean isNotBlank(String str) {
         return org.apache.commons.lang.StringUtils.isNotBlank(str);
     }
 
+    /**
+     * Checks if is blank.
+     *
+     * @param str
+     *            the str
+     * @return true, if is blank
+     */
     private static boolean isBlank(String str) {
         return org.apache.commons.lang.StringUtils.isBlank(str);
     }
 
+    /**
+     * The Class HttpMonitorClient.
+     */
     final class HttpMonitorClient {
+
+        /** The m_response time. */
         private double m_responseTime;
 
+        /** The m_iface. */
         final NetworkInterface<InetAddress> m_iface;
 
+        /** The m_parameters. */
         final Map<String, Object> m_parameters;
 
+        /** The m_http cmd. */
         String m_httpCmd;
 
+        /** The m_http socket. */
         Socket m_httpSocket;
 
+        /** The m_line rdr. */
         private BufferedReader m_lineRdr;
 
+        /** The m_current line. */
         private String m_currentLine;
 
+        /** The m_service status. */
         private int m_serviceStatus;
 
+        /** The m_reason. */
         private String m_reason;
 
+        /** The m_html. */
         private final StringBuffer m_html = new StringBuffer();
 
+        /** The m_server response code. */
         private int m_serverResponseCode;
 
+        /** The m_timeout tracker. */
         private TimeoutTracker m_timeoutTracker;
 
+        /** The m_current port. */
         private int m_currentPort;
 
+        /** The m_response text. */
         private String m_responseText;
 
+        /** The m_response text found. */
         private boolean m_responseTextFound = false;
 
+        /** The m_node label. */
         private final String m_nodeLabel;
 
+        /** The m_header finished. */
         private boolean m_headerFinished = false;
 
+        /**
+         * Instantiates a new http monitor client.
+         *
+         * @param nodeLabel
+         *            the node label
+         * @param iface
+         *            the iface
+         * @param parameters
+         *            the parameters
+         */
         HttpMonitorClient(final String nodeLabel, final NetworkInterface<InetAddress> iface,
                 final TreeMap<String, Object> parameters) {
             m_nodeLabel = nodeLabel;
@@ -386,6 +510,12 @@ public class HttpMonitor extends AbstractServiceMonitor {
             m_responseText = determineResponseText(parameters);
         }
 
+        /**
+         * Read.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public void read() throws IOException {
             for (int nullCount = 0; nullCount < 2;) {
                 readLinedMatching();
@@ -395,22 +525,52 @@ public class HttpMonitor extends AbstractServiceMonitor {
             }
         }
 
+        /**
+         * Gets the current port.
+         *
+         * @return the current port
+         */
         public int getCurrentPort() {
             return m_currentPort;
         }
 
+        /**
+         * Gets the parameters.
+         *
+         * @return the parameters
+         */
         public Map<String, Object> getParameters() {
             return m_parameters;
         }
 
+        /**
+         * Checks if is response text found.
+         *
+         * @return true, if is response text found
+         */
         public boolean isResponseTextFound() {
             return m_responseTextFound;
         }
 
+        /**
+         * Sets the response text found.
+         *
+         * @param found
+         *            the new response text found
+         */
         public void setResponseTextFound(final boolean found) {
             m_responseTextFound = found;
         }
 
+        /**
+         * Determine virtual host.
+         *
+         * @param iface
+         *            the iface
+         * @param parameters
+         *            the parameters
+         * @return the string
+         */
         private String determineVirtualHost(final NetworkInterface<InetAddress> iface,
                 final Map<String, Object> parameters) {
             final boolean res = ParameterMap.getKeyedBoolean(parameters, PARAMETER_RESOLVE_IP, false);
@@ -437,6 +597,11 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return virtualHost;
         }
 
+        /**
+         * Check current line matches response text.
+         *
+         * @return true, if successful
+         */
         public boolean checkCurrentLineMatchesResponseText() {
             if (!m_headerFinished && StringUtils.isEmpty(m_currentLine)) {
                 m_headerFinished = true; // Set to true when all HTTP headers
@@ -454,34 +619,81 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return m_responseTextFound;
         }
 
+        /**
+         * Gets the response text.
+         *
+         * @return the response text
+         */
         public String getResponseText() {
             return m_responseText;
         }
 
+        /**
+         * Sets the response text.
+         *
+         * @param responseText
+         *            the new response text
+         */
         public void setResponseText(final String responseText) {
             m_responseText = responseText;
         }
 
+        /**
+         * Sets the current port.
+         *
+         * @param currentPort
+         *            the new current port
+         */
         public void setCurrentPort(final int currentPort) {
             m_currentPort = currentPort;
         }
 
+        /**
+         * Gets the timeout tracker.
+         *
+         * @return the timeout tracker
+         */
         public TimeoutTracker getTimeoutTracker() {
             return m_timeoutTracker;
         }
 
+        /**
+         * Sets the timeout tracker.
+         *
+         * @param tracker
+         *            the new timeout tracker
+         */
         public void setTimeoutTracker(final TimeoutTracker tracker) {
             m_timeoutTracker = tracker;
         }
 
+        /**
+         * Gets the response time.
+         *
+         * @return the response time
+         */
         public Double getResponseTime() {
             return m_responseTime;
         }
 
+        /**
+         * Sets the response time.
+         *
+         * @param elapsedTimeInMillis
+         *            the new response time
+         */
         public void setResponseTime(final double elapsedTimeInMillis) {
             m_responseTime = elapsedTimeInMillis;
         }
 
+        /**
+         * Connect.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         * @throws SocketException
+         *             the socket exception
+         */
         private void connect() throws IOException, SocketException {
             m_httpSocket = new Socket();
             m_httpSocket.connect(new InetSocketAddress(((InetAddress) m_iface.getAddress()), m_currentPort),
@@ -491,6 +703,9 @@ public class HttpMonitor extends AbstractServiceMonitor {
             m_httpSocket = getSocketWrapper().wrapSocket(m_httpSocket);
         }
 
+        /**
+         * Close connection.
+         */
         public void closeConnection() {
             try {
                 if (m_httpSocket != null) {
@@ -503,22 +718,46 @@ public class HttpMonitor extends AbstractServiceMonitor {
             }
         }
 
+        /**
+         * Gets the poll status.
+         *
+         * @return the poll status
+         */
         public int getPollStatus() {
             return m_serviceStatus;
         }
 
+        /**
+         * Sets the poll status.
+         *
+         * @param serviceStatus
+         *            the new poll status
+         */
         public void setPollStatus(final int serviceStatus) {
             m_serviceStatus = serviceStatus;
         }
 
+        /**
+         * Gets the current line.
+         *
+         * @return the current line
+         */
         public String getCurrentLine() {
             return m_currentLine;
         }
 
+        /**
+         * Gets the server response.
+         *
+         * @return the server response
+         */
         public int getServerResponse() {
             return m_serverResponseCode;
         }
 
+        /**
+         * Determine server initial response.
+         */
         private void determineServerInitialResponse() {
             int serverResponseValue = -1;
 
@@ -549,6 +788,11 @@ public class HttpMonitor extends AbstractServiceMonitor {
             m_serverResponseCode = serverResponseValue;
         }
 
+        /**
+         * Parses the http response.
+         *
+         * @return the int
+         */
         private int parseHttpResponse() {
             final StringTokenizer t = new StringTokenizer(m_currentLine);
             if (t.hasMoreTokens()) {
@@ -569,6 +813,11 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return serverResponse;
         }
 
+        /**
+         * Checks if is end of stream.
+         *
+         * @return true, if is end of stream
+         */
         public boolean isEndOfStream() {
             if (m_currentLine == null) {
                 return true;
@@ -576,6 +825,13 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return false;
         }
 
+        /**
+         * Read line.
+         *
+         * @return the string
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public String readLine() throws IOException {
             m_currentLine = m_lineRdr.readLine();
 
@@ -587,6 +843,13 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return m_currentLine;
         }
 
+        /**
+         * Read lined matching.
+         *
+         * @return the string
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public String readLinedMatching() throws IOException {
             readLine();
 
@@ -601,6 +864,12 @@ public class HttpMonitor extends AbstractServiceMonitor {
             return m_currentLine;
         }
 
+        /**
+         * Send http command.
+         *
+         * @throws IOException
+         *             Signals that an I/O exception has occurred.
+         */
         public void sendHttpCommand() throws IOException {
             if (determineVerbosity(m_parameters) && HttpMonitor.LOG.isDebugEnabled()) {
                 HttpMonitor.LOG.debug("Sending HTTP command: {}", m_httpCmd);
@@ -616,6 +885,9 @@ public class HttpMonitor extends AbstractServiceMonitor {
                                       // request.
         }
 
+        /**
+         * Builds the command.
+         */
         private void buildCommand() {
             /*
              * Sorting this map just in case the poller gets changed and the Map
@@ -645,22 +917,49 @@ public class HttpMonitor extends AbstractServiceMonitor {
             m_httpCmd = cmd;
         }
 
+        /**
+         * Sets the reason.
+         *
+         * @param reason
+         *            the new reason
+         */
         public void setReason(final String reason) {
             m_reason = reason;
         }
 
+        /**
+         * Gets the reason.
+         *
+         * @return the reason
+         */
         public String getReason() {
             return m_reason;
         }
 
+        /**
+         * Gets the http socket.
+         *
+         * @return the http socket
+         */
         public Socket getHttpSocket() {
             return m_httpSocket;
         }
 
+        /**
+         * Sets the http socket.
+         *
+         * @param httpSocket
+         *            the new http socket
+         */
         public void setHttpSocket(final Socket httpSocket) {
             m_httpSocket = httpSocket;
         }
 
+        /**
+         * Determine poll status response.
+         *
+         * @return the poll status
+         */
         protected PollStatus determinePollStatusResponse() {
             /*
              * Add the 'qualifier' parm to the parameter map. This parm will

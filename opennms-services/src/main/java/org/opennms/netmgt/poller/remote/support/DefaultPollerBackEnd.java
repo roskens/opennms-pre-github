@@ -87,18 +87,35 @@ import org.springframework.util.Assert;
  */
 @Transactional
 public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollerBackEnd.class);
 
+    /**
+     * The Class SimplePollerConfiguration.
+     */
     private static class SimplePollerConfiguration implements PollerConfiguration, Serializable {
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 2L;
 
+        /** The m_timestamp. */
         private Date m_timestamp;
 
+        /** The m_polled services. */
         private PolledService[] m_polledServices;
 
+        /** The m_server time. */
         private long m_serverTime = 0;
 
+        /**
+         * Instantiates a new simple poller configuration.
+         *
+         * @param timestamp
+         *            the timestamp
+         * @param polledSvcs
+         *            the polled svcs
+         */
         SimplePollerConfiguration(final Date timestamp, final PolledService[] polledSvcs) {
             m_timestamp = timestamp;
             m_polledServices = polledSvcs;
@@ -107,53 +124,75 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
 
         /**
          * This construct uses the existing data but updates the server
-         * timestamp
+         * timestamp.
+         *
+         * @param pollerConfiguration
+         *            the poller configuration
          */
         public SimplePollerConfiguration(SimplePollerConfiguration pollerConfiguration) {
             this(pollerConfiguration.getConfigurationTimestamp(), pollerConfiguration.getPolledServices());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.remote.PollerConfiguration#getConfigurationTimestamp()
+         */
         @Override
         public Date getConfigurationTimestamp() {
             return m_timestamp;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.remote.PollerConfiguration#getPolledServices()
+         */
         @Override
         public PolledService[] getPolledServices() {
             return m_polledServices;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.remote.PollerConfiguration#getServerTime()
+         */
         @Override
         public long getServerTime() {
             return m_serverTime;
         }
     }
 
+    /** The m_loc mon dao. */
     private LocationMonitorDao m_locMonDao;
 
+    /** The m_mon svc dao. */
     private MonitoredServiceDao m_monSvcDao;
 
+    /** The m_event ipc manager. */
     private EventIpcManager m_eventIpcManager;
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_time keeper. */
     private TimeKeeper m_timeKeeper;
 
+    /** The m_disconnected timeout. */
     private int m_disconnectedTimeout;
 
+    /** The m_minimum configuration reload interval. */
     private long m_minimumConfigurationReloadInterval;
 
+    /** The m_configuration timestamp. */
     AtomicReference<Date> m_configurationTimestamp = new AtomicReference<Date>();
 
+    /** The m_config cache. */
     AtomicReference<ConcurrentHashMap<String, SimplePollerConfiguration>> m_configCache = new AtomicReference<ConcurrentHashMap<String, SimplePollerConfiguration>>();
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -174,9 +213,10 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {
@@ -187,6 +227,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {
@@ -197,6 +238,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * checkForDisconnectedMonitors
      * </p>
+     * .
      */
     @Override
     public void checkForDisconnectedMonitors() {
@@ -228,6 +270,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Check for global config change.
+     *
+     * @param currentConfigurationVersion
+     *            the current configuration version
+     * @return the monitor status
+     */
     private MonitorStatus checkForGlobalConfigChange(final Date currentConfigurationVersion) {
         if (configurationUpdateIsNeeded(currentConfigurationVersion)) {
             return MonitorStatus.CONFIG_CHANGED;
@@ -236,6 +285,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Configuration update is needed.
+     *
+     * @param currentConfigurationVersion
+     *            the current configuration version
+     * @return true, if successful
+     */
     private boolean configurationUpdateIsNeeded(final Date currentConfigurationVersion) {
         if (configIntervalExceedsMinimalInterval(currentConfigurationVersion)) {
             return m_configurationTimestamp.get().after(currentConfigurationVersion);
@@ -244,6 +300,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Config interval exceeds minimal interval.
+     *
+     * @param currentConfigurationVersion
+     *            the current configuration version
+     * @return true, if successful
+     */
     private boolean configIntervalExceedsMinimalInterval(final Date currentConfigurationVersion) {
         return m_minimumConfigurationReloadInterval > 0
                 && (m_timeKeeper.getCurrentTime() - currentConfigurationVersion.getTime()) > m_minimumConfigurationReloadInterval;
@@ -253,6 +316,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * configurationUpdated
      * </p>
+     * .
      */
     @Override
     public void configurationUpdated() {
@@ -260,6 +324,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         m_configCache.set(new ConcurrentHashMap<String, SimplePollerConfiguration>());
     }
 
+    /**
+     * Creates the event builder.
+     *
+     * @param mon
+     *            the mon
+     * @param uei
+     *            the uei
+     * @return the event builder
+     */
     private EventBuilder createEventBuilder(final OnmsLocationMonitor mon, final String uei) {
         final EventBuilder eventBuilder = new EventBuilder(uei, "PollerBackEnd").addParam(EventConstants.PARM_LOCATION_MONITOR_ID,
                                                                                           mon.getId()).addParam(EventConstants.PARM_LOCATION,
@@ -267,11 +340,25 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return eventBuilder;
     }
 
+    /**
+     * Database status changed.
+     *
+     * @param currentStatus
+     *            the current status
+     * @param newStatus
+     *            the new status
+     * @return true, if successful
+     */
     private boolean databaseStatusChanged(final OnmsLocationSpecificStatus currentStatus,
             final OnmsLocationSpecificStatus newStatus) {
         return currentStatus == null || !currentStatus.getPollResult().equals(newStatus.getPollResult());
     }
 
+    /**
+     * Gets the configuration timestamp.
+     *
+     * @return the configuration timestamp
+     */
     private Date getConfigurationTimestamp() {
         return m_configurationTimestamp.get();
     }
@@ -280,6 +367,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * getMonitoringLocations
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -297,6 +385,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return locationMonitor.getName();
     }
 
+    /**
+     * Gets the parameter map.
+     *
+     * @param serviceConfig
+     *            the service config
+     * @return the parameter map
+     */
     private Map<String, Object> getParameterMap(final Service serviceConfig) {
         final Map<String, Object> paramMap = new HashMap<String, Object>();
         final Enumeration<Parameter> serviceParms = serviceConfig.enumerateParameter();
@@ -349,6 +444,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Creates the poller configuration.
+     *
+     * @param mon
+     *            the mon
+     * @param pollingPackageName
+     *            the polling package name
+     * @return the simple poller configuration
+     */
     private SimplePollerConfiguration createPollerConfiguration(final OnmsLocationMonitor mon, String pollingPackageName) {
         final Package pkg = getPollingPackage(pollingPackageName, mon.getDefinitionName());
 
@@ -372,6 +476,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return pollerConfiguration;
     }
 
+    /**
+     * Gets the polling package for monitor.
+     *
+     * @param mon
+     *            the mon
+     * @return the polling package for monitor
+     */
     private Package getPollingPackageForMonitor(final OnmsLocationMonitor mon) {
         String pollingPackageName = getPackageName(mon);
 
@@ -379,6 +490,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return getPollingPackage(pollingPackageName, definitionName);
     }
 
+    /**
+     * Gets the polling package.
+     *
+     * @param pollingPackageName
+     *            the polling package name
+     * @param definitionName
+     *            the definition name
+     * @return the polling package
+     */
     private Package getPollingPackage(String pollingPackageName, String definitionName) {
         final Package pkg = m_pollerConfig.getPackage(pollingPackageName);
         if (pkg == null) {
@@ -388,6 +508,13 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return pkg;
     }
 
+    /**
+     * Gets the package name.
+     *
+     * @param mon
+     *            the mon
+     * @return the package name
+     */
     private String getPackageName(final OnmsLocationMonitor mon) {
         final OnmsMonitoringLocationDefinition def = m_locMonDao.findMonitoringLocationDefinition(mon.getDefinitionName());
         if (def == null) {
@@ -420,6 +547,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Logical status changed.
+     *
+     * @param currentStatus
+     *            the current status
+     * @param newStatus
+     *            the new status
+     * @return true, if successful
+     */
     private boolean logicalStatusChanged(final OnmsLocationSpecificStatus currentStatus,
             final OnmsLocationSpecificStatus newStatus) {
         return currentStatus != null || (!newStatus.getPollResult().isAvailable());
@@ -477,6 +613,14 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         sendMonitorStoppedEvent(mon);
     }
 
+    /**
+     * Process status change.
+     *
+     * @param currentStatus
+     *            the current status
+     * @param newStatus
+     *            the new status
+     */
     private void processStatusChange(final OnmsLocationSpecificStatus currentStatus,
             final OnmsLocationSpecificStatus newStatus) {
         if (databaseStatusChanged(currentStatus, newStatus)) {
@@ -574,6 +718,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * saveResponseTimeData
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a {@link java.lang.String} object.
@@ -618,6 +763,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         }
     }
 
+    /**
+     * Gets the service parameter.
+     *
+     * @param svc
+     *            the svc
+     * @param key
+     *            the key
+     * @return the service parameter
+     */
     private String getServiceParameter(final Service svc, final String key) {
         for (final Parameter parm : m_pollerConfig.parameters(svc)) {
             if (key.equals(parm.getKey())) {
@@ -631,30 +785,76 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         return null;
     }
 
+    /**
+     * Send monitor registered event.
+     *
+     * @param mon
+     *            the mon
+     */
     private void sendMonitorRegisteredEvent(final OnmsLocationMonitor mon) {
         sendEvent(mon, EventConstants.LOCATION_MONITOR_REGISTERED_UEI);
     }
 
+    /**
+     * Send disconnected event.
+     *
+     * @param mon
+     *            the mon
+     */
     private void sendDisconnectedEvent(final OnmsLocationMonitor mon) {
         sendEvent(mon, EventConstants.LOCATION_MONITOR_DISCONNECTED_UEI);
     }
 
+    /**
+     * Send event.
+     *
+     * @param mon
+     *            the mon
+     * @param uei
+     *            the uei
+     */
     private void sendEvent(final OnmsLocationMonitor mon, final String uei) {
         m_eventIpcManager.sendNow(createEventBuilder(mon, uei).getEvent());
     }
 
+    /**
+     * Send monitor started event.
+     *
+     * @param mon
+     *            the mon
+     */
     private void sendMonitorStartedEvent(final OnmsLocationMonitor mon) {
         sendEvent(mon, EventConstants.LOCATION_MONITOR_STARTED_UEI);
     }
 
+    /**
+     * Send monitor stopped event.
+     *
+     * @param mon
+     *            the mon
+     */
     private void sendMonitorStoppedEvent(final OnmsLocationMonitor mon) {
         sendEvent(mon, EventConstants.LOCATION_MONITOR_STOPPED_UEI);
     }
 
+    /**
+     * Send reconnected event.
+     *
+     * @param mon
+     *            the mon
+     */
     private void sendReconnectedEvent(final OnmsLocationMonitor mon) {
         sendEvent(mon, EventConstants.LOCATION_MONITOR_RECONNECTED_UEI);
     }
 
+    /**
+     * Send regained or lost service event.
+     *
+     * @param newStatus
+     *            the new status
+     * @param pollResult
+     *            the poll result
+     */
     private void sendRegainedOrLostServiceEvent(final OnmsLocationSpecificStatus newStatus, final PollStatus pollResult) {
         final String uei = pollResult.isAvailable() ? EventConstants.REMOTE_NODE_REGAINED_SERVICE_UEI
             : EventConstants.REMOTE_NODE_LOST_SERVICE_UEI;
@@ -672,6 +872,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setDisconnectedTimeout
      * </p>
+     * .
      *
      * @param disconnectedTimeout
      *            a int.
@@ -685,6 +886,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setEventIpcManager
      * </p>
+     * .
      *
      * @param eventIpcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -698,6 +900,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locMonDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
@@ -711,6 +914,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setMonitoredServiceDao
      * </p>
+     * .
      *
      * @param monSvcDao
      *            a {@link org.opennms.netmgt.dao.api.MonitoredServiceDao}
@@ -724,6 +928,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param pollerConfig
      *            a {@link org.opennms.netmgt.config.PollerConfig} object.
@@ -736,6 +941,7 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
      * <p>
      * setTimeKeeper
      * </p>
+     * .
      *
      * @param timeKeeper
      *            a {@link org.opennms.core.utils.TimeKeeper} object.
@@ -744,6 +950,15 @@ public class DefaultPollerBackEnd implements PollerBackEnd, SpringServiceDaemon 
         m_timeKeeper = timeKeeper;
     }
 
+    /**
+     * Update monitor state.
+     *
+     * @param mon
+     *            the mon
+     * @param currentConfigurationVersion
+     *            the current configuration version
+     * @return the monitor status
+     */
     private MonitorStatus updateMonitorState(final OnmsLocationMonitor mon, final Date currentConfigurationVersion) {
         try {
             switch (mon.getStatus()) {

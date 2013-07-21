@@ -36,6 +36,8 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
+ * The Class Nms1055NetworkBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -43,124 +45,184 @@ import org.opennms.netmgt.model.OnmsNode;
 
 public abstract class Nms1055NetworkBuilder extends LinkdNetworkBuilder {
 
+    /** The Constant PENROSE_IP. */
     protected static final String PENROSE_IP = "10.155.69.16";
 
+    /** The Constant PENROSE_NAME. */
     protected static final String PENROSE_NAME = "penrose-mx480";
 
+    /** The Constant PENROSE_SYSOID. */
     protected static final String PENROSE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.25";
 
+    /** The Constant PENROSE_LLDP_CHASSISID. */
     protected static final String PENROSE_LLDP_CHASSISID = "80711f8fafc0";
 
+    /** The Constant PENROSE_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> PENROSE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant PENROSE_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> PENROSE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PENROSE_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> PENROSE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PENROSE_IF_MAC_MAP. */
     protected static final Map<Integer, String> PENROSE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PENROSE_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> PENROSE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PENROSE_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> PENROSE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant DELAWARE_IP. */
     protected static final String DELAWARE_IP = "10.155.69.17";
 
+    /** The Constant DELAWARE_NAME. */
     protected static final String DELAWARE_NAME = "delaware";
 
+    /** The Constant DELAWARE_SYSOID. */
     protected static final String DELAWARE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.25";
 
+    /** The Constant DELAWARE_LLDP_CHASSISID. */
     protected static final String DELAWARE_LLDP_CHASSISID = "0022830957c0";
 
+    /** The Constant DELAWARE_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> DELAWARE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant DELAWARE_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> DELAWARE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELAWARE_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> DELAWARE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELAWARE_IF_MAC_MAP. */
     protected static final Map<Integer, String> DELAWARE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELAWARE_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> DELAWARE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELAWARE_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> DELAWARE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant PHOENIX_IP. */
     protected static final String PHOENIX_IP = "10.155.69.42";
 
+    /** The Constant PHOENIX_NAME. */
     protected static final String PHOENIX_NAME = "phoenix-mx80";
 
+    /** The Constant PHOENIX_SYSOID. */
     protected static final String PHOENIX_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.57";
 
+    /** The Constant PHOENIX_LLDP_CHASSISID. */
     protected static final String PHOENIX_LLDP_CHASSISID = "80711fc414c0";
 
+    /** The Constant PHOENIX_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> PHOENIX_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant PHOENIX_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> PHOENIX_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PHOENIX_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> PHOENIX_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PHOENIX_IF_MAC_MAP. */
     protected static final Map<Integer, String> PHOENIX_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PHOENIX_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> PHOENIX_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant PHOENIX_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> PHOENIX_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant AUSTIN_IP. */
     protected static final String AUSTIN_IP = "10.155.69.43";
 
+    /** The Constant AUSTIN_NAME. */
     protected static final String AUSTIN_NAME = "Austin";
 
+    /** The Constant AUSTIN_SYSOID. */
     protected static final String AUSTIN_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.57";
 
+    /** The Constant AUSTIN_LLDP_CHASSISID. */
     protected static final String AUSTIN_LLDP_CHASSISID = "80711fc413c0";
 
+    /** The Constant AUSTIN_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> AUSTIN_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant AUSTIN_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> AUSTIN_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant AUSTIN_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> AUSTIN_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant AUSTIN_IF_MAC_MAP. */
     protected static final Map<Integer, String> AUSTIN_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant AUSTIN_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> AUSTIN_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant AUSTIN_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> AUSTIN_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant SANJOSE_IP. */
     protected static final String SANJOSE_IP = "10.155.69.12";
 
+    /** The Constant SANJOSE_NAME. */
     protected static final String SANJOSE_NAME = "sanjose-mx240";
 
+    /** The Constant SANJOSE_SYSOID. */
     protected static final String SANJOSE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.29";
 
+    /** The Constant SANJOSE_LLDP_CHASSISID. */
     protected static final String SANJOSE_LLDP_CHASSISID = "002283d857c0";
 
+    /** The Constant SANJOSE_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SANJOSE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SANJOSE_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SANJOSE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SANJOSE_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SANJOSE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SANJOSE_IF_MAC_MAP. */
     protected static final Map<Integer, String> SANJOSE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SANJOSE_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SANJOSE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SANJOSE_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> SANJOSE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant RIOVISTA_IP. */
     protected static final String RIOVISTA_IP = "10.155.69.107";
 
+    /** The Constant RIOVISTA_NAME. */
     protected static final String RIOVISTA_NAME = "Riovista-ce";
 
+    /** The Constant RIOVISTA_SYSOID. */
     protected static final String RIOVISTA_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.10";
 
+    /** The Constant RIOVISTA_LLDP_CHASSISID. */
     protected static final String RIOVISTA_LLDP_CHASSISID = "001f12373dc0";
 
+    /** The Constant RIOVISTA_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> RIOVISTA_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant RIOVISTA_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> RIOVISTA_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant RIOVISTA_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> RIOVISTA_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant RIOVISTA_IF_MAC_MAP. */
     protected static final Map<Integer, String> RIOVISTA_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant RIOVISTA_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> RIOVISTA_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant RIOVISTA_IF_NETMASK_MAP. */
     protected static final Map<Integer, InetAddress> RIOVISTA_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
     static {
@@ -1768,31 +1830,61 @@ public abstract class Nms1055NetworkBuilder extends LinkdNetworkBuilder {
         RIOVISTA_IF_MAC_MAP.put(513, "001f12373dcf");
     }
 
+    /**
+     * Gets the penrose.
+     *
+     * @return the penrose
+     */
     protected OnmsNode getPenrose() {
         return getNode(PENROSE_NAME, PENROSE_SYSOID, PENROSE_IP, PENROSE_IP_IF_MAP, PENROSE_IF_IFNAME_MAP,
                        PENROSE_IF_MAC_MAP, PENROSE_IF_IFDESCR_MAP, PENROSE_IF_IFALIAS_MAP, PENROSE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the delaware.
+     *
+     * @return the delaware
+     */
     protected OnmsNode getDelaware() {
         return getNode(DELAWARE_NAME, DELAWARE_SYSOID, DELAWARE_IP, DELAWARE_IP_IF_MAP, DELAWARE_IF_IFNAME_MAP,
                        DELAWARE_IF_MAC_MAP, DELAWARE_IF_IFDESCR_MAP, DELAWARE_IF_IFALIAS_MAP, DELAWARE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the phoenix.
+     *
+     * @return the phoenix
+     */
     protected OnmsNode getPhoenix() {
         return getNode(PHOENIX_NAME, PHOENIX_SYSOID, PHOENIX_IP, PHOENIX_IP_IF_MAP, PHOENIX_IF_IFNAME_MAP,
                        PHOENIX_IF_MAC_MAP, PHOENIX_IF_IFDESCR_MAP, PHOENIX_IF_IFALIAS_MAP, PHOENIX_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the austin.
+     *
+     * @return the austin
+     */
     protected OnmsNode getAustin() {
         return getNode(AUSTIN_NAME, AUSTIN_SYSOID, AUSTIN_IP, AUSTIN_IP_IF_MAP, AUSTIN_IF_IFNAME_MAP,
                        AUSTIN_IF_MAC_MAP, AUSTIN_IF_IFDESCR_MAP, AUSTIN_IF_IFALIAS_MAP, AUSTIN_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the sanjose.
+     *
+     * @return the sanjose
+     */
     protected OnmsNode getSanjose() {
         return getNode(SANJOSE_NAME, SANJOSE_SYSOID, SANJOSE_IP, SANJOSE_IP_IF_MAP, SANJOSE_IF_IFNAME_MAP,
                        SANJOSE_IF_MAC_MAP, SANJOSE_IF_IFDESCR_MAP, SANJOSE_IF_IFALIAS_MAP, SANJOSE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the riovista.
+     *
+     * @return the riovista
+     */
     protected OnmsNode getRiovista() {
         return getNode(RIOVISTA_NAME, RIOVISTA_SYSOID, RIOVISTA_IP, RIOVISTA_IP_IF_MAP, RIOVISTA_IF_IFNAME_MAP,
                        RIOVISTA_IF_MAC_MAP, RIOVISTA_IF_IFDESCR_MAP, RIOVISTA_IF_IFALIAS_MAP, RIOVISTA_IF_NETMASK_MAP);

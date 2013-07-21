@@ -34,35 +34,76 @@ import junit.framework.TestSuite;
 
 import org.opennms.core.test.snmp.SnmpTestSuiteUtils;
 
+/**
+ * The Class SnmpNodeCollectorTest.
+ */
 public class SnmpNodeCollectorTest extends SnmpCollectorTestCase {
 
+    /**
+     * Suite.
+     *
+     * @return the test suite
+     */
     public static TestSuite suite() {
         return SnmpTestSuiteUtils.createSnmpVersionTestSuite(SnmpNodeCollectorTest.class);
     }
 
+    /**
+     * Test zero vars.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testZeroVars() throws Exception {
         SnmpNodeCollector collector = createNodeCollector();
         assertMibObjectsPresent(collector.getCollectionSet().getNodeInfo(), getAttributeList());
     }
 
+    /**
+     * Test invalid var.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInvalidVar() throws Exception {
         addAttribute("invalid", ".1.3.6.1.2.1.2", "0", "string");
         SnmpNodeCollector collector = createNodeCollector();
         assertTrue(collector.getEntry().isEmpty());
     }
 
+    /**
+     * Test invalid inst.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testInvalidInst() throws Exception {
         addAttribute("invalid", ".1.3.6.1.2.1.1.3", "1", "timeTicks");
         SnmpNodeCollector collector = createNodeCollector();
         assertTrue(collector.getEntry().isEmpty());
     }
 
+    /**
+     * Test one var.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testOneVar() throws Exception {
         addSysName();
         SnmpNodeCollector collector = createNodeCollector();
         assertMibObjectsPresent(collector.getCollectionSet().getNodeInfo(), getAttributeList());
     }
 
+    /**
+     * Creates the node collector.
+     *
+     * @return the snmp node collector
+     * @throws Exception
+     *             the exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private SnmpNodeCollector createNodeCollector() throws Exception, InterruptedException {
         initializeAgent();
 

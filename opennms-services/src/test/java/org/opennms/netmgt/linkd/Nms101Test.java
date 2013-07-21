@@ -67,6 +67,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class Nms101Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -79,30 +82,47 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 @JUnitTemporaryDatabase
 public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Nms101Test.class);
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // MockLogAppender.setupLogging(true);
@@ -121,6 +141,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         }
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -130,6 +156,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -138,6 +170,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         m_nodeDao.flush();
     }
 
+    /**
+     * Test default configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testDefaultConfiguration() throws Exception {
@@ -299,6 +337,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * CDP now fails....but iproute discovery found a right route information
      * no way of fixing this in the actual code implementation
      */
+    /**
+     * Test simple fake connection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "10.1.5.1", port = 161, resource = "classpath:linkd/nms101/cisco1700b.properties"),
@@ -355,6 +399,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * (1) (2)
      * cisco3700 (3) --- (1) cisco3600
      */
+    /**
+     * Testsimple link cisco7200a cisco7200b.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "10.1.1.1", port = 161, resource = "classpath:linkd/nms101/cisco7200a.properties"),
@@ -395,6 +445,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * | |
      * (1) (2)
      * cisco3700 (3) --- (1) cisco3600
+     */
+    /**
+     * Testsimple link cisco7200alaptop.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -437,6 +493,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * (1) (2)
      * cisco3700 (3) --- (1) cisco3600
      */
+    /**
+     * Testsimple link cisco3600a cisco3700.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = "10.1.3.2", port = 161, resource = "classpath:linkd/nms101/cisco3700.properties"),
@@ -477,6 +539,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * | |
      * (1) (2)
      * cisco3700 (3) --- (1) cisco3600
+     */
+    /**
+     * Test cisco network.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -533,6 +601,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
         assertEquals("we should have found 7 data links", 7, ifaces.size());
     }
 
+    /**
+     * Test discovery ospf get sub net address.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testDiscoveryOspfGetSubNetAddress() throws Exception {
         DiscoveryLink discovery = m_linkd.getDiscoveryLink("example1");
@@ -565,6 +639,12 @@ public class Nms101Test extends Nms101NetworkBuilder implements InitializingBean
      * | |
      * (1) (2)
      * cisco3700 (3) --- (1) cisco3600
+     */
+    /**
+     * Testsimple cdp link cisco7200a cisco7200b.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {

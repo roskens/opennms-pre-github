@@ -42,6 +42,7 @@ public interface PollerSettings {
      * <p>
      * getMonitorId
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -51,6 +52,7 @@ public interface PollerSettings {
      * <p>
      * setMonitorId
      * </p>
+     * .
      *
      * @param monitorId
      *            a {@link java.lang.Integer} object.

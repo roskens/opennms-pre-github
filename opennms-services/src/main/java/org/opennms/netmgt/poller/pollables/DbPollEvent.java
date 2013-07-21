@@ -31,17 +31,20 @@ package org.opennms.netmgt.poller.pollables;
 import java.util.Date;
 
 /**
- * Represents a DbPollEvent
+ * Represents a DbPollEvent.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class DbPollEvent extends PollEvent {
 
+    /** The m_event id. */
     int m_eventId;
 
+    /** The m_uei. */
     String m_uei;
 
+    /** The m_date. */
     Date m_date;
 
     /**
@@ -66,6 +69,7 @@ public class DbPollEvent extends PollEvent {
      * <p>
      * getEventId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -78,6 +82,7 @@ public class DbPollEvent extends PollEvent {
      * <p>
      * getDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -90,6 +95,7 @@ public class DbPollEvent extends PollEvent {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -102,6 +108,7 @@ public class DbPollEvent extends PollEvent {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.poller.pollables.PollEvent}
@@ -126,6 +133,7 @@ public class DbPollEvent extends PollEvent {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

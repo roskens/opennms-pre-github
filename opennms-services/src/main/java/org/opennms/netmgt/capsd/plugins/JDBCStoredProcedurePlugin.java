@@ -58,11 +58,10 @@ import org.slf4j.LoggerFactory;
  */
 public final class JDBCStoredProcedurePlugin extends JDBCPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JDBCStoredProcedurePlugin.class);
 
-    /**
-     * The stored procedure checked by the plugin
-     */
+    /** The stored procedure checked by the plugin. */
     private static final String DEFAULT_STORED_PROCEDURE = "isRunning";
 
     /**

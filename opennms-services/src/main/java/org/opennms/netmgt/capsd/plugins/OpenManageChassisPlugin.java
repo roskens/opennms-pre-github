@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class OpenManageChassisPlugin extends SnmpPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisPlugin.class);
 
     /**
@@ -68,17 +69,41 @@ public final class OpenManageChassisPlugin extends SnmpPlugin {
     private static final String CHASSIS_STATUS_OID = ".1.3.6.1.4.1.674.10892.1.200.10.1.4.1";
 
     /**
-     * Implement the chassis status
+     * Implement the chassis status.
      */
     private enum DELL_STATUS {
-        OTHER(1), UNKNOWN(2), OK(3), NON_CRITICAL(4), CRITICAL(5), NON_RECOVERABLE(6);
 
+        /** The other. */
+        OTHER(1),
+ /** The unknown. */
+ UNKNOWN(2),
+ /** The ok. */
+ OK(3),
+ /** The non critical. */
+ NON_CRITICAL(4),
+ /** The critical. */
+ CRITICAL(5),
+ /** The non recoverable. */
+ NON_RECOVERABLE(6);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new dell status.
+         *
+         * @param s
+         *            the s
+         */
         DELL_STATUS(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }

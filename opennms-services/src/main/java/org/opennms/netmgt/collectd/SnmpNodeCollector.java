@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpNodeCollector extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpNodeCollector.class);
 
     /**
@@ -61,6 +62,7 @@ public class SnmpNodeCollector extends AggregateTracker {
      */
     private String m_primaryIf;
 
+    /** The m_collection set. */
     private SnmpCollectionSet m_collectionSet;
 
     /**
@@ -117,6 +119,7 @@ public class SnmpNodeCollector extends AggregateTracker {
      * <p>
      * getCollectionSet
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.SnmpCollectionSet} object.
      */

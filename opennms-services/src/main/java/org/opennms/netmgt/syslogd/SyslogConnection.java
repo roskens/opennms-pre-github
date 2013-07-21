@@ -49,20 +49,29 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
  */
 public class SyslogConnection implements WaterfallCallable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogConnection.class);
 
+    /** The _packet. */
     private final DatagramPacket _packet;
 
+    /** The _match pattern. */
     private final String _matchPattern;
 
+    /** The _host group. */
     private final int _hostGroup;
 
+    /** The _message group. */
     private final int _messageGroup;
 
+    /** The _discard uei. */
     private final String _discardUei;
 
+    /** The _uei list. */
     private final UeiList _ueiList;
 
+    /** The _hide messages. */
     private final HideMessage _hideMessages;
 
     /**
@@ -101,6 +110,9 @@ public class SyslogConnection implements WaterfallCallable {
      * <p>
      * call
      * </p>
+     * .
+     *
+     * @return the syslog processor
      */
     @Override
     public SyslogProcessor call() {
@@ -122,6 +134,13 @@ public class SyslogConnection implements WaterfallCallable {
         return null;
     }
 
+    /**
+     * Copy packet.
+     *
+     * @param packet
+     *            the packet
+     * @return the datagram packet
+     */
     private static DatagramPacket copyPacket(final DatagramPacket packet) {
         byte[] message = new byte[packet.getLength()];
         System.arraycopy(packet.getData(), 0, message, 0, packet.getLength());

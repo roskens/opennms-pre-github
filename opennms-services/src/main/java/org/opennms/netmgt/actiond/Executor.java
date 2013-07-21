@@ -54,6 +54,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class Executor implements Runnable, PausableFiber {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
 
     /**
@@ -91,9 +93,7 @@ final class Executor implements Runnable, PausableFiber {
      */
     private Thread m_worker;
 
-    /**
-     * The name of this Fiber
-     */
+    /** The name of this Fiber. */
     private String m_name;
 
     /**
@@ -111,9 +111,8 @@ final class Executor implements Runnable, PausableFiber {
      * @author <a href="http://www.opennms.org/">OpenNMS </a>
      */
     private static final class DatedProc {
-        /**
-         * The executable running
-         */
+
+        /** The executable running. */
         private final String m_cmd;
 
         /**
@@ -143,6 +142,8 @@ final class Executor implements Runnable, PausableFiber {
 
         /**
          * Returns the encapsulated process.
+         *
+         * @return the process
          */
         Process getProcess() {
             return m_proc;
@@ -150,6 +151,8 @@ final class Executor implements Runnable, PausableFiber {
 
         /**
          * Returns the current runtime of the process.
+         *
+         * @return the run time
          */
         long getRunTime() {
             return System.currentTimeMillis() - m_started;
@@ -157,6 +160,8 @@ final class Executor implements Runnable, PausableFiber {
 
         /**
          * Returns the command being run by the dated process.
+         *
+         * @return the string
          */
         @Override
         public String toString() {
@@ -251,22 +256,25 @@ final class Executor implements Runnable, PausableFiber {
 
     /**
      * <p>
-     * Converts a single command to an array that can be passed to the
-     * {@link java.lang.Runtime#exec(java.lang.String[]) exec}system call. The
-     * element at index zero of the array is the name of the executable to run.
-     * Indexs [1..length) are the arguments passed to the executable command.
-     * </p>
-     * <p>
-     * The input command has is white space trimmed before processing. The basic
-     * processing is to split on spaces, except when a double quote or single
-     * quote is encountered. Also backspaces(\) should also be handled correctly
-     * both in and out of the quotes. Shell escapes with <em>$</em> are not
-     * supported.
-     * </p>
+     * Converts a single command to an array that can be passed to the.
      *
      * @param cmd
      *            The command to split into an array.
      * @return The execution array.
+     *         {@link java.lang.Runtime#exec(java.lang.String[]) exec}system
+     *         call. The
+     *         element at index zero of the array is the name of the executable
+     *         to run.
+     *         Indexs [1..length) are the arguments passed to the executable
+     *         command.
+     *         </p>
+     *         <p>
+     *         The input command has is white space trimmed before processing.
+     *         The basic processing is to split on spaces, except when a double
+     *         quote or single quote is encountered. Also backspaces(\) should
+     *         also be handled correctly both in and out of the quotes. Shell
+     *         escapes with <em>$</em> are not supported.
+     *         </p>
      */
     private static String[] getExecArguments(String cmd) {
 
@@ -336,6 +344,8 @@ final class Executor implements Runnable, PausableFiber {
      *            The execution queue
      * @param maxRunTime
      *            The maximum runtime of a process.
+     * @param maxProcesses
+     *            the max processes
      */
     Executor(FifoQueue<String> execQ, long maxRunTime, int maxProcesses) {
         m_processes = Collections.synchronizedList(new LinkedList<DatedProc>());
@@ -469,9 +479,6 @@ final class Executor implements Runnable, PausableFiber {
      * RUNNING</code> when the fiber finishes initializing and begins processing
      * the
      * encapsulaed queue.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void start() {
@@ -494,9 +501,6 @@ final class Executor implements Runnable, PausableFiber {
      * Stops a currently running fiber. If the fiber has already been stopped
      * then the command is silently ignored. If the fiber was never started then
      * an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber was never started.
      */
     @Override
     public synchronized void stop() {
@@ -523,9 +527,6 @@ final class Executor implements Runnable, PausableFiber {
      * Pauses a currently running fiber. If the fiber was not in a running or
      * resuming state then the command is silently discarded. If the fiber is
      * not running or has terminated then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void pause() {
@@ -543,9 +544,6 @@ final class Executor implements Runnable, PausableFiber {
      * Resumes the fiber if it is paused. If the fiber was not in a paused or
      * pause pending state then the request is discarded. If the fiber has not
      * been started or has already stopped then an exception is generated.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber is stopped or has never run.
      */
     @Override
     public synchronized void resume() {

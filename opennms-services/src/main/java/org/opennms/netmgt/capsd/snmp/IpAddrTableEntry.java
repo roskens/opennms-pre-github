@@ -53,19 +53,19 @@ import java.net.InetAddress;
 public final class IpAddrTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
-    /** Constant <code>IP_ADDR_ENT_ADDR="ipAdEntAddr"</code> */
+    /** Constant <code>IP_ADDR_ENT_ADDR="ipAdEntAddr"</code>. */
     public static final String IP_ADDR_ENT_ADDR = "ipAdEntAddr";
 
-    /** Constant <code>IP_ADDR_IF_INDEX="ipAdEntIfIndex"</code> */
+    /** Constant <code>IP_ADDR_IF_INDEX="ipAdEntIfIndex"</code>. */
     public static final String IP_ADDR_IF_INDEX = "ipAdEntIfIndex";
 
-    /** Constant <code>IP_ADDR_ENT_NETMASK="ipAdEntNetMask"</code> */
+    /** Constant <code>IP_ADDR_ENT_NETMASK="ipAdEntNetMask"</code>. */
     public static final String IP_ADDR_ENT_NETMASK = "ipAdEntNetMask";
 
-    /** Constant <code>IP_ADDR_ENT_BCASTADDR="ipAdEntBcastAddr"</code> */
+    /** Constant <code>IP_ADDR_ENT_BCASTADDR="ipAdEntBcastAddr"</code>. */
     public static final String IP_ADDR_ENT_BCASTADDR = "ipAdEntBcastAddr";
 
-    /** Constant <code>ms_elemList</code> */
+    /** Constant <code>ms_elemList</code>. */
     public static final NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
             new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_ADDR, ".1.3.6.1.2.1.4.20.1.1", 1),
             new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_IF_INDEX, ".1.3.6.1.2.1.4.20.1.2", 2),
@@ -111,6 +111,7 @@ public final class IpAddrTableEntry extends SnmpStore {
      * <p>
      * getIpAdEntAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -122,6 +123,7 @@ public final class IpAddrTableEntry extends SnmpStore {
      * <p>
      * getIpAdEntIfIndex
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -133,6 +135,7 @@ public final class IpAddrTableEntry extends SnmpStore {
      * <p>
      * getIpAdEntNetMask
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -144,6 +147,7 @@ public final class IpAddrTableEntry extends SnmpStore {
      * <p>
      * getIpAdEntBcastAddr
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */

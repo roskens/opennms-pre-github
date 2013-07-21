@@ -46,6 +46,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  * @version $Id: $
  */
 public class IpNetToMediaTable extends SnmpTable<IpNetToMediaTableEntry> {
+
     /**
      * <P>
      * Constructs an IpNetToMediaTable object that is used to collect the
@@ -54,9 +55,9 @@ public class IpNetToMediaTable extends SnmpTable<IpNetToMediaTableEntry> {
      * <EM>notified</EM> to inform other threads.
      * </P>
      *
-     * @see IpNetToMediaTableEntry
      * @param address
      *            a {@link java.net.InetAddress} object.
+     * @see IpNetToMediaTableEntry
      */
     public IpNetToMediaTable(InetAddress address) {
         super(address, "ipNetToMediaTable", IpNetToMediaTableEntry.ms_elemList);

@@ -49,12 +49,21 @@ import org.opennms.netmgt.model.OnmsServiceType;
  */
 public class DemoPollerConfiguration implements PollerConfiguration {
 
+    /** The m_timestamp. */
     Date m_timestamp;
 
+    /** The m_polled services. */
     PolledService[] m_polledServices;
 
+    /** The m_server time. */
     private long m_serverTime = 0;
 
+    /**
+     * Instantiates a new demo poller configuration.
+     *
+     * @param timestamp
+     *            the timestamp
+     */
     DemoPollerConfiguration(Date timestamp) {
         m_timestamp = timestamp;
 
@@ -77,6 +86,9 @@ public class DemoPollerConfiguration implements PollerConfiguration {
 
     }
 
+    /**
+     * Instantiates a new demo poller configuration.
+     */
     DemoPollerConfiguration() {
         this(new Date());
     }
@@ -85,6 +97,7 @@ public class DemoPollerConfiguration implements PollerConfiguration {
      * <p>
      * getConfigurationTimestamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -97,6 +110,7 @@ public class DemoPollerConfiguration implements PollerConfiguration {
      * <p>
      * getPolledServices
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.poller.remote.PolledService} objects.
@@ -106,6 +120,19 @@ public class DemoPollerConfiguration implements PollerConfiguration {
         return m_polledServices;
     }
 
+    /**
+     * Creates the polled service.
+     *
+     * @param serviceID
+     *            the service id
+     * @param service
+     *            the service
+     * @param monitorConfiguration
+     *            the monitor configuration
+     * @param interval
+     *            the interval
+     * @return the polled service
+     */
     private PolledService createPolledService(int serviceID, OnmsMonitoredService service,
             Map<String, Object> monitorConfiguration, long interval) {
         service.setId(serviceID);
@@ -116,6 +143,7 @@ public class DemoPollerConfiguration implements PollerConfiguration {
      * <p>
      * getFirstId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -127,6 +155,7 @@ public class DemoPollerConfiguration implements PollerConfiguration {
      * <p>
      * getFirstService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
@@ -135,6 +164,8 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
+     * Sets the server time.
+     *
      * @param serverTime
      *            the serverTime to set
      */
@@ -143,6 +174,8 @@ public class DemoPollerConfiguration implements PollerConfiguration {
     }
 
     /**
+     * Gets the server time.
+     *
      * @return the serverTime
      */
     @Override

@@ -33,8 +33,17 @@ import java.net.InetAddress;
 import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class LldpLocTable.
+ */
 public class LldpLocTable extends SnmpTable<LldpLocTableEntry> {
 
+    /**
+     * Instantiates a new lldp loc table.
+     *
+     * @param address
+     *            the address
+     */
     public LldpLocTable(InetAddress address) {
         super(address, "lldplocTable", LldpLocTableEntry.lldploctable_elemList);
     }

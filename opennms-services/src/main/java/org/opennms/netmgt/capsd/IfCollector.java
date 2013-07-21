@@ -60,13 +60,13 @@ import org.slf4j.LoggerFactory;
  */
 public final class IfCollector implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfCollector.class);
 
+    /** The m_plugin manager. */
     private PluginManager m_pluginManager;
 
-    /**
-     * The primary target internet address
-     */
+    /** The primary target internet address. */
     private final InetAddress m_target;
 
     /**
@@ -93,7 +93,7 @@ public final class IfCollector implements Runnable {
 
     /**
      * List of SnmpInt32 objects representing each of the unnamed/non-IP
-     * interfaces found via SNMP
+     * interfaces found via SNMP.
      */
     private List<Integer> m_nonIpInterfaces;
 
@@ -102,6 +102,7 @@ public final class IfCollector implements Runnable {
      */
     private boolean m_doSnmpCollection;
 
+    /** The m_previously probed. */
     private Set<InetAddress> m_previouslyProbed;
 
     /**
@@ -112,9 +113,8 @@ public final class IfCollector implements Runnable {
      * @author <a href="mailto:weave@oculan.com">Weave </a>
      */
     static final class SupportedProtocol {
-        /**
-         * The protocol name
-         */
+
+        /** The protocol name. */
         private final String m_name;
 
         /**
@@ -138,6 +138,8 @@ public final class IfCollector implements Runnable {
 
         /**
          * Returns the name of the discovered protocol.
+         *
+         * @return the protocol name
          */
         String getProtocolName() {
             return m_name;
@@ -146,6 +148,8 @@ public final class IfCollector implements Runnable {
         /**
          * Returns the map of qualifiers from the plugin that discovered this
          * protocol.
+         *
+         * @return the qualifiers
          */
         Map<String, Object> getQualifiers() {
             return m_qualifiers;
@@ -214,18 +218,33 @@ public final class IfCollector implements Runnable {
      * Constructs a new collector instance. The collector's target is passed as
      * an argument to the constructor. Very little initialization is preformed
      * in the constructor. The main work of the class is preformed in the
-     * {@link #run run}method. This provides a well known interface that can be
-     * collected in a thread pool or directly invoked.
      *
+     * @param pluginManager
+     *            the plugin manager
      * @param addr
      *            The target of the poll.
      * @param doSnmpCollection
      *            Flag which indicates if SNMP collection should be done.
+     *            {@link #run run}method. This provides a well known interface
+     *            that can be
+     *            collected in a thread pool or directly invoked.
      */
     IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection) {
         this(pluginManager, addr, doSnmpCollection, new HashSet<InetAddress>());
     }
 
+    /**
+     * Instantiates a new if collector.
+     *
+     * @param pluginManager
+     *            the plugin manager
+     * @param addr
+     *            the addr
+     * @param doSnmpCollection
+     *            the do snmp collection
+     * @param previouslyProbed
+     *            the previously probed
+     */
     IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection,
             Set<InetAddress> previouslyProbed) {
         m_pluginManager = pluginManager;
@@ -240,7 +259,9 @@ public final class IfCollector implements Runnable {
     }
 
     /**
-     * Returns the target of this collection
+     * Returns the target of this collection.
+     *
+     * @return the target
      */
     InetAddress getTarget() {
         return m_target;
@@ -248,13 +269,17 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns the supported protocols for this interface.
+     *
+     * @return the supported protocols
      */
     List<SupportedProtocol> getSupportedProtocols() {
         return m_protocols;
     }
 
     /**
-     * Returns true if this target had additional interfaces found by SNMP
+     * Returns true if this target had additional interfaces found by SNMP.
+     *
+     * @return true, if successful
      */
     boolean hasAdditionalTargets() {
         return m_subTargets != null && !m_subTargets.isEmpty();
@@ -263,14 +288,18 @@ public final class IfCollector implements Runnable {
     /**
      * Returns the map of additional interface targets. The keys are instances
      * of {@link java.net.InetAddress addresses}and the mapped values are
-     * {@link java.util.List lists}of supported protocols.
+     *
+     * @return the additional targets {@link java.util.List lists}of supported
+     *         protocols.
      */
     Map<InetAddress, List<SupportedProtocol>> getAdditionalTargets() {
         return m_subTargets;
     }
 
     /**
-     * Returns true if this target has non-IP interfaces found by SNMP
+     * Returns true if this target has non-IP interfaces found by SNMP.
+     *
+     * @return true, if successful
      */
     boolean hasNonIpInterfaces() {
         return m_nonIpInterfaces != null && !m_nonIpInterfaces.isEmpty();
@@ -278,13 +307,17 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns the list of non-IP interfaces..
+     *
+     * @return the non ip interfaces
      */
     List<Integer> getNonIpInterfaces() {
         return m_nonIpInterfaces;
     }
 
     /**
-     * Returns true if the node supported SMB and the collection succeeded
+     * Returns true if the node supported SMB and the collection succeeded.
+     *
+     * @return true, if successful
      */
     boolean hasSmbCollection() {
         return (m_smbCollector != null);
@@ -292,6 +325,8 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns the collected SMB information for the node.
+     *
+     * @return the smb collector
      */
     IfSmbCollector getSmbCollector() {
         return m_smbCollector;
@@ -299,18 +334,25 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns true if the target supported SNMP and the collection succeeded.
+     *
+     * @return true, if successful
      */
     boolean hasSnmpCollection() {
         return (m_snmpCollector != null);
     }
 
     /**
-     * Returns the Snmp Collection of information
+     * Returns the Snmp Collection of information.
+     *
+     * @return the snmp collector
      */
     IfSnmpCollector getSnmpCollector() {
         return m_snmpCollector;
     }
 
+    /**
+     * Delete snmp collector.
+     */
     void deleteSnmpCollector() {
         m_snmpCollector = null;
     }

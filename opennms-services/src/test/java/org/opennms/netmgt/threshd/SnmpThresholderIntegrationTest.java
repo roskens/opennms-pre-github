@@ -34,9 +34,13 @@ import org.opennms.core.test.MockLogAppender;
 import org.opennms.netmgt.rrd.RrdUtils;
 
 /**
- * FIXME: Should this test case go away now that we use ThresholdingVisitor?
+ * FIXME: Should this test case go away now that we use ThresholdingVisitor?.
  */
 public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#setUp()
+     */
     @SuppressWarnings("deprecation")
     @Override
     protected void setUp() throws Exception {
@@ -72,6 +76,9 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.threshd.ThresholderTestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         RrdUtils.setStrategy(null);
@@ -79,6 +86,12 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
         super.tearDown();
     }
 
+    /**
+     * Test normal value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNormalValue() throws Exception {
 
         setupFetchSequence("cpuUtilization", 69.0, 79.0, 74.0, 74.0);
@@ -89,6 +102,12 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
 
     }
 
+    /**
+     * Test big value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testBigValue() throws Exception {
 
         setupFetchSequence("cpuUtilization", 99.0, 98.0, 97.0, 96.0, 95.0);
@@ -99,6 +118,12 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
         verifyMocks();
     }
 
+    /**
+     * Test rearm.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRearm() throws Exception {
         double[] values = { 99.0, 91.0, 93.0, // expect exceeded
                 96.0, 15.0, // expect rearm

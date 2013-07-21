@@ -41,10 +41,12 @@ import org.opennms.netmgt.poller.NetworkInterface;
  * @version $Id: $
  */
 public interface ThresholdNetworkInterface extends NetworkInterface<InetAddress> {
+
     /**
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */

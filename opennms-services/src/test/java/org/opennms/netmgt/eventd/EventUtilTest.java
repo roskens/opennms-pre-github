@@ -49,6 +49,9 @@ import org.opennms.netmgt.xml.event.Value;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class EventUtilTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -58,16 +61,27 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class EventUtilTest {
 
+    /** The m_network. */
     private final MockNetwork m_network = new MockNetwork();
 
+    /** The m_svc. */
     private MockService m_svc;
 
+    /** The m_svc lost event. */
     private Event m_svcLostEvent;
 
+    /** The m_node down event. */
     private Event m_nodeDownEvent;
 
+    /** The m_bgp bk tn event. */
     private Event m_bgpBkTnEvent;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_network.createStandardNetwork();
@@ -77,6 +91,12 @@ public class EventUtilTest {
         m_bgpBkTnEvent = MockEventUtil.createBgpBkTnEvent("Test", m_network.getNode(1), "128.64.32.16", 2);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
     }
@@ -84,6 +104,9 @@ public class EventUtilTest {
     /*
      * Test method for
      * 'org.opennms.netmgt.eventd.EventUtil.getValueAsString(Value)'
+     */
+    /**
+     * Test get value as string.
      */
     @Test
     public void testGetValueAsString() {
@@ -98,6 +121,9 @@ public class EventUtilTest {
      * Test method for 'org.opennms.netmgt.eventd.EventUtil.escape(String,
      * char)'
      */
+    /**
+     * Test escape.
+     */
     @Test
     public void testEscape() {
         assertEquals("m%onkeys%47rock", EventUtil.escape("m%onkeys/rock", '/'));
@@ -106,6 +132,9 @@ public class EventUtilTest {
     /*
      * Test method for
      * 'org.opennms.netmgt.eventd.EventUtil.getValueOfParm(String, Event)'
+     */
+    /**
+     * Test get value of parm.
      */
     @Test
     public void testGetValueOfParm() {
@@ -125,6 +154,9 @@ public class EventUtilTest {
      * Test method for 'org.opennms.netmgt.eventd.EventUtil.expandParms(String,
      * Event)'
      */
+    /**
+     * Test expand parms.
+     */
     @Test
     public void testExpandParms() {
         String testString = "%uei%:%dpname%:%nodeid%:%interface%:%service%";
@@ -135,7 +167,7 @@ public class EventUtilTest {
     }
 
     /**
-     * Test method for extracting parm names rather than parm values
+     * Test method for extracting parm names rather than parm values.
      */
     @Test
     public void testExpandParmNames() {
@@ -148,7 +180,7 @@ public class EventUtilTest {
 
     /**
      * Test method for split-and-extract functionality indexed from beginning of
-     * name
+     * name.
      */
     @Test
     public void testSplitAndExtractParmNamePositive() {
@@ -160,7 +192,7 @@ public class EventUtilTest {
 
     /**
      * Additional test method for split-and-extract functionality indexed from
-     * end of name
+     * end of name.
      */
     @Test
     public void testSplitAndExtractParmNameNegative() {
@@ -172,7 +204,7 @@ public class EventUtilTest {
 
     /**
      * Test method for split-and-extract-range functionality indexed from
-     * beginning of name
+     * beginning of name.
      */
     @Test
     public void testSplitAndExtractParmNameRangePositive() {
@@ -184,7 +216,7 @@ public class EventUtilTest {
 
     /**
      * Test method for split-and-extract-range functionality indexed from
-     * beginning of name and extending to end
+     * beginning of name and extending to end.
      */
     @Test
     public void testSplitAndExtractParmNameRangePositiveToEnd() {
@@ -197,7 +229,7 @@ public class EventUtilTest {
 
     /**
      * Test method for split-and-extract-range functionality indexed from end of
-     * name
+     * name.
      */
     @Test
     public void testSplitAndExtractParmNameRangeNegative() {
@@ -209,7 +241,7 @@ public class EventUtilTest {
 
     /**
      * Test method for split-and-extract-range functionality indexed from end of
-     * name and extending to end
+     * name and extending to end.
      */
     @Test
     public void testSplitAndExtractParmNameRangeNegativeToEnd() {
@@ -220,6 +252,9 @@ public class EventUtilTest {
                      newString);
     }
 
+    /**
+     * Test expand tticket id.
+     */
     @Test
     public void testExpandTticketId() {
         String testString = "%tticketid%";

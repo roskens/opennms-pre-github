@@ -46,12 +46,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class GenericIndexResource extends SnmpCollectionResource {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(GenericIndexResource.class);
 
+    /** The m_inst. */
     private SnmpInstId m_inst;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_resource label. */
     private String m_resourceLabel;
 
     /**
@@ -85,6 +90,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -111,6 +117,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +130,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -131,10 +139,18 @@ public class GenericIndexResource extends SnmpCollectionResource {
         return m_inst.toString();
     }
 
+    /**
+     * Gets the strategy.
+     *
+     * @return the strategy
+     */
     private StorageStrategy getStrategy() {
         return ((GenericIndexResourceType) getResourceType()).getStorageStrategy();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return getCollectionAgent().getStorageDir().toString();
@@ -148,6 +164,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

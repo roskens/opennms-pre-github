@@ -40,8 +40,11 @@ package org.opennms.netmgt.poller;
  * @version $Id: $
  */
 public class IfKey {
+
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_ip addr. */
     private String m_ipAddr;
 
     /**
@@ -63,6 +66,7 @@ public class IfKey {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -74,6 +78,7 @@ public class IfKey {
      * <p>
      * getIpAddr
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

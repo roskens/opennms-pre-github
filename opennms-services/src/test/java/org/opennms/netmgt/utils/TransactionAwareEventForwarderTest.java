@@ -49,6 +49,8 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
+ * The Class TransactionAwareEventForwarderTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
@@ -63,27 +65,40 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitTemporaryDatabase
 public class TransactionAwareEventForwarderTest implements InitializingBean {
 
+    /** The m_proxy. */
     @Autowired
     private TransactionAwareEventForwarder m_proxy;
 
+    /** The m_event number. */
     private int m_eventNumber = 1;
 
+    /** The m_event ipc manager. */
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Verify anticipated.
+     */
     @After
     public void verifyAnticipated() {
         getEventAnticipator().verifyAnticipated(1000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test send events on commit.
+     */
     @Test
     public void testSendEventsOnCommit() {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -101,6 +116,9 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test send events on rollback.
+     */
     @Test
     public void testSendEventsOnRollback() {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -112,6 +130,9 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test two transactions.
+     */
     @Test
     public void testTwoTransactions() {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -131,6 +152,9 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test commit rollback commit.
+     */
     @Test
     public void testCommitRollbackCommit() {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -163,6 +187,11 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         });
     }
 
+    /**
+     * Send event.
+     *
+     * @return the event
+     */
     private Event sendEvent() {
         Event event = new EventBuilder(EventConstants.ADD_INTERFACE_EVENT_UEI, "Test").setNodeid(m_eventNumber++).getEvent();
 
@@ -171,6 +200,11 @@ public class TransactionAwareEventForwarderTest implements InitializingBean {
         return event;
     }
 
+    /**
+     * Gets the event anticipator.
+     *
+     * @return the event anticipator
+     */
     private EventAnticipator getEventAnticipator() {
         return m_eventIpcManager.getEventAnticipator();
     }

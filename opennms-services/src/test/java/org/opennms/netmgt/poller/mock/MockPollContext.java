@@ -51,50 +51,95 @@ import org.opennms.netmgt.poller.pollables.PollableService;
 import org.opennms.netmgt.xml.event.Event;
 import org.opennms.test.mock.MockUtil;
 
+/**
+ * The Class MockPollContext.
+ */
 public class MockPollContext implements PollContext, EventListener {
+
+    /** The m_crit svc name. */
     private String m_critSvcName;
 
+    /** The m_node processing enabled. */
     private boolean m_nodeProcessingEnabled;
 
+    /** The m_polling all if crit service undefined. */
     private boolean m_pollingAllIfCritServiceUndefined;
 
+    /** The m_service unresponsive enabled. */
     private boolean m_serviceUnresponsiveEnabled;
 
+    /** The m_event mgr. */
     private EventIpcManager m_eventMgr;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_mock network. */
     private MockNetwork m_mockNetwork;
 
+    /** The m_pending poll events. */
     private List<PendingPollEvent> m_pendingPollEvents = new LinkedList<PendingPollEvent>();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#getCriticalServiceName()
+     */
     @Override
     public String getCriticalServiceName() {
         return m_critSvcName;
     }
 
+    /**
+     * Sets the critical service name.
+     *
+     * @param svcName
+     *            the new critical service name
+     */
     public void setCriticalServiceName(String svcName) {
         m_critSvcName = svcName;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#isNodeProcessingEnabled()
+     */
     @Override
     public boolean isNodeProcessingEnabled() {
         return m_nodeProcessingEnabled;
     }
 
+    /**
+     * Sets the node processing enabled.
+     *
+     * @param nodeProcessingEnabled
+     *            the new node processing enabled
+     */
     public void setNodeProcessingEnabled(boolean nodeProcessingEnabled) {
         m_nodeProcessingEnabled = nodeProcessingEnabled;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#isPollingAllIfCritServiceUndefined()
+     */
     @Override
     public boolean isPollingAllIfCritServiceUndefined() {
         return m_pollingAllIfCritServiceUndefined;
     }
 
+    /**
+     * Sets the polling all if crit service undefined.
+     *
+     * @param pollingAllIfCritServiceUndefined
+     *            the new polling all if crit service undefined
+     */
     public void setPollingAllIfCritServiceUndefined(boolean pollingAllIfCritServiceUndefined) {
         m_pollingAllIfCritServiceUndefined = pollingAllIfCritServiceUndefined;
     }
 
+    /**
+     * Sets the event mgr.
+     *
+     * @param eventMgr
+     *            the new event mgr
+     */
     public void setEventMgr(EventIpcManager eventMgr) {
         if (m_eventMgr != null) {
             m_eventMgr.removeEventListener(this);
@@ -105,14 +150,29 @@ public class MockPollContext implements PollContext, EventListener {
         }
     }
 
+    /**
+     * Sets the database.
+     *
+     * @param db
+     *            the new database
+     */
     public void setDatabase(MockDatabase db) {
         m_db = db;
     }
 
+    /**
+     * Sets the mock network.
+     *
+     * @param network
+     *            the new mock network
+     */
     public void setMockNetwork(MockNetwork network) {
         m_mockNetwork = network;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#sendEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public PollEvent sendEvent(Event event) {
         PendingPollEvent pollEvent = new PendingPollEvent(event);
@@ -123,6 +183,9 @@ public class MockPollContext implements PollContext, EventListener {
         return pollEvent;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#createEvent(java.lang.String, int, java.net.InetAddress, java.lang.String, java.util.Date, java.lang.String)
+     */
     @Override
     public Event createEvent(String uei, int nodeId, InetAddress address, String svcName, Date date, String reason) {
         EventBuilder e = MockEventUtil.createEventBuilder("Test", uei, nodeId, (address == null ? null
@@ -132,6 +195,9 @@ public class MockPollContext implements PollContext, EventListener {
         return e.getEvent();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#openOutage(org.opennms.netmgt.poller.pollables.PollableService, org.opennms.netmgt.poller.pollables.PollEvent)
+     */
     @Override
     public void openOutage(final PollableService pSvc, final PollEvent svcLostEvent) {
         Runnable r = new Runnable() {
@@ -146,6 +212,14 @@ public class MockPollContext implements PollContext, EventListener {
             r.run();
     }
 
+    /**
+     * Write outage.
+     *
+     * @param pSvc
+     *            the svc
+     * @param svcLostEvent
+     *            the svc lost event
+     */
     private void writeOutage(PollableService pSvc, PollEvent svcLostEvent) {
         MockService mSvc = m_mockNetwork.getService(pSvc.getNodeId(), pSvc.getIpAddr(), pSvc.getSvcName());
         Timestamp eventTime = m_db.convertEventTimeToTimeStamp(EventConstants.formatToString(svcLostEvent.getDate()));
@@ -154,6 +228,9 @@ public class MockPollContext implements PollContext, EventListener {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#resolveOutage(org.opennms.netmgt.poller.pollables.PollableService, org.opennms.netmgt.poller.pollables.PollEvent)
+     */
     @Override
     public void resolveOutage(final PollableService pSvc, final PollEvent svcRegainEvent) {
         Runnable r = new Runnable() {
@@ -168,6 +245,14 @@ public class MockPollContext implements PollContext, EventListener {
             r.run();
     }
 
+    /**
+     * Close outage.
+     *
+     * @param pSvc
+     *            the svc
+     * @param svcRegainEvent
+     *            the svc regain event
+     */
     public void closeOutage(PollableService pSvc, PollEvent svcRegainEvent) {
         MockService mSvc = m_mockNetwork.getService(pSvc.getNodeId(), pSvc.getIpAddr(), pSvc.getSvcName());
         Timestamp eventTime = m_db.convertEventTimeToTimeStamp(EventConstants.formatToString(svcRegainEvent.getDate()));
@@ -175,25 +260,43 @@ public class MockPollContext implements PollContext, EventListener {
         m_db.resolveOutage(mSvc, svcRegainEvent.getEventId(), eventTime);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#reparentOutages(java.lang.String, int, int)
+     */
     @Override
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
         m_db.update("update outages set nodeId = ? where nodeId = ? and ipaddr = ?", newNodeId, oldNodeId, ipAddr);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.poller.pollables.PollContext#isServiceUnresponsiveEnabled()
+     */
     @Override
     public boolean isServiceUnresponsiveEnabled() {
         return m_serviceUnresponsiveEnabled;
     }
 
+    /**
+     * Sets the service unresponsive enabled.
+     *
+     * @param serviceUnresponsiveEnabled
+     *            the new service unresponsive enabled
+     */
     public void setServiceUnresponsiveEnabled(boolean serviceUnresponsiveEnabled) {
         m_serviceUnresponsiveEnabled = serviceUnresponsiveEnabled;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.events.EventListener#getName()
+     */
     @Override
     public String getName() {
         return "MockPollContext";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.model.events.EventListener#onEvent(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public synchronized void onEvent(Event e) {
         synchronized (m_pendingPollEvents) {

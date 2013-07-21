@@ -62,12 +62,14 @@ import org.slf4j.LoggerFactory;
  */
 public class JMXSecureConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JMXSecureConnectionFactory.class);
 
     /**
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param propertiesMap
      *            a {@link java.util.Map} object.
@@ -173,8 +175,14 @@ public class JMXSecureConnectionFactory {
         return connectionWrapper;
     }
 
+    /**
+     * The Class AnyServerX509TrustManager.
+     */
     private static class AnyServerX509TrustManager implements X509TrustManager {
         // Documented in X509TrustManager
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#getAcceptedIssuers()
+         */
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             // since client authentication is not supported by this
@@ -184,6 +192,9 @@ public class JMXSecureConnectionFactory {
         }
 
         // Documented in X509TrustManager
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkClientTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkClientTrusted(X509Certificate[] certs, String authType) throws CertificateException {
             // this trust manager is dedicated to server authentication
@@ -191,6 +202,9 @@ public class JMXSecureConnectionFactory {
         }
 
         // Documented in X509TrustManager
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkServerTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkServerTrusted(X509Certificate[] certs, String authType) throws CertificateException {
             // any certificate sent by the server is automatically accepted

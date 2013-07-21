@@ -41,6 +41,7 @@ package org.opennms.netmgt.protocols;
  */
 public class InsufficientParametersException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7466489008068175291L;
 
     /**

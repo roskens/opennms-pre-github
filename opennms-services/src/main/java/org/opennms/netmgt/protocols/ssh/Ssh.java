@@ -54,46 +54,63 @@ import org.slf4j.LoggerFactory;
  */
 public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Ssh.class);
 
+    /** The Constant SSH_IOEXCEPTION_PATTERN. */
     private static final Pattern SSH_IOEXCEPTION_PATTERN = Pattern.compile("^.*java.io.IOException.*$");
 
+    /** The Constant SSH_AUTHENTICATION_PATTERN. */
     private static final Pattern SSH_AUTHENTICATION_PATTERN = Pattern.compile("^.*Authentication:.*$");
 
+    /** The Constant SSH_NOROUTETOHOST_PATTERN. */
     private static final Pattern SSH_NOROUTETOHOST_PATTERN = Pattern.compile("^.*java.net.NoRouteToHostException.*$");
 
+    /** The Constant SSH_SOCKETERROR_PATTERN. */
     private static final Pattern SSH_SOCKETERROR_PATTERN = Pattern.compile("^.*(timeout: socket is not established|java.io.InterruptedIOException|java.net.SocketTimeoutException).*$");
 
+    /** The Constant SSH_CONNECTIONERROR_PATTERN. */
     private static final Pattern SSH_CONNECTIONERROR_PATTERN = Pattern.compile("^.*(connection is closed by foreign host|java.net.ConnectException).*$");
 
+    /** The Constant SSH_NUMBERFORMAT_PATTERN. */
     private static final Pattern SSH_NUMBERFORMAT_PATTERN = Pattern.compile("^.*NumberFormatException.*$");
 
     // SSH port is 22
-    /** Constant <code>DEFAULT_PORT=22</code> */
+    /** Constant <code>DEFAULT_PORT=22</code>. */
     public static final int DEFAULT_PORT = 22;
 
     // Default to 1.99 (v1 + v2 support)
     /** Constant <code>DEFAULT_CLIENT_BANNER="SSH-1.99-OpenNMS_1.5"</code> */
     public static final String DEFAULT_CLIENT_BANNER = "SSH-1.99-OpenNMS_1.5";
 
+    /** The m_port. */
     protected int m_port = DEFAULT_PORT;
 
+    /** The m_username. */
     protected String m_username;
 
+    /** The m_password. */
     protected String m_password;
 
+    /** The m_banner. */
     protected String m_banner = DEFAULT_CLIENT_BANNER;
 
+    /** The m_server banner. */
     protected String m_serverBanner = "";
 
+    /** The m_address. */
     protected InetAddress m_address;
 
+    /** The m_error. */
     protected Throwable m_error;
 
+    /** The m_socket. */
     private Socket m_socket = null;
 
+    /** The m_reader. */
     private BufferedReader m_reader = null;
 
+    /** The m_writer. */
     private OutputStream m_writer = null;
 
     /**
@@ -229,7 +246,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     }
 
     /**
-     * Set the banner string to use when connecting
+     * Set the banner string to use when connecting.
      *
      * @param banner
      *            the banner
@@ -239,7 +256,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     }
 
     /**
-     * Get the banner string used when connecting
+     * Get the banner string used when connecting.
      *
      * @return the banner
      */
@@ -260,6 +277,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * <p>
      * setError
      * </p>
+     * .
      *
      * @param t
      *            a {@link java.lang.Throwable} object.
@@ -272,6 +290,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * <p>
      * getError
      * </p>
+     * .
      *
      * @return a {@link java.lang.Throwable} object.
      */
@@ -284,8 +303,8 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * the object.
      *
      * @return true if it is able to connect
-     * @throws org.opennms.netmgt.protocols.InsufficientParametersException
-     *             if any.
+     * @throws InsufficientParametersException
+     *             the insufficient parameters exception
      */
     protected boolean tryConnect() throws InsufficientParametersException {
         if (getAddress() == null) {
@@ -331,6 +350,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * <p>
      * disconnect
      * </p>
+     * .
      */
     protected void disconnect() {
         if (m_writer != null) {

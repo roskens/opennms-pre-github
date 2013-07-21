@@ -38,6 +38,7 @@ package org.opennms.netmgt.vacuumd;
  */
 public class AutomationException extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8873671974245928627L;
 
     /**

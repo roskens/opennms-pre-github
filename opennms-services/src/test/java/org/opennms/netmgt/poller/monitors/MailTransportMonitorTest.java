@@ -55,16 +55,24 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
- * Test for the mail monitor
+ * Test for the mail monitor.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class MailTransportMonitorTest {
 
+    /** The m_monitor. */
     MailTransportMonitor m_monitor;
 
+    /** The m_params. */
     Map<String, Object> m_params;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -83,11 +91,23 @@ public class MailTransportMonitorTest {
         m_params.put("retries", "1");
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test end to end.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("requires real mail server")
     public void testEndToEnd() throws Exception {
@@ -102,6 +122,12 @@ public class MailTransportMonitorTest {
     /*
      * requires a gmail account that has a message in the INBOX subject:
      * READTEST
+     */
+    /**
+     * Read only test.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore("requires real mail server")
@@ -122,6 +148,14 @@ public class MailTransportMonitorTest {
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
 
+    /**
+     * Test load xml properties.
+     *
+     * @throws InvalidPropertiesFormatException
+     *             the invalid properties format exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testLoadXmlProperties() throws InvalidPropertiesFormatException, IOException {
         Properties props = new Properties();
@@ -135,6 +169,9 @@ public class MailTransportMonitorTest {
         assertEquals("1", props.get("foo"));
     }
 
+    /**
+     * Setup localhost send google read2.
+     */
     private void setupLocalhostSendGoogleRead2() {
         m_params.put("timeout", "3000");
         m_params.put("retry", "1");
@@ -194,10 +231,30 @@ public class MailTransportMonitorTest {
 
     }
 
+    /**
+     * Gets the mail service.
+     *
+     * @param hostname
+     *            the hostname
+     * @return the mail service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getMailService(String hostname) throws Exception {
         return getMailService(hostname, InetAddressUtils.addr(hostname));
     }
 
+    /**
+     * Gets the mail service.
+     *
+     * @param hostname
+     *            the hostname
+     * @param ip
+     *            the ip
+     * @return the mail service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getMailService(String hostname, InetAddress ip) throws Exception {
         MonitoredService svc = new MockMonitoredService(1, hostname, ip, "MAIL");
         m_monitor.initialize(svc);

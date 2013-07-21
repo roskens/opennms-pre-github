@@ -36,9 +36,20 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 
 /**
+ * The Class AbstractThresholdEvaluatorTestCase.
+ *
  * @author jeffg
  */
 public abstract class AbstractThresholdEvaluatorTestCase {
+
+    /**
+     * Parm present and value non null.
+     *
+     * @param event
+     *            the event
+     * @param parmName
+     *            the parm name
+     */
     protected static void parmPresentAndValueNonNull(Event event, String parmName) {
         boolean parmPresent = false;
 
@@ -51,6 +62,16 @@ public abstract class AbstractThresholdEvaluatorTestCase {
         assertTrue("Parm '" + parmName + "' present", parmPresent);
     }
 
+    /**
+     * Parm present with value.
+     *
+     * @param event
+     *            the event
+     * @param parmName
+     *            the parm name
+     * @param expectedValue
+     *            the expected value
+     */
     protected static void parmPresentWithValue(Event event, String parmName, String expectedValue) {
         boolean parmPresent = false;
 

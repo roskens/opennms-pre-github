@@ -50,8 +50,10 @@ import org.slf4j.LoggerFactory;
  */
 public class ThresholdingEventProxy implements EventProxy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingEventProxy.class);
 
+    /** The m_events. */
     private List<Event> m_events;
 
     /**
@@ -73,11 +75,12 @@ public class ThresholdingEventProxy implements EventProxy {
      * <p>
      * send
      * </p>
+     * .
      *
      * @param eventLog
      *            a {@link org.opennms.netmgt.xml.event.Log} object.
-     * @throws org.opennms.netmgt.model.events.EventProxyException
-     *             if any.
+     * @throws EventProxyException
+     *             the event proxy exception
      */
     @Override
     public void send(Log eventLog) throws EventProxyException {
@@ -90,6 +93,7 @@ public class ThresholdingEventProxy implements EventProxy {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -102,6 +106,7 @@ public class ThresholdingEventProxy implements EventProxy {
      * <p>
      * add
      * </p>
+     * .
      *
      * @param events
      *            a {@link java.util.List} object.
@@ -114,6 +119,7 @@ public class ThresholdingEventProxy implements EventProxy {
      * <p>
      * removeAllEvents
      * </p>
+     * .
      */
     public void removeAllEvents() {
         m_events.clear();
@@ -123,6 +129,7 @@ public class ThresholdingEventProxy implements EventProxy {
      * <p>
      * sendAllEvents
      * </p>
+     * .
      */
     public void sendAllEvents() {
         if (m_events.size() > 0) {

@@ -35,26 +35,51 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JuniperSyslogParser.
+ */
 public class JuniperSyslogParser extends SyslogParser {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JuniperSyslogParser.class);
 
     // PRI TIMESTAMP HOST PROCESS/ID MESSAGE
+    /** The Constant m_juniperPattern. */
     private static final Pattern m_juniperPattern = Pattern.compile("^<(\\d+)>\\s*(\\S\\S\\S\\s+\\d{1,2}\\s+\\d\\d:\\d\\d:\\d\\d)\\s+(\\S+)\\s+(\\S+)\\[(\\d+)\\]: (.*?)$",
                                                                     Pattern.MULTILINE);
 
+    /**
+     * Instantiates a new juniper syslog parser.
+     *
+     * @param text
+     *            the text
+     */
     protected JuniperSyslogParser(final String text) {
         super(text);
     }
 
+    /**
+     * Gets the parser.
+     *
+     * @param text
+     *            the text
+     * @return the parser
+     */
     public static SyslogParser getParser(final String text) {
         return new JuniperSyslogParser(text);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#getPattern()
+     */
     @Override
     protected Pattern getPattern() {
         return m_juniperPattern;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.syslogd.SyslogParser#parse()
+     */
     @Override
     public SyslogMessage parse() throws SyslogParserException {
         if (!this.find()) {

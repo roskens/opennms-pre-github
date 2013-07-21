@@ -85,7 +85,12 @@ import org.opennms.netmgt.xmlrpcd.OpenNMSProvisioner;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * The Class PollerTest.
+ */
 public class PollerTest {
+
+    /** The Constant CAPSD_CONFIG. */
     private static final String CAPSD_CONFIG = "\n"
             + "<capsd-configuration max-suspect-thread-pool-size=\"2\" max-rescan-thread-pool-size=\"3\"\n"
             + "   delete-propagation-enabled=\"true\">\n"
@@ -94,20 +99,28 @@ public class PollerTest {
             + "   <protocol-plugin protocol=\"HTTP\" class-name=\"org.opennms.netmgt.capsd.plugins.LdapPlugin\"/>\n"
             + "</capsd-configuration>\n";
 
+    /** The m_poller. */
     private Poller m_poller;
 
+    /** The m_network. */
     private MockNetwork m_network;
 
+    /** The m_db. */
     private MockDatabase m_db;
 
+    /** The m_poller config. */
     private MockPollerConfig m_pollerConfig;
 
+    /** The m_event mgr. */
     private MockEventIpcManager m_eventMgr;
 
+    /** The m_daemons started. */
     private boolean m_daemonsStarted = false;
 
+    /** The m_anticipator. */
     private EventAnticipator m_anticipator;
 
+    /** The m_outage anticipator. */
     private OutageAnticipator m_outageAnticipator;
 
     // private DemandPollDao m_demandPollDao;
@@ -116,6 +129,12 @@ public class PollerTest {
     // SetUp and TearDown
     //
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
 
@@ -216,6 +235,12 @@ public class PollerTest {
 
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_eventMgr.finishProcessingEvents();
@@ -228,6 +253,9 @@ public class PollerTest {
     //
     // Tests
     //
+    /**
+     * Test is remote package.
+     */
     @Test
     public void testIsRemotePackage() {
         Properties p = new Properties();
@@ -258,6 +286,9 @@ public class PollerTest {
     //
     // }
 
+    /**
+     * Test null interface on node down.
+     */
     @Test
     public void testNullInterfaceOnNodeDown() {
         // NODE processing = true;
@@ -289,6 +320,9 @@ public class PollerTest {
         assertTrue(foundNodeDown);
     }
 
+    /**
+     * Test bug1564.
+     */
     @Test
     @Ignore
     public void testBug1564() {
@@ -366,6 +400,9 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test bug709.
+     */
     @Test
     public void testBug709() {
 
@@ -423,11 +460,17 @@ public class PollerTest {
 
     }
 
+    /**
+     * Reset anticipated.
+     */
     private void resetAnticipated() {
         m_anticipator.reset();
         m_outageAnticipator.reset();
     }
 
+    /**
+     * Test node lost service with reason.
+     */
     @Test
     public void testNodeLostServiceWithReason() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -439,6 +482,9 @@ public class PollerTest {
         assertEquals("Service Not Responding.", val);
     }
 
+    /**
+     * Test crit svc status propagation.
+     */
     @Test
     public void testCritSvcStatusPropagation() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -454,6 +500,9 @@ public class PollerTest {
         verifyAnticipated(8000);
     }
 
+    /**
+     * Test interface with no critical service.
+     */
     @Test
     public void testInterfaceWithNoCriticalService() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -480,6 +529,9 @@ public class PollerTest {
     }
 
     // what about scheduled outages?
+    /**
+     * Test dont poll during scheduled outages.
+     */
     @Test
     public void testDontPollDuringScheduledOutages() {
         long start = System.currentTimeMillis();
@@ -503,6 +555,12 @@ public class PollerTest {
     }
 
     // Test harness that tests any type of node, interface or element.
+    /**
+     * Test element deleted.
+     *
+     * @param element
+     *            the element
+     */
     private void testElementDeleted(MockElement element) {
         Event deleteEvent = element.createDeleteEvent();
         m_pollerConfig.setNodeOutageProcessingEnabled(false);
@@ -533,6 +591,9 @@ public class PollerTest {
     }
 
     // serviceDeleted: EventConstants.SERVICE_DELETED_EVENT_UEI
+    /**
+     * Test service deleted.
+     */
     @Test
     public void testServiceDeleted() {
         MockService svc = m_network.getService(1, "192.168.1.1", "SMTP");
@@ -540,6 +601,9 @@ public class PollerTest {
     }
 
     // interfaceDeleted: EventConstants.INTERFACE_DELETED_EVENT_UEI
+    /**
+     * Test interface deleted.
+     */
     @Test
     public void testInterfaceDeleted() {
         MockInterface iface = m_network.getInterface(1, "192.168.1.1");
@@ -547,6 +611,9 @@ public class PollerTest {
     }
 
     // nodeDeleted: EventConstants.NODE_DELETED_EVENT_UEI
+    /**
+     * Test node deleted.
+     */
     @Test
     public void testNodeDeleted() {
         MockNode node = m_network.getNode(1);
@@ -554,6 +621,9 @@ public class PollerTest {
     }
 
     // nodeLabelChanged: EventConstants.NODE_LABEL_CHANGED_EVENT_UEI
+    /**
+     * Test node label changed.
+     */
     @Test
     public void testNodeLabelChanged() {
         MockNode element = m_network.getNode(1);
@@ -580,6 +650,12 @@ public class PollerTest {
         assertEquals(newLabel, m_poller.getNetwork().getNode(1).getNodeLabel());
     }
 
+    /**
+     * Test outages closed on delete.
+     *
+     * @param element
+     *            the element
+     */
     public void testOutagesClosedOnDelete(MockElement element) {
 
         startDaemons();
@@ -601,6 +677,9 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test service outages closed on delete.
+     */
     @Test
     public void testServiceOutagesClosedOnDelete() {
         MockService element = m_network.getService(1, "192.168.1.1", "SMTP");
@@ -608,12 +687,18 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test interface outages closed on delete.
+     */
     @Test
     public void testInterfaceOutagesClosedOnDelete() {
         MockInterface element = m_network.getInterface(1, "192.168.1.1");
         testOutagesClosedOnDelete(element);
     }
 
+    /**
+     * Test node outages closed on delete.
+     */
     @Test
     public void testNodeOutagesClosedOnDelete() {
         MockNode element = m_network.getNode(1);
@@ -621,6 +706,12 @@ public class PollerTest {
     }
 
     // interfaceReparented: EventConstants.INTERFACE_REPARENTED_EVENT_UEI
+    /**
+     * Test interface reparented.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInterfaceReparented() throws Exception {
 
@@ -687,6 +778,12 @@ public class PollerTest {
     }
 
     // test to see that node lost/regained service events come in
+    /**
+     * Test node outage processing disabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeOutageProcessingDisabled() throws Exception {
 
@@ -713,6 +810,12 @@ public class PollerTest {
     }
 
     // test whole node down
+    /**
+     * Test node outage processing enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeOutageProcessingEnabled() throws Exception {
 
@@ -743,6 +846,12 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test node lost service includes reason.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeLostServiceIncludesReason() throws Exception {
         MockService element = m_network.getService(1, "192.168.1.1", "SMTP");
@@ -767,6 +876,12 @@ public class PollerTest {
         assertEquals(expectedReason, EventUtils.getParm(event, EventConstants.PARM_LOSTSERVICE_REASON));
     }
 
+    /**
+     * Test node lost regained service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeLostRegainedService() throws Exception {
 
@@ -774,17 +889,29 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test interface down up.
+     */
     @Test
     public void testInterfaceDownUp() {
 
         testElementDownUp(m_network.getInterface(1, "192.168.1.1"));
     }
 
+    /**
+     * Test node down up.
+     */
     @Test
     public void testNodeDownUp() {
         testElementDownUp(m_network.getNode(1));
     }
 
+    /**
+     * Test element down up.
+     *
+     * @param element
+     *            the element
+     */
     private void testElementDownUp(MockElement element) {
         startDaemons();
 
@@ -809,6 +936,12 @@ public class PollerTest {
         verifyAnticipated(8000);
     }
 
+    /**
+     * Test no events on no outages.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNoEventsOnNoOutages() throws Exception {
 
@@ -819,6 +952,12 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test polling.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPolling() throws Exception {
 
@@ -850,6 +989,9 @@ public class PollerTest {
     }
 
     // test open outages for unmanaged services
+    /**
+     * Test unmanged with open outage at startup.
+     */
     @Test
     public void testUnmangedWithOpenOutageAtStartup() {
         // before we start we need to initialize the database
@@ -888,6 +1030,9 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test node gained service while node down and service up.
+     */
     @Test
     public void testNodeGainedServiceWhileNodeDownAndServiceUp() {
 
@@ -921,6 +1066,9 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test node gained service while node down and service down.
+     */
     @Test
     public void testNodeGainedServiceWhileNodeDownAndServiceDown() {
 
@@ -961,6 +1109,9 @@ public class PollerTest {
     }
 
     // test open outages for unmanaged services
+    /**
+     * Test reparent causes status change.
+     */
     @Test
     public void testReparentCausesStatusChange() {
 
@@ -1009,6 +1160,9 @@ public class PollerTest {
 
     // send a nodeGainedService event:
     // EventConstants.NODE_GAINED_SERVICE_EVENT_UEI
+    /**
+     * Test send node gained service.
+     */
     @Test
     public void testSendNodeGainedService() {
         m_pollerConfig.setNodeOutageProcessingEnabled(false);
@@ -1018,6 +1172,9 @@ public class PollerTest {
         testSendNodeGainedService("SMTP", "HTTP");
     }
 
+    /**
+     * Test send node gained service node outages.
+     */
     @Test
     public void testSendNodeGainedServiceNodeOutages() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -1027,6 +1184,9 @@ public class PollerTest {
         testSendNodeGainedService("SMTP", "HTTP");
     }
 
+    /**
+     * Test send i pv6 node gained service.
+     */
     @Test
     public void testSendIPv6NodeGainedService() {
         m_pollerConfig.setNodeOutageProcessingEnabled(false);
@@ -1037,6 +1197,9 @@ public class PollerTest {
                 "HTTP" });
     }
 
+    /**
+     * Test send i pv6 node gained service node outages.
+     */
     @Test
     public void testSendIPv6NodeGainedServiceNodeOutages() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -1046,10 +1209,28 @@ public class PollerTest {
                 "HTTP" });
     }
 
+    /**
+     * Test send node gained service.
+     *
+     * @param svcNames
+     *            the svc names
+     */
     public void testSendNodeGainedService(String... svcNames) {
         testSendNodeGainedServices(99, "TestNode", "10.1.1.1", svcNames);
     }
 
+    /**
+     * Test send node gained services.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param nodeLabel
+     *            the node label
+     * @param ipAddr
+     *            the ip addr
+     * @param svcNames
+     *            the svc names
+     */
     private void testSendNodeGainedServices(int nodeid, String nodeLabel, String ipAddr, String... svcNames) {
         assertNotNull(svcNames);
         assertTrue(svcNames.length > 0);
@@ -1101,6 +1282,12 @@ public class PollerTest {
         verifyAnticipated(10000);
     }
 
+    /**
+     * Test node gained dynamic service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNodeGainedDynamicService() throws Exception {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
@@ -1151,6 +1338,9 @@ public class PollerTest {
 
     }
 
+    /**
+     * Test suspend polling resume service.
+     */
     @Test
     public void testSuspendPollingResumeService() {
 
@@ -1178,6 +1368,9 @@ public class PollerTest {
     // Utility methods
     //
 
+    /**
+     * Start daemons.
+     */
     private void startDaemons() {
         // m_outageMgr.init();
         m_poller.init();
@@ -1186,6 +1379,9 @@ public class PollerTest {
         m_daemonsStarted = true;
     }
 
+    /**
+     * Stop daemons.
+     */
     private void stopDaemons() {
         if (m_daemonsStarted) {
             m_poller.stop();
@@ -1194,6 +1390,12 @@ public class PollerTest {
         }
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -1201,10 +1403,24 @@ public class PollerTest {
         }
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param millis
+     *            the millis
+     */
     private void verifyAnticipated(long millis) {
         verifyAnticipated(millis, true);
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param millis
+     *            the millis
+     * @param checkUnanticipated
+     *            the check unanticipated
+     */
     private void verifyAnticipated(long millis, boolean checkUnanticipated) {
         // make sure the down events are received
         MockEventUtil.printEvents("Events we're still waiting for: ", m_anticipator.waitForAnticipated(millis));
@@ -1223,10 +1439,24 @@ public class PollerTest {
         assertTrue("Created outages don't match the expected outages", m_outageAnticipator.checkAnticipated());
     }
 
+    /**
+     * Anticipate up.
+     *
+     * @param element
+     *            the element
+     */
     private void anticipateUp(MockElement element) {
         anticipateUp(element, false);
     }
 
+    /**
+     * Anticipate up.
+     *
+     * @param element
+     *            the element
+     * @param force
+     *            the force
+     */
     private void anticipateUp(MockElement element, boolean force) {
         if (force || !element.getPollStatus().equals(PollStatus.up())) {
             Event event = element.createUpEvent();
@@ -1235,10 +1465,24 @@ public class PollerTest {
         }
     }
 
+    /**
+     * Anticipate down.
+     *
+     * @param element
+     *            the element
+     */
     private void anticipateDown(MockElement element) {
         anticipateDown(element, false);
     }
 
+    /**
+     * Anticipate down.
+     *
+     * @param element
+     *            the element
+     * @param force
+     *            the force
+     */
     private void anticipateDown(MockElement element, boolean force) {
         if (force || !element.getPollStatus().equals(PollStatus.down())) {
             Event event = element.createDownEvent();
@@ -1247,6 +1491,12 @@ public class PollerTest {
         }
     }
 
+    /**
+     * Anticipate services up.
+     *
+     * @param node
+     *            the node
+     */
     private void anticipateServicesUp(MockElement node) {
         MockVisitor eventCreator = new MockVisitorAdapter() {
             @Override
@@ -1257,6 +1507,12 @@ public class PollerTest {
         node.visit(eventCreator);
     }
 
+    /**
+     * Anticipate services down.
+     *
+     * @param node
+     *            the node
+     */
     private void anticipateServicesDown(MockElement node) {
         MockVisitor eventCreator = new MockVisitorAdapter() {
             @Override
@@ -1267,6 +1523,14 @@ public class PollerTest {
         node.visit(eventCreator);
     }
 
+    /**
+     * Creates the outages.
+     *
+     * @param element
+     *            the element
+     * @param event
+     *            the event
+     */
     private void createOutages(MockElement element, final Event event) {
         MockVisitor outageCreater = new MockVisitorAdapter() {
             @Override
@@ -1279,6 +1543,12 @@ public class PollerTest {
         element.visit(outageCreater);
     }
 
+    /**
+     * Bring down crit svcs.
+     *
+     * @param element
+     *            the element
+     */
     private void bringDownCritSvcs(MockElement element) {
         MockVisitor markCritSvcDown = new MockVisitorAdapter() {
             @Override
@@ -1292,21 +1562,50 @@ public class PollerTest {
 
     }
 
+    /**
+     * The Class OutageChecker.
+     */
     class OutageChecker extends Querier {
+
+        /** The m_lost svc event. */
         private Event m_lostSvcEvent;
 
+        /** The m_lost svc time. */
         private Timestamp m_lostSvcTime;
 
+        /** The m_svc. */
         private MockService m_svc;
 
+        /** The m_regained svc event. */
         private Event m_regainedSvcEvent;
 
+        /** The m_regained svc time. */
         private Timestamp m_regainedSvcTime;
 
+        /**
+         * Instantiates a new outage checker.
+         *
+         * @param svc
+         *            the svc
+         * @param lostSvcEvent
+         *            the lost svc event
+         * @throws Exception
+         *             the exception
+         */
         OutageChecker(MockService svc, Event lostSvcEvent) throws Exception {
             this(svc, lostSvcEvent, null);
         }
 
+        /**
+         * Instantiates a new outage checker.
+         *
+         * @param svc
+         *            the svc
+         * @param lostSvcEvent
+         *            the lost svc event
+         * @param regainedSvcEvent
+         *            the regained svc event
+         */
         OutageChecker(MockService svc, Event lostSvcEvent, Event regainedSvcEvent) {
             super(m_db, "select * from outages where nodeid = ? and ipAddr = ? and serviceId = ?");
 
@@ -1318,6 +1617,9 @@ public class PollerTest {
                 m_regainedSvcTime = m_db.convertEventTimeToTimeStamp(m_regainedSvcEvent.getTime());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.Querier#processRow(java.sql.ResultSet)
+         */
         @Override
         public void processRow(ResultSet rs) throws SQLException {
             assertEquals(m_svc.getNodeId(), rs.getInt("nodeId"));
@@ -1329,6 +1631,11 @@ public class PollerTest {
             assertEquals(m_regainedSvcTime, rs.getTimestamp("ifRegainedService"));
         }
 
+        /**
+         * Gets the regained event id.
+         *
+         * @return the regained event id
+         */
         private Integer getRegainedEventId() {
             if (m_regainedSvcEvent == null)
                 return null;

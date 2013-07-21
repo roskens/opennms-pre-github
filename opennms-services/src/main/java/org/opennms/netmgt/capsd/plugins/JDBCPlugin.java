@@ -66,28 +66,35 @@ import org.slf4j.LoggerFactory;
  */
 public class JDBCPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JDBCPlugin.class);
 
-    /**
-     * The protocol supported by the plugin
-     */
+    /** The protocol supported by the plugin. */
     private static final String PROTOCOL_NAME = "JDBC";
 
-    /**
-     * Default number of retries for TCP requests
-     */
+    /** Default number of retries for TCP requests. */
     private static final int DEFAULT_RETRY = 0;
 
-    /**
-     * Default timeout (in milliseconds) for TCP requests
-     */
+    /** Default timeout (in milliseconds) for TCP requests. */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
+    /**
+     * Instantiates a new jDBC plugin.
+     */
     public JDBCPlugin() {
         super();
         LOG.debug("JDBCPlugin class loaded");
     }
 
+    /**
+     * Checks if is server.
+     *
+     * @param hostname
+     *            the hostname
+     * @param qualifiers
+     *            the qualifiers
+     * @return true, if is server
+     */
     private boolean isServer(String hostname, Map<String, Object> qualifiers) {
 
         String user = ParameterMap.getKeyedString(qualifiers, "user", DBTools.DEFAULT_DATABASE_USER);
@@ -141,6 +148,7 @@ public class JDBCPlugin extends AbstractPlugin {
      * <p>
      * checkStatus
      * </p>
+     * .
      *
      * @param con
      *            a {@link java.sql.Connection} object.
@@ -172,6 +180,12 @@ public class JDBCPlugin extends AbstractPlugin {
         return status;
     }
 
+    /**
+     * Close conn.
+     *
+     * @param con
+     *            the con
+     */
     private void closeConn(Connection con) {
         if (con != null) {
             try {
@@ -185,6 +199,7 @@ public class JDBCPlugin extends AbstractPlugin {
      * <p>
      * closeStmt
      * </p>
+     * .
      *
      * @param statement
      *            a {@link java.sql.Statement} object.
@@ -198,6 +213,12 @@ public class JDBCPlugin extends AbstractPlugin {
         }
     }
 
+    /**
+     * Close result.
+     *
+     * @param result
+     *            the result
+     */
     private void closeResult(ResultSet result) {
         if (result != null) {
             try {
@@ -208,7 +229,7 @@ public class JDBCPlugin extends AbstractPlugin {
     }
 
     /**
-     * Returns the default protocol name
+     * Returns the default protocol name.
      *
      * @return String Protocol Name
      */

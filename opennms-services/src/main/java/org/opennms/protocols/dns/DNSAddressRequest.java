@@ -191,6 +191,7 @@ public class DNSAddressRequest {
      * <P>
      * The list of response codes to be considered fatal
      * </P>
+     * .
      */
     private List<Integer> m_fatalResponseCodes;
 
@@ -199,6 +200,11 @@ public class DNSAddressRequest {
      * Decodes the integer to get the flags - refer header for more info on the
      * flags.
      * </P>
+     *
+     * @param flags
+     *            the flags
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     private void decodeFlags(int flags) throws IOException {
         //
@@ -281,8 +287,8 @@ public class DNSAddressRequest {
      * </P>
      *
      * @return A byte array containing the request.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public byte[] buildRequest() throws IOException {
         ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
@@ -319,11 +325,9 @@ public class DNSAddressRequest {
      *            The byte array containing the response.
      * @param length
      *            The length of the byte array.
-     * @exception IOException
-     *                Thrown if there is an error while reading the received
-     *                packet
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Thrown if there is an error while reading the received
+     *             packet
      */
     public void receiveResponse(byte[] data, int length) throws IOException {
         /*
@@ -389,11 +393,9 @@ public class DNSAddressRequest {
      *            The byte array containing the response.
      * @param length
      *            The length of the byte array.
-     * @exception IOException
-     *                Thrown if there is an error while reading the received
-     *                packet
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Thrown if there is an error while reading the received
+     *             packet
      */
     public void verifyResponse(byte[] data, int length) throws IOException {
         /*
@@ -497,6 +499,7 @@ public class DNSAddressRequest {
      * <p>
      * getFatalResponseCodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -508,6 +511,7 @@ public class DNSAddressRequest {
      * <p>
      * setFatalResponseCodes
      * </p>
+     * .
      *
      * @param codes
      *            a {@link java.util.List} object.
@@ -516,6 +520,13 @@ public class DNSAddressRequest {
         m_fatalResponseCodes = codes;
     }
 
+    /**
+     * Checks if is response code fatal.
+     *
+     * @param code
+     *            the code
+     * @return true, if is response code fatal
+     */
     private boolean isResponseCodeFatal(int code) {
         if (m_fatalResponseCodes.contains(code))
             return true;

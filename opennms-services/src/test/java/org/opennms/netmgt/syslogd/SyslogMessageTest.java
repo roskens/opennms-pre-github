@@ -50,9 +50,20 @@ import org.opennms.netmgt.config.SyslogdConfigFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SyslogMessageTest.
+ */
 public class SyslogMessageTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SyslogMessageTest.class);
 
+    /**
+     * Instantiates a new syslog message test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public SyslogMessageTest() throws Exception {
         InputStream stream = null;
         try {
@@ -66,11 +77,20 @@ public class SyslogMessageTest {
         }
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true, "TRACE");
     }
 
+    /**
+     * Test custom parser with process.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCustomParserWithProcess() throws Exception {
         final SyslogParser parser = CustomSyslogParser.getParser("<6>test: 2007-01-01 127.0.0.1 OpenNMS[1234]: A SyslogNG style message");
@@ -86,6 +106,12 @@ public class SyslogMessageTest {
         assertEquals("A SyslogNG style message", message.getMessage());
     }
 
+    /**
+     * Test custom parser with simple forwarding regex and syslog21 message.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCustomParserWithSimpleForwardingRegexAndSyslog21Message() throws Exception {
         // see:
@@ -123,6 +149,12 @@ public class SyslogMessageTest {
         assertEquals("[mgmtd.NOTICE]: Configuration saved to database initial", message.getMessage());
     }
 
+    /**
+     * Test custom parser nms5242.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCustomParserNms5242() throws Exception {
         final Locale startLocale = Locale.getDefault();
@@ -166,6 +198,12 @@ public class SyslogMessageTest {
         }
     }
 
+    /**
+     * Test syslog ng parser with process.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSyslogNGParserWithProcess() throws Exception {
         final SyslogParser parser = SyslogNGParser.getParser("<6>test: 2007-01-01 127.0.0.1 OpenNMS[1234]: A SyslogNG style message");
@@ -183,6 +221,12 @@ public class SyslogMessageTest {
         assertEquals("A SyslogNG style message", message.getMessage());
     }
 
+    /**
+     * Test syslog ng parser without process.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSyslogNGParserWithoutProcess() throws Exception {
         final SyslogParser parser = SyslogNGParser.getParser("<6>test: 2007-01-01 127.0.0.1 A SyslogNG style message");
@@ -200,6 +244,12 @@ public class SyslogMessageTest {
         assertEquals("A SyslogNG style message", message.getMessage());
     }
 
+    /**
+     * Test syslog ng parser with syslog21 message.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSyslogNGParserWithSyslog21Message() throws Exception {
         final SyslogParser parser = SyslogNGParser.getParser("<173>Dec  7 12:02:06 10.13.110.116 mgmtd[8326]: [mgmtd.NOTICE]: Configuration saved to database initial");
@@ -225,6 +275,12 @@ public class SyslogMessageTest {
         assertEquals("[mgmtd.NOTICE]: Configuration saved to database initial", message.getMessage());
     }
 
+    /**
+     * Test rfc5424 parser example1.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRfc5424ParserExample1() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<34>1 2003-10-11T22:14:15.000Z mymachine.example.com su - ID47 - BOM'su root' failed for lonvick on /dev/pts/8");
@@ -242,6 +298,12 @@ public class SyslogMessageTest {
         assertEquals("'su root' failed for lonvick on /dev/pts/8", message.getMessage());
     }
 
+    /**
+     * Test rfc5424 parser example2.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRfc5424ParserExample2() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<165>1 2003-10-11T22:14:15.000003-00:00 192.0.2.1 myproc 8710 - - %% It's time to make the do-nuts.");
@@ -260,6 +322,12 @@ public class SyslogMessageTest {
         assertEquals("%% It's time to make the do-nuts.", message.getMessage());
     }
 
+    /**
+     * Test rfc5424 parser example3.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRfc5424ParserExample3() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<165>1 2003-10-11T22:14:15.003Z mymachine.example.com evntslog - ID47 [exampleSDID@32473 iut=\"3\" eventSource=\"Application\" eventID=\"1011\"] BOMAn application event log entry...");
@@ -275,6 +343,12 @@ public class SyslogMessageTest {
         assertEquals("An application event log entry...", message.getMessage());
     }
 
+    /**
+     * Test rfc5424 parser example4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRfc5424ParserExample4() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<165>1 2003-10-11T22:14:15.003Z mymachine.example.com evntslog - ID47 [exampleSDID@32473 iut=\"3\" eventSource=\"Application\" eventID=\"1011\"][examplePriority@32473 class=\"high\"]");
@@ -289,6 +363,12 @@ public class SyslogMessageTest {
         assertEquals("ID47", message.getMessageID());
     }
 
+    /**
+     * Test rfc5424 nms5051.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRfc5424Nms5051() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<85>1 2011-11-15T14:42:18+01:00 hostname sudo - - - pam_unix(sudo:auth): authentication failure; logname=username uid=0 euid=0 tty=/dev/pts/0 ruser=username rhost= user=username");
@@ -303,6 +383,12 @@ public class SyslogMessageTest {
         assertEquals(null, message.getMessageID());
     }
 
+    /**
+     * Test juniper cfm fault.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testJuniperCFMFault() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<27>1 2012-04-20T12:33:13.946Z junos-mx80-2-space cfmd 1317 CFMD_CCM_DEFECT_RMEP - CFM defect: Remote CCM timeout detected by MEP on Level: 6 MD: MD_service_level MA: PW_126 Interface: ge-1/3/2.1");

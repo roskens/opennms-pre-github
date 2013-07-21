@@ -70,23 +70,45 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValue;
 
 /**
+ * The Class CollectionResourceWrapperTest.
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class CollectionResourceWrapperTest {
+
+    /** The m_ignore warnings. */
     private boolean m_ignoreWarnings = false;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         CollectionResourceWrapper.s_cache.clear();
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         if (!m_ignoreWarnings)
             MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test get gauge value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetGaugeValue() throws Exception {
         // Create Resource
@@ -109,6 +131,12 @@ public class CollectionResourceWrapperTest {
         EasyMock.verify(agent);
     }
 
+    /**
+     * Test bad constructor call.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testBadConstructorCall() throws Throwable {
         try {
@@ -119,6 +147,12 @@ public class CollectionResourceWrapperTest {
         }
     }
 
+    /**
+     * Test badder constructor call.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testBadderConstructorCall() throws Throwable {
         try {
@@ -129,6 +163,12 @@ public class CollectionResourceWrapperTest {
         }
     }
 
+    /**
+     * Test get counter value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetCounterValue() throws Exception {
         // Create Resource
@@ -208,6 +248,9 @@ public class CollectionResourceWrapperTest {
      * was incorrectly calculated on the next succeeding cycle (taking the
      * difference from the last successful
      * collection and dividing by just a single collection interval.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testGetCounterValueWithGap() throws Exception {
@@ -305,6 +348,12 @@ public class CollectionResourceWrapperTest {
         EasyMock.verify(agent);
     }
 
+    /**
+     * Test get counter value with wrap.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetCounterValueWithWrap() throws Exception {
         // Create Resource
@@ -356,6 +405,12 @@ public class CollectionResourceWrapperTest {
         EasyMock.verify(agent);
     }
 
+    /**
+     * Test interface resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInterfaceResource() throws Exception {
         // Set Defaults
@@ -440,6 +495,13 @@ public class CollectionResourceWrapperTest {
                                                                            // once
     }
 
+    /**
+     * Creates the node resource.
+     *
+     * @param agent
+     *            the agent
+     * @return the snmp collection resource
+     */
     private SnmpCollectionResource createNodeResource(CollectionAgent agent) {
         MockDataCollectionConfig dataCollectionConfig = new MockDataCollectionConfig();
         OnmsSnmpCollection collection = new OnmsSnmpCollection(agent,
@@ -451,6 +513,17 @@ public class CollectionResourceWrapperTest {
 
     // Wrapper interval value for counter rates calculation should be expressed
     // in seconds.
+    /**
+     * Creates the wrapper.
+     *
+     * @param resource
+     *            the resource
+     * @param attributes
+     *            the attributes
+     * @param timestamp
+     *            the timestamp
+     * @return the collection resource wrapper
+     */
     private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource,
             Map<String, CollectionAttribute> attributes, Date timestamp) {
         CollectionResourceWrapper wrapper = new CollectionResourceWrapper(timestamp, 1, "127.0.0.1", "SNMP",
@@ -458,11 +531,25 @@ public class CollectionResourceWrapperTest {
         return wrapper;
     }
 
+    /**
+     * Creates the wrapper.
+     *
+     * @param resource
+     *            the resource
+     * @param attributes
+     *            the attributes
+     * @return the collection resource wrapper
+     */
     private CollectionResourceWrapper createWrapper(SnmpCollectionResource resource,
             Map<String, CollectionAttribute> attributes) {
         return this.createWrapper(resource, attributes, new Date());
     }
 
+    /**
+     * Creates the collection agent.
+     *
+     * @return the collection agent
+     */
     private CollectionAgent createCollectionAgent() {
         CollectionAgent agent = EasyMock.createMock(CollectionAgent.class);
         EasyMock.expect(agent.getNodeId()).andReturn(1).anyTimes();
@@ -473,6 +560,21 @@ public class CollectionResourceWrapperTest {
         return agent;
     }
 
+    /**
+     * Adds the attribute to collection resource.
+     *
+     * @param resource
+     *            the resource
+     * @param attributeName
+     *            the attribute name
+     * @param attributeType
+     *            the attribute type
+     * @param attributeInstance
+     *            the attribute instance
+     * @param value
+     *            the value
+     * @return the snmp attribute
+     */
     private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName,
             String attributeType, String attributeInstance, long value) {
         MibObject object = createMibObject(attributeType, attributeName, attributeInstance);
@@ -484,6 +586,21 @@ public class CollectionResourceWrapperTest {
         return new SnmpAttribute(resource, objectType, snmpValue);
     }
 
+    /**
+     * Adds the attribute to collection resource.
+     *
+     * @param resource
+     *            the resource
+     * @param attributeName
+     *            the attribute name
+     * @param attributeType
+     *            the attribute type
+     * @param attributeInstance
+     *            the attribute instance
+     * @param value
+     *            the value
+     * @return the snmp attribute
+     */
     private SnmpAttribute addAttributeToCollectionResource(SnmpCollectionResource resource, String attributeName,
             String attributeType, String attributeInstance, BigInteger value) {
         MibObject object = createMibObject(attributeType, attributeName, attributeInstance);
@@ -494,6 +611,17 @@ public class CollectionResourceWrapperTest {
         return new SnmpAttribute(resource, objectType, snmpValue);
     }
 
+    /**
+     * Creates the mib object.
+     *
+     * @param type
+     *            the type
+     * @param alias
+     *            the alias
+     * @param instance
+     *            the instance
+     * @return the mib object
+     */
     private MibObject createMibObject(String type, String alias, String instance) {
         MibObject mibObject = new MibObject();
         mibObject.setOid(".1.1.1.1");
@@ -505,6 +633,11 @@ public class CollectionResourceWrapperTest {
         return mibObject;
     }
 
+    /**
+     * Gets the repository.
+     *
+     * @return the repository
+     */
     private RrdRepository getRepository() {
         RrdRepository repo = new RrdRepository();
         repo.setRrdBaseDir(new File("/tmp"));

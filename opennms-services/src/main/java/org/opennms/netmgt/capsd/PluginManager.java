@@ -58,8 +58,10 @@ import org.springframework.util.Assert;
  */
 public class PluginManager implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PluginManager.class);
 
+    /** The m_capsd config. */
     private CapsdConfig m_capsdConfig;
 
     /**
@@ -82,7 +84,10 @@ public class PluginManager implements InitializingBean {
     }
 
     /**
-     * Now load the plugins!
+     * Now load the plugins!.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     private void instantiatePlugins() throws ValidationException {
         List<ProtocolPlugin> plugins = getCapsdConfig().getProtocolPlugins();
@@ -256,6 +261,14 @@ public class PluginManager implements InitializingBean {
         return lprotos.toArray(result);
     }
 
+    /**
+     * Adds the properties.
+     *
+     * @param properties
+     *            the properties
+     * @param params
+     *            the params
+     */
     private static void addProperties(List<Property> properties, Map<String, Object> params) {
         for (Property property : properties) {
             params.put(property.getKey(), property.getValue());
@@ -266,6 +279,7 @@ public class PluginManager implements InitializingBean {
      * <p>
      * getCapsdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.CapsdConfig} object.
      */
@@ -277,6 +291,7 @@ public class PluginManager implements InitializingBean {
      * <p>
      * setCapsdConfig
      * </p>
+     * .
      *
      * @param capsdConfig
      *            a {@link org.opennms.netmgt.config.CapsdConfig} object.
@@ -289,9 +304,10 @@ public class PluginManager implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void afterPropertiesSet() throws ValidationException {

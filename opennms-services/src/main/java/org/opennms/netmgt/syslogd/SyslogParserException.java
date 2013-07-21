@@ -28,22 +28,49 @@
 
 package org.opennms.netmgt.syslogd;
 
+/**
+ * The Class SyslogParserException.
+ */
 public class SyslogParserException extends Exception {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8185991282482412701L;
 
+    /**
+     * Instantiates a new syslog parser exception.
+     */
     public SyslogParserException() {
         super();
     }
 
+    /**
+     * Instantiates a new syslog parser exception.
+     *
+     * @param message
+     *            the message
+     */
     public SyslogParserException(final String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new syslog parser exception.
+     *
+     * @param cause
+     *            the cause
+     */
     public SyslogParserException(final Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Instantiates a new syslog parser exception.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     public SyslogParserException(final String message, final Throwable cause) {
         super(message, cause);
     }

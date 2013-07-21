@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpStore extends AbstractSnmpStore {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpStore.class);
 
     /**
@@ -86,6 +87,7 @@ public class SnmpStore extends AbstractSnmpStore {
      * <p>
      * getElements
      * </p>
+     * .
      *
      * @return an array of {@link org.opennms.netmgt.capsd.snmp.NamedSnmpVar}
      *         objects.
@@ -117,6 +119,13 @@ public class SnmpStore extends AbstractSnmpStore {
         }
     }
 
+    /**
+     * To log string.
+     *
+     * @param val
+     *            the val
+     * @return the string
+     */
     private String toLogString(SnmpValue val) {
         if (val.getType() == SnmpValue.SNMP_OCTET_STRING) {
             return val.toDisplayString() + " (" + val.toHexString() + ")";

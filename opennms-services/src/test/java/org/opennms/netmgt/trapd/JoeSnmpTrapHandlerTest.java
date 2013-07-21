@@ -31,14 +31,17 @@ package org.opennms.netmgt.trapd;
 import org.junit.BeforeClass;
 
 /**
- * JoeSnmpTrapHandlerTest
+ * JoeSnmpTrapHandlerTest.
  *
  * @author brozow
  */
 public class JoeSnmpTrapHandlerTest extends TrapHandlerTestCase {
 
     /**
-     * @throws java.lang.Exception
+     * Sets the up before class.
+     *
+     * @throws Exception
+     *             the exception
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {

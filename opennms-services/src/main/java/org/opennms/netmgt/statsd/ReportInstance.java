@@ -47,6 +47,7 @@ public interface ReportInstance {
      * <p>
      * walk
      * </p>
+     * .
      */
     void walk();
 
@@ -54,6 +55,7 @@ public interface ReportInstance {
      * <p>
      * getResults
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -63,6 +65,7 @@ public interface ReportInstance {
      * <p>
      * getResourceTypeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +75,7 @@ public interface ReportInstance {
      * <p>
      * setResourceTypeMatch
      * </p>
+     * .
      *
      * @param resourceType
      *            a {@link java.lang.String} object.
@@ -82,6 +86,7 @@ public interface ReportInstance {
      * <p>
      * getAttributeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,6 +96,7 @@ public interface ReportInstance {
      * <p>
      * setAttributeMatch
      * </p>
+     * .
      *
      * @param attr
      *            a {@link java.lang.String} object.
@@ -101,6 +107,7 @@ public interface ReportInstance {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -110,6 +117,7 @@ public interface ReportInstance {
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param start
      *            a long.
@@ -120,6 +128,7 @@ public interface ReportInstance {
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -129,6 +138,7 @@ public interface ReportInstance {
      * <p>
      * setEndTime
      * </p>
+     * .
      *
      * @param end
      *            a long.
@@ -139,6 +149,7 @@ public interface ReportInstance {
      * <p>
      * getConsolidationFunction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -148,6 +159,7 @@ public interface ReportInstance {
      * <p>
      * setConsolidationFunction
      * </p>
+     * .
      *
      * @param cf
      *            a {@link java.lang.String} object.
@@ -158,6 +170,7 @@ public interface ReportInstance {
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -167,6 +180,7 @@ public interface ReportInstance {
      * <p>
      * setCount
      * </p>
+     * .
      *
      * @param count
      *            a int.
@@ -177,6 +191,7 @@ public interface ReportInstance {
      * <p>
      * getJobStartedDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -186,6 +201,7 @@ public interface ReportInstance {
      * <p>
      * getJobCompletedDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -195,6 +211,7 @@ public interface ReportInstance {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -204,6 +221,7 @@ public interface ReportInstance {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -213,6 +231,7 @@ public interface ReportInstance {
      * <p>
      * getRetainInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -222,6 +241,7 @@ public interface ReportInstance {
      * <p>
      * getReportDefinition
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
@@ -231,6 +251,7 @@ public interface ReportInstance {
      * <p>
      * setReportDefinition
      * </p>
+     * .
      *
      * @param definition
      *            a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
@@ -241,6 +262,7 @@ public interface ReportInstance {
      * <p>
      * setResourceAttributeKey
      * </p>
+     * .
      *
      * @param resourceAttributeKey
      *            a {@link java.lang.String} object.
@@ -251,6 +273,7 @@ public interface ReportInstance {
      * <p>
      * getResourceAttributeKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -260,6 +283,7 @@ public interface ReportInstance {
      * <p>
      * setResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @param resourceAttributeValueMatch
      *            a {@link java.lang.String} object.
@@ -270,6 +294,7 @@ public interface ReportInstance {
      * <p>
      * getResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

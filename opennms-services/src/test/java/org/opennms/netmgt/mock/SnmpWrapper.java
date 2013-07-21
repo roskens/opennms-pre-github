@@ -31,17 +31,36 @@ package org.opennms.netmgt.mock;
 import org.opennms.netmgt.model.events.EventUtils;
 import org.opennms.netmgt.xml.event.Snmp;
 
+/**
+ * The Class SnmpWrapper.
+ */
 public class SnmpWrapper {
+
+    /** The m_snmp. */
     Snmp m_snmp;
 
+    /**
+     * Instantiates a new snmp wrapper.
+     *
+     * @param snmp
+     *            the snmp
+     */
     public SnmpWrapper(final Snmp snmp) {
         m_snmp = snmp;
     }
 
+    /**
+     * Gets the snmp.
+     *
+     * @return the snmp
+     */
     public Snmp getSnmp() {
         return m_snmp;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return EventUtils.toString(m_snmp);

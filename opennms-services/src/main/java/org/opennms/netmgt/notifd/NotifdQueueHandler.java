@@ -40,10 +40,12 @@ import org.opennms.core.fiber.PausableFiber;
  * @version $Id: $
  */
 public interface NotifdQueueHandler extends Runnable, PausableFiber {
+
     /**
      * <p>
      * setQueueID
      * </p>
+     * .
      *
      * @param queueID
      *            a {@link java.lang.String} object.
@@ -54,6 +56,7 @@ public interface NotifdQueueHandler extends Runnable, PausableFiber {
      * <p>
      * setNoticeQueue
      * </p>
+     * .
      *
      * @param queue
      *            a {@link org.opennms.netmgt.notifd.NoticeQueue} object.
@@ -64,6 +67,7 @@ public interface NotifdQueueHandler extends Runnable, PausableFiber {
      * <p>
      * setInterval
      * </p>
+     * .
      *
      * @param interval
      *            a {@link java.lang.String} object.
@@ -74,6 +78,7 @@ public interface NotifdQueueHandler extends Runnable, PausableFiber {
      * <p>
      * processQueue
      * </p>
+     * .
      */
     public void processQueue();
 }

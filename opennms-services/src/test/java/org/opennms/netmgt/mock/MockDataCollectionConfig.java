@@ -41,8 +41,12 @@ import org.opennms.netmgt.config.datacollection.DatacollectionConfig;
 import org.opennms.netmgt.config.datacollection.ResourceType;
 import org.opennms.netmgt.model.RrdRepository;
 
+/**
+ * The Class MockDataCollectionConfig.
+ */
 public class MockDataCollectionConfig implements DataCollectionConfigDao {
 
+    /** The Constant initalMibObjects. */
     public static final String[][] initalMibObjects = { { "sysLocation", ".1.3.6.1.2.1.1.6", "0", "string" },
 
     { "sysName", ".1.3.6.1.2.1.1.5", "0", "string" },
@@ -71,32 +75,72 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
 
     };
 
+    /** The m_attr list. */
     private List<MibObject> m_attrList;
 
+    /** The m_attr map. */
     private Map<String, MibObject> m_attrMap;
 
+    /**
+     * Instantiates a new mock data collection config.
+     */
     public MockDataCollectionConfig() {
         setAttrList(new ArrayList<MibObject>());
         setAttrMap(new TreeMap<String, MibObject>());
         addInitialAttributeTypes();
     }
 
+    /**
+     * Sets the attr list.
+     *
+     * @param attrList
+     *            the new attr list
+     */
     public void setAttrList(List<MibObject> attrList) {
         m_attrList = attrList;
     }
 
+    /**
+     * Gets the attr list.
+     *
+     * @return the attr list
+     */
     public List<MibObject> getAttrList() {
         return m_attrList;
     }
 
+    /**
+     * Sets the attr map.
+     *
+     * @param attrMap
+     *            the attr map
+     */
     public void setAttrMap(Map<String, MibObject> attrMap) {
         m_attrMap = attrMap;
     }
 
+    /**
+     * Gets the attr map.
+     *
+     * @return the attr map
+     */
     public Map<String, MibObject> getAttrMap() {
         return m_attrMap;
     }
 
+    /**
+     * Creates the mib object.
+     *
+     * @param alias
+     *            the alias
+     * @param oid
+     *            the oid
+     * @param instance
+     *            the instance
+     * @param type
+     *            the type
+     * @return the mib object
+     */
     private MibObject createMibObject(String alias, String oid, String instance, String type) {
         MibObject mibObj = new MibObject();
         mibObj.setGroupName("test");
@@ -109,10 +153,36 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         return mibObj;
     }
 
+    /**
+     * Creates the attribute type.
+     *
+     * @param alias
+     *            the alias
+     * @param oid
+     *            the oid
+     * @param instance
+     *            the instance
+     * @param type
+     *            the type
+     * @return the mib object
+     */
     public MibObject createAttributeType(String alias, String oid, String instance, String type) {
         return createMibObject(alias, oid, instance, type);
     }
 
+    /**
+     * Define attribute type.
+     *
+     * @param alias
+     *            the alias
+     * @param oid
+     *            the oid
+     * @param instance
+     *            the instance
+     * @param type
+     *            the type
+     * @return the mib object
+     */
     public MibObject defineAttributeType(String alias, String oid, String instance, String type) {
         MibObject mibObj = createAttributeType(alias, oid, instance, type);
         getAttrMap().put(mibObj.getAlias(), mibObj);
@@ -120,6 +190,9 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         return mibObj;
     }
 
+    /**
+     * Adds the initial attribute types.
+     */
     public void addInitialAttributeTypes() {
         for (int i = 0; i < MockDataCollectionConfig.initalMibObjects.length; i++) {
             String[] mibData = MockDataCollectionConfig.initalMibObjects[i];
@@ -128,6 +201,19 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         }
     }
 
+    /**
+     * Gets the attribute type.
+     *
+     * @param alias
+     *            the alias
+     * @param oid
+     *            the oid
+     * @param inst
+     *            the inst
+     * @param type
+     *            the type
+     * @return the attribute type
+     */
     public MibObject getAttributeType(String alias, String oid, String inst, String type) {
         MibObject attrType = getAttributeType(alias);
         if (attrType != null)
@@ -136,45 +222,85 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
 
     }
 
+    /**
+     * Gets the attribute type.
+     *
+     * @param aliasOrOid
+     *            the alias or oid
+     * @return the attribute type
+     */
     public MibObject getAttributeType(String aliasOrOid) {
         return getAttrMap().get(aliasOrOid);
     }
 
+    /**
+     * Adds the attribute type.
+     *
+     * @param alias
+     *            the alias
+     * @param oid
+     *            the oid
+     * @param inst
+     *            the inst
+     * @param type
+     *            the type
+     */
     public void addAttributeType(String alias, String oid, String inst, String type) {
         MibObject attrType = getAttributeType(alias, oid, inst, type);
         getAttrList().add(attrType);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRRAList(java.lang.String)
+     */
     @Override
     public List<String> getRRAList(String collectionName) {
         return new ArrayList<String>(0);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRrdPath()
+     */
     @Override
     public String getRrdPath() {
         return "/tmp";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getSnmpStorageFlag(java.lang.String)
+     */
     @Override
     public String getSnmpStorageFlag(String collectionName) {
         return SnmpCollector.SNMP_STORAGE_PRIMARY;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getStep(java.lang.String)
+     */
     @Override
     public int getStep(String collectionName) {
         return 300;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getMibObjectList(java.lang.String, java.lang.String, java.lang.String, int)
+     */
     @Override
     public List<MibObject> getMibObjectList(String cName, String aSysoid, String anAddress, int ifType) {
         return getAttrList();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getConfiguredResourceTypes()
+     */
     @Override
     public Map<String, ResourceType> getConfiguredResourceTypes() {
         return new TreeMap<String, ResourceType>();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRrdRepository(java.lang.String)
+     */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {
         RrdRepository repo = new RrdRepository();
@@ -185,21 +311,33 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         return repo;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getRootDataCollection()
+     */
     @Override
     public DatacollectionConfig getRootDataCollection() {
         return new DatacollectionConfig();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableDataCollectionGroups()
+     */
     @Override
     public List<String> getAvailableDataCollectionGroups() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableSystemDefs()
+     */
     @Override
     public List<String> getAvailableSystemDefs() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.DataCollectionConfigDao#getAvailableMibGroups()
+     */
     @Override
     public List<String> getAvailableMibGroups() {
         return null;

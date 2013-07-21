@@ -39,7 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is a class to store and execute a console command
+ * This is a class to store and execute a console command.
  *
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
@@ -53,6 +53,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CommandExecutor implements ExecutorStrategy {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CommandExecutor.class);
 
     /**

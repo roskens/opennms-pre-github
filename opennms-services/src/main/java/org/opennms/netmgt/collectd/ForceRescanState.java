@@ -47,12 +47,16 @@ import org.slf4j.LoggerFactory;
  */
 public class ForceRescanState {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ForceRescanState.class);
 
+    /** The m_agent. */
     private CollectionAgent m_agent;
 
+    /** The m_event proxy. */
     private EventProxy m_eventProxy;
 
+    /** The m_force rescan sent. */
     private boolean m_forceRescanSent = false;
 
     /**
@@ -74,6 +78,7 @@ public class ForceRescanState {
      * <p>
      * getEventProxy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventProxy} object.
      */
@@ -85,6 +90,7 @@ public class ForceRescanState {
      * <p>
      * createForceResanEvent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -107,6 +113,7 @@ public class ForceRescanState {
      * <p>
      * getAgent
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      */
@@ -117,13 +124,6 @@ public class ForceRescanState {
     /**
      * This method is responsible for building a Capsd forceRescan event object
      * and sending it out over the EventProxy.
-     *
-     * @param eventProxy
-     *            proxy over which an event may be sent to eventd
-     * @param ifAddress
-     *            interface address to which this event pertains
-     * @param nodeId
-     *            TODO
      */
     void sendForceRescanEvent() {
         // Log4j category
@@ -137,6 +137,9 @@ public class ForceRescanState {
         }
     }
 
+    /**
+     * Rescan indicated.
+     */
     void rescanIndicated() {
         if (!m_forceRescanSent) {
             sendForceRescanEvent();

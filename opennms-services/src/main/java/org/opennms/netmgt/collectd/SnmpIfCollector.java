@@ -54,8 +54,10 @@ import org.slf4j.LoggerFactory;
  */
 public class SnmpIfCollector extends AggregateTracker {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpIfCollector.class);
 
+    /** The m_results. */
     private Map<SnmpInstId, SNMPCollectorEntry> m_results = new TreeMap<SnmpInstId, SNMPCollectorEntry>();
 
     /**
@@ -63,14 +65,17 @@ public class SnmpIfCollector extends AggregateTracker {
      */
     private String m_primaryIf;
 
+    /** The m_obj list. */
     private List<SnmpAttributeType> m_objList;
 
+    /** The m_collection set. */
     private SnmpCollectionSet m_collectionSet;
 
     /**
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -171,6 +176,7 @@ public class SnmpIfCollector extends AggregateTracker {
      * <p>
      * hasData
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -182,6 +188,7 @@ public class SnmpIfCollector extends AggregateTracker {
      * <p>
      * getCollectionSet
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionSet}
      *         object.

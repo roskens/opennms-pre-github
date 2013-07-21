@@ -33,16 +33,45 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * The Interface JUnitCollector.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 public @interface JUnitCollector {
+
+    /**
+     * Schema config.
+     *
+     * @return the string
+     */
     String schemaConfig() default "/org/opennms/netmgt/config/test-database-schema.xml";
 
+    /**
+     * Datacollection config.
+     *
+     * @return the string
+     */
     String datacollectionConfig();
 
+    /**
+     * Datacollection type.
+     *
+     * @return the string
+     */
     String datacollectionType();
 
+    /**
+     * Anticipate rrds.
+     *
+     * @return the string[]
+     */
     String[] anticipateRrds() default {};
 
+    /**
+     * Anticipate files.
+     *
+     * @return the string[]
+     */
     String[] anticipateFiles() default {};
 }

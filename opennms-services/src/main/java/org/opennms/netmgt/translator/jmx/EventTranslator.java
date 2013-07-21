@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  */
 public class EventTranslator extends AbstractServiceDaemon implements EventTranslatorMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventTranslator.class);
 
     /**
@@ -66,12 +67,14 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
         super(NAME);
     }
 
+    /** The Constant NAME. */
     public static final String NAME = "event-translator";
 
     /**
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -113,6 +116,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -123,6 +127,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -133,6 +138,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -141,6 +147,11 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
         return getEventTranslator().getStatus();
     }
 
+    /**
+     * Gets the event translator.
+     *
+     * @return the event translator
+     */
     private org.opennms.netmgt.translator.EventTranslator getEventTranslator() {
         return org.opennms.netmgt.translator.EventTranslator.getInstance();
     }

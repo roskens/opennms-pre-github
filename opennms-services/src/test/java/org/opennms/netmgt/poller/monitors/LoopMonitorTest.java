@@ -40,13 +40,22 @@ import org.opennms.netmgt.poller.MonitoredService;
 import org.opennms.netmgt.poller.ServiceMonitor;
 import org.opennms.netmgt.poller.mock.MockMonitoredService;
 
+/**
+ * The Class LoopMonitorTest.
+ */
 public class LoopMonitorTest extends TestCase {
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -56,6 +65,12 @@ public class LoopMonitorTest extends TestCase {
      * Test method for
      * 'org.opennms.netmgt.poller.monitors.LoopMonitor.poll(MonitoredService,
      * Map, Package)'
+     */
+    /**
+     * Test poll.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testPoll() throws UnknownHostException {
 

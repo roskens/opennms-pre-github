@@ -38,10 +38,13 @@ package org.opennms.netmgt.linkd;
  */
 public class MacToNodeLink {
 
+    /** The mac address. */
     private final String macAddress;
 
+    /** The nodeparentid. */
     int nodeparentid;
 
+    /** The parentifindex. */
     int parentifindex;
 
     /**
@@ -60,6 +63,7 @@ public class MacToNodeLink {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

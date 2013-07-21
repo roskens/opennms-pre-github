@@ -61,6 +61,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms1055Test.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -74,25 +77,39 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBean {
 
+    /** The m_linkd. */
     @Autowired
     private Linkd m_linkd;
 
+    /** The m_linkd config. */
     private LinkdConfig m_linkdConfig;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties p = new Properties();
@@ -107,6 +124,12 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
 
     }
 
+    /**
+     * Sets the up linkd configuration.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUpLinkdConfiguration() throws Exception {
         LinkdConfigFactory.init();
@@ -116,6 +139,12 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
         m_linkdConfig = LinkdConfigFactory.getInstance();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -124,6 +153,9 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
         m_nodeDao.flush();
     }
 
+    /**
+     * Test abstract query managerfor lldp.
+     */
     @Test
     public void testAbstractQueryManagerforLldp() {
         m_nodeDao.save(getDelaware());
@@ -224,6 +256,12 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
      * Local Interface Parent Interface Chassis Id Port info System Name
      * ge-0/0/46.0 - 00:22:83:09:57:c0 ge-0/2/0 delaware
      * ge-0/0/0.0 - 80:71:1f:8f:af:c0 ge-1/2/1 penrose-mx480
+     */
+    /**
+     * Test network1055 links.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {
@@ -341,6 +379,12 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
      * We want to test that the next hop router discovered
      * links can be discovered using the ospf neb table
      */
+    /**
+     * Test network1055 stp links.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = {
             @JUnitSnmpAgent(host = PENROSE_IP, port = 161, resource = "classpath:linkd/nms1055/" + PENROSE_NAME + "_"
@@ -383,6 +427,12 @@ public class Nms1055Test extends Nms1055NetworkBuilder implements InitializingBe
     /*
      * We want to test that the next hop router discovered
      * links can be discovered using the ospf neb table
+     */
+    /**
+     * Test network1055 ospf links.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @JUnitSnmpAgents(value = {

@@ -30,8 +30,14 @@ package org.opennms.netmgt.scriptd.helper;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class EventPolicyRuleDefaultImpl.
+ */
 public class EventPolicyRuleDefaultImpl extends AbstractEventPolicyRule implements EventPolicyRule {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.AbstractEventPolicyRule#expand(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     /**
      * This method do nothing

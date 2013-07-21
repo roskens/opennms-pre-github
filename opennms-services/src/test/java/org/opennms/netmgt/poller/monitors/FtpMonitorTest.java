@@ -43,15 +43,26 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.mock.MockMonitoredService;
 
+/**
+ * The Class FtpMonitorTest.
+ */
 public class FtpMonitorTest extends TestCase {
+
+    /** The m_monitor. */
     private FtpMonitor m_monitor = new FtpMonitor();
 
+    /** The m_server socket. */
     private ServerSocket m_serverSocket = null;
 
+    /** The m_server thread. */
     private Thread m_serverThread = null;
 
+    /** The timeout. */
     private static int TIMEOUT = 2000;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -60,6 +71,9 @@ public class FtpMonitorTest extends TestCase {
         m_serverSocket.bind(null); // don't care what address, just gimme a port
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         if (m_serverSocket != null && !m_serverSocket.isClosed()) {
@@ -74,6 +88,12 @@ public class FtpMonitorTest extends TestCase {
     }
 
     // Let's not depend on external systems if we don't have to
+    /**
+     * SKI ptest monitor on opennms org ftp success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void SKIPtestMonitorOnOpennmsOrgFtpSuccess() throws Exception {
         PollStatus status = m_monitor.poll(new MockMonitoredService(1, "Node One",
                                                                     InetAddressUtils.addr("ftp.opennms.org"), "FTP"),
@@ -82,12 +102,24 @@ public class FtpMonitorTest extends TestCase {
     }
 
     // Let's not depend on external systems if we don't have to
+    /**
+     * SKI ptest monitor failure on random ftp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void SKIPtestMonitorFailureOnRandomFtp() throws Exception {
         PollStatus status = m_monitor.poll(new MockMonitoredService(1, "Node One", InetAddressUtils.addr("1.1.1.1"),
                                                                     "FTP"), new HashMap<String, Object>());
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
 
+    /**
+     * Test monitor success.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorSuccess() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -113,6 +145,12 @@ public class FtpMonitorTest extends TestCase {
         assertTrue("status should be available (Up), but is: " + status, status.isAvailable());
     }
 
+    /**
+     * Test monitor failure with bogus response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorFailureWithBogusResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -133,6 +171,12 @@ public class FtpMonitorTest extends TestCase {
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
 
+    /**
+     * Test monitor failure with no response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorFailureWithNoResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -153,6 +197,12 @@ public class FtpMonitorTest extends TestCase {
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
 
+    /**
+     * Test monitor failure with closed port.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testMonitorFailureWithClosedPort() throws Exception {
         m_serverSocket.close();
 
@@ -160,6 +210,13 @@ public class FtpMonitorTest extends TestCase {
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
 
+    /**
+     * Do poll.
+     *
+     * @return the poll status
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private PollStatus doPoll() throws UnknownHostException {
         Map<String, Object> m = new HashMap<String, Object>();
         m.put("port", m_serverSocket.getLocalPort());

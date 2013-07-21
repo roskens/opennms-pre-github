@@ -46,15 +46,16 @@ public interface ServiceCollector {
      */
     static final int COLLECTION_UNKNOWN = 0;
 
-    /** Constant <code>COLLECTION_SUCCEEDED=1</code> */
+    /** Constant <code>COLLECTION_SUCCEEDED=1</code>. */
     static final int COLLECTION_SUCCEEDED = 1;
 
-    /** Constant <code>COLLECTION_FAILED=2</code> */
+    /** Constant <code>COLLECTION_FAILED=2</code>. */
     static final int COLLECTION_FAILED = 2;
 
     /**
      * Constant
      * <code>statusType="{Unknown,COLLECTION_SUCCEEDED,COLLECTIO"{trunked}</code>
+     * .
      */
     static final String[] statusType = { "Unknown", "COLLECTION_SUCCEEDED", "COLLECTION_FAILED" };
 
@@ -62,9 +63,12 @@ public interface ServiceCollector {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.Map} object.
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     void initialize(Map<String, String> parameters) throws CollectionInitializationException;
 
@@ -72,6 +76,7 @@ public interface ServiceCollector {
      * <p>
      * release
      * </p>
+     * .
      */
     void release();
 
@@ -79,11 +84,14 @@ public interface ServiceCollector {
      * <p>
      * initialize
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
      * @param parameters
      *            a {@link java.util.Map} object.
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException;
 
@@ -91,6 +99,7 @@ public interface ServiceCollector {
      * <p>
      * release
      * </p>
+     * .
      *
      * @param agent
      *            a {@link org.opennms.netmgt.collectd.CollectionAgent} object.
@@ -108,8 +117,8 @@ public interface ServiceCollector {
      *            a {@link java.util.Map} object.
      * @return a {@link org.opennms.netmgt.config.collector.CollectionSet}
      *         object.
-     * @throws org.opennms.netmgt.collectd.CollectionException
-     *             if any.
+     * @throws CollectionException
+     *             the collection exception
      */
     CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)
             throws CollectionException;
@@ -118,6 +127,7 @@ public interface ServiceCollector {
      * <p>
      * getRrdRepository
      * </p>
+     * .
      *
      * @param collectionName
      *            a {@link java.lang.String} object.

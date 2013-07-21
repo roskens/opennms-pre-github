@@ -51,6 +51,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class PollerFrontEndIntegrationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -64,26 +67,39 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class PollerFrontEndIntegrationTest implements InitializingBean, TemporaryDatabaseAware<TemporaryDatabase> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollerFrontEndIntegrationTest.class);
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_front end. */
     @Autowired
     private PollerFrontEnd m_frontEnd;
 
+    /** The m_settings. */
     @Autowired
     private PollerSettings m_settings;
 
+    /** The m_file anticipator. */
     private static FileAnticipator m_fileAnticipator;
 
+    /** The m_database. */
     private TemporaryDatabase m_database;
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.test.db.TemporaryDatabaseAware#setTemporaryDatabase(org.opennms.core.test.db.TemporaryDatabase)
+     */
     @Override
     public void setTemporaryDatabase(TemporaryDatabase database) {
         m_database = database;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -108,11 +124,23 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
      * }
      */
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeTransaction
     public void setUp() throws Exception {
         m_populator.populateDatabase();
     }
 
+    /**
+     * Test register.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     @Ignore
@@ -159,16 +187,37 @@ public class PollerFrontEndIntegrationTest implements InitializingBean, Temporar
         m_frontEnd.stop();
     }
 
+    /**
+     * Gets the specific changes count.
+     *
+     * @param monitorId
+     *            the monitor id
+     * @return the specific changes count
+     */
     protected int getSpecificChangesCount(Integer monitorId) {
         return m_database.getJdbcTemplate().queryForInt("select count(*) from location_specific_status_changes where locationMonitorId = ?",
                                                         monitorId);
     }
 
+    /**
+     * Gets the disconnected count.
+     *
+     * @param monitorId
+     *            the monitor id
+     * @return the disconnected count
+     */
     protected int getDisconnectedCount(Integer monitorId) {
         return m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitors where status='DISCONNECTED' and id=?",
                                                         monitorId);
     }
 
+    /**
+     * Gets the monitor count.
+     *
+     * @param monitorId
+     *            the monitor id
+     * @return the monitor count
+     */
     protected int getMonitorCount(Integer monitorId) {
         return m_database.getJdbcTemplate().queryForInt("select count(*) from location_monitors where id=?", monitorId);
     }

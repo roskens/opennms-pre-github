@@ -51,12 +51,22 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class EventHandlerMBeanProxy implements EventHandler {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventHandlerMBeanProxy.class);
 
+    /** The m_mbserver. */
     private MBeanServer m_mbserver;
 
+    /** The m_listener. */
     private ObjectName m_listener;
 
+    /**
+     * Find server.
+     *
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
+     */
     private void findServer() throws InstanceNotFoundException {
 
         for (final MBeanServer sx : findMBeanServers()) {
@@ -75,6 +85,11 @@ public class EventHandlerMBeanProxy implements EventHandler {
 
     }
 
+    /**
+     * Find m bean servers.
+     *
+     * @return the list
+     */
     private List<MBeanServer> findMBeanServers() {
         // In java 1.5 this returns a generic ArrayList
         return MBeanServerFactory.findMBeanServer(null);
@@ -87,10 +102,10 @@ public class EventHandlerMBeanProxy implements EventHandler {
      *
      * @param name
      *            a {@link java.lang.String} object.
-     * @throws javax.management.MalformedObjectNameException
-     *             if any.
-     * @throws javax.management.InstanceNotFoundException
-     *             if any.
+     * @throws MalformedObjectNameException
+     *             the malformed object name exception
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     public EventHandlerMBeanProxy(final String name) throws MalformedObjectNameException, InstanceNotFoundException {
         m_listener = new ObjectName(name);
@@ -104,8 +119,8 @@ public class EventHandlerMBeanProxy implements EventHandler {
      *
      * @param name
      *            a {@link javax.management.ObjectName} object.
-     * @throws javax.management.InstanceNotFoundException
-     *             if any.
+     * @throws InstanceNotFoundException
+     *             the instance not found exception
      */
     public EventHandlerMBeanProxy(final ObjectName name) throws InstanceNotFoundException {
         m_listener = name;

@@ -69,23 +69,37 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class TrapdTest implements InitializingBean {
+
+    /** The m_snmp trap port. */
     @Resource(name = "snmpTrapPort")
     Integer m_snmpTrapPort;
 
+    /** The m_trapd. */
     @Autowired
     Trapd m_trapd;
 
+    /** The m_mock event ipc manager. */
     @Autowired
     MockEventIpcManager m_mockEventIpcManager;
 
+    /** The m_trapd config factory. */
     @Autowired
     TrapdConfigFactory m_trapdConfigFactory;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * On set up in transaction if enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void onSetUpInTransactionIfEnabled() throws Exception {
         m_mockEventIpcManager.setSynchronous(true);
@@ -93,6 +107,12 @@ public class TrapdTest implements InitializingBean {
         m_trapd.onStart();
     }
 
+    /**
+     * On tear down in transaction if enabled.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void onTearDownInTransactionIfEnabled() throws Exception {
         m_trapd.onStop();
@@ -100,6 +120,12 @@ public class TrapdTest implements InitializingBean {
         m_mockEventIpcManager.getEventAnticipator().verifyAnticipated(3000, 0, 0, 0, 0);
     }
 
+    /**
+     * Test snmp v1 trap send.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSnmpV1TrapSend() throws Exception {
         String localhost = "127.0.0.1";

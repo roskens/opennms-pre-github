@@ -51,10 +51,20 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.eventconf.Logmsg;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * The Class EventConfDataTest.
+ */
 public class EventConfDataTest {
 
+    /** The event conf dao. */
     DefaultEventConfDao eventConfDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(false);
@@ -66,76 +76,130 @@ public class EventConfDataTest {
         eventConfDao.afterPropertiesSet();
     }
 
+    /**
+     * Finish up.
+     */
     public void finishUp() {
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test event value passes mask value exact fail.
+     */
     @Test
     public void testEventValuePassesMaskValueExactFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk",
                                                             Collections.singletonList("George Clinton, teh father of funk")));
     }
 
+    /**
+     * Test event value passes mask value exact pass.
+     */
     @Test
     public void testEventValuePassesMaskValueExactPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk",
                                                            Collections.singletonList("George Clinton, father of funk")));
     }
 
+    /**
+     * Test event value passes mask value sub string fail.
+     */
     @Test
     public void testEventValuePassesMaskValueSubStringFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, teh father of funk",
                                                             Collections.singletonList("George Clinton, father of %")));
     }
 
+    /**
+     * Test event value passes mask value sub string pass.
+     */
     @Test
     public void testEventValuePassesMaskValueSubStringPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk",
                                                            Collections.singletonList("George Clinton, father of %")));
     }
 
+    /**
+     * Test event value passes mask value sub string pass empty.
+     */
     @Test
     public void testEventValuePassesMaskValueSubStringPassEmpty() {
         assertTrue(EventConfData.eventValuePassesMaskValue("", Collections.singletonList("%")));
     }
 
+    /**
+     * Test event value passes mask value regex anchored fail.
+     */
     @Test
     public void testEventValuePassesMaskValueRegexAnchoredFail() {
         assertFalse(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk",
                                                             Collections.singletonList("~^Bill.*Clinton.*funk$")));
     }
 
+    /**
+     * Test event value passes mask value regex anchored pass.
+     */
     @Test
     public void testEventValuePassesMaskValueRegexAnchoredPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("George Clinton, father of funk",
                                                            Collections.singletonList("~^George.*Clinton.*funk$")));
     }
 
+    /**
+     * Test event value passes mask value regex unanchored pass.
+     */
     @Test
     public void testEventValuePassesMaskValueRegexUnanchoredPass() {
         assertTrue(EventConfData.eventValuePassesMaskValue("Is FooBar On Air",
                                                            Collections.singletonList("~.*Foo[Bb]ar.*")));
     }
 
+    /**
+     * Test v1 trap new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapNewSuspect() throws Exception {
         anticipateAndSend(null, "v1", null, 6, 1);
     }
 
+    /**
+     * Test v2 trap new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2TrapNewSuspect() throws Exception {
         anticipateAndSend(null, "v2c", null, 6, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1EnterpriseIdAndGenericMatch() throws Exception {
         anticipateAndSend("uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v1", ".1.3.6.1.2.1.15.7", 6, 1);
     }
 
+    /**
+     * Test v2 enterprise id and generic and specific match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2EnterpriseIdAndGenericAndSpecificMatch() throws Exception {
         anticipateAndSend("uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v2c", ".1.3.6.1.2.1.15.7", 6, 1);
@@ -150,77 +214,168 @@ public class EventConfDataTest {
      * }
      */
 
+    /**
+     * Test v2 enterprise id and generic and specific miss with extra zeros.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2EnterpriseIdAndGenericAndSpecificMissWithExtraZeros() throws Exception {
         anticipateAndSend(null, "v2c", ".1.3.6.1.2.1.15.7.0.0", 6, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific miss with wrong generic.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongGeneric() throws Exception {
         anticipateAndSend(null, "v1", ".1.3.6.1.2.1.15.7", 5, 1);
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific miss with wrong specific.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1EnterpriseIdAndGenericAndSpecificMissWithWrongSpecific() throws Exception {
         anticipateAndSend(null, "v1", ".1.3.6.1.2.1.15.7", 6, 50);
     }
 
+    /**
+     * Test v1 generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1GenericMatch() throws Exception {
         anticipateAndSend("uei.opennms.org/generic/traps/SNMP_Cold_Start", "v1", null, 0, 0);
     }
 
+    /**
+     * Test v2 generic match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2GenericMatch() throws Exception {
         anticipateAndSend("uei.opennms.org/generic/traps/SNMP_Cold_Start", "v2c", ".1.3.6.1.6.3.1.1.5.1", 0, 0);
     }
 
+    /**
+     * Test v1 trap dropped event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapDroppedEvent() throws Exception {
         anticipateAndSend(null, "v1", ".1.3.6.1.2.1.15.7", 6, 2);
     }
 
+    /**
+     * Test v2 trap dropped event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2TrapDroppedEvent() throws Exception {
         anticipateAndSend(null, "v2c", ".1.3.6.1.2.1.15.7", 6, 2);
     }
 
+    /**
+     * Test v1 trap default event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapDefaultEvent() throws Exception {
         anticipateAndSend(null, "v1", null, 6, 1);
     }
 
+    /**
+     * Test v2 trap default event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV2TrapDefaultEvent() throws Exception {
         anticipateAndSend(null, "v2c", null, 6, 1);
     }
 
+    /**
+     * Test v1 trap dropped ip event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapDroppedIPEvent() throws Exception {
         anticipateAndSend(null, "v1", null, 0, 0, "192.168.1.1");
     }
 
+    /**
+     * Test v1 trap not dropped ip off event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapNotDroppedIPOffEvent() throws Exception {
         anticipateAndSend("uei.opennms.org/generic/traps/SNMP_Cold_Start", "v1", null, 0, 0, "192.168.1.2");
     }
 
+    /**
+     * Test v1 trap dropped network1 event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapDroppedNetwork1Event() throws Exception {
         anticipateAndSend(null, "v1", ".1.3.6.1.2.1.15.7", 6, 1, "192.168.1.1");
     }
 
+    /**
+     * Test v1 trap dropped network2 event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapDroppedNetwork2Event() throws Exception {
         anticipateAndSend(null, "v1", ".1.3.6.1.2.1.15.7", 6, 1, "192.168.1.2");
     }
 
+    /**
+     * Test v1 trap not dropped network off event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testV1TrapNotDroppedNetworkOffEvent() throws Exception {
         anticipateAndSend("uei.opennms.org/IETF/BGP/traps/bgpEstablished", "v1", ".1.3.6.1.2.1.15.7", 6, 1,
                           "192.168.2.1");
     }
 
+    /**
+     * Test v1 enterprise id and generic and specific and match with varbinds
+     * and tc.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("This is a test for unwritten functionality.. see comment in test")
     public void testV1EnterpriseIdAndGenericAndSpecificAndMatchWithVarbindsAndTC() throws Exception {
@@ -256,6 +411,19 @@ public class EventConfDataTest {
                           ".1.3.6.1.4.1.14179.2.6.3", 6, 38, "192.168.2.1", varbinds);
     }
 
+    /**
+     * Creates the event builder.
+     *
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @return the event builder
+     */
     private EventBuilder createEventBuilder(String version, String enterprise, int generic, int specific) {
         EventBuilder bldr = new EventBuilder(null, "EventConfDataTest");
 
@@ -272,6 +440,21 @@ public class EventConfDataTest {
         return bldr;
     }
 
+    /**
+     * Creates the event builder.
+     *
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param snmphost
+     *            the snmphost
+     * @return the event builder
+     */
     public EventBuilder createEventBuilder(String version, String enterprise, int generic, int specific, String snmphost) {
         EventBuilder bldr = createEventBuilder(version, enterprise, generic, specific);
 
@@ -280,6 +463,23 @@ public class EventConfDataTest {
         return bldr;
     }
 
+    /**
+     * Creates the event builder.
+     *
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param snmphost
+     *            the snmphost
+     * @param varbinds
+     *            the varbinds
+     * @return the event builder
+     */
     private EventBuilder createEventBuilder(String version, String enterprise, int generic, int specific,
             String snmphost, LinkedHashMap<String, String> varbinds) {
         EventBuilder blder = createEventBuilder(version, enterprise, generic, specific, snmphost);
@@ -291,24 +491,84 @@ public class EventConfDataTest {
         return blder;
     }
 
+    /**
+     * Anticipate and send.
+     *
+     * @param event
+     *            the event
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param snmphost
+     *            the snmphost
+     * @param varbinds
+     *            the varbinds
+     */
     private void anticipateAndSend(String event, String version, String enterprise, int generic, int specific,
             String snmphost, LinkedHashMap<String, String> varbinds) {
         EventBuilder snmp = createEventBuilder(version, enterprise, generic, specific, snmphost, varbinds);
         anticipateAndSend(event, snmp.getEvent());
     }
 
+    /**
+     * Anticipate and send.
+     *
+     * @param event
+     *            the event
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @throws Exception
+     *             the exception
+     */
     public void anticipateAndSend(String event, String version, String enterprise, int generic, int specific)
             throws Exception {
         EventBuilder snmp = createEventBuilder(version, enterprise, generic, specific);
         anticipateAndSend(event, snmp.getEvent());
     }
 
+    /**
+     * Anticipate and send.
+     *
+     * @param event
+     *            the event
+     * @param version
+     *            the version
+     * @param enterprise
+     *            the enterprise
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     * @param snmphost
+     *            the snmphost
+     * @throws Exception
+     *             the exception
+     */
     public void anticipateAndSend(String event, String version, String enterprise, int generic, int specific,
             String snmphost) throws Exception {
         EventBuilder snmp = createEventBuilder(version, enterprise, generic, specific, snmphost);
         anticipateAndSend(event, snmp.getEvent());
     }
 
+    /**
+     * Anticipate and send.
+     *
+     * @param event
+     *            the event
+     * @param snmp
+     *            the snmp
+     */
     public void anticipateAndSend(String event, Event snmp) {
         /*
          * if (event != null) {

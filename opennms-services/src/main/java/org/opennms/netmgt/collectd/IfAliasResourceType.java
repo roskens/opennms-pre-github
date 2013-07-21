@@ -47,12 +47,16 @@ import org.slf4j.LoggerFactory;
  */
 public class IfAliasResourceType extends ResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfAliasResourceType.class);
 
+    /** The m_if resource type. */
     private IfResourceType m_ifResourceType;
 
+    /** The m_aliased ifs. */
     private Map<Integer, AliasedResource> m_aliasedIfs = new HashMap<Integer, AliasedResource>();
 
+    /** The m_params. */
     private ServiceParameters m_params;
 
     /**
@@ -67,10 +71,10 @@ public class IfAliasResourceType extends ResourceType {
      *            object.
      * @param params
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
-     *            object.
      * @param ifResourceType
      *            a {@link org.opennms.netmgt.collectd.IfResourceType} object.
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
      */
     public IfAliasResourceType(CollectionAgent agent, OnmsSnmpCollection snmpCollection, ServiceParameters params,
             IfResourceType ifResourceType) {
@@ -120,6 +124,7 @@ public class IfAliasResourceType extends ResourceType {
      * <p>
      * loadAttributeTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -132,6 +137,7 @@ public class IfAliasResourceType extends ResourceType {
      * <p>
      * getResources
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -141,6 +147,9 @@ public class IfAliasResourceType extends ResourceType {
     }
 
     // TODO Tak cleanup toString super hack
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return super.toString() + " IfAliasResourceType{" + "m_ifResourceType=" + m_ifResourceType + ", m_aliasedIfs="

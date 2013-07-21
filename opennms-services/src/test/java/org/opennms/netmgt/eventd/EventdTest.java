@@ -75,29 +75,42 @@ import org.springframework.test.context.ContextConfiguration;
         "classpath:/META-INF/opennms/applicationContext-mockEventd.xml" })
 @JUnitConfigurationEnvironment
 public class EventdTest implements InitializingBean {
+
+    /** The Constant SLEEP_TIME. */
     private static final long SLEEP_TIME = 50;
 
+    /** The m_eventd ipc mgr. */
     @Autowired
     @Qualifier(value = "eventIpcManagerImpl")
     private EventIpcManager m_eventdIpcMgr;
 
+    /** The m_eventd. */
     @Autowired
     private Eventd m_eventd;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -105,6 +118,9 @@ public class EventdTest implements InitializingBean {
         m_eventd.onStart();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         m_eventd.onStop();
@@ -112,6 +128,12 @@ public class EventdTest implements InitializingBean {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test persist event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPersistEvent() throws Exception {
         CriteriaBuilder cb = new CriteriaBuilder(OnmsEvent.class);
@@ -142,6 +164,9 @@ public class EventdTest implements InitializingBean {
 
     /**
      * Test that eventd's service ID lookup works properly.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testPersistEventWithService() throws Exception {
@@ -168,9 +193,13 @@ public class EventdTest implements InitializingBean {
     }
 
     /**
+     * Send node down event.
+     *
      * @param reductionKey
+     *            the reduction key
      * @param node
-     * @return
+     *            the node
+     * @return the event
      */
     private Event sendNodeDownEvent(String reductionKey, OnmsNode node) {
         EventBuilder e = MockEventUtil.createNodeDownEventBuilder("Test", node);
@@ -193,7 +222,12 @@ public class EventdTest implements InitializingBean {
     }
 
     /**
+     * Send service down event.
+     *
      * @param reductionKey
+     *            the reduction key
+     * @param svc
+     *            the svc
      */
     private void sendServiceDownEvent(String reductionKey, OnmsMonitoredService svc) {
         final EventBuilder e = MockEventUtil.createEventBuilder("Test", EventConstants.SERVICE_UNRESPONSIVE_EVENT_UEI,

@@ -45,32 +45,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class AspectJTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/org/opennms/spring/xml/applicationContext-testAOP.xml" })
 @JUnitConfigurationEnvironment
 @DirtiesContext
 public class AspectJTest implements InitializingBean {
 
+    /** The m_event ipc manager. */
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
 
+    /** The m_handler. */
     @Autowired
     private AspectJTestEventHandler m_handler;
 
+    /** The m_interceptor. */
     @Autowired
     private AspectJTestEventHandlerInteceptor m_interceptor;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * On set up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void onSetUp() throws Exception {
         m_handler.reset();
         m_interceptor.reset();
     }
 
+    /**
+     * Test aop proxying.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @Test
     public void testAOPProxying() throws Throwable {
 
@@ -86,6 +107,9 @@ public class AspectJTest implements InitializingBean {
 
     }
 
+    /**
+     * Test event adapter on proxy.
+     */
     @Test
     public void testEventAdapterOnProxy() {
 
@@ -101,6 +125,9 @@ public class AspectJTest implements InitializingBean {
 
     }
 
+    /**
+     * Test handled exception.
+     */
     @Test
     public void testHandledException() {
 
@@ -120,6 +147,9 @@ public class AspectJTest implements InitializingBean {
 
     }
 
+    /**
+     * Test unhandled exception.
+     */
     @Test
     public void testUnhandledException() {
 
@@ -139,10 +169,23 @@ public class AspectJTest implements InitializingBean {
 
     }
 
+    /**
+     * Send event.
+     *
+     * @param uei
+     *            the uei
+     */
     private void sendEvent(String uei) {
         m_eventIpcManager.sendNow(createEvent(uei));
     }
 
+    /**
+     * Creates the event.
+     *
+     * @param uei
+     *            the uei
+     * @return the event
+     */
     private Event createEvent(String uei) {
         return new EventBuilder(uei, "Test").getEvent();
     }

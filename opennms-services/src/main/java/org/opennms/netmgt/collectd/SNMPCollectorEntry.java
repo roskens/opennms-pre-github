@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class SNMPCollectorEntry extends AbstractSnmpStore {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SNMPCollectorEntry.class);
 
     /**
@@ -67,6 +68,7 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
      */
     private Collection<SnmpAttributeType> m_attrList;
 
+    /** The m_collection set. */
     private SnmpCollectionSet m_collectionSet;
 
     /**
@@ -89,6 +91,15 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         m_collectionSet = collectionSet;
     }
 
+    /**
+     * Find attribute type for oid.
+     *
+     * @param base
+     *            the base
+     * @param inst
+     *            the inst
+     * @return the list
+     */
     private List<SnmpAttributeType> findAttributeTypeForOid(SnmpObjId base, SnmpInstId inst) {
         List<SnmpAttributeType> matching = new LinkedList<SnmpAttributeType>();
         for (SnmpAttributeType attrType : m_attrList) {
@@ -119,6 +130,13 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         }
     }
 
+    /**
+     * Gets the value for base.
+     *
+     * @param baseOid
+     *            the base oid
+     * @return the value for base
+     */
     String getValueForBase(String baseOid) {
 
         String instance = String.valueOf(getIfIndex());

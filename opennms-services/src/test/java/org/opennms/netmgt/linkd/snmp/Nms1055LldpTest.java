@@ -49,16 +49,28 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class Nms1055LldpTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitConfigurationEnvironment(systemProperties = "org.opennms.provisiond.enableDiscovery=false")
 public class Nms1055LldpTest extends Nms1055NetworkBuilder implements InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test network1055 penrose lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = PENROSE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + PENROSE_NAME + "_" + PENROSE_IP + ".txt") })
@@ -83,6 +95,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(PENROSE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 delaware lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = DELAWARE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + DELAWARE_NAME + "_" + DELAWARE_IP + ".txt") })
@@ -107,6 +125,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(DELAWARE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 phoenix lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = PHOENIX_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + PHOENIX_NAME + "_" + PHOENIX_IP + ".txt") })
@@ -131,6 +155,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(PHOENIX_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 austin lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = AUSTIN_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + AUSTIN_NAME + "_" + AUSTIN_IP + ".txt") })
@@ -155,6 +185,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(AUSTIN_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 sanjose lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = SANJOSE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + SANJOSE_NAME + "_" + SANJOSE_IP + ".txt") })
@@ -179,6 +215,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(SANJOSE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 riovista lldp local base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = RIOVISTA_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + RIOVISTA_NAME + "_" + RIOVISTA_IP + ".txt") })
@@ -203,6 +245,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals(RIOVISTA_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
+    /**
+     * Test network1055 dot1d base collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = PENROSE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + PENROSE_NAME + "_" + PENROSE_IP + ".txt") })
@@ -225,6 +273,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         assertEquals("80711f8fafd0", m_lLldpLocalGroup.getBridgeAddress());
     }
 
+    /**
+     * Test network1055 lldp loc table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = DELAWARE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + DELAWARE_NAME + "_" + DELAWARE_IP + ".txt") })
@@ -252,6 +306,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         }
     }
 
+    /**
+     * Test network1055 lldp rem table collection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents(value = { @JUnitSnmpAgent(host = DELAWARE_IP, port = 161, resource = "classpath:linkd/nms1055/"
             + DELAWARE_NAME + "_" + DELAWARE_IP + ".txt") })
@@ -279,6 +339,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         }
     }
 
+    /**
+     * Check row.
+     *
+     * @param lldpRemTableEntry
+     *            the lldp rem table entry
+     */
     private void checkRow(LldpRemTableEntry lldpRemTableEntry) {
         final Integer lldpRemLocalPortNum = lldpRemTableEntry.getLldpRemLocalPortNum();
         final String lldpRemSysname = lldpRemTableEntry.getLldpRemSysname();
@@ -311,6 +377,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         }
     }
 
+    /**
+     * Check row.
+     *
+     * @param lldpLocTableEntry
+     *            the lldp loc table entry
+     */
     private void checkRow(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();

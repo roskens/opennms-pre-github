@@ -42,7 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * XmlRpcEventHandlerNotifier
+ * XmlRpcEventHandlerNotifier.
  *
  * @author brozow
  * @version $Id: $
@@ -51,12 +51,14 @@ import org.slf4j.LoggerFactory;
 @Aspect
 public class XmlRpcEventHandlerNotifier {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(XmlRpcEventHandlerNotifier.class);
 
     /**
      * <p>
      * capsdMethod
      * </p>
+     * .
      */
     @Pointcut("execution(* org.opennms.netmgt.capsd.BroadcastEventProcessor.*(..))")
     public void capsdMethod() {
@@ -66,6 +68,7 @@ public class XmlRpcEventHandlerNotifier {
      * <p>
      * eventHandler
      * </p>
+     * .
      */
     @Pointcut("@annotation(org.opennms.netmgt.model.events.annotations.EventHandler)")
     public void eventHandler() {
@@ -75,6 +78,7 @@ public class XmlRpcEventHandlerNotifier {
      * <p>
      * capsdEventHandler
      * </p>
+     * .
      */
     @Pointcut("capsdMethod() && eventHandler()")
     public void capsdEventHandler() {
@@ -84,13 +88,14 @@ public class XmlRpcEventHandlerNotifier {
      * <p>
      * onEvent
      * </p>
+     * .
      *
      * @param pjp
      *            a {@link org.aspectj.lang.ProceedingJoinPoint} object.
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @throws java.lang.Throwable
-     *             if any.
+     * @throws Throwable
+     *             the throwable
      */
     @Around("capsdEventHandler() && args(event)")
     public void onEvent(ProceedingJoinPoint pjp, Event event) throws Throwable {
@@ -109,8 +114,10 @@ public class XmlRpcEventHandlerNotifier {
         }
     }
 
+    /** The m_notify set. */
     private Set<String> m_notifySet;
 
+    /** The m_xml rpc enabled. */
     private boolean m_xmlRpcEnabled;
 
     /**
@@ -137,6 +144,7 @@ public class XmlRpcEventHandlerNotifier {
      * <p>
      * isXmlRpcEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -148,6 +156,7 @@ public class XmlRpcEventHandlerNotifier {
      * <p>
      * setXmlRpcEnabled
      * </p>
+     * .
      *
      * @param xmlRpcEnabled
      *            a boolean.
@@ -156,17 +165,39 @@ public class XmlRpcEventHandlerNotifier {
         m_xmlRpcEnabled = xmlRpcEnabled;
     }
 
+    /**
+     * Handle failed operation exception.
+     *
+     * @param event
+     *            the event
+     * @param ex
+     *            the ex
+     */
     private void handleFailedOperationException(Event event, FailedOperationException ex) {
         LOG.error("BroadcastEventProcessor: operation failed for event: {}, exception: {}", event.getUei(),
                   ex.getMessage());
         notifyEventError(event, "processing failed: ", ex);
     }
 
+    /**
+     * Handle insufficient information exception.
+     *
+     * @param event
+     *            the event
+     * @param ex
+     *            the ex
+     */
     private void handleInsufficientInformationException(Event event, InsufficientInformationException ex) {
         LOG.info("BroadcastEventProcessor: insufficient information in event, discarding it: {}", ex.getMessage());
         notifyEventError(event, "Invalid parameters: ", ex);
     }
 
+    /**
+     * Notify event success.
+     *
+     * @param event
+     *            the event
+     */
     private void notifyEventSuccess(Event event) {
         if (!isXmlRpcEnabled())
             return;
@@ -184,6 +215,16 @@ public class XmlRpcEventHandlerNotifier {
         }
     }
 
+    /**
+     * Notify event error.
+     *
+     * @param event
+     *            the event
+     * @param msg
+     *            the msg
+     * @param ex
+     *            the ex
+     */
     private void notifyEventError(Event event, String msg, Exception ex) {
         if (!isXmlRpcEnabled())
             return;
@@ -196,6 +237,12 @@ public class XmlRpcEventHandlerNotifier {
         }
     }
 
+    /**
+     * Notify event received.
+     *
+     * @param event
+     *            the event
+     */
     private void notifyEventReceived(Event event) {
         if (!isXmlRpcEnabled())
             return;

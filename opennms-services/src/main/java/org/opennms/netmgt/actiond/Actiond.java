@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Actiond extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Actiond.class);
 
     /**
@@ -56,9 +57,7 @@ public final class Actiond extends AbstractServiceDaemon {
      */
     private static final Actiond m_singleton = new Actiond();
 
-    /**
-     * The execution launcher and reaper
-     */
+    /** The execution launcher and reaper. */
     private Executor m_executor;
 
     /**
@@ -66,6 +65,7 @@ public final class Actiond extends AbstractServiceDaemon {
      */
     private BroadcastEventProcessor m_eventReader;
 
+    /** The m_actiond config. */
     private ActiondConfigFactory m_actiondConfig;
 
     /**
@@ -81,6 +81,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -105,6 +106,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -119,6 +121,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -142,6 +145,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -152,6 +156,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -172,6 +177,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * getEventReader
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor}
      *         object.
@@ -184,6 +190,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * setEventReader
      * </p>
+     * .
      *
      * @param eventReader
      *            a {@link org.opennms.netmgt.actiond.BroadcastEventProcessor}
@@ -197,6 +204,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * getExecutor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.actiond.Executor} object.
      */
@@ -208,6 +216,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * setExecutor
      * </p>
+     * .
      *
      * @param executor
      *            a {@link org.opennms.netmgt.actiond.Executor} object.
@@ -220,6 +229,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * getActiondConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ActiondConfigFactory} object.
      */
@@ -231,6 +241,7 @@ public final class Actiond extends AbstractServiceDaemon {
      * <p>
      * setActiondConfig
      * </p>
+     * .
      *
      * @param actiondConfig
      *            a {@link org.opennms.netmgt.config.ActiondConfigFactory}

@@ -61,16 +61,13 @@ import org.springframework.transaction.PlatformTransactionManager;
  */
 final class CollectableService implements ReadyRunnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectableService.class);
 
-    /**
-     * Interface's parent node identifier
-     */
+    /** Interface's parent node identifier. */
     private volatile int m_nodeId;
 
-    /**
-     * Last known/current status
-     */
+    /** Last known/current status. */
     private volatile int m_status;
 
     /**
@@ -78,38 +75,37 @@ final class CollectableService implements ReadyRunnable {
      */
     private volatile long m_lastScheduledCollectionTime;
 
-    /**
-     * The scheduler for collectd
-     */
+    /** The scheduler for collectd. */
     private final Scheduler m_scheduler;
 
-    /**
-     * Service updates
-     */
+    /** Service updates. */
     private final CollectorUpdates m_updates;
 
-    /**
-     * The thresholdvisitor for this collectable service; called
-     */
+    /** The thresholdvisitor for this collectable service; called. */
     private final ThresholdingVisitor m_thresholdVisitor;
 
-    /**
-     *
-     */
+    /** The Constant ABORT_COLLECTION. */
     private static final boolean ABORT_COLLECTION = true;
 
+    /** The m_spec. */
     private final CollectionSpecification m_spec;
 
+    /** The m_scheduling completed flag. */
     private final SchedulingCompletedFlag m_schedulingCompletedFlag;
 
+    /** The m_agent. */
     private volatile CollectionAgent m_agent;
 
+    /** The m_trans mgr. */
     private final PlatformTransactionManager m_transMgr;
 
+    /** The m_iface dao. */
     private final IpInterfaceDao m_ifaceDao;
 
+    /** The m_params. */
     private final ServiceParameters m_params;
 
+    /** The m_repository. */
     private final RrdRepository m_repository;
 
     /**
@@ -117,20 +113,22 @@ final class CollectableService implements ReadyRunnable {
      *
      * @param iface
      *            The interface on which to collect data
-     * @param spec
-     *            The package containing parms for this collectable service.
      * @param ifaceDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
+     * @param spec
+     *            The package containing parms for this collectable service.
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      * @param schedulingCompletedFlag
      *            a
-     *            {@link org.opennms.netmgt.collectd.Collectd.SchedulingCompletedFlag}
-     *            object.
      * @param transMgr
      *            a
-     *            {@link org.springframework.transaction.PlatformTransactionManager}
-     *            object.
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     *             {@link org.opennms.netmgt.collectd.Collectd.SchedulingCompletedFlag}
+     *             object.
+     *             {@link org.springframework.transaction.PlatformTransactionManager}
+     *             object.
      */
     protected CollectableService(OnmsIpInterface iface, IpInterfaceDao ifaceDao, CollectionSpecification spec,
             Scheduler scheduler, SchedulingCompletedFlag schedulingCompletedFlag, PlatformTransactionManager transMgr)
@@ -164,6 +162,7 @@ final class CollectableService implements ReadyRunnable {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.Object} object.
      */
@@ -175,6 +174,7 @@ final class CollectableService implements ReadyRunnable {
      * <p>
      * getSpecification
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectionSpecification}
      *         object.
@@ -184,7 +184,7 @@ final class CollectableService implements ReadyRunnable {
     }
 
     /**
-     * Returns node identifier
+     * Returns node identifier.
      *
      * @return a int.
      */
@@ -193,7 +193,7 @@ final class CollectableService implements ReadyRunnable {
     }
 
     /**
-     * Returns the service name
+     * Returns the service name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -202,7 +202,7 @@ final class CollectableService implements ReadyRunnable {
     }
 
     /**
-     * Returns the package name
+     * Returns the package name.
      *
      * @return a {@link java.lang.String} object.
      */
@@ -211,7 +211,7 @@ final class CollectableService implements ReadyRunnable {
     }
 
     /**
-     * Returns updates object
+     * Returns updates object.
      *
      * @return a {@link org.opennms.netmgt.collectd.CollectorUpdates} object.
      */
@@ -264,6 +264,11 @@ final class CollectableService implements ReadyRunnable {
         return ready;
     }
 
+    /**
+     * Checks if is scheduling complete.
+     *
+     * @return true, if is scheduling complete
+     */
     private boolean isSchedulingComplete() {
         return m_schedulingCompletedFlag.isSchedulingCompleted();
     }
@@ -271,6 +276,11 @@ final class CollectableService implements ReadyRunnable {
     /**
      * Generate event and send it to eventd via the event proxy.
      * uei Universal event identifier of event to generate.
+     *
+     * @param uei
+     *            the uei
+     * @param reason
+     *            the reason
      */
     private void sendEvent(String uei, String reason) {
         EventBuilder builder = new EventBuilder(uei, "OpenNMS.Collectd");
@@ -293,6 +303,11 @@ final class CollectableService implements ReadyRunnable {
         }
     }
 
+    /**
+     * Gets the host address.
+     *
+     * @return the host address
+     */
     private String getHostAddress() {
         return m_agent.getHostAddress();
     }
@@ -316,6 +331,9 @@ final class CollectableService implements ReadyRunnable {
         });
     }
 
+    /**
+     * Do run.
+     */
     private void doRun() {
         // Process any outstanding updates.
         if (processUpdates() == ABORT_COLLECTION) {
@@ -356,6 +374,14 @@ final class CollectableService implements ReadyRunnable {
         m_scheduler.schedule(m_spec.getInterval(), getReadyRunnable());
     }
 
+    /**
+     * Update status.
+     *
+     * @param status
+     *            the status
+     * @param e
+     *            the e
+     */
     private void updateStatus(int status, CollectionException e) {
         // Any change in status?
         if (status != m_status) {
@@ -386,6 +412,15 @@ final class CollectableService implements ReadyRunnable {
         m_status = status;
     }
 
+    /**
+     * Creates the persister.
+     *
+     * @param params
+     *            the params
+     * @param repository
+     *            the repository
+     * @return the base persister
+     */
     private BasePersister createPersister(ServiceParameters params, RrdRepository repository) {
         if (Boolean.getBoolean("org.opennms.rrd.storeByGroup")) {
             return new GroupPersister(params, repository);
@@ -396,6 +431,9 @@ final class CollectableService implements ReadyRunnable {
 
     /**
      * Perform data collection.
+     *
+     * @throws CollectionException
+     *             the collection exception
      */
     private void doCollection() throws CollectionException {
         LOG.info("run: starting new collection for {}/{}/{}", getHostAddress(), m_spec.getServiceName(),
@@ -609,6 +647,14 @@ final class CollectableService implements ReadyRunnable {
         return !ABORT_COLLECTION;
     }
 
+    /**
+     * Reinitialize.
+     *
+     * @param newIface
+     *            the new iface
+     * @throws CollectionInitializationException
+     *             the collection initialization exception
+     */
     private void reinitialize(OnmsIpInterface newIface) throws CollectionInitializationException {
         m_spec.release(m_agent);
         m_agent = DefaultCollectionAgent.create(newIface.getId(), m_ifaceDao, m_transMgr);
@@ -619,6 +665,7 @@ final class CollectableService implements ReadyRunnable {
      * <p>
      * reinitializeThresholding
      * </p>
+     * .
      */
     public void reinitializeThresholding() {
         if (m_thresholdVisitor != null) {
@@ -631,6 +678,7 @@ final class CollectableService implements ReadyRunnable {
      * <p>
      * getReadyRunnable
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.scheduler.ReadyRunnable} object.
      */

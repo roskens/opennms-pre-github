@@ -70,24 +70,32 @@ import org.slf4j.LoggerFactory;
  */
 public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Vacuumd.class);
 
+    /** The m_singleton. */
     private static volatile Vacuumd m_singleton;
 
+    /** The m_thread. */
     private volatile Thread m_thread;
 
+    /** The m_start time. */
     private volatile long m_startTime;
 
+    /** The m_stopped. */
     private volatile boolean m_stopped = false;
 
+    /** The m_scheduler. */
     private volatile LegacyScheduler m_scheduler;
 
+    /** The m_event mgr. */
     private volatile EventIpcManager m_eventMgr;
 
     /**
      * <p>
      * getSingleton
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.vacuumd.Vacuumd} object.
      */
@@ -131,6 +139,22 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         scheduleAutomations();
     }
 
+    /**
+     * Initialize data sources.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     * @throws PropertyVetoException
+     *             the property veto exception
+     * @throws SQLException
+     *             the sQL exception
+     */
     private void initializeDataSources() throws MarshalException, ValidationException, IOException,
             ClassNotFoundException, PropertyVetoException, SQLException {
         for (Trigger trigger : getVacuumdConfig().getTriggers()) {
@@ -181,6 +205,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -212,6 +237,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
      * <p>
      * executeStatements
      * </p>
+     * .
      */
     protected void executeStatements() {
         if (!m_stopped) {
@@ -223,10 +249,15 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     }
 
     /**
+     * Wait period.
+     *
      * @param now
+     *            the now
      * @param period
+     *            the period
      * @param waitTime
-     * @return
+     *            the wait time
+     * @return the long
      */
     private long waitPeriod(long now, long period, long waitTime) {
         int count = 0;
@@ -245,6 +276,14 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         return now;
     }
 
+    /**
+     * Run update.
+     *
+     * @param sql
+     *            the sql
+     * @param transactional
+     *            the transactional
+     */
     private void runUpdate(String sql, boolean transactional) {
         LOG.info("Vacuumd executing statement: {}", sql);
         // update the database
@@ -288,6 +327,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         }
     }
 
+    /**
+     * Creates the scheduler.
+     */
     private void createScheduler() {
         try {
             LOG.debug("init: Creating Vacuumd scheduler");
@@ -302,6 +344,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
@@ -309,12 +352,21 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         return m_scheduler;
     }
 
+    /**
+     * Schedule automations.
+     */
     private void scheduleAutomations() {
         for (Automation auto : getVacuumdConfig().getAutomations()) {
             scheduleAutomation(auto);
         }
     }
 
+    /**
+     * Schedule automation.
+     *
+     * @param auto
+     *            the auto
+     */
     private void scheduleAutomation(Automation auto) {
         if (auto.getActive()) {
             AutomationProcessor ap = new AutomationProcessor(auto);
@@ -328,6 +380,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -339,6 +392,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -357,6 +411,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         }
     }
 
+    /**
+     * Handle reload conifg event.
+     */
     private void handleReloadConifgEvent() {
         LOG.info("onEvent: reloading configuration...");
 
@@ -420,6 +477,13 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         }
     }
 
+    /**
+     * Checks if is reload config event.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event
+     */
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
 
@@ -442,10 +506,20 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         return isTarget;
     }
 
+    /**
+     * Gets the vacuumd config.
+     *
+     * @return the vacuumd config
+     */
     private VacuumdConfigFactory getVacuumdConfig() {
         return VacuumdConfigFactory.getInstance();
     }
 
+    /**
+     * Gets the data source factory.
+     *
+     * @return the data source factory
+     */
     private DataSource getDataSourceFactory() {
         return DataSourceFactory.getInstance();
     }

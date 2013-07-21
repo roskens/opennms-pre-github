@@ -58,6 +58,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class ChartUtilsTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -65,8 +68,11 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class ChartUtilsTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ChartUtilsTest.class);
 
+    /** The Constant CHART_CONFIG. */
     private static final String CHART_CONFIG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<tns:chart-configuration xmlns:tns=\"http://xmlns.opennms.org/xsd/config/charts\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.opennms.org/xsd/config/charts ../src/services/org/opennms/netmgt/config/chart-configuration.xsd \">\n"
             + "\n"
@@ -129,16 +135,40 @@ public class ChartUtilsTest {
 
     // private ChartConfiguration m_config;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         System.setProperty("java.awt.headless", "true");
         initalizeChartFactory();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test get bar chart config.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void testGetBarChartConfig() throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
@@ -147,6 +177,18 @@ public class ChartUtilsTest {
         assertTrue(ChartUtils.getBarChartConfigByName("sample-bar-chart").getClass() == BarChart.class);
     }
 
+    /**
+     * Test get bar chart.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     public void testGetBarChart() throws MarshalException, ValidationException, IOException, SQLException {
         JFreeChart barChart = ChartUtils.getBarChart("sample-bar-chart");
@@ -155,6 +197,18 @@ public class ChartUtilsTest {
         assertEquals(2, barChart.getSubtitleCount());
     }
 
+    /**
+     * Test get chart with invalid chart name.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     public void testGetChartWithInvalidChartName() throws MarshalException, ValidationException, IOException,
             SQLException {
@@ -168,6 +222,20 @@ public class ChartUtilsTest {
         assertNull(chart);
     }
 
+    /**
+     * Test get chart as file output stream.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws MarshalException
+     *             the marshal exception
+     */
     @Test
     public void testGetChartAsFileOutputStream() throws FileNotFoundException, IOException, SQLException,
             ValidationException, MarshalException {
@@ -177,12 +245,34 @@ public class ChartUtilsTest {
         stream.close();
     }
 
+    /**
+     * Test get chart as buffered image.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             the sQL exception
+     */
     @Test
     public void testGetChartAsBufferedImage() throws MarshalException, ValidationException, IOException, SQLException {
         BufferedImage bi = ChartUtils.getChartAsBufferedImage("sample-bar-chart");
         assertEquals(300, bi.getHeight());
     }
 
+    /**
+     * Initalize chart factory.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private static void initalizeChartFactory() throws MarshalException, ValidationException, IOException {
         ChartConfigFactory.setInstance(new ChartConfigFactory());
         ByteArrayInputStream rdr = new ByteArrayInputStream(CHART_CONFIG.getBytes("UTF-8"));

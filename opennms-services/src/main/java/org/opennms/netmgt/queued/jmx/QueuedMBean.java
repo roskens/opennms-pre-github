@@ -39,10 +39,12 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * @version $Id: $
  */
 public interface QueuedMBean extends BaseOnmsMBean {
+
     /**
      * <p>
      * getElapsedTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -52,6 +54,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getTotalOperationsPending
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -61,6 +64,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getSignificantOpsCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -70,6 +74,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getCreatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -79,6 +84,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getUpdatesCompleted
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -88,6 +94,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getErrors
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -97,6 +104,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getPromotionCount
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -106,6 +114,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getSignificantOpsEnqueued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -115,6 +124,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getSignificantOpsDequeued
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -124,6 +134,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getEnqueuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -133,6 +144,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getDequeuedOperations
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -142,6 +154,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getDequeuedItems
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -151,6 +164,7 @@ public interface QueuedMBean extends BaseOnmsMBean {
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a long.
      */

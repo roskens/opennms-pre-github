@@ -60,10 +60,15 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Tticket;
 
 /**
+ * The Class NotifdTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class NotifdTest extends NotificationsTestCase {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -73,6 +78,9 @@ public class NotifdTest extends NotificationsTestCase {
         m_anticipator.setExpectedDifference(5000);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
@@ -83,6 +91,7 @@ public class NotifdTest extends NotificationsTestCase {
      * see http://bugzilla.opennms.org/cgi-bin/bugzilla/show_bug.cgi?id=1022
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testWicktorBug_1022_1031() throws Exception {
@@ -118,6 +127,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     // FIXME: latest notifd code seems to fail on this kind of notification
     // Bug 1954
+    /**
+     * Test new suspect.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testNewSuspect() throws Exception {
@@ -138,6 +153,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test notifd status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNotifdStatus() throws Exception {
 
@@ -154,6 +175,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test mock notification basic.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMockNotificationBasic() throws Exception {
 
@@ -184,6 +211,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test mock notification initial delay.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMockNotificationInitialDelay() throws Exception {
 
@@ -201,6 +234,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test interval.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testInterval() throws Exception {
 
@@ -220,6 +259,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test escalate.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testEscalate() throws Exception {
         MockInterface iface = m_network.getInterface(1, "192.168.1.1");
@@ -238,6 +283,12 @@ public class NotifdTest extends NotificationsTestCase {
         verifyAnticipated(endTime, 3000);
     }
 
+    /**
+     * Test manual acknowledge1.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testManualAcknowledge1() throws Exception {
 
@@ -254,6 +305,12 @@ public class NotifdTest extends NotificationsTestCase {
         verifyAnticipated(0, 0, 7000);
     }
 
+    /**
+     * Test manual acknowledge2.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testManualAcknowledge2() throws Exception {
 
@@ -276,6 +333,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test auto acknowledge1.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAutoAcknowledge1() throws Exception {
 
@@ -302,6 +365,12 @@ public class NotifdTest extends NotificationsTestCase {
         verifyAnticipated(endTime, 1000, 5000);
     }
 
+    /**
+     * Test auto acknowledge2.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAutoAcknowledge2() throws Exception {
 
@@ -336,6 +405,7 @@ public class NotifdTest extends NotificationsTestCase {
      * see http://bugzilla.opennms.org/cgi-bin/bugzilla/show_bug.cgi?id=731
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testBug731() throws Exception {
@@ -363,6 +433,12 @@ public class NotifdTest extends NotificationsTestCase {
         verifyAnticipated(endTime, 1000, 5000);
     }
 
+    /**
+     * Test bug1114.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBug1114() throws Exception {
         // XXX Needing to bump up this number is bogus
@@ -385,6 +461,12 @@ public class NotifdTest extends NotificationsTestCase {
         verifyAnticipated(endTime - 5000, 1000);
     }
 
+    /**
+     * Test rebuild parameter map.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRebuildParameterMap() throws Exception {
         MockInterface iface = m_network.getInterface(1, "192.168.1.1");
@@ -426,6 +508,12 @@ public class NotifdTest extends NotificationsTestCase {
         }
     }
 
+    /**
+     * Test get users notified.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetUsersNotified() throws Exception {
         MockInterface iface = m_network.getInterface(1, "192.168.1.1");
@@ -482,6 +570,12 @@ public class NotifdTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test role notification.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRoleNotification() throws Exception {
 

@@ -42,6 +42,7 @@ public interface ScheduledOutagesDao {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param outageName
      *            a {@link java.lang.String} object.

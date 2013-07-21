@@ -51,26 +51,20 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 class EventQueueProcessor implements Runnable, PausableFiber {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventQueueProcessor.class);
 
-    /**
-     * The input queue
-     */
+    /** The input queue. */
     private FifoQueue<Event> m_eventQ;
 
-    /**
-     * The max size of the event queue
-     */
+    /** The max size of the event queue. */
     private int m_maxQSize;
 
-    /**
-     * An object used to communicate with exteranl xmlrpc servers
-     */
+    /** An object used to communicate with exteranl xmlrpc servers. */
     private XmlRpcNotifier m_notifier;
 
-    /**
-     * Current status of the fiber
-     */
+    /** Current status of the fiber. */
     private int m_status;
 
     /**
@@ -88,7 +82,22 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     private boolean m_useGenericMessages;
 
     /**
-     * The constructor
+     * The constructor.
+     *
+     * @param eventQ
+     *            the event q
+     * @param rpcServers
+     *            the rpc servers
+     * @param retries
+     *            the retries
+     * @param elapseTime
+     *            the elapse time
+     * @param verifyServer
+     *            the verify server
+     * @param localServer
+     *            the local server
+     * @param maxQSize
+     *            the max q size
      */
     EventQueueProcessor(final FifoQueue<Event> eventQ, final XmlrpcServer[] rpcServers, final int retries,
             final int elapseTime, final boolean verifyServer, final String localServer, final int maxQSize) {
@@ -98,6 +107,12 @@ class EventQueueProcessor implements Runnable, PausableFiber {
         m_useGenericMessages = XmlrpcdConfigFactory.getInstance().getConfiguration().getGenericMsgs();
     }
 
+    /**
+     * Process event.
+     *
+     * @param event
+     *            the event
+     */
     private void processEvent(final Event event) {
         final String uei = event.getUei();
         if (uei == null) {
@@ -155,6 +170,9 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      * Process xmlrpcNotificationEvent according the status flag to determine to
      * send a notifyReceivedEvent, or a notifySuccess, or a notifyFailure
      * notification to XMLRPC Server.
+     *
+     * @param event
+     *            the event
      */
     private void xmlrpcNotificationEventHandler(final Event event) {
         long txNo = -1L;
@@ -231,6 +249,9 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      * Push the event back to the event queue if OpenNMS failed to send message
      * to the external XMLRPC server, so that an attempt to send to the server
      * can be made again later.
+     *
+     * @param event
+     *            the event
      */
     private void pushBackEvent(final Event event) {
         // push the event back to the event queue
@@ -252,6 +273,8 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     /**
      * Returns true if the status is ok and the thread should continue running.
      * If the status returend is false then the thread should exit.
+     *
+     * @return true, if successful
      */
     private synchronized boolean statusOK() {
         boolean exitThread = false;
@@ -294,9 +317,6 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      * Starts the current fiber. If the fiber has already been started,
      * regardless of it's current state, then an IllegalStateException is
      * thrown.
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber has already been started.
      */
     @Override
     public synchronized void start() {
@@ -343,9 +363,6 @@ class EventQueueProcessor implements Runnable, PausableFiber {
      * Stops this fiber. If the fiber has never been started then an
      * <code>IllegalStateExceptio</code> is generated.
      * </p>
-     *
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the fiber has never been started.
      */
     @Override
     public synchronized void stop() {
@@ -369,7 +386,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     }
 
     /**
-     * Returns the current status of the fiber
+     * Returns the current status of the fiber.
      *
      * @return The status of the Fiber.
      */

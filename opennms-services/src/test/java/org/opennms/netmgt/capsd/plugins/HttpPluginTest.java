@@ -47,18 +47,40 @@ import org.opennms.netmgt.config.poller.Parameter;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class HttpPluginTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class HttpPluginTest {
+
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test http basic auth.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @Ignore("This operation is not supported yet, see http://issues.opennms.org/browse/NMS-2963")
     @JUnitHttpServer(port = 10342, basicAuth = true)

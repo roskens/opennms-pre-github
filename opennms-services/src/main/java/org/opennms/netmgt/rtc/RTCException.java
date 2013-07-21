@@ -38,6 +38,8 @@ package org.opennms.netmgt.rtc;
  * @version $Id: $
  */
 public final class RTCException extends Exception {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4820494912936856052L;
 
     /**

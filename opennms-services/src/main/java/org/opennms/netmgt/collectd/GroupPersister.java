@@ -55,10 +55,10 @@ public class GroupPersister extends BasePersister {
      *
      * @param params
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
-     *            object.
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *            object.
      */
     public GroupPersister(ServiceParameters params, RrdRepository repository) {
         super(params, repository);

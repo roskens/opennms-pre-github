@@ -46,12 +46,14 @@ import org.opennms.netmgt.xml.event.Event;
 @EventListener(name = "pollerBackEnd", logPrefix = "poller")
 public class PollerBackEndEventProcessor {
 
+    /** The m_poller back end. */
     private PollerBackEnd m_pollerBackEnd;
 
     /**
      * <p>
      * setPollerBackEnd
      * </p>
+     * .
      *
      * @param pollerBackEnd
      *            a {@link org.opennms.netmgt.poller.remote.PollerBackEnd}
@@ -65,6 +67,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleSnmpPollerConfigChanged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -78,6 +81,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleDaemonConfigChanged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -94,6 +98,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeAdded
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -107,6 +112,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeGainedInterface
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -120,6 +126,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeGainedService
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -133,6 +140,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeConfigChanged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -146,6 +154,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeInfoChanged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -159,6 +168,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleServiceDeleted
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -172,6 +182,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleServiceUnmanaged
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -185,6 +196,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleInterfaceDeleted
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -198,6 +210,7 @@ public class PollerBackEndEventProcessor {
      * <p>
      * handleNodeDeleted
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.

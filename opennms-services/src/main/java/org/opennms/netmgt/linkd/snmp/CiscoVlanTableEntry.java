@@ -51,46 +51,46 @@ public final class CiscoVlanTableEntry extends Vlan {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>CISCOVTP_VLAN_MTU="vtpVlanMtu"</code> */
+    /** Constant <code>CISCOVTP_VLAN_MTU="vtpVlanMtu"</code>. */
     public static final String CISCOVTP_VLAN_MTU = "vtpVlanMtu";
 
-    /** Constant <code>CISCOVTP_VLAN_D10S="vtpVlanDot10Said"</code> */
+    /** Constant <code>CISCOVTP_VLAN_D10S="vtpVlanDot10Said"</code>. */
     public static final String CISCOVTP_VLAN_D10S = "vtpVlanDot10Said";
 
-    /** Constant <code>CISCOVTP_VLAN_RINGN="vtpVlanRingNumber"</code> */
+    /** Constant <code>CISCOVTP_VLAN_RINGN="vtpVlanRingNumber"</code>. */
     public static final String CISCOVTP_VLAN_RINGN = "vtpVlanRingNumber";
 
-    /** Constant <code>CISCOVTP_VLAN_BRIDGEN="vtpVlanBridgeNumber"</code> */
+    /** Constant <code>CISCOVTP_VLAN_BRIDGEN="vtpVlanBridgeNumber"</code>. */
     public static final String CISCOVTP_VLAN_BRIDGEN = "vtpVlanBridgeNumber";
 
-    /** Constant <code>CISCOVTP_VLAN_STPTYPE="vtpVlanStpType"</code> */
+    /** Constant <code>CISCOVTP_VLAN_STPTYPE="vtpVlanStpType"</code>. */
     public static final String CISCOVTP_VLAN_STPTYPE = "vtpVlanStpType";
 
-    /** Constant <code>CISCOVTP_VLAN_PARV="vtpVlanParentVlan"</code> */
+    /** Constant <code>CISCOVTP_VLAN_PARV="vtpVlanParentVlan"</code>. */
     public static final String CISCOVTP_VLAN_PARV = "vtpVlanParentVlan";
 
-    /** Constant <code>CISCOVTP_VLAN_TRV1="vtpVlanTranslationalVlan1"</code> */
+    /** Constant <code>CISCOVTP_VLAN_TRV1="vtpVlanTranslationalVlan1"</code>. */
     public static final String CISCOVTP_VLAN_TRV1 = "vtpVlanTranslationalVlan1";
 
-    /** Constant <code>CISCOVTP_VLAN_TRV2="vtpVlanTranslationalVlan2"</code> */
+    /** Constant <code>CISCOVTP_VLAN_TRV2="vtpVlanTranslationalVlan2"</code>. */
     public static final String CISCOVTP_VLAN_TRV2 = "vtpVlanTranslationalVlan2";
 
-    /** Constant <code>CISCOVTP_VLAN_BRIDGETYPE="vtpVlanBridgeType"</code> */
+    /** Constant <code>CISCOVTP_VLAN_BRIDGETYPE="vtpVlanBridgeType"</code>. */
     public static final String CISCOVTP_VLAN_BRIDGETYPE = "vtpVlanBridgeType";
 
-    /** Constant <code>CISCOVTP_VLAN_AREHC="vtpVlanAreHopCount"</code> */
+    /** Constant <code>CISCOVTP_VLAN_AREHC="vtpVlanAreHopCount"</code>. */
     public static final String CISCOVTP_VLAN_AREHC = "vtpVlanAreHopCount";
 
-    /** Constant <code>CISCOVTP_VLAN_STEHC="vtpVlanSteHopCount"</code> */
+    /** Constant <code>CISCOVTP_VLAN_STEHC="vtpVlanSteHopCount"</code>. */
     public static final String CISCOVTP_VLAN_STEHC = "vtpVlanSteHopCount";
 
-    /** Constant <code>CISCOVTP_VLAN_ISCRFBACHUP="vtpVlanIsCRFBackup"</code> */
+    /** Constant <code>CISCOVTP_VLAN_ISCRFBACHUP="vtpVlanIsCRFBackup"</code>. */
     public static final String CISCOVTP_VLAN_ISCRFBACHUP = "vtpVlanIsCRFBackup";
 
-    /** Constant <code>CISCOVTP_VLAN_TYPEEXT="vtpVlanTypeExt"</code> */
+    /** Constant <code>CISCOVTP_VLAN_TYPEEXT="vtpVlanTypeExt"</code>. */
     public static final String CISCOVTP_VLAN_TYPEEXT = "vtpVlanTypeExt";
 
-    /** Constant <code>CISCOVTP_VLAN_IFINDEX="vtpVlanIfIndex"</code> */
+    /** Constant <code>CISCOVTP_VLAN_IFINDEX="vtpVlanIfIndex"</code>. */
     public static final String CISCOVTP_VLAN_IFINDEX = "vtpVlanIfIndex";
 
     /**
@@ -104,7 +104,15 @@ public final class CiscoVlanTableEntry extends Vlan {
                                                                           // table
                                                                           // (GETNEXT)
 
-    private static String CISCOVTP_VLAN_NAME_OID = TABLE_OID + ".4";
+    /**
+                                                                             * The
+                                                                             * ciscovtp
+                                                                             * vlan
+                                                                             * name
+                                                                             * oid
+                                                                             * .
+                                                                             */
+                                                                          private static String CISCOVTP_VLAN_NAME_OID = TABLE_OID + ".4";
 
     /**
      * <P>
@@ -156,16 +164,25 @@ public final class CiscoVlanTableEntry extends Vlan {
         super(cisco_vlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
         return VlanStatus.get(getInt32(VLAN_STATUS));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         return VlanType.get(getInt32(VLAN_TYPE));

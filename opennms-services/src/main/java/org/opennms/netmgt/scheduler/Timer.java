@@ -29,16 +29,18 @@
 package org.opennms.netmgt.scheduler;
 
 /**
- * Represents a Timer
+ * Represents a Timer.
  *
  * @author brozow
  * @version $Id: $
  */
 public interface Timer {
+
     /**
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */

@@ -40,28 +40,32 @@ import java.util.Date;
  */
 public abstract class Tl1Message {
 
-    /** Constant <code>INPUT=1</code> */
+    /** Constant <code>INPUT=1</code>. */
     public static final int INPUT = 1;
 
-    /** Constant <code>OUTPUT=2</code> */
+    /** Constant <code>OUTPUT=2</code>. */
     public static final int OUTPUT = 2;
 
-    /** Constant <code>ACKNOWLEDGEMENT=3</code> */
+    /** Constant <code>ACKNOWLEDGEMENT=3</code>. */
     public static final int ACKNOWLEDGEMENT = 3;
 
-    /** Constant <code>AUTONOMOUS=4</code> */
+    /** Constant <code>AUTONOMOUS=4</code>. */
     public static final int AUTONOMOUS = 4;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
+    /** The m_raw message. */
     private String m_rawMessage;
 
+    /** The m_host. */
     private String m_host;
 
     /**
      * <p>
      * getTimestamp
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -73,6 +77,7 @@ public abstract class Tl1Message {
      * <p>
      * setTimestamp
      * </p>
+     * .
      *
      * @param timestamp
      *            a {@link java.util.Date} object.
@@ -85,6 +90,7 @@ public abstract class Tl1Message {
      * <p>
      * getRawMessage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +102,7 @@ public abstract class Tl1Message {
      * <p>
      * setRawMessage
      * </p>
+     * .
      *
      * @param rawMessage
      *            a {@link java.lang.String} object.
@@ -108,6 +115,7 @@ public abstract class Tl1Message {
      * <p>
      * getHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -119,6 +127,7 @@ public abstract class Tl1Message {
      * <p>
      * setHost
      * </p>
+     * .
      *
      * @param host
      *            a {@link java.lang.String} object.
@@ -131,6 +140,7 @@ public abstract class Tl1Message {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

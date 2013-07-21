@@ -40,10 +40,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class BroadcastEventProcessor.
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     /**
@@ -52,7 +56,7 @@ final class BroadcastEventProcessor implements EventListener {
     private final FifoQueue<String> m_execQ;
 
     /**
-     * This constructor subscribes to eventd for all events
+     * This constructor subscribes to eventd for all events.
      *
      * @param execQ
      *            The queue where executable events are stored.
@@ -69,7 +73,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Unsubscribe from eventd
+     * Unsubscribe from eventd.
      */
     public synchronized void close() {
         EventIpcManagerFactory.getIpcManager().removeEventListener(this);
@@ -126,7 +130,7 @@ final class BroadcastEventProcessor implements EventListener {
     } // end onMessage()
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return a {@link java.lang.String} object.
      */

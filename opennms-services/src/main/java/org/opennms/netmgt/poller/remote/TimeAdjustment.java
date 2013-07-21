@@ -31,16 +31,36 @@ package org.opennms.netmgt.poller.remote;
 import java.util.Date;
 
 /**
- * TimeAdjustment
+ * TimeAdjustment.
  *
  * @author brozow
  */
 public interface TimeAdjustment {
 
+    /**
+     * Sets the master time.
+     *
+     * @param timeInMillis
+     *            the new master time
+     */
     public void setMasterTime(long timeInMillis);
 
+    /**
+     * Adjust time to master time.
+     *
+     * @param localTime
+     *            the local time
+     * @return the long
+     */
     public long adjustTimeToMasterTime(long localTime);
 
+    /**
+     * Adjust date to master date.
+     *
+     * @param localDate
+     *            the local date
+     * @return the date
+     */
     public Date adjustDateToMasterDate(Date localDate);
 
 }

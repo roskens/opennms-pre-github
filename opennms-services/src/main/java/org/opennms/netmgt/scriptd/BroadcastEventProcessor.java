@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 final class BroadcastEventProcessor implements EventListener {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
 
     /**
@@ -53,7 +55,7 @@ final class BroadcastEventProcessor implements EventListener {
     private final FifoQueue<Event> m_execQ;
 
     /**
-     * This constructor subscribes to eventd for all events
+     * This constructor subscribes to eventd for all events.
      *
      * @param execQ
      *            The queue where executable events are stored.
@@ -70,7 +72,7 @@ final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * Close the BroadcastEventProcessor
+     * Close the BroadcastEventProcessor.
      */
     public synchronized void close() {
         // unsubscribe all events
@@ -105,7 +107,7 @@ final class BroadcastEventProcessor implements EventListener {
     } // end onEvent()
 
     /**
-     * Return an id for this event listener
+     * Return an id for this event listener.
      *
      * @return The ID of this event listener.
      */

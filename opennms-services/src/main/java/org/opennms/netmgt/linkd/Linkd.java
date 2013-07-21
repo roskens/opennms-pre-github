@@ -70,6 +70,7 @@ import org.springframework.util.Assert;
  */
 public class Linkd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Linkd.class);
 
     /**
@@ -77,21 +78,15 @@ public class Linkd extends AbstractServiceDaemon {
      */
     private static final String LOG4J_CATEGORY = "linkd";
 
-    /**
-     * Rescan scheduler thread
-     */
+    /** Rescan scheduler thread. */
     @Autowired
     private Scheduler m_scheduler;
 
-    /**
-     * The DB connection read and write handler
-     */
+    /** The DB connection read and write handler. */
     @Autowired
     private QueryManager m_queryMgr;
 
-    /**
-     * Linkd Configuration Initialization
-     */
+    /** Linkd Configuration Initialization. */
 
     @Autowired
     private LinkdConfig m_linkdConfig;
@@ -101,6 +96,7 @@ public class Linkd extends AbstractServiceDaemon {
      */
     private List<LinkableNode> m_nodes;
 
+    /** The m_mac to atinterface. */
     private Map<String, Map<String, List<AtInterface>>> m_macToAtinterface = new HashMap<String, Map<String, List<AtInterface>>>();
 
     /**
@@ -114,16 +110,19 @@ public class Linkd extends AbstractServiceDaemon {
      */
     private Set<InetAddress> m_newSuspectEventsIpAddr = null;
 
-    /**
-     * Event handler
-     */
+    /** Event handler. */
     private volatile EventForwarder m_eventForwarder;
 
     /**
      * <p>
      * getNextHopNet
      * </p>
+     * .
      *
+     * @param ipaddress
+     *            the ipaddress
+     * @param netmask
+     *            the netmask
      * @return a {@link java.net.InetAddress} object.
      */
     public static InetAddress getNetwork(InetAddress ipaddress, InetAddress netmask) {
@@ -151,6 +150,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -177,6 +177,9 @@ public class Linkd extends AbstractServiceDaemon {
         LOG.info("init: LINKD CONFIGURATION INITIALIZED");
     }
 
+    /**
+     * Schedule collection.
+     */
     private void scheduleCollection() {
         synchronized (m_nodes) {
             for (final LinkableNode node : m_nodes) {
@@ -191,6 +194,7 @@ public class Linkd extends AbstractServiceDaemon {
      * activated.
      *
      * @param node
+     *            the node
      */
     private void scheduleCollectionForNode(final LinkableNode node) {
 
@@ -279,6 +283,15 @@ public class Linkd extends AbstractServiceDaemon {
         return snmpcolls;
     }
 
+    /**
+     * Creates the collection.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @param ipaddr
+     *            the ipaddr
+     * @return the snmp collection
+     */
     public SnmpCollection createCollection(int nodeid, final InetAddress ipaddr) {
         SnmpCollection coll = null;
         try {
@@ -290,31 +303,76 @@ public class Linkd extends AbstractServiceDaemon {
         return coll;
     }
 
+    /**
+     * Gets the snmp agent config.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the snmp agent config
+     */
     public SnmpAgentConfig getSnmpAgentConfig(InetAddress ipaddr) {
         return SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
     }
 
+    /**
+     * Save route table.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @return true, if successful
+     */
     public boolean saveRouteTable(String pkgName) {
         Package pkg = m_linkdConfig.getPackage(pkgName);
         return pkg.hasSaveRouteTable() ? pkg.getSaveRouteTable() : m_linkdConfig.saveRouteTable();
     }
 
+    /**
+     * Save stp node table.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @return true, if successful
+     */
     public boolean saveStpNodeTable(String pkgName) {
         Package pkg = m_linkdConfig.getPackage(pkgName);
         return pkg.hasSaveStpNodeTable() ? pkg.getSaveStpNodeTable() : m_linkdConfig.saveStpNodeTable();
     }
 
+    /**
+     * Save stp interface table.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @return true, if successful
+     */
     public boolean saveStpInterfaceTable(String pkgName) {
         Package pkg = m_linkdConfig.getPackage(pkgName);
         return pkg.hasSaveStpInterfaceTable() ? pkg.getSaveStpInterfaceTable() : m_linkdConfig.saveStpInterfaceTable();
     }
 
+    /**
+     * Force ip routediscovery on ethernet.
+     *
+     * @param pkgName
+     *            the pkg name
+     * @return true, if successful
+     */
     public boolean forceIpRoutediscoveryOnEthernet(String pkgName) {
         Package pkg = m_linkdConfig.getPackage(pkgName);
         return pkg.hasForceIpRouteDiscoveryOnEthernet() ? pkg.getForceIpRouteDiscoveryOnEthernet()
             : m_linkdConfig.forceIpRouteDiscoveryOnEthernet();
     }
 
+    /**
+     * Populate snmp collection.
+     *
+     * @param coll
+     *            the coll
+     * @param pkg
+     *            the pkg
+     * @param sysoid
+     *            the sysoid
+     */
     private void populateSnmpCollection(final SnmpCollection coll, final Package pkg, final String sysoid) {
         coll.setPackageName(pkg.getName());
 
@@ -365,6 +423,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected synchronized void onStart() {
@@ -383,6 +442,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected synchronized void onStop() {
@@ -398,6 +458,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected synchronized void onPause() {
@@ -408,6 +469,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected synchronized void onResume() {
@@ -418,6 +480,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * getLinkableNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -431,6 +494,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * getLinkableNodesOnPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link java.lang.String} object.
@@ -451,6 +515,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * isInterfaceInPackage
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -466,6 +531,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * isInterfaceInPackageRange
      * </p>
+     * .
      *
      * @param ipaddr
      *            a {@link java.lang.String} object.
@@ -477,6 +543,13 @@ public class Linkd extends AbstractServiceDaemon {
         return m_linkdConfig.isInterfaceInPackageRange(ipaddr, m_linkdConfig.getPackage(pkg));
     }
 
+    /**
+     * Schedule node collection.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return true, if successful
+     */
     public boolean scheduleNodeCollection(int nodeid) {
 
         LinkableNode node = getNode(nodeid);
@@ -504,6 +577,13 @@ public class Linkd extends AbstractServiceDaemon {
         return true;
     }
 
+    /**
+     * Run single snmp collection.
+     *
+     * @param nodeId
+     *            the node id
+     * @return true, if successful
+     */
     public boolean runSingleSnmpCollection(final int nodeId) {
         final LinkableNode node = m_queryMgr.getSnmpNode(nodeId);
 
@@ -515,6 +595,13 @@ public class Linkd extends AbstractServiceDaemon {
         return true;
     }
 
+    /**
+     * Run single link discovery.
+     *
+     * @param packageName
+     *            the package name
+     * @return true, if successful
+     */
     public boolean runSingleLinkDiscovery(final String packageName) {
         final DiscoveryLink link = getDiscoveryLink(packageName);
         link.setScheduler(m_scheduler);
@@ -523,6 +610,12 @@ public class Linkd extends AbstractServiceDaemon {
         return true;
     }
 
+    /**
+     * Wake up node collection.
+     *
+     * @param nodeid
+     *            the nodeid
+     */
     void wakeUpNodeCollection(int nodeid) {
 
         LinkableNode node = getNode(nodeid);
@@ -550,6 +643,12 @@ public class Linkd extends AbstractServiceDaemon {
 
     }
 
+    /**
+     * Delete node.
+     *
+     * @param nodeid
+     *            the nodeid
+     */
     void deleteNode(int nodeid) {
         LOG.debug("deleteNode: deleting LinkableNode for node {}", nodeid);
 
@@ -584,7 +683,7 @@ public class Linkd extends AbstractServiceDaemon {
     }
 
     /**
-     * Update database when an interface is deleted
+     * Update database when an interface is deleted.
      *
      * @param nodeid
      *            the nodeid for the node
@@ -605,6 +704,12 @@ public class Linkd extends AbstractServiceDaemon {
 
     }
 
+    /**
+     * Suspend node collection.
+     *
+     * @param nodeid
+     *            the nodeid
+     */
     void suspendNodeCollection(int nodeid) {
         LOG.debug("suspendNodeCollection: suspend collection LinkableNode for node {}", nodeid);
 
@@ -635,6 +740,13 @@ public class Linkd extends AbstractServiceDaemon {
 
     }
 
+    /**
+     * Gets the ready runnable.
+     *
+     * @param runnable
+     *            the runnable
+     * @return the ready runnable
+     */
     private ReadyRunnable getReadyRunnable(ReadyRunnable runnable) {
         LOG.debug("getReadyRunnable: get ReadyRunnable from scheduler: {}", runnable.getInfo());
 
@@ -648,6 +760,7 @@ public class Linkd extends AbstractServiceDaemon {
      * done
      *
      * @param snmpcoll
+     *            the snmpcoll
      */
     @Transactional
     public void updateNodeSnmpCollection(final SnmpCollection snmpcoll) {
@@ -675,6 +788,7 @@ public class Linkd extends AbstractServiceDaemon {
      * is done
      *
      * @param discover
+     *            the discover
      */
     void updateDiscoveryLinkCollection(final DiscoveryLink discover) {
 
@@ -683,13 +797,14 @@ public class Linkd extends AbstractServiceDaemon {
 
     /**
      * Send a newSuspect event for the interface construct event with 'linkd'
-     * as source
+     * as source.
      *
-     * @param ipInterface
-     *            The interface for which the newSuspect event is to be
-     *            generated
+     * @param ipaddress
+     *            the ipaddress
      * @param ipowner
      *            The host that hold this ipInterface information
+     * @param pkgName
+     *            the pkg name
      * @pkgName The package Name of the ready runnable involved
      */
     void sendNewSuspectEvent(InetAddress ipaddress, InetAddress ipowner, String pkgName) {
@@ -731,6 +846,13 @@ public class Linkd extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Gets the node.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the node
+     */
     LinkableNode getNode(int nodeid) {
         synchronized (m_nodes) {
             for (LinkableNode node : m_nodes) {
@@ -741,6 +863,13 @@ public class Linkd extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Removes the node.
+     *
+     * @param nodeid
+     *            the nodeid
+     * @return the linkable node
+     */
     private LinkableNode removeNode(int nodeid) {
         synchronized (m_nodes) {
             Iterator<LinkableNode> ite = m_nodes.iterator();
@@ -755,6 +884,13 @@ public class Linkd extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Removes the node.
+     *
+     * @param ipaddr
+     *            the ipaddr
+     * @return the linkable node
+     */
     private LinkableNode removeNode(InetAddress ipaddr) {
         synchronized (m_nodes) {
             Iterator<LinkableNode> ite = m_nodes.iterator();
@@ -769,6 +905,11 @@ public class Linkd extends AbstractServiceDaemon {
         return null;
     }
 
+    /**
+     * Gets the query manager.
+     *
+     * @return the query manager
+     */
     public QueryManager getQueryManager() {
         return m_queryMgr;
     }
@@ -777,6 +918,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * setQueryManager
      * </p>
+     * .
      *
      * @param queryMgr
      *            a {@link org.opennms.netmgt.linkd.QueryManager} object.
@@ -791,6 +933,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
      */
@@ -802,6 +945,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
@@ -814,6 +958,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * getLinkdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.LinkdConfig} object.
      */
@@ -825,6 +970,7 @@ public class Linkd extends AbstractServiceDaemon {
      * <p>
      * setLinkdConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.config.LinkdConfig} object.
@@ -834,6 +980,8 @@ public class Linkd extends AbstractServiceDaemon {
     }
 
     /**
+     * Gets the event forwarder.
+     *
      * @return the eventForwarder
      */
     public EventForwarder getEventForwarder() {
@@ -841,6 +989,8 @@ public class Linkd extends AbstractServiceDaemon {
     }
 
     /**
+     * Sets the event forwarder.
+     *
      * @param eventForwarder
      *            the eventForwarder to set
      */
@@ -850,6 +1000,12 @@ public class Linkd extends AbstractServiceDaemon {
 
     // Here all the information related to the
     // mapping between ipaddress and mac address are stored
+    /**
+     * Adds the at interface.
+     *
+     * @param atinterface
+     *            the atinterface
+     */
     public void addAtInterface(AtInterface atinterface) {
         LOG.debug("addAtInterface: adding at interface {}/{}", atinterface.getIpAddress().getHostAddress(),
                   atinterface.getMacAddress());
@@ -890,14 +1046,32 @@ public class Linkd extends AbstractServiceDaemon {
 
     }
 
+    /**
+     * Clear at interfaces.
+     *
+     * @param packageName
+     *            the package name
+     */
     public void clearAtInterfaces(String packageName) {
         m_macToAtinterface.get(packageName).clear();
     }
 
+    /**
+     * Gets the at interfaces.
+     *
+     * @param packageName
+     *            the package name
+     * @return the at interfaces
+     */
     public Map<String, List<AtInterface>> getAtInterfaces(String packageName) {
         return m_macToAtinterface.get(packageName);
     }
 
+    /**
+     * Gets the source.
+     *
+     * @return the source
+     */
     public String getSource() {
         return "linkd";
     }

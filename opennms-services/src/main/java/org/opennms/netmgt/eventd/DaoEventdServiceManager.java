@@ -52,8 +52,10 @@ import org.springframework.util.Assert;
 @Transactional(readOnly = true)
 public class DaoEventdServiceManager implements InitializingBean, EventdServiceManager {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DaoEventdServiceManager.class);
 
+    /** The m_service type dao. */
     private ServiceTypeDao m_serviceTypeDao;
 
     /**
@@ -108,6 +110,7 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
      * <p>
      * dataSourceSync
      * </p>
+     * .
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -122,9 +125,10 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -135,6 +139,7 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
      * <p>
      * getServiceTypeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.
      */
@@ -146,6 +151,7 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
      * <p>
      * setServiceTypeDao
      * </p>
+     * .
      *
      * @param serviceTypeDao
      *            a {@link org.opennms.netmgt.dao.api.ServiceTypeDao} object.

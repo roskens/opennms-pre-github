@@ -36,6 +36,8 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
+ * The Class Nms7467NetworkBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -84,17 +86,22 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * the ip address is 172.20.1.101
      * the mac address is 60334b0817a8
      */
+    /** The Constant WORKSTATION_NAME. */
     protected static final String WORKSTATION_NAME = "workstation";
 
+    /** The Constant WORKSTATION_IP. */
     protected static final String WORKSTATION_IP = "172.20.1.101";
 
+    /** The Constant WORKSTATION_MAC. */
     protected static final String WORKSTATION_MAC = "60334b0817a8";
 
     /*
      * This is a cisco access point but without snmp walk available
      */
+    /** The Constant ACCESSPOINT_NAME. */
     protected static final String ACCESSPOINT_NAME = "mrgarrison.internal.opennms.com";
 
+    /** The Constant ACCESSPOINT_IP. */
     protected static final String ACCESSPOINT_IP = "172.20.1.5";
 
     /*
@@ -126,16 +133,22 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * Type SRT
      */
 
+    /** The Constant CISCO_C870_NAME. */
     protected static final String CISCO_C870_NAME = "mrmakay.internal.opennms.com";
 
+    /** The Constant CISCO_C870_IP_PRIMARY. */
     protected static final String CISCO_C870_IP_PRIMARY = "10.255.255.2";
 
+    /** The Constant CISCO_C870_IP. */
     protected static final String CISCO_C870_IP = "172.20.1.1";
 
+    /** The Constant CISCO_C870_BRIDGEID. */
     protected static final String CISCO_C870_BRIDGEID = "00000c83d9a8";
 
+    /** The Constant CISCO_C870_SYSOID. */
     protected static final String CISCO_C870_SYSOID = ".1.3.6.1.4.1.9.1.569";
 
+    /** The Constant CISCO_C870_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO_C870_IP_IF_MAP = new HashMap<InetAddress, Integer>();
     static {
         CISCO_C870_IP_IF_MAP.put(InetAddressUtils.addr("172.20.1.1"), 12);
@@ -144,6 +157,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         CISCO_C870_IP_IF_MAP.put(InetAddressUtils.addr("65.41.39.146"), 14);
     }
 
+    /** The Constant CISCO_C870_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO_C870_IF_IFNAME_MAP = new HashMap<Integer, String>();
     static {
         CISCO_C870_IF_IFNAME_MAP.put(1, "Fa0");
@@ -164,6 +178,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         CISCO_C870_IF_IFNAME_MAP.put(18, "NV0");
     }
 
+    /** The Constant CISCO_C870_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> CISCO_C870_IF_IFDESCR_MAP = new HashMap<Integer, String>();
     static {
         CISCO_C870_IF_IFDESCR_MAP.put(1, "FastEthernet0");
@@ -184,6 +199,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         CISCO_C870_IF_IFDESCR_MAP.put(18, "NVI0");
     }
 
+    /** The Constant CISCO_C870_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO_C870_IF_MAC_MAP = new HashMap<Integer, String>();
     static {
         CISCO_C870_IF_MAC_MAP.put(1, "001f6cd034e7");
@@ -265,19 +281,25 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * Transparent Bridge
      */
 
+    /** The Constant CISCO_WS_C2948_NAME. */
     protected static final String CISCO_WS_C2948_NAME = "ciscoswitch";
 
+    /** The Constant CISCO_WS_C2948_IP. */
     protected static final String CISCO_WS_C2948_IP = "172.20.1.7";
 
+    /** The Constant CISCO_WS_C2948_BRIDGEID. */
     protected static final String CISCO_WS_C2948_BRIDGEID = "0002baaacc00";
 
+    /** The Constant CISCO_WS_C2948_SYSOID. */
     protected static final String CISCO_WS_C2948_SYSOID = ".1.3.6.1.4.1.9.5.42";
 
+    /** The Constant CISCO_WS_C2948_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> CISCO_WS_C2948_IP_IF_MAP = new HashMap<InetAddress, Integer>();
     static {
         CISCO_WS_C2948_IP_IF_MAP.put(InetAddressUtils.addr(CISCO_WS_C2948_IP), 3);
     }
 
+    /** The Constant CISCO_WS_C2948_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> CISCO_WS_C2948_IF_IFNAME_MAP = new HashMap<Integer, String>();
     static {
         CISCO_WS_C2948_IF_IFNAME_MAP.put(1, "sc0");
@@ -295,6 +317,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         }
     }
 
+    /** The Constant CISCO_WS_C2948_IF_MAC_MAP. */
     protected static final Map<Integer, String> CISCO_WS_C2948_IF_MAC_MAP = new HashMap<Integer, String>();
     static {
         CISCO_WS_C2948_IF_MAC_MAP.put(1, "0002baaacfff");
@@ -374,19 +397,25 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * Run the spanning tree with bridge identifier: 00223ff00b7b
      * Transparent Bridge
      */
+    /** The Constant NETGEAR_SW_108_NAME. */
     protected static final String NETGEAR_SW_108_NAME = "ng108switch";
 
+    /** The Constant NETGEAR_SW_108_IP. */
     protected static final String NETGEAR_SW_108_IP = "172.20.1.8";
 
+    /** The Constant NETGEAR_SW_108_BRIDGEID. */
     protected static final String NETGEAR_SW_108_BRIDGEID = "00223ff00b7b";
 
+    /** The Constant NETGEAR_SW_108_SYSOID. */
     protected static final String NETGEAR_SW_108_SYSOID = ".1.3.6.1.4.1.4526.100.4.8";
 
+    /** The Constant NETGEAR_SW_108_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> NETGEAR_SW_108_IP_IF_MAP = new HashMap<InetAddress, Integer>();
     static {
         NETGEAR_SW_108_IP_IF_MAP.put(InetAddressUtils.addr(NETGEAR_SW_108_IP), null);
     }
 
+    /** The Constant NETGEAR_SW_108_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> NETGEAR_SW_108_IF_IFNAME_MAP = new HashMap<Integer, String>();
     static {
         NETGEAR_SW_108_IF_IFNAME_MAP.put(1, "");
@@ -399,6 +428,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         NETGEAR_SW_108_IF_IFNAME_MAP.put(8, "");
     }
 
+    /** The Constant NETGEAR_SW_108_IF_MAC_MAP. */
     protected static final Map<Integer, String> NETGEAR_SW_108_IF_MAC_MAP = new HashMap<Integer, String>();
     static {
         NETGEAR_SW_108_IF_MAC_MAP.put(1, "00223ff00b7c");
@@ -444,12 +474,16 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * 2001:0470:e2f1:cafe:e8f5:957c:ef2a:f427 | 4
      */
 
+    /** The Constant LINUX_UBUNTU_NAME. */
     protected static final String LINUX_UBUNTU_NAME = "linuxubuntu";
 
+    /** The Constant LINUX_UBUNTU_IP. */
     protected static final String LINUX_UBUNTU_IP = "172.20.1.14";
 
+    /** The Constant LINUX_UBUNTU_SYSOID. */
     protected static final String LINUX_UBUNTU_SYSOID = ".1.3.6.1.4.1.8072.3.2.10";
 
+    /** The Constant LINUX_UBUNTU_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> LINUX_UBUNTU_IP_IF_MAP = new HashMap<InetAddress, Integer>();
     static {
         LINUX_UBUNTU_IP_IF_MAP.put(InetAddressUtils.addr("172.20.1.14"), 4);
@@ -471,6 +505,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         LINUX_UBUNTU_IP_IF_MAP.put(InetAddressUtils.addr("2001:0470:e2f1:cafe:e8f5:957c:ef2a:f427"), 4);
     }
 
+    /** The Constant LINUX_UBUNTU_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> LINUX_UBUNTU_IF_IFNAME_MAP = new HashMap<Integer, String>();
     static {
         LINUX_UBUNTU_IF_IFNAME_MAP.put(1, "lo0");
@@ -482,6 +517,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         LINUX_UBUNTU_IF_IFNAME_MAP.put(11, "eth1");
     }
 
+    /** The Constant LINUX_UBUNTU_IF_MAC_MAP. */
     protected static final Map<Integer, String> LINUX_UBUNTU_IF_MAC_MAP = new HashMap<Integer, String>();
     static {
         LINUX_UBUNTU_IF_MAC_MAP.put(2, "406186e28b53");
@@ -504,17 +540,22 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
      * 6 | en1 | en1 | 002608f86155
      */
 
+    /** The Constant DARWIN_10_8_NAME. */
     protected static final String DARWIN_10_8_NAME = "mac";
 
+    /** The Constant DARWIN_10_8_IP. */
     protected static final String DARWIN_10_8_IP = "172.20.1.28";
 
+    /** The Constant DARWIN_10_8_SYSOID. */
     protected static final String DARWIN_10_8_SYSOID = ".1.3.6.1.4.1.8072.3.2.255";
 
+    /** The Constant DARWIN_10_8_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> DARWIN_10_8_IP_IF_MAP = new HashMap<InetAddress, Integer>();
     static {
         DARWIN_10_8_IP_IF_MAP.put(InetAddressUtils.addr(DARWIN_10_8_IP), 4);
     }
 
+    /** The Constant DARWIN_10_8_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> DARWIN_10_8_IF_IFNAME_MAP = new HashMap<Integer, String>();
     static {
         DARWIN_10_8_IF_IFNAME_MAP.put(1, "lo0");
@@ -525,6 +566,7 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         DARWIN_10_8_IF_IFNAME_MAP.put(6, "en1");
     }
 
+    /** The Constant DARWIN_10_8_IF_MAC_MAP. */
     protected static final Map<Integer, String> DARWIN_10_8_IF_MAC_MAP = new HashMap<Integer, String>();
     static {
         DARWIN_10_8_IF_MAC_MAP.put(4, "0026b0ed8fb8");
@@ -532,30 +574,55 @@ public abstract class Nms7467NetworkBuilder extends LinkdNetworkBuilder {
         DARWIN_10_8_IF_MAC_MAP.put(6, "002608f86155");
     }
 
+    /**
+     * Gets the cisco c870.
+     *
+     * @return the cisco c870
+     */
     protected OnmsNode getCiscoC870() {
         return getNode(CISCO_C870_NAME, CISCO_C870_SYSOID, CISCO_C870_IP, CISCO_C870_IP_IF_MAP,
                        CISCO_C870_IF_IFNAME_MAP, CISCO_C870_IF_MAC_MAP, CISCO_C870_IF_IFDESCR_MAP,
                        new HashMap<Integer, String>());
     }
 
+    /**
+     * Gets the cisco ws c2948.
+     *
+     * @return the cisco ws c2948
+     */
     protected OnmsNode getCiscoWsC2948() {
         return getNode(CISCO_WS_C2948_NAME, CISCO_WS_C2948_SYSOID, CISCO_WS_C2948_IP, CISCO_WS_C2948_IP_IF_MAP,
                        CISCO_WS_C2948_IF_IFNAME_MAP, CISCO_WS_C2948_IF_MAC_MAP, new HashMap<Integer, String>(),
                        new HashMap<Integer, String>());
     }
 
+    /**
+     * Gets the net gear sw108.
+     *
+     * @return the net gear sw108
+     */
     protected OnmsNode getNetGearSw108() {
         return getNode(NETGEAR_SW_108_NAME, NETGEAR_SW_108_SYSOID, NETGEAR_SW_108_IP, NETGEAR_SW_108_IP_IF_MAP,
                        NETGEAR_SW_108_IF_IFNAME_MAP, NETGEAR_SW_108_IF_MAC_MAP, new HashMap<Integer, String>(),
                        new HashMap<Integer, String>());
     }
 
+    /**
+     * Gets the linux ubuntu.
+     *
+     * @return the linux ubuntu
+     */
     protected OnmsNode getLinuxUbuntu() {
         return getNode(LINUX_UBUNTU_NAME, LINUX_UBUNTU_SYSOID, LINUX_UBUNTU_IP, LINUX_UBUNTU_IP_IF_MAP,
                        LINUX_UBUNTU_IF_IFNAME_MAP, LINUX_UBUNTU_IF_MAC_MAP, new HashMap<Integer, String>(),
                        new HashMap<Integer, String>());
     }
 
+    /**
+     * Gets the darwin108.
+     *
+     * @return the darwin108
+     */
     protected OnmsNode getDarwin108() {
         return getNode(DARWIN_10_8_NAME, DARWIN_10_8_SYSOID, DARWIN_10_8_IP, DARWIN_10_8_IP_IF_MAP,
                        DARWIN_10_8_IF_IFNAME_MAP, DARWIN_10_8_IF_MAC_MAP, new HashMap<Integer, String>(),

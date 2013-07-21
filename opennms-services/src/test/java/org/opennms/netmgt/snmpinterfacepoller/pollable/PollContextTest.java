@@ -47,6 +47,9 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class PollContextTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -62,12 +65,20 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class PollContextTest {
 
+    /** The m_poll context. */
     @Autowired
     private PollContext m_pollContext;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -115,6 +126,12 @@ public class PollContextTest {
         m_nodeDao.flush();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -131,6 +148,12 @@ public class PollContextTest {
      * of the snmpinterface
      * table, and that column has been removed in order to promote the usage of
      * the ipinterface table.
+     */
+    /**
+     * Test criterias.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testCriterias() throws Exception {

@@ -47,6 +47,7 @@ public interface ThresholdsDao {
      * <p>
      * get
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -58,6 +59,7 @@ public interface ThresholdsDao {
      * <p>
      * merge
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.threshd.ThresholdGroup} object.
@@ -69,6 +71,7 @@ public interface ThresholdsDao {
      * <p>
      * getThresholdingConfigFactory
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ThresholdingConfigFactory}
      *         object.

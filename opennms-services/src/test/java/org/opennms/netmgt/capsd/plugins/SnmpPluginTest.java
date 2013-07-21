@@ -44,6 +44,9 @@ import org.opennms.netmgt.mock.OpenNMSTestCase;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.springframework.core.io.ByteArrayResource;
 
+/**
+ * The Class SnmpPluginTest.
+ */
 public class SnmpPluginTest extends OpenNMSTestCase {
 
     /*
@@ -52,16 +55,26 @@ public class SnmpPluginTest extends OpenNMSTestCase {
      * test against a v3 compatible agent running on the localhost
      * until the MockAgent code is finished.
      */
+    /** The m_run assertions. */
     private boolean m_runAssertions = false;
 
+    /** The m_plugin. */
     private SnmpPlugin m_plugin = null;
 
+    /**
+     * Suite.
+     *
+     * @return the test suite
+     */
     public static TestSuite suite() {
         return SnmpTestSuiteUtils.createSnmpStrategyTestSuite(SnmpPluginTest.class);
     }
 
     /**
-     * Required method for TestCase
+     * Required method for TestCase.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
     protected void setUp() throws Exception {
@@ -75,7 +88,10 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     }
 
     /**
-     * Required method for TestCase
+     * Required method for TestCase.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
     protected void tearDown() throws Exception {
@@ -87,6 +103,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
      * the MockAgent code is completed.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testIsForcedV1ProtocolSupported() throws UnknownHostException {
         InetAddress address = myLocalHost();
@@ -103,6 +120,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
      * the MockAgent code is completed.
      *
      * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void testIsExpectedValue() throws UnknownHostException {
         InetAddress address = myLocalHost();
@@ -117,12 +135,30 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     /*
      * Class under test for boolean isProtocolSupported(InetAddress)
      */
+    /**
+     * Test is protocol supported inet address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public final void testIsProtocolSupportedInetAddress() throws UnknownHostException {
         if (m_runAssertions) {
             assertTrue("protocol is not supported", m_plugin.isProtocolSupported(myLocalHost()));
         }
     }
 
+    /**
+     * Test is v3 protocol supported.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     */
     public final void testIsV3ProtocolSupported() throws ValidationException, IOException, IOException,
             MarshalException {
         setVersion(SnmpAgentConfig.VERSION3);
@@ -134,6 +170,18 @@ public class SnmpPluginTest extends OpenNMSTestCase {
         }
     }
 
+    /**
+     * Test is v3 forced to v1 supported.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     */
     public final void testIsV3ForcedToV1Supported() throws ValidationException, IOException, IOException,
             MarshalException {
         setVersion(SnmpAgentConfig.VERSION3);

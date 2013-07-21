@@ -61,32 +61,53 @@ import org.opennms.netmgt.mock.NotificationAnticipator;
 import org.opennms.test.DaoTestConfigBean;
 import org.opennms.test.mock.MockUtil;
 
+/**
+ * The Class NotificationsTestCase.
+ */
 public class NotificationsTestCase {
 
+    /** The m_notifd. */
     protected Notifd m_notifd;
 
+    /** The m_event mgr. */
     protected MockEventIpcManager m_eventMgr;
 
+    /** The m_notifd config. */
     protected MockNotifdConfigManager m_notifdConfig;
 
+    /** The m_group manager. */
     protected MockGroupManager m_groupManager;
 
+    /** The m_user manager. */
     protected MockUserManager m_userManager;
 
+    /** The m_notification manager. */
     protected NotificationManager m_notificationManager;
 
+    /** The m_notification command manger. */
     protected NotificationCommandManager m_notificationCommandManger;
 
+    /** The m_destination path manager. */
     protected MockDestinationPathManager m_destinationPathManager;
 
+    /** The m_db. */
     protected MockDatabase m_db;
 
+    /** The m_network. */
     protected MockNetwork m_network;
 
+    /** The m_anticipator. */
     protected NotificationAnticipator m_anticipator;
 
+    /** The m_poll outages config manager. */
     private PollOutagesConfigManager m_pollOutagesConfigManager;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void setUp() throws Exception {
         MockUtil.println("################# Running Test ################");
 
@@ -155,6 +176,15 @@ public class NotificationsTestCase {
 
     }
 
+    /**
+     * Creates the database.
+     *
+     * @param network
+     *            the network
+     * @return the mock database
+     * @throws Exception
+     *             the exception
+     */
     protected MockDatabase createDatabase(MockNetwork network) throws Exception {
         MockDatabase db = new MockDatabase();
         DataSourceFactory.setInstance(db);
@@ -162,26 +192,69 @@ public class NotificationsTestCase {
         return db;
     }
 
+    /**
+     * Creates the mock network.
+     *
+     * @return the mock network
+     */
     protected MockNetwork createMockNetwork() {
         MockNetwork network = new MockNetwork();
         network.createStandardNetwork();
         return network;
     }
 
+    /**
+     * Creates the user manager.
+     *
+     * @param groupManager
+     *            the group manager
+     * @return the mock user manager
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private MockUserManager createUserManager(MockGroupManager groupManager) throws MarshalException,
             ValidationException, IOException {
         return new MockUserManager(groupManager,
                                    ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "users.xml"));
     }
 
+    /**
+     * Creates the group manager.
+     *
+     * @return the mock group manager
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private MockGroupManager createGroupManager() throws MarshalException, ValidationException, IOException {
         return new MockGroupManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "groups.xml"));
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     protected void tearDown() throws Exception {
         this.tearDown(false);
     }
 
+    /**
+     * Tear down.
+     *
+     * @param allowAllLogMessages
+     *            the allow all log messages
+     * @throws Exception
+     *             the exception
+     */
     protected void tearDown(boolean allowAllLogMessages) throws Exception {
         m_eventMgr.finishProcessingEvents();
         m_notifd.stop();
@@ -193,16 +266,53 @@ public class NotificationsTestCase {
         }
     }
 
+    /**
+     * Test do nothing.
+     */
     public void testDoNothing() {
         // this is only here to ensure that we don't get an error when running
         // AllTests
     }
 
+    /**
+     * Anticipate notifications for group.
+     *
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param groupName
+     *            the group name
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     * @return the long
+     * @throws Exception
+     *             the exception
+     */
     protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, Date startTime,
             long interval) throws Exception {
         return anticipateNotificationsForGroup(subject, textMsg, groupName, startTime.getTime(), interval);
     }
 
+    /**
+     * Anticipate notifications for group.
+     *
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param groupName
+     *            the group name
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     * @return the long
+     * @throws Exception
+     *             the exception
+     */
     protected long anticipateNotificationsForGroup(String subject, String textMsg, String groupName, long startTime,
             long interval) throws Exception {
         Group group = m_groupManager.getGroup(groupName);
@@ -210,17 +320,76 @@ public class NotificationsTestCase {
         return anticipateNotificationsForUsers(users, subject, textMsg, startTime, interval);
     }
 
+    /**
+     * Anticipate notifications for role.
+     *
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param groupName
+     *            the group name
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     * @return the long
+     * @throws Exception
+     *             the exception
+     */
     protected long anticipateNotificationsForRole(String subject, String textMsg, String groupName, Date startTime,
             long interval) throws Exception {
         return anticipateNotificationsForRole(subject, textMsg, groupName, startTime.getTime(), interval);
     }
 
+    /**
+     * Anticipate notifications for role.
+     *
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param roleName
+     *            the role name
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     * @return the long
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected long anticipateNotificationsForRole(String subject, String textMsg, String roleName, long startTime,
             long interval) throws MarshalException, ValidationException, IOException {
         String[] users = m_userManager.getUsersScheduledForRole(roleName, new Date(startTime));
         return anticipateNotificationsForUsers(users, subject, textMsg, startTime, interval);
     }
 
+    /**
+     * Anticipate notifications for users.
+     *
+     * @param users
+     *            the users
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     * @return the long
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     protected long anticipateNotificationsForUsers(String[] users, String subject, String textMsg, long startTime,
             long interval) throws IOException, MarshalException, ValidationException {
         long expectedTime = startTime;
@@ -239,6 +408,15 @@ public class NotificationsTestCase {
         return expectedTime - interval;
     }
 
+    /**
+     * Gets the users in group.
+     *
+     * @param groupName
+     *            the group name
+     * @return the users in group
+     * @throws Exception
+     *             the exception
+     */
     protected Collection<String> getUsersInGroup(String groupName) throws Exception {
         Group group = m_groupManager.getGroup(groupName);
         String[] users = group.getUser();
@@ -246,14 +424,38 @@ public class NotificationsTestCase {
 
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param lastNotifyTime
+     *            the last notify time
+     * @param waitTime
+     *            the wait time
+     */
     protected void verifyAnticipated(long lastNotifyTime, long waitTime) {
         verifyAnticipated(lastNotifyTime, waitTime, 1000);
     }
 
+    /**
+     * Verify anticipated.
+     *
+     * @param lastNotifyTime
+     *            the last notify time
+     * @param waitTime
+     *            the wait time
+     * @param sleepTime
+     *            the sleep time
+     */
     protected void verifyAnticipated(long lastNotifyTime, long waitTime, long sleepTime) {
         m_anticipator.verifyAnticipated(lastNotifyTime, waitTime, sleepTime);
     }
 
+    /**
+     * Sleep.
+     *
+     * @param millis
+     *            the millis
+     */
     protected void sleep(long millis) {
         try {
             Thread.sleep(millis);
@@ -261,6 +463,19 @@ public class NotificationsTestCase {
         }
     }
 
+    /**
+     * Creates the mock notification.
+     *
+     * @param expectedTime
+     *            the expected time
+     * @param subject
+     *            the subject
+     * @param textMsg
+     *            the text msg
+     * @param email
+     *            the email
+     * @return the mock notification
+     */
     protected MockNotification createMockNotification(long expectedTime, String subject, String textMsg, String email) {
         MockNotification notification;
         notification = new MockNotification();
@@ -271,6 +486,17 @@ public class NotificationsTestCase {
         return notification;
     }
 
+    /**
+     * Compute interval.
+     *
+     * @return the long
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     protected long computeInterval() throws IOException, MarshalException, ValidationException {
         String interval = m_destinationPathManager.getPath("Intervals").getTarget(0).getInterval();
         return TimeConverter.convertToMillis(interval);

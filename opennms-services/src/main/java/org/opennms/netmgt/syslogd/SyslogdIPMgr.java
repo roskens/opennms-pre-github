@@ -52,9 +52,7 @@ final class SyslogdIPMgr {
      */
     private static final String IP_LOAD_SQL = "SELECT ipAddr, nodeid FROM ipInterface";
 
-    /**
-     * A Map of IP addresses and node IDs
-     */
+    /** A Map of IP addresses and node IDs. */
     private static Map<String, Long> m_knownips = new ConcurrentHashMap<String, Long>();
 
     /**
@@ -63,9 +61,8 @@ final class SyslogdIPMgr {
      * the method opens a new connection to the database, loads the address,
      * and then closes it's connection.
      *
-     * @throws java.sql.SQLException
-     *             Thrown if the connection cannot be created or a database
-     *             error occurs.
+     * @throws SQLException
+     *             the sQL exception
      */
     static synchronized void dataSourceSync() throws SQLException {
         java.sql.Connection c = null;
@@ -106,7 +103,7 @@ final class SyslogdIPMgr {
     }
 
     /**
-     * Returns the nodeid for the IP Address
+     * Returns the nodeid for the IP Address.
      *
      * @param addr
      *            The IP Address to query.
@@ -148,6 +145,13 @@ final class SyslogdIPMgr {
         return longValue(m_knownips.remove(addr));
     }
 
+    /**
+     * Long value.
+     *
+     * @param result
+     *            the result
+     * @return the long
+     */
     private static long longValue(final Long result) {
         return (result == null ? -1 : result);
     }

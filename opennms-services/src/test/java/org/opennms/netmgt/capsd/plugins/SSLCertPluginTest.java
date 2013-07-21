@@ -46,18 +46,40 @@ import org.opennms.netmgt.config.poller.Parameter;
 import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SSLCertPluginTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/emptyContext.xml" })
 @JUnitConfigurationEnvironment
 public class SSLCertPluginTest {
+
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test ssl cert exists.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = true)
     public void testSSLCertExists() throws UnknownHostException {
@@ -81,6 +103,12 @@ public class SSLCertPluginTest {
         assertTrue(plugin.isProtocolSupported(InetAddressUtils.getLocalHostAddress(), m));
     }
 
+    /**
+     * Test ssl cert not exists.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, https = false)
     public void testSSLCertNotExists() throws UnknownHostException {

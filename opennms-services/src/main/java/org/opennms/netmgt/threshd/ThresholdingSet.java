@@ -63,24 +63,34 @@ import org.slf4j.LoggerFactory;
  */
 public class ThresholdingSet {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingSet.class);
 
+    /** The m_node id. */
     protected final int m_nodeId;
 
+    /** The m_host address. */
     protected final String m_hostAddress;
 
+    /** The m_service name. */
     protected final String m_serviceName;
 
+    /** The m_repository. */
     protected final RrdRepository m_repository;
 
+    /** The m_thresholds dao. */
     protected ThresholdsDao m_thresholdsDao;
 
+    /** The m_initialized. */
     protected boolean m_initialized = false;
 
+    /** The m_has thresholds. */
     protected boolean m_hasThresholds = false;
 
+    /** The m_threshold groups. */
     protected List<ThresholdGroup> m_thresholdGroups = new LinkedList<ThresholdGroup>();
 
+    /** The m_scheduled outages. */
     protected final List<String> m_scheduledOutages = new ArrayList<String>();
 
     /**
@@ -96,8 +106,6 @@ public class ThresholdingSet {
      *            a {@link java.lang.String} object.
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
-     * @param interval
-     *            a long.
      */
     public ThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository) {
         m_nodeId = nodeId;
@@ -112,6 +120,7 @@ public class ThresholdingSet {
      * <p>
      * initialize
      * </p>
+     * .
      */
     protected void initialize() {
         List<String> groupNameList = getThresholdGroupNames(m_nodeId, m_hostAddress, m_serviceName);
@@ -136,6 +145,7 @@ public class ThresholdingSet {
      * <p>
      * reinitialize
      * </p>
+     * .
      */
     public void reinitialize() {
         m_initialized = false;
@@ -156,6 +166,7 @@ public class ThresholdingSet {
      * <p>
      * mergeThresholdGroups
      * </p>
+     * .
      */
     protected void mergeThresholdGroups() {
         LOG.debug("mergeThresholdGroups: begin merging operation");
@@ -208,6 +219,7 @@ public class ThresholdingSet {
      * <p>
      * hasThresholds
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -223,6 +235,7 @@ public class ThresholdingSet {
      * <p>
      * hasThresholds
      * </p>
+     * .
      *
      * @param resourceTypeName
      *            a {@link java.lang.String} object.
@@ -251,6 +264,11 @@ public class ThresholdingSet {
         return ok;
     }
 
+    /**
+     * Checks if is node in outage.
+     *
+     * @return true, if is node in outage
+     */
     public boolean isNodeInOutage() {
         PollOutagesConfigFactory outageFactory = PollOutagesConfigFactory.getInstance();
         boolean outageFound = false;
@@ -280,6 +298,7 @@ public class ThresholdingSet {
      * <p>
      * applyThresholds
      * </p>
+     * .
      *
      * @param resourceWrapper
      *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
@@ -340,6 +359,7 @@ public class ThresholdingSet {
      * <p>
      * passedThresholdFilters
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.opennms.netmgt.threshd.CollectionResourceWrapper}
@@ -399,6 +419,7 @@ public class ThresholdingSet {
      * <p>
      * initThresholdsDao
      * </p>
+     * .
      */
     protected void initThresholdsDao() {
         if (!m_initialized) {
@@ -429,6 +450,17 @@ public class ThresholdingSet {
      * - Compare interface/service pair against each Threshd package.
      * - For each match, create new ThresholdableService object and schedule it
      * for collection
+     */
+    /**
+     * Gets the threshold group names.
+     *
+     * @param nodeId
+     *            the node id
+     * @param hostAddress
+     *            the host address
+     * @param serviceName
+     *            the service name
+     * @return the threshold group names
      */
     private List<String> getThresholdGroupNames(int nodeId, String hostAddress, String serviceName) {
         ThreshdConfigManager configManager = ThreshdConfigFactory.getInstance();
@@ -472,6 +504,9 @@ public class ThresholdingSet {
         return groupNameList;
     }
 
+    /**
+     * Update scheduled outages.
+     */
     protected void updateScheduledOutages() {
         m_scheduledOutages.clear();
         ThreshdConfigManager configManager = ThreshdConfigFactory.getInstance();
@@ -496,6 +531,15 @@ public class ThresholdingSet {
         }
     }
 
+    /**
+     * Gets the entity map.
+     *
+     * @param thresholdGroup
+     *            the threshold group
+     * @param resourceType
+     *            the resource type
+     * @return the entity map
+     */
     private static Map<String, Set<ThresholdEntity>> getEntityMap(ThresholdGroup thresholdGroup, String resourceType) {
         LOG.trace("getEntityMap: checking if the resourceType '{}' exists on threshold group {}", resourceType,
                   thresholdGroup);

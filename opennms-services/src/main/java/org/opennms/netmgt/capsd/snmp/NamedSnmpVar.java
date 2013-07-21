@@ -215,11 +215,9 @@ public final class NamedSnmpVar implements Collectable {
     /**
      * Returns the class object associated with the class name stored in m_type.
      *
-     * @exception java.lang.ClassNotFoundException
-     *                Thrown from this method if forName() fails.
      * @return a {@link java.lang.Class} object.
-     * @throws java.lang.ClassNotFoundException
-     *             if any.
+     * @throws ClassNotFoundException
+     *             the class not found exception
      */
     public Class<?> getTypeClass() throws ClassNotFoundException {
         if (m_typeClass == null) {
@@ -250,6 +248,7 @@ public final class NamedSnmpVar implements Collectable {
      * <p>
      * getSnmpObjId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpObjId} object.
      */
@@ -270,6 +269,7 @@ public final class NamedSnmpVar implements Collectable {
      * <p>
      * getCollectionTracker
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.CollectionTracker} object.
      */
@@ -293,6 +293,7 @@ public final class NamedSnmpVar implements Collectable {
      * <p>
      * getTrackersFor
      * </p>
+     * .
      *
      * @param columns
      *            an array of {@link org.opennms.netmgt.capsd.snmp.NamedSnmpVar}

@@ -60,6 +60,8 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class Pop3Plugin extends AbstractPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Pop3Plugin.class);
 
     /**
@@ -99,6 +101,10 @@ public final class Pop3Plugin extends AbstractPlugin {
      *            The remote host to test.
      * @param port
      *            The remote port to test.
+     * @param retries
+     *            the retries
+     * @param timeout
+     *            the timeout
      * @return True if server is running MS Exchange, false otherwise
      */
     private boolean isServer(InetAddress host, int port, int retries, int timeout) {

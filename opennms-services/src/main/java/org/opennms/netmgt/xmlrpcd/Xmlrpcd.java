@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Xmlrpcd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(Xmlrpcd.class);
 
     /**
@@ -66,14 +67,10 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      */
     private static final AbstractServiceDaemon m_singleton = new Xmlrpcd();
 
-    /**
-     * The communication queues -- ArrayList of FifoQueues
-     */
+    /** The communication queues -- ArrayList of FifoQueues. */
     private ArrayList<FifoQueue<Event>> m_eventlogQs = new ArrayList<FifoQueue<Event>>();
 
-    /**
-     * The queue processing threads -- ArrayList of EventQueueProcessors
-     */
+    /** The queue processing threads -- ArrayList of EventQueueProcessors. */
     private ArrayList<EventQueueProcessor> m_processors = new ArrayList<EventQueueProcessor>();
 
     /**
@@ -82,8 +79,10 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      */
     private ArrayList<BroadcastEventProcessor> m_eventReceivers = new ArrayList<BroadcastEventProcessor>();
 
+    /** The m_server config. */
     private OpennmsServerConfigFactory m_serverConfig;
 
+    /** The m_config. */
     private XmlrpcdConfigFactory m_config;
 
     /**
@@ -100,6 +99,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -144,14 +144,15 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public XmlrpcdConfigFactory getConfig() throws MarshalException, ValidationException, IOException {
         if (m_config == null) {
@@ -164,13 +165,14 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * createConfig
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void createConfig() throws MarshalException, ValidationException, IOException {
         XmlrpcdConfigFactory.init();
@@ -181,6 +183,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * setConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.config.XmlrpcdConfigFactory}
@@ -194,15 +197,16 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * getServerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
      *         object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public OpennmsServerConfigFactory getServerConfig() throws MarshalException, ValidationException, IOException {
         if (m_serverConfig == null) {
@@ -215,13 +219,14 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * createServerConfig
      * </p>
+     * .
      *
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public void createServerConfig() throws MarshalException, ValidationException, IOException {
         OpennmsServerConfigFactory.init();
@@ -232,6 +237,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * setServerConfig
      * </p>
+     * .
      *
      * @param serverConfig
      *            a {@link org.opennms.netmgt.config.OpennmsServerConfigFactory}
@@ -245,6 +251,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -261,6 +268,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -277,6 +285,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -293,6 +302,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {

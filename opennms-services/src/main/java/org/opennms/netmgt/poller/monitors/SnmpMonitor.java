@@ -70,6 +70,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public class SnmpMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(SnmpMonitor.class);
 
     /**
@@ -85,7 +86,13 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
                                                                                   // Object
                                                                                   // Id
 
-    private static final String DEFAULT_REASON_TEMPLATE = "Observed value '${observedValue}' does not meet criteria '${operator} ${operand}'";
+    /**
+                                                                                     * The
+                                                                                     * Constant
+                                                                                     * DEFAULT_REASON_TEMPLATE
+                                                                                     * .
+                                                                                     */
+                                                                                  private static final String DEFAULT_REASON_TEMPLATE = "Observed value '${observedValue}' does not meet criteria '${operator} ${operand}'";
 
     /**
      * <P>
@@ -129,9 +136,6 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

@@ -70,8 +70,10 @@ import org.slf4j.LoggerFactory;
  */
 public class JBossConnectionFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JBossConnectionFactory.class);
 
+    /** The packages. */
     static String[] packages = { "org.jboss.naming.*", "org.jboss.interfaces.*" };
 
     /*
@@ -84,6 +86,7 @@ public class JBossConnectionFactory {
      * <p>
      * getMBeanServerConnection
      * </p>
+     * .
      *
      * @param propertiesMap
      *            a {@link java.util.Map} object.

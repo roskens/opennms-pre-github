@@ -38,6 +38,7 @@ package org.opennms.netmgt.poller.pollables;
  */
 public class ThreadInterrupted extends RuntimeException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5121399068267358176L;
 
     /**

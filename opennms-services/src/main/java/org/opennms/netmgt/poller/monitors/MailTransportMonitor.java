@@ -75,10 +75,14 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public class MailTransportMonitor extends AbstractServiceMonitor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MailTransportMonitor.class);
 
+    /** The Constant MTM_HEADER_KEY. */
     private static final String MTM_HEADER_KEY = "X-OpenNMS-MTM-ID";
 
+    /** The m_header value. */
     private final String m_headerValue = Integer.toString(new Random().nextInt(Integer.MAX_VALUE));
 
     /** {@inheritDoc} */
@@ -120,6 +124,12 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         return status;
     }
 
+    /**
+     * Parses the java mail properties.
+     *
+     * @param mailParms
+     *            the mail parms
+     */
     private void parseJavaMailProperties(final MailTransportParameters mailParms) {
         final ReadmailTest readTest = mailParms.getReadTest();
 
@@ -146,6 +156,8 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * This method handles all the logic for testing mail.
      *
      * @param mailParms
+     *            the mail parms
+     * @return the poll status
      */
     private PollStatus doMailTest(final MailTransportParameters mailParms) {
         final long beginPoll = System.currentTimeMillis();
@@ -188,6 +200,13 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         return status;
     }
 
+    /**
+     * Read test message.
+     *
+     * @param mailParms
+     *            the mail parms
+     * @return the poll status
+     */
     private PollStatus readTestMessage(final MailTransportParameters mailParms) {
         LOG.debug("readTestMessage: Beginning read mail test.");
         PollStatus status = PollStatus.unavailable("Test not completed.");
@@ -257,7 +276,9 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * Handy method to do the try catch try of closing a mail store and folder.
      *
      * @param mailStore
+     *            the mail store
      * @param mailFolder
+     *            the mail folder
      */
     private void closeStore(final Store mailStore, final Folder mailFolder) {
         try {
@@ -282,7 +303,9 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * for a matching subject.
      *
      * @param mailParms
+     *            the mail parms
      * @param mailFolder
+     *            the mail folder
      * @return a PollStatus indicative of the success of matching a subject or
      *         just retieving
      *         mail folder contents... dependent on configuration.
@@ -362,6 +385,7 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * the read with the send.
      *
      * @param mailParms
+     *            the mail parms
      * @return a computed subject based on the requirements of the service
      *         configuration.
      */
@@ -383,7 +407,9 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * that conflict with javamail defined properties always win.
      *
      * @param mailParms
+     *            the mail parms
      * @param readMailer
+     *            the read mailer
      */
     private void setReadMailProperties(final MailTransportParameters mailParms, final JavaMailer readMailer) {
         final Properties sendMailProps = readMailer.getSession().getProperties();
@@ -412,9 +438,12 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * folder.
      *
      * @param mailParms
+     *            the mail parms
      * @param mailStore
+     *            the mail store
      * @return the folder specified in configuration
      * @throws MessagingException
+     *             the messaging exception
      */
     private Folder retrieveMailFolder(final MailTransportParameters mailParms, final Store mailStore)
             throws MessagingException {
@@ -429,6 +458,7 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * Sends message based on properties and fields configured for the service.
      *
      * @param mailParms
+     *            the mail parms
      * @return a PollStatus
      */
     private PollStatus sendTestMessage(final MailTransportParameters mailParms) {
@@ -464,7 +494,9 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * attempting to sleep the thread.
      *
      * @param status
+     *            the status
      * @param interval
+     *            the interval
      * @return returns an unchanged PollStatus unless an exception happens in
      *         which case status is changed to unknown.
      */
@@ -484,7 +516,9 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
      * re-factoring!
      *
      * @param mailParms
+     *            the mail parms
      * @param sendMailer
+     *            the send mailer
      */
     private void overRideDefaultProperties(final MailTransportParameters mailParms, final JavaMailer sendMailer) {
         sendMailer.setFrom(mailParms.getSendTestFrom());
@@ -509,6 +543,15 @@ public class MailTransportMonitor extends AbstractServiceMonitor {
         sendMailer.setUseJMTA(mailParms.isSendTestUseJmta());
     }
 
+    /**
+     * Creates the mailer.
+     *
+     * @param mailParms
+     *            the mail parms
+     * @return the java mailer
+     * @throws JavaMailerException
+     *             the java mailer exception
+     */
     private JavaMailer createMailer(final MailTransportParameters mailParms) throws JavaMailerException {
         final JavaMailer sendMailer = new JavaMailer(mailParms.getJavamailProperties());
         final String mailPropsPrefix = new StringBuilder("mail.").append(mailParms.getSendTestTransport()).append('.').toString();

@@ -68,6 +68,7 @@ import org.springframework.util.Assert;
  */
 public final class Eventd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Eventd.class);
 
     /**
@@ -75,9 +76,7 @@ public final class Eventd extends AbstractServiceDaemon {
      */
     public static final String LOG4J_CATEGORY = "eventd";
 
-    /**
-     * Reference to the event processor
-     */
+    /** Reference to the event processor. */
     private BroadcastEventProcessor m_receiver;
 
     /**
@@ -92,7 +91,7 @@ public final class Eventd extends AbstractServiceDaemon {
 
     /**
      * Constuctor creates the localhost address(to be used eventually when
-     * eventd originates events during correlation) and the broadcast queue
+     * eventd originates events during correlation) and the broadcast queue.
      */
     public Eventd() {
         super(LOG4J_CATEGORY);
@@ -102,6 +101,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -116,6 +116,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -132,6 +133,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -153,6 +155,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * getEventdServiceManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.EventdServiceManager} object.
      */
@@ -164,6 +167,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * setEventdServiceManager
      * </p>
+     * .
      *
      * @param eventdServiceManager
      *            a {@link org.opennms.netmgt.dao.api.EventdServiceManager}
@@ -177,6 +181,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * getReceiver
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor}
      *         object.
@@ -189,6 +194,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * setReceiver
      * </p>
+     * .
      *
      * @param receiver
      *            a {@link org.opennms.netmgt.eventd.BroadcastEventProcessor}
@@ -202,6 +208,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * getEventReceivers
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -213,6 +220,7 @@ public final class Eventd extends AbstractServiceDaemon {
      * <p>
      * setEventReceivers
      * </p>
+     * .
      *
      * @param eventReceivers
      *            a {@link java.util.Collection} object.

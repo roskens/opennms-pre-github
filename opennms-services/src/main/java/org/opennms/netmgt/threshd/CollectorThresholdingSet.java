@@ -52,11 +52,15 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CollectorThresholdingSet extends ThresholdingSet {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectorThresholdingSet.class);
 
     // CollectionSpecification parameters
+    /** The store by if alias. */
     boolean storeByIfAlias = false;
 
+    /** The store by foreign source. */
     boolean storeByForeignSource = false;
 
     /**
@@ -72,6 +76,8 @@ public class CollectorThresholdingSet extends ThresholdingSet {
      *            a {@link java.lang.String} object.
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.
+     * @param roProps
+     *            the ro props
      */
     public CollectorThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository,
             Map<String, Object> roProps) {
@@ -82,6 +88,11 @@ public class CollectorThresholdingSet extends ThresholdingSet {
         LOG.debug("storeByForeignSource = {}", storeByForeignSource);
     }
 
+    /**
+     * Checks if is store by foreign source.
+     *
+     * @return true, if is store by foreign source
+     */
     public static boolean isStoreByForeignSource() {
         return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
@@ -94,12 +105,13 @@ public class CollectorThresholdingSet extends ThresholdingSet {
      * <p>
      * hasThresholds
      * </p>
+     * .
      *
      * @param attribute
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionAttribute}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.netmgt.config.collector.CollectionAttribute}
+     *         object.
      */
     public boolean hasThresholds(CollectionAttribute attribute) {
         CollectionResource resource = attribute.getResource();
@@ -144,6 +156,13 @@ public class CollectorThresholdingSet extends ThresholdingSet {
         return super.passedThresholdFilters(resource, thresholdEntity);
     }
 
+    /**
+     * Checks if is collection enabled.
+     *
+     * @param resource
+     *            the resource
+     * @return true, if is collection enabled
+     */
     protected boolean isCollectionEnabled(CollectionResource resource) {
         if (resource instanceof IfInfo) {
             return ((IfInfo) resource).isScheduledForCollection();

@@ -49,15 +49,17 @@ import java.util.TimeZone;
  */
 public class SyslogTimeStamp extends Format {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6116771489369028204L;
 
-    /** Constant <code>DEFAULT_GMT_TZID="GMT+00"</code> */
+    /** Constant <code>DEFAULT_GMT_TZID="GMT+00"</code>. */
     public static final String DEFAULT_GMT_TZID = "GMT+00";
 
     /**
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.syslogd.SyslogTimeStamp} object.
      */
@@ -69,12 +71,13 @@ public class SyslogTimeStamp extends Format {
      * <p>
      * format
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public String format(Date date) throws IllegalArgumentException {
         TimeZone tz = TimeZone.getTimeZone(SyslogTimeStamp.DEFAULT_GMT_TZID);
@@ -86,14 +89,15 @@ public class SyslogTimeStamp extends Format {
      * <p>
      * formatTimeZone
      * </p>
+     * .
      *
      * @param date
      *            a {@link java.util.Date} object.
      * @param tz
      *            a {@link java.util.TimeZone} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.lang.IllegalArgumentException
-     *             if any.
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
      */
     public String formatTimeZone(Date date, TimeZone tz) throws IllegalArgumentException {
         SimpleDateFormat dateFormat;
@@ -125,12 +129,13 @@ public class SyslogTimeStamp extends Format {
      * <p>
      * parse
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public Date parse(String source) throws ParseException {
         return parseTimestamp(source);
@@ -156,12 +161,13 @@ public class SyslogTimeStamp extends Format {
      * <p>
      * parseTimestamp
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.Date} object.
-     * @throws java.text.ParseException
-     *             if any.
+     * @throws ParseException
+     *             the parse exception
      */
     public Date parseTimestamp(String source) throws ParseException {
         String monName = null;
@@ -284,6 +290,15 @@ public class SyslogTimeStamp extends Format {
         return result;
     }
 
+    /**
+     * Month name to int.
+     *
+     * @param name
+     *            the name
+     * @return the int
+     * @throws ParseException
+     *             the parse exception
+     */
     private int monthNameToInt(String name) throws ParseException {
         // UNDONE - this could be optimized by checking the
         // first character, since this resolves all

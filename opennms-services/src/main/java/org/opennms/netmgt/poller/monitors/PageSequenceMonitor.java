@@ -109,12 +109,27 @@ import org.slf4j.LoggerFactory;
 @Distributable
 public class PageSequenceMonitor extends AbstractServiceMonitor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PageSequenceMonitor.class);
 
+    /**
+     * The Class SequenceTracker.
+     */
     protected class SequenceTracker {
 
+        /** The m_tracker. */
         TimeoutTracker m_tracker;
 
+        /**
+         * Instantiates a new sequence tracker.
+         *
+         * @param parameterMap
+         *            the parameter map
+         * @param defaultSequenceRetry
+         *            the default sequence retry
+         * @param defaultTimeout
+         *            the default timeout
+         */
         public SequenceTracker(Map<String, Object> parameterMap, int defaultSequenceRetry, int defaultTimeout) {
             Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("retry", ParameterMap.getKeyedInteger(parameterMap, "sequence-retry", defaultSequenceRetry));
@@ -123,27 +138,47 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             m_tracker = new TimeoutTracker(parameters, defaultSequenceRetry, defaultTimeout);
         }
 
+        /**
+         * Reset.
+         */
         public void reset() {
             m_tracker.reset();
         }
 
+        /**
+         * Should retry.
+         *
+         * @return true, if successful
+         */
         public boolean shouldRetry() {
             return m_tracker.shouldRetry();
         }
 
+        /**
+         * Next attempt.
+         */
         public void nextAttempt() {
             m_tracker.nextAttempt();
         }
 
+        /**
+         * Start attempt.
+         */
         public void startAttempt() {
             m_tracker.startAttempt();
         }
 
+        /**
+         * Elapsed time in millis.
+         *
+         * @return the double
+         */
         public double elapsedTimeInMillis() {
             return m_tracker.elapsedTimeInMillis();
         }
     }
 
+    /** The Constant DEFAULT_SEQUENCE_RETRY. */
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
 
     // FIXME: This should be wired with Spring
@@ -153,35 +188,76 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
 
+    /**
+     * The Class PageSequenceMonitorException.
+     */
     public static class PageSequenceMonitorException extends RuntimeException {
+
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1346757238604080088L;
 
+        /**
+         * Instantiates a new page sequence monitor exception.
+         *
+         * @param message
+         *            the message
+         */
         public PageSequenceMonitorException(String message) {
             super(message);
         }
 
+        /**
+         * Instantiates a new page sequence monitor exception.
+         *
+         * @param cause
+         *            the cause
+         */
         public PageSequenceMonitorException(Throwable cause) {
             super(cause);
         }
 
+        /**
+         * Instantiates a new page sequence monitor exception.
+         *
+         * @param message
+         *            the message
+         * @param cause
+         *            the cause
+         */
         public PageSequenceMonitorException(String message, Throwable cause) {
             super(message, cause);
         }
     }
 
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 0;
 
+    /**
+     * The Class HttpPageSequence.
+     */
     public static class HttpPageSequence {
+
+        /** The m_sequence. */
         final PageSequence m_sequence;
 
+        /** The m_pages. */
         final List<HttpPage> m_pages;
 
+        /** The m_sequence properties. */
         Properties m_sequenceProperties;
 
+        /** The m_parameters. */
         Map<String, String> m_parameters = new HashMap<String, String>();
 
+        /**
+         * Instantiates a new http page sequence.
+         *
+         * @param sequence
+         *            the sequence
+         */
         HttpPageSequence(PageSequence sequence) {
             m_sequence = sequence;
 
@@ -193,18 +269,44 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             m_sequenceProperties = new Properties();
         }
 
+        /**
+         * Gets the parameters.
+         *
+         * @return the parameters
+         */
         public Map<String, String> getParameters() {
             return m_parameters;
         }
 
+        /**
+         * Sets the parameters.
+         *
+         * @param parameters
+         *            the parameters
+         */
         public void setParameters(Map<String, String> parameters) {
             m_parameters = parameters;
         }
 
+        /**
+         * Gets the pages.
+         *
+         * @return the pages
+         */
         List<HttpPage> getPages() {
             return m_pages;
         }
 
+        /**
+         * Execute.
+         *
+         * @param client
+         *            the client
+         * @param svc
+         *            the svc
+         * @param responseTimes
+         *            the response times
+         */
         private void execute(DefaultHttpClient client, MonitoredService svc, Map<String, Number> responseTimes) {
             // Clear the sequence properties before each run
             clearSequenceProperties();
@@ -227,28 +329,65 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
         }
 
+        /**
+         * Gets the sequence properties.
+         *
+         * @return the sequence properties
+         */
         protected Properties getSequenceProperties() {
             return m_sequenceProperties;
         }
 
+        /**
+         * Sets the sequence properties.
+         *
+         * @param newProps
+         *            the new sequence properties
+         */
         protected void setSequenceProperties(Properties newProps) {
             m_sequenceProperties = newProps;
         }
 
+        /**
+         * Clear sequence properties.
+         */
         protected void clearSequenceProperties() {
             m_sequenceProperties.clear();
         }
     }
 
+    /**
+     * The Interface PageSequenceHttpUriRequest.
+     */
     public interface PageSequenceHttpUriRequest extends HttpUriRequest {
+
+        /**
+         * Sets the query parameters.
+         *
+         * @param parms
+         *            the new query parameters
+         */
         public void setQueryParameters(List<NameValuePair> parms);
     }
 
+    /**
+     * The Class PageSequenceHttpPost.
+     */
     public static class PageSequenceHttpPost extends HttpPost implements PageSequenceHttpUriRequest {
+
+        /**
+         * Instantiates a new page sequence http post.
+         *
+         * @param uri
+         *            the uri
+         */
         public PageSequenceHttpPost(URI uri) {
             super(uri);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.monitors.PageSequenceMonitor.PageSequenceHttpUriRequest#setQueryParameters(java.util.List)
+         */
         @Override
         public void setQueryParameters(List<NameValuePair> parms) {
             try {
@@ -260,12 +399,24 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         }
     }
 
+    /**
+     * The Class PageSequenceHttpGet.
+     */
     public static class PageSequenceHttpGet extends HttpGet implements PageSequenceHttpUriRequest {
 
+        /**
+         * Instantiates a new page sequence http get.
+         *
+         * @param uri
+         *            the uri
+         */
         public PageSequenceHttpGet(URI uri) {
             super(uri);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.poller.monitors.PageSequenceMonitor.PageSequenceHttpUriRequest#setQueryParameters(java.util.List)
+         */
         @Override
         public void setQueryParameters(List<NameValuePair> parms) {
             URI uri = this.getURI();
@@ -282,23 +433,43 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         }
     }
 
+    /**
+     * The Class HttpPage.
+     */
     public static class HttpPage {
+
+        /** The m_page. */
         private final Page m_page;
 
+        /** The m_range. */
         private final HttpResponseRange m_range;
 
+        /** The m_success pattern. */
         private final Pattern m_successPattern;
 
+        /** The m_failure pattern. */
         private final Pattern m_failurePattern;
 
+        /** The m_location pattern. */
         private final Pattern m_locationPattern;
 
+        /** The m_parent sequence. */
         private final HttpPageSequence m_parentSequence;
 
+        /** The m_response time. */
         private double m_responseTime;
 
+        /** The m_parms. */
         private final List<NameValuePair> m_parms = new ArrayList<NameValuePair>();
 
+        /**
+         * Instantiates a new http page.
+         *
+         * @param parent
+         *            the parent
+         * @param page
+         *            the page
+         */
         HttpPage(HttpPageSequence parent, Page page) {
             m_page = page;
             m_range = new HttpResponseRange(page.getResponseRange());
@@ -312,6 +483,9 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             }
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             ToStringBuilder retval = new ToStringBuilder(this);
@@ -330,6 +504,16 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return retval.toString();
         }
 
+        /**
+         * Execute.
+         *
+         * @param client
+         *            the client
+         * @param svc
+         *            the svc
+         * @param sequenceProperties
+         *            the sequence properties
+         */
         void execute(DefaultHttpClient client, MonitoredService svc, Properties sequenceProperties) {
             try {
                 URI uri = getURI(svc);
@@ -465,6 +649,13 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             }
         }
 
+        /**
+         * Expand parms.
+         *
+         * @param svc
+         *            the svc
+         * @return the list
+         */
         private List<NameValuePair> expandParms(MonitoredService svc) {
             List<NameValuePair> expandedParms = new ArrayList<NameValuePair>();
             Properties svcProps = getServiceProperties(svc);
@@ -486,6 +677,14 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return expandedParms;
         }
 
+        /**
+         * Update sequence properties.
+         *
+         * @param props
+         *            the props
+         * @param matcher
+         *            the matcher
+         */
         private void updateSequenceProperties(Properties props, Matcher matcher) {
             for (SessionVariable varBinding : m_page.getSessionVariableCollection()) {
                 String vbName = varBinding.getName();
@@ -499,15 +698,36 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             setSequenceProperties(props);
         }
 
+        /**
+         * Gets the user agent.
+         *
+         * @return the user agent
+         */
         private String getUserAgent() {
             return m_page.getUserAgent();
         }
 
+        /**
+         * Gets the virtual host.
+         *
+         * @param svc
+         *            the svc
+         * @return the virtual host
+         */
         private String getVirtualHost(MonitoredService svc) {
             return PropertiesUtils.substitute(m_page.getVirtualHost(), getServiceProperties(svc),
                                               getSequenceProperties());
         }
 
+        /**
+         * Gets the uri.
+         *
+         * @param svc
+         *            the svc
+         * @return the uri
+         * @throws URISyntaxException
+         *             the uRI syntax exception
+         */
         private URI getURI(MonitoredService svc) throws URISyntaxException {
             Properties svcProps = getServiceProperties(svc);
             Properties seqProps = getSequenceProperties();
@@ -542,26 +762,68 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return ub.build();
         }
 
+        /**
+         * Gets the fragment.
+         *
+         * @param p
+         *            the p
+         * @return the fragment
+         */
         private String getFragment(Properties... p) {
             return PropertiesUtils.substitute(m_page.getFragment(), p);
         }
 
+        /**
+         * Gets the query.
+         *
+         * @param p
+         *            the p
+         * @return the query
+         */
         private String getQuery(Properties... p) {
             return PropertiesUtils.substitute(m_page.getQuery(), p);
         }
 
+        /**
+         * Gets the path.
+         *
+         * @param p
+         *            the p
+         * @return the path
+         */
         private String getPath(Properties... p) {
             return PropertiesUtils.substitute(m_page.getPath(), p);
         }
 
+        /**
+         * Gets the port.
+         *
+         * @param p
+         *            the p
+         * @return the port
+         */
         private int getPort(Properties... p) {
             return Integer.valueOf(PropertiesUtils.substitute(String.valueOf(m_page.getPort()), p));
         }
 
+        /**
+         * Gets the host.
+         *
+         * @param p
+         *            the p
+         * @return the host
+         */
         private String getHost(Properties... p) {
             return PropertiesUtils.substitute(m_page.getHost(), p);
         }
 
+        /**
+         * Gets the service properties.
+         *
+         * @param svc
+         *            the svc
+         * @return the service properties
+         */
         private Properties getServiceProperties(MonitoredService svc) {
             Properties properties = new Properties();
             properties.put("ipaddr", svc.getIpAddr());
@@ -571,63 +833,145 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return properties;
         }
 
+        /**
+         * Gets the user info.
+         *
+         * @return the user info
+         */
         private String getUserInfo() {
             return m_page.getUserInfo();
         }
 
+        /**
+         * Gets the scheme.
+         *
+         * @return the scheme
+         */
         private String getScheme() {
             return m_page.getScheme();
         }
 
+        /**
+         * Gets the method.
+         *
+         * @param uri
+         *            the uri
+         * @return the method
+         */
         private PageSequenceHttpUriRequest getMethod(URI uri) {
             String method = m_page.getMethod();
             return ("GET".equalsIgnoreCase(method) ? new PageSequenceHttpGet(uri) : new PageSequenceHttpPost(uri));
         }
 
+        /**
+         * Gets the range.
+         *
+         * @return the range
+         */
         private HttpResponseRange getRange() {
             return m_range;
         }
 
+        /**
+         * Gets the success pattern.
+         *
+         * @return the success pattern
+         */
         private Pattern getSuccessPattern() {
             return m_successPattern;
         }
 
+        /**
+         * Gets the location pattern.
+         *
+         * @return the location pattern
+         */
         private Pattern getLocationPattern() {
             return m_locationPattern;
         }
 
+        /**
+         * Gets the failure pattern.
+         *
+         * @return the failure pattern
+         */
         private Pattern getFailurePattern() {
             return m_failurePattern;
         }
 
+        /**
+         * Gets the failure message.
+         *
+         * @return the failure message
+         */
         private String getFailureMessage() {
             return m_page.getFailureMessage();
         }
 
+        /**
+         * Gets the resolved failure message.
+         *
+         * @param matcher
+         *            the matcher
+         * @return the resolved failure message
+         */
         private String getResolvedFailureMessage(Matcher matcher) {
             return PropertiesUtils.substitute(getFailureMessage(), new MatchTable(matcher));
         }
 
+        /**
+         * Gets the sequence properties.
+         *
+         * @return the sequence properties
+         */
         private Properties getSequenceProperties() {
             return m_parentSequence.getSequenceProperties();
         }
 
+        /**
+         * Sets the sequence properties.
+         *
+         * @param props
+         *            the new sequence properties
+         */
         private void setSequenceProperties(Properties props) {
             m_parentSequence.setSequenceProperties(props);
         }
 
+        /**
+         * Gets the response time.
+         *
+         * @return the response time
+         */
         public Number getResponseTime() {
             return m_responseTime;
         }
 
+        /**
+         * Gets the ds name.
+         *
+         * @return the ds name
+         */
         public String getDsName() {
             return m_page.getDsName();
         }
     }
 
+    /**
+     * The Class PageSequenceMonitorParameters.
+     */
     public static class PageSequenceMonitorParameters {
+
+        /** The Constant KEY. */
         public static final String KEY = PageSequenceMonitorParameters.class.getName();
 
+        /**
+         * Gets the.
+         *
+         * @param parameterMap
+         *            the parameter map
+         * @return the page sequence monitor parameters
+         */
         @SuppressWarnings({ "unchecked" })
         static synchronized PageSequenceMonitorParameters get(Map parameterMap) {
             PageSequenceMonitorParameters parms = (PageSequenceMonitorParameters) parameterMap.get(KEY);
@@ -638,12 +982,21 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return parms;
         }
 
+        /** The m_parameter map. */
         private final Map<String, String> m_parameterMap;
 
+        /** The m_client params. */
         private final HttpParams m_clientParams;
 
+        /** The m_page sequence. */
         private final HttpPageSequence m_pageSequence;
 
+        /**
+         * Instantiates a new page sequence monitor parameters.
+         *
+         * @param parameterMap
+         *            the parameter map
+         */
         @SuppressWarnings("unchecked")
         PageSequenceMonitorParameters(Map<String, String> parameterMap) {
             m_parameterMap = parameterMap;
@@ -660,14 +1013,31 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             m_clientParams = createClientParams();
         }
 
+        /**
+         * Gets the parameter map.
+         *
+         * @return the parameter map
+         */
         Map<String, String> getParameterMap() {
             return m_parameterMap;
         }
 
+        /**
+         * Gets the page sequence.
+         *
+         * @return the page sequence
+         */
         HttpPageSequence getPageSequence() {
             return m_pageSequence;
         }
 
+        /**
+         * Parses the page sequence.
+         *
+         * @param sequenceString
+         *            the sequence string
+         * @return the page sequence
+         */
         PageSequence parsePageSequence(String sequenceString) {
             try {
                 return CastorUtils.unmarshal(PageSequence.class,
@@ -684,14 +1054,37 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
 
         }
 
+        /**
+         * Gets the string parm.
+         *
+         * @param key
+         *            the key
+         * @param deflt
+         *            the deflt
+         * @return the string parm
+         */
         private String getStringParm(String key, String deflt) {
             return ParameterMap.getKeyedString(getParameterMap(), key, deflt);
         }
 
+        /**
+         * Gets the int parm.
+         *
+         * @param key
+         *            the key
+         * @param defValue
+         *            the def value
+         * @return the int parm
+         */
         private int getIntParm(String key, int defValue) {
             return ParameterMap.getKeyedInteger(getParameterMap(), key, defValue);
         }
 
+        /**
+         * Creates the client params.
+         *
+         * @return the http params
+         */
         private HttpParams createClientParams() {
             HttpParams clientParams = new BasicHttpParams();
             clientParams.setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, getTimeout());
@@ -703,18 +1096,38 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return clientParams;
         }
 
+        /**
+         * Gets the retries.
+         *
+         * @return the retries
+         */
         public int getRetries() {
             return getIntParm("retry", PageSequenceMonitor.DEFAULT_RETRY);
         }
 
+        /**
+         * Gets the timeout.
+         *
+         * @return the timeout
+         */
         public int getTimeout() {
             return getIntParm("timeout", PageSequenceMonitor.DEFAULT_TIMEOUT);
         }
 
+        /**
+         * Gets the client params.
+         *
+         * @return the client params
+         */
         public HttpParams getClientParams() {
             return m_clientParams;
         }
 
+        /**
+         * Creates the http client.
+         *
+         * @return the default http client
+         */
         DefaultHttpClient createHttpClient() {
             DefaultHttpClient client = new DefaultHttpClient(getClientParams());
 

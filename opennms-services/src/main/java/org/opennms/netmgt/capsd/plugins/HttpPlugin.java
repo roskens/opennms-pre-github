@@ -83,27 +83,27 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org">OpenNMS </A>
  */
 public class HttpPlugin extends AbstractTcpPlugin {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpPlugin.class);
 
     // Names of properties configured for the protocol-plugin
-    /** Constant <code>PROPERTY_NAME_PORT="port"</code> */
+    /** Constant <code>PROPERTY_NAME_PORT="port"</code>. */
     protected static final String PROPERTY_NAME_PORT = "port";
 
-    /** Constant <code>PROPERTY_NAME_MAX_RET_CODE="max-ret-code"</code> */
+    /** Constant <code>PROPERTY_NAME_MAX_RET_CODE="max-ret-code"</code>. */
     protected static final String PROPERTY_NAME_MAX_RET_CODE = "max-ret-code";
 
-    /** Constant <code>PROPERTY_NAME_RETURN_CODE="check-return-code"</code> */
+    /** Constant <code>PROPERTY_NAME_RETURN_CODE="check-return-code"</code>. */
     protected static final String PROPERTY_NAME_RETURN_CODE = "check-return-code";
 
-    /** Constant <code>PROPERTY_NAME_URL="url"</code> */
+    /** Constant <code>PROPERTY_NAME_URL="url"</code>. */
     protected static final String PROPERTY_NAME_URL = "url";
 
-    /** Constant <code>PROPERTY_NAME_RESPONSE_TEXT="response-text"</code> */
+    /** Constant <code>PROPERTY_NAME_RESPONSE_TEXT="response-text"</code>. */
     protected static final String PROPERTY_NAME_RESPONSE_TEXT = "response-text";
 
-    /**
-     * Boolean indicating whether to check for a return code
-     */
+    /** Boolean indicating whether to check for a return code. */
     public static final boolean CHECK_RETURN_CODE = true;
 
     /**
@@ -124,42 +124,28 @@ public class HttpPlugin extends AbstractTcpPlugin {
      */
     private static final int DEFAULT_TIMEOUT = 5000; // in milliseconds
 
-    /** Constant <code>PROTOCOL_NAME="HTTP"</code> */
+    /** Constant <code>PROTOCOL_NAME="HTTP"</code>. */
     public static final String PROTOCOL_NAME = "HTTP";
 
-    /**
-     * The query to send to the HTTP server
-     */
+    /** The query to send to the HTTP server. */
     public static final String QUERY_STRING = "GET / HTTP/1.0\r\n\r\n";
 
-    /**
-     * The query to send to the HTTP server
-     */
+    /** The query to send to the HTTP server. */
     public static final String DEFAULT_URL = "/";
 
-    /**
-     * A string to look for in the response from the server
-     */
+    /** A string to look for in the response from the server. */
     public static final String RESPONSE_STRING = "HTTP/";
 
-    /**
-     * Boolean indicating whether to check for a return code
-     */
+    /** Boolean indicating whether to check for a return code. */
     private boolean m_checkReturnCode = true;
 
-    /**
-     * The default ports to check on a server
-     */
+    /** The default ports to check on a server. */
     private int[] m_defaultPorts;
 
-    /**
-     * The query to send to the HTTP server
-     */
+    /** The query to send to the HTTP server. */
     private String m_queryString = "GET / HTTP/1.0\r\n\r\n";
 
-    /**
-     * A string to look for in the response from the server
-     */
+    /** A string to look for in the response from the server. */
     private String m_responseString = "HTTP/";
 
     /**
@@ -296,7 +282,7 @@ public class HttpPlugin extends AbstractTcpPlugin {
 
     /**
      * Checks the response body as a substring or regular expression match
-     * according to the leading-tilde convention
+     * according to the leading-tilde convention.
      *
      * @param config
      *            ConnectionConfig object from which response-text property is

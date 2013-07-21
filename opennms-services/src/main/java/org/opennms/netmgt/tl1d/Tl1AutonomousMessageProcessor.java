@@ -46,6 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Tl1AutonomousMessageProcessor.class);
 
     /**
@@ -94,6 +95,14 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
 
     }
 
+    /**
+     * Process header.
+     *
+     * @param lineParser
+     *            the line parser
+     * @param message
+     *            the message
+     */
     private void processHeader(StringTokenizer lineParser, Tl1AutonomousMessage message) {
         boolean foundHeader = false;
         while (!foundHeader) {
@@ -112,6 +121,17 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         }
     }
 
+    /**
+     * Parses the header.
+     *
+     * @param line
+     *            the line
+     * @param message
+     *            the message
+     * @return true, if successful
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     private static boolean parseHeader(String line, Tl1AutonomousMessage message) throws IllegalArgumentException {
         StringTokenizer headerParser = new StringTokenizer(line);
 
@@ -142,6 +162,14 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         return true;
     }
 
+    /**
+     * Process id.
+     *
+     * @param lineParser
+     *            the line parser
+     * @param message
+     *            the message
+     */
     private void processId(StringTokenizer lineParser, Tl1AutonomousMessage message) {
         boolean foundId = false;
         while (!foundId) {
@@ -154,6 +182,15 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         }
     }
 
+    /**
+     * Parses the id.
+     *
+     * @param line
+     *            the line
+     * @param message
+     *            the message
+     * @return true, if successful
+     */
     private boolean parseId(String line, Tl1AutonomousMessage message) {
         StringTokenizer idParser = new StringTokenizer(line);
         if (idParser.countTokens() < 3) {
@@ -174,6 +211,14 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         return true;
     }
 
+    /**
+     * Process auto block.
+     *
+     * @param lineParser
+     *            the line parser
+     * @param message
+     *            the message
+     */
     private void processAutoBlock(StringTokenizer lineParser, Tl1AutonomousMessage message) {
         boolean foundId = false;
         while (!foundId) {
@@ -193,6 +238,15 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
      * aid:ntfcncde, followed by additional comma separated parms.
      * ntfcncde may be in the form ntfcncde=code or just the code
      * where the code is CR, MJ, MN, CL for the severity.
+     */
+    /**
+     * Parses the auto block.
+     *
+     * @param line
+     *            the line
+     * @param message
+     *            the message
+     * @return true, if successful
      */
     private boolean parseAutoBlock(String line, Tl1AutonomousMessage message) {
 

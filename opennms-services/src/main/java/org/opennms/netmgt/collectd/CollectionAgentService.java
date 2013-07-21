@@ -49,6 +49,7 @@ public interface CollectionAgentService {
      * <p>
      * getHostAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -58,6 +59,7 @@ public interface CollectionAgentService {
      * <p>
      * isStoreByForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.Boolean} object.
      */
@@ -67,6 +69,7 @@ public interface CollectionAgentService {
      * <p>
      * getForeignSource
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -76,6 +79,7 @@ public interface CollectionAgentService {
      * <p>
      * getForeignId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -85,6 +89,7 @@ public interface CollectionAgentService {
      * <p>
      * getStorageDir
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -94,6 +99,7 @@ public interface CollectionAgentService {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -103,6 +109,7 @@ public interface CollectionAgentService {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -112,6 +119,7 @@ public interface CollectionAgentService {
      * <p>
      * getSysObjectId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -121,6 +129,7 @@ public interface CollectionAgentService {
      * <p>
      * getIsSnmpPrimary
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PrimaryType} object.
      */
@@ -130,6 +139,7 @@ public interface CollectionAgentService {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -139,6 +149,7 @@ public interface CollectionAgentService {
      * <p>
      * getSnmpInterfaceData
      * </p>
+     * .
      *
      * @return a {@link java.util.Set} object.
      */
@@ -148,6 +159,7 @@ public interface CollectionAgentService {
      * <p>
      * getInetAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */

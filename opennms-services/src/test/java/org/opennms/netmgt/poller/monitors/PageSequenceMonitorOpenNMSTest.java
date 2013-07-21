@@ -51,6 +51,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class PageSequenceMonitorOpenNMSTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
@@ -66,10 +68,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 // @JUnitHttpServer(port=10342)
 public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */{
 
+    /** The m_monitor. */
     PageSequenceMonitor m_monitor;
 
+    /** The m_params. */
     Map<String, Object> m_params;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -83,21 +93,53 @@ public class PageSequenceMonitorOpenNMSTest /* implements SystemReportPlugin */{
 
     }
 
+    /**
+     * Gets the http service.
+     *
+     * @param hostname
+     *            the hostname
+     * @return the http service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getHttpService(String hostname) throws Exception {
         return getHttpService(hostname, InetAddressUtils.addr(hostname));
     }
 
+    /**
+     * Gets the http service.
+     *
+     * @param hostname
+     *            the hostname
+     * @param inetAddress
+     *            the inet address
+     * @return the http service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getHttpService(String hostname, InetAddress inetAddress) throws Exception {
         MonitoredService svc = new MockMonitoredService(1, hostname, inetAddress, "HTTP");
         m_monitor.initialize(svc);
         return svc;
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test open nms user interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     // @JUnitHttpServer(port=10342, webapps=@Webapp(context="/opennms",

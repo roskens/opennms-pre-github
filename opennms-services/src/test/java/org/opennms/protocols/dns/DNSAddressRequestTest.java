@@ -39,8 +39,12 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class DNSAddressRequestTest.
+ */
 public class DNSAddressRequestTest extends TestCase {
 
+    /** The Constant normalResponseBytes. */
     private static final byte[] normalResponseBytes = new byte[] { (byte) 0x9e, (byte) 0xf2, (byte) 0x81, (byte) 0x80,
             (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x09, (byte) 0x6c, (byte) 0x6f, (byte) 0x63, (byte) 0x61, (byte) 0x6c, (byte) 0x68, (byte) 0x6f,
@@ -48,12 +52,14 @@ public class DNSAddressRequestTest extends TestCase {
             (byte) 0x0c, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x0a, (byte) 0x00,
             (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x7f, (byte) 0x00, (byte) 0x00, (byte) 0x01 };
 
+    /** The Constant servFailResponseBytes. */
     private static final byte[] servFailResponseBytes = new byte[] { (byte) 0x5e, (byte) 0x94, (byte) 0x81,
             (byte) 0x82, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
             (byte) 0x00, (byte) 0x06, (byte) 0x67, (byte) 0x72, (byte) 0x65, (byte) 0x67, (byte) 0x6f, (byte) 0x72,
             (byte) 0x03, (byte) 0x63, (byte) 0x6f, (byte) 0x6d, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00,
             (byte) 0x01 };
 
+    /** The Constant nxDomainResponseBytes. */
     private static final byte[] nxDomainResponseBytes = new byte[] { (byte) 0x2f, (byte) 0x3e, (byte) 0x81,
             (byte) 0x83, (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x00,
             (byte) 0x00, (byte) 0x09, (byte) 0x6c, (byte) 0x6f, (byte) 0x63, (byte) 0x61, (byte) 0x6c, (byte) 0x68,
@@ -69,8 +75,12 @@ public class DNSAddressRequestTest extends TestCase {
             (byte) 0x00, (byte) 0x03, (byte) 0x84, (byte) 0x00, (byte) 0x09, (byte) 0x3a, (byte) 0x80, (byte) 0x00,
             (byte) 0x01, (byte) 0x51, (byte) 0x80 };
 
+    /** The m_request. */
     private DNSAddressRequest m_request;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws UnknownHostException {
@@ -78,6 +88,12 @@ public class DNSAddressRequestTest extends TestCase {
         m_request = new DNSAddressRequest(question);
     }
 
+    /**
+     * Test normal response.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNormalResponse() throws Exception {
         m_request.m_reqID = 0x9ef2;
@@ -93,6 +109,12 @@ public class DNSAddressRequestTest extends TestCase {
         assertEquals(1, answer.getAddress()[3]);
     }
 
+    /**
+     * Test server failed.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testServerFailed() throws Exception {
         m_request.m_reqID = 24212;
@@ -105,6 +127,12 @@ public class DNSAddressRequestTest extends TestCase {
         throw new Exception("Should have caught an IOException for ServFail!");
     }
 
+    /**
+     * Test nx domain pass.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNxDomainPass() throws Exception {
         List<Integer> fatalCodes = new ArrayList<Integer>();

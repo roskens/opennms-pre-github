@@ -46,6 +46,8 @@ import org.opennms.netmgt.model.TroubleTicketState;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class DefaultTicketerServiceLayerTest.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -53,18 +55,25 @@ import org.opennms.test.mock.EasyMockUtils;
  */
 public class DefaultTicketerServiceLayerTest extends TestCase {
 
+    /** The m_default ticketer service layer. */
     private DefaultTicketerServiceLayer m_defaultTicketerServiceLayer;
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_ticketer plugin. */
     private Plugin m_ticketerPlugin;
 
+    /** The m_alarm. */
     private OnmsAlarm m_alarm;
 
+    /** The m_ticket. */
     private Ticket m_ticket;
 
+    /** The m_event ipc manager. */
     private MockEventIpcManager m_eventIpcManager;
 
     /*
@@ -105,7 +114,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}
      * .
      */
@@ -132,7 +141,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#cancelTicketForAlarm(int, java.lang.String)}
      * .
      * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when
@@ -161,7 +170,10 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
+     * Expect new alarm state.
+     *
      * @param state
+     *            the state
      */
     private void expectNewAlarmState(final TroubleTicketState state) {
         m_alarmDao.saveOrUpdate(m_alarm);
@@ -178,7 +190,10 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
+     * Expect new ticket state.
+     *
      * @param state
+     *            the state
      */
     private void expectNewTicketState(final Ticket.State state) {
         try {
@@ -200,7 +215,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * @param state
+     * Expect new ticket.
      */
     private void expectNewTicket() {
         try {
@@ -225,7 +240,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}
      * .
      */
@@ -250,7 +265,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#closeTicketForAlarm(int, java.lang.String)}
      * .
      * Tests for correct alarm TroubleTicketState set as CLOSE_FAILED when
@@ -278,7 +293,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
      * .
      */
@@ -297,7 +312,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#createTicketForAlarm(int)}
      * .
      * Tests for correct alarm TroubleTicketState set as CREATE_FAILED when
@@ -325,7 +340,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}
      * .
      */
@@ -353,7 +368,7 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
     }
 
     /**
-     * Test method for
+     * Test method for.
      * {@link org.opennms.netmgt.ticketd.DefaultTicketerServiceLayer#updateTicketForAlarm(int, java.lang.String)}
      * .
      * Tests for correct alarm TroubleTicketState set as CANCEL_FAILED when
@@ -385,6 +400,9 @@ public class DefaultTicketerServiceLayerTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Expect updated ticket.
+     */
     @SuppressWarnings("unused")
     private void expectUpdatedTicket() {
         try {

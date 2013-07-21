@@ -30,16 +30,31 @@ package org.opennms.netmgt.scriptd.helper;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class UeiAlarmMatch.
+ */
 public class UeiAlarmMatch extends UeiEventMatch implements EventMatch {
 
+    /**
+     * Instantiates a new uei alarm match.
+     */
     public UeiAlarmMatch() {
         super();
     }
 
+    /**
+     * Instantiates a new uei alarm match.
+     *
+     * @param ueimatch
+     *            the ueimatch
+     */
     public UeiAlarmMatch(String ueimatch) {
         super(ueimatch);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.UeiEventMatch#match(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public boolean match(Event event) {
         return (event.getAlarmData() != null && super.match(event));

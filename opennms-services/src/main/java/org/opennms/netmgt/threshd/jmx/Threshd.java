@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Threshd.class);
 
     /**
@@ -61,15 +62,14 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
         super(NAME);
     }
 
-    /**
-     * Log4j category
-     */
+    /** Log4j category. */
     private static final String NAME = "threshd";
 
     /**
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -109,6 +109,11 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
         getInstance().init();
     }
 
+    /**
+     * Gets the single instance of Threshd.
+     *
+     * @return single instance of Threshd
+     */
     private org.opennms.netmgt.threshd.Threshd getInstance() {
         return org.opennms.netmgt.threshd.Threshd.getInstance();
     }
@@ -117,6 +122,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -127,6 +133,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -137,6 +144,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */

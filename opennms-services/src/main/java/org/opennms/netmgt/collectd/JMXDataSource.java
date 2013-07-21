@@ -52,11 +52,14 @@ import org.slf4j.LoggerFactory;
  * @version 1.1.1.1
  */
 public class JMXDataSource implements Cloneable {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JMXDataSource.class);
 
+    /** The Constant MAX_DS_NAME_LENGTH. */
     private static final int MAX_DS_NAME_LENGTH = 19;
 
-    /** Constant <code>RRD_ERROR="RRD_ERROR"</code> */
+    /** Constant <code>RRD_ERROR="RRD_ERROR"</code>. */
     public static final String RRD_ERROR = "RRD_ERROR";
 
     /**
@@ -76,12 +79,16 @@ public class JMXDataSource implements Cloneable {
      */
     private static final int COUNTER_INDEX = 0;
 
+    /** The Constant GAUGE_INDEX. */
     private static final int GAUGE_INDEX = 1;
 
+    /** The Constant TIMETICKS_INDEX. */
     private static final int TIMETICKS_INDEX = 2;
 
+    /** The Constant INTEGER_INDEX. */
     private static final int INTEGER_INDEX = 3;
 
+    /** The Constant OCTETSTRING_INDEX. */
     private static final int OCTETSTRING_INDEX = 4;
 
     /**
@@ -90,6 +97,7 @@ public class JMXDataSource implements Cloneable {
      */
     private static final String DST_GAUGE = "GAUGE";
 
+    /** The Constant DST_COUNTER. */
     private static final String DST_COUNTER = "COUNTER";
 
     // private static final String DST_DERIVE = "DERIVE";
@@ -120,18 +128,23 @@ public class JMXDataSource implements Cloneable {
      */
     private String m_max;
 
+    /** The m_oid. */
     private String m_oid;
 
+    /** The m_instance. */
     private String m_instance;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_collection name. */
     private String m_collectionName;
 
     /**
      * <p>
      * handlesType
      * </p>
+     * .
      *
      * @param objectType
      *            MIB object type being inquired about
@@ -188,7 +201,7 @@ public class JMXDataSource implements Cloneable {
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public JMXDataSource() {
         super();
@@ -328,6 +341,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * setHeartbeat
      * </p>
+     * .
      *
      * @param heartbeat
      *            a int.
@@ -340,6 +354,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * setMin
      * </p>
+     * .
      *
      * @param minimum
      *            a {@link java.lang.String} object.
@@ -352,6 +367,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * setMax
      * </p>
+     * .
      *
      * @param maximum
      *            a {@link java.lang.String} object.
@@ -373,6 +389,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * getHeartbeat
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -384,6 +401,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * getMin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -395,6 +413,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * getMax
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -438,6 +457,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * performUpdate
      * </p>
+     * .
      *
      * @param owner
      *            a {@link java.lang.String} object.
@@ -470,6 +490,7 @@ public class JMXDataSource implements Cloneable {
      * <p>
      * getStorableValue
      * </p>
+     * .
      *
      * @param snmpVal
      *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.

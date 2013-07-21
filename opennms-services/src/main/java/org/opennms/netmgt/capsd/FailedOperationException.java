@@ -41,9 +41,7 @@ package org.opennms.netmgt.capsd;
  */
 public class FailedOperationException extends Exception {
 
-    /**
-     *
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7378694261384243882L;
 
     /**

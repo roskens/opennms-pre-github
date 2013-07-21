@@ -54,33 +54,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a DefaultPollContext
+ * Represents a DefaultPollContext.
  *
  * @author brozow
  * @version $Id: $
  */
 public class DefaultPollContext implements PollContext, EventListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollContext.class);
 
+    /** The m_poller config. */
     private volatile PollerConfig m_pollerConfig;
 
+    /** The m_query manager. */
     private volatile QueryManager m_queryManager;
 
+    /** The m_event manager. */
     private volatile EventIpcManager m_eventManager;
 
+    /** The m_name. */
     private volatile String m_name;
 
+    /** The m_local host name. */
     private volatile String m_localHostName;
 
+    /** The m_listener added. */
     private volatile boolean m_listenerAdded = false;
 
+    /** The m_pending poll events. */
     private final List<PendingPollEvent> m_pendingPollEvents = new LinkedList<PendingPollEvent>();
 
     /**
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -92,6 +101,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -105,6 +115,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * setLocalHostName
      * </p>
+     * .
      *
      * @param localHostName
      *            a {@link java.lang.String} object.
@@ -117,6 +128,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * getLocalHostName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +140,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -140,6 +153,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -152,6 +166,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * getPollerConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.PollerConfig} object.
      */
@@ -163,6 +178,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * setPollerConfig
      * </p>
+     * .
      *
      * @param pollerConfig
      *            a {@link org.opennms.netmgt.config.PollerConfig} object.
@@ -175,6 +191,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * getQueryManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.QueryManager} object.
      */
@@ -186,6 +203,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * setQueryManager
      * </p>
+     * .
      *
      * @param queryManager
      *            a {@link org.opennms.netmgt.poller.QueryManager} object.
@@ -203,6 +221,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * getCriticalServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -220,6 +239,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * isNodeProcessingEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -237,6 +257,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * isPollingAllIfCritServiceUndefined
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -407,6 +428,7 @@ public class DefaultPollContext implements PollContext, EventListener {
      * <p>
      * isServiceUnresponsiveEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -450,6 +472,13 @@ public class DefaultPollContext implements PollContext, EventListener {
 
     }
 
+    /**
+     * Test critical path.
+     *
+     * @param criticalPath
+     *            the critical path
+     * @return true, if successful
+     */
     boolean testCriticalPath(String[] criticalPath) {
         // TODO: Generalize the service
         InetAddress addr = null;
@@ -470,6 +499,13 @@ public class DefaultPollContext implements PollContext, EventListener {
         return result;
     }
 
+    /**
+     * Gets the node label.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the node label
+     */
     String getNodeLabel(int nodeId) {
         String nodeLabel = null;
         try {

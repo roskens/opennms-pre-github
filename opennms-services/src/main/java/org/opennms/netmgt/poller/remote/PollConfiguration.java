@@ -44,10 +44,13 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
  */
 public class PollConfiguration {
 
+    /** The m_monitored service. */
     private OnmsMonitoredService m_monitoredService;
 
+    /** The m_poll model. */
     private OnmsPollModel m_pollModel;
 
+    /** The m_monitor configuration. */
     private Map<String, Object> m_monitorConfiguration;
 
     /**
@@ -75,6 +78,7 @@ public class PollConfiguration {
      * <p>
      * getMonitoredService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoredService} object.
      */
@@ -86,6 +90,7 @@ public class PollConfiguration {
      * <p>
      * setMonitoredService
      * </p>
+     * .
      *
      * @param monitoredService
      *            a {@link org.opennms.netmgt.model.OnmsMonitoredService}
@@ -99,6 +104,7 @@ public class PollConfiguration {
      * <p>
      * getMonitorConfiguration
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -110,6 +116,7 @@ public class PollConfiguration {
      * <p>
      * getPollModel
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.remote.OnmsPollModel} object.
      */
@@ -121,6 +128,7 @@ public class PollConfiguration {
      * <p>
      * setPollModel
      * </p>
+     * .
      *
      * @param pollModel
      *            a {@link org.opennms.netmgt.poller.remote.OnmsPollModel}
@@ -134,6 +142,7 @@ public class PollConfiguration {
      * <p>
      * getId
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

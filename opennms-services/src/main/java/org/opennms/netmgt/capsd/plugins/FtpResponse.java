@@ -43,8 +43,11 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class FtpResponse {
+
+    /** The m_code. */
     private int m_code;
 
+    /** The m_response. */
     private String[] m_response;
 
     /**
@@ -159,7 +162,7 @@ public class FtpResponse {
     }
 
     /**
-     * Does this response have a valid code?
+     * Does this response have a valid code?.
      *
      * @return True if the response code is between 100 and 599,
      *         false otherwise.
@@ -169,7 +172,7 @@ public class FtpResponse {
     }
 
     /**
-     * Is this response a successful message?
+     * Is this response a successful message?.
      *
      * @return True if the response code is between 200 and 299,
      *         false otherwise.
@@ -179,7 +182,7 @@ public class FtpResponse {
     }
 
     /**
-     * Is this response an intermediate message?
+     * Is this response an intermediate message?.
      *
      * @return True if the response code is between 300 and 399,
      *         false otherwise.
@@ -195,8 +198,8 @@ public class FtpResponse {
      *            connection to the server
      * @param command
      *            command to send, without trailing EOL (CRLF, \r\n).
-     * @throws java.io.IOException
-     *             if we can't write() to the OutputStream for the Socket
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void sendCommand(Socket socket, String command) throws IOException {
         socket.getOutputStream().write((command + "\r\n").getBytes());
@@ -208,8 +211,8 @@ public class FtpResponse {
      * @param in
      *            input reader
      * @return response from server
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static FtpResponse readResponse(BufferedReader in) throws IOException {
         int code;

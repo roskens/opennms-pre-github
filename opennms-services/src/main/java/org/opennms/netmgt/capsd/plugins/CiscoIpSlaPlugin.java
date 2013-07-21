@@ -52,11 +52,10 @@ import org.slf4j.LoggerFactory;
  */
 public class CiscoIpSlaPlugin extends SnmpPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaPlugin.class);
 
-    /**
-     * The protocol supported by this plugin
-     */
+    /** The protocol supported by this plugin. */
     private static final String PROTOCOL_NAME = "Cisco_IP_SLA";
 
     /**
@@ -71,17 +70,43 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
     private static final String RTT_OPER_STATE_OID = ".1.3.6.1.4.1.9.9.42.1.2.9.1.10";
 
     /**
-     * Implement the rttMonCtrlOperState
+     * Implement the rttMonCtrlOperState.
      */
     private enum RTT_MON_OPER_STATE {
-        RESET(1), ORDERLY_STOP(2), IMMEDIATE_STOP(3), PENDING(4), INACTIVE(5), ACTIVE(6), RESTART(7);
 
+        /** The reset. */
+        RESET(1),
+ /** The orderly stop. */
+ ORDERLY_STOP(2),
+ /** The immediate stop. */
+ IMMEDIATE_STOP(3),
+ /** The pending. */
+ PENDING(4),
+ /** The inactive. */
+ INACTIVE(5),
+ /** The active. */
+ ACTIVE(6),
+ /** The restart. */
+ RESTART(7);
+
+        /** The state. */
         private final int state; // state code
 
+        /**
+         * Instantiates a new rtt mon oper state.
+         *
+         * @param s
+         *            the s
+         */
         RTT_MON_OPER_STATE(int s) {
             this.state = s;
         }
 
+        /**
+         * Value.
+         *
+         * @return the int
+         */
         private int value() {
             return this.state;
         }

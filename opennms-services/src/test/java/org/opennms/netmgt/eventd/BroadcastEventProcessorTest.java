@@ -43,10 +43,16 @@ import org.opennms.test.mock.EasyMockUtils;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class BroadcastEventProcessorTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_event conf dao. */
     private EventConfDao m_eventConfDao = m_mocks.createMock(EventConfDao.class);
 
+    /**
+     * Test instantiate with null event ipc manager.
+     */
     public void testInstantiateWithNullEventIpcManager() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument eventIpcManager must not be null"));
@@ -60,6 +66,9 @@ public class BroadcastEventProcessorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test instantiate with null event conf dao.
+     */
     public void testInstantiateWithNullEventConfDao() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument eventConfDao must not be null"));
@@ -73,12 +82,18 @@ public class BroadcastEventProcessorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test instantiate and close.
+     */
     public void testInstantiateAndClose() {
         MockEventIpcManager eventIpcManager = new MockEventIpcManager();
         BroadcastEventProcessor processor = new BroadcastEventProcessor(eventIpcManager, m_eventConfDao);
         processor.close();
     }
 
+    /**
+     * Test reload.
+     */
     public void testReload() {
         MockEventIpcManager eventIpcManager = new MockEventIpcManager();
         BroadcastEventProcessor processor = new BroadcastEventProcessor(eventIpcManager, m_eventConfDao);

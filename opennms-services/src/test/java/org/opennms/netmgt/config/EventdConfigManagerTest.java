@@ -39,10 +39,24 @@ import org.junit.Test;
 import org.opennms.core.test.ConfigurationTestUtils;
 
 /**
+ * The Class EventdConfigManagerTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventdConfigManagerTest {
 
+    /**
+     * Default queue length.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     @Test
     public void defaultQueueLength() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         EventdConfigManager manager = new EventdConfigManager(

@@ -36,6 +36,8 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
+ * The Class Nms10205aNetworkBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -43,220 +45,328 @@ import org.opennms.netmgt.model.OnmsNode;
 
 public abstract class Nms10205aNetworkBuilder extends LinkdNetworkBuilder {
 
+    /** The Constant MUMBAI_IP. */
     protected static final String MUMBAI_IP = "10.205.56.5";
 
+    /** The Constant MUMBAI_NAME. */
     protected static final String MUMBAI_NAME = "Mumbai";
 
+    /** The Constant MUMBAI_SYSOID. */
     static final String MUMBAI_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.9";
 
+    /** The Constant MUMBAI_IP_IF_MAP. */
     static final Map<InetAddress, Integer> MUMBAI_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant MUMBAI_IF_IFNAME_MAP. */
     static final Map<Integer, String> MUMBAI_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MUMBAI_IF_IFDESCR_MAP. */
     static final Map<Integer, String> MUMBAI_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MUMBAI_IF_MAC_MAP. */
     static final Map<Integer, String> MUMBAI_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MUMBAI_IF_IFALIAS_MAP. */
     static final Map<Integer, String> MUMBAI_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MUMBAI_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> MUMBAI_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant CHENNAI_IP. */
     protected static final String CHENNAI_IP = "10.205.56.6";
 
+    /** The Constant CHENNAI_NAME. */
     protected static final String CHENNAI_NAME = "Chennai";
 
+    /** The Constant CHENNAI_SYSOID. */
     static final String CHENNAI_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.25";
 
+    /** The Constant CHENNAI_IP_IF_MAP. */
     static final Map<InetAddress, Integer> CHENNAI_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant CHENNAI_IF_IFNAME_MAP. */
     static final Map<Integer, String> CHENNAI_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CHENNAI_IF_IFDESCR_MAP. */
     static final Map<Integer, String> CHENNAI_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CHENNAI_IF_MAC_MAP. */
     static final Map<Integer, String> CHENNAI_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CHENNAI_IF_IFALIAS_MAP. */
     static final Map<Integer, String> CHENNAI_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant CHENNAI_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> CHENNAI_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant DELHI_IP. */
     protected static final String DELHI_IP = "10.205.56.7";
 
+    /** The Constant DELHI_NAME. */
     protected static final String DELHI_NAME = "Delhi";
 
+    /** The Constant DELHI_SYSOID. */
     static final String DELHI_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.29";
 
+    /** The Constant DELHI_IP_IF_MAP. */
     static final Map<InetAddress, Integer> DELHI_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant DELHI_IF_IFNAME_MAP. */
     static final Map<Integer, String> DELHI_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELHI_IF_IFDESCR_MAP. */
     static final Map<Integer, String> DELHI_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELHI_IF_MAC_MAP. */
     static final Map<Integer, String> DELHI_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELHI_IF_IFALIAS_MAP. */
     static final Map<Integer, String> DELHI_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant DELHI_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> DELHI_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant BANGALORE_IP. */
     protected static final String BANGALORE_IP = "10.205.56.9";
 
+    /** The Constant BANGALORE_NAME. */
     protected static final String BANGALORE_NAME = "Bangalore";
 
+    /** The Constant BANGALORE_SYSOID. */
     static final String BANGALORE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.10";
 
+    /** The Constant BANGALORE_IP_IF_MAP. */
     static final Map<InetAddress, Integer> BANGALORE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant BANGALORE_IF_IFNAME_MAP. */
     static final Map<Integer, String> BANGALORE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BANGALORE_IF_IFDESCR_MAP. */
     static final Map<Integer, String> BANGALORE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BANGALORE_IF_MAC_MAP. */
     static final Map<Integer, String> BANGALORE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BANGALORE_IF_IFALIAS_MAP. */
     static final Map<Integer, String> BANGALORE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BANGALORE_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> BANGALORE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant MYSORE_IP. */
     protected static final String MYSORE_IP = "10.205.56.22";
 
+    /** The Constant MYSORE_NAME. */
     protected static final String MYSORE_NAME = "Mysore";
 
+    /** The Constant MYSORE_SYSOID. */
     static final String MYSORE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.11";
 
+    /** The Constant MYSORE_IP_IF_MAP. */
     static final Map<InetAddress, Integer> MYSORE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant MYSORE_IF_IFNAME_MAP. */
     static final Map<Integer, String> MYSORE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MYSORE_IF_IFDESCR_MAP. */
     static final Map<Integer, String> MYSORE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MYSORE_IF_MAC_MAP. */
     static final Map<Integer, String> MYSORE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MYSORE_IF_IFALIAS_MAP. */
     static final Map<Integer, String> MYSORE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant MYSORE_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> MYSORE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant BAGMANE_IP. */
     protected static final String BAGMANE_IP = "10.205.56.20";
 
+    /** The Constant BAGMANE_NAME. */
     protected static final String BAGMANE_NAME = "Bagmane";
 
+    /** The Constant BAGMANE_SYSOID. */
     static final String BAGMANE_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.57";
 
+    /** The Constant BAGMANE_IP_IF_MAP. */
     static final Map<InetAddress, Integer> BAGMANE_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant BAGMANE_IF_IFNAME_MAP. */
     static final Map<Integer, String> BAGMANE_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BAGMANE_IF_IFDESCR_MAP. */
     static final Map<Integer, String> BAGMANE_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BAGMANE_IF_MAC_MAP. */
     static final Map<Integer, String> BAGMANE_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BAGMANE_IF_IFALIAS_MAP. */
     static final Map<Integer, String> BAGMANE_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant BAGMANE_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> BAGMANE_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant SPACE_EX_SW1_IP. */
     protected static final String SPACE_EX_SW1_IP = "10.205.56.1";
 
+    /** The Constant SPACE_EX_SW1_NAME. */
     protected static final String SPACE_EX_SW1_NAME = "Space-EX-SW1";
 
+    /** The Constant SPACE_EX_SW1_SYSOID. */
     static final String SPACE_EX_SW1_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.30";
 
+    /** The Constant SPACE_EX_SW1_IP_IF_MAP. */
     static final Map<InetAddress, Integer> SPACE_EX_SW1_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SPACE_EX_SW1_IF_IFNAME_MAP. */
     static final Map<Integer, String> SPACE_EX_SW1_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW1_IF_IFDESCR_MAP. */
     static final Map<Integer, String> SPACE_EX_SW1_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW1_IF_MAC_MAP. */
     static final Map<Integer, String> SPACE_EX_SW1_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW1_IF_IFALIAS_MAP. */
     static final Map<Integer, String> SPACE_EX_SW1_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW1_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> SPACE_EX_SW1_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant SPACE_EX_SW2_IP. */
     protected static final String SPACE_EX_SW2_IP = "10.205.56.2";
 
+    /** The Constant SPACE_EX_SW2_NAME. */
     protected static final String SPACE_EX_SW2_NAME = "Space-EX-SW2";
 
+    /** The Constant SPACE_EX_SW2_SYSOID. */
     static final String SPACE_EX_SW2_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.31";
 
+    /** The Constant SPACE_EX_SW2_IP_IF_MAP. */
     static final Map<InetAddress, Integer> SPACE_EX_SW2_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SPACE_EX_SW2_IF_IFNAME_MAP. */
     static final Map<Integer, String> SPACE_EX_SW2_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW2_IF_IFDESCR_MAP. */
     static final Map<Integer, String> SPACE_EX_SW2_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW2_IF_MAC_MAP. */
     static final Map<Integer, String> SPACE_EX_SW2_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW2_IF_IFALIAS_MAP. */
     static final Map<Integer, String> SPACE_EX_SW2_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SPACE_EX_SW2_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> SPACE_EX_SW2_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant J6350_41_IP. */
     protected static final String J6350_41_IP = "10.205.56.41";
 
+    /** The Constant J6350_41_NAME. */
     protected static final String J6350_41_NAME = "J6350-41";
 
+    /** The Constant J6350_41_SYSOID. */
     static final String J6350_41_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.20";
 
+    /** The Constant J6350_41_IP_IF_MAP. */
     static final Map<InetAddress, Integer> J6350_41_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant J6350_41_IF_IFNAME_MAP. */
     static final Map<Integer, String> J6350_41_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_41_IF_IFDESCR_MAP. */
     static final Map<Integer, String> J6350_41_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_41_IF_MAC_MAP. */
     static final Map<Integer, String> J6350_41_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_41_IF_IFALIAS_MAP. */
     static final Map<Integer, String> J6350_41_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_41_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> J6350_41_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant J6350_42_IP. */
     protected static final String J6350_42_IP = "10.205.56.42";
 
+    /** The Constant J6350_42_NAME. */
     protected static final String J6350_42_NAME = "J6350-2";
 
+    /** The Constant J6350_42_SYSOID. */
     static final String J6350_42_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.20";
 
+    /** The Constant J6350_42_IP_IF_MAP. */
     static final Map<InetAddress, Integer> J6350_42_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant J6350_42_IF_IFNAME_MAP. */
     static final Map<Integer, String> J6350_42_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_42_IF_IFDESCR_MAP. */
     static final Map<Integer, String> J6350_42_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_42_IF_MAC_MAP. */
     static final Map<Integer, String> J6350_42_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_42_IF_IFALIAS_MAP. */
     static final Map<Integer, String> J6350_42_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant J6350_42_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> J6350_42_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant SRX_100_IP. */
     protected static final String SRX_100_IP = "10.205.56.23";
 
+    /** The Constant SRX_100_NAME. */
     protected static final String SRX_100_NAME = "SRX_56.23";
 
+    /** The Constant SRX_100_SYSOID. */
     static final String SRX_100_SYSOID = ".1.3.6.1.4.1.2636.1.1.1.2.41";
 
+    /** The Constant SRX_100_IP_IF_MAP. */
     static final Map<InetAddress, Integer> SRX_100_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SRX_100_IF_IFNAME_MAP. */
     static final Map<Integer, String> SRX_100_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SRX_100_IF_IFDESCR_MAP. */
     static final Map<Integer, String> SRX_100_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SRX_100_IF_MAC_MAP. */
     static final Map<Integer, String> SRX_100_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SRX_100_IF_IFALIAS_MAP. */
     static final Map<Integer, String> SRX_100_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SRX_100_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> SRX_100_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
+    /** The Constant SSG550_IP. */
     protected static final String SSG550_IP = "10.205.35.100";
 
+    /** The Constant SSG550_NAME. */
     protected static final String SSG550_NAME = "SSG550";
 
+    /** The Constant SSG550_SYSOID. */
     static final String SSG550_SYSOID = ".1.3.6.1.4.1.3224.1.51";
 
+    /** The Constant SSG550_IP_IF_MAP. */
     static final Map<InetAddress, Integer> SSG550_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SSG550_IF_IFNAME_MAP. */
     static final Map<Integer, String> SSG550_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SSG550_IF_IFDESCR_MAP. */
     static final Map<Integer, String> SSG550_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SSG550_IF_MAC_MAP. */
     static final Map<Integer, String> SSG550_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SSG550_IF_IFALIAS_MAP. */
     static final Map<Integer, String> SSG550_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SSG550_IF_NETMASK_MAP. */
     static final Map<Integer, InetAddress> SSG550_IF_NETMASK_MAP = new HashMap<Integer, InetAddress>();
 
     static {
@@ -1863,64 +1973,124 @@ public abstract class Nms10205aNetworkBuilder extends LinkdNetworkBuilder {
         SSG550_IF_NETMASK_MAP.put(4, InetAddressUtils.addr("255.255.255.0"));
     }
 
+    /**
+     * Gets the mumbai.
+     *
+     * @return the mumbai
+     */
     protected OnmsNode getMumbai() {
         return getNode(MUMBAI_NAME, MUMBAI_SYSOID, MUMBAI_IP, MUMBAI_IP_IF_MAP, MUMBAI_IF_IFNAME_MAP,
                        MUMBAI_IF_MAC_MAP, MUMBAI_IF_IFDESCR_MAP, MUMBAI_IF_IFALIAS_MAP, MUMBAI_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the chennai.
+     *
+     * @return the chennai
+     */
     protected OnmsNode getChennai() {
         return getNode(CHENNAI_NAME, CHENNAI_SYSOID, CHENNAI_IP, CHENNAI_IP_IF_MAP, CHENNAI_IF_IFNAME_MAP,
                        CHENNAI_IF_MAC_MAP, CHENNAI_IF_IFDESCR_MAP, CHENNAI_IF_IFALIAS_MAP, CHENNAI_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the delhi.
+     *
+     * @return the delhi
+     */
     protected OnmsNode getDelhi() {
         return getNode(DELHI_NAME, DELHI_SYSOID, DELHI_IP, DELHI_IP_IF_MAP, DELHI_IF_IFNAME_MAP, DELHI_IF_MAC_MAP,
                        DELHI_IF_IFDESCR_MAP, DELHI_IF_IFALIAS_MAP, DELHI_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the bangalore.
+     *
+     * @return the bangalore
+     */
     protected OnmsNode getBangalore() {
         return getNode(BANGALORE_NAME, BANGALORE_SYSOID, BANGALORE_IP, BANGALORE_IP_IF_MAP, BANGALORE_IF_IFNAME_MAP,
                        BANGALORE_IF_MAC_MAP, BANGALORE_IF_IFDESCR_MAP, BANGALORE_IF_IFALIAS_MAP,
                        BANGALORE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the bagmane.
+     *
+     * @return the bagmane
+     */
     protected OnmsNode getBagmane() {
         return getNode(BAGMANE_NAME, BAGMANE_SYSOID, BAGMANE_IP, BAGMANE_IP_IF_MAP, BAGMANE_IF_IFNAME_MAP,
                        BAGMANE_IF_MAC_MAP, BAGMANE_IF_IFDESCR_MAP, BAGMANE_IF_IFALIAS_MAP, BAGMANE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the mysore.
+     *
+     * @return the mysore
+     */
     protected OnmsNode getMysore() {
         return getNode(MYSORE_NAME, MYSORE_SYSOID, MYSORE_IP, MYSORE_IP_IF_MAP, MYSORE_IF_IFNAME_MAP,
                        MYSORE_IF_MAC_MAP, MYSORE_IF_IFDESCR_MAP, MYSORE_IF_IFALIAS_MAP, MYSORE_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the space ex sw1.
+     *
+     * @return the space ex sw1
+     */
     protected OnmsNode getSpaceExSw1() {
         return getNode(SPACE_EX_SW1_NAME, SPACE_EX_SW1_SYSOID, SPACE_EX_SW1_IP, SPACE_EX_SW1_IP_IF_MAP,
                        SPACE_EX_SW1_IF_IFNAME_MAP, SPACE_EX_SW1_IF_MAC_MAP, SPACE_EX_SW1_IF_IFDESCR_MAP,
                        SPACE_EX_SW1_IF_IFALIAS_MAP, SPACE_EX_SW1_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the space ex sw2.
+     *
+     * @return the space ex sw2
+     */
     protected OnmsNode getSpaceExSw2() {
         return getNode(SPACE_EX_SW2_NAME, SPACE_EX_SW2_SYSOID, SPACE_EX_SW2_IP, SPACE_EX_SW2_IP_IF_MAP,
                        SPACE_EX_SW2_IF_IFNAME_MAP, SPACE_EX_SW2_IF_MAC_MAP, SPACE_EX_SW2_IF_IFDESCR_MAP,
                        SPACE_EX_SW2_IF_IFALIAS_MAP, SPACE_EX_SW2_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the j635041.
+     *
+     * @return the j635041
+     */
     protected OnmsNode getJ635041() {
         return getNode(J6350_41_NAME, J6350_41_SYSOID, J6350_41_IP, J6350_41_IP_IF_MAP, J6350_41_IF_IFNAME_MAP,
                        J6350_41_IF_MAC_MAP, J6350_41_IF_IFDESCR_MAP, J6350_41_IF_IFALIAS_MAP, J6350_41_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the j635042.
+     *
+     * @return the j635042
+     */
     protected OnmsNode getJ635042() {
         return getNode(J6350_42_NAME, J6350_42_SYSOID, J6350_42_IP, J6350_42_IP_IF_MAP, J6350_42_IF_IFNAME_MAP,
                        J6350_42_IF_MAC_MAP, J6350_42_IF_IFDESCR_MAP, J6350_42_IF_IFALIAS_MAP, J6350_42_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the sR x100.
+     *
+     * @return the sR x100
+     */
     protected OnmsNode getSRX100() {
         return getNode(SRX_100_NAME, SRX_100_SYSOID, SRX_100_IP, SRX_100_IP_IF_MAP, SRX_100_IF_IFNAME_MAP,
                        SRX_100_IF_MAC_MAP, SRX_100_IF_IFDESCR_MAP, SRX_100_IF_IFALIAS_MAP, SRX_100_IF_NETMASK_MAP);
     }
 
+    /**
+     * Gets the sG g550.
+     *
+     * @return the sG g550
+     */
     protected OnmsNode getSGG550() {
         return getNode(SSG550_NAME, SSG550_SYSOID, SSG550_IP, SSG550_IP_IF_MAP, SSG550_IF_IFNAME_MAP,
                        SSG550_IF_MAC_MAP, SSG550_IF_IFDESCR_MAP, SSG550_IF_IFALIAS_MAP, SSG550_IF_NETMASK_MAP);

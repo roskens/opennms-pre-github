@@ -44,6 +44,7 @@ public interface PollObserver {
      * <p>
      * pollStarted
      * </p>
+     * .
      *
      * @param pollId
      *            a {@link java.lang.String} object.
@@ -54,6 +55,7 @@ public interface PollObserver {
      * <p>
      * pollCompleted
      * </p>
+     * .
      *
      * @param pollId
      *            a {@link java.lang.String} object.

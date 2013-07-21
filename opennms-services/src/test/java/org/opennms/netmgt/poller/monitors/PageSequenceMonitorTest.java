@@ -53,6 +53,8 @@ import org.opennms.test.JUnitConfigurationEnvironment;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
+ * The Class PageSequenceMonitorTest.
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:brozow@opennms.org">Matt Brozowski</a>
  */
@@ -62,10 +64,18 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitHttpServer(port = 10342)
 public class PageSequenceMonitorTest {
 
+    /** The m_monitor. */
     PageSequenceMonitor m_monitor;
 
+    /** The m_params. */
     Map<String, Object> m_params;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -78,21 +88,53 @@ public class PageSequenceMonitorTest {
         m_params.put("retries", "1");
     }
 
+    /**
+     * Gets the http service.
+     *
+     * @param hostname
+     *            the hostname
+     * @return the http service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getHttpService(String hostname) throws Exception {
         return getHttpService(hostname, InetAddressUtils.addr(hostname));
     }
 
+    /**
+     * Gets the http service.
+     *
+     * @param hostname
+     *            the hostname
+     * @param inetAddress
+     *            the inet address
+     * @return the http service
+     * @throws Exception
+     *             the exception
+     */
     protected MonitoredService getHttpService(String hostname, InetAddress inetAddress) throws Exception {
         MonitoredService svc = new MockMonitoredService(1, hostname, inetAddress, "HTTP");
         m_monitor.initialize(svc);
         return svc;
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test simple.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimple() throws Exception {
         setPageSequenceParam("localhost");
@@ -101,6 +143,12 @@ public class PageSequenceMonitorTest {
                    googleStatus.isAvailable());
     }
 
+    /**
+     * Test simple bogus.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSimpleBogus() throws Exception {
         setPageSequenceParam(null);
@@ -110,6 +158,12 @@ public class PageSequenceMonitorTest {
         assertTrue("should not be available", notLikely.isUnavailable());
     }
 
+    /**
+     * Sets the page sequence param.
+     *
+     * @param virtualHost
+     *            the new page sequence param
+     */
     private void setPageSequenceParam(String virtualHost) {
         String virtualHostParam;
         if (virtualHost == null) {
@@ -126,6 +180,12 @@ public class PageSequenceMonitorTest {
                              + virtualHostParam + "/>\n" + "</page-sequence>\n");
     }
 
+    /**
+     * Test https.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testHttps() throws Exception {
         m_params.put("page-sequence",
@@ -144,6 +204,12 @@ public class PageSequenceMonitorTest {
         }
     }
 
+    /**
+     * Test https with host validation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testHttpsWithHostValidation() throws Exception {
         m_params.put("page-sequence",
@@ -161,6 +227,12 @@ public class PageSequenceMonitorTest {
         }
     }
 
+    /**
+     * Test https without host validation.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testHttpsWithoutHostValidation() throws Exception {
         m_params.put("page-sequence",
@@ -194,6 +266,12 @@ public class PageSequenceMonitorTest {
         }
     }
 
+    /**
+     * Test login.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testLogin() throws Exception {
@@ -216,6 +294,12 @@ public class PageSequenceMonitorTest {
 
     }
 
+    /**
+     * Test virtual host.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testVirtualHost() throws Exception {
         m_params.put("page-sequence",
@@ -229,6 +313,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected available but was " + status + ": reason = " + status.getReason(), status.isAvailable());
     }
 
+    /**
+     * Test virtual host bad behavior for wordpress plugin.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testVirtualHostBadBehaviorForWordpressPlugin() throws Exception {
         m_params.put("page-sequence",
@@ -242,6 +332,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected unavailable but was " + status + ": reason = " + status.getReason(), status.isDown());
     }
 
+    /**
+     * Test login dynamic credentials.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testLoginDynamicCredentials() throws Exception {
@@ -267,6 +363,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected available but was " + status + ": reason = " + status.getReason(), status.isAvailable());
     }
 
+    /**
+     * Test login dynamic credentials twice.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testLoginDynamicCredentialsTwice() throws Exception {
@@ -310,6 +412,12 @@ public class PageSequenceMonitorTest {
         }
     }
 
+    /**
+     * Test login dynamic credentials redirect post.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testLoginDynamicCredentialsRedirectPost() throws Exception {
@@ -345,6 +453,12 @@ public class PageSequenceMonitorTest {
         }
     }
 
+    /**
+     * Test redirect location match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testRedirectLocationMatch() throws Exception {
@@ -367,6 +481,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected available but was " + status + ": reason = " + status.getReason(), status.isAvailable());
     }
 
+    /**
+     * Test redirect location does not match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testRedirectLocationDoesNotMatch() throws Exception {
@@ -389,6 +509,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected down but was " + status + ": reason = " + status.getReason(), status.isDown());
     }
 
+    /**
+     * Test ds name per page.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testDsNamePerPage() throws Exception {
@@ -407,6 +533,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected a DS called 'test2' but did not find one", status.getProperties().containsKey("test2"));
     }
 
+    /**
+     * Test require i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testRequireIPv6() throws Exception {
@@ -418,6 +550,12 @@ public class PageSequenceMonitorTest {
         assertTrue("Expected available but was " + status + ": reason = " + status.getReason(), status.isAvailable());
     }
 
+    /**
+     * Test require i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 10342, webapps = @Webapp(context = "/opennms", path = "src/test/resources/loginTestWar"))
     public void testRequireIPv4() throws Exception {

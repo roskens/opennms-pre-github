@@ -63,28 +63,45 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class BasePersisterTest {
+
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_snmp directory. */
     private File m_snmpDirectory;
 
+    /** The m_persister. */
     private BasePersister m_persister;
 
+    /** The m_intf. */
     private OnmsIpInterface m_intf;
 
+    /** The m_node. */
     private OnmsNode m_node;
 
+    /** The m_trans mgr. */
     private PlatformTransactionManager m_transMgr = new MockPlatformTransactionManager();
 
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
+    /** The m_if dao. */
     private IpInterfaceDao m_ifDao;
 
+    /** The m_service params. */
     private ServiceParameters m_serviceParams;
 
     /* erg, Rule fields must be public */
+    /** The m_test name. */
     @Rule
     public TestName m_testName = new TestName();
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockUtil.println("------------ Begin Test " + m_testName.getMethodName() + " --------------------------");
@@ -104,12 +121,24 @@ public class BasePersisterTest {
 
     }
 
+    /**
+     * Check warnings.
+     *
+     * @throws Throwable
+     *             the throwable
+     */
     @After
     public void checkWarnings() throws Throwable {
         MockLogAppender.assertNoWarningsOrGreater();
         m_fileAnticipator.deleteExpected();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_fileAnticipator.deleteExpected(true);
@@ -117,6 +146,12 @@ public class BasePersisterTest {
         MockUtil.println("------------ End Test " + m_testName.getMethodName() + " --------------------------");
     }
 
+    /**
+     * Test persist string attribute with existing properties file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPersistStringAttributeWithExistingPropertiesFile() throws Exception {
         initPersister();
@@ -128,6 +163,12 @@ public class BasePersisterTest {
         m_persister.persistStringAttribute(attribute);
     }
 
+    /**
+     * Test persist string attribute with parent directory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPersistStringAttributeWithParentDirectory() throws Exception {
         initPersister();
@@ -139,6 +180,12 @@ public class BasePersisterTest {
         m_persister.persistStringAttribute(attribute);
     }
 
+    /**
+     * Test persist string attribute with no parent directory.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPersistStringAttributeWithNoParentDirectory() throws Exception {
         initPersister();
@@ -153,6 +200,9 @@ public class BasePersisterTest {
     /**
      * Test for bug #1817 where a string attribute will get persisted to
      * both strings.properties and an RRD file if it is a numeric value.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testPersistStringAttributeUsingBuilder() throws Exception {
@@ -178,12 +228,23 @@ public class BasePersisterTest {
         m_persister.popShouldPersist();
     }
 
+    /**
+     * Test bug2733.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testBug2733() throws Exception {
         m_serviceParams.getParameters().put("storing-enabled", "false");
         testPersistStringAttributeUsingBuilder();
     }
 
+    /**
+     * Builds the string attribute.
+     *
+     * @return the snmp attribute
+     */
     private SnmpAttribute buildStringAttribute() {
 
         EasyMock.expect(m_ifDao.load(m_intf.getId())).andReturn(m_intf).anyTimes();
@@ -216,10 +277,23 @@ public class BasePersisterTest {
         return new SnmpAttribute(resource, attributeType, SnmpUtils.getValueFactory().getOctetString("foo".getBytes()));
     }
 
+    /**
+     * Inits the persister.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void initPersister() throws IOException {
         m_persister = new BasePersister(m_serviceParams, createRrdRepository());
     }
 
+    /**
+     * Creates the rrd repository.
+     *
+     * @return the rrd repository
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private RrdRepository createRrdRepository() throws IOException {
         RrdRepository repository = new RrdRepository();
         repository.setRrdBaseDir(getSnmpRrdDirectory());
@@ -229,6 +303,13 @@ public class BasePersisterTest {
         return repository;
     }
 
+    /**
+     * Gets the snmp rrd directory.
+     *
+     * @return the snmp rrd directory
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private File getSnmpRrdDirectory() throws IOException {
         if (m_snmpDirectory == null) {
             m_snmpDirectory = m_fileAnticipator.tempDir("snmp");

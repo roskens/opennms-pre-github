@@ -54,31 +54,22 @@ import org.slf4j.LoggerFactory;
  */
 public final class IfSnmpCollector implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IfSnmpCollector.class);
 
-    /**
-     * The IP address to used to collect the SNMP information
-     */
+    /** The IP address to used to collect the SNMP information. */
     private final InetAddress m_address;
 
-    /**
-     * The system group information
-     */
+    /** The system group information. */
     private SystemGroup m_sysGroup;
 
-    /**
-     * The interface table information
-     */
+    /** The interface table information. */
     private IfTable m_ifTable;
 
-    /**
-     * The IP address table
-     */
+    /** The IP address table. */
     private IpAddrTable m_ipAddrTable;
 
-    /**
-     * The interface extensions table information
-     */
+    /** The interface extensions table information. */
     private IfXTable m_ifXTable;
 
     /**
@@ -107,7 +98,7 @@ public final class IfSnmpCollector implements Runnable {
     }
 
     /**
-     * Returns true if the system group was collected successfully
+     * Returns true if the system group was collected successfully.
      *
      * @return a boolean.
      */
@@ -209,9 +200,6 @@ public final class IfSnmpCollector implements Runnable {
      *
      * @param ifIndex
      *            The index to search for.
-     * @throws java.lang.IndexOutOfBoundsException
-     *             Thrown if the index cannot be resolved due to an incomplete
-     *             table.
      * @return an array of {@link java.net.InetAddress} objects.
      */
     public InetAddress[] getIfAddressAndMask(int ifIndex) {
@@ -226,6 +214,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getAdminStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -243,6 +232,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getOperStatus
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -260,6 +250,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -277,6 +268,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -296,6 +288,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getIfName
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -322,6 +315,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getIfDescr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -340,6 +334,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getInterfaceSpeed
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -369,6 +364,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getPhysAddr
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.
@@ -387,6 +383,7 @@ public final class IfSnmpCollector implements Runnable {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @param ifIndex
      *            a int.

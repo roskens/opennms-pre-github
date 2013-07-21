@@ -50,7 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * OpenNMS TL1 Daemon!
+ * OpenNMS TL1 Daemon!.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -58,23 +58,31 @@ import org.slf4j.LoggerFactory;
 @EventListener(name = "OpenNMS:Tl1d", logPrefix = "tl1d")
 public class Tl1d extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Tl1d.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "tl1d";
 
     /*
      * The last status sent to the service control manager.
      */
+    /** The m_status. */
     private volatile int m_status = START_PENDING;
 
+    /** The m_tl1 messsage processor. */
     private volatile Thread m_tl1MesssageProcessor;
 
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
+    /** The m_configuration dao. */
     private volatile Tl1ConfigurationDao m_configurationDao;
 
+    /** The m_tl1 queue. */
     private final BlockingQueue<Tl1AutonomousMessage> m_tl1Queue = new LinkedBlockingQueue<Tl1AutonomousMessage>();
 
+    /** The m_tl1 clients. */
     private final List<Tl1Client> m_tl1Clients = new ArrayList<Tl1Client>();
 
     /**
@@ -90,6 +98,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * handleRelooadConfigurationEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -137,6 +146,13 @@ public class Tl1d extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
 
@@ -158,6 +174,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     public synchronized void onInit() {
@@ -168,6 +185,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     public synchronized void onStart() {
@@ -189,6 +207,9 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("onStart: Finished Initializing Tl1d connections.");
     }
 
+    /**
+     * Start clients.
+     */
     private void startClients() {
         LOG.info("startClients: starting clients...");
 
@@ -205,6 +226,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     public synchronized void onStop() {
@@ -213,6 +235,9 @@ public class Tl1d extends AbstractServiceDaemon {
         removeClients();
     }
 
+    /**
+     * Removes the clients.
+     */
     private void removeClients() {
 
         LOG.info("removeClients: removing current set of defined TL1 clients...");
@@ -230,6 +255,9 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("removeClients: all clients removed.");
     }
 
+    /**
+     * Stop listeners.
+     */
     private void stopListeners() {
         LOG.info("stopListeners: calling stop on all clients...");
 
@@ -241,6 +269,9 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("stopListeners: clients stopped.");
     }
 
+    /**
+     * Initialize tl1 connections.
+     */
     private void initializeTl1Connections() {
         LOG.info("onInit: Initializing Tl1d connections...");
 
@@ -272,6 +303,12 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("onInit: Finished Initializing Tl1d connections.");
     }
 
+    /**
+     * Process message.
+     *
+     * @param message
+     *            the message
+     */
     private void processMessage(Tl1AutonomousMessage message) {
 
         LOG.debug("processMessage: Processing message: {}", message);
@@ -306,6 +343,9 @@ public class Tl1d extends AbstractServiceDaemon {
         return m_status;
     }
 
+    /**
+     * Do message processing.
+     */
     private void doMessageProcessing() {
         LOG.debug("doMessageProcessing: Processing messages.");
         boolean cont = true;
@@ -330,6 +370,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -343,6 +384,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -354,6 +396,7 @@ public class Tl1d extends AbstractServiceDaemon {
      * <p>
      * setConfigurationDao
      * </p>
+     * .
      *
      * @param configurationDao
      *            a {@link org.opennms.netmgt.dao.api.Tl1ConfigurationDao}

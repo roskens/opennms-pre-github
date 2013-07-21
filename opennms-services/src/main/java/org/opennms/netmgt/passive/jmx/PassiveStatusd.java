@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStatusdMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PassiveStatusd.class);
 
     /**
@@ -64,12 +65,14 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
         super(NAME);
     }
 
+    /** The Constant NAME. */
     public static final String NAME = "passive";
 
     /**
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -103,6 +106,7 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -113,6 +117,7 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -123,6 +128,7 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -131,6 +137,11 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
         return getPassiveStatusKeeper().getStatus();
     }
 
+    /**
+     * Gets the passive status keeper.
+     *
+     * @return the passive status keeper
+     */
     private PassiveStatusKeeper getPassiveStatusKeeper() {
         return PassiveStatusKeeper.getInstance();
     }

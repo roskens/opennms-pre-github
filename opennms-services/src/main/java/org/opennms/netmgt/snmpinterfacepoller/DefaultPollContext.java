@@ -51,31 +51,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a DefaultPollContext
+ * Represents a DefaultPollContext.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class DefaultPollContext implements PollContext {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollContext.class);
 
+    /** The m_event manager. */
     private volatile EventIpcManager m_eventManager;
 
+    /** The m_name. */
     private volatile String m_name;
 
+    /** The m_local host name. */
     private volatile String m_localHostName;
 
+    /** The m_snmp interface dao. */
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service name. */
     private String m_serviceName = "SNMP";
 
     /**
      * <p>
      * getIpInterfaceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -87,6 +95,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * setIpInterfaceDao
      * </p>
+     * .
      *
      * @param ipInterfaceDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
@@ -99,6 +108,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * getSnmpInterfaceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.SnmpInterfaceDao} object.
      */
@@ -110,6 +120,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * setSnmpInterfaceDao
      * </p>
+     * .
      *
      * @param snmpInterfaceDao
      *            a {@link org.opennms.netmgt.dao.api.SnmpInterfaceDao} object.
@@ -122,6 +133,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * getEventManager
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -133,6 +145,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * setEventManager
      * </p>
+     * .
      *
      * @param eventManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}
@@ -146,6 +159,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * setLocalHostName
      * </p>
+     * .
      *
      * @param localHostName
      *            a {@link java.lang.String} object.
@@ -158,6 +172,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * getLocalHostName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -169,6 +184,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -180,6 +196,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -197,6 +214,7 @@ public class DefaultPollContext implements PollContext {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -223,6 +241,11 @@ public class DefaultPollContext implements PollContext {
         getEventManager().sendNow(event);
     }
 
+    /**
+     * Log.
+     *
+     * @return the logger
+     */
     private Logger log() {
         return LOG;
     }
@@ -289,6 +312,9 @@ public class DefaultPollContext implements PollContext {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext#getPollableNodesByIp(java.lang.String)
+     */
     @Override
     public List<OnmsIpInterface> getPollableNodesByIp(String ipaddr) {
         CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
@@ -297,6 +323,9 @@ public class DefaultPollContext implements PollContext {
         return getIpInterfaceDao().findMatching(builder.toCriteria());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext#getPollableNodes()
+     */
     @Override
     public List<OnmsIpInterface> getPollableNodes() {
         CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);

@@ -49,14 +49,16 @@ public final class IntelVlanTableEntry extends Vlan {
 
     // Lookup strings for specific table entries
     //
-    /** Constant <code>VLAN_CREATEOBJ="policyVlanCreateObj"</code> */
+    /** Constant <code>VLAN_CREATEOBJ="policyVlanCreateObj"</code>. */
     public static final String VLAN_CREATEOBJ = "policyVlanCreateObj";
 
-    /** Constant <code>VLAN_DELETEOBJ="policyVlanDeleteObj"</code> */
+    /** Constant <code>VLAN_DELETEOBJ="policyVlanDeleteObj"</code>. */
     public static final String VLAN_DELETEOBJ = "policyVlanDeleteObj";
 
+    /** The Constant VLAN_INDEX_OID. */
     private static final String VLAN_INDEX_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.1";
 
+    /** The Constant VLAN_NAME_OID. */
     private static final String VLAN_NAME_OID = ".1.3.6.1.4.1.343.6.11.1.9.1.2";
 
     /**
@@ -102,16 +104,25 @@ public final class IntelVlanTableEntry extends Vlan {
         super(intelVlan_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#hasVlanIndexOid()
+     */
     @Override
     protected boolean hasVlanIndexOid() {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanStatus()
+     */
     @Override
     public VlanStatus getVlanStatus() {
         return VlanStatus.UNKNOWN;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.Vlan#getVlanType()
+     */
     @Override
     public VlanType getVlanType() {
         return VlanType.CISCO_VTP_ETHERNET;

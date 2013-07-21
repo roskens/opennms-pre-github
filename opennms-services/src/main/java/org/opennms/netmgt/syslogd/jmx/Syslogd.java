@@ -37,10 +37,12 @@ package org.opennms.netmgt.syslogd.jmx;
  * @version $Id: $
  */
 public class Syslogd implements SyslogdMBean {
+
     /**
      * <p>
      * init
      * </p>
+     * .
      */
     @Override
     public void init() {
@@ -51,6 +53,7 @@ public class Syslogd implements SyslogdMBean {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -61,6 +64,7 @@ public class Syslogd implements SyslogdMBean {
      * <p>
      * stop
      * </p>
+     * .
      */
     @Override
     public void stop() {
@@ -71,6 +75,7 @@ public class Syslogd implements SyslogdMBean {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -83,6 +88,7 @@ public class Syslogd implements SyslogdMBean {
      * <p>
      * status
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -95,6 +101,7 @@ public class Syslogd implements SyslogdMBean {
      * <p>
      * getStatusText
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

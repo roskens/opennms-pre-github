@@ -43,9 +43,8 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public class JMXPeer extends Object implements Cloneable {
-    /**
-     * The internet address of the peer
-     */
+
+    /** The internet address of the peer. */
     private InetAddress m_peer; // the remote agent
 
     /**
@@ -130,7 +129,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Returns the peer agent's internet address to the caller
+     * Returns the peer agent's internet address to the caller.
      *
      * @return The peer's internet address
      */
@@ -162,7 +161,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Returns the remote agent's port for communications
+     * Returns the remote agent's port for communications.
      *
      * @return The remote agent's port
      */
@@ -171,7 +170,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Used to set the remote communication port
+     * Used to set the remote communication port.
      *
      * @param port
      *            The remote communication port
@@ -181,7 +180,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Returns the local agent's port for communications
+     * Returns the local agent's port for communications.
      *
      * @return The local agent's port
      */
@@ -190,7 +189,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Used to set the local communication port
+     * Used to set the local communication port.
      *
      * @param port
      *            The local communication port
@@ -200,7 +199,7 @@ public class JMXPeer extends Object implements Cloneable {
     }
 
     /**
-     * Returns the currently set number of retries defined by this peer
+     * Returns the currently set number of retries defined by this peer.
      *
      * @return The currently configured number of retries.
      */

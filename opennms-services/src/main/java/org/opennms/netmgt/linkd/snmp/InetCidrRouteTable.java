@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry> {
 
+    /** The Constant LOG. */
     @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(InetCidrRouteTable.class);
 
@@ -59,16 +60,17 @@ public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry> {
      * <EM>notified</EM> to inform other threads.
      * </P>
      *
-     * @param session
-     *            The session with the remote agent.
-     * @param signaler
-     *            The object to notify waiters.
+     * @param address
+     *            the address
      * @see InetCidrRouteTableEntry
      */
     public InetCidrRouteTable(InetAddress address) {
         super(address, "ipRouteTable", InetCidrRouteTableEntry.ms_elemList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.linkd.snmp.SnmpTable#createTableEntry(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpInstId, java.lang.Object)
+     */
     @Override
     protected InetCidrRouteTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new InetCidrRouteTableEntry();

@@ -57,16 +57,22 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractTcpPlugin extends AbstractPlugin {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTcpPlugin.class);
 
+    /** The m_default port. */
     int m_defaultPort;
 
+    /** The m_default retry. */
     int m_defaultRetry;
 
+    /** The m_default timeout. */
     int m_defaultTimeout;
 
+    /** The m_plugin name. */
     String m_pluginName;
 
+    /** The m_protocol name. */
     String m_protocolName;
 
     /**
@@ -192,6 +198,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * closeSocket
      * </p>
+     * .
      *
      * @param socket
      *            a {@link java.net.Socket} object.
@@ -211,14 +218,15 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * checkProtocol
      * </p>
+     * .
      *
      * @param socket
      *            a {@link java.net.Socket} object.
      * @param config
      *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
      * @return a boolean.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     protected abstract boolean checkProtocol(Socket socket, ConnectionConfig config) throws Exception;
 
@@ -226,6 +234,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * createConnectionConfig
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -241,6 +250,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * getConnectionConfigList
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -260,6 +270,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * getKeyedInteger
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -280,6 +291,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * getKeyedIntegerArray
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -300,6 +312,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * getPluginName
      * </p>
+     * .
      *
      * @return Returns the pluginName.
      */
@@ -363,6 +376,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * populateConnectionConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
@@ -379,6 +393,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * preconnectCheck
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.capsd.ConnectionConfig} object.
@@ -392,6 +407,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * saveConfig
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -406,6 +422,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * saveKeyedInteger
      * </p>
+     * .
      *
      * @param qualifiers
      *            a {@link java.util.Map} object.
@@ -423,6 +440,7 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * setPluginName
      * </p>
+     * .
      *
      * @param pluginName
      *            The pluginName to set.
@@ -435,6 +453,9 @@ public abstract class AbstractTcpPlugin extends AbstractPlugin {
      * <p>
      * getSocketWrapper
      * </p>
+     * .
+     *
+     * @return the socket wrapper
      */
     protected SocketWrapper getSocketWrapper() {
         return new DefaultSocketWrapper();

@@ -38,8 +38,10 @@ package org.opennms.netmgt.threshd;
  */
 public class ThresholdingEventProxyFactory {
 
+    /** The instance. */
     private static ThresholdingEventProxyFactory instance = new ThresholdingEventProxyFactory();
 
+    /** The event proxy ref. */
     private ThreadLocal<ThresholdingEventProxy> eventProxyRef = new ThreadLocal<ThresholdingEventProxy>() {
         @Override
         protected ThresholdingEventProxy initialValue() {
@@ -47,6 +49,9 @@ public class ThresholdingEventProxyFactory {
         }
     };
 
+    /**
+     * Instantiates a new thresholding event proxy factory.
+     */
     private ThresholdingEventProxyFactory() {
     }
 
@@ -54,6 +59,7 @@ public class ThresholdingEventProxyFactory {
      * <p>
      * getProxy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.threshd.ThresholdingEventProxy}
      *         object.
@@ -66,6 +72,7 @@ public class ThresholdingEventProxyFactory {
      * <p>
      * getFactory
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.threshd.ThresholdingEventProxyFactory}

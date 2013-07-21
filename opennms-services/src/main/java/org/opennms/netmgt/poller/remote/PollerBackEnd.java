@@ -51,15 +51,15 @@ import org.opennms.netmgt.poller.ServiceMonitorLocator;
 public interface PollerBackEnd {
 
     /**
-     * Return the set of available MonitoringLocationDefinitions
+     * Return the set of available MonitoringLocationDefinitions.
      *
-     * @returns the set of monitoring loat
      * @return a {@link java.util.Collection} object.
+     * @returns the set of monitoring loat
      */
     Collection<OnmsMonitoringLocationDefinition> getMonitoringLocations();
 
     /**
-     * Register a new location monitor
+     * Register a new location monitor.
      *
      * @param monitoringLocationId
      *            the id of the monitoredLocation to associate with
@@ -69,7 +69,7 @@ public interface PollerBackEnd {
     int registerLocationMonitor(String monitoringLocationId);
 
     /**
-     * Get monitor name
+     * Get monitor name.
      *
      * @param locationMonitorId
      *            a int.
@@ -88,19 +88,19 @@ public interface PollerBackEnd {
     Collection<ServiceMonitorLocator> getServiceMonitorLocators(DistributionContext context);
 
     /**
-     * Notifies the backend that a registered poller is starting
+     * Notifies the backend that a registered poller is starting.
      *
      * @param locationMonitorId
      *            the id of the requesting location monitor
      * @param pollerDetails
      *            TODO
-     * @returns true if and only if the server recognizes this locationMonitor
      * @return a boolean.
+     * @returns true if and only if the server recognizes this locationMonitor
      */
     boolean pollerStarting(int locationMonitorId, Map<String, String> pollerDetails);
 
     /**
-     * Notifies the backend that a registered poller is stopping
+     * Notifies the backend that a registered poller is stopping.
      *
      * @param locationMonitorId
      *            the id of the requesting location monitor
@@ -122,7 +122,7 @@ public interface PollerBackEnd {
     MonitorStatus pollerCheckingIn(int locationMonitorId, Date currentConfigurationVersion);
 
     /**
-     * Gets the poller configuration assigned to this monitoring location
+     * Gets the poller configuration assigned to this monitoring location.
      *
      * @param locationMonitorId
      *            the id of the requesting location monitor
@@ -146,6 +146,7 @@ public interface PollerBackEnd {
      * <p>
      * configurationUpdated
      * </p>
+     * .
      */
     void configurationUpdated();
 
@@ -153,6 +154,7 @@ public interface PollerBackEnd {
      * <p>
      * checkForDisconnectedMonitors
      * </p>
+     * .
      */
     void checkForDisconnectedMonitors();
 
@@ -160,6 +162,7 @@ public interface PollerBackEnd {
      * <p>
      * saveResponseTimeData
      * </p>
+     * .
      *
      * @param locationMonitor
      *            a {@link java.lang.String} object.

@@ -36,43 +36,83 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.Ordered;
 
 /**
+ * The Class AspectJTestEventHandlerInteceptor.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @Aspect
 public class AspectJTestEventHandlerInteceptor implements Ordered {
 
+    /**
+     * Test methods.
+     */
     @Pointcut("execution(* *..AspectJTestEventHandler.*(..))")
     public void testMethods() {
     }
 
+    /**
+     * Event handlers.
+     */
     @Pointcut("@annotation(org.opennms.netmgt.model.events.annotations.EventHandler)")
     public void eventHandlers() {
     }
 
+    /**
+     * Test event handlers.
+     */
     @Pointcut("testMethods() && eventHandlers()")
     public void testEventHandlers() {
     }
 
+    /** The m_pre event count. */
     private int m_preEventCount;
 
+    /** The m_post event count. */
     private int m_postEventCount;
 
+    /** The m_handled exception count. */
     private int m_handledExceptionCount;
 
+    /** The m_order. */
     private int m_order = 0;
 
+    /**
+     * Gets the pre event count.
+     *
+     * @return the pre event count
+     */
     public int getPreEventCount() {
         return m_preEventCount;
     }
 
+    /**
+     * Gets the post event count.
+     *
+     * @return the post event count
+     */
     public int getPostEventCount() {
         return m_postEventCount;
     }
 
+    /**
+     * Gets the handled exception count.
+     *
+     * @return the handled exception count
+     */
     public int getHandledExceptionCount() {
         return m_handledExceptionCount;
     }
 
+    /**
+     * On event.
+     *
+     * @param pjp
+     *            the pjp
+     * @param event
+     *            the event
+     * @throws Throwable
+     *             the throwable
+     */
     @Around("testEventHandlers() && args(event)")
     public void onEvent(ProceedingJoinPoint pjp, Event event) throws Throwable {
         preEvent(event);
@@ -85,31 +125,63 @@ public class AspectJTestEventHandlerInteceptor implements Ordered {
         }
     }
 
+    /**
+     * Handle exception.
+     *
+     * @param event
+     *            the event
+     * @param ex
+     *            the ex
+     */
     private void handleException(Event event, RuntimeException ex) {
         System.err.println("handleException");
         m_handledExceptionCount++;
     }
 
+    /**
+     * Post event.
+     *
+     * @param event
+     *            the event
+     */
     private void postEvent(Event event) {
         System.err.println("postEvent");
         m_postEventCount++;
     }
 
+    /**
+     * Pre event.
+     *
+     * @param event
+     *            the event
+     */
     private void preEvent(Event event) {
         System.err.println("preEvent");
         m_preEventCount++;
     }
 
+    /**
+     * Reset.
+     */
     public void reset() {
         m_preEventCount = 0;
         m_postEventCount = 0;
         m_handledExceptionCount = 0;
     }
 
+    /**
+     * Sets the order.
+     *
+     * @param order
+     *            the new order
+     */
     public void setOrder(int order) {
         m_order = order;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.core.Ordered#getOrder()
+     */
     @Override
     public int getOrder() {
         return m_order;

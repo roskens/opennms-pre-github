@@ -71,43 +71,79 @@ import org.slf4j.LoggerFactory;
  */
 public class AutomationProcessor implements ReadyRunnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AutomationProcessor.class);
 
+    /** The m_automation. */
     private final Automation m_automation;
 
+    /** The m_trigger. */
     private final TriggerProcessor m_trigger;
 
+    /** The m_action. */
     private final ActionProcessor m_action;
 
     /**
-     * @deprecated Associate {@link Automation} objects with {@link ActionEvent}
-     *             instances instead.
+     * The m_auto event. @deprecated Associate {@link Automation} objects with
+     * {@link ActionEvent} instances instead.
      */
     private final AutoEventProcessor m_autoEvent;
 
+    /** The m_action event. */
     private final ActionEventProcessor m_actionEvent;
 
+    /** The m_schedule. */
     private volatile Schedule m_schedule;
 
+    /** The m_ready. */
     private volatile boolean m_ready = false;
 
+    /**
+     * The Class TriggerProcessor.
+     */
     static class TriggerProcessor {
+
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(TriggerProcessor.class);
 
+        /** The m_trigger. */
         private final Trigger m_trigger;
 
+        /**
+         * Instantiates a new trigger processor.
+         *
+         * @param automationName
+         *            the automation name
+         * @param trigger
+         *            the trigger
+         */
         public TriggerProcessor(String automationName, Trigger trigger) {
             m_trigger = trigger;
         }
 
+        /**
+         * Gets the trigger.
+         *
+         * @return the trigger
+         */
         public Trigger getTrigger() {
             return m_trigger;
         }
 
+        /**
+         * Checks for trigger.
+         *
+         * @return true, if successful
+         */
         public boolean hasTrigger() {
             return m_trigger != null;
         }
 
+        /**
+         * Gets the trigger sql.
+         *
+         * @return the trigger sql
+         */
         public String getTriggerSQL() {
             if (hasTrigger()) {
                 return getTrigger().getStatement().getContent();
@@ -116,15 +152,30 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return getTrigger().getName();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return m_trigger == null ? "<No-Trigger>" : m_trigger.getName();
         }
 
+        /**
+         * Run trigger query.
+         *
+         * @return the result set
+         * @throws SQLException
+         *             the sQL exception
+         */
         ResultSet runTriggerQuery() throws SQLException {
             try {
                 if (!hasTrigger()) {
@@ -157,10 +208,12 @@ public class AutomationProcessor implements ReadyRunnable {
          * if the result rows is greater than 5.
          *
          * @param trigRowCount
+         *            the trig row count
          * @param trigOp
+         *            the trig op
          * @param resultRows
-         * @param processor
-         *            TODO
+         *            the result rows
+         * @return true, if successful
          */
         public boolean triggerRowCheck(int trigRowCount, String trigOp, int resultRows) {
 
@@ -203,60 +256,130 @@ public class AutomationProcessor implements ReadyRunnable {
 
     }
 
+    /**
+     * The Class TriggerResults.
+     */
     static class TriggerResults {
+
+        /** The Constant LOG. */
         @SuppressWarnings("unused")
         private static final Logger LOG = LoggerFactory.getLogger(TriggerResults.class);
 
+        /** The m_trigger. */
         private final TriggerProcessor m_trigger;
 
+        /** The m_result set. */
         private final ResultSet m_resultSet;
 
+        /** The m_successful. */
         private final boolean m_successful;
 
+        /**
+         * Instantiates a new trigger results.
+         *
+         * @param trigger
+         *            the trigger
+         * @param set
+         *            the set
+         * @param successful
+         *            the successful
+         */
         public TriggerResults(TriggerProcessor trigger, ResultSet set, boolean successful) {
             m_trigger = trigger;
             m_resultSet = set;
             m_successful = successful;
         }
 
+        /**
+         * Checks for trigger.
+         *
+         * @return true, if successful
+         */
         public boolean hasTrigger() {
             return m_trigger.hasTrigger();
         }
 
+        /**
+         * Gets the result set.
+         *
+         * @return the result set
+         */
         public ResultSet getResultSet() {
             return m_resultSet;
         }
 
+        /**
+         * Checks if is successful.
+         *
+         * @return true, if is successful
+         */
         public boolean isSuccessful() {
             return m_successful;
         }
 
     }
 
+    /**
+     * The Class ActionProcessor.
+     */
     static class ActionProcessor {
+
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(ActionProcessor.class);
 
+        /** The m_automation name. */
         private final String m_automationName;
 
+        /** The m_action. */
         private final Action m_action;
 
+        /**
+         * Instantiates a new action processor.
+         *
+         * @param automationName
+         *            the automation name
+         * @param action
+         *            the action
+         */
         public ActionProcessor(String automationName, Action action) {
             m_automationName = automationName;
             m_action = action;
         }
 
+        /**
+         * Checks for action.
+         *
+         * @return true, if successful
+         */
         public boolean hasAction() {
             return m_action != null;
         }
 
+        /**
+         * Gets the action.
+         *
+         * @return the action
+         */
         public Action getAction() {
             return m_action;
         }
 
+        /**
+         * Gets the action sql.
+         *
+         * @return the action sql
+         */
         String getActionSQL() {
             return getAction().getStatement().getContent();
         }
 
+        /**
+         * Creates the prepared statement.
+         *
+         * @return the prepared statement
+         * @throws SQLException
+         *             the sQL exception
+         */
         PreparedStatement createPreparedStatement() throws SQLException {
             String actionJDBC = getActionSQL().replaceAll("\\$\\{\\w+\\}", "?");
 
@@ -273,13 +396,19 @@ public class AutomationProcessor implements ReadyRunnable {
          * as tokens in the action statement defined in the config. If no
          * tokens are found, an empty list is returned.
          *
-         * @param targetString
-         * @return
+         * @return the action columns
          */
         public List<String> getActionColumns() {
             return getTokenizedColumns(getActionSQL());
         }
 
+        /**
+         * Gets the tokenized columns.
+         *
+         * @param targetString
+         *            the target string
+         * @return the tokenized columns
+         */
         private List<String> getTokenizedColumns(String targetString) {
             // The \w represents a "word" charactor
             String expression = "\\$\\{(\\w+)\\}";
@@ -299,6 +428,16 @@ public class AutomationProcessor implements ReadyRunnable {
             return tokens;
         }
 
+        /**
+         * Assign statement parameters.
+         *
+         * @param stmt
+         *            the stmt
+         * @param rs
+         *            the rs
+         * @throws SQLException
+         *             the sQL exception
+         */
         void assignStatementParameters(PreparedStatement stmt, ResultSet rs) throws SQLException {
             List<String> actionColumns = getTokenizedColumns(getActionSQL());
             Iterator<String> it = actionColumns.iterator();
@@ -315,7 +454,8 @@ public class AutomationProcessor implements ReadyRunnable {
          * Counts the number of tokens in an Action Statement.
          *
          * @param targetString
-         * @return
+         *            the target string
+         * @return the token count
          */
         public int getTokenCount(String targetString) {
             // The \w represents a "word" charactor
@@ -333,6 +473,13 @@ public class AutomationProcessor implements ReadyRunnable {
             return count;
         }
 
+        /**
+         * Execute.
+         *
+         * @return true, if successful
+         * @throws SQLException
+         *             the sQL exception
+         */
         boolean execute() throws SQLException {
             // No trigger defined, just running the action.
             if (getTokenCount(getActionSQL()) != 0) {
@@ -347,6 +494,15 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Process trigger results.
+         *
+         * @param triggerResults
+         *            the trigger results
+         * @return true, if successful
+         * @throws SQLException
+         *             the sQL exception
+         */
         boolean processTriggerResults(TriggerResults triggerResults) throws SQLException {
             ResultSet triggerResultSet = triggerResults.getResultSet();
 
@@ -364,6 +520,15 @@ public class AutomationProcessor implements ReadyRunnable {
             return true;
         }
 
+        /**
+         * Process action.
+         *
+         * @param triggerResults
+         *            the trigger results
+         * @return true, if successful
+         * @throws SQLException
+         *             the sQL exception
+         */
         boolean processAction(TriggerResults triggerResults) throws SQLException {
             if (triggerResults.hasTrigger()) {
                 return processTriggerResults(triggerResults);
@@ -372,15 +537,29 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return m_action.getName();
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return m_action.getName();
         }
 
+        /**
+         * Check for required columns.
+         *
+         * @param triggerResults
+         *            the trigger results
+         */
         public void checkForRequiredColumns(TriggerResults triggerResults) {
             ResultSet triggerResultSet = triggerResults.getResultSet();
             if (!resultSetHasRequiredActionColumns(triggerResultSet, getActionColumns())) {
@@ -391,15 +570,13 @@ public class AutomationProcessor implements ReadyRunnable {
 
         /**
          * Helper method that verifies tokens in a config defined action
-         * are available in the ResultSet of the paired trigger
+         * are available in the ResultSet of the paired trigger.
          *
          * @param rs
+         *            the rs
          * @param actionColumns
          *            TODO
-         * @param actionSQL
-         * @param processor
-         *            TODO
-         * @return
+         * @return true, if successful
          */
         public boolean resultSetHasRequiredActionColumns(ResultSet rs, Collection<String> actionColumns) {
 
@@ -437,17 +614,28 @@ public class AutomationProcessor implements ReadyRunnable {
     }
 
     /**
+     * The Class AutoEventProcessor.
+     *
      * @deprecated Use {@link ActionEventProcessor} instead.
      */
     static class AutoEventProcessor {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(ActionProcessor.class);
 
+        /** The m_automation name. */
         private final String m_automationName;
 
+        /** The m_auto event. */
         private final AutoEvent m_autoEvent;
 
         /**
+         * Instantiates a new auto event processor.
+         *
+         * @param automationName
+         *            the automation name
+         * @param autoEvent
+         *            the auto event
          * @deprecated Use {@link ActionEventProcessor} instead.
          */
         public AutoEventProcessor(String automationName, AutoEvent autoEvent) {
@@ -455,14 +643,29 @@ public class AutomationProcessor implements ReadyRunnable {
             m_autoEvent = autoEvent;
         }
 
+        /**
+         * Checks for event.
+         *
+         * @return true, if successful
+         */
         public boolean hasEvent() {
             return m_autoEvent != null;
         }
 
+        /**
+         * Gets the auto event.
+         *
+         * @return the auto event
+         */
         public AutoEvent getAutoEvent() {
             return m_autoEvent;
         }
 
+        /**
+         * Gets the uei.
+         *
+         * @return the uei
+         */
         String getUei() {
             if (hasEvent()) {
                 return getAutoEvent().getUei().getContent();
@@ -471,6 +674,9 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Send.
+         */
         void send() {
 
             if (hasEvent()) {
@@ -484,24 +690,49 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Send event.
+         *
+         * @param event
+         *            the event
+         */
         private void sendEvent(Event event) {
             Vacuumd.getSingleton().getEventManager().sendNow(event);
         }
 
     }
 
+    /**
+     * The Class SQLExceptionHolder.
+     */
     static class SQLExceptionHolder extends RuntimeException {
+
+        /** The Constant LOG. */
         @SuppressWarnings("unused")
         private static final Logger LOG = LoggerFactory.getLogger(SQLExceptionHolder.class);
 
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 2479066089399740468L;
 
+        /** The m_ex. */
         private final SQLException m_ex;
 
+        /**
+         * Instantiates a new sQL exception holder.
+         *
+         * @param ex
+         *            the ex
+         */
         public SQLExceptionHolder(SQLException ex) {
             m_ex = ex;
         }
 
+        /**
+         * Rethrow.
+         *
+         * @throws SQLException
+         *             the sQL exception
+         */
         public void rethrow() throws SQLException {
             if (m_ex != null) {
                 throw m_ex;
@@ -509,13 +740,27 @@ public class AutomationProcessor implements ReadyRunnable {
         }
     }
 
+    /**
+     * The Class ResultSetSymbolTable.
+     */
     static class ResultSetSymbolTable implements PropertiesUtils.SymbolTable {
+
+        /** The m_rs. */
         private final ResultSet m_rs;
 
+        /**
+         * Instantiates a new result set symbol table.
+         *
+         * @param rs
+         *            the rs
+         */
         public ResultSetSymbolTable(ResultSet rs) {
             m_rs = rs;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.PropertiesUtils.SymbolTable#getSymbolValue(java.lang.String)
+         */
         @Override
         public String getSymbolValue(String symbol) {
             try {
@@ -527,8 +772,14 @@ public class AutomationProcessor implements ReadyRunnable {
 
     }
 
+    /**
+     * The Class InvalidSymbolTable.
+     */
     static class InvalidSymbolTable implements PropertiesUtils.SymbolTable {
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.PropertiesUtils.SymbolTable#getSymbolValue(java.lang.String)
+         */
         @Override
         public String getSymbolValue(String symbol) {
             throw new IllegalArgumentException("token " + symbol + " is not allowed for " + this
@@ -537,19 +788,39 @@ public class AutomationProcessor implements ReadyRunnable {
 
     }
 
+    /**
+     * The Class EventAssignment.
+     */
     static class EventAssignment {
 
+        /** The Constant LOG. */
         @SuppressWarnings("unused")
         private static final Logger LOG = LoggerFactory.getLogger(EventAssignment.class);
 
+        /** The Constant s_pattern. */
         static final Pattern s_pattern = Pattern.compile("\\$\\{(\\w+)\\}");
 
+        /** The m_assignment. */
         private final Assignment m_assignment;
 
+        /**
+         * Instantiates a new event assignment.
+         *
+         * @param assignment
+         *            the assignment
+         */
         public EventAssignment(Assignment assignment) {
             m_assignment = assignment;
         }
 
+        /**
+         * Assign.
+         *
+         * @param bldr
+         *            the bldr
+         * @param symbols
+         *            the symbols
+         */
         public void assign(EventBuilder bldr, PropertiesUtils.SymbolTable symbols) {
 
             String val = PropertiesUtils.substitute(m_assignment.getValue(), symbols);
@@ -569,16 +840,31 @@ public class AutomationProcessor implements ReadyRunnable {
 
     }
 
+    /**
+     * The Class ActionEventProcessor.
+     */
     static class ActionEventProcessor {
 
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(ActionEventProcessor.class);
 
+        /** The m_automation name. */
         private final String m_automationName;
 
+        /** The m_action event. */
         private final ActionEvent m_actionEvent;
 
+        /** The m_assignments. */
         private final List<EventAssignment> m_assignments;
 
+        /**
+         * Instantiates a new action event processor.
+         *
+         * @param automationName
+         *            the automation name
+         * @param actionEvent
+         *            the action event
+         */
         public ActionEventProcessor(String automationName, ActionEvent actionEvent) {
             m_automationName = automationName;
             m_actionEvent = actionEvent;
@@ -596,10 +882,18 @@ public class AutomationProcessor implements ReadyRunnable {
 
         }
 
+        /**
+         * Checks for event.
+         *
+         * @return true, if successful
+         */
         public boolean hasEvent() {
             return m_actionEvent != null;
         }
 
+        /**
+         * Send.
+         */
         void send() {
 
             if (hasEvent()) {
@@ -615,16 +909,38 @@ public class AutomationProcessor implements ReadyRunnable {
             }
         }
 
+        /**
+         * Builds the event.
+         *
+         * @param bldr
+         *            the bldr
+         * @param symbols
+         *            the symbols
+         */
         private void buildEvent(EventBuilder bldr, SymbolTable symbols) {
             for (EventAssignment assignment : m_assignments) {
                 assignment.assign(bldr, symbols);
             }
         }
 
+        /**
+         * Send event.
+         *
+         * @param event
+         *            the event
+         */
         private void sendEvent(Event event) {
             Vacuumd.getSingleton().getEventManager().sendNow(event);
         }
 
+        /**
+         * Process trigger results.
+         *
+         * @param triggerResults
+         *            the trigger results
+         * @throws SQLException
+         *             the sQL exception
+         */
         void processTriggerResults(TriggerResults triggerResults) throws SQLException {
             if (!hasEvent()) {
                 LOG.debug("processTriggerResults: No action-event for automation {}", m_automationName);
@@ -656,6 +972,15 @@ public class AutomationProcessor implements ReadyRunnable {
 
         }
 
+        /**
+         * Result has column.
+         *
+         * @param resultSet
+         *            the result set
+         * @param columnName
+         *            the column name
+         * @return true, if successful
+         */
         private boolean resultHasColumn(ResultSet resultSet, String columnName) {
             try {
                 if (resultSet.findColumn(columnName) > 0) {
@@ -666,10 +991,23 @@ public class AutomationProcessor implements ReadyRunnable {
             return false;
         }
 
+        /**
+         * For each result.
+         *
+         * @return true, if successful
+         */
         public boolean forEachResult() {
             return m_actionEvent == null ? false : m_actionEvent.getForEachResult();
         }
 
+        /**
+         * Process action event.
+         *
+         * @param triggerResults
+         *            the trigger results
+         * @throws SQLException
+         *             the sQL exception
+         */
         void processActionEvent(TriggerResults triggerResults) throws SQLException {
             if (triggerResults.hasTrigger() && forEachResult()) {
                 processTriggerResults(triggerResults);
@@ -706,6 +1044,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * getAction
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.vacuumd.AutomationProcessor.ActionProcessor}
@@ -719,6 +1058,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * getTrigger
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.vacuumd.AutomationProcessor.TriggerProcessor}
@@ -736,6 +1076,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -765,9 +1106,9 @@ public class AutomationProcessor implements ReadyRunnable {
      * If the automation doesn't have a trigger than the action
      * must not contain any tokens.
      *
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a boolean.
+     * @throws SQLException
+     *             the sQL exception
      */
     public boolean runAutomation() throws SQLException {
         LOG.debug("runAutomation: {} running...", m_automation.getName());
@@ -806,6 +1147,15 @@ public class AutomationProcessor implements ReadyRunnable {
 
     }
 
+    /**
+     * Process action.
+     *
+     * @param triggerResults
+     *            the trigger results
+     * @return true, if successful
+     * @throws SQLException
+     *             the sQL exception
+     */
     private boolean processAction(TriggerResults triggerResults) throws SQLException {
         LOG.debug("runAutomation: running action(s)/actionEvent(s) for : {}", m_automation.getName());
 
@@ -822,6 +1172,13 @@ public class AutomationProcessor implements ReadyRunnable {
         }
     }
 
+    /**
+     * Process trigger.
+     *
+     * @return the trigger results
+     * @throws SQLException
+     *             the sQL exception
+     */
     private TriggerResults processTrigger() throws SQLException {
 
         if (m_trigger.hasTrigger()) {
@@ -845,12 +1202,13 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * verifyRowCount
      * </p>
+     * .
      *
      * @param triggerResultSet
      *            a {@link java.sql.ResultSet} object.
      * @return a boolean.
-     * @throws java.sql.SQLException
-     *             if any.
+     * @throws SQLException
+     *             the sQL exception
      */
     protected boolean verifyRowCount(ResultSet triggerResultSet) throws SQLException {
         if (!m_trigger.hasTrigger()) {
@@ -882,9 +1240,9 @@ public class AutomationProcessor implements ReadyRunnable {
      *
      * @param rs
      *            a {@link java.sql.ResultSet} object.
-     * @throws java.sql.SQLException
-     *             if any.
      * @return a int.
+     * @throws SQLException
+     *             the sQL exception
      */
     public int countRows(ResultSet rs) throws SQLException {
         if (rs == null) {
@@ -914,6 +1272,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * getAutomation
      * </p>
+     * .
      *
      * @return Returns the automation.
      */
@@ -925,6 +1284,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -937,6 +1297,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * getSchedule
      * </p>
+     * .
      *
      * @return Returns the schedule.
      */
@@ -948,6 +1309,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * setSchedule
      * </p>
+     * .
      *
      * @param schedule
      *            The schedule to set.
@@ -956,6 +1318,11 @@ public class AutomationProcessor implements ReadyRunnable {
         m_schedule = schedule;
     }
 
+    /**
+     * Checks for trigger.
+     *
+     * @return true, if successful
+     */
     private boolean hasTrigger() {
         return m_trigger.hasTrigger();
     }
@@ -964,6 +1331,7 @@ public class AutomationProcessor implements ReadyRunnable {
      * <p>
      * setReady
      * </p>
+     * .
      *
      * @param ready
      *            a boolean.

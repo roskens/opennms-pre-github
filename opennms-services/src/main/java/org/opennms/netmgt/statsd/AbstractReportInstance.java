@@ -43,10 +43,13 @@ import org.springframework.util.Assert;
  */
 public abstract class AbstractReportInstance implements ReportInstance, InitializingBean {
 
+    /** The m_report definition. */
     private ReportDefinition m_reportDefinition;
 
+    /** The m_job completed date. */
     private Date m_jobCompletedDate;
 
+    /** The m_job started date. */
     private Date m_jobStartedDate;
 
     /**
@@ -62,6 +65,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getJobCompletedDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -74,6 +78,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getJobStartedDate
      * </p>
+     * .
      *
      * @return a {@link java.util.Date} object.
      */
@@ -86,6 +91,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -98,6 +104,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +117,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getRetainInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -122,6 +130,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * getReportDefinition
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
@@ -134,6 +143,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * setReportDefinition
      * </p>
+     * .
      *
      * @param reportDefinition
      *            a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
@@ -147,6 +157,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * setJobCompletedDate
      * </p>
+     * .
      *
      * @param jobCompletedDate
      *            a {@link java.util.Date} object.
@@ -159,6 +170,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * setJobStartedDate
      * </p>
+     * .
      *
      * @param jobStartedDate
      *            a {@link java.util.Date} object.
@@ -175,6 +187,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {

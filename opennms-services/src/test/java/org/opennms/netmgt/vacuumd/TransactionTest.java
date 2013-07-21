@@ -41,23 +41,31 @@ import org.opennms.core.db.DataSourceFactory;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * Tests transactional capabilities of Vacuumd
+ * Tests transactional capabilities of Vacuumd.
  *
  * @author <a href=mailto:brozow@opennms.org>Mathew Brozowski</a>
  * @author <a href=mailto:david@opennms.org>David Hustace</a>
  */
 public class TransactionTest extends TestCase {
 
+    /** The m_ez mock. */
     EasyMockUtils m_ezMock = new EasyMockUtils();
 
+    /** The m_conn. */
     Connection m_conn;
 
+    /** The m_conn2. */
     Connection m_conn2;
 
+    /** The m_ds. */
     DataSource m_ds;
 
+    /** The m_ds2. */
     DataSource m_ds2;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -73,11 +81,20 @@ public class TransactionTest extends TestCase {
 
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test commit.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCommit() throws Exception {
 
         EasyMock.expect(m_ds.getConnection()).andReturn(m_conn);
@@ -102,6 +119,12 @@ public class TransactionTest extends TestCase {
 
     }
 
+    /**
+     * Test rollback.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testRollback() throws Exception {
 
         EasyMock.expect(m_ds.getConnection()).andReturn(m_conn);
@@ -127,6 +150,12 @@ public class TransactionTest extends TestCase {
 
     }
 
+    /**
+     * Test return same connection.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testReturnSameConnection() throws Exception {
 
         EasyMock.expect(m_ds.getConnection()).andReturn(m_conn);
@@ -149,6 +178,12 @@ public class TransactionTest extends TestCase {
 
     }
 
+    /**
+     * Test close resources.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testCloseResources() throws Exception {
 
         EasyMock.expect(m_ds.getConnection()).andReturn(m_conn);

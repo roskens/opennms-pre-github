@@ -97,48 +97,35 @@ import org.slf4j.LoggerFactory;
  */
 public class EventsArchiver {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventsArchiver.class);
 
     /**
      * The SQL statement to select events that have their eventCreateTime
-     * earlier than a specified age
+     * earlier than a specified age.
      */
     private static final String DB_SELECT_EVENTS_TO_ARCHIVE = "SELECT * " + "FROM events "
             + "WHERE (eventcreatetime < ?)";
 
-    /**
-     * The SQL statement to delete events based on their eventID
-     */
+    /** The SQL statement to delete events based on their eventID. */
     private static final String DB_DELETE_EVENT = "DELETE " + "FROM events " + "WHERE (eventID = ?)";
 
-    /**
-     * The column name for eventID in the events table
-     */
+    /** The column name for eventID in the events table. */
     private static final String EVENT_ID = "eventID";
 
-    /**
-     * The column name for 'eventLog' in the events table
-     */
+    /** The column name for 'eventLog' in the events table. */
     private static final String EVENT_LOG = "eventLog";
 
-    /**
-     * The column name for 'eventDisplay' in the events table
-     */
+    /** The column name for 'eventDisplay' in the events table. */
     private static final String EVENT_DISPLAY = "eventDisplay";
 
-    /**
-     * The column name for 'eventAckUser' in the events table
-     */
+    /** The column name for 'eventAckUser' in the events table. */
     private static final String EVENT_ACK_USER = "eventAckUser";
 
-    /**
-     * The value for the event log or display field if set to true
-     */
+    /** The value for the event log or display field if set to true. */
     private static final String MSG_YES = "Y";
 
-    /**
-     * The value for the event log or display field if set to false
-     */
+    /** The value for the event log or display field if set to false. */
     private static final String MSG_NO = "N";
 
     /**
@@ -147,24 +134,16 @@ public class EventsArchiver {
      */
     private long m_archAge;
 
-    /**
-     * The separator to be used when writing events into the archive
-     */
+    /** The separator to be used when writing events into the archive. */
     private String m_archSeparator;
 
-    /**
-     * The database connection
-     */
+    /** The database connection. */
     private Connection m_conn;
 
-    /**
-     * The prepared statement to select the events
-     */
+    /** The prepared statement to select the events. */
     private PreparedStatement m_eventsGetStmt;
 
-    /**
-     * The prepared statement to delete the events
-     */
+    /** The prepared statement to delete the events. */
     private PreparedStatement m_eventDeleteStmt;
 
     /**
@@ -256,6 +235,10 @@ public class EventsArchiver {
     /**
      * Remove event with eventID from events table. NOTE: Postgres does not have
      * the ResultSet.deleteRow() implemented! - so use the eventID to delete!
+     *
+     * @param eventID
+     *            the event id
+     * @return true, if successful
      */
     private boolean removeEvent(Integer eventID) {
         try {
@@ -380,11 +363,12 @@ public class EventsArchiver {
     }
 
     /**
-     * Archive the current row of the result set
+     * Archive the current row of the result set.
      *
-     * @exception SQLException
-     *                thrown if there is an error getting column values from the
-     *                result set
+     * @param eventsRS
+     *            the events rs
+     * @param colCount
+     *            the col count
      */
     private void sendToArchive(final ResultSet eventsRS, final int colCount) {
         Logging.withPrefix("events", new Runnable() {
@@ -416,7 +400,7 @@ public class EventsArchiver {
 
     /**
      * Close the database statements and the connection and close log4j
-     * Appenders and categories
+     * Appenders and categories.
      */
     private void close() {
         try {
@@ -442,10 +426,10 @@ public class EventsArchiver {
     /**
      * The events archiver constructor - reads required properties, initializes
      * the database connection and the prepared statements to select and delete
-     * events
+     * events.
      *
-     * @throws org.opennms.netmgt.archive.ArchiverException
-     *             if any.
+     * @throws ArchiverException
+     *             the archiver exception
      */
     public EventsArchiver() throws ArchiverException {
         // call init
@@ -466,6 +450,7 @@ public class EventsArchiver {
      * <p>
      * main
      * </p>
+     * .
      *
      * @param args
      *            an array of {@link java.lang.String} objects.

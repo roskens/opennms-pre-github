@@ -61,21 +61,18 @@ import org.slf4j.LoggerFactory;
  */
 public class NotificationTask extends Thread {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NotificationTask.class);
 
-    /**
-     * The User object the notification needs to go out to
-     */
+    /** The User object the notification needs to go out to. */
     private volatile User m_user;
 
-    /**
-     * The autoNotify info for the usersnotified table
-     */
+    /** The autoNotify info for the usersnotified table. */
     private volatile String m_autoNotify;
 
     /**
      * The row id that will be used for the row inserted into the notifications
-     * table
+     * table.
      */
     private volatile int m_notifyId;
 
@@ -84,26 +81,24 @@ public class NotificationTask extends Thread {
      */
     private volatile Command[] m_commands;
 
-    /**
-     */
+    /** The m_params. */
     private final Map<String, String> m_params;
 
-    /**
-     */
+    /** The m_send time. */
     private final long m_sendTime;
 
+    /** The m_started. */
     private volatile boolean m_started = false;
 
+    /** The m_notification manager. */
     private final NotificationManager m_notificationManager;
 
+    /** The m_user manager. */
     private final UserManager m_userManager;
 
     /**
-     * Constructor, initializes some information
+     * Constructor, initializes some information.
      *
-     * @param someParams
-     *            the parameters from
-     *            Notify
      * @param notificationManager
      *            a {@link org.opennms.netmgt.config.NotificationManager}
      *            object.
@@ -111,6 +106,9 @@ public class NotificationTask extends Thread {
      *            a {@link org.opennms.netmgt.config.UserManager} object.
      * @param sendTime
      *            a long.
+     * @param someParams
+     *            the parameters from
+     *            Notify
      * @param siblings
      *            a {@link java.util.List} object.
      * @param autoNotify
@@ -130,6 +128,7 @@ public class NotificationTask extends Thread {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -155,6 +154,7 @@ public class NotificationTask extends Thread {
      * <p>
      * getSendTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -186,6 +186,7 @@ public class NotificationTask extends Thread {
      * <p>
      * getUser
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.users.User} object.
      */
@@ -194,7 +195,7 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * Sets the autoNotify info for the usersnotified table
+     * Sets the autoNotify info for the usersnotified table.
      *
      * @param autoNotify
      *            a {@link java.lang.String} object.
@@ -205,7 +206,7 @@ public class NotificationTask extends Thread {
 
     /**
      * Sets the group id that will be inserted into the row in notifications
-     * table
+     * table.
      *
      * @param anId
      *            the group id to set for the row
@@ -229,6 +230,7 @@ public class NotificationTask extends Thread {
      * <p>
      * getCommands
      * </p>
+     * .
      *
      * @return an array of
      *         {@link org.opennms.netmgt.config.notificationCommands.Command}
@@ -242,6 +244,7 @@ public class NotificationTask extends Thread {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -312,19 +315,47 @@ public class NotificationTask extends Thread {
         }
     }
 
+    /**
+     * Gets the notification manager.
+     *
+     * @return the notification manager
+     */
     private NotificationManager getNotificationManager() {
         return m_notificationManager;
     }
 
+    /**
+     * Gets the user manager.
+     *
+     * @return the user manager
+     */
     private UserManager getUserManager() {
         return m_userManager;
     }
 
+    /**
+     * Gets the contact info.
+     *
+     * @param cmdName
+     *            the cmd name
+     * @return the contact info
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private String getContactInfo(String cmdName) throws IOException, MarshalException, ValidationException {
         return getUserManager().getContactInfo(m_user, cmdName);
     }
 
     /**
+     * Gets the argument list.
+     *
+     * @param command
+     *            the command
+     * @return the argument list
      */
     private List<org.opennms.core.utils.Argument> getArgumentList(Command command) {
         Collection<Argument> notifArgs = getArgumentsForCommand(command);
@@ -342,12 +373,23 @@ public class NotificationTask extends Thread {
         return commandArgs;
     }
 
+    /**
+     * Gets the arguments for command.
+     *
+     * @param command
+     *            the command
+     * @return the arguments for command
+     */
     private List<Argument> getArgumentsForCommand(Command command) {
         return command.getArgumentCollection();
     }
 
     /**
+     * Gets the argument value.
      *
+     * @param aSwitch
+     *            the a switch
+     * @return the argument value
      */
     private String getArgumentValue(String aSwitch) {
         String value = "";
@@ -389,14 +431,15 @@ public class NotificationTask extends Thread {
      * <p>
      * getEmail
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public String getEmail() throws IOException, MarshalException, ValidationException {
         return getContactInfo("email");
@@ -406,14 +449,15 @@ public class NotificationTask extends Thread {
      * <p>
      * getTuiPin
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getTuiPin() throws MarshalException, ValidationException, IOException {
         return getContactInfo("tuiPin");
@@ -423,6 +467,7 @@ public class NotificationTask extends Thread {
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public synchronized void start() {
@@ -434,6 +479,7 @@ public class NotificationTask extends Thread {
      * <p>
      * isStarted
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -46,16 +46,20 @@ import org.springframework.util.Assert;
  */
 public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, InitializingBean {
 
+    /** The m_service monitor. */
     private ServiceMonitor m_serviceMonitor;
 
+    /** The m_monitor class. */
     private Class<? extends ServiceMonitor> m_monitorClass;
 
+    /** The m_monitor parameters. */
     private Map<String, Object> m_monitorParameters;
 
     /**
      * <p>
      * setMonitorClass
      * </p>
+     * .
      *
      * @param serviceClass
      *            a {@link java.lang.Class} object.
@@ -68,6 +72,7 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
      * <p>
      * setMonitorParameters
      * </p>
+     * .
      *
      * @param serviceParameters
      *            a {@link java.util.Map} object.
@@ -80,10 +85,11 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
      * <p>
      * getObject
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public ServiceMonitor getObject() throws Exception {
@@ -94,6 +100,7 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
      * <p>
      * getObjectType
      * </p>
+     * .
      *
      * @return a {@link java.lang.Class} object.
      */
@@ -106,6 +113,7 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
      * <p>
      * isSingleton
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -118,9 +126,10 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -137,6 +146,14 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
 
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param propertyValue
+     *            the property value
+     * @param propertyName
+     *            the property name
+     */
     private void assertNotNull(Object propertyValue, String propertyName) {
         Assert.state(propertyValue != null, propertyName + " must be set for instances of " + Poller.class);
     }

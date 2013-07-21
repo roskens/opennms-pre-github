@@ -54,48 +54,48 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
     // Lookup strings for specific table entries
     //
 
-    /** Constant <code>STP_PORT="dot1dStpPort"</code> */
+    /** Constant <code>STP_PORT="dot1dStpPort"</code>. */
     public static final String STP_PORT = "dot1dStpPort";
 
-    /** Constant <code>STP_PORT_PRIORITY="dot1dStpPortPriority"</code> */
+    /** Constant <code>STP_PORT_PRIORITY="dot1dStpPortPriority"</code>. */
     public static final String STP_PORT_PRIORITY = "dot1dStpPortPriority";
 
-    /** Constant <code>STP_PORT_STATE="dot1dStpPortState"</code> */
+    /** Constant <code>STP_PORT_STATE="dot1dStpPortState"</code>. */
     public static final String STP_PORT_STATE = "dot1dStpPortState";
 
-    /** Constant <code>STP_PORT_ENABLE="dot1dStpPortEnable"</code> */
+    /** Constant <code>STP_PORT_ENABLE="dot1dStpPortEnable"</code>. */
     public static final String STP_PORT_ENABLE = "dot1dStpPortEnable";
 
-    /** Constant <code>STP_PORT_PATH_COST="dot1dStpPortPathCost"</code> */
+    /** Constant <code>STP_PORT_PATH_COST="dot1dStpPortPathCost"</code>. */
     public static final String STP_PORT_PATH_COST = "dot1dStpPortPathCost";
 
     /**
      * Constant
-     * <code>STP_PORT_DESIGNATED_ROOT="dot1dStpPortDesignatedRoot"</code>
+     * <code>STP_PORT_DESIGNATED_ROOT="dot1dStpPortDesignatedRoot"</code>.
      */
     public static final String STP_PORT_DESIGNATED_ROOT = "dot1dStpPortDesignatedRoot";
 
     /**
      * Constant
-     * <code>STP_PORT_DESIGNATED_COST="dot1dStpPortDesignatedCost"</code>
+     * <code>STP_PORT_DESIGNATED_COST="dot1dStpPortDesignatedCost"</code>.
      */
     public static final String STP_PORT_DESIGNATED_COST = "dot1dStpPortDesignatedCost";
 
     /**
      * Constant
-     * <code>STP_PORT_DESIGNATED_BRIDGE="dot1dStpPortDesignatedBridge"</code>
+     * <code>STP_PORT_DESIGNATED_BRIDGE="dot1dStpPortDesignatedBridge"</code>.
      */
     public static final String STP_PORT_DESIGNATED_BRIDGE = "dot1dStpPortDesignatedBridge";
 
     /**
      * Constant
-     * <code>STP_PORT_DESIGNATED_PORT="dot1dStpPortDesignatedPort"</code>
+     * <code>STP_PORT_DESIGNATED_PORT="dot1dStpPortDesignatedPort"</code>.
      */
     public static final String STP_PORT_DESIGNATED_PORT = "dot1dStpPortDesignatedPort";
 
     /**
      * Constant
-     * <code>STP_PORT_FORW_TRANS="dot1dStpPortForwardTransitions"</code>
+     * <code>STP_PORT_FORW_TRANS="dot1dStpPortForwardTransitions"</code>.
      */
     public static final String STP_PORT_FORW_TRANS = "dot1dStpPortForwardTransitions";
 
@@ -214,6 +214,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -225,6 +226,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortPriority
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -236,6 +238,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortState
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -247,6 +250,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortEnable
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -258,6 +262,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortPathCost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -269,6 +274,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortDesignatedRoot
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -280,6 +286,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortDesignatedCost
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -291,6 +298,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortDesignatedBridge
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +310,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortDesignatedPort
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -314,6 +323,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
      * <p>
      * getDot1dStpPortForwardTransitions
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -321,6 +331,13 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
         return getInt32(Dot1dStpPortTableEntry.STP_PORT_FORW_TRANS);
     }
 
+    /**
+     * Gets the onms stp interface.
+     *
+     * @param stpInterface
+     *            the stp interface
+     * @return the onms stp interface
+     */
     public OnmsStpInterface getOnmsStpInterface(OnmsStpInterface stpInterface) {
 
         if (getDot1dStpPortDesignatedBridge() != null)

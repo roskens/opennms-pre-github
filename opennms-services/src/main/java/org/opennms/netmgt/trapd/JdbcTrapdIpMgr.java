@@ -48,6 +48,8 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog </a>
  */
 public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
+
+    /** The m_data source. */
     private DataSource m_dataSource;
 
     /**
@@ -56,9 +58,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      */
     private final String IP_LOAD_SQL = "SELECT ipAddr, nodeid FROM ipInterface";
 
-    /**
-     * A Map of IP addresses and node IDs
-     */
+    /** A Map of IP addresses and node IDs. */
     private Map<String, Long> m_knownips = new HashMap<String, Long>();
 
     /**
@@ -75,6 +75,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * dataSourceSync
      * </p>
+     * .
      */
     @Override
     public synchronized void dataSourceSync() {
@@ -137,12 +138,20 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * clearKnownIpsMap
      * </p>
+     * .
      */
     @Override
     public synchronized void clearKnownIpsMap() {
         m_knownips.clear();
     }
 
+    /**
+     * Long value.
+     *
+     * @param result
+     *            the result
+     * @return the long
+     */
     private static long longValue(Long result) {
         return (result == null ? -1 : result.longValue());
     }
@@ -151,6 +160,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -162,6 +172,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -174,9 +185,10 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {

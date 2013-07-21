@@ -46,47 +46,76 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PollableSnmpInterface
+ * Represents a PollableSnmpInterface.
  *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  * @version $Id: $
  */
 public class PollableSnmpInterface implements ReadyRunnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollableSnmpInterface.class);
 
+    /** The m_schedule. */
     private volatile Schedule m_schedule;
 
+    /** The m_snmpinterfaces. */
     private HashMap<Integer, OnmsSnmpInterface> m_snmpinterfaces;
 
+    /** The m_snmppollableconfig. */
     private PollableSnmpInterfaceConfig m_snmppollableconfig;
 
+    /** The m_parent. */
     private PollableInterface m_parent;
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_criteria. */
     private String m_criteria;
 
+    /** The m_agent config. */
     private SnmpAgentConfig m_agentConfig;
 
+    /**
+     * The Class SnmpMinimalPollInterface.
+     */
     public class SnmpMinimalPollInterface {
 
+        /** The Constant IF_UP. */
         static final int IF_UP = 1;
 
+        /** The Constant IF_DOWN. */
         static final int IF_DOWN = 2;
 
+        /** The Constant IF_UNKNOWN. */
         static final int IF_UNKNOWN = 0;
 
+        /** The s_status names. */
         private final String[] s_statusNames = { "Unknown", "InterfaceUp", "InterfaceDown" };
 
+        /** The ifindex. */
         int ifindex;
 
+        /** The adminstatus. */
         int adminstatus;
 
+        /** The operstatus. */
         int operstatus;
 
+        /** The m_status. */
         PollStatus m_status;
 
+        /**
+         * Instantiates a new snmp minimal poll interface.
+         *
+         * @param ifindex
+         *            the ifindex
+         * @param adminstatus
+         *            the adminstatus
+         * @param operstatus
+         *            the operstatus
+         */
         public SnmpMinimalPollInterface(int ifindex, int adminstatus, int operstatus) {
             this.ifindex = ifindex;
             this.adminstatus = adminstatus;
@@ -94,6 +123,13 @@ public class PollableSnmpInterface implements ReadyRunnable {
             m_status = PollStatus.unknown();
         }
 
+        /**
+         * Decode status.
+         *
+         * @param status
+         *            the status
+         * @return the string
+         */
         public String decodeStatus(int status) {
             if (status >= 0 && status <= 2) {
                 return s_statusNames[status];
@@ -101,18 +137,40 @@ public class PollableSnmpInterface implements ReadyRunnable {
             return s_statusNames[0];
         }
 
+        /**
+         * Gets the ifindex.
+         *
+         * @return the ifindex
+         */
         public int getIfindex() {
             return ifindex;
         }
 
+        /**
+         * Sets the ifindex.
+         *
+         * @param ifindex
+         *            the new ifindex
+         */
         public void setIfindex(int ifindex) {
             this.ifindex = ifindex;
         }
 
+        /**
+         * Gets the adminstatus.
+         *
+         * @return the adminstatus
+         */
         public int getAdminstatus() {
             return adminstatus;
         }
 
+        /**
+         * Sets the adminstatus.
+         *
+         * @param adminstatus
+         *            the new adminstatus
+         */
         public void setAdminstatus(int adminstatus) {
             if (adminstatus > 2)
                 this.adminstatus = IF_UNKNOWN;
@@ -120,20 +178,42 @@ public class PollableSnmpInterface implements ReadyRunnable {
                 this.adminstatus = adminstatus;
         }
 
+        /**
+         * Gets the operstatus.
+         *
+         * @return the operstatus
+         */
         public int getOperstatus() {
             return operstatus;
         }
 
+        /**
+         * Sets the operstatus.
+         *
+         * @param operstatus
+         *            the new operstatus
+         */
         public void setOperstatus(int operstatus) {
             if (operstatus > 2)
                 this.operstatus = IF_UNKNOWN;
             this.operstatus = operstatus;
         }
 
+        /**
+         * Gets the status.
+         *
+         * @return the status
+         */
         public PollStatus getStatus() {
             return m_status;
         }
 
+        /**
+         * Sets the status.
+         *
+         * @param status
+         *            the new status
+         */
         public void setStatus(PollStatus status) {
             m_status = status;
         }
@@ -144,6 +224,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getSnmpinterfaces
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -155,6 +236,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setSnmpinterfaces
      * </p>
+     * .
      *
      * @param snmpinterfaces
      *            a {@link java.util.List} object.
@@ -215,6 +297,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getSchedule
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.scheduler.Schedule} object.
      */
@@ -226,6 +309,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setSchedule
      * </p>
+     * .
      *
      * @param schedule
      *            a {@link org.opennms.netmgt.scheduler.Schedule} object.
@@ -238,6 +322,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getSnmppollableconfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterfaceConfig}
@@ -251,6 +336,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setSnmppollableconfig
      * </p>
+     * .
      *
      * @param snmppollableconfig
      *            a
@@ -265,6 +351,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getParent
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableInterface}
@@ -278,6 +365,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getContext
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollContext}
@@ -291,6 +379,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -302,6 +391,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -314,6 +404,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -326,6 +417,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -355,6 +447,14 @@ public class PollableSnmpInterface implements ReadyRunnable {
         } // End if polling
     } // end Run method
 
+    /**
+     * Do poll.
+     *
+     * @param pollMonitor
+     *            the poll monitor
+     * @param mifaces
+     *            the mifaces
+     */
     private void doPoll(SnmpPollInterfaceMonitor pollMonitor, List<SnmpMinimalPollInterface> mifaces) {
 
         LOG.info("doPoll: input interfaces number: {}", mifaces.size());
@@ -437,22 +537,46 @@ public class PollableSnmpInterface implements ReadyRunnable {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param iface
+     *            the iface
+     */
     private void update(OnmsSnmpInterface iface) {
         getContext().update(iface);
     }
 
+    /**
+     * Send admin up event.
+     *
+     * @param iface
+     *            the iface
+     */
     private void sendAdminUpEvent(OnmsSnmpInterface iface) {
         getContext().sendEvent(getContext().createEvent(EventConstants.SNMP_INTERFACE_ADMIN_UP_EVENT_UEI,
                                                         getParent().getNodeid(), getParent().getIpaddress(), getDate(),
                                                         iface));
     }
 
+    /**
+     * Send admin down event.
+     *
+     * @param iface
+     *            the iface
+     */
     private void sendAdminDownEvent(OnmsSnmpInterface iface) {
         getContext().sendEvent(getContext().createEvent(EventConstants.SNMP_INTERFACE_ADMIN_DOWN_EVENT_UEI,
                                                         getParent().getNodeid(), getParent().getIpaddress(), getDate(),
                                                         iface));
     }
 
+    /**
+     * Send oper up event.
+     *
+     * @param iface
+     *            the iface
+     */
     private void sendOperUpEvent(OnmsSnmpInterface iface) {
         getContext().sendEvent(getContext().createEvent(EventConstants.SNMP_INTERFACE_OPER_UP_EVENT_UEI,
                                                         getParent().getNodeid(), getParent().getIpaddress(), getDate(),
@@ -460,16 +584,34 @@ public class PollableSnmpInterface implements ReadyRunnable {
 
     }
 
+    /**
+     * Send oper down event.
+     *
+     * @param iface
+     *            the iface
+     */
     private void sendOperDownEvent(OnmsSnmpInterface iface) {
         getContext().sendEvent(getContext().createEvent(EventConstants.SNMP_INTERFACE_OPER_DOWN_EVENT_UEI,
                                                         getParent().getNodeid(), getParent().getIpaddress(), getDate(),
                                                         iface));
     }
 
+    /**
+     * Gets the date.
+     *
+     * @return the date
+     */
     private Date getDate() {
         return new Date();
     }
 
+    /**
+     * Gets the minimal from onms snmp interface.
+     *
+     * @param iface
+     *            the iface
+     * @return the minimal from onms snmp interface
+     */
     private SnmpMinimalPollInterface getMinimalFromOnmsSnmpInterface(OnmsSnmpInterface iface) {
         int adminStatus = SnmpMinimalPollInterface.IF_UP;
         int operStatus = SnmpMinimalPollInterface.IF_UP;
@@ -487,6 +629,11 @@ public class PollableSnmpInterface implements ReadyRunnable {
         return new SnmpMinimalPollInterface(iface.getIfIndex().intValue(), adminStatus, operStatus);
     }
 
+    /**
+     * Gets the snmp minimal poll interface.
+     *
+     * @return the snmp minimal poll interface
+     */
     private List<SnmpMinimalPollInterface> getSnmpMinimalPollInterface() {
 
         List<SnmpMinimalPollInterface> mifaces = new ArrayList<SnmpMinimalPollInterface>();
@@ -501,6 +648,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * schedule
      * </p>
+     * .
      */
     public void schedule() {
         if (m_schedule == null)
@@ -512,6 +660,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * delete
      * </p>
+     * .
      */
     protected void delete() {
         m_schedule.unschedule();
@@ -521,6 +670,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
@@ -532,6 +682,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setAgentConfig
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
@@ -544,6 +695,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * getCriteria
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -555,6 +707,7 @@ public class PollableSnmpInterface implements ReadyRunnable {
      * <p>
      * setCriteria
      * </p>
+     * .
      *
      * @param m_criteria
      *            a {@link java.lang.String} object.

@@ -34,13 +34,26 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.datacollection.Parameter;
 
 /**
- * PersistenceSelectorStrategy
+ * PersistenceSelectorStrategy.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface PersistenceSelectorStrategy {
 
+    /**
+     * Should persist.
+     *
+     * @param resource
+     *            the resource
+     * @return true, if successful
+     */
     public boolean shouldPersist(CollectionResource resource);
 
+    /**
+     * Sets the parameters.
+     *
+     * @param parameterCollection
+     *            the new parameters
+     */
     public void setParameters(List<Parameter> parameterCollection);
 }

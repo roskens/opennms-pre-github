@@ -46,6 +46,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class HibernateTrapdIpMgrTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -56,19 +59,31 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class HibernateTrapdIpMgrTest implements InitializingBean {
 
+    /** The m_trapd ip mgr. */
     @Autowired
     TrapdIpMgr m_trapdIpMgr;
 
+    /** The m_database populator. */
     @Autowired
     DatabasePopulator m_databasePopulator;
 
+    /** The m_test node id. */
     int m_testNodeId;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_databasePopulator.populateDatabase();
@@ -88,6 +103,12 @@ public class HibernateTrapdIpMgrTest implements InitializingBean {
         m_testNodeId = n.getId();
     }
 
+    /**
+     * Test trapd ip mgr set id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testTrapdIpMgrSetId() throws Exception {

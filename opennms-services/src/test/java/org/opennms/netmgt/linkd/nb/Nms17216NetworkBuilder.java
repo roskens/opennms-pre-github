@@ -36,6 +36,8 @@ import org.opennms.core.utils.InetAddressUtils;
 import org.opennms.netmgt.model.OnmsNode;
 
 /**
+ * The Class Nms17216NetworkBuilder.
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:antonio@opennme.it">Antonio Russo</a>
  * @author <a href="mailto:alejandro@opennms.org">Alejandro Galue</a>
@@ -43,166 +45,247 @@ import org.opennms.netmgt.model.OnmsNode;
 
 public abstract class Nms17216NetworkBuilder extends LinkdNetworkBuilder {
 
+    /** The Constant ROUTER1_IP. */
     protected static final String ROUTER1_IP = "192.168.100.245";
 
+    /** The Constant ROUTER1_NAME. */
     protected static final String ROUTER1_NAME = "Router1";
 
+    /** The Constant ROUTER1_SYSOID. */
     protected static final String ROUTER1_SYSOID = ".1.3.6.1.4.1.9.1.576";
 
+    /** The Constant ROUTER1_LLDP_CHASSISID. */
     protected static final String ROUTER1_LLDP_CHASSISID = "";
 
+    /** The Constant ROUTER1_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> ROUTER1_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant ROUTER1_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> ROUTER1_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER1_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> ROUTER1_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER1_IF_MAC_MAP. */
     protected static final Map<Integer, String> ROUTER1_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER1_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> ROUTER1_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER2_IP. */
     protected static final String ROUTER2_IP = "192.168.100.241";
 
+    /** The Constant ROUTER2_NAME. */
     protected static final String ROUTER2_NAME = "Router2";
 
+    /** The Constant ROUTER2_SYSOID. */
     protected static final String ROUTER2_SYSOID = ".1.3.6.1.4.1.9.1.1045";
 
+    /** The Constant ROUTER2_LLDP_CHASSISID. */
     protected static final String ROUTER2_LLDP_CHASSISID = "";
 
+    /** The Constant ROUTER2_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> ROUTER2_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant ROUTER2_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> ROUTER2_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER2_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> ROUTER2_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER2_IF_MAC_MAP. */
     protected static final Map<Integer, String> ROUTER2_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER2_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> ROUTER2_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER3_IP. */
     protected static final String ROUTER3_IP = "172.16.50.1";
 
+    /** The Constant ROUTER3_NAME. */
     protected static final String ROUTER3_NAME = "Router3";
 
+    /** The Constant ROUTER3_SYSOID. */
     protected static final String ROUTER3_SYSOID = ".1.3.6.1.4.1.9.1.1045";
 
+    /** The Constant ROUTER3_LLDP_CHASSISID. */
     protected static final String ROUTER3_LLDP_CHASSISID = "";
 
+    /** The Constant ROUTER3_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> ROUTER3_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant ROUTER3_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> ROUTER3_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER3_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> ROUTER3_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER3_IF_MAC_MAP. */
     protected static final Map<Integer, String> ROUTER3_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER3_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> ROUTER3_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER4_IP. */
     protected static final String ROUTER4_IP = "10.10.10.1";
 
+    /** The Constant ROUTER4_NAME. */
     protected static final String ROUTER4_NAME = "Router4";
 
+    /** The Constant ROUTER4_SYSOID. */
     protected static final String ROUTER4_SYSOID = ".1.3.6.1.4.1.9.1.1045";
 
+    /** The Constant ROUTER4_LLDP_CHASSISID. */
     protected static final String ROUTER4_LLDP_CHASSISID = "";
 
+    /** The Constant ROUTER4_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> ROUTER4_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant ROUTER4_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> ROUTER4_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER4_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> ROUTER4_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER4_IF_MAC_MAP. */
     protected static final Map<Integer, String> ROUTER4_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant ROUTER4_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> ROUTER4_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH1_IP. */
     protected static final String SWITCH1_IP = "172.16.10.1";
 
+    /** The Constant SWITCH1_NAME. */
     protected static final String SWITCH1_NAME = "Switch1";
 
+    /** The Constant SWITCH1_SYSOID. */
     protected static final String SWITCH1_SYSOID = ".1.3.6.1.4.1.9.1.614";
 
+    /** The Constant SWITCH1_LLDP_CHASSISID. */
     protected static final String SWITCH1_LLDP_CHASSISID = "0016c8bd4d80";
 
+    /** The Constant SWITCH1_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SWITCH1_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SWITCH1_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SWITCH1_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH1_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SWITCH1_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH1_IF_MAC_MAP. */
     protected static final Map<Integer, String> SWITCH1_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH1_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SWITCH1_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH2_IP. */
     protected static final String SWITCH2_IP = "172.16.10.2";
 
+    /** The Constant SWITCH2_NAME. */
     protected static final String SWITCH2_NAME = "Switch2";
 
+    /** The Constant SWITCH2_SYSOID. */
     protected static final String SWITCH2_SYSOID = ".1.3.6.1.4.1.9.1.696";
 
+    /** The Constant SWITCH2_LLDP_CHASSISID. */
     protected static final String SWITCH2_LLDP_CHASSISID = "0016c894aa80";
 
+    /** The Constant SWITCH2_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SWITCH2_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SWITCH2_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SWITCH2_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH2_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SWITCH2_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH2_IF_MAC_MAP. */
     protected static final Map<Integer, String> SWITCH2_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH2_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SWITCH2_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH3_IP. */
     protected static final String SWITCH3_IP = "172.16.10.3";
 
+    /** The Constant SWITCH3_NAME. */
     protected static final String SWITCH3_NAME = "Switch3";
 
+    /** The Constant SWITCH3_SYSOID. */
     protected static final String SWITCH3_SYSOID = ".1.3.6.1.4.1.9.1.716";
 
+    /** The Constant SWITCH3_LLDP_CHASSISID. */
     protected static final String SWITCH3_LLDP_CHASSISID = "f4ea67ebdc00";
 
+    /** The Constant SWITCH3_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SWITCH3_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SWITCH3_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SWITCH3_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH3_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SWITCH3_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH3_IF_MAC_MAP. */
     protected static final Map<Integer, String> SWITCH3_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH3_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SWITCH3_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH4_IP. */
     protected static final String SWITCH4_IP = "172.16.50.2";
 
+    /** The Constant SWITCH4_NAME. */
     protected static final String SWITCH4_NAME = "Switch4";
 
+    /** The Constant SWITCH4_SYSOID. */
     protected static final String SWITCH4_SYSOID = ".1.3.6.1.4.1.9.1.716";
 
+    /** The Constant SWITCH4_LLDP_CHASSISID. */
     protected static final String SWITCH4_LLDP_CHASSISID = "a4187504e400";
 
+    /** The Constant SWITCH4_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SWITCH4_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SWITCH4_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SWITCH4_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH4_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SWITCH4_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH4_IF_MAC_MAP. */
     protected static final Map<Integer, String> SWITCH4_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH4_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SWITCH4_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH5_IP. */
     protected static final String SWITCH5_IP = "172.16.10.4";
 
+    /** The Constant SWITCH5_NAME. */
     protected static final String SWITCH5_NAME = "Switch5";
 
+    /** The Constant SWITCH5_SYSOID. */
     protected static final String SWITCH5_SYSOID = ".1.3.6.1.4.1.9.1.716";
 
+    /** The Constant SWITCH5_LLDP_CHASSISID. */
     protected static final String SWITCH5_LLDP_CHASSISID = "f4ea67f82980";
 
+    /** The Constant SWITCH5_IP_IF_MAP. */
     protected static final Map<InetAddress, Integer> SWITCH5_IP_IF_MAP = new HashMap<InetAddress, Integer>();
 
+    /** The Constant SWITCH5_IF_IFNAME_MAP. */
     protected static final Map<Integer, String> SWITCH5_IF_IFNAME_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH5_IF_IFDESCR_MAP. */
     protected static final Map<Integer, String> SWITCH5_IF_IFDESCR_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH5_IF_MAC_MAP. */
     protected static final Map<Integer, String> SWITCH5_IF_MAC_MAP = new HashMap<Integer, String>();
 
+    /** The Constant SWITCH5_IF_IFALIAS_MAP. */
     protected static final Map<Integer, String> SWITCH5_IF_IFALIAS_MAP = new HashMap<Integer, String>();
 
     static {
@@ -857,46 +940,91 @@ public abstract class Nms17216NetworkBuilder extends LinkdNetworkBuilder {
         SWITCH5_IF_MAC_MAP.put(10020, "f4ea67f82994");
     }
 
+    /**
+     * Gets the router1.
+     *
+     * @return the router1
+     */
     protected OnmsNode getRouter1() {
         return getNode(ROUTER1_NAME, ROUTER1_SYSOID, ROUTER1_IP, ROUTER1_IP_IF_MAP, ROUTER1_IF_IFNAME_MAP,
                        ROUTER1_IF_MAC_MAP, ROUTER1_IF_IFDESCR_MAP, ROUTER1_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the router2.
+     *
+     * @return the router2
+     */
     protected OnmsNode getRouter2() {
         return getNode(ROUTER2_NAME, ROUTER2_SYSOID, ROUTER2_IP, ROUTER2_IP_IF_MAP, ROUTER2_IF_IFNAME_MAP,
                        ROUTER2_IF_MAC_MAP, ROUTER2_IF_IFDESCR_MAP, ROUTER2_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the router3.
+     *
+     * @return the router3
+     */
     protected OnmsNode getRouter3() {
         return getNode(ROUTER3_NAME, ROUTER3_SYSOID, ROUTER3_IP, ROUTER3_IP_IF_MAP, ROUTER3_IF_IFNAME_MAP,
                        ROUTER3_IF_MAC_MAP, ROUTER3_IF_IFDESCR_MAP, ROUTER3_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the router4.
+     *
+     * @return the router4
+     */
     protected OnmsNode getRouter4() {
         return getNode(ROUTER4_NAME, ROUTER4_SYSOID, ROUTER4_IP, ROUTER4_IP_IF_MAP, ROUTER4_IF_IFNAME_MAP,
                        ROUTER4_IF_MAC_MAP, ROUTER4_IF_IFDESCR_MAP, ROUTER4_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the switch1.
+     *
+     * @return the switch1
+     */
     protected OnmsNode getSwitch1() {
         return getNode(SWITCH1_NAME, SWITCH1_SYSOID, SWITCH1_IP, SWITCH1_IP_IF_MAP, SWITCH1_IF_IFNAME_MAP,
                        SWITCH1_IF_MAC_MAP, SWITCH1_IF_IFDESCR_MAP, SWITCH1_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the switch2.
+     *
+     * @return the switch2
+     */
     protected OnmsNode getSwitch2() {
         return getNode(SWITCH2_NAME, SWITCH2_SYSOID, SWITCH2_IP, SWITCH2_IP_IF_MAP, SWITCH2_IF_IFNAME_MAP,
                        SWITCH2_IF_MAC_MAP, SWITCH2_IF_IFDESCR_MAP, SWITCH2_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the switch3.
+     *
+     * @return the switch3
+     */
     protected OnmsNode getSwitch3() {
         return getNode(SWITCH3_NAME, SWITCH3_SYSOID, SWITCH3_IP, SWITCH3_IP_IF_MAP, SWITCH3_IF_IFNAME_MAP,
                        SWITCH3_IF_MAC_MAP, SWITCH3_IF_IFDESCR_MAP, SWITCH3_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the switch4.
+     *
+     * @return the switch4
+     */
     protected OnmsNode getSwitch4() {
         return getNode(SWITCH4_NAME, SWITCH4_SYSOID, SWITCH4_IP, SWITCH4_IP_IF_MAP, SWITCH4_IF_IFNAME_MAP,
                        SWITCH4_IF_MAC_MAP, SWITCH4_IF_IFDESCR_MAP, SWITCH4_IF_IFALIAS_MAP);
     }
 
+    /**
+     * Gets the switch5.
+     *
+     * @return the switch5
+     */
     protected OnmsNode getSwitch5() {
         return getNode(SWITCH5_NAME, SWITCH5_SYSOID, SWITCH5_IP, SWITCH5_IP_IF_MAP, SWITCH5_IF_IFNAME_MAP,
                        SWITCH5_IF_MAC_MAP, SWITCH5_IF_IFDESCR_MAP, SWITCH5_IF_IFALIAS_MAP);

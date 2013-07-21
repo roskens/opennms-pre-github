@@ -37,13 +37,23 @@ import org.opennms.netmgt.model.events.EventListener;
 import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class EventIpcManagerProxyTest.
+ */
 public class EventIpcManagerProxyTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_proxy. */
     private EventIpcManagerProxy m_proxy = new EventIpcManagerProxy();
 
+    /** The m_event listener. */
     private EventListener m_eventListener = m_mocks.createMock(EventListener.class);
 
+    /**
+     * Test add event listener no proxy set.
+     */
     public void testAddEventListenerNoProxySet() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
 
@@ -57,6 +67,9 @@ public class EventIpcManagerProxyTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test add event listener with proxy set.
+     */
     public void testAddEventListenerWithProxySet() {
         EventIpcManager delegate = EasyMock.createMock(EventIpcManager.class);
 

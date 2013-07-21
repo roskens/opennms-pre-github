@@ -46,13 +46,13 @@ public abstract class EventIpcManagerFactory {
     private static EventIpcManager m_ipcManager;
 
     /**
-     * Create the singleton instance of this factory
+     * Create the singleton instance of this factory.
      */
     public static synchronized void init() {
     }
 
     /**
-     * Returns an implementation of the default EventIpcManager class
+     * Returns an implementation of the default EventIpcManager class.
      *
      * @return a {@link org.opennms.netmgt.model.events.EventIpcManager} object.
      */
@@ -65,6 +65,7 @@ public abstract class EventIpcManagerFactory {
      * <p>
      * setIpcManager
      * </p>
+     * .
      *
      * @param ipcManager
      *            a {@link org.opennms.netmgt.model.events.EventIpcManager}

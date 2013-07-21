@@ -44,8 +44,22 @@ import org.opennms.netmgt.model.RrdRepository;
 import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.test.FileAnticipator;
 
+/**
+ * The Class CollectorTestUtils.
+ */
 public abstract class CollectorTestUtils {
 
+    /**
+     * Creates the collection spec.
+     *
+     * @param svcName
+     *            the svc name
+     * @param svcCollector
+     *            the svc collector
+     * @param collectionName
+     *            the collection name
+     * @return the collection specification
+     */
     static CollectionSpecification createCollectionSpec(String svcName, ServiceCollector svcCollector,
             String collectionName) {
         Package pkg = new Package();
@@ -65,6 +79,14 @@ public abstract class CollectorTestUtils {
         return spec;
     }
 
+    /**
+     * Persist collection set.
+     *
+     * @param spec
+     *            the spec
+     * @param collectionSet
+     *            the collection set
+     */
     public static void persistCollectionSet(CollectionSpecification spec, CollectionSet collectionSet) {
         RrdRepository repository = spec.getRrdRepository("default");
         System.err.println("repository = " + repository);
@@ -80,6 +102,20 @@ public abstract class CollectorTestUtils {
         collectionSet.visit(persister);
     }
 
+    /**
+     * Collect n times.
+     *
+     * @param spec
+     *            the spec
+     * @param agent
+     *            the agent
+     * @param numUpdates
+     *            the num updates
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws CollectionException
+     *             the collection exception
+     */
     public static void collectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
             throws InterruptedException, CollectionException {
         for (int i = 0; i < numUpdates; i++) {
@@ -97,6 +133,20 @@ public abstract class CollectorTestUtils {
         }
     }
 
+    /**
+     * Fail to collect n times.
+     *
+     * @param spec
+     *            the spec
+     * @param agent
+     *            the agent
+     * @param numUpdates
+     *            the num updates
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws CollectionException
+     *             the collection exception
+     */
     public static void failToCollectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
             throws InterruptedException, CollectionException {
         for (int i = 0; i < numUpdates; i++) {
@@ -114,6 +164,17 @@ public abstract class CollectorTestUtils {
         }
     }
 
+    /**
+     * Anticipate path.
+     *
+     * @param fa
+     *            the fa
+     * @param rootDir
+     *            the root dir
+     * @param pathElements
+     *            the path elements
+     * @return the file
+     */
     public static File anticipatePath(FileAnticipator fa, File rootDir, String... pathElements) {
         File parent = rootDir;
         assertTrue(pathElements.length > 0);
@@ -123,6 +184,13 @@ public abstract class CollectorTestUtils {
         return parent;
     }
 
+    /**
+     * Rrd.
+     *
+     * @param file
+     *            the file
+     * @return the string
+     */
     public static String rrd(String file) {
         return file + RrdUtils.getExtension();
     }

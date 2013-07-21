@@ -42,18 +42,25 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
  */
 public class SnmpIfData {
 
+    /** The m_node id. */
     private final int m_nodeId;
 
+    /** The m_collection enabled. */
     private final boolean m_collectionEnabled;
 
+    /** The m_if index. */
     private final int m_ifIndex;
 
+    /** The m_if type. */
     private final int m_ifType;
 
+    /** The m_rrd label. */
     private final String m_rrdLabel;
 
+    /** The m_if alias. */
     private final String m_ifAlias;
 
+    /** The m_attributes. */
     private final Map<String, String> m_attributes = new HashMap<String, String>();
 
     /**
@@ -82,10 +89,28 @@ public class SnmpIfData {
         m_attributes.put("snmpifalias", m_ifAlias);
     }
 
+    /**
+     * Null safe unbox.
+     *
+     * @param num
+     *            the num
+     * @param dflt
+     *            the dflt
+     * @return the int
+     */
     protected static int nullSafeUnbox(Integer num, int dflt) {
         return (num == null ? dflt : num.intValue());
     }
 
+    /**
+     * Null safe unbox.
+     *
+     * @param num
+     *            the num
+     * @param dflt
+     *            the dflt
+     * @return the long
+     */
     protected static long nullSafeUnbox(Long num, int dflt) {
         return (num == null ? dflt : num.intValue());
     }
@@ -94,6 +119,7 @@ public class SnmpIfData {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -105,6 +131,7 @@ public class SnmpIfData {
      * <p>
      * isCollectionEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -116,6 +143,7 @@ public class SnmpIfData {
      * <p>
      * getIfIndex
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -127,6 +155,7 @@ public class SnmpIfData {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -138,6 +167,7 @@ public class SnmpIfData {
      * <p>
      * getLabelForRRD
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -149,6 +179,7 @@ public class SnmpIfData {
      * <p>
      * getIfAlias
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -160,6 +191,7 @@ public class SnmpIfData {
      * <p>
      * getAttribtuesMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

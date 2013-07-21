@@ -35,11 +35,18 @@ package org.opennms.netmgt.trapd;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class MockTrapdIpMgr extends JdbcTrapdIpMgr {
+
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.trapd.JdbcTrapdIpMgr#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         // Don't check for the dataSource property being set
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.trapd.JdbcTrapdIpMgr#dataSourceSync()
+     */
     @Override
     public synchronized void dataSourceSync() {
         // Don't do anything... don't want to have to mess with the DB here

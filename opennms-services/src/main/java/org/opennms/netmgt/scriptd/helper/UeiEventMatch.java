@@ -32,20 +32,36 @@ import java.util.regex.Pattern;
 
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class UeiEventMatch.
+ */
 public class UeiEventMatch implements EventMatch {
 
+    /** The ueimatch. */
     private String ueimatch;
 
+    /**
+     * Instantiates a new uei event match.
+     */
     public UeiEventMatch() {
         super();
         this.ueimatch = null;
     }
 
+    /**
+     * Instantiates a new uei event match.
+     *
+     * @param ueimatch
+     *            the ueimatch
+     */
     public UeiEventMatch(String ueimatch) {
         super();
         this.ueimatch = ueimatch;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.scriptd.helper.EventMatch#match(org.opennms.netmgt.xml.event.Event)
+     */
     @Override
     public boolean match(Event event) {
         if (event == null)
@@ -61,6 +77,15 @@ public class UeiEventMatch implements EventMatch {
 
     }
 
+    /**
+     * Rematch.
+     *
+     * @param text
+     *            the text
+     * @param regex
+     *            the regex
+     * @return true, if successful
+     */
     private boolean rematch(String text, String regex) {
         Pattern p = Pattern.compile(regex);
         return p.matcher(text).matches();

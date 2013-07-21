@@ -48,12 +48,17 @@ import org.opennms.netmgt.config.collectd.jmx.Attrib;
  * @version $Id: $
  */
 public class JMXNodeInfo {
+
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_oid list. */
     private Map<String, List<Attrib>> m_oidList;
 
+    /** The m_mbeans. */
     private Map<String, BeanInfo> m_mbeans;
 
+    /** The m_ds list. */
     private Map<String, JMXDataSource> m_dsList;
 
     /**
@@ -75,6 +80,7 @@ public class JMXNodeInfo {
      * <p>
      * getNodeId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -86,6 +92,7 @@ public class JMXNodeInfo {
      * <p>
      * setMBeans
      * </p>
+     * .
      *
      * @param map
      *            a {@link java.util.Map} object.
@@ -98,6 +105,7 @@ public class JMXNodeInfo {
      * <p>
      * getMBeans
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -109,6 +117,7 @@ public class JMXNodeInfo {
      * <p>
      * setNodeId
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -121,6 +130,7 @@ public class JMXNodeInfo {
      * <p>
      * setDsMap
      * </p>
+     * .
      *
      * @param dsList
      *            a {@link java.util.Map} object.
@@ -133,6 +143,7 @@ public class JMXNodeInfo {
      * <p>
      * getAttributeMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -144,6 +155,7 @@ public class JMXNodeInfo {
      * <p>
      * setAttributeMap
      * </p>
+     * .
      *
      * @param oidList
      *            a {@link java.util.Map} object.
@@ -156,6 +168,7 @@ public class JMXNodeInfo {
      * <p>
      * getDsMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */

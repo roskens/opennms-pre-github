@@ -46,8 +46,10 @@ import org.opennms.netmgt.model.RrdRepository;
  */
 public class LatencyCollectionResource implements CollectionResource {
 
+    /** The m_service name. */
     private String m_serviceName;
 
+    /** The m_ip address. */
     private String m_ipAddress;
 
     /**
@@ -70,6 +72,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getInstance
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -82,6 +85,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getServiceName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,6 +97,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getIpAddress
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -104,6 +109,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -116,6 +122,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -128,6 +135,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -140,6 +148,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -163,6 +172,7 @@ public class LatencyCollectionResource implements CollectionResource {
      * <p>
      * getOwnerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -183,11 +193,17 @@ public class LatencyCollectionResource implements CollectionResource {
         return m_serviceName + "@" + m_ipAddress;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return m_ipAddress;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

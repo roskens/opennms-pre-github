@@ -59,12 +59,13 @@ import org.springframework.util.Assert;
  */
 public class Capsd extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Capsd.class);
 
     /**
      * Database synchronization lock for synchronizing write access to the
      * database between the SuspectEventProcessor and RescanProcessor thread
-     * pools
+     * pools.
      */
     private static Object m_dbSyncLock = new Object();
 
@@ -76,9 +77,7 @@ public class Capsd extends AbstractServiceDaemon {
      */
     private static String m_address = null;
 
-    /**
-     * Rescan scheduler thread
-     */
+    /** Rescan scheduler thread. */
     @Autowired
     private Scheduler m_scheduler;
 
@@ -102,9 +101,11 @@ public class Capsd extends AbstractServiceDaemon {
     /*
      * Injected properties, the should be asserted in onInit
      */
+    /** The m_suspect event processor factory. */
     @Autowired
     private SuspectEventProcessorFactory m_suspectEventProcessorFactory;
 
+    /** The m_capsd db syncer. */
     @Autowired
     private CapsdDbSyncer m_capsdDbSyncer;
 
@@ -119,7 +120,7 @@ public class Capsd extends AbstractServiceDaemon {
     } // end static class initialization
 
     /**
-     * Constructs the Capsd objec
+     * Constructs the Capsd objec.
      */
     public Capsd() {
         super("capsd");
@@ -130,6 +131,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * onStop
      * </p>
+     * .
      */
     @Override
     protected void onStop() {
@@ -153,6 +155,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * onInit
      * </p>
+     * .
      */
     @Override
     protected void onInit() {
@@ -195,6 +198,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * onStart
      * </p>
+     * .
      */
     @Override
     protected void onStart() {
@@ -218,6 +222,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * onPause
      * </p>
+     * .
      */
     @Override
     protected void onPause() {
@@ -228,6 +233,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * onResume
      * </p>
+     * .
      */
     @Override
     protected void onResume() {
@@ -244,6 +250,11 @@ public class Capsd extends AbstractServiceDaemon {
         return m_address;
     }
 
+    /**
+     * Gets the db sync lock.
+     *
+     * @return the db sync lock
+     */
     static Object getDbSyncLock() {
         return m_dbSyncLock;
     }
@@ -256,9 +267,8 @@ public class Capsd extends AbstractServiceDaemon {
      *
      * @param ifAddr
      *            The address of the suspect interface.
-     * @throws java.net.UnknownHostException
-     *             Thrown if the address cannot be converted to aa proper
-     *             internet address.
+     * @throws UnknownHostException
+     *             the unknown host exception
      */
     public void scanSuspectInterface(final String ifAddr) throws UnknownHostException {
         Logging.withPrefix(getName(), new Runnable() {
@@ -297,6 +307,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * setSuspectRunner
      * </p>
+     * .
      *
      * @param suspectRunner
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -309,6 +320,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * setRescanRunner
      * </p>
+     * .
      *
      * @param rescanRunner
      *            a {@link java.util.concurrent.ExecutorService} object.
@@ -321,6 +333,7 @@ public class Capsd extends AbstractServiceDaemon {
      * <p>
      * setEventListener
      * </p>
+     * .
      *
      * @param eventListener
      *            a

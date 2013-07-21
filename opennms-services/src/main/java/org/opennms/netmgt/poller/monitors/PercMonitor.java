@@ -67,6 +67,7 @@ import org.slf4j.LoggerFactory;
 @Distributable(DistributionContext.DAEMON)
 public final class PercMonitor extends SnmpMonitorStrategy {
 
+    /** The Constant LOG. */
     public static final Logger LOG = LoggerFactory.getLogger(PercMonitor.class);
 
     /**
@@ -74,16 +75,13 @@ public final class PercMonitor extends SnmpMonitorStrategy {
      */
     private static final String SERVICE_NAME = "PERC";
 
-    /**
-     * The base OID for the logical device status information
-     */
+    /** The base OID for the logical device status information. */
     private static final String LOGICAL_BASE_OID = ".1.3.6.1.4.1.3582.1.1.2.1.3";
 
-    /**
-     * The base OID for the physical device status information
-     */
+    /** The base OID for the physical device status information. */
     private static final String PHYSICAL_BASE_OID = ".1.3.6.1.4.1.3582.1.1.3.1.4";
 
+    /** The Constant ARRAY_POSITION_BASE_OID. */
     private static final String ARRAY_POSITION_BASE_OID = ".1.3.6.1.4.1.3582.1.1.3.1.5";
 
     /**
@@ -128,9 +126,6 @@ public final class PercMonitor extends SnmpMonitorStrategy {
      * NetworkInterface object for polling.
      * </P>
      *
-     * @exception RuntimeException
-     *                Thrown if an unrecoverable error occurs that prevents the
-     *                interface from being monitored.
      * @param svc
      *            a {@link org.opennms.netmgt.poller.MonitoredService} object.
      */

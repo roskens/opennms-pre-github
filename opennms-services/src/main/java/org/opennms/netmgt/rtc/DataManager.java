@@ -85,13 +85,23 @@ import org.xml.sax.SAXException;
  */
 public class DataManager extends Object {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataManager.class);
 
+    /**
+     * The Class RTCNodeProcessor.
+     */
     private class RTCNodeProcessor implements RowCallbackHandler {
+
+        /** The m_current key. */
         RTCNodeKey m_currentKey = null;
 
+        /** The m_category node id lists. */
         Map<String, Set<Integer>> m_categoryNodeIdLists = new HashMap<String, Set<Integer>>();
 
+        /* (non-Javadoc)
+         * @see org.springframework.jdbc.core.RowCallbackHandler#processRow(java.sql.ResultSet)
+         */
         @Override
         public void processRow(ResultSet rs) throws SQLException {
             RTCNodeKey key = new RTCNodeKey(rs.getLong("nodeid"), InetAddressUtils.addr(rs.getString("ipaddr")),
@@ -100,6 +110,12 @@ public class DataManager extends Object {
             processOutage(key, rs.getTimestamp("ifLostService"), rs.getTimestamp("ifRegainedService"));
         }
 
+        /**
+         * Process key.
+         *
+         * @param key
+         *            the key
+         */
         private void processKey(RTCNodeKey key) {
             if (!matchesCurrent(key)) {
                 m_currentKey = key;
@@ -107,12 +123,25 @@ public class DataManager extends Object {
             }
         }
 
+        /**
+         * Matches current.
+         *
+         * @param key
+         *            the key
+         * @return true, if successful
+         */
         private boolean matchesCurrent(RTCNodeKey key) {
             return (m_currentKey != null && m_currentKey.equals(key));
         }
 
         // This is called exactly once for each unique (node ID, IP address,
         // service name) tuple
+        /**
+         * Process if service.
+         *
+         * @param key
+         *            the key
+         */
         public void processIfService(RTCNodeKey key) {
             for (RTCCategory cat : m_categories.values()) {
                 if (catContainsIfService(cat, key)) {
@@ -123,6 +152,13 @@ public class DataManager extends Object {
 
         }
 
+        /**
+         * Gets the rTC node.
+         *
+         * @param key
+         *            the key
+         * @return the rTC node
+         */
         private RTCNode getRTCNode(RTCNodeKey key) {
             RTCNode rtcN = m_map.getRTCNode(key);
             if (rtcN == null) {
@@ -132,15 +168,40 @@ public class DataManager extends Object {
             return rtcN;
         }
 
+        /**
+         * Cat contains if service.
+         *
+         * @param cat
+         *            the cat
+         * @param key
+         *            the key
+         * @return true, if successful
+         */
         private boolean catContainsIfService(RTCCategory cat, RTCNodeKey key) {
             return cat.containsService(key.getSvcName()) && catContainsNode(cat, (int) key.getNodeID());
         }
 
+        /**
+         * Cat contains node.
+         *
+         * @param cat
+         *            the cat
+         * @param nodeID
+         *            the node id
+         * @return true, if successful
+         */
         private boolean catContainsNode(RTCCategory cat, Integer nodeID) {
             Set<Integer> nodeIds = catGetNodeIds(cat);
             return nodeIds.contains(nodeID);
         }
 
+        /**
+         * Cat get node ids.
+         *
+         * @param cat
+         *            the cat
+         * @return the sets the
+         */
         private Set<Integer> catGetNodeIds(RTCCategory cat) {
             Set<Integer> nodeIds = m_categoryNodeIdLists.get(cat.getLabel());
             if (nodeIds == null) {
@@ -150,6 +211,13 @@ public class DataManager extends Object {
             return nodeIds;
         }
 
+        /**
+         * Cat construct node ids.
+         *
+         * @param cat
+         *            the cat
+         * @return the sets the
+         */
         private Set<Integer> catConstructNodeIds(RTCCategory cat) {
             String filterRule = cat.getEffectiveRule();
             try {
@@ -169,6 +237,16 @@ public class DataManager extends Object {
 
         // This is processed for each outage, passing two null means there is
         // not outage
+        /**
+         * Process outage.
+         *
+         * @param key
+         *            the key
+         * @param ifLostService
+         *            the if lost service
+         * @param ifRegainedService
+         *            the if regained service
+         */
         public void processOutage(RTCNodeKey key, Timestamp ifLostService, Timestamp ifRegainedService) {
             RTCNode rtcN = m_map.getRTCNode(key);
             // if we can't find the node it doesn't belong to any category
@@ -180,18 +258,14 @@ public class DataManager extends Object {
         }
     }
 
-    /**
-     * The RTC categories
-     */
+    /** The RTC categories. */
     private Map<String, RTCCategory> m_categories;
 
-    /**
-     * map keyed using the RTCNodeKey or node ID or node ID/IP address
-     */
+    /** map keyed using the RTCNodeKey or node ID or node ID/IP address. */
     private RTCHashMap m_map;
 
     /**
-     * Get the 'ismanaged' status for the node ID, IP address combination
+     * Get the 'ismanaged' status for the node ID, IP address combination.
      *
      * @param nodeid
      *            the node ID of the interface
@@ -214,6 +288,16 @@ public class DataManager extends Object {
 
     }
 
+    /**
+     * Adds the outage to rtc node.
+     *
+     * @param rtcN
+     *            the rtc n
+     * @param lostTimeTS
+     *            the lost time ts
+     * @param regainedTimeTS
+     *            the regained time ts
+     */
     private void addOutageToRTCNode(RTCNode rtcN, Timestamp lostTimeTS, Timestamp regainedTimeTS) {
         if (lostTimeTS == null)
             return;
@@ -231,10 +315,24 @@ public class DataManager extends Object {
         rtcN.addSvcTime(lostTime, regainedTime);
     }
 
+    /**
+     * Adds the rtc node.
+     *
+     * @param rtcN
+     *            the rtc n
+     */
     private void addRTCNode(RTCNode rtcN) {
         m_map.add(rtcN);
     }
 
+    /**
+     * Adds the node to category.
+     *
+     * @param cat
+     *            the cat
+     * @param rtcN
+     *            the rtc n
+     */
     private void addNodeToCategory(RTCCategory cat, RTCNode rtcN) {
 
         // add the category info to the node
@@ -289,8 +387,10 @@ public class DataManager extends Object {
      * creates 'RTCNode' objects that are added to the map and and to the
      * appropriate category.
      *
-     * @param dbConn
-     *            the database connection.
+     * @param query
+     *            the query
+     * @param args
+     *            the args
      * @throws SQLException
      *             if the database read fails due to an SQL error
      * @throws FilterParseException
@@ -327,6 +427,17 @@ public class DataManager extends Object {
 
     }
 
+    /**
+     * Creates the args.
+     *
+     * @param arg1
+     *            the arg1
+     * @param arg2
+     *            the arg2
+     * @param remaining
+     *            the remaining
+     * @return the object[]
+     */
     private Object[] createArgs(Object arg1, Object arg2, Object[] remaining) {
         LinkedList<Object> args = new LinkedList<Object>();
         args.add(arg1);
@@ -341,23 +452,17 @@ public class DataManager extends Object {
      * with 'RTCNode' objects created from data read from the database (services
      * and outage tables)
      *
-     * @exception SQLException
-     *                if there is an error reading initial data from the
-     *                database
-     * @exception FilterParseException
-     *                if a rule in the categories.xml was incorrect
-     * @exception RTCException
-     *                if the initialization/data reading does not go through
-     * @throws org.xml.sax.SAXException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.sql.SQLException
-     *             if any.
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if any.
-     * @throws org.opennms.netmgt.rtc.RTCException
-     *             if any.
+     * @throws SAXException
+     *             the sAX exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws SQLException
+     *             if there is an error reading initial data from the
+     *             database
+     * @throws FilterParseException
+     *             if a rule in the categories.xml was incorrect
+     * @throws RTCException
+     *             if the initialization/data reading does not go through
      */
     public DataManager() throws SAXException, IOException, SQLException, FilterParseException, RTCException {
 
@@ -378,6 +483,11 @@ public class DataManager extends Object {
 
     }
 
+    /**
+     * Gets the connection factory.
+     *
+     * @return the connection factory
+     */
     private DataSource getConnectionFactory() {
         DataSource connFactory;
         try {
@@ -638,6 +748,7 @@ public class DataManager extends Object {
      * <p>
      * assetInfoChanged
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -662,6 +773,7 @@ public class DataManager extends Object {
      * <p>
      * nodeCategoryMembershipChanged
      * </p>
+     * .
      *
      * @param nodeid
      *            a long.
@@ -687,14 +799,12 @@ public class DataManager extends Object {
      *
      * @param nodeid
      *            the nodeid on which SNMP service was added
-     * @throws java.sql.SQLException
-     *             if the database read fails due to an SQL error
-     * @throws org.opennms.netmgt.filter.FilterParseException
-     *             if filtering the data against the category rule fails due to
-     *             the rule being incorrect
-     * @throws org.opennms.netmgt.rtc.RTCException
-     *             if the database read or filtering the data against the
-     *             category rule fails for some reason
+     * @throws SQLException
+     *             the sQL exception
+     * @throws FilterParseException
+     *             the filter parse exception
+     * @throws RTCException
+     *             the rTC exception
      */
     public synchronized void rtcNodeRescan(long nodeid) throws SQLException, FilterParseException, RTCException {
 
@@ -760,7 +870,7 @@ public class DataManager extends Object {
 
     /**
      * Get the value(uptime) for the category in the last 'rollingWindow'
-     * starting at current time
+     * starting at current time.
      *
      * @param catLabel
      *            the category to which the node should belong to
@@ -777,7 +887,7 @@ public class DataManager extends Object {
 
     /**
      * Get the value(uptime) for the nodeid in the last 'rollingWindow' starting
-     * at current time in the context of the passed category
+     * at current time in the context of the passed category.
      *
      * @param nodeid
      *            the node for which value is to be calculated
@@ -796,7 +906,7 @@ public class DataManager extends Object {
 
     /**
      * Get the service count for the nodeid in the context of the passed
-     * category
+     * category.
      *
      * @param nodeid
      *            the node for which service count is to be calculated
@@ -811,7 +921,7 @@ public class DataManager extends Object {
 
     /**
      * Get the service down count for the nodeid in the context of the passed
-     * category
+     * category.
      *
      * @param nodeid
      *            the node for which service down count is to be calculated
@@ -828,6 +938,7 @@ public class DataManager extends Object {
      * <p>
      * getCategories
      * </p>
+     * .
      *
      * @return the categories
      */

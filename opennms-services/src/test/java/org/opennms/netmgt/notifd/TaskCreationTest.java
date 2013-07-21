@@ -44,18 +44,29 @@ import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.netmgt.mock.MockNode;
 import org.opennms.netmgt.xml.event.Event;
 
+/**
+ * The Class TaskCreationTest.
+ */
 public class TaskCreationTest extends NotificationsTestCase {
 
+    /** The Constant INTERVAL. */
     private static final int INTERVAL = 1000;
 
+    /** The m_event processor. */
     private BroadcastEventProcessor m_eventProcessor;
 
+    /** The m_notif. */
     private Notification m_notif;
 
+    /** The m_params. */
     private Map<String, String> m_params;
 
+    /** The m_commands. */
     private String[] m_commands;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#setUp()
+     */
     @Before
     @Override
     public void setUp() throws Exception {
@@ -70,12 +81,21 @@ public class TaskCreationTest extends NotificationsTestCase {
         m_commands = new String[] { "email" };
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.notifd.NotificationsTestCase#tearDown()
+     */
     @After
     @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test make email task.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMakeEmailTask() throws Exception {
         long startTime = now();
@@ -88,10 +108,21 @@ public class TaskCreationTest extends NotificationsTestCase {
         assertEquals(startTime, task.getSendTime());
     }
 
+    /**
+     * Now.
+     *
+     * @return the long
+     */
     private long now() {
         return System.currentTimeMillis();
     }
 
+    /**
+     * Test make user task.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMakeUserTask() throws Exception {
         long startTime = now();
@@ -105,6 +136,16 @@ public class TaskCreationTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Assert tasks with email.
+     *
+     * @param tasks
+     *            the tasks
+     * @param emails
+     *            the emails
+     * @throws Exception
+     *             the exception
+     */
     private void assertTasksWithEmail(NotificationTask[] tasks, String... emails) throws Exception {
         assertNotNull(tasks);
         assertEquals("Unexpected number of tasks", emails.length, tasks.length);
@@ -114,6 +155,16 @@ public class TaskCreationTest extends NotificationsTestCase {
         }
     }
 
+    /**
+     * Assert start interval.
+     *
+     * @param tasks
+     *            the tasks
+     * @param startTime
+     *            the start time
+     * @param interval
+     *            the interval
+     */
     private void assertStartInterval(NotificationTask[] tasks, long startTime, long interval) {
         assertNotNull(tasks);
         long expectedTime = startTime;
@@ -124,6 +175,12 @@ public class TaskCreationTest extends NotificationsTestCase {
         }
     }
 
+    /**
+     * Test make group tasks.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMakeGroupTasks() throws Exception {
         long startTime = now();
@@ -137,6 +194,12 @@ public class TaskCreationTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test make group tasks with duty schedule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMakeGroupTasksWithDutySchedule() throws Exception {
         final String groupName = "EscalationGroup";
@@ -167,6 +230,12 @@ public class TaskCreationTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Test make role tasks.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMakeRoleTasks() throws Exception {
         long dayTime = getTimeStampFor("21-FEB-2005 11:59:56");
@@ -188,10 +257,30 @@ public class TaskCreationTest extends NotificationsTestCase {
 
     }
 
+    /**
+     * Gets the time stamp for.
+     *
+     * @param timeString
+     *            the time string
+     * @return the time stamp for
+     * @throws ParseException
+     *             the parse exception
+     */
     private long getTimeStampFor(String timeString) throws ParseException {
         return new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(timeString).getTime();
     }
 
+    /**
+     * Find task with email.
+     *
+     * @param tasks
+     *            the tasks
+     * @param email
+     *            the email
+     * @return the notification task
+     * @throws Exception
+     *             the exception
+     */
     private NotificationTask findTaskWithEmail(NotificationTask[] tasks, String email) throws Exception {
         assertNotNull(email);
         for (NotificationTask task : tasks) {

@@ -72,6 +72,7 @@ import org.xml.sax.InputSource;
  */
 final class TcpStreamHandler implements Runnable {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(TcpStreamHandler.class);
 
     /**
@@ -98,14 +99,10 @@ final class TcpStreamHandler implements Runnable {
      */
     private Socket m_connection;
 
-    /**
-     * The thread context this runnable is executing in
-     */
+    /** The thread context this runnable is executing in. */
     private Thread m_context;
 
-    /**
-     * The number of records per connection
-     */
+    /** The number of records per connection. */
     private int m_recsPerConn;
 
     /**
@@ -131,6 +128,8 @@ final class TcpStreamHandler implements Runnable {
 
     /**
      * Returns true if the context is alive.
+     *
+     * @return true, if is alive
      */
     boolean isAlive() {
         boolean rc = false;
@@ -142,6 +141,9 @@ final class TcpStreamHandler implements Runnable {
 
     /**
      * Stops and joins the context.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     void stop() throws InterruptedException {
         m_stop = true;

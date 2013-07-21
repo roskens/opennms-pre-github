@@ -45,28 +45,38 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represents a PollableServiceConfig
+ * Represents a PollableServiceConfig.
  *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
 public class PollableServiceConfig implements PollConfig, ScheduleInterval {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(PollableServiceConfig.class);
 
+    /** The m_poller config. */
     private PollerConfig m_pollerConfig;
 
+    /** The m_poll outages config. */
     private PollOutagesConfig m_pollOutagesConfig;
 
+    /** The m_service. */
     private PollableService m_service;
 
+    /** The m_parameters. */
     private Map<String, Object> m_parameters = null;
 
+    /** The m_pkg. */
     private Package m_pkg;
 
+    /** The m_timer. */
     private Timer m_timer;
 
+    /** The m_config service. */
     private Service m_configService;
 
+    /** The m_service monitor. */
     private ServiceMonitor m_serviceMonitor;
 
     /**
@@ -100,8 +110,11 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
     }
 
     /**
+     * Find service.
+     *
      * @param pkg
-     * @return
+     *            the pkg
+     * @return the service
      */
     private synchronized Service findService(Package pkg) {
         for (Service s : m_pkg.getServiceCollection()) {
@@ -118,6 +131,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      * <p>
      * poll
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.PollStatus} object.
      */
@@ -139,6 +153,11 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         }
     }
 
+    /**
+     * Gets the service monitor.
+     *
+     * @return the service monitor
+     */
     private synchronized ServiceMonitor getServiceMonitor() {
         if (m_serviceMonitor == null) {
             ServiceMonitor monitor = m_pollerConfig.getServiceMonitor(m_service.getSvcName());
@@ -166,7 +185,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
     }
 
     /**
-     * Should be called when thresholds configuration has been reloaded
+     * Should be called when thresholds configuration has been reloaded.
      */
     @Override
     public synchronized void refreshThresholds() {
@@ -174,7 +193,9 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
     }
 
     /**
-     * @return
+     * Gets the parameters.
+     *
+     * @return the parameters
      */
     private synchronized Map<String, Object> getParameters() {
         if (m_parameters == null) {
@@ -184,6 +205,13 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         return m_parameters;
     }
 
+    /**
+     * Creates the property map.
+     *
+     * @param svc
+     *            the svc
+     * @return the map
+     */
     private Map<String, Object> createPropertyMap(Service svc) {
         Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
         for (Parameter p : svc.getParameterCollection()) {
@@ -201,6 +229,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      * <p>
      * getCurrentTime
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -213,6 +242,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -261,6 +291,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      * <p>
      * scheduledSuspension
      * </p>
+     * .
      *
      * @return a boolean.
      */

@@ -38,10 +38,10 @@ package org.opennms.spring.xmlrpc;
  */
 public interface XmlRpcConstants {
 
-    /** Constant <code>FAULT_INVALID_DATA=1</code> */
+    /** Constant <code>FAULT_INVALID_DATA=1</code>. */
     public static final int FAULT_INVALID_DATA = 1;
 
-    /** Constant <code>FAULT_INVALID_URL=2</code> */
+    /** Constant <code>FAULT_INVALID_URL=2</code>. */
     public static final int FAULT_INVALID_URL = 2;
 
 }
