@@ -32,6 +32,26 @@ import java.net.InetAddress;
 
 import org.opennms.netmgt.icmp.EchoPacket;
 
+/**
+ * The listener interface for receiving pingReply events.
+ * The class that is interested in processing a pingReply
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addPingReplyListener<code> method. When
+ * the pingReply event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see PingReplyEvent
+ */
 public interface PingReplyListener {
+
+    /**
+     * On ping reply.
+     *
+     * @param inetAddress
+     *            the inet address
+     * @param packet
+     *            the packet
+     */
     public void onPingReply(InetAddress inetAddress, EchoPacket packet);
 }

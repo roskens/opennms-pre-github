@@ -35,26 +35,50 @@ import org.opennms.jicmp.ipv6.ICMPv6EchoPacket;
 import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
+/**
+ * The Class V6PingRequest.
+ */
 class V6PingRequest extends ICMPv6EchoPacket {
 
+    /** The Constant PACKET_LENGTH. */
     public static final int PACKET_LENGTH = 64;
 
+    /** The Constant COOKIE. */
     public static final long COOKIE = 0x4F70656E4E4D5321L;
 
+    /** The Constant OFFSET_COOKIE. */
     public static final int OFFSET_COOKIE = 0;
 
+    /** The Constant OFFSET_TIMESTAMP. */
     public static final int OFFSET_TIMESTAMP = 8;
 
+    /** The Constant OFFSET_THREAD_ID. */
     public static final int OFFSET_THREAD_ID = 16;
 
+    /** The Constant DATA_LENGTH. */
     public static final int DATA_LENGTH = 8 * 3;
 
+    /**
+     * Instantiates a new v6 ping request.
+     */
     public V6PingRequest() {
         super(PACKET_LENGTH);
         setType(Type.EchoRequest);
         setCode(0);
     }
 
+    /**
+     * Instantiates a new v6 ping request.
+     *
+     * @param id
+     *            the id
+     * @param seqNum
+     *            the seq num
+     * @param threadId
+     *            the thread id
+     * @param packetsize
+     *            the packetsize
+     */
     public V6PingRequest(int id, int seqNum, long threadId, int packetsize) {
         super(packetsize);
         // header fields
@@ -75,6 +99,16 @@ class V6PingRequest extends ICMPv6EchoPacket {
         }
     }
 
+    /**
+     * Instantiates a new v6 ping request.
+     *
+     * @param id
+     *            the id
+     * @param seqNum
+     *            the seq num
+     * @param threadId
+     *            the thread id
+     */
     public V6PingRequest(int id, int seqNum, long threadId) {
         super(PACKET_LENGTH);
         // header fields
@@ -95,24 +129,49 @@ class V6PingRequest extends ICMPv6EchoPacket {
         }
     }
 
+    /**
+     * Gets the thread id.
+     *
+     * @return the thread id
+     */
     public long getThreadId() {
         return getContentBuffer().getLong(OFFSET_THREAD_ID);
     }
 
+    /**
+     * Sets the thread id.
+     *
+     * @param threadId
+     *            the new thread id
+     */
     public void setThreadId(long threadId) {
         getContentBuffer().putLong(OFFSET_THREAD_ID, threadId);
     }
 
+    /**
+     * Sets the cookie.
+     */
     private void setCookie() {
         getContentBuffer().putLong(OFFSET_COOKIE, COOKIE);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.jicmp.ipv6.ICMPv6Packet#toDatagramPacket(java.net.InetAddress)
+     */
     @Override
     public NativeDatagramPacket toDatagramPacket(InetAddress destinationAddress) {
         getContentBuffer().putLong(OFFSET_TIMESTAMP, System.nanoTime());
         return super.toDatagramPacket(destinationAddress);
     }
 
+    /**
+     * Send.
+     *
+     * @param socket
+     *            the socket
+     * @param addr
+     *            the addr
+     */
     public void send(NativeDatagramSocket socket, InetAddress addr) {
         socket.send(toDatagramPacket(addr));
     }

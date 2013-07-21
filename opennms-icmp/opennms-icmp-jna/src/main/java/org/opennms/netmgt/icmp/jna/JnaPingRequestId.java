@@ -41,12 +41,17 @@ import org.opennms.core.utils.InetAddressComparator;
  * @version $Id: $
  */
 public class JnaPingRequestId {
+
+    /** The m_addr. */
     private InetAddress m_addr;
 
+    /** The m_identifier. */
     private int m_identifier;
 
+    /** The m_sequence number. */
     private int m_sequenceNumber;
 
+    /** The m_thread id. */
     private long m_threadId;
 
     /**
@@ -58,8 +63,10 @@ public class JnaPingRequestId {
      *            a {@link java.net.InetAddress} object.
      * @param identifier
      *            a long.
-     * @param seqId
-     *            a short.
+     * @param sequenceNumber
+     *            the sequence number
+     * @param threadId
+     *            the thread id
      */
     public JnaPingRequestId(InetAddress addr, int identifier, int sequenceNumber, long threadId) {
         m_addr = addr;
@@ -85,6 +92,7 @@ public class JnaPingRequestId {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -96,6 +104,7 @@ public class JnaPingRequestId {
      * <p>
      * getTid
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -107,6 +116,7 @@ public class JnaPingRequestId {
      * <p>
      * getSequenceId
      * </p>
+     * .
      *
      * @return a short.
      */
@@ -114,6 +124,11 @@ public class JnaPingRequestId {
         return m_sequenceNumber;
     }
 
+    /**
+     * Gets the thread id.
+     *
+     * @return the thread id
+     */
     public long getThreadId() {
         return m_threadId;
     }
@@ -146,6 +161,7 @@ public class JnaPingRequestId {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

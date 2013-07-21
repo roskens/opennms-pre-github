@@ -41,23 +41,33 @@ import org.opennms.netmgt.icmp.PingConstants;
 import org.opennms.netmgt.icmp.PingResponseCallback;
 
 /**
+ * The Class JnaPingTest.
+ *
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>
  */
 public class JnaPingTest extends TestCase {
 
+    /** The s_jna pinger. */
     private static JnaPinger s_jnaPinger = new JnaPinger();
 
+    /** The m_good host. */
     private InetAddress m_goodHost = null;
 
+    /** The m_bad host. */
     private InetAddress m_badHost = null;
 
+    /** The m_ipv6good host. */
     private InetAddress m_ipv6goodHost = null;
 
+    /** The m_ipv6bad host. */
     private InetAddress m_ipv6badHost = null;
 
     /**
      * Don't run this test unless the runPingTests property
      * is set to "true".
+     *
+     * @throws Throwable
+     *             the throwable
      */
     @Override
     protected void runTest() throws Throwable {
@@ -75,14 +85,27 @@ public class JnaPingTest extends TestCase {
         }
     }
 
+    /**
+     * Checks if is run test.
+     *
+     * @return true, if is run test
+     */
     private boolean isRunTest() {
         return Boolean.getBoolean(getRunTestProperty());
     }
 
+    /**
+     * Gets the run test property.
+     *
+     * @return the run test property
+     */
     private String getRunTestProperty() {
         return "runPingTests";
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         if (!isRunTest()) {
@@ -101,31 +124,63 @@ public class JnaPingTest extends TestCase {
 
     }
 
+    /**
+     * Single ping good.
+     *
+     * @param addr
+     *            the addr
+     * @throws Exception
+     *             the exception
+     */
     private void singlePingGood(InetAddress addr) throws Exception {
         Number rtt = s_jnaPinger.ping(addr);
         assertNotNull("No RTT value returned from ping, looks like the ping failed", rtt);
         assertTrue("Negative RTT value returned from ping", rtt.doubleValue() > 0);
     }
 
+    /**
+     * Test single ping i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingIPv4() throws Exception {
         singlePingGood(m_goodHost);
     }
 
+    /**
+     * Test single ping i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingIPv6() throws Exception {
         singlePingGood(m_ipv6goodHost);
     }
 
+    /**
+     * The Class TestPingResponseCallback.
+     */
     private static class TestPingResponseCallback implements PingResponseCallback {
+
+        /** The m_latch. */
         private final CountDownLatch m_latch = new CountDownLatch(1);
 
+        /** The m_address. */
         private InetAddress m_address;
 
+        /** The m_packet. */
         private EchoPacket m_packet;
 
+        /** The m_throwable. */
         private Throwable m_throwable;
 
+        /** The m_timeout. */
         private boolean m_timeout = false;
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleResponse(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+         */
         @Override
         public void handleResponse(InetAddress address, EchoPacket response) {
             m_address = address;
@@ -134,6 +189,9 @@ public class JnaPingTest extends TestCase {
             System.err.println("RESPONSE COUNTED DOWN");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleTimeout(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+         */
         @Override
         public void handleTimeout(InetAddress address, EchoPacket request) {
             m_timeout = true;
@@ -143,6 +201,9 @@ public class JnaPingTest extends TestCase {
             System.err.println("TIMEOUT COUNTED DOWN");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.icmp.PingResponseCallback#handleError(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket, java.lang.Throwable)
+         */
         @Override
         public void handleError(InetAddress address, EchoPacket request, Throwable t) {
             m_address = address;
@@ -153,11 +214,19 @@ public class JnaPingTest extends TestCase {
             t.printStackTrace();
         }
 
+        /**
+         * Await.
+         *
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void await() throws InterruptedException {
             m_latch.await();
         }
 
         /**
+         * Gets the address.
+         *
          * @return the address
          */
         public InetAddress getAddress() {
@@ -165,6 +234,8 @@ public class JnaPingTest extends TestCase {
         }
 
         /**
+         * Gets the packet.
+         *
          * @return the packet
          */
         public EchoPacket getPacket() {
@@ -172,6 +243,8 @@ public class JnaPingTest extends TestCase {
         }
 
         /**
+         * Gets the throwable.
+         *
          * @return the throwable
          */
         public Throwable getThrowable() {
@@ -179,6 +252,8 @@ public class JnaPingTest extends TestCase {
         }
 
         /**
+         * Checks if is timeout.
+         *
          * @return the timeout
          */
         public boolean isTimeout() {
@@ -187,14 +262,34 @@ public class JnaPingTest extends TestCase {
 
     };
 
+    /**
+     * Test ping callback timeout i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPingCallbackTimeoutIPv4() throws Exception {
         pingCallbackTimeout(m_badHost);
     }
 
+    /**
+     * Test ping callback timeout i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPingCallbackTimeoutIPv6() throws Exception {
         pingCallbackTimeout(m_ipv6badHost);
     }
 
+    /**
+     * Ping callback timeout.
+     *
+     * @param addr
+     *            the addr
+     * @throws Exception
+     *             the exception
+     */
     private void pingCallbackTimeout(InetAddress addr) throws Exception {
         TestPingResponseCallback cb = new TestPingResponseCallback();
 
@@ -210,22 +305,56 @@ public class JnaPingTest extends TestCase {
         assertNotNull(cb.getAddress());
     }
 
+    /**
+     * Test single ping failure i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingFailureIPv4() throws Exception {
         assertNull(s_jnaPinger.ping(m_badHost));
     }
 
+    /**
+     * Test single ping failure i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testSinglePingFailureIPv6() throws Exception {
         assertNull(s_jnaPinger.ping(m_ipv6badHost));
     }
 
+    /**
+     * Test parallel ping i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingIPv4() throws Exception {
         parallelPingGood(m_goodHost);
     }
 
+    /**
+     * Test parallel ping i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingIPv6() throws Exception {
         parallelPingGood(m_ipv6goodHost);
     }
 
+    /**
+     * Parallel ping good.
+     *
+     * @param addr
+     *            the addr
+     * @throws Exception
+     *             the exception
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     private void parallelPingGood(InetAddress addr) throws Exception, InterruptedException {
         List<Number> items = s_jnaPinger.parallelPing(addr, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(1000);
@@ -238,14 +367,34 @@ public class JnaPingTest extends TestCase {
         }
     }
 
+    /**
+     * Test parallel ping failure i pv4.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingFailureIPv4() throws Exception {
         parallelPingFailure(m_badHost);
     }
 
+    /**
+     * Test parallel ping failure i pv6.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testParallelPingFailureIPv6() throws Exception {
         parallelPingFailure(m_ipv6badHost);
     }
 
+    /**
+     * Parallel ping failure.
+     *
+     * @param addr
+     *            the addr
+     * @throws Exception
+     *             the exception
+     */
     private void parallelPingFailure(InetAddress addr) throws Exception {
         List<Number> items = s_jnaPinger.parallelPing(addr, 20, PingConstants.DEFAULT_TIMEOUT, 50);
         Thread.sleep(PingConstants.DEFAULT_TIMEOUT + 100);
@@ -254,6 +403,12 @@ public class JnaPingTest extends TestCase {
                    CollectionMath.countNotNull(items) == 0);
     }
 
+    /**
+     * Prints the response.
+     *
+     * @param items
+     *            the items
+     */
     private void printResponse(List<Number> items) {
         Long passed = CollectionMath.countNotNull(items);
         Long failed = CollectionMath.countNull(items);

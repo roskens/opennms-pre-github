@@ -45,13 +45,23 @@ import org.slf4j.LoggerFactory;
 import com.sun.jna.Platform;
 
 /**
- * PingListener
+ * PingListener.
  *
  * @author brozow
  */
 public class V4Pinger extends AbstractPinger<Inet4Address> {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(V4Pinger.class);
 
+    /**
+     * Instantiates a new v4 pinger.
+     *
+     * @param pingerId
+     *            the pinger id
+     * @throws Exception
+     *             the exception
+     */
     public V4Pinger(final int pingerId) throws Exception {
         super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET,
                                                     Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
@@ -73,6 +83,9 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         Logging.putPrefix("icmp");
@@ -97,10 +110,20 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
         }
     }
 
+    /**
+     * Gets the iP payload.
+     *
+     * @param datagram
+     *            the datagram
+     * @return the iP payload
+     */
     private ByteBuffer getIPPayload(final NativeDatagramPacket datagram) {
         return new IPPacket(datagram.getContent()).getPayload();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.jna.AbstractPinger#ping(java.net.InetAddress, int, int, long, long, long, int)
+     */
     @Override
     public void ping(final Inet4Address addr, final int identifier, final int sequenceNumber, final long threadId,
             final long count, final long interval, final int packetSize) throws InterruptedException {

@@ -36,7 +36,7 @@ import org.opennms.protocols.rt.ResponseWithId;
 
 /**
  * <p>
- * This class is use to encapsulate an ICMP reply that conforms to the
+ * This class is use to encapsulate an ICMP reply that conforms to the.
  * {@link EchoPacket packet}class. The reply must be of type ICMP Echo Reply and
  * be the correct length.
  * </p>
@@ -78,6 +78,7 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
      * <p>
      * getRequestId
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.icmp.spi.PingRequestId} object.
      */
@@ -105,36 +106,57 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
         return m_packet.isEchoReply();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getIdentifier()
+     */
     @Override
     public int getIdentifier() {
         return m_packet.getIdentifier();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSequenceNumber()
+     */
     @Override
     public int getSequenceNumber() {
         return m_packet.getSequenceNumber();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getThreadId()
+     */
     @Override
     public long getThreadId() {
         return m_packet.getThreadId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getReceivedTimeNanos()
+     */
     @Override
     public long getReceivedTimeNanos() {
         return m_packet.getReceivedTimeNanos();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#getSentTimeNanos()
+     */
     @Override
     public long getSentTimeNanos() {
         return m_packet.getSentTimeNanos();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.EchoPacket#elapsedTime(java.util.concurrent.TimeUnit)
+     */
     @Override
     public double elapsedTime(TimeUnit timeUnit) {
         return m_packet.elapsedTime(timeUnit);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();

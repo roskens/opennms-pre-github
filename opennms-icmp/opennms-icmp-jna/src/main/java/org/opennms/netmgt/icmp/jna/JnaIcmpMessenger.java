@@ -38,18 +38,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class JnaIcmpMessenger.
+ *
  * @author brozow
  */
 public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>, PingReplyListener {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JnaIcmpMessenger.class);
 
+    /** The m_v4. */
     private V4Pinger m_v4;
 
+    /** The m_v6. */
     private V6Pinger m_v6;
 
+    /** The pending replies. */
     private Queue<JnaPingReply> pendingReplies = null;
 
+    /**
+     * Instantiates a new jna icmp messenger.
+     *
+     * @param pingerId
+     *            the pinger id
+     * @throws Exception
+     *             the exception
+     */
     public JnaIcmpMessenger(final int pingerId) throws Exception {
         Throwable error = null;
         try {
@@ -79,6 +93,11 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
         }
     }
 
+    /**
+     * Checks if is v4 available.
+     *
+     * @return true, if is v4 available
+     */
     public boolean isV4Available() {
         if (m_v4 != null) {
             return true;
@@ -86,6 +105,11 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
         return false;
     }
 
+    /**
+     * Checks if is v6 available.
+     *
+     * @return true, if is v6 available
+     */
     public boolean isV6Available() {
         if (m_v6 != null) {
             return true;
@@ -93,11 +117,17 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.rt.Messenger#sendRequest(java.lang.Object)
+     */
     @Override
     public void sendRequest(final JnaPingRequest request) {
         request.send(m_v4, m_v6);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.protocols.rt.Messenger#start(java.util.Queue)
+     */
     @Override
     public void start(final Queue<JnaPingReply> replyQueue) {
         pendingReplies = replyQueue;
@@ -105,6 +135,9 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
         m_v6.start();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.jna.PingReplyListener#onPingReply(java.net.InetAddress, org.opennms.netmgt.icmp.EchoPacket)
+     */
     @Override
     public void onPingReply(final InetAddress address, final EchoPacket packet) {
         pendingReplies.offer(new JnaPingReply(address, packet));

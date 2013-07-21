@@ -44,14 +44,23 @@ import org.slf4j.LoggerFactory;
 import com.sun.jna.Platform;
 
 /**
- * PingListener
+ * PingListener.
  *
  * @author brozow
  */
 public class V6Pinger extends AbstractPinger<Inet6Address> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(V6Pinger.class);
 
+    /**
+     * Instantiates a new v6 pinger.
+     *
+     * @param pingerId
+     *            the pinger id
+     * @throws Exception
+     *             the exception
+     */
     public V6Pinger(final int pingerId) throws Exception {
         super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6,
                                                     Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM
@@ -79,6 +88,9 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
     // UnsupportedOperationException("Put socket initialization here rather than the constructor");
     // }
 
+    /* (non-Javadoc)
+     * @see java.lang.Runnable#run()
+     */
     @Override
     public void run() {
         Logging.putPrefix("icmp");
@@ -103,10 +115,20 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
         }
     }
 
+    /**
+     * Gets the iP payload.
+     *
+     * @param datagram
+     *            the datagram
+     * @return the iP payload
+     */
     private ByteBuffer getIPPayload(final NativeDatagramPacket datagram) {
         return datagram.getContent();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.icmp.jna.AbstractPinger#ping(java.net.InetAddress, int, int, long, long, long, int)
+     */
     @Override
     public void ping(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId,
             final long count, final long interval, final int packetSize) throws InterruptedException {
