@@ -47,8 +47,11 @@ import org.slf4j.LoggerFactory;
  * <p>
  * SnmpAssetAdapterConfigFactory
  * </p>
+ * .
  */
 public class SnmpAssetAdapterConfigFactory {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpAssetAdapterConfigFactory.class);
 
     /**
@@ -56,6 +59,16 @@ public class SnmpAssetAdapterConfigFactory {
      */
     private final SnmpAssetAdapterConfigManager m_config;
 
+    /**
+     * Instantiates a new snmp asset adapter config factory.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public SnmpAssetAdapterConfigFactory() throws MarshalException, ValidationException, IOException {
         final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME);
         LOG.debug("init: config file path: {}", cfgFile.getPath());
@@ -65,20 +78,14 @@ public class SnmpAssetAdapterConfigFactory {
     }
 
     /**
-     * Reload the config from the default config file
+     * Reload the config from the default config file.
      *
-     * @exception java.io.IOException
-     *                Thrown if the specified config file cannot be read/loaded
-     * @exception org.exolab.castor.xml.MarshalException
-     *                Thrown if the file does not conform to the schema.
-     * @exception org.exolab.castor.xml.ValidationException
-     *                Thrown if the contents do not match the required schema.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public void reload() throws IOException, MarshalException, ValidationException {
         m_config.update();
@@ -88,11 +95,12 @@ public class SnmpAssetAdapterConfigFactory {
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void save(final String xml) throws IOException {
         m_config.getWriteLock().lock();
@@ -116,11 +124,6 @@ public class SnmpAssetAdapterConfigFactory {
      * Return the singleton instance of this factory.
      *
      * @return The current factory instance.
-     * @throws IOException
-     * @throws ValidationException
-     * @throws MarshalException
-     * @throws java.lang.IllegalStateException
-     *             Thrown if the factory has not yet been initialized.
      */
     public SnmpAssetAdapterConfig getInstance() {
         m_config.getReadLock().lock();

@@ -51,6 +51,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SnmpAssetProvisioningAdapterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -65,17 +68,28 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class SnmpAssetProvisioningAdapterTest implements InitializingBean {
 
+    /** The m_adapter. */
     @Autowired
     private SnmpAssetProvisioningAdapter m_adapter;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Use the mock.logLevel system property to control the log level
@@ -98,6 +112,12 @@ public class SnmpAssetProvisioningAdapterTest implements InitializingBean {
         assertTrue(m_adapter.getSnmpPeerFactory() instanceof ProxySnmpAgentConfigFactory);
     }
 
+    /**
+     * Test add.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database
@@ -118,6 +138,12 @@ public class SnmpAssetProvisioningAdapterTest implements InitializingBean {
         // the asset record
     }
 
+    /**
+     * Test delete.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on records created in @Before so we need a fresh database

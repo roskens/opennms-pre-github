@@ -70,24 +70,32 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.util.Assert;
 
 /**
+ * The Class SnmpAssetProvisioningAdapter.
  */
 @EventListener(name = "SnmpAssetProvisioningAdapter")
 public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapter implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpAssetProvisioningAdapter.class);
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_event forwarder. */
     private EventForwarder m_eventForwarder;
 
+    /** The m_config. */
     private SnmpAssetAdapterConfig m_config;
 
+    /** The m_snmp config dao. */
     private SnmpAgentConfigFactory m_snmpConfigDao;
 
-    /**
-     * Constant <code>NAME="SnmpAssetProvisioningAdapter"</code>
-     */
+    /** Constant <code>NAME="SnmpAssetProvisioningAdapter"</code>. */
     public static final String NAME = "SnmpAssetProvisioningAdapter";
 
+    /**
+     * Instantiates a new snmp asset provisioning adapter.
+     */
     public SnmpAssetProvisioningAdapter() {
         super(NAME);
 
@@ -102,8 +110,10 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * and that it has had enough time for that to have happened.
      *
      * @param nodeId
+     *            the node id
      * @param adapterOperationType
-     * @return
+     *            the adapter operation type
+     * @return the adapter operation schedule
      */
     @Override
     AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType adapterOperationType) {
@@ -113,6 +123,9 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         return aos;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.SimplerQueuedProvisioningAdapter#isNodeReady(org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperation)
+     */
     @Override
     public boolean isNodeReady(AdapterOperation op) {
         boolean readyState = false;
@@ -128,13 +141,12 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * doAdd
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
-     * @param retry
-     *            a boolean.
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     @Override
     public void doAddNode(final int nodeId) throws ProvisioningAdapterException {
@@ -185,6 +197,19 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         m_nodeDao.flush();
     }
 
+    /**
+     * Fetch snmp asset string.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param mibObjs
+     *            the mib objs
+     * @param formatString
+     *            the format string
+     * @return the string
+     * @throws MissingFormatArgumentException
+     *             the missing format argument exception
+     */
     private static String fetchSnmpAssetString(final SnmpAgentConfig agentConfig, final MibObjs mibObjs,
             final String formatString) throws MissingFormatArgumentException {
 
@@ -238,6 +263,13 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         }
     }
 
+    /**
+     * Format properties as string.
+     *
+     * @param props
+     *            the props
+     * @return the string
+     */
     protected static String formatPropertiesAsString(final Properties props) {
         final StringBuffer propertyValues = new StringBuffer();
         for (final Map.Entry<Object, Object> entry : props.entrySet()) {
@@ -254,13 +286,12 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * doUpdate
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
-     * @param retry
-     *            a boolean.
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     @Override
     public void doUpdateNode(final int nodeId) throws ProvisioningAdapterException {
@@ -314,13 +345,12 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * doNodeConfigChanged
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
-     * @param retry
-     *            a boolean.
-     * @throws org.opennms.netmgt.provision.ProvisioningAdapterException
-     *             if any.
+     * @throws ProvisioningAdapterException
+     *             the provisioning adapter exception
      */
     @Override
     public void doNotifyConfigChange(final int nodeId) throws ProvisioningAdapterException {
@@ -331,6 +361,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -342,6 +373,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -354,6 +386,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -365,6 +398,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -375,6 +409,8 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
     }
 
     /**
+     * Gets the snmp peer factory.
+     *
      * @return the snmpConfigDao
      */
     public SnmpAgentConfigFactory getSnmpPeerFactory() {
@@ -382,6 +418,8 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
     }
 
     /**
+     * Sets the snmp peer factory.
+     *
      * @param snmpConfigDao
      *            the snmpConfigDao to set
      */
@@ -390,6 +428,8 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
     }
 
     /**
+     * Gets the snmp asset adapter config.
+     *
      * @return the m_config
      */
     public SnmpAssetAdapterConfig getSnmpAssetAdapterConfig() {
@@ -397,6 +437,8 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
     }
 
     /**
+     * Sets the snmp asset adapter config.
+     *
      * @param mConfig
      *            the m_config to set
      */
@@ -408,6 +450,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -416,6 +459,13 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         return NAME;
     }
 
+    /**
+     * Gets the ip for node.
+     *
+     * @param node
+     *            the node
+     * @return the ip for node
+     */
     private InetAddress getIpForNode(final OnmsNode node) {
         LOG.debug("getIpForNode: node: {} Foreign Source: {}", node.getNodeId(), node.getForeignSource());
         final OnmsIpInterface primaryInterface = node.getPrimaryInterface();
@@ -445,6 +495,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
      * <p>
      * handleReloadConfigEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -461,6 +512,13 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         }
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(final Event event) {
         boolean isTarget = false;
 
@@ -476,6 +534,9 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
         return isTarget;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         // TODO Auto-generated method stub

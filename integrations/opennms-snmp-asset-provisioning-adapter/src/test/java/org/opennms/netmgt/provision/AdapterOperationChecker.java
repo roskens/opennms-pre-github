@@ -38,26 +38,44 @@ import java.util.concurrent.CountDownLatch;
 import org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperation;
 import org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperationQueueListener;
 
+/**
+ * The Class AdapterOperationChecker.
+ */
 class AdapterOperationChecker implements AdapterOperationQueueListener {
 
+    /** The enqueue latch. */
     public final CountDownLatch enqueueLatch;
 
+    /** The dequeue latch. */
     public final CountDownLatch dequeueLatch;
 
+    /** The execute latch. */
     public final CountDownLatch executeLatch;
 
+    /**
+     * Instantiates a new adapter operation checker.
+     *
+     * @param numberOfOperations
+     *            the number of operations
+     */
     public AdapterOperationChecker(int numberOfOperations) {
         enqueueLatch = new CountDownLatch(numberOfOperations);
         dequeueLatch = new CountDownLatch(numberOfOperations);
         executeLatch = new CountDownLatch(numberOfOperations);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperationQueueListener#onEnqueueOperation(org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperation)
+     */
     @Override
     public void onEnqueueOperation(AdapterOperation op) {
         enqueueLatch.countDown();
         System.out.println("Enqueued!");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperationQueueListener#onDequeueOperation(org.opennms.netmgt.provision.SimpleQueuedProvisioningAdapter.AdapterOperation)
+     */
     @Override
     public void onDequeueOperation(final AdapterOperation op) {
         dequeueLatch.countDown();

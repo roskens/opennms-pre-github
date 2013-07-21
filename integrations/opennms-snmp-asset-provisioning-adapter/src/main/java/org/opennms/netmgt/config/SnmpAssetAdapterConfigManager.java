@@ -60,19 +60,23 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpAssetAdapterConfigManager.class);
 
+    /** The m_global lock. */
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
 
+    /** The m_read lock. */
     private final Lock m_readLock = m_globalLock.readLock();
 
+    /** The m_write lock. */
     private final Lock m_writeLock = m_globalLock.writeLock();
 
+    /** The m_last modified. */
     private long m_lastModified;
 
-    /**
-     * The config class loaded from the config file
-     */
+    /** The config class loaded from the config file. */
     private SnmpAssetAdapterConfiguration m_config;
 
     /**
@@ -88,30 +92,34 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
      * Constructor for RancidAdapterConfigManager.
      * </p>
      *
-     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
+     * @param lastModified
+     *            the last modified
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @param verifyServer
-     *            a boolean.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @param serverName
-     *            a {@link java.lang.String} object.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @author <a href="mailto:antonio@opennms.org">Antonio Russo</a>
      */
     public SnmpAssetAdapterConfigManager(final long lastModified, final InputStream reader) throws MarshalException,
             ValidationException, IOException {
         reloadXML(lastModified, reader);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.SnmpAssetAdapterConfig#getReadLock()
+     */
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.SnmpAssetAdapterConfig#getWriteLock()
+     */
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -121,14 +129,16 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
      * Synchronized so that we update the timestamp of the file and the contents
      * simultaneously.
      *
+     * @param lastModified
+     *            the last modified
      * @param reader
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void reloadXML(final long lastModified, final InputStream reader) throws MarshalException,
             ValidationException, IOException {
@@ -145,13 +155,14 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
      * <p>
      * Update
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Override
     public void update() throws IOException, MarshalException, ValidationException {
@@ -192,6 +203,12 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
      * content of the
      * <sysoidMask> tag.
      * TODO: Support matching based on IP address
+     *
+     * @param address
+     *            the address
+     * @param sysoid
+     *            the sysoid
+     * @return the asset fields for address
      */
     @Override
     public AssetField[] getAssetFieldsForAddress(final InetAddress address, final String sysoid) {

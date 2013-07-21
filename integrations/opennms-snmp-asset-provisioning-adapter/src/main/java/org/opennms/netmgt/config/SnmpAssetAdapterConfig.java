@@ -34,16 +34,40 @@ import java.util.concurrent.locks.Lock;
 import org.opennms.netmgt.config.snmpAsset.adapter.AssetField;
 
 /**
+ * The Interface SnmpAssetAdapterConfig.
  */
 public interface SnmpAssetAdapterConfig {
 
+    /**
+     * Gets the asset fields for address.
+     *
+     * @param address
+     *            the address
+     * @param sysoid
+     *            the sysoid
+     * @return the asset fields for address
+     */
     public AssetField[] getAssetFieldsForAddress(InetAddress address, String sysoid);
 
     /**
-	 */
+     * Update.
+     *
+     * @throws Exception
+     *             the exception
+     */
     void update() throws Exception;
 
+    /**
+     * Gets the read lock.
+     *
+     * @return the read lock
+     */
     public Lock getReadLock();
 
+    /**
+     * Gets the write lock.
+     *
+     * @return the write lock
+     */
     public Lock getWriteLock();
 }
