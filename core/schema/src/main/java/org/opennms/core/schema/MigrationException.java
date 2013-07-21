@@ -37,9 +37,8 @@ package org.opennms.core.schema;
  * @version $Id: $
  */
 public class MigrationException extends Exception {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5507452586903225000L;
 
     /**

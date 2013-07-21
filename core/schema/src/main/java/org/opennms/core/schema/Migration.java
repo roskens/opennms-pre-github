@@ -41,26 +41,38 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Id: $
  */
 public class Migration {
+
+    /** The m_jdbc url. */
     private String m_jdbcUrl;
 
+    /** The m_jdbc driver. */
     private String m_jdbcDriver = "org.postgresql.Driver";
 
+    /** The m_database host. */
     private String m_databaseHost;
 
+    /** The m_database name. */
     private String m_databaseName;
 
+    /** The m_schema name. */
     private String m_schemaName;
 
+    /** The m_database user. */
     private String m_databaseUser;
 
+    /** The m_database password. */
     private String m_databasePassword;
 
+    /** The m_admin user. */
     private String m_adminUser;
 
+    /** The m_admin password. */
     private String m_adminPassword;
 
+    /** The m_change log. */
     private String m_changeLog;
 
+    /** The m_accessor. */
     private ResourceAccessor m_accessor;
 
     /**
@@ -79,6 +91,7 @@ public class Migration {
      * <p>
      * setJdbcUrl
      * </p>
+     * .
      *
      * @param jdbcUrl
      *            a {@link java.lang.String} object.
@@ -100,6 +113,7 @@ public class Migration {
      * <p>
      * setJdbcDriver
      * </p>
+     * .
      *
      * @param jdbcDriver
      *            a {@link java.lang.String} object.
@@ -112,6 +126,7 @@ public class Migration {
      * <p>
      * getDatabaseHost
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -123,6 +138,7 @@ public class Migration {
      * <p>
      * setDatabaseHost
      * </p>
+     * .
      *
      * @param databaseHost
      *            a {@link java.lang.String} object.
@@ -135,6 +151,7 @@ public class Migration {
      * <p>
      * getDatabaseName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -146,6 +163,7 @@ public class Migration {
      * <p>
      * setDatabaseName
      * </p>
+     * .
      *
      * @param databaseName
      *            a {@link java.lang.String} object.
@@ -154,10 +172,21 @@ public class Migration {
         m_databaseName = databaseName;
     }
 
+    /**
+     * Gets the schema name.
+     *
+     * @return the schema name
+     */
     public String getSchemaName() {
         return m_schemaName;
     }
 
+    /**
+     * Sets the schema name.
+     *
+     * @param schemaName
+     *            the new schema name
+     */
     public void setSchemaName(final String schemaName) {
         m_schemaName = schemaName;
     }
@@ -166,6 +195,7 @@ public class Migration {
      * <p>
      * getDatabaseUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -177,6 +207,7 @@ public class Migration {
      * <p>
      * setDatabaseUser
      * </p>
+     * .
      *
      * @param databaseUser
      *            a {@link java.lang.String} object.
@@ -189,6 +220,7 @@ public class Migration {
      * <p>
      * getDatabasePassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -200,6 +232,7 @@ public class Migration {
      * <p>
      * setDatabasePassword
      * </p>
+     * .
      *
      * @param databasePassword
      *            a {@link java.lang.String} object.
@@ -212,6 +245,7 @@ public class Migration {
      * <p>
      * getAdminUser
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -223,6 +257,7 @@ public class Migration {
      * <p>
      * setAdminUser
      * </p>
+     * .
      *
      * @param adminUser
      *            a {@link java.lang.String} object.
@@ -235,6 +270,7 @@ public class Migration {
      * <p>
      * getAdminPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -246,6 +282,7 @@ public class Migration {
      * <p>
      * setAdminPassword
      * </p>
+     * .
      *
      * @param adminPassword
      *            a {@link java.lang.String} object.
@@ -258,6 +295,7 @@ public class Migration {
      * <p>
      * getChangeLog
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -269,6 +307,7 @@ public class Migration {
      * <p>
      * setChangeLog
      * </p>
+     * .
      *
      * @param changeLog
      *            a {@link java.lang.String} object.
@@ -277,10 +316,21 @@ public class Migration {
         m_changeLog = changeLog;
     }
 
+    /**
+     * Gets the accessor.
+     *
+     * @return the accessor
+     */
     public ResourceAccessor getAccessor() {
         return m_accessor;
     }
 
+    /**
+     * Sets the accessor.
+     *
+     * @param accessor
+     *            the new accessor
+     */
     public void setAccessor(final ResourceAccessor accessor) {
         m_accessor = accessor;
     }
@@ -289,6 +339,7 @@ public class Migration {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

@@ -41,18 +41,34 @@ import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.sqlgenerator.core.AbstractSqlGenerator;
 
+/**
+ * The Class SetSequenceGenerator.
+ */
 public class SetSequenceGenerator extends AbstractSqlGenerator<SetSequenceStatement> {
+
+    /** The m_temp table name. */
     final String m_tempTableName = "t" + Integer.toHexString(new Random().nextInt());
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.core.AbstractSqlGenerator#supports(liquibase.statement.SqlStatement, liquibase.database.Database)
+     */
     @Override
     public boolean supports(final SetSequenceStatement statement, final Database database) {
         return database instanceof PostgresDatabase;
     }
 
+    /**
+     * Gets the temp table name.
+     *
+     * @return the temp table name
+     */
     public String getTempTableName() {
         return m_tempTableName;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.SqlGenerator#validate(liquibase.statement.SqlStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public ValidationErrors validate(final SetSequenceStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {
@@ -68,6 +84,9 @@ public class SetSequenceGenerator extends AbstractSqlGenerator<SetSequenceStatem
         return validationErrors;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.SqlGenerator#generateSql(liquibase.statement.SqlStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public Sql[] generateSql(final SetSequenceStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {

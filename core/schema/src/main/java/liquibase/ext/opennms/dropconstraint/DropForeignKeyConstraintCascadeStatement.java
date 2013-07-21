@@ -34,24 +34,57 @@ import java.util.List;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.DropForeignKeyConstraintStatement;
 
+/**
+ * The Class DropForeignKeyConstraintCascadeStatement.
+ */
 public class DropForeignKeyConstraintCascadeStatement extends DropForeignKeyConstraintStatement {
 
+    /** The m_cascade. */
     private Boolean m_cascade;
 
+    /**
+     * Instantiates a new drop foreign key constraint cascade statement.
+     *
+     * @param statement
+     *            the statement
+     * @param cascade
+     *            the cascade
+     */
     public DropForeignKeyConstraintCascadeStatement(final DropForeignKeyConstraintStatement statement, Boolean cascade) {
         super(statement.getBaseTableSchemaName(), statement.getBaseTableName(), statement.getConstraintName());
         m_cascade = cascade;
     }
 
+    /**
+     * Sets the cascade.
+     *
+     * @param cascade
+     *            the cascade
+     * @return the drop foreign key constraint cascade statement
+     */
     public DropForeignKeyConstraintCascadeStatement setCascade(final Boolean cascade) {
         m_cascade = cascade;
         return this;
     }
 
+    /**
+     * Gets the cascade.
+     *
+     * @return the cascade
+     */
     public Boolean getCascade() {
         return m_cascade;
     }
 
+    /**
+     * Creates the from sql statements.
+     *
+     * @param superSql
+     *            the super sql
+     * @param cascade
+     *            the cascade
+     * @return the sql statement[]
+     */
     public static SqlStatement[] createFromSqlStatements(final SqlStatement[] superSql, final Boolean cascade) {
         final List<SqlStatement> statements = new ArrayList<SqlStatement>();
 

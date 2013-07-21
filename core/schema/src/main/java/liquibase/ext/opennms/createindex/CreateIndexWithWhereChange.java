@@ -33,23 +33,44 @@ import liquibase.logging.LogFactory;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.CreateIndexStatement;
 
+/**
+ * The Class CreateIndexWithWhereChange.
+ */
 public class CreateIndexWithWhereChange extends liquibase.change.core.CreateIndexChange {
 
+    /** The m_where. */
     private String m_where;
 
+    /**
+     * Instantiates a new creates the index with where change.
+     */
     public CreateIndexWithWhereChange() {
         super();
         setPriority(getChangeMetaData().getPriority() + 1);
     }
 
+    /**
+     * Gets the where.
+     *
+     * @return the where
+     */
     public String getWhere() {
         return m_where;
     }
 
+    /**
+     * Sets the where.
+     *
+     * @param where
+     *            the new where
+     */
     public void setWhere(final String where) {
         m_where = where;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.change.core.CreateIndexChange#generateStatements(liquibase.database.Database)
+     */
     @Override
     public SqlStatement[] generateStatements(final Database database) {
         final SqlStatement[] superStatements = super.generateStatements(database);

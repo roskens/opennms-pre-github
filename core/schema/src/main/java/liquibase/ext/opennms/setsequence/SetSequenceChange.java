@@ -36,47 +36,98 @@ import liquibase.change.ChangeMetaData;
 import liquibase.database.Database;
 import liquibase.statement.SqlStatement;
 
+/**
+ * The Class SetSequenceChange.
+ */
 public class SetSequenceChange extends AbstractChange {
+
+    /** The m_sequence name. */
     private String m_sequenceName;
 
+    /** The m_value. */
     private Integer m_value;
 
+    /** The m_tables. */
     private List<TableConfig> m_tables = new ArrayList<TableConfig>();
 
+    /**
+     * Instantiates a new sets the sequence change.
+     */
     public SetSequenceChange() {
         super("setSequence", "Set Sequence", ChangeMetaData.PRIORITY_DEFAULT);
     }
 
+    /**
+     * Sets the sequence name.
+     *
+     * @param sequenceName
+     *            the new sequence name
+     */
     public void setSequenceName(final String sequenceName) {
         m_sequenceName = sequenceName;
     }
 
+    /**
+     * Gets the sequence name.
+     *
+     * @return the sequence name
+     */
     public String getSequenceName() {
         return m_sequenceName;
     }
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(final String value) {
         m_value = Integer.valueOf(value);
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue() {
         return m_value.toString();
     }
 
+    /**
+     * Creates the table.
+     *
+     * @return the table config
+     */
     public TableConfig createTable() {
         final TableConfig tc = new TableConfig();
         m_tables.add(tc);
         return tc;
     }
 
+    /**
+     * Adds the table.
+     *
+     * @param table
+     *            the table
+     */
     public void addTable(final TableConfig table) {
         m_tables.add(table);
     }
 
+    /**
+     * Gets the tables.
+     *
+     * @return the tables
+     */
     public List<TableConfig> getTables() {
         return m_tables;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.change.Change#generateStatements(liquibase.database.Database)
+     */
     @Override
     public SqlStatement[] generateStatements(final Database database) {
         final SetSequenceStatement statement = new SetSequenceStatement(getSequenceName());
@@ -87,6 +138,9 @@ public class SetSequenceChange extends AbstractChange {
         return new SqlStatement[] { statement };
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.change.Change#getConfirmationMessage()
+     */
     @Override
     public String getConfirmationMessage() {
         return "Sequence " + m_sequenceName + " updated";

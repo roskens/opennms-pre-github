@@ -40,23 +40,44 @@ import liquibase.statement.core.AddDefaultValueStatement;
 import liquibase.statement.core.CreateSequenceStatement;
 import liquibase.statement.core.SetNullableStatement;
 
+/**
+ * The Class AddNamedAutoIncrementChange.
+ */
 public class AddNamedAutoIncrementChange extends AddAutoIncrementChange {
 
+    /** The m_sequence name. */
     private String m_sequenceName;
 
+    /**
+     * Instantiates a new adds the named auto increment change.
+     */
     public AddNamedAutoIncrementChange() {
         super();
         setPriority(getChangeMetaData().getPriority() + 1);
     }
 
+    /**
+     * Gets the sequence name.
+     *
+     * @return the sequence name
+     */
     public String getSequenceName() {
         return m_sequenceName;
     }
 
+    /**
+     * Sets the sequence name.
+     *
+     * @param sequenceName
+     *            the new sequence name
+     */
     public void setSequenceName(final String sequenceName) {
         m_sequenceName = sequenceName;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.change.core.AddAutoIncrementChange#generateStatements(liquibase.database.Database)
+     */
     @Override
     public SqlStatement[] generateStatements(final Database database) {
         final List<SqlStatement> statements = new ArrayList<SqlStatement>();

@@ -37,13 +37,22 @@ import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.sqlgenerator.core.DropForeignKeyConstraintGenerator;
 import liquibase.statement.core.DropForeignKeyConstraintStatement;
 
+/**
+ * The Class DropForeignKeyConstraintCascadeGenerator.
+ */
 public class DropForeignKeyConstraintCascadeGenerator extends DropForeignKeyConstraintGenerator {
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.core.AbstractSqlGenerator#getPriority()
+     */
     @Override
     public int getPriority() {
         return super.getPriority() + 1;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.core.DropForeignKeyConstraintGenerator#generateSql(liquibase.statement.core.DropForeignKeyConstraintStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public Sql[] generateSql(final DropForeignKeyConstraintStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {

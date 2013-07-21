@@ -37,36 +37,77 @@ import liquibase.statement.AbstractSqlStatement;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+/**
+ * The Class CreateTypeStatement.
+ */
 public class CreateTypeStatement extends AbstractSqlStatement {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_columns. */
     private List<String> m_columns = new ArrayList<String>();
 
+    /** The m_column types. */
     private Map<String, String> m_columnTypes = new HashMap<String, String>();
 
+    /**
+     * Instantiates a new creates the type statement.
+     *
+     * @param name
+     *            the name
+     */
     public CreateTypeStatement(final String name) {
         m_name = name;
     }
 
+    /**
+     * Adds the column.
+     *
+     * @param name
+     *            the name
+     * @param type
+     *            the type
+     * @return the creates the type statement
+     */
     public CreateTypeStatement addColumn(final String name, final String type) {
         m_columns.add(name);
         m_columnTypes.put(name, type);
         return this;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Gets the columns.
+     *
+     * @return the columns
+     */
     public List<String> getColumns() {
         return m_columns;
     }
 
+    /**
+     * Gets the column type.
+     *
+     * @param name
+     *            the name
+     * @return the column type
+     */
     public String getColumnType(final String name) {
         return m_columnTypes.get(name);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("name", m_name).append("columns", m_columnTypes).toString();

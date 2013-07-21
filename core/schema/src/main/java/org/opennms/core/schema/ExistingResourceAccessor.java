@@ -37,17 +37,34 @@ import liquibase.resource.ResourceAccessor;
 
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class ExistingResourceAccessor.
+ */
 public class ExistingResourceAccessor implements ResourceAccessor {
+
+    /** The m_resource. */
     private final Resource m_resource;
 
+    /**
+     * Instantiates a new existing resource accessor.
+     */
     public ExistingResourceAccessor() {
         m_resource = null;
     }
 
+    /**
+     * Instantiates a new existing resource accessor.
+     *
+     * @param resource
+     *            the resource
+     */
     public ExistingResourceAccessor(final Resource resource) {
         m_resource = resource;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.resource.ResourceAccessor#getResourceAsStream(java.lang.String)
+     */
     @Override
     public InputStream getResourceAsStream(final String file) throws IOException {
         if (m_resource == null)
@@ -55,6 +72,9 @@ public class ExistingResourceAccessor implements ResourceAccessor {
         return m_resource.createRelative(file).getInputStream();
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.resource.ResourceAccessor#getResources(java.lang.String)
+     */
     @Override
     public Enumeration<URL> getResources(final String packageName) throws IOException {
         throw new UnsupportedOperationException("Not yet implemented!");
@@ -67,6 +87,9 @@ public class ExistingResourceAccessor implements ResourceAccessor {
          */
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.resource.ResourceAccessor#toClassLoader()
+     */
     @Override
     public ClassLoader toClassLoader() {
         throw new UnsupportedOperationException("Not yet implemented!");

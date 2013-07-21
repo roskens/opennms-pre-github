@@ -37,8 +37,14 @@ import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.sqlgenerator.core.AbstractSqlGenerator;
 
+/**
+ * The Class CreateTypeGenerator.
+ */
 public class CreateTypeGenerator extends AbstractSqlGenerator<CreateTypeStatement> {
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.SqlGenerator#validate(liquibase.statement.SqlStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public ValidationErrors validate(final CreateTypeStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {
@@ -50,6 +56,9 @@ public class CreateTypeGenerator extends AbstractSqlGenerator<CreateTypeStatemen
 
     // example: CREATE TYPE daily_series AS (ds timestamp without time zone, de
     // timestamp without time zone, dow integer);
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.SqlGenerator#generateSql(liquibase.statement.SqlStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public Sql[] generateSql(final CreateTypeStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {

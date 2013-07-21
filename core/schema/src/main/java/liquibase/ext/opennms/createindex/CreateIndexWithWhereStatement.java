@@ -31,25 +31,65 @@ package liquibase.ext.opennms.createindex;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.CreateIndexStatement;
 
+/**
+ * The Class CreateIndexWithWhereStatement.
+ */
 public class CreateIndexWithWhereStatement extends CreateIndexStatement implements SqlStatement {
 
+    /** The m_where. */
     private String m_where;
 
+    /**
+     * Instantiates a new creates the index with where statement.
+     *
+     * @param indexName
+     *            the index name
+     * @param tableSchemaName
+     *            the table schema name
+     * @param tableName
+     *            the table name
+     * @param isUnique
+     *            the is unique
+     * @param associatedWith
+     *            the associated with
+     * @param columns
+     *            the columns
+     */
     public CreateIndexWithWhereStatement(final String indexName, final String tableSchemaName, final String tableName,
             final Boolean isUnique, final String associatedWith, final String... columns) {
         super(indexName, tableSchemaName, tableName, isUnique, associatedWith, columns);
     }
 
+    /**
+     * Instantiates a new creates the index with where statement.
+     *
+     * @param statement
+     *            the statement
+     * @param where
+     *            the where
+     */
     public CreateIndexWithWhereStatement(final CreateIndexStatement statement, final String where) {
         this(statement.getIndexName(), statement.getTableSchemaName(), statement.getTableName(), statement.isUnique(),
              statement.getAssociatedWith(), statement.getColumns());
         m_where = where;
     }
 
+    /**
+     * Gets the where.
+     *
+     * @return the where
+     */
     public String getWhere() {
         return m_where;
     }
 
+    /**
+     * Sets the where.
+     *
+     * @param where
+     *            the where
+     * @return the creates the index with where statement
+     */
     public CreateIndexWithWhereStatement setWhere(final String where) {
         m_where = where;
         return this;

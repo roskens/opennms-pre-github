@@ -28,43 +28,95 @@
 
 package liquibase.ext.opennms.setsequence;
 
+/**
+ * The Class TableConfig.
+ */
 public class TableConfig {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_schema name. */
     private String m_schemaName;
 
+    /** The m_column. */
     private String m_column;
 
+    /**
+     * Instantiates a new table config.
+     */
     public TableConfig() {
     }
 
+    /**
+     * Instantiates a new table config.
+     *
+     * @param name
+     *            the name
+     * @param schemaName
+     *            the schema name
+     * @param column
+     *            the column
+     */
     public TableConfig(final String name, final String schemaName, final String column) {
         m_name = name;
         m_schemaName = schemaName;
         m_column = column;
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param name
+     *            the new name
+     */
     public void setName(final String name) {
         m_name = name;
     }
 
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
     public String getName() {
         return m_name;
     }
 
+    /**
+     * Sets the schema name.
+     *
+     * @param schemaName
+     *            the new schema name
+     */
     public void setSchemaName(final String schemaName) {
         m_schemaName = schemaName;
     }
 
+    /**
+     * Gets the schema name.
+     *
+     * @return the schema name
+     */
     public String getSchemaName() {
         return m_schemaName;
     }
 
+    /**
+     * Sets the column.
+     *
+     * @param column
+     *            the new column
+     */
     public void setColumn(final String column) {
         m_column = column;
     }
 
+    /**
+     * Gets the column.
+     *
+     * @return the column
+     */
     public String getColumn() {
         return m_column;
     }

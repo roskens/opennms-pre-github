@@ -41,9 +41,17 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
+/**
+ * The Class SpringResourceAccessor.
+ */
 public class SpringResourceAccessor implements ResourceAccessor {
+
+    /** The m_resource loader. */
     private ResourceLoader m_resourceLoader = new DefaultResourceLoader();
 
+    /**
+     * Instantiates a new spring resource accessor.
+     */
     public SpringResourceAccessor() {
 
     }
@@ -68,6 +76,7 @@ public class SpringResourceAccessor implements ResourceAccessor {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.lang.String} object.
@@ -82,6 +91,13 @@ public class SpringResourceAccessor implements ResourceAccessor {
         }
     }
 
+    /**
+     * Adjust classpath.
+     *
+     * @param file
+     *            the file
+     * @return the string
+     */
     private String adjustClasspath(final String file) {
         return !isClasspathPrefixPresent(file) ? ResourceLoader.CLASSPATH_URL_PREFIX + file : file;
     }
@@ -90,6 +106,7 @@ public class SpringResourceAccessor implements ResourceAccessor {
      * <p>
      * isClasspathPrefixPresent
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.lang.String} object.
@@ -103,6 +120,7 @@ public class SpringResourceAccessor implements ResourceAccessor {
      * <p>
      * toClassLoader
      * </p>
+     * .
      *
      * @return a {@link java.lang.ClassLoader} object.
      */
@@ -115,6 +133,7 @@ public class SpringResourceAccessor implements ResourceAccessor {
      * <p>
      * setResourceLoader
      * </p>
+     * .
      *
      * @param resourceLoader
      *            a {@link org.springframework.core.io.ResourceLoader} object.
@@ -127,6 +146,7 @@ public class SpringResourceAccessor implements ResourceAccessor {
      * <p>
      * getResourceLoader
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.ResourceLoader} object.
      */

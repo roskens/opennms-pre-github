@@ -37,13 +37,22 @@ import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.sqlgenerator.core.CreateIndexGenerator;
 import liquibase.statement.core.CreateIndexStatement;
 
+/**
+ * The Class CreateIndexWithWhereGenerator.
+ */
 public class CreateIndexWithWhereGenerator extends CreateIndexGenerator {
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.core.AbstractSqlGenerator#getPriority()
+     */
     @Override
     public int getPriority() {
         return super.getPriority() + 1;
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.core.CreateIndexGenerator#generateSql(liquibase.statement.core.CreateIndexStatement, liquibase.database.Database, liquibase.sqlgenerator.SqlGeneratorChain)
+     */
     @Override
     public Sql[] generateSql(final CreateIndexStatement statement, final Database database,
             final SqlGeneratorChain sqlGeneratorChain) {

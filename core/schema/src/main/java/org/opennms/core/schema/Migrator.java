@@ -66,24 +66,34 @@ import org.springframework.core.io.ResourceLoader;
  */
 public class Migrator {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Migrator.class);
 
+    /** The Constant POSTGRESQL_VERSION_PATTERN. */
     private static final Pattern POSTGRESQL_VERSION_PATTERN = Pattern.compile("^(?:PostgreSQL|EnterpriseDB) (\\d+\\.\\d+)");
 
+    /** The Constant POSTGRES_MIN_VERSION. */
     public static final float POSTGRES_MIN_VERSION = 7.4f;
 
+    /** The Constant POSTGRES_MAX_VERSION_PLUS_ONE. */
     public static final float POSTGRES_MAX_VERSION_PLUS_ONE = 9.9f;
 
+    /** The m_data source. */
     private DataSource m_dataSource;
 
+    /** The m_admin data source. */
     private DataSource m_adminDataSource;
 
+    /** The m_database version. */
     private Float m_databaseVersion;
 
+    /** The m_validate database version. */
     private boolean m_validateDatabaseVersion = true;
 
+    /** The m_create user. */
     private boolean m_createUser = true;
 
+    /** The m_create database. */
     private boolean m_createDatabase = true;
 
     /**
@@ -95,10 +105,16 @@ public class Migrator {
         initLogging();
     }
 
+    /**
+     * Inits the logging.
+     */
     private void initLogging() {
         LogFactory.getLogger().setLogLevel(LogLevel.INFO);
     }
 
+    /**
+     * Enable debug.
+     */
     public void enableDebug() {
         LogFactory.getLogger().setLogLevel(LogLevel.DEBUG);
     }
@@ -107,6 +123,7 @@ public class Migrator {
      * <p>
      * getDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -118,6 +135,7 @@ public class Migrator {
      * <p>
      * setDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -130,6 +148,7 @@ public class Migrator {
      * <p>
      * getAdminDataSource
      * </p>
+     * .
      *
      * @return a {@link javax.sql.DataSource} object.
      */
@@ -141,6 +160,7 @@ public class Migrator {
      * <p>
      * setAdminDataSource
      * </p>
+     * .
      *
      * @param dataSource
      *            a {@link javax.sql.DataSource} object.
@@ -153,6 +173,7 @@ public class Migrator {
      * <p>
      * setValidateDatabaseVersion
      * </p>
+     * .
      *
      * @param validate
      *            a boolean.
@@ -165,6 +186,7 @@ public class Migrator {
      * <p>
      * setCreateUser
      * </p>
+     * .
      *
      * @param create
      *            a boolean.
@@ -177,6 +199,7 @@ public class Migrator {
      * <p>
      * setCreateDatabase
      * </p>
+     * .
      *
      * @param create
      *            a boolean.
@@ -189,10 +212,11 @@ public class Migrator {
      * <p>
      * getDatabaseVersion
      * </p>
+     * .
      *
      * @return a {@link java.lang.Float} object.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public Float getDatabaseVersion() throws MigrationException {
         if (m_databaseVersion == null) {
@@ -233,9 +257,10 @@ public class Migrator {
      * <p>
      * validateDatabaseVersion
      * </p>
+     * .
      *
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void validateDatabaseVersion() throws MigrationException {
         if (!m_validateDatabaseVersion) {
@@ -262,7 +287,9 @@ public class Migrator {
     /**
      * Get the expected extension for this platform.
      *
-     * @return
+     * @param jni
+     *            the jni
+     * @return the extension
      */
     private String getExtension(final boolean jni) {
         final String osName = System.getProperty("os.name").toLowerCase();
@@ -282,9 +309,10 @@ public class Migrator {
      * <p>
      * createLangPlPgsql
      * </p>
+     * .
      *
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void createLangPlPgsql() throws MigrationException {
         LOG.info("adding PL/PgSQL support to the database, if necessary");
@@ -326,12 +354,13 @@ public class Migrator {
      * <p>
      * databaseUserExists
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
      * @return a boolean.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public boolean databaseUserExists(final Migration migration) throws MigrationException {
         Statement st = null;
@@ -361,11 +390,12 @@ public class Migrator {
      * <p>
      * createUser
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void createUser(final Migration migration) throws MigrationException {
         if (!m_createUser || databaseUserExists(migration)) {
@@ -392,12 +422,13 @@ public class Migrator {
      * <p>
      * databaseExists
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
      * @return a boolean.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public boolean databaseExists(final Migration migration) throws MigrationException {
         Statement st = null;
@@ -424,12 +455,29 @@ public class Migrator {
         }
     }
 
+    /**
+     * Creates the schema.
+     *
+     * @param migration
+     *            the migration
+     * @throws MigrationException
+     *             the migration exception
+     */
     public void createSchema(final Migration migration) throws MigrationException {
         if (!m_createDatabase || schemaExists(migration)) {
             return;
         }
     }
 
+    /**
+     * Schema exists.
+     *
+     * @param migration
+     *            the migration
+     * @return true, if successful
+     * @throws MigrationException
+     *             the migration exception
+     */
     public boolean schemaExists(final Migration migration) throws MigrationException {
         /*
          * FIXME: not sure how to ask postgresql for a schema
@@ -466,11 +514,12 @@ public class Migrator {
      * <p>
      * createDatabase
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void createDatabase(final Migration migration) throws MigrationException {
         if (!m_createDatabase || databaseExists(migration)) {
@@ -503,11 +552,12 @@ public class Migrator {
      * <p>
      * prepareDatabase
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void prepareDatabase(final Migration migration) throws MigrationException {
         validateDatabaseVersion();
@@ -521,11 +571,12 @@ public class Migrator {
      * <p>
      * migrate
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
-     * @throws org.opennms.core.schema.MigrationException
-     *             if any.
+     * @throws MigrationException
+     *             the migration exception
      */
     public void migrate(final Migration migration) throws MigrationException {
         Connection connection = null;
@@ -554,6 +605,9 @@ public class Migrator {
         }
     }
 
+    /**
+     * Generate changelog.
+     */
     public void generateChangelog() {
 
     }
@@ -562,6 +616,7 @@ public class Migrator {
      * <p>
      * getMigrationResourceLoader
      * </p>
+     * .
      *
      * @param migration
      *            a {@link org.opennms.core.schema.Migration} object.
@@ -581,6 +636,18 @@ public class Migrator {
         return new DefaultResourceLoader(cl);
     }
 
+    /**
+     * Clean up database.
+     *
+     * @param c
+     *            the c
+     * @param dbc
+     *            the dbc
+     * @param st
+     *            the st
+     * @param rs
+     *            the rs
+     */
     private void cleanUpDatabase(final Connection c, DatabaseConnection dbc, final Statement st, final ResultSet rs) {
         if (rs != null) {
             try {

@@ -38,12 +38,24 @@ import liquibase.test.TestContext;
 
 import org.junit.Test;
 
+/**
+ * The Class SetSequenceGeneratorTest.
+ */
 public class SetSequenceGeneratorTest extends AbstractSqlGeneratorTest<SetSequenceStatement> {
 
+    /**
+     * Instantiates a new sets the sequence generator test.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public SetSequenceGeneratorTest() throws Exception {
         super(new SetSequenceGenerator());
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.AbstractSqlGeneratorTest#createSampleSqlStatement()
+     */
     @Override
     protected SetSequenceStatement createSampleSqlStatement() {
         final SetSequenceStatement statement = new SetSequenceStatement("SEQUENCE_NAME");
@@ -51,6 +63,9 @@ public class SetSequenceGeneratorTest extends AbstractSqlGeneratorTest<SetSequen
         return statement;
     }
 
+    /**
+     * Test basic operation.
+     */
     @Test
     public void testBasicOperation() {
         for (final Database database : TestContext.getInstance().getAllDatabases()) {
@@ -69,6 +84,9 @@ public class SetSequenceGeneratorTest extends AbstractSqlGeneratorTest<SetSequen
         }
     }
 
+    /**
+     * Test with multiple tables.
+     */
     @Test
     public void testWithMultipleTables() {
         for (final Database database : TestContext.getInstance().getAllDatabases()) {
@@ -89,6 +107,9 @@ public class SetSequenceGeneratorTest extends AbstractSqlGeneratorTest<SetSequen
         }
     }
 
+    /* (non-Javadoc)
+     * @see liquibase.sqlgenerator.AbstractSqlGeneratorTest#isImplementation()
+     */
     @Test
     @Override
     public void isImplementation() throws Exception {
