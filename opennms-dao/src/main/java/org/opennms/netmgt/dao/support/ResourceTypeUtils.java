@@ -55,17 +55,20 @@ import org.springframework.util.Assert;
  */
 public abstract class ResourceTypeUtils {
 
+    /** The log. */
     private static Logger LOG = LoggerFactory.getLogger(ResourceTypeUtils.class);
 
     /** Constant <code>DS_PROPERTIES_FILE="ds.properties"</code> */
     public static String DS_PROPERTIES_FILE = "ds.properties";
 
+    /** The s_cache. */
     private static PropertiesCache s_cache = new PropertiesCache();
 
     /**
      * <p>
      * getAttributesAtRelativePath
      * </p>
+     * .
      *
      * @param rrdDirectory
      *            a {@link java.io.File} object.
@@ -84,6 +87,16 @@ public abstract class ResourceTypeUtils {
 
     }
 
+    /**
+     * Load string attributes.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param relativePath
+     *            the relative path
+     * @param attributes
+     *            the attributes
+     */
     private static void loadStringAttributes(File rrdDirectory, String relativePath, Set<OnmsAttribute> attributes) {
         Properties properties = getStringProperties(rrdDirectory, relativePath);
         if (properties != null) {
@@ -93,6 +106,16 @@ public abstract class ResourceTypeUtils {
         }
     }
 
+    /**
+     * Load rrd attributes.
+     *
+     * @param rrdDirectory
+     *            the rrd directory
+     * @param relativePath
+     *            the relative path
+     * @param attributes
+     *            the attributes
+     */
     private static void loadRrdAttributes(File rrdDirectory, String relativePath, Set<OnmsAttribute> attributes) {
         int suffixLength = RrdFileConstants.getRrdSuffix().length();
         File resourceDir = new File(rrdDirectory, relativePath);
@@ -124,6 +147,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * getDsProperties
      * </p>
+     * .
      *
      * @param directory
      *            a {@link java.io.File} object.
@@ -143,6 +167,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * getRrdFileForDs
      * </p>
+     * .
      *
      * @param directory
      *            a {@link java.io.File} object.
@@ -167,6 +192,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * isStoreByGroup
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -178,6 +204,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * isResponseTime
      * </p>
+     * .
      *
      * @param relativePath
      *            a {@link java.lang.String} object.
@@ -191,6 +218,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * getStringProperties
      * </p>
+     * .
      *
      * @param rrdDirectory
      *            a {@link java.io.File} object.
@@ -207,6 +235,13 @@ public abstract class ResourceTypeUtils {
         return getStringProperties(resourceDir);
     }
 
+    /**
+     * Gets the string properties.
+     *
+     * @param resourceDir
+     *            the resource dir
+     * @return the string properties
+     */
     private static Properties getStringProperties(File resourceDir) {
         Assert.notNull(resourceDir, "resourceDir argumnet must not be null");
         return getProperties(new File(resourceDir, DefaultResourceDao.STRINGS_PROPERTIES_FILE_NAME));
@@ -216,6 +251,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * getProperties
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.
@@ -235,15 +271,16 @@ public abstract class ResourceTypeUtils {
      * <p>
      * saveUpdatedProperties
      * </p>
+     * .
      *
      * @param propertiesFile
      *            a {@link java.io.File} object.
      * @param props
      *            a {@link java.util.Properties} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void saveUpdatedProperties(File propertiesFile, Properties props) throws FileNotFoundException,
             IOException {
@@ -254,6 +291,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * updateDsProperties
      * </p>
+     * .
      *
      * @param resourceDir
      *            a {@link java.io.File} object.
@@ -272,6 +310,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * updateStringProperty
      * </p>
+     * .
      *
      * @param resourceDir
      *            a {@link java.io.File} object.
@@ -279,10 +318,10 @@ public abstract class ResourceTypeUtils {
      *            a {@link java.lang.String} object.
      * @param attrName
      *            a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public static void updateStringProperty(File resourceDir, String attrVal, String attrName)
             throws FileNotFoundException, IOException {
@@ -294,6 +333,7 @@ public abstract class ResourceTypeUtils {
      * <p>
      * getStringProperty
      * </p>
+     * .
      *
      * @param directory
      *            a {@link java.io.File} object.
@@ -313,6 +353,8 @@ public abstract class ResourceTypeUtils {
     }
 
     /**
+     * Gets the relative node source directory.
+     *
      * @param nodeSource
      *            a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.

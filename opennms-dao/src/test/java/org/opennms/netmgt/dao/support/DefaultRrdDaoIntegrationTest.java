@@ -48,15 +48,24 @@ import org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy;
 import org.opennms.test.FileAnticipator;
 
 /**
+ * The Class DefaultRrdDaoIntegrationTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultRrdDaoIntegrationTest extends TestCase {
+
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_rrd strategy. */
     private RrdStrategy<Object, Object> m_rrdStrategy;
 
+    /** The m_dao. */
     private DefaultRrdDao m_dao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -73,6 +82,9 @@ public class DefaultRrdDaoIntegrationTest extends TestCase {
         m_dao.afterPropertiesSet();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -82,6 +94,9 @@ public class DefaultRrdDaoIntegrationTest extends TestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
@@ -89,10 +104,19 @@ public class DefaultRrdDaoIntegrationTest extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Test init.
+     */
     public void testInit() {
         // Don't do anything... test that the setUp method works
     }
 
+    /**
+     * Test print value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValue() throws Exception {
         long start = System.currentTimeMillis();
         long end = start + (24 * 60 * 60 * 1000);
@@ -131,6 +155,12 @@ public class DefaultRrdDaoIntegrationTest extends TestCase {
         assertEquals("value", 1.0, value);
     }
 
+    /**
+     * Test nm s4861.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testNMS4861() throws Exception {
         // long endTime = 1312775700L;
         // long endTime = 1312838400L;

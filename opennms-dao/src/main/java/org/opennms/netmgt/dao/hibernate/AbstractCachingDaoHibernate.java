@@ -38,16 +38,24 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 /**
- * AbstractCachingDaoHibernate
+ * AbstractCachingDaoHibernate.
  *
+ * @param <T>
+ *            the generic type
+ * @param <DbKey>
+ *            the generic type
+ * @param <CacheKey>
+ *            the generic type
  * @author brozow
  * @version $Id: $
  */
 public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable, CacheKey> extends
         AbstractDaoHibernate<T, DbKey> {
 
+    /** The m_cache. */
     private final ThreadLocal<HashMap<CacheKey, T>> m_cache = new ThreadLocal<HashMap<CacheKey, T>>();
 
+    /** The m_db key matches cache key. */
     private final boolean m_dbKeyMatchesCacheKey;
 
     /**
@@ -59,12 +67,6 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
      *            a {@link java.lang.Class} object.
      * @param dbKeyMatchesCacheKey
      *            a boolean.
-     * @param <T>
-     *            a T object.
-     * @param <DbKey>
-     *            a DbKey object.
-     * @param <CacheKey>
-     *            a CacheKey object.
      */
     public AbstractCachingDaoHibernate(Class<T> entityClass, boolean dbKeyMatchesCacheKey) {
         super(entityClass);
@@ -75,6 +77,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
      * <p>
      * getKey
      * </p>
+     * .
      *
      * @param t
      *            a T object.
@@ -222,6 +225,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
      * <p>
      * findByCacheKey
      * </p>
+     * .
      *
      * @param queryString
      *            a {@link java.lang.String} object.

@@ -58,6 +58,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DataLinkInterfaceDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -69,22 +72,32 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DataLinkInterfaceDaoHibernateTest.class);
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -94,6 +107,12 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test find by id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testFindById() throws Exception {
@@ -123,6 +142,12 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(dli.getSource(), "linkd");
     }
 
+    /**
+     * Test find by criteria.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindByCriteria() throws Exception {
         OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
@@ -137,6 +162,12 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(3, dlis.size());
     }
 
+    /**
+     * Test find by status.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFindByStatus() throws Exception {
         OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
@@ -149,6 +180,9 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(3, dlis.size());
     }
 
+    /**
+     * Test save data link interface.
+     */
     @Test
     @Transactional
     // why is this necessary?
@@ -176,6 +210,9 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(dli.getSource(), "linkd");
     }
 
+    /**
+     * Test save data link interface2.
+     */
     @Test
     @Transactional
     // why is this necessary?
@@ -204,6 +241,9 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(dli.getSource(), "rest");
     }
 
+    /**
+     * Test update.
+     */
     @Test
     @Transactional
     // why is this necessary?

@@ -41,7 +41,17 @@ import org.opennms.netmgt.dao.api.NodeDao;
 import org.opennms.netmgt.dao.api.ResourceDao;
 import org.opennms.netmgt.model.OnmsNode;
 
+/**
+ * The Class ResponseTimeResourceTypeTest.
+ */
 public class ResponseTimeResourceTypeTest extends TestCase {
+
+    /**
+     * Test get resources using dao.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetResourcesUsingDao() throws IOException {
         ResourceDao resourceDao = new DefaultResourceDao();
         NodeDao nodeDao = createMock(NodeDao.class);

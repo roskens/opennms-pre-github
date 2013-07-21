@@ -32,6 +32,8 @@ import org.opennms.netmgt.dao.api.MemoDao;
 import org.opennms.netmgt.model.OnmsMemo;
 
 /**
+ * The Class MemoDaoHibernate.
+ *
  * @author <a href="mailto:Markus@OpenNMS.com">Markus Neumann</a>
  */
 public class MemoDaoHibernate extends AbstractDaoHibernate<OnmsMemo, Integer> implements MemoDao {

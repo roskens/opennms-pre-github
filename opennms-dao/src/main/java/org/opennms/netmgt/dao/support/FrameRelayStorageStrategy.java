@@ -35,7 +35,7 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 /**
  * This class use the new implementation of SnmpStorageStrategy extending the
  * new
- * IndexStorageStrategy from opennms-services
+ * IndexStorageStrategy from opennms-services.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -55,6 +55,7 @@ public class FrameRelayStorageStrategy extends IndexStorageStrategy {
      * <p>
      * getInterfaceName
      * </p>
+     * .
      *
      * @param nodeId
      *            a {@link java.lang.String} object.

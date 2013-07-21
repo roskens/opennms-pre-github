@@ -75,6 +75,9 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
                           nodeId, ipAddress, svcName);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.MonitoredServiceDao#get(java.lang.Integer, java.lang.String, java.lang.Integer)
+     */
     @Override
     public OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer serviceId) {
         return findUnique("from OnmsMonitoredService as svc "
@@ -127,6 +130,11 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
         return matchingServices;
     }
 
+    /**
+     * Find active.
+     *
+     * @return the collection
+     */
     private Collection<OnmsMonitoredService> findActive() {
         return find("select distinct svc from OnmsMonitoredService as svc " + "left join fetch svc.serviceType "
                 + "left join fetch svc.ipInterface as ip " + "left join fetch ip.node as node "

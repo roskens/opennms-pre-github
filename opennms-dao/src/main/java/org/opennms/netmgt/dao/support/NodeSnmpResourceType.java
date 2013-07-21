@@ -40,8 +40,12 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.netmgt.model.OnmsResourceType;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+/**
+ * The Class NodeSnmpResourceType.
+ */
 public class NodeSnmpResourceType implements OnmsResourceType {
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
     /**
@@ -60,6 +64,7 @@ public class NodeSnmpResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -72,6 +77,7 @@ public class NodeSnmpResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -90,6 +96,7 @@ public class NodeSnmpResourceType implements OnmsResourceType {
      * <p>
      * getResourceDirectory
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -122,6 +129,13 @@ public class NodeSnmpResourceType implements OnmsResourceType {
         return resources;
     }
 
+    /**
+     * Gets the relative path for resource.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the relative path for resource
+     */
     private String getRelativePathForResource(int nodeId) {
         return DefaultResourceDao.SNMP_DIRECTORY + File.separator + Integer.toString(nodeId);
     }

@@ -43,6 +43,8 @@ import org.opennms.netmgt.rrd.RrdUtils;
  * @author <a href="mailto:larry@opennms.org">Lawrence Karnowski </a>
  */
 public class RrdFileConstants extends Object {
+
+    /** The Constant GRAPHING_ESCAPE_PATTERN. */
     private static final Pattern GRAPHING_ESCAPE_PATTERN;
     static {
         // IPv6: ':' and '%'
@@ -96,6 +98,7 @@ public class RrdFileConstants extends Object {
      * <p>
      * isValidRRDNodeDir
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.
@@ -144,6 +147,7 @@ public class RrdFileConstants extends Object {
      * <p>
      * isValidRRDNodeSourceDir
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.
@@ -182,6 +186,7 @@ public class RrdFileConstants extends Object {
         }
     };
 
+    /** The Constant SOURCE_DIRECTORY_FILTER. */
     public static final FileFilter SOURCE_DIRECTORY_FILTER = new FileFilter() {
         @Override
         public boolean accept(final File file) {
@@ -189,6 +194,13 @@ public class RrdFileConstants extends Object {
         }
     };
 
+    /**
+     * Checks if is valid rrd source dir.
+     *
+     * @param file
+     *            the file
+     * @return true, if is valid rrd source dir
+     */
     public static final boolean isValidRRDSourceDir(final File file) {
         if (!file.isDirectory()) {
             return false;
@@ -214,6 +226,7 @@ public class RrdFileConstants extends Object {
      * <p>
      * isValidRRDDomainDir
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.
@@ -252,6 +265,7 @@ public class RrdFileConstants extends Object {
      * <p>
      * isValidRRDInterfaceDir
      * </p>
+     * .
      *
      * @param file
      *            a {@link java.io.File} object.
@@ -271,6 +285,13 @@ public class RrdFileConstants extends Object {
         return false;
     }
 
+    /**
+     * Checks if is valid rrd domain interface dir.
+     *
+     * @param file
+     *            the file
+     * @return true, if is valid rrd domain interface dir
+     */
     public static final boolean isValidRRDDomainInterfaceDir(final File file) {
         if (!file.isDirectory()) {
             return false;
@@ -389,6 +410,13 @@ public class RrdFileConstants extends Object {
         return buffer.toString();
     }
 
+    /**
+     * Escape for graphing.
+     *
+     * @param path
+     *            the path
+     * @return the string
+     */
     public static String escapeForGraphing(final String path) {
         final Matcher matcher = GRAPHING_ESCAPE_PATTERN.matcher(path);
         return matcher.replaceAll("\\\\$1");
@@ -398,6 +426,7 @@ public class RrdFileConstants extends Object {
      * <p>
      * getRrdSuffix
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

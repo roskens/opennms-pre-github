@@ -48,6 +48,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class CriteriaTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -59,19 +62,28 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class CriteriaTest implements InitializingBean {
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -85,6 +97,9 @@ public class CriteriaTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test simple.
+     */
     @Test
     @Transactional
     public void testSimple() {
@@ -100,6 +115,9 @@ public class CriteriaTest implements InitializingBean {
         assertEquals(4, node.getIpInterfaces().size());
     }
 
+    /**
+     * Test complicated.
+     */
     @Test
     @Transactional
     public void testComplicated() {

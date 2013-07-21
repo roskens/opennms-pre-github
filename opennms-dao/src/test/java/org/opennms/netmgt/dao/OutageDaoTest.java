@@ -72,6 +72,8 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
+ * The Class OutageDaoTest.
+ *
  * @author mhuot
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -84,35 +86,53 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OutageDaoTest implements InitializingBean {
+
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_outage dao. */
     @Autowired
     private OutageDao m_outageDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_transTemplate.execute(new TransactionCallbackWithoutResult() {
@@ -124,6 +144,9 @@ public class OutageDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Transactional
     public void testSave() {
@@ -153,6 +176,9 @@ public class OutageDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get matching outages.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testGetMatchingOutages() {
@@ -183,6 +209,9 @@ public class OutageDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test get matching outages with empty service list.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testGetMatchingOutagesWithEmptyServiceList() {
@@ -212,6 +241,9 @@ public class OutageDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test duplicate outages.
+     */
     @Test
     @Transactional
     public void testDuplicateOutages() {
@@ -241,6 +273,9 @@ public class OutageDaoTest implements InitializingBean {
         assertEquals(3, outages.size());
     }
 
+    /**
+     * Test limit duplicate outages.
+     */
     @Test
     @Transactional
     public void testLimitDuplicateOutages() {
@@ -282,10 +317,26 @@ public class OutageDaoTest implements InitializingBean {
         assertEquals(3, outages.size());
     }
 
+    /**
+     * Gets the local host dist poller.
+     *
+     * @return the local host dist poller
+     */
     private OnmsDistPoller getLocalHostDistPoller() {
         return m_distPollerDao.load("localhost");
     }
 
+    /**
+     * Insert entities and outage.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param serviceName
+     *            the service name
+     * @param node
+     *            the node
+     * @return the onms outage
+     */
     private OnmsOutage insertEntitiesAndOutage(final String ipAddr, final String serviceName, OnmsNode node) {
         OnmsIpInterface ipInterface = getIpInterface(ipAddr, node);
         OnmsServiceType serviceType = getServiceType(serviceName);
@@ -298,6 +349,15 @@ public class OutageDaoTest implements InitializingBean {
         return outage;
     }
 
+    /**
+     * Gets the outage.
+     *
+     * @param monitoredService
+     *            the monitored service
+     * @param event
+     *            the event
+     * @return the outage
+     */
     private OnmsOutage getOutage(OnmsMonitoredService monitoredService, OnmsEvent event) {
         OnmsOutage outage = new OnmsOutage();
         outage.setMonitoredService(monitoredService);
@@ -307,6 +367,11 @@ public class OutageDaoTest implements InitializingBean {
         return outage;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     private OnmsEvent getEvent() {
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(getLocalHostDistPoller());
@@ -321,6 +386,15 @@ public class OutageDaoTest implements InitializingBean {
         return event;
     }
 
+    /**
+     * Gets the monitored service.
+     *
+     * @param ipInterface
+     *            the ip interface
+     * @param serviceType
+     *            the service type
+     * @return the monitored service
+     */
     private OnmsMonitoredService getMonitoredService(OnmsIpInterface ipInterface, OnmsServiceType serviceType) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsMonitoredService.class).add(Restrictions.eq("ipInterface",
                                                                                                        ipInterface)).add(Restrictions.eq("serviceType",
@@ -336,12 +410,28 @@ public class OutageDaoTest implements InitializingBean {
         return monitoredService;
     }
 
+    /**
+     * Gets the service type.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the service type
+     */
     private OnmsServiceType getServiceType(final String serviceName) {
         OnmsServiceType serviceType = m_serviceTypeDao.findByName(serviceName);
         assertNotNull("Couldn't find " + serviceName + " in the database", serviceType);
         return serviceType;
     }
 
+    /**
+     * Gets the ip interface.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param node
+     *            the node
+     * @return the ip interface
+     */
     private OnmsIpInterface getIpInterface(String ipAddr, OnmsNode node) {
         OnmsIpInterface ipInterface = m_ipInterfaceDao.findByNodeIdAndIpAddress(node.getId(), ipAddr);
         if (ipInterface == null) {

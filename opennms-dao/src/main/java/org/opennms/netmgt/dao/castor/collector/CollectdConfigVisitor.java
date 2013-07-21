@@ -31,12 +31,16 @@ package org.opennms.netmgt.dao.castor.collector;
 import org.opennms.netmgt.config.collectd.CollectdConfiguration;
 import org.opennms.netmgt.config.collectd.Collector;
 
+/**
+ * The Interface CollectdConfigVisitor.
+ */
 public interface CollectdConfigVisitor {
 
     /**
      * <p>
      * visitCollectdConfiguration
      * </p>
+     * .
      *
      * @param collectdConfiguration
      *            a
@@ -49,6 +53,7 @@ public interface CollectdConfigVisitor {
      * <p>
      * completeCollectdConfiguration
      * </p>
+     * .
      *
      * @param collectdConfiguration
      *            a
@@ -61,6 +66,7 @@ public interface CollectdConfigVisitor {
      * <p>
      * visitCollectorCollection
      * </p>
+     * .
      *
      * @param collector
      *            a {@link org.opennms.netmgt.config.collectd.Collector} object.
@@ -71,6 +77,7 @@ public interface CollectdConfigVisitor {
      * <p>
      * completeCollectorCollection
      * </p>
+     * .
      *
      * @param collector
      *            a {@link org.opennms.netmgt.config.collectd.Collector} object.

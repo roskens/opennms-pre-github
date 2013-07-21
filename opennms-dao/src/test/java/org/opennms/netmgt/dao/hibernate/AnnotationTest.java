@@ -63,6 +63,9 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AnnotationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -73,47 +76,100 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AnnotationTest implements InitializingBean {
+
+    /** The m_session factory. */
     @Autowired
     private SessionFactory m_sessionFactory;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * The Interface Checker.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface Checker<T> {
+
+        /**
+         * Check collection.
+         *
+         * @param collection
+         *            the collection
+         */
         public void checkCollection(Collection<T> collection);
 
+        /**
+         * Check.
+         *
+         * @param entity
+         *            the entity
+         */
         public void check(T entity);
     }
 
+    /**
+     * The Class NullChecker.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public class NullChecker<T> implements Checker<T> {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.hibernate.AnnotationTest.Checker#check(java.lang.Object)
+         */
         @Override
         public void check(T entity) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.hibernate.AnnotationTest.Checker#checkCollection(java.util.Collection)
+         */
         @Override
         public void checkCollection(Collection<T> collection) {
         }
 
     }
 
+    /**
+     * The Class EmptyChecker.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public abstract class EmptyChecker<T> implements Checker<T> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.hibernate.AnnotationTest.Checker#checkCollection(java.util.Collection)
+         */
         @Override
         public void checkCollection(Collection<T> collection) {
             assertFalse("collection should not be empty", collection.isEmpty());
         }
     }
 
+    /**
+     * Test dist poller.
+     */
     @Test
     @Transactional
     public void testDistPoller() {
@@ -127,6 +183,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test asset record.
+     */
     @Test
     @Transactional
     public void testAssetRecord() {
@@ -141,6 +200,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test node.
+     */
     @Test
     @Transactional
     public void testNode() {
@@ -165,6 +227,9 @@ public class AnnotationTest implements InitializingBean {
 
     }
 
+    /**
+     * Test ip interfaces.
+     */
     @Test
     @Transactional
     public void testIpInterfaces() {
@@ -183,6 +248,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test snmp interfaces.
+     */
     @Test
     @Transactional
     public void testSnmpInterfaces() {
@@ -201,6 +269,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test categories.
+     */
     @Test
     @Transactional
     public void testCategories() {
@@ -214,6 +285,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test monitored services.
+     */
     @Test
     @Transactional
     public void testMonitoredServices() {
@@ -234,6 +308,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test service types.
+     */
     @Test
     @Transactional
     public void testServiceTypes() {
@@ -248,6 +325,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test outages.
+     */
     @Test
     @Transactional
     public void testOutages() {
@@ -272,6 +352,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test events.
+     */
     @Test
     @Transactional
     public void testEvents() {
@@ -301,6 +384,9 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test alarms.
+     */
     @Test
     @Transactional
     public void testAlarms() {
@@ -318,18 +404,34 @@ public class AnnotationTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test notifacations.
+     */
     @Test
     @Transactional
     public void testNotifacations() {
         assertLoadAll(OnmsNotification.class, new NullChecker<OnmsNotification>());
     }
 
+    /**
+     * Test users notified.
+     */
     @Test
     @Transactional
     public void testUsersNotified() {
         assertLoadAll(OnmsUserNotification.class, new NullChecker<OnmsUserNotification>());
     }
 
+    /**
+     * Assert load all.
+     *
+     * @param <T>
+     *            the generic type
+     * @param annotatedClass
+     *            the annotated class
+     * @param checker
+     *            the checker
+     */
     private <T> void assertLoadAll(Class<T> annotatedClass, Checker<T> checker) {
         HibernateTemplate template = new HibernateTemplate(m_sessionFactory);
         Collection<T> results = template.loadAll(annotatedClass);

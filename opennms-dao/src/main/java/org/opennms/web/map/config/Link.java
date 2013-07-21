@@ -38,20 +38,29 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Link {
+
+    /** The speed. */
     String speed;
 
+    /** The text. */
     String text;
 
+    /** The width. */
     String width;
 
+    /** The dasharray. */
     int dasharray = -1;
 
+    /** The snmptype. */
     int snmptype;
 
+    /** The id. */
     int id;
 
+    /** The multilinkwidth. */
     String multilinkwidth;
 
+    /** The multilinkdasharray. */
     int multilinkdasharray;
 
     /**

@@ -31,6 +31,9 @@ package org.opennms.netmgt.dao.hibernate;
 import org.opennms.netmgt.dao.api.DistPollerDao;
 import org.opennms.netmgt.model.OnmsDistPoller;
 
+/**
+ * The Class DistPollerDaoHibernate.
+ */
 public class DistPollerDaoHibernate extends AbstractCachingDaoHibernate<OnmsDistPoller, String, String> implements
         DistPollerDao {
 

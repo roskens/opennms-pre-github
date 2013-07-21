@@ -39,6 +39,9 @@ import org.opennms.netmgt.model.OnmsMap;
 import org.opennms.netmgt.model.OnmsMapElement;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+/**
+ * The Class OnmsMapElementDaoHibernate.
+ */
 public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElement, Integer> implements
         OnmsMapElementDao {
     /**

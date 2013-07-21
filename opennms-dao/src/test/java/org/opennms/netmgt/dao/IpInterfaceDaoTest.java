@@ -63,6 +63,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class IpInterfaceDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -73,22 +76,34 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class IpInterfaceDaoTest implements InitializingBean {
+
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test get by ip address.
+     */
     @Test
     @Transactional
     public void testGetByIpAddress() {
@@ -108,6 +123,9 @@ public class IpInterfaceDaoTest implements InitializingBean {
         assertEquals("192.168.1.1", InetAddressUtils.str(iface.getIpAddress()));
     }
 
+    /**
+     * Test get by service.
+     */
     @Test
     @Transactional
     public void testGetByService() {
@@ -131,6 +149,9 @@ public class IpInterfaceDaoTest implements InitializingBean {
         assertEquals(addr("192.168.1.1"), service.getIpAddress());
     }
 
+    /**
+     * Test count matching interfaces.
+     */
     @Test
     @Transactional
     public void testCountMatchingInterfaces() {
@@ -146,6 +167,9 @@ public class IpInterfaceDaoTest implements InitializingBean {
         assertEquals(1, m_ipInterfaceDao.countMatching(crit));
     }
 
+    /**
+     * Test get i pv6 interfaces.
+     */
     @Test
     @Transactional
     public void testGetIPv6Interfaces() {
@@ -164,6 +188,12 @@ public class IpInterfaceDaoTest implements InitializingBean {
         assertEquals("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5", InetAddressUtils.str(iface.getIpAddress()));
     }
 
+    /**
+     * Test get interfaces for nodes.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     @Transactional
     public void testGetInterfacesForNodes() throws UnknownHostException {

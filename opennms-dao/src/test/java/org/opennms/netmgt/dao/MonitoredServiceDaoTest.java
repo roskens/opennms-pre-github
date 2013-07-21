@@ -49,6 +49,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class MonitoredServiceDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -60,22 +63,33 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class MonitoredServiceDaoTest implements InitializingBean {
 
+    /** The m_monitored service dao. */
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test lazy.
+     */
     @Test
     @Transactional
     public void testLazy() {
@@ -89,6 +103,9 @@ public class MonitoredServiceDaoTest implements InitializingBean {
         assertEquals("M", svc.getIpInterface().getIsManaged());
     }
 
+    /**
+     * Test get by composite id.
+     */
     @Test
     @Transactional
     public void testGetByCompositeId() {

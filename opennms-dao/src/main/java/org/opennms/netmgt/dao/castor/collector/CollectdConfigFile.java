@@ -42,10 +42,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * The Class CollectdConfigFile.
+ */
 public class CollectdConfigFile {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(CollectdConfigFile.class);
 
+    /** The m_file. */
     File m_file;
 
     /**
@@ -64,6 +69,7 @@ public class CollectdConfigFile {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -81,11 +87,24 @@ public class CollectdConfigFile {
         visitor.completeCollectdConfiguration(collectdConfiguration);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param collector
+     *            the collector
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Collector collector, CollectdConfigVisitor visitor) {
         visitor.visitCollectorCollection(collector);
         visitor.completeCollectorCollection(collector);
     }
 
+    /**
+     * Gets the collectd configuration.
+     *
+     * @return the collectd configuration
+     */
     private CollectdConfiguration getCollectdConfiguration() {
         try {
             return CastorUtils.unmarshal(CollectdConfiguration.class, new FileSystemResource(m_file));
@@ -100,6 +119,15 @@ public class CollectdConfigFile {
         }
     }
 
+    /**
+     * Runtime exception.
+     *
+     * @param msg
+     *            the msg
+     * @param e
+     *            the e
+     * @return the runtime exception
+     */
     private RuntimeException runtimeException(String msg, Exception e) {
         LOG.error(msg, e);
         return new RuntimeException(msg, e);

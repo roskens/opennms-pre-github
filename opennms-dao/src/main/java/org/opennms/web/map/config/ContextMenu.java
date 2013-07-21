@@ -41,12 +41,15 @@ import java.util.List;
  * @since 1.8.1
  */
 public class ContextMenu {
+
+    /** The entries. */
     List<CMEntry> entries = new ArrayList<CMEntry>();
 
     /**
      * <p>
      * addEntry
      * </p>
+     * .
      *
      * @param command
      *            a {@link java.lang.String} object.
@@ -60,13 +63,30 @@ public class ContextMenu {
         entries.add(entry);
     }
 
+    /**
+     * The Class CMEntry.
+     */
     public class CMEntry {
+
+        /** The command. */
         public String command;
 
+        /** The link. */
         public String link;
 
+        /** The params. */
         public String params;
 
+        /**
+         * Instantiates a new cM entry.
+         *
+         * @param command
+         *            the command
+         * @param link
+         *            the link
+         * @param params
+         *            the params
+         */
         CMEntry(String command, String link, String params) {
             super();
             this.command = command;
@@ -74,26 +94,59 @@ public class ContextMenu {
             this.params = params;
         }
 
+        /**
+         * Gets the command.
+         *
+         * @return the command
+         */
         public String getCommand() {
             return command;
         }
 
+        /**
+         * Sets the command.
+         *
+         * @param command
+         *            the new command
+         */
         public void setCommand(String command) {
             this.command = command;
         }
 
+        /**
+         * Gets the link.
+         *
+         * @return the link
+         */
         public String getLink() {
             return link;
         }
 
+        /**
+         * Sets the link.
+         *
+         * @param link
+         *            the new link
+         */
         public void setLink(String link) {
             this.link = link;
         }
 
+        /**
+         * Gets the params.
+         *
+         * @return the params
+         */
         public String getParams() {
             return params;
         }
 
+        /**
+         * Sets the params.
+         *
+         * @param params
+         *            the new params
+         */
         public void setParams(String params) {
             this.params = params;
         }

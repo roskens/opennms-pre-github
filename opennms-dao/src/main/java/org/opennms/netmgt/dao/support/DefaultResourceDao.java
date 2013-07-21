@@ -76,6 +76,7 @@ import org.springframework.util.Assert;
  */
 public class DefaultResourceDao implements ResourceDao, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultResourceDao.class);
 
     /**
@@ -83,33 +84,43 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      */
     public static final String STRINGS_PROPERTIES_FILE_NAME = "strings.properties";
 
-    /** Constant <code>INTERFACE_GRAPH_TYPE="interface"</code> */
+    /** Constant <code>INTERFACE_GRAPH_TYPE="interface"</code>. */
     public static final String INTERFACE_GRAPH_TYPE = "interface";
 
-    /** Constant <code>RESPONSE_DIRECTORY="response"</code> */
+    /** Constant <code>RESPONSE_DIRECTORY="response"</code>. */
     public static final String RESPONSE_DIRECTORY = "response";
 
-    /** Constant <code>SNMP_DIRECTORY="snmp"</code> */
+    /** Constant <code>SNMP_DIRECTORY="snmp"</code>. */
     public static final String SNMP_DIRECTORY = "snmp";
 
+    /** The Constant FOREIGN_SOURCE_DIRECTORY. */
     public static final String FOREIGN_SOURCE_DIRECTORY = "fs";
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_rrd directory. */
     private File m_rrdDirectory;
 
+    /** The m_collectd config. */
     private CollectdConfigFactory m_collectdConfig;
 
+    /** The m_data collection config dao. */
     private DataCollectionConfigDao m_dataCollectionConfigDao;
 
+    /** The m_resource types. */
     private Map<String, OnmsResourceType> m_resourceTypes;
 
+    /** The m_node resource type. */
     private NodeResourceType m_nodeResourceType;
 
+    /** The m_domain resource type. */
     private DomainResourceType m_domainResourceType;
 
+    /** The m_node source resource type. */
     private NodeSourceResourceType m_nodeSourceResourceType;
 
     /**
@@ -124,6 +135,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * setRrdDirectory
      * </p>
+     * .
      *
      * @param rrdDirectory
      *            a {@link java.io.File} object.
@@ -136,6 +148,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getRrdDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -159,6 +172,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getDataCollectionConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.DataCollectionConfigDao}
      *         object.
@@ -171,6 +185,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * setDataCollectionConfig
      * </p>
+     * .
      *
      * @param dataCollectionConfigDao
      *            a {@link org.opennms.netmgt.config.DataCollectionConfigDao}
@@ -184,6 +199,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getNodeDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -195,6 +211,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * setNodeDao
      * </p>
+     * .
      *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
@@ -207,6 +224,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getCollectdConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.CollectdConfigFactory} object.
      */
@@ -218,6 +236,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * setCollectdConfig
      * </p>
+     * .
      *
      * @param collectdConfig
      *            a {@link org.opennms.netmgt.config.CollectdConfigFactory}
@@ -231,6 +250,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getLocationMonitorDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.LocationMonitorDao} object.
      */
@@ -242,6 +262,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * setLocationMonitorDao
      * </p>
+     * .
      *
      * @param locationMonitorDao
      *            a {@link org.opennms.netmgt.dao.api.LocationMonitorDao}
@@ -255,9 +276,10 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Override
     public void afterPropertiesSet() throws IOException {
@@ -284,6 +306,12 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
         initResourceTypes();
     }
 
+    /**
+     * Inits the resource types.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void initResourceTypes() throws IOException {
         Map<String, OnmsResourceType> resourceTypes;
         resourceTypes = new LinkedHashMap<String, OnmsResourceType>();
@@ -315,6 +343,11 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
         m_resourceTypes = resourceTypes;
     }
 
+    /**
+     * Gets the generic index resource types.
+     *
+     * @return the generic index resource types
+     */
     private Map<String, GenericIndexResourceType> getGenericIndexResourceTypes() {
         Map<String, GenericIndexResourceType> resourceTypes;
         resourceTypes = new LinkedHashMap<String, GenericIndexResourceType>();
@@ -368,6 +401,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getResourceTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -379,12 +413,9 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
     /**
      * Fetch a specific resource by string ID.
      *
+     * @param id
+     *            the id
      * @return Resource or null if resource cannot be found.
-     * @throws IllegalArgumentException
-     *             When the resource ID string does not match the expected regex
-     *             pattern
-     * @throws ObjectRetrievalFailureException
-     *             If any exceptions are thrown while searching for the resource
      */
     @Override
     public OnmsResource getResourceById(String id) {
@@ -425,6 +456,8 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
     /**
      * Fetch a specific list of resources by string ID.
      *
+     * @param id
+     *            the id
      * @return Resources or null if resources cannot be found.
      * @throws IllegalArgumentException
      *             When the resource ID string does not match the expected regex
@@ -472,12 +505,15 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getTopLevelResource
      * </p>
+     * .
      *
      * @param resourceType
      *            a {@link java.lang.String} object.
      * @param resource
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
+     * @throws ObjectRetrievalFailureException
+     *             the object retrieval failure exception
      */
     protected OnmsResource getTopLevelResource(String resourceType, String resource)
             throws ObjectRetrievalFailureException {
@@ -497,6 +533,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getChildResource
      * </p>
+     * .
      *
      * @param parentResource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -524,6 +561,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getChildResourceList
      * </p>
+     * .
      *
      * @param parentResource
      *            a {@link org.opennms.netmgt.model.OnmsResource} object.
@@ -676,6 +714,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getNodeEntityResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link java.lang.String} object.
@@ -707,6 +746,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getForeignSourceNodeEntityResource
      * </p>
+     * .
      *
      * @param resource
      *            a {@link java.lang.String} object.
@@ -739,6 +779,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * getDomainEntityResource
      * </p>
+     * .
      *
      * @param domain
      *            a {@link java.lang.String} object.
@@ -763,6 +804,11 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
         return m_domainResourceType.createChildResource(domain);
     }
 
+    /**
+     * Find snmp node directories.
+     *
+     * @return the int set
+     */
     private IntSet findSnmpNodeDirectories() {
         IntSet nodes = new IntSet();
 
@@ -789,6 +835,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * findNodeSourceDirectories
      * </p>
+     * .
      *
      * @return a Set<String> of directory names.
      */
@@ -810,6 +857,15 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
 
     }
 
+    /**
+     * Find children matching filter.
+     *
+     * @param directory
+     *            the directory
+     * @param filter
+     *            the filter
+     * @return the sets the
+     */
     private static Set<String> findChildrenMatchingFilter(File directory, FileFilter filter) {
         Set<String> children = new HashSet<String>();
 
@@ -827,9 +883,13 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
     }
 
     /**
+     * Find children children matching filter.
+     *
      * @param directory
+     *            the directory
      * @param filter
-     * @return
+     *            the filter
+     * @return the sets the
      *         XXX should include the location monitor in the returned data
      */
     private static Set<String> findChildrenChildrenMatchingFilter(File directory, FileFilter filter) {
@@ -879,6 +939,17 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
         return m_nodeResourceType.createChildResource(node);
     }
 
+    /**
+     * Gets the child resource for node.
+     *
+     * @param node
+     *            the node
+     * @param resourceTypeName
+     *            the resource type name
+     * @param resourceName
+     *            the resource name
+     * @return the child resource for node
+     */
     private OnmsResource getChildResourceForNode(OnmsNode node, String resourceTypeName, String resourceName) {
         OnmsResource nodeResource = getResourceForNode(node);
         if (nodeResource == null) {
@@ -901,6 +972,10 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
     }
 
     /**
+     * Gets the resource for ip interface.
+     *
+     * @param ipInterface
+     *            the ip interface
      * @return OnmsResource for the <code>responseTime</code> resource on the
      *         interface or
      *         null if the <code>responseTime</code> resource cannot be found
@@ -916,6 +991,12 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
     }
 
     /**
+     * Gets the resource for ip interface.
+     *
+     * @param ipInterface
+     *            the ip interface
+     * @param locMon
+     *            the loc mon
      * @return OnmsResource for the <code>distributedStatus</code> resource on
      *         the interface or
      *         null if the <code>distributedStatus</code> resource cannot be
@@ -936,6 +1017,7 @@ public class DefaultResourceDao implements ResourceDao, InitializingBean {
      * <p>
      * findTopLevelResources
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

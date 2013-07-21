@@ -51,6 +51,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class OnmsStpNodeDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -61,20 +64,30 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OnmsStpNodeDaoHibernateTest implements InitializingBean {
+
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_stp node dao. */
     @Autowired
     private StpNodeDao m_stpNodeDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -84,6 +97,9 @@ public class OnmsStpNodeDaoHibernateTest implements InitializingBean {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test save onms stp node.
+     */
     @Test
     public void testSaveOnmsStpNode() {
         // Create a new data link interface and save it.

@@ -44,13 +44,23 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DefaultSurveillanceViewConfigDaoTest.
+ */
 public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
+
+    /** The Constant CONFIG_WITH_VIEWS_RESOURCE. */
     private static final String CONFIG_WITH_VIEWS_RESOURCE = "/surveillance-views.testdata.xml";
 
+    /** The Constant CONFIG_NO_VIEWS_RESOURCE. */
     private static final String CONFIG_NO_VIEWS_RESOURCE = "/surveillance-views.testdata.noviews.xml";
 
+    /** The m_dao. */
     private DefaultSurveillanceViewConfigDao m_dao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -60,6 +70,9 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         createDaoWithResource(CONFIG_WITH_VIEWS_RESOURCE);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     public void runTest() throws Throwable {
         super.runTest();
@@ -67,10 +80,16 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         MockUtil.println("------------ End Test " + getName() + " --------------------------");
     }
 
+    /**
+     * Test nothing.
+     */
     public void testNothing() {
         // test that setUp() / tearDown() works
     }
 
+    /**
+     * Test default view.
+     */
     public void testDefaultView() {
         View view = m_dao.getDefaultView();
         assertNotNull("default view should not be null", view);
@@ -85,6 +104,9 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("default view row count", 3, rows.getRowDefCount());
     }
 
+    /**
+     * Test view by name.
+     */
     public void testViewByName() {
         View view = m_dao.getView("default");
         assertNotNull("default view should not be null", view);
@@ -99,6 +121,9 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("default view row count", 3, rows.getRowDefCount());
     }
 
+    /**
+     * Test get views.
+     */
     public void testGetViews() {
         Views views = m_dao.getViews();
         assertNotNull("views should not be null", views);
@@ -117,6 +142,9 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("first view row count", 3, rows.getRowDefCount());
     }
 
+    /**
+     * Test get view map.
+     */
     public void testGetViewMap() {
         Map<String, View> viewMap = m_dao.getViewMap();
         assertEquals("view count", 1, viewMap.size());
@@ -138,10 +166,22 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("first view row count", 3, rows.getRowDefCount());
     }
 
+    /**
+     * Test init no views.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testInitNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
     }
 
+    /**
+     * Test get default view no views.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetDefaultViewNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
 
@@ -149,6 +189,12 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertNull("default view should be null", view);
     }
 
+    /**
+     * Test get view by name no views.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetViewByNameNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
 
@@ -156,6 +202,12 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertNull("view by name 'default' should be null", view);
     }
 
+    /**
+     * Test get views no views.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetViewsNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
 
@@ -164,6 +216,12 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("view count", 0, views.getViewCount());
     }
 
+    /**
+     * Test get view map no views.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetViewMapNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
 
@@ -172,14 +230,34 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         assertEquals("view count", 0, viewMap.size());
     }
 
+    /**
+     * Test config production.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testConfigProduction() throws IOException {
         createDaoWithConfigFile("surveillance-views.xml");
     }
 
+    /**
+     * Test config example.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testConfigExample() throws IOException {
         createDaoWithConfigFile("examples/surveillance-views.xml");
     }
 
+    /**
+     * Creates the dao with resource.
+     *
+     * @param configResource
+     *            the config resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void createDaoWithResource(final String configResource) throws IOException {
         Resource resource = new ClassPathResource(configResource);
         m_dao = new DefaultSurveillanceViewConfigDao();
@@ -187,6 +265,14 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
         m_dao.afterPropertiesSet();
     }
 
+    /**
+     * Creates the dao with config file.
+     *
+     * @param configFileName
+     *            the config file name
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void createDaoWithConfigFile(final String configFileName) throws IOException {
         Resource resource = new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile(configFileName));
         m_dao = new DefaultSurveillanceViewConfigDao();

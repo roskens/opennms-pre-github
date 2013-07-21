@@ -38,8 +38,11 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Filter {
+
+    /** The table. */
     String table;
 
+    /** The condition. */
     String condition;
 
     /**

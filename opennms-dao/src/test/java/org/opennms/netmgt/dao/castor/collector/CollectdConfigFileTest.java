@@ -35,12 +35,20 @@ import junit.framework.TestCase;
 import org.opennms.netmgt.dao.castor.InvocationAnticipator;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class CollectdConfigFileTest.
+ */
 public class CollectdConfigFileTest extends TestCase {
 
+    /** The m_invocation anticipator. */
     private InvocationAnticipator m_invocationAnticipator;
 
+    /** The m_visitor. */
     private CollectdConfigVisitor m_visitor;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -48,11 +56,20 @@ public class CollectdConfigFileTest extends TestCase {
         m_visitor = (CollectdConfigVisitor) m_invocationAnticipator.getProxy();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test visit top.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testVisitTop() throws IOException {
 
         ClassPathResource resource = new ClassPathResource("/collectdconfiguration-testdata.xml");

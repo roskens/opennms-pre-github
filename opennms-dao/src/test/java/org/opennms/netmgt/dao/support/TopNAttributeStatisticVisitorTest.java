@@ -42,16 +42,30 @@ import org.opennms.netmgt.model.OnmsResource;
 import org.opennms.test.ThrowableAnticipator;
 
 /**
+ * The Class TopNAttributeStatisticVisitorTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class TopNAttributeStatisticVisitorTest extends TestCase {
 
+    /**
+     * Test after properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSet() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no count.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoCount() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
 
@@ -68,6 +82,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisit() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -82,6 +102,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
+    /**
+     * Test visit with null.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithNull() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -98,6 +124,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit get results.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitGetResults() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -121,6 +153,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
+    /**
+     * Test visit get results same value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitGetResultsSameValue() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -147,6 +185,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
+    /**
+     * Test visit get results different values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitGetResultsDifferentValues() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -173,6 +217,12 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
+    /**
+     * Test visit get results limited by count.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitGetResultsLimitedByCount() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -199,16 +249,31 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
     }
 
+    /**
+     * The Class MockAttribute.
+     */
     public class MockAttribute implements OnmsAttribute {
+
+        /** The m_name. */
         private String m_name;
 
+        /** The m_resource. */
         private OnmsResource m_resource;
 
+        /**
+         * Instantiates a new mock attribute.
+         *
+         * @param name
+         *            the name
+         */
         public MockAttribute(String name) {
             m_name = name;
         }
 
         /**
+         * Gets the name.
+         *
+         * @return the name
          * @see org.opennms.netmgt.model.OnmsAttribute#getName()
          */
         @Override
@@ -217,6 +282,9 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
 
         /**
+         * Gets the resource.
+         *
+         * @return the resource
          * @see org.opennms.netmgt.model.OnmsAttribute#getResource()
          */
         @Override
@@ -225,6 +293,10 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
 
         /**
+         * Sets the resource.
+         *
+         * @param resource
+         *            the new resource
          * @see org.opennms.netmgt.model.OnmsAttribute#setResource(org.opennms.netmgt.model.OnmsResource)
          */
         @Override

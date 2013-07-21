@@ -72,6 +72,8 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
+ * The Class JdbcFilterDaoTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -84,31 +86,48 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcFilterDaoTest implements InitializingBean {
+
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_interface dao. */
     @Autowired
     IpInterfaceDao m_interfaceDao;
 
+    /** The m_service type dao. */
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_dao. */
     JdbcFilterDao m_dao;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /** The m_data source. */
     @Autowired
     DataSource m_dataSource;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         OnmsServiceType t = new OnmsServiceType("ICMP");
@@ -129,12 +148,21 @@ public class JdbcFilterDaoTest implements InitializingBean {
         FilterDaoFactory.setInstance(m_dao);
     }
 
+    /**
+     * Test instantiate.
+     */
     @Test
     @Transactional
     public void testInstantiate() {
         new JdbcFilterDao();
     }
 
+    /**
+     * Test after properties set valid.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testAfterPropertiesSetValid() throws Exception {
@@ -146,6 +174,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         dao.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no node dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testAfterPropertiesSetNoNodeDao() throws Exception {
@@ -160,6 +194,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         dao.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no data source.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testAfterPropertiesSetNoDataSource() throws Exception {
@@ -179,6 +219,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test with many cat inc and service identifiers in rules.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Not sure exactly why this test requires a fresh database but it fails
@@ -200,6 +246,9 @@ public class JdbcFilterDaoTest implements InitializingBean {
         assertFalse("Rule match succeeded unexpectedly: " + rule, m_dao.isRuleMatching(rule2));
     }
 
+    /**
+     * Test after properties set no schema factory.
+     */
     @Test
     @Transactional
     public void testAfterPropertiesSetNoSchemaFactory() {
@@ -217,6 +266,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get node map.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testGetNodeMap() throws Exception {
@@ -225,6 +280,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         assertEquals("map size", 0, map.size());
     }
 
+    /**
+     * Test get ip address service map.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testGetIPAddressServiceMap() throws Exception {
@@ -233,6 +294,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         assertEquals("map size", 0, map.size());
     }
 
+    /**
+     * Test get ip address list.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testGetIPAddressList() throws Exception {
@@ -241,6 +308,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         assertEquals("list size", 0, list.size());
     }
 
+    /**
+     * Test get active ip list with deleted node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // This test manages its own transactions so use a fresh database
@@ -275,6 +348,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Test is valid.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testIsValid() throws Exception {
@@ -282,12 +361,24 @@ public class JdbcFilterDaoTest implements InitializingBean {
                     m_dao.isValid("1.1.1.1", "ipaddr == '1.1.1.1'"));
     }
 
+    /**
+     * Test is valid empty rule.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testIsValidEmptyRule() throws Exception {
         assertTrue("isValid should return true for non-empty rules", m_dao.isValid("1.1.1.1", ""));
     }
 
+    /**
+     * Test get interface with service statement.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testGetInterfaceWithServiceStatement() throws Exception {
@@ -296,6 +387,12 @@ public class JdbcFilterDaoTest implements InitializingBean {
                      m_dao.getInterfaceWithServiceStatement("ipaddr IPLIKE *.*.*.*"));
     }
 
+    /**
+     * Test walk nodes.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Not sure exactly why this test requires a fresh database but it fails
@@ -318,6 +415,9 @@ public class JdbcFilterDaoTest implements InitializingBean {
         assertEquals("node list size", 1, nodes.size());
     }
 
+    /**
+     * Test various ways to match service names.
+     */
     @Test
     @Transactional
     public void testVariousWaysToMatchServiceNames() {

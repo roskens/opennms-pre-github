@@ -37,10 +37,15 @@ import org.junit.Test;
 import org.opennms.netmgt.config.StorageStrategyService;
 
 /**
+ * The Class FrameRelayStorageStrategyTest.
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class FrameRelayStorageStrategyTest {
 
+    /**
+     * Test strategy.
+     */
     @Test
     public void testStrategy() {
         // Create Mocks

@@ -43,6 +43,9 @@ import org.opennms.netmgt.model.DataLinkInterface;
 import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+/**
+ * The Class DataLinkInterfaceDaoHibernate.
+ */
 public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLinkInterface, Integer> implements
         DataLinkInterfaceDao {
     /**
@@ -100,6 +103,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
@@ -112,6 +118,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#deactivateIfOlderThan(java.util.Date, java.lang.String)
+     */
     @Override
     public void deactivateIfOlderThan(final Date scanTime, String source) {
         // UPDATE datalinkinterface set status = 'N' WHERE lastpolltime < ? AND
@@ -127,6 +136,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#deleteIfOlderThan(java.util.Date, java.lang.String)
+     */
     @Override
     public void deleteIfOlderThan(final Date scanTime, String source) {
         // DELETE datalinkinterface WHERE lastpolltime < ? AND status <> 'A'
@@ -141,6 +153,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE nodeid = ? OR
@@ -148,6 +163,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         setStatusForNode(nodeid, null, action);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#setStatusForNode(java.lang.Integer, java.lang.String, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeid, final String source, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR
@@ -164,6 +182,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#setStatusForNodeAndIfIndex(java.lang.Integer, java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? and ifindex
@@ -172,6 +193,9 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
         setStatusForNodeAndIfIndex(nodeid, ifIndex, null, action);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.DataLinkInterfaceDao#setStatusForNodeAndIfIndex(java.lang.Integer, java.lang.Integer, java.lang.String, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source,
             final StatusType action) {

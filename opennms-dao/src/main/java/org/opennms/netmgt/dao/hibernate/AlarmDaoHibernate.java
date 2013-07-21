@@ -60,6 +60,9 @@ public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> 
         return super.findUnique(hql, reductionKey);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AlarmDao#getNodeAlarmSummaries(java.lang.Integer[])
+     */
     @Override
     public List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds) {
         StringBuilder sql = new StringBuilder();

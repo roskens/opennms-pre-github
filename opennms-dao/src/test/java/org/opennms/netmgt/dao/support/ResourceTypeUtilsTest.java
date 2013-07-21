@@ -54,17 +54,30 @@ import org.opennms.test.FileAnticipator;
 import org.opennms.test.ThrowableAnticipator;
 
 /**
+ * The Class ResourceTypeUtilsTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class ResourceTypeUtilsTest {
+
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_snmp. */
     private File m_snmp;
 
+    /** The m_node. */
     private File m_node;
 
+    /** The m_intf. */
     private File m_intf;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_fileAnticipator = new FileAnticipator();
@@ -72,11 +85,20 @@ public class ResourceTypeUtilsTest {
         RrdUtils.setStrategy(new NullRrdStrategy());
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Test load properties null rrd directory.
+     */
     @Test
     public void testLoadPropertiesNullRrdDirectory() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -90,6 +112,9 @@ public class ResourceTypeUtilsTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test load properties null relative path.
+     */
     @Test
     public void testLoadPropertiesNullRelativePath() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -103,6 +128,12 @@ public class ResourceTypeUtilsTest {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test load properties empty.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadPropertiesEmpty() throws Exception {
         OnmsResource childResource = createResource();
@@ -114,6 +145,12 @@ public class ResourceTypeUtilsTest {
         assertEquals("properties size", 0, p.size());
     }
 
+    /**
+     * Test load properties non empty.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadPropertiesNonEmpty() throws Exception {
         OnmsResource childResource = createResource();
@@ -127,6 +164,12 @@ public class ResourceTypeUtilsTest {
         assertEquals("property 'foo' value", "bar", p.get("foo"));
     }
 
+    /**
+     * Test load properties does not exist.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadPropertiesDoesNotExist() throws Exception {
         OnmsResource childResource = createResource();
@@ -136,6 +179,9 @@ public class ResourceTypeUtilsTest {
         assertNull("no properties file was created, so the properties object should be null", p);
     }
 
+    /**
+     * Test get attributes at relative path with bogus directory.
+     */
     @Test
     public void testGetAttributesAtRelativePathWithBogusDirectory() {
         File bogusRrdDirectory = new File("/foo/bogus/blam/cheese/this/really/should/never/exist");
@@ -146,6 +192,12 @@ public class ResourceTypeUtilsTest {
     /*
      * This test is associated with issue NMS-5806:
      * http://issues.opennms.org/browse/NMS-5806
+     */
+    /**
+     * Test update file outside resource type utils.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testUpdateFileOutsideResourceTypeUtils() throws Exception {
@@ -172,6 +224,11 @@ public class ResourceTypeUtilsTest {
         assertEquals("2013", ResourceTypeUtils.getStringProperty(resourceDir, "year"));
     }
 
+    /**
+     * Creates the resource.
+     *
+     * @return the onms resource
+     */
     private OnmsResource createResource() {
         OnmsResource topResource = new OnmsResource("1", "Node One", new MockResourceType(),
                                                     new HashSet<OnmsAttribute>(0));
@@ -182,6 +239,19 @@ public class ResourceTypeUtilsTest {
         return childResource;
     }
 
+    /**
+     * Creates the properties file.
+     *
+     * @param childResource
+     *            the child resource
+     * @param propertiesContent
+     *            the properties content
+     * @param onlyCreateParentDirectories
+     *            the only create parent directories
+     * @return the file
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private File createPropertiesFile(OnmsResource childResource, String propertiesContent,
             boolean onlyCreateParentDirectories) throws IOException {
         m_fileAnticipator.initialize();

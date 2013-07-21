@@ -94,6 +94,7 @@ public class DefaultSurveillanceViewConfigDao extends
      * <p>
      * getDefaultView
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.surveillanceViews.View}
      *         object.

@@ -37,13 +37,22 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpInterface;
 
+/**
+ * The Class StpInterfaceDaoHibernate.
+ */
 public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterface, Integer> implements
         StpInterfaceDao {
 
+    /**
+     * Instantiates a new stp interface dao hibernate.
+     */
     public StpInterfaceDaoHibernate() {
         super(OnmsStpInterface.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
@@ -56,6 +65,9 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#deactivateForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
@@ -70,6 +82,9 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#deleteForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);
@@ -83,6 +98,9 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
         // UPDATE stpinterface set status = ? WHERE nodeid = ?
@@ -97,6 +115,9 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#setStatusForNodeAndIfIndex(java.lang.Integer, java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
         // UPDATE stpinterface set status = ? WHERE nodeid = ? AND ifindex = ?
@@ -112,6 +133,9 @@ public class StpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsStpInterf
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpInterfaceDao#findByNodeAndVlan(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+     */
     @Override
     public OnmsStpInterface findByNodeAndVlan(final Integer nodeId, final Integer bridgePort, final Integer vlan) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpInterface.class);

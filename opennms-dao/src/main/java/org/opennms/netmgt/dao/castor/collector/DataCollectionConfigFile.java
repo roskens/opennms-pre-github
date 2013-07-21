@@ -45,8 +45,12 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 import org.opennms.netmgt.config.datacollection.Systems;
 import org.springframework.core.io.FileSystemResource;
 
+/**
+ * The Class DataCollectionConfigFile.
+ */
 public class DataCollectionConfigFile {
 
+    /** The m_file. */
     File m_file;
 
     /**
@@ -65,6 +69,7 @@ public class DataCollectionConfigFile {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -82,6 +87,14 @@ public class DataCollectionConfigFile {
         visitor.completeDataCollectionConfig(dataCollectionConfig);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param snmpCollection
+     *            the snmp collection
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(SnmpCollection snmpCollection, DataCollectionVisitor visitor) {
         visitor.visitSnmpCollection(snmpCollection);
 
@@ -97,6 +110,14 @@ public class DataCollectionConfigFile {
         visitor.completeSnmpCollection(snmpCollection);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param groups
+     *            the groups
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Groups groups, DataCollectionVisitor visitor) {
 
         for (Iterator<Group> it = groups.getGroupCollection().iterator(); it.hasNext();) {
@@ -106,6 +127,14 @@ public class DataCollectionConfigFile {
 
     }
 
+    /**
+     * Do visit.
+     *
+     * @param group
+     *            the group
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Group group, DataCollectionVisitor visitor) {
         visitor.visitGroup(group);
 
@@ -124,16 +153,40 @@ public class DataCollectionConfigFile {
         visitor.completeGroup(group);
     }
 
+    /**
+     * Do visit sub group.
+     *
+     * @param subGroup
+     *            the sub group
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitSubGroup(String subGroup, DataCollectionVisitor visitor) {
         visitor.visitSubGroup(subGroup);
         visitor.completeSubGroup(subGroup);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param mibObj
+     *            the mib obj
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(MibObj mibObj, DataCollectionVisitor visitor) {
         visitor.visitMibObj(mibObj);
         visitor.completeMibObj(mibObj);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param systems
+     *            the systems
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Systems systems, DataCollectionVisitor visitor) {
         for (Iterator<SystemDef> it = systems.getSystemDefCollection().iterator(); it.hasNext();) {
             SystemDef systemDef = it.next();
@@ -141,6 +194,14 @@ public class DataCollectionConfigFile {
         }
     }
 
+    /**
+     * Do visit.
+     *
+     * @param systemDef
+     *            the system def
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(SystemDef systemDef, DataCollectionVisitor visitor) {
         visitor.visitSystemDef(systemDef);
 
@@ -156,6 +217,14 @@ public class DataCollectionConfigFile {
         visitor.completeSystemDef(systemDef);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param collect
+     *            the collect
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Collect collect, DataCollectionVisitor visitor) {
         visitor.visitCollect(collect);
 
@@ -168,12 +237,28 @@ public class DataCollectionConfigFile {
         visitor.completeCollect(collect);
     }
 
+    /**
+     * Do visit include group.
+     *
+     * @param includeGroup
+     *            the include group
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitIncludeGroup(String includeGroup, DataCollectionVisitor visitor) {
         visitor.visitIncludeGroup(includeGroup);
         visitor.completeIncludeGroup(includeGroup);
 
     }
 
+    /**
+     * Do visit.
+     *
+     * @param ipList
+     *            the ip list
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(IpList ipList, DataCollectionVisitor visitor) {
         if (ipList == null)
             return;
@@ -182,6 +267,14 @@ public class DataCollectionConfigFile {
         visitor.completeIpList(ipList);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param systemDefChoice
+     *            the system def choice
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(SystemDefChoice systemDefChoice, DataCollectionVisitor visitor) {
         if (systemDefChoice.getSysoid() != null)
             doVisitSysOid(systemDefChoice.getSysoid(), visitor);
@@ -191,16 +284,40 @@ public class DataCollectionConfigFile {
 
     }
 
+    /**
+     * Do visit sys oid mask.
+     *
+     * @param sysoidMask
+     *            the sysoid mask
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitSysOidMask(String sysoidMask, DataCollectionVisitor visitor) {
         visitor.visitSysOidMask(sysoidMask);
         visitor.completeSysOidMask(sysoidMask);
     }
 
+    /**
+     * Do visit sys oid.
+     *
+     * @param sysoid
+     *            the sysoid
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitSysOid(String sysoid, DataCollectionVisitor visitor) {
         visitor.visitSysOid(sysoid);
         visitor.completeSysOid(sysoid);
     }
 
+    /**
+     * Do visit.
+     *
+     * @param rrd
+     *            the rrd
+     * @param visitor
+     *            the visitor
+     */
     private void doVisit(Rrd rrd, DataCollectionVisitor visitor) {
         visitor.visitRrd(rrd);
         for (Iterator<String> it = rrd.getRraCollection().iterator(); it.hasNext();) {
@@ -210,11 +327,24 @@ public class DataCollectionConfigFile {
         visitor.completeRrd(rrd);
     }
 
+    /**
+     * Do visit rra.
+     *
+     * @param rra
+     *            the rra
+     * @param visitor
+     *            the visitor
+     */
     private void doVisitRra(String rra, DataCollectionVisitor visitor) {
         visitor.visitRra(rra);
         visitor.completeRra(rra);
     }
 
+    /**
+     * Gets the data collection config.
+     *
+     * @return the data collection config
+     */
     private DatacollectionConfig getDataCollectionConfig() {
         return JaxbUtils.unmarshal(DatacollectionConfig.class, new FileSystemResource(m_file));
     }

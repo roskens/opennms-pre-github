@@ -31,6 +31,9 @@ package org.opennms.netmgt.dao.hibernate;
 import org.opennms.netmgt.dao.api.ServiceTypeDao;
 import org.opennms.netmgt.model.OnmsServiceType;
 
+/**
+ * The Class ServiceTypeDaoHibernate.
+ */
 public class ServiceTypeDaoHibernate extends AbstractCachingDaoHibernate<OnmsServiceType, Integer, String> implements
         ServiceTypeDao {
 

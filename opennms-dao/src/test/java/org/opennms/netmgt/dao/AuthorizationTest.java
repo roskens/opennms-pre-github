@@ -57,6 +57,9 @@ import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AuthorizationTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -67,30 +70,45 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class AuthorizationTest implements InitializingBean {
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /** The m_category dao. */
     @Autowired
     CategoryDao m_categoryDao;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         m_populator.populateDatabase();
     }
 
+    /**
+     * Tear down.
+     */
     @AfterTransaction
     public void tearDown() {
         m_populator.resetDatabase();
     }
 
+    /**
+     * Test authorized alarms.
+     */
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -122,6 +140,9 @@ public class AuthorizationTest implements InitializingBean {
         System.err.println(matching3);
     }
 
+    /**
+     * Test get categories with authorized groups.
+     */
     @Test
     @Transactional
     @Ignore("What does this even do?  Category 'groups' aren't even exposed in DAOs.")
@@ -136,6 +157,12 @@ public class AuthorizationTest implements InitializingBean {
 
     }
 
+    /**
+     * Enable authorization filter.
+     *
+     * @param groupNames
+     *            the group names
+     */
     public void enableAuthorizationFilter(final String... groupNames) {
 
         HibernateCallback<Object> cb = new HibernateCallback<Object>() {
@@ -151,6 +178,9 @@ public class AuthorizationTest implements InitializingBean {
         ((AlarmDaoHibernate) m_alarmDao).getHibernateTemplate().execute(cb);
     }
 
+    /**
+     * Disable authorization filter.
+     */
     public void disableAuthorizationFilter() {
 
         HibernateCallback<Object> cb = new HibernateCallback<Object>() {

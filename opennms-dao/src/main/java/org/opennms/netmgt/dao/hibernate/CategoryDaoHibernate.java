@@ -88,6 +88,7 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
      * <p>
      * getAllCategoryNames
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -100,6 +101,7 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
      * <p>
      * getCriterionForCategorySetsUnion
      * </p>
+     * .
      *
      * @param categories
      *            an array of {@link java.lang.String} objects.

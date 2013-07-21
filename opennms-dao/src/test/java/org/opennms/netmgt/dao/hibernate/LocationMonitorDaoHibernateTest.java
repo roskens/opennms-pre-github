@@ -66,6 +66,9 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class LocationMonitorDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -76,20 +79,30 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LocationMonitorDaoHibernateTest implements InitializingBean {
+
+    /** The m_location monitor dao. */
     @Autowired
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test save location monitor.
+     */
     @Test
     @Transactional
     public void testSaveLocationMonitor() {
@@ -116,6 +129,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         assertEquals(mon.getDetails(), mon2.getDetails());
     }
 
+    /**
+     * Test set config resource production.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     @Transactional
     public void testSetConfigResourceProduction() throws FileNotFoundException {
@@ -123,6 +142,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
                                                                                                                          ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
     }
 
+    /**
+     * Test set config resource example.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     @Transactional
     public void testSetConfigResourceExample() throws FileNotFoundException {
@@ -130,6 +155,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
                                                                                                                          ConfigurationTestUtils.getInputStreamForConfigFile("examples/monitoring-locations.xml")));
     }
 
+    /**
+     * Test set config resource no locations.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     @Transactional
     public void testSetConfigResourceNoLocations() throws FileNotFoundException {
@@ -137,6 +168,9 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
                                                                                                                         "src/test/resources/monitoring-locations-no-locations.xml"));
     }
 
+    /**
+     * Test bogus config.
+     */
     @Test
     @Transactional
     public void testBogusConfig() {
@@ -151,6 +185,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find monitoring location definition null.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     @Transactional
     public void testFindMonitoringLocationDefinitionNull() throws FileNotFoundException {
@@ -166,6 +206,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test find monitoring location definition bogus.
+     *
+     * @throws FileNotFoundException
+     *             the file not found exception
+     */
     @Test
     @Transactional
     public void testFindMonitoringLocationDefinitionBogus() throws FileNotFoundException {
@@ -175,6 +221,9 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
                    m_locationMonitorDao.findMonitoringLocationDefinition("bogus"));
     }
 
+    /**
+     * Test find status changes for node for unique monitor and interface.
+     */
     @Test
     @Transactional
     public void testFindStatusChangesForNodeForUniqueMonitorAndInterface() {
@@ -233,6 +282,14 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Adds the status changes for monitor and service.
+     *
+     * @param monitor
+     *            the monitor
+     * @param services
+     *            the services
+     */
     private void addStatusChangesForMonitorAndService(OnmsLocationMonitor monitor, Set<OnmsMonitoredService> services) {
         for (OnmsMonitoredService service : services) {
             OnmsLocationSpecificStatus status = new OnmsLocationSpecificStatus();

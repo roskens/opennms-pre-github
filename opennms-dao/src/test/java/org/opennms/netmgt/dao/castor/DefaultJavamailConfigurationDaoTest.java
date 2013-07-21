@@ -46,7 +46,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Acknowledgment Daemon tests
+ * Acknowledgment Daemon tests.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -60,9 +60,16 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class DefaultJavamailConfigurationDaoTest implements InitializingBean {
 
+    /** The m_jmc dao. */
     @Autowired
     private JavaMailConfigurationDao m_jmcDao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties props = new Properties();
@@ -72,11 +79,17 @@ public class DefaultJavamailConfigurationDaoTest implements InitializingBean {
         MockLogAppender.setupLogging(props);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test marshalling.
+     */
     @Test
     public void testMarshalling() {
         Assert.assertEquals("localhost", m_jmcDao.getDefaultReadmailConfig().getName());

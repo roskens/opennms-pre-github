@@ -37,12 +37,16 @@ import org.opennms.netmgt.config.datacollection.Rrd;
 import org.opennms.netmgt.config.datacollection.SnmpCollection;
 import org.opennms.netmgt.config.datacollection.SystemDef;
 
+/**
+ * The Interface DataCollectionVisitor.
+ */
 public interface DataCollectionVisitor {
 
     /**
      * <p>
      * visitDataCollectionConfig
      * </p>
+     * .
      *
      * @param dataCollectionConfig
      *            a
@@ -55,6 +59,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeDataCollectionConfig
      * </p>
+     * .
      *
      * @param dataCollectionConfig
      *            a
@@ -67,6 +72,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitSnmpCollection
      * </p>
+     * .
      *
      * @param snmpCollection
      *            a
@@ -79,6 +85,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeSnmpCollection
      * </p>
+     * .
      *
      * @param snmpCollection
      *            a
@@ -91,6 +98,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitRrd
      * </p>
+     * .
      *
      * @param rrd
      *            a {@link org.opennms.netmgt.config.common.Rrd} object.
@@ -101,6 +109,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeRrd
      * </p>
+     * .
      *
      * @param rrd
      *            a {@link org.opennms.netmgt.config.common.Rrd} object.
@@ -111,6 +120,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitRra
      * </p>
+     * .
      *
      * @param rra
      *            a {@link java.lang.String} object.
@@ -121,6 +131,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeRra
      * </p>
+     * .
      *
      * @param rra
      *            a {@link java.lang.String} object.
@@ -131,6 +142,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitSystemDef
      * </p>
+     * .
      *
      * @param systemDef
      *            a {@link org.opennms.netmgt.config.datacollection.SystemDef}
@@ -142,6 +154,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeSystemDef
      * </p>
+     * .
      *
      * @param systemDef
      *            a {@link org.opennms.netmgt.config.datacollection.SystemDef}
@@ -153,6 +166,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitSysOid
      * </p>
+     * .
      *
      * @param sysoid
      *            a {@link java.lang.String} object.
@@ -163,6 +177,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeSysOid
      * </p>
+     * .
      *
      * @param sysoid
      *            a {@link java.lang.String} object.
@@ -173,6 +188,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitSysOidMask
      * </p>
+     * .
      *
      * @param sysoidMask
      *            a {@link java.lang.String} object.
@@ -183,6 +199,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeSysOidMask
      * </p>
+     * .
      *
      * @param sysoidMask
      *            a {@link java.lang.String} object.
@@ -193,6 +210,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitIpList
      * </p>
+     * .
      *
      * @param ipList
      *            a {@link org.opennms.netmgt.config.datacollection.IpList}
@@ -204,6 +222,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeIpList
      * </p>
+     * .
      *
      * @param ipList
      *            a {@link org.opennms.netmgt.config.datacollection.IpList}
@@ -215,6 +234,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitCollect
      * </p>
+     * .
      *
      * @param collect
      *            a {@link org.opennms.netmgt.config.datacollection.Collect}
@@ -226,6 +246,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeCollect
      * </p>
+     * .
      *
      * @param collect
      *            a {@link org.opennms.netmgt.config.datacollection.Collect}
@@ -237,6 +258,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitIncludeGroup
      * </p>
+     * .
      *
      * @param includeGroup
      *            a {@link java.lang.String} object.
@@ -247,6 +269,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeIncludeGroup
      * </p>
+     * .
      *
      * @param includeGroup
      *            a {@link java.lang.String} object.
@@ -257,6 +280,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.config.datacollection.Group}
@@ -268,6 +292,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.config.datacollection.Group}
@@ -279,6 +304,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitSubGroup
      * </p>
+     * .
      *
      * @param subGroup
      *            a {@link java.lang.String} object.
@@ -289,6 +315,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeSubGroup
      * </p>
+     * .
      *
      * @param subGroup
      *            a {@link java.lang.String} object.
@@ -299,6 +326,7 @@ public interface DataCollectionVisitor {
      * <p>
      * visitMibObj
      * </p>
+     * .
      *
      * @param mibObj
      *            a {@link org.opennms.netmgt.config.datacollection.MibObj}
@@ -310,6 +338,7 @@ public interface DataCollectionVisitor {
      * <p>
      * completeMibObj
      * </p>
+     * .
      *
      * @param mibObj
      *            a {@link org.opennms.netmgt.config.datacollection.MibObj}

@@ -54,6 +54,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class HibernateCriteriaConverterTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -64,19 +67,29 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 @Transactional
 public class HibernateCriteriaConverterTest implements InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HibernateCriteriaConverterTest.class);
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_populator.populateDatabase();
@@ -84,6 +97,12 @@ public class HibernateCriteriaConverterTest implements InitializingBean {
         LOG.debug("==============================================");
     }
 
+    /**
+     * Test node query.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testNodeQuery() throws Exception {
@@ -106,6 +125,9 @@ public class HibernateCriteriaConverterTest implements InitializingBean {
         assertEquals(1, nodes.size());
     }
 
+    /**
+     * Test node ilike query.
+     */
     @Test
     @JUnitTemporaryDatabase
     @Ignore("This test appears to flap since the upgrade to Hibernate 3.5.")
@@ -116,6 +138,9 @@ public class HibernateCriteriaConverterTest implements InitializingBean {
         assertEquals(3, nodes.size());
     }
 
+    /**
+     * Test distinct query.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testDistinctQuery() {

@@ -42,10 +42,14 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ResourceAttributeFilteringResourceVisitor implements ResourceVisitor, InitializingBean {
+
+    /** The m_delegated visitor. */
     private ResourceVisitor m_delegatedVisitor;
 
+    /** The m_resource attribute key. */
     private String m_resourceAttributeKey;
 
+    /** The m_resource attribute value match. */
     private String m_resourceAttributeValueMatch;
 
     /** {@inheritDoc} */
@@ -61,6 +65,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -76,6 +81,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * getDelegatedVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -87,6 +93,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * setDelegatedVisitor
      * </p>
+     * .
      *
      * @param delegatedVisitor
      *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
@@ -99,6 +106,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * getResourceAttributeKey
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -110,6 +118,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * setResourceAttributeKey
      * </p>
+     * .
      *
      * @param resourceAttributeKey
      *            a {@link java.lang.String} object.
@@ -122,6 +131,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * getResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -133,6 +143,7 @@ public class ResourceAttributeFilteringResourceVisitor implements ResourceVisito
      * <p>
      * setResourceAttributeValueMatch
      * </p>
+     * .
      *
      * @param resourceAttributeValueMatch
      *            a {@link java.lang.String} object.

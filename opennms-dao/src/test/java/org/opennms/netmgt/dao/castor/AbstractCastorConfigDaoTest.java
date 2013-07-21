@@ -47,6 +47,10 @@ import org.springframework.core.io.Resource;
  * @see AbstractCastorConfigDao
  */
 public class AbstractCastorConfigDaoTest extends TestCase {
+
+    /**
+     * Test after properties set with no config set.
+     */
     public void testAfterPropertiesSetWithNoConfigSet() {
         TestCastorConfigDao dao = new TestCastorConfigDao();
 
@@ -61,6 +65,12 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with bogus file resource.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         TestCastorConfigDao dao = new TestCastorConfigDao();
@@ -77,6 +87,12 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set with good config file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         TestCastorConfigDao dao = new TestCastorConfigDao();
 
@@ -87,16 +103,31 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         assertNotNull("userinfo should not be null", dao.getUserinfo());
     }
 
+    /**
+     * The Class TestCastorConfigDao.
+     */
     public static class TestCastorConfigDao extends AbstractCastorConfigDao<Userinfo, Userinfo> {
+
+        /**
+         * Instantiates a new test castor config dao.
+         */
         public TestCastorConfigDao() {
             super(Userinfo.class, "user information configuration");
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.castor.AbstractCastorConfigDao#translateConfig(java.lang.Object)
+         */
         @Override
         public Userinfo translateConfig(Userinfo castorConfig) {
             return castorConfig;
         }
 
+        /**
+         * Gets the userinfo.
+         *
+         * @return the userinfo
+         */
         public Userinfo getUserinfo() {
             return getContainer().getObject();
         }

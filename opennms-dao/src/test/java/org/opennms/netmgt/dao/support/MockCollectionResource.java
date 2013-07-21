@@ -43,46 +43,75 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 import org.opennms.netmgt.model.RrdRepository;
 
 /**
- * MockCollectionResource
+ * MockCollectionResource.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockCollectionResource implements CollectionResource {
 
+    /** The parent. */
     private String parent;
 
+    /** The instance. */
     private String instance;
 
+    /** The type. */
     private String type;
 
+    /** The attributes. */
     private Map<String, String> attributes = new HashMap<String, String>();
 
+    /**
+     * Instantiates a new mock collection resource.
+     *
+     * @param parent
+     *            the parent
+     * @param instance
+     *            the instance
+     * @param type
+     *            the type
+     */
     public MockCollectionResource(String parent, String instance, String type) {
         this.parent = parent;
         this.instance = instance;
         this.type = type;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.ResourceIdentifier#getOwnerName()
+     */
     @Override
     public String getOwnerName() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.ResourceIdentifier#getResourceDir(org.opennms.netmgt.model.RrdRepository)
+     */
     @Override
     public File getResourceDir(RrdRepository repository) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+     */
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#rescanNeeded()
+     */
     @Override
     public boolean rescanNeeded() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+     */
     @Override
     public void visit(CollectionSetVisitor visitor) {
         for (Entry<String, String> entry : attributes.entrySet()) {
@@ -142,39 +171,68 @@ public class MockCollectionResource implements CollectionResource {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getType()
+     */
     @Override
     public int getType() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+     */
     @Override
     public String getResourceTypeName() {
         return type;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return parent;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
+     */
     @Override
     public String getInstance() {
         return instance;
     }
 
+    /**
+     * Sets the instance.
+     *
+     * @param instance
+     *            the new instance
+     */
     public void setInstance(String instance) {
         this.instance = instance;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getLabel()
+     */
     @Override
     public String getLabel() {
         return null;
     }
 
+    /**
+     * Gets the attribtue map.
+     *
+     * @return the attribtue map
+     */
     public Map<String, String> getAttribtueMap() {
         return attributes;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getTimeKeeper()
+     */
     @Override
     public TimeKeeper getTimeKeeper() {
         return null;

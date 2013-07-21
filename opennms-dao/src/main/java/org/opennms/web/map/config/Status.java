@@ -37,12 +37,17 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Status implements Comparable<Status> {
+
+    /** The id. */
     private int id;
 
+    /** The uei. */
     private String uei;
 
+    /** The color. */
     private String color;
 
+    /** The text. */
     private String text;
 
     /**

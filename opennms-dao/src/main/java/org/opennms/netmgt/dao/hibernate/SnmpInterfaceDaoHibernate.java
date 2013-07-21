@@ -32,6 +32,9 @@ import org.opennms.netmgt.dao.api.SnmpInterfaceDao;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.springframework.util.Assert;
 
+/**
+ * The Class SnmpInterfaceDaoHibernate.
+ */
 public class SnmpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsSnmpInterface, Integer> implements
         SnmpInterfaceDao {
 

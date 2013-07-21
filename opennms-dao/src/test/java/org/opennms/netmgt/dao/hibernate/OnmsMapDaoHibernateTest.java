@@ -52,6 +52,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class OnmsMapDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -62,19 +65,29 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class OnmsMapDaoHibernateTest implements InitializingBean {
+
+    /** The m_onms map dao. */
     @Autowired
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -88,6 +101,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test save onms map.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap() {
@@ -107,6 +123,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getCreateTime(), map2.getCreateTime());
     }
 
+    /**
+     * Test save onms map2.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap2() {
@@ -130,6 +149,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Test save onms map3.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap3() {
@@ -152,6 +174,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
+    /**
+     * Test save onms map4.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap4() {
@@ -175,6 +200,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
+    /**
+     * Test save onms map5.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap5() {
@@ -198,6 +226,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map.getHeight(), map2.getHeight());
     }
 
+    /**
+     * Test save onms map6.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMap6() {
@@ -228,6 +259,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(map2.getHeight(), map3.getHeight());
     }
 
+    /**
+     * Test find by id.
+     */
     @Test
     @Transactional
     public void testFindById() {
@@ -258,6 +292,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find maps by name.
+     */
     @Test
     @Transactional
     public void testFindMapsByName() {
@@ -271,6 +308,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find maps by name and type ok.
+     */
     @Test
     @Transactional
     public void testFindMapsByNameAndTypeOk() {
@@ -284,6 +324,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find maps by name and type ko.
+     */
     @Test
     @Transactional
     public void testFindMapsByNameAndTypeKo() {
@@ -293,6 +336,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
+    /**
+     * Test find maps like.
+     */
     @Test
     @Transactional
     public void testFindMapsLike() {
@@ -306,6 +352,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find maps by type.
+     */
     @Test
     @Transactional
     public void testFindMapsByType() {
@@ -313,6 +362,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
+    /**
+     * Test find auto maps.
+     */
     @Test
     @Transactional
     public void testFindAutoMaps() {
@@ -320,6 +372,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
+    /**
+     * Test find save maps.
+     */
     @Test
     @Transactional
     public void testFindSaveMaps() {
@@ -327,6 +382,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
+    /**
+     * Test find user maps.
+     */
     @Test
     @Transactional
     public void testFindUserMaps() {
@@ -334,6 +392,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(1, maps.size());
     }
 
+    /**
+     * Test delete onms map.
+     */
     @Test
     @Transactional
     public void testDeleteOnmsMap() {
@@ -364,6 +425,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertNull(m_onmsMapDao.findMapById(61));
     }
 
+    /**
+     * Test find map by owner.
+     */
     @Test
     @Transactional
     public void testFindMapByOwner() {
@@ -376,6 +440,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find mapby group.
+     */
     @Test
     @Transactional
     public void testFindMapbyGroup() {
@@ -388,6 +455,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
+    /**
+     * Test find mapby group1.
+     */
     @Test
     @Transactional
     public void testFindMapbyGroup1() {
@@ -395,6 +465,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
+    /**
+     * Test find visible map by group.
+     */
     @Test
     @Transactional
     public void testFindVisibleMapByGroup() {
@@ -408,6 +481,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(2, maps.size());
     }
 
+    /**
+     * Test find visible map by group2.
+     */
     @Test
     @Transactional
     public void testFindVisibleMapByGroup2() {

@@ -39,10 +39,18 @@ import org.opennms.netmgt.config.StorageStrategyService;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
+ * The Class HostFileSystemStorageStrategyTest.
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HostFileSystemStorageStrategyTest {
 
+    /**
+     * Test strategy.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @SuppressWarnings("deprecation")
     @Test
     public void testStrategy() throws Exception {

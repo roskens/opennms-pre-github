@@ -50,6 +50,10 @@ import org.springframework.core.io.InputStreamResource;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class CastorUtilsTest extends TestCase {
+
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -57,6 +61,9 @@ public class CastorUtilsTest extends TestCase {
         MockLogAppender.setupLogging();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -64,16 +71,52 @@ public class CastorUtilsTest extends TestCase {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test unmarshal reader.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshalReader() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
     }
 
+    /**
+     * Test unmarshal resource.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshalResource() throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
         CastorUtils.unmarshal(Userinfo.class,
                               new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("users.xml")));
     }
 
+    /**
+     * Test exception contains file name unmarshal resource with bad resource.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testExceptionContainsFileNameUnmarshalResourceWithBadResource() throws MarshalException,
             ValidationException, FileNotFoundException, IOException {
         /*
@@ -103,6 +146,18 @@ public class CastorUtilsTest extends TestCase {
         }
     }
 
+    /**
+     * Test unmarshal input stream quietly.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshalInputStreamQuietly() throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
@@ -118,6 +173,18 @@ public class CastorUtilsTest extends TestCase {
         MockLogAppender.assertNoLogging();
     }
 
+    /**
+     * Test unmarshal reader quietly.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshalReaderQuietly() throws MarshalException, ValidationException, FileNotFoundException,
             IOException {
         CastorUtils.unmarshal(Userinfo.class, ConfigurationTestUtils.getInputStreamForConfigFile("users.xml"));
@@ -133,6 +200,16 @@ public class CastorUtilsTest extends TestCase {
         MockLogAppender.assertNoLogging();
     }
 
+    /**
+     * Test unmarshall input stream with utf8.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshallInputStreamWithUtf8() throws MarshalException, ValidationException, IOException {
         Userinfo users = CastorUtils.unmarshal(Userinfo.class,
                                                ConfigurationTestUtils.getInputStreamForResource(this, "/users-utf8.xml"));
@@ -142,6 +219,16 @@ public class CastorUtilsTest extends TestCase {
         assertEquals("user name", "Admi\u00f1istrator", users.getUsers().getUser(0).getFullName());
     }
 
+    /**
+     * Test unmarshall resource with utf8.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testUnmarshallResourceWithUtf8() throws MarshalException, ValidationException, IOException {
         Userinfo users = CastorUtils.unmarshal(Userinfo.class,
                                                new InputStreamResource(

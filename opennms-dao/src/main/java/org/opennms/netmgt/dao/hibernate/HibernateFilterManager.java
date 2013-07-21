@@ -47,12 +47,14 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  */
 public class HibernateFilterManager implements FilterManager {
 
+    /** The m_template. */
     private HibernateTemplate m_template;
 
     /**
      * <p>
      * setSessionFactory
      * </p>
+     * .
      *
      * @param sessionFactory
      *            a {@link org.hibernate.SessionFactory} object.
@@ -69,6 +71,7 @@ public class HibernateFilterManager implements FilterManager {
      * <p>
      * disableAuthorizationFilter
      * </p>
+     * .
      */
     @Override
     public void disableAuthorizationFilter() {
@@ -95,6 +98,7 @@ public class HibernateFilterManager implements FilterManager {
      * <p>
      * enableAuthorizationFilter
      * </p>
+     * .
      *
      * @param authorizationGroups
      *            an array of {@link java.lang.String} objects.

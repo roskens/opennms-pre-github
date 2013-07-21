@@ -42,13 +42,24 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class AttributeMatchingResourceVisitorTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class AttributeMatchingResourceVisitorTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_attribute visitor. */
     private AttributeVisitor m_attributeVisitor = m_mocks.createMock(AttributeVisitor.class);
 
+    /**
+     * Test after properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSet() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);
@@ -56,6 +67,12 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         resourceVisitor.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no attribute visitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoAttributeVisitor() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
 
@@ -73,6 +90,12 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no resource type match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoResourceTypeMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
 
@@ -90,6 +113,12 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit with match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);
@@ -107,6 +136,12 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit without match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithoutMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);

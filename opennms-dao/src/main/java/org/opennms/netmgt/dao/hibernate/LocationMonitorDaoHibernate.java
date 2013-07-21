@@ -78,21 +78,17 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocationMonitor, Integer> implements
         LocationMonitorDao {
 
+    /** The m_monitoring locations configuration. */
     private MonitoringLocationsConfiguration m_monitoringLocationsConfiguration;
 
+    /** The m_monitoring location config resource. */
     private Resource m_monitoringLocationConfigResource;
 
+    /** The m_location defs. */
     private Map<String, LocationDef> m_locationDefs = new HashMap<String, LocationDef>();
 
     /**
-     * Constructor that also initializes the required XML configurations
-     *
-     * @throws IOException
-     *             if any.
-     * @throws MarshalException
-     *             if any.
-     * @throws ValidationException
-     *             if any.
+     * Constructor that also initializes the required XML configurations.
      */
     public LocationMonitorDaoHibernate() {
         super(OnmsLocationMonitor.class);
@@ -110,6 +106,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * findAllMonitoringLocationDefinitions
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -125,6 +122,13 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         return new ArrayList<OnmsMonitoringLocationDefinition>();
     }
 
+    /**
+     * Convert defs.
+     *
+     * @param defs
+     *            the defs
+     * @return the list
+     */
     private List<OnmsMonitoringLocationDefinition> convertDefs(final List<LocationDef> defs) {
         final List<OnmsMonitoringLocationDefinition> onmsDefs = new LinkedList<OnmsMonitoringLocationDefinition>();
         for (final LocationDef def : defs) {
@@ -133,6 +137,13 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         return onmsDefs;
     }
 
+    /**
+     * Convert def.
+     *
+     * @param def
+     *            the def
+     * @return the onms monitoring location definition
+     */
     private OnmsMonitoringLocationDefinition convertDef(final LocationDef def) {
         final OnmsMonitoringLocationDefinition onmsDef = new OnmsMonitoringLocationDefinition();
         onmsDef.setArea(def.getMonitoringArea());
@@ -165,6 +176,14 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         saveMonitoringConfig();
     }
 
+    /**
+     * Update location def.
+     *
+     * @param def
+     *            the def
+     * @param onmsDef
+     *            the onms def
+     */
     private void updateLocationDef(final LocationDef def, final OnmsMonitoringLocationDefinition onmsDef) {
         def.setMonitoringArea(onmsDef.getArea());
         def.setPollingPackageName(onmsDef.getPollingPackageName());
@@ -198,6 +217,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * saveMonitoringConfig
      * </p>
+     * .
      */
     protected void saveMonitoringConfig() {
         String xml = null;
@@ -222,11 +242,12 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * saveXml
      * </p>
+     * .
      *
      * @param xml
      *            a {@link java.lang.String} object.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void saveXml(final String xml) throws IOException {
         if (xml != null) {
@@ -241,30 +262,25 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
     }
 
     /**
+     * Find location def.
+     *
      * @param definitionName
-     * @return
+     *            the definition name
+     * @return the location def
      */
     private LocationDef findLocationDef(final String definitionName) {
         return m_locationDefs.get(definitionName);
     }
 
     /**
-     * Initializes all required XML configuration files
-     *
-     * @throws MarshalException
-     * @throws ValidationException
-     * @throws IOException
+     * Initializes all required XML configuration files.
      */
     private void initializeConfigurations() {
         initializeMonitoringLocationDefinition();
     }
 
     /**
-     * Initializes the monitoring locations configuration file
-     *
-     * @throws IOException
-     * @throws MarshalException
-     * @throws ValidationException
+     * Initializes the monitoring locations configuration file.
      */
     private void initializeMonitoringLocationDefinition() {
         m_monitoringLocationsConfiguration = CastorUtils.unmarshalWithTranslatedExceptions(MonitoringLocationsConfiguration.class,
@@ -273,6 +289,9 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         createLocationDefMap();
     }
 
+    /**
+     * Creates the location def map.
+     */
     private void createLocationDefMap() {
         if (m_monitoringLocationsConfiguration.getLocations() != null) {
             for (LocationDef def : m_monitoringLocationsConfiguration.getLocations().getLocationDefCollection()) {
@@ -285,6 +304,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * findAllLocationDefinitions
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -296,6 +316,9 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         return eDefs;
     }
 
+    /**
+     * Assert properties set.
+     */
     private void assertPropertiesSet() {
         if (m_monitoringLocationConfigResource == null && m_monitoringLocationsConfiguration == null) {
             throw new IllegalStateException("either " + "monitoringLocationConfigResource "
@@ -308,6 +331,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * getMonitoringLocationConfigResource
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -319,6 +343,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * setMonitoringLocationConfigResource
      * </p>
+     * .
      *
      * @param monitoringLocationResource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -337,6 +362,14 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         return locationDef == null ? null : convertDef(locationDef);
     }
 
+    /**
+     * Assert not null.
+     *
+     * @param monitoringLocationDefinitionName
+     *            the monitoring location definition name
+     * @param msg
+     *            the msg
+     */
     private void assertNotNull(final String monitoringLocationDefinitionName, String msg) {
         if (monitoringLocationDefinitionName == null) {
             throw new IllegalArgumentException(msg);
@@ -405,6 +438,7 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
      * <p>
      * getAllMostRecentStatusChanges
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -500,6 +534,9 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.LocationMonitorDao#getStatusChangesBetweenForApplications(java.util.Date, java.util.Date, java.util.Collection)
+     */
     @Override
     public Collection<OnmsLocationSpecificStatus> getStatusChangesBetweenForApplications(final Date startDate,
             final Date endDate, final Collection<String> applicationNames) {
@@ -543,6 +580,15 @@ public class LocationMonitorDaoHibernate extends AbstractDaoHibernate<OnmsLocati
         return getMostRecentStatusChangesForDateAndLocation(new Date(), locationName);
     }
 
+    /**
+     * Gets the most recent status changes for date and location.
+     *
+     * @param date
+     *            the date
+     * @param locationName
+     *            the location name
+     * @return the most recent status changes for date and location
+     */
     private Collection<OnmsLocationSpecificStatus> getMostRecentStatusChangesForDateAndLocation(final Date date,
             final String locationName) {
         return findObjects(OnmsLocationSpecificStatus.class, "from OnmsLocationSpecificStatus as status "

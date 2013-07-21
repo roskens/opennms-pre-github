@@ -40,13 +40,21 @@ import junit.framework.TestCase;
 import org.opennms.netmgt.model.MockServiceDaemon;
 import org.opennms.netmgt.model.ServiceInfo;
 
+/**
+ * The Class JmxDaemonStatusDaoTest.
+ */
 public class JmxDaemonStatusDaoTest extends TestCase {
+
+    /** The m bean server. */
     private static MBeanServer mBeanServer;
 
+    /** The object name. */
     private static ObjectName[] objectName = new ObjectName[4];
 
+    /** The names. */
     private static String[] names = { "test", "test2", "notifd", "test3" };
 
+    /** The jmx daemon status dao. */
     private JmxDaemonStatusDao jmxDaemonStatusDao;
     static {
         mBeanServer = MBeanServerFactory.createMBeanServer();
@@ -65,6 +73,9 @@ public class JmxDaemonStatusDaoTest extends TestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -79,6 +90,9 @@ public class JmxDaemonStatusDaoTest extends TestCase {
         jmxDaemonStatusDao.setMbeanServer(mBeanServer);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
@@ -87,6 +101,9 @@ public class JmxDaemonStatusDaoTest extends TestCase {
         }
     }
 
+    /**
+     * Test get all statuses.
+     */
     public void testGetAllStatuses() {
         // get all the services
         try {
@@ -103,16 +120,25 @@ public class JmxDaemonStatusDaoTest extends TestCase {
         }
     }
 
+    /**
+     * Test get service handle for valid service.
+     */
     public void testGetServiceHandleForValidService() {
         // get notifd service
         // assert the service returned is not null
     }
 
+    /**
+     * Test get service handle for invalid service.
+     */
     public void testGetServiceHandleForInvalidService() {
         // get nottobefound service
         // assert null return
     }
 
+    /**
+     * Test get service handle for null service str.
+     */
     public void testGetServiceHandleForNullServiceStr() {
         // get null service
         // assert null service passes exception

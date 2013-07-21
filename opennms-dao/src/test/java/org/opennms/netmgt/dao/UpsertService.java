@@ -31,12 +31,23 @@ package org.opennms.netmgt.dao;
 import org.opennms.netmgt.model.OnmsSnmpInterface;
 
 /**
- * UpsertService
+ * UpsertService.
  *
  * @author brozow
  */
 public interface UpsertService {
 
+    /**
+     * Upsert.
+     *
+     * @param nodeId
+     *            the node id
+     * @param snmpIface
+     *            the snmp iface
+     * @param sleep
+     *            the sleep
+     * @return the onms snmp interface
+     */
     public OnmsSnmpInterface upsert(int nodeId, OnmsSnmpInterface snmpIface, int sleep);
 
 }

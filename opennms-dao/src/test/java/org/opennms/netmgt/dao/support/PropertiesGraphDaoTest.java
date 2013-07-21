@@ -67,9 +67,15 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+/**
+ * The Class PropertiesGraphDaoTest.
+ */
 public class PropertiesGraphDaoTest {
+
+    /** The Constant s_emptyMap. */
     private static final Map<String, Resource> s_emptyMap = new HashMap<String, Resource>();
 
+    /** The Constant s_prefab. */
     static final String s_prefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
             + "reports=mib2.HCbits, mib2.bits, mib2.discards\n" + "\n" + "report.mib2.HCbits.name=Bits In/Out\n"
             + "report.mib2.HCbits.columns=ifHCInOctets,ifHCOutOctets\n" + "report.mib2.HCbits.type=interface\n"
@@ -106,11 +112,13 @@ public class PropertiesGraphDaoTest {
             + " GPRINT:octOut:AVERAGE:\"Avg  \\\\: %8.2lf %s\" \\\n"
             + " GPRINT:octOut:MIN:\"Min  \\\\: %8.2lf %s\" \\\n" + " GPRINT:octOut:MAX:\"Max  \\\\: %8.2lf %s\\\\n\"\n";
 
+    /** The Constant s_adhoc. */
     private static final String s_adhoc = "command.prefix=${install.rrdtool.bin} graph - --imgformat PNG --start {1} --end {2}\n"
             + "output.mime=image/png\n"
             + "adhoc.command.title=--title=\"{3}\"\n"
             + "adhoc.command.ds=DEF:{4}={0}:{5}:{6}\n" + "adhoc.command.graphline={7}:{4}#{8}:\"{9}\"\n";
 
+    /** The Constant s_responsePrefab. */
     private static final String s_responsePrefab = "command.prefix=foo\n" + "output.mime=foo\n" + "\n"
             + "reports=icmp\n" + "\n" + "report.icmp.name=ICMP\n" + "report.icmp.columns=icmp\n"
             + "report.icmp.type=responseTime\n" + "report.icmp.command=--title=\"ICMP Response Time\" \\\n"
@@ -119,6 +127,7 @@ public class PropertiesGraphDaoTest {
             + "  GPRINT:rt:AVERAGE:\" Avg  \\: %8.2lf %s\" \\\n" + "  GPRINT:rt:MIN:\"Min  \\\\: %8.2lf %s\" \\\n"
             + "  GPRINT:rt:MAX:\"Max  \\\\: %8.2lf %s\\\\n\"";
 
+    /** The Constant s_baseIncludePrefab. */
     private static final String s_baseIncludePrefab = "command.prefix=foo\n" + "output.mime=image/png\n" + "reports=\n"
             + // Empty for a simple base prefab, with only graphs included from
               // the sub directory
@@ -130,12 +139,23 @@ public class PropertiesGraphDaoTest {
                                                                                                // efficient
                                                                                                // testing
 
-    private static final String s_separateBitsGraph = "report.id=mib2.bits\n" + "report.name=Bits In/Out\n"
+    /**
+                                                                                                 * The
+                                                                                                 * Constant
+                                                                                                 * s_separateBitsGraph
+                                                                                                 * .
+                                                                                                 */
+                                                                                               private static final String s_separateBitsGraph = "report.id=mib2.bits\n" + "report.name=Bits In/Out\n"
             + "report.columns=ifInOctets,ifOutOctets\n" + "report.type=interface\n" + "report.externalValues=ifSpeed\n"
             + "report.command=--title=\"Bits In/Out\"\n"; // Just a title is
                                                           // enough for testing
 
-    private static final String s_separateHCBitsGraph = "report.id=mib2.HCbits\n" + "report.name=Bits In/Out\n"
+    /**
+                                                             * The Constant
+                                                             * s_separateHCBitsGraph
+                                                             * .
+                                                             */
+                                                          private static final String s_separateHCBitsGraph = "report.id=mib2.HCbits\n" + "report.name=Bits In/Out\n"
             + "report.columns=ifHCInOctets,ifHCOutOctets\n" + "report.type=interface\n"
             + "report.externalValues=ifSpeed\n" + "report.suppress=mib2.bits\n"
             + "report.command=--title=\"Bits In/Out (High Speed)\"\n"; // Just a
@@ -145,10 +165,17 @@ public class PropertiesGraphDaoTest {
                                                                        // for
                                                                        // testing
 
-    private static final String s_separateErrorsGraph = "report.id=mib2.errors\n" + "report.name=Errors In/Out\n"
+    /**
+                                                                         * The
+                                                                         * Constant
+                                                                         * s_separateErrorsGraph
+                                                                         * .
+                                                                         */
+                                                                       private static final String s_separateErrorsGraph = "report.id=mib2.errors\n" + "report.name=Errors In/Out\n"
             + "report.columns=ifIfErrors,ifOutErrors\n" + "report.type=interface\n"
             + "report.propertiesValues=ifSpeed\n" + "report.command=--title=\"Erros In/Out\"\n";
 
+    /** The Constant s_includedMultiGraph1. */
     private static final String s_includedMultiGraph1 = "reports=mib2.discards,mib2.errors\n"
             + "report.mib2.discards.name=Discards In/Out\n"
             + "report.mib2.discards.columns=ifInDiscards,ifOutDiscards\n" + "report.mib2.discards.type=interface\n"
@@ -158,6 +185,7 @@ public class PropertiesGraphDaoTest {
             + "report.mib2.errors.type=interface\n" + "report.mib2.errors.propertiesValues=ifSpeed\n"
             + "report.mib2.errors.command=--title=\"Discards In/Out\"\n";
 
+    /** The Constant s_includedMultiGraph2. */
     private static final String s_includedMultiGraph2 = "reports=mib2.bits,mib2.HCbits\n"
             + "report.mib2.bits.name=Bits In/Out\n" + "report.mib2.bits.columns=ifInOctets,ifOutOctets\n"
             + "report.mib2.bits.type=interface\n" + "report.mib2.bits.externalValues=ifSpeed\n"
@@ -175,7 +203,13 @@ public class PropertiesGraphDaoTest {
     // A base file, with an include, that defines a single graph, with some
     // unusual and incorrect details
     // that will be overridden by the included graph
-    private static final String s_mib2bitsBasePrefab = "command.prefix=foo\n" + "output.mime=image/png\n"
+    /**
+                                                                                     * The
+                                                                                     * Constant
+                                                                                     * s_mib2bitsBasePrefab
+                                                                                     * .
+                                                                                     */
+                                                                                   private static final String s_mib2bitsBasePrefab = "command.prefix=foo\n" + "output.mime=image/png\n"
             + "include.directory=snmp-graph.properties.d\n" + "reports=mib2.bits\n"
             + "report.mib2.bits.name=Wrong Name\n" + "report.mib2.bits.columns=wrongColumn1,wrongColumn2\n"
             + "report.mib2.bits.type=node\n" + "report.mib2.bits.externalValues=fooBar\n"
@@ -200,18 +234,30 @@ public class PropertiesGraphDaoTest {
             + "report.mib2.discards.propertiesValues=ifSpeed\n"
             + "report.mib2.discards.command=--title=\"Discards In/Out\" \n";
 
+    /** The m_graphs. */
     private Map<String, FileReloadContainer<PrefabGraph>> m_graphs;
 
+    /** The m_dao. */
     private PropertiesGraphDao m_dao;
 
+    /** The test specific logging test. */
     private boolean testSpecificLoggingTest = false;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator = null;
 
+    /** The m_output stream. */
     private FileOutputStream m_outputStream = null;
 
+    /** The m_writer. */
     private Writer m_writer = null;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(true);
@@ -229,6 +275,12 @@ public class PropertiesGraphDaoTest {
         m_fileAnticipator = new FileAnticipator();
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         IOUtils.closeQuietly(m_writer);
@@ -251,6 +303,9 @@ public class PropertiesGraphDaoTest {
         MockLogAppender.resetEvents();
     }
 
+    /**
+     * Test compare to less than.
+     */
     @Test
     public void testCompareToLessThan() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -260,6 +315,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("compareTo", -1, bits.compareTo(discards));
     }
 
+    /**
+     * Test compare to greater than.
+     */
     @Test
     public void testCompareToGreaterThan() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -270,6 +328,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("compareTo", 1, discards.compareTo(bits));
     }
 
+    /**
+     * Test compare to equals.
+     */
     @Test
     public void testCompareToEquals() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -280,6 +341,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("compareTo", 0, bits.compareTo(bits2));
     }
 
+    /**
+     * Test get name.
+     */
     @Test
     public void testGetName() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -287,6 +351,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getName", "mib2.bits", bits.getName());
     }
 
+    /**
+     * Test get title.
+     */
     @Test
     public void testGetTitle() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -294,6 +361,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getTitle", "Bits In/Out", bits.getTitle());
     }
 
+    /**
+     * Test get order.
+     */
     @Test
     public void testGetOrder() {
         PrefabGraph bits = m_graphs.get("mib2.HCbits").getObject();
@@ -301,6 +371,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getOrder", 0, bits.getOrder());
     }
 
+    /**
+     * Test get columns.
+     */
     @Test
     public void testGetColumns() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -311,6 +384,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getColumns()[1]", "ifOutOctets", columns[1]);
     }
 
+    /**
+     * Test get command.
+     */
     @Test
     public void testGetCommand() {
         String expectedCommand = "--title=\"Bits In/Out\" " + "DEF:octIn={rrd1}:ifInOctets:AVERAGE "
@@ -327,6 +403,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getCommand", expectedCommand, bits.getCommand());
     }
 
+    /**
+     * Test get external values.
+     */
     @Test
     public void testGetExternalValues() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -336,6 +415,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getExternalValues()[0]", "ifSpeed", values[0]);
     }
 
+    /**
+     * Test get external values empty.
+     */
     @Test
     public void testGetExternalValuesEmpty() {
         PrefabGraph discards = m_graphs.get("mib2.discards").getObject();
@@ -343,6 +425,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getExternalValues().length", 0, discards.getExternalValues().length);
     }
 
+    /**
+     * Test get properties values.
+     */
     @Test
     public void testGetPropertiesValues() {
         PrefabGraph discards = m_graphs.get("mib2.discards").getObject();
@@ -352,6 +437,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getPropertiesValues()[0]", "ifSpeed", values[0]);
     }
 
+    /**
+     * Test get properties values empty.
+     */
     @Test
     public void testGetPropertiesValuesEmpty() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -359,6 +447,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getPropertiesValues().length", 0, bits.getPropertiesValues().length);
     }
 
+    /**
+     * Test get types.
+     */
     @Test
     public void testGetTypes() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -368,6 +459,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("getTypes 1", "interface", bits.getTypes()[0]);
     }
 
+    /**
+     * Test get description.
+     */
     @Test
     public void testGetDescription() {
         PrefabGraph bits = m_graphs.get("mib2.bits").getObject();
@@ -375,6 +469,12 @@ public class PropertiesGraphDaoTest {
         assertEquals("getDescription", null, bits.getDescription());
     }
 
+    /**
+     * Test load snmp graph properties.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSnmpGraphProperties() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -382,6 +482,12 @@ public class PropertiesGraphDaoTest {
                            new FileSystemResource(ConfigurationTestUtils.getFileForConfigFile("snmp-graph.properties")));
     }
 
+    /**
+     * Test load snmp adhoc graph properties.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadSnmpAdhocGraphProperties() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -389,12 +495,24 @@ public class PropertiesGraphDaoTest {
                                 ConfigurationTestUtils.getInputStreamForConfigFile("snmp-adhoc-graph.properties"));
     }
 
+    /**
+     * Test load response time graph properties.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadResponseTimeGraphProperties() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
         dao.loadProperties("foo", ConfigurationTestUtils.getInputStreamForConfigFile("response-graph.properties"));
     }
 
+    /**
+     * Test load response time adhoc graph properties.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testLoadResponseTimeAdhocGraphProperties() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -402,6 +520,12 @@ public class PropertiesGraphDaoTest {
                                 ConfigurationTestUtils.getInputStreamForConfigFile("response-adhoc-graph.properties"));
     }
 
+    /**
+     * Test prefab properties reload.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrefabPropertiesReload() throws Exception {
         File f = m_fileAnticipator.tempFile("snmp-graph.properties");
@@ -446,6 +570,12 @@ public class PropertiesGraphDaoTest {
         assertNotNull("could not get mib2.discards report after rewriting config file", type.getQuery("mib2.discards"));
     }
 
+    /**
+     * Test prefab properties reload bad.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrefabPropertiesReloadBad() throws Exception {
         MockLogAppender.setupLogging(false, "DEBUG");
@@ -487,6 +617,12 @@ public class PropertiesGraphDaoTest {
         MockLogAppender.assertLogMatched(Level.ERROR, "Could not reload configuration");
     }
 
+    /**
+     * Test adhoc properties reload.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testAdhocPropertiesReload() throws Exception {
         File f = m_fileAnticipator.tempFile("snmp-adhoc-graph.properties");
@@ -519,6 +655,12 @@ public class PropertiesGraphDaoTest {
         assertEquals("image type isn't correct", "image/png", type.getOutputMimeType());
     }
 
+    /**
+     * Test no type.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNoType() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -538,6 +680,12 @@ public class PropertiesGraphDaoTest {
         assertFalse("should not have responseTime type", graph.hasMatchingType("responseTime"));
     }
 
+    /**
+     * Test one type.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testOneType() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -561,6 +709,12 @@ public class PropertiesGraphDaoTest {
                    graph.hasMatchingType("responseTime", "distributedStatus"));
     }
 
+    /**
+     * Test two types.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTwoTypes() throws Exception {
         PropertiesGraphDao dao = createPropertiesGraphDao(s_emptyMap, s_emptyMap);
@@ -584,6 +738,9 @@ public class PropertiesGraphDaoTest {
         assertTrue("should have distributedStatus type", graph.hasMatchingType("distributedStatus"));
     }
 
+    /**
+     * Test get prefab graphs for resource.
+     */
     @Test
     public void testGetPrefabGraphsForResource() {
         MockResourceType resourceType = new MockResourceType();
@@ -598,6 +755,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("prefab graph[0] name", "mib2.bits", graphs[0].getName());
     }
 
+    /**
+     * Test get prefab graphs for resource with suppress.
+     */
     @Test
     public void testGetPrefabGraphsForResourceWithSuppress() {
         MockResourceType resourceType = new MockResourceType();
@@ -614,6 +774,9 @@ public class PropertiesGraphDaoTest {
         assertEquals("prefab graph[0] name", "mib2.HCbits", graphs[0].getName());
     }
 
+    /**
+     * Test get prefab graphs for resource with suppress unused.
+     */
     @Test
     public void testGetPrefabGraphsForResourceWithSuppressUnused() {
         MockResourceType resourceType = new MockResourceType();
@@ -628,6 +791,17 @@ public class PropertiesGraphDaoTest {
         assertEquals("prefab graph[0] name", "mib2.HCbits", graphs[0].getName());
     }
 
+    /**
+     * Creates the properties graph dao.
+     *
+     * @param prefabConfigs
+     *            the prefab configs
+     * @param adhocConfigs
+     *            the adhoc configs
+     * @return the properties graph dao
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public PropertiesGraphDao createPropertiesGraphDao(Map<String, Resource> prefabConfigs,
             Map<String, Resource> adhocConfigs) throws IOException {
         PropertiesGraphDao dao = new PropertiesGraphDao();
@@ -641,7 +815,10 @@ public class PropertiesGraphDaoTest {
 
     /**
      * Test that individual graph files in an include directory are loaded as
-     * expected
+     * expected.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testBasicPrefabConfigDirectorySingleReports() throws IOException {
@@ -692,7 +869,10 @@ public class PropertiesGraphDaoTest {
 
     /**
      * Test that properties files in an included directory with
-     * multiple graphs defined in them are loaded correctly
+     * multiple graphs defined in them are loaded correctly.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testPrefabConfigDirectoryMultiReports() throws IOException {
@@ -763,7 +943,10 @@ public class PropertiesGraphDaoTest {
     /**
      * Test that properties files in an included directory with
      * multiple graphs defined in some, and single graphs in others, are loaded
-     * correctly
+     * correctly.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     @Test
     public void testPrefabConfigDirectoryMixedSingleAndMultiReports() throws IOException {
@@ -844,7 +1027,8 @@ public class PropertiesGraphDaoTest {
      * override
      * a report in the main properties file.
      *
-     * @throws IOException
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testPrefabConfigDirectorySingleReportOverride() throws Exception {
@@ -920,6 +1104,12 @@ public class PropertiesGraphDaoTest {
         Assert.assertArrayEquals(columns3, mib2Bits.getColumns());
     }
 
+    /**
+     * Test prefab properties include directory reload single reports.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPrefabPropertiesIncludeDirectoryReloadSingleReports() throws Exception {
         File rootFile = m_fileAnticipator.tempFile("snmp-graph.properties");
@@ -968,6 +1158,7 @@ public class PropertiesGraphDaoTest {
      * as well?
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testPrefabPropertiesIncludeDirectoryBadReloadSingleReport() throws Exception {
@@ -1031,6 +1222,7 @@ public class PropertiesGraphDaoTest {
      * as well?
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testPrefabGraphPartlyBorkedConfig() throws Exception {
@@ -1063,6 +1255,7 @@ public class PropertiesGraphDaoTest {
      * (early code didn't do this right)
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testAddingIncludeDirectory() throws Exception {
@@ -1121,6 +1314,7 @@ public class PropertiesGraphDaoTest {
      * will be picked up. Requires the include.directory.rescan to be set low
      *
      * @throws Exception
+     *             the exception
      */
     @Test
     public void testIncludeDirectoryNewFile() throws Exception {
@@ -1162,6 +1356,12 @@ public class PropertiesGraphDaoTest {
                                                           // have been picked up
     }
 
+    /**
+     * Test include directory include missing report id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testIncludeDirectoryIncludeMissingReportId() throws Exception {
         // We're expecting an ERROR log, and will be most disappointed if
@@ -1202,7 +1402,10 @@ public class PropertiesGraphDaoTest {
      * It would be nice if having found a new file in the include directory that
      * was malformed, that
      * when it is fixed, it is picked up immediately, rather than having to wait
-     * for the next rescan interval
+     * for the next rescan interval.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testIncludeNewFileMalformedContentThenFixed() throws Exception {
@@ -1290,9 +1493,10 @@ public class PropertiesGraphDaoTest {
      * load correctly
      * Then also check that on setting the reload interval high, that the borked
      * graph is
-     * noticed immediately when we fix it
+     * noticed immediately when we fix it.
      *
-     * @throws IOException
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testPrefabConfigDirectoryPartlyBorkedMultiReports() throws Exception {

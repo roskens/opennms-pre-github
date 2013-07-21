@@ -44,6 +44,13 @@ import org.springframework.core.io.InputStreamResource;
  * @see DefaultStatisticsDaemonConfigDao
  */
 public class DefaultStatisticsDaemonConfigDaoTest extends TestCase {
+
+    /**
+     * Test after properties set with good config file.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         DefaultStatisticsDaemonConfigDao dao = new DefaultStatisticsDaemonConfigDao();
 
@@ -52,6 +59,12 @@ public class DefaultStatisticsDaemonConfigDaoTest extends TestCase {
         dao.afterPropertiesSet();
     }
 
+    /**
+     * Test get reports.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetReports() throws Exception {
         DefaultStatisticsDaemonConfigDao dao = new DefaultStatisticsDaemonConfigDao();
 

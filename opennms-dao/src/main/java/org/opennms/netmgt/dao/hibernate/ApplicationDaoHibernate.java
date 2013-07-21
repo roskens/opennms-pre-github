@@ -31,6 +31,9 @@ package org.opennms.netmgt.dao.hibernate;
 import org.opennms.netmgt.dao.api.ApplicationDao;
 import org.opennms.netmgt.model.OnmsApplication;
 
+/**
+ * The Class ApplicationDaoHibernate.
+ */
 public class ApplicationDaoHibernate extends AbstractDaoHibernate<OnmsApplication, Integer> implements ApplicationDao {
 
     /**

@@ -44,8 +44,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class AttributeMatchingResourceVisitor implements ResourceVisitor, InitializingBean {
+
+    /** The m_attribute visitor. */
     private AttributeVisitor m_attributeVisitor;
 
+    /** The m_attribute match. */
     private String m_attributeMatch;
 
     /** {@inheritDoc} */
@@ -62,6 +65,7 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -75,6 +79,7 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
      * <p>
      * getAttributeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +91,7 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
      * <p>
      * setAttributeMatch
      * </p>
+     * .
      *
      * @param attributeMatch
      *            a {@link java.lang.String} object.
@@ -98,6 +104,7 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
      * <p>
      * getAttributeVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AttributeVisitor} object.
      */
@@ -109,6 +116,7 @@ public class AttributeMatchingResourceVisitor implements ResourceVisitor, Initia
      * <p>
      * setAttributeVisitor
      * </p>
+     * .
      *
      * @param attributeVisitor
      *            a {@link org.opennms.netmgt.model.AttributeVisitor} object.

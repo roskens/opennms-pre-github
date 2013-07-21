@@ -49,16 +49,22 @@ import org.slf4j.LoggerFactory;
  */
 public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SiblingColumnStorageStrategy.class);
 
+    /** The Constant PARAM_SIBLING_COLUMN_NAME. */
     private static final String PARAM_SIBLING_COLUMN_NAME = "sibling-column-name";
 
+    /** The m_sibling column name. */
     private String m_siblingColumnName;
 
+    /** The Constant PARAM_REPLACE_FIRST. */
     private static final String PARAM_REPLACE_FIRST = "replace-first";
 
+    /** The Constant PARAM_REPLACE_ALL. */
     private static final String PARAM_REPLACE_ALL = "replace-all";
 
+    /** The m_replace ops. */
     private List<StringReplaceOperation> m_replaceOps;
 
     /**

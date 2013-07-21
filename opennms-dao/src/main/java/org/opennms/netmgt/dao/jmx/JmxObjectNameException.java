@@ -30,8 +30,12 @@ package org.opennms.netmgt.dao.jmx;
 
 import org.springframework.dao.UncategorizedDataAccessException;
 
+/**
+ * The Class JmxObjectNameException.
+ */
 public class JmxObjectNameException extends UncategorizedDataAccessException {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7210917837913419033L;
 
     /**

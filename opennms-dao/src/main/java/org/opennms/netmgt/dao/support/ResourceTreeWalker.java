@@ -45,14 +45,18 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ResourceTreeWalker implements InitializingBean {
+
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_visitor. */
     private ResourceVisitor m_visitor;
 
     /**
      * <p>
      * walk
      * </p>
+     * .
      */
     public void walk() {
         walk(m_resourceDao.findTopLevelResources());
@@ -62,6 +66,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * walk
      * </p>
+     * .
      *
      * @param resources
      *            a {@link java.util.Collection} object.
@@ -77,6 +82,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -88,6 +94,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -99,6 +106,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -111,6 +119,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * getVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -122,6 +131,7 @@ public class ResourceTreeWalker implements InitializingBean {
      * <p>
      * setVisitor
      * </p>
+     * .
      *
      * @param visitor
      *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.

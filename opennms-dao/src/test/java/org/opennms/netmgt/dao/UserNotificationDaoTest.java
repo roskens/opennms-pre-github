@@ -57,6 +57,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class UserNotificationDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -68,34 +71,49 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class UserNotificationDaoTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_user notification dao. */
     @Autowired
     private UserNotificationDao m_userNotificationDao;
 
+    /** The m_notification dao. */
     @Autowired
     private NotificationDao m_notificationDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test save user notification.
+     */
     @Test
     @Transactional
     public void testSaveUserNotification() {

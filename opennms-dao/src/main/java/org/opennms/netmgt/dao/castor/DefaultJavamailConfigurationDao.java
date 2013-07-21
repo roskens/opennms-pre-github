@@ -81,6 +81,7 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * getDefaultReadmailConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
      *         object.
@@ -109,6 +110,7 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * getReadmailConfigs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -121,6 +123,7 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * getDefaultSendmailConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig}
      *         object.
@@ -149,6 +152,7 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * getSendmailConfigs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -175,6 +179,7 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * getEnd2EndConfigs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -187,9 +192,10 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * verifyMarshaledConfiguration
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public void verifyMarshaledConfiguration() throws IllegalStateException {
@@ -204,9 +210,10 @@ public class DefaultJavamailConfigurationDao extends
      * <p>
      * reloadConfiguration
      * </p>
+     * .
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {

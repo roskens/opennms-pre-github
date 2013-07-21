@@ -68,23 +68,38 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+/**
+ * The Class DefaultResourceDaoTest.
+ */
 public class DefaultResourceDaoTest extends TestCase {
+
+    /** The m_easy mock utils. */
     private EasyMockUtils m_easyMockUtils;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_collectd config. */
     private CollectdConfigFactory m_collectdConfig;
 
+    /** The m_data collection config dao. */
     private DataCollectionConfigDao m_dataCollectionConfigDao;
 
+    /** The m_resource dao. */
     private DefaultResourceDao m_resourceDao;
 
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -121,11 +136,24 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() {
         m_fileAnticipator.tearDown();
     }
 
+    /**
+     * Sets the up collectd config factory.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void setUpCollectdConfigFactory() throws MarshalException, ValidationException, IOException {
         InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this,
                                                                               "/collectdconfiguration-testdata.xml");
@@ -133,12 +161,21 @@ public class DefaultResourceDaoTest extends TestCase {
         stream.close();
     }
 
+    /**
+     * Test get resource by id new empty.
+     */
     public void testGetResourceByIdNewEmpty() {
         m_easyMockUtils.replayAll();
         m_resourceDao.getResourceById("");
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test get resource by id new top level only.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceByIdNewTopLevelOnly() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.get(node.getId())).andReturn(node).times(1);
@@ -156,6 +193,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("resource should not be null", resource);
     }
 
+    /**
+     * Test get resource by id new two level.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceByIdNewTwoLevel() throws Exception {
         OnmsIpInterface ip = createIpInterfaceOnNode();
         expect(m_nodeDao.get(ip.getNode().getId())).andReturn(ip.getNode()).times(3);
@@ -174,6 +217,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("resource should not be null", resource);
     }
 
+    /**
+     * Test get top level resource node exists.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetTopLevelResourceNodeExists() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.get(node.getId())).andReturn(node).times(1);
@@ -191,6 +240,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get top level resource node source exists.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetTopLevelResourceNodeSourceExists() throws Exception {
         OnmsNode node = createNode();
         expect(m_nodeDao.findByForeignId("source1", "123")).andReturn(node).times(1);
@@ -208,6 +263,9 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get top level resource node does not exist.
+     */
     public void testGetTopLevelResourceNodeDoesNotExist() {
         expect(m_nodeDao.get(2)).andReturn(null);
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -227,6 +285,12 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get top level resource node exists no child resources.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetTopLevelResourceNodeExistsNoChildResources() throws Exception {
         OnmsNode node = createNode(2, "Node Two");
 
@@ -257,6 +321,12 @@ public class DefaultResourceDaoTest extends TestCase {
 
     }
 
+    /**
+     * Test get top level resource domain exists.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetTopLevelResourceDomainExists() throws IOException {
         File snmp = m_fileAnticipator.tempDir("snmp");
         File domain = m_fileAnticipator.tempDir(snmp, "example1");
@@ -270,6 +340,9 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get top level resource domain does not exist in collectd config.
+     */
     public void testGetTopLevelResourceDomainDoesNotExistInCollectdConfig() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new ObjectRetrievalFailureException(OnmsResource.class, "bogus",
@@ -289,6 +362,13 @@ public class DefaultResourceDaoTest extends TestCase {
 
     // We don't need to test everything that could cause the filter to fail...
     // that's the job of a filter test case
+    /**
+     * Test get top level resource domain does not exist no interface
+     * directories.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetTopLevelResourceDomainDoesNotExistNoInterfaceDirectories() throws IOException {
         File snmp = m_fileAnticipator.tempDir("snmp");
         m_fileAnticipator.tempDir(snmp, "example1");
@@ -309,6 +389,9 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get top level resource with invalid resource type.
+     */
     public void testGetTopLevelResourceWithInvalidResourceType() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new ObjectRetrievalFailureException("Top-level resource type of 'bogus' is unknown", "bogus"));
@@ -323,6 +406,12 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get resource domain interface exists.
+     *
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetResourceDomainInterfaceExists() throws IOException {
         File snmp = m_fileAnticipator.tempDir("snmp");
         File domain = m_fileAnticipator.tempDir(snmp, "example1");
@@ -338,6 +427,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get resource no node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceNoNode() throws Exception {
         String resourceId = OnmsResource.createResourceId("node", "1", "nodeSnmp", "");
 
@@ -349,6 +444,12 @@ public class DefaultResourceDaoTest extends TestCase {
         m_easyMockUtils.verifyAll();
     }
 
+    /**
+     * Test find node resources with response time.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeResourcesWithResponseTime() throws Exception {
         List<OnmsNode> nodes = new LinkedList<OnmsNode>();
         OnmsNode node = createNode();
@@ -375,6 +476,12 @@ public class DefaultResourceDaoTest extends TestCase {
 
     // XXX this is a false positive match because there isn't an entry in the DB
     // for this distributed data
+    /**
+     * Test find node resources with distributed response time.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeResourcesWithDistributedResponseTime() throws Exception {
         List<OnmsNode> nodes = new LinkedList<OnmsNode>();
         OnmsNode node = createNode();
@@ -401,6 +508,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("resource list size", 1, resources.size());
     }
 
+    /**
+     * Test find node resources with node snmp.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeResourcesWithNodeSnmp() throws Exception {
         List<OnmsNode> nodes = new LinkedList<OnmsNode>();
         OnmsNode node = createNode();
@@ -425,6 +538,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("resource list size", 1, resources.size());
     }
 
+    /**
+     * Test find node resources with node interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeResourcesWithNodeInterface() throws Exception {
         List<OnmsNode> nodes = new LinkedList<OnmsNode>();
         OnmsNode node = createNode();
@@ -450,6 +569,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("resource list size", 1, resources.size());
     }
 
+    /**
+     * Test get resource for node.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceForNode() throws Exception {
         OnmsNode node = createNode();
 
@@ -468,6 +593,9 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get resource for node with null onms node.
+     */
     public void testGetResourceForNodeWithNullOnmsNode() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("node argument must not be null"));
@@ -482,6 +610,12 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get resource for ip interface.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceForIpInterface() throws Exception {
         OnmsNode node = createNode();
         OnmsIpInterface ip = createIpInterface();
@@ -501,6 +635,9 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get resource for ip interface with null onms ip interface.
+     */
     public void testGetResourceForIpInterfaceWithNullOnmsIpInterface() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("ipInterface argument must not be null"));
@@ -515,6 +652,12 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get resource for ip interface with null node on onms ip interface.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     public void testGetResourceForIpInterfaceWithNullNodeOnOnmsIpInterface() throws UnknownHostException {
         OnmsIpInterface ip = createIpInterface();
 
@@ -531,6 +674,12 @@ public class DefaultResourceDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test get resource for ip interface with location monitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceForIpInterfaceWithLocationMonitor() throws Exception {
         OnmsIpInterface ip = createIpInterfaceOnNode();
 
@@ -557,6 +706,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should not be null", resource);
     }
 
+    /**
+     * Test get resource for node with data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceForNodeWithData() throws Exception {
         OnmsNode node = createNode();
 
@@ -575,6 +730,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should exist", resource);
     }
 
+    /**
+     * Test find node source directories exist.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeSourceDirectoriesExist() throws Exception {
 
         File responseDir = m_fileAnticipator.tempDir("snmp");
@@ -591,6 +752,12 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("Directories set size is 1", 1, directories.size());
     }
 
+    /**
+     * Test find node source directories no rrd files.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFindNodeSourceDirectoriesNoRrdFiles() throws Exception {
         File responseDir = m_fileAnticipator.tempDir("snmp");
         File forSrcDir = m_fileAnticipator.tempDir(responseDir, "fs");
@@ -606,6 +773,9 @@ public class DefaultResourceDaoTest extends TestCase {
         assertEquals("Directories set size is 0", 0, directories.size());
     }
 
+    /**
+     * Test get resource for node no data.
+     */
     public void testGetResourceForNodeNoData() {
         OnmsNode node = createNode();
 
@@ -620,10 +790,24 @@ public class DefaultResourceDaoTest extends TestCase {
         assertNotNull("Resource should exist", resource);
     }
 
+    /**
+     * Creates the node.
+     *
+     * @return the onms node
+     */
     private OnmsNode createNode() {
         return createNode(1, "Node One");
     }
 
+    /**
+     * Creates the node.
+     *
+     * @param id
+     *            the id
+     * @param label
+     *            the label
+     * @return the onms node
+     */
     private OnmsNode createNode(int id, String label) {
         OnmsNode node = new OnmsNode();
         node.setId(id);
@@ -631,12 +815,26 @@ public class DefaultResourceDaoTest extends TestCase {
         return node;
     }
 
+    /**
+     * Creates the ip interface.
+     *
+     * @return the onms ip interface
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private OnmsIpInterface createIpInterface() throws UnknownHostException {
         OnmsIpInterface ip = new OnmsIpInterface();
         ip.setIpAddress(InetAddressUtils.addr("192.168.1.1"));
         return ip;
     }
 
+    /**
+     * Creates the ip interface on node.
+     *
+     * @return the onms ip interface
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private OnmsIpInterface createIpInterfaceOnNode() throws UnknownHostException {
         OnmsIpInterface ip = createIpInterface();
         createNode().addIpInterface(ip);

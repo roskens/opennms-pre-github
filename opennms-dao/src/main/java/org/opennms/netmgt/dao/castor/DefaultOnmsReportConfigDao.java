@@ -39,6 +39,9 @@ import org.opennms.netmgt.config.reporting.opennms.OpennmsReports;
 import org.opennms.netmgt.config.reporting.opennms.Report;
 import org.opennms.netmgt.dao.api.OnmsReportConfigDao;
 
+/**
+ * The Class DefaultOnmsReportConfigDao.
+ */
 public class DefaultOnmsReportConfigDao extends AbstractCastorConfigDao<OpennmsReports, List<Report>> implements
         OnmsReportConfigDao {
 
@@ -101,6 +104,13 @@ public class DefaultOnmsReportConfigDao extends AbstractCastorConfigDao<OpennmsR
         return null;
     }
 
+    /**
+     * Gets the report.
+     *
+     * @param id
+     *            the id
+     * @return the report
+     */
     private Report getReport(String id) {
         for (Report report : getContainer().getObject()) {
             if (id.equals(report.getId())) {

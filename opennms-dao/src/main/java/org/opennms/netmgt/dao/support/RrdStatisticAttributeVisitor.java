@@ -45,14 +45,20 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class RrdStatisticAttributeVisitor implements AttributeVisitor, InitializingBean {
+
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao;
 
+    /** The m_consolidation function. */
     private String m_consolidationFunction;
 
+    /** The m_start time. */
     private Long m_startTime;
 
+    /** The m_end time. */
     private Long m_endTime;
 
+    /** The m_statistic visitor. */
     private AttributeStatisticVisitor m_statisticVisitor;
 
     /** {@inheritDoc} */
@@ -84,6 +90,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -100,6 +107,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * getRrdDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.RrdDao} object.
      */
@@ -111,6 +119,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * setRrdDao
      * </p>
+     * .
      *
      * @param rrdDao
      *            a {@link org.opennms.netmgt.dao.api.RrdDao} object.
@@ -123,6 +132,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * getStatisticVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.AttributeStatisticVisitor}
      *         object.
@@ -135,6 +145,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * setStatisticVisitor
      * </p>
+     * .
      *
      * @param statisticVisitor
      *            a {@link org.opennms.netmgt.model.AttributeStatisticVisitor}
@@ -148,6 +159,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * getConsolidationFunction
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,6 +171,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * setConsolidationFunction
      * </p>
+     * .
      *
      * @param consolidationFunction
      *            a {@link java.lang.String} object.
@@ -171,6 +184,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * getEndTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -182,6 +196,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * setEndTime
      * </p>
+     * .
      *
      * @param endTime
      *            a {@link java.lang.Long} object.
@@ -194,6 +209,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * getStartTime
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -205,6 +221,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
      * <p>
      * setStartTime
      * </p>
+     * .
      *
      * @param startTime
      *            a {@link java.lang.Long} object.

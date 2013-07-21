@@ -53,6 +53,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class MemoDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -64,32 +67,45 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class MemoDaoTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_memo dao. */
     @Autowired
     private MemoDao m_memoDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         // TODO fix BeanUtils import
         // BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -103,6 +119,9 @@ public class MemoDaoTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test add sticky memo to existing alarm.
+     */
     @Test
     @Transactional
     public void testAddStickyMemoToExistingAlarm() {

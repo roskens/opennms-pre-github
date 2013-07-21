@@ -46,6 +46,9 @@ import org.opennms.netmgt.model.ServiceSelector;
 import org.opennms.netmgt.model.outage.OutageSummary;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
+/**
+ * The Class OutageDaoHibernate.
+ */
 public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer> implements OutageDao {
 
     /**
@@ -61,6 +64,7 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
      * <p>
      * currentOutageCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -73,6 +77,7 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
      * <p>
      * currentOutages
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

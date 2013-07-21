@@ -50,15 +50,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+/**
+ * The Class DistributedStatusResourceType.
+ */
 public class DistributedStatusResourceType implements OnmsResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DistributedStatusResourceType.class);
 
-    /** Constant <code>DISTRIBUTED_DIRECTORY="distributed"</code> */
+    /** Constant <code>DISTRIBUTED_DIRECTORY="distributed"</code>. */
     public static final String DISTRIBUTED_DIRECTORY = "distributed";
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
     /**
@@ -81,6 +87,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -93,6 +100,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +143,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * <p>
      * getResourcesForLocationMonitor
      * </p>
+     * .
      *
      * @param locationMonitorId
      *            a int.
@@ -174,6 +183,17 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         return resources;
     }
 
+    /**
+     * Creates the resource.
+     *
+     * @param definitionName
+     *            the definition name
+     * @param locationMonitorId
+     *            the location monitor id
+     * @param intf
+     *            the intf
+     * @return the onms resource
+     */
     private OnmsResource createResource(String definitionName, int locationMonitorId, String intf) {
         String monitor = definitionName + "-" + locationMonitorId;
 
@@ -236,6 +256,13 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * }
      */
 
+    /**
+     * Gets the definition name from location monitor directory.
+     *
+     * @param dir
+     *            the dir
+     * @return the definition name from location monitor directory
+     */
     private String getDefinitionNameFromLocationMonitorDirectory(String dir) {
         int index = dir.indexOf("-");
         if (index == -1) {
@@ -245,6 +272,13 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         return dir.substring(0, index);
     }
 
+    /**
+     * Gets the location monitor id from location monitor directory.
+     *
+     * @param dir
+     *            the dir
+     * @return the location monitor id from location monitor directory
+     */
     private int getLocationMonitorIdFromLocationMonitorDirectory(String dir) {
         int index = dir.indexOf("-");
         if (index == -1) {
@@ -258,6 +292,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * <p>
      * getInterfaceDirectory
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -273,6 +308,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
      * <p>
      * getRelativeInterfacePath
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -285,11 +321,33 @@ public class DistributedStatusResourceType implements OnmsResourceType {
                 + Integer.toString(id) + File.separator + ipAddr;
     }
 
+    /**
+     * Gets the location monitor directory.
+     *
+     * @param locationMonitorId
+     *            the location monitor id
+     * @param verify
+     *            the verify
+     * @return the location monitor directory
+     * @throws ObjectRetrievalFailureException
+     *             the object retrieval failure exception
+     */
     private File getLocationMonitorDirectory(int locationMonitorId, boolean verify)
             throws ObjectRetrievalFailureException {
         return getLocationMonitorDirectory(Integer.toString(locationMonitorId), verify);
     }
 
+    /**
+     * Gets the location monitor directory.
+     *
+     * @param locationMonitorId
+     *            the location monitor id
+     * @param verify
+     *            the verify
+     * @return the location monitor directory
+     * @throws ObjectRetrievalFailureException
+     *             the object retrieval failure exception
+     */
     private File getLocationMonitorDirectory(String locationMonitorId, boolean verify)
             throws ObjectRetrievalFailureException {
         File locationMonitorDirectory = new File(m_resourceDao.getRrdDirectory(verify), locationMonitorId);
@@ -302,19 +360,39 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         return locationMonitorDirectory;
     }
 
+    /**
+     * The Class AttributeLoader.
+     */
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
+
+        /** The m_definition name. */
         private String m_definitionName;
 
+        /** The m_location monitor id. */
         private int m_locationMonitorId;
 
+        /** The m_intf. */
         private String m_intf;
 
+        /**
+         * Instantiates a new attribute loader.
+         *
+         * @param definitionName
+         *            the definition name
+         * @param locationMonitorId
+         *            the location monitor id
+         * @param intf
+         *            the intf
+         */
         public AttributeLoader(String definitionName, int locationMonitorId, String intf) {
             m_definitionName = definitionName;
             m_locationMonitorId = locationMonitorId;
             m_intf = intf;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazySet.Loader#load()
+         */
         @Override
         public Set<OnmsAttribute> load() {
             LOG.debug("lazy-loading attributes for distributed status resource {}-{}/{}", m_definitionName,

@@ -106,6 +106,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
      * <p>
      * findAutoMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -118,6 +119,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
      * <p>
      * findUserMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -130,6 +132,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
      * <p>
      * findSaveMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -162,6 +165,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
      * <p>
      * findAutoAndSaveMaps
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */

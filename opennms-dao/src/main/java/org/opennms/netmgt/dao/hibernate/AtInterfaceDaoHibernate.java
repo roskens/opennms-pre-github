@@ -47,20 +47,32 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * The Class AtInterfaceDaoHibernate.
+ */
 public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterface, Integer> implements AtInterfaceDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AtInterfaceDaoHibernate.class);
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_transaction manager. */
     @Autowired
     private PlatformTransactionManager m_transactionManager;
 
+    /**
+     * Instantiates a new at interface dao hibernate.
+     */
     public AtInterfaceDaoHibernate() {
         super(OnmsAtInterface.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
@@ -73,6 +85,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#deactivateForSourceNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deactivateForSourceNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
@@ -86,6 +101,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#deleteForNodeSourceIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deleteForNodeSourceIdIfOlderThan(final int nodeid, final Date scanTime) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
@@ -98,6 +116,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#findByMacAddress(java.lang.String)
+     */
     @Override
     public Collection<OnmsAtInterface> findByMacAddress(final String macAddress) {
         // SELECT atinterface.nodeid, atinterface.ipaddr, ipinterface.ifindex
@@ -113,6 +134,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         return findMatching(criteria);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(Integer nodeid, StatusType action) {
         // UPDATE atinterface set status = ? WHERE sourcenodeid = ? OR nodeid =
@@ -127,6 +151,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#setStatusForNodeAndIp(java.lang.Integer, java.lang.String, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIp(final Integer nodeid, final String ipAddr, final StatusType action) {
         // ps =
@@ -143,6 +170,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#setStatusForNodeAndIfIndex(java.lang.Integer, java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
         // UPDATE atinterface set status = ? WHERE sourcenodeid = ? AND ifindex
@@ -159,6 +189,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#findByNodeAndAddress(java.lang.Integer, java.net.InetAddress, java.lang.String)
+     */
     @Override
     public OnmsAtInterface findByNodeAndAddress(final Integer nodeId, final InetAddress ipAddress,
             final String macAddress) {
@@ -183,6 +216,9 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
     // SELECT node.nodeid,ipinterface.ifindex FROM node LEFT JOIN ipinterface ON
     // node.nodeid = ipinterface.nodeid WHERE nodetype = 'A' AND ipaddr = ?
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AtInterfaceDao#getAtInterfaceForAddress(java.net.InetAddress)
+     */
     @Override
     public Collection<OnmsAtInterface> getAtInterfaceForAddress(final InetAddress address) {
         final String addressString = str(address);

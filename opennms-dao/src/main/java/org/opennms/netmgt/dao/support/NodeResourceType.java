@@ -44,13 +44,18 @@ import org.opennms.netmgt.model.OnmsResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class NodeResourceType.
+ */
 public class NodeResourceType implements OnmsResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeResourceType.class);
 
-    /** Constant <code>s_emptyAttributeSet</code> */
+    /** Constant <code>s_emptyAttributeSet</code>. */
     protected static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
 
+    /** The m_resource dao. */
     protected ResourceDao m_resourceDao;
 
     /**
@@ -69,6 +74,7 @@ public class NodeResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -81,6 +87,7 @@ public class NodeResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +142,7 @@ public class NodeResourceType implements OnmsResourceType {
      * <p>
      * createChildResource
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -150,19 +158,40 @@ public class NodeResourceType implements OnmsResourceType {
         return r;
     }
 
+    /**
+     * The Class NodeChildResourceLoader.
+     */
     private class NodeChildResourceLoader implements LazyList.Loader<OnmsResource> {
+
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_parent. */
         private OnmsResource m_parent;
 
+        /**
+         * Instantiates a new node child resource loader.
+         *
+         * @param nodeId
+         *            the node id
+         */
         public NodeChildResourceLoader(int nodeId) {
             m_nodeId = nodeId;
         }
 
+        /**
+         * Sets the parent.
+         *
+         * @param parent
+         *            the new parent
+         */
         public void setParent(OnmsResource parent) {
             m_parent = parent;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazyList.Loader#load()
+         */
         @Override
         public List<OnmsResource> load() {
             List<OnmsResource> children = new LinkedList<OnmsResource>();
@@ -178,6 +207,13 @@ public class NodeResourceType implements OnmsResourceType {
             return children;
         }
 
+        /**
+         * Gets the resource types for node.
+         *
+         * @param nodeId
+         *            the node id
+         * @return the resource types for node
+         */
         private Collection<OnmsResourceType> getResourceTypesForNode(int nodeId) {
             Collection<OnmsResourceType> resourceTypes = new LinkedList<OnmsResourceType>();
             for (OnmsResourceType resourceType : m_resourceDao.getResourceTypes()) {

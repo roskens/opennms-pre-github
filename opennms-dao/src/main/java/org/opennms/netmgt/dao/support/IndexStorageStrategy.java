@@ -38,12 +38,18 @@ import org.opennms.netmgt.config.datacollection.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class IndexStorageStrategy.
+ */
 public class IndexStorageStrategy implements StorageStrategy {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IndexStorageStrategy.class);
 
+    /** The m_resource type name. */
     private String m_resourceTypeName;
 
+    /** The m_storage strategy service. */
     protected StorageStrategyService m_storageStrategyService;
 
     /** {@inheritDoc} */
@@ -73,6 +79,7 @@ public class IndexStorageStrategy implements StorageStrategy {
      * <p>
      * getResourceTypeName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

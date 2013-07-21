@@ -42,8 +42,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, InitializingBean {
+
+    /** The m_delegated visitor. */
     private ResourceVisitor m_delegatedVisitor;
 
+    /** The m_resource type match. */
     private String m_resourceTypeMatch;
 
     /** {@inheritDoc} */
@@ -58,6 +61,7 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -71,6 +75,7 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
      * <p>
      * getDelegatedVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -82,6 +87,7 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
      * <p>
      * setDelegatedVisitor
      * </p>
+     * .
      *
      * @param delegatedVisitor
      *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
@@ -94,6 +100,7 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
      * <p>
      * getResourceTypeMatch
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -105,6 +112,7 @@ public class ResourceTypeFilteringResourceVisitor implements ResourceVisitor, In
      * <p>
      * setResourceTypeMatch
      * </p>
+     * .
      *
      * @param resourceTypeMatch
      *            a {@link java.lang.String} object.

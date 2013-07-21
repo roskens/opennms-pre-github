@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Hibernate implementation of Acknowledgment DAO
+ * Hibernate implementation of Acknowledgment DAO.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -53,6 +53,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowledgment, Integer> implements
         AcknowledgmentDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AcknowledgmentDaoHibernate.class);
 
     /**
@@ -129,11 +130,25 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
         return ackables;
     }
 
+    /**
+     * Find related notifications.
+     *
+     * @param alarm
+     *            the alarm
+     * @return the list
+     */
     private List<OnmsNotification> findRelatedNotifications(final OnmsAlarm alarm) {
         final String hql = "from OnmsNotification as n where n.event.alarm = ?";
         return findObjects(OnmsNotification.class, hql, alarm);
     }
 
+    /**
+     * Find alarm.
+     *
+     * @param ack
+     *            the ack
+     * @return the onms alarm
+     */
     private OnmsAlarm findAlarm(final OnmsAcknowledgment ack) {
         // hql = "from OnmsAlarm as alarms where alarms.id = ?";
         // return findUnique(OnmsAlarm.class, hql, ack.getRefId());
@@ -147,6 +162,13 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
         return null;
     }
 
+    /**
+     * Find notification.
+     *
+     * @param ack
+     *            the ack
+     * @return the onms notification
+     */
     private OnmsNotification findNotification(final OnmsAcknowledgment ack) {
         // hql = "from OnmsAlarm as alarms where alarms.id = ?";
         // return findUnique(OnmsAlarm.class, hql, ack.getRefId());

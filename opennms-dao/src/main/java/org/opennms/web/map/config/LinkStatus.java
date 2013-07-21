@@ -38,10 +38,14 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class LinkStatus {
+
+    /** The id. */
     String id;
 
+    /** The color. */
     String color;
 
+    /** The flash. */
     boolean flash;
 
     /**

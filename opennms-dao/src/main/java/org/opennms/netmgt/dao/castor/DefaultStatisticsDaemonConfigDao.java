@@ -64,6 +64,11 @@ public class DefaultStatisticsDaemonConfigDao extends
         return new StatsdConfig(castorConfig);
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     private StatsdConfig getConfig() {
         return getContainer().getObject();
     }
@@ -72,6 +77,7 @@ public class DefaultStatisticsDaemonConfigDao extends
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -84,6 +90,7 @@ public class DefaultStatisticsDaemonConfigDao extends
      * <p>
      * getPackages
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -96,9 +103,10 @@ public class DefaultStatisticsDaemonConfigDao extends
      * <p>
      * reloadConfiguration
      * </p>
+     * .
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -106,6 +114,9 @@ public class DefaultStatisticsDaemonConfigDao extends
         this.verifyMarshaledConfiguration();
     }
 
+    /**
+     * Verify marshaled configuration.
+     */
     private void verifyMarshaledConfiguration() {
         // TODO Auto-generated method stub
 

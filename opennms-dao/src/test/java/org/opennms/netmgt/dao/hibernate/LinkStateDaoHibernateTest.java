@@ -52,6 +52,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class LinkStateDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -62,25 +65,38 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkStateDaoHibernateTest implements InitializingBean {
+
+    /** The m_data link interface dao. */
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_link state dao. */
     @Autowired
     private LinkStateDao m_linkStateDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test save link state.
+     */
     @Test
     @Transactional
     public void testSaveLinkState() {
@@ -114,6 +130,9 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Test save then read.
+     */
     @Test
     @Transactional
     public void testSaveThenRead() {
@@ -138,6 +157,9 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
         assertEquals(LinkState.LINK_UP, linkState2.getLinkState());
     }
 
+    /**
+     * Test find by data link interface id.
+     */
     @Test
     @Transactional
     public void testFindByDataLinkInterfaceId() {

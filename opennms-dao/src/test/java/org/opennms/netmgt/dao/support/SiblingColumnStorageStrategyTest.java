@@ -44,15 +44,25 @@ import org.opennms.netmgt.config.datacollection.Parameter;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
 /**
+ * The Class SiblingColumnStorageStrategyTest.
+ *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SiblingColumnStorageStrategyTest {
 
+    /** The service. */
     private StorageStrategyService service;
 
+    /** The strategy. */
     private SiblingColumnStorageStrategy strategy;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Create Mocks
@@ -67,11 +77,23 @@ public class SiblingColumnStorageStrategyTest {
         strategy.setStorageStrategyService(service);
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
         EasyMock.verify(service);
     }
 
+    /**
+     * Test strategy.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testStrategy() throws Exception {
         strategy.setResourceTypeName("hrStorageIndex");
@@ -104,6 +126,12 @@ public class SiblingColumnStorageStrategyTest {
                             strategy.getRelativePathForAttribute(parentResource, resourceName, null));
     }
 
+    /**
+     * Test bad parameters.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test(expected = IllegalArgumentException.class)
     public void testBadParameters() throws Exception {
         strategy.setResourceTypeName("hrStorageIndex");
@@ -120,6 +148,12 @@ public class SiblingColumnStorageStrategyTest {
         strategy.setParameters(params);
     }
 
+    /**
+     * Test match index.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMatchIndex() throws Exception {
         strategy.setResourceTypeName("macIndex");
@@ -138,6 +172,15 @@ public class SiblingColumnStorageStrategyTest {
         Assert.assertEquals("0.132.43.51.76.89.2.144", resourceName);
     }
 
+    /**
+     * Creates the parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     * @return the parameter
+     */
     private Parameter createParameter(String key, String value) {
         Parameter p = new Parameter();
         p.setKey(key);

@@ -54,6 +54,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class IpInterfaceDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -65,19 +68,28 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class IpInterfaceDaoHibernateTest implements InitializingBean {
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_test address. */
     private InetAddress m_testAddress;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_databasePopulator.populateDatabase();
@@ -97,6 +109,12 @@ public class IpInterfaceDaoHibernateTest implements InitializingBean {
         m_databasePopulator.getNodeDao().save(n1);
     }
 
+    /**
+     * Test nm s4822.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testNMS4822() throws Exception {

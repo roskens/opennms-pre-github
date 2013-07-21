@@ -103,68 +103,110 @@ import org.springframework.transaction.support.TransactionOperations;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DatabasePopulator {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DatabasePopulator.class);
 
+    /** The m_dist poller dao. */
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_snmp interface dao. */
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_monitored service dao. */
     private MonitoredServiceDao m_monitoredServiceDao;
 
+    /** The m_service type dao. */
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_asset record dao. */
     private AssetRecordDao m_assetRecordDao;
 
+    /** The m_category dao. */
     private CategoryDao m_categoryDao;
 
+    /** The m_outage dao. */
     private OutageDao m_outageDao;
 
+    /** The m_event dao. */
     private EventDao m_eventDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
+    /** The m_notification dao. */
     private NotificationDao m_notificationDao;
 
+    /** The m_user notification dao. */
     private UserNotificationDao m_userNotificationDao;
 
+    /** The m_location monitor dao. */
     private LocationMonitorDao m_locationMonitorDao;
 
+    /** The m_onms map dao. */
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_onms map element dao. */
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_data link interface dao. */
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
 
+    /** The m_acknowledgment dao. */
     private AcknowledgmentDao m_acknowledgmentDao;
 
+    /** The m_trans operation. */
     private TransactionOperations m_transOperation;
 
+    /** The m_node1. */
     private OnmsNode m_node1;
 
+    /** The m_node2. */
     private OnmsNode m_node2;
 
+    /** The m_node3. */
     private OnmsNode m_node3;
 
+    /** The m_node4. */
     private OnmsNode m_node4;
 
+    /** The m_node5. */
     private OnmsNode m_node5;
 
+    /** The m_node6. */
     private OnmsNode m_node6;
 
+    /** The m_populate in separate transaction. */
     private boolean m_populateInSeparateTransaction = true;
 
+    /**
+     * Populate in separate transaction.
+     *
+     * @return true, if successful
+     */
     public boolean populateInSeparateTransaction() {
         return m_populateInSeparateTransaction;
     }
 
+    /**
+     * Sets the populate in separate transaction.
+     *
+     * @param pop
+     *            the new populate in separate transaction
+     */
     public void setPopulateInSeparateTransaction(final boolean pop) {
         m_populateInSeparateTransaction = pop;
     }
 
+    /**
+     * Populate database.
+     */
     public void populateDatabase() {
         if (m_populateInSeparateTransaction) {
             m_transOperation.execute(new TransactionCallbackWithoutResult() {
@@ -178,6 +220,9 @@ public class DatabasePopulator {
         }
     }
 
+    /**
+     * Reset database.
+     */
     public void resetDatabase() {
         LOG.debug("==== DatabasePopulator Reset ====");
         for (final DataLinkInterface iface : m_dataLinkInterfaceDao.findAll()) {
@@ -223,6 +268,9 @@ public class DatabasePopulator {
         LOG.debug("==== DatabasePopulator Reset Finished ====");
     }
 
+    /**
+     * Do populate database.
+     */
     private void doPopulateDatabase() {
         LOG.debug("==== DatabasePopulator Starting ====");
 
@@ -333,6 +381,13 @@ public class DatabasePopulator {
         LOG.debug("==== DatabasePopulator Finished ====");
     }
 
+    /**
+     * Gets the category.
+     *
+     * @param categoryName
+     *            the category name
+     * @return the category
+     */
     private OnmsCategory getCategory(final String categoryName) {
         OnmsCategory cat = m_categoryDao.findByName(categoryName, true);
         if (cat == null) {
@@ -343,6 +398,13 @@ public class DatabasePopulator {
         return cat;
     }
 
+    /**
+     * Gets the service.
+     *
+     * @param serviceName
+     *            the service name
+     * @return the service
+     */
     private OnmsServiceType getService(final String serviceName) {
         OnmsServiceType service = m_serviceTypeDao.findByName(serviceName);
         if (service == null) {
@@ -353,6 +415,13 @@ public class DatabasePopulator {
         return service;
     }
 
+    /**
+     * Builds the node1.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode1(final NetworkBuilder builder) {
         setNode1(builder.addNode("node1").setForeignSource("imported:").setForeignId("1").setType("A").getNode());
         builder.addCategory(getCategory("DEV_AC"));
@@ -376,6 +445,13 @@ public class DatabasePopulator {
         return node1;
     }
 
+    /**
+     * Builds the node2.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode2(final NetworkBuilder builder) {
         builder.addNode("node2").setForeignSource("imported:").setForeignId("2").setType("A");
         builder.addCategory(getCategory("IMP_mid"));
@@ -394,6 +470,13 @@ public class DatabasePopulator {
         return node2;
     }
 
+    /**
+     * Builds the node3.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode3(final NetworkBuilder builder) {
         builder.addNode("node3").setForeignSource("imported:").setForeignId("3").setType("A");
         builder.addCategory(getCategory("OPS_Online"));
@@ -409,6 +492,13 @@ public class DatabasePopulator {
         return node3;
     }
 
+    /**
+     * Builds the node4.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode4(final NetworkBuilder builder) {
         builder.addNode("node4").setForeignSource("imported:").setForeignId("4").setType("A");
         builder.addCategory(getCategory("DEV_AC"));
@@ -424,6 +514,13 @@ public class DatabasePopulator {
         return node4;
     }
 
+    /**
+     * Builds the node5.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode5(final NetworkBuilder builder) {
         // This node purposely doesn't have a foreignId style assetNumber
         builder.addNode("alternate-node1").setType("A").getAssetRecord().setAssetNumber("5");
@@ -441,6 +538,13 @@ public class DatabasePopulator {
         return node5;
     }
 
+    /**
+     * Builds the node6.
+     *
+     * @param builder
+     *            the builder
+     * @return the onms node
+     */
     private OnmsNode buildNode6(final NetworkBuilder builder) {
         // This node purposely doesn't have a assetNumber and is used by a test
         // to check the category
@@ -458,6 +562,13 @@ public class DatabasePopulator {
         return node6;
     }
 
+    /**
+     * Builds the event.
+     *
+     * @param distPoller
+     *            the dist poller
+     * @return the onms event
+     */
     private OnmsEvent buildEvent(final OnmsDistPoller distPoller) {
         final OnmsEvent event = new OnmsEvent();
         event.setDistPoller(distPoller);
@@ -471,6 +582,15 @@ public class DatabasePopulator {
         return event;
     }
 
+    /**
+     * Builds the test notification.
+     *
+     * @param builder
+     *            the builder
+     * @param event
+     *            the event
+     * @return the onms notification
+     */
     private OnmsNotification buildTestNotification(final NetworkBuilder builder, final OnmsEvent event) {
         final OnmsNotification notif = new OnmsNotification();
         notif.setEvent(event);
@@ -481,6 +601,13 @@ public class DatabasePopulator {
         return notif;
     }
 
+    /**
+     * Builds the test user notification.
+     *
+     * @param notif
+     *            the notif
+     * @return the onms user notification
+     */
     private OnmsUserNotification buildTestUserNotification(final OnmsNotification notif) {
         final OnmsUserNotification userNotif = new OnmsUserNotification();
         userNotif.setUserId("TestUser");
@@ -488,6 +615,13 @@ public class DatabasePopulator {
         return userNotif;
     }
 
+    /**
+     * Builds the test user2 notification.
+     *
+     * @param notif
+     *            the notif
+     * @return the onms user notification
+     */
     private OnmsUserNotification buildTestUser2Notification(final OnmsNotification notif) {
         final OnmsUserNotification userNotif2 = new OnmsUserNotification();
         userNotif2.setUserId("TestUser2");
@@ -495,6 +629,13 @@ public class DatabasePopulator {
         return userNotif2;
     }
 
+    /**
+     * Builds the alarm.
+     *
+     * @param event
+     *            the event
+     * @return the onms alarm
+     */
     private OnmsAlarm buildAlarm(final OnmsEvent event) {
         final OnmsAlarm alarm = new OnmsAlarm();
         alarm.setDistPoller(getDistPollerDao().load("localhost"));
@@ -511,6 +652,15 @@ public class DatabasePopulator {
         return alarm;
     }
 
+    /**
+     * Gets the dist poller.
+     *
+     * @param localhost
+     *            the localhost
+     * @param localhostIp
+     *            the localhost ip
+     * @return the dist poller
+     */
     private OnmsDistPoller getDistPoller(final String localhost, final String localhostIp) {
         final OnmsDistPoller distPoller = getDistPollerDao().get(localhost);
         if (distPoller == null) {
@@ -522,202 +672,477 @@ public class DatabasePopulator {
         return distPoller;
     }
 
+    /**
+     * Gets the alarm dao.
+     *
+     * @return the alarm dao
+     */
     public AlarmDao getAlarmDao() {
         return m_alarmDao;
     }
 
+    /**
+     * Sets the alarm dao.
+     *
+     * @param alarmDao
+     *            the new alarm dao
+     */
     public void setAlarmDao(final AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
 
+    /**
+     * Gets the asset record dao.
+     *
+     * @return the asset record dao
+     */
     public AssetRecordDao getAssetRecordDao() {
         return m_assetRecordDao;
     }
 
+    /**
+     * Sets the asset record dao.
+     *
+     * @param assetRecordDao
+     *            the new asset record dao
+     */
     public void setAssetRecordDao(final AssetRecordDao assetRecordDao) {
         m_assetRecordDao = assetRecordDao;
     }
 
+    /**
+     * Gets the category dao.
+     *
+     * @return the category dao
+     */
     public CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
 
+    /**
+     * Sets the category dao.
+     *
+     * @param categoryDao
+     *            the new category dao
+     */
     public void setCategoryDao(final CategoryDao categoryDao) {
         m_categoryDao = categoryDao;
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     public DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
 
+    /**
+     * Sets the dist poller dao.
+     *
+     * @param distPollerDao
+     *            the new dist poller dao
+     */
     public void setDistPollerDao(final DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
 
+    /**
+     * Gets the event dao.
+     *
+     * @return the event dao
+     */
     public EventDao getEventDao() {
         return m_eventDao;
     }
 
+    /**
+     * Sets the event dao.
+     *
+     * @param eventDao
+     *            the new event dao
+     */
     public void setEventDao(final EventDao eventDao) {
         m_eventDao = eventDao;
     }
 
+    /**
+     * Gets the ip interface dao.
+     *
+     * @return the ip interface dao
+     */
     public IpInterfaceDao getIpInterfaceDao() {
         return m_ipInterfaceDao;
     }
 
+    /**
+     * Sets the ip interface dao.
+     *
+     * @param ipInterfaceDao
+     *            the new ip interface dao
+     */
     public void setIpInterfaceDao(final IpInterfaceDao ipInterfaceDao) {
         m_ipInterfaceDao = ipInterfaceDao;
     }
 
+    /**
+     * Gets the monitored service dao.
+     *
+     * @return the monitored service dao
+     */
     public MonitoredServiceDao getMonitoredServiceDao() {
         return m_monitoredServiceDao;
     }
 
+    /**
+     * Sets the monitored service dao.
+     *
+     * @param monitoredServiceDao
+     *            the new monitored service dao
+     */
     public void setMonitoredServiceDao(final MonitoredServiceDao monitoredServiceDao) {
         m_monitoredServiceDao = monitoredServiceDao;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Sets the node dao.
+     *
+     * @param nodeDao
+     *            the new node dao
+     */
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
 
+    /**
+     * Gets the notification dao.
+     *
+     * @return the notification dao
+     */
     public NotificationDao getNotificationDao() {
         return m_notificationDao;
     }
 
+    /**
+     * Sets the notification dao.
+     *
+     * @param notificationDao
+     *            the new notification dao
+     */
     public void setNotificationDao(final NotificationDao notificationDao) {
         m_notificationDao = notificationDao;
     }
 
+    /**
+     * Gets the outage dao.
+     *
+     * @return the outage dao
+     */
     public OutageDao getOutageDao() {
         return m_outageDao;
     }
 
+    /**
+     * Sets the outage dao.
+     *
+     * @param outageDao
+     *            the new outage dao
+     */
     public void setOutageDao(final OutageDao outageDao) {
         m_outageDao = outageDao;
     }
 
+    /**
+     * Gets the service type dao.
+     *
+     * @return the service type dao
+     */
     public ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
     }
 
+    /**
+     * Sets the service type dao.
+     *
+     * @param serviceTypeDao
+     *            the new service type dao
+     */
     public void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
 
+    /**
+     * Gets the snmp interface dao.
+     *
+     * @return the snmp interface dao
+     */
     public SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }
 
+    /**
+     * Sets the snmp interface dao.
+     *
+     * @param snmpInterfaceDao
+     *            the new snmp interface dao
+     */
     public void setSnmpInterfaceDao(final SnmpInterfaceDao snmpInterfaceDao) {
         m_snmpInterfaceDao = snmpInterfaceDao;
     }
 
+    /**
+     * Gets the user notification dao.
+     *
+     * @return the user notification dao
+     */
     public UserNotificationDao getUserNotificationDao() {
         return m_userNotificationDao;
     }
 
+    /**
+     * Sets the user notification dao.
+     *
+     * @param userNotificationDao
+     *            the new user notification dao
+     */
     public void setUserNotificationDao(final UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
 
+    /**
+     * Gets the node1.
+     *
+     * @return the node1
+     */
     public OnmsNode getNode1() {
         return m_node1;
     }
 
+    /**
+     * Gets the node2.
+     *
+     * @return the node2
+     */
     public OnmsNode getNode2() {
         return m_node2;
     }
 
+    /**
+     * Gets the node3.
+     *
+     * @return the node3
+     */
     public OnmsNode getNode3() {
         return m_node3;
     }
 
+    /**
+     * Gets the node4.
+     *
+     * @return the node4
+     */
     public OnmsNode getNode4() {
         return m_node4;
     }
 
+    /**
+     * Gets the node5.
+     *
+     * @return the node5
+     */
     public OnmsNode getNode5() {
         return m_node5;
     }
 
+    /**
+     * Gets the node6.
+     *
+     * @return the node6
+     */
     public OnmsNode getNode6() {
         return m_node6;
     }
 
+    /**
+     * Sets the node1.
+     *
+     * @param node1
+     *            the new node1
+     */
     private void setNode1(final OnmsNode node1) {
         m_node1 = node1;
     }
 
+    /**
+     * Sets the node2.
+     *
+     * @param node2
+     *            the new node2
+     */
     private void setNode2(final OnmsNode node2) {
         m_node2 = node2;
     }
 
+    /**
+     * Sets the node3.
+     *
+     * @param node3
+     *            the new node3
+     */
     private void setNode3(final OnmsNode node3) {
         m_node3 = node3;
     }
 
+    /**
+     * Sets the node4.
+     *
+     * @param node4
+     *            the new node4
+     */
     private void setNode4(final OnmsNode node4) {
         m_node4 = node4;
     }
 
+    /**
+     * Sets the node5.
+     *
+     * @param node5
+     *            the new node5
+     */
     private void setNode5(final OnmsNode node5) {
         m_node5 = node5;
     }
 
+    /**
+     * Sets the node6.
+     *
+     * @param node6
+     *            the new node6
+     */
     private void setNode6(final OnmsNode node6) {
         m_node6 = node6;
     }
 
+    /**
+     * Gets the location monitor dao.
+     *
+     * @return the location monitor dao
+     */
     public LocationMonitorDao getLocationMonitorDao() {
         return m_locationMonitorDao;
     }
 
+    /**
+     * Sets the location monitor dao.
+     *
+     * @param locationMonitorDao
+     *            the new location monitor dao
+     */
     public void setLocationMonitorDao(final LocationMonitorDao locationMonitorDao) {
         m_locationMonitorDao = locationMonitorDao;
     }
 
+    /**
+     * Gets the onms map dao.
+     *
+     * @return the onms map dao
+     */
     public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
 
+    /**
+     * Sets the onms map dao.
+     *
+     * @param onmsMapDao
+     *            the new onms map dao
+     */
     public void setOnmsMapDao(final OnmsMapDao onmsMapDao) {
         this.m_onmsMapDao = onmsMapDao;
     }
 
+    /**
+     * Gets the onms map element dao.
+     *
+     * @return the onms map element dao
+     */
     public OnmsMapElementDao getOnmsMapElementDao() {
         return m_onmsMapElementDao;
     }
 
+    /**
+     * Sets the onms map element dao.
+     *
+     * @param onmsMapElementDao
+     *            the new onms map element dao
+     */
     public void setOnmsMapElementDao(final OnmsMapElementDao onmsMapElementDao) {
         this.m_onmsMapElementDao = onmsMapElementDao;
     }
 
+    /**
+     * Gets the data link interface dao.
+     *
+     * @return the data link interface dao
+     */
     public DataLinkInterfaceDao getDataLinkInterfaceDao() {
         return m_dataLinkInterfaceDao;
     }
 
+    /**
+     * Sets the data link interface dao.
+     *
+     * @param dataLinkInterfaceDao
+     *            the new data link interface dao
+     */
     public void setDataLinkInterfaceDao(final DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
 
+    /**
+     * Gets the acknowledgment dao.
+     *
+     * @return the acknowledgment dao
+     */
     public AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }
 
+    /**
+     * Sets the acknowledgment dao.
+     *
+     * @param acknowledgmentDao
+     *            the new acknowledgment dao
+     */
     public void setAcknowledgmentDao(final AcknowledgmentDao acknowledgmentDao) {
         m_acknowledgmentDao = acknowledgmentDao;
     }
 
+    /**
+     * Gets the transaction template.
+     *
+     * @return the transaction template
+     */
     public TransactionOperations getTransactionTemplate() {
         return m_transOperation;
     }
 
+    /**
+     * Sets the transaction template.
+     *
+     * @param transactionOperation
+     *            the new transaction template
+     */
     public void setTransactionTemplate(final TransactionOperations transactionOperation) {
         m_transOperation = transactionOperation;
     }

@@ -59,6 +59,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
      *         object.
@@ -73,12 +74,13 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * translateConfig
      * </p>
+     * .
      *
      * @param castorConfig
      *            a
-     *            {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
-     *            object.
      * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
+     *         object.
+     *         {@link org.opennms.netmgt.config.reportd.ReportdConfiguration}
      *         object.
      */
     @Override
@@ -90,9 +92,10 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * reloadConfiguration
      * </p>
+     * .
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -114,6 +117,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -126,6 +130,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * getPersistFlag
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -150,6 +155,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      * <p>
      * getStorageDirectory
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

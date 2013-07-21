@@ -41,15 +41,26 @@ import org.opennms.netmgt.rrd.RrdUtils;
 import org.opennms.test.FileAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
+/**
+ * The Class GenericIndexResourceTypeTest.
+ */
 public class GenericIndexResourceTypeTest extends TestCase {
+
+    /** The m_file anticipator. */
     private FileAnticipator m_fileAnticipator;
 
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
 
+    /** The m_storage strategy. */
     private StorageStrategy m_storageStrategy = m_mocks.createMock(StorageStrategy.class);
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -60,6 +71,9 @@ public class GenericIndexResourceTypeTest extends TestCase {
         m_fileAnticipator = new FileAnticipator(false);
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#runTest()
+     */
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
@@ -69,6 +83,9 @@ public class GenericIndexResourceTypeTest extends TestCase {
         }
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
@@ -76,6 +93,9 @@ public class GenericIndexResourceTypeTest extends TestCase {
         super.tearDown();
     }
 
+    /**
+     * Test get resource by node and index get label plain.
+     */
     public void testGetResourceByNodeAndIndexGetLabelPlain() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource", "plain",
                                                                    m_storageStrategy);
@@ -90,6 +110,9 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "plain", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndex() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource", "${index}",
                                                                    m_storageStrategy);
@@ -104,6 +127,12 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "1", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label string attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceByNodeAndIndexGetLabelStringAttribute() throws Exception {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${stringAttribute}", m_storageStrategy);
@@ -126,6 +155,12 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "hello!!!!", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node source and index get label string attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGetResourceByNodeSourceAndIndexGetLabelStringAttribute() throws Exception {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${stringAttribute}", m_storageStrategy);
@@ -150,6 +185,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "hello!!!!", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index
+     * number.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexNumber() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(3, 1)}", m_storageStrategy);
@@ -164,6 +203,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "4", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index bogus
+     * arguments.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexBogusArguments() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(absolutely bogus)}", m_storageStrategy);
@@ -178,6 +221,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex(absolutely bogus)}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index bogus
+     * offset.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexBogusOffset() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(foo, 1)}", m_storageStrategy);
@@ -192,6 +239,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex(foo, 1)}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index bad
+     * number.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexBadNumber() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(4, 1)}", m_storageStrategy);
@@ -206,6 +257,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex(4, 1)}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index
+     * beginning.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexBeginning() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(1)}", m_storageStrategy);
@@ -220,6 +275,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "2.3.4", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index
+     * ending.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexEnding() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(0, 3)}", m_storageStrategy);
@@ -234,6 +293,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "1.2.3", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index no
+     * arguments.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexNoArguments() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex()}", m_storageStrategy);
@@ -248,6 +311,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex()}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index start
+     * out of bounds.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexStartOutOfBounds() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(4)}", m_storageStrategy);
@@ -262,6 +329,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex(4)}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub index end
+     * out of bounds.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubIndexEndOutOfBounds() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${subIndex(0, 5)}", m_storageStrategy);
@@ -276,6 +347,9 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "${subIndex(0, 5)}", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with hex conversion.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithHexConversion() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${hex(index)}", m_storageStrategy);
@@ -290,6 +364,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "01:02:03:04:0E:0F", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with hex conversion
+     * bogus integer.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithHexConversionBogusInteger() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "${hex(index)}", m_storageStrategy);
@@ -325,6 +403,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "MAC Address 00:15:6D:50:09:42 on interface 4", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub string of
+     * dynamic length.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubStringOfDynamicLength() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "Easy as ${subIndex(0, n)}", m_storageStrategy);
@@ -339,6 +421,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "Easy as 1.2.3.4.5", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with three sub
+     * strings of dynamic length.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithThreeSubStringsOfDynamicLength() {
         GenericIndexResourceType rt = new GenericIndexResourceType(
                                                                    m_resourceDao,
@@ -357,6 +443,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "Easy as 1 and 1.2 and 1.2.3", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub string and
+     * dyn sub string and dyn sub string and sub string to end.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubStringAndDynSubStringAndDynSubStringAndSubStringToEnd() {
         GenericIndexResourceType rt = new GenericIndexResourceType(
                                                                    m_resourceDao,
@@ -375,6 +465,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "Easy as 3 and 1.2.3 and 4.5.6 and 0", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with display sub
+     * string of dynamic length.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithDisplaySubStringOfDynamicLength() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "Easy as ${string(subIndex(0, n))}",
@@ -390,6 +484,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
         assertEquals("resource label", "Easy as pie", resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with sub string and
+     * two display sub strings of dynamic length and sub string to end.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithSubStringAndTwoDisplaySubStringsOfDynamicLengthAndSubStringToEnd() {
         GenericIndexResourceType rt = new GenericIndexResourceType(
                                                                    m_resourceDao,
@@ -409,6 +507,10 @@ public class GenericIndexResourceTypeTest extends TestCase {
                      resource.getLabel());
     }
 
+    /**
+     * Test get resource by node and index get label index with bogus use of
+     * nfor start of first sub index.
+     */
     public void testGetResourceByNodeAndIndexGetLabelIndexWithBogusUseOfNforStartOfFirstSubIndex() {
         GenericIndexResourceType rt = new GenericIndexResourceType(m_resourceDao, "foo", "Foo Resource",
                                                                    "Easy as ${subIndex(n, 3)}", m_storageStrategy);

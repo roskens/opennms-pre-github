@@ -48,8 +48,11 @@ import org.springframework.util.Assert;
  * @author david
  */
 public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterface, Integer> implements IpInterfaceDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(IpInterfaceDaoHibernate.class);
 
+    /** The m_find by service type query. */
     String m_findByServiceTypeQuery = null;
 
     /**
@@ -121,6 +124,7 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
      * <p>
      * getInterfacesForNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -155,6 +159,7 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
      * <p>
      * addressExistsWithForeignSource
      * </p>
+     * .
      *
      * @param ipAddress
      *            a {@link java.lang.String} object.
@@ -176,8 +181,11 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
     }
 
     /**
-     * This function should be kept similar to
-     * {@link OnmsNode#getPrimaryInterface()}.
+     * This function should be kept similar to.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the onms ip interface {@link OnmsNode#getPrimaryInterface()}.
      */
     @Override
     public OnmsIpInterface findPrimaryInterfaceByNodeId(final Integer nodeId) {

@@ -50,7 +50,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * UpsertTest
+ * UpsertTest.
  *
  * @author brozow
  */
@@ -64,34 +64,49 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitTemporaryDatabase
 public class UpsertTest implements InitializingBean {
 
+    /** The m_upsert service. */
     @Autowired
     UpsertService m_upsertService;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_snmp iface dao. */
     @Autowired
     SnmpInterfaceDao m_snmpIfaceDao;
 
+    /** The m_jdbc template. */
     @Autowired
     JdbcTemplate m_jdbcTemplate;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         m_populator.populateDatabase();
     }
 
+    /**
+     * Test insert.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testInsert() {
@@ -109,11 +124,25 @@ public class UpsertTest implements InitializingBean {
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 1001, newIfName));
     }
 
+    /**
+     * Count ifs.
+     *
+     * @param nodeId
+     *            the node id
+     * @param ifIndex
+     *            the if index
+     * @param ifName
+     *            the if name
+     * @return the int
+     */
     private int countIfs(int nodeId, int ifIndex, String ifName) {
         return m_jdbcTemplate.queryForInt("select count(*) from snmpInterface where nodeid=? and snmpifindex=? and snmpifname=?",
                                           nodeId, ifIndex, ifName);
     }
 
+    /**
+     * Test update.
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testUpdate() {
@@ -133,6 +162,12 @@ public class UpsertTest implements InitializingBean {
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, newIfName));
     }
 
+    /**
+     * Test concurrent insert.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase
     public void testConcurrentInsert() throws InterruptedException {
@@ -149,17 +184,38 @@ public class UpsertTest implements InitializingBean {
         assertNull("Exception on upsert one " + one.getThrowable(), one.getThrowable());
     }
 
+    /**
+     * The Class Inserter.
+     */
     private static class Inserter extends Thread {
+
+        /** The m_upsert service. */
         private final UpsertService m_upsertService;
 
+        /** The m_node id. */
         private final int m_nodeId;
 
+        /** The m_if index. */
         private final int m_ifIndex;
 
+        /** The m_if name. */
         private final String m_ifName;
 
+        /** The m_throwable. */
         private AtomicReference<Throwable> m_throwable = new AtomicReference<Throwable>();
 
+        /**
+         * Instantiates a new inserter.
+         *
+         * @param upsertService
+         *            the upsert service
+         * @param nodeId
+         *            the node id
+         * @param ifIndex
+         *            the if index
+         * @param ifName
+         *            the if name
+         */
         public Inserter(UpsertService upsertService, int nodeId, int ifIndex, String ifName) {
             m_upsertService = upsertService;
             m_nodeId = nodeId;
@@ -167,6 +223,9 @@ public class UpsertTest implements InitializingBean {
             m_ifName = ifName;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Thread#run()
+         */
         @Override
         public void run() {
             try {
@@ -180,6 +239,11 @@ public class UpsertTest implements InitializingBean {
             }
         }
 
+        /**
+         * Gets the throwable.
+         *
+         * @return the throwable
+         */
         public Throwable getThrowable() {
             return m_throwable.get();
         }

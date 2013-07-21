@@ -34,15 +34,32 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+/**
+ * The Class AbstractBaseStatisticsService.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public abstract class AbstractBaseStatisticsService<T> implements StatisticsService<T>, InitializingBean {
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(getDao());
     }
 
+    /**
+     * Gets the dao.
+     *
+     * @return the dao
+     */
     public abstract OnmsDao<T, Integer> getDao();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.stats.StatisticsService#getTotalCount(org.opennms.core.criteria.Criteria)
+     */
     @Transactional
     @Override
     public int getTotalCount(final Criteria criteria) {

@@ -47,18 +47,23 @@ import org.springframework.util.Assert;
  */
 public class FilterWalker implements InitializingBean {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /** The m_filter. */
     private String m_filter;
 
+    /** The m_visitor. */
     private EntityVisitor m_visitor;
 
     /**
      * <p>
      * walk
      * </p>
+     * .
      */
     public void walk() {
         SortedMap<Integer, String> map = getFilterDao().getNodeMap(m_filter);
@@ -74,6 +79,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -84,6 +90,8 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
+     * Gets the node dao.
+     *
      * @return the nodeDao
      */
     public NodeDao getNodeDao() {
@@ -91,6 +99,8 @@ public class FilterWalker implements InitializingBean {
     }
 
     /**
+     * Sets the node dao.
+     *
      * @param nodeDao
      *            the nodeDao to set
      */
@@ -102,6 +112,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * getVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -113,6 +124,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * setVisitor
      * </p>
+     * .
      *
      * @param visitor
      *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
@@ -125,6 +137,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * getFilterDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
@@ -136,6 +149,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * setFilterDao
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
@@ -148,6 +162,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -159,6 +174,7 @@ public class FilterWalker implements InitializingBean {
      * <p>
      * setFilter
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.

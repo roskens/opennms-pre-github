@@ -105,6 +105,10 @@ import org.springframework.transaction.support.TransactionTemplate;
  * final SnmpInterface scannedIf = ...;
  * return UpsertTemplate<SnmpInterface>(transactionManager) {
  *
+ * @param <T>
+ *            the generic type
+ * @param <D>
+ *            the generic type
  * @Override
  *           public SnmpInterface query() {
  *           return m_dao.query(scannedIf);
@@ -123,14 +127,22 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author brozow
  */
 public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
+
+    /** The m_transaction manager. */
     protected final PlatformTransactionManager m_transactionManager;
 
+    /** The m_dao. */
     protected final D m_dao;
 
     /**
      * Create an UpsertTemplate using the PlatformTransactionManager for
      * creating
      * transactions. This will retry a failed insert no more than two times.
+     *
+     * @param transactionManager
+     *            the transaction manager
+     * @param dao
+     *            the dao
      */
     public UpsertTemplate(PlatformTransactionManager transactionManager, D dao) {
         m_transactionManager = transactionManager;
@@ -139,6 +151,8 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
 
     /**
      * After creating the UpsertTemplate call this method to attempt the upsert.
+     *
+     * @return the t
      */
     public T execute() {
         TransactionTemplate template = new TransactionTemplate(m_transactionManager);
@@ -155,6 +169,8 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
 
     /**
      * Called from upsert after it creates a transaction.
+     *
+     * @return the t
      */
     private T doUpsert() {
         T dbObj = query();
@@ -181,6 +197,10 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
     /**
      * Called by doUpsert to update the object. It delegates to doUpdate so the
      * doUpdate and doInsert method have the same from.
+     *
+     * @param dbObj
+     *            the db obj
+     * @return the t
      */
     private T update(T dbObj) {
         return doUpdate(dbObj);
@@ -192,6 +212,8 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
      * and executes the doInsert method in it. The new transaction is rolled
      * back when
      * an exception is thrown. The exception is handled in doUpsert
+     *
+     * @return the t
      */
     private T insert() {
         return doInsert();
@@ -200,7 +222,9 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
     /**
      * Override this method to execute the query that is used to determine if
      * there is an
-     * existing object in the database
+     * existing object in the database.
+     *
+     * @return the t
      */
     protected abstract T query();
 
@@ -208,6 +232,10 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
      * Override this method to update the object in the database. The object
      * found in the query
      * is passed into this method so it can be used to do the updating.
+     *
+     * @param dbObj
+     *            the db obj
+     * @return the t
      */
     protected abstract T doUpdate(T dbObj);
 
@@ -219,6 +247,8 @@ public abstract class UpsertTemplate<T, D extends OnmsDao<T, ?>> {
      * the insert has already occurred. (This is the normal exception thrown
      * when to objects with the
      * same id are inserted).
+     *
+     * @return the t
      */
     protected abstract T doInsert();
 

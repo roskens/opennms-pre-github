@@ -38,32 +38,53 @@ import org.opennms.netmgt.config.reporting.IntParm;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DefaultOnmsReportDaoTest.
+ */
 public class DefaultOnmsReportDaoTest {
 
+    /** The Constant ID. */
     private static final String ID = "defaultCalendarReport";
 
+    /** The Constant ALTERNATE_ID. */
     private static final String ALTERNATE_ID = "defaultClassicReport";
 
+    /** The Constant TYPE. */
     private static final String TYPE = "calendar";
 
+    /** The Constant SVG_TEMPLATE. */
     private static final String SVG_TEMPLATE = "SVGAvailReport.xsl";
 
+    /** The Constant PDF_TEMPLATE. */
     private static final String PDF_TEMPLATE = "PDFAvailReport.xsl";
 
+    /** The Constant HTML_TEMPLATE. */
     private static final String HTML_TEMPLATE = "HTMLAvailReport.xsl";
 
+    /** The Constant LOGO. */
     private static final String LOGO = "logo.gif";
 
+    /** The Constant DATE_DISPLAY_NAME. */
     private static final String DATE_DISPLAY_NAME = "end date";
 
+    /** The Constant DATE_NAME. */
     private static final String DATE_NAME = "endDate";
 
+    /** The Constant STRING_NAME. */
     private static final String STRING_NAME = "offenderCount";
 
+    /** The Constant STRING_DISPLAY_NAME. */
     private static final String STRING_DISPLAY_NAME = "top offender count";
 
+    /** The m_dao. */
     private static DefaultOnmsReportConfigDao m_dao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         Resource resource = new ClassPathResource("/opennms-reports-testdata.xml");
@@ -72,6 +93,12 @@ public class DefaultOnmsReportDaoTest {
         m_dao.afterPropertiesSet();
     }
 
+    /**
+     * Test get render parms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetRenderParms() throws Exception {
 
@@ -84,6 +111,12 @@ public class DefaultOnmsReportDaoTest {
         assertNull(m_dao.getSvgStylesheetLocation(ALTERNATE_ID));
     }
 
+    /**
+     * Test get report parms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetReportParms() throws Exception {
 

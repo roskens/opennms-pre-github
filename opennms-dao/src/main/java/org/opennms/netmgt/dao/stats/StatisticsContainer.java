@@ -28,6 +28,9 @@
 
 package org.opennms.netmgt.dao.stats;
 
+/**
+ * The Interface StatisticsContainer.
+ */
 public interface StatisticsContainer {
 
 }

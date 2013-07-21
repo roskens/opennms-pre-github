@@ -45,19 +45,33 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class RrdStatisticAttributeVisitorTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class RrdStatisticAttributeVisitorTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_rrd dao. */
     private RrdDao m_rrdDao = m_mocks.createMock(RrdDao.class);
 
+    /** The m_start time. */
     private Long m_startTime = System.currentTimeMillis();
 
+    /** The m_end time. */
     private Long m_endTime = m_startTime + (24 * 60 * 60 * 1000); // one day
 
+    /** The m_statistic visitor. */
     private AttributeStatisticVisitor m_statisticVisitor = m_mocks.createMock(AttributeStatisticVisitor.class);
 
+    /**
+     * Test after properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSet() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);
@@ -68,6 +82,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         attributeVisitor.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no statistic visitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoStatisticVisitor() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
 
@@ -88,6 +108,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no consolidation function.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoConsolidationFunction() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
 
@@ -108,6 +134,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no rrd dao.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoRrdDao() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
 
@@ -128,6 +160,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no start time.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoStartTime() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
 
@@ -148,6 +186,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no end time.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoEndTime() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
 
@@ -168,6 +212,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit with rrd attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithRrdAttribute() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);
@@ -191,6 +241,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit with non rrd attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithNonRrdAttribute() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);
@@ -210,6 +266,12 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit with not a number rrd attribute.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithNotANumberRrdAttribute() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);

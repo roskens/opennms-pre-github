@@ -42,28 +42,35 @@ import org.springframework.util.Assert;
  * Abstract AbstractCastorConfigDao class.
  * </p>
  *
- * @author <a href="mailto:dj@gregor.com">DJ Gregor</a>
  * @param <K>
  *            Castor class
  * @param <V>
  *            Configuration object that is stored in memory (might be the same
  *            as the Castor class or could be a different class)
+ * @author <a href="mailto:dj@gregor.com">DJ Gregor</a>
  * @version $Id: $
  */
 public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCastorConfigDao.class);
 
+    /** The m_castor class. */
     private Class<K> m_castorClass;
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_config resource. */
     private Resource m_configResource;
 
+    /** The m_container. */
     private FileReloadContainer<V> m_container;
 
+    /** The m_callback. */
     private CastorReloadCallback m_callback = new CastorReloadCallback();
 
+    /** The m_reload check interval. */
     private Long m_reloadCheckInterval = null;
 
     /**
@@ -75,10 +82,6 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      *            a {@link java.lang.Class} object.
      * @param description
      *            a {@link java.lang.String} object.
-     * @param <K>
-     *            a K object.
-     * @param <V>
-     *            a V object.
      */
     public AbstractCastorConfigDao(final Class<K> entityClass, final String description) {
         super();
@@ -91,6 +94,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * translateConfig
      * </p>
+     * .
      *
      * @param castorConfig
      *            a K object.
@@ -102,6 +106,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * loadConfig
      * </p>
+     * .
      *
      * @param resource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -124,6 +129,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * createLoadedLogMessage
      * </p>
+     * .
      *
      * @param translatedConfig
      *            a V object.
@@ -139,6 +145,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -156,6 +163,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * getConfigResource
      * </p>
+     * .
      *
      * @return a {@link org.springframework.core.io.Resource} object.
      */
@@ -167,6 +175,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * setConfigResource
      * </p>
+     * .
      *
      * @param configResource
      *            a {@link org.springframework.core.io.Resource} object.
@@ -179,6 +188,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * getContainer
      * </p>
+     * .
      *
      * @return a {@link org.opennms.core.utils.FileReloadContainer} object.
      */
@@ -186,7 +196,14 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
         return m_container;
     }
 
+    /**
+     * The Class CastorReloadCallback.
+     */
     public class CastorReloadCallback implements FileReloadCallback<V> {
+
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.FileReloadCallback#reload(java.lang.Object, org.springframework.core.io.Resource)
+         */
         @Override
         public V reload(final V object, final Resource resource) {
             return loadConfig(resource);
@@ -197,6 +214,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * getReloadCheckInterval
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -208,6 +226,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * setReloadCheckInterval
      * </p>
+     * .
      *
      * @param reloadCheckInterval
      *            a {@link java.lang.Long} object.
@@ -223,6 +242,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

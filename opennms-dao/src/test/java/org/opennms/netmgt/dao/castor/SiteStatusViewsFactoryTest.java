@@ -36,10 +36,17 @@ import org.exolab.castor.xml.MarshalException;
 import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.siteStatusViews.View;
 
+/**
+ * The Class SiteStatusViewsFactoryTest.
+ */
 public class SiteStatusViewsFactoryTest extends TestCase {
 
+    /** The m_factory. */
     private SiteStatusViewsFactory m_factory;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -48,11 +55,24 @@ public class SiteStatusViewsFactoryTest extends TestCase {
                                                getClass().getResourceAsStream("/org/opennms/netmgt/config/site-status-views.testdata.xml"));
     }
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#tearDown()
+     */
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    /**
+     * Test get name.
+     *
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void testGetName() throws MarshalException, ValidationException, IOException {
         String viewName = "default";
         View view = m_factory.getView(viewName);

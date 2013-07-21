@@ -41,97 +41,163 @@ import org.opennms.netmgt.rrd.RrdException;
 import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 
+/**
+ * The Class NullRrdStrategy.
+ */
 public class NullRrdStrategy implements RrdStrategy<Object, Object> {
 
     // THIS IS USED FOR TESTS SO RrdUtils can be initialized
     // but doesn't need to do anything
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#setConfigurationProperties(java.util.Properties)
+     */
     @Override
     public void setConfigurationProperties(Properties configurationParameters) {
         // Do nothing
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#closeFile(java.lang.Object)
+     */
     @Override
     public void closeFile(Object rrd) throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#createDefinition(java.lang.String, java.lang.String, java.lang.String, int, java.util.List, java.util.List)
+     */
     @Override
     public Object createDefinition(String creator, String directory, String rrdName, int step,
             List<RrdDataSource> dataSources, List<String> rraList) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#createFile(java.lang.Object, java.util.Map)
+     */
     @Override
     public void createFile(Object rrdDef, Map<String, String> attrMapping) throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#createGraph(java.lang.String, java.io.File)
+     */
     @Override
     public InputStream createGraph(String command, File workDir) throws IOException, RrdException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#createGraphReturnDetails(java.lang.String, java.io.File)
+     */
     @Override
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#fetchLastValue(java.lang.String, java.lang.String, int)
+     */
     @Override
     public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#fetchLastValueInRange(java.lang.String, java.lang.String, int, int)
+     */
     @Override
     public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range)
             throws NumberFormatException, RrdException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#getStats()
+     */
     @Override
     public String getStats() {
         return null;
     }
 
+    /**
+     * Graphics initialize.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void graphicsInitialize() throws Exception {
     }
 
+    /**
+     * Initialize.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void initialize() throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#openFile(java.lang.String)
+     */
     @Override
     public Object openFile(String fileName) throws Exception {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#updateFile(java.lang.Object, java.lang.String, java.lang.String)
+     */
     @Override
     public void updateFile(Object rrd, String owner, String data) throws Exception {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#getGraphLeftOffset()
+     */
     @Override
     public int getGraphLeftOffset() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#getGraphRightOffset()
+     */
     @Override
     public int getGraphRightOffset() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#getGraphTopOffsetWithText()
+     */
     @Override
     public int getGraphTopOffsetWithText() {
         return 0;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#getDefaultFileExtension()
+     */
     @Override
     public String getDefaultFileExtension() {
         return ".nullRrd";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#fetchLastValue(java.lang.String, java.lang.String, java.lang.String, int)
+     */
     @Override
     public Double fetchLastValue(String rrdFile, String ds, String consolidationFunction, int interval)
             throws NumberFormatException, RrdException {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.rrd.RrdStrategy#promoteEnqueuedFiles(java.util.Collection)
+     */
     @Override
     public void promoteEnqueuedFiles(Collection<String> rrdFiles) {
     }

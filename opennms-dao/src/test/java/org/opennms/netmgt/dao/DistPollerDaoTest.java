@@ -47,6 +47,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DistPollerDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -57,14 +60,22 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DistPollerDaoTest implements InitializingBean {
+
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test create.
+     */
     @Test
     @Transactional
     public void testCreate() {
@@ -74,6 +85,9 @@ public class DistPollerDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get.
+     */
     @Test
     @Transactional
     public void testGet() {
@@ -87,6 +101,11 @@ public class DistPollerDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     private DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }

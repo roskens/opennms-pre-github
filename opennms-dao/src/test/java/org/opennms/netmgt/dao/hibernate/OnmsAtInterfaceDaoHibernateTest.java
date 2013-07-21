@@ -52,6 +52,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class OnmsAtInterfaceDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -62,20 +65,30 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
+
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_at interface dao. */
     @Autowired
     private AtInterfaceDao m_atInterfaceDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -85,6 +98,9 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
         m_databasePopulator.populateDatabase();
     }
 
+    /**
+     * Test save at interface.
+     */
     @Test
     public void testSaveAtInterface() {
         final OnmsAtInterface atinterface = new OnmsAtInterface(
@@ -103,6 +119,12 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
         assertEquals(2, m_atInterfaceDao.countAll());
     }
 
+    /**
+     * Test find by node and address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testFindByNodeAndAddress() throws UnknownHostException {
         final OnmsAtInterface atinterface = m_atInterfaceDao.findByNodeAndAddress(m_databasePopulator.getNode2().getId(),
@@ -118,6 +140,12 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get at interface for address.
+     *
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     @Test
     public void testGetAtInterfaceForAddress() throws UnknownHostException {
         Collection<OnmsAtInterface> atinterfaces = m_atInterfaceDao.getAtInterfaceForAddress(InetAddress.getByName("192.168.2.1"));
@@ -158,6 +186,12 @@ public class OnmsAtInterfaceDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Check at interface.
+     *
+     * @param atinterface
+     *            the atinterface
+     */
     private void checkAtInterface(OnmsAtInterface atinterface) {
         assertEquals(true, atinterface != null);
 

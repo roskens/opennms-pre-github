@@ -46,6 +46,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 public class DefaultMicroblogConfigurationDao extends
         AbstractCastorConfigDao<MicroblogConfiguration, MicroblogConfiguration> implements MicroblogConfigurationDao {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultMicroblogConfigurationDao.class);
 
     /**
@@ -61,6 +62,7 @@ public class DefaultMicroblogConfigurationDao extends
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.microblog.MicroblogConfiguration}
@@ -82,8 +84,8 @@ public class DefaultMicroblogConfigurationDao extends
      * should
      * indicate this.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -94,6 +96,7 @@ public class DefaultMicroblogConfigurationDao extends
      * <p>
      * getDefaultProfile
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile}
      *         object.

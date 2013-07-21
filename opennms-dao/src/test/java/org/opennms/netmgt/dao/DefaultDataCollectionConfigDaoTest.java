@@ -54,12 +54,15 @@ import org.opennms.netmgt.model.RrdRepository;
 import org.springframework.core.io.InputStreamResource;
 
 /**
- * DefaultDataCollectionConfigDaoTest
+ * DefaultDataCollectionConfigDaoTest.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultDataCollectionConfigDaoTest {
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -67,23 +70,44 @@ public class DefaultDataCollectionConfigDaoTest {
         ConfigurationTestUtils.setRelativeHomeDirectory("src/test/opennms-home");
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test new style.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testNewStyle() throws Exception {
         DefaultDataCollectionConfigDao dao = instantiateDao("datacollection-config.xml", true);
         executeTests(dao);
     }
 
+    /**
+     * Test old style.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testOldStyle() throws Exception {
         DefaultDataCollectionConfigDao oldDao = instantiateDao("examples/old-datacollection-config.xml", false);
         executeTests(oldDao);
     }
 
+    /**
+     * Test compare old and new styles.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testCompareOldAndNewStyles() throws Exception {
         DefaultDataCollectionConfigDao newDao = instantiateDao("datacollection-config.xml", true);
@@ -94,6 +118,9 @@ public class DefaultDataCollectionConfigDaoTest {
     /**
      * Use this test to test speed improvements for the data collection config
      * parsing code.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore
@@ -103,6 +130,12 @@ public class DefaultDataCollectionConfigDaoTest {
         }
     }
 
+    /**
+     * Execute tests.
+     *
+     * @param dao
+     *            the dao
+     */
     private void executeTests(DefaultDataCollectionConfigDao dao) {
         // Expected Values
         int netsnmpObjectsCount = 197; // bluecat.xml, netsnmp.xml, zeus.xml
@@ -118,6 +151,12 @@ public class DefaultDataCollectionConfigDaoTest {
         executeSystemDefCount(dao, systemDefCount);
     }
 
+    /**
+     * Execute repository test.
+     *
+     * @param dao
+     *            the dao
+     */
     private void executeRepositoryTest(DefaultDataCollectionConfigDao dao) {
         Assert.assertEquals("select", dao.getSnmpStorageFlag("default"));
 
@@ -134,6 +173,17 @@ public class DefaultDataCollectionConfigDaoTest {
         Assert.assertEquals(repository.getRraList().size(), rras.size());
     }
 
+    /**
+     * Instantiate dao.
+     *
+     * @param fileName
+     *            the file name
+     * @param setConfigDirectory
+     *            the set config directory
+     * @return the default data collection config dao
+     * @throws Exception
+     *             the exception
+     */
     private DefaultDataCollectionConfigDao instantiateDao(String fileName, boolean setConfigDirectory) throws Exception {
         DefaultDataCollectionConfigDao dao = new DefaultDataCollectionConfigDao();
         File configFile = new File("src/test/opennms-home/etc", fileName);
@@ -147,6 +197,14 @@ public class DefaultDataCollectionConfigDaoTest {
         return dao;
     }
 
+    /**
+     * Execute system def count.
+     *
+     * @param dao
+     *            the dao
+     * @param expectedCount
+     *            the expected count
+     */
     private void executeSystemDefCount(DefaultDataCollectionConfigDao dao, int expectedCount) {
         DatacollectionConfig config = dao.getContainer().getObject();
         int systemDefCount = 0;
@@ -156,6 +214,14 @@ public class DefaultDataCollectionConfigDaoTest {
         Assert.assertEquals(expectedCount, systemDefCount);
     }
 
+    /**
+     * Execute resource types test.
+     *
+     * @param dao
+     *            the dao
+     * @param expectedCount
+     *            the expected count
+     */
     private void executeResourceTypesTest(DefaultDataCollectionConfigDao dao, int expectedCount) {
         Map<String, ResourceType> resourceTypesMap = dao.getConfiguredResourceTypes();
         Assert.assertNotNull(resourceTypesMap);
@@ -171,12 +237,30 @@ public class DefaultDataCollectionConfigDaoTest {
                                                                        // type
     }
 
+    /**
+     * Execute mib objects test.
+     *
+     * @param dao
+     *            the dao
+     * @param systemOid
+     *            the system oid
+     * @param expectedCount
+     *            the expected count
+     */
     private void executeMibObjectsTest(DefaultDataCollectionConfigDao dao, String systemOid, int expectedCount) {
         List<MibObject> mibObjects = dao.getMibObjectList("default", systemOid, "127.0.0.1", -1);
         Assert.assertNotNull(mibObjects);
         Assert.assertEquals(expectedCount, mibObjects.size());
     }
 
+    /**
+     * Compare content.
+     *
+     * @param refObj
+     *            the ref obj
+     * @param newObj
+     *            the new obj
+     */
     private void compareContent(DatacollectionConfig refObj, DatacollectionConfig newObj) {
         Set<String> resourceTypes = new HashSet<String>();
         Set<String> systemDefs = new HashSet<String>();

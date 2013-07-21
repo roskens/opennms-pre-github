@@ -70,6 +70,9 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * The Class NodeDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -80,30 +83,43 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class NodeDaoTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_jdbc template. */
     @Autowired
     JdbcTemplate m_jdbcTemplate;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /** The m_trans template. */
     @Autowired
     TransactionTemplate m_transTemplate;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /** The m_last populator. */
     private static DatabasePopulator m_lastPopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         org.opennms.core.utils.BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         m_populator.populateDatabase();
@@ -114,22 +130,45 @@ public class NodeDaoTest implements InitializingBean {
         m_populator.resetDatabase();
     }
 
+    /**
+     * Gets the node1.
+     *
+     * @return the node1
+     */
     public OnmsNode getNode1() {
         return m_populator.getNode1();
     }
 
+    /**
+     * Gets the jdbc template.
+     *
+     * @return the jdbc template
+     */
     public JdbcTemplate getJdbcTemplate() {
         return m_jdbcTemplate;
     }
 
+    /**
+     * Gets the node dao.
+     *
+     * @return the node dao
+     */
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
 
+    /**
+     * Gets the dist poller dao.
+     *
+     * @return the dist poller dao
+     */
     public DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Transactional
     public void testSave() {
@@ -141,6 +180,9 @@ public class NodeDaoTest implements InitializingBean {
         getNodeDao().flush();
     }
 
+    /**
+     * Test save with path element.
+     */
     @Test
     @Transactional
     public void testSaveWithPathElement() {
@@ -154,6 +196,9 @@ public class NodeDaoTest implements InitializingBean {
         getNodeDao().flush();
     }
 
+    /**
+     * Test save with null path element.
+     */
     @Test
     @Transactional
     public void testSaveWithNullPathElement() {
@@ -172,6 +217,12 @@ public class NodeDaoTest implements InitializingBean {
         getNodeDao().flush();
     }
 
+    /**
+     * Test create.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @Transactional
     public void testCreate() throws InterruptedException {
@@ -206,6 +257,12 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test query.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testQuery() throws Exception {
@@ -215,6 +272,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test delete on orphan ip interface.
+     */
     @Test
     @Transactional
     public void testDeleteOnOrphanIpInterface() {
@@ -236,6 +296,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test delete node.
+     */
     @Test
     @Transactional
     public void testDeleteNode() {
@@ -250,6 +313,12 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals(preCount - 1, postCount);
     }
 
+    /**
+     * Test query with hierarchy.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testQueryWithHierarchy() throws Exception {
@@ -258,6 +327,13 @@ public class NodeDaoTest implements InitializingBean {
         validateNode(n);
     }
 
+    /**
+     * Gets the node hierarchy.
+     *
+     * @param nodeId
+     *            the node id
+     * @return the node hierarchy
+     */
     public OnmsNode getNodeHierarchy(final int nodeId) {
         return m_transTemplate.execute(new TransactionCallback<OnmsNode>() {
 
@@ -269,7 +345,12 @@ public class NodeDaoTest implements InitializingBean {
         });
     }
 
-    /** Test for bug 1594 */
+    /**
+     * Test for bug 1594.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testQueryWithHierarchyCloseTransaction() throws Exception {
@@ -293,6 +374,9 @@ public class NodeDaoTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test get foreign id to node id map.
+     */
     @Test
     @Transactional
     public void testGetForeignIdToNodeIdMap() {
@@ -304,6 +388,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test update node scan stamp.
+     */
     @Test
     @Transactional
     public void testUpdateNodeScanStamp() {
@@ -318,6 +405,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test find by foreign source and ip address.
+     */
     @Test
     @Transactional
     public void testFindByForeignSourceAndIpAddress() {
@@ -329,6 +419,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test get node label for id.
+     */
     @Test
     @Transactional
     public void testGetNodeLabelForId() {
@@ -337,6 +430,9 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals(label, node.getLabel());
     }
 
+    /**
+     * Test delete obsolete interfaces.
+     */
     @Test
     @JUnitTemporaryDatabase
     // This test manages its own transactions so use a fresh database
@@ -374,6 +470,9 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Validate scan.
+     */
     private void validateScan() {
         OnmsNode after = getNodeDao().get(getNode1().getId());
 
@@ -381,6 +480,12 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals(1, after.getSnmpInterfaces().size());
     }
 
+    /**
+     * Simulate scan.
+     *
+     * @param timestamp
+     *            the timestamp
+     */
     private void simulateScan(Date timestamp) {
         OnmsNode n = getNodeDao().get(getNode1().getId());
 
@@ -400,10 +505,24 @@ public class NodeDaoTest implements InitializingBean {
         getNodeDao().flush();
     }
 
+    /**
+     * Delete obsolete interfaces.
+     *
+     * @param timestamp
+     *            the timestamp
+     */
     private void deleteObsoleteInterfaces(Date timestamp) {
         getNodeDao().deleteObsoleteInterfaces(getNode1().getId(), timestamp);
     }
 
+    /**
+     * Validate node.
+     *
+     * @param n
+     *            the n
+     * @throws Exception
+     *             the exception
+     */
     private void validateNode(OnmsNode n) throws Exception {
         assertNotNull("Expected node to be non-null", n);
         assertNotNull("Expected node " + n.getId() + " to have interfaces", n.getIpInterfaces());
@@ -417,14 +536,27 @@ public class NodeDaoTest implements InitializingBean {
         assertNodeEquals(getNode1(), n);
     }
 
+    /**
+     * The Class PropertyComparator.
+     */
     private static class PropertyComparator implements Comparator<Object> {
 
+        /** The m_property name. */
         String m_propertyName;
 
+        /**
+         * Instantiates a new property comparator.
+         *
+         * @param propertyName
+         *            the property name
+         */
         public PropertyComparator(String propertyName) {
             m_propertyName = propertyName;
         }
 
+        /* (non-Javadoc)
+         * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+         */
         @Override
         public int compare(Object o1, Object o2) {
 
@@ -440,6 +572,16 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Assert node equals.
+     *
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     * @throws Exception
+     *             the exception
+     */
     private static void assertNodeEquals(OnmsNode expected, OnmsNode actual) throws Exception {
         assertEquals("Unexpected nodeId", expected.getId(), actual.getId());
         String[] properties = { "id", "label", "labelSource", "assetRecord.assetNumber", "distPoller.name", "sysContact", "sysName", "sysObjectId" };
@@ -449,10 +591,43 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * The Interface AssertEquals.
+     *
+     * @param <T>
+     *            the generic type
+     */
     private static interface AssertEquals<T> {
+
+        /**
+         * Assert equal.
+         *
+         * @param expected
+         *            the expected
+         * @param actual
+         *            the actual
+         * @throws Exception
+         *             the exception
+         */
         public void assertEqual(T expected, T actual) throws Exception;
     }
 
+    /**
+     * Assert sets equal.
+     *
+     * @param <T>
+     *            the generic type
+     * @param expectedSet
+     *            the expected set
+     * @param actualSet
+     *            the actual set
+     * @param orderProperty
+     *            the order property
+     * @param comparer
+     *            the comparer
+     * @throws Exception
+     *             the exception
+     */
     private static <T> void assertSetsEqual(Set<T> expectedSet, Set<T> actualSet, String orderProperty, AssertEquals<T> comparer) throws Exception {
         SortedSet<T> expectedSorted = new TreeSet<T>(new PropertyComparator(orderProperty));
         expectedSorted.addAll(expectedSet);
@@ -473,6 +648,16 @@ public class NodeDaoTest implements InitializingBean {
             fail("Unexpected item "+actual.next()+" in the actual list");
     }
 
+    /**
+     * Assert interface sets equal.
+     *
+     * @param expectedSet
+     *            the expected set
+     * @param actualSet
+     *            the actual set
+     * @throws Exception
+     *             the exception
+     */
     private static void assertInterfaceSetsEqual(Set<OnmsIpInterface> expectedSet, Set<OnmsIpInterface> actualSet) throws Exception {
         assertSetsEqual(expectedSet, actualSet, "ipAddress" , new AssertEquals<OnmsIpInterface>() {
 
@@ -484,12 +669,32 @@ public class NodeDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Assert interface equals.
+     *
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     * @throws Exception
+     *             the exception
+     */
     private static void assertInterfaceEquals(OnmsIpInterface expected, OnmsIpInterface actual) throws Exception {
         String[] properties = { "ipAddress", "ifIndex",  "ipHostName", "isManaged", "node.id" };
         assertPropertiesEqual(properties, expected, actual);
         assertServicesEquals(expected.getMonitoredServices(), actual.getMonitoredServices());
     }
 
+    /**
+     * Assert services equals.
+     *
+     * @param expectedSet
+     *            the expected set
+     * @param actualSet
+     *            the actual set
+     * @throws Exception
+     *             the exception
+     */
     private static void assertServicesEquals(Set<OnmsMonitoredService> expectedSet, Set<OnmsMonitoredService> actualSet) throws Exception {
         assertSetsEqual(expectedSet, actualSet, "serviceId" , new AssertEquals<OnmsMonitoredService>() {
 
@@ -501,10 +706,30 @@ public class NodeDaoTest implements InitializingBean {
         });
     }
 
+    /**
+     * Assert service equals.
+     *
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     */
     protected static void assertServiceEquals(OnmsMonitoredService expected, OnmsMonitoredService actual) {
         assertEquals(expected.getServiceName(), actual.getServiceName());
     }
 
+    /**
+     * Assert properties equal.
+     *
+     * @param properties
+     *            the properties
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     * @throws Exception
+     *             the exception
+     */
     private static void assertPropertiesEqual(String[] properties, Object expected, Object actual) throws Exception {
         for (String property : properties) {
             assertPropertyEquals(property, expected, actual);
@@ -512,12 +737,27 @@ public class NodeDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Assert property equals.
+     *
+     * @param name
+     *            the name
+     * @param expected
+     *            the expected
+     * @param actual
+     *            the actual
+     * @throws Exception
+     *             the exception
+     */
     private static void assertPropertyEquals(String name, Object expected, Object actual) throws Exception {
         Object expectedValue = BeanUtils.getProperty(expected, name);
         Object actualValue = BeanUtils.getProperty(actual, name);
         assertEquals("Unexpected value for property "+name+" on object "+expected, expectedValue, actualValue);
     }
 
+    /**
+     * Test query2.
+     */
     @Test
     @Transactional
     public void testQuery2() {
@@ -530,6 +770,11 @@ public class NodeDaoTest implements InitializingBean {
         assertEquals("category1", n.getAssetRecord().getDisplayCategory());
     }
 
+    /**
+     * Gets the dist poller.
+     *
+     * @return the dist poller
+     */
     private OnmsDistPoller getDistPoller() {
         OnmsDistPoller distPoller = getDistPollerDao().load("localhost");
         assertNotNull(distPoller);

@@ -35,6 +35,9 @@ import org.opennms.netmgt.config.CollectdPackage;
 import org.opennms.netmgt.config.collectd.Collector;
 import org.opennms.netmgt.dao.api.CollectorConfigDao;
 
+/**
+ * The Class CollectorConfigDaoStub.
+ */
 public class CollectorConfigDaoStub implements CollectorConfigDao {
 
     /*
@@ -44,6 +47,9 @@ public class CollectorConfigDaoStub implements CollectorConfigDao {
      * }
      */
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CollectorConfigDao#getSchedulerThreads()
+     */
     @Override
     public int getSchedulerThreads() {
         // TODO Auto-generated method stub
@@ -58,22 +64,34 @@ public class CollectorConfigDaoStub implements CollectorConfigDao {
      * }
      */
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CollectorConfigDao#getCollectors()
+     */
     @Override
     public Collection<Collector> getCollectors() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CollectorConfigDao#rebuildPackageIpListMap()
+     */
     @Override
     public void rebuildPackageIpListMap() {
         // do nothing
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CollectorConfigDao#getPackage(java.lang.String)
+     */
     @Override
     public CollectdPackage getPackage(String name) {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CollectorConfigDao#getPackages()
+     */
     @Override
     public Collection<CollectdPackage> getPackages() {
         return Collections.emptySet();

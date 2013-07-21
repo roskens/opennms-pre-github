@@ -36,17 +36,27 @@ import org.opennms.netmgt.model.OnmsAlarm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class DefaultAlarmStatisticsService.
+ */
 public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService<OnmsAlarm> implements
         AlarmStatisticsService {
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.stats.AbstractBaseStatisticsService#getDao()
+     */
     @Override
     public AlarmDao getDao() {
         return m_alarmDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.stats.AlarmStatisticsService#getAcknowledgedCount(org.opennms.core.criteria.Criteria)
+     */
     @Transactional
     @Override
     public int getAcknowledgedCount(final Criteria criteria) {
@@ -54,6 +64,9 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         return m_alarmDao.countMatching(criteria);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.stats.AlarmStatisticsService#getAcknowledged(org.opennms.core.criteria.Criteria)
+     */
     @Transactional
     @Override
     public OnmsAlarm getAcknowledged(final Criteria criteria) {
@@ -65,6 +78,9 @@ public class DefaultAlarmStatisticsService extends AbstractBaseStatisticsService
         return alarms.get(0);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.stats.AlarmStatisticsService#getUnacknowledged(org.opennms.core.criteria.Criteria)
+     */
     @Transactional
     @Override
     public OnmsAlarm getUnacknowledged(final Criteria criteria) {

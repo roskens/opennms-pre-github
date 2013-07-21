@@ -37,12 +37,21 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsVlan;
 
+/**
+ * The Class VlanDaoHibernate.
+ */
 public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> implements VlanDao {
 
+    /**
+     * Instantiates a new vlan dao hibernate.
+     */
     public VlanDaoHibernate() {
         super(OnmsVlan.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.VlanDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
@@ -55,6 +64,9 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> im
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.VlanDao#deactivateForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
@@ -69,6 +81,9 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> im
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.VlanDao#deleteForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
@@ -82,6 +97,9 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> im
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.VlanDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
@@ -94,6 +112,9 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer> im
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.VlanDao#findByNodeAndVlan(java.lang.Integer, java.lang.Integer)
+     */
     @Override
     public OnmsVlan findByNodeAndVlan(final Integer nodeId, final Integer vlanId) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);

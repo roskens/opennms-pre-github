@@ -33,25 +33,49 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * The Class AccessLock.
+ */
 @Entity
 @Table(name = "accessLocks")
 public class AccessLock {
 
+    /** The m_lock name. */
     private String m_lockName;
 
+    /**
+     * Instantiates a new access lock.
+     */
     public AccessLock() {
     }
 
+    /**
+     * Instantiates a new access lock.
+     *
+     * @param lockName
+     *            the lock name
+     */
     public AccessLock(String lockName) {
         m_lockName = lockName;
     }
 
+    /**
+     * Gets the lock name.
+     *
+     * @return the lock name
+     */
     @Id
     @Column(name = "lockName")
     public String getLockName() {
         return m_lockName;
     }
 
+    /**
+     * Sets the lock name.
+     *
+     * @param lockName
+     *            the new lock name
+     */
     public void setLockName(String lockName) {
         m_lockName = lockName;
     }

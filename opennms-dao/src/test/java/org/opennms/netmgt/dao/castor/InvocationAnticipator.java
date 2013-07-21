@@ -37,9 +37,19 @@ import java.util.Iterator;
 
 import org.opennms.netmgt.dao.castor.collector.DataCollectionConfigFileTest;
 
+/**
+ * The Class InvocationAnticipator.
+ */
 public class InvocationAnticipator implements InvocationHandler {
+
+    /**
+     * The Class NullInvocationHandler.
+     */
     public class NullInvocationHandler implements InvocationHandler {
 
+        /* (non-Javadoc)
+         * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+         */
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             return null;
@@ -47,18 +57,31 @@ public class InvocationAnticipator implements InvocationHandler {
 
     }
 
+    /** The m_counts. */
     private HashMap<String, Integer> m_counts = new HashMap<String, Integer>();
 
+    /** The m_anticipated counts. */
     private HashMap<String, Integer> m_anticipatedCounts = new HashMap<String, Integer>();
 
+    /** The m_clazz. */
     private Class<?> m_clazz;
 
+    /** The m_handler. */
     private InvocationHandler m_handler = new NullInvocationHandler();
 
+    /**
+     * Instantiates a new invocation anticipator.
+     *
+     * @param clazz
+     *            the clazz
+     */
     public InvocationAnticipator(Class<?> clazz) {
         m_clazz = clazz;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.reflect.InvocationHandler#invoke(java.lang.Object, java.lang.reflect.Method, java.lang.Object[])
+     */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         int currentCount = 0;
@@ -70,10 +93,23 @@ public class InvocationAnticipator implements InvocationHandler {
         return m_handler.invoke(proxy, method, args);
     }
 
+    /**
+     * Sets the invocation handler.
+     *
+     * @param handler
+     *            the new invocation handler
+     */
     public void setInvocationHandler(InvocationHandler handler) {
         m_handler = handler;
     }
 
+    /**
+     * Gets the count.
+     *
+     * @param methodName
+     *            the method name
+     * @return the count
+     */
     public int getCount(String methodName) {
         if (m_counts.get(methodName) == null) {
             return 0;
@@ -81,6 +117,13 @@ public class InvocationAnticipator implements InvocationHandler {
         return m_counts.get(methodName).intValue();
     }
 
+    /**
+     * Gets the anticipated count.
+     *
+     * @param methodName
+     *            the method name
+     * @return the anticipated count
+     */
     public int getAnticipatedCount(String methodName) {
         if (m_anticipatedCounts.get(methodName) == null) {
             return 0;
@@ -88,15 +131,29 @@ public class InvocationAnticipator implements InvocationHandler {
         return m_anticipatedCounts.get(methodName).intValue();
     }
 
+    /**
+     * Anticipate calls.
+     *
+     * @param count
+     *            the count
+     * @param methodName
+     *            the method name
+     */
     public void anticipateCalls(int count, String methodName) {
         m_anticipatedCounts.put(methodName, Integer.valueOf(count));
     }
 
+    /**
+     * Verify.
+     */
     public void verify() {
         ensureAnticipatedWereReceived();
         ensureNoUnanticipated();
     }
 
+    /**
+     * Ensure no unanticipated.
+     */
     private void ensureNoUnanticipated() {
         HashSet<String> unexpected = new HashSet<String>(m_counts.keySet());
         unexpected.removeAll(m_anticipatedCounts.keySet());
@@ -107,6 +164,9 @@ public class InvocationAnticipator implements InvocationHandler {
         }
     }
 
+    /**
+     * Ensure anticipated were received.
+     */
     private void ensureAnticipatedWereReceived() {
         for (Iterator<String> it = m_anticipatedCounts.keySet().iterator(); it.hasNext();) {
             String methodName = it.next();
@@ -115,6 +175,11 @@ public class InvocationAnticipator implements InvocationHandler {
         }
     }
 
+    /**
+     * Gets the proxy.
+     *
+     * @return the proxy
+     */
     public Object getProxy() {
         return Proxy.newProxyInstance(getClass().getClassLoader(), new Class[] { m_clazz }, this);
     }

@@ -37,12 +37,17 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Avail implements Comparable<Avail> {
+
+    /** The id. */
     private int id;
 
+    /** The min. */
     private int min;
 
+    /** The color. */
     private String color;
 
+    /** The flash. */
     private boolean flash = false;
 
     /**
@@ -149,6 +154,7 @@ public class Avail implements Comparable<Avail> {
      * <p>
      * isFlash
      * </p>
+     * .
      *
      * @return a boolean.
      */

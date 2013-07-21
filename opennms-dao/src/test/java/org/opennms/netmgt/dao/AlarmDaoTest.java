@@ -66,6 +66,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AlarmDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -77,28 +80,40 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class AlarmDaoTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -112,6 +127,9 @@ public class AlarmDaoTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test actions.
+     */
     @Test
     @Transactional
     public void testActions() {
@@ -159,6 +177,9 @@ public class AlarmDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Transactional
     public void testSave() {
@@ -202,6 +223,9 @@ public class AlarmDaoTest implements InitializingBean {
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
     }
 
+    /**
+     * Test without dist poller.
+     */
     @Test
     @Transactional
     public void testWithoutDistPoller() {
@@ -240,6 +264,9 @@ public class AlarmDaoTest implements InitializingBean {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test alarm summary.
+     */
     @Test
     @Transactional
     public void testAlarmSummary() {
@@ -277,6 +304,9 @@ public class AlarmDaoTest implements InitializingBean {
         Assert.assertNotSame("N/A", sum.getFuzzyTimeDown());
     }
 
+    /**
+     * Test alarm summary_ with empty node ids array.
+     */
     @Test
     @Transactional
     public void testAlarmSummary_WithEmptyNodeIdsArray() {
@@ -288,6 +318,9 @@ public class AlarmDaoTest implements InitializingBean {
         Assert.assertNotNull(summary);
     }
 
+    /**
+     * Test alarm summary_ alarm with no event.
+     */
     @Test
     @Transactional
     public void testAlarmSummary_AlarmWithNoEvent() {
@@ -311,6 +344,9 @@ public class AlarmDaoTest implements InitializingBean {
         Assert.assertEquals("N/A", sum.getFuzzyTimeDown());
     }
 
+    /**
+     * Test sort on node label.
+     */
     @Test
     @Transactional
     public void testSortOnNodeLabel() {

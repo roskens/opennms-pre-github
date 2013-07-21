@@ -47,8 +47,11 @@ import org.opennms.netmgt.model.OnmsResourceType;
  * </p>
  */
 public class DomainResourceType implements OnmsResourceType {
+
+    /** The Constant s_emptyAttributeSet. */
     private static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
     /**
@@ -67,6 +70,7 @@ public class DomainResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -79,6 +83,7 @@ public class DomainResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -136,6 +141,7 @@ public class DomainResourceType implements OnmsResourceType {
      * <p>
      * createChildResource
      * </p>
+     * .
      *
      * @param domain
      *            a {@link java.lang.String} object.
@@ -150,19 +156,40 @@ public class DomainResourceType implements OnmsResourceType {
         return resource;
     }
 
+    /**
+     * The Class DomainChildResourceLoader.
+     */
     public class DomainChildResourceLoader implements LazyList.Loader<OnmsResource> {
+
+        /** The m_domain. */
         private String m_domain;
 
+        /** The m_parent. */
         private OnmsResource m_parent;
 
+        /**
+         * Instantiates a new domain child resource loader.
+         *
+         * @param domain
+         *            the domain
+         */
         public DomainChildResourceLoader(String domain) {
             m_domain = domain;
         }
 
+        /**
+         * Sets the parent.
+         *
+         * @param parent
+         *            the new parent
+         */
         public void setParent(OnmsResource parent) {
             m_parent = parent;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazyList.Loader#load()
+         */
         @Override
         public List<OnmsResource> load() {
             List<OnmsResource> children = new LinkedList<OnmsResource>();
@@ -177,6 +204,13 @@ public class DomainResourceType implements OnmsResourceType {
             return children;
         }
 
+        /**
+         * Gets the resource types for domain.
+         *
+         * @param domain
+         *            the domain
+         * @return the resource types for domain
+         */
         private Collection<OnmsResourceType> getResourceTypesForDomain(String domain) {
             Collection<OnmsResourceType> resourceTypes = new LinkedList<OnmsResourceType>();
             for (OnmsResourceType resourceType : m_resourceDao.getResourceTypes()) {

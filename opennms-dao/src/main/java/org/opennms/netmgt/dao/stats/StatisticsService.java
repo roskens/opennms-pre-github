@@ -31,8 +31,21 @@ package org.opennms.netmgt.dao.stats;
 import org.opennms.core.criteria.Criteria;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Interface StatisticsService.
+ *
+ * @param <T>
+ *            the generic type
+ */
 public interface StatisticsService<T> {
 
+    /**
+     * Gets the total count.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the total count
+     */
     @Transactional(readOnly = true)
     int getTotalCount(final Criteria criteria);
 

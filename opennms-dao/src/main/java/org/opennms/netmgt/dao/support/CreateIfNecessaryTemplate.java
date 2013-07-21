@@ -35,9 +35,12 @@ import org.springframework.transaction.PlatformTransactionManager;
  * Template for creating a row if and only if one doesn't already exists. This
  * suffers
  * from some of the same concurrency issues as described in the
- * {@link UpsertTemplate}. See the
- * detailed javadoc there for a description.
  *
+ * @param <T>
+ *            the generic type
+ * @param <D>
+ *            the generic type {@link UpsertTemplate}. See the
+ *            detailed javadoc there for a description.
  * @author brozow
  */
 public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> extends UpsertTemplate<T, D> {
@@ -45,23 +48,38 @@ public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> exte
     /**
      * Create a CreateIfNecessaryTemplate using the given transactionManager to
      * create transactions.
+     *
+     * @param transactionManager
+     *            the transaction manager
+     * @param dao
+     *            the dao
      */
     public CreateIfNecessaryTemplate(PlatformTransactionManager transactionManager, D dao) {
         super(transactionManager, dao);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.support.UpsertTemplate#query()
+     */
     @Override
     protected abstract T query();
 
     /**
      * There is no need to update the object for this case as we just return the
      * object found.
+     *
+     * @param dbObj
+     *            the db obj
+     * @return the t
      */
     @Override
     protected T doUpdate(T dbObj) {
         return dbObj;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.support.UpsertTemplate#doInsert()
+     */
     @Override
     protected abstract T doInsert();
 

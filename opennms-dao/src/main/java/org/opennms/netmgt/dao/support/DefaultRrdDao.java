@@ -54,12 +54,16 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultRrdDao implements RrdDao, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdDao.class);
 
+    /** The m_rrd strategy. */
     private RrdStrategy<?, ?> m_rrdStrategy;
 
+    /** The m_rrd base directory. */
     private File m_rrdBaseDirectory;
 
+    /** The m_rrd binary path. */
     private String m_rrdBinaryPath;
 
     /** {@inheritDoc} */
@@ -72,6 +76,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getPrintValues
      * </p>
+     * .
      *
      * @param attribute
      *            a {@link org.opennms.netmgt.model.OnmsAttribute} object.
@@ -163,9 +168,10 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -178,6 +184,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getRrdStrategy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
      */
@@ -189,6 +196,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * setRrdStrategy
      * </p>
+     * .
      *
      * @param rrdStrategy
      *            a {@link org.opennms.netmgt.rrd.RrdStrategy} object.
@@ -201,6 +209,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getRrdBaseDirectory
      * </p>
+     * .
      *
      * @return a {@link java.io.File} object.
      */
@@ -212,6 +221,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * setRrdBaseDirectory
      * </p>
+     * .
      *
      * @param rrdBaseDirectory
      *            a {@link java.io.File} object.
@@ -224,6 +234,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getRrdBinaryPath
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +246,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * setRrdBinaryPath
      * </p>
+     * .
      *
      * @param rrdBinaryPath
      *            a {@link java.lang.String} object.
@@ -262,9 +274,10 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getGraphTopOffsetWithText
      * </p>
+     * .
      *
-     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphTopOffsetWithText()
      * @return a int.
+     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphTopOffsetWithText()
      */
     @Override
     public int getGraphTopOffsetWithText() {
@@ -275,9 +288,10 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getGraphLeftOffset
      * </p>
+     * .
      *
-     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphLeftOffset()
      * @return a int.
+     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphLeftOffset()
      */
     @Override
     public int getGraphLeftOffset() {
@@ -288,9 +302,10 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
      * <p>
      * getGraphRightOffset
      * </p>
+     * .
      *
-     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphRightOffset()
      * @return a int.
+     * @see org.opennms.netmgt.dao.api.RrdDao#getGraphRightOffset()
      */
     @Override
     public int getGraphRightOffset() {

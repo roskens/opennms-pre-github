@@ -65,6 +65,7 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.ackd.AckdConfiguration}
      *         object.
@@ -108,6 +109,15 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
         return matcher(messageText, expression);
     }
 
+    /**
+     * Matcher.
+     *
+     * @param messageText
+     *            the message text
+     * @param expression
+     *            the expression
+     * @return the boolean
+     */
     private Boolean matcher(List<String> messageText, String expression) {
         Boolean matches = Boolean.FALSE;
         Pattern p;
@@ -171,8 +181,8 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
      * should
      * indicate this.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -183,6 +193,7 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
      * <p>
      * getEnabledReaderCount
      * </p>
+     * .
      *
      * @return a int.
      */

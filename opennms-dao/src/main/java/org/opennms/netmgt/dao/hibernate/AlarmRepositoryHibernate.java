@@ -65,15 +65,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBean {
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /** The m_memo dao. */
     @Autowired
     MemoDao m_memoDao;
 
+    /** The m_ack dao. */
     @Autowired
     AcknowledgmentDao m_ackDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -88,6 +94,16 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
         acknowledgeMatchingAlarms(user, timestamp, new OnmsCriteria(OnmsAlarm.class));
     }
 
+    /**
+     * Acknowledge alarms.
+     *
+     * @param user
+     *            the user
+     * @param timestamp
+     *            the timestamp
+     * @param alarmIds
+     *            the alarm ids
+     */
     @Transactional
     public void acknowledgeAlarms(String user, Date timestamp, int[] alarmIds) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsAlarm.class);
@@ -309,6 +325,9 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AlarmRepository#getAcknowledgments(int)
+     */
     @Override
     @Transactional
     public List<OnmsAcknowledgment> getAcknowledgments(int alarmId) {
@@ -318,6 +337,9 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
         return m_ackDao.findMatching(cb.toCriteria());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AlarmRepository#getCurrentNodeAlarmSummaries()
+     */
     @Override
     @Transactional
     public List<AlarmSummary> getCurrentNodeAlarmSummaries() {

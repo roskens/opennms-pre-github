@@ -37,12 +37,17 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Severity implements Comparable<Severity> {
+
+    /** The id. */
     private int id;
 
+    /** The label. */
     private String label;
 
+    /** The color. */
     private String color;
 
+    /** The flash. */
     private boolean flash = false;
 
     /**
@@ -151,6 +156,7 @@ public class Severity implements Comparable<Severity> {
      * <p>
      * isFlash
      * </p>
+     * .
      *
      * @return a boolean.
      */

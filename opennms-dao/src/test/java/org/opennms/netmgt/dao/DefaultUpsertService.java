@@ -41,28 +41,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 
 /**
- * DefaultUpsertService
+ * DefaultUpsertService.
  *
  * @author brozow
  */
 public class DefaultUpsertService implements UpsertService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultUpsertService.class);
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_snmp interface dao. */
     @Autowired
     SnmpInterfaceDao m_snmpInterfaceDao;
 
+    /** The m_transaction manager. */
     @Autowired
     PlatformTransactionManager m_transactionManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.UpsertService#upsert(int, org.opennms.netmgt.model.OnmsSnmpInterface, int)
+     */
     @Override
     public OnmsSnmpInterface upsert(final int nodeId, final OnmsSnmpInterface snmpInterface, final int sleep) {
         UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao> upzerter = new UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao>(
@@ -108,6 +118,12 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
         return upzerter.execute();
     }
 
+    /**
+     * Sleep.
+     *
+     * @param sleep
+     *            the sleep
+     */
     public void sleep(int sleep) {
         try {
             Thread.sleep(sleep);

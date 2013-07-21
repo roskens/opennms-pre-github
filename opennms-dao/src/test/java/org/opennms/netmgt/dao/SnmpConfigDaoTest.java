@@ -41,12 +41,20 @@ import org.opennms.netmgt.dao.api.SnmpConfigDao;
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.netmgt.snmp.SnmpConfiguration;
 
+/**
+ * The Class SnmpConfigDaoTest.
+ */
 public class SnmpConfigDaoTest extends TestCase {
 
+    /** The m_snmp config dao. */
     private SnmpConfigDao m_snmpConfigDao;
 
+    /** The m_config file. */
     private File m_configFile;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
 
@@ -70,6 +78,20 @@ public class SnmpConfigDaoTest extends TestCase {
 
     }
 
+    /**
+     * Assert config.
+     *
+     * @param addr
+     *            the addr
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     * @param version
+     *            the version
+     * @param community
+     *            the community
+     * @throws UnknownHostException
+     *             the unknown host exception
+     */
     private void assertConfig(String addr, int maxVarsPerPdu, int version, String community)
             throws UnknownHostException {
         assertNotNull(m_snmpConfigDao);
@@ -84,10 +106,22 @@ public class SnmpConfigDaoTest extends TestCase {
 
     }
 
+    /**
+     * Test get.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testGet() throws Exception {
         assertConfig("192.168.1.3", 27, 1, "myPublic");
     }
 
+    /**
+     * Test update defaults.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpdateDefaults() throws Exception {
 
         // assert original config
@@ -105,6 +139,12 @@ public class SnmpConfigDaoTest extends TestCase {
         assertConfig("192.168.1.3", 72, 2, "newcommunity");
     }
 
+    /**
+     * Test update config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testUpdateConfig() throws Exception {
 
         // assert original config

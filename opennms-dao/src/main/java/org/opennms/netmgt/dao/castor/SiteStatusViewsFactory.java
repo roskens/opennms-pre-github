@@ -47,13 +47,18 @@ import org.opennms.netmgt.config.siteStatusViews.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A factory for creating SiteStatusViews objects.
+ */
 public class SiteStatusViewsFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SiteStatusViewsFactory.class);
 
     /** The singleton instance. */
     private static SiteStatusViewsFactory m_instance;
 
+    /** The m_loaded from file. */
     private static boolean m_loadedFromFile = false;
 
     /** Boolean indicating if the init() method has been called. */
@@ -67,6 +72,7 @@ public class SiteStatusViewsFactory {
     /** Map of view objects by name. */
     protected static Map<String, View> m_viewsMap;
 
+    /** The m_config. */
     private static SiteStatusViewConfiguration m_config;
 
     /**
@@ -76,12 +82,12 @@ public class SiteStatusViewsFactory {
      *
      * @param configFile
      *            a {@link java.lang.String} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public SiteStatusViewsFactory(String configFile) throws MarshalException, ValidationException, IOException {
         InputStream stream = null;
@@ -102,15 +108,25 @@ public class SiteStatusViewsFactory {
      *
      * @param stream
      *            a {@link java.io.InputStream} object.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public SiteStatusViewsFactory(InputStream stream) throws MarshalException, ValidationException {
         initialize(stream);
     }
 
+    /**
+     * Initialize.
+     *
+     * @param stream
+     *            the stream
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     private void initialize(InputStream stream) throws MarshalException, ValidationException {
         LOG.debug("initialize: initializing site status views factory.");
         m_config = CastorUtils.unmarshal(SiteStatusViewConfiguration.class, stream);
@@ -118,6 +134,9 @@ public class SiteStatusViewsFactory {
         initializeViewsMap();
     }
 
+    /**
+     * Initialize views map.
+     */
     private void initializeViewsMap() {
         m_viewsMap = new HashMap<String, View>();
         for (View view : m_config.getViews().getViewCollection()) {
@@ -128,14 +147,14 @@ public class SiteStatusViewsFactory {
     /**
      * Be sure to call this method before calling getInstance().
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException,
             ValidationException {
@@ -150,11 +169,9 @@ public class SiteStatusViewsFactory {
 
     /**
      * Singleton static call to get the only instance that should exist for the
-     * ViewsDisplayFactory
+     * ViewsDisplayFactory.
      *
      * @return the single views display factory instance
-     * @throws java.lang.IllegalStateException
-     *             if init has not been called
      */
     public static synchronized SiteStatusViewsFactory getInstance() {
         if (m_instance == null) {
@@ -168,6 +185,7 @@ public class SiteStatusViewsFactory {
      * <p>
      * setInstance
      * </p>
+     * .
      *
      * @param instance
      *            a {@link org.opennms.netmgt.dao.castor.SiteStatusViewsFactory}
@@ -182,15 +200,16 @@ public class SiteStatusViewsFactory {
      * <p>
      * reload
      * </p>
+     * .
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public synchronized void reload() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         m_instance = null;
@@ -198,17 +217,17 @@ public class SiteStatusViewsFactory {
     }
 
     /**
-     * Can't be null
+     * Can't be null.
      *
      * @param viewName
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.View} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     public View getView(String viewName) throws IOException, MarshalException, ValidationException {
         if (viewName == null) {
@@ -226,12 +245,12 @@ public class SiteStatusViewsFactory {
      * Reload the viewsdisplay.xml file if it has been changed since we last
      * read it.
      *
-     * @throws java.io.IOException
-     *             if any.
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if any.
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     protected void updateFromFile() throws IOException, MarshalException, ValidationException {
         if (m_loadedFromFile) {
@@ -246,6 +265,7 @@ public class SiteStatusViewsFactory {
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.siteStatusViews.SiteStatusViewConfiguration}
@@ -259,6 +279,7 @@ public class SiteStatusViewsFactory {
      * <p>
      * setConfig
      * </p>
+     * .
      *
      * @param m_config
      *            a
@@ -273,6 +294,7 @@ public class SiteStatusViewsFactory {
      * <p>
      * getViewsMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -284,6 +306,7 @@ public class SiteStatusViewsFactory {
      * <p>
      * setViewsMap
      * </p>
+     * .
      *
      * @param map
      *            a {@link java.util.Map} object.

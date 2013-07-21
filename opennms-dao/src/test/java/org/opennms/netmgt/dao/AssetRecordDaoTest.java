@@ -52,6 +52,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class AssetRecordDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -63,25 +66,36 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class AssetRecordDaoTest implements InitializingBean {
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_asset record dao. */
     @Autowired
     private AssetRecordDao m_assetRecordDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -95,6 +109,9 @@ public class AssetRecordDaoTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test create and gets.
+     */
     @Test
     @Transactional
     public void testCreateAndGets() {
@@ -115,6 +132,9 @@ public class AssetRecordDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test add user name.
+     */
     @Test
     @Transactional
     public void testAddUserName() {
@@ -140,6 +160,9 @@ public class AssetRecordDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test add autoenable.
+     */
     @Test
     @Transactional
     public void testAddAutoenable() {
@@ -165,6 +188,9 @@ public class AssetRecordDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Test find by node id.
+     */
     @Test
     @Transactional
     public void testFindByNodeId() {
@@ -181,6 +207,9 @@ public class AssetRecordDaoTest implements InitializingBean {
         assertTrue(a.equals(assetRecord));
     }
 
+    /**
+     * Test geolocation.
+     */
     @Test
     @Transactional
     public void testGeolocation() {

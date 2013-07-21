@@ -52,22 +52,29 @@ import org.springframework.util.Assert;
  */
 public class FilterResourceWalker implements InitializingBean {
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
+    /** The m_filter dao. */
     private FilterDao m_filterDao;
 
+    /** The m_filter. */
     private String m_filter;
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_visitor. */
     private ResourceVisitor m_visitor;
 
+    /** The m_resource walker. */
     private ResourceTreeWalker m_resourceWalker = new ResourceTreeWalker();
 
     /**
      * <p>
      * walk
      * </p>
+     * .
      */
     public void walk() {
         EntityVisitor visitor = new AbstractEntityVisitor() {
@@ -89,6 +96,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * walk
      * </p>
+     * .
      *
      * @param node
      *            a {@link org.opennms.netmgt.model.OnmsNode} object.
@@ -102,6 +110,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      */
     @Override
     public void afterPropertiesSet() {
@@ -117,6 +126,8 @@ public class FilterResourceWalker implements InitializingBean {
     }
 
     /**
+     * Gets the node dao.
+     *
      * @return the nodeDao
      */
     public NodeDao getNodeDao() {
@@ -124,6 +135,8 @@ public class FilterResourceWalker implements InitializingBean {
     }
 
     /**
+     * Sets the node dao.
+     *
      * @param nodeDao
      *            the nodeDao to set
      */
@@ -135,6 +148,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * getResourceDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
      */
@@ -146,6 +160,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * setResourceDao
      * </p>
+     * .
      *
      * @param resourceDao
      *            a {@link org.opennms.netmgt.dao.api.ResourceDao} object.
@@ -158,6 +173,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * getVisitor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.ResourceVisitor} object.
      */
@@ -169,6 +185,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * setVisitor
      * </p>
+     * .
      *
      * @param visitor
      *            a {@link org.opennms.netmgt.model.ResourceVisitor} object.
@@ -181,6 +198,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * getFilterDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.filter.FilterDao} object.
      */
@@ -192,6 +210,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * setFilterDao
      * </p>
+     * .
      *
      * @param filterDao
      *            a {@link org.opennms.netmgt.filter.FilterDao} object.
@@ -204,6 +223,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -215,6 +235,7 @@ public class FilterResourceWalker implements InitializingBean {
      * <p>
      * setFilter
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.

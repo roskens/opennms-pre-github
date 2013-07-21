@@ -36,6 +36,9 @@ import org.opennms.netmgt.config.databaseReports.DatabaseReports;
 import org.opennms.netmgt.config.databaseReports.Report;
 import org.opennms.netmgt.dao.api.DatabaseReportConfigDao;
 
+/**
+ * The Class DefaultDatabaseReportConfigDao.
+ */
 public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<DatabaseReports, List<Report>> implements
         DatabaseReportConfigDao {
 
@@ -82,6 +85,13 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
 
     }
 
+    /**
+     * Gets the report.
+     *
+     * @param name
+     *            the name
+     * @return the report
+     */
     private Report getReport(String name) {
 
         for (Report report : getContainer().getObject()) {
@@ -98,6 +108,7 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -112,6 +123,7 @@ public class DefaultDatabaseReportConfigDao extends AbstractCastorConfigDao<Data
      * <p>
      * getOnlineReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */

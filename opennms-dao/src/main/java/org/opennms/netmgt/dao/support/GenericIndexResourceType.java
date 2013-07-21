@@ -56,22 +56,32 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * </p>
  */
 public class GenericIndexResourceType implements OnmsResourceType {
+
+    /** The Constant SUB_INDEX_PATTERN. */
     private static final Pattern SUB_INDEX_PATTERN = Pattern.compile("^subIndex\\((.*)\\)$");
 
+    /** The Constant SUB_INDEX_ARGUMENTS_PATTERN. */
     private static final Pattern SUB_INDEX_ARGUMENTS_PATTERN = Pattern.compile("^(-?\\d+|n)(?:,\\s*(\\d+|n))?$");
 
+    /** The Constant HEX_PATTERN. */
     private static final Pattern HEX_PATTERN = Pattern.compile("^hex\\((.*)\\)$");
 
+    /** The Constant STRING_PATTERN. */
     private static final Pattern STRING_PATTERN = Pattern.compile("^string\\((.*)\\)$");
 
+    /** The m_name. */
     private final String m_name;
 
+    /** The m_label. */
     private final String m_label;
 
+    /** The m_resource label expression. */
     private final String m_resourceLabelExpression;
 
+    /** The m_resource dao. */
     private final ResourceDao m_resourceDao;
 
+    /** The m_storage strategy. */
     private final StorageStrategy m_storageStrategy;
 
     /**
@@ -103,6 +113,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -115,6 +126,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -127,6 +139,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getStorageStrategy
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.StorageStrategy} object.
      */
@@ -140,6 +153,15 @@ public class GenericIndexResourceType implements OnmsResourceType {
         return getResourceTypeDirectory(nodeId, false).isDirectory();
     }
 
+    /**
+     * Gets the resource type directory.
+     *
+     * @param nodeId
+     *            the node id
+     * @param verify
+     *            the verify
+     * @return the resource type directory
+     */
     private File getResourceTypeDirectory(int nodeId, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
 
@@ -158,6 +180,15 @@ public class GenericIndexResourceType implements OnmsResourceType {
         return generic;
     }
 
+    /**
+     * Gets the resource type directory.
+     *
+     * @param nodeSource
+     *            the node source
+     * @param verify
+     *            the verify
+     * @return the resource type directory
+     */
     private File getResourceTypeDirectory(String nodeSource, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
 
@@ -191,6 +222,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getQueryableIndexesForNode
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -218,6 +250,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getQueryableIndexesForNodeSource
      * </p>
+     * .
      *
      * @param nodeSource
      *            a String.
@@ -245,6 +278,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getResourceByNodeAndIndex
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -261,6 +295,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getResourceByNodeSourceAndIndex
      * </p>
+     * .
      *
      * @param nodeSource
      *            a {@link java.lang.String} object.
@@ -277,6 +312,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getResourceByIndex
      * </p>
+     * .
      *
      * @param set
      *            a Set<OnmsAttribute> object.
@@ -429,17 +465,33 @@ public class GenericIndexResourceType implements OnmsResourceType {
         return new OnmsResource(index, label, this, set);
     }
 
+    /**
+     * The Class AttributeLoader.
+     */
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
 
+        /** The m_node id. */
         private int m_nodeId;
 
+        /** The m_index. */
         private String m_index;
 
+        /**
+         * Instantiates a new attribute loader.
+         *
+         * @param nodeId
+         *            the node id
+         * @param index
+         *            the index
+         */
         public AttributeLoader(int nodeId, String index) {
             m_nodeId = nodeId;
             m_index = index;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazySet.Loader#load()
+         */
         @Override
         public Set<OnmsAttribute> load() {
             return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
@@ -447,17 +499,33 @@ public class GenericIndexResourceType implements OnmsResourceType {
         }
     }
 
+    /**
+     * The Class NodeSourceAttributeLoader.
+     */
     public class NodeSourceAttributeLoader implements LazySet.Loader<OnmsAttribute> {
 
+        /** The m_node source. */
         private String m_nodeSource;
 
+        /** The m_index. */
         private String m_index;
 
+        /**
+         * Instantiates a new node source attribute loader.
+         *
+         * @param nodeSource
+         *            the node source
+         * @param index
+         *            the index
+         */
         public NodeSourceAttributeLoader(String nodeSource, String index) {
             m_nodeSource = nodeSource;
             m_index = index;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazySet.Loader#load()
+         */
         @Override
         public Set<OnmsAttribute> load() {
             return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
@@ -470,6 +538,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getRelativePathForResource
      * </p>
+     * .
      *
      * @param nodeId
      *            a int.
@@ -486,6 +555,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * <p>
      * getRelativePathForNodeSourceResource
      * </p>
+     * .
      *
      * @param nodeSource
      *            a {@link java.lang.String} object.

@@ -51,15 +51,24 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.StringUtils;
 
 /**
+ * The Class DefaultRrdDaoTest.
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultRrdDaoTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_rrd strategy. */
     private RrdStrategy<?, ?> m_rrdStrategy = m_mocks.createMock(RrdStrategy.class);
 
+    /** The m_dao. */
     private DefaultRrdDao m_dao;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -73,10 +82,19 @@ public class DefaultRrdDaoTest extends TestCase {
         m_dao.afterPropertiesSet();
     }
 
+    /**
+     * Test init.
+     */
     public void testInit() {
         // Don't do anything... test that the setUp method works
     }
 
+    /**
+     * Test print value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValue() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -90,6 +108,12 @@ public class DefaultRrdDaoTest extends TestCase {
         assertEquals("value", 1.0, value);
     }
 
+    /**
+     * Test print value with na n.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValueWithNaN() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -103,6 +127,12 @@ public class DefaultRrdDaoTest extends TestCase {
         assertEquals("value", Double.NaN, value);
     }
 
+    /**
+     * Test print value withnan.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValueWithnan() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -117,6 +147,12 @@ public class DefaultRrdDaoTest extends TestCase {
     }
 
     // NMS-5275
+    /**
+     * Test print value with negative nan.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValueWithNegativeNan() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -130,6 +166,12 @@ public class DefaultRrdDaoTest extends TestCase {
         assertEquals("value", Double.NaN, value);
     }
 
+    /**
+     * Test print value with bogus line.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testPrintValueWithBogusLine() throws Exception {
         long end = System.currentTimeMillis();
         long start = end - (24 * 60 * 60 * 1000);
@@ -154,6 +196,21 @@ public class DefaultRrdDaoTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Prepare print value test.
+     *
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     * @param printLine
+     *            the print line
+     * @return the onms resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws RrdException
+     *             the rrd exception
+     */
     private OnmsResource preparePrintValueTest(long start, long end, String printLine) throws IOException, RrdException {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
@@ -185,6 +242,12 @@ public class DefaultRrdDaoTest extends TestCase {
         return childResource;
     }
 
+    /**
+     * Test fetch last value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFetchLastValue() throws Exception {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";
@@ -215,6 +278,12 @@ public class DefaultRrdDaoTest extends TestCase {
         assertEquals("last fetched value", expectedValue, value);
     }
 
+    /**
+     * Test fetch last value in range.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testFetchLastValueInRange() throws Exception {
         String rrdDir = "snmp" + File.separator + "1" + File.separator + "eth0";
         String rrdFile = "ifInOctets.jrb";

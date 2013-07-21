@@ -35,6 +35,9 @@ import org.opennms.netmgt.config.reporting.jasperReports.JasperReports;
 import org.opennms.netmgt.config.reporting.jasperReports.Report;
 import org.opennms.netmgt.dao.api.JasperReportConfigDao;
 
+/**
+ * The Class DefaultJasperReportConfigDao.
+ */
 public class DefaultJasperReportConfigDao extends AbstractCastorConfigDao<JasperReports, List<Report>> implements
         JasperReportConfigDao {
 
@@ -67,6 +70,13 @@ public class DefaultJasperReportConfigDao extends AbstractCastorConfigDao<Jasper
         return null;
     }
 
+    /**
+     * Gets the report.
+     *
+     * @param id
+     *            the id
+     * @return the report
+     */
     private Report getReport(String id) {
         for (Report report : getContainer().getObject()) {
             if (id.equals(report.getId())) {

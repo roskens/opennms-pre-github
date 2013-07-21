@@ -69,7 +69,20 @@ import org.opennms.core.criteria.restrictions.RestrictionVisitor;
 import org.opennms.core.criteria.restrictions.SqlRestriction;
 import org.opennms.netmgt.dao.api.CriteriaConverter;
 
+/**
+ * The Class HibernateCriteriaConverter.
+ */
 public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCriteria> {
+
+    /**
+     * Convert.
+     *
+     * @param criteria
+     *            the criteria
+     * @param session
+     *            the session
+     * @return the org.hibernate. criteria
+     */
     public org.hibernate.Criteria convert(final Criteria criteria, final Session session) {
         final HibernateCriteriaVisitor visitor = new HibernateCriteriaVisitor();
         criteria.visit(visitor);
@@ -77,6 +90,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         return visitor.getCriteria(session);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CriteriaConverter#convert(org.opennms.core.criteria.Criteria)
+     */
     @Override
     public DetachedCriteria convert(final Criteria criteria) {
         final HibernateCriteriaVisitor visitor = new HibernateCriteriaVisitor();
@@ -85,6 +101,15 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         return visitor.getCriteria();
     }
 
+    /**
+     * Convert for count.
+     *
+     * @param criteria
+     *            the criteria
+     * @param session
+     *            the session
+     * @return the org.hibernate. criteria
+     */
     public org.hibernate.Criteria convertForCount(final Criteria criteria, final Session session) {
         final HibernateCriteriaVisitor visitor = new CountHibernateCriteriaVisitor();
         criteria.visit(visitor);
@@ -92,6 +117,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         return visitor.getCriteria(session);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.CriteriaConverter#convertForCount(org.opennms.core.criteria.Criteria)
+     */
     @Override
     public DetachedCriteria convertForCount(final Criteria criteria) {
         final HibernateCriteriaVisitor visitor = new HibernateCriteriaVisitor() {
@@ -105,28 +133,53 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         return visitor.getCriteria();
     }
 
+    /**
+     * The Class CountHibernateCriteriaVisitor.
+     */
     public static class CountHibernateCriteriaVisitor extends HibernateCriteriaVisitor {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.hibernate.HibernateCriteriaConverter.HibernateCriteriaVisitor#visitOrder(org.opennms.core.criteria.Order)
+         */
         @Override
         public void visitOrder(final Order order) {
             // skip order-by when converting for count
         }
     }
 
+    /**
+     * The Class HibernateCriteriaVisitor.
+     */
     public static class HibernateCriteriaVisitor extends AbstractCriteriaVisitor {
+
+        /** The m_criteria. */
         private DetachedCriteria m_criteria;
 
+        /** The m_class. */
         private Class<?> m_class;
 
+        /** The m_orders. */
         private Set<org.hibernate.criterion.Order> m_orders = new LinkedHashSet<org.hibernate.criterion.Order>();
 
+        /** The m_criterions. */
         private Set<org.hibernate.criterion.Criterion> m_criterions = new LinkedHashSet<org.hibernate.criterion.Criterion>();
 
+        /** The m_distinct. */
         private boolean m_distinct = false;
 
+        /** The m_limit. */
         private Integer m_limit;
 
+        /** The m_offset. */
         private Integer m_offset;
 
+        /**
+         * Gets the criteria.
+         *
+         * @param session
+         *            the session
+         * @return the criteria
+         */
         public org.hibernate.Criteria getCriteria(final Session session) {
             final org.hibernate.Criteria hibernateCriteria = getCriteria().getExecutableCriteria(session);
             if (m_limit != null)
@@ -136,6 +189,11 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             return hibernateCriteria;
         }
 
+        /**
+         * Gets the criteria.
+         *
+         * @return the criteria
+         */
         public DetachedCriteria getCriteria() {
             if (m_criteria == null) {
                 throw new IllegalStateException("Unable to determine Class<?> of this criteria!");
@@ -161,12 +219,18 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             return m_criteria;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitClass(java.lang.Class)
+         */
         @Override
         public void visitClass(final Class<?> clazz) {
             m_class = clazz;
             m_criteria = DetachedCriteria.forClass(clazz);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitOrder(org.opennms.core.criteria.Order)
+         */
         @Override
         public void visitOrder(final Order order) {
             final HibernateOrderVisitor visitor = new HibernateOrderVisitor();
@@ -176,6 +240,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             m_orders.add(visitor.getOrder());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitAlias(org.opennms.core.criteria.Alias)
+         */
         @Override
         public void visitAlias(final Alias alias) {
             int aliasType = 0;
@@ -204,6 +271,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitFetch(org.opennms.core.criteria.Fetch)
+         */
         @Override
         public void visitFetch(final Fetch fetch) {
             switch (fetch.getFetchType()) {
@@ -222,6 +292,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitRestriction(org.opennms.core.criteria.restrictions.Restriction)
+         */
         @Override
         public void visitRestriction(final Restriction restriction) {
             final HibernateRestrictionVisitor visitor = new HibernateRestrictionVisitor();
@@ -229,16 +302,25 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             m_criterions.addAll(visitor.getCriterions());
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitDistinct(boolean)
+         */
         @Override
         public void visitDistinct(final boolean distinct) {
             m_distinct = distinct;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitLimit(java.lang.Integer)
+         */
         @Override
         public void visitLimit(final Integer limit) {
             m_limit = limit;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.AbstractCriteriaVisitor#visitOffset(java.lang.Integer)
+         */
         @Override
         public void visitOffset(final Integer offset) {
             m_offset = offset;
@@ -246,21 +328,38 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
 
     };
 
+    /**
+     * The Class HibernateOrderVisitor.
+     */
     public static final class HibernateOrderVisitor implements OrderVisitor {
+
+        /** The m_attribute. */
         private String m_attribute;
 
+        /** The m_ascending. */
         private boolean m_ascending = true;
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.Order.OrderVisitor#visitAttribute(java.lang.String)
+         */
         @Override
         public void visitAttribute(final String attribute) {
             m_attribute = attribute;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.Order.OrderVisitor#visitAscending(boolean)
+         */
         @Override
         public void visitAscending(final boolean ascending) {
             m_ascending = ascending;
         }
 
+        /**
+         * Gets the order.
+         *
+         * @return the order
+         */
         public org.hibernate.criterion.Order getOrder() {
             if (m_ascending) {
                 return org.hibernate.criterion.Order.asc(m_attribute);
@@ -270,55 +369,93 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
         }
     }
 
+    /**
+     * The Class HibernateRestrictionVisitor.
+     */
     public static final class HibernateRestrictionVisitor extends BaseRestrictionVisitor implements RestrictionVisitor {
+
+        /** The Constant STRING_TYPE. */
         private static final StringType STRING_TYPE = new StringType();
 
+        /** The m_criterions. */
         private List<Criterion> m_criterions = new ArrayList<Criterion>();
 
+        /**
+         * Gets the criterions.
+         *
+         * @return the criterions
+         */
         public List<Criterion> getCriterions() {
             return m_criterions;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitNull(org.opennms.core.criteria.restrictions.NullRestriction)
+         */
         @Override
         public void visitNull(final NullRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.isNull(restriction.getAttribute()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitNotNull(org.opennms.core.criteria.restrictions.NotNullRestriction)
+         */
         @Override
         public void visitNotNull(final NotNullRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.isNotNull(restriction.getAttribute()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitEq(org.opennms.core.criteria.restrictions.EqRestriction)
+         */
         @Override
         public void visitEq(final EqRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.eq(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitNe(org.opennms.core.criteria.restrictions.NeRestriction)
+         */
         @Override
         public void visitNe(final NeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.ne(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitGt(org.opennms.core.criteria.restrictions.GtRestriction)
+         */
         @Override
         public void visitGt(final GtRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.gt(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitGe(org.opennms.core.criteria.restrictions.GeRestriction)
+         */
         @Override
         public void visitGe(final GeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.ge(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitLt(org.opennms.core.criteria.restrictions.LtRestriction)
+         */
         @Override
         public void visitLt(final LtRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.lt(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitLe(org.opennms.core.criteria.restrictions.LeRestriction)
+         */
         @Override
         public void visitLe(final LeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.le(restriction.getAttribute(), restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitAllComplete(org.opennms.core.criteria.restrictions.AllRestriction)
+         */
         @Override
         public void visitAllComplete(final AllRestriction restriction) {
             final int restrictionSize = restriction.getRestrictions().size();
@@ -336,6 +473,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             m_criterions.add(j);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitAnyComplete(org.opennms.core.criteria.restrictions.AnyRestriction)
+         */
         @Override
         public void visitAnyComplete(final AnyRestriction restriction) {
             final int restrictionSize = restriction.getRestrictions().size();
@@ -353,18 +493,27 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             m_criterions.add(j);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitLike(org.opennms.core.criteria.restrictions.LikeRestriction)
+         */
         @Override
         public void visitLike(final LikeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.like(restriction.getAttribute(),
                                                                        restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitIlike(org.opennms.core.criteria.restrictions.IlikeRestriction)
+         */
         @Override
         public void visitIlike(final IlikeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.ilike(restriction.getAttribute(),
                                                                         restriction.getValue()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitIn(org.opennms.core.criteria.restrictions.InRestriction)
+         */
         @Override
         public void visitIn(final InRestriction restriction) {
             if (restriction.getValues() == null || restriction.getValues().size() == 0) {
@@ -375,6 +524,9 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitNotComplete(org.opennms.core.criteria.restrictions.NotRestriction)
+         */
         @Override
         public void visitNotComplete(final NotRestriction restriction) {
             if (m_criterions.size() == 0) {
@@ -384,17 +536,26 @@ public class HibernateCriteriaConverter implements CriteriaConverter<DetachedCri
             m_criterions.add(org.hibernate.criterion.Restrictions.not(criterion));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitBetween(org.opennms.core.criteria.restrictions.BetweenRestriction)
+         */
         @Override
         public void visitBetween(final BetweenRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.between(restriction.getAttribute(),
                                                                           restriction.getBegin(), restriction.getEnd()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitSql(org.opennms.core.criteria.restrictions.SqlRestriction)
+         */
         @Override
         public void visitSql(final SqlRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.sqlRestriction(restriction.getAttribute()));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.criteria.restrictions.BaseRestrictionVisitor#visitIplike(org.opennms.core.criteria.restrictions.IplikeRestriction)
+         */
         @Override
         public void visitIplike(final IplikeRestriction restriction) {
             m_criterions.add(org.hibernate.criterion.Restrictions.sqlRestriction("iplike({alias}.ipAddr, ?)",

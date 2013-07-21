@@ -54,10 +54,13 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class ResponseTimeResourceType implements OnmsResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ResponseTimeResourceType.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
     /**
@@ -79,6 +82,7 @@ public class ResponseTimeResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -91,6 +95,7 @@ public class ResponseTimeResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +135,15 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         return resources;
     }
 
+    /**
+     * Gets the interface directory.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @param verify
+     *            the verify
+     * @return the interface directory
+     */
     private File getInterfaceDirectory(final String ipAddr, final boolean verify) {
         final File response = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.RESPONSE_DIRECTORY);
 
@@ -142,10 +156,24 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         return intfDir;
     }
 
+    /**
+     * Gets the relative interface path.
+     *
+     * @param ipAddr
+     *            the ip addr
+     * @return the relative interface path
+     */
     private String getRelativeInterfacePath(final String ipAddr) {
         return DefaultResourceDao.RESPONSE_DIRECTORY + File.separator + ipAddr;
     }
 
+    /**
+     * Creates the resource.
+     *
+     * @param ipInterface
+     *            the ip interface
+     * @return the onms resource
+     */
     private OnmsResource createResource(final OnmsIpInterface ipInterface) {
         final String intf = InetAddressUtils.str(ipInterface.getIpAddress());
         final String label = intf;
@@ -169,13 +197,27 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         return getResourcesForNode(nodeId).size() > 0;
     }
 
+    /**
+     * The Class AttributeLoader.
+     */
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
+
+        /** The m_intf. */
         private String m_intf;
 
+        /**
+         * Instantiates a new attribute loader.
+         *
+         * @param intf
+         *            the intf
+         */
         public AttributeLoader(final String intf) {
             m_intf = intf;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazySet.Loader#load()
+         */
         @Override
         public Set<OnmsAttribute> load() {
             LOG.debug("lazy-loading attributes for response time resource '{}'", m_intf);

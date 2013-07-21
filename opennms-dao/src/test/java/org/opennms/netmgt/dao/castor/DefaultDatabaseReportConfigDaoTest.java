@@ -35,14 +35,23 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DefaultDatabaseReportConfigDaoTest.
+ */
 public class DefaultDatabaseReportConfigDaoTest {
 
+    /** The Constant NAME. */
     private static final String NAME = "defaultCalendarReport";
 
+    /** The Constant REPORT_SERVICE. */
     private static final String REPORT_SERVICE = "availabilityReportService";
 
+    /** The m_dao. */
     private static DefaultDatabaseReportConfigDao m_dao;
 
+    /**
+     * Sets the up dao.
+     */
     @BeforeClass
     public static void setUpDao() {
 
@@ -53,6 +62,12 @@ public class DefaultDatabaseReportConfigDaoTest {
 
     }
 
+    /**
+     * Test get reports.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetReports() throws Exception {
 
@@ -60,6 +75,12 @@ public class DefaultDatabaseReportConfigDaoTest {
 
     }
 
+    /**
+     * Test get online reports.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetOnlineReports() throws Exception {
 
@@ -67,6 +88,12 @@ public class DefaultDatabaseReportConfigDaoTest {
 
     }
 
+    /**
+     * Test get report service.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetReportService() throws Exception {
 

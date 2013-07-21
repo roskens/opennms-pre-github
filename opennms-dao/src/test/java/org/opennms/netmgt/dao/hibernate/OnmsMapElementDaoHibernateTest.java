@@ -54,6 +54,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class OnmsMapElementDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -64,22 +67,33 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class OnmsMapElementDaoHibernateTest implements InitializingBean {
+
+    /** The m_onms map element dao. */
     @Autowired
     private OnmsMapElementDao m_onmsMapElementDao;
 
+    /** The m_onms map dao. */
     @Autowired
     private OnmsMapDao m_onmsMapDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -93,6 +107,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test save onms map element.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMapElement() {
@@ -120,6 +137,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(mapElement.getY(), mapElement2.getY());
     }
 
+    /**
+     * Test save onms map element1.
+     */
     @Test
     @Transactional
     public void testSaveOnmsMapElement1() {
@@ -147,6 +167,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(mapElement.getY(), mapElement2.getY());
     }
 
+    /**
+     * Test find by id.
+     */
     @Test
     @Transactional
     public void testFindById() {
@@ -179,6 +202,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
+    /**
+     * Test find.
+     */
     @Test
     @Transactional
     public void testFind() {
@@ -206,6 +232,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
+    /**
+     * Test find map elements by map id.
+     */
     @Test
     @Transactional
     public void testFindMapElementsByMapId() {
@@ -235,6 +264,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
+    /**
+     * Test find elements by element id and type1.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType1() {
@@ -251,6 +283,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
+    /**
+     * Test find elements by element id and type2.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType2() {
@@ -259,6 +294,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test find elements by element id and type3.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType3() {
@@ -267,6 +305,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test find elements by element id and type4.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType4() {
@@ -275,6 +316,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test find elements by element id and type5.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType5() {
@@ -283,6 +327,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test find elements by element id and type6.
+     */
     @Test
     @Transactional
     public void testFindElementsByElementIdAndType6() {
@@ -291,6 +338,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test find elements by type1.
+     */
     @Test
     @Transactional
     public void testFindElementsByType1() {
@@ -306,6 +356,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(10, mapElement.getY());
     }
 
+    /**
+     * Test find elements by type2.
+     */
     @Test
     @Transactional
     public void testFindElementsByType2() {
@@ -313,6 +366,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, elems.size());
     }
 
+    /**
+     * Test delete element.
+     */
     @Test
     @Transactional
     public void testDeleteElement() {
@@ -323,6 +379,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
 
+    /**
+     * Test delete elements by element id and type.
+     */
     @Test
     @Transactional
     public void testDeleteElementsByElementIdAndType() {
@@ -330,6 +389,9 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
 
+    /**
+     * Test delete elements by map type.
+     */
     @Test
     @Transactional
     public void testDeleteElementsByMapType() {

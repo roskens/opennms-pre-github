@@ -43,13 +43,24 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class ResourceAttributeFilteringResourceVisitorTest.
+ *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_delegated visitor. */
     private ResourceVisitor m_delegatedVisitor = m_mocks.createMock(ResourceVisitor.class);
 
+    /**
+     * Test after properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSet() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);
@@ -58,6 +69,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         filteringVisitor.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no delegated visitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoDelegatedVisitor() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
 
@@ -75,6 +92,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no resource type match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoResourceTypeMatch() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
 
@@ -92,6 +115,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no resource attribute value match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoResourceAttributeValueMatch() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
 
@@ -109,6 +138,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit with external value match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithExternalValueMatch() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);
@@ -131,6 +166,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit with string property match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithStringPropertyMatch() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);
@@ -153,6 +194,12 @@ public class ResourceAttributeFilteringResourceVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit without match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithoutMatch() throws Exception {
         ResourceAttributeFilteringResourceVisitor filteringVisitor = new ResourceAttributeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);

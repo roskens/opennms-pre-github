@@ -32,14 +32,38 @@ import org.opennms.core.criteria.Criteria;
 import org.opennms.netmgt.model.OnmsAlarm;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Interface AlarmStatisticsService.
+ */
 public interface AlarmStatisticsService extends StatisticsService<OnmsAlarm> {
 
+    /**
+     * Gets the acknowledged count.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the acknowledged count
+     */
     @Transactional(readOnly = true)
     public int getAcknowledgedCount(final Criteria criteria);
 
+    /**
+     * Gets the acknowledged.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the acknowledged
+     */
     @Transactional(readOnly = true)
     public OnmsAlarm getAcknowledged(final Criteria criteria);
 
+    /**
+     * Gets the unacknowledged.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the unacknowledged
+     */
     @Transactional(readOnly = true)
     public OnmsAlarm getUnacknowledged(final Criteria criteria);
 

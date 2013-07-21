@@ -57,25 +57,45 @@ import org.opennms.netmgt.xml.event.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class JaxbUtilsTest.
+ */
 public class JaxbUtilsTest {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JaxbUtilsTest.class);
 
+    /** The Constant m_xmlWithNamespace. */
     private static final String m_xmlWithNamespace = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><event uuid=\"1234\" xmlns=\"http://xmlns.opennms.org/xsd/event\"><dbid>37</dbid><dist-poller>localhost</dist-poller><creation-time>Friday, March 18, 2011 1:34:13 PM GMT</creation-time><master-station>chief</master-station><mask><maskelement><mename>generic</mename><mevalue>6</mevalue></maskelement></mask><uei>uei.opennms.org/test</uei><source>JaxbCastorEquivalenceTest</source><nodeid>1</nodeid><time>Friday, March 18, 2011 1:34:13 PM GMT</time><host>funkytown</host><interface>192.168.0.1</interface><snmphost>192.168.0.1</snmphost><service>ICMP</service><snmp><id>.1.3.6.15</id><idtext>I am a banana!</idtext><version>v2c</version><specific>0</specific><generic>6</generic><community>public</community><time-stamp>1300455253196</time-stamp></snmp><parms><parm><parmName>foo</parmName><value encoding=\"text\" type=\"string\">bar</value></parm></parms><descr>This is a test thingy.</descr><logmsg dest=\"logndisplay\" notify=\"true\">this is a log message</logmsg><severity>Indeterminate</severity><pathoutage>monkeys</pathoutage><correlation path=\"pathOutage\" state=\"on\"><cuei>uei.opennms.org/funky-stuff</cuei><cmin>1</cmin><cmax>17</cmax><ctime>yesterday</ctime></correlation><operinstruct>run away</operinstruct><autoaction state=\"off\">content</autoaction><operaction menutext=\"this is in the menu!\" state=\"on\">totally actiony</operaction><autoacknowledge state=\"off\">content</autoacknowledge><loggroup>foo</loggroup><loggroup>bar</loggroup><tticket state=\"on\">tticket stuff</tticket><forward mechanism=\"snmptcp\" state=\"on\">I like shoes.</forward><script language=\"zombo\">the unattainable is within reach, at zombo.com</script><ifIndex>53</ifIndex><ifAlias>giggetE</ifAlias><mouseovertext>click here to buy now!!!!1!1!</mouseovertext><alarm-data x733-probable-cause=\"27\" x733-alarm-type=\"TimeDomainViolation\" auto-clean=\"true\" clear-key=\"car\" alarm-type=\"19\" reduction-key=\"bus\"/></event>";
 
+    /** The Constant m_logXml. */
     private static final String m_logXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><log xmlns=\"http://xmlns.opennms.org/xsd/event\"><events><event><creation-time>Monday, March 21, 2011 8:34:21 PM GMT</creation-time><uei>uei.opennms.org/test</uei><source>JaxbUtilsTest</source><time>Monday, March 21, 2011 8:34:21 PM GMT</time><descr>test</descr></event><event><creation-time>Monday, March 21, 2011 8:34:21 PM GMT</creation-time><uei>uei.opennms.org/test</uei><source>JaxbUtilsTest</source><time>Monday, March 21, 2011 8:34:21 PM GMT</time><descr>test 2</descr></event></events></log>";
 
+    /** The Constant m_logXmlWithoutNamespace. */
     private static final String m_logXmlWithoutNamespace = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><log><events><event><creation-time>Monday, March 21, 2011 8:34:21 PM GMT</creation-time><uei>uei.opennms.org/test</uei><source>JaxbUtilsTest</source><time>Monday, March 21, 2011 8:34:21 PM GMT</time><descr>test</descr></event><event><creation-time>Monday, March 21, 2011 8:34:21 PM GMT</creation-time><uei>uei.opennms.org/test</uei><source>JaxbUtilsTest</source><time>Monday, March 21, 2011 8:34:21 PM GMT</time><descr>test 2</descr></event></events></log>";
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         MockLogAppender.assertNoWarningsOrGreater();
     }
 
+    /**
+     * Test marshal event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMarshalEvent() throws Exception {
         final Event e = getEvent();
@@ -103,6 +123,12 @@ public class JaxbUtilsTest {
         v.validate(new StreamSource(new StringReader(xml)));
     }
 
+    /**
+     * Test unmarshal event.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalEvent() throws Exception {
         final Event event = JaxbUtils.unmarshal(Event.class, m_xmlWithNamespace);
@@ -111,6 +137,12 @@ public class JaxbUtilsTest {
         assertEquals("192.168.0.1", event.getInterface());
     }
 
+    /**
+     * Test marshal log.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testMarshalLog() throws Exception {
         final Event e1 = getEvent();
@@ -131,6 +163,12 @@ public class JaxbUtilsTest {
         assertTrue(xml.contains("JaxbUtilsTest"));
     }
 
+    /**
+     * Test unmarshal log.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalLog() throws Exception {
         final Log log = JaxbUtils.unmarshal(Log.class, m_logXml);
@@ -155,6 +193,9 @@ public class JaxbUtilsTest {
      * After running this test on my system when preparing for the OpenNMS 1.10
      * release, JAXB was
      * roughly 30% faster than Castor.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore
@@ -181,6 +222,9 @@ public class JaxbUtilsTest {
      * After running this test on my system when preparing for the OpenNMS 1.10
      * release, JAXB was
      * roughly 8 times faster than Castor.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     @Ignore
@@ -207,6 +251,12 @@ public class JaxbUtilsTest {
         System.out.printf("JAXB marshal: %dms, Castor marshal: %dms\n", jaxbTime, castorTime);
     }
 
+    /**
+     * Test unmarshal log no namespace.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testUnmarshalLogNoNamespace() throws Exception {
         final Log log = JaxbUtils.unmarshal(Log.class, m_logXmlWithoutNamespace);
@@ -225,12 +275,23 @@ public class JaxbUtilsTest {
         LOG.debug("castor log = {}", log2);
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     private Event getEvent() {
         final EventBuilder eb = new EventBuilder("uei.opennms.org/test", "JaxbUtilsTest");
         final Event e = eb.setDescription("test").addParam("foo", "bar").getEvent();
         return e;
     }
 
+    /**
+     * Test send event xml.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSendEventXml() throws Exception {
         final String text = "<log>\n" + " <events>\n" + "  <event >\n"
@@ -249,6 +310,12 @@ public class JaxbUtilsTest {
         assertEquals(1, log.getEvents().getEvent().length);
     }
 
+    /**
+     * Test validation memory leak.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testValidationMemoryLeak() throws Exception {

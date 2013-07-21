@@ -59,6 +59,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getConfig
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.config.provisiond.ProvisiondConfiguration}
@@ -80,8 +81,8 @@ public class DefaultProvisiondConfigurationDao extends
      * should
      * indicate this.
      *
-     * @throws org.springframework.dao.DataAccessResourceFailureException
-     *             if any.
+     * @throws DataAccessResourceFailureException
+     *             the data access resource failure exception
      */
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
@@ -106,6 +107,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getDefs
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -118,6 +120,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getForeignSourceDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -130,6 +133,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getRequisitionDir
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -142,6 +146,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getImportThreads
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -154,6 +159,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getScanThreads
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -166,6 +172,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getRescanThreads
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -178,6 +185,7 @@ public class DefaultProvisiondConfigurationDao extends
      * <p>
      * getWriteThreads
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */

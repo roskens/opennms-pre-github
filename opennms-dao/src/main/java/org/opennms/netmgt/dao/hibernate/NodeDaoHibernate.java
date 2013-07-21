@@ -61,6 +61,8 @@ import org.springframework.util.StringUtils;
  * @author David Hustace
  */
 public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> implements NodeDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(NodeDaoHibernate.class);
 
     /**
@@ -85,6 +87,10 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
     /**
      * Test the ability to simply retrieve a String object (node label) without
      * having to return a bulky Node object.
+     *
+     * @param id
+     *            the id
+     * @return the label for id
      */
     @Override
     public String getLabelForId(Integer id) {
@@ -152,6 +158,13 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
                 + "left join fetch monSvc.currentOutages " + "where c.name = ?", category.getName());
     }
 
+    /**
+     * Category list to name list.
+     *
+     * @param categories
+     *            the categories
+     * @return the string
+     */
     private String categoryListToNameList(Collection<OnmsCategory> categories) {
         List<String> categoryNames = new ArrayList<String>();
         for (OnmsCategory category : categories) {
@@ -202,15 +215,33 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
     }
 
+    /**
+     * The Class SimpleSurveillanceStatus.
+     */
     public static class SimpleSurveillanceStatus implements SurveillanceStatus {
+
+        /** The Constant LOG. */
         private static final Logger LOG = LoggerFactory.getLogger(SimpleSurveillanceStatus.class);
 
+        /** The m_service outages. */
         private int m_serviceOutages;
 
+        /** The m_up node count. */
         private int m_upNodeCount;
 
+        /** The m_node count. */
         private int m_nodeCount;
 
+        /**
+         * Instantiates a new simple surveillance status.
+         *
+         * @param serviceOutages
+         *            the service outages
+         * @param upNodeCount
+         *            the up node count
+         * @param nodeCount
+         *            the node count
+         */
         public SimpleSurveillanceStatus(Number serviceOutages, Number upNodeCount, Number nodeCount) {
             LOG.debug("Args: {} ({}), {} ({}), {} ({})", serviceOutages,
                       serviceOutages == null ? null : serviceOutages.getClass(), upNodeCount,
@@ -222,16 +253,25 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
             m_nodeCount = nodeCount == null ? 0 : nodeCount.intValue();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.SurveillanceStatus#getDownEntityCount()
+         */
         @Override
         public Integer getDownEntityCount() {
             return m_nodeCount - m_upNodeCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.SurveillanceStatus#getTotalEntityCount()
+         */
         @Override
         public Integer getTotalEntityCount() {
             return m_nodeCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.model.SurveillanceStatus#getStatus()
+         */
         @Override
         public String getStatus() {
             switch (m_serviceOutages) {
@@ -246,6 +286,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
 
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.NodeDao#findSurveillanceStatusByCategoryLists(java.util.Collection, java.util.Collection)
+     */
     @Override
     public SurveillanceStatus findSurveillanceStatusByCategoryLists(final Collection<OnmsCategory> rowCategories,
             final Collection<OnmsCategory> columnCategories) {
@@ -352,6 +395,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
      * <p>
      * findAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -364,6 +408,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
      * <p>
      * findAllProvisionedNodes
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -403,6 +448,7 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
      * <p>
      * getNodeIds
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -411,6 +457,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         return findObjects(Integer.class, "select distinct n.id from OnmsNode as n where n.type != 'D'");
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.NodeDao#getNextNodeId(java.lang.Integer)
+     */
     @Override
     public Integer getNextNodeId(Integer nodeId) {
         Integer nextNodeId = null;
@@ -421,6 +470,9 @@ public class NodeDaoHibernate extends AbstractDaoHibernate<OnmsNode, Integer> im
         return nextNodeId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.NodeDao#getPreviousNodeId(java.lang.Integer)
+     */
     @Override
     public Integer getPreviousNodeId(Integer nodeId) {
         Integer nextNodeId = null;

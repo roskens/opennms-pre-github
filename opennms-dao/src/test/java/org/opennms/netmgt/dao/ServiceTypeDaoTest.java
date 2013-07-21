@@ -43,6 +43,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class ServiceTypeDaoTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -50,14 +53,22 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(reuseDatabase = false)
 public class ServiceTypeDaoTest implements InitializingBean {
+
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test lazy load.
+     */
     @Test
     @Transactional
     public void testLazyLoad() {
@@ -68,6 +79,9 @@ public class ServiceTypeDaoTest implements InitializingBean {
         assertEquals("ICMP", type.getName());
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Transactional
     public void testSave() {
@@ -78,6 +92,12 @@ public class ServiceTypeDaoTest implements InitializingBean {
         tweakSvcType(name);
     }
 
+    /**
+     * Tweak svc type.
+     *
+     * @param name
+     *            the name
+     */
     private void tweakSvcType(String name) {
         OnmsServiceType svcType = m_serviceTypeDao.findByName(name);
         if (svcType == null)

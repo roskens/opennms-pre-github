@@ -58,7 +58,7 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Tests for Acknowledgment DAO
+ * Tests for Acknowledgment DAO.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -72,31 +72,45 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext = false)
 public class AcknowledgmentDaoTest implements InitializingBean {
+
+    /** The m_acknowledgment dao. */
     @Autowired
     private AcknowledgmentDao m_acknowledgmentDao;
 
+    /** The m_dist poller dao. */
     @Autowired
     private DistPollerDao m_distPollerDao;
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_database populator. */
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @BeforeTransaction
     public void setUp() {
         try {
@@ -110,6 +124,9 @@ public class AcknowledgmentDaoTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test save unspecified.
+     */
     @Test
     @Transactional
     public void testSaveUnspecified() {
@@ -131,10 +148,18 @@ public class AcknowledgmentDaoTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the acknowledgment dao.
+     *
+     * @return the acknowledgment dao
+     */
     private AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }
 
+    /**
+     * Test save with alarm.
+     */
     @Test
     @Transactional
     public void testSaveWithAlarm() {

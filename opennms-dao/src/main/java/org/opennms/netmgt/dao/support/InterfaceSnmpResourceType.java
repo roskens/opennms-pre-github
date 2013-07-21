@@ -62,10 +62,13 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class InterfaceSnmpResourceType implements OnmsResourceType {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(InterfaceSnmpResourceType.class);
 
+    /** The m_resource dao. */
     private ResourceDao m_resourceDao;
 
+    /** The m_node dao. */
     private NodeDao m_nodeDao;
 
     /**
@@ -87,6 +90,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -99,6 +103,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
      * <p>
      * getLabel
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -113,6 +118,13 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return isResourceTypeOnParentResource(Integer.toString(nodeId));
     }
 
+    /**
+     * Checks if is resource type on parent resource.
+     *
+     * @param parentResource
+     *            the parent resource
+     * @return true, if is resource type on parent resource
+     */
     private boolean isResourceTypeOnParentResource(String parentResource) {
         File parent = getParentResourceDirectory(parentResource, false);
         if (!parent.isDirectory()) {
@@ -122,6 +134,15 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER).length > 0;
     }
 
+    /**
+     * Gets the parent resource directory.
+     *
+     * @param parentResource
+     *            the parent resource
+     * @param verify
+     *            the verify
+     * @return the parent resource directory
+     */
     private File getParentResourceDirectory(String parentResource, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
 
@@ -148,6 +169,19 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
     }
 
+    /**
+     * Populate resource list.
+     *
+     * @param parent
+     *            the parent
+     * @param relPath
+     *            the rel path
+     * @param node
+     *            the node
+     * @param isForeign
+     *            the is foreign
+     * @return the array list
+     */
     private ArrayList<OnmsResource> populateResourceList(File parent, File relPath, OnmsNode node, Boolean isForeign) {
 
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
@@ -291,6 +325,23 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return resources;
     }
 
+    /**
+     * Gets the resource by node and interface.
+     *
+     * @param nodeId
+     *            the node id
+     * @param intf
+     *            the intf
+     * @param label
+     *            the label
+     * @param ifSpeed
+     *            the if speed
+     * @param ifSpeedFriendly
+     *            the if speed friendly
+     * @return the resource by node and interface
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private OnmsResource getResourceByNodeAndInterface(int nodeId, String intf, String label, Long ifSpeed,
             String ifSpeedFriendly) throws DataAccessException {
         Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(Integer.toString(nodeId), intf,
@@ -298,6 +349,23 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return new OnmsResource(intf, label, this, set);
     }
 
+    /**
+     * Gets the resource by node source and interface.
+     *
+     * @param relPath
+     *            the rel path
+     * @param intf
+     *            the intf
+     * @param label
+     *            the label
+     * @param ifSpeed
+     *            the if speed
+     * @param ifSpeedFriendly
+     *            the if speed friendly
+     * @return the resource by node source and interface
+     * @throws DataAccessException
+     *             the data access exception
+     */
     private OnmsResource getResourceByNodeSourceAndInterface(String relPath, String intf, String label, Long ifSpeed,
             String ifSpeedFriendly) throws DataAccessException {
         Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(
@@ -305,15 +373,35 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return new OnmsResource(intf, label, this, set);
     }
 
+    /**
+     * The Class AttributeLoader.
+     */
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
+
+        /** The m_parent. */
         private String m_parent;
 
+        /** The m_resource. */
         private String m_resource;
 
+        /** The m_if speed. */
         private Long m_ifSpeed;
 
+        /** The m_if speed friendly. */
         private String m_ifSpeedFriendly;
 
+        /**
+         * Instantiates a new attribute loader.
+         *
+         * @param parent
+         *            the parent
+         * @param resource
+         *            the resource
+         * @param ifSpeed
+         *            the if speed
+         * @param ifSpeedFriendly
+         *            the if speed friendly
+         */
         public AttributeLoader(String parent, String resource, Long ifSpeed, String ifSpeedFriendly) {
             m_parent = parent;
             m_resource = resource;
@@ -321,6 +409,9 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             m_ifSpeedFriendly = ifSpeedFriendly;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.core.utils.LazySet.Loader#load()
+         */
         @Override
         public Set<OnmsAttribute> load() {
             Set<OnmsAttribute> attributes = ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(),
@@ -337,6 +428,15 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
     }
 
+    /**
+     * Gets the relative path for resource.
+     *
+     * @param parent
+     *            the parent
+     * @param resource
+     *            the resource
+     * @return the relative path for resource
+     */
     private String getRelativePathForResource(String parent, String resource) {
         return DefaultResourceDao.SNMP_DIRECTORY + File.separator + parent + File.separator + resource;
     }
@@ -370,6 +470,13 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return OnmsResource.sortIntoResourceList(resources);
     }
 
+    /**
+     * Gets the queryable interfaces for domain.
+     *
+     * @param domain
+     *            the domain
+     * @return the queryable interfaces for domain
+     */
     private List<String> getQueryableInterfacesForDomain(String domain) {
         if (domain == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
@@ -395,6 +502,15 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         return intfs;
     }
 
+    /**
+     * Gets the resource by domain and interface.
+     *
+     * @param domain
+     *            the domain
+     * @param intf
+     *            the intf
+     * @return the resource by domain and interface
+     */
     private OnmsResource getResourceByDomainAndInterface(String domain, String intf) {
         Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(domain, intf, null, null));
         return new OnmsResource(intf, intf, this, set);

@@ -47,7 +47,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Unit tests for StatisticsReportDao
+ * Unit tests for StatisticsReportDao.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @see StatisticsReportDao
@@ -62,17 +62,29 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class StatisticsReportDaoTest implements InitializingBean {
+
+    /** The m_statistics report dao. */
     @Autowired
     private StatisticsReportDao m_statisticsReportDao;
 
+    /** The m_resource reference dao. */
     @Autowired
     private ResourceReferenceDao m_resourceReferenceDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test save.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Transactional
     public void testSave() throws Exception {

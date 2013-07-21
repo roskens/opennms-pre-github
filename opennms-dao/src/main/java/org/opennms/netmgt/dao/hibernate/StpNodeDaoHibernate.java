@@ -37,12 +37,21 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpNode;
 
+/**
+ * The Class StpNodeDaoHibernate.
+ */
 public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integer> implements StpNodeDao {
 
+    /**
+     * Instantiates a new stp node dao hibernate.
+     */
     public StpNodeDaoHibernate() {
         super(OnmsStpNode.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpNodeDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
@@ -55,6 +64,9 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpNodeDao#deactivateForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
@@ -69,6 +81,9 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpNodeDao#deleteForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
@@ -82,6 +97,9 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpNodeDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
         // UPDATE stpnode set status = ? WHERE nodeid = ?
@@ -96,6 +114,9 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.StpNodeDao#findByNodeAndVlan(java.lang.Integer, java.lang.Integer)
+     */
     @Override
     public OnmsStpNode findByNodeAndVlan(final Integer nodeId, final Integer baseVlan) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);

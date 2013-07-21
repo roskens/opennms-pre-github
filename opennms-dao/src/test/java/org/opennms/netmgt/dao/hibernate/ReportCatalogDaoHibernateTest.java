@@ -47,6 +47,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The Class ReportCatalogDaoHibernateTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
@@ -57,14 +60,22 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class ReportCatalogDaoHibernateTest implements InitializingBean {
+
+    /** The m_report catalog dao. */
     @Autowired
     private ReportCatalogDao m_reportCatalogDao;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Test save.
+     */
     @Test
     @Transactional
     public void testSave() {
@@ -88,6 +99,9 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
 
     }
 
+    /**
+     * Test delete.
+     */
     @Test
     @Transactional
     public void testDelete() {

@@ -111,6 +111,7 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
      * <p>
      * getDefaultView
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.View} object.
      */

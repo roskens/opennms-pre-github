@@ -45,8 +45,12 @@ import org.opennms.netmgt.model.ServiceInfo;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jmx.access.MBeanProxyFactoryBean;
 
+/**
+ * The Class JmxDaemonStatusDao.
+ */
 public class JmxDaemonStatusDao implements DaemonStatusDao {
 
+    /** The mbean server. */
     private MBeanServer mbeanServer;
 
     /**
@@ -65,6 +69,7 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
      * <p>
      * getCurrentDaemonStatus
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -100,6 +105,15 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
         return Collections.unmodifiableMap(serviceInfo);
     }
 
+    /**
+     * Query mbean server for names.
+     *
+     * @param foo1
+     *            the foo1
+     * @param foo2
+     *            the foo2
+     * @return the sets the
+     */
     private Set<ObjectName> queryMbeanServerForNames(ObjectName foo1, QueryExp foo2) {
         return (Set<ObjectName>) mbeanServer.queryNames(foo1, foo2);
     }
@@ -108,6 +122,7 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
      * <p>
      * getCurrentDaemonStatusColl
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -132,6 +147,13 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
         return buildProxy(mBeanName);
     }
 
+    /**
+     * Builds the proxy.
+     *
+     * @param mBeanName
+     *            the m bean name
+     * @return the service daemon
+     */
     private ServiceDaemon buildProxy(ObjectName mBeanName) {
         MBeanProxyFactoryBean mBeanProxyFactoryBean = new MBeanProxyFactoryBean();
 

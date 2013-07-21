@@ -67,6 +67,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class NotificationManagerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml", "classpath*:/META-INF/opennms/component-dao.xml",
@@ -74,33 +77,51 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(reuseDatabase = false)
 public class NotificationManagerTest implements InitializingBean {
+
+    /** The m_data source. */
     @Autowired
     private DataSource m_dataSource;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_ip interface dao. */
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
+    /** The m_service dao. */
     @Autowired
     private MonitoredServiceDao m_serviceDao;
 
+    /** The m_service type dao. */
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 
+    /** The m_category dao. */
     @Autowired
     private CategoryDao m_categoryDao;
 
+    /** The m_notification manager. */
     private NotificationManagerImpl m_notificationManager;
 
+    /** The m_config manager. */
     private NotifdConfigManager m_configManager;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // Initialize Filter DAO
@@ -187,6 +208,9 @@ public class NotificationManagerTest implements InitializingBean {
         m_categoryDao.flush();
     }
 
+    /**
+     * Test no element.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -233,6 +257,9 @@ public class NotificationManagerTest implements InitializingBean {
     }
 
     // FIXME... do we really want to return true if the rule is wrong?????
+    /**
+     * Test rule bogus.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -246,6 +273,9 @@ public class NotificationManagerTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test iplike all stars.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -254,6 +284,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr IPLIKE *.*.*.*)", true);
     }
 
+    /**
+     * Test node only match.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -262,6 +295,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            true);
     }
 
+    /**
+     * Test node only match zeroes ip addr.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -270,6 +306,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')", true);
     }
 
+    /**
+     * Test node only no match.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -278,6 +317,12 @@ public class NotificationManagerTest implements InitializingBean {
                                            false);
     }
 
+    /**
+     * Test wrong node id.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -286,6 +331,12 @@ public class NotificationManagerTest implements InitializingBean {
                                            false);
     }
 
+    /**
+     * Test ip addr specific pass.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -294,6 +345,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')", true);
     }
 
+    /**
+     * Test ip addr specific fail.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -302,6 +356,12 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.2')", false);
     }
 
+    /**
+     * Test ip addr service specific pass.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -310,6 +370,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')", true);
     }
 
+    /**
+     * Test ip addr service specific fail.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -318,6 +381,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.2')", false);
     }
 
+    /**
+     * Test ip addr service specific wrong service.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -326,6 +392,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')", false);
     }
 
+    /**
+     * Test ip addr service specific wrong ip.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -334,6 +403,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')", false);
     }
 
+    /**
+     * Test multiple categories.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -342,6 +414,12 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)", true);
     }
 
+    /**
+     * Test multiple categories not member.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -350,6 +428,9 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)", false);
     }
 
+    /**
+     * Test ip addr match with no service on interface.
+     */
     @Test
     @JUnitTemporaryDatabase
     // Relies on specific IDs so we need a fresh database
@@ -389,6 +470,22 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(nodelabel=='node 1') | (nodelabel=='node 2')", false);
     }
 
+    /**
+     * Do test node interface service with rule.
+     *
+     * @param description
+     *            the description
+     * @param nodeId
+     *            the node id
+     * @param intf
+     *            the intf
+     * @param svc
+     *            the svc
+     * @param rule
+     *            the rule
+     * @param matches
+     *            the matches
+     */
     private void doTestNodeInterfaceServiceWithRule(String description, int nodeId, String intf, String svc,
             String rule, boolean matches) {
         Notification notif = new Notification();
@@ -403,17 +500,35 @@ public class NotificationManagerTest implements InitializingBean {
         assertEquals(description, matches, m_notificationManager.nodeInterfaceServiceValid(notif, builder.getEvent()));
     }
 
+    /**
+     * The Class NotificationManagerImpl.
+     */
     public static class NotificationManagerImpl extends NotificationManager {
+
+        /**
+         * Instantiates a new notification manager impl.
+         *
+         * @param configManager
+         *            the config manager
+         * @param dcf
+         *            the dcf
+         */
         protected NotificationManagerImpl(NotifdConfigManager configManager, DataSource dcf) {
             super(configManager, dcf);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.NotificationManager#saveXML(java.lang.String)
+         */
         @Override
         protected void saveXML(String xmlString) throws IOException {
             return;
 
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.config.NotificationManager#update()
+         */
         @Override
         public void update() throws IOException, MarshalException, ValidationException {
             return;

@@ -60,8 +60,10 @@ import org.slf4j.LoggerFactory;
  */
 public class MapPropertiesFactory {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MapPropertiesFactory.class);
 
+    /** The m_loaded. */
     private boolean m_loaded = false;
 
     /**
@@ -80,85 +82,120 @@ public class MapPropertiesFactory {
      */
     protected File mapPropertiesFile;
 
+    /** The map properties file string. */
     protected String mapPropertiesFileString;
 
     // protected Map[] propertiesMaps = null;
 
+    /** The statuses map. */
     protected Map<String, Status> statusesMap = null;
 
+    /** The ordered statuses. */
     protected Status[] orderedStatuses = null;
 
+    /** The severities map. */
     protected Map<String, Severity> severitiesMap = null;
 
+    /** The ordered severities. */
     protected Severity[] orderedSeverities = null;
 
+    /** The avails map. */
     protected Map<String, Avail> availsMap = null;
 
+    /** The ordered avails. */
     protected Avail[] orderedAvails = null;
 
+    /** The icons map. */
     protected Map<String, String> iconsMap = null;
 
+    /** The icons by sysoid map. */
     protected Map<String, String> iconsBySysoidMap = null;
 
+    /** The bg images map. */
     protected Map<String, String> bgImagesMap = null;
 
+    /** The links map. */
     protected Map<Integer, Link> linksMap = null;
 
+    /** The links by snmp type map. */
     protected Map<Integer, Set<Link>> linksBySnmpTypeMap = null;
 
+    /** The link statuses map. */
     protected Map<String, LinkStatus> linkStatusesMap = null;
 
+    /** The default node icon. */
     protected String defaultNodeIcon = null;
 
+    /** The default map icon. */
     protected String defaultMapIcon = null;
 
+    /** The default map element dimension. */
     protected int defaultMapElementDimension = 25;
 
+    /** The max links. */
     protected int maxLinks = 3;
 
+    /** The summary link. */
     protected int summaryLink = -1;
 
+    /** The summary link color. */
     protected String summaryLinkColor = "yellow";
 
-    /** Constant <code>MULTILINK_BEST_STATUS="best"</code> */
+    /** Constant <code>MULTILINK_BEST_STATUS="best"</code>. */
     public static final String MULTILINK_BEST_STATUS = "best";
 
-    /** Constant <code>MULTILINK_WORST_STATUS="worst"</code> */
+    /** Constant <code>MULTILINK_WORST_STATUS="worst"</code>. */
     public static final String MULTILINK_WORST_STATUS = "worst";
 
-    /** Constant <code>MULTILINK_IGNORE_STATUS="ignore"</code> */
+    /** Constant <code>MULTILINK_IGNORE_STATUS="ignore"</code>. */
     public static final String MULTILINK_IGNORE_STATUS = "ignore";
 
+    /** The multilink status. */
     protected String multilinkStatus = MULTILINK_BEST_STATUS;
 
+    /** The multilink ignore color. */
     protected String multilinkIgnoreColor = "yellow";
 
+    /** The default link. */
     protected int defaultLink = -1;
 
+    /** The default severity. */
     protected Severity defaultSeverity;
 
+    /** The indeterminate severity. */
     protected Severity indeterminateSeverity;
 
+    /** The unknown status. */
     protected Status unknownStatus;
 
+    /** The default status. */
     protected Status defaultStatus;
 
+    /** The undefined avail. */
     protected Avail undefinedAvail;
 
+    /** The disabled avail. */
     protected Avail disabledAvail;
 
+    /** The avail enabled. */
     protected boolean availEnabled = true;
 
+    /** The double click enabled. */
     protected boolean doubleClickEnabled = true;
 
+    /** The context menu enabled. */
     protected boolean contextMenuEnabled = true;
 
+    /** The use semaphore. */
     protected boolean useSemaphore = true;
 
+    /** The reload. */
     protected boolean reload = false;
 
+    /** The severity map as. */
     protected String severityMapAs = "avg";
 
+    /** The cmenu. */
     protected ContextMenu cmenu;
 
     /**
@@ -199,6 +236,7 @@ public class MapPropertiesFactory {
      * <p>
      * getContextMenu
      * </p>
+     * .
      *
      * @return a {@link org.opennms.web.map.config.ContextMenu} object.
      */
@@ -210,6 +248,7 @@ public class MapPropertiesFactory {
      * <p>
      * setContextMenu
      * </p>
+     * .
      *
      * @param cmenu
      *            a {@link org.opennms.web.map.config.ContextMenu} object.
@@ -222,6 +261,7 @@ public class MapPropertiesFactory {
      * <p>
      * isContextMenuEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -233,6 +273,7 @@ public class MapPropertiesFactory {
      * <p>
      * isDoubleClickEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -244,6 +285,7 @@ public class MapPropertiesFactory {
      * <p>
      * isReload
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -300,11 +342,12 @@ public class MapPropertiesFactory {
      * <p>
      * init
      * </p>
+     * .
      *
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public synchronized void init() throws FileNotFoundException, IOException {
 
@@ -331,12 +374,12 @@ public class MapPropertiesFactory {
      * Every time called, reload the properties file and the nodes per data
      * source defined in the properties file.
      *
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
      * @param reloadPropertiesFile
      *            a boolean.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public synchronized void reload(boolean reloadPropertiesFile) throws FileNotFoundException, IOException {
         if (reloadPropertiesFile) {
@@ -349,10 +392,6 @@ public class MapPropertiesFactory {
      * Gets the java.util.Map with key = severity label and value the Severity
      * corresponding to the label
      *
-     * @throws IOException
-     *             if any.
-     * @throws FileNotFoundException
-     *             if any.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Severity> getSeveritiesMap() {
@@ -363,10 +402,6 @@ public class MapPropertiesFactory {
      * Gets the java.util.Map with key = availability label and value the Avail
      * corresponding to the label
      *
-     * @throws IOException
-     *             if any.
-     * @throws FileNotFoundException
-     *             if any.
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Avail> getAvailabilitiesMap() {
@@ -377,6 +412,7 @@ public class MapPropertiesFactory {
      * <p>
      * getAvail
      * </p>
+     * .
      *
      * @param avail
      *            a double.
@@ -413,6 +449,7 @@ public class MapPropertiesFactory {
      * <p>
      * isAvailEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -476,10 +513,6 @@ public class MapPropertiesFactory {
      *
      * @return java.util.Map with key = uei and value the status corresponding
      *         to the uei
-     * @throws IOException
-     *             if any.
-     * @throws FileNotFoundException
-     *             if any.
      */
     public Map<String, Status> getStatusesMap() {
         return Collections.unmodifiableMap(statusesMap);
@@ -500,14 +533,15 @@ public class MapPropertiesFactory {
      * <p>
      * getProperty
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public String getProperty(String key) throws FileNotFoundException, IOException {
         // read the file
@@ -528,10 +562,10 @@ public class MapPropertiesFactory {
      * -sourcesMap: source label (String) to DataSource
      * -factoriesMap: factory label (String) to MapsFactory
      *
-     * @throws java.io.FileNotFoundException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected void parseMapProperties() throws FileNotFoundException, IOException {
         LOG.debug("Parsing map.properties...");
@@ -935,6 +969,7 @@ public class MapPropertiesFactory {
      * <p>
      * getBackgroundImagesMap
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -995,6 +1030,7 @@ public class MapPropertiesFactory {
      * <p>
      * getSeverity
      * </p>
+     * .
      *
      * @param severityLabel
      *            a {@link java.lang.String} object.
@@ -1012,6 +1048,7 @@ public class MapPropertiesFactory {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @param uei
      *            a {@link java.lang.String} object.
@@ -1032,7 +1069,7 @@ public class MapPropertiesFactory {
 
     /**
      * gets the config Link by snmpType defined in the map properties config
-     * file
+     * file.
      *
      * @param linkTypologyId
      *            a int.
@@ -1092,6 +1129,7 @@ public class MapPropertiesFactory {
      * <p>
      * getLink
      * </p>
+     * .
      *
      * @param id
      *            a int.
@@ -1103,7 +1141,7 @@ public class MapPropertiesFactory {
 
     /**
      * gets the config LinkStatus by label defined in the map properties config
-     * file
+     * file.
      *
      * @param linkStatusLabel
      *            a {@link java.lang.String} object.
@@ -1161,10 +1199,11 @@ public class MapPropertiesFactory {
      * <p>
      * getAvails
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public List<Avail> getAvails() throws MapsException {
         List<Avail> avails = new ArrayList<Avail>();
@@ -1176,10 +1215,11 @@ public class MapPropertiesFactory {
      * <p>
      * getLinks
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public List<Link> getLinks() throws MapsException {
         List<Link> links = new ArrayList<Link>();
@@ -1191,10 +1231,11 @@ public class MapPropertiesFactory {
      * <p>
      * getLinkStatuses
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public List<LinkStatus> getLinkStatuses() throws MapsException {
         List<LinkStatus> linkstatutes = new ArrayList<LinkStatus>();
@@ -1206,10 +1247,11 @@ public class MapPropertiesFactory {
      * <p>
      * getStatuses
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public List<Status> getStatuses() throws MapsException {
         List<Status> statutes = new ArrayList<Status>();
@@ -1221,10 +1263,11 @@ public class MapPropertiesFactory {
      * <p>
      * getSeverities
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public List<Severity> getSeverities() throws MapsException {
         List<Severity> sevs = new ArrayList<Severity>();
@@ -1236,10 +1279,11 @@ public class MapPropertiesFactory {
      * <p>
      * getIcons
      * </p>
+     * .
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public java.util.Map<String, String> getIcons() throws MapsException {
         return Collections.unmodifiableMap(iconsMap);
@@ -1249,10 +1293,11 @@ public class MapPropertiesFactory {
      * <p>
      * getIconsBySysoid
      * </p>
+     * .
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public java.util.Map<String, String> getIconsBySysoid() throws MapsException {
         return Collections.unmodifiableMap(getIconsBySysoidMap());
@@ -1262,10 +1307,11 @@ public class MapPropertiesFactory {
      * <p>
      * getBackgroundImages
      * </p>
+     * .
      *
      * @return a java$util$Map object.
-     * @throws org.opennms.web.map.MapsException
-     *             if any.
+     * @throws MapsException
+     *             the maps exception
      */
     public java.util.Map<String, String> getBackgroundImages() throws MapsException {
         return Collections.unmodifiableMap(getBackgroundImagesMap());
@@ -1275,6 +1321,7 @@ public class MapPropertiesFactory {
      * <p>
      * getDefaultBackgroundColor
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -1286,6 +1333,7 @@ public class MapPropertiesFactory {
      * <p>
      * getDefaultStatusId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1297,6 +1345,7 @@ public class MapPropertiesFactory {
      * <p>
      * getUnknownStatusId
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -1308,6 +1357,7 @@ public class MapPropertiesFactory {
      * <p>
      * getMapElementDimensions
      * </p>
+     * .
      *
      * @return a java$util$Map object.
      */
@@ -1374,6 +1424,7 @@ public class MapPropertiesFactory {
      * <p>
      * isUseSemaphore
      * </p>
+     * .
      *
      * @return a boolean.
      */

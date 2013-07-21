@@ -35,16 +35,29 @@ import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+/**
+ * The Class DefaultJaspertReportConfigDaoTest.
+ */
 public class DefaultJaspertReportConfigDaoTest {
 
+    /** The Constant ID. */
     private static final String ID = "sample-report";
 
+    /** The Constant TEMPLATE. */
     private static final String TEMPLATE = "sample-report.jxrml";
 
+    /** The Constant ENGINE. */
     private static final String ENGINE = "jdbc";
 
+    /** The m_dao. */
     private static DefaultJasperReportConfigDao m_dao;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         Resource resource = new ClassPathResource("/jasper-reports-testdata.xml");
@@ -53,6 +66,12 @@ public class DefaultJaspertReportConfigDaoTest {
         m_dao.afterPropertiesSet();
     }
 
+    /**
+     * Test config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testConfig() throws Exception {
         assertEquals(TEMPLATE, m_dao.getTemplateLocation(ID));

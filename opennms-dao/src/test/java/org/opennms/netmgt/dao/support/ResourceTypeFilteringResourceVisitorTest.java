@@ -40,13 +40,24 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
+ * The Class ResourceTypeFilteringResourceVisitorTest.
+ *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
+
+    /** The m_mocks. */
     private EasyMockUtils m_mocks = new EasyMockUtils();
 
+    /** The m_delegated visitor. */
     private ResourceVisitor m_delegatedVisitor = m_mocks.createMock(ResourceVisitor.class);
 
+    /**
+     * Test after properties set.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSet() throws Exception {
         ResourceTypeFilteringResourceVisitor filteringVisitor = new ResourceTypeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);
@@ -54,6 +65,12 @@ public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
         filteringVisitor.afterPropertiesSet();
     }
 
+    /**
+     * Test after properties set no delegated visitor.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoDelegatedVisitor() throws Exception {
         ResourceTypeFilteringResourceVisitor filteringVisitor = new ResourceTypeFilteringResourceVisitor();
 
@@ -71,6 +88,12 @@ public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test after properties set no resource type match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testAfterPropertiesSetNoResourceTypeMatch() throws Exception {
         ResourceTypeFilteringResourceVisitor filteringVisitor = new ResourceTypeFilteringResourceVisitor();
 
@@ -88,6 +111,12 @@ public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
         ta.verifyAnticipated();
     }
 
+    /**
+     * Test visit with match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithMatch() throws Exception {
         ResourceTypeFilteringResourceVisitor filteringVisitor = new ResourceTypeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);
@@ -104,6 +133,12 @@ public class ResourceTypeFilteringResourceVisitorTest extends TestCase {
         m_mocks.verifyAll();
     }
 
+    /**
+     * Test visit without match.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testVisitWithoutMatch() throws Exception {
         ResourceTypeFilteringResourceVisitor filteringVisitor = new ResourceTypeFilteringResourceVisitor();
         filteringVisitor.setDelegatedVisitor(m_delegatedVisitor);

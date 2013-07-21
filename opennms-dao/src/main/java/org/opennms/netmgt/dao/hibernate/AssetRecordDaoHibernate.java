@@ -40,6 +40,9 @@ import org.hibernate.transform.Transformers;
 import org.opennms.netmgt.dao.api.AssetRecordDao;
 import org.opennms.netmgt.model.OnmsAssetRecord;
 
+/**
+ * The Class AssetRecordDaoHibernate.
+ */
 public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecord, Integer> implements AssetRecordDao {
 
     /**
@@ -55,6 +58,7 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
      * <p>
      * findByNodeId
      * </p>
+     * .
      *
      * @param id
      *            a {@link java.lang.Integer} object.
@@ -69,6 +73,7 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
      * <p>
      * findImportedAssetNumbersToNodeIds
      * </p>
+     * .
      *
      * @param foreignSource
      *            a {@link java.lang.String} object.
@@ -88,6 +93,9 @@ public class AssetRecordDaoHibernate extends AbstractDaoHibernate<OnmsAssetRecor
         return Collections.unmodifiableMap(assetNumberMap);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.AssetRecordDao#getDistinctProperties()
+     */
     @Override
     public List<OnmsAssetRecord> getDistinctProperties() {
         DetachedCriteria criteria = DetachedCriteria.forClass(OnmsAssetRecord.class);

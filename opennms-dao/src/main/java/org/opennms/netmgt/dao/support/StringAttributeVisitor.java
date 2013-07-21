@@ -35,54 +35,91 @@ import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
 /**
- * StringAttributeVisitor
+ * StringAttributeVisitor.
  *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class StringAttributeVisitor implements CollectionSetVisitor {
 
+    /** The attribute name. */
     private String attributeName;
 
+    /** The attribute value. */
     private String attributeValue;
 
+    /**
+     * Instantiates a new string attribute visitor.
+     *
+     * @param attributeName
+     *            the attribute name
+     */
     public StringAttributeVisitor(String attributeName) {
         this.attributeName = attributeName;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue() {
         return attributeValue;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#visitAttribute(org.opennms.netmgt.config.collector.CollectionAttribute)
+     */
     @Override
     public void visitAttribute(CollectionAttribute attribute) {
         if (attribute.getType().toLowerCase().startsWith("string") && attributeName.equals(attribute.getName()))
             attributeValue = attribute.getStringValue();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#visitCollectionSet(org.opennms.netmgt.config.collector.CollectionSet)
+     */
     @Override
     public void visitCollectionSet(CollectionSet set) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#visitResource(org.opennms.netmgt.config.collector.CollectionResource)
+     */
     @Override
     public void visitResource(CollectionResource resource) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#visitGroup(org.opennms.netmgt.config.collector.AttributeGroup)
+     */
     @Override
     public void visitGroup(AttributeGroup group) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#completeAttribute(org.opennms.netmgt.config.collector.CollectionAttribute)
+     */
     @Override
     public void completeAttribute(CollectionAttribute attribute) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#completeGroup(org.opennms.netmgt.config.collector.AttributeGroup)
+     */
     @Override
     public void completeGroup(AttributeGroup group) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#completeResource(org.opennms.netmgt.config.collector.CollectionResource)
+     */
     @Override
     public void completeResource(CollectionResource resource) {
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSetVisitor#completeCollectionSet(org.opennms.netmgt.config.collector.CollectionSet)
+     */
     @Override
     public void completeCollectionSet(CollectionSet set) {
     }

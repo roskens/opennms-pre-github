@@ -37,13 +37,22 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsIpRouteInterface;
 
+/**
+ * The Class IpRouteInterfaceDaoHibernate.
+ */
 public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRouteInterface, Integer> implements
         IpRouteInterfaceDao {
 
+    /**
+     * Instantiates a new ip route interface dao hibernate.
+     */
     public IpRouteInterfaceDaoHibernate() {
         super(OnmsIpRouteInterface.class);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#markDeletedIfNodeDeleted()
+     */
     @Override
     public void markDeletedIfNodeDeleted() {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
@@ -56,6 +65,9 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#deactivateForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deactivateForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
@@ -70,6 +82,9 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#deleteForNodeIdIfOlderThan(int, java.util.Date)
+     */
     @Override
     public void deleteForNodeIdIfOlderThan(final int nodeid, final Date scanTime) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);
@@ -83,6 +98,9 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#setStatusForNode(java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNode(final Integer nodeid, final StatusType action) {
         // UPDATE iprouteinterface set status = ? WHERE nodeid = ?
@@ -97,6 +115,9 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#setStatusForNodeAndIfIndex(java.lang.Integer, java.lang.Integer, org.opennms.netmgt.model.OnmsArpInterface.StatusType)
+     */
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, final StatusType action) {
         // UPDATE iprouteinterface set status = ? WHERE nodeid = ? AND
@@ -113,6 +134,9 @@ public class IpRouteInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpRou
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.IpRouteInterfaceDao#findByNodeAndDest(java.lang.Integer, java.lang.String)
+     */
     @Override
     public OnmsIpRouteInterface findByNodeAndDest(Integer id, String routeDest) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsIpRouteInterface.class);

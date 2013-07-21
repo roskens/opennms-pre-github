@@ -48,11 +48,14 @@ import org.springframework.util.Assert;
  */
 public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisitorWithResults, InitializingBean {
 
+    /** The m_count. */
     private Integer m_count;
 
+    /** The m_results. */
     private SortedSet<AttributeStatistic> m_results = new TreeSet<AttributeStatistic>(
                                                                                       new AttributeStatisticComparator());
 
+    /** The m_comparator. */
     protected Comparator<Double> m_comparator = new DoubleComparator();
 
     /**
@@ -76,6 +79,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -88,6 +92,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
      * <p>
      * getCount
      * </p>
+     * .
      *
      * @return a {@link java.lang.Integer} object.
      */
@@ -106,6 +111,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
      * <p>
      * getResults
      * </p>
+     * .
      *
      * @return top attribute statistics (up to getCount() number)
      */
@@ -128,6 +134,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
      * <p>
      * getComparator
      * </p>
+     * .
      *
      * @return a {@link java.util.Comparator} object.
      */
@@ -139,6 +146,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
      * <p>
      * setComparator
      * </p>
+     * .
      *
      * @param comparator
      *            a {@link java.util.Comparator} object.
@@ -147,8 +155,19 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
         m_comparator = comparator;
     }
 
+    /**
+     * The Class AttributeStatisticComparator.
+     */
     public class AttributeStatisticComparator implements Comparator<AttributeStatistic> {
+
         /**
+         * Compare.
+         *
+         * @param o1
+         *            the o1
+         * @param o2
+         *            the o2
+         * @return the int
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         @Override
@@ -169,8 +188,19 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
         }
     }
 
+    /**
+     * The Class DoubleComparator.
+     */
     public class DoubleComparator implements Comparator<Double> {
+
         /**
+         * Compare.
+         *
+         * @param o1
+         *            the o1
+         * @param o2
+         *            the o2
+         * @return the int
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
         @Override

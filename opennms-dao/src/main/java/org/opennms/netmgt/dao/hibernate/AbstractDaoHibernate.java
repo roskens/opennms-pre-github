@@ -56,18 +56,26 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * Abstract AbstractDaoHibernate class.
  * </p>
  *
+ * @param <T>
+ *            the generic type
+ * @param <K>
+ *            the key type
  * @author ranger
  * @version $Id: $
  */
 public abstract class AbstractDaoHibernate<T, K extends Serializable> extends HibernateDaoSupport implements
         OnmsDao<T, K> {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDaoHibernate.class);
 
+    /** The m_entity class. */
     Class<T> m_entityClass;
 
+    /** The m_lock name. */
     private String m_lockName;
 
+    /** The m_criteria converter. */
     private final HibernateCriteriaConverter m_criteriaConverter = new HibernateCriteriaConverter();
 
     /**
@@ -77,10 +85,6 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      *
      * @param entityClass
      *            a {@link java.lang.Class} object.
-     * @param <T>
-     *            a T object.
-     * @param <K>
-     *            a K object.
      */
     public AbstractDaoHibernate(final Class<T> entityClass) {
         super();
@@ -91,6 +95,9 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
 
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.dao.support.DaoSupport#initDao()
+     */
     @Override
     protected void initDao() throws Exception {
         getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
@@ -98,7 +105,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
 
     /**
      * This is used to lock the table in order to implement upsert type
-     * operations
+     * operations.
      */
     @Override
     public void lock() {
@@ -115,6 +122,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * flush
      * </p>
+     * .
      */
     @Override
     public void flush() {
@@ -125,6 +133,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * clear
      * </p>
+     * .
      */
     @Override
     public void clear() {
@@ -135,6 +144,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * evict
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
@@ -147,6 +157,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * merge
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
@@ -159,6 +170,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * find
      * </p>
+     * .
      *
      * @param query
      *            a {@link java.lang.String} object.
@@ -173,6 +185,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * find
      * </p>
+     * .
      *
      * @param query
      *            a {@link java.lang.String} object.
@@ -189,15 +202,16 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findObjects
      * </p>
+     * .
      *
+     * @param <S>
+     *            a S object.
      * @param clazz
      *            a {@link java.lang.Class} object.
      * @param query
      *            a {@link java.lang.String} object.
      * @param values
      *            a {@link java.lang.Object} object.
-     * @param <S>
-     *            a S object.
      * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
@@ -210,6 +224,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * queryInt
      * </p>
+     * .
      *
      * @param query
      *            a {@link java.lang.String} object.
@@ -230,6 +245,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * queryInt
      * </p>
+     * .
      *
      * @param queryString
      *            a {@link java.lang.String} object.
@@ -258,6 +274,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findUnique
      * </p>
+     * .
      *
      * @param query
      *            a {@link java.lang.String} object.
@@ -271,6 +288,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findUnique
      * </p>
+     * .
      *
      * @param queryString
      *            a {@link java.lang.String} object.
@@ -286,15 +304,16 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findUnique
      * </p>
+     * .
      *
+     * @param <S>
+     *            a S object.
      * @param type
      *            a {@link java.lang.Class} object.
      * @param queryString
      *            a {@link java.lang.String} object.
      * @param args
      *            a {@link java.lang.Object} object.
-     * @param <S>
-     *            a S object.
      * @return a S object.
      */
     protected <S> S findUnique(final Class<? extends S> type, final String queryString, final Object... args) {
@@ -322,6 +341,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * countAll
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -334,11 +354,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public void delete(final T entity) throws DataAccessException {
@@ -349,11 +370,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * delete
      * </p>
+     * .
      *
      * @param key
      *            a K object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public void delete(final K key) throws DataAccessException {
@@ -364,11 +386,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * deleteAll
      * </p>
+     * .
      *
      * @param entities
      *            a {@link java.util.Collection} object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public void deleteAll(final Collection<T> entities) throws DataAccessException {
         getHibernateTemplate().deleteAll(entities);
@@ -378,10 +401,11 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findAll
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public List<T> findAll() throws DataAccessException {
@@ -392,13 +416,14 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * findMatchingObjects
      * </p>
+     * .
      *
+     * @param <S>
+     *            a S object.
      * @param type
      *            a {@link java.lang.Class} object.
      * @param onmsCrit
      *            a {@link org.opennms.netmgt.model.OnmsCriteria} object.
-     * @param <S>
-     *            a S object.
      * @return a {@link java.util.List} object.
      */
     @SuppressWarnings("unchecked")
@@ -420,6 +445,9 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         return getHibernateTemplate().executeFind(callback);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.dao.api.OnmsDao#findMatching(org.opennms.core.criteria.Criteria)
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<T> findMatching(final org.opennms.core.criteria.Criteria criteria) {
@@ -494,14 +522,15 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * bulkDelete
      * </p>
+     * .
      *
      * @param hql
      *            a {@link java.lang.String} object.
      * @param values
      *            an array of {@link java.lang.Object} objects.
      * @return a int.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     public int bulkDelete(final String hql, final Object[] values) throws DataAccessException {
         return getHibernateTemplate().bulkUpdate(hql, values);
@@ -511,12 +540,13 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * get
      * </p>
+     * .
      *
      * @param id
      *            a K object.
      * @return a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public T get(final K id) throws DataAccessException {
@@ -527,12 +557,13 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * load
      * </p>
+     * .
      *
      * @param id
      *            a K object.
      * @return a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public T load(final K id) throws DataAccessException {
@@ -543,11 +574,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * save
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public void save(final T entity) throws DataAccessException {
@@ -558,11 +590,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * saveOrUpdate
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public void saveOrUpdate(final T entity) throws DataAccessException {
@@ -579,11 +612,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * <p>
      * update
      * </p>
+     * .
      *
      * @param entity
      *            a T object.
-     * @throws org.springframework.dao.DataAccessException
-     *             if any.
+     * @throws DataAccessException
+     *             the data access exception
      */
     @Override
     public void update(final T entity) throws DataAccessException {
@@ -602,7 +636,11 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
      * encountered while performing the query. See issue NMS-5029 for examples
      * of stack traces that can be thrown from these calls.
      * </p>
-     * {@see http://issues.opennms.org/browse/NMS-5029}
+     *
+     * @param entity
+     *            the entity
+     * @param e
+     *            the e {@see http://issues.opennms.org/browse/NMS-5029}
      */
     private void logExtraSaveOrUpdateExceptionInformation(final T entity, final DataAccessException e) {
         Throwable cause = e;
