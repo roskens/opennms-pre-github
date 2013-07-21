@@ -40,7 +40,12 @@ import org.smslib.AGateway;
 import org.smslib.IUSSDNotification;
 import org.smslib.USSDResponse;
 
+/**
+ * The Class USSDNotification.
+ */
 public class USSDNotification implements IUSSDNotification {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(USSDNotification.class);
 
     /** {@inheritDoc} */

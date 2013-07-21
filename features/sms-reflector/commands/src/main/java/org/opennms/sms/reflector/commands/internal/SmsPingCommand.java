@@ -72,6 +72,7 @@ public class SmsPingCommand implements Command {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +85,7 @@ public class SmsPingCommand implements Command {
      * <p>
      * getShortDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -96,6 +98,7 @@ public class SmsPingCommand implements Command {
      * <p>
      * getUsage
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

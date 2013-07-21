@@ -44,22 +44,33 @@ import org.smslib.OutboundMessage;
 import org.smslib.USSDRequest;
 
 /**
- * Public API representing an example OSGi service
+ * Public API representing an example OSGi service.
  *
  * @author ranger
  * @version $Id: $
  */
 public class MsgTrackerCommands implements CommandProvider {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MsgTrackerCommands.class);
 
+    /** The m_tracker. */
     private MobileMsgTracker m_tracker;
 
+    /**
+     * The Class MsgCallback.
+     */
     private static class MsgCallback implements MobileMsgResponseCallback {
 
+        /** The m_response. */
         MobileMsgResponse m_response;
 
+        /** The m_latch. */
         CountDownLatch m_latch = new CountDownLatch(1);
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleError(org.opennms.sms.reflector.smsservice.MobileMsgRequest, java.lang.Throwable)
+         */
         @Override
         public void handleError(final MobileMsgRequest request, final Throwable t) {
             t.printStackTrace();
@@ -67,6 +78,9 @@ public class MsgTrackerCommands implements CommandProvider {
             m_latch.countDown();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleResponse(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
             m_response = response;
@@ -74,30 +88,57 @@ public class MsgTrackerCommands implements CommandProvider {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseCallback#handleTimeout(org.opennms.sms.reflector.smsservice.MobileMsgRequest)
+         */
         @Override
         public void handleTimeout(MobileMsgRequest request) {
             LOG.trace("Request {} timed out!", request);
             m_latch.countDown();
         }
 
+        /**
+         * Wait for.
+         *
+         * @throws InterruptedException
+         *             the interrupted exception
+         */
         public void waitFor() throws InterruptedException {
             m_latch.await();
         }
 
+        /**
+         * Gets the response.
+         *
+         * @return the response
+         */
         public MobileMsgResponse getResponse() {
             return m_response;
         }
 
     }
 
+    /**
+     * The Class MsgMatcher.
+     */
     private static class MsgMatcher implements MobileMsgResponseMatcher {
 
+        /** The m_regex. */
         String m_regex;
 
+        /**
+         * Instantiates a new msg matcher.
+         *
+         * @param regex
+         *            the regex
+         */
         public MsgMatcher(String regex) {
             m_regex = regex;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.sms.reflector.smsservice.MobileMsgResponseMatcher#matches(org.opennms.sms.reflector.smsservice.MobileMsgRequest, org.opennms.sms.reflector.smsservice.MobileMsgResponse)
+         */
         @Override
         public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
             LOG.trace("Using regex: {} to match response: {}", m_regex, response);
@@ -106,6 +147,9 @@ public class MsgTrackerCommands implements CommandProvider {
             return retVal;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             return new ToStringBuilder(this).append("regex", m_regex).toString();
@@ -116,6 +160,7 @@ public class MsgTrackerCommands implements CommandProvider {
      * <p>
      * setMobileMsgTracker
      * </p>
+     * .
      *
      * @param tracker
      *            a
@@ -130,6 +175,7 @@ public class MsgTrackerCommands implements CommandProvider {
      * <p>
      * _trackSms
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -167,6 +213,7 @@ public class MsgTrackerCommands implements CommandProvider {
      * <p>
      * _trackUssd
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -204,6 +251,7 @@ public class MsgTrackerCommands implements CommandProvider {
      * <p>
      * getHelp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

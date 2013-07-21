@@ -41,12 +41,14 @@ import org.smslib.AGateway;
  */
 public class GatewayGroupImpl implements GatewayGroup {
 
+    /** The m_gateways. */
     private AGateway[] m_gateways;
 
     /**
      * <p>
      * setGateways
      * </p>
+     * .
      *
      * @param gateways
      *            an array of {@link org.smslib.AGateway} objects.
@@ -59,6 +61,7 @@ public class GatewayGroupImpl implements GatewayGroup {
      * <p>
      * getGateways
      * </p>
+     * .
      *
      * @return an array of {@link org.smslib.AGateway} objects.
      */

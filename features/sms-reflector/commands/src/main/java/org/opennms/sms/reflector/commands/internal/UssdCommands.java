@@ -34,12 +34,14 @@ import org.opennms.sms.reflector.smsservice.SmsService;
 import org.smslib.USSDRequest;
 
 /**
- * Public API representing an example OSGi service
+ * Public API representing an example OSGi service.
  *
  * @author ranger
  * @version $Id: $
  */
 public class UssdCommands implements CommandProvider {
+
+    /** The m_service. */
     private SmsService m_service;
 
     // private USSDNotification m_ussdNotification;
@@ -48,6 +50,7 @@ public class UssdCommands implements CommandProvider {
      * <p>
      * setService
      * </p>
+     * .
      *
      * @param svc
      *            a {@link org.opennms.sms.reflector.smsservice.SmsService}
@@ -61,6 +64,7 @@ public class UssdCommands implements CommandProvider {
      * <p>
      * _ussdSend
      * </p>
+     * .
      *
      * @param intp
      *            a
@@ -93,6 +97,7 @@ public class UssdCommands implements CommandProvider {
      * <p>
      * getHelp
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
