@@ -51,12 +51,16 @@ import org.slf4j.LoggerFactory;
  */
 public class JettyServer extends AbstractServiceDaemon {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JettyServer.class);
 
+    /** The Constant LOG4J_CATEGORY. */
     private static final String LOG4J_CATEGORY = "jetty-server";
 
+    /** The m_port. */
     int m_port = 8080;
 
+    /** The m_server. */
     private Server m_server;
 
     /**
@@ -162,6 +166,7 @@ public class JettyServer extends AbstractServiceDaemon {
      * <p>
      * addContext
      * </p>
+     * .
      *
      * @param handlers
      *            a {@link org.eclipse.jetty.server.handler.HandlerCollection}
@@ -191,12 +196,12 @@ public class JettyServer extends AbstractServiceDaemon {
      * <p>
      * excludeCipherSuites
      * </p>
+     * .
      *
      * @param contextFactory
-     * @param https_port
-     * @param sslConnector
-     *            a {@link org.eclipse.jetty.server.security.SslSocketConnector}
-     *            object.
+     *            the context factory
+     * @param port
+     *            the port
      */
     protected void excludeCipherSuites(SslContextFactory contextFactory, Integer port) {
         String[] defaultExclSuites = { "SSL_DHE_DSS_WITH_DES_CBC_SHA", "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA",
@@ -242,6 +247,11 @@ public class JettyServer extends AbstractServiceDaemon {
         }
     }
 
+    /**
+     * Gets the logging category.
+     *
+     * @return the logging category
+     */
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
     }
