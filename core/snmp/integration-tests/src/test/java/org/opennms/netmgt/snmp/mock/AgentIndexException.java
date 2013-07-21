@@ -28,22 +28,47 @@
 
 package org.opennms.netmgt.snmp.mock;
 
+/**
+ * The Class AgentIndexException.
+ */
 public class AgentIndexException extends RuntimeException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8238360222848838539L;
 
+    /** The m_error status. */
     private int m_errorStatus;
 
+    /** The m_error index. */
     private int m_errorIndex;
 
+    /**
+     * Instantiates a new agent index exception.
+     *
+     * @param errorStatus
+     *            the error status
+     * @param errorIndex
+     *            the error index
+     */
     public AgentIndexException(int errorStatus, int errorIndex) {
         m_errorStatus = errorStatus;
         m_errorIndex = errorIndex;
     }
 
+    /**
+     * Gets the error status.
+     *
+     * @return the error status
+     */
     public int getErrorStatus() {
         return m_errorStatus;
     }
 
+    /**
+     * Gets the error index.
+     *
+     * @return the error index
+     */
     public int getErrorIndex() {
         return m_errorIndex;
     }

@@ -28,8 +28,14 @@
 
 package org.opennms.netmgt.snmp.mock;
 
+/**
+ * The Class NextPdu.
+ */
 public class NextPdu extends RequestPdu {
 
+    /**
+     * Instantiates a new next pdu.
+     */
     public NextPdu() {
         super();
     }

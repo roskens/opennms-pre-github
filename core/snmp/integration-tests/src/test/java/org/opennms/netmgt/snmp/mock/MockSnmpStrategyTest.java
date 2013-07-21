@@ -51,18 +51,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class MockSnmpStrategyTest.
+ */
 public class MockSnmpStrategyTest {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MockSnmpStrategyTest.class);
 
+    /** The m_strategy. */
     private static MockSnmpStrategy m_strategy;
 
+    /** The m_agent address. */
     private InetAddress m_agentAddress = InetAddressUtils.addr("127.0.0.1");
 
+    /** The m_agent port. */
     private int m_agentPort = 1691;
 
+    /** The m_old property. */
     private String m_oldProperty;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_strategy = new MockSnmpStrategy();
@@ -72,6 +86,9 @@ public class MockSnmpStrategyTest {
         System.setProperty("org.opennms.snmp.strategyClass", m_strategy.getClass().getName());
     }
 
+    /**
+     * Tear down.
+     */
     @After
     public void tearDown() {
         if (m_oldProperty == null) {
@@ -82,6 +99,12 @@ public class MockSnmpStrategyTest {
 
     }
 
+    /**
+     * Test get single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetSingleValue() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -93,6 +116,12 @@ public class MockSnmpStrategyTest {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_INT32, 42, values[0]);
     }
 
+    /**
+     * Test get multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetMultipleValues() throws Exception {
         final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -105,6 +134,12 @@ public class MockSnmpStrategyTest {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_GAUGE32, 42, values[1]);
     }
 
+    /**
+     * Test get bulk multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetBulkMultipleValues() throws Exception {
         final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -117,6 +152,12 @@ public class MockSnmpStrategyTest {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_GAUGE32, 42, values[1]);
     }
 
+    /**
+     * Test get next single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextSingleValue() throws Exception {
         final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -129,6 +170,12 @@ public class MockSnmpStrategyTest {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_GAUGE32, 42, values[0]);
     }
 
+    /**
+     * Test get next multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextMultipleValues() throws Exception {
         final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -143,6 +190,12 @@ public class MockSnmpStrategyTest {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_COUNTER32, 42, values[1]);
     }
 
+    /**
+     * Test set single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSetSingleValue() throws Exception {
         m_strategy.set(getAgentConfig(), SnmpObjId.get(".1.3.5.1.1.3.0"), m_strategy.getValueFactory().getInt32(4));
@@ -152,6 +205,12 @@ public class MockSnmpStrategyTest {
         assertEquals(4, result.toInt());
     }
 
+    /**
+     * Test set bad agent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSetBadAgent() throws Exception {
         final SnmpAgentConfig sac = getAgentConfig();
@@ -164,6 +223,12 @@ public class MockSnmpStrategyTest {
         assertNull(result);
     }
 
+    /**
+     * Test set multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSetMultipleValues() throws Exception {
         final SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0") };
@@ -179,6 +244,12 @@ public class MockSnmpStrategyTest {
         assertEquals(5, results[1].toInt());
     }
 
+    /**
+     * Test set multiple bad agent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSetMultipleBadAgent() throws Exception {
         final SnmpAgentConfig sac = getAgentConfig();
@@ -197,6 +268,12 @@ public class MockSnmpStrategyTest {
         assertNull(results[1]);
     }
 
+    /**
+     * Test tracker.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTracker() throws Exception {
         final CountingColumnTracker ct = new CountingColumnTracker(SnmpObjId.get(".1.3.5.1.1"));
@@ -205,6 +282,12 @@ public class MockSnmpStrategyTest {
         assertEquals("number of columns returned must match test data", Long.valueOf(9).longValue(), ct.getCount());
     }
 
+    /**
+     * Test tracker timeout.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTrackerTimeout() throws Exception {
         final CountingColumnTracker ct = new CountingColumnTracker(SnmpObjId.get(".1.3.5.1.1"));
@@ -217,12 +300,29 @@ public class MockSnmpStrategyTest {
         assertEquals("it should match no columns (timeout)", Long.valueOf(0).longValue(), ct.getCount());
     }
 
+    /**
+     * Assert snmp value equals.
+     *
+     * @param message
+     *            the message
+     * @param expectedType
+     *            the expected type
+     * @param expectedValue
+     *            the expected value
+     * @param value
+     *            the value
+     */
     private void assertSnmpValueEquals(final String message, final int expectedType, final int expectedValue,
             final SnmpValue value) {
         assertEquals(message + " getType()", expectedType, value.getType());
         assertEquals(message + " toInt()", expectedValue, value.toInt());
     }
 
+    /**
+     * Gets the agent config.
+     *
+     * @return the agent config
+     */
     private SnmpAgentConfig getAgentConfig() {
         final SnmpAgentConfig config = new SnmpAgentConfig();
         config.setAddress(m_agentAddress);
@@ -233,6 +333,18 @@ public class MockSnmpStrategyTest {
         return config;
     }
 
+    /**
+     * Walk.
+     *
+     * @param c
+     *            the c
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     * @param maxRepetitions
+     *            the max repetitions
+     * @throws Exception
+     *             the exception
+     */
     private void walk(final CollectionTracker c, final int maxVarsPerPdu, final int maxRepetitions) throws Exception {
         final SnmpAgentConfig config = getAgentConfig();
         final SnmpWalker walker = SnmpUtils.createWalker(config, "test", c);
@@ -241,21 +353,48 @@ public class MockSnmpStrategyTest {
         walker.waitFor();
     }
 
+    /**
+     * The Class CountingColumnTracker.
+     */
     private static class CountingColumnTracker extends ColumnTracker {
+
+        /** The m_count. */
         private long m_count = 0;
 
+        /**
+         * Instantiates a new counting column tracker.
+         *
+         * @param base
+         *            the base
+         */
         public CountingColumnTracker(final SnmpObjId base) {
             super(base);
         }
 
+        /**
+         * Instantiates a new counting column tracker.
+         *
+         * @param base
+         *            the base
+         * @param maxRepetitions
+         *            the max repetitions
+         */
         public CountingColumnTracker(final SnmpObjId base, final int maxRepetitions) {
             super(base, maxRepetitions);
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public long getCount() {
             return m_count;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.CollectionTracker#storeResult(org.opennms.netmgt.snmp.SnmpResult)
+         */
         @Override
         protected void storeResult(final SnmpResult res) {
             LOG.debug("storing result {}", res);

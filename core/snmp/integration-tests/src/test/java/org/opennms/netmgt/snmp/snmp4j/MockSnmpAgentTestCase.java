@@ -42,19 +42,36 @@ import org.opennms.netmgt.snmp.mock.MockSnmpStrategy;
 import org.opennms.test.mock.MockUtil;
 import org.springframework.core.io.ClassPathResource;
 
+/**
+ * The Class MockSnmpAgentTestCase.
+ */
 public abstract class MockSnmpAgentTestCase {
+
+    /** The m_agent address. */
     private InetAddress m_agentAddress;
 
+    /** The m_agent port. */
     private int m_agentPort = 1691;
 
+    /** The m_properties resource. */
     private ClassPathResource m_propertiesResource = new ClassPathResource("loadSnmpDataTest.properties");
 
+    /** The m_agent. */
     private MockSnmpAgent m_agent;
 
+    /**
+     * Instantiates a new mock snmp agent test case.
+     */
     public MockSnmpAgentTestCase() {
         setAgentAddress(InetAddressUtils.getLocalHostAddress());
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockUtil.println("------------ Strategy = " + System.getProperty("org.opennms.snmp.strategyClass")
@@ -65,6 +82,14 @@ public abstract class MockSnmpAgentTestCase {
         agentSetup();
     }
 
+    /**
+     * Agent setup.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     protected void agentSetup() throws InterruptedException, IOException {
         if (usingMockStrategy()) {
             MockSnmpStrategy.setDataForAddress(new SnmpAgentAddress(getAgentAddress(), getAgentPort()),
@@ -75,10 +100,21 @@ public abstract class MockSnmpAgentTestCase {
         }
     }
 
+    /**
+     * Using mock strategy.
+     *
+     * @return true, if successful
+     */
     protected boolean usingMockStrategy() {
         return MockSnmpStrategy.class.getName().equals(System.getProperty("org.opennms.snmp.strategyClass"));
     }
 
+    /**
+     * Tear down.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @After
     public void tearDown() throws Exception {
 
@@ -89,6 +125,12 @@ public abstract class MockSnmpAgentTestCase {
         MockUtil.println("------------ End Test --------------------------");
     }
 
+    /**
+     * Agent cleanup.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     protected void agentCleanup() throws InterruptedException {
         MockSnmpStrategy.removeHost(new SnmpAgentAddress(getAgentAddress(), getAgentPort()));
 
@@ -98,6 +140,11 @@ public abstract class MockSnmpAgentTestCase {
 
     }
 
+    /**
+     * Gets the agent config.
+     *
+     * @return the agent config
+     */
     protected SnmpAgentConfig getAgentConfig() {
         SnmpAgentConfig config = new SnmpAgentConfig();
         config.setAddress(getAgentAddress());
@@ -106,30 +153,68 @@ public abstract class MockSnmpAgentTestCase {
         return config;
     }
 
+    /**
+     * Gets the agent address.
+     *
+     * @return the agent address
+     */
     public InetAddress getAgentAddress() {
         return m_agentAddress;
     }
 
+    /**
+     * Sets the agent address.
+     *
+     * @param agentAddress
+     *            the new agent address
+     */
     protected void setAgentAddress(final InetAddress agentAddress) {
         m_agentAddress = agentAddress;
     }
 
+    /**
+     * Gets the agent port.
+     *
+     * @return the agent port
+     */
     public int getAgentPort() {
         return m_agentPort;
     }
 
+    /**
+     * Sets the agent port.
+     *
+     * @param agentPort
+     *            the new agent port
+     */
     protected void setAgentPort(final int agentPort) {
         m_agentPort = agentPort;
     }
 
+    /**
+     * Gets the properties resource.
+     *
+     * @return the properties resource
+     */
     public ClassPathResource getPropertiesResource() {
         return m_propertiesResource;
     }
 
+    /**
+     * Sets the properties resource.
+     *
+     * @param propertiesResource
+     *            the new properties resource
+     */
     public void setPropertiesResource(final ClassPathResource propertiesResource) {
         m_propertiesResource = propertiesResource;
     }
 
+    /**
+     * Gets the agent.
+     *
+     * @return the agent
+     */
     public MockSnmpAgent getAgent() {
         return m_agent;
     }

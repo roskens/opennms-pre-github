@@ -28,9 +28,20 @@
 
 package org.opennms.netmgt.snmp.mock;
 
+/**
+ * The Class AgentGenErrException.
+ */
 public class AgentGenErrException extends AgentIndexException {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6448390962070702289L;
 
+    /**
+     * Instantiates a new agent gen err exception.
+     *
+     * @param errorIndex
+     *            the error index
+     */
     public AgentGenErrException(int errorIndex) {
         super(ResponsePdu.GEN_ERR, errorIndex);
     }

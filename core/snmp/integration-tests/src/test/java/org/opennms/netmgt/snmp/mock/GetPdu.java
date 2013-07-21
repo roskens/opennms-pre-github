@@ -30,11 +30,21 @@ package org.opennms.netmgt.snmp.mock;
 
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class GetPdu.
+ */
 public class GetPdu extends RequestPdu {
+
+    /**
+     * Instantiates a new gets the pdu.
+     */
     public GetPdu() {
         super();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.mock.RequestPdu#getResponseVarBind(org.opennms.netmgt.snmp.mock.TestAgent, org.opennms.netmgt.snmp.SnmpObjId, int)
+     */
     @Override
     protected TestVarBind getResponseVarBind(TestAgent agent, SnmpObjId objId, int errIndex) {
         return agent.getResponseVarBind(objId, errIndex);

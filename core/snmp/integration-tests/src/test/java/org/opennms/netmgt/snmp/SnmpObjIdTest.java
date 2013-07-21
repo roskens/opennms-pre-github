@@ -32,8 +32,19 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
+/**
+ * The Class SnmpObjIdTest.
+ */
 public class SnmpObjIdTest extends TestCase {
 
+    /**
+     * Assert array equals.
+     *
+     * @param a
+     *            the a
+     * @param b
+     *            the b
+     */
     private void assertArrayEquals(int[] a, int[] b) {
         if (a == null) {
             assertNull("expected value is null but actual value is " + Arrays.toString(b), b);
@@ -49,6 +60,9 @@ public class SnmpObjIdTest extends TestCase {
         }
     }
 
+    /**
+     * Test invalid oids.
+     */
     public void testInvalidOids() {
         try {
             SnmpObjId.get(".1.3.5.x.9");
@@ -65,6 +79,9 @@ public class SnmpObjIdTest extends TestCase {
         }
     }
 
+    /**
+     * Test snmp oid compare.
+     */
     public void testSnmpOidCompare() {
         SnmpObjId oid1 = SnmpObjId.get("1.3.5.7");
         SnmpObjId oid1b = SnmpObjId.get(".1.3.5.7");
@@ -109,6 +126,9 @@ public class SnmpObjIdTest extends TestCase {
 
     }
 
+    /**
+     * Test oid append prefix instance.
+     */
     public void testOidAppendPrefixInstance() {
         SnmpObjId base = SnmpObjId.get(".1.3.5.7");
         SnmpObjId result = SnmpObjId.get(".1.3.5.7.9.8.7.6");
@@ -127,6 +147,9 @@ public class SnmpObjIdTest extends TestCase {
         assertEquals("9.8.7.6", instance.toString());
     }
 
+    /**
+     * Test decrement.
+     */
     public void testDecrement() {
         SnmpObjId oid = SnmpObjId.get(".1.3.5.7");
         assertEquals(SnmpObjId.get(".1.3.5.6"), oid.decrement());

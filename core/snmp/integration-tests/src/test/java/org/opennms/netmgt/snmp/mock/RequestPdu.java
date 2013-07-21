@@ -33,12 +33,25 @@ import java.util.List;
 
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class RequestPdu.
+ */
 public abstract class RequestPdu extends TestPdu {
 
+    /**
+     * Gets the non repeaters.
+     *
+     * @return the non repeaters
+     */
     protected int getNonRepeaters() {
         return size();
     }
 
+    /**
+     * Gets the max repititions.
+     *
+     * @return the max repititions
+     */
     protected int getMaxRepititions() {
         return 0;
     }
@@ -55,6 +68,13 @@ public abstract class RequestPdu extends TestPdu {
      * The method getRespObjIdFromReqObjId which by default goes 'next' is
      * overridden
      * and does 'get' in the GetPdu.
+     */
+    /**
+     * Send.
+     *
+     * @param agent
+     *            the agent
+     * @return the response pdu
      */
     public ResponsePdu send(TestAgent agent) {
         ResponsePdu resp = TestPdu.getResponse();
@@ -107,6 +127,15 @@ public abstract class RequestPdu extends TestPdu {
         }
     }
 
+    /**
+     * Handle too big.
+     *
+     * @param agent
+     *            the agent
+     * @param resp
+     *            the resp
+     * @return the response pdu
+     */
     protected ResponsePdu handleTooBig(TestAgent agent, ResponsePdu resp) {
         resp.setVarBinds(new TestVarBindList());
         resp.setErrorStatus(ResponsePdu.TOO_BIG_ERR);
@@ -114,11 +143,30 @@ public abstract class RequestPdu extends TestPdu {
         return resp;
     }
 
+    /**
+     * Validate response size.
+     *
+     * @param resp
+     *            the resp
+     * @param agent
+     *            the agent
+     */
     private void validateResponseSize(ResponsePdu resp, TestAgent agent) {
         if (resp.size() > agent.getMaxResponseSize())
             throw new AgentTooBigException();
     }
 
+    /**
+     * Gets the response var bind.
+     *
+     * @param agent
+     *            the agent
+     * @param lastOid
+     *            the last oid
+     * @param errIndex
+     *            the err index
+     * @return the response var bind
+     */
     protected TestVarBind getResponseVarBind(TestAgent agent, SnmpObjId lastOid, int errIndex) {
         return agent.getNextResponseVarBind(lastOid, errIndex);
     }

@@ -40,27 +40,47 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * The Class SnmpTableResultTest.
+ *
  * @author brozow
  */
 public class SnmpTableResultTest {
 
+    /** The m_table result. */
     private SnmpTableResult m_tableResult;
 
+    /** The m_row callback. */
     private TestRowCallback m_rowCallback;
 
+    /** The m_columns. */
     private SnmpObjId[] m_columns;
 
+    /** The m_anticipated rows. */
     private List<SnmpRowResult> m_anticipatedRows = new ArrayList<SnmpRowResult>();
 
+    /** The m_received rows. */
     private List<SnmpRowResult> m_receivedRows = new ArrayList<SnmpRowResult>();
 
+    /**
+     * The Class TestRowCallback.
+     */
     private class TestRowCallback implements RowCallback {
+
+        /** The m_row count. */
         private int m_rowCount = 0;
 
+        /**
+         * Gets the row count.
+         *
+         * @return the row count
+         */
         public int getRowCount() {
             return m_rowCount;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.RowCallback#rowCompleted(org.opennms.netmgt.snmp.SnmpRowResult)
+         */
         @Override
         public void rowCompleted(SnmpRowResult result) {
             m_rowCount++;
@@ -68,24 +88,55 @@ public class SnmpTableResultTest {
             System.err.println("Received Row: " + result);
         }
 
+        /**
+         * Reset.
+         */
         public void reset() {
             m_rowCount = 0;
         }
 
     }
 
+    /**
+     * Value.
+     *
+     * @param val
+     *            the val
+     * @return the snmp value
+     */
     public SnmpValue value(String val) {
         return SnmpUtils.getValueFactory().getOctetString(val.getBytes());
     }
 
+    /**
+     * Result.
+     *
+     * @param base
+     *            the base
+     * @param inst
+     *            the inst
+     * @return the snmp result
+     */
     public SnmpResult result(SnmpObjId base, String inst) {
         return new SnmpResult(base, new SnmpInstId(inst), value(inst));
     }
 
+    /**
+     * Verify row count.
+     *
+     * @param expected
+     *            the expected
+     */
     public void verifyRowCount(int expected) {
         assertEquals(expected, m_rowCallback.getRowCount());
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         m_rowCallback = new TestRowCallback();
@@ -95,6 +146,12 @@ public class SnmpTableResultTest {
         System.err.println("---");
     }
 
+    /**
+     * Anticipate rows.
+     *
+     * @param instances
+     *            the instances
+     */
     public void anticipateRows(String... instances) {
         for (String inst : instances) {
             SnmpRowResult row = new SnmpRowResult(m_columns.length, new SnmpInstId(inst));
@@ -102,6 +159,9 @@ public class SnmpTableResultTest {
         }
     }
 
+    /**
+     * Verify rows.
+     */
     public void verifyRows() {
         Iterator<SnmpRowResult> anticipated = m_anticipatedRows.iterator();
         Iterator<SnmpRowResult> received = m_receivedRows.iterator();
@@ -137,6 +197,9 @@ public class SnmpTableResultTest {
      * properly handle maxVarsPerPdu correctly
      */
 
+    /**
+     * Test simple.
+     */
     @Test
     public void testSimple() {
 
@@ -164,6 +227,9 @@ public class SnmpTableResultTest {
         verifyRows();
     }
 
+    /**
+     * Test initial value missing for column.
+     */
     @Test
     public void testInitialValueMissingForColumn() {
 
@@ -192,6 +258,9 @@ public class SnmpTableResultTest {
         verifyRows();
     }
 
+    /**
+     * Test column incomplete.
+     */
     @Test
     public void testColumnIncomplete() {
 
@@ -216,6 +285,9 @@ public class SnmpTableResultTest {
         verifyRows();
     }
 
+    /**
+     * Test non int instances.
+     */
     @Test
     public void testNonIntInstances() {
 

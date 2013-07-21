@@ -36,24 +36,38 @@ import junit.framework.TestCase;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpValue;
 
+/**
+ * The Class TestAgentTest.
+ */
 public class TestAgentTest extends TestCase {
 
+    /** The Constant columnLength. */
     private static final int columnLength = 10;
 
+    /** The Constant col3Base. */
     private static final String col3Base = ".1.3.5.1.2.3";
 
+    /** The Constant col2Base. */
     private static final String col2Base = ".1.3.5.1.2.2";
 
+    /** The Constant col1Base. */
     private static final String col1Base = ".1.3.5.1.2.1";
 
+    /** The Constant zeroInst2Base. */
     private static final String zeroInst2Base = ".1.3.5.1.1.2";
 
+    /** The Constant zeroInst1Base. */
     private static final String zeroInst1Base = ".1.3.5.1.1.1";
 
+    /** The Constant invalid. */
     private static final String invalid = ".1.5.5.5";
 
+    /** The m_agent. */
     private TestAgent m_agent;
 
+    /* (non-Javadoc)
+     * @see junit.framework.TestCase#setUp()
+     */
     @Override
     protected void setUp() throws Exception {
         m_agent = new TestAgent();
@@ -67,34 +81,84 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Adds the column.
+     *
+     * @param agentData
+     *            the agent data
+     * @param base
+     *            the base
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     */
     private void addColumn(Properties agentData, String base, int start, int end) {
         for (int inst = start; inst <= end; inst++) {
             addInstance(agentData, base, inst);
         }
     }
 
+    /**
+     * Adds the zero instance.
+     *
+     * @param agentData
+     *            the agent data
+     * @param oid
+     *            the oid
+     */
     private void addZeroInstance(Properties agentData, String oid) {
         addInstance(agentData, oid, 0);
     }
 
+    /**
+     * Adds the instance.
+     *
+     * @param agentData
+     *            the agent data
+     * @param oid
+     *            the oid
+     * @param inst
+     *            the inst
+     */
     private void addInstance(Properties agentData, String oid, int inst) {
         agentData.put(oid + "." + inst, "STRING: " + getValueFor(oid + "." + inst).toString());
     }
 
+    /**
+     * Gets the value for.
+     *
+     * @param oid
+     *            the oid
+     * @return the value for
+     */
     private Object getValueFor(String oid) {
         return getValueFor(SnmpObjId.get(oid));
     }
 
+    /**
+     * Gets the value for.
+     *
+     * @param oid
+     *            the oid
+     * @return the value for
+     */
     private Object getValueFor(SnmpObjId oid) {
         return new MockSnmpValue(SnmpValue.SNMP_OCTET_STRING, oid + "-value");
     }
 
+    /**
+     * Test constant objects.
+     */
     public void testConstantObjects() {
         assertEquals("noSuchObject", MockSnmpValue.NO_SUCH_OBJECT.toString());
         assertEquals("noSuchInstance", MockSnmpValue.NO_SUCH_INSTANCE.toString());
         assertEquals("endOfMibView", MockSnmpValue.END_OF_MIB.toString());
     }
 
+    /**
+     * Test empty agent.
+     */
     public void testEmptyAgent() {
         TestAgent agent = new TestAgent();
         SnmpObjId z1 = SnmpObjId.get(zeroInst1Base, "0");
@@ -108,6 +172,12 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test load snmp data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     public void testLoadSnmpData() throws Exception {
         TestAgent agent = new TestAgent();
         agent.loadSnmpTestData(getClass(), "/loadSnmpDataTest.properties");
@@ -116,6 +186,9 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test agent value for.
+     */
     public void testAgentValueFor() {
         SnmpObjId z1 = SnmpObjId.get(zeroInst1Base, "0");
         SnmpObjId z2 = SnmpObjId.get(zeroInst2Base, "0");
@@ -156,6 +229,9 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test following oid.
+     */
     public void testFollowingOid() {
         SnmpObjId z1 = SnmpObjId.get(zeroInst1Base);
         SnmpObjId z2 = SnmpObjId.get(zeroInst2Base);
@@ -189,6 +265,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(col2dot1, m_agent.getFollowingObjId(col2dot10));
     }
 
+    /**
+     * Test get.
+     */
     public void testGet() {
         GetPdu get = TestPdu.getGet();
         get.addVarBind(zeroInst1Base, 0);
@@ -198,6 +277,9 @@ public class TestAgentTest extends TestCase {
         validateGetResponse(get, m_agent.send(get));
     }
 
+    /**
+     * Test get too big.
+     */
     public void testGetTooBig() {
         m_agent.setBehaviorToV1();
         m_agent.setMaxResponseSize(5);
@@ -220,6 +302,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(0, resp.getErrorIndex());
     }
 
+    /**
+     * Test get with invalid oid v1.
+     */
     public void testGetWithInvalidOidV1() {
         m_agent.setBehaviorToV1();
 
@@ -236,6 +321,9 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test get with no instance v1.
+     */
     public void testGetWithNoInstanceV1() {
         m_agent.setBehaviorToV1();
 
@@ -251,6 +339,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test get with invalid oid v2.
+     */
     public void testGetWithInvalidOidV2() {
         m_agent.setBehaviorToV2();
 
@@ -264,6 +355,9 @@ public class TestAgentTest extends TestCase {
 
     }
 
+    /**
+     * Test get with no instance v2.
+     */
     public void testGetWithNoInstanceV2() {
         m_agent.setBehaviorToV2();
 
@@ -276,6 +370,9 @@ public class TestAgentTest extends TestCase {
         validateGetResponse(get, m_agent.send(get));
     }
 
+    /**
+     * Test get with gen err v1.
+     */
     public void testGetWithGenErrV1() {
         m_agent.setBehaviorToV1();
 
@@ -295,6 +392,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test get next with gen err v1.
+     */
     public void testGetNextWithGenErrV1() {
         m_agent.setBehaviorToV1();
 
@@ -314,6 +414,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test bulk with gen err.
+     */
     public void testBulkWithGenErr() {
         m_agent.setBehaviorToV2();
 
@@ -331,6 +434,14 @@ public class TestAgentTest extends TestCase {
         assertEquals(1, resp.getErrorIndex());
     }
 
+    /**
+     * Validate get response.
+     *
+     * @param get
+     *            the get
+     * @param resp
+     *            the resp
+     */
     private void validateGetResponse(GetPdu get, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
@@ -343,6 +454,9 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Test next.
+     */
     public void testNext() {
         NextPdu pdu = TestPdu.getNext();
         pdu.addVarBind(zeroInst1Base);
@@ -354,6 +468,9 @@ public class TestAgentTest extends TestCase {
         validateNextResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test next invalid oid v1.
+     */
     public void testNextInvalidOidV1() {
         m_agent.setBehaviorToV1();
 
@@ -368,6 +485,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test next invalid oid v2.
+     */
     public void testNextInvalidOidV2() {
         m_agent.setBehaviorToV2();
 
@@ -379,6 +499,9 @@ public class TestAgentTest extends TestCase {
         validateNextResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test next with gen err v1.
+     */
     public void testNextWithGenErrV1() {
         m_agent.setBehaviorToV1();
 
@@ -396,6 +519,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test next with gen err v2.
+     */
     public void testNextWithGenErrV2() {
         m_agent.setBehaviorToV2();
 
@@ -413,6 +539,14 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Validate next response.
+     *
+     * @param pdu
+     *            the pdu
+     * @param resp
+     *            the resp
+     */
     private void validateNextResponse(NextPdu pdu, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
@@ -422,6 +556,15 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Verify next var bind.
+     *
+     * @param reqObjId
+     *            the req obj id
+     * @param respVarBind
+     *            the resp var bind
+     * @return the snmp obj id
+     */
     private SnmpObjId verifyNextVarBind(SnmpObjId reqObjId, TestVarBind respVarBind) {
         try {
             SnmpObjId nextOid = m_agent.getFollowingObjId(reqObjId);
@@ -435,6 +578,9 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Test bulk.
+     */
     public void testBulk() {
         m_agent.setBehaviorToV2();
 
@@ -450,6 +596,9 @@ public class TestAgentTest extends TestCase {
         validateBulkResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test bulk in v1.
+     */
     public void testBulkInV1() {
         try {
             m_agent.setBehaviorToV1();
@@ -468,6 +617,9 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Test bulk too big.
+     */
     public void testBulkTooBig() {
         m_agent.setBehaviorToV2();
         m_agent.setMaxResponseSize(4);
@@ -483,6 +635,9 @@ public class TestAgentTest extends TestCase {
         validateBulkResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test bulk invalid oid in non repeater v2.
+     */
     public void testBulkInvalidOidInNonRepeaterV2() {
         m_agent.setBehaviorToV2();
         BulkPdu pdu = TestPdu.getBulk();
@@ -497,6 +652,9 @@ public class TestAgentTest extends TestCase {
         validateBulkResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test bulk invalid oid in repeater v2.
+     */
     public void testBulkInvalidOidInRepeaterV2() {
         m_agent.setBehaviorToV2();
         BulkPdu pdu = TestPdu.getBulk();
@@ -511,6 +669,9 @@ public class TestAgentTest extends TestCase {
         validateBulkResponse(pdu, m_agent.send(pdu));
     }
 
+    /**
+     * Test bulk with gen err in non repeater.
+     */
     public void testBulkWithGenErrInNonRepeater() {
         m_agent.setBehaviorToV2();
 
@@ -532,6 +693,9 @@ public class TestAgentTest extends TestCase {
         assertEquals(2, resp.getErrorIndex());
     }
 
+    /**
+     * Test bulk with gen err in repeater.
+     */
     public void testBulkWithGenErrInRepeater() {
         m_agent.setBehaviorToV2();
 
@@ -552,6 +716,14 @@ public class TestAgentTest extends TestCase {
         assertEquals(4, resp.getErrorIndex());
     }
 
+    /**
+     * Validate bulk response.
+     *
+     * @param pdu
+     *            the pdu
+     * @param resp
+     *            the resp
+     */
     private void validateBulkResponse(BulkPdu pdu, ResponsePdu resp) {
         assertNotNull(resp);
         assertEquals(ResponsePdu.NO_ERR, resp.getErrorStatus());
@@ -577,6 +749,17 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Verify bulk var bind.
+     *
+     * @param oid
+     *            the oid
+     * @param resp
+     *            the resp
+     * @param index
+     *            the index
+     * @return the snmp obj id
+     */
     private SnmpObjId verifyBulkVarBind(SnmpObjId oid, ResponsePdu resp, int index) {
         if (index < resp.size()) {
             return verifyNextVarBind(oid, resp.getVarBindAt(index));
@@ -585,6 +768,13 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Gets the agent value for.
+     *
+     * @param objId
+     *            the obj id
+     * @return the agent value for
+     */
     public Object getAgentValueFor(SnmpObjId objId) {
         try {
             return m_agent.getValueFor(objId);
@@ -595,6 +785,12 @@ public class TestAgentTest extends TestCase {
         }
     }
 
+    /**
+     * Verify obj id value.
+     *
+     * @param varbind
+     *            the varbind
+     */
     private void verifyObjIdValue(TestVarBind varbind) {
         assertEquals(getAgentValueFor(varbind.getObjId()), varbind.getValue());
 

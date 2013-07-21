@@ -54,79 +54,138 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
+/**
+ * The Class SnmpTrackerTest.
+ */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml" })
 @JUnitSnmpAgent(host = "172.20.1.205", resource = "classpath:snmpTestData1.properties")
 public class SnmpTrackerTest implements InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrackerTest.class);
 
+    /** The m_snmp peer factory. */
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
+    /**
+     * The Class SnmpTableConstants.
+     */
     public static final class SnmpTableConstants {
+
+        /** The Constant ifTable. */
         static final SnmpObjId ifTable = SnmpObjId.get(".1.3.6.1.2.1.2.2.1");
 
+        /** The Constant ifIndex. */
         static final SnmpObjId ifIndex = SnmpObjId.get(ifTable, "1");
 
+        /** The Constant ifDescr. */
         static final SnmpObjId ifDescr = SnmpObjId.get(ifTable, "2");
 
+        /** The Constant ifType. */
         static final SnmpObjId ifType = SnmpObjId.get(ifTable, "3");
 
+        /** The Constant ifMtu. */
         static final SnmpObjId ifMtu = SnmpObjId.get(ifTable, "4");
 
+        /** The Constant ifSpeed. */
         static final SnmpObjId ifSpeed = SnmpObjId.get(ifTable, "5");
 
+        /** The Constant ifPhysAddress. */
         static final SnmpObjId ifPhysAddress = SnmpObjId.get(ifTable, "6");
 
+        /** The Constant ifAdminStatus. */
         static final SnmpObjId ifAdminStatus = SnmpObjId.get(ifTable, "7");
 
+        /** The Constant ifOperStatus. */
         static final SnmpObjId ifOperStatus = SnmpObjId.get(ifTable, "8");
 
+        /** The Constant ifLastChange. */
         static final SnmpObjId ifLastChange = SnmpObjId.get(ifTable, "9");
 
+        /** The Constant ifInOctets. */
         static final SnmpObjId ifInOctets = SnmpObjId.get(ifTable, "10");
 
+        /** The Constant ifInUcastPkts. */
         static final SnmpObjId ifInUcastPkts = SnmpObjId.get(ifTable, "11");
 
+        /** The Constant ifInNUcastPkts. */
         static final SnmpObjId ifInNUcastPkts = SnmpObjId.get(ifTable, "12");
 
+        /** The Constant ifInDiscards. */
         static final SnmpObjId ifInDiscards = SnmpObjId.get(ifTable, "13");
 
+        /** The Constant ifInErrors. */
         static final SnmpObjId ifInErrors = SnmpObjId.get(ifTable, "14");
 
+        /** The Constant ifUnknownProtos. */
         static final SnmpObjId ifUnknownProtos = SnmpObjId.get(ifTable, "15");
 
+        /** The Constant ifOutOctets. */
         static final SnmpObjId ifOutOctets = SnmpObjId.get(ifTable, "16");
 
+        /** The Constant ifOutUcastPkts. */
         static final SnmpObjId ifOutUcastPkts = SnmpObjId.get(ifTable, "17");
 
+        /** The Constant ifOutNUcastPkts. */
         static final SnmpObjId ifOutNUcastPkts = SnmpObjId.get(ifTable, "18");
 
+        /** The Constant ifOutDiscards. */
         static final SnmpObjId ifOutDiscards = SnmpObjId.get(ifTable, "19");
 
+        /** The Constant ifOutErrors. */
         static final SnmpObjId ifOutErrors = SnmpObjId.get(ifTable, "20");
 
+        /** The Constant ifOutQLen. */
         static final SnmpObjId ifOutQLen = SnmpObjId.get(ifTable, "21");
 
+        /** The Constant ifSpecific. */
         static final SnmpObjId ifSpecific = SnmpObjId.get(ifTable, "22");
     }
 
+    /**
+     * The Class CountingColumnTracker.
+     */
     private static class CountingColumnTracker extends ColumnTracker {
+
+        /** The m_count. */
         private long m_count = 0;
 
+        /**
+         * Instantiates a new counting column tracker.
+         *
+         * @param base
+         *            the base
+         */
         public CountingColumnTracker(final SnmpObjId base) {
             super(base);
         }
 
+        /**
+         * Instantiates a new counting column tracker.
+         *
+         * @param base
+         *            the base
+         * @param maxRepetitions
+         *            the max repetitions
+         */
         public CountingColumnTracker(final SnmpObjId base, final int maxRepetitions) {
             super(base, maxRepetitions);
         }
 
+        /**
+         * Gets the count.
+         *
+         * @return the count
+         */
         public long getCount() {
             return m_count;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.CollectionTracker#storeResult(org.opennms.netmgt.snmp.SnmpResult)
+         */
         @Override
         protected void storeResult(final SnmpResult res) {
             LOG.debug("storing result: {}", res);
@@ -135,11 +194,26 @@ public class SnmpTrackerTest implements InitializingBean {
 
     }
 
+    /**
+     * The Class ResultTable.
+     */
     private static final class ResultTable {
+
+        /** The m_rows added. */
         private int m_rowsAdded = 0;
 
+        /** The m_results. */
         private Map<SnmpInstId, SnmpRowResult> m_results = new HashMap<SnmpInstId, SnmpRowResult>();
 
+        /**
+         * Gets the result.
+         *
+         * @param base
+         *            the base
+         * @param inst
+         *            the inst
+         * @return the result
+         */
         SnmpValue getResult(final SnmpObjId base, final SnmpInstId inst) {
             final SnmpRowResult row = m_results.get(inst);
             if (row == null) {
@@ -148,23 +222,53 @@ public class SnmpTrackerTest implements InitializingBean {
             return row.getValue(base);
         }
 
+        /**
+         * Gets the result.
+         *
+         * @param base
+         *            the base
+         * @param inst
+         *            the inst
+         * @return the result
+         */
         SnmpValue getResult(final SnmpObjId base, final String inst) {
             return getResult(base, new SnmpInstId(inst));
         }
 
+        /**
+         * Gets the rows added.
+         *
+         * @return the rows added
+         */
         int getRowsAdded() {
             return m_rowsAdded;
         }
 
+        /**
+         * Adds the snmp row result.
+         *
+         * @param row
+         *            the row
+         */
         void addSnmpRowResult(final SnmpRowResult row) {
             m_rowsAdded++;
             m_results.put(row.getInstance(), row);
         }
 
+        /**
+         * Gets the row count.
+         *
+         * @return the row count
+         */
         public int getRowCount() {
             return m_results.size();
         }
 
+        /**
+         * Gets the column count.
+         *
+         * @return the column count
+         */
         public int getColumnCount() {
             int maxColumns = Integer.MIN_VALUE;
             for (final SnmpRowResult row : m_results.values()) {
@@ -175,26 +279,57 @@ public class SnmpTrackerTest implements InitializingBean {
 
     }
 
+    /**
+     * The Class TestRowCallback.
+     */
     private static class TestRowCallback implements RowCallback {
+
+        /** The m_responses. */
         private final List<SnmpRowResult> m_responses = new ArrayList<SnmpRowResult>();
 
+        /** The m_results. */
         private final ResultTable m_results = new ResultTable();
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.RowCallback#rowCompleted(org.opennms.netmgt.snmp.SnmpRowResult)
+         */
         @Override
         public void rowCompleted(final SnmpRowResult row) {
             m_responses.add(row);
             m_results.addSnmpRowResult(row);
         }
 
+        /**
+         * Gets the responses.
+         *
+         * @return the responses
+         */
         public List<SnmpRowResult> getResponses() {
             return m_responses;
         }
 
+        /**
+         * Gets the results.
+         *
+         * @return the results
+         */
         public ResultTable getResults() {
             return m_results;
         }
     }
 
+    /**
+     * Walk.
+     *
+     * @param c
+     *            the c
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     * @param maxRepetitions
+     *            the max repetitions
+     * @throws Exception
+     *             the exception
+     */
     private void walk(final CollectionTracker c, final int maxVarsPerPdu, final int maxRepetitions) throws Exception {
         final SnmpAgentConfig config = m_snmpPeerFactory.getAgentConfig(InetAddressUtils.addr("172.20.1.205"));
         config.setVersion(SnmpAgentConfig.VERSION2C);
@@ -206,17 +341,29 @@ public class SnmpTrackerTest implements InitializingBean {
         walker.waitFor();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
     }
 
+    /**
+     * Test column tracker.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testColumnTracker() throws Exception {
         final CountingColumnTracker ct = new CountingColumnTracker(SnmpObjId.get(".1.3.6.1.2.1.2.2.1.1"));
@@ -224,6 +371,12 @@ public class SnmpTrackerTest implements InitializingBean {
         assertEquals("number of columns returned must match test data", Long.valueOf(6).longValue(), ct.getCount());
     }
 
+    /**
+     * Test table tracker with full table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testTableTrackerWithFullTable() throws Exception {
         final TestRowCallback rc = new TestRowCallback();
@@ -245,6 +398,12 @@ public class SnmpTrackerTest implements InitializingBean {
 
     }
 
+    /**
+     * Test incomplete table data.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgent(host = "172.20.1.205", resource = "classpath:snmpTestDataIncompleteTable.properties")
     public void testIncompleteTableData() throws Exception {
@@ -268,6 +427,12 @@ public class SnmpTrackerTest implements InitializingBean {
         assertEquals("ifMtu.6 should be 4078", 4078, results.getResult(SnmpTableConstants.ifMtu, "6").toInt());
     }
 
+    /**
+     * Test aggregate table.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore("Hmm, what *should* this do?  When using a callback, we don't pass storeResult() up-stream...")
     public void testAggregateTable() throws Exception {
@@ -282,6 +447,12 @@ public class SnmpTrackerTest implements InitializingBean {
         printResponses(rc);
     }
 
+    /**
+     * Prints the responses.
+     *
+     * @param rc
+     *            the rc
+     */
     private void printResponses(final TestRowCallback rc) {
         final List<SnmpRowResult> responses = rc.getResponses();
         for (int i = 0; i < responses.size(); i++) {

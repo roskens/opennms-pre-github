@@ -48,13 +48,23 @@ import org.snmp4j.smi.VariableBinding;
  */
 public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.snmp4j.MockSnmpAgentTestCase#usingMockStrategy()
+     */
     @Override
     protected boolean usingMockStrategy() {
         return false;
     }
 
+    /** The m_strategy. */
     private final Snmp4JStrategy m_strategy = new Snmp4JStrategy();
 
+    /**
+     * Test send with null config.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @Ignore
     public void testSendWithNullConfig() throws Exception {
@@ -73,6 +83,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_INT32, 42, values[0]);
     }
 
+    /**
+     * Test send with get pdu single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSendWithGetPduSingleValue() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -91,6 +107,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_INT32, 42, values[0]);
     }
 
+    /**
+     * Test send with get pdu multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSendWithGetPduMultipleValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -110,6 +132,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_GAUGE32, 42, values[1]);
     }
 
+    /**
+     * Test send with get next pdu single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSendWithGetNextPduSingleValue() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -129,6 +157,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_GAUGE32, 42, values[0]);
     }
 
+    /**
+     * Test send with get next pdu multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSendWithGetNextPduMultipleValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -154,6 +188,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_COUNTER32, 42, values[1]);
     }
 
+    /**
+     * Test get single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetSingleValue() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -165,6 +205,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_INT32, 42, values[0]);
     }
 
+    /**
+     * Test get multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetMultipleValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -177,6 +223,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_GAUGE32, 42, values[1]);
     }
 
+    /**
+     * Test get next single value.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextSingleValue() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0") };
@@ -189,6 +241,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[0]", SnmpValue.SNMP_GAUGE32, 42, values[0]);
     }
 
+    /**
+     * Test get next multiple values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetNextMultipleValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -203,6 +261,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         assertSnmpValueEquals("values[1]", SnmpValue.SNMP_COUNTER32, 42, values[1]);
     }
 
+    /**
+     * Test prepare pdu with no values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPreparePduWithNoValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -223,6 +287,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         }
     }
 
+    /**
+     * Test prepare pdu with values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPreparePduWithValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -245,6 +315,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         }
     }
 
+    /**
+     * Test prepare pdu with too few values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPreparePduWithTooFewValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -258,6 +334,12 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         MockLogAppender.resetLogLevel();
     }
 
+    /**
+     * Test prepare pdu with too many values.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testPreparePduWithTooManyValues() throws Exception {
         SnmpObjId[] oids = new SnmpObjId[] { SnmpObjId.get(".1.3.5.1.1.3.0"), SnmpObjId.get(".1.3.5.1.1.4.0"), };
@@ -271,12 +353,31 @@ public class Snmp4JStrategyTest extends MockSnmpAgentTestCase {
         MockLogAppender.resetLogLevel();
     }
 
+    /**
+     * Assert snmp value equals.
+     *
+     * @param message
+     *            the message
+     * @param expectedType
+     *            the expected type
+     * @param expectedValue
+     *            the expected value
+     * @param value
+     *            the value
+     */
     private void assertSnmpValueEquals(String message, int expectedType, int expectedValue, SnmpValue value) {
         assertNotNull(message + " is null", value);
         assertEquals(message + " getType()", expectedType, value.getType());
         assertEquals(message + " toInt()", expectedValue, value.toInt());
     }
 
+    /**
+     * Snmp value.
+     *
+     * @param val
+     *            the val
+     * @return the snmp value
+     */
     SnmpValue snmpValue(String val) {
         return m_strategy.getValueFactory().getOctetString(val.getBytes());
     }

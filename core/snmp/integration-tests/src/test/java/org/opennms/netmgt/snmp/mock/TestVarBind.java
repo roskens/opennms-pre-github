@@ -31,25 +31,55 @@ package org.opennms.netmgt.snmp.mock;
 import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpValue;
 
+/**
+ * The Class TestVarBind.
+ */
 public class TestVarBind {
+
+    /** The m_oid. */
     private SnmpObjId m_oid;
 
+    /** The m_val. */
     private SnmpValue m_val;
 
+    /**
+     * Instantiates a new test var bind.
+     *
+     * @param oid
+     *            the oid
+     */
     public TestVarBind(SnmpObjId oid) {
         this(oid, null);
     }
 
+    /**
+     * Instantiates a new test var bind.
+     *
+     * @param oid
+     *            the oid
+     * @param val
+     *            the val
+     */
     public TestVarBind(SnmpObjId oid, SnmpValue val) {
         m_oid = oid;
         m_val = val;
 
     }
 
+    /**
+     * Gets the obj id.
+     *
+     * @return the obj id
+     */
     public SnmpObjId getObjId() {
         return m_oid;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public SnmpValue getValue() {
         return m_val;
     }

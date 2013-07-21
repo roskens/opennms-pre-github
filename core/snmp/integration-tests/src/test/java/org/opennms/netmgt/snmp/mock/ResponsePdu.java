@@ -28,38 +28,72 @@
 
 package org.opennms.netmgt.snmp.mock;
 
+/**
+ * The Class ResponsePdu.
+ */
 public class ResponsePdu extends TestPdu {
 
     // we only use the errors related to reading since we don't support writing
     // yet
+    /** The Constant NO_ERR. */
     public static final int NO_ERR = 0;
 
+    /** The Constant TOO_BIG_ERR. */
     public static final int TOO_BIG_ERR = 1;
 
+    /** The Constant NO_SUCH_NAME_ERR. */
     public static final int NO_SUCH_NAME_ERR = 2;
 
+    /** The Constant GEN_ERR. */
     public static final int GEN_ERR = 5;
 
+    /** The m_error status. */
     private int m_errorStatus;
 
+    /** The m_error index. */
     private int m_errorIndex;
 
+    /**
+     * Instantiates a new response pdu.
+     */
     public ResponsePdu() {
         super();
     }
 
+    /**
+     * Gets the error status.
+     *
+     * @return the error status
+     */
     public int getErrorStatus() {
         return m_errorStatus;
     }
 
+    /**
+     * Sets the error status.
+     *
+     * @param errorStatus
+     *            the new error status
+     */
     void setErrorStatus(int errorStatus) {
         m_errorStatus = errorStatus;
     }
 
+    /**
+     * Gets the error index.
+     *
+     * @return the error index
+     */
     public int getErrorIndex() {
         return m_errorIndex;
     }
 
+    /**
+     * Sets the error index.
+     *
+     * @param errorIndex
+     *            the new error index
+     */
     void setErrorIndex(int errorIndex) {
         m_errorIndex = errorIndex;
     }

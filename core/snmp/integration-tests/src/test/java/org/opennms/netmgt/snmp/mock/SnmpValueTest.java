@@ -49,15 +49,26 @@ import org.opennms.netmgt.snmp.SnmpValueFactory;
 import org.opennms.netmgt.snmp.joesnmp.JoeSnmpValueFactory;
 import org.opennms.netmgt.snmp.snmp4j.Snmp4JValueFactory;
 
+/**
+ * The Class SnmpValueTest.
+ */
 public class SnmpValueTest {
+
+    /** The Constant m_factories. */
     private static final SnmpValueFactory[] m_factories = new SnmpValueFactory[] { new Snmp4JValueFactory(),
             new JoeSnmpValueFactory(), new MockSnmpValueFactory() };
 
+    /**
+     * Sets the up.
+     */
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
 
+    /**
+     * Test parse hex.
+     */
     @Test
     public void testParseHex() {
         final String trimmed = "00 24 81 8F 40 17";
@@ -75,6 +86,9 @@ public class SnmpValueTest {
                           parsed);
     }
 
+    /**
+     * Test counter32.
+     */
     @Test
     public void testCounter32() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -88,6 +102,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test counter64.
+     */
     @Test
     public void testCounter64() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -101,6 +118,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test gauge32.
+     */
     @Test
     public void testGauge32() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -114,6 +134,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test int32.
+     */
     @Test
     public void testInt32() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -127,6 +150,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test null.
+     */
     @Test
     public void testNull() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -139,6 +165,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test inet address.
+     */
     @Test
     public void testInetAddress() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -181,6 +210,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test snmp obj id.
+     */
     @Test
     public void testSnmpObjId() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -222,6 +254,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test time ticks.
+     */
     @Test
     public void testTimeTicks() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -255,6 +290,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test mac address octet string.
+     */
     @Test
     public void testMacAddressOctetString() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -291,6 +329,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test other address octet string.
+     */
     @Test
     public void testOtherAddressOctetString() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -327,6 +368,9 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Test null terminated ascii string.
+     */
     @Test
     public void testNullTerminatedASCIIString() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -365,6 +409,9 @@ public class SnmpValueTest {
 
     }
 
+    /**
+     * Test normal string.
+     */
     @Test
     public void testNormalString() {
         for (final SnmpValueFactory factory : m_factories) {
@@ -399,6 +446,20 @@ public class SnmpValueTest {
         }
     }
 
+    /**
+     * Do numeric check.
+     *
+     * @param className
+     *            the class name
+     * @param methodName
+     *            the method name
+     * @param result
+     *            the result
+     * @param expectedResultString
+     *            the expected result string
+     * @param expectedResultNumber
+     *            the expected result number
+     */
     private void doNumericCheck(final String className, final String methodName, final SnmpValue result,
             final String expectedResultString, final Long expectedResultNumber) {
         assertTrue(className + ": " + methodName + " isDisplayable should be true", result.isDisplayable());

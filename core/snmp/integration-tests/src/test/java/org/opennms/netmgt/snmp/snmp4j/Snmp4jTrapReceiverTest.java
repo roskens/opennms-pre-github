@@ -66,15 +66,26 @@ import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.UdpAddress;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
+/**
+ * The Class Snmp4jTrapReceiverTest.
+ */
 public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements TrapProcessorFactory, CommandResponder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Snmp4jTrapReceiverTest.class);
 
+    /** The m_strategy. */
     private final Snmp4JStrategy m_strategy = new Snmp4JStrategy();
 
+    /** The m_addr. */
     private InetAddress m_addr = InetAddressUtils.getLocalHostAddress();
 
+    /** The m_trap count. */
     private int m_trapCount;
 
+    /**
+     * Reset trap count.
+     */
     @Before
     public void resetTrapCount() {
         m_trapCount = 0;
@@ -92,6 +103,12 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
      * external
      * devices to send SNMPv3 Traps to OpenNMS.
      * The SNMPv3 users should be configured in trapd-configuration.xml
+     */
+    /**
+     * Test trap receiver without open nms.
+     *
+     * @throws Exception
+     *             the exception
      */
     @Test
     public void testTrapReceiverWithoutOpenNMS() throws Exception {
@@ -143,6 +160,9 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
         assertEquals(2, m_trapCount);
     }
 
+    /**
+     * Test trap receiver with open nms.
+     */
     @Test
     public void testTrapReceiverWithOpenNMS() {
         assertEquals(0, m_trapCount);
@@ -182,16 +202,28 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
         assertEquals(2, trapListener.getReceivedTrapCount());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.TrapProcessorFactory#createTrapProcessor()
+     */
     @Override
     public TrapProcessor createTrapProcessor() {
         return new TestTrapProcessor();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.snmp4j.MockSnmpAgentTestCase#usingMockStrategy()
+     */
     @Override
     protected boolean usingMockStrategy() {
         return false;
     }
 
+    /**
+     * Send traps.
+     *
+     * @throws Exception
+     *             the exception
+     */
     private void sendTraps() throws Exception {
         final String hostAddress = InetAddressUtils.str(m_addr);
 
@@ -216,6 +248,9 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
                    SnmpConfiguration.DEFAULT_AUTH_PROTOCOL, "0p3nNMSv3", SnmpConfiguration.DEFAULT_PRIV_PROTOCOL);
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.CommandResponder#processPdu(org.snmp4j.CommandResponderEvent)
+     */
     @Override
     public synchronized void processPdu(final CommandResponderEvent cmdRespEvent) {
         final PDU pdu = cmdRespEvent.getPDU();
@@ -234,11 +269,28 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
         }
     }
 
+    /**
+     * The listener interface for receiving testTrap events.
+     * The class that is interested in processing a testTrap
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>addTestTrapListener<code> method. When
+     * the testTrap event occurs, that object's appropriate
+     * method is invoked.
+     *
+     * @see TestTrapEvent
+     */
     private final class TestTrapListener implements TrapNotificationListener {
+
+        /** The m_traps. */
         private List<TrapNotification> m_traps = new ArrayList<TrapNotification>();
 
+        /** The m_errors. */
         private List<String> m_errors = new ArrayList<String>();
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapNotificationListener#trapReceived(org.opennms.netmgt.snmp.TrapNotification)
+         */
         @Override
         public void trapReceived(final TrapNotification trapNotification) {
             LOG.debug("Received Trap... {}", trapNotification);
@@ -253,47 +305,85 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
             m_trapCount++;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapNotificationListener#trapError(int, java.lang.String)
+         */
         @Override
         public void trapError(final int error, final String msg) {
             LOG.debug("Received Trap Error... {}:{}", error, msg);
             m_errors.add(msg);
         }
 
+        /**
+         * Checks for error.
+         *
+         * @return true, if successful
+         */
         public boolean hasError() {
             return m_errors.size() > 0;
         }
 
+        /**
+         * Gets the received trap count.
+         *
+         * @return the received trap count
+         */
         public int getReceivedTrapCount() {
             return m_traps.size();
         }
     }
 
+    /**
+     * The Class TestTrapProcessor.
+     */
     private final class TestTrapProcessor implements TrapProcessor {
+
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setCommunity(java.lang.String)
+         */
         @Override
         public void setCommunity(String community) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setTimeStamp(long)
+         */
         @Override
         public void setTimeStamp(long timeStamp) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setVersion(java.lang.String)
+         */
         @Override
         public void setVersion(String version) {
             LOG.debug("Processed Trap with version: {}", version);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setAgentAddress(java.net.InetAddress)
+         */
         @Override
         public void setAgentAddress(InetAddress agentAddress) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setTrapAddress(java.net.InetAddress)
+         */
         @Override
         public void setTrapAddress(InetAddress trapAddress) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#processVarBind(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+         */
         @Override
         public void processVarBind(SnmpObjId name, SnmpValue value) {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapProcessor#setTrapIdentity(org.opennms.netmgt.snmp.TrapIdentity)
+         */
         @Override
         public void setTrapIdentity(TrapIdentity trapIdentity) {
         }

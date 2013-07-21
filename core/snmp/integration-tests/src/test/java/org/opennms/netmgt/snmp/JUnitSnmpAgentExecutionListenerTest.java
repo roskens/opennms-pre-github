@@ -45,13 +45,23 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * The Class JUnitSnmpAgentExecutionListenerTest.
+ *
  * @author brozow
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners(JUnitSnmpAgentExecutionListener.class)
 public class JUnitSnmpAgentExecutionListenerTest {
+
+    /** The m_oid. */
     final SnmpObjId m_oid = SnmpObjId.get(".1.3.5.1.1.1.0");
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -59,6 +69,12 @@ public class JUnitSnmpAgentExecutionListenerTest {
                                                                     ConfigurationTestUtils.getInputStreamForConfigFile("snmp-config.xml")));
     }
 
+    /**
+     * Test class agent.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgent(resource = "classpath:loadSnmpDataTest.properties", host = "192.168.0.254")
     public void testClassAgent() throws Exception {
@@ -66,6 +82,12 @@ public class JUnitSnmpAgentExecutionListenerTest {
                      SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.254")), m_oid));
     }
 
+    /**
+     * Test multiple hosts.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitSnmpAgents({
             @JUnitSnmpAgent(host = "192.168.0.1", port = 161, resource = "classpath:loadSnmpDataTest.properties"),
@@ -77,6 +99,13 @@ public class JUnitSnmpAgentExecutionListenerTest {
                      SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.2")), m_oid));
     }
 
+    /**
+     * Octet string.
+     *
+     * @param s
+     *            the s
+     * @return the snmp value
+     */
     private SnmpValue octetString(String s) {
         return SnmpUtils.getValueFactory().getOctetString(s.getBytes());
     }

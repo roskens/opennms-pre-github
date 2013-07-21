@@ -32,24 +32,48 @@ import java.util.ArrayList;
 
 import org.opennms.netmgt.snmp.SnmpObjId;
 
+/**
+ * The Class TestVarBindList.
+ */
 public class TestVarBindList extends ArrayList<TestVarBind> {
-    /**
-	 *
-	 */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2527997773492999718L;
 
+    /**
+     * Instantiates a new test var bind list.
+     */
     public TestVarBindList() {
         super();
     }
 
+    /**
+     * Instantiates a new test var bind list.
+     *
+     * @param list
+     *            the list
+     */
     public TestVarBindList(TestVarBindList list) {
         super(list);
     }
 
+    /**
+     * Adds the var bind.
+     *
+     * @param oid
+     *            the oid
+     */
     public void addVarBind(SnmpObjId oid) {
         add(new TestVarBind(oid));
     }
 
+    /**
+     * Gets the var bind at.
+     *
+     * @param i
+     *            the i
+     * @return the var bind at
+     */
     public TestVarBind getVarBindAt(int i) {
         return get(i);
     }
