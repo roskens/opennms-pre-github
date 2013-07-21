@@ -81,24 +81,33 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class DefaultAckServiceTest implements InitializingBean {
 
+    /** The m_ack dao. */
     @Autowired
     AcknowledgmentDao m_ackDao;
 
+    /** The m_notif dao. */
     @Autowired
     NotificationDao m_notifDao;
 
+    /** The m_alarm dao. */
     @Autowired
     AlarmDao m_alarmDao;
 
+    /** The m_event dao. */
     @Autowired
     EventDao m_eventDao;
 
+    /** The m_node dao. */
     @Autowired
     NodeDao m_nodeDao;
 
+    /** The m_populator. */
     @Autowired
     DatabasePopulator m_populator;
 
+    /**
+     * Creates the db.
+     */
     @Before
     public void createDb() {
         Properties props = new Properties();
@@ -110,11 +119,17 @@ public class DefaultAckServiceTest implements InitializingBean {
         m_populator.populateDatabase();
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Notification with missing alarm.
+     */
     @Test(expected = IllegalStateException.class)
     public void notificationWithMissingAlarm() {
 
@@ -152,6 +167,9 @@ public class DefaultAckServiceTest implements InitializingBean {
         m_ackDao.processAck(ack);
     }
 
+    /**
+     * Process ack.
+     */
     @Test
     public void processAck() {
 
@@ -177,6 +195,13 @@ public class DefaultAckServiceTest implements InitializingBean {
 
     }
 
+    /**
+     * Gets the user notification.
+     *
+     * @param notif
+     *            the notif
+     * @return the user notification
+     */
     @SuppressWarnings("unused")
     private OnmsUserNotification getUserNotification(OnmsNotification notif) {
         OnmsUserNotification un = new OnmsUserNotification();
@@ -191,6 +216,13 @@ public class DefaultAckServiceTest implements InitializingBean {
         return un;
     }
 
+    /**
+     * Gets the notification.
+     *
+     * @param event
+     *            the event
+     * @return the notification
+     */
     private OnmsNotification getNotification(OnmsEvent event) {
         OnmsNotification notif = new OnmsNotification();
         notif.setEvent(event);
@@ -205,6 +237,13 @@ public class DefaultAckServiceTest implements InitializingBean {
         return notif;
     }
 
+    /**
+     * Gets the event.
+     *
+     * @param node
+     *            the node
+     * @return the event
+     */
     private OnmsEvent getEvent(OnmsNode node) {
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(node.getDistPoller());

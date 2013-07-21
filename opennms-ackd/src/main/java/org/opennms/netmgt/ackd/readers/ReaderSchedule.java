@@ -43,18 +43,23 @@ import java.util.concurrent.TimeUnit;
  */
 public class ReaderSchedule {
 
+    /** The m_initial delay. */
     private long m_initialDelay;
 
+    /** The m_interval. */
     private long m_interval;
 
+    /** The m_attempts remaining. */
     private long m_attemptsRemaining;
 
+    /** The m_unit. */
     private TimeUnit m_unit;
 
     /**
      * <p>
      * createSchedule
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.ackd.readers.ReaderSchedule} object.
      */
@@ -66,6 +71,7 @@ public class ReaderSchedule {
      * <p>
      * createSchedule
      * </p>
+     * .
      *
      * @param initDelay
      *            a long.
@@ -81,10 +87,25 @@ public class ReaderSchedule {
         return new ReaderSchedule(initDelay, interval, attempts, unit);
     }
 
+    /**
+     * Instantiates a new reader schedule.
+     */
     private ReaderSchedule() {
         this(60, 60, 1, TimeUnit.SECONDS);
     }
 
+    /**
+     * Instantiates a new reader schedule.
+     *
+     * @param initDelay
+     *            the init delay
+     * @param interval
+     *            the interval
+     * @param attempts
+     *            the attempts
+     * @param unit
+     *            the unit
+     */
     private ReaderSchedule(long initDelay, long interval, int attempts, TimeUnit unit) {
         m_initialDelay = initDelay;
         m_interval = interval;
@@ -96,6 +117,7 @@ public class ReaderSchedule {
      * <p>
      * getInitialDelay
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -107,6 +129,7 @@ public class ReaderSchedule {
      * <p>
      * setInitialDelay
      * </p>
+     * .
      *
      * @param initialDelay
      *            a long.
@@ -119,6 +142,7 @@ public class ReaderSchedule {
      * <p>
      * getInterval
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -130,6 +154,7 @@ public class ReaderSchedule {
      * <p>
      * setInterval
      * </p>
+     * .
      *
      * @param interval
      *            a long.
@@ -142,6 +167,7 @@ public class ReaderSchedule {
      * <p>
      * getAttemptsRemaining
      * </p>
+     * .
      *
      * @return a long.
      */
@@ -153,6 +179,7 @@ public class ReaderSchedule {
      * <p>
      * setAttemptsRemaining
      * </p>
+     * .
      *
      * @param attemptsRemaining
      *            a long.
@@ -165,6 +192,7 @@ public class ReaderSchedule {
      * <p>
      * getUnit
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.TimeUnit} object.
      */
@@ -176,6 +204,7 @@ public class ReaderSchedule {
      * <p>
      * setUnit
      * </p>
+     * .
      *
      * @param unit
      *            a {@link java.util.concurrent.TimeUnit} object.

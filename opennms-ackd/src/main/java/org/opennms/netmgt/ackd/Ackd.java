@@ -53,35 +53,44 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
 /**
- * Acknowledgment management Daemon
+ * Acknowledgment management Daemon.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  */
 @EventListener(name = Ackd.NAME, logPrefix = "ackd")
 public class Ackd implements SpringServiceDaemon, DisposableBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Ackd.class);
 
-    /** Constant <code>NAME="Ackd"</code> */
+    /** Constant <code>NAME="Ackd"</code>. */
     public static final String NAME = "Ackd";
 
+    /** The m_config dao. */
     private volatile AckdConfigurationDao m_configDao;
 
+    /** The m_ack dao. */
     private volatile AcknowledgmentDao m_ackDao;
 
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
+    /** The m_executor. */
     private volatile ScheduledThreadPoolExecutor m_executor;
 
     // FIXME change this to be like provisiond's adapters
+    /** The m_ack readers. */
     private List<AckReader> m_ackReaders;
 
+    /** The m_lock. */
     private Object m_lock = new Object();
 
     /**
      * <p>
      * start
      * </p>
+     * .
      */
     @Override
     public void start() {
@@ -94,6 +103,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * destroy
      * </p>
+     * .
      */
     @Override
     public void destroy() {
@@ -161,6 +171,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * stopReaders
      * </p>
+     * .
      */
     protected void stopReaders() {
         LOG.info("stopReaders: stopping {} readers...", m_ackReaders.size());
@@ -190,6 +201,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * pauseReaders
      * </p>
+     * .
      */
     protected void pauseReaders() {
         for (AckReader reader : m_ackReaders) {
@@ -209,6 +221,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * resumeReaders
      * </p>
+     * .
      */
     protected void resumeReaders() {
         for (AckReader reader : m_ackReaders) {
@@ -227,6 +240,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * restartReaders
      * </p>
+     * .
      *
      * @param reloadConfigs
      *            a boolean.
@@ -239,6 +253,18 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
 
     }
 
+    /**
+     * Adjust reader state.
+     *
+     * @param reader
+     *            the reader
+     * @param requestedState
+     *            the requested state
+     * @param allowedCurrentStates
+     *            the allowed current states
+     * @param reloadConfig
+     *            the reload config
+     */
     private void adjustReaderState(AckReader reader, AckReaderState requestedState,
             List<AckReaderState> allowedCurrentStates, boolean reloadConfig) {
 
@@ -339,6 +365,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * handleReloadConfigEvent
      * </p>
+     * .
      *
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -392,6 +419,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setExecutor
      * </p>
+     * .
      *
      * @param executor
      *            a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
@@ -405,6 +433,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getExecutor
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.ScheduledThreadPoolExecutor}
      *         object.
@@ -417,6 +446,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -428,6 +458,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -441,6 +472,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getAckReaders
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -453,6 +485,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setAckReaders
      * </p>
+     * .
      *
      * @param ackReaders
      *            a {@link java.util.List} object.
@@ -462,6 +495,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
+     * Gets the acknowledgment dao.
+     *
      * @return a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
     public AcknowledgmentDao getAcknowledgmentDao() {
@@ -469,6 +504,8 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
+     * Sets the acknowledgment dao.
+     *
      * @param ackDao
      *            a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
@@ -480,6 +517,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
      */
@@ -491,6 +529,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * setConfigDao
      * </p>
+     * .
      *
      * @param config
      *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
@@ -504,9 +543,10 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -516,6 +556,7 @@ public class Ackd implements SpringServiceDaemon, DisposableBean {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

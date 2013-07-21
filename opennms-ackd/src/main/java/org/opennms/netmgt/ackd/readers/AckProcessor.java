@@ -46,6 +46,7 @@ public interface AckProcessor extends Runnable, InitializingBean {
      * <p>
      * reloadConfigs
      * </p>
+     * .
      */
     public void reloadConfigs();
 }

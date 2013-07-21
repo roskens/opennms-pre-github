@@ -65,24 +65,32 @@ import org.springframework.util.Assert;
  * ackd-configuration
  * DONE: Do some proper logging
  * DONE: Handle "enabled" flag of the readers in ackd-configuration
- * DONE: Move executor to Ackd daemon
+ * DONE: Move executor to Ackd daemon.
  *
  * @author <a href=mailto:david@opennms.org>David Hustace</a>
  * @version $Id: $
  */
 public class DefaultAckReader implements AckReader, InitializingBean {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultAckReader.class);
 
+    /** The m_name. */
     private volatile String m_name;
 
+    /** The m_future. */
     private volatile Future<?> m_future;
 
+    /** The m_ack processor. */
     private AckProcessor m_ackProcessor;
 
+    /** The m_schedule. */
     private ReaderSchedule m_schedule;
 
+    /** The m_state. */
     private volatile AckReaderState m_state = AckReaderState.STOPPED;
 
+    /** The m_ackd config dao. */
     @Autowired
     private volatile AckdConfigurationDao m_ackdConfigDao;
 
@@ -90,9 +98,10 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -101,6 +110,12 @@ public class DefaultAckReader implements AckReader, InitializingBean {
         Assert.state(state, "Dependency injection failed; one or more fields are null.");
     }
 
+    /**
+     * Start.
+     *
+     * @param executor
+     *            the executor
+     */
     private synchronized void start(final ScheduledThreadPoolExecutor executor) {
         if (m_schedule == null) {
             m_schedule = ReaderSchedule.createSchedule();
@@ -141,9 +156,10 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * pause
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public synchronized void pause() throws IllegalStateException {
@@ -191,9 +207,10 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * stop
      * </p>
+     * .
      *
-     * @throws java.lang.IllegalStateException
-     *             if any.
+     * @throws IllegalStateException
+     *             the illegal state exception
      */
     @Override
     public synchronized void stop() throws IllegalStateException {
@@ -215,6 +232,12 @@ public class DefaultAckReader implements AckReader, InitializingBean {
         }
     }
 
+    /**
+     * Schedule reads.
+     *
+     * @param executor
+     *            the executor
+     */
     private synchronized void scheduleReads(final ScheduledThreadPoolExecutor executor) {
         LOG.debug("scheduleReads: acquired lock, creating schedule...");
 
@@ -248,6 +271,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * getAckProcessor
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
      */
@@ -260,6 +284,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * setAckdConfigDao
      * </p>
+     * .
      *
      * @param ackdConfigDao
      *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
@@ -273,6 +298,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * getAckdConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao} object.
      */
@@ -282,10 +308,14 @@ public class DefaultAckReader implements AckReader, InitializingBean {
 
     /**
      * Gets a new schedule and optionally reschedules
-     * <code>MailAckProcessor</code>
+     * <code>MailAckProcessor</code>.
      *
+     * @param executor
+     *            the executor
      * @param schedule
+     *            the schedule
      * @param reschedule
+     *            the reschedule
      */
     private synchronized void setSchedule(final ScheduledThreadPoolExecutor executor, ReaderSchedule schedule,
             boolean reschedule) {
@@ -297,6 +327,11 @@ public class DefaultAckReader implements AckReader, InitializingBean {
         }
     }
 
+    /**
+     * Gets the schedule.
+     *
+     * @return the schedule
+     */
     private ReaderSchedule getSchedule() {
         if (m_schedule == null) {
             m_schedule = ReaderSchedule.createSchedule();
@@ -308,6 +343,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * Anything calling this method should already have the lock.
      *
      * @param state
+     *            the new state
      */
     private synchronized void setState(AckReaderState state) {
         m_state = state;
@@ -317,6 +353,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * getState
      * </p>
+     * .
      *
      * @return a AckReaderState object.
      */
@@ -329,6 +366,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * getFuture
      * </p>
+     * .
      *
      * @return a {@link java.util.concurrent.Future} object.
      */
@@ -340,6 +378,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

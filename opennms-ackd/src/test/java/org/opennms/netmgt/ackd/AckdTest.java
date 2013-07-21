@@ -70,7 +70,7 @@ import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Acknowledgment Daemon tests
+ * Acknowledgment Daemon tests.
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
@@ -88,32 +88,44 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AckdTest implements InitializingBean {
 
+    /** The m_alarm dao. */
     @Autowired
     private AlarmDao m_alarmDao;
 
+    /** The m_event dao. */
     @Autowired
     private EventDao m_eventDao;
 
+    /** The m_daemon. */
     @Autowired
     private Ackd m_daemon;
 
+    /** The m_ack dao. */
     @Autowired
     private AcknowledgmentDao m_ackDao;
 
+    /** The m_node dao. */
     @Autowired
     private NodeDao m_nodeDao;
 
+    /** The m_populator. */
     @Autowired
     private DatabasePopulator m_populator;
 
+    /** The m_notification dao. */
     @Autowired
     private NotificationDao m_notificationDao;
 
+    /** The m_user notification dao. */
     @Autowired
     private UserNotificationDao m_userNotificationDao;
 
+    /** The m_populated. */
     private static boolean m_populated = false;
 
+    /**
+     * Populate database.
+     */
     @BeforeTransaction
     public void populateDatabase() {
         try {
@@ -127,6 +139,12 @@ public class AckdTest implements InitializingBean {
         }
     }
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         Properties props = new Properties();
@@ -136,6 +154,9 @@ public class AckdTest implements InitializingBean {
         MockLogAppender.setupLogging(props);
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -143,6 +164,12 @@ public class AckdTest implements InitializingBean {
                           m_populator.getAcknowledgmentDao(), m_ackDao);
     }
 
+    /**
+     * Test restart readers.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testRestartReaders() throws Exception {
         AckReader reader = m_daemon.getAckReaders().get(0);
@@ -187,7 +214,7 @@ public class AckdTest implements InitializingBean {
     }
 
     /**
-     * Make sure the DB is not empty
+     * Make sure the DB is not empty.
      */
     @Test
     public void testDbState() {
@@ -233,6 +260,7 @@ public class AckdTest implements InitializingBean {
      * they should all have the same alarm ID.
      *
      * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testAcknowledgeNotification() throws InterruptedException {
@@ -272,6 +300,12 @@ public class AckdTest implements InitializingBean {
 
     }
 
+    /**
+     * Test handel event.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Test
     public void testHandelEvent() throws InterruptedException {
 
@@ -293,18 +327,32 @@ public class AckdTest implements InitializingBean {
         // Assert.assertEquals(alarm.getAckTime(), bldr.getEvent().getTime());
     }
 
+    /**
+     * The Class VerificationObject.
+     */
     class VerificationObject {
+
+        /** The m_event id. */
         int m_eventID;
 
+        /** The m_alarm id. */
         int m_alarmId;
 
+        /** The m_node id. */
         int m_nodeId;
 
+        /** The m_notif id. */
         int m_notifId;
 
+        /** The m_user notif id. */
         int m_userNotifId;
     }
 
+    /**
+     * Creates the ack structure.
+     *
+     * @return the verification object
+     */
     private VerificationObject createAckStructure() {
 
         final Date time = new Date();

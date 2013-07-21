@@ -79,17 +79,27 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class HypericAckProcessorTest implements InitializingBean {
 
+    /** The m_daemon. */
     @Autowired
     private Ackd m_daemon;
 
+    /** The m_processor. */
     @Autowired
     private HypericAckProcessor m_processor;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
+    /**
+     * Creates the ackd config dao.
+     *
+     * @return the ackd configuration dao
+     */
     private AckdConfigurationDao createAckdConfigDao() {
 
         class AckdConfigDao extends DefaultAckdConfigurationDao {
@@ -155,6 +165,12 @@ public class HypericAckProcessorTest implements InitializingBean {
         return new AckdConfigDao();
     }
 
+    /**
+     * Test parse methods.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testParseMethods() throws Exception {
         OnmsAlarm alarm = new OnmsAlarm();
@@ -171,6 +187,12 @@ public class HypericAckProcessorTest implements InitializingBean {
         assertEquals("Alert ID not parsed properly", "11757", HypericAckProcessor.getAlertIdParmValue(alarm));
     }
 
+    /**
+     * Test start ackd.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 7081)
     public void testStartAckd() throws Exception {
@@ -193,12 +215,24 @@ public class HypericAckProcessorTest implements InitializingBean {
         verify(mockDao);
     }
 
+    /**
+     * Test fetch uncleared hyperic alarms.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testFetchUnclearedHypericAlarms() throws Exception {
         List<OnmsAlarm> alarms = m_processor.fetchUnclearedHypericAlarms();
         System.out.println(alarms.size());
     }
 
+    /**
+     * Test fetch hyperic alerts.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     @JUnitHttpServer(port = 7081, basicAuth = true)
     public void testFetchHypericAlerts() throws Exception {
@@ -239,6 +273,12 @@ public class HypericAckProcessorTest implements InitializingBean {
         }
     }
 
+    /**
+     * Test parse hyperic alerts.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testParseHypericAlerts() throws Exception {
         LineNumberReader reader = new LineNumberReader(

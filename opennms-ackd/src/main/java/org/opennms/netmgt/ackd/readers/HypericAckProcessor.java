@@ -96,23 +96,28 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class HypericAckProcessor implements AckProcessor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HypericAckProcessor.class);
 
-    /** Constant <code>READER_NAME_HYPERIC="HypericReader"</code> */
+    /** Constant <code>READER_NAME_HYPERIC="HypericReader"</code>. */
     public static final String READER_NAME_HYPERIC = "HypericReader";
 
-    /** Constant <code>PARAMETER_PREFIX_HYPERIC_SOURCE="source:"</code> */
+    /** Constant <code>PARAMETER_PREFIX_HYPERIC_SOURCE="source:"</code>. */
     public static final String PARAMETER_PREFIX_HYPERIC_SOURCE = "source:";
 
-    /** Constant <code>ALERTS_PER_HTTP_TRANSACTION=200</code> */
+    /** Constant <code>ALERTS_PER_HTTP_TRANSACTION=200</code>. */
     public static final int ALERTS_PER_HTTP_TRANSACTION = 200;
 
     // public static final String PARAMETER_HYPERIC_HOSTS = "hyperic-hosts";
 
+    /** The m_ackd config dao. */
     private AckdConfigurationDao m_ackdConfigDao;
 
+    /** The m_ack dao. */
     private AcknowledgmentDao m_ackDao;
 
+    /** The m_alarm dao. */
     private AlarmDao m_alarmDao;
 
     /**
@@ -135,13 +140,26 @@ public class HypericAckProcessor implements AckProcessor {
      */
     @XmlRootElement(name = "hyperic-alert-statuses")
     static class HypericAlertStatuses {
+
+        /** The status list. */
         private List<HypericAlertStatus> statusList;
 
+        /**
+         * Gets the status list.
+         *
+         * @return the status list
+         */
         @XmlElement
         public List<HypericAlertStatus> getStatusList() {
             return statusList;
         }
 
+        /**
+         * Sets the status list.
+         *
+         * @param statusList
+         *            the new status list
+         */
         public void setStatusList(List<HypericAlertStatus> statusList) {
             this.statusList = statusList;
         }
@@ -164,94 +182,194 @@ public class HypericAckProcessor implements AckProcessor {
      */
     @XmlRootElement(name = "alert")
     static class HypericAlertStatus {
+
+        /** The alert id. */
         private int alertId;
 
+        /** The ack user. */
         private String ackUser;
 
+        /** The ack message. */
         private String ackMessage;
 
+        /** The ack time. */
         private Date ackTime;
 
+        /** The is fixed. */
         private boolean isFixed;
 
+        /** The fix user. */
         private String fixUser;
 
+        /** The fix message. */
         private String fixMessage;
 
+        /** The fix time. */
         private Date fixTime;
 
+        /**
+         * Gets the alert id.
+         *
+         * @return the alert id
+         */
         @XmlAttribute(name = "id", required = true)
         public int getAlertId() {
             return alertId;
         }
 
+        /**
+         * Sets the alert id.
+         *
+         * @param alertId
+         *            the new alert id
+         */
         public void setAlertId(int alertId) {
             this.alertId = alertId;
         }
 
+        /**
+         * Checks if is fixed.
+         *
+         * @return true, if is fixed
+         */
         @XmlAttribute(name = "fixed", required = true)
         public boolean isFixed() {
             return isFixed;
         }
 
+        /**
+         * Sets the fixed.
+         *
+         * @param isFixed
+         *            the new fixed
+         */
         public void setFixed(boolean isFixed) {
             this.isFixed = isFixed;
         }
 
+        /**
+         * Gets the ack user.
+         *
+         * @return the ack user
+         */
         @XmlAttribute(name = "ackUser")
         public String getAckUser() {
             return ackUser;
         }
 
+        /**
+         * Sets the ack user.
+         *
+         * @param ackUser
+         *            the new ack user
+         */
         public void setAckUser(String ackUser) {
             this.ackUser = ackUser;
         }
 
+        /**
+         * Gets the ack message.
+         *
+         * @return the ack message
+         */
         @XmlAttribute(name = "ackMessage")
         public String getAckMessage() {
             return ackMessage;
         }
 
+        /**
+         * Sets the ack message.
+         *
+         * @param ackMessage
+         *            the new ack message
+         */
         public void setAckMessage(String ackMessage) {
             this.ackMessage = ackMessage;
         }
 
+        /**
+         * Gets the ack time.
+         *
+         * @return the ack time
+         */
         @XmlAttribute(name = "ackTime")
         public Date getAckTime() {
             return ackTime;
         }
 
+        /**
+         * Sets the ack time.
+         *
+         * @param ackTime
+         *            the new ack time
+         */
         public void setAckTime(Date ackTime) {
             this.ackTime = ackTime;
         }
 
+        /**
+         * Gets the fix user.
+         *
+         * @return the fix user
+         */
         @XmlAttribute(name = "fixUser")
         public String getFixUser() {
             return fixUser;
         }
 
+        /**
+         * Sets the fix user.
+         *
+         * @param fixUser
+         *            the new fix user
+         */
         public void setFixUser(String fixUser) {
             this.fixUser = fixUser;
         }
 
+        /**
+         * Gets the fix message.
+         *
+         * @return the fix message
+         */
         @XmlAttribute(name = "fixMessage")
         public String getFixMessage() {
             return fixMessage;
         }
 
+        /**
+         * Sets the fix message.
+         *
+         * @param fixMessage
+         *            the new fix message
+         */
         public void setFixMessage(String fixMessage) {
             this.fixMessage = fixMessage;
         }
 
+        /**
+         * Gets the fix time.
+         *
+         * @return the fix time
+         */
         @XmlAttribute(name = "fixTime")
         public Date getFixTime() {
             return fixTime;
         }
 
+        /**
+         * Sets the fix time.
+         *
+         * @param fixTime
+         *            the new fix time
+         */
         public void setFixTime(Date fixTime) {
             this.fixTime = fixTime;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Object#toString()
+         */
         @Override
         public String toString() {
             StringBuffer retval = new StringBuffer();
@@ -274,6 +392,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * reloadConfigs
      * </p>
+     * .
      */
     @Override
     public void reloadConfigs() {
@@ -286,6 +405,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * fetchUnclearedHypericAlarms
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -313,6 +433,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * getUrlForHypericSource
      * </p>
+     * .
      *
      * @param source
      *            a {@link java.lang.String} object.
@@ -344,6 +465,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -460,6 +582,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * findAlarmForHypericAlert
      * </p>
+     * .
      *
      * @param alarms
      *            a {@link java.util.List} object.
@@ -467,9 +590,9 @@ public class HypericAckProcessor implements AckProcessor {
      *            a {@link java.lang.String} object.
      * @param alert
      *            a
-     *            {@link org.opennms.netmgt.ackd.readers.HypericAckProcessor.HypericAlertStatus}
-     *            object.
      * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
+     *         {@link org.opennms.netmgt.ackd.readers.HypericAckProcessor.HypericAlertStatus}
+     *         object.
      */
     public static OnmsAlarm findAlarmForHypericAlert(List<OnmsAlarm> alarms, String platformId, HypericAlertStatus alert) {
         String targetPlatformId = "alert.source=" + platformId + "(string,text)";
@@ -494,6 +617,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * getAlertSourceParmValue
      * </p>
+     * .
      *
      * @param alarm
      *            a {@link org.opennms.netmgt.model.OnmsAlarm} object.
@@ -507,6 +631,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * getAlertIdParmValue
      * </p>
+     * .
      *
      * @param alarm
      *            a {@link org.opennms.netmgt.model.OnmsAlarm} object.
@@ -552,20 +677,19 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * fetchHypericAlerts
      * </p>
+     * .
      *
      * @param hypericUrl
      *            a {@link java.lang.String} object.
      * @param alertIds
      *            a {@link java.util.List} object.
      * @return a {@link java.util.List} object.
-     * @throws org.apache.commons.httpclient.HttpException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws javax.xml.bind.JAXBException
-     *             if any.
-     * @throws javax.xml.stream.XMLStreamException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws XMLStreamException
+     *             the xML stream exception
      */
     public static List<HypericAlertStatus> fetchHypericAlerts(String hypericUrl, List<String> alertIds)
             throws IOException, JAXBException, XMLStreamException {
@@ -665,14 +789,15 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * parseHypericAlerts
      * </p>
+     * .
      *
      * @param reader
      *            a {@link java.io.Reader} object.
      * @return a {@link java.util.List} object.
-     * @throws javax.xml.bind.JAXBException
-     *             if any.
-     * @throws javax.xml.stream.XMLStreamException
-     *             if any.
+     * @throws JAXBException
+     *             the jAXB exception
+     * @throws XMLStreamException
+     *             the xML stream exception
      */
     public static List<HypericAlertStatus> parseHypericAlerts(Reader reader) throws JAXBException, XMLStreamException {
         List<HypericAlertStatus> retval = new ArrayList<HypericAlertStatus>();
@@ -734,6 +859,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * setAckdConfigDao
      * </p>
+     * .
      *
      * @param configDao
      *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
@@ -744,6 +870,8 @@ public class HypericAckProcessor implements AckProcessor {
     }
 
     /**
+     * Sets the acknowledgment dao.
+     *
      * @param ackDao
      *            a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
@@ -755,9 +883,10 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -767,6 +896,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <p>
      * setAlarmDao
      * </p>
+     * .
      *
      * @param dao
      *            a {@link org.opennms.netmgt.dao.api.AlarmDao} object.

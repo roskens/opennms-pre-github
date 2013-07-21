@@ -98,22 +98,28 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitTemporaryDatabase
 public class JavaMailAckReaderTest implements InitializingBean {
 
+    /** The m_daemon. */
     @Autowired
     private Ackd m_daemon;
 
+    /** The m_jm dao. */
     @Autowired
     private JavaMailConfigurationDao m_jmDao;
 
+    /** The m_processor. */
     @Autowired
     private MailAckProcessor m_processor;
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
 
     /**
-     * tests the ability to detect an aknowledgable ID
+     * tests the ability to detect an aknowledgable ID.
      */
     @Test
     public void detectId() {
@@ -160,6 +166,11 @@ public class JavaMailAckReaderTest implements InitializingBean {
      * creates a message from scratch rather than reading from an inbox. This
      * message creation
      * may not actually represent what comes from a mail server.
+     *
+     * @throws JavaMailerException
+     *             the java mailer exception
+     * @throws MessagingException
+     *             the messaging exception
      */
     @Test
     public void workingWithMultiPartMessages() throws JavaMailerException, MessagingException {
@@ -192,6 +203,12 @@ public class JavaMailAckReaderTest implements InitializingBean {
         Assert.assertEquals(new Integer(1234), acks.get(0).getRefId());
     }
 
+    /**
+     * Find and process acks.
+     *
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     @Ignore
     @Test
     public void findAndProcessAcks() throws InterruptedException {
@@ -210,6 +227,11 @@ public class JavaMailAckReaderTest implements InitializingBean {
         Assert.assertTrue(f.isDone());
     }
 
+    /**
+     * Creates the ackd config dao.
+     *
+     * @return the ackd configuration dao
+     */
     private AckdConfigurationDao createAckdConfigDao() {
 
         class AckdConfigDao extends DefaultAckdConfigurationDao {
@@ -233,19 +255,33 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     }
 
+    /**
+     * The Class JmCnfDao.
+     */
     protected class JmCnfDao implements JavaMailConfigurationDao {
 
+        /** The m_read config. */
         ReadmailConfig m_readConfig = createReadMailConfig();
 
+        /** The m_send config. */
         SendmailConfig m_sendConfig = createSendMailConfig();
 
+        /** The m_e2e config. */
         End2endMailConfig m_e2eConfig = createE2Ec();
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getDefaultReadmailConfig()
+         */
         @Override
         public ReadmailConfig getDefaultReadmailConfig() {
             return m_readConfig;
         }
 
+        /**
+         * Creates the read mail config.
+         *
+         * @return the readmail config
+         */
         private ReadmailConfig createReadMailConfig() {
             ReadmailConfig config = new ReadmailConfig();
             updateConfigWithGoogleReadConfiguration(config, getUser(), getPassword());
@@ -253,24 +289,43 @@ public class JavaMailAckReaderTest implements InitializingBean {
             return m_readConfig;
         }
 
+        /**
+         * Creates the e2 ec.
+         *
+         * @return the end2end mail config
+         */
         private End2endMailConfig createE2Ec() {
             return new End2endMailConfig();
         }
 
+        /**
+         * Creates the send mail config.
+         *
+         * @return the sendmail config
+         */
         private SendmailConfig createSendMailConfig() {
             return new SendmailConfig();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getDefaultSendmailConfig()
+         */
         @Override
         public SendmailConfig getDefaultSendmailConfig() {
             return m_sendConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getEnd2EndConfig(java.lang.String)
+         */
         @Override
         public End2endMailConfig getEnd2EndConfig(String name) {
             return m_e2eConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getEnd2EndConfigs()
+         */
         @Override
         public List<End2endMailConfig> getEnd2EndConfigs() {
             List<End2endMailConfig> list = new ArrayList<End2endMailConfig>();
@@ -278,11 +333,17 @@ public class JavaMailAckReaderTest implements InitializingBean {
             return list;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getReadMailConfig(java.lang.String)
+         */
         @Override
         public ReadmailConfig getReadMailConfig(String name) {
             return m_readConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getReadmailConfigs()
+         */
         @Override
         public List<ReadmailConfig> getReadmailConfigs() {
             List<ReadmailConfig> list = new ArrayList<ReadmailConfig>();
@@ -290,11 +351,17 @@ public class JavaMailAckReaderTest implements InitializingBean {
             return list;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getSendMailConfig(java.lang.String)
+         */
         @Override
         public SendmailConfig getSendMailConfig(String name) {
             return m_sendConfig;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#getSendmailConfigs()
+         */
         @Override
         public List<SendmailConfig> getSendmailConfigs() {
             List<SendmailConfig> list = new ArrayList<SendmailConfig>();
@@ -302,10 +369,16 @@ public class JavaMailAckReaderTest implements InitializingBean {
             return list;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#verifyMarshaledConfiguration()
+         */
         @Override
         public void verifyMarshaledConfiguration() throws IllegalStateException {
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.dao.api.JavaMailConfigurationDao#reloadConfiguration()
+         */
         @Override
         public void reloadConfiguration() throws DataAccessResourceFailureException {
 
@@ -313,31 +386,49 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     }
 
+    /**
+     * Creates the acknowledgment.
+     */
     @Ignore
     public void createAcknowledgment() {
         fail("Not yet implemented");
     }
 
+    /**
+     * Determine ack action.
+     */
     @Ignore
     public void determineAckAction() {
         fail("Not yet implemented");
     }
 
+    /**
+     * Start.
+     */
     @Ignore
     public void start() {
         fail("Not yet implemented");
     }
 
+    /**
+     * Pause.
+     */
     @Ignore
     public void pause() {
         fail("Not yet implemented");
     }
 
+    /**
+     * Resume.
+     */
     @Ignore
     public void resume() {
         fail("Not yet implemented");
     }
 
+    /**
+     * Stop.
+     */
     @Ignore
     public void stop() {
         fail("Not yet implemented");
@@ -356,6 +447,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
      * the account details for your own local testing.
      *
      * @throws JavaMailerException
+     *             the java mailer exception
      */
     @Ignore
     @Test
@@ -412,14 +504,35 @@ public class JavaMailAckReaderTest implements InitializingBean {
         Assert.assertEquals(getUser() + "@gmail.com", acks.get(3).getAckUser());
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     private String getPassword() {
         return "bar";
     }
 
+    /**
+     * Gets the user.
+     *
+     * @return the user
+     */
     private String getUser() {
         return "foo";
     }
 
+    /**
+     * Creates the ack message.
+     *
+     * @param gmailAccount
+     *            the gmail account
+     * @param noticeId
+     *            the notice id
+     * @param body
+     *            the body
+     * @return the sendmail message
+     */
     private SendmailMessage createAckMessage(String gmailAccount, String noticeId, String body) {
         SendmailMessage sendMsg = new SendmailMessage();
         sendMsg.setTo(gmailAccount + "@gmail.com");
@@ -429,6 +542,17 @@ public class JavaMailAckReaderTest implements InitializingBean {
         return sendMsg;
     }
 
+    /**
+     * Creates the send mailer.
+     *
+     * @param gmailAccount
+     *            the gmail account
+     * @param gmailPassword
+     *            the gmail password
+     * @return the java send mailer
+     * @throws JavaMailerException
+     *             the java mailer exception
+     */
     private JavaSendMailer createSendMailer(String gmailAccount, String gmailPassword) throws JavaMailerException {
 
         SendmailConfig config = new SendmailConfig();
@@ -464,6 +588,16 @@ public class JavaMailAckReaderTest implements InitializingBean {
         return new JavaSendMailer(config);
     }
 
+    /**
+     * Update config with google read configuration.
+     *
+     * @param config
+     *            the config
+     * @param gmailAccount
+     *            the gmail account
+     * @param gmailPassword
+     *            the gmail password
+     */
     private void updateConfigWithGoogleReadConfiguration(ReadmailConfig config, String gmailAccount,
             String gmailPassword) {
         config.setDebug(true);

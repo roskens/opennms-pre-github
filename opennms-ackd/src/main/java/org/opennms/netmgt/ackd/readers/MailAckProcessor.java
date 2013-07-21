@@ -68,28 +68,38 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 class MailAckProcessor implements AckProcessor {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(MailAckProcessor.class);
 
+    /** The Constant LOG_FIELD_WIDTH. */
     private static final int LOG_FIELD_WIDTH = 128;
 
+    /** The m_ackd dao. */
     private AckdConfigurationDao m_ackdDao;
 
+    /** The m_ack dao. */
     private AcknowledgmentDao m_ackDao;
 
+    /** The m_jm config dao. */
     private volatile JavaMailConfigurationDao m_jmConfigDao;
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
     }
 
+    /**
+     * Instantiates a new mail ack processor.
+     */
     private MailAckProcessor() {
     }
 
@@ -188,6 +198,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * detectId
      * </p>
+     * .
      *
      * @param subject
      *            a {@link java.lang.String} object.
@@ -225,16 +236,17 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * createAck
      * </p>
+     * .
      *
      * @param msg
      *            a {@link javax.mail.Message} object.
      * @param refId
      *            a {@link java.lang.Integer} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAcknowledgment} object.
-     * @throws javax.mail.MessagingException
-     *             if any.
-     * @throws java.io.IOException
-     *             if any.
+     * @throws MessagingException
+     *             the messaging exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     protected OnmsAcknowledgment createAck(final Message msg, final Integer refId) throws MessagingException,
             IOException {
@@ -251,14 +263,15 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * determineAckAction
      * </p>
+     * .
      *
      * @param msg
      *            a {@link javax.mail.Message} object.
      * @return a {@link org.opennms.netmgt.model.AckAction} object.
-     * @throws java.io.IOException
-     *             if any.
-     * @throws javax.mail.MessagingException
-     *             if any.
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MessagingException
+     *             the messaging exception
      */
     protected AckAction determineAckAction(final Message msg) throws IOException, MessagingException {
         LOG.info("determineAckAcktion: evaluating message looking for user specified acktion...");
@@ -296,10 +309,11 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * retrieveAckMessages
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
-     * @throws org.opennms.javamail.JavaMailerException
-     *             if any.
+     * @throws JavaMailerException
+     *             the java mailer exception
      */
     protected List<Message> retrieveAckMessages() throws JavaMailerException {
         LOG.debug("retrieveAckMessages: Retrieving messages...");
@@ -360,6 +374,13 @@ class MailAckProcessor implements AckProcessor {
         return msgs;
     }
 
+    /**
+     * Creates the log.
+     *
+     * @param msg
+     *            the msg
+     * @return the string
+     */
     @SuppressWarnings("unchecked")
     private static String createLog(final Message msg) {
         StringBuilder bldr = new StringBuilder();
@@ -385,6 +406,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * run
      * </p>
+     * .
      */
     @Override
     public void run() {
@@ -404,6 +426,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * determineMailReaderConfig
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig}
      *         object.
@@ -429,6 +452,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * setAckdConfigDao
      * </p>
+     * .
      *
      * @param configDao
      *            a {@link org.opennms.netmgt.dao.api.AckdConfigurationDao}
@@ -439,6 +463,8 @@ class MailAckProcessor implements AckProcessor {
     }
 
     /**
+     * Sets the acknowledgment dao.
+     *
      * @param ackDao
      *            a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
@@ -450,6 +476,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * reloadConfigs
      * </p>
+     * .
      */
     @Override
     public synchronized void reloadConfigs() {
@@ -462,6 +489,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * getJmConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}
      *         object.
@@ -474,6 +502,7 @@ class MailAckProcessor implements AckProcessor {
      * <p>
      * setJmConfigDao
      * </p>
+     * .
      *
      * @param jmConfigDao
      *            a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}
