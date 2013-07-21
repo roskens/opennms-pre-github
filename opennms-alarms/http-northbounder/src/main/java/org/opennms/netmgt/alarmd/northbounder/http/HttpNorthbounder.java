@@ -76,10 +76,16 @@ import org.slf4j.LoggerFactory;
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class HttpNorthbounder extends AbstractNorthbounder {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(HttpNorthbounder.class);
 
+    /** The m_config. */
     private HttpNorthbounderConfig m_config;
 
+    /**
+     * Instantiates a new http northbounder.
+     */
     protected HttpNorthbounder() {
         super("HttpNorthbounder");
     }
@@ -95,6 +101,9 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#accepts(org.opennms.netmgt.alarmd.api.NorthboundAlarm)
+     */
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
         if (m_config.getAcceptableUeis() == null || m_config.getAcceptableUeis().contains(alarm.getUei())) {
@@ -103,6 +112,9 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.alarmd.api.support.AbstractNorthbounder#forwardAlarms(java.util.List)
+     */
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
 
@@ -204,6 +216,13 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
     }
 
+    /**
+     * Determine http version.
+     *
+     * @param version
+     *            the version
+     * @return the http version
+     */
     private HttpVersion determineHttpVersion(String version) {
         HttpVersion httpVersion = null;
         if (version != "1.0") {
@@ -214,6 +233,21 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return httpVersion;
     }
 
+    /**
+     * Builds the params.
+     *
+     * @param protocolVersion
+     *            the protocol version
+     * @param connectionTimeout
+     *            the connection timeout
+     * @param socketTimeout
+     *            the socket timeout
+     * @param policy
+     *            the policy
+     * @param vHost
+     *            the v host
+     * @return the http params
+     */
     private HttpParams buildParams(HttpVersion protocolVersion, int connectionTimeout, int socketTimeout,
             String policy, String vHost) {
         HttpParams parms = new BasicHttpParams();
@@ -225,10 +259,21 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return parms;
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public HttpNorthbounderConfig getConfig() {
         return m_config;
     }
 
+    /**
+     * Sets the config.
+     *
+     * @param config
+     *            the new config
+     */
     public void setConfig(HttpNorthbounderConfig config) {
         m_config = config;
     }
