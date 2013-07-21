@@ -42,8 +42,21 @@ import org.opennms.nrtg.api.model.MeasurementSet;
  */
 public interface NrtBroker {
 
+    /**
+     * Publish collection job.
+     *
+     * @param collectionJob
+     *            the collection job
+     */
     public void publishCollectionJob(CollectionJob collectionJob);
 
+    /**
+     * Receive measurement sets.
+     *
+     * @param destination
+     *            the destination
+     * @return the list
+     */
     public List<MeasurementSet> receiveMeasurementSets(String destination);
 
 }

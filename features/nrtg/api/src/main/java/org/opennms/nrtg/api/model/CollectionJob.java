@@ -53,60 +53,233 @@ import java.util.Set;
  */
 public interface CollectionJob extends Serializable {
 
+    /**
+     * Gets the all metrics.
+     *
+     * @return the all metrics
+     */
     public Set<String> getAllMetrics();
 
+    /**
+     * Sets the metric value.
+     *
+     * @param metricId
+     *            the metric id
+     * @param metricType
+     *            the metric type
+     * @param value
+     *            the value
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     public void setMetricValue(String metricId, String metricType, String value) throws IllegalArgumentException;
 
+    /**
+     * Sets the metric value.
+     *
+     * @param metricId
+     *            the metric id
+     * @param value
+     *            the value
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     public void setMetricValue(String metricId, String value) throws IllegalArgumentException;
 
+    /**
+     * Gets the metric value.
+     *
+     * @param metricId
+     *            the metric id
+     * @return the metric value
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     public String getMetricValue(String metricId) throws IllegalArgumentException;
 
+    /**
+     * Adds the metric.
+     *
+     * @param metricId
+     *            the metric id
+     * @param destinationSet
+     *            the destination set
+     * @param onmsLogicMetricId
+     *            the onms logic metric id
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
             throws IllegalArgumentException;
 
+    /**
+     * Sets the parameters.
+     *
+     * @param parameters
+     *            the parameters
+     */
     public void setParameters(Map<String, Object> parameters);
 
+    /**
+     * Gets the parameters.
+     *
+     * @return the parameters
+     */
     public Map<String, Object> getParameters();
 
+    /**
+     * Gets the measurement set.
+     *
+     * @return the measurement set
+     */
     public MeasurementSet getMeasurementSet();
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(String id);
 
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
     public String getId();
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     public void setNodeId(int nodeId);
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId();
 
+    /**
+     * Sets the site.
+     *
+     * @param site
+     *            the new site
+     */
     public void setSite(String site);
 
+    /**
+     * Gets the site.
+     *
+     * @return the site
+     */
     public String getSite();
 
+    /**
+     * Sets the creation timestamp.
+     *
+     * @param creationTimestamp
+     *            the new creation timestamp
+     */
     public void setCreationTimestamp(Date creationTimestamp);
 
+    /**
+     * Gets the creation timestamp.
+     *
+     * @return the creation timestamp
+     */
     public Date getCreationTimestamp();
 
+    /**
+     * Sets the finished timestamp.
+     *
+     * @param finishedTimestamp
+     *            the new finished timestamp
+     */
     public void setFinishedTimestamp(Date finishedTimestamp);
 
+    /**
+     * Gets the finished timestamp.
+     *
+     * @return the finished timestamp
+     */
     public Date getFinishedTimestamp();
 
+    /**
+     * Sets the net interface.
+     *
+     * @param theInterface
+     *            the new net interface
+     */
     public void setNetInterface(String theInterface);
 
     // ToDo tak change to InetAddress
+    /**
+     * Gets the net interface.
+     *
+     * @return the net interface
+     */
     public String getNetInterface();
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     public String getService();
 
+    /**
+     * Sets the service.
+     *
+     * @param service
+     *            the new service
+     */
     void setService(String service);
 
+    /**
+     * Gets the measurement sets by destination.
+     *
+     * @return the measurement sets by destination
+     */
     public Map<String, MeasurementSet> getMeasurementSetsByDestination();
 
+    /**
+     * Sets the protocol configuration.
+     *
+     * @param configurationString
+     *            the new protocol configuration
+     */
     public void setProtocolConfiguration(String configurationString);
 
+    /**
+     * Gets the protocol configuration.
+     *
+     * @return the protocol configuration
+     */
     public String getProtocolConfiguration();
 
+    /**
+     * Gets the metric type.
+     *
+     * @param metricId
+     *            the metric id
+     * @return the metric type
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     */
     public String getMetricType(String metricId) throws IllegalArgumentException;
 
+    /**
+     * Gets the onms logic metric id.
+     *
+     * @param metricId
+     *            the metric id
+     * @return the onms logic metric id
+     */
     public String getOnmsLogicMetricId(String metricId);
 
 }

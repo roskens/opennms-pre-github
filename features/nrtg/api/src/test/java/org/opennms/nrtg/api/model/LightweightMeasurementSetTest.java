@@ -43,6 +43,12 @@ import junit.framework.Assert;
  */
 public class LightweightMeasurementSetTest {
 
+    /**
+     * Test get measurements.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @org.junit.Test
     public void testGetMeasurements() throws Exception {
 

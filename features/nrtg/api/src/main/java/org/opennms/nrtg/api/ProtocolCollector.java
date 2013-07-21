@@ -43,7 +43,20 @@ import org.opennms.nrtg.api.model.CollectionJob;
  * @author Simon Walter
  */
 public interface ProtocolCollector {
+
+    /**
+     * Gets the protcol.
+     *
+     * @return the protcol
+     */
     String getProtcol();
 
+    /**
+     * Collect.
+     *
+     * @param job
+     *            the job
+     * @return the collection job
+     */
     CollectionJob collect(CollectionJob job);
 }

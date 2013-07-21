@@ -43,19 +43,40 @@ import java.util.List;
  * @author Markus Neumann
  */
 public class LightweightMeasurementSet implements MeasurementSet {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1166779403641774595L;
 
+    /** The m_values. */
     private HashMap<String, ArrayList<String>> m_values = new HashMap<String, ArrayList<String>>();
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_service. */
     private String m_interface, m_service;
 
+    /** The m_timestamp. */
     private Date m_timestamp = new Date();
 
+    /**
+     * Instantiates a new lightweight measurement set.
+     */
     public LightweightMeasurementSet() {
     }
 
+    /**
+     * Instantiates a new lightweight measurement set.
+     *
+     * @param nodeId
+     *            the node id
+     * @param service
+     *            the service
+     * @param theInterface
+     *            the the interface
+     * @param timestamp
+     *            the timestamp
+     */
     public LightweightMeasurementSet(int nodeId, String service, String theInterface, Date timestamp) {
         setNodeId(nodeId);
         setService(service);
@@ -63,6 +84,18 @@ public class LightweightMeasurementSet implements MeasurementSet {
         setTimestamp(timestamp);
     }
 
+    /**
+     * Adds the measurement.
+     *
+     * @param metricId
+     *            the metric id
+     * @param metricType
+     *            the metric type
+     * @param value
+     *            the value
+     * @param onmsLogicMetricId
+     *            the onms logic metric id
+     */
     public void addMeasurement(String metricId, String metricType, String value, String onmsLogicMetricId) {
         ArrayList<String> valueTypeList = new ArrayList<String>(3);
 
@@ -73,6 +106,9 @@ public class LightweightMeasurementSet implements MeasurementSet {
         m_values.put(metricId, valueTypeList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.MeasurementSet#getMeasurements()
+     */
     @Override
     public List<Measurement> getMeasurements() {
         ArrayList<Measurement> measurements = new ArrayList<Measurement>();
@@ -98,38 +134,85 @@ public class LightweightMeasurementSet implements MeasurementSet {
         return measurements;
     }
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     public void setNodeId(int nodeId) {
         m_nodeId = nodeId;
     }
 
+    /**
+     * Sets the net interface.
+     *
+     * @param theInterface
+     *            the new net interface
+     */
     public void setNetInterface(String theInterface) {
         m_interface = theInterface;
     }
 
+    /**
+     * Sets the service.
+     *
+     * @param service
+     *            the new service
+     */
     public void setService(String service) {
         m_service = service;
     }
 
+    /**
+     * Sets the timestamp.
+     *
+     * @param timestamp
+     *            the new timestamp
+     */
     public void setTimestamp(Date timestamp) {
         m_timestamp = timestamp;
     }
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId() {
         return m_nodeId;
     }
 
+    /**
+     * Gets the net interface.
+     *
+     * @return the net interface
+     */
     public String getNetInterface() {
         return m_interface;
     }
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     public String getService() {
         return m_service;
     }
 
+    /**
+     * Gets the timestamp.
+     *
+     * @return the timestamp
+     */
     public Date getTimestamp() {
         return m_timestamp;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.MeasurementSet#getJson()
+     */
     @Override
     public String getJson() {
         StringBuilder buf = new StringBuilder("[");

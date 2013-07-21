@@ -40,35 +40,123 @@ import java.util.Date;
  */
 public interface Measurement extends Serializable {
 
+    /**
+     * Sets the node id.
+     *
+     * @param nodeId
+     *            the new node id
+     */
     public void setNodeId(int nodeId);
 
+    /**
+     * Sets the net interface.
+     *
+     * @param theInterface
+     *            the new net interface
+     */
     public void setNetInterface(String theInterface);
 
+    /**
+     * Sets the service.
+     *
+     * @param service
+     *            the new service
+     */
     public void setService(String service);
 
+    /**
+     * Sets the metric id.
+     *
+     * @param metricId
+     *            the new metric id
+     */
     public void setMetricId(String metricId);
 
+    /**
+     * Sets the metric type.
+     *
+     * @param metricType
+     *            the new metric type
+     */
     public void setMetricType(String metricType);
 
+    /**
+     * Sets the value.
+     *
+     * @param value
+     *            the new value
+     */
     public void setValue(String value);
 
+    /**
+     * Sets the timestamp.
+     *
+     * @param timestamp
+     *            the new timestamp
+     */
     public void setTimestamp(Date timestamp);
 
+    /**
+     * Sets the onms logic metric id.
+     *
+     * @param onmsLogicMetricId
+     *            the new onms logic metric id
+     */
     public void setOnmsLogicMetricId(String onmsLogicMetricId);
 
+    /**
+     * Gets the onms logic metric id.
+     *
+     * @return the onms logic metric id
+     */
     public String getOnmsLogicMetricId();
 
+    /**
+     * Gets the node id.
+     *
+     * @return the node id
+     */
     public int getNodeId();
 
+    /**
+     * Gets the net interface.
+     *
+     * @return the net interface
+     */
     public String getNetInterface();
 
+    /**
+     * Gets the service.
+     *
+     * @return the service
+     */
     public String getService();
 
+    /**
+     * Gets the metric id.
+     *
+     * @return the metric id
+     */
     public String getMetricId();
 
+    /**
+     * Gets the metric type.
+     *
+     * @return the metric type
+     */
     public String getMetricType();
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public String getValue();
 
+    /**
+     * Gets the timestamp.
+     *
+     * @return the timestamp
+     */
     public Date getTimestamp();
 }

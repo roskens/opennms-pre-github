@@ -34,19 +34,40 @@ package org.opennms.nrtg.api.model;
  * @author Markus Neumann
  */
 public class CollectionTask {
+
+    /** The count. */
     private Integer count;
 
+    /** The meta job. */
     private String metaJob;
 
+    /**
+     * Instantiates a new collection task.
+     *
+     * @param count
+     *            the count
+     * @param metaJob
+     *            the meta job
+     */
     public CollectionTask(Integer count, String metaJob) {
         this.count = count;
         this.metaJob = metaJob;
     }
 
+    /**
+     * Gets the count.
+     *
+     * @return the count
+     */
     public Integer getCount() {
         return count;
     }
 
+    /**
+     * Gets the meta job.
+     *
+     * @return the meta job
+     */
     public String getMetaJob() {
         return metaJob;
     }

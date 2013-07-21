@@ -44,6 +44,13 @@ import org.junit.Test;
  * To change this template use File | Settings | File Templates.
  */
 public class DefaultMeasurementSetTest {
+
+    /**
+     * Test get measurements.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetMeasurements() throws Exception {
 

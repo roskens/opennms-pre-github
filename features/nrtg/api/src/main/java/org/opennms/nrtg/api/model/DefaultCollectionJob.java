@@ -42,112 +42,176 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class DefaultCollectionJob.
+ *
  * @author Christian Pape
  * @author Markus Neumann
  */
 public class DefaultCollectionJob implements CollectionJob {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -857193182688356245L;
 
+    /** The Constant METRIC_TYPE_UNKNOWN. */
     private static final String METRIC_TYPE_UNKNOWN = "metricTypeUnknown";
 
+    /** The s_id generator. */
     private static AtomicLong s_idGenerator = new AtomicLong(0L);
 
+    /** The logger. */
     private static Logger logger = LoggerFactory.getLogger(DefaultCollectionJob.class);
 
+    /** The m_id. */
     private String m_id = String.valueOf(s_idGenerator.incrementAndGet());
 
+    /** The m_site. */
     private String m_site;
 
+    /** The m_net interface. */
     private String m_netInterface;
 
+    /** The m_service. */
     private String m_service;
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /** The m_protocol configuration. */
     private String m_protocolConfiguration;
 
+    /** The m_metric sets. */
     private Map<Set<String>, Set<String>> m_metricSets = new HashMap<Set<String>, Set<String>>();
 
+    /** The m_all metrics. */
     private Map<String, ArrayList<String>> m_allMetrics = new HashMap<String, ArrayList<String>>();
 
+    /** The m_onms logic metric id mapping. */
     private Map<String, String> m_onmsLogicMetricIdMapping = new HashMap<String, String>();
 
+    /** The m_parameters. */
     private Map<String, Object> m_parameters = null;
 
+    /** The m_creation timestamp. */
     private Date m_creationTimestamp = new Date();
 
+    /** The m_finished timestamp. */
     private Date m_finishedTimestamp = null;
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getId()
+     */
     @Override
     public String getId() {
         return m_id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setId(java.lang.String)
+     */
     @Override
     public void setId(String id) {
         this.m_id = id;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setNodeId(int)
+     */
     @Override
     public void setNodeId(int nodeId) {
         this.m_nodeId = nodeId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getNodeId()
+     */
     @Override
     public int getNodeId() {
         return m_nodeId;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getSite()
+     */
     @Override
     public String getSite() {
         return m_site;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setSite(java.lang.String)
+     */
     @Override
     public void setSite(String site) {
         this.m_site = site;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getNetInterface()
+     */
     @Override
     public String getNetInterface() {
         return m_netInterface;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setNetInterface(java.lang.String)
+     */
     @Override
     public void setNetInterface(String netInterface) {
         this.m_netInterface = netInterface;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getService()
+     */
     @Override
     public String getService() {
         return m_service;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setService(java.lang.String)
+     */
     @Override
     public void setService(String service) {
         this.m_service = service;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getProtocolConfiguration()
+     */
     @Override
     public String getProtocolConfiguration() {
         return m_protocolConfiguration;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setProtocolConfiguration(java.lang.String)
+     */
     @Override
     public void setProtocolConfiguration(String protocolConfiguration) {
         m_protocolConfiguration = protocolConfiguration;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setParameters(java.util.Map)
+     */
     @Override
     public void setParameters(Map<String, Object> parameters) {
         this.m_parameters = parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getParameters()
+     */
     @Override
     public Map<String, Object> getParameters() {
         return m_parameters;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getMeasurementSet()
+     */
     @Override
     public MeasurementSet getMeasurementSet() {
         LightweightMeasurementSet measurementSet = new LightweightMeasurementSet(getNodeId(), getService(),
@@ -167,26 +231,41 @@ public class DefaultCollectionJob implements CollectionJob {
         return measurementSet;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setCreationTimestamp(java.util.Date)
+     */
     @Override
     public void setCreationTimestamp(Date creationTimestamp) {
         m_creationTimestamp = creationTimestamp;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getCreationTimestamp()
+     */
     @Override
     public Date getCreationTimestamp() {
         return m_creationTimestamp;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getFinishedTimestamp()
+     */
     @Override
     public Date getFinishedTimestamp() {
         return m_finishedTimestamp;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setFinishedTimestamp(java.util.Date)
+     */
     @Override
     public void setFinishedTimestamp(Date finishedTimestamp) {
         m_finishedTimestamp = finishedTimestamp;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#addMetric(java.lang.String, java.util.Set, java.lang.String)
+     */
     @Override
     public void addMetric(String metricId, Set<String> destinationSet, String onmsLogicMetricId)
             throws IllegalArgumentException {
@@ -250,6 +329,9 @@ public class DefaultCollectionJob implements CollectionJob {
      * }
      */
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setMetricValue(java.lang.String, java.lang.String, java.lang.String)
+     */
     @Override
     public void setMetricValue(String metricId, String metricType, String value) throws IllegalArgumentException {
         if (metricId == null) {
@@ -272,11 +354,17 @@ public class DefaultCollectionJob implements CollectionJob {
         m_allMetrics.put(metricId, valueTypeList);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#setMetricValue(java.lang.String, java.lang.String)
+     */
     @Override
     public void setMetricValue(String metricId, String value) throws IllegalArgumentException {
         setMetricValue(metricId, METRIC_TYPE_UNKNOWN, value);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getMetricValue(java.lang.String)
+     */
     @Override
     public String getMetricValue(String metricId) throws IllegalArgumentException {
         if (metricId == null) {
@@ -294,6 +382,9 @@ public class DefaultCollectionJob implements CollectionJob {
         return m_allMetrics.get(metricId).get(1);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getMetricType(java.lang.String)
+     */
     @Override
     public String getMetricType(String metricId) throws IllegalArgumentException {
         if (metricId == null) {
@@ -311,6 +402,13 @@ public class DefaultCollectionJob implements CollectionJob {
         return m_allMetrics.get(metricId).get(0);
     }
 
+    /**
+     * Gets the destination string.
+     *
+     * @param destinationSet
+     *            the destination set
+     * @return the destination string
+     */
     private String getDestinationString(Set<String> destinationSet) {
         StringBuilder destinationStringBuilder = new StringBuilder();
         for (String destination : destinationSet) {
@@ -321,6 +419,9 @@ public class DefaultCollectionJob implements CollectionJob {
         return destinationStringBuilder.substring(0, destinationStringBuilder.toString().length() - 2);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getOnmsLogicMetricId(java.lang.String)
+     */
     @Override
     public String getOnmsLogicMetricId(String metricId) {
         return m_onmsLogicMetricIdMapping.get(metricId);
@@ -333,6 +434,9 @@ public class DefaultCollectionJob implements CollectionJob {
      * more
      * than one destination it occurs only in one measurement set for multiple
      * destinations.
+     */
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getMeasurementSetsByDestination()
      */
     @Override
     public Map<String, MeasurementSet> getMeasurementSetsByDestination() {
@@ -356,6 +460,9 @@ public class DefaultCollectionJob implements CollectionJob {
         return measurementMap;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.CollectionJob#getAllMetrics()
+     */
     @Override
     public Set<String> getAllMetrics() {
         return m_allMetrics.keySet();

@@ -39,7 +39,17 @@ import java.util.List;
  */
 public interface MeasurementSet extends Serializable {
 
+    /**
+     * Gets the json.
+     *
+     * @return the json
+     */
     public String getJson();
 
+    /**
+     * Gets the measurements.
+     *
+     * @return the measurements
+     */
     public List<Measurement> getMeasurements();
 }

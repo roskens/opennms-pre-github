@@ -24,19 +24,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The Class DefaultMeasurementSet.
+ *
  * @author Markus Neumann
  * @author Christian Pape
  */
 public class DefaultMeasurementSet implements MeasurementSet {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7536809905120941525L;
 
+    /** The m_measurements. */
     private List<Measurement> m_measurements = new ArrayList<Measurement>();
 
+    /**
+     * Adds the measurement.
+     *
+     * @param measurement
+     *            the measurement
+     */
     public void addMeasurement(Measurement measurement) {
         m_measurements.add(measurement);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.MeasurementSet#getJson()
+     */
     @Override
     public String getJson() {
         StringBuilder buf = new StringBuilder("[");
@@ -64,6 +77,9 @@ public class DefaultMeasurementSet implements MeasurementSet {
         return buf.toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.nrtg.api.model.MeasurementSet#getMeasurements()
+     */
     @Override
     public List<Measurement> getMeasurements() {
         return m_measurements;
