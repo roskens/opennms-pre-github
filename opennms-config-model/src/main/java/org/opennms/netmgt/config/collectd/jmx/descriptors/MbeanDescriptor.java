@@ -84,6 +84,9 @@ public class MbeanDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new mbean descriptor.
+     */
     public MbeanDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/jmx-datacollection";

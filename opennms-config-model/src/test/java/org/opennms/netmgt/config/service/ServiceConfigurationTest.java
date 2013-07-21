@@ -38,13 +38,33 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 import org.opennms.netmgt.config.service.types.InvokeAtType;
 
+/**
+ * The Class ServiceConfigurationTest.
+ */
 public class ServiceConfigurationTest extends XmlTestNoCastor<ServiceConfiguration> {
 
+    /**
+     * Instantiates a new service configuration test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public ServiceConfigurationTest(final ServiceConfiguration sampleObject, final String sampleXml,
             final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         List<Attribute> attributes = new LinkedList<Attribute>();

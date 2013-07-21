@@ -44,40 +44,30 @@ import java.util.Hashtable;
  * @version $Revision$ $Date$
  */
 public class InvokeAtType implements java.io.Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4284023865042615453L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * The start type
-     */
+    /** The start type. */
     public static final int START_TYPE = 0;
 
-    /**
-     * The instance of the start type
-     */
+    /** The instance of the start type. */
     public static final InvokeAtType START = new InvokeAtType(START_TYPE, "start");
 
-    /**
-     * The stop type
-     */
+    /** The stop type. */
     public static final int STOP_TYPE = 1;
 
-    /**
-     * The instance of the stop type
-     */
+    /** The instance of the stop type. */
     public static final InvokeAtType STOP = new InvokeAtType(STOP_TYPE, "stop");
 
-    /**
-     * The status type
-     */
+    /** The status type. */
     public static final int STATUS_TYPE = 2;
 
-    /**
-     * The instance of the status type
-     */
+    /** The instance of the status type. */
     public static final InvokeAtType STATUS = new InvokeAtType(STATUS_TYPE, "status");
 
     /**
@@ -99,6 +89,14 @@ public class InvokeAtType implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new invoke at type.
+     *
+     * @param type
+     *            the type
+     * @param value
+     *            the value
+     */
     private InvokeAtType(final int type, final String value) {
         super();
         this.type = type;
@@ -165,7 +163,8 @@ public class InvokeAtType implements java.io.Serializable {
      * value.
      *
      * @param string
-     * @return the InvokeAtType value of parameter 'string'
+     *            the string
+     * @return the InvokeAtType value of parameter 'string
      */
     public static InvokeAtType valueOf(final String string) {
         Object obj = null;

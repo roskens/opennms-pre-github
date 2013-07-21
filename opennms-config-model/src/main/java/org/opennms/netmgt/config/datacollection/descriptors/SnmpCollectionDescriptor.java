@@ -82,6 +82,9 @@ public class SnmpCollectionDescriptor extends org.exolab.castor.xml.util.XMLClas
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new snmp collection descriptor.
+     */
     public SnmpCollectionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

@@ -35,12 +35,32 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 
+/**
+ * The Class EventsTest.
+ */
 public class EventsTest extends XmlTestNoCastor<Events> {
 
+    /**
+     * Instantiates a new events test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public EventsTest(final Events sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         Events events0 = new Events();

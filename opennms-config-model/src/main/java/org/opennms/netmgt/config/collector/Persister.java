@@ -42,6 +42,7 @@ public interface Persister {
      * <p>
      * persistNumericAttribute
      * </p>
+     * .
      *
      * @param attribute
      *            a
@@ -54,6 +55,7 @@ public interface Persister {
      * <p>
      * persistStringAttribute
      * </p>
+     * .
      *
      * @param attribute
      *            a

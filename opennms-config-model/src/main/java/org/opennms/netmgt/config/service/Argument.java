@@ -51,15 +51,15 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "argument")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Argument implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5531241110724194289L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private String _content = "";
 
@@ -73,11 +73,22 @@ public class Argument implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new argument.
+     */
     public Argument() {
         super();
         setContent("");
     }
 
+    /**
+     * Instantiates a new argument.
+     *
+     * @param type
+     *            the type
+     * @param content
+     *            the content
+     */
     public Argument(final String type, final String content) {
         super();
         setType(type);
@@ -92,6 +103,7 @@ public class Argument implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

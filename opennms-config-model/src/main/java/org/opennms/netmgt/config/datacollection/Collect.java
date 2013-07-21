@@ -52,7 +52,7 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * container for list of MIB groups to be collected for the system
+ * container for list of MIB groups to be collected for the system.
  */
 
 @XmlRootElement(name = "collect", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
@@ -60,8 +60,11 @@ import org.xml.sax.ContentHandler;
 @XmlType(propOrder = { "includeGroup" })
 @ValidateUsing("datacollection-config.xsd")
 public class Collect implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7340423679797254573L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     /**
@@ -70,7 +73,10 @@ public class Collect implements Serializable {
     private List<String> m_includeGroups = new ArrayList<String>();
 
     /**
+     * Adds the include group.
+     *
      * @param includeGroup
+     *            the include group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -80,8 +86,12 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Adds the include group.
+     *
      * @param index
+     *            the index
      * @param vIncludeGroup
+     *            the v include group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -104,6 +114,7 @@ public class Collect implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -130,10 +141,11 @@ public class Collect implements Serializable {
      * Method getIncludeGroup.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getIncludeGroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeGroups.size()) {
@@ -224,13 +236,14 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -238,16 +251,16 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -255,6 +268,7 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Removes the all include group.
      */
     public void removeAllIncludeGroup() {
         m_includeGroups.clear();
@@ -264,6 +278,7 @@ public class Collect implements Serializable {
      * Method removeIncludeGroup.
      *
      * @param includeGroup
+     *            the include group
      * @return true if the object was removed from the collection.
      */
     public boolean removeIncludeGroup(final String includeGroup) {
@@ -274,6 +289,7 @@ public class Collect implements Serializable {
      * Method removeIncludeGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeIncludeGroupAt(final int index) {
@@ -281,8 +297,12 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param index
+     *            the index
      * @param includeGroup
+     *            the include group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -296,7 +316,10 @@ public class Collect implements Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param includeGroups
+     *            the new include group
      */
     public void setIncludeGroup(final String[] includeGroups) {
         m_includeGroups.clear();
@@ -323,9 +346,9 @@ public class Collect implements Serializable {
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param includeGroups
      *            the Vector to set.
+     * @deprecated
      */
     public void setIncludeGroupCollection(final List<String> includeGroups) {
         m_includeGroups = new ArrayList<String>();
@@ -338,14 +361,13 @@ public class Collect implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.datacollection.Collect
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Collect unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -353,9 +375,10 @@ public class Collect implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

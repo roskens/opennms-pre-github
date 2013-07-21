@@ -51,6 +51,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "parameter")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Parameter implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6535297763331028940L;
 
     // --------------------------/
@@ -73,10 +75,21 @@ public class Parameter implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new parameter.
+     */
     public Parameter() {
         super();
     }
 
+    /**
+     * Instantiates a new parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public Parameter(final String key, final String value) {
         super();
         setKey(key);
@@ -91,6 +104,7 @@ public class Parameter implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

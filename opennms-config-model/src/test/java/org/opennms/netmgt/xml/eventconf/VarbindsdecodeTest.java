@@ -35,12 +35,32 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 
+/**
+ * The Class VarbindsdecodeTest.
+ */
 public class VarbindsdecodeTest extends XmlTestNoCastor<Varbindsdecode> {
 
+    /**
+     * Instantiates a new varbindsdecode test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public VarbindsdecodeTest(final Varbindsdecode sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         Varbindsdecode varbindsdecode0 = new Varbindsdecode();

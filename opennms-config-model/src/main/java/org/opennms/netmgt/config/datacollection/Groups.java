@@ -51,7 +51,7 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * MIB object groups
+ * MIB object groups.
  */
 
 @XmlRootElement(name = "groups", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
@@ -59,21 +59,28 @@ import org.xml.sax.ContentHandler;
 @XmlType(propOrder = { "group" })
 @ValidateUsing("datacollection-config.xsd")
 public class Groups implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 4574413441179220427L;
 
+    /** The Constant EMPTY_GROUP_ARRAY. */
     private static final Group[] EMPTY_GROUP_ARRAY = new Group[0];
 
-    /**
-     * a MIB object group
-     */
+    /** a MIB object group. */
     private List<Group> m_groups = new ArrayList<Group>();
 
+    /**
+     * Instantiates a new groups.
+     */
     public Groups() {
         super();
     }
 
     /**
+     * Adds the group.
+     *
      * @param group
+     *            the group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -83,8 +90,12 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Adds the group.
+     *
      * @param index
+     *            the index
      * @param group
+     *            the group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -107,6 +118,7 @@ public class Groups implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -133,12 +145,13 @@ public class Groups implements Serializable {
      * Method getGroup.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         types.Group at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public Group getGroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_groups.size()) {
@@ -229,7 +242,10 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -243,22 +259,27 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all group.
+     */
     public void removeAllGroup() {
         m_groups.clear();
     }
@@ -267,6 +288,7 @@ public class Groups implements Serializable {
      * Method removeGroup.
      *
      * @param group
+     *            the group
      * @return true if the object was removed from the collection.
      */
     public boolean removeGroup(final Group group) {
@@ -277,6 +299,7 @@ public class Groups implements Serializable {
      * Method removeGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Group removeGroupAt(final int index) {
@@ -284,8 +307,12 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Sets the group.
+     *
      * @param index
+     *            the index
      * @param group
+     *            the group
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -299,7 +326,10 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Sets the group.
+     *
      * @param groups
+     *            the new group
      */
     public void setGroup(final Group[] groups) {
         m_groups.clear();
@@ -326,9 +356,9 @@ public class Groups implements Serializable {
      * Sets the value of '_groupList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param groups
      *            the Vector to set.
+     * @deprecated
      */
     public void setGroupCollection(final List<Group> groups) {
         m_groups = groups;
@@ -338,14 +368,15 @@ public class Groups implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Groups
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Groups
      */
     @Deprecated
     public static Groups unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -353,6 +384,8 @@ public class Groups implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

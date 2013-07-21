@@ -50,6 +50,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "attribute")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Attribute implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5369595993818814229L;
 
     // --------------------------/
@@ -72,10 +74,23 @@ public class Attribute implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new attribute.
+     */
     public Attribute() {
         super();
     }
 
+    /**
+     * Instantiates a new attribute.
+     *
+     * @param name
+     *            the name
+     * @param type
+     *            the type
+     * @param content
+     *            the content
+     */
     public Attribute(final String name, final String type, final String content) {
         super();
         setName(name);
@@ -90,6 +105,7 @@ public class Attribute implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

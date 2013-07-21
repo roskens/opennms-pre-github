@@ -61,11 +61,11 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Configuration implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6800972339377512259L;
 
-    /**
-     * The proxy host to use when communicating with this agent
-     */
+    /** The proxy host to use when communicating with this agent. */
     @XmlAttribute(name = "proxy-host")
     private String _proxyHost;
 
@@ -90,63 +90,43 @@ public class Configuration implements Serializable {
     @XmlAttribute(name = "max-request-size")
     private Integer _maxRequestSize;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "security-name")
     private String _securityName;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "security-level")
     private Integer _securityLevel;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "auth-passphrase")
     private String _authPassphrase;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "auth-protocol")
     private String _authProtocol;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "engine-id")
     private String _engineId;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "context-engine-id")
     private String _contextEngineId;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "context-name")
     private String _contextName;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "privacy-passphrase")
     private String _privacyPassphrase;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "privacy-protocol")
     private String _privacyProtocol;
 
-    /**
-     * SNMPv3
-     */
+    /** SNMPv3. */
     @XmlAttribute(name = "enterprise-id")
     private String _enterpriseId;
 
@@ -156,27 +136,19 @@ public class Configuration implements Serializable {
     @XmlAttribute(name = "version")
     private String _version;
 
-    /**
-     * Default write community string
-     */
+    /** Default write community string. */
     @XmlAttribute(name = "write-community")
     private String _writeCommunity;
 
-    /**
-     * Default read community string
-     */
+    /** Default read community string. */
     @XmlAttribute(name = "read-community")
     private String _readCommunity;
 
-    /**
-     * Default timeout (in milliseconds)
-     */
+    /** Default timeout (in milliseconds). */
     @XmlAttribute(name = "timeout")
     private Integer _timeout;
 
-    /**
-     * Default number of retries
-     */
+    /** Default number of retries. */
     @XmlAttribute(name = "retry")
     private Integer _retry;
 
@@ -187,10 +159,57 @@ public class Configuration implements Serializable {
     @XmlAttribute(name = "port")
     private Integer _port;
 
+    /**
+     * Instantiates a new configuration.
+     */
     public Configuration() {
         super();
     }
 
+    /**
+     * Instantiates a new configuration.
+     *
+     * @param port
+     *            the port
+     * @param retry
+     *            the retry
+     * @param timeout
+     *            the timeout
+     * @param readCommunity
+     *            the read community
+     * @param writeCommunity
+     *            the write community
+     * @param proxyHost
+     *            the proxy host
+     * @param version
+     *            the version
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     * @param maxRepetitions
+     *            the max repetitions
+     * @param maxRequestSize
+     *            the max request size
+     * @param securityName
+     *            the security name
+     * @param securityLevel
+     *            the security level
+     * @param authPassphrase
+     *            the auth passphrase
+     * @param authProtocol
+     *            the auth protocol
+     * @param engineId
+     *            the engine id
+     * @param contextEngineId
+     *            the context engine id
+     * @param contextName
+     *            the context name
+     * @param privacyPassphrase
+     *            the privacy passphrase
+     * @param privacyProtocol
+     *            the privacy protocol
+     * @param enterpriseId
+     *            the enterprise id
+     */
     public Configuration(final Integer port, final Integer retry, final Integer timeout, final String readCommunity,
             final String writeCommunity, final String proxyHost, final String version, final Integer maxVarsPerPdu,
             final Integer maxRepetitions, final Integer maxRequestSize, final String securityName,
@@ -219,30 +238,51 @@ public class Configuration implements Serializable {
         setEnterpriseId(enterpriseId);
     }
 
+    /**
+     * Delete max repetitions.
+     */
     public void deleteMaxRepetitions() {
         _maxRepetitions = null;
     }
 
+    /**
+     * Delete max request size.
+     */
     public void deleteMaxRequestSize() {
         _maxRequestSize = null;
     }
 
+    /**
+     * Delete max vars per pdu.
+     */
     public void deleteMaxVarsPerPdu() {
         _maxVarsPerPdu = null;
     }
 
+    /**
+     * Delete port.
+     */
     public void deletePort() {
         _port = null;
     }
 
+    /**
+     * Delete retry.
+     */
     public void deleteRetry() {
         _retry = null;
     }
 
+    /**
+     * Delete security level.
+     */
     public void deleteSecurityLevel() {
         _securityLevel = null;
     }
 
+    /**
+     * Delete timeout.
+     */
     public void deleteTimeout() {
         _timeout = null;
     }
@@ -251,6 +291,7 @@ public class Configuration implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -629,7 +670,10 @@ public class Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is null or if any SAXException is thrown during
      *             marshaling
@@ -641,14 +685,17 @@ public class Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during marshaling
-     * @throws ValidationException
-     *             if this object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is null or if any SAXException is thrown during
      *             marshaling
+     * @throws ValidationException
+     *             if this object is an invalid instance according to the schema
      */
     public void marshal(final ContentHandler handler) throws java.io.IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
@@ -885,18 +932,21 @@ public class Configuration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled Configuration
      * @throws MarshalException
      *             if object is null or if any SAXException is thrown during
      *             marshaling
      * @throws ValidationException
      *             if this object is an invalid instance according to the schema
-     * @return the unmarshaled Configuration
      */
     public static Configuration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Configuration) Unmarshaller.unmarshal(Configuration.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this object is an invalid instance according to the schema
      */
@@ -904,6 +954,9 @@ public class Configuration implements Serializable {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("port", getPort()).append("retry", getRetry()).append("timeout",

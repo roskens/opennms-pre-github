@@ -40,16 +40,21 @@ import java.util.List;
  * @version $Id: $
  */
 public class StatsdPackage {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_filter. */
     private String m_filter;
 
+    /** The m_reports. */
     private List<PackageReport> m_reports = new ArrayList<PackageReport>();
 
     /**
      * <p>
      * getFilter
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,6 +66,7 @@ public class StatsdPackage {
      * <p>
      * setFilter
      * </p>
+     * .
      *
      * @param filter
      *            a {@link java.lang.String} object.
@@ -73,6 +79,7 @@ public class StatsdPackage {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -84,6 +91,7 @@ public class StatsdPackage {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -96,6 +104,7 @@ public class StatsdPackage {
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -107,6 +116,7 @@ public class StatsdPackage {
      * <p>
      * setReports
      * </p>
+     * .
      *
      * @param reports
      *            a {@link java.util.List} object.
@@ -119,6 +129,7 @@ public class StatsdPackage {
      * <p>
      * addReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.config.statsd.model.PackageReport}

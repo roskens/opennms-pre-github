@@ -81,6 +81,9 @@ public class CorrelationDescriptor extends org.exolab.castor.xml.util.XMLClassDe
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new correlation descriptor.
+     */
     public CorrelationDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

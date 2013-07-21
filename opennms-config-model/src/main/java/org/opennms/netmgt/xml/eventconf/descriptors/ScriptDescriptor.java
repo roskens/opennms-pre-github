@@ -81,6 +81,9 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new script descriptor.
+     */
     public ScriptDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

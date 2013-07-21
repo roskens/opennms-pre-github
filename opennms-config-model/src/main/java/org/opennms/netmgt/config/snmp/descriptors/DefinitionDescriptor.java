@@ -82,6 +82,9 @@ public class DefinitionDescriptor extends org.opennms.netmgt.config.snmp.descrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new definition descriptor.
+     */
     public DefinitionDescriptor() {
         super();
         setExtendsWithoutFlatten(new org.opennms.netmgt.config.snmp.descriptors.ConfigurationDescriptor());

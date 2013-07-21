@@ -54,33 +54,38 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * RRD parms
+ * RRD parms.
  */
 
 @XmlRootElement(name = "rrd", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class Rrd implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8501536919916316365L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * step size for the RRD
-     */
+    /** step size for the RRD. */
     private Integer m_step;
 
-    /**
-     * Round Robin Archive definitions
-     */
+    /** Round Robin Archive definitions. */
     private List<String> m_rras = new ArrayList<String>();
 
+    /**
+     * Instantiates a new rrd.
+     */
     public Rrd() {
         super();
     }
 
     /**
+     * Adds the rra.
+     *
      * @param rra
+     *            the rra
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -90,8 +95,12 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Adds the rra.
+     *
      * @param index
+     *            the index
      * @param rra
+     *            the rra
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -101,6 +110,7 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Delete step.
      */
     public void deleteStep() {
         m_step = null;
@@ -120,6 +130,7 @@ public class Rrd implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -139,10 +150,11 @@ public class Rrd implements Serializable {
      * Method getRra.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getRra(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_rras.size()) {
@@ -254,7 +266,10 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -268,22 +283,27 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all rra.
+     */
     public void removeAllRra() {
         m_rras.clear();
     }
@@ -292,6 +312,7 @@ public class Rrd implements Serializable {
      * Method removeRra.
      *
      * @param rra
+     *            the rra
      * @return true if the object was removed from the collection.
      */
     public boolean removeRra(final String rra) {
@@ -302,6 +323,7 @@ public class Rrd implements Serializable {
      * Method removeRraAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeRraAt(final int index) {
@@ -309,8 +331,12 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param index
+     *            the index
      * @param rra
+     *            the rra
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -324,7 +350,10 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param rras
+     *            the new rra
      */
     public void setRra(final String[] rras) {
         m_rras.clear();
@@ -351,9 +380,9 @@ public class Rrd implements Serializable {
      * Sets the value of '_rraList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param rras
      *            the Vector to set.
+     * @deprecated
      */
     public void setRraCollection(final List<String> rras) {
         m_rras = new ArrayList<String>();
@@ -377,14 +406,15 @@ public class Rrd implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Rrd
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Rrd
      */
     @Deprecated
     public static Rrd unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -392,6 +422,8 @@ public class Rrd implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

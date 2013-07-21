@@ -51,15 +51,15 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlRootElement(name = "value")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Value implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8678345448589083586L;
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * internal content storage
-     */
+    /** internal content storage. */
     @XmlValue
     private String _content = "";
 
@@ -73,11 +73,22 @@ public class Value implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new value.
+     */
     public Value() {
         super();
         setContent("");
     }
 
+    /**
+     * Instantiates a new value.
+     *
+     * @param type
+     *            the type
+     * @param content
+     *            the content
+     */
     public Value(final String type, final String content) {
         super();
         setType(type);
@@ -92,6 +103,7 @@ public class Value implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

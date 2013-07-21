@@ -60,79 +60,170 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.util.StringUtils;
 
+/**
+ * The Class Events.
+ */
 @XmlRootElement(name = "events")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = {})
 public class Events implements Serializable {
+
+    /**
+     * The Interface EventCallback.
+     *
+     * @param <T>
+     *            the generic type
+     */
     public interface EventCallback<T> {
 
+        /**
+         * Process.
+         *
+         * @param accum
+         *            the accum
+         * @param event
+         *            the event
+         * @return the t
+         */
         public T process(T accum, Event event);
 
     }
 
+    /**
+     * The Interface EventCriteria.
+     */
     public interface EventCriteria {
 
+        /**
+         * Matches.
+         *
+         * @param e
+         *            the e
+         * @return true, if successful
+         */
         public boolean matches(Event e);
 
     }
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3725006529763434264L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
+    /** The Constant EMPTY_EVENT_ARRAY. */
     private static final Event[] EMPTY_EVENT_ARRAY = new Event[0];
 
-    /**
-     * Global settings for this configuration
-     */
+    /** Global settings for this configuration. */
     @XmlElement(name = "global", required = false)
     private Global m_global;
 
     // @Size(min=1)
+    /** The m_events. */
     @XmlElement(name = "event", required = true)
     private List<Event> m_events = new ArrayList<Event>();
 
     // @Size(min=0)
+    /** The m_event files. */
     @XmlElement(name = "event-file", required = false)
     private List<String> m_eventFiles = new ArrayList<String>();
 
+    /** The m_loaded event files. */
     @XmlTransient
     private Map<String, Events> m_loadedEventFiles = new LinkedHashMap<String, Events>();
 
+    /** The m_partition. */
     @XmlTransient
     private Partition m_partition;
 
+    /** The m_partitioned events. */
     @XmlTransient
     private Map<String, List<Event>> m_partitionedEvents;
 
+    /** The m_null partitioned events. */
     @XmlTransient
     private List<Event> m_nullPartitionedEvents;
 
+    /**
+     * Adds the event.
+     *
+     * @param event
+     *            the event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addEvent(final Event event) throws IndexOutOfBoundsException {
         m_events.add(event);
     }
 
+    /**
+     * Adds the event.
+     *
+     * @param index
+     *            the index
+     * @param event
+     *            the event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addEvent(final int index, final Event event) throws IndexOutOfBoundsException {
         m_events.add(index, event);
     }
 
+    /**
+     * Adds the event file.
+     *
+     * @param eventFile
+     *            the event file
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addEventFile(final String eventFile) throws IndexOutOfBoundsException {
         m_eventFiles.add(eventFile.intern());
     }
 
+    /**
+     * Adds the event file.
+     *
+     * @param index
+     *            the index
+     * @param eventFile
+     *            the event file
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addEventFile(final int index, final String eventFile) throws IndexOutOfBoundsException {
         m_eventFiles.add(index, eventFile.intern());
     }
 
+    /**
+     * Enumerate event.
+     *
+     * @return the enumeration
+     */
     public Enumeration<Event> enumerateEvent() {
         return Collections.enumeration(m_events);
     }
 
+    /**
+     * Enumerate event file.
+     *
+     * @return the enumeration
+     */
     public Enumeration<String> enumerateEventFile() {
         return Collections.enumeration(m_eventFiles);
     }
 
+    /**
+     * Gets the event.
+     *
+     * @param index
+     *            the index
+     * @return the event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public Event getEvent(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_events.size()) {
             throw new IndexOutOfBoundsException("getEvent: Index value '" + index + "' not in range [0.."
@@ -141,18 +232,42 @@ public class Events implements Serializable {
         return m_events.get(index);
     }
 
+    /**
+     * Gets the event.
+     *
+     * @return the event
+     */
     public Event[] getEvent() {
         return m_events.toArray(EMPTY_EVENT_ARRAY);
     }
 
+    /**
+     * Gets the event collection.
+     *
+     * @return the event collection
+     */
     public List<Event> getEventCollection() {
         return m_events;
     }
 
+    /**
+     * Gets the event count.
+     *
+     * @return the event count
+     */
     public int getEventCount() {
         return m_events.size();
     }
 
+    /**
+     * Gets the event file.
+     *
+     * @param index
+     *            the index
+     * @return the event file
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public String getEventFile(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_eventFiles.size()) {
             throw new IndexOutOfBoundsException("getEventFile: Index value '" + index + "' not in range [0.."
@@ -161,65 +276,147 @@ public class Events implements Serializable {
         return m_eventFiles.get(index);
     }
 
+    /**
+     * Gets the event file.
+     *
+     * @return the event file
+     */
     public String[] getEventFile() {
         return m_eventFiles.toArray(EMPTY_STRING_ARRAY);
     }
 
+    /**
+     * Gets the event file collection.
+     *
+     * @return the event file collection
+     */
     public List<String> getEventFileCollection() {
         return m_eventFiles;
     }
 
+    /**
+     * Gets the event file count.
+     *
+     * @return the event file count
+     */
     public int getEventFileCount() {
         return m_eventFiles.size();
     }
 
+    /**
+     * Gets the global.
+     *
+     * @return the global
+     */
     public Global getGlobal() {
         return m_global;
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
         return true;
     }
 
+    /**
+     * Iterate event.
+     *
+     * @return the iterator
+     */
     public Iterator<Event> iterateEvent() {
         return m_events.iterator();
     }
 
+    /**
+     * Iterate event file.
+     *
+     * @return the iterator
+     */
     public Iterator<String> iterateEventFile() {
         return m_eventFiles.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     */
     public void marshal(final Writer out) {
         JaxbUtils.marshal(this, out);
     }
 
+    /**
+     * Removes the all event.
+     */
     public void removeAllEvent() {
         m_events.clear();
     }
 
+    /**
+     * Removes the all event file.
+     */
     public void removeAllEventFile() {
         m_eventFiles.clear();
     }
 
+    /**
+     * Removes the event.
+     *
+     * @param event
+     *            the event
+     * @return true, if successful
+     */
     public boolean removeEvent(final Event event) {
         return m_events.remove(event);
     }
 
+    /**
+     * Removes the event at.
+     *
+     * @param index
+     *            the index
+     * @return the event
+     */
     public Event removeEventAt(final int index) {
         return m_events.remove(index);
     }
 
+    /**
+     * Removes the event file.
+     *
+     * @param eventFile
+     *            the event file
+     * @return true, if successful
+     */
     public boolean removeEventFile(final String eventFile) {
         return m_eventFiles.remove(eventFile);
     }
 
+    /**
+     * Removes the event file at.
+     *
+     * @param index
+     *            the index
+     * @return the string
+     */
     public String removeEventFileAt(final int index) {
         return m_eventFiles.remove(index);
     }
 
+    /**
+     * Sets the event.
+     *
+     * @param index
+     *            the index
+     * @param event
+     *            the event
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setEvent(final int index, final Event event) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_events.size()) {
             throw new IndexOutOfBoundsException("setEvent: Index value '" + index + "' not in range [0.."
@@ -228,6 +425,12 @@ public class Events implements Serializable {
         m_events.set(index, event);
     }
 
+    /**
+     * Sets the event.
+     *
+     * @param events
+     *            the new event
+     */
     public void setEvent(final Event[] events) {
         m_events.clear();
         for (final Event event : events) {
@@ -235,6 +438,12 @@ public class Events implements Serializable {
         }
     }
 
+    /**
+     * Sets the event.
+     *
+     * @param events
+     *            the new event
+     */
     public void setEvent(final List<Event> events) {
         if (m_events == events)
             return;
@@ -242,10 +451,26 @@ public class Events implements Serializable {
         m_events.addAll(events);
     }
 
+    /**
+     * Sets the event collection.
+     *
+     * @param events
+     *            the new event collection
+     */
     public void setEventCollection(final List<Event> events) {
         setEvent(events);
     }
 
+    /**
+     * Sets the event file.
+     *
+     * @param index
+     *            the index
+     * @param eventFile
+     *            the event file
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setEventFile(final int index, final String eventFile) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_eventFiles.size()) {
             throw new IndexOutOfBoundsException("setEventFile: Index value '" + index + "' not in range [0.."
@@ -254,6 +479,12 @@ public class Events implements Serializable {
         m_eventFiles.set(index, eventFile.intern());
     }
 
+    /**
+     * Sets the event file.
+     *
+     * @param eventFiles
+     *            the new event file
+     */
     public void setEventFile(final String[] eventFiles) {
         m_eventFiles.clear();
         for (final String eventFile : eventFiles) {
@@ -261,6 +492,12 @@ public class Events implements Serializable {
         }
     }
 
+    /**
+     * Sets the event file.
+     *
+     * @param eventFiles
+     *            the new event file
+     */
     public void setEventFile(final List<String> eventFiles) {
         if (m_eventFiles == eventFiles)
             return;
@@ -268,18 +505,40 @@ public class Events implements Serializable {
         m_eventFiles.addAll(eventFiles);
     }
 
+    /**
+     * Sets the event file collection.
+     *
+     * @param eventFiles
+     *            the new event file collection
+     */
     public void setEventFileCollection(final List<String> eventFiles) {
         setEventFile(eventFiles);
     }
 
+    /**
+     * Sets the global.
+     *
+     * @param global
+     *            the new global
+     */
     public void setGlobal(final Global global) {
         m_global = global;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the events
+     */
     public static Events unmarshal(final Reader reader) {
         return JaxbUtils.unmarshal(Events.class, reader);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -290,6 +549,9 @@ public class Events implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -320,6 +582,15 @@ public class Events implements Serializable {
         return true;
     }
 
+    /**
+     * Gets the relative.
+     *
+     * @param baseRef
+     *            the base ref
+     * @param relative
+     *            the relative
+     * @return the relative
+     */
     Resource getRelative(Resource baseRef, String relative) {
         try {
             if (relative.startsWith("classpath:")) {
@@ -338,6 +609,14 @@ public class Events implements Serializable {
 
     }
 
+    /**
+     * Load event files.
+     *
+     * @param configResource
+     *            the config resource
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public void loadEventFiles(Resource configResource) throws IOException {
         m_loadedEventFiles.clear();
 
@@ -364,10 +643,23 @@ public class Events implements Serializable {
         }
     }
 
+    /**
+     * Checks if is secure tag.
+     *
+     * @param tag
+     *            the tag
+     * @return true, if is secure tag
+     */
     public boolean isSecureTag(String tag) {
         return m_global == null ? false : m_global.isSecureTag(tag);
     }
 
+    /**
+     * Partition events.
+     *
+     * @param partition
+     *            the partition
+     */
     private void partitionEvents(Partition partition) {
         m_partition = partition;
 
@@ -392,6 +684,13 @@ public class Events implements Serializable {
 
     }
 
+    /**
+     * Find first matching event.
+     *
+     * @param matchingEvent
+     *            the matching event
+     * @return the event
+     */
     public Event findFirstMatchingEvent(org.opennms.netmgt.xml.event.Event matchingEvent) {
         String key = m_partition.group(matchingEvent);
         if (key != null) {
@@ -422,6 +721,13 @@ public class Events implements Serializable {
         return null;
     }
 
+    /**
+     * Find first matching event.
+     *
+     * @param criteria
+     *            the criteria
+     * @return the event
+     */
     public Event findFirstMatchingEvent(EventCriteria criteria) {
         for (Event event : m_events) {
             if (criteria.matches(event)) {
@@ -441,6 +747,17 @@ public class Events implements Serializable {
 
     }
 
+    /**
+     * For each event.
+     *
+     * @param <T>
+     *            the generic type
+     * @param initial
+     *            the initial
+     * @param callback
+     *            the callback
+     * @return the t
+     */
     public <T> T forEachEvent(T initial, EventCallback<T> callback) {
         T result = initial;
         for (Event event : m_events) {
@@ -455,6 +772,12 @@ public class Events implements Serializable {
         return result;
     }
 
+    /**
+     * Initialize.
+     *
+     * @param partition
+     *            the partition
+     */
     public void initialize(Partition partition) {
         for (Event event : m_events) {
             event.initialize();
@@ -469,20 +792,47 @@ public class Events implements Serializable {
 
     }
 
+    /**
+     * Gets the load events by file.
+     *
+     * @param relativePath
+     *            the relative path
+     * @return the load events by file
+     */
     public Events getLoadEventsByFile(String relativePath) {
         return m_loadedEventFiles.get(relativePath);
     }
 
+    /**
+     * Adds the loaded event file.
+     *
+     * @param relativePath
+     *            the relative path
+     * @param events
+     *            the events
+     */
     public void addLoadedEventFile(String relativePath, Events events) {
         m_eventFiles.add(relativePath);
         m_loadedEventFiles.put(relativePath, events);
     }
 
+    /**
+     * Removes the loaded event file.
+     *
+     * @param relativePath
+     *            the relative path
+     */
     public void removeLoadedEventFile(String relativePath) {
         m_eventFiles.remove(relativePath);
         m_loadedEventFiles.remove(relativePath);
     }
 
+    /**
+     * Save events.
+     *
+     * @param resource
+     *            the resource
+     */
     public void saveEvents(Resource resource) {
         final StringWriter stringWriter = new StringWriter();
         JaxbUtils.marshal(this, stringWriter);
@@ -529,6 +879,12 @@ public class Events implements Serializable {
 
     }
 
+    /**
+     * Save.
+     *
+     * @param resource
+     *            the resource
+     */
     public void save(Resource resource) {
         for (Entry<String, Events> entry : m_loadedEventFiles.entrySet()) {
             String eventFile = entry.getKey();

@@ -48,13 +48,15 @@ import org.exolab.castor.xml.Validator;
 import org.xml.sax.ContentHandler;
 
 /**
- * system definition
+ * system definition.
  */
 
 @XmlRootElement(name = "systemDef", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlType(propOrder = { "name", "sysoid", "sysoidMask", "ipList", "collect" })
 public class SystemDef implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 656006979873221835L;
 
     /**
@@ -73,16 +75,22 @@ public class SystemDef implements Serializable {
      */
     private IpList m_ipList;
 
-    /**
-     * container for list of MIB groups to be collected
-     * for the system
-     */
+    /** container for list of MIB groups to be collected for the system. */
     private Collect m_collect;
 
+    /**
+     * Instantiates a new system def.
+     */
     public SystemDef() {
         super();
     }
 
+    /**
+     * Instantiates a new system def.
+     *
+     * @param name
+     *            the name
+     */
     public SystemDef(final String name) {
         super();
         m_name = name;
@@ -128,11 +136,22 @@ public class SystemDef implements Serializable {
     }
 
     /* Make compatible with JAXB by proxying SystemDefChoice */
+    /**
+     * Gets the sysoid.
+     *
+     * @return the sysoid
+     */
     @XmlElement(name = "sysoid")
     public String getSysoid() {
         return m_systemDefChoice == null ? null : m_systemDefChoice.getSysoid();
     }
 
+    /**
+     * Sets the sysoid.
+     *
+     * @param sysoid
+     *            the new sysoid
+     */
     public void setSysoid(final String sysoid) {
         if (m_systemDefChoice == null)
             m_systemDefChoice = new SystemDefChoice();
@@ -140,11 +159,22 @@ public class SystemDef implements Serializable {
         m_systemDefChoice.setSysoidMask(null);
     }
 
+    /**
+     * Gets the sysoid mask.
+     *
+     * @return the sysoid mask
+     */
     @XmlElement(name = "sysoidMask")
     public String getSysoidMask() {
         return m_systemDefChoice == null ? null : m_systemDefChoice.getSysoidMask();
     }
 
+    /**
+     * Sets the sysoid mask.
+     *
+     * @param sysoidMask
+     *            the new sysoid mask
+     */
     public void setSysoidMask(final String sysoidMask) {
         if (m_systemDefChoice == null)
             m_systemDefChoice = new SystemDefChoice();
@@ -208,6 +238,7 @@ public class SystemDef implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -295,7 +326,10 @@ public class SystemDef implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -309,16 +343,18 @@ public class SystemDef implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -329,14 +365,15 @@ public class SystemDef implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         SystemDef
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         SystemDef
      */
     @Deprecated
     public static SystemDef unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -344,6 +381,8 @@ public class SystemDef implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

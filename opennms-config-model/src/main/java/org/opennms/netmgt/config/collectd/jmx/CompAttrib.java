@@ -91,6 +91,9 @@ public class CompAttrib implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new comp attrib.
+     */
     public CompAttrib() {
         super();
         this._compMemberList = new java.util.ArrayList<CompMember>();
@@ -101,21 +104,26 @@ public class CompAttrib implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the comp member.
+     *
      * @param vCompMember
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp member
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCompMember(final CompMember vCompMember) throws java.lang.IndexOutOfBoundsException {
         this._compMemberList.add(vCompMember);
     }
 
     /**
+     * Adds the comp member.
+     *
      * @param index
+     *            the index
      * @param vCompMember
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp member
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCompMember(final int index, final CompMember vCompMember) throws java.lang.IndexOutOfBoundsException {
         this._compMemberList.add(index, vCompMember);
@@ -135,6 +143,7 @@ public class CompAttrib implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -191,12 +200,12 @@ public class CompAttrib implements java.io.Serializable {
      * Method getCompMember.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.collectd.jmx.CompMember at the given
      *         index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public CompMember getCompMember(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -317,13 +326,14 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
@@ -332,16 +342,16 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
@@ -350,6 +360,7 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
+     * Removes the all comp member.
      */
     public void removeAllCompMember() {
         this._compMemberList.clear();
@@ -359,6 +370,7 @@ public class CompAttrib implements java.io.Serializable {
      * Method removeCompMember.
      *
      * @param vCompMember
+     *            the v comp member
      * @return true if the object was removed from the collection.
      */
     public boolean removeCompMember(final CompMember vCompMember) {
@@ -370,6 +382,7 @@ public class CompAttrib implements java.io.Serializable {
      * Method removeCompMemberAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public CompMember removeCompMemberAt(final int index) {
@@ -388,11 +401,14 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
+     * Sets the comp member.
+     *
      * @param index
+     *            the index
      * @param vCompMember
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp member
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setCompMember(final int index, final CompMember vCompMember) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -405,7 +421,10 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
+     * Sets the comp member.
+     *
      * @param vCompMemberArray
+     *            the new comp member
      */
     public void setCompMember(final CompMember[] vCompMemberArray) {
         // -- copy array
@@ -434,9 +453,9 @@ public class CompAttrib implements java.io.Serializable {
      * Sets the value of '_compMemberList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param compMemberList
      *            the Vector to set.
+     * @deprecated
      */
     public void setCompMemberCollection(final java.util.List<CompMember> compMemberList) {
         this._compMemberList = compMemberList;
@@ -466,14 +485,13 @@ public class CompAttrib implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.collectd.jmx.CompAttrib
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static CompAttrib unmarshal(final java.io.Reader reader) throws org.exolab.castor.xml.MarshalException,
@@ -482,9 +500,10 @@ public class CompAttrib implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws org.exolab.castor.xml.ValidationException {

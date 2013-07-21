@@ -81,6 +81,9 @@ public class VarbindsdecodeDescriptor extends org.exolab.castor.xml.util.XMLClas
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new varbindsdecode descriptor.
+     */
     public VarbindsdecodeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

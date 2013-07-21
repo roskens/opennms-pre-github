@@ -83,6 +83,9 @@ public class CompAttribDescriptor extends org.exolab.castor.xml.util.XMLClassDes
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new comp attrib descriptor.
+     */
     public CompAttribDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/jmx-datacollection";

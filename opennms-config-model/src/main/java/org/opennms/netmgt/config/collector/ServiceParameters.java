@@ -46,8 +46,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ServiceParameters {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ServiceParameters.class);
 
+    /** The m_parameters. */
     Map<String, Object> m_parameters;
 
     /**
@@ -66,6 +69,7 @@ public class ServiceParameters {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.Map} object.
      */
@@ -77,6 +81,7 @@ public class ServiceParameters {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -87,38 +92,83 @@ public class ServiceParameters {
                 + getIfAliasComment();
     }
 
+    /**
+     * Gets the domain.
+     *
+     * @return the domain
+     */
     public String getDomain() {
         return ParameterMap.getKeyedString(getParameters(), "domain", "default");
     }
 
+    /**
+     * Gets the store by node id.
+     *
+     * @return the store by node id
+     */
     public String getStoreByNodeID() {
         return ParameterMap.getKeyedString(getParameters(), "storeByNodeID", "normal");
     }
 
+    /**
+     * Gets the store by if alias.
+     *
+     * @return the store by if alias
+     */
     public String getStoreByIfAlias() {
         return ParameterMap.getKeyedString(getParameters(), "storeByIfAlias", "false");
     }
 
+    /**
+     * Gets the stor flag override.
+     *
+     * @return the stor flag override
+     */
     public String getStorFlagOverride() {
         return ParameterMap.getKeyedString(getParameters(), "storFlagOverride", "false");
     }
 
+    /**
+     * Gets the if alias comment.
+     *
+     * @return the if alias comment
+     */
     public String getIfAliasComment() {
         return ParameterMap.getKeyedString(getParameters(), "ifAliasComment", null);
     }
 
+    /**
+     * Aliases enabled.
+     *
+     * @return true, if successful
+     */
     public boolean aliasesEnabled() {
         return getStoreByIfAlias().equals("true");
     }
 
+    /**
+     * Override storage flag.
+     *
+     * @return true, if successful
+     */
     public boolean overrideStorageFlag() {
         return !getStorFlagOverride().equals("false");
     }
 
+    /**
+     * Log if alias config.
+     */
     public void logIfAliasConfig() {
         LOG.info("logIfAliasConfig: {}", this);
     }
 
+    /**
+     * Force store by alias.
+     *
+     * @param alias
+     *            the alias
+     * @return true, if successful
+     */
     public boolean forceStoreByAlias(String alias) {
         if (alias == null || alias.equals("")) {
             return false;
@@ -135,6 +185,11 @@ public class ServiceParameters {
         return overrideStorageFlag();
     }
 
+    /**
+     * Gets the collection name.
+     *
+     * @return the collection name
+     */
     public String getCollectionName() {
         // icky hard coded old names; we need to handle some old cases where
         // configs might be not yet updated, but they should
@@ -162,18 +217,46 @@ public class ServiceParameters {
      * Parameters corresponding to attributes from snmp-config
      */
 
+    /**
+     * Gets the snmp port.
+     *
+     * @param current
+     *            the current
+     * @return the snmp port
+     */
     public int getSnmpPort(int current) {
         return ParameterMap.getKeyedInteger(getParameters(), "port", current);
     }
 
+    /**
+     * Gets the snmp retries.
+     *
+     * @param current
+     *            the current
+     * @return the snmp retries
+     */
     public int getSnmpRetries(int current) {
         return ParameterMap.getKeyedInteger(getParameters(), "retry", current);
     }
 
+    /**
+     * Gets the snmp timeout.
+     *
+     * @param current
+     *            the current
+     * @return the snmp timeout
+     */
     public int getSnmpTimeout(int current) {
         return ParameterMap.getKeyedInteger(getParameters(), "timeout", current);
     }
 
+    /**
+     * Gets the snmp read community.
+     *
+     * @param current
+     *            the current
+     * @return the snmp read community
+     */
     public String getSnmpReadCommunity(String current) {
         String readCommunity = ParameterMap.getKeyedString(getParameters(), "read-community", null);
         if (readCommunity == null) {
@@ -183,10 +266,24 @@ public class ServiceParameters {
         return readCommunity;
     }
 
+    /**
+     * Gets the snmp write community.
+     *
+     * @param current
+     *            the current
+     * @return the snmp write community
+     */
     public String getSnmpWriteCommunity(String current) {
         return ParameterMap.getKeyedString(getParameters(), "write-community", current);
     }
 
+    /**
+     * Gets the snmp proxy for.
+     *
+     * @param current
+     *            the current
+     * @return the snmp proxy for
+     */
     public InetAddress getSnmpProxyFor(InetAddress current) {
         String address = ParameterMap.getKeyedString(getParameters(), "proxy-host", null);
         InetAddress addr = null;
@@ -199,6 +296,13 @@ public class ServiceParameters {
         return addr == null ? current : addr;
     }
 
+    /**
+     * Gets the snmp version.
+     *
+     * @param current
+     *            the current
+     * @return the snmp version
+     */
     public int getSnmpVersion(int current) {
         String version = ParameterMap.getKeyedString(getParameters(), "version", null);
         if (version != null) {
@@ -213,10 +317,24 @@ public class ServiceParameters {
         return current;
     }
 
+    /**
+     * Gets the snmp max vars per pdu.
+     *
+     * @param current
+     *            the current
+     * @return the snmp max vars per pdu
+     */
     public int getSnmpMaxVarsPerPdu(int current) {
         return ParameterMap.getKeyedInteger(getParameters(), "max-vars-per-pdu", current);
     }
 
+    /**
+     * Gets the snmp max repetitions.
+     *
+     * @param current
+     *            the current
+     * @return the snmp max repetitions
+     */
     public int getSnmpMaxRepetitions(int current) {
         int maxRepetitions = ParameterMap.getKeyedInteger(m_parameters, "max-repetitions", -1);
         if (maxRepetitions == -1) {
@@ -226,26 +344,68 @@ public class ServiceParameters {
         return maxRepetitions;
     }
 
+    /**
+     * Gets the snmp max request size.
+     *
+     * @param current
+     *            the current
+     * @return the snmp max request size
+     */
     public int getSnmpMaxRequestSize(int current) {
         return ParameterMap.getKeyedInteger(getParameters(), "max-request-size", current);
     }
 
+    /**
+     * Gets the snmp security name.
+     *
+     * @param current
+     *            the current
+     * @return the snmp security name
+     */
     public String getSnmpSecurityName(String current) {
         return ParameterMap.getKeyedString(getParameters(), "security-name", current);
     }
 
+    /**
+     * Gets the snmp auth pass phrase.
+     *
+     * @param current
+     *            the current
+     * @return the snmp auth pass phrase
+     */
     public String getSnmpAuthPassPhrase(String current) {
         return ParameterMap.getKeyedString(getParameters(), "auth-passphrase", current);
     }
 
+    /**
+     * Gets the snmp auth protocol.
+     *
+     * @param current
+     *            the current
+     * @return the snmp auth protocol
+     */
     public String getSnmpAuthProtocol(String current) {
         return ParameterMap.getKeyedString(getParameters(), "auth-protocol", current);
     }
 
+    /**
+     * Gets the snmp priv pass phrase.
+     *
+     * @param current
+     *            the current
+     * @return the snmp priv pass phrase
+     */
     public String getSnmpPrivPassPhrase(String current) {
         return ParameterMap.getKeyedString(getParameters(), "privacy-passphrase", current);
     }
 
+    /**
+     * Gets the snmp priv protocol.
+     *
+     * @param current
+     *            the current
+     * @return the snmp priv protocol
+     */
     public String getSnmpPrivProtocol(String current) {
         return ParameterMap.getKeyedString(getParameters(), "privacy-protocol", current);
     }

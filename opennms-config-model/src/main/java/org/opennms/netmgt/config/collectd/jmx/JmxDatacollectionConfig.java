@@ -79,6 +79,9 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new jmx datacollection config.
+     */
     public JmxDatacollectionConfig() {
         super();
         this._jmxCollectionList = new java.util.ArrayList<JmxCollection>();
@@ -89,21 +92,26 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the jmx collection.
+     *
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v jmx collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addJmxCollection(final JmxCollection vJmxCollection) throws java.lang.IndexOutOfBoundsException {
         this._jmxCollectionList.add(vJmxCollection);
     }
 
     /**
+     * Adds the jmx collection.
+     *
      * @param index
+     *            the index
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v jmx collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addJmxCollection(final int index, final JmxCollection vJmxCollection)
             throws java.lang.IndexOutOfBoundsException {
@@ -124,6 +132,7 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -157,12 +166,12 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Method getJmxCollection.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.collectd.jmx.JmxCollection at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public JmxCollection getJmxCollection(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -268,13 +277,14 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
@@ -283,16 +293,16 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
@@ -301,6 +311,7 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all jmx collection.
      */
     public void removeAllJmxCollection() {
         this._jmxCollectionList.clear();
@@ -310,6 +321,7 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Method removeJmxCollection.
      *
      * @param vJmxCollection
+     *            the v jmx collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeJmxCollection(final JmxCollection vJmxCollection) {
@@ -321,6 +333,7 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Method removeJmxCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public JmxCollection removeJmxCollectionAt(final int index) {
@@ -329,11 +342,14 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the jmx collection.
+     *
      * @param index
+     *            the index
      * @param vJmxCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v jmx collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setJmxCollection(final int index, final JmxCollection vJmxCollection)
             throws java.lang.IndexOutOfBoundsException {
@@ -347,7 +363,10 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the jmx collection.
+     *
      * @param vJmxCollectionArray
+     *            the new jmx collection
      */
     public void setJmxCollection(final JmxCollection[] vJmxCollectionArray) {
         // -- copy array
@@ -376,9 +395,9 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Sets the value of '_jmxCollectionList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param jmxCollectionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setJmxCollectionCollection(final java.util.List<JmxCollection> jmxCollectionList) {
         this._jmxCollectionList = jmxCollectionList;
@@ -398,14 +417,13 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.collectd.jmx.JmxDatacollectionConfig
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static JmxDatacollectionConfig unmarshal(final java.io.Reader reader)
@@ -414,9 +432,10 @@ public class JmxDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws org.exolab.castor.xml.ValidationException {

@@ -52,37 +52,72 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * Security settings for this configuration
+ * Security settings for this configuration.
  */
 @XmlRootElement(name = "security")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Security implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3138224695711877257L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     /**
-     * Event element whose value cannot be overridden by a
-     * value in an incoming event
+     * Event element whose value cannot be overridden by a value in an incoming
+     * event.
      */
     // @NotNull
     // @Size(min=1)
     @XmlElement(name = "doNotOverride", required = true)
     private List<String> m_doNotOverride = new ArrayList<String>();
 
+    /**
+     * Adds the do not override.
+     *
+     * @param doNotOverride
+     *            the do not override
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addDoNotOverride(final String doNotOverride) throws IndexOutOfBoundsException {
         m_doNotOverride.add(doNotOverride);
     }
 
+    /**
+     * Adds the do not override.
+     *
+     * @param index
+     *            the index
+     * @param doNotOverride
+     *            the do not override
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addDoNotOverride(final int index, final String doNotOverride) throws IndexOutOfBoundsException {
         m_doNotOverride.add(index, doNotOverride);
     }
 
+    /**
+     * Enumerate do not override.
+     *
+     * @return the enumeration
+     */
     public Enumeration<String> enumerateDoNotOverride() {
         return Collections.enumeration(m_doNotOverride);
     }
 
+    /**
+     * Gets the do not override.
+     *
+     * @param index
+     *            the index
+     * @return the do not override
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public String getDoNotOverride(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_doNotOverride.size()) {
             throw new IndexOutOfBoundsException("getDoNotOverride: Index value '" + index + "' not in range [0.."
@@ -91,19 +126,36 @@ public class Security implements Serializable {
         return m_doNotOverride.get(index);
     }
 
+    /**
+     * Gets the do not override.
+     *
+     * @return the do not override
+     */
     public String[] getDoNotOverride() {
         return m_doNotOverride.toArray(EMPTY_STRING_ARRAY);
     }
 
+    /**
+     * Gets the do not override collection.
+     *
+     * @return the do not override collection
+     */
     public List<String> getDoNotOverrideCollection() {
         return m_doNotOverride;
     }
 
+    /**
+     * Gets the do not override count.
+     *
+     * @return the do not override count
+     */
     public int getDoNotOverrideCount() {
         return m_doNotOverride.size();
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -115,30 +167,84 @@ public class Security implements Serializable {
         return true;
     }
 
+    /**
+     * Iterate do not override.
+     *
+     * @return the iterator
+     */
     public Iterator<String> iterateDoNotOverride() {
         return m_doNotOverride.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all do not override.
+     */
     public void removeAllDoNotOverride() {
         m_doNotOverride.clear();
     }
 
+    /**
+     * Removes the do not override.
+     *
+     * @param doNotOverride
+     *            the do not override
+     * @return true, if successful
+     */
     public boolean removeDoNotOverride(final String doNotOverride) {
         return m_doNotOverride.remove(doNotOverride);
     }
 
+    /**
+     * Removes the do not override at.
+     *
+     * @param index
+     *            the index
+     * @return the string
+     */
     public String removeDoNotOverrideAt(final int index) {
         return m_doNotOverride.remove(index);
     }
 
+    /**
+     * Sets the do not override.
+     *
+     * @param index
+     *            the index
+     * @param doNotOverride
+     *            the do not override
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setDoNotOverride(final int index, final String doNotOverride) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_doNotOverride.size()) {
             throw new IndexOutOfBoundsException("setDoNotOverride: Index value '" + index + "' not in range [0.."
@@ -147,6 +253,12 @@ public class Security implements Serializable {
         m_doNotOverride.set(index, doNotOverride);
     }
 
+    /**
+     * Sets the do not override.
+     *
+     * @param doNotOverride
+     *            the new do not override
+     */
     public void setDoNotOverride(final String[] doNotOverride) {
         m_doNotOverride.clear();
         for (final String dno : doNotOverride) {
@@ -154,6 +266,12 @@ public class Security implements Serializable {
         }
     }
 
+    /**
+     * Sets the do not override.
+     *
+     * @param doNotOverride
+     *            the new do not override
+     */
     public void setDoNotOverride(final List<String> doNotOverride) {
         if (m_doNotOverride == doNotOverride)
             return;
@@ -161,18 +279,44 @@ public class Security implements Serializable {
         m_doNotOverride.addAll(doNotOverride);
     }
 
+    /**
+     * Sets the do not override collection.
+     *
+     * @param doNotOverride
+     *            the new do not override collection
+     */
     public void setDoNotOverrideCollection(final List<String> doNotOverride) {
         setDoNotOverride(doNotOverride);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the security
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Security unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Security) Unmarshaller.unmarshal(Security.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -181,6 +325,9 @@ public class Security implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -199,6 +346,13 @@ public class Security implements Serializable {
         return true;
     }
 
+    /**
+     * Checks if is secure tag.
+     *
+     * @param tag
+     *            the tag
+     * @return true, if is secure tag
+     */
     public boolean isSecureTag(String tag) {
         return m_doNotOverride == null ? false : m_doNotOverride.contains(tag);
     }

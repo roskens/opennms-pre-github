@@ -50,6 +50,8 @@ import org.springframework.util.Assert;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class DutySchedule {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DutySchedule.class);
 
     /**
@@ -58,48 +60,42 @@ public class DutySchedule {
      */
     private BitSet m_days;
 
-    /**
-     * The starting time of this DutySchedule
-     */
+    /** The starting time of this DutySchedule. */
     private int m_startTime;
 
-    /**
-     * The ending time of this DutySchedule
-     */
+    /** The ending time of this DutySchedule. */
     private int m_stopTime;
 
     /**
      * A series of constants to identify the days of the week as used by the
-     * DutySchedule class
+     * DutySchedule class.
      */
     public static final int MONDAY = 0;
 
-    /** Constant <code>TUESDAY=1</code> */
+    /** Constant <code>TUESDAY=1</code>. */
     public static final int TUESDAY = 1;
 
-    /** Constant <code>WEDNESDAY=2</code> */
+    /** Constant <code>WEDNESDAY=2</code>. */
     public static final int WEDNESDAY = 2;
 
-    /** Constant <code>THURSDAY=3</code> */
+    /** Constant <code>THURSDAY=3</code>. */
     public static final int THURSDAY = 3;
 
-    /** Constant <code>FRIDAY=4</code> */
+    /** Constant <code>FRIDAY=4</code>. */
     public static final int FRIDAY = 4;
 
-    /** Constant <code>SATURDAY=5</code> */
+    /** Constant <code>SATURDAY=5</code>. */
     public static final int SATURDAY = 5;
 
-    /** Constant <code>SUNDAY=6</code> */
+    /** Constant <code>SUNDAY=6</code>. */
     public static final int SUNDAY = 6;
 
-    /**
-     * A list of names to abbreviate the days of the week
-     */
+    /** A list of names to abbreviate the days of the week. */
     public static final String[] DAY_NAMES = { "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su" };
 
     /**
      * A mapping between the days of the week as indexed by the DutySchedule
-     * class and those of the Calendar class
+     * class and those of the Calendar class.
      */
     private static final int[] CALENDAR_DAY_MAPPING = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
             Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY };
@@ -203,7 +199,7 @@ public class DutySchedule {
     }
 
     /**
-     * This method returns the index value of a day abbreviation
+     * This method returns the index value of a day abbreviation.
      *
      * @param aDay
      *            the day abbreviation
@@ -234,7 +230,7 @@ public class DutySchedule {
     }
 
     /**
-     * This method return the start time as an integer
+     * This method return the start time as an integer.
      *
      * @return The start time of this DutySchedule.
      */
@@ -243,7 +239,7 @@ public class DutySchedule {
     }
 
     /**
-     * This method return the stop time as an integer
+     * This method return the stop time as an integer.
      *
      * @return The stop time of this DutySchedule.
      */
@@ -441,7 +437,7 @@ public class DutySchedule {
     }
 
     /**
-     * This method sets the start time of this DutySchedule
+     * This method sets the start time of this DutySchedule.
      *
      * @param anHour
      *            The hour in military time to set the start time for the
@@ -452,7 +448,7 @@ public class DutySchedule {
     }
 
     /**
-     * This method sets the stop time of this DutySchedule
+     * This method sets the stop time of this DutySchedule.
      *
      * @param anHour
      *            The hour in military time to set the end time for the
@@ -491,6 +487,7 @@ public class DutySchedule {
      * <p>
      * isInSchedule
      * </p>
+     * .
      *
      * @param time
      *            a {@link java.util.Date} object.
@@ -506,6 +503,7 @@ public class DutySchedule {
      * <p>
      * hasDay
      * </p>
+     * .
      *
      * @param aDay
      *            a int.

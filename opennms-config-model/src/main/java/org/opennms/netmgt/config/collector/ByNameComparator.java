@@ -41,22 +41,24 @@ import java.util.Comparator;
  */
 public final class ByNameComparator implements Comparator<AttributeDefinition>, Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2596801053643459622L;
 
     /**
      * <p>
      * compare
      * </p>
+     * .
      *
      * @param type0
      *            a
-     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
-     *            object.
      * @param type1
      *            a
-     *            {@link org.opennms.netmgt.config.collector.AttributeDefinition}
-     *            object.
      * @return a int.
+     *         {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *         object.
+     *         {@link org.opennms.netmgt.config.collector.AttributeDefinition}
+     *         object.
      */
     @Override
     public int compare(final AttributeDefinition type0, final AttributeDefinition type1) {
@@ -73,6 +75,7 @@ public final class ByNameComparator implements Comparator<AttributeDefinition>, 
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

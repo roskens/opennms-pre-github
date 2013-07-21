@@ -42,6 +42,7 @@ public interface CollectionSetVisitor {
      * <p>
      * visitCollectionSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.netmgt.collectd.CollectionSet} object.
@@ -52,6 +53,7 @@ public interface CollectionSetVisitor {
      * <p>
      * visitResource
      * </p>
+     * .
      *
      * @param resource
      *            a
@@ -64,6 +66,7 @@ public interface CollectionSetVisitor {
      * <p>
      * visitGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
@@ -74,6 +77,7 @@ public interface CollectionSetVisitor {
      * <p>
      * visitAttribute
      * </p>
+     * .
      *
      * @param attribute
      *            a {@link org.opennms.netmgt.collectd.CollectionAttribute}
@@ -85,6 +89,7 @@ public interface CollectionSetVisitor {
      * <p>
      * completeAttribute
      * </p>
+     * .
      *
      * @param attribute
      *            a {@link org.opennms.netmgt.collectd.CollectionAttribute}
@@ -96,6 +101,7 @@ public interface CollectionSetVisitor {
      * <p>
      * completeGroup
      * </p>
+     * .
      *
      * @param group
      *            a {@link org.opennms.netmgt.collectd.AttributeGroup} object.
@@ -106,6 +112,7 @@ public interface CollectionSetVisitor {
      * <p>
      * completeResource
      * </p>
+     * .
      *
      * @param resource
      *            a
@@ -118,6 +125,7 @@ public interface CollectionSetVisitor {
      * <p>
      * completeCollectionSet
      * </p>
+     * .
      *
      * @param set
      *            a {@link org.opennms.netmgt.collectd.CollectionSet} object.

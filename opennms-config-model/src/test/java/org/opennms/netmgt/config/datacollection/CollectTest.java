@@ -35,12 +35,32 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
 
+/**
+ * The Class CollectTest.
+ */
 public class CollectTest extends XmlTest<Collect> {
 
+    /**
+     * Instantiates a new collect test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public CollectTest(final Collect sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Collect collect = new Collect();

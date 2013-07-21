@@ -81,6 +81,9 @@ public class TticketDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new tticket descriptor.
+     */
     public TticketDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

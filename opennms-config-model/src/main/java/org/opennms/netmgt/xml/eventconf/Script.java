@@ -49,30 +49,46 @@ import org.xml.sax.ContentHandler;
 
 /**
  * The script information for this event - describes a
- * script to be executed whenever the event occurs
+ * script to be executed whenever the event occurs.
  */
 @XmlRootElement(name = "script")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Script implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7297438677703089801L;
 
+    /** The m_content. */
     @XmlValue
     private String m_content = "";
 
     // @NotNull
+    /** The m_language. */
     @XmlAttribute(name = "language", required = true)
     private String m_language;
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public String getContent() {
         return m_content;
     }
 
+    /**
+     * Gets the language.
+     *
+     * @return the language
+     */
     public String getLanguage() {
         return m_language;
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -84,30 +100,84 @@ public class Script implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the content.
+     *
+     * @param content
+     *            the new content
+     */
     public void setContent(final String content) {
         m_content = content.intern();
     }
 
+    /**
+     * Sets the language.
+     *
+     * @param language
+     *            the new language
+     */
     public void setLanguage(final String language) {
         m_language = language.intern();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the script
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Script unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Script) Unmarshaller.unmarshal(Script.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -117,6 +187,9 @@ public class Script implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

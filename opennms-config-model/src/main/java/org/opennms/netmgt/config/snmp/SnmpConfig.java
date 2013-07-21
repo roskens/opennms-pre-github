@@ -60,8 +60,11 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "snmp-config")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SnmpConfig extends Configuration implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3139857316489386441L;
 
+    /** The Constant EMPTY_DEFINITION. */
     private static final Definition[] EMPTY_DEFINITION = new Definition[0];
 
     /**
@@ -70,10 +73,59 @@ public class SnmpConfig extends Configuration implements Serializable {
     @XmlElement(name = "definition")
     private List<Definition> _definitionList = new ArrayList<Definition>();
 
+    /**
+     * Instantiates a new snmp config.
+     */
     public SnmpConfig() {
         super();
     }
 
+    /**
+     * Instantiates a new snmp config.
+     *
+     * @param port
+     *            the port
+     * @param retry
+     *            the retry
+     * @param timeout
+     *            the timeout
+     * @param readCommunity
+     *            the read community
+     * @param writeCommunity
+     *            the write community
+     * @param proxyHost
+     *            the proxy host
+     * @param version
+     *            the version
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     * @param maxRepetitions
+     *            the max repetitions
+     * @param maxRequestSize
+     *            the max request size
+     * @param securityName
+     *            the security name
+     * @param securityLevel
+     *            the security level
+     * @param authPassphrase
+     *            the auth passphrase
+     * @param authProtocol
+     *            the auth protocol
+     * @param engineId
+     *            the engine id
+     * @param contextEngineId
+     *            the context engine id
+     * @param contextName
+     *            the context name
+     * @param privacyPassphrase
+     *            the privacy passphrase
+     * @param privacyProtocol
+     *            the privacy protocol
+     * @param enterpriseId
+     *            the enterprise id
+     * @param definitionList
+     *            the definition list
+     */
     public SnmpConfig(final Integer port, final Integer retry, final Integer timeout, final String readCommunity,
             final String writeCommunity, final String proxyHost, final String version, final Integer maxVarsPerPdu,
             final Integer maxRepetitions, final Integer maxRequestSize, final String securityName,
@@ -87,7 +139,10 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the definition.
+     *
      * @param vDefinition
+     *            the v definition
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -97,8 +152,12 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the definition.
+     *
      * @param index
+     *            the index
      * @param vDefinition
+     *            the v definition
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -121,6 +180,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -140,11 +200,12 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method getDefinition.
      *
      * @param index
+     *            the index
+     * @return the value of the
+     *         Definition at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the
-     *         Definition at the given index
      */
     public Definition getDefinition(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= this._definitionList.size()) {
@@ -235,7 +296,10 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -249,16 +313,19 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Override
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -266,6 +333,7 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Removes the all definition.
      */
     public void removeAllDefinition() {
         this._definitionList.clear();
@@ -275,6 +343,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method removeDefinition.
      *
      * @param vDefinition
+     *            the v definition
      * @return true if the object was removed from the collection.
      */
     public boolean removeDefinition(final Definition vDefinition) {
@@ -285,6 +354,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method removeDefinitionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Definition removeDefinitionAt(final int index) {
@@ -292,8 +362,12 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the definition.
+     *
      * @param index
+     *            the index
      * @param vDefinition
+     *            the v definition
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -308,7 +382,10 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the definition.
+     *
      * @param vDefinitionArray
+     *            the new definition
      */
     public void setDefinition(final Definition[] vDefinitionArray) {
         _definitionList.clear();
@@ -335,9 +412,9 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Sets the value of '_definitionList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param definitionList
      *            the Vector to set.
+     * @deprecated
      */
     public void setDefinitionCollection(final List<Definition> definitionList) {
         this._definitionList = definitionList;
@@ -347,20 +424,23 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Configuration
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Configuration
      */
     public static Configuration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Configuration) Unmarshaller.unmarshal(org.opennms.netmgt.config.snmp.SnmpConfig.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
@@ -370,6 +450,9 @@ public class SnmpConfig extends Configuration implements Serializable {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.snmp.Configuration#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).appendSuper(super.toString()).append("definitions", getDefinitionCollection()).toString();

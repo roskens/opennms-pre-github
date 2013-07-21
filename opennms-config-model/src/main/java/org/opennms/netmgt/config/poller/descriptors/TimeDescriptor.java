@@ -82,6 +82,9 @@ public class TimeDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new time descriptor.
+     */
     public TimeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/poller/outages";

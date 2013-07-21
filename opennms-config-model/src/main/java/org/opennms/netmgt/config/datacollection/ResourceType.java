@@ -49,7 +49,7 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * a custom resource type
+ * a custom resource type.
  */
 
 @XmlRootElement(name = "resourceType", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
@@ -57,21 +57,19 @@ import org.xml.sax.ContentHandler;
 @XmlType(propOrder = { "name", "label", "resourceLabel", "persistenceSelectorStrategy", "storageStrategy" })
 @ValidateUsing("datacollection-config.xsd")
 public class ResourceType implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8938114920180120619L;
 
-    /**
-     * resource type name
-     */
+    /** resource type name. */
     private String m_name;
 
-    /**
-     * resource type label (this is what users see in the webUI)
-     */
+    /** resource type label (this is what users see in the webUI). */
     private String m_label;
 
     /**
-     * resource label expression (this is what users see in the
-     * webUI for each resource of this type)
+     * resource label expression (this is what users see in the webUI for each
+     * resource of this type).
      */
     private String m_resourceLabel;
 
@@ -90,6 +88,7 @@ public class ResourceType implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -248,7 +247,10 @@ public class ResourceType implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -262,16 +264,18 @@ public class ResourceType implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -344,14 +348,15 @@ public class ResourceType implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         ResourceType
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         ResourceType
      */
     @Deprecated
     public static ResourceType unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -359,6 +364,8 @@ public class ResourceType implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

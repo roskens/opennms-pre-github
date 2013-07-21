@@ -37,10 +37,12 @@ package org.opennms.netmgt.config.collector;
  * @version $Id: $
  */
 public interface CollectionAttribute {
+
     /**
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -64,7 +66,7 @@ public interface CollectionAttribute {
     public String getNumericValue();
 
     /**
-     * Gets the name of the attribute
+     * Gets the name of the attribute.
      *
      * @return a name
      */
@@ -72,7 +74,7 @@ public interface CollectionAttribute {
 
     /**
      * Get the metric identifier for the attribute to be used for NRTG
-     * collection
+     * collection.
      *
      * @return the metric identifier
      */
@@ -91,9 +93,9 @@ public interface CollectionAttribute {
      *
      * @param params
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *         object.
      */
     public boolean shouldPersist(ServiceParameters params);
 
@@ -107,7 +109,7 @@ public interface CollectionAttribute {
     public CollectionAttributeType getAttributeType();
 
     /**
-     * Visit this attribute
+     * Visit this attribute.
      *
      * @param visitor
      *            a
@@ -118,7 +120,7 @@ public interface CollectionAttribute {
 
     /**
      * Returns type of value (typically one of "counter", "gauge", "timeticks",
-     * "integer", "octetstring" - see NumericAttributeType)
+     * "integer", "octetstring" - see NumericAttributeType).
      *
      * @return type of value stored in this attribute (SNMP semantics)
      */

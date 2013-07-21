@@ -82,6 +82,9 @@ public class GroupDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new group descriptor.
+     */
     public GroupDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

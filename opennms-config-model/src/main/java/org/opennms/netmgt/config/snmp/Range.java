@@ -46,12 +46,14 @@ import org.exolab.castor.xml.Validator;
 import org.xml.sax.ContentHandler;
 
 /**
- * IP Address Range
+ * IP Address Range.
  */
 
 @XmlRootElement(name = "range")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Range implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3386982883357355619L;
 
     /*
@@ -72,10 +74,21 @@ public class Range implements Serializable {
     @XmlAttribute(name = "begin", required = true)
     private String _begin;
 
+    /**
+     * Instantiates a new range.
+     */
     public Range() {
         super();
     }
 
+    /**
+     * Instantiates a new range.
+     *
+     * @param begin
+     *            the begin
+     * @param end
+     *            the end
+     */
     public Range(final String begin, String end) {
         _begin = begin;
         _end = end;
@@ -116,7 +129,10 @@ public class Range implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -129,16 +145,19 @@ public class Range implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
@@ -170,19 +189,22 @@ public class Range implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled Range
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled Range
      */
     public static Range unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Range) Unmarshaller.unmarshal(Range.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
@@ -191,11 +213,17 @@ public class Range implements Serializable {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Range[begin=" + _begin + ", end=" + _end + "]";
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -205,6 +233,9 @@ public class Range implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

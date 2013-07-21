@@ -84,6 +84,9 @@ public class JmxCollectionDescriptor extends org.exolab.castor.xml.util.XMLClass
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new jmx collection descriptor.
+     */
     public JmxCollectionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/jmx-datacollection";

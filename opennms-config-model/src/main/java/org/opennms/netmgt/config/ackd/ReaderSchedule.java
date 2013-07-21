@@ -51,10 +51,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "reader-schedule")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ReaderSchedule implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3113838261541036911L;
 
+    /** The Constant DEFAULT_INTERVAL. */
     public static final long DEFAULT_INTERVAL = 1L;
 
+    /** The Constant DEFAULT_UNIT. */
     public static final String DEFAULT_UNIT = "m";
 
     // --------------------------/
@@ -77,10 +81,21 @@ public class ReaderSchedule implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new reader schedule.
+     */
     public ReaderSchedule() {
         super();
     }
 
+    /**
+     * Instantiates a new reader schedule.
+     *
+     * @param interval
+     *            the interval
+     * @param unit
+     *            the unit
+     */
     public ReaderSchedule(final Long interval, final String unit) {
         super();
         setInterval(interval);
@@ -95,6 +110,7 @@ public class ReaderSchedule implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override

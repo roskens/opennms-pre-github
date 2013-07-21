@@ -58,32 +58,54 @@ import org.xml.sax.ContentHandler;
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_state", "m_menutext" })
 public class Operaction implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -576703485771037486L;
 
+    /** The m_content. */
     @XmlValue
     private String m_content = "";
 
+    /** The m_state. */
     @XmlAttribute(name = "state")
     private String m_state;
 
     // @NotNull
+    /** The m_menutext. */
     @XmlAttribute(name = "menutext", required = true)
     private String m_menutext;
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public String getContent() {
         return m_content;
     }
 
+    /**
+     * Gets the menutext.
+     *
+     * @return the menutext
+     */
     public String getMenutext() {
         return m_menutext;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState() {
         return m_state == null ? "on" : m_state; // Default state is "on"
                                                  // according to the XSD
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -95,34 +117,94 @@ public class Operaction implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the content.
+     *
+     * @param content
+     *            the new content
+     */
     public void setContent(final String content) {
         m_content = content.intern();
     }
 
+    /**
+     * Sets the menutext.
+     *
+     * @param menutext
+     *            the new menutext
+     */
     public void setMenutext(final String menutext) {
         m_menutext = menutext.intern();
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     public void setState(final String state) {
         m_state = state.intern();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the operaction
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Operaction unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Operaction) Unmarshaller.unmarshal(Operaction.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -133,6 +215,9 @@ public class Operaction implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

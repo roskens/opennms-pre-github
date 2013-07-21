@@ -60,8 +60,11 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class PersistenceSelectorStrategy implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7515948989309298051L;
 
+    /** The Constant EMPTY_PARAMETER_ARRAY. */
     private static final Parameter[] EMPTY_PARAMETER_ARRAY = new Parameter[0];
 
     /**
@@ -71,22 +74,34 @@ public class PersistenceSelectorStrategy implements Serializable {
     private String m_clazz;
 
     /**
-     * list of parameters to pass to the strategy
-     * for strategy-specific configuration information
+     * list of parameters to pass to the strategy for strategy-specific
+     * configuration information.
      */
     private List<Parameter> m_parameters = new ArrayList<Parameter>();
 
+    /**
+     * Instantiates a new persistence selector strategy.
+     */
     public PersistenceSelectorStrategy() {
         super();
     }
 
+    /**
+     * Instantiates a new persistence selector strategy.
+     *
+     * @param clazz
+     *            the clazz
+     */
     public PersistenceSelectorStrategy(final String clazz) {
         if (clazz != null)
             m_clazz = clazz.intern();
     }
 
     /**
+     * Adds the parameter.
+     *
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -96,8 +111,12 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Adds the parameter.
+     *
      * @param index
+     *            the index
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -120,6 +139,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -165,12 +185,13 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Method getParameter.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         Parameter at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public Parameter getParameter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_parameters.size()) {
@@ -264,7 +285,10 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -278,16 +302,18 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -295,6 +321,7 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Removes the all parameter.
      */
     public void removeAllParameter() {
         m_parameters.clear();
@@ -304,6 +331,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Method removeParameter.
      *
      * @param parameter
+     *            the parameter
      * @return true if the object was removed from the collection.
      */
     public boolean removeParameter(final Parameter parameter) {
@@ -314,6 +342,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Method removeParameterAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Parameter removeParameterAt(final int index) {
@@ -333,8 +362,12 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param index
+     *            the index
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -348,7 +381,10 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param parameters
+     *            the new parameter
      */
     public void setParameter(final Parameter[] parameters) {
         m_parameters.clear();
@@ -375,9 +411,9 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Sets the value of '_parameterList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param parameters
      *            the Vector to set.
+     * @deprecated
      */
     public void setParameterCollection(final List<Parameter> parameters) {
         m_parameters = parameters;
@@ -387,14 +423,15 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         PersistenceSelectorStrategy
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         PersistenceSelectorStrategy
      */
     @Deprecated
     public static PersistenceSelectorStrategy unmarshal(final Reader reader) throws MarshalException,
@@ -403,6 +440,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

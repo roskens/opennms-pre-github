@@ -54,6 +54,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "service-configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ServiceConfiguration implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1477638002034420045L;
 
     // --------------------------/
@@ -70,10 +72,19 @@ public class ServiceConfiguration implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new service configuration.
+     */
     public ServiceConfiguration() {
         super();
     }
 
+    /**
+     * Instantiates a new service configuration.
+     *
+     * @param serviceList
+     *            the service list
+     */
     public ServiceConfiguration(final List<Service> serviceList) {
         super();
         setService(serviceList);
@@ -84,19 +95,26 @@ public class ServiceConfiguration implements Serializable {
     // -----------/
 
     /**
+     * Adds the service.
+     *
      * @param vService
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v service
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addService(final Service vService) throws IndexOutOfBoundsException {
         this._serviceList.add(vService);
     }
 
     /**
+     * Adds the service.
+     *
      * @param index
+     *            the index
      * @param vService
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v service
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addService(final int index, final Service vService) throws IndexOutOfBoundsException {
         this._serviceList.add(index, vService);
@@ -115,6 +133,7 @@ public class ServiceConfiguration implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -141,10 +160,11 @@ public class ServiceConfiguration implements Serializable {
      * Method getService.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.service.Service at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Service getService(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -218,6 +238,7 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
+     * Removes the all service.
      */
     public void removeAllService() {
         this._serviceList.clear();
@@ -227,6 +248,7 @@ public class ServiceConfiguration implements Serializable {
      * Method removeService.
      *
      * @param vService
+     *            the v service
      * @return true if the object was removed from the collection.
      */
     public boolean removeService(final Service vService) {
@@ -238,6 +260,7 @@ public class ServiceConfiguration implements Serializable {
      * Method removeServiceAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Service removeServiceAt(final int index) {
@@ -246,10 +269,14 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
+     * Sets the service.
+     *
      * @param index
+     *            the index
      * @param vService
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v service
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setService(final int index, final Service vService) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -262,7 +289,10 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
+     * Sets the service.
+     *
      * @param vServiceArray
+     *            the new service
      */
     public void setService(final Service[] vServiceArray) {
         // -- copy array

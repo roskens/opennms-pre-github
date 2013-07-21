@@ -51,6 +51,8 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "parameter", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Parameter implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -81271205406892996L;
 
     /**
@@ -67,10 +69,21 @@ public class Parameter implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new parameter.
+     */
     public Parameter() {
         super();
     }
 
+    /**
+     * Instantiates a new parameter.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     public Parameter(final String key, final String value) {
         m_key = key.intern();
         m_value = value.intern();
@@ -80,6 +93,7 @@ public class Parameter implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -167,13 +181,14 @@ public class Parameter implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -181,16 +196,16 @@ public class Parameter implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -221,14 +236,13 @@ public class Parameter implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.datacollection.types.Parameter
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Parameter unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -236,9 +250,10 @@ public class Parameter implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

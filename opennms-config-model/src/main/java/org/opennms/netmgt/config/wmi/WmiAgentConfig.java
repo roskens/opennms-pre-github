@@ -39,47 +39,62 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public class WmiAgentConfig {
-    /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
+
+    /** Constant <code>DEFAULT_TIMEOUT=3000</code>. */
     public static final int DEFAULT_TIMEOUT = 3000;
 
-    /** Constant <code>DEFAULT_RETRIES=1</code> */
+    /** Constant <code>DEFAULT_RETRIES=1</code>. */
     public static final int DEFAULT_RETRIES = 1;
 
-    /** Constant <code>DEFAULT_PASSWORD=""</code> */
+    /** Constant <code>DEFAULT_PASSWORD=""</code>. */
     public static final String DEFAULT_PASSWORD = "";
 
-    /** Constant <code>DEFAULT_USERNAME="Administrator"</code> */
+    /** Constant <code>DEFAULT_USERNAME="Administrator"</code>. */
     public static final String DEFAULT_USERNAME = "Administrator";
 
-    /** Constant <code>DEFAULT_DOMAIN="WORKGROUP"</code> */
+    /** Constant <code>DEFAULT_DOMAIN="WORKGROUP"</code>. */
     public static final String DEFAULT_DOMAIN = "WORKGROUP";
 
+    /** The Address. */
     private InetAddress m_Address;
 
+    /** The Timeout. */
     private int m_Timeout;
 
+    /** The Retries. */
     private int m_Retries;
 
+    /** The Username. */
     private String m_Username;
 
+    /** The Domain. */
     private String m_Domain;
 
+    /** The Password. */
     private String m_Password;
 
+    /** The user. */
     String user = "";
 
+    /** The pass. */
     String pass = "";
 
+    /** The domain. */
     String domain = "";
 
+    /** The match type. */
     String matchType = "all";
 
+    /** The comp val. */
     String compVal = "";
 
+    /** The comp op. */
     String compOp = "NOOP";
 
+    /** The wmi class. */
     String wmiClass = "";
 
+    /** The wmi object. */
     String wmiObject = "";
 
     /**
@@ -104,6 +119,9 @@ public class WmiAgentConfig {
         setDefaults();
     }
 
+    /**
+     * Sets the defaults.
+     */
     private void setDefaults() {
         m_Timeout = DEFAULT_TIMEOUT;
         m_Retries = DEFAULT_RETRIES;
@@ -113,6 +131,7 @@ public class WmiAgentConfig {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -135,6 +154,7 @@ public class WmiAgentConfig {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -146,6 +166,7 @@ public class WmiAgentConfig {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -158,6 +179,7 @@ public class WmiAgentConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -169,6 +191,7 @@ public class WmiAgentConfig {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -181,6 +204,7 @@ public class WmiAgentConfig {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -192,6 +216,7 @@ public class WmiAgentConfig {
      * <p>
      * setRetries
      * </p>
+     * .
      *
      * @param retries
      *            a int.
@@ -204,6 +229,7 @@ public class WmiAgentConfig {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -216,6 +242,7 @@ public class WmiAgentConfig {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -227,6 +254,7 @@ public class WmiAgentConfig {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -238,6 +266,7 @@ public class WmiAgentConfig {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.

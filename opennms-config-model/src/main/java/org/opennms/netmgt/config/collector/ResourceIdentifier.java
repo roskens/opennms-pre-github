@@ -46,6 +46,7 @@ public interface ResourceIdentifier {
      * <p>
      * getOwnerName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -55,6 +56,7 @@ public interface ResourceIdentifier {
      * <p>
      * getResourceDir
      * </p>
+     * .
      *
      * @param repository
      *            a {@link org.opennms.netmgt.model.RrdRepository} object.

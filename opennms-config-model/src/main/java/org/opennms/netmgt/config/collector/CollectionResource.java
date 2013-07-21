@@ -39,10 +39,12 @@ import org.opennms.core.utils.TimeKeeper;
  * @version $Id: $
  */
 public interface CollectionResource extends ResourceIdentifier {
+
     /**
      * <p>
      * shouldPersist
      * </p>
+     * .
      *
      * @param params
      *            a {@link org.opennms.netmgt.collectd.ServiceParameters}
@@ -55,6 +57,7 @@ public interface CollectionResource extends ResourceIdentifier {
      * <p>
      * rescanNeeded
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -64,6 +67,7 @@ public interface CollectionResource extends ResourceIdentifier {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a {@link org.opennms.netmgt.collectd.CollectionSetVisitor}

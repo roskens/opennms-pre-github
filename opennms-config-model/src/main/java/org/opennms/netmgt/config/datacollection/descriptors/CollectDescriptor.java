@@ -82,6 +82,9 @@ public class CollectDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new collect descriptor.
+     */
     public CollectDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

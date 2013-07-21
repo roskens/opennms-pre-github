@@ -35,13 +35,33 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
 
+/**
+ * The Class DatacollectionConfigTest.
+ */
 public class DatacollectionConfigTest extends XmlTest<DatacollectionConfig> {
 
+    /**
+     * Instantiates a new datacollection config test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public DatacollectionConfigTest(final DatacollectionConfig sampleObject, final String sampleXml,
             final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final DatacollectionConfig config = new DatacollectionConfig();

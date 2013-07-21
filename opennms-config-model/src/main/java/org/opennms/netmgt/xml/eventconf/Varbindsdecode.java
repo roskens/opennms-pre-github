@@ -58,57 +58,107 @@ import org.xml.sax.ContentHandler;
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_parmid", "m_decodes" })
 public class Varbindsdecode implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6483547334892439888L;
 
+    /** The Constant EMPTY_DECODE_ARRAY. */
     private static final Decode[] EMPTY_DECODE_ARRAY = new Decode[0];
 
-    /**
-     * The identifier of the parameters to be decoded
-     */
+    /** The identifier of the parameters to be decoded. */
     // @NotNull
     @XmlElement(name = "parmid", required = true)
     private String m_parmid;
 
-    /**
-     * The value to string decoding map
-     */
+    /** The value to string decoding map. */
     // @Size(min=1)
     // @NotNull
     @XmlElement(name = "decode", required = true)
     private List<Decode> m_decodes = new ArrayList<Decode>();
 
+    /**
+     * Gets the parmid.
+     *
+     * @return the parmid
+     */
     public String getParmid() {
         return m_parmid;
     }
 
+    /**
+     * Sets the parmid.
+     *
+     * @param parmid
+     *            the new parmid
+     */
     public void setParmid(final String parmid) {
         m_parmid = parmid == null ? null : parmid.intern();
     }
 
+    /**
+     * Gets the decode.
+     *
+     * @return the decode
+     */
     public Decode[] getDecode() {
         return m_decodes.toArray(EMPTY_DECODE_ARRAY);
     }
 
+    /**
+     * Gets the decode.
+     *
+     * @param index
+     *            the index
+     * @return the decode
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public Decode getDecode(final int index) throws IndexOutOfBoundsException {
         return m_decodes.get(index);
     }
 
+    /**
+     * Gets the decode collection.
+     *
+     * @return the decode collection
+     */
     public java.util.List<Decode> getDecodeCollection() {
         return m_decodes;
     }
 
+    /**
+     * Gets the decode count.
+     *
+     * @return the decode count
+     */
     public int getDecodeCount() {
         return m_decodes.size();
     }
 
+    /**
+     * Enumerate decode.
+     *
+     * @return the java.util. enumeration
+     */
     public java.util.Enumeration<Decode> enumerateDecode() {
         return java.util.Collections.enumeration(m_decodes);
     }
 
+    /**
+     * Iterate decode.
+     *
+     * @return the java.util. iterator
+     */
     public java.util.Iterator<Decode> iterateDecode() {
         return m_decodes.iterator();
     }
 
+    /**
+     * Sets the decode.
+     *
+     * @param decodes
+     *            the new decode
+     */
     public void setDecode(final List<Decode> decodes) {
         if (m_decodes == decodes)
             return;
@@ -116,10 +166,26 @@ public class Varbindsdecode implements Serializable {
         m_decodes.addAll(decodes);
     }
 
+    /**
+     * Sets the decode.
+     *
+     * @param index
+     *            the index
+     * @param decode
+     *            the decode
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setDecode(final int index, final Decode decode) throws IndexOutOfBoundsException {
         m_decodes.set(index, decode);
     }
 
+    /**
+     * Sets the decode.
+     *
+     * @param decodes
+     *            the new decode
+     */
     public void setDecode(final Decode[] decodes) {
         m_decodes.clear();
         for (final Decode decode : decodes) {
@@ -127,30 +193,76 @@ public class Varbindsdecode implements Serializable {
         }
     }
 
+    /**
+     * Sets the decode collection.
+     *
+     * @param decodes
+     *            the new decode collection
+     */
     public void setDecodeCollection(final List<Decode> decodes) {
         setDecode(decodes);
     }
 
+    /**
+     * Adds the decode.
+     *
+     * @param decode
+     *            the decode
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addDecode(final Decode decode) throws IndexOutOfBoundsException {
         m_decodes.add(decode);
     }
 
+    /**
+     * Adds the decode.
+     *
+     * @param index
+     *            the index
+     * @param decode
+     *            the decode
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addDecode(final int index, final Decode decode) throws IndexOutOfBoundsException {
         m_decodes.add(index, decode);
     }
 
+    /**
+     * Removes the all decode.
+     */
     public void removeAllDecode() {
         m_decodes.clear();
     }
 
+    /**
+     * Removes the decode.
+     *
+     * @param decode
+     *            the decode
+     * @return true, if successful
+     */
     public boolean removeDecode(final Decode decode) {
         return m_decodes.remove(decode);
     }
 
+    /**
+     * Removes the decode at.
+     *
+     * @param index
+     *            the index
+     * @return the decode
+     */
     public Decode removeDecodeAt(final int index) {
         return m_decodes.remove(index);
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         try {
             validate();
@@ -160,22 +272,64 @@ public class Varbindsdecode implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the varbindsdecode
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Varbindsdecode unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Varbindsdecode) Unmarshaller.unmarshal(Varbindsdecode.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -185,6 +339,9 @@ public class Varbindsdecode implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

@@ -58,8 +58,11 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "storageStrategy", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 public class StorageStrategy implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2689731640740067448L;
 
+    /** The Constant EMPTY_PARAMETER_ARRAY. */
     private static final Parameter[] EMPTY_PARAMETER_ARRAY = new Parameter[0];
 
     /**
@@ -69,22 +72,34 @@ public class StorageStrategy implements Serializable {
     private String m_clazz;
 
     /**
-     * list of parameters to pass to the strategy
-     * for strategy-specific configuration information
+     * list of parameters to pass to the strategy for strategy-specific
+     * configuration information.
      */
     private List<Parameter> m_parameters = new ArrayList<Parameter>();
 
+    /**
+     * Instantiates a new storage strategy.
+     */
     public StorageStrategy() {
         super();
     }
 
+    /**
+     * Instantiates a new storage strategy.
+     *
+     * @param clazz
+     *            the clazz
+     */
     public StorageStrategy(final String clazz) {
         if (clazz != null)
             m_clazz = clazz.intern();
     }
 
     /**
+     * Adds the parameter.
+     *
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -94,8 +109,12 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Adds the parameter.
+     *
      * @param index
+     *            the index
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -118,6 +137,7 @@ public class StorageStrategy implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -163,12 +183,13 @@ public class StorageStrategy implements Serializable {
      * Method getParameter.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         Parameter at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public Parameter getParameter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_parameters.size()) {
@@ -262,7 +283,10 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -276,16 +300,18 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -293,6 +319,7 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Removes the all parameter.
      */
     public void removeAllParameter() {
         m_parameters.clear();
@@ -302,6 +329,7 @@ public class StorageStrategy implements Serializable {
      * Method removeParameter.
      *
      * @param parameter
+     *            the parameter
      * @return true if the object was removed from the collection.
      */
     public boolean removeParameter(final Parameter parameter) {
@@ -312,6 +340,7 @@ public class StorageStrategy implements Serializable {
      * Method removeParameterAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Parameter removeParameterAt(final int index) {
@@ -331,8 +360,12 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param index
+     *            the index
      * @param parameter
+     *            the parameter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -346,7 +379,10 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param parameters
+     *            the new parameter
      */
     public void setParameter(final Parameter[] parameters) {
         m_parameters.clear();
@@ -373,9 +409,9 @@ public class StorageStrategy implements Serializable {
      * Sets the value of '_parameterList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param parameters
      *            the Vector to set.
+     * @deprecated
      */
     public void setParameterCollection(final List<Parameter> parameters) {
         m_parameters = parameters;
@@ -385,14 +421,15 @@ public class StorageStrategy implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         StorageStrateg
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         StorageStrateg
      */
     @Deprecated
     public static StorageStrategy unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -400,6 +437,8 @@ public class StorageStrategy implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

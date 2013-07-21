@@ -47,13 +47,15 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * Defines start/end time for the outage
+ * Defines start/end time for the outage.
  */
 
 @XmlRootElement(name = "time", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Time implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -189226850513095472L;
 
     /**
@@ -69,18 +71,17 @@ public class Time implements Serializable {
     @XmlAttribute(name = "day")
     private String _day;
 
-    /**
-     * when the outage starts
-     */
+    /** when the outage starts. */
     @XmlAttribute(name = "begins")
     private String _begins;
 
-    /**
-     * when the outage ends
-     */
+    /** when the outage ends. */
     @XmlAttribute(name = "ends")
     private String _ends;
 
+    /**
+     * Instantiates a new time.
+     */
     public Time() {
         super();
     }
@@ -89,6 +90,7 @@ public class Time implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override
@@ -218,13 +220,14 @@ public class Time implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -232,16 +235,16 @@ public class Time implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -306,13 +309,12 @@ public class Time implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled org.opennms.netmgt.config.poller.Time
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Time unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -320,9 +322,10 @@ public class Time implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

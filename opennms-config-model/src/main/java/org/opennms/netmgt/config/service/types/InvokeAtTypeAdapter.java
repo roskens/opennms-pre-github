@@ -30,13 +30,22 @@ package org.opennms.netmgt.config.service.types;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+/**
+ * The Class InvokeAtTypeAdapter.
+ */
 public class InvokeAtTypeAdapter extends XmlAdapter<String, InvokeAtType> {
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
+     */
     @Override
     public InvokeAtType unmarshal(String val) throws Exception {
         return InvokeAtType.valueOf(val);
     }
 
+    /* (non-Javadoc)
+     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+     */
     @Override
     public String marshal(InvokeAtType invokeAtType) throws Exception {
         return invokeAtType.toString();

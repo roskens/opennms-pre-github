@@ -82,6 +82,9 @@ public class BasicScheduleDescriptor extends org.exolab.castor.xml.util.XMLClass
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new basic schedule descriptor.
+     */
     public BasicScheduleDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/poller/outages";

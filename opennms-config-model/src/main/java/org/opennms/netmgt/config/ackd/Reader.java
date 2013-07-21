@@ -56,8 +56,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "reader")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Reader implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7392047026243024472L;
 
+    /** The Constant DEFAULT_ENABLED_FLAG. */
     public static final boolean DEFAULT_ENABLED_FLAG = true;
 
     // --------------------------/
@@ -96,10 +99,25 @@ public class Reader implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new reader.
+     */
     public Reader() {
         super();
     }
 
+    /**
+     * Instantiates a new reader.
+     *
+     * @param name
+     *            the name
+     * @param enabled
+     *            the enabled
+     * @param schedule
+     *            the schedule
+     * @param parameters
+     *            the parameters
+     */
     public Reader(final String name, final boolean enabled, final ReaderSchedule schedule,
             final List<Parameter> parameters) {
         super();
@@ -114,19 +132,26 @@ public class Reader implements Serializable {
     // -----------/
 
     /**
+     * Adds the parameter.
+     *
      * @param vParameter
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v parameter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addParameter(final Parameter vParameter) throws IndexOutOfBoundsException {
         this._parameterList.add(vParameter);
     }
 
     /**
+     * Adds the parameter.
+     *
      * @param index
+     *            the index
      * @param vParameter
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v parameter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addParameter(final int index, final Parameter vParameter) throws IndexOutOfBoundsException {
         this._parameterList.add(index, vParameter);
@@ -145,6 +170,7 @@ public class Reader implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override
@@ -192,10 +218,11 @@ public class Reader implements Serializable {
      * Method getParameter.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.ackd.Parameter at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Parameter getParameter(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -302,6 +329,7 @@ public class Reader implements Serializable {
     }
 
     /**
+     * Removes the all parameter.
      */
     public void removeAllParameter() {
         this._parameterList.clear();
@@ -311,6 +339,7 @@ public class Reader implements Serializable {
      * Method removeParameter.
      *
      * @param vParameter
+     *            the v parameter
      * @return true if the object was removed from the collection.
      */
     public boolean removeParameter(final Parameter vParameter) {
@@ -321,6 +350,7 @@ public class Reader implements Serializable {
      * Method removeParameterAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Parameter removeParameterAt(final int index) {
@@ -338,10 +368,14 @@ public class Reader implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param index
+     *            the index
      * @param vParameter
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v parameter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setParameter(final int index, final Parameter vParameter) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -354,7 +388,10 @@ public class Reader implements Serializable {
     }
 
     /**
+     * Sets the parameter.
+     *
      * @param vParameterArray
+     *            the new parameter
      */
     public void setParameter(final Parameter[] vParameterArray) {
         // -- copy array

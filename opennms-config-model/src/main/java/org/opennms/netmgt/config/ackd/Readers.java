@@ -55,6 +55,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "readers")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Readers implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7999107140580085865L;
 
     // --------------------------/
@@ -71,15 +73,30 @@ public class Readers implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new readers.
+     */
     public Readers() {
         super();
     }
 
+    /**
+     * Instantiates a new readers.
+     *
+     * @param reader
+     *            the reader
+     */
     public Readers(final Reader reader) {
         super();
         addReader(reader);
     }
 
+    /**
+     * Instantiates a new readers.
+     *
+     * @param readers
+     *            the readers
+     */
     public Readers(final List<Reader> readers) {
         super();
         setReader(readers);
@@ -90,19 +107,26 @@ public class Readers implements Serializable {
     // -----------/
 
     /**
+     * Adds the reader.
+     *
      * @param vReader
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v reader
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addReader(final Reader vReader) throws IndexOutOfBoundsException {
         this._readerList.add(vReader);
     }
 
     /**
+     * Adds the reader.
+     *
      * @param index
+     *            the index
      * @param vReader
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v reader
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addReader(final int index, final Reader vReader) throws IndexOutOfBoundsException {
         this._readerList.add(index, vReader);
@@ -121,6 +145,7 @@ public class Readers implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -147,10 +172,11 @@ public class Readers implements Serializable {
      * Method getReader.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.ackd.Reader at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Reader getReader(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -224,6 +250,7 @@ public class Readers implements Serializable {
     }
 
     /**
+     * Removes the all reader.
      */
     public void removeAllReader() {
         this._readerList.clear();
@@ -233,6 +260,7 @@ public class Readers implements Serializable {
      * Method removeReader.
      *
      * @param vReader
+     *            the v reader
      * @return true if the object was removed from the collection.
      */
     public boolean removeReader(final Reader vReader) {
@@ -243,6 +271,7 @@ public class Readers implements Serializable {
      * Method removeReaderAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Reader removeReaderAt(final int index) {
@@ -250,10 +279,14 @@ public class Readers implements Serializable {
     }
 
     /**
+     * Sets the reader.
+     *
      * @param index
+     *            the index
      * @param vReader
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v reader
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setReader(final int index, final Reader vReader) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -266,7 +299,10 @@ public class Readers implements Serializable {
     }
 
     /**
+     * Sets the reader.
+     *
      * @param vReaderArray
+     *            the new reader
      */
     public void setReader(final Reader[] vReaderArray) {
         // -- copy array

@@ -60,32 +60,37 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class IncludeCollection implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1484624151254635162L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * System Definition Name
-     */
+    /** System Definition Name. */
     private String m_systemDef;
 
-    /**
-     * Data Collection Group Name
-     */
+    /** Data Collection Group Name. */
     private String m_dataCollectionGroup;
 
     /**
-     * Exclude filter uses regular expression syntax to avoid
-     * certain system definitions
+     * Exclude filter uses regular expression syntax to avoid certain system
+     * definitions.
      */
     private List<String> m_excludeFilters = new ArrayList<String>();
 
+    /**
+     * Instantiates a new include collection.
+     */
     public IncludeCollection() {
         super();
     }
 
     /**
+     * Adds the exclude filter.
+     *
      * @param excludeFilter
+     *            the exclude filter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -95,8 +100,12 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Adds the exclude filter.
+     *
      * @param index
+     *            the index
      * @param excludeFilter
+     *            the exclude filter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -119,6 +128,7 @@ public class IncludeCollection implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -171,10 +181,11 @@ public class IncludeCollection implements Serializable {
      * Method getExcludeFilter.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getExcludeFilter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_excludeFilters.size()) {
@@ -283,7 +294,10 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -297,16 +311,18 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -314,6 +330,7 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Removes the all exclude filter.
      */
     public void removeAllExcludeFilter() {
         m_excludeFilters.clear();
@@ -323,6 +340,7 @@ public class IncludeCollection implements Serializable {
      * Method removeExcludeFilter.
      *
      * @param excludeFilter
+     *            the exclude filter
      * @return true if the object was removed from the collection.
      */
     public boolean removeExcludeFilter(final String excludeFilter) {
@@ -333,6 +351,7 @@ public class IncludeCollection implements Serializable {
      * Method removeExcludeFilterAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeExcludeFilterAt(final int index) {
@@ -353,8 +372,12 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Sets the exclude filter.
+     *
      * @param index
+     *            the index
      * @param excludeFilter
+     *            the exclude filter
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -368,7 +391,10 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Sets the exclude filter.
+     *
      * @param excludeFilters
+     *            the new exclude filter
      */
     public void setExcludeFilter(final String[] excludeFilters) {
         m_excludeFilters.clear();
@@ -395,9 +421,9 @@ public class IncludeCollection implements Serializable {
      * Sets the value of '_excludeFilterList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param excludeFilters
      *            the Vector to set.
+     * @deprecated
      */
     public void setExcludeFilterCollection(final List<String> excludeFilters) {
         m_excludeFilters = new ArrayList<String>();
@@ -421,14 +447,15 @@ public class IncludeCollection implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         IncludeCollection
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         IncludeCollection
      */
     @Deprecated
     public static IncludeCollection unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -436,6 +463,8 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

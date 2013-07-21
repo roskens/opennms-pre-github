@@ -62,23 +62,27 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class EventConfData extends Object {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventConfData.class);
 
-    /**
-     * The map keyed with 'EventKey's
-     */
+    /** The map keyed with 'EventKey's. */
     private LinkedHashMap<EventKey, org.opennms.netmgt.xml.eventconf.Event> m_eventMap;
 
     /**
      * The map of UEI to 'EventKey's list - used mainly to find matches for the
      * OpenNMS internal events faster(in cases where there are multiple masks
-     * for the same UEI)
+     * for the same UEI).
      */
     private LinkedHashMap<String, List<EventKey>> m_ueiToKeyListMap;
 
     /**
-     * Check whether the event matches the passed key
+     * Check whether the event matches the passed key.
      *
+     * @param eventKey
+     *            the event key
+     * @param event
+     *            the event
      * @return true if the event matches the passed key
      */
     private boolean eventMatchesKey(EventKey eventKey, org.opennms.netmgt.xml.event.Event event) {
@@ -109,11 +113,11 @@ public class EventConfData extends Object {
      * eventvalue to pass the mask
      * Enhanced 2005/08/31 to allow regular expression in eventconf.
      *
-     * @return true if the values passes the mask
      * @param eventvalue
      *            a {@link java.lang.String} object.
      * @param maskValues
      *            a {@link java.util.List} object.
+     * @return true if the values passes the mask
      */
     protected static boolean eventValuePassesMaskValue(String eventvalue, List<String> maskValues) {
         boolean maskMatch = false;
@@ -141,7 +145,12 @@ public class EventConfData extends Object {
     }
 
     /**
-     * Update the uei to keylist map
+     * Update the uei to keylist map.
+     *
+     * @param eventKey
+     *            the event key
+     * @param event
+     *            the event
      */
     private void updateUeiToKeyListMap(EventKey eventKey, org.opennms.netmgt.xml.eventconf.Event event) {
         String eventUei = event.getUei();
@@ -159,7 +168,7 @@ public class EventConfData extends Object {
     }
 
     /**
-     * Default constructor - allocate the maps
+     * Default constructor - allocate the maps.
      */
     public EventConfData() {
         m_eventMap = new LinkedHashMap<EventKey, org.opennms.netmgt.xml.eventconf.Event>();
@@ -202,7 +211,7 @@ public class EventConfData extends Object {
     }
 
     /**
-     * Add an event with the specified key
+     * Add an event with the specified key.
      *
      * @param key
      *            the EventKey for this event
@@ -293,7 +302,7 @@ public class EventConfData extends Object {
     }
 
     /**
-     * Get the event with the specified uei
+     * Get the event with the specified uei.
      *
      * @param uei
      *            the uei
@@ -307,7 +316,7 @@ public class EventConfData extends Object {
     }
 
     /**
-     * Clear out the data
+     * Clear out the data.
      */
     public synchronized void clear() {
         m_eventMap.clear();

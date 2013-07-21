@@ -82,6 +82,9 @@ public class OutagesDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new outages descriptor.
+     */
     public OutagesDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/poller/outages";

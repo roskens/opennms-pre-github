@@ -62,45 +62,83 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Logmsg implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 385279987964113028L;
 
+    /** The m_content. */
     @XmlValue
     private String m_content = "";
 
+    /** The m_notify. */
     @XmlAttribute(name = "notify", required = false)
     private Boolean m_notify;
 
     // @Pattern(regexp="(logndisplay|displayonly|logonly|suppress|donotpersist|discardtraps)")
+    /** The m_dest. */
     @XmlAttribute(name = "dest", required = false)
     private String m_dest;
 
+    /**
+     * Delete notify.
+     */
     public void deleteNotify() {
         m_notify = null;
     }
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public String getContent() {
         return m_content;
     }
 
+    /**
+     * Gets the dest.
+     *
+     * @return the dest
+     */
     public String getDest() {
         return m_dest == null ? "logndisplay" : m_dest; // Default is
                                                         // "logndisplay"
                                                         // according to XSD
     }
 
+    /**
+     * Gets the notify.
+     *
+     * @return the notify
+     */
     public Boolean getNotify() {
         return m_notify == null ? Boolean.TRUE : m_notify; // Default is true
                                                            // according to XSD
     }
 
+    /**
+     * Checks for notify.
+     *
+     * @return true, if successful
+     */
     public boolean hasNotify() {
         return m_notify != null;
     }
 
+    /**
+     * Checks if is notify.
+     *
+     * @return true, if is notify
+     */
     public boolean isNotify() {
         return getNotify();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         try {
             validate();
@@ -110,34 +148,94 @@ public class Logmsg implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the content.
+     *
+     * @param content
+     *            the new content
+     */
     public void setContent(final String content) {
         m_content = content.intern();
     }
 
+    /**
+     * Sets the dest.
+     *
+     * @param dest
+     *            the new dest
+     */
     public void setDest(final String dest) {
         m_dest = dest.intern();
     }
 
+    /**
+     * Sets the notify.
+     *
+     * @param notify
+     *            the new notify
+     */
     public void setNotify(final boolean notify) {
         m_notify = notify;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the logmsg
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Logmsg unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Logmsg) Unmarshaller.unmarshal(Logmsg.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -148,6 +246,9 @@ public class Logmsg implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

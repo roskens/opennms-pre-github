@@ -48,10 +48,14 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * @version $Id: $
  */
 public class StatsdConfig {
+
+    /** The m_castor config. */
     private StatisticsDaemonConfiguration m_castorConfig;
 
+    /** The m_reports. */
     private List<Report> m_reports = new ArrayList<Report>();
 
+    /** The m_packages. */
     private List<StatsdPackage> m_packages = new ArrayList<StatsdPackage>();
 
     /**
@@ -107,6 +111,7 @@ public class StatsdConfig {
      * <p>
      * getReports
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -118,6 +123,7 @@ public class StatsdConfig {
      * <p>
      * getPackages
      * </p>
+     * .
      *
      * @return a {@link java.util.List} object.
      */
@@ -125,6 +131,13 @@ public class StatsdConfig {
         return m_packages;
     }
 
+    /**
+     * Load report.
+     *
+     * @param name
+     *            the name
+     * @return the report
+     */
     private Report loadReport(String name) {
         for (Report report : m_reports) {
             if (name.equals(report.getName())) {
@@ -135,23 +148,54 @@ public class StatsdConfig {
         throw new ObjectRetrievalFailureException("There is no report definition named '" + name + "'", name);
     }
 
+    /**
+     * Gets the parameters for report.
+     *
+     * @param report
+     *            the report
+     * @return the parameters for report
+     */
     private List<Parameter> getParametersForReport(org.opennms.netmgt.config.statsd.Report report) {
         return report.getParameterCollection();
     }
 
+    /**
+     * Gets the castor reports.
+     *
+     * @return the castor reports
+     */
     private List<org.opennms.netmgt.config.statsd.Report> getCastorReports() {
         return m_castorConfig.getReportCollection();
     }
 
+    /**
+     * Gets the castor packages.
+     *
+     * @return the castor packages
+     */
     private List<org.opennms.netmgt.config.statsd.Package> getCastorPackages() {
         return m_castorConfig.getPackageCollection();
     }
 
+    /**
+     * Gets the package report for package.
+     *
+     * @param pkg
+     *            the pkg
+     * @return the package report for package
+     */
     private List<org.opennms.netmgt.config.statsd.PackageReport> getPackageReportForPackage(
             org.opennms.netmgt.config.statsd.Package pkg) {
         return pkg.getPackageReportCollection();
     }
 
+    /**
+     * Gets the parameters for package report.
+     *
+     * @param packageReport
+     *            the package report
+     * @return the parameters for package report
+     */
     private List<Parameter> getParametersForPackageReport(org.opennms.netmgt.config.statsd.PackageReport packageReport) {
         return packageReport.getParameterCollection();
     }

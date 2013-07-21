@@ -81,6 +81,9 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new autoacknowledge descriptor.
+     */
     public AutoacknowledgeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

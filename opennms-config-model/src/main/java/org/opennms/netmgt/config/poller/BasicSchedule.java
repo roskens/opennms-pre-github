@@ -59,47 +59,51 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class BasicSchedule implements java.io.Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8140458365613931426L;
 
-    /**
-     * outage name
-     */
+    /** outage name. */
     @XmlAttribute(name = "name")
     private String _name;
 
-    /**
-     * outage type
-     */
+    /** outage type. */
     @XmlAttribute(name = "type")
     private String _type;
 
-    /**
-     * defines start/end time for the outage
-     */
+    /** defines start/end time for the outage. */
     @XmlElement(name = "time")
     private List<Time> _timeList;
 
+    /**
+     * Instantiates a new basic schedule.
+     */
     public BasicSchedule() {
         super();
         this._timeList = new ArrayList<Time>();
     }
 
     /**
+     * Adds the time.
+     *
      * @param vTime
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v time
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addTime(final Time vTime) throws IndexOutOfBoundsException {
         this._timeList.add(vTime);
     }
 
     /**
+     * Adds the time.
+     *
      * @param index
+     *            the index
      * @param vTime
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v time
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addTime(final int index, final Time vTime) throws IndexOutOfBoundsException {
         this._timeList.add(index, vTime);
@@ -119,6 +123,7 @@ public class BasicSchedule implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override
@@ -169,11 +174,11 @@ public class BasicSchedule implements java.io.Serializable {
      * Method getTime.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.poller.Time at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Time getTime(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -281,13 +286,14 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -295,16 +301,16 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -312,6 +318,7 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
+     * Removes the all time.
      */
     public void removeAllTime() {
         this._timeList.clear();
@@ -321,6 +328,7 @@ public class BasicSchedule implements java.io.Serializable {
      * Method removeTime.
      *
      * @param vTime
+     *            the v time
      * @return true if the object was removed from the collection.
      */
     public boolean removeTime(final Time vTime) {
@@ -331,6 +339,7 @@ public class BasicSchedule implements java.io.Serializable {
      * Method removeTimeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Time removeTimeAt(final int index) {
@@ -349,11 +358,14 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
+     * Sets the time.
+     *
      * @param index
+     *            the index
      * @param vTime
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v time
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setTime(final int index, final Time vTime) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -366,7 +378,10 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
+     * Sets the time.
+     *
      * @param vTimeArray
+     *            the new time
      */
     public void setTime(final Time[] vTimeArray) {
         // -- copy array
@@ -395,9 +410,9 @@ public class BasicSchedule implements java.io.Serializable {
      * Sets the value of '_timeList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param timeList
      *            the Vector to set.
+     * @deprecated
      */
     public void setTimeCollection(final List<Time> timeList) {
         this._timeList = timeList;
@@ -418,14 +433,13 @@ public class BasicSchedule implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.poller.BasicSchedule
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static BasicSchedule unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -433,9 +447,10 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

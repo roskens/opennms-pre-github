@@ -52,48 +52,104 @@ import org.opennms.core.xml.ValidateUsing;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class UpdateField implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6199096374743077928L;
 
     // @NotNull
+    /** The m_field name. */
     @XmlAttribute(name = "field-name", required = true)
     private String m_fieldName;
 
+    /** The m_update on reduction. */
     @XmlAttribute(name = "update-on-reduction", required = false)
     private Boolean m_updateOnReduction = Boolean.TRUE;
 
+    /**
+     * Checks for field name.
+     *
+     * @return true, if successful
+     */
     public boolean hasFieldName() {
         return m_fieldName != null ? true : false;
     }
 
+    /**
+     * Gets the field name.
+     *
+     * @return the field name
+     */
     public String getFieldName() {
         return m_fieldName;
     }
 
+    /**
+     * Sets the field name.
+     *
+     * @param fieldName
+     *            the new field name
+     */
     public void setFieldName(final String fieldName) {
         m_fieldName = fieldName;
     }
 
+    /**
+     * Checks for update on reduction.
+     *
+     * @return true, if successful
+     */
     public boolean hasUpdateOnReduction() {
         return m_updateOnReduction != null ? true : false;
     }
 
+    /**
+     * Checks if is update on reduction.
+     *
+     * @return the boolean
+     */
     public Boolean isUpdateOnReduction() {
         return m_updateOnReduction;
     }
 
+    /**
+     * Sets the update on reduction.
+     *
+     * @param update
+     *            the new update on reduction
+     */
     public void setUpdateOnReduction(final Boolean update) {
         m_updateOnReduction = update;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the update field
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static UpdateField unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (UpdateField) Unmarshaller.unmarshal(UpdateField.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         Validator validator = new Validator();
         validator.validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -103,6 +159,9 @@ public class UpdateField implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

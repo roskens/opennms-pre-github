@@ -60,27 +60,31 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class DatacollectionConfig implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 9164334193148732102L;
 
+    /** The Constant EMPTY_SNMPCOLLECTION_ARRAY. */
     private static final SnmpCollection[] EMPTY_SNMPCOLLECTION_ARRAY = new SnmpCollection[0];
 
-    /**
-     * full path to the RRD repository for collected SNMP
-     * data
-     */
+    /** full path to the RRD repository for collected SNMP data. */
     private String m_rrdRepository;
 
-    /**
-     * SNMP data collection element
-     */
+    /** SNMP data collection element. */
     private List<SnmpCollection> m_snmpCollections = new ArrayList<SnmpCollection>();
 
+    /**
+     * Instantiates a new datacollection config.
+     */
     public DatacollectionConfig() {
         super();
     }
 
     /**
+     * Adds the snmp collection.
+     *
      * @param snmpCollection
+     *            the snmp collection
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -90,8 +94,12 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Adds the snmp collection.
+     *
      * @param index
+     *            the index
      * @param snmpCollection
+     *            the snmp collection
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -115,6 +123,7 @@ public class DatacollectionConfig implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -161,12 +170,13 @@ public class DatacollectionConfig implements Serializable {
      * Method getSnmpCollection.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         SnmpCollection at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public SnmpCollection getSnmpCollection(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_snmpCollections.size()) {
@@ -260,7 +270,10 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -274,22 +287,27 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all snmp collection.
+     */
     public void removeAllSnmpCollection() {
         m_snmpCollections.clear();
     }
@@ -298,6 +316,7 @@ public class DatacollectionConfig implements Serializable {
      * Method removeSnmpCollection.
      *
      * @param snmpCollection
+     *            the snmp collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeSnmpCollection(final SnmpCollection snmpCollection) {
@@ -308,6 +327,7 @@ public class DatacollectionConfig implements Serializable {
      * Method removeSnmpCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public SnmpCollection removeSnmpCollectionAt(final int index) {
@@ -328,8 +348,12 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Sets the snmp collection.
+     *
      * @param index
+     *            the index
      * @param snmpCollection
+     *            the snmp collection
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -344,7 +368,10 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Sets the snmp collection.
+     *
      * @param snmpCollections
+     *            the new snmp collection
      */
     public void setSnmpCollection(final SnmpCollection[] snmpCollections) {
         m_snmpCollections.clear();
@@ -371,9 +398,9 @@ public class DatacollectionConfig implements Serializable {
      * Sets the value of '_snmpCollectionList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param snmpCollections
      *            the Vector to set.
+     * @deprecated
      */
     public void setSnmpCollectionCollection(final List<SnmpCollection> snmpCollections) {
         m_snmpCollections = snmpCollections;
@@ -383,14 +410,15 @@ public class DatacollectionConfig implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         DatacollectionConfig
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         DatacollectionConfig
      */
     @Deprecated
     public static DatacollectionConfig unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -398,6 +426,8 @@ public class DatacollectionConfig implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

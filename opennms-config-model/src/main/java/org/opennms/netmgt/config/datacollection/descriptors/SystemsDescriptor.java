@@ -82,6 +82,9 @@ public class SystemsDescriptor extends org.exolab.castor.xml.util.XMLClassDescri
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new systems descriptor.
+     */
     public SystemsDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

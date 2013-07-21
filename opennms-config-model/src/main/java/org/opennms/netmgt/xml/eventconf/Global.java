@@ -47,26 +47,33 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * Global settings for this configuration
+ * Global settings for this configuration.
  */
 @XmlRootElement(name = "global")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Global implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3833043291439996999L;
 
-    /**
-     * Security settings for this configuration
-     */
+    /** Security settings for this configuration. */
     // @NotNull
     @XmlElement(name = "security", required = true)
     private Security m_security;
 
+    /**
+     * Gets the security.
+     *
+     * @return the security
+     */
     public Security getSecurity() {
         return m_security;
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -78,26 +85,74 @@ public class Global implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the security.
+     *
+     * @param security
+     *            the new security
+     */
     public void setSecurity(final Security security) {
         m_security = security;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the global
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Global unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Global) Unmarshaller.unmarshal(Global.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -106,6 +161,9 @@ public class Global implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -124,6 +182,13 @@ public class Global implements Serializable {
         return true;
     }
 
+    /**
+     * Checks if is secure tag.
+     *
+     * @param tag
+     *            the tag
+     * @return true, if is secure tag
+     */
     public boolean isSecureTag(String tag) {
         return m_security == null ? false : m_security.isSecureTag(tag);
     }

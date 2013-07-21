@@ -82,6 +82,9 @@ public class ResourceTypeDescriptor extends org.exolab.castor.xml.util.XMLClassD
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new resource type descriptor.
+     */
     public ResourceTypeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

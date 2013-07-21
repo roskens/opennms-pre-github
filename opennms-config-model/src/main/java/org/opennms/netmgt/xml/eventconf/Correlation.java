@@ -53,105 +53,170 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * The event correlation information
+ * The event correlation information.
  */
 @XmlRootElement(name = "correlation")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Correlation implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -6184862237793330801L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * The state determines if event is correlated
-     */
+    /** The state determines if event is correlated. */
     // @Pattern(regexp="(on|off)")
     @XmlAttribute(name = "state")
     private String m_state;
 
-    /**
-     * The correlation path
-     */
+    /** The correlation path. */
     // @Pattern(regexp="(suppressDuplicates|cancellingEvent|suppressAndCancel|pathOutage")
     @XmlAttribute(name = "path")
     private String m_path;
 
-    /**
-     * A canceling UEI for this event
-     */
+    /** A canceling UEI for this event. */
     // @Size(min=0)
     @XmlElement(name = "cuei")
     private List<String> m_cueis = new ArrayList<String>();
 
-    /**
-     * The minimum count for this event
-     */
+    /** The minimum count for this event. */
     @XmlElement(name = "cmin")
     private String m_cmin;
 
-    /**
-     * The maximum count for this event
-     */
+    /** The maximum count for this event. */
     @XmlElement(name = "cmax")
     private String m_cmax;
 
-    /**
-     * The correlation time for this event
-     */
+    /** The correlation time for this event. */
     @XmlElement(name = "ctime")
     private String m_ctime;
 
+    /**
+     * Adds the cuei.
+     *
+     * @param cuei
+     *            the cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addCuei(final String cuei) throws IndexOutOfBoundsException {
         m_cueis.add(cuei.intern());
     }
 
+    /**
+     * Adds the cuei.
+     *
+     * @param index
+     *            the index
+     * @param cuei
+     *            the cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addCuei(final int index, final String cuei) throws IndexOutOfBoundsException {
         m_cueis.add(index, cuei.intern());
     }
 
+    /**
+     * Enumerate cuei.
+     *
+     * @return the enumeration
+     */
     public Enumeration<String> enumerateCuei() {
         return Collections.enumeration(m_cueis);
     }
 
+    /**
+     * Gets the cmax.
+     *
+     * @return the cmax
+     */
     public String getCmax() {
         return m_cmax;
     }
 
+    /**
+     * Gets the cmin.
+     *
+     * @return the cmin
+     */
     public String getCmin() {
         return m_cmin;
     }
 
+    /**
+     * Gets the ctime.
+     *
+     * @return the ctime
+     */
     public String getCtime() {
         return m_ctime;
     }
 
+    /**
+     * Gets the cuei.
+     *
+     * @param index
+     *            the index
+     * @return the cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public String getCuei(final int index) throws IndexOutOfBoundsException {
         return m_cueis.get(index);
     }
 
+    /**
+     * Gets the cuei.
+     *
+     * @return the cuei
+     */
     public String[] getCuei() {
         return m_cueis.toArray(EMPTY_STRING_ARRAY);
     }
 
+    /**
+     * Gets the cuei collection.
+     *
+     * @return the cuei collection
+     */
     public List<String> getCueiCollection() {
         return m_cueis;
     }
 
+    /**
+     * Gets the cuei count.
+     *
+     * @return the cuei count
+     */
     public int getCueiCount() {
         return m_cueis.size();
     }
 
+    /**
+     * Gets the path.
+     *
+     * @return the path
+     */
     public String getPath() {
         return m_path == null ? "suppressDuplicates" : m_path; // XSD default is
                                                                // suppressDuplicates
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState() {
         return m_state == null ? "off" : m_state; // XSD default is off
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -163,46 +228,124 @@ public class Correlation implements Serializable {
         return true;
     }
 
+    /**
+     * Iterate cuei.
+     *
+     * @return the iterator
+     */
     public Iterator<String> iterateCuei() {
         return m_cueis.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all cuei.
+     */
     public void removeAllCuei() {
         m_cueis.clear();
     }
 
+    /**
+     * Removes the cuei.
+     *
+     * @param cuei
+     *            the cuei
+     * @return true, if successful
+     */
     public boolean removeCuei(final String cuei) {
         return m_cueis.remove(cuei);
     }
 
+    /**
+     * Removes the cuei at.
+     *
+     * @param index
+     *            the index
+     * @return the string
+     */
     public String removeCueiAt(final int index) {
         return m_cueis.remove(index);
     }
 
+    /**
+     * Sets the cmax.
+     *
+     * @param cmax
+     *            the new cmax
+     */
     public void setCmax(final String cmax) {
         m_cmax = cmax.intern();
     }
 
+    /**
+     * Sets the cmin.
+     *
+     * @param cmin
+     *            the new cmin
+     */
     public void setCmin(final String cmin) {
         m_cmin = cmin.intern();
     }
 
+    /**
+     * Sets the ctime.
+     *
+     * @param ctime
+     *            the new ctime
+     */
     public void setCtime(final String ctime) {
         m_ctime = ctime.intern();
     }
 
+    /**
+     * Sets the cuei.
+     *
+     * @param index
+     *            the index
+     * @param cuei
+     *            the cuei
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setCuei(final int index, final String cuei) throws IndexOutOfBoundsException {
         m_cueis.set(index, cuei.intern());
     }
 
+    /**
+     * Sets the cuei.
+     *
+     * @param cueis
+     *            the new cuei
+     */
     public void setCuei(final String[] cueis) {
         m_cueis.clear();
         for (final String cuei : cueis) {
@@ -210,6 +353,12 @@ public class Correlation implements Serializable {
         }
     }
 
+    /**
+     * Sets the cuei.
+     *
+     * @param cueis
+     *            the new cuei
+     */
     public void setCuei(final List<String> cueis) {
         m_cueis.clear();
         for (final String cuei : cueis) {
@@ -217,26 +366,64 @@ public class Correlation implements Serializable {
         }
     }
 
+    /**
+     * Sets the cuei collection.
+     *
+     * @param cueis
+     *            the new cuei collection
+     */
     public void setCueiCollection(final List<String> cueis) {
         setCuei(cueis);
     }
 
+    /**
+     * Sets the path.
+     *
+     * @param path
+     *            the new path
+     */
     public void setPath(final String path) {
         m_path = path.intern();
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     public void setState(final String state) {
         m_state = state.intern();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the correlation
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Correlation unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Correlation) Unmarshaller.unmarshal(Correlation.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -250,6 +437,9 @@ public class Correlation implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

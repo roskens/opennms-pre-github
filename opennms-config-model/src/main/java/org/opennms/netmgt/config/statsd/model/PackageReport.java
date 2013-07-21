@@ -39,24 +39,33 @@ import java.util.LinkedHashMap;
  * @version $Id: $
  */
 public class PackageReport {
+
+    /** The m_report. */
     private Report m_report;
 
+    /** The m_schedule. */
     private String m_schedule;
 
+    /** The m_enabled. */
     private boolean m_enabled;
 
+    /** The m_parameters. */
     private LinkedHashMap<String, String> m_parameters = new LinkedHashMap<String, String>();
 
+    /** The m_description. */
     private String m_description;
 
+    /** The m_retain interval. */
     private Long m_retainInterval;
 
+    /** The m_pkg. */
     private StatsdPackage m_pkg;
 
     /**
      * <p>
      * isEnabled
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -68,6 +77,7 @@ public class PackageReport {
      * <p>
      * setEnabled
      * </p>
+     * .
      *
      * @param enabled
      *            a boolean.
@@ -80,6 +90,7 @@ public class PackageReport {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.LinkedHashMap} object.
      */
@@ -91,6 +102,7 @@ public class PackageReport {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.LinkedHashMap} object.
@@ -103,6 +115,7 @@ public class PackageReport {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.
@@ -117,6 +130,7 @@ public class PackageReport {
      * <p>
      * getAggregateParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.LinkedHashMap} object.
      */
@@ -130,6 +144,7 @@ public class PackageReport {
      * <p>
      * getSchedule
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -141,6 +156,7 @@ public class PackageReport {
      * <p>
      * setSchedule
      * </p>
+     * .
      *
      * @param schedule
      *            a {@link java.lang.String} object.
@@ -153,6 +169,7 @@ public class PackageReport {
      * <p>
      * getReport
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.statsd.model.Report} object.
      */
@@ -164,6 +181,7 @@ public class PackageReport {
      * <p>
      * setReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.config.statsd.model.Report}
@@ -177,6 +195,7 @@ public class PackageReport {
      * <p>
      * getDescription
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -188,6 +207,7 @@ public class PackageReport {
      * <p>
      * setDescription
      * </p>
+     * .
      *
      * @param description
      *            a {@link java.lang.String} object.
@@ -200,6 +220,7 @@ public class PackageReport {
      * <p>
      * getRetainInterval
      * </p>
+     * .
      *
      * @return a {@link java.lang.Long} object.
      */
@@ -211,6 +232,7 @@ public class PackageReport {
      * <p>
      * setRetainInterval
      * </p>
+     * .
      *
      * @param retainInterval
      *            a {@link java.lang.Long} object.
@@ -223,6 +245,7 @@ public class PackageReport {
      * <p>
      * getPackage
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.statsd.model.StatsdPackage}
      *         object.
@@ -235,6 +258,7 @@ public class PackageReport {
      * <p>
      * setPackage
      * </p>
+     * .
      *
      * @param pkg
      *            a {@link org.opennms.netmgt.config.statsd.model.StatsdPackage}

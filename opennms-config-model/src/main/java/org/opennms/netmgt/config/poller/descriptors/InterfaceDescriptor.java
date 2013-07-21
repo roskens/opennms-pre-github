@@ -82,6 +82,9 @@ public class InterfaceDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new interface descriptor.
+     */
     public InterfaceDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/poller/outages";

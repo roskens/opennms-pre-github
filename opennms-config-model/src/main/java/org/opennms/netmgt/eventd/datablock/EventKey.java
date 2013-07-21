@@ -52,73 +52,48 @@ import java.util.Map;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public class EventKey extends LinkedHashMap<String, Object> implements Serializable, Comparable<EventKey> {
-    /**
-     *
-     */
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3498941419429346315L;
 
-    /**
-     * The UEI xml tag
-     */
+    /** The UEI xml tag. */
     public static final String TAG_UEI = "uei";
 
-    /**
-     * The event source xml tag
-     */
+    /** The event source xml tag. */
     public static final String TAG_SOURCE = "source";
 
-    /**
-     * The event nodeid xml tag
-     */
+    /** The event nodeid xml tag. */
     public static final String TAG_NODEID = "nodeid";
 
-    /**
-     * The event host xml tag
-     */
+    /** The event host xml tag. */
     public static final String TAG_HOST = "host";
 
-    /**
-     * The event interface xml tag
-     */
+    /** The event interface xml tag. */
     public static final String TAG_INTERFACE = "interface";
 
-    /**
-     * The event snmp host xml tag
-     */
+    /** The event snmp host xml tag. */
     public static final String TAG_SNMPHOST = "snmphost";
 
-    /**
-     * The event service xml tag
-     */
+    /** The event service xml tag. */
     public static final String TAG_SERVICE = "service";
 
-    /**
-     * The SNMP EID xml tag
-     */
+    /** The SNMP EID xml tag. */
     public static final String TAG_SNMP_EID = "id";
 
-    /**
-     * The SNMP specific xml tag
-     */
+    /** The SNMP specific xml tag. */
     public static final String TAG_SNMP_SPECIFIC = "specific";
 
-    /**
-     * The SNMP generic xml tag
-     */
+    /** The SNMP generic xml tag. */
     public static final String TAG_SNMP_GENERIC = "generic";
 
-    /**
-     * The SNMP community xml tag
-     */
+    /** The SNMP community xml tag. */
     public static final String TAG_SNMP_COMMUNITY = "community";
 
-    /**
-     * The hash code calculated from the elements
-     */
+    /** The hash code calculated from the elements. */
     private int m_hashCode;
 
     /**
-     * Default constructor for this class
+     * Default constructor for this class.
      */
     public EventKey() {
         super();
@@ -126,11 +101,11 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Constructor for this class
+     * Constructor for this class.
      *
-     * @see java.util.HashMap#HashMap(int)
      * @param initCapacity
      *            a int.
+     * @see java.util.HashMap#HashMap(int)
      */
     public EventKey(int initCapacity) {
         super(initCapacity);
@@ -138,13 +113,13 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Constructor for this class
+     * Constructor for this class.
      *
-     * @see java.util.HashMap#HashMap(int, float)
      * @param initCapacity
      *            a int.
      * @param loadFactor
      *            a float.
+     * @see java.util.HashMap#HashMap(int, float)
      */
     public EventKey(int initCapacity, float loadFactor) {
         super(initCapacity, loadFactor);
@@ -152,7 +127,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Constructor for this class
+     * Constructor for this class.
      *
      * @param maskelements
      *            the maskelements that should form this key
@@ -167,7 +142,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Constructor for this class
+     * Constructor for this class.
      *
      * @param event
      *            the config event that this will be the key for
@@ -213,7 +188,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Constructor for this class
+     * Constructor for this class.
      *
      * @param event
      *            the event that this will be the key for
@@ -244,7 +219,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      */
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
      * @see java.util.HashMap#clear()
      */
@@ -325,12 +300,12 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Implementation for the Comparable interface
+     * Implementation for the Comparable interface.
      *
-     * @see java.lang.Comparable#compareTo(Object)
      * @param obj
      *            a {@link org.opennms.netmgt.eventd.datablock.EventKey} object.
      * @return a int.
+     * @see java.lang.Comparable#compareTo(Object)
      */
     @Override
     public int compareTo(EventKey obj) {
@@ -338,7 +313,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Overrides the 'hashCode()' method in the superclass
+     * Overrides the 'hashCode()' method in the superclass.
      *
      * @return a hash code for this object
      */
@@ -352,7 +327,7 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     }
 
     /**
-     * Returns a String equivalent of this object
+     * Returns a String equivalent of this object.
      *
      * @return a String equivalent of this object
      */
@@ -376,15 +351,16 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
      *
      * <em>
      * Note:
-     * </em>
-     *  The only event elements that can occur to
-     *  uniquely identify an event are -
-     *  uei, source, host, snmphost, nodeid, interface, service, id(SNMP EID), specific, generic, community
+     * </em> The only event elements that can occur to
+     * uniquely identify an event are -
+     * uei, source, host, snmphost, nodeid, interface, service, id(SNMP EID),
+     * specific, generic, community
      *
-     *  @return value of the event element
-     * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @param mename a
-     * {@link java.lang.String} object.
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @param mename
+     *            a
+     * @return value of the event element {@link java.lang.String} object.
      */
     public static String getMaskElementValue(org.opennms.netmgt.xml.event.Event event, String mename) {
         String retParmVal = null;

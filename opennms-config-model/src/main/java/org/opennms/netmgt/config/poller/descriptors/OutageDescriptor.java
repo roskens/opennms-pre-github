@@ -82,6 +82,9 @@ public class OutageDescriptor extends org.opennms.netmgt.config.poller.descripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new outage descriptor.
+     */
     public OutageDescriptor() {
         super();
         setExtendsWithoutFlatten(new org.opennms.netmgt.config.poller.descriptors.BasicScheduleDescriptor());

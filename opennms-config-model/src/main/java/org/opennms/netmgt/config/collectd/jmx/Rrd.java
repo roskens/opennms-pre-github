@@ -79,6 +79,9 @@ public class Rrd implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new rrd.
+     */
     public Rrd() {
         super();
         this._rraList = new java.util.ArrayList<java.lang.String>();
@@ -89,21 +92,26 @@ public class Rrd implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the rra.
+     *
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRra(final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(vRra);
     }
 
     /**
+     * Adds the rra.
+     *
      * @param index
+     *            the index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(index, vRra);
@@ -123,6 +131,7 @@ public class Rrd implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -151,10 +160,10 @@ public class Rrd implements java.io.Serializable {
      * Method getRra.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getRra(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -267,13 +276,14 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
@@ -282,16 +292,16 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
@@ -300,6 +310,7 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Removes the all rra.
      */
     public void removeAllRra() {
         this._rraList.clear();
@@ -309,6 +320,7 @@ public class Rrd implements java.io.Serializable {
      * Method removeRra.
      *
      * @param vRra
+     *            the v rra
      * @return true if the object was removed from the collection.
      */
     public boolean removeRra(final java.lang.String vRra) {
@@ -320,6 +332,7 @@ public class Rrd implements java.io.Serializable {
      * Method removeRraAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeRraAt(final int index) {
@@ -328,11 +341,14 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param index
+     *            the index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -345,7 +361,10 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param vRraArray
+     *            the new rra
      */
     public void setRra(final java.lang.String[] vRraArray) {
         // -- copy array
@@ -374,9 +393,9 @@ public class Rrd implements java.io.Serializable {
      * Sets the value of '_rraList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param rraList
      *            the Vector to set.
+     * @deprecated
      */
     public void setRraCollection(final java.util.List<java.lang.String> rraList) {
         this._rraList = rraList;
@@ -396,13 +415,12 @@ public class Rrd implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled org.opennms.netmgt.config.collectd.jmx.Rrd
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Rrd unmarshal(final java.io.Reader reader) throws org.exolab.castor.xml.MarshalException,
@@ -411,9 +429,10 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws org.exolab.castor.xml.ValidationException {

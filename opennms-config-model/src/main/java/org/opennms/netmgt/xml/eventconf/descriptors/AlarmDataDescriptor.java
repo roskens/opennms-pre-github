@@ -81,6 +81,9 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new alarm data descriptor.
+     */
     public AlarmDataDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

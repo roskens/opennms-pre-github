@@ -82,6 +82,9 @@ public class PersistenceSelectorStrategyDescriptor extends org.exolab.castor.xml
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new persistence selector strategy descriptor.
+     */
     public PersistenceSelectorStrategyDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

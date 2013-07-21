@@ -81,6 +81,9 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new security descriptor.
+     */
     public SecurityDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

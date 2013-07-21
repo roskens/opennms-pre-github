@@ -59,30 +59,63 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Filters implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3672883849182860671L;
 
+    /** The Constant EMPTY_FILTER_ARRAY. */
     private static final Filter[] EMPTY_FILTER_ARRAY = new Filter[0];
 
-    /**
-     * The mask element
-     */
+    /** The mask element. */
     // @NotNull
     // @Size(min=1)
     @XmlElement(name = "filter", required = true)
     private List<Filter> m_filters = new ArrayList<Filter>();
 
+    /**
+     * Adds the filter.
+     *
+     * @param filter
+     *            the filter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addFilter(final Filter filter) throws IndexOutOfBoundsException {
         m_filters.add(filter);
     }
 
+    /**
+     * Adds the filter.
+     *
+     * @param index
+     *            the index
+     * @param filter
+     *            the filter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addFilter(final int index, final Filter filter) throws IndexOutOfBoundsException {
         m_filters.add(index, filter);
     }
 
+    /**
+     * Enumerate filter.
+     *
+     * @return the enumeration
+     */
     public Enumeration<Filter> enumerateFilter() {
         return Collections.enumeration(m_filters);
     }
 
+    /**
+     * Gets the filter.
+     *
+     * @param index
+     *            the index
+     * @return the filter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public Filter getFilter(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_filters.size()) {
             throw new IndexOutOfBoundsException("getFilter: Index value '" + index + "' not in range [0.."
@@ -91,19 +124,36 @@ public class Filters implements Serializable {
         return m_filters.get(index);
     }
 
+    /**
+     * Gets the filter.
+     *
+     * @return the filter
+     */
     public Filter[] getFilter() {
         return m_filters.toArray(EMPTY_FILTER_ARRAY);
     }
 
+    /**
+     * Gets the filter collection.
+     *
+     * @return the filter collection
+     */
     public List<Filter> getFilterCollection() {
         return m_filters;
     }
 
+    /**
+     * Gets the filter count.
+     *
+     * @return the filter count
+     */
     public int getFilterCount() {
         return m_filters.size();
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -115,30 +165,84 @@ public class Filters implements Serializable {
         return true;
     }
 
+    /**
+     * Iterate filter.
+     *
+     * @return the iterator
+     */
     public Iterator<Filter> iterateFilter() {
         return m_filters.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all filter.
+     */
     public void removeAllFilter() {
         m_filters.clear();
     }
 
+    /**
+     * Removes the filter.
+     *
+     * @param filter
+     *            the filter
+     * @return true, if successful
+     */
     public boolean removeFilter(final Filter filter) {
         return m_filters.remove(filter);
     }
 
+    /**
+     * Removes the filter at.
+     *
+     * @param index
+     *            the index
+     * @return the filter
+     */
     public Filter removeFilterAt(final int index) {
         return m_filters.remove(index);
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param index
+     *            the index
+     * @param filter
+     *            the filter
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setFilter(final int index, final Filter filter) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_filters.size()) {
             throw new IndexOutOfBoundsException("setFilter: Index value '" + index + "' not in range [0.."
@@ -147,6 +251,12 @@ public class Filters implements Serializable {
         m_filters.set(index, filter);
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param filters
+     *            the new filter
+     */
     public void setFilter(final Filter[] filters) {
         m_filters.clear();
         for (final Filter filter : filters) {
@@ -154,6 +264,12 @@ public class Filters implements Serializable {
         }
     }
 
+    /**
+     * Sets the filter.
+     *
+     * @param filters
+     *            the new filter
+     */
     public void setFilter(final List<Filter> filters) {
         if (m_filters == filters)
             return;
@@ -161,18 +277,44 @@ public class Filters implements Serializable {
         m_filters.addAll(filters);
     }
 
+    /**
+     * Sets the filter collection.
+     *
+     * @param filters
+     *            the new filter collection
+     */
     public void setFilterCollection(final List<Filter> filters) {
         setFilter(filters);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the filters
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Filters unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Filters) Unmarshaller.unmarshal(Filters.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -181,6 +323,9 @@ public class Filters implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

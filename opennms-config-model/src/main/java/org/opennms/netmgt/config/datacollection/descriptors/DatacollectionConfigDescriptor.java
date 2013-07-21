@@ -82,6 +82,9 @@ public class DatacollectionConfigDescriptor extends org.exolab.castor.xml.util.X
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new datacollection config descriptor.
+     */
     public DatacollectionConfigDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

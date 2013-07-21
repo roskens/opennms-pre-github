@@ -61,50 +61,105 @@ import org.xml.sax.ContentHandler;
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_maskElements", "m_varbinds" })
 public class Mask implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6447323136878359636L;
 
+    /** The Constant EMPTY_VARBIND_ARRAY. */
     private static final Varbind[] EMPTY_VARBIND_ARRAY = new Varbind[0];
 
+    /** The Constant EMPTY_MASKELEMENT_ARRAY. */
     private static final Maskelement[] EMPTY_MASKELEMENT_ARRAY = new Maskelement[0];
 
-    /**
-     * The mask element
-     */
+    /** The mask element. */
     // @NotNull
     // @Size(min=1)
     @XmlElement(name = "maskelement", required = true)
     private List<Maskelement> m_maskElements = new ArrayList<Maskelement>();
 
-    /**
-     * The varbind element
-     */
+    /** The varbind element. */
     @XmlElement(name = "varbind")
     private List<Varbind> m_varbinds = new ArrayList<Varbind>();
 
+    /**
+     * Adds the maskelement.
+     *
+     * @param element
+     *            the element
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addMaskelement(final Maskelement element) throws IndexOutOfBoundsException {
         m_maskElements.add(element);
     }
 
+    /**
+     * Adds the maskelement.
+     *
+     * @param index
+     *            the index
+     * @param element
+     *            the element
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addMaskelement(final int index, final Maskelement element) throws IndexOutOfBoundsException {
         m_maskElements.add(index, element);
     }
 
+    /**
+     * Adds the varbind.
+     *
+     * @param varbind
+     *            the varbind
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addVarbind(final Varbind varbind) throws IndexOutOfBoundsException {
         m_varbinds.add(varbind);
     }
 
+    /**
+     * Adds the varbind.
+     *
+     * @param index
+     *            the index
+     * @param varbind
+     *            the varbind
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addVarbind(final int index, final Varbind varbind) throws IndexOutOfBoundsException {
         m_varbinds.add(index, varbind);
     }
 
+    /**
+     * Enumerate maskelement.
+     *
+     * @return the enumeration
+     */
     public Enumeration<Maskelement> enumerateMaskelement() {
         return Collections.enumeration(m_maskElements);
     }
 
+    /**
+     * Enumerate varbind.
+     *
+     * @return the enumeration
+     */
     public Enumeration<Varbind> enumerateVarbind() {
         return Collections.enumeration(m_varbinds);
     }
 
+    /**
+     * Gets the maskelement.
+     *
+     * @param index
+     *            the index
+     * @return the maskelement
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public Maskelement getMaskelement(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_maskElements.size()) {
             throw new IndexOutOfBoundsException("getMaskelement: Index value '" + index + "' not in range [0.."
@@ -113,18 +168,42 @@ public class Mask implements Serializable {
         return m_maskElements.get(index);
     }
 
+    /**
+     * Gets the maskelement.
+     *
+     * @return the maskelement
+     */
     public Maskelement[] getMaskelement() {
         return m_maskElements.toArray(EMPTY_MASKELEMENT_ARRAY);
     }
 
+    /**
+     * Gets the maskelement collection.
+     *
+     * @return the maskelement collection
+     */
     public List<Maskelement> getMaskelementCollection() {
         return m_maskElements;
     }
 
+    /**
+     * Gets the maskelement count.
+     *
+     * @return the maskelement count
+     */
     public int getMaskelementCount() {
         return m_maskElements.size();
     }
 
+    /**
+     * Gets the varbind.
+     *
+     * @param index
+     *            the index
+     * @return the varbind
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public Varbind getVarbind(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_varbinds.size()) {
             throw new IndexOutOfBoundsException("getVarbind: Index value '" + index + "' not in range [0.."
@@ -133,18 +212,38 @@ public class Mask implements Serializable {
         return m_varbinds.get(index);
     }
 
+    /**
+     * Gets the varbind.
+     *
+     * @return the varbind
+     */
     public Varbind[] getVarbind() {
         return m_varbinds.toArray(EMPTY_VARBIND_ARRAY);
     }
 
+    /**
+     * Gets the varbind collection.
+     *
+     * @return the varbind collection
+     */
     public List<Varbind> getVarbindCollection() {
         return m_varbinds;
     }
 
+    /**
+     * Gets the varbind count.
+     *
+     * @return the varbind count
+     */
     public int getVarbindCount() {
         return m_varbinds.size();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         try {
             validate();
@@ -154,46 +253,122 @@ public class Mask implements Serializable {
         return true;
     }
 
+    /**
+     * Iterate maskelement.
+     *
+     * @return the iterator
+     */
     public Iterator<Maskelement> iterateMaskelement() {
         return m_maskElements.iterator();
     }
 
+    /**
+     * Iterate varbind.
+     *
+     * @return the iterator
+     */
     public Iterator<Varbind> iterateVarbind() {
         return m_varbinds.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all maskelement.
+     */
     public void removeAllMaskelement() {
         m_maskElements.clear();
     }
 
+    /**
+     * Removes the all varbind.
+     */
     public void removeAllVarbind() {
         m_varbinds.clear();
     }
 
+    /**
+     * Removes the maskelement.
+     *
+     * @param element
+     *            the element
+     * @return true, if successful
+     */
     public boolean removeMaskelement(final Maskelement element) {
         return m_maskElements.remove(element);
     }
 
+    /**
+     * Removes the maskelement at.
+     *
+     * @param index
+     *            the index
+     * @return the maskelement
+     */
     public Maskelement removeMaskelementAt(final int index) {
         return m_maskElements.remove(index);
     }
 
+    /**
+     * Removes the varbind.
+     *
+     * @param varbind
+     *            the varbind
+     * @return true, if successful
+     */
     public boolean removeVarbind(final Varbind varbind) {
         return m_varbinds.remove(varbind);
     }
 
+    /**
+     * Removes the varbind at.
+     *
+     * @param index
+     *            the index
+     * @return the varbind
+     */
     public Varbind removeVarbindAt(final int index) {
         return m_varbinds.remove(index);
     }
 
+    /**
+     * Sets the maskelement.
+     *
+     * @param index
+     *            the index
+     * @param element
+     *            the element
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setMaskelement(final int index, final Maskelement element) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_maskElements.size()) {
             throw new IndexOutOfBoundsException("setMaskelement: Index value '" + index + "' not in range [0.."
@@ -202,6 +377,12 @@ public class Mask implements Serializable {
         m_maskElements.set(index, element);
     }
 
+    /**
+     * Sets the maskelement.
+     *
+     * @param elements
+     *            the new maskelement
+     */
     public void setMaskelement(final Maskelement[] elements) {
         m_maskElements.clear();
         for (final Maskelement element : elements) {
@@ -209,6 +390,12 @@ public class Mask implements Serializable {
         }
     }
 
+    /**
+     * Sets the maskelement.
+     *
+     * @param elements
+     *            the new maskelement
+     */
     public void setMaskelement(final List<Maskelement> elements) {
         if (m_maskElements == elements)
             return;
@@ -216,10 +403,26 @@ public class Mask implements Serializable {
         m_maskElements.addAll(elements);
     }
 
+    /**
+     * Sets the maskelement collection.
+     *
+     * @param elements
+     *            the new maskelement collection
+     */
     public void setMaskelementCollection(final List<Maskelement> elements) {
         setMaskelement(elements);
     }
 
+    /**
+     * Sets the varbind.
+     *
+     * @param index
+     *            the index
+     * @param varbind
+     *            the varbind
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setVarbind(final int index, final Varbind varbind) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_varbinds.size()) {
             throw new IndexOutOfBoundsException("setVarbind: Index value '" + index + "' not in range [0.."
@@ -228,6 +431,12 @@ public class Mask implements Serializable {
         m_varbinds.set(index, varbind);
     }
 
+    /**
+     * Sets the varbind.
+     *
+     * @param varbinds
+     *            the new varbind
+     */
     public void setVarbind(final Varbind[] varbinds) {
         m_varbinds.clear();
         for (final Varbind varbind : varbinds) {
@@ -235,6 +444,12 @@ public class Mask implements Serializable {
         }
     }
 
+    /**
+     * Sets the varbind.
+     *
+     * @param varbinds
+     *            the new varbind
+     */
     public void setVarbind(final List<Varbind> varbinds) {
         if (m_varbinds == varbinds)
             return;
@@ -242,18 +457,44 @@ public class Mask implements Serializable {
         m_varbinds.addAll(varbinds);
     }
 
+    /**
+     * Sets the varbind collection.
+     *
+     * @param varbinds
+     *            the new varbind collection
+     */
     public void setVarbindCollection(final List<Varbind> varbinds) {
         setVarbind(varbinds);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the mask
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Mask unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Mask) Unmarshaller.unmarshal(Mask.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -263,6 +504,9 @@ public class Mask implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -287,6 +531,11 @@ public class Mask implements Serializable {
         return true;
     }
 
+    /**
+     * Construct matcher.
+     *
+     * @return the event matcher
+     */
     public EventMatcher constructMatcher() {
         EventMatcher[] matchers = new EventMatcher[getMaskelementCount() + getVarbindCount()];
         int index = 0;
@@ -303,6 +552,13 @@ public class Mask implements Serializable {
         return EventMatchers.and(matchers);
     }
 
+    /**
+     * Gets the mask element.
+     *
+     * @param mename
+     *            the mename
+     * @return the mask element
+     */
     public Maskelement getMaskElement(String mename) {
         for (Maskelement element : m_maskElements) {
             if (mename.equals(element.getMename())) {
@@ -312,6 +568,13 @@ public class Mask implements Serializable {
         return null;
     }
 
+    /**
+     * Gets the mask element values.
+     *
+     * @param mename
+     *            the mename
+     * @return the mask element values
+     */
     public List<String> getMaskElementValues(String mename) {
         Maskelement element = getMaskElement(mename);
         return element == null ? null : element.getMevalueCollection();

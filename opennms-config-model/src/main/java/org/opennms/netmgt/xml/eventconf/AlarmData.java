@@ -57,82 +57,149 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class AlarmData implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4111377873947389525L;
 
     // @NotNull
+    /** The m_reduction key. */
     @XmlAttribute(name = "reduction-key", required = true)
     private String m_reductionKey;
 
     // @Min(1)
+    /** The m_alarm type. */
     @XmlAttribute(name = "alarm-type")
     private Integer m_alarmType;
 
+    /** The m_clear key. */
     @XmlAttribute(name = "clear-key")
     private String m_clearKey;
 
+    /** The m_auto clean. */
     @XmlAttribute(name = "auto-clean")
     private Boolean m_autoClean;
 
     // @Pattern(regexp="(CommunicationsAlarm|ProcessingErrorAlarm|EnvironmentalAlarm|QualityOfServiceAlarm|EquipmentAlarm|IntegrityViolation|SecurityViolation|TimeDomainViolation|OperationalViolation|PhysicalViolation)")
+    /** The m_x733 alarm type. */
     @XmlAttribute(name = "x733-alarm-type")
     private String m_x733AlarmType;
 
+    /** The m_x733 probable cause. */
     @XmlAttribute(name = "x733-probable-cause")
     private Integer m_x733ProbableCause;
 
+    /** The m_update fields. */
     @XmlElement(name = "update-field", required = false)
     private List<UpdateField> m_updateFields = new ArrayList<UpdateField>();
 
+    /**
+     * Delete alarm type.
+     */
     public void deleteAlarmType() {
         m_alarmType = null;
     }
 
+    /**
+     * Delete x733 probable cause.
+     */
     public void deleteX733ProbableCause() {
         m_x733ProbableCause = null;
     }
 
+    /**
+     * Gets the alarm type.
+     *
+     * @return the alarm type
+     */
     public Integer getAlarmType() {
         return m_alarmType;
     }
 
+    /**
+     * Gets the auto clean.
+     *
+     * @return the auto clean
+     */
     public Boolean getAutoClean() {
         return m_autoClean == null ? Boolean.FALSE : m_autoClean; // XSD default
                                                                   // is false
     }
 
+    /**
+     * Gets the clear key.
+     *
+     * @return the clear key
+     */
     public String getClearKey() {
         return m_clearKey;
     }
 
+    /**
+     * Gets the reduction key.
+     *
+     * @return the reduction key
+     */
     public String getReductionKey() {
         return m_reductionKey;
     }
 
+    /**
+     * Gets the x733 alarm type.
+     *
+     * @return the x733 alarm type
+     */
     public String getX733AlarmType() {
         return m_x733AlarmType;
     }
 
+    /**
+     * Gets the x733 probable cause.
+     *
+     * @return the x733 probable cause
+     */
     public Integer getX733ProbableCause() {
         return m_x733ProbableCause;
     }
 
+    /**
+     * Checks for alarm type.
+     *
+     * @return true, if successful
+     */
     public boolean hasAlarmType() {
         return m_alarmType != null;
     }
 
+    /**
+     * Checks for x733 probable cause.
+     *
+     * @return true, if successful
+     */
     public boolean hasX733ProbableCause() {
         return m_x733ProbableCause != null;
     }
 
+    /**
+     * Checks for auto clean.
+     *
+     * @return true, if successful
+     */
     public boolean hasAutoClean() {
         return m_autoClean != null;
     }
 
+    /**
+     * Checks if is auto clean.
+     *
+     * @return true, if is auto clean
+     */
     public boolean isAutoClean() {
         return m_autoClean;
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -144,58 +211,152 @@ public class AlarmData implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the alarm type.
+     *
+     * @param alarmType
+     *            the new alarm type
+     */
     public void setAlarmType(final Integer alarmType) {
         m_alarmType = alarmType;
     }
 
+    /**
+     * Sets the auto clean.
+     *
+     * @param autoClean
+     *            the new auto clean
+     */
     public void setAutoClean(final Boolean autoClean) {
         m_autoClean = autoClean;
     }
 
+    /**
+     * Sets the clear key.
+     *
+     * @param clearKey
+     *            the new clear key
+     */
     public void setClearKey(final String clearKey) {
         m_clearKey = clearKey == null ? null : clearKey.intern();
     }
 
+    /**
+     * Sets the reduction key.
+     *
+     * @param reductionKey
+     *            the new reduction key
+     */
     public void setReductionKey(final String reductionKey) {
         m_reductionKey = reductionKey == null ? null : reductionKey.intern();
     }
 
+    /**
+     * Sets the x733 alarm type.
+     *
+     * @param x733AlarmType
+     *            the new x733 alarm type
+     */
     public void setX733AlarmType(final String x733AlarmType) {
         m_x733AlarmType = x733AlarmType == null ? null : x733AlarmType.intern();
     }
 
+    /**
+     * Sets the x733 probable cause.
+     *
+     * @param x733ProbableCause
+     *            the new x733 probable cause
+     */
     public void setX733ProbableCause(final Integer x733ProbableCause) {
         m_x733ProbableCause = x733ProbableCause;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the alarm data
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static AlarmData unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (AlarmData) Unmarshaller.unmarshal(AlarmData.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /**
+     * Delete auto clean.
+     */
     public void deleteAutoClean() {
         m_autoClean = null;
     }
 
+    /**
+     * Checks for update fields.
+     *
+     * @return true, if successful
+     */
     public boolean hasUpdateFields() {
         return m_updateFields.isEmpty() ? false : true;
     }
 
+    /**
+     * Gets the update field list.
+     *
+     * @return the update field list
+     */
     public List<UpdateField> getUpdateFieldList() {
         return Collections.unmodifiableList(m_updateFields);
     }
 
+    /**
+     * Sets the update field list.
+     *
+     * @param updateFields
+     *            the new update field list
+     */
     public void setUpdateFieldList(final List<UpdateField> updateFields) {
         if (m_updateFields == updateFields)
             return;
@@ -203,10 +364,16 @@ public class AlarmData implements Serializable {
         m_updateFields.addAll(updateFields);
     }
 
+    /**
+     * Delete update field list.
+     */
     public void deleteUpdateFieldList() {
         m_updateFields.clear();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -221,6 +388,9 @@ public class AlarmData implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

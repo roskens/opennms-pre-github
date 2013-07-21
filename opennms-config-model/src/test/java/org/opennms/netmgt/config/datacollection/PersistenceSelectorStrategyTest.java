@@ -35,13 +35,33 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
 
+/**
+ * The Class PersistenceSelectorStrategyTest.
+ */
 public class PersistenceSelectorStrategyTest extends XmlTest<PersistenceSelectorStrategy> {
 
+    /**
+     * Instantiates a new persistence selector strategy test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public PersistenceSelectorStrategyTest(final PersistenceSelectorStrategy sampleObject, final String sampleXml,
             final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final PersistenceSelectorStrategy strategy = new PersistenceSelectorStrategy();

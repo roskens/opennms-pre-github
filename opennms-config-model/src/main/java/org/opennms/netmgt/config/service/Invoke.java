@@ -60,6 +60,8 @@ import org.opennms.netmgt.config.service.types.InvokeAtTypeAdapter;
 @XmlRootElement(name = "invoke")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Invoke implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1295387509696778585L;
 
     // --------------------------/
@@ -95,10 +97,25 @@ public class Invoke implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new invoke.
+     */
     public Invoke() {
         super();
     }
 
+    /**
+     * Instantiates a new invoke.
+     *
+     * @param type
+     *            the type
+     * @param pass
+     *            the pass
+     * @param method
+     *            the method
+     * @param arguments
+     *            the arguments
+     */
     public Invoke(final InvokeAtType type, final Integer pass, final String method, final List<Argument> arguments) {
         super();
         setAt(type);
@@ -112,25 +129,33 @@ public class Invoke implements Serializable {
     // -----------/
 
     /**
+     * Adds the argument.
+     *
      * @param vArgument
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v argument
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addArgument(final Argument vArgument) throws IndexOutOfBoundsException {
         this._argumentList.add(vArgument);
     }
 
     /**
+     * Adds the argument.
+     *
      * @param index
+     *            the index
      * @param vArgument
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v argument
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addArgument(final int index, final Argument vArgument) throws IndexOutOfBoundsException {
         this._argumentList.add(index, vArgument);
     }
 
     /**
+     * Delete pass.
      */
     public void deletePass() {
         this._pass = null;
@@ -149,6 +174,7 @@ public class Invoke implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -191,10 +217,11 @@ public class Invoke implements Serializable {
      * Method getArgument.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.service.Argument at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Argument getArgument(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -311,6 +338,7 @@ public class Invoke implements Serializable {
     }
 
     /**
+     * Removes the all argument.
      */
     public void removeAllArgument() {
         this._argumentList.clear();
@@ -320,6 +348,7 @@ public class Invoke implements Serializable {
      * Method removeArgument.
      *
      * @param vArgument
+     *            the v argument
      * @return true if the object was removed from the collection.
      */
     public boolean removeArgument(final Argument vArgument) {
@@ -331,6 +360,7 @@ public class Invoke implements Serializable {
      * Method removeArgumentAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Argument removeArgumentAt(final int index) {
@@ -339,10 +369,14 @@ public class Invoke implements Serializable {
     }
 
     /**
+     * Sets the argument.
+     *
      * @param index
+     *            the index
      * @param vArgument
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v argument
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setArgument(final int index, final Argument vArgument) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -355,7 +389,10 @@ public class Invoke implements Serializable {
     }
 
     /**
+     * Sets the argument.
+     *
      * @param vArgumentArray
+     *            the new argument
      */
     public void setArgument(final Argument[] vArgumentArray) {
         // -- copy array

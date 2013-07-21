@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 
 /**
- * a MIB object
+ * a MIB object.
  *
  * @version $Revision$ $Date$
  */
@@ -54,11 +54,11 @@ import org.opennms.core.xml.ValidateUsing;
 @XmlType(propOrder = { "oid", "instance", "alias", "type", "maxval", "minval" })
 @ValidateUsing("datacollection-config.xsd")
 public class MibObj implements java.io.Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7831201614734695268L;
 
-    /**
-     * object identifier
-     */
+    /** object identifier. */
     private String m_oid;
 
     /**
@@ -113,10 +113,25 @@ public class MibObj implements java.io.Serializable {
      */
     private String m_minval;
 
+    /**
+     * Instantiates a new mib obj.
+     */
     public MibObj() {
         super();
     }
 
+    /**
+     * Instantiates a new mib obj.
+     *
+     * @param oid
+     *            the oid
+     * @param instance
+     *            the instance
+     * @param alias
+     *            the alias
+     * @param type
+     *            the type
+     */
     public MibObj(final String oid, final String instance, final String alias, final String type) {
         super();
         m_oid = oid;
@@ -129,6 +144,7 @@ public class MibObj implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -333,7 +349,10 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -347,16 +366,18 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException, MarshalException,
@@ -466,14 +487,15 @@ public class MibObj implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         MibObj
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         MibObj
      */
     @Deprecated
     public static MibObj unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -481,6 +503,8 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

@@ -63,28 +63,35 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * systems
+ * systems.
  */
 
 @XmlRootElement(name = "systems", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class Systems implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1757643773135824946L;
 
+    /** The Constant EMPTY_SYSTEMDEF_ARRAY. */
     private static final SystemDef[] EMPTY_SYSTEMDEF_ARRAY = new SystemDef[0];
 
-    /**
-     * list of system definitions
-     */
+    /** list of system definitions. */
     private List<SystemDef> m_systemDefs = new ArrayList<SystemDef>();
 
+    /**
+     * Instantiates a new systems.
+     */
     public Systems() {
         super();
     }
 
     /**
+     * Adds the system def.
+     *
      * @param systemDef
+     *            the system def
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -94,8 +101,12 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Adds the system def.
+     *
      * @param index
+     *            the index
      * @param systemDef
+     *            the system def
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -118,6 +129,7 @@ public class Systems implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -144,12 +156,13 @@ public class Systems implements Serializable {
      * Method getSystemDef.
      *
      * @param index
-     * @throws IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         types.SystemDef at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             if the index
+     *             given is outside the bounds of the collection
      */
     public SystemDef getSystemDef(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_systemDefs.size()) {
@@ -240,7 +253,10 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -254,16 +270,19 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
@@ -271,6 +290,7 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Removes the all system def.
      */
     public void removeAllSystemDef() {
         m_systemDefs.clear();
@@ -280,6 +300,7 @@ public class Systems implements Serializable {
      * Method removeSystemDef.
      *
      * @param systemDef
+     *            the system def
      * @return true if the object was removed from the collection.
      */
     public boolean removeSystemDef(final SystemDef systemDef) {
@@ -290,6 +311,7 @@ public class Systems implements Serializable {
      * Method removeSystemDefAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public SystemDef removeSystemDefAt(final int index) {
@@ -297,8 +319,12 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Sets the system def.
+     *
      * @param index
+     *            the index
      * @param systemDef
+     *            the system def
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -312,7 +338,10 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Sets the system def.
+     *
      * @param systemDefs
+     *            the new system def
      */
     public void setSystemDef(final SystemDef[] systemDefs) {
         m_systemDefs.clear();
@@ -339,9 +368,9 @@ public class Systems implements Serializable {
      * Sets the value of '_systemDefList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param systemDefs
      *            the Vector to set.
+     * @deprecated
      */
     public void setSystemDefCollection(final List<SystemDef> systemDefs) {
         m_systemDefs = systemDefs;
@@ -351,14 +380,15 @@ public class Systems implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Systems
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Systems
      */
     @Deprecated
     public static Systems unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -366,6 +396,8 @@ public class Systems implements Serializable {
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema

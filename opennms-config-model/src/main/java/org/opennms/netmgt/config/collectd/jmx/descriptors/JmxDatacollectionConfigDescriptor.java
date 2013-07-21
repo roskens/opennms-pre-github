@@ -83,6 +83,9 @@ public class JmxDatacollectionConfigDescriptor extends org.exolab.castor.xml.uti
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new jmx datacollection config descriptor.
+     */
     public JmxDatacollectionConfigDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/jmx-datacollection";

@@ -58,89 +58,95 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * The mask element
+ * The mask element.
  */
 @XmlRootElement(name = "maskelement")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_name", "m_values" })
 public class Maskelement implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -3932312038903008806L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * The UEI xml tag
-     */
+    /** The UEI xml tag. */
     public static final String TAG_UEI = "uei";
 
-    /**
-     * The event source xml tag
-     */
+    /** The event source xml tag. */
     public static final String TAG_SOURCE = "source";
 
-    /**
-     * The event nodeid xml tag
-     */
+    /** The event nodeid xml tag. */
     public static final String TAG_NODEID = "nodeid";
 
-    /**
-     * The event host xml tag
-     */
+    /** The event host xml tag. */
     public static final String TAG_HOST = "host";
 
-    /**
-     * The event interface xml tag
-     */
+    /** The event interface xml tag. */
     public static final String TAG_INTERFACE = "interface";
 
-    /**
-     * The event snmp host xml tag
-     */
+    /** The event snmp host xml tag. */
     public static final String TAG_SNMPHOST = "snmphost";
 
-    /**
-     * The event service xml tag
-     */
+    /** The event service xml tag. */
     public static final String TAG_SERVICE = "service";
 
-    /**
-     * The SNMP EID xml tag
-     */
+    /** The SNMP EID xml tag. */
     public static final String TAG_SNMP_EID = "id";
 
-    /**
-     * The SNMP specific xml tag
-     */
+    /** The SNMP specific xml tag. */
     public static final String TAG_SNMP_SPECIFIC = "specific";
 
-    /**
-     * The SNMP generic xml tag
-     */
+    /** The SNMP generic xml tag. */
     public static final String TAG_SNMP_GENERIC = "generic";
 
-    /**
-     * The SNMP community xml tag
-     */
+    /** The SNMP community xml tag. */
     public static final String TAG_SNMP_COMMUNITY = "community";
 
     // @NotNull
+    /** The m_name. */
     @XmlElement(name = "mename", required = true)
     private String m_name;
 
     // @NotNull
     // @Size(min=1)
+    /** The m_values. */
     @XmlElement(name = "mevalue", required = true)
     private List<String> m_values = new ArrayList<String>();
 
+    /**
+     * Adds the mevalue.
+     *
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addMevalue(final String value) throws IndexOutOfBoundsException {
         m_values.add(value.intern());
     }
 
+    /**
+     * Adds the mevalue.
+     *
+     * @param index
+     *            the index
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addMevalue(final int index, final String value) throws IndexOutOfBoundsException {
         m_values.add(index, value.intern());
     }
 
+    /**
+     * Enumerate mevalue.
+     *
+     * @return the enumeration
+     */
     public Enumeration<String> enumerateMevalue() {
         return Collections.enumeration(m_values);
     }
@@ -178,6 +184,8 @@ public class Maskelement implements Serializable {
      * <dt>community</dt>
      * <dd>community string in an SNMP trap</dd>
      * </dl>
+     *
+     * @return the mename
      */
     public String getMename() {
         return m_name;
@@ -187,6 +195,12 @@ public class Maskelement implements Serializable {
      * The mask element value. A case-sensitive, exact match is performed.
      * If the mask value has a "%" as the last character, it will match zero
      * or more characters at the end of the string being matched.
+     *
+     * @param index
+     *            the index
+     * @return the mevalue
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public String getMevalue(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_values.size()) {
@@ -196,19 +210,36 @@ public class Maskelement implements Serializable {
         return m_values.get(index);
     }
 
+    /**
+     * Gets the mevalue.
+     *
+     * @return the mevalue
+     */
     public String[] getMevalue() {
         return m_values.toArray(EMPTY_STRING_ARRAY);
     }
 
+    /**
+     * Gets the mevalue collection.
+     *
+     * @return the mevalue collection
+     */
     public List<String> getMevalueCollection() {
         return m_values;
     }
 
+    /**
+     * Gets the mevalue count.
+     *
+     * @return the mevalue count
+     */
     public int getMevalueCount() {
         return m_values.size();
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -220,34 +251,94 @@ public class Maskelement implements Serializable {
         return true;
     }
 
+    /**
+     * Iterate mevalue.
+     *
+     * @return the iterator
+     */
     public Iterator<String> iterateMevalue() {
         return m_values.iterator();
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all mevalue.
+     */
     public void removeAllMevalue() {
         m_values.clear();
     }
 
+    /**
+     * Removes the mevalue.
+     *
+     * @param value
+     *            the value
+     * @return true, if successful
+     */
     public boolean removeMevalue(final String value) {
         return m_values.remove(value);
     }
 
+    /**
+     * Removes the mevalue at.
+     *
+     * @param index
+     *            the index
+     * @return the string
+     */
     public String removeMevalueAt(final int index) {
         return m_values.remove(index);
     }
 
+    /**
+     * Sets the mename.
+     *
+     * @param mename
+     *            the new mename
+     */
     public void setMename(final String mename) {
         m_name = mename.intern();
     }
 
+    /**
+     * Sets the mevalue.
+     *
+     * @param index
+     *            the index
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setMevalue(final int index, final String value) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_values.size()) {
             throw new IndexOutOfBoundsException("setMevalue: Index value '" + index + "' not in range [0.."
@@ -256,6 +347,12 @@ public class Maskelement implements Serializable {
         m_values.set(index, value.intern());
     }
 
+    /**
+     * Sets the mevalue.
+     *
+     * @param values
+     *            the new mevalue
+     */
     public void setMevalue(final String[] values) {
         m_values.clear();
         for (final String value : values) {
@@ -263,6 +360,12 @@ public class Maskelement implements Serializable {
         }
     }
 
+    /**
+     * Sets the mevalue.
+     *
+     * @param values
+     *            the new mevalue
+     */
     public void setMevalue(final List<String> values) {
         m_values.clear();
         for (final String value : values) {
@@ -270,6 +373,12 @@ public class Maskelement implements Serializable {
         }
     }
 
+    /**
+     * Sets the mevalue collection.
+     *
+     * @param values
+     *            the new mevalue collection
+     */
     public void setMevalueCollection(final List<String> values) {
         m_values.clear();
         for (final String value : values) {
@@ -277,14 +386,34 @@ public class Maskelement implements Serializable {
         }
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the maskelement
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Maskelement unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Maskelement) Unmarshaller.unmarshal(Maskelement.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -294,6 +423,9 @@ public class Maskelement implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -318,6 +450,11 @@ public class Maskelement implements Serializable {
         return true;
     }
 
+    /**
+     * Construct matcher.
+     *
+     * @return the event matcher
+     */
     public EventMatcher constructMatcher() {
         List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
         for (String value : m_values) {

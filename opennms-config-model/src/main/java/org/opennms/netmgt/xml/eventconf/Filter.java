@@ -46,37 +46,62 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
+/**
+ * The Class Filter.
+ */
 @XmlRootElement(name = "filter")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Filter implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5048479164713766981L;
 
     // @NotNull
+    /** The m_eventparm. */
     @XmlAttribute(name = "eventparm", required = true)
     private String m_eventparm;
 
     // @NotNull
+    /** The m_pattern. */
     @XmlAttribute(name = "pattern", required = true)
     private String m_pattern;
 
     // @NotNull
+    /** The m_replacement. */
     @XmlAttribute(name = "replacement", required = true)
     private String m_replacement;
 
+    /**
+     * Gets the eventparm.
+     *
+     * @return the eventparm
+     */
     public String getEventparm() {
         return m_eventparm;
     }
 
+    /**
+     * Gets the pattern.
+     *
+     * @return the pattern
+     */
     public String getPattern() {
         return m_pattern;
     }
 
+    /**
+     * Gets the replacement.
+     *
+     * @return the replacement
+     */
     public String getReplacement() {
         return m_replacement;
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -88,34 +113,94 @@ public class Filter implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the eventparm.
+     *
+     * @param eventparm
+     *            the new eventparm
+     */
     public void setEventparm(final String eventparm) {
         m_eventparm = eventparm.intern();
     }
 
+    /**
+     * Sets the pattern.
+     *
+     * @param pattern
+     *            the new pattern
+     */
     public void setPattern(final String pattern) {
         m_pattern = pattern.intern();
     }
 
+    /**
+     * Sets the replacement.
+     *
+     * @param replacement
+     *            the new replacement
+     */
     public void setReplacement(final String replacement) {
         m_replacement = replacement.intern();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the filter
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Filter unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Filter) Unmarshaller.unmarshal(Filter.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -126,6 +211,9 @@ public class Filter implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

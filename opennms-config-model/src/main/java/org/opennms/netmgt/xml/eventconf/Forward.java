@@ -49,39 +49,61 @@ import org.xml.sax.ContentHandler;
 
 /**
  * The forwarding information for this event - state determines
- * if event is forwarded, mechanism determines how event is forwarded
+ * if event is forwarded, mechanism determines how event is forwarded.
  */
 @XmlRootElement(name = "forward")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Forward implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 3228625263305682743L;
 
+    /** The m_content. */
     @XmlValue
     private String m_content = "";
 
+    /** The m_state. */
     @XmlAttribute(name = "state", required = false)
     private String m_state;
 
     // @Pattern(regexp="(snmpudp|snmptcp|xmltcp|xmludp)")
+    /** The m_mechanism. */
     @XmlAttribute(name = "mechanism", required = false)
     private String m_mechanism;
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public String getContent() {
         return m_content;
     }
 
+    /**
+     * Gets the mechanism.
+     *
+     * @return the mechanism
+     */
     public String getMechanism() {
         return m_mechanism == null ? "snmpudp" : m_mechanism; // Defaults to
                                                               // snmpudp in the
                                                               // XSD
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState() {
         return m_state == null ? "off" : m_state; // Defaults to off in the XSD
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -93,34 +115,94 @@ public class Forward implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the content.
+     *
+     * @param content
+     *            the new content
+     */
     public void setContent(final String content) {
         m_content = content.intern();
     }
 
+    /**
+     * Sets the mechanism.
+     *
+     * @param mechanism
+     *            the new mechanism
+     */
     public void setMechanism(final String mechanism) {
         m_mechanism = mechanism.intern();
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     public void setState(final String state) {
         m_state = state.intern();
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the forward
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Forward unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Forward) Unmarshaller.unmarshal(Forward.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -131,6 +213,9 @@ public class Forward implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

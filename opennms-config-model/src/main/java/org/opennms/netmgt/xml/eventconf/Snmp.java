@@ -48,91 +48,114 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * The SNMP information from the trap
+ * The SNMP information from the trap.
  */
 @XmlRootElement(name = "snmp")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_id", "m_idText", "m_version", "m_specific", "m_generic", "m_community" })
 public class Snmp implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7180451834403181827L;
 
-    /**
-     * The SNMP enterprise ID
-     */
+    /** The SNMP enterprise ID. */
     // @NotNull
     @XmlElement(name = "id", required = true)
     private String m_id;
 
-    /**
-     * The SNMP enterprise ID text
-     */
+    /** The SNMP enterprise ID text. */
     @XmlElement(name = "idtext", required = false)
     private String m_idText;
 
-    /**
-     * The SNMP version
-     */
+    /** The SNMP version. */
     // @NotNull
     @XmlElement(name = "version", required = true)
     private String m_version;
 
-    /**
-     * The specific trap number
-     */
+    /** The specific trap number. */
     @XmlElement(name = "specific", required = false)
     private Integer m_specific;
 
-    /**
-     * The generic trap number
-     */
+    /** The generic trap number. */
     @XmlElement(name = "generic", required = false)
     private Integer m_generic;
 
-    /**
-     * The community name
-     */
+    /** The community name. */
     @XmlElement(name = "community", required = false)
     private String m_community;
 
+    /**
+     * Delete generic.
+     */
     public void deleteGeneric() {
         m_generic = null;
     }
 
+    /**
+     * Delete specific.
+     */
     public void deleteSpecific() {
         m_specific = null;
     }
 
+    /**
+     * Gets the community.
+     *
+     * @return the community
+     */
     public String getCommunity() {
         return m_community;
     }
 
-    /** The generic trap number. */
+    /**
+     * The generic trap number.
+     *
+     * @return the generic
+     */
     public Integer getGeneric() {
         return m_generic;
     }
 
-    /** The SNMP enterprise ID */
+    /**
+     * The SNMP enterprise ID.
+     *
+     * @return the id
+     */
     public String getId() {
         return m_id;
     }
 
-    /** The SNMP enterprise ID text */
+    /**
+     * The SNMP enterprise ID text.
+     *
+     * @return the idtext
+     */
     public String getIdtext() {
         return m_idText;
     }
 
-    /** The specific trap number */
+    /**
+     * The specific trap number.
+     *
+     * @return the specific
+     */
     public Integer getSpecific() {
         return m_specific;
     }
 
-    /** The SNMP version */
+    /**
+     * The SNMP version.
+     *
+     * @return the version
+     */
     public String getVersion() {
         return m_version;
     }
 
     /**
+     * Checks for generic.
+     *
      * @return true if at least one Generic has been added
      */
     public boolean hasGeneric() {
@@ -140,6 +163,8 @@ public class Snmp implements Serializable {
     }
 
     /**
+     * Checks for specific.
+     *
      * @return true if at least one Specific has been added
      */
     public boolean hasSpecific() {
@@ -147,6 +172,8 @@ public class Snmp implements Serializable {
     }
 
     /**
+     * Checks if is valid.
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -158,46 +185,124 @@ public class Snmp implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Sets the community.
+     *
+     * @param community
+     *            the new community
+     */
     public void setCommunity(final String community) {
         m_community = community;
     }
 
+    /**
+     * Sets the generic.
+     *
+     * @param generic
+     *            the new generic
+     */
     public void setGeneric(final int generic) {
         m_generic = generic;
     }
 
+    /**
+     * Sets the id.
+     *
+     * @param id
+     *            the new id
+     */
     public void setId(final String id) {
         m_id = id;
     }
 
+    /**
+     * Sets the idtext.
+     *
+     * @param idText
+     *            the new idtext
+     */
     public void setIdtext(final String idText) {
         m_idText = idText;
     }
 
+    /**
+     * Sets the specific.
+     *
+     * @param specific
+     *            the new specific
+     */
     public void setSpecific(final int specific) {
         m_specific = specific;
     }
 
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
     public void setVersion(final String version) {
         m_version = version;
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the snmp
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Snmp unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Snmp) Unmarshaller.unmarshal(Snmp.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -211,6 +316,9 @@ public class Snmp implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)

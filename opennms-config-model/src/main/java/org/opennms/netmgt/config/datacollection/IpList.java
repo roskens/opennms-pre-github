@@ -60,61 +60,70 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.NONE)
 @ValidateUsing("datacollection-config.xsd")
 public class IpList implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5925958500985291547L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     // --------------------------/
     // - Class/Member Variables -/
     // --------------------------/
 
-    /**
-     * List of IP addresses
-     */
+    /** List of IP addresses. */
     private List<String> m_ipAddresses = new ArrayList<String>();
 
-    /**
-     * List of IP address masks
-     */
+    /** List of IP address masks. */
     private List<String> m_ipAddressMasks = new ArrayList<String>();
 
     /**
+     * Adds the ip addr.
+     *
      * @param ipAddr
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpAddr(final String ipAddr) throws IndexOutOfBoundsException {
         m_ipAddresses.add(ipAddr.intern());
     }
 
     /**
+     * Adds the ip addr.
+     *
      * @param index
+     *            the index
      * @param ipAddr
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpAddr(final int index, final String ipAddr) throws IndexOutOfBoundsException {
         m_ipAddresses.add(index, ipAddr.intern());
     }
 
     /**
+     * Adds the ip addr mask.
+     *
      * @param ipAddrMask
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr mask
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpAddrMask(final String ipAddrMask) throws IndexOutOfBoundsException {
         m_ipAddressMasks.add(ipAddrMask.intern());
     }
 
     /**
+     * Adds the ip addr mask.
+     *
      * @param index
+     *            the index
      * @param ipAddrMask
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr mask
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIpAddrMask(final int index, final String ipAddrMask) throws IndexOutOfBoundsException {
         m_ipAddressMasks.add(index, ipAddrMask.intern());
@@ -144,6 +153,7 @@ public class IpList implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -177,10 +187,10 @@ public class IpList implements Serializable {
      * Method getIpAddr.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public String getIpAddr(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_ipAddresses.size()) {
@@ -230,10 +240,10 @@ public class IpList implements Serializable {
      * Method getIpAddrMask.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public String getIpAddrMask(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_ipAddressMasks.size()) {
@@ -337,13 +347,14 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -351,26 +362,32 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all ip addr.
+     */
     public void removeAllIpAddr() {
         m_ipAddresses.clear();
     }
 
+    /**
+     * Removes the all ip addr mask.
+     */
     public void removeAllIpAddrMask() {
         m_ipAddressMasks.clear();
     }
@@ -379,6 +396,7 @@ public class IpList implements Serializable {
      * Method removeIpAddr.
      *
      * @param ipAddr
+     *            the ip addr
      * @return true if the object was removed from the collection.
      */
     public boolean removeIpAddr(final String ipAddr) {
@@ -389,6 +407,7 @@ public class IpList implements Serializable {
      * Method removeIpAddrAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeIpAddrAt(final int index) {
@@ -399,6 +418,7 @@ public class IpList implements Serializable {
      * Method removeIpAddrMask.
      *
      * @param ipAddrMask
+     *            the ip addr mask
      * @return true if the object was removed from the collection.
      */
     public boolean removeIpAddrMask(final String ipAddrMask) {
@@ -409,6 +429,7 @@ public class IpList implements Serializable {
      * Method removeIpAddrMaskAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeIpAddrMaskAt(final int index) {
@@ -416,11 +437,14 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Sets the ip addr.
+     *
      * @param index
+     *            the index
      * @param ipAddr
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIpAddr(final int index, final String ipAddr) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_ipAddresses.size()) {
@@ -431,7 +455,10 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Sets the ip addr.
+     *
      * @param ipAddrs
+     *            the new ip addr
      */
     public void setIpAddr(final String[] ipAddrs) {
         m_ipAddresses.clear();
@@ -459,9 +486,9 @@ public class IpList implements Serializable {
      * Sets the value of '_ipAddrList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param ipAddrs
      *            the Vector to set.
+     * @deprecated
      */
     public void setIpAddrCollection(final List<String> ipAddrs) {
         m_ipAddresses = new ArrayList<String>();
@@ -471,11 +498,14 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Sets the ip addr mask.
+     *
      * @param index
+     *            the index
      * @param ipAddrMask
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the ip addr mask
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIpAddrMask(final int index, final String ipAddrMask) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -488,7 +518,10 @@ public class IpList implements Serializable {
     }
 
     /**
+     * Sets the ip addr mask.
+     *
      * @param ipAddrMasks
+     *            the new ip addr mask
      */
     public void setIpAddrMask(final String[] ipAddrMasks) {
         m_ipAddressMasks.clear();
@@ -515,9 +548,9 @@ public class IpList implements Serializable {
      * Sets the value of '_ipAddrMaskList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param ipAddrMasks
      *            the Vector to set.
+     * @deprecated
      */
     public void setIpAddrMaskCollection(final List<String> ipAddrMasks) {
         m_ipAddressMasks = new ArrayList<String>();
@@ -530,14 +563,13 @@ public class IpList implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.datacollection.types.IpList
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static IpList unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -545,9 +577,10 @@ public class IpList implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

@@ -42,10 +42,13 @@ import java.util.TreeSet;
  */
 public class AttributeGroupType {
 
+    /** The m_name. */
     private String m_name;
 
+    /** The m_if type. */
     private String m_ifType;
 
+    /** The m_attribute types. */
     private SortedSet<AttributeDefinition> m_attributeTypes = new TreeSet<AttributeDefinition>(new ByNameComparator());
 
     /**
@@ -84,6 +87,7 @@ public class AttributeGroupType {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -96,6 +100,7 @@ public class AttributeGroupType {
      * <p>
      * getIfType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -107,6 +112,7 @@ public class AttributeGroupType {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -118,6 +124,7 @@ public class AttributeGroupType {
      * <p>
      * addAttributeType
      * </p>
+     * .
      *
      * @param attrType
      *            a {@link org.opennms.netmgt.collectd.AttributeDefinition}
@@ -131,6 +138,7 @@ public class AttributeGroupType {
      * <p>
      * getAttributeTypes
      * </p>
+     * .
      *
      * @return a {@link java.util.SortedSet} object.
      */
@@ -142,6 +150,7 @@ public class AttributeGroupType {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

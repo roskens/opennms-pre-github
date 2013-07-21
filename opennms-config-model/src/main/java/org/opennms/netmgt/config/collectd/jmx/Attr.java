@@ -42,6 +42,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class Attr {
 
+    /** The m_name. */
     private String m_name;
 
     /**
@@ -65,7 +66,7 @@ public class Attr {
     private String m_minval;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public Attr() {
         m_name = null;

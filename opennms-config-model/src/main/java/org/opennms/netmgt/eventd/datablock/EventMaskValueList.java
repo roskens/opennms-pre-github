@@ -35,7 +35,7 @@ import java.util.Collection;
  * The maskelement values in a 'EventKey' are stored in this ArrayList subclass
  * This list is pretty much constant once it constructed - so the hashcode is
  * evaluated once at construction and reused(if new values are added or values
- * changed, hashcode is re-evaluated)
+ * changed, hashcode is re-evaluated).
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
@@ -44,15 +44,15 @@ import java.util.Collection;
  * @version $Id: $
  */
 public class EventMaskValueList extends ArrayList<String> {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -7375744883429450497L;
 
-    /**
-     * The hash code calculated from the elements
-     */
+    /** The hash code calculated from the elements. */
     private int m_hashCode;
 
     /**
-     * Default constructor for this class
+     * Default constructor for this class.
      */
     public EventMaskValueList() {
         super();
@@ -60,7 +60,7 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * constructor for this class
+     * constructor for this class.
      *
      * @param c
      *            a {@link java.util.Collection} object.
@@ -71,7 +71,7 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * constructor for this class
+     * constructor for this class.
      *
      * @param initCapacity
      *            a int.
@@ -82,7 +82,7 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * the constructor for this class
+     * the constructor for this class.
      *
      * @param value
      *            the string to be added to this list.
@@ -98,12 +98,12 @@ public class EventMaskValueList extends ArrayList<String> {
      */
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
-     * @see java.util.ArrayList#add(Object)
      * @param o
      *            a {@link java.lang.String} object.
      * @return a boolean.
+     * @see java.util.ArrayList#add(Object)
      */
     @Override
     public boolean add(String o) {
@@ -113,13 +113,13 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
-     * @see java.util.ArrayList#add(int, Object)
      * @param index
      *            a int.
      * @param o
      *            a {@link java.lang.String} object.
+     * @see java.util.ArrayList#add(int, Object)
      */
     @Override
     public void add(int index, String o) {
@@ -152,7 +152,7 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
      * @see java.util.ArrayList#clear()
      */
@@ -187,12 +187,12 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
-     * @see java.util.ArrayList#remove(Object)
      * @param o
      *            a {@link java.lang.String} object.
      * @return a boolean.
+     * @see java.util.ArrayList#remove(Object)
      */
     public boolean remove(String o) {
         boolean ret = super.remove(o);
@@ -213,14 +213,14 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * Override to re-evaluate hashcode
+     * Override to re-evaluate hashcode.
      *
-     * @see java.util.ArrayList#set(int,Object)
      * @param index
      *            a int.
      * @param o
      *            a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
+     * @see java.util.ArrayList#set(int,Object)
      */
     @Override
     public String set(int index, String o) {
@@ -247,6 +247,10 @@ public class EventMaskValueList extends ArrayList<String> {
      * hence this method. Only a lot of testing will reveal conflicts etc.
      * though
      * </p>
+     *
+     * @param value
+     *            the value
+     * @return the int
      */
     private int evaluateHashCode(String value) {
         int h = 0;
@@ -289,7 +293,7 @@ public class EventMaskValueList extends ArrayList<String> {
     }
 
     /**
-     * Evaluate the hash code for this object
+     * Evaluate the hash code for this object.
      */
     public void evaluateHashCode() {
         int hashCode = 1;

@@ -39,45 +39,56 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public class AmiAgentConfig {
-    /** Constant <code>DEFAULT_TIMEOUT=3000</code> */
+
+    /** Constant <code>DEFAULT_TIMEOUT=3000</code>. */
     public static final int DEFAULT_TIMEOUT = 3000;
 
-    /** Constant <code>DEFAULT_RETRIES=1</code> */
+    /** Constant <code>DEFAULT_RETRIES=1</code>. */
     public static final int DEFAULT_RETRIES = 1;
 
-    /** Constant <code>DEFAULT_PASSWORD=""</code> */
+    /** Constant <code>DEFAULT_PASSWORD=""</code>. */
     public static final String DEFAULT_PASSWORD = "";
 
-    /** Constant <code>DEFAULT_USERNAME="opennms"</code> */
+    /** Constant <code>DEFAULT_USERNAME="opennms"</code>. */
     public static final String DEFAULT_USERNAME = "opennms";
 
-    /** Constant <code>DEFAULT_PORT=5038</code> */
+    /** Constant <code>DEFAULT_PORT=5038</code>. */
     public static final int DEFAULT_PORT = 5038;
 
-    /** Constant <code>DEFAULT_TLS_PORT=5039</code> */
+    /** Constant <code>DEFAULT_TLS_PORT=5039</code>. */
     public static final int DEFAULT_TLS_PORT = 5039;
 
-    /** Constant <code>DEFAULT_USE_TLS=false</code> */
+    /** Constant <code>DEFAULT_USE_TLS=false</code>. */
     public static final boolean DEFAULT_USE_TLS = false;
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_timeout. */
     private int m_timeout;
 
+    /** The m_retries. */
     private int m_retries;
 
+    /** The m_username. */
     private String m_username;
 
+    /** The m_password. */
     private String m_password;
 
+    /** The m_port. */
     private int m_port;
 
+    /** The m_use tls. */
     private boolean m_useTls;
 
+    /** The user. */
     String user = "";
 
+    /** The pass. */
     String pass = "";
 
+    /** The match type. */
     String matchType = "all";
 
     /**
@@ -102,6 +113,9 @@ public class AmiAgentConfig {
         setDefaults();
     }
 
+    /**
+     * Sets the defaults.
+     */
     private void setDefaults() {
         m_timeout = DEFAULT_TIMEOUT;
         m_retries = DEFAULT_RETRIES;
@@ -114,6 +128,7 @@ public class AmiAgentConfig {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -143,6 +158,7 @@ public class AmiAgentConfig {
      * <p>
      * getAddress
      * </p>
+     * .
      *
      * @return a {@link java.net.InetAddress} object.
      */
@@ -154,6 +170,7 @@ public class AmiAgentConfig {
      * <p>
      * setAddress
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
@@ -166,6 +183,7 @@ public class AmiAgentConfig {
      * <p>
      * getTimeout
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -177,6 +195,7 @@ public class AmiAgentConfig {
      * <p>
      * setTimeout
      * </p>
+     * .
      *
      * @param timeout
      *            a int.
@@ -189,6 +208,7 @@ public class AmiAgentConfig {
      * <p>
      * getRetries
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -200,6 +220,7 @@ public class AmiAgentConfig {
      * <p>
      * setRetries
      * </p>
+     * .
      *
      * @param retries
      *            a int.
@@ -212,6 +233,7 @@ public class AmiAgentConfig {
      * <p>
      * setPassword
      * </p>
+     * .
      *
      * @param password
      *            a {@link java.lang.String} object.
@@ -224,6 +246,7 @@ public class AmiAgentConfig {
      * <p>
      * getPassword
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -235,6 +258,7 @@ public class AmiAgentConfig {
      * <p>
      * getUsername
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -246,6 +270,7 @@ public class AmiAgentConfig {
      * <p>
      * setUsername
      * </p>
+     * .
      *
      * @param username
      *            a {@link java.lang.String} object.
@@ -258,6 +283,7 @@ public class AmiAgentConfig {
      * <p>
      * getPort
      * </p>
+     * .
      *
      * @return a int.
      */
@@ -269,6 +295,7 @@ public class AmiAgentConfig {
      * <p>
      * setPort
      * </p>
+     * .
      *
      * @param port
      *            a int.
@@ -281,6 +308,7 @@ public class AmiAgentConfig {
      * <p>
      * getUseTls
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -292,6 +320,7 @@ public class AmiAgentConfig {
      * <p>
      * setUseTls
      * </p>
+     * .
      *
      * @param useTls
      *            a boolean.

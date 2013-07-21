@@ -54,7 +54,7 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * a MIB object group
+ * a MIB object group.
  */
 
 @XmlRootElement(name = "group", namespace = "http://xmlns.opennms.org/xsd/config/datacollection")
@@ -62,15 +62,17 @@ import org.xml.sax.ContentHandler;
 @XmlType(propOrder = { "name", "ifType", "mibObj", "includeGroup" })
 @ValidateUsing("datacollection-config.xsd")
 public class Group implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8424897884942605338L;
 
+    /** The Constant EMPTY_MIBOBJ_ARRAY. */
     private static final MibObj[] EMPTY_MIBOBJ_ARRAY = new MibObj[0];
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    /**
-     * group name
-     */
+    /** group name. */
     private String m_name;
 
     /**
@@ -102,62 +104,77 @@ public class Group implements Serializable {
      */
     private String m_ifType;
 
-    /**
-     * a MIB object
-     */
+    /** a MIB object. */
     private List<MibObj> m_mibObjects = new ArrayList<MibObj>();
 
-    /**
-     * sub group
-     */
+    /** sub group. */
     private List<String> m_includeGroups = new ArrayList<String>();
 
+    /**
+     * Instantiates a new group.
+     */
     public Group() {
         super();
     }
 
+    /**
+     * Instantiates a new group.
+     *
+     * @param name
+     *            the name
+     */
     public Group(final String name) {
         super();
         m_name = name;
     }
 
     /**
+     * Adds the include group.
+     *
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeGroup(final String includeGroup) throws IndexOutOfBoundsException {
         m_includeGroups.add(includeGroup);
     }
 
     /**
+     * Adds the include group.
+     *
      * @param index
+     *            the index
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeGroup(final int index, final String includeGroup) throws IndexOutOfBoundsException {
         m_includeGroups.add(index, includeGroup.intern());
     }
 
     /**
+     * Adds the mib obj.
+     *
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMibObj(final MibObj mibObj) throws IndexOutOfBoundsException {
         m_mibObjects.add(mibObj);
     }
 
     /**
+     * Adds the mib obj.
+     *
      * @param index
+     *            the index
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addMibObj(final int index, final MibObj mibObj) throws IndexOutOfBoundsException {
         m_mibObjects.add(index, mibObj);
@@ -187,6 +204,7 @@ public class Group implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -270,10 +288,10 @@ public class Group implements Serializable {
      * Method getIncludeGroup.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public String getIncludeGroup(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeGroups.size()) {
@@ -323,12 +341,12 @@ public class Group implements Serializable {
      * Method getMibObj.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         MibObj at the
      *         given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public MibObj getMibObj(final int index) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_mibObjects.size()) {
@@ -449,13 +467,14 @@ public class Group implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final Writer out) throws MarshalException, ValidationException {
@@ -463,26 +482,32 @@ public class Group implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all include group.
+     */
     public void removeAllIncludeGroup() {
         m_includeGroups.clear();
     }
 
+    /**
+     * Removes the all mib obj.
+     */
     public void removeAllMibObj() {
         m_mibObjects.clear();
     }
@@ -491,6 +516,7 @@ public class Group implements Serializable {
      * Method removeIncludeGroup.
      *
      * @param includeGroup
+     *            the include group
      * @return true if the object was removed from the collection.
      */
     public boolean removeIncludeGroup(final String includeGroup) {
@@ -501,6 +527,7 @@ public class Group implements Serializable {
      * Method removeIncludeGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeIncludeGroupAt(final int index) {
@@ -511,6 +538,7 @@ public class Group implements Serializable {
      * Method removeMibObj.
      *
      * @param mibObj
+     *            the mib obj
      * @return true if the object was removed from the collection.
      */
     public boolean removeMibObj(final MibObj mibObj) {
@@ -521,6 +549,7 @@ public class Group implements Serializable {
      * Method removeMibObjAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public MibObj removeMibObjAt(final int index) {
@@ -564,11 +593,14 @@ public class Group implements Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param index
+     *            the index
      * @param includeGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the include group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIncludeGroup(final int index, final String includeGroup) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_includeGroups.size()) {
@@ -579,7 +611,10 @@ public class Group implements Serializable {
     }
 
     /**
+     * Sets the include group.
+     *
      * @param includeGroups
+     *            the new include group
      */
     public void setIncludeGroup(final String[] includeGroups) {
         m_includeGroups.clear();
@@ -606,9 +641,9 @@ public class Group implements Serializable {
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param includeGroups
      *            the Vector to set.
+     * @deprecated
      */
     public void setIncludeGroupCollection(final List<String> includeGroups) {
         for (int i = 0; i < includeGroups.size(); i++) {
@@ -618,11 +653,14 @@ public class Group implements Serializable {
     }
 
     /**
+     * Sets the mib obj.
+     *
      * @param index
+     *            the index
      * @param mibObj
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the mib obj
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setMibObj(final int index, final MibObj mibObj) throws IndexOutOfBoundsException {
         if (index < 0 || index >= m_mibObjects.size()) {
@@ -633,7 +671,10 @@ public class Group implements Serializable {
     }
 
     /**
+     * Sets the mib obj.
+     *
      * @param mibObjs
+     *            the new mib obj
      */
     public void setMibObj(final MibObj[] mibObjs) {
         m_mibObjects.clear();
@@ -660,9 +701,9 @@ public class Group implements Serializable {
      * Sets the value of '_mibObjList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param mibObjs
      *            the Vector to set.
+     * @deprecated
      */
     public void setMibObjCollection(final List<MibObj> mibObjs) {
         m_mibObjects = mibObjs;
@@ -683,14 +724,13 @@ public class Group implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         Group
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Group unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -698,9 +738,10 @@ public class Group implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws ValidationException {

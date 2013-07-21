@@ -35,12 +35,32 @@ import java.util.Collection;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 
+/**
+ * The Class AutoacknowledgeTest.
+ */
 public class AutoacknowledgeTest extends XmlTestNoCastor<Autoacknowledge> {
 
+    /**
+     * Instantiates a new autoacknowledge test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public AutoacknowledgeTest(final Autoacknowledge sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         Autoacknowledge autoacknowledge0 = new Autoacknowledge();

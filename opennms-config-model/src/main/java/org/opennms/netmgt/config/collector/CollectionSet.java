@@ -44,6 +44,7 @@ public interface CollectionSet {
      * <p>
      * getStatus
      * </p>
+     * .
      *
      * @return an int (one of the ServiceCollector.COLLECTION_<FOO> values)
      */
@@ -53,7 +54,7 @@ public interface CollectionSet {
      * Provide a way to visit all the values in the CollectionSet, for any
      * appropriate purposes (persisting, thresholding, or others)
      * The expectation is that calling this method will ultimately call
-     * visitResource, visitGroup and visitAttribute (as appropriate)
+     * visitResource, visitGroup and visitAttribute (as appropriate).
      *
      * @param visitor
      *            a
@@ -66,6 +67,7 @@ public interface CollectionSet {
      * <p>
      * ignorePersist
      * </p>
+     * .
      *
      * @return a boolean.
      */
@@ -75,7 +77,7 @@ public interface CollectionSet {
      * Returns the timestamp of when this data collection was taken.
      * Used by thresholding
      *
-     * @return
+     * @return the collection timestamp
      */
     public Date getCollectionTimestamp();
 }

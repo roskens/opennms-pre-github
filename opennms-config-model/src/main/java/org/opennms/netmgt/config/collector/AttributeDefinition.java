@@ -42,6 +42,7 @@ public interface AttributeDefinition {
      * <p>
      * getType
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -61,6 +62,7 @@ public interface AttributeDefinition {
      * <p>
      * equals
      * </p>
+     * .
      *
      * @param o
      *            a {@link java.lang.Object} object.
@@ -73,6 +75,7 @@ public interface AttributeDefinition {
      * <p>
      * hashCode
      * </p>
+     * .
      *
      * @return a int.
      */

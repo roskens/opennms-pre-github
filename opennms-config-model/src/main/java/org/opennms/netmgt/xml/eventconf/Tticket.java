@@ -48,38 +48,67 @@ import org.xml.sax.ContentHandler;
 
 /**
  * The trouble ticket info with state on/off determining if
- * action is taken on the trouble ticket
+ * action is taken on the trouble ticket.
  */
 @XmlRootElement(name = "tticket")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 public class Tticket implements java.io.Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2030876837447357150L;
 
+    /** The m_content. */
     @XmlValue
     private String m_content;
 
     // @Pattern(regexp="(on|off)", message="'state' must be 'on' or 'off'")
+    /** The m_state. */
     @XmlAttribute(name = "state", required = false)
     private String m_state;
 
+    /**
+     * Gets the content.
+     *
+     * @return the content
+     */
     public String getContent() {
         return m_content;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return the state
+     */
     public String getState() {
         return m_state == null ? "on" : m_state; // Default state is "on"
                                                  // according to the XSD
     }
 
+    /**
+     * Sets the content.
+     *
+     * @param content
+     *            the new content
+     */
     public void setContent(final String content) {
         m_content = content;
     }
 
+    /**
+     * Sets the state.
+     *
+     * @param state
+     *            the new state
+     */
     public void setState(final String state) {
         m_state = state;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -89,6 +118,9 @@ public class Tticket implements java.io.Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -113,6 +145,11 @@ public class Tticket implements java.io.Serializable {
         return true;
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         try {
             validate();
@@ -122,18 +159,57 @@ public class Tticket implements java.io.Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the tticket
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Tticket unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Tticket) Unmarshaller.unmarshal(Tticket.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }

@@ -81,6 +81,9 @@ public class DecodeDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new decode descriptor.
+     */
     public DecodeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";

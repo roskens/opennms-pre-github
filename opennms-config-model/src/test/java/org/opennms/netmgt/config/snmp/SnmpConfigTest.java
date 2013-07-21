@@ -37,12 +37,32 @@ import java.util.List;
 import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTest;
 
+/**
+ * The Class SnmpConfigTest.
+ */
 public class SnmpConfigTest extends XmlTest<SnmpConfig> {
 
+    /**
+     * Instantiates a new snmp config test.
+     *
+     * @param sampleObject
+     *            the sample object
+     * @param sampleXml
+     *            the sample xml
+     * @param schemaFile
+     *            the schema file
+     */
     public SnmpConfigTest(final SnmpConfig sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
 
+    /**
+     * Data.
+     *
+     * @return the collection
+     * @throws ParseException
+     *             the parse exception
+     */
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final List<Definition> definitionList = new ArrayList<Definition>();

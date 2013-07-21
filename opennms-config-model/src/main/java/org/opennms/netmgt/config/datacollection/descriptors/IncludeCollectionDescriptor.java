@@ -82,6 +82,9 @@ public class IncludeCollectionDescriptor extends org.exolab.castor.xml.util.XMLC
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new include collection descriptor.
+     */
     public IncludeCollectionDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

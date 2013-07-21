@@ -44,27 +44,36 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Behavior configuration for the Acknowledgment Daemon
+ * Behavior configuration for the Acknowledgment Daemon.
  *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "ackd-configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AckdConfiguration implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -8269227735655606782L;
 
+    /** The Constant DEFAULT_ALARM_SYNC_FLAG. */
     public static final boolean DEFAULT_ALARM_SYNC_FLAG = true;
 
+    /** The Constant DEFAULT_ACK_EXPRESSION. */
     public static final String DEFAULT_ACK_EXPRESSION = "~(?i)^ack$";
 
+    /** The Constant DEFAULT_UNACK_EXPRESSION. */
     public static final String DEFAULT_UNACK_EXPRESSION = "~(?i)^unack$";
 
+    /** The Constant DEFAULT_ESCALATE_EXPRESSION. */
     public static final String DEFAULT_ESCALATE_EXPRESSION = "~(?i)^esc$";
 
+    /** The Constant DEFAULT_CLEAR_EXPRESSION. */
     public static final String DEFAULT_CLEAR_EXPRESSION = "~(?i)^(resolve|clear)$";
 
+    /** The Constant DEFAULT_NOTIFYID_MATCH_EXPRESSION. */
     public static final String DEFAULT_NOTIFYID_MATCH_EXPRESSION = "~(?i).*Re:.*Notice #([0-9]+).*";
 
+    /** The Constant DEFAULT_ALARMID_MATCH_EXPRESSION. */
     public static final String DEFAULT_ALARMID_MATCH_EXPRESSION = "~(?i).*alarmid:([0-9]+).*";
 
     // --------------------------/
@@ -123,10 +132,33 @@ public class AckdConfiguration implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new ackd configuration.
+     */
     public AckdConfiguration() {
         super();
     }
 
+    /**
+     * Instantiates a new ackd configuration.
+     *
+     * @param alarmSync
+     *            the alarm sync
+     * @param ackExpression
+     *            the ack expression
+     * @param unackExpression
+     *            the unack expression
+     * @param clearExpression
+     *            the clear expression
+     * @param escalateExpression
+     *            the escalate expression
+     * @param notifyidMatchExpression
+     *            the notifyid match expression
+     * @param alarmidMatchExpression
+     *            the alarmid match expression
+     * @param readers
+     *            the readers
+     */
     public AckdConfiguration(final boolean alarmSync, final String ackExpression, final String unackExpression,
             final String clearExpression, final String escalateExpression, final String notifyidMatchExpression,
             final String alarmidMatchExpression, final Readers readers) {
@@ -149,6 +181,7 @@ public class AckdConfiguration implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override

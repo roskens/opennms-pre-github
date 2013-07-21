@@ -58,71 +58,150 @@ import org.exolab.castor.xml.Validator;
 import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
+/**
+ * The Class Varbind.
+ */
 @XmlRootElement(name = "varbind")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("eventconf.xsd")
 @XmlType(propOrder = { "m_vbnumber", "m_values" })
 public class Varbind implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 2387062723322720364L;
 
+    /** The Constant EMPTY_STRING_ARRAY. */
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
+    /** The m_textual convention. */
     @XmlAttribute(name = "textual-convention", required = false)
     private String m_textualConvention;
 
     // @NotNull
+    /** The m_vbnumber. */
     @XmlElement(name = "vbnumber", required = true)
     private Integer m_vbnumber;
 
     // @Size(min=1)
     // @NotNull
+    /** The m_values. */
     @XmlElement(name = "vbvalue", required = true)
     private List<String> m_values = new ArrayList<String>();
 
+    /**
+     * Gets the textual convention.
+     *
+     * @return the textual convention
+     */
     public String getTextualConvention() {
         return m_textualConvention;
     }
 
+    /**
+     * Sets the textual convention.
+     *
+     * @param textualConvention
+     *            the new textual convention
+     */
     public void setTextualConvention(final String textualConvention) {
         m_textualConvention = textualConvention == null ? null : textualConvention.intern();
     }
 
+    /**
+     * Gets the vbnumber.
+     *
+     * @return the vbnumber
+     */
     public Integer getVbnumber() {
         return m_vbnumber;
     }
 
+    /**
+     * Sets the vbnumber.
+     *
+     * @param vbnumber
+     *            the new vbnumber
+     */
     public void setVbnumber(final Integer vbnumber) {
         m_vbnumber = vbnumber;
     }
 
+    /**
+     * Delete vbnumber.
+     */
     public void deleteVbnumber() {
         m_vbnumber = null;
     }
 
+    /**
+     * Checks for vbnumber.
+     *
+     * @return true, if successful
+     */
     public boolean hasVbnumber() {
         return m_vbnumber != null;
     }
 
+    /**
+     * Gets the vbvalue.
+     *
+     * @param index
+     *            the index
+     * @return the vbvalue
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public String getVbvalue(final int index) throws IndexOutOfBoundsException {
         return m_values.get(index);
     }
 
+    /**
+     * Gets the vbvalue.
+     *
+     * @return the vbvalue
+     */
     public String[] getVbvalue() {
         return m_values.toArray(EMPTY_STRING_ARRAY);
     }
 
+    /**
+     * Gets the vbvalue collection.
+     *
+     * @return the vbvalue collection
+     */
     public List<String> getVbvalueCollection() {
         return m_values;
     }
 
+    /**
+     * Gets the vbvalue count.
+     *
+     * @return the vbvalue count
+     */
     public int getVbvalueCount() {
         return m_values.size();
     }
 
+    /**
+     * Sets the vbvalue.
+     *
+     * @param index
+     *            the index
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void setVbvalue(final int index, final String value) throws IndexOutOfBoundsException {
         m_values.set(index, value == null ? null : value.intern());
     }
 
+    /**
+     * Sets the vbvalue.
+     *
+     * @param values
+     *            the new vbvalue
+     */
     public void setVbvalue(final String[] values) {
         m_values.clear();
         for (final String value : values) {
@@ -130,6 +209,12 @@ public class Varbind implements Serializable {
         }
     }
 
+    /**
+     * Sets the vbvalue.
+     *
+     * @param values
+     *            the new vbvalue
+     */
     public void setVbvalue(final List<String> values) {
         m_values.clear();
         for (final String value : values) {
@@ -137,38 +222,94 @@ public class Varbind implements Serializable {
         }
     }
 
+    /**
+     * Sets the vbvalue collection.
+     *
+     * @param values
+     *            the new vbvalue collection
+     */
     public void setVbvalueCollection(final List<String> values) {
         setVbvalue(values);
     }
 
+    /**
+     * Adds the vbvalue.
+     *
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addVbvalue(final String value) throws IndexOutOfBoundsException {
         m_values.add(value == null ? null : value.intern());
     }
 
+    /**
+     * Adds the vbvalue.
+     *
+     * @param index
+     *            the index
+     * @param value
+     *            the value
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
+     */
     public void addVbvalue(final int index, final String value) throws IndexOutOfBoundsException {
         m_values.add(index, value == null ? null : value.intern());
     }
 
+    /**
+     * Removes the all vbvalue.
+     */
     public void removeAllVbvalue() {
         m_values.clear();
     }
 
+    /**
+     * Removes the vbvalue.
+     *
+     * @param value
+     *            the value
+     * @return true, if successful
+     */
     public boolean removeVbvalue(final String value) {
         return m_values.remove(value);
     }
 
+    /**
+     * Removes the vbvalue at.
+     *
+     * @param index
+     *            the index
+     * @return the string
+     */
     public String removeVbvalueAt(final int index) {
         return m_values.remove(index);
     }
 
+    /**
+     * Enumerate vbvalue.
+     *
+     * @return the enumeration
+     */
     public Enumeration<String> enumerateVbvalue() {
         return Collections.enumeration(m_values);
     }
 
+    /**
+     * Iterate vbvalue.
+     *
+     * @return the iterator
+     */
     public Iterator<String> iterateVbvalue() {
         return m_values.iterator();
     }
 
+    /**
+     * Checks if is valid.
+     *
+     * @return true, if is valid
+     */
     public boolean isValid() {
         try {
             validate();
@@ -178,22 +319,64 @@ public class Varbind implements Serializable {
         return true;
     }
 
+    /**
+     * Marshal.
+     *
+     * @param out
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final Writer out) throws MarshalException, ValidationException {
         Marshaller.marshal(this, out);
     }
 
+    /**
+     * Marshal.
+     *
+     * @param handler
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Unmarshal.
+     *
+     * @param reader
+     *            the reader
+     * @return the varbind
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
+     */
     public static Varbind unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Varbind) Unmarshaller.unmarshal(Varbind.class, reader);
     }
 
+    /**
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
+     */
     public void validate() throws ValidationException {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -204,6 +387,9 @@ public class Varbind implements Serializable {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj)
@@ -234,6 +420,11 @@ public class Varbind implements Serializable {
         return true;
     }
 
+    /**
+     * Construct matcher.
+     *
+     * @return the event matcher
+     */
     public EventMatcher constructMatcher() {
         // ignore this is vbnumber is null
         if (m_vbnumber == null)

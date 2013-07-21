@@ -82,6 +82,9 @@ public class SnmpConfigDescriptor extends org.opennms.netmgt.config.snmp.descrip
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new snmp config descriptor.
+     */
     public SnmpConfigDescriptor() {
         super();
         setExtendsWithoutFlatten(new org.opennms.netmgt.config.snmp.descriptors.ConfigurationDescriptor());

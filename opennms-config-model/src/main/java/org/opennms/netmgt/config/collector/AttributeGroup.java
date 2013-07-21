@@ -45,12 +45,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class AttributeGroup {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(AttributeGroup.class);
 
+    /** The m_resource. */
     private CollectionResource m_resource;
 
+    /** The m_group type. */
     private AttributeGroupType m_groupType;
 
+    /** The m_attributes. */
     private Set<CollectionAttribute> m_attributes = new HashSet<CollectionAttribute>();
 
     /**
@@ -60,10 +65,10 @@ public class AttributeGroup {
      *
      * @param resource
      *            a
-     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
-     *            object.
      * @param groupType
      *            a {@link org.opennms.netmgt.collectd.AttributeGroupType}
+     *            object.
+     *            {@link org.opennms.netmgt.config.collector.CollectionResource}
      *            object.
      */
     public AttributeGroup(CollectionResource resource, AttributeGroupType groupType) {
@@ -75,6 +80,7 @@ public class AttributeGroup {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -86,6 +92,7 @@ public class AttributeGroup {
      * <p>
      * getResource
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.config.collector.CollectionResource}
      *         object.
@@ -98,6 +105,7 @@ public class AttributeGroup {
      * <p>
      * getAttributes
      * </p>
+     * .
      *
      * @return a {@link java.util.Collection} object.
      */
@@ -109,6 +117,7 @@ public class AttributeGroup {
      * <p>
      * addAttribute
      * </p>
+     * .
      *
      * @param attr
      *            a
@@ -123,6 +132,7 @@ public class AttributeGroup {
      * <p>
      * visit
      * </p>
+     * .
      *
      * @param visitor
      *            a
@@ -144,12 +154,13 @@ public class AttributeGroup {
      * <p>
      * shouldPersist
      * </p>
+     * .
      *
      * @param params
      *            a
-     *            {@link org.opennms.netmgt.config.collector.ServiceParameters}
-     *            object.
      * @return a boolean.
+     *         {@link org.opennms.netmgt.config.collector.ServiceParameters}
+     *         object.
      */
     public boolean shouldPersist(ServiceParameters params) {
         boolean shouldPersist = doShouldPersist();
@@ -158,6 +169,11 @@ public class AttributeGroup {
 
     }
 
+    /**
+     * Do should persist.
+     *
+     * @return true, if successful
+     */
     private boolean doShouldPersist() {
         if ("ignore".equals(getIfType()))
             return true;
@@ -177,6 +193,11 @@ public class AttributeGroup {
         return false;
     }
 
+    /**
+     * Gets the if type.
+     *
+     * @return the if type
+     */
     private String getIfType() {
         return m_groupType.getIfType();
     }
@@ -185,6 +206,7 @@ public class AttributeGroup {
      * <p>
      * getGroupType
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.collectd.AttributeGroupType} object.
      */
@@ -196,6 +218,7 @@ public class AttributeGroup {
      * <p>
      * toString
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */

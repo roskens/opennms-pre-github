@@ -49,6 +49,8 @@ import org.opennms.core.xml.JaxbUtils;
  * @version $Revision$ $Date$
  */
 public class Service implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -2554947387909986065L;
 
     // --------------------------/
@@ -83,10 +85,25 @@ public class Service implements Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new service.
+     */
     public Service() {
         super();
     }
 
+    /**
+     * Instantiates a new service.
+     *
+     * @param name
+     *            the name
+     * @param className
+     *            the class name
+     * @param attributes
+     *            the attributes
+     * @param invokes
+     *            the invokes
+     */
     public Service(final String name, final String className, final List<Attribute> attributes,
             final List<Invoke> invokes) {
         super();
@@ -101,38 +118,52 @@ public class Service implements Serializable {
     // -----------/
 
     /**
+     * Adds the attribute.
+     *
      * @param vAttribute
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v attribute
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttribute(final Attribute vAttribute) throws IndexOutOfBoundsException {
         this._attributeList.add(vAttribute);
     }
 
     /**
+     * Adds the attribute.
+     *
      * @param index
+     *            the index
      * @param vAttribute
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v attribute
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttribute(final int index, final Attribute vAttribute) throws IndexOutOfBoundsException {
         this._attributeList.add(index, vAttribute);
     }
 
     /**
+     * Adds the invoke.
+     *
      * @param vInvoke
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v invoke
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addInvoke(final Invoke vInvoke) throws IndexOutOfBoundsException {
         this._invokeList.add(vInvoke);
     }
 
     /**
+     * Adds the invoke.
+     *
      * @param index
+     *            the index
      * @param vInvoke
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v invoke
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addInvoke(final int index, final Invoke vInvoke) throws java.lang.IndexOutOfBoundsException {
         this._invokeList.add(index, vInvoke);
@@ -160,6 +191,7 @@ public class Service implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -207,10 +239,11 @@ public class Service implements Serializable {
      * Method getAttribute.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.service.Attribute at
      *         the given inde
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Attribute getAttribute(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -272,10 +305,11 @@ public class Service implements Serializable {
      * Method getInvoke.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the index
      * @return the value of the org.opennms.netmgt.config.service.Invoke at
      *         the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Invoke getInvoke(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -379,19 +413,24 @@ public class Service implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      */
     public void marshal(final java.io.Writer out) {
         JaxbUtils.marshal(this, out);
     }
 
     /**
+     * Removes the all attribute.
      */
     public void removeAllAttribute() {
         this._attributeList.clear();
     }
 
     /**
+     * Removes the all invoke.
      */
     public void removeAllInvoke() {
         this._invokeList.clear();
@@ -401,6 +440,7 @@ public class Service implements Serializable {
      * Method removeAttribute.
      *
      * @param vAttribute
+     *            the v attribute
      * @return true if the object was removed from the collection.
      */
     public boolean removeAttribute(final Attribute vAttribute) {
@@ -412,6 +452,7 @@ public class Service implements Serializable {
      * Method removeAttributeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Attribute removeAttributeAt(final int index) {
@@ -423,6 +464,7 @@ public class Service implements Serializable {
      * Method removeInvoke.
      *
      * @param vInvoke
+     *            the v invoke
      * @return true if the object was removed from the collection.
      */
     public boolean removeInvoke(final Invoke vInvoke) {
@@ -434,6 +476,7 @@ public class Service implements Serializable {
      * Method removeInvokeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Invoke removeInvokeAt(final int index) {
@@ -442,10 +485,14 @@ public class Service implements Serializable {
     }
 
     /**
+     * Sets the attribute.
+     *
      * @param index
+     *            the index
      * @param vAttribute
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v attribute
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setAttribute(final int index, final Attribute vAttribute) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -458,7 +505,10 @@ public class Service implements Serializable {
     }
 
     /**
+     * Sets the attribute.
+     *
      * @param vAttributeArray
+     *            the new attribute
      */
     public void setAttribute(final Attribute[] vAttributeArray) {
         // -- copy array
@@ -494,10 +544,14 @@ public class Service implements Serializable {
     }
 
     /**
+     * Sets the invoke.
+     *
      * @param index
+     *            the index
      * @param vInvoke
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index given is outside the bounds of the collection
+     *            the v invoke
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setInvoke(final int index, final Invoke vInvoke) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -510,7 +564,10 @@ public class Service implements Serializable {
     }
 
     /**
+     * Sets the invoke.
+     *
      * @param vInvokeArray
+     *            the new invoke
      */
     public void setInvoke(final Invoke[] vInvokeArray) {
         // -- copy array

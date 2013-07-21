@@ -116,6 +116,9 @@ public class Mbean implements java.io.Serializable {
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new mbean.
+     */
     public Mbean() {
         super();
         this._attribList = new java.util.ArrayList<Attrib>();
@@ -128,63 +131,78 @@ public class Mbean implements java.io.Serializable {
     // -----------/
 
     /**
+     * Adds the attrib.
+     *
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final Attrib vAttrib) throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(vAttrib);
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final int index, final Attrib vAttrib) throws java.lang.IndexOutOfBoundsException {
         this._attribList.add(index, vAttrib);
     }
 
     /**
+     * Adds the comp attrib.
+     *
      * @param vCompAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCompAttrib(final CompAttrib vCompAttrib) throws java.lang.IndexOutOfBoundsException {
         this._compAttribList.add(vCompAttrib);
     }
 
     /**
+     * Adds the comp attrib.
+     *
      * @param index
+     *            the index
      * @param vCompAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addCompAttrib(final int index, final CompAttrib vCompAttrib) throws java.lang.IndexOutOfBoundsException {
         this._compAttribList.add(index, vCompAttrib);
     }
 
     /**
+     * Adds the include mbean.
+     *
      * @param vIncludeMbean
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include mbean
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeMbean(final java.lang.String vIncludeMbean) throws java.lang.IndexOutOfBoundsException {
         this._includeMbeanList.add(vIncludeMbean);
     }
 
     /**
+     * Adds the include mbean.
+     *
      * @param index
+     *            the index
      * @param vIncludeMbean
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include mbean
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addIncludeMbean(final int index, final java.lang.String vIncludeMbean)
             throws java.lang.IndexOutOfBoundsException {
@@ -225,6 +243,7 @@ public class Mbean implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -300,11 +319,11 @@ public class Mbean implements java.io.Serializable {
      * Method getAttrib.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.collectd.jmx.Attrib at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Attrib getAttrib(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -356,12 +375,12 @@ public class Mbean implements java.io.Serializable {
      * Method getCompAttrib.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.collectd.jmx.CompAttrib at the given
      *         index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public CompAttrib getCompAttrib(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -422,10 +441,10 @@ public class Mbean implements java.io.Serializable {
      * Method getIncludeMbean.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the java.lang.String at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getIncludeMbean(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -596,13 +615,14 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final java.io.Writer out) throws org.exolab.castor.xml.MarshalException,
@@ -611,16 +631,16 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void marshal(final org.xml.sax.ContentHandler handler) throws java.io.IOException,
@@ -629,18 +649,21 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Removes the all attrib.
      */
     public void removeAllAttrib() {
         this._attribList.clear();
     }
 
     /**
+     * Removes the all comp attrib.
      */
     public void removeAllCompAttrib() {
         this._compAttribList.clear();
     }
 
     /**
+     * Removes the all include mbean.
      */
     public void removeAllIncludeMbean() {
         this._includeMbeanList.clear();
@@ -650,6 +673,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeAttrib.
      *
      * @param vAttrib
+     *            the v attrib
      * @return true if the object was removed from the collection.
      */
     public boolean removeAttrib(final Attrib vAttrib) {
@@ -661,6 +685,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeAttribAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Attrib removeAttribAt(final int index) {
@@ -672,6 +697,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeCompAttrib.
      *
      * @param vCompAttrib
+     *            the v comp attrib
      * @return true if the object was removed from the collection.
      */
     public boolean removeCompAttrib(final CompAttrib vCompAttrib) {
@@ -683,6 +709,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeCompAttribAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public CompAttrib removeCompAttribAt(final int index) {
@@ -694,6 +721,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeIncludeMbean.
      *
      * @param vIncludeMbean
+     *            the v include mbean
      * @return true if the object was removed from the collection.
      */
     public boolean removeIncludeMbean(final java.lang.String vIncludeMbean) {
@@ -705,6 +733,7 @@ public class Mbean implements java.io.Serializable {
      * Method removeIncludeMbeanAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeIncludeMbeanAt(final int index) {
@@ -713,11 +742,14 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setAttrib(final int index, final Attrib vAttrib) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -730,7 +762,10 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param vAttribArray
+     *            the new attrib
      */
     public void setAttrib(final Attrib[] vAttribArray) {
         // -- copy array
@@ -759,20 +794,23 @@ public class Mbean implements java.io.Serializable {
      * Sets the value of '_attribList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param attribList
      *            the Vector to set.
+     * @deprecated
      */
     public void setAttribCollection(final java.util.List<Attrib> attribList) {
         this._attribList = attribList;
     }
 
     /**
+     * Sets the comp attrib.
+     *
      * @param index
+     *            the index
      * @param vCompAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v comp attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setCompAttrib(final int index, final CompAttrib vCompAttrib) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -785,7 +823,10 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Sets the comp attrib.
+     *
      * @param vCompAttribArray
+     *            the new comp attrib
      */
     public void setCompAttrib(final CompAttrib[] vCompAttribArray) {
         // -- copy array
@@ -814,9 +855,9 @@ public class Mbean implements java.io.Serializable {
      * Sets the value of '_compAttribList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param compAttribList
      *            the Vector to set.
+     * @deprecated
      */
     public void setCompAttribCollection(final java.util.List<CompAttrib> compAttribList) {
         this._compAttribList = compAttribList;
@@ -833,11 +874,14 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Sets the include mbean.
+     *
      * @param index
+     *            the index
      * @param vIncludeMbean
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v include mbean
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setIncludeMbean(final int index, final java.lang.String vIncludeMbean)
             throws java.lang.IndexOutOfBoundsException {
@@ -851,7 +895,10 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
+     * Sets the include mbean.
+     *
      * @param vIncludeMbeanArray
+     *            the new include mbean
      */
     public void setIncludeMbean(final java.lang.String[] vIncludeMbeanArray) {
         // -- copy array
@@ -880,9 +927,9 @@ public class Mbean implements java.io.Serializable {
      * Sets the value of '_includeMbeanList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param includeMbeanList
      *            the Vector to set.
+     * @deprecated
      */
     public void setIncludeMbeanCollection(final java.util.List<java.lang.String> includeMbeanList) {
         this._includeMbeanList = includeMbeanList;
@@ -932,14 +979,13 @@ public class Mbean implements java.io.Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.collectd.jmx.Mbean
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static Mbean unmarshal(final java.io.Reader reader) throws org.exolab.castor.xml.MarshalException,
@@ -948,9 +994,10 @@ public class Mbean implements java.io.Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public void validate() throws org.exolab.castor.xml.ValidationException {

@@ -72,10 +72,14 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name = "definition")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Definition extends Configuration implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 6077248084936410239L;
 
+    /** The Constant EMPTY_RANGE. */
     private static final Range[] EMPTY_RANGE = new Range[0];
 
+    /** The Constant EMPTY_IP_MATCH. */
     private static final String[] EMPTY_IP_MATCH = new String[0];
 
     /**
@@ -92,12 +96,13 @@ public class Definition extends Configuration implements Serializable {
     @XmlElement(name = "specific")
     private List<String> _specificList;
 
-    /**
-     * Match Octets (as in IPLIKE)
-     */
+    /** Match Octets (as in IPLIKE). */
     @XmlElement(name = "ip-match")
     private List<String> _ipMatchList;
 
+    /**
+     * Instantiates a new definition.
+     */
     public Definition() {
         super();
         this._rangeList = new ArrayList<Range>();
@@ -106,7 +111,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the ip match.
+     *
      * @param vIpMatch
+     *            the v ip match
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -116,8 +124,12 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the ip match.
+     *
      * @param index
+     *            the index
      * @param vIpMatch
+     *            the v ip match
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -127,7 +139,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the range.
+     *
      * @param vRange
+     *            the v range
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -137,8 +152,12 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the range.
+     *
      * @param index
+     *            the index
      * @param vRange
+     *            the v range
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -148,7 +167,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the specific.
+     *
      * @param vSpecific
+     *            the v specific
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -158,8 +180,12 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Adds the specific.
+     *
      * @param index
+     *            the index
      * @param vSpecific
+     *            the v specific
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -202,6 +228,7 @@ public class Definition extends Configuration implements Serializable {
      * Overrides the Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -223,10 +250,11 @@ public class Definition extends Configuration implements Serializable {
      * Method getIpMatch.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getIpMatch(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -277,11 +305,12 @@ public class Definition extends Configuration implements Serializable {
      * Method getRange.
      *
      * @param index
+     *            the index
+     * @return the value of the
+     *         Range at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the
-     *         Range at the given index
      */
     public Range getRange(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -332,10 +361,11 @@ public class Definition extends Configuration implements Serializable {
      * Method getSpecific.
      *
      * @param index
+     *            the index
+     * @return the value of the String at the given index
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
-     * @return the value of the String at the given index
      */
     public String getSpecific(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -453,7 +483,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
+     *            the out
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
@@ -467,30 +500,42 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
+     *            the handler
      * @throws IOException
      *             if an IOException occurs during
      *             marshaling
-     * @throws ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
+     * @throws ValidationException
+     *             if this
+     *             object is an invalid instance according to the schema
      */
     @Override
     public void marshal(final ContentHandler handler) throws IOException, MarshalException, ValidationException {
         Marshaller.marshal(this, handler);
     }
 
+    /**
+     * Removes the all ip match.
+     */
     public void removeAllIpMatch() {
         this._ipMatchList.clear();
     }
 
+    /**
+     * Removes the all range.
+     */
     public void removeAllRange() {
         this._rangeList.clear();
     }
 
+    /**
+     * Removes the all specific.
+     */
     public void removeAllSpecific() {
         this._specificList.clear();
     }
@@ -499,6 +544,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeIpMatch.
      *
      * @param vIpMatch
+     *            the v ip match
      * @return true if the object was removed from the collection.
      */
     public boolean removeIpMatch(final String vIpMatch) {
@@ -509,6 +555,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeIpMatchAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeIpMatchAt(final int index) {
@@ -519,6 +566,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeRange.
      *
      * @param vRange
+     *            the v range
      * @return true if the object was removed from the collection.
      */
     public boolean removeRange(final Range vRange) {
@@ -529,6 +577,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeRangeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Range removeRangeAt(final int index) {
@@ -539,6 +588,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeSpecific.
      *
      * @param vSpecific
+     *            the v specific
      * @return true if the object was removed from the collection.
      */
     public boolean removeSpecific(final String vSpecific) {
@@ -549,6 +599,7 @@ public class Definition extends Configuration implements Serializable {
      * Method removeSpecificAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public String removeSpecificAt(final int index) {
@@ -556,8 +607,12 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the ip match.
+     *
      * @param index
+     *            the index
      * @param vIpMatch
+     *            the v ip match
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -573,7 +628,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the ip match.
+     *
      * @param vIpMatchArray
+     *            the new ip match
      */
     public void setIpMatch(final String[] vIpMatchArray) {
         // -- copy array
@@ -602,17 +660,21 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_ipMatchList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param ipMatchList
      *            the Vector to set.
+     * @deprecated
      */
     public void setIpMatchCollection(final List<String> ipMatchList) {
         this._ipMatchList = ipMatchList;
     }
 
     /**
+     * Sets the range.
+     *
      * @param index
+     *            the index
      * @param vRange
+     *            the v range
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -628,7 +690,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the range.
+     *
      * @param vRangeArray
+     *            the new range
      */
     public void setRange(final Range[] vRangeArray) {
         // -- copy array
@@ -657,17 +722,21 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_rangeList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param rangeList
      *            the Vector to set.
+     * @deprecated
      */
     public void setRangeCollection(final List<Range> rangeList) {
         this._rangeList = rangeList;
     }
 
     /**
+     * Sets the specific.
+     *
      * @param index
+     *            the index
      * @param vSpecific
+     *            the v specific
      * @throws IndexOutOfBoundsException
      *             if the index
      *             given is outside the bounds of the collection
@@ -683,7 +752,10 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
+     * Sets the specific.
+     *
      * @param vSpecificArray
+     *            the new specific
      */
     public void setSpecific(final String[] vSpecificArray) {
         // -- copy array
@@ -712,9 +784,9 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_specificList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param specificList
      *            the Vector to set.
+     * @deprecated
      */
     public void setSpecificCollection(final List<String> specificList) {
         this._specificList = specificList;
@@ -724,20 +796,23 @@ public class Definition extends Configuration implements Serializable {
      * Method unmarshal.
      *
      * @param reader
+     *            the reader
+     * @return the unmarshaled
+     *         Configuration
      * @throws MarshalException
      *             if object is
      *             null or if any SAXException is thrown during marshaling
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
-     * @return the unmarshaled
-     *         Configuration
      */
     public static Configuration unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (Configuration) Unmarshaller.unmarshal(Definition.class, reader);
     }
 
     /**
+     * Validate.
+     *
      * @throws ValidationException
      *             if this
      *             object is an invalid instance according to the schema
@@ -747,6 +822,9 @@ public class Definition extends Configuration implements Serializable {
         new Validator().validate(this);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.snmp.Configuration#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).appendSuper(super.toString()).append("ranges", getRangeCollection()).append("specifics",

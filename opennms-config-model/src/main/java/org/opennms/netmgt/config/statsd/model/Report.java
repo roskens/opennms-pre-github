@@ -39,16 +39,21 @@ import java.util.LinkedHashMap;
  * @version $Id: $
  */
 public class Report {
+
+    /** The m_name. */
     private String m_name;
 
+    /** The m_class name. */
     private String m_className;
 
+    /** The m_parameters. */
     private LinkedHashMap<String, String> m_parameters = new LinkedHashMap<String, String>();
 
     /**
      * <p>
      * getClassName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -60,6 +65,7 @@ public class Report {
      * <p>
      * setClassName
      * </p>
+     * .
      *
      * @param className
      *            a {@link java.lang.String} object.
@@ -72,6 +78,7 @@ public class Report {
      * <p>
      * getName
      * </p>
+     * .
      *
      * @return a {@link java.lang.String} object.
      */
@@ -83,6 +90,7 @@ public class Report {
      * <p>
      * setName
      * </p>
+     * .
      *
      * @param name
      *            a {@link java.lang.String} object.
@@ -95,6 +103,7 @@ public class Report {
      * <p>
      * getParameters
      * </p>
+     * .
      *
      * @return a {@link java.util.LinkedHashMap} object.
      */
@@ -106,6 +115,7 @@ public class Report {
      * <p>
      * setParameters
      * </p>
+     * .
      *
      * @param parameters
      *            a {@link java.util.LinkedHashMap} object.
@@ -118,6 +128,7 @@ public class Report {
      * <p>
      * addParameter
      * </p>
+     * .
      *
      * @param key
      *            a {@link java.lang.String} object.

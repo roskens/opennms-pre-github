@@ -82,6 +82,9 @@ public class StorageStrategyDescriptor extends org.exolab.castor.xml.util.XMLCla
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new storage strategy descriptor.
+     */
     public StorageStrategyDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";

@@ -52,13 +52,15 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * A scheduled outage
+ * A scheduled outage.
  */
 
 @XmlRootElement(name = "outage", namespace = "http://xmlns.opennms.org/xsd/config/poller/outages")
 @XmlAccessorType(XmlAccessType.FIELD)
 @ValidateUsing("poll-outages.xsd")
 public class Outage extends BasicSchedule implements Serializable {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 8039170922077782745L;
 
     /**
@@ -75,6 +77,9 @@ public class Outage extends BasicSchedule implements Serializable {
     @XmlElement(name = "node")
     private List<Node> _nodeList;
 
+    /**
+     * Instantiates a new outage.
+     */
     public Outage() {
         super();
         this._interfaceList = new ArrayList<Interface>();
@@ -82,42 +87,52 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Adds the interface.
+     *
      * @param vInterface
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v interface
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addInterface(final Interface vInterface) throws IndexOutOfBoundsException {
         this._interfaceList.add(vInterface);
     }
 
     /**
+     * Adds the interface.
+     *
      * @param index
+     *            the index
      * @param vInterface
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v interface
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addInterface(final int index, final Interface vInterface) throws IndexOutOfBoundsException {
         this._interfaceList.add(index, vInterface);
     }
 
     /**
+     * Adds the node.
+     *
      * @param vNode
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v node
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addNode(final Node vNode) throws IndexOutOfBoundsException {
         this._nodeList.add(vNode);
     }
 
     /**
+     * Adds the node.
+     *
      * @param index
+     *            the index
      * @param vNode
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v node
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addNode(final int index, final Node vNode) throws IndexOutOfBoundsException {
         this._nodeList.add(index, vNode);
@@ -147,6 +162,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override
@@ -183,11 +199,11 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method getInterface.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.poller.Interface at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Interface getInterface(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -239,11 +255,11 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method getNode.
      *
      * @param index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.poller.Node at the given index
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public Node getNode(final int index) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -350,13 +366,14 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param out
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the out
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     @Override
@@ -365,16 +382,16 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Marshal.
+     *
      * @param handler
-     * @throws java.io.IOException
-     *             if an IOException occurs during
-     *             marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
+     *            the handler
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     @Override
@@ -383,12 +400,14 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Removes the all interface.
      */
     public void removeAllInterface() {
         this._interfaceList.clear();
     }
 
     /**
+     * Removes the all node.
      */
     public void removeAllNode() {
         this._nodeList.clear();
@@ -398,6 +417,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method removeInterface.
      *
      * @param vInterface
+     *            the v interface
      * @return true if the object was removed from the collection.
      */
     public boolean removeInterface(final Interface vInterface) {
@@ -408,6 +428,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method removeInterfaceAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Interface removeInterfaceAt(final int index) {
@@ -418,6 +439,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method removeNode.
      *
      * @param vNode
+     *            the v node
      * @return true if the object was removed from the collection.
      */
     public boolean removeNode(final Node vNode) {
@@ -428,6 +450,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method removeNodeAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public Node removeNodeAt(final int index) {
@@ -435,11 +458,14 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Sets the interface.
+     *
      * @param index
+     *            the index
      * @param vInterface
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v interface
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setInterface(final int index, final Interface vInterface) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -452,7 +478,10 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Sets the interface.
+     *
      * @param vInterfaceArray
+     *            the new interface
      */
     public void setInterface(final Interface[] vInterfaceArray) {
         // -- copy array
@@ -481,20 +510,23 @@ public class Outage extends BasicSchedule implements Serializable {
      * Sets the value of '_interfaceList' by setting it to the
      * given Vector. No type checking is performed.
      *
-     * @deprecated
      * @param _interfaceList
      *            the Vector to set.
+     * @deprecated
      */
     public void setInterfaceCollection(final List<Interface> _interfaceList) {
         this._interfaceList = _interfaceList;
     }
 
     /**
+     * Sets the node.
+     *
      * @param index
+     *            the index
      * @param vNode
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v node
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setNode(final int index, final Node vNode) throws IndexOutOfBoundsException {
         // check bounds for index
@@ -507,7 +539,10 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
+     * Sets the node.
+     *
      * @param vNodeArray
+     *            the new node
      */
     public void setNode(final Node[] vNodeArray) {
         // -- copy array
@@ -536,9 +571,9 @@ public class Outage extends BasicSchedule implements Serializable {
      * Sets the value of '_nodeList' by setting it to the given
      * Vector. No type checking is performed.
      *
-     * @deprecated
      * @param nodeList
      *            the Vector to set.
+     * @deprecated
      */
     public void setNodeCollection(final List<Node> nodeList) {
         this._nodeList = nodeList;
@@ -548,14 +583,13 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method unmarshal.
      *
      * @param reader
-     * @throws org.exolab.castor.xml.MarshalException
-     *             if object is
-     *             null or if any SAXException is thrown during marshaling
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     *            the reader
      * @return the unmarshaled
      *         org.opennms.netmgt.config.poller.BasicSchedule
+     * @throws MarshalException
+     *             the marshal exception
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     public static BasicSchedule unmarshal(final Reader reader) throws MarshalException, ValidationException {
@@ -563,9 +597,10 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * @throws org.exolab.castor.xml.ValidationException
-     *             if this
-     *             object is an invalid instance according to the schema
+     * Validate.
+     *
+     * @throws ValidationException
+     *             the validation exception
      */
     @Deprecated
     @Override

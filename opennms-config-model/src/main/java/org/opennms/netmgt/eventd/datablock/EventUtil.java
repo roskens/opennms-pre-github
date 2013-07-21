@@ -61,251 +61,173 @@ import org.slf4j.LoggerFactory;
 /**
  * EventUtil is used primarily for the event parm expansion - has methods used
  * by all the event components to send in the event and the element to expanded
- * and have the 'expanded' value sent back
+ * and have the 'expanded' value sent back.
  *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Kumaraswamy </A>
  * @author <A HREF="mailto:weave@oculan.com">Brain Weaver </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public final class EventUtil {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(EventUtil.class);
 
-    /**
-     * The Event ID xml
-     */
+    /** The Event ID xml. */
 
     static final String TAG_EVENT_DB_ID = "eventid";
 
-    /**
-     * The UEI xml tag
-     */
+    /** The UEI xml tag. */
     public static final String TAG_UEI = "uei";
 
-    /**
-     * The event source xml tag
-     */
+    /** The event source xml tag. */
     static final String TAG_SOURCE = "source";
 
-    /**
-     * The event descr xml tag
-     */
+    /** The event descr xml tag. */
     static final String TAG_DESCR = "descr";
 
-    /**
-     * The event logmsg xml tag
-     */
+    /** The event logmsg xml tag. */
     static final String TAG_LOGMSG = "logmsg";
 
-    /**
-     * The event time xml tag
-     */
+    /** The event time xml tag. */
     static final String TAG_TIME = "time";
 
-    /**
-     * The event time xml tag, short format
-     */
+    /** The event time xml tag, short format. */
     static final String TAG_SHORT_TIME = "shorttime";
 
-    /**
-     * /**
-     * The event dpname xml tag
-     */
+    /** /** The event dpname xml tag. */
     static final String TAG_DPNAME = "dpname";
 
-    /**
-     * The event nodeid xml tag
-     */
+    /** The event nodeid xml tag. */
     static final String TAG_NODEID = "nodeid";
 
-    /**
-     * The event nodelabel xml tag
-     */
+    /** The event nodelabel xml tag. */
     static final String TAG_NODELABEL = "nodelabel";
 
-    /**
-     * The event host xml tag
-     */
+    /** The event host xml tag. */
     static final String TAG_HOST = "host";
 
-    /**
-     * The event interface xml tag
-     */
+    /** The event interface xml tag. */
     static final String TAG_INTERFACE = "interface";
 
-    /**
-     * The event ifindex xml tag
-     */
+    /** The event ifindex xml tag. */
     static final String TAG_IFINDEX = "ifindex";
 
-    /**
-     * The reverse DNS lookup of the interface
-     */
+    /** The reverse DNS lookup of the interface. */
     static final String TAG_INTERFACE_RESOLVE = "interfaceresolve";
 
-    /**
-     * The reverse DNS lookup of the interface
-     */
+    /** The reverse DNS lookup of the interface. */
     static final String TAG_IFALIAS = "ifalias";
 
-    /**
-     * The event snmp id xml tag
-     */
+    /** The event snmp id xml tag. */
     static final String TAG_SNMP_ID = "id";
 
-    /**
-     * The SNMP xml tag
-     */
+    /** The SNMP xml tag. */
     static final String TAG_SNMP = "snmp";
 
-    /**
-     * The event snmp idtext xml tag
-     */
+    /** The event snmp idtext xml tag. */
     static final String TAG_SNMP_IDTEXT = "idtext";
 
-    /**
-     * The event snmp version xml tag
-     */
+    /** The event snmp version xml tag. */
     static final String TAG_SNMP_VERSION = "version";
 
-    /**
-     * The event snmp specific xml tag
-     */
+    /** The event snmp specific xml tag. */
     static final String TAG_SNMP_SPECIFIC = "specific";
 
-    /**
-     * The event snmp generic xml tag
-     */
+    /** The event snmp generic xml tag. */
     static final String TAG_SNMP_GENERIC = "generic";
 
-    /**
-     * The event snmp community xml tag
-     */
+    /** The event snmp community xml tag. */
     static final String TAG_SNMP_COMMUNITY = "community";
 
-    /**
-     * The event snmp host xml tag
-     */
+    /** The event snmp host xml tag. */
     static final String TAG_SNMPHOST = "snmphost";
 
-    /**
-     * The event service xml tag
-     */
+    /** The event service xml tag. */
     static final String TAG_SERVICE = "service";
 
-    /**
-     * The event severity xml tag
-     */
+    /** The event severity xml tag. */
     public static final String TAG_SEVERITY = "severity";
 
-    /**
-     * The event operinstruct xml tag
-     */
+    /** The event operinstruct xml tag. */
     static final String TAG_OPERINSTR = "operinstruct";
 
-    /**
-     * The event mouseovertext xml tag
-     */
+    /** The event mouseovertext xml tag. */
     static final String TAG_MOUSEOVERTEXT = "mouseovertext";
 
+    /** The Constant TAG_TTICKET_ID. */
     static final Object TAG_TTICKET_ID = "tticketid";
 
     /**
      * The string that starts the expansion for an asset field - used to lookup
-     * values
-     * of asset fields by their names
+     * values of asset fields by their names.
      */
     static final String ASSET_BEGIN = "asset[";
 
-    /**
-     * The string that ends the expansion of a parm
-     */
+    /** The string that ends the expansion of a parm. */
     static final String ASSET_END_SUFFIX = "]";
 
-    /**
-     * The '%' sign used to indicate parms to be expanded
-     */
+    /** The '%' sign used to indicate parms to be expanded. */
     static final char PERCENT = '%';
 
-    /**
-     * The string that should be expanded to a list of all parm names
-     */
+    /** The string that should be expanded to a list of all parm names. */
     static final String PARMS_NAMES = "parm[names-all]";
 
-    /**
-     * The string that should be expanded to a list of all parm values
-     */
+    /** The string that should be expanded to a list of all parm values. */
     static final String PARMS_VALUES = "parm[values-all]";
 
-    /**
-     * The string that should be expanded to a list of all parms
-     */
+    /** The string that should be expanded to a list of all parms. */
     static final String PARMS_ALL = "parm[all]";
 
     /**
      * The string that starts the expansion for a parm - used to lookup values
-     * of parameters by their names
+     * of parameters by their names.
      */
     static final String PARM_BEGIN = "parm[";
 
-    /**
-     * The length of PARM_BEGIN
-     */
+    /** The length of PARM_BEGIN. */
     static final int PARM_BEGIN_LENGTH = 5;
 
-    /**
-     * The string that should be expanded to the number of parms
-     */
+    /** The string that should be expanded to the number of parms. */
     static final String NUM_PARMS_STR = "parm[##]";
 
     /**
      * The string that starts a parm number - used to lookup values of
-     * parameters by their position
+     * parameters by their position.
      */
     static final String PARM_NUM_PREFIX = "parm[#";
 
-    /**
-     * The length of PARM_NUM_PREFIX
-     */
+    /** The length of PARM_NUM_PREFIX. */
     static final int PARM_NUM_PREFIX_LENGTH = 6;
 
-    /**
-     * The string that starts a request for the name of a numbered parm
-     */
+    /** The string that starts a request for the name of a numbered parm. */
     static final String PARM_NAME_NUMBERED_PREFIX = "parm[name-#";
 
-    /**
-     * The length of PARM_NAME_NUMBERED_PREFIX
-     */
+    /** The length of PARM_NAME_NUMBERED_PREFIX. */
     static final int PARM_NAME_NUMBERED_PREFIX_LENGTH = 11;
 
-    /**
-     * The string that ends the expansion of a parm
-     */
+    /** The string that ends the expansion of a parm. */
     static final String PARM_END_SUFFIX = "]";
 
     /**
      * For expansion of the '%parms[all]%' - the parm name and value are added
-     * as delimiter separated list of ' <parmName>= <value>' strings
+     * as delimiter separated list of ' <parmName>= <value>' strings.
      */
     static final char NAME_VAL_DELIM = '=';
 
-    /**
-	 */
+    /** The Constant SPACE_DELIM. */
     static final char SPACE_DELIM = ' ';
 
     /**
      * The values and the corresponding attributes of an element are added
-     * delimited by ATTRIB_DELIM
+     * delimited by ATTRIB_DELIM.
      */
     static final char ATTRIB_DELIM = ',';
 
-    /**
-     * Substitute the actual percent sign
-     */
+    /** Substitute the actual percent sign. */
     static final String TAG_PERCENT_SIGN = "pctsign";
 
     /**
-     * Converts the value of a parm ('Value') of the instance to a string
+     * Converts the value of a parm ('Value') of the instance to a string.
      *
      * @param pvalue
      *            a {@link org.opennms.netmgt.xml.event.Value} object.
@@ -334,6 +256,13 @@ public final class EventUtil {
         return result.trim();
     }
 
+    /**
+     * To hex string.
+     *
+     * @param data
+     *            the data
+     * @return the string
+     */
     public static String toHexString(byte[] data) {
         final StringBuffer b = new StringBuffer();
         for (int i = 0; i < data.length; ++i) {
@@ -384,7 +313,7 @@ public final class EventUtil {
     }
 
     /**
-     * Get the value of the parm for the event
+     * Get the value of the parm for the event.
      *
      * @param parm
      *            the parm for which value is needed from the event
@@ -595,6 +524,7 @@ public final class EventUtil {
      * Helper method.
      *
      * @param event
+     *            the event
      * @return All event parameter values as a String.
      */
     private static String getAllParmValues(Event event) {
@@ -629,6 +559,7 @@ public final class EventUtil {
      * Helper method.
      *
      * @param event
+     *            the event
      * @return The names of all the event parameters.
      */
     private static String getAllParmNames(Event event) {
@@ -656,6 +587,7 @@ public final class EventUtil {
      * Helper method.
      *
      * @param event
+     *            the event
      * @return All event parameter values as a String
      */
     private static String getAllParamValues(final Event event) {
@@ -689,7 +621,9 @@ public final class EventUtil {
      * Helper method.
      *
      * @param parm
+     *            the parm
      * @param event
+     *            the event
      * @return The name of a parameter based on its ordinal position in the
      *         event's list of parameters
      */
@@ -748,6 +682,21 @@ public final class EventUtil {
         return retParmVal;
     }
 
+    /**
+     * Split and extract.
+     *
+     * @param src
+     *            the src
+     * @param sep
+     *            the sep
+     * @param offset
+     *            the offset
+     * @param doRange
+     *            the do range
+     * @param rangeLen
+     *            the range len
+     * @return the string
+     */
     private static String splitAndExtract(String src, String sep, int offset, boolean doRange, int rangeLen) {
         String sepLiteral = Pattern.quote(sep);
 
@@ -794,7 +743,9 @@ public final class EventUtil {
      * Helper method.
      *
      * @param parm
+     *            the parm
      * @param event
+     *            the event
      * @return The value of a parameter based on its ordinal position in the
      *         event's list of parameters
      */
@@ -869,14 +820,14 @@ public final class EventUtil {
      * parameter named 'name' - %parm[ <name>]% is replaced by the value of the
      * parameter named 'name', if present - %parm[# <num>]% is replaced by the
      * value of the parameter number 'num', if present - %parm[##]% is replaced
-     * by the number of parameters
+     * by the number of parameters.
      *
      * @param inp
      *            the input string in which parm values are to be expanded
-     * @return expanded value if the value had any parameter to expand, null
-     *         otherwise
      * @param event
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
+     * @return expanded value if the value had any parameter to expand, null
+     *         otherwise
      */
     public static String expandParms(String inp, Event event) {
         return EventUtil.expandParms(inp, event, null);
@@ -892,16 +843,16 @@ public final class EventUtil {
      * parameter named 'name' - %parm[ <name>]% is replaced by the value of the
      * parameter named 'name', if present - %parm[# <num>]% is replaced by the
      * value of the parameter number 'num', if present - %parm[##]% is replaced
-     * by the number of parameters
+     * by the number of parameters.
      *
      * @param inp
      *            the input string in which parm values are to be expanded
+     * @param event
+     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @param decode
      *            the varbind decode for this
      * @return expanded value if the value had any parameter to expand, null
      *         otherwise
-     * @param event
-     *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static String expandParms(String inp, Event event, Map<String, Map<String, String>> decode) {
         int index1 = -1;
@@ -1031,8 +982,8 @@ public final class EventUtil {
      *
      * @param nodeId
      *            Node identifier
-     * @param ipAddr
-     *            Interface IP address
+     * @param ipaddr
+     *            the ipaddr
      * @return ifAlias Retreived ifAlias
      * @throws SQLException
      *             if database error encountered
@@ -1082,6 +1033,7 @@ public final class EventUtil {
      * <p>
      * cloneEvent
      * </p>
+     * .
      *
      * @param orig
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -1113,7 +1065,9 @@ public final class EventUtil {
      * Helper method.
      *
      * @param parm
-     * @param event
+     *            the parm
+     * @param nodeId
+     *            the node id
      * @return The value of an asset field based on the nodeid of the event
      */
     private static String getAssetFieldValue(String parm, long nodeId) {

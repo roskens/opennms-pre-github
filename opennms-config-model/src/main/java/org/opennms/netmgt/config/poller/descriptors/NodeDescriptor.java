@@ -82,6 +82,9 @@ public class NodeDescriptor extends org.exolab.castor.xml.util.XMLClassDescripto
     // - Constructors -/
     // ----------------/
 
+    /**
+     * Instantiates a new node descriptor.
+     */
     public NodeDescriptor() {
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/poller/outages";
