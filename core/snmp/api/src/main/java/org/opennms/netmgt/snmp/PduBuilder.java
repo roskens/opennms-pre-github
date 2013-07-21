@@ -28,28 +28,70 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Class PduBuilder.
+ */
 public abstract class PduBuilder {
 
+    /** The m_max vars per pdu. */
     private int m_maxVarsPerPdu;
 
+    /**
+     * Instantiates a new pdu builder.
+     */
     public PduBuilder() {
         this(SnmpAgentConfig.DEFAULT_MAX_VARS_PER_PDU);
     }
 
+    /**
+     * Instantiates a new pdu builder.
+     *
+     * @param maxVarsPerPdu
+     *            the max vars per pdu
+     */
     public PduBuilder(int maxVarsPerPdu) {
         m_maxVarsPerPdu = maxVarsPerPdu;
     }
 
+    /**
+     * Adds the oid.
+     *
+     * @param snmpObjId
+     *            the snmp obj id
+     */
     public abstract void addOid(SnmpObjId snmpObjId);
 
+    /**
+     * Sets the non repeaters.
+     *
+     * @param numNonRepeaters
+     *            the new non repeaters
+     */
     public abstract void setNonRepeaters(int numNonRepeaters);
 
+    /**
+     * Sets the max repetitions.
+     *
+     * @param maxRepetitions
+     *            the new max repetitions
+     */
     public abstract void setMaxRepetitions(int maxRepetitions);
 
+    /**
+     * Gets the max vars per pdu.
+     *
+     * @return the max vars per pdu
+     */
     public int getMaxVarsPerPdu() {
         return m_maxVarsPerPdu;
     }
 
+    /**
+     * Sets the max vars per pdu.
+     *
+     * @param maxVarsPerPdu
+     *            the new max vars per pdu
+     */
     public void setMaxVarsPerPdu(int maxVarsPerPdu) {
         m_maxVarsPerPdu = maxVarsPerPdu;
     }

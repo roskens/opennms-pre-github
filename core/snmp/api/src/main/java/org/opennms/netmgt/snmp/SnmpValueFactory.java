@@ -31,27 +31,107 @@ package org.opennms.netmgt.snmp;
 import java.math.BigInteger;
 import java.net.InetAddress;
 
+/**
+ * A factory for creating SnmpValue objects.
+ */
 public interface SnmpValueFactory {
 
+    /**
+     * Gets the octet string.
+     *
+     * @param bytes
+     *            the bytes
+     * @return the octet string
+     */
     SnmpValue getOctetString(byte[] bytes);
 
+    /**
+     * Gets the counter32.
+     *
+     * @param val
+     *            the val
+     * @return the counter32
+     */
     SnmpValue getCounter32(long val);
 
+    /**
+     * Gets the counter64.
+     *
+     * @param val
+     *            the val
+     * @return the counter64
+     */
     SnmpValue getCounter64(BigInteger val);
 
+    /**
+     * Gets the gauge32.
+     *
+     * @param val
+     *            the val
+     * @return the gauge32
+     */
     SnmpValue getGauge32(long val);
 
+    /**
+     * Gets the int32.
+     *
+     * @param val
+     *            the val
+     * @return the int32
+     */
     SnmpValue getInt32(int val);
 
+    /**
+     * Gets the ip address.
+     *
+     * @param val
+     *            the val
+     * @return the ip address
+     */
     SnmpValue getIpAddress(InetAddress val);
 
+    /**
+     * Gets the object id.
+     *
+     * @param objId
+     *            the obj id
+     * @return the object id
+     */
     SnmpValue getObjectId(SnmpObjId objId);
 
+    /**
+     * Gets the time ticks.
+     *
+     * @param val
+     *            the val
+     * @return the time ticks
+     */
     SnmpValue getTimeTicks(long val);
 
+    /**
+     * Gets the value.
+     *
+     * @param type
+     *            the type
+     * @param bytes
+     *            the bytes
+     * @return the value
+     */
     SnmpValue getValue(int type, byte[] bytes);
 
+    /**
+     * Gets the null.
+     *
+     * @return the null
+     */
     SnmpValue getNull();
 
+    /**
+     * Gets the opaque.
+     *
+     * @param bs
+     *            the bs
+     * @return the opaque
+     */
     SnmpValue getOpaque(byte[] bs);
 }

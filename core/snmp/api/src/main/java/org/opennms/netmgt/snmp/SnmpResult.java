@@ -28,41 +28,84 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Class SnmpResult.
+ */
 public class SnmpResult implements Comparable<SnmpResult> {
+
+    /** The m_base. */
     private final SnmpObjId m_base;
 
+    /** The m_instance. */
     private final SnmpInstId m_instance;
 
+    /** The m_value. */
     private final SnmpValue m_value;
 
+    /**
+     * Instantiates a new snmp result.
+     *
+     * @param base
+     *            the base
+     * @param instance
+     *            the instance
+     * @param value
+     *            the value
+     */
     public SnmpResult(SnmpObjId base, SnmpInstId instance, SnmpValue value) {
         m_base = base;
         m_instance = instance;
         m_value = value;
     }
 
+    /**
+     * Gets the base.
+     *
+     * @return the base
+     */
     public SnmpObjId getBase() {
         return m_base;
     }
 
+    /**
+     * Gets the single instance of SnmpResult.
+     *
+     * @return single instance of SnmpResult
+     */
     public SnmpInstId getInstance() {
         return m_instance;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value
+     */
     public SnmpValue getValue() {
         return m_value;
     }
 
+    /**
+     * Gets the absolute instance.
+     *
+     * @return the absolute instance
+     */
     public SnmpObjId getAbsoluteInstance() {
         return getBase().append(getInstance());
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("base", getBase()).append("instance", getInstance()).append("value",
                                                                                                             getValue()).toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
     @Override
     public int compareTo(SnmpResult other) {
         return getAbsoluteInstance().compareTo(other.getAbsoluteInstance());

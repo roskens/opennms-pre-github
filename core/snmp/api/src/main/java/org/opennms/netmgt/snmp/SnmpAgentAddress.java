@@ -30,11 +30,25 @@ package org.opennms.netmgt.snmp;
 
 import java.net.InetAddress;
 
+/**
+ * The Class SnmpAgentAddress.
+ */
 public final class SnmpAgentAddress {
+
+    /** The m_address. */
     private final InetAddress m_address;
 
+    /** The m_port. */
     private final Integer m_port;
 
+    /**
+     * Instantiates a new snmp agent address.
+     *
+     * @param agentAddress
+     *            the agent address
+     * @param agentPort
+     *            the agent port
+     */
     public SnmpAgentAddress(final InetAddress agentAddress, final Integer agentPort) {
         if (agentAddress == null)
             throw new NullPointerException("agentAddress cannot be null");
@@ -46,14 +60,27 @@ public final class SnmpAgentAddress {
 
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     public InetAddress getAddress() {
         return m_address;
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public Integer getPort() {
         return m_port;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object obj) {
         if (!(obj instanceof SnmpAgentAddress))
@@ -62,6 +89,9 @@ public final class SnmpAgentAddress {
         return m_address.equals(that.m_address) && m_port.equals(that.m_port);
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int hashCode = 1;
@@ -70,6 +100,9 @@ public final class SnmpAgentAddress {
         return hashCode;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return InetAddrUtils.str(m_address) + ":" + m_port;

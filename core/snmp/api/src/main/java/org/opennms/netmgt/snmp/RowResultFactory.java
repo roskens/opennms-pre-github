@@ -29,12 +29,21 @@
 package org.opennms.netmgt.snmp;
 
 /**
- * RowResultFactory
+ * RowResultFactory.
  *
  * @author brozow
  */
 public interface RowResultFactory {
 
+    /**
+     * Creates a new RowResult object.
+     *
+     * @param columnCount
+     *            the column count
+     * @param instance
+     *            the instance
+     * @return the snmp row result
+     */
     SnmpRowResult createRowResult(int columnCount, SnmpInstId instance);
 
 }

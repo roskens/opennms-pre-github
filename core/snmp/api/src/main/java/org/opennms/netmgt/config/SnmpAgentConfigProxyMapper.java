@@ -34,14 +34,28 @@ import java.util.Map;
 
 import org.opennms.netmgt.snmp.SnmpAgentAddress;
 
+/**
+ * The Class SnmpAgentConfigProxyMapper.
+ */
 public class SnmpAgentConfigProxyMapper {
+
+    /** The m_instance. */
     private static SnmpAgentConfigProxyMapper m_instance;
 
+    /** The m_address to proxy address. */
     private Map<InetAddress, SnmpAgentAddress> m_addressToProxyAddress = new HashMap<InetAddress, SnmpAgentAddress>();
 
+    /**
+     * Instantiates a new snmp agent config proxy mapper.
+     */
     protected SnmpAgentConfigProxyMapper() {
     }
 
+    /**
+     * Gets the single instance of SnmpAgentConfigProxyMapper.
+     *
+     * @return single instance of SnmpAgentConfigProxyMapper
+     */
     public static SnmpAgentConfigProxyMapper getInstance() {
         if (m_instance == null) {
             m_instance = new SnmpAgentConfigProxyMapper();
@@ -49,6 +63,12 @@ public class SnmpAgentConfigProxyMapper {
         return m_instance;
     }
 
+    /**
+     * Sets the instance.
+     *
+     * @param mapper
+     *            the new instance
+     */
     public static void setInstance(final SnmpAgentConfigProxyMapper mapper) {
         m_instance = mapper;
     }
@@ -67,13 +87,13 @@ public class SnmpAgentConfigProxyMapper {
     }
 
     /**
-     * Sets the proxied {@link SnmpAgentAddress} for a given
-     * {@link SnmpAgentAddress}
+     * Sets the proxied {@link SnmpAgentAddress} for a given.
      *
      * @param hostAddress
      *            the "real" SNMP agent address
      * @param proxyAgentAddress
      *            the SNMP agent address it is mapped to
+     *            {@link SnmpAgentAddress}
      */
     public void addProxy(final InetAddress hostAddress, final SnmpAgentAddress proxyAgentAddress) {
         m_addressToProxyAddress.put(hostAddress, proxyAgentAddress);
@@ -81,6 +101,10 @@ public class SnmpAgentConfigProxyMapper {
 
     /**
      * Whether or not the given address is in use in the proxy mapper.
+     *
+     * @param listenAddress
+     *            the listen address
+     * @return true, if successful
      */
     public boolean contains(final SnmpAgentAddress listenAddress) {
         return (m_addressToProxyAddress.values().contains(listenAddress));

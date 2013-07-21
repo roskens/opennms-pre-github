@@ -28,9 +28,34 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The listener interface for receiving trapNotification events.
+ * The class that is interested in processing a trapNotification
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addTrapNotificationListener<code> method. When
+ * the trapNotification event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see TrapNotificationEvent
+ */
 public interface TrapNotificationListener {
 
+    /**
+     * Trap received.
+     *
+     * @param trapNotification
+     *            the trap notification
+     */
     void trapReceived(TrapNotification trapNotification);
 
+    /**
+     * Trap error.
+     *
+     * @param error
+     *            the error
+     * @param msg
+     *            the msg
+     */
     void trapError(int error, String msg);
 }

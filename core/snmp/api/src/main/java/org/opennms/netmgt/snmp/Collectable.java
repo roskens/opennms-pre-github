@@ -28,6 +28,15 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface Collectable.
+ */
 public interface Collectable {
+
+    /**
+     * Gets the collection tracker.
+     *
+     * @return the collection tracker
+     */
     CollectionTracker getCollectionTracker();
 }

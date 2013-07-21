@@ -28,6 +28,9 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Class AbstractSnmpValue.
+ */
 public abstract class AbstractSnmpValue implements SnmpValue {
 
     /**
@@ -47,6 +50,10 @@ public abstract class AbstractSnmpValue implements SnmpValue {
      * </p>
      * Based on a modified version of http://stackoverflow.com/a/1447720 for
      * UTF-8 detection.
+     *
+     * @param bytes
+     *            the bytes
+     * @return true, if successful
      */
     protected boolean allBytesDisplayable(final byte[] bytes) {
         int i = 0;

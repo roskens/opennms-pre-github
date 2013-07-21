@@ -33,18 +33,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * The Class SnmpRowResult.
+ */
 public class SnmpRowResult {
+
+    /** The m_results. */
     private final Map<SnmpObjId, SnmpResult> m_results = new TreeMap<SnmpObjId, SnmpResult>();
 
+    /** The m_instance. */
     private SnmpInstId m_instance;
 
+    /** The m_column count. */
     private int m_columnCount;
 
+    /**
+     * Instantiates a new snmp row result.
+     *
+     * @param columnCount
+     *            the column count
+     * @param instance
+     *            the instance
+     */
     public SnmpRowResult(int columnCount, SnmpInstId instance) {
         m_instance = instance;
         m_columnCount = columnCount;
     }
 
+    /**
+     * Checks if is complete.
+     *
+     * @param ignoreColumns
+     *            the ignore columns
+     * @return true, if is complete
+     */
     public boolean isComplete(SnmpObjId... ignoreColumns) {
         if (m_results.size() == m_columnCount) {
             return true;
@@ -64,27 +86,53 @@ public class SnmpRowResult {
         return false;
     }
 
+    /**
+     * Gets the column count.
+     *
+     * @return the column count
+     */
     public int getColumnCount() {
         return m_columnCount;
     }
 
+    /**
+     * Gets the results.
+     *
+     * @return the results
+     */
     public List<SnmpResult> getResults() {
         return new ArrayList<SnmpResult>(m_results.values());
     }
 
+    /**
+     * Adds the result.
+     *
+     * @param column
+     *            the column
+     * @param result
+     *            the result
+     */
     public void addResult(SnmpObjId column, SnmpResult result) {
         assertTrue(m_instance.equals(result.getInstance()), "unexpected result %s passed to row with instance %s",
                    result, m_instance);
         m_results.put(column, result);
     }
 
+    /**
+     * Gets the single instance of SnmpRowResult.
+     *
+     * @return single instance of SnmpRowResult
+     */
     public SnmpInstId getInstance() {
         return m_instance;
     }
 
     /**
+     * Gets the value.
+     *
      * @param base
-     * @return
+     *            the base
+     * @return the value
      */
     public SnmpValue getValue(SnmpObjId base) {
         for (SnmpResult result : getResults()) {
@@ -96,12 +144,25 @@ public class SnmpRowResult {
         return null;
     }
 
+    /**
+     * Assert true.
+     *
+     * @param b
+     *            the b
+     * @param fmt
+     *            the fmt
+     * @param args
+     *            the args
+     */
     private void assertTrue(boolean b, String fmt, Object... args) {
         if (!b) {
             throw new IllegalArgumentException(String.format(fmt, args));
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("columnCount", m_columnCount).append("results", m_results).toString();

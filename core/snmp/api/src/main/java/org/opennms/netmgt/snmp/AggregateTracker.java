@@ -32,64 +32,129 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The Class AggregateTracker.
+ */
 public class AggregateTracker extends CollectionTracker {
 
+    /**
+     * The Class ChildTrackerPduBuilder.
+     */
     private static class ChildTrackerPduBuilder extends PduBuilder {
+
+        /** The m_oids. */
         private List<SnmpObjId> m_oids = new ArrayList<SnmpObjId>();
 
+        /** The m_non repeaters. */
         private int m_nonRepeaters = 0;
 
+        /** The m_max repititions. */
         private int m_maxRepititions = 0;
 
+        /** The m_response processor. */
         private ResponseProcessor m_responseProcessor;
 
+        /** The m_non repeater start index. */
         private int m_nonRepeaterStartIndex;
 
+        /** The m_repeater start index. */
         private int m_repeaterStartIndex;
 
+        /**
+         * Instantiates a new child tracker pdu builder.
+         *
+         * @param maxVarsPerPdu
+         *            the max vars per pdu
+         */
         public ChildTrackerPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#addOid(org.opennms.netmgt.snmp.SnmpObjId)
+         */
         @Override
         public void addOid(SnmpObjId snmpObjId) {
             m_oids.add(snmpObjId);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setNonRepeaters(int)
+         */
         @Override
         public void setNonRepeaters(int nonRepeaters) {
             m_nonRepeaters = nonRepeaters;
         }
 
+        /**
+         * Gets the non repeaters.
+         *
+         * @return the non repeaters
+         */
         public int getNonRepeaters() {
             return m_nonRepeaters;
         }
 
+        /**
+         * Gets the repeaters.
+         *
+         * @return the repeaters
+         */
         public int getRepeaters() {
             return size() - getNonRepeaters();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.PduBuilder#setMaxRepetitions(int)
+         */
         @Override
         public void setMaxRepetitions(int maxRepititions) {
             m_maxRepititions = maxRepititions;
         }
 
+        /**
+         * Gets the max repititions.
+         *
+         * @return the max repititions
+         */
         public int getMaxRepititions() {
             return hasRepeaters() ? m_maxRepititions : Integer.MAX_VALUE;
         }
 
+        /**
+         * Size.
+         *
+         * @return the int
+         */
         public int size() {
             return m_oids.size();
         }
 
+        /**
+         * Sets the response processor.
+         *
+         * @param responseProcessor
+         *            the new response processor
+         */
         public void setResponseProcessor(ResponseProcessor responseProcessor) {
             m_responseProcessor = responseProcessor;
         }
 
+        /**
+         * Gets the response processor.
+         *
+         * @return the response processor
+         */
         public ResponseProcessor getResponseProcessor() {
             return m_responseProcessor;
         }
 
+        /**
+         * Adds the non repeaters.
+         *
+         * @param pduBuilder
+         *            the pdu builder
+         */
         public void addNonRepeaters(PduBuilder pduBuilder) {
             for (int i = 0; i < m_nonRepeaters; i++) {
                 SnmpObjId oid = m_oids.get(i);
@@ -97,6 +162,12 @@ public class AggregateTracker extends CollectionTracker {
             }
         }
 
+        /**
+         * Adds the repeaters.
+         *
+         * @param pduBuilder
+         *            the pdu builder
+         */
         public void addRepeaters(PduBuilder pduBuilder) {
             for (int i = m_nonRepeaters; i < m_oids.size(); i++) {
                 SnmpObjId oid = m_oids.get(i);
@@ -104,36 +175,84 @@ public class AggregateTracker extends CollectionTracker {
             }
         }
 
+        /**
+         * Checks for repeaters.
+         *
+         * @return true, if successful
+         */
         public boolean hasRepeaters() {
             return getNonRepeaters() < size();
         }
 
+        /**
+         * Sets the non repeater start index.
+         *
+         * @param nonRepeaterStartIndex
+         *            the new non repeater start index
+         */
         public void setNonRepeaterStartIndex(int nonRepeaterStartIndex) {
             m_nonRepeaterStartIndex = nonRepeaterStartIndex;
         }
 
+        /**
+         * Gets the non repeater start index.
+         *
+         * @return the non repeater start index
+         */
         public int getNonRepeaterStartIndex() {
             return m_nonRepeaterStartIndex;
         }
 
+        /**
+         * Sets the repeater start index.
+         *
+         * @param repeaterStartIndex
+         *            the new repeater start index
+         */
         public void setRepeaterStartIndex(int repeaterStartIndex) {
             m_repeaterStartIndex = repeaterStartIndex;
         }
 
+        /**
+         * Gets the repeater start index.
+         *
+         * @return the repeater start index
+         */
         public int getRepeaterStartIndex() {
             return m_repeaterStartIndex;
         }
 
+        /**
+         * Checks if is non repeater.
+         *
+         * @param canonicalIndex
+         *            the canonical index
+         * @return true, if is non repeater
+         */
         boolean isNonRepeater(int canonicalIndex) {
             return getNonRepeaterStartIndex() <= canonicalIndex
                     && canonicalIndex < getNonRepeaterStartIndex() + getNonRepeaters();
         }
 
+        /**
+         * Checks if is repeater.
+         *
+         * @param canonicalIndex
+         *            the canonical index
+         * @return true, if is repeater
+         */
         boolean isRepeater(int canonicalIndex) {
             return getRepeaterStartIndex() <= canonicalIndex
                     && canonicalIndex < getRepeaterStartIndex() + getRepeaters();
         }
 
+        /**
+         * Gets the child index.
+         *
+         * @param canonicalIndex
+         *            the canonical index
+         * @return the child index
+         */
         public int getChildIndex(int canonicalIndex) {
             if (isNonRepeater(canonicalIndex)) {
                 return canonicalIndex - getNonRepeaterStartIndex();
@@ -147,17 +266,38 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /**
+     * The Class ChildTrackerResponseProcessor.
+     */
     private class ChildTrackerResponseProcessor implements ResponseProcessor {
+
+        /** The m_repeaters. */
         private final int m_repeaters;
 
+        /** The m_pdu builder. */
         private final PduBuilder m_pduBuilder;
 
+        /** The m_non repeaters. */
         private final int m_nonRepeaters;
 
+        /** The m_child pdu builders. */
         private final List<ChildTrackerPduBuilder> m_childPduBuilders;
 
+        /** The m_curr response index. */
         private int m_currResponseIndex = 0;
 
+        /**
+         * Instantiates a new child tracker response processor.
+         *
+         * @param pduBuilder
+         *            the pdu builder
+         * @param builders
+         *            the builders
+         * @param nonRepeaters
+         *            the non repeaters
+         * @param repeaters
+         *            the repeaters
+         */
         public ChildTrackerResponseProcessor(PduBuilder pduBuilder, List<ChildTrackerPduBuilder> builders,
                 int nonRepeaters, int repeaters) {
             m_repeaters = repeaters;
@@ -166,12 +306,24 @@ public class AggregateTracker extends CollectionTracker {
             m_childPduBuilders = builders;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.ResponseProcessor#processResponse(org.opennms.netmgt.snmp.SnmpObjId, org.opennms.netmgt.snmp.SnmpValue)
+         */
         @Override
         public void processResponse(SnmpObjId snmpObjId, SnmpValue val) {
             ChildTrackerPduBuilder childBuilder = getChildBuilder(m_currResponseIndex++);
             childBuilder.getResponseProcessor().processResponse(snmpObjId, val);
         }
 
+        /**
+         * Process child error.
+         *
+         * @param errorStatus
+         *            the error status
+         * @param errorIndex
+         *            the error index
+         * @return true, if successful
+         */
         public boolean processChildError(int errorStatus, int errorIndex) {
             int canonicalIndex = getCanonicalIndex(errorIndex - 1);
             ChildTrackerPduBuilder childBuilder = getChildBuilder(canonicalIndex);
@@ -179,6 +331,13 @@ public class AggregateTracker extends CollectionTracker {
             return childBuilder.getResponseProcessor().processErrors(errorStatus, childIndex + 1);
         }
 
+        /**
+         * Gets the child builder.
+         *
+         * @param zeroBasedIndex
+         *            the zero based index
+         * @return the child builder
+         */
         private ChildTrackerPduBuilder getChildBuilder(int zeroBasedIndex) {
             int canonicalIndex = getCanonicalIndex(zeroBasedIndex);
             for (ChildTrackerPduBuilder childBuilder : m_childPduBuilders) {
@@ -190,6 +349,13 @@ public class AggregateTracker extends CollectionTracker {
             throw new IllegalStateException("Unable to find childBuilder for index " + zeroBasedIndex);
         }
 
+        /**
+         * Gets the canonical index.
+         *
+         * @param zeroBasedIndex
+         *            the zero based index
+         * @return the canonical index
+         */
         private int getCanonicalIndex(int zeroBasedIndex) {
             if (zeroBasedIndex <= 0) {
                 return 0;
@@ -202,6 +368,9 @@ public class AggregateTracker extends CollectionTracker {
             return ((zeroBasedIndex - m_nonRepeaters) % m_repeaters) + m_nonRepeaters;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.ResponseProcessor#processErrors(int, int)
+         */
         @Override
         public boolean processErrors(int errorStatus, int errorIndex) {
             if (errorStatus == TOO_BIG_ERR) {
@@ -226,20 +395,49 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /** The m_children. */
     private CollectionTracker[] m_children;
 
+    /**
+     * Instantiates a new aggregate tracker.
+     *
+     * @param children
+     *            the children
+     */
     public AggregateTracker(Collection<Collectable> children) {
         this(children, null);
     }
 
+    /**
+     * Instantiates a new aggregate tracker.
+     *
+     * @param children
+     *            the children
+     * @param parent
+     *            the parent
+     */
     public AggregateTracker(Collection<Collectable> children, CollectionTracker parent) {
         this(children.toArray(new Collectable[children.size()]), parent);
     }
 
+    /**
+     * Instantiates a new aggregate tracker.
+     *
+     * @param children
+     *            the children
+     */
     public AggregateTracker(Collectable[] children) {
         this(children, null);
     }
 
+    /**
+     * Instantiates a new aggregate tracker.
+     *
+     * @param children
+     *            the children
+     * @param parent
+     *            the parent
+     */
     public AggregateTracker(Collectable[] children, CollectionTracker parent) {
         super(parent);
 
@@ -250,6 +448,9 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#setFailed(boolean)
+     */
     @Override
     public void setFailed(boolean failed) {
         super.setFailed(failed);
@@ -258,6 +459,9 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#setTimedOut(boolean)
+     */
     @Override
     public void setTimedOut(boolean timedOut) {
         super.setTimedOut(timedOut);
@@ -266,6 +470,9 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#setMaxRepetitions(int)
+     */
     @Override
     public void setMaxRepetitions(int maxRepititions) {
         for (CollectionTracker child : m_children) {
@@ -273,6 +480,9 @@ public class AggregateTracker extends CollectionTracker {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#isFinished()
+     */
     @Override
     public boolean isFinished() {
         for (CollectionTracker child : m_children) {
@@ -283,6 +493,9 @@ public class AggregateTracker extends CollectionTracker {
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#buildNextPdu(org.opennms.netmgt.snmp.PduBuilder)
+     */
     @Override
     public ResponseProcessor buildNextPdu(final PduBuilder parentBuilder) {
 

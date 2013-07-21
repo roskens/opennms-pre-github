@@ -33,7 +33,7 @@ import java.net.InetAddress;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * InetAddresssXmlAdapter
+ * InetAddresssXmlAdapter.
  *
  * @author brozow
  * @version $Id: $

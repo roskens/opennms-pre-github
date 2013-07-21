@@ -31,17 +31,48 @@ package org.opennms.netmgt.snmp;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Enum SnmpValueType.
+ */
 public enum SnmpValueType {
     // The integer values match the ASN.1 constants
-    INT32(0x02, "INTEGER"), OCTET_STRING(0x04, "STRING"), NULL(0x05, "Null"), OBJECT_IDENTIFIER(0x06, "OID"), IPADDRESS(
-            0x40, "IpAddress"), COUNTER32(0x41, "Counter32"), GAUGE32(0x42, "Gauge32"), TIMETICKS(0x43, "Timeticks"), OPAQUE(
-            0x44, "Opaque"), COUNTER64(0x46, "Counter64"), NO_SUCH_OBJECT(0x80, "NoSuchObject"), NO_SUCH_INSTANCE(0x81,
-            "NoSuchInstance"), END_OF_MIB(0x82, "EndOfMib");
+    /** The IN t32. */
+    INT32(0x02, "INTEGER"),
+ /** The octet string. */
+ OCTET_STRING(0x04, "STRING"),
+ /** The null. */
+ NULL(0x05, "Null"),
+ /** The object identifier. */
+ OBJECT_IDENTIFIER(0x06, "OID"),
+ /** The ipaddress. */
+ IPADDRESS(
+            0x40, "IpAddress"),
+ /** The COUNTE r32. */
+ COUNTER32(0x41, "Counter32"),
+ /** The GAUG e32. */
+ GAUGE32(0x42, "Gauge32"),
+ /** The timeticks. */
+ TIMETICKS(0x43, "Timeticks"),
+ /** The opaque. */
+ OPAQUE(
+            0x44, "Opaque"),
+ /** The COUNTE r64. */
+ COUNTER64(0x46, "Counter64"),
+ /** The no such object. */
+ NO_SUCH_OBJECT(0x80, "NoSuchObject"),
+ /** The no such instance. */
+ NO_SUCH_INSTANCE(0x81,
+            "NoSuchInstance"),
+ /** The end of mib. */
+ END_OF_MIB(0x82, "EndOfMib");
 
+    /** The Constant s_intMap. */
     private static final Map<Integer, SnmpValueType> s_intMap = new HashMap<Integer, SnmpValueType>();
 
+    /** The m_int. */
     private int m_int;
 
+    /** The m_display string. */
     private String m_displayString;
 
     static {
@@ -50,19 +81,44 @@ public enum SnmpValueType {
         }
     }
 
+    /**
+     * Instantiates a new snmp value type.
+     *
+     * @param i
+     *            the i
+     * @param displayString
+     *            the display string
+     */
     private SnmpValueType(int i, String displayString) {
         m_int = i;
         m_displayString = displayString;
     }
 
+    /**
+     * Gets the int.
+     *
+     * @return the int
+     */
     public int getInt() {
         return m_int;
     }
 
+    /**
+     * Gets the display string.
+     *
+     * @return the display string
+     */
     public String getDisplayString() {
         return m_displayString;
     }
 
+    /**
+     * Value of.
+     *
+     * @param i
+     *            the i
+     * @return the snmp value type
+     */
     public static SnmpValueType valueOf(int i) {
         return s_intMap.get(Integer.valueOf(i));
     }

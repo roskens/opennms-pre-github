@@ -28,8 +28,16 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface TrapNotification.
+ */
 public interface TrapNotification {
 
+    /**
+     * Gets the trap processor.
+     *
+     * @return the trap processor
+     */
     TrapProcessor getTrapProcessor();
 
 }

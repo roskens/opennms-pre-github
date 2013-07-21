@@ -32,66 +32,158 @@ import java.net.InetAddress;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * The Class AbstractSnmpStore.
+ */
 public abstract class AbstractSnmpStore {
 
+    /** The m_response map. */
     private final Map<String, SnmpValue> m_responseMap = new TreeMap<String, SnmpValue>();
 
+    /** The Constant IFINDEX. */
     public static final String IFINDEX = "ifIndex";
 
+    /**
+     * Store result.
+     *
+     * @param res
+     *            the res
+     */
     public abstract void storeResult(SnmpResult res);
 
+    /**
+     * Instantiates a new abstract snmp store.
+     */
     public AbstractSnmpStore() {
     }
 
+    /**
+     * Gets the int32.
+     *
+     * @param key
+     *            the key
+     * @return the int32
+     */
     public Integer getInt32(String key) {
         SnmpValue val = getValue(key);
         return (val == null ? null : Integer.valueOf(val.toInt()));
     }
 
+    /**
+     * Gets the u int32.
+     *
+     * @param key
+     *            the key
+     * @return the u int32
+     */
     public Long getUInt32(String key) {
         SnmpValue val = getValue(key);
         return (val == null ? null : Long.valueOf(val.toLong()));
     }
 
+    /**
+     * Gets the display string.
+     *
+     * @param key
+     *            the key
+     * @return the display string
+     */
     public String getDisplayString(String key) {
         SnmpValue val = getValue(key);
         return (val == null ? null : val.toDisplayString());
     }
 
+    /**
+     * Gets the hex string.
+     *
+     * @param key
+     *            the key
+     * @return the hex string
+     */
     public String getHexString(String key) {
         SnmpValue val = getValue(key);
         return (val == null ? null : val.toHexString());
     }
 
+    /**
+     * Gets the iP address.
+     *
+     * @param key
+     *            the key
+     * @return the iP address
+     */
     public InetAddress getIPAddress(String key) {
         SnmpValue val = getValue(key);
         return (val == null ? null : val.toInetAddress());
     }
 
+    /**
+     * Gets the object id.
+     *
+     * @param key
+     *            the key
+     * @return the object id
+     */
     public String getObjectID(String key) {
         return (getValue(key) == null ? null : getValue(key).toString());
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param key
+     *            the key
+     * @return the value
+     */
     public SnmpValue getValue(String key) {
         return m_responseMap.get(key);
     }
 
+    /**
+     * Put value.
+     *
+     * @param key
+     *            the key
+     * @param value
+     *            the value
+     */
     protected void putValue(String key, SnmpValue value) {
         m_responseMap.put(key, value);
     }
 
+    /**
+     * Gets the if index.
+     *
+     * @return the if index
+     */
     public Integer getIfIndex() {
         return getInt32(IFINDEX);
     }
 
+    /**
+     * Put if index.
+     *
+     * @param ifIndex
+     *            the if index
+     */
     protected void putIfIndex(int ifIndex) {
         putValue(IFINDEX, SnmpUtils.getValueFactory().getInt32(ifIndex));
     }
 
+    /**
+     * Size.
+     *
+     * @return the int
+     */
     public int size() {
         return m_responseMap.size();
     }
 
+    /**
+     * Checks if is empty.
+     *
+     * @return true, if is empty
+     */
     public boolean isEmpty() {
         return m_responseMap.isEmpty();
     }

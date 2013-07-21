@@ -39,33 +39,63 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * The Class SnmpAgentConfig.
+ *
  * @author (various previous authors not documented)
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @XmlRootElement(name = "snmpAgentConfig")
 public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1456963719970029200L;
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(SnmpAgentConfig.class);
 
+    /** The m_address. */
     private InetAddress m_address;
 
+    /** The m_proxy for. */
     private InetAddress m_proxyFor;
 
+    /**
+     * Instantiates a new snmp agent config.
+     */
     public SnmpAgentConfig() {
         this(null);
     }
 
+    /**
+     * Instantiates a new snmp agent config.
+     *
+     * @param agentAddress
+     *            the agent address
+     */
     public SnmpAgentConfig(InetAddress agentAddress) {
         this(agentAddress, SnmpConfiguration.DEFAULTS);
     }
 
+    /**
+     * Instantiates a new snmp agent config.
+     *
+     * @param agentAddress
+     *            the agent address
+     * @param defaults
+     *            the defaults
+     */
     public SnmpAgentConfig(InetAddress agentAddress, SnmpConfiguration defaults) {
         super(defaults);
         m_address = agentAddress;
     }
 
+    /**
+     * Parses the protocol configuration string.
+     *
+     * @param protocolConfigString
+     *            the protocol config string
+     * @return the snmp agent config
+     */
     public static SnmpAgentConfig parseProtocolConfigurationString(String protocolConfigString) {
         if (protocolConfigString == null) {
             throw new IllegalArgumentException("Protocol configuration string for SnmpAgentConfig must not be null.");
@@ -138,6 +168,11 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         return agentConfig;
     }
 
+    /**
+     * To protocol config string.
+     *
+     * @return the string
+     */
     public String toProtocolConfigString() {
         StringBuffer buff = new StringBuffer("snmp:");
         buff.append("address=" + (m_address == null ? null : InetAddrUtils.str(m_address)));
@@ -166,6 +201,9 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         return buff.toString();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuffer buff = new StringBuffer("SnmpAgentConfig[");
@@ -197,24 +235,51 @@ public class SnmpAgentConfig extends SnmpConfiguration implements Serializable {
         return buff.toString();
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     @XmlJavaTypeAdapter(InetAddrXmlAdapter.class)
     public InetAddress getAddress() {
         return m_address;
     }
 
+    /**
+     * Sets the address.
+     *
+     * @param address
+     *            the new address
+     */
     public void setAddress(InetAddress address) {
         m_address = address;
     }
 
+    /**
+     * Gets the proxy for.
+     *
+     * @return the proxy for
+     */
     @XmlJavaTypeAdapter(InetAddrXmlAdapter.class)
     public InetAddress getProxyFor() {
         return m_proxyFor;
     }
 
+    /**
+     * Sets the proxy for.
+     *
+     * @param address
+     *            the new proxy for
+     */
     public void setProxyFor(InetAddress address) {
         m_proxyFor = address;
     }
 
+    /**
+     * Gets the effective address.
+     *
+     * @return the effective address
+     */
     @XmlTransient
     public InetAddress getEffectiveAddress() {
         if (m_proxyFor == null)

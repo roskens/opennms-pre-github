@@ -28,8 +28,16 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * A factory for creating TrapProcessor objects.
+ */
 public interface TrapProcessorFactory {
 
+    /**
+     * Creates a new TrapProcessor object.
+     *
+     * @return the trap processor
+     */
     TrapProcessor createTrapProcessor();
 
 }

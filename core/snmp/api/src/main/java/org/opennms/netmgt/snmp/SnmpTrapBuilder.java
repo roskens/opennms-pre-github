@@ -28,12 +28,47 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface SnmpTrapBuilder.
+ */
 public interface SnmpTrapBuilder {
 
+    /**
+     * Send.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @throws Exception
+     *             the exception
+     */
     void send(String destAddr, int destPort, String community) throws Exception;
 
+    /**
+     * Send test.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param community
+     *            the community
+     * @throws Exception
+     *             the exception
+     */
     void sendTest(String destAddr, int destPort, String community) throws Exception;
 
+    /**
+     * Adds the var bind.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
     void addVarBind(SnmpObjId name, SnmpValue value);
 
 }

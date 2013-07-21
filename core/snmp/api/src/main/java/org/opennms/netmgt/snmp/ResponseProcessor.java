@@ -28,10 +28,30 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface ResponseProcessor.
+ */
 public interface ResponseProcessor {
 
+    /**
+     * Process response.
+     *
+     * @param snmpObjId
+     *            the snmp obj id
+     * @param val
+     *            the val
+     */
     void processResponse(SnmpObjId snmpObjId, SnmpValue val);
 
+    /**
+     * Process errors.
+     *
+     * @param errorStatus
+     *            the error status
+     * @param errorIndex
+     *            the error index
+     * @return true, if successful
+     */
     boolean processErrors(int errorStatus, int errorIndex);
 
 }

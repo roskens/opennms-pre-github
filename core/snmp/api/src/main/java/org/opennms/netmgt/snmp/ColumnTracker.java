@@ -31,28 +31,67 @@ package org.opennms.netmgt.snmp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class ColumnTracker.
+ */
 public class ColumnTracker extends CollectionTracker {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(ColumnTracker.class);
 
+    /** The m_base. */
     private SnmpObjId m_base;
 
+    /** The m_last. */
     private SnmpObjId m_last;
 
+    /** The m_max repetitions. */
     private int m_maxRepetitions;
 
+    /**
+     * Instantiates a new column tracker.
+     *
+     * @param base
+     *            the base
+     */
     public ColumnTracker(SnmpObjId base) {
         this(null, base);
     }
 
+    /**
+     * Instantiates a new column tracker.
+     *
+     * @param base
+     *            the base
+     * @param maxRepititions
+     *            the max repititions
+     */
     public ColumnTracker(SnmpObjId base, int maxRepititions) {
         this(null, base, maxRepititions);
     }
 
+    /**
+     * Instantiates a new column tracker.
+     *
+     * @param parent
+     *            the parent
+     * @param base
+     *            the base
+     */
     public ColumnTracker(CollectionTracker parent, SnmpObjId base) {
         this(parent, base, 2);
     }
 
+    /**
+     * Instantiates a new column tracker.
+     *
+     * @param parent
+     *            the parent
+     * @param base
+     *            the base
+     * @param maxRepititions
+     *            the max repititions
+     */
     public ColumnTracker(CollectionTracker parent, SnmpObjId base, int maxRepititions) {
         super(parent);
         m_base = base;
@@ -60,10 +99,18 @@ public class ColumnTracker extends CollectionTracker {
         m_maxRepetitions = maxRepititions;
     }
 
+    /**
+     * Gets the base.
+     *
+     * @return the base
+     */
     public SnmpObjId getBase() {
         return m_base;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("base", m_base).append("last oid", m_last).append("max repetitions",
@@ -71,6 +118,9 @@ public class ColumnTracker extends CollectionTracker {
                                                                                                                            isFinished()).toString();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#buildNextPdu(org.opennms.netmgt.snmp.PduBuilder)
+     */
     @Override
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
@@ -133,23 +183,42 @@ public class ColumnTracker extends CollectionTracker {
         return rp;
     }
 
+    /**
+     * Gets the max repetitions.
+     *
+     * @return the max repetitions
+     */
     public int getMaxRepetitions() {
         return m_maxRepetitions;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#setMaxRepetitions(int)
+     */
     @Override
     public void setMaxRepetitions(int maxRepetitions) {
         m_maxRepetitions = maxRepetitions;
     }
 
+    /**
+     * Received end of mib.
+     */
     protected void receivedEndOfMib() {
         setFinished(true);
     }
 
+    /**
+     * Error occurred.
+     */
     protected void errorOccurred() {
         setFinished(true);
     }
 
+    /**
+     * Gets the last instance.
+     *
+     * @return the last instance
+     */
     public SnmpInstId getLastInstance() {
         if (m_base.isPrefixOf(m_last) && !m_base.equals(m_last)) {
             return m_last.getInstance(m_base);

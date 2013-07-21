@@ -28,8 +28,28 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface SnmpV2TrapBuilder.
+ */
 public interface SnmpV2TrapBuilder extends SnmpTrapBuilder {
 
+    /**
+     * Send inform.
+     *
+     * @param destAddr
+     *            the dest addr
+     * @param destPort
+     *            the dest port
+     * @param timeout
+     *            the timeout
+     * @param retries
+     *            the retries
+     * @param community
+     *            the community
+     * @return the snmp value[]
+     * @throws Exception
+     *             the exception
+     */
     SnmpValue[] sendInform(String destAddr, int destPort, int timeout, int retries, String community) throws Exception;
 
 }

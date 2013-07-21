@@ -28,7 +28,16 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Interface RowCallback.
+ */
 public interface RowCallback {
 
+    /**
+     * Row completed.
+     *
+     * @param result
+     *            the result
+     */
     public void rowCompleted(SnmpRowResult result);
 }

@@ -30,31 +30,69 @@ package org.opennms.netmgt.snmp;
 
 import java.util.StringTokenizer;
 
+/**
+ * The Class SnmpInstId.
+ */
 public class SnmpInstId extends SnmpObjId {
 
+    /** The Constant INST_ZERO. */
     public static final SnmpInstId INST_ZERO = new SnmpInstId(0);
 
+    /**
+     * Instantiates a new snmp inst id.
+     *
+     * @param instanceIds
+     *            the instance ids
+     */
     public SnmpInstId(int[] instanceIds) {
         super(instanceIds);
     }
 
+    /**
+     * Instantiates a new snmp inst id.
+     *
+     * @param instance
+     *            the instance
+     */
     public SnmpInstId(String instance) {
         super(instance);
     }
 
+    /**
+     * Instantiates a new snmp inst id.
+     *
+     * @param instance
+     *            the instance
+     */
     public SnmpInstId(SnmpObjId instance) {
         super(instance);
     }
 
+    /**
+     * Instantiates a new snmp inst id.
+     *
+     * @param instance
+     *            the instance
+     */
     public SnmpInstId(int instance) {
         super(new int[] { instance }, false);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpObjId#addPrefixDotInToString()
+     */
     @Override
     protected boolean addPrefixDotInToString() {
         return false;
     }
 
+    /**
+     * Convert to snmp inst ids.
+     *
+     * @param instances
+     *            the instances
+     * @return the snmp inst id[]
+     */
     public static SnmpInstId[] convertToSnmpInstIds(String instances) {
         StringTokenizer tokenizer = new StringTokenizer(instances, ",");
         SnmpInstId[] insts = new SnmpInstId[tokenizer.countTokens()];
@@ -68,6 +106,11 @@ public class SnmpInstId extends SnmpObjId {
         return insts;
     }
 
+    /**
+     * To int.
+     *
+     * @return the int
+     */
     public int toInt() {
         if (this.length() != 1)
             throw new IllegalArgumentException("Cannot convert " + this + " to an int");

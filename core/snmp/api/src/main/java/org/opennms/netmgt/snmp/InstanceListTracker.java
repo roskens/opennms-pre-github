@@ -28,24 +28,72 @@
 
 package org.opennms.netmgt.snmp;
 
+/**
+ * The Class InstanceListTracker.
+ */
 public class InstanceListTracker extends AggregateTracker {
 
+    /**
+     * Instantiates a new instance list tracker.
+     *
+     * @param base
+     *            the base
+     * @param instances
+     *            the instances
+     */
     public InstanceListTracker(SnmpObjId base, String instances) {
         this(base, SnmpInstId.convertToSnmpInstIds(instances), null);
     }
 
+    /**
+     * Instantiates a new instance list tracker.
+     *
+     * @param base
+     *            the base
+     * @param instances
+     *            the instances
+     * @param parent
+     *            the parent
+     */
     public InstanceListTracker(SnmpObjId base, String instances, CollectionTracker parent) {
         this(base, SnmpInstId.convertToSnmpInstIds(instances), parent);
     }
 
+    /**
+     * Instantiates a new instance list tracker.
+     *
+     * @param base
+     *            the base
+     * @param instances
+     *            the instances
+     */
     public InstanceListTracker(SnmpObjId base, SnmpInstId[] instances) {
         this(base, instances, null);
     }
 
+    /**
+     * Instantiates a new instance list tracker.
+     *
+     * @param base
+     *            the base
+     * @param instances
+     *            the instances
+     * @param parent
+     *            the parent
+     */
     public InstanceListTracker(SnmpObjId base, SnmpInstId[] instances, CollectionTracker parent) {
         super(getSingleInstanceTrackers(base, instances), parent);
     }
 
+    /**
+     * Gets the single instance trackers.
+     *
+     * @param base
+     *            the base
+     * @param instances
+     *            the instances
+     * @return the single instance trackers
+     */
     private static SingleInstanceTracker[] getSingleInstanceTrackers(SnmpObjId base, SnmpInstId[] instances) {
         SingleInstanceTracker[] trackers = new SingleInstanceTracker[instances.length];
         for (int i = 0; i < instances.length; i++) {

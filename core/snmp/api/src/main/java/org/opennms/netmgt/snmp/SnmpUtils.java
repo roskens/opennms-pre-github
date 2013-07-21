@@ -40,77 +40,224 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SnmpUtils.
+ */
 public abstract class SnmpUtils {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(SnmpUtils.class);
 
+    /** The sm_config. */
     private static Properties sm_config;
 
+    /** The s_strategy resolver. */
     private static StrategyResolver s_strategyResolver;
 
+    /**
+     * The Class TooBigReportingAggregator.
+     */
     private static final class TooBigReportingAggregator extends AggregateTracker {
+
+        /** The address. */
         private final InetAddress address;
 
+        /**
+         * Instantiates a new too big reporting aggregator.
+         *
+         * @param children
+         *            the children
+         * @param address
+         *            the address
+         */
         private TooBigReportingAggregator(CollectionTracker[] children, InetAddress address) {
             super(children);
             this.address = address;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.CollectionTracker#reportTooBigErr(java.lang.String)
+         */
         @Override
         protected void reportTooBigErr(String msg) {
             LOG.info("Received tooBig response from {}. {}", address, msg);
         }
     }
 
+    /**
+     * Creates the walker.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param name
+     *            the name
+     * @param trackers
+     *            the trackers
+     * @return the snmp walker
+     */
     public static SnmpWalker createWalker(SnmpAgentConfig agentConfig, String name, CollectionTracker... trackers) {
         return getStrategy().createWalker(agentConfig, name, createTooBigTracker(agentConfig, trackers));
     }
 
+    /**
+     * Creates the too big tracker.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param trackers
+     *            the trackers
+     * @return the too big reporting aggregator
+     */
     private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig,
             CollectionTracker... trackers) {
         return new TooBigReportingAggregator(trackers, agentConfig.getAddress());
     }
 
+    /**
+     * Creates the walker.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param name
+     *            the name
+     * @param tracker
+     *            the tracker
+     * @return the snmp walker
+     */
     public static SnmpWalker createWalker(SnmpAgentConfig agentConfig, String name, CollectionTracker tracker) {
         return getStrategy().createWalker(agentConfig, name, createTooBigTracker(agentConfig, tracker));
     }
 
+    /**
+     * Creates the too big tracker.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param tracker
+     *            the tracker
+     * @return the too big reporting aggregator
+     */
     private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig, CollectionTracker tracker) {
         return createTooBigTracker(agentConfig, new CollectionTracker[] { tracker });
     }
 
+    /**
+     * Gets the.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oid
+     *            the oid
+     * @return the snmp value
+     */
     public static SnmpValue get(SnmpAgentConfig agentConfig, SnmpObjId oid) {
         return getStrategy().get(agentConfig, oid);
     }
 
+    /**
+     * Gets the.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oids
+     *            the oids
+     * @return the snmp value[]
+     */
     public static SnmpValue[] get(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         return getStrategy().get(agentConfig, oids);
     }
 
+    /**
+     * Gets the next.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oid
+     *            the oid
+     * @return the next
+     */
     public static SnmpValue getNext(SnmpAgentConfig agentConfig, SnmpObjId oid) {
         return getStrategy().getNext(agentConfig, oid);
     }
 
+    /**
+     * Gets the next.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oids
+     *            the oids
+     * @return the next
+     */
     public static SnmpValue[] getNext(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         return getStrategy().getNext(agentConfig, oids);
     }
 
+    /**
+     * Gets the bulk.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oids
+     *            the oids
+     * @return the bulk
+     */
     public static SnmpValue[] getBulk(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         return getStrategy().getBulk(agentConfig, oids);
     }
 
+    /**
+     * Sets the.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oid
+     *            the oid
+     * @param value
+     *            the value
+     * @return the snmp value
+     */
     public static SnmpValue set(final SnmpAgentConfig agentConfig, final SnmpObjId oid, final SnmpValue value) {
         return getStrategy().set(agentConfig, oid, value);
     }
 
+    /**
+     * Sets the.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param oids
+     *            the oids
+     * @param values
+     *            the values
+     * @return the snmp value[]
+     */
     public static SnmpValue[] set(final SnmpAgentConfig agentConfig, final SnmpObjId[] oids, final SnmpValue[] values) {
         return getStrategy().set(agentConfig, oids, values);
     }
 
+    /**
+     * Gets the config.
+     *
+     * @return the config
+     */
     public static Properties getConfig() {
         return (sm_config == null ? System.getProperties() : sm_config);
     }
 
+    /**
+     * Gets the columns.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param name
+     *            the name
+     * @param oid
+     *            the oid
+     * @return the columns
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public static List<SnmpValue> getColumns(final SnmpAgentConfig agentConfig, final String name, final SnmpObjId oid)
             throws InterruptedException {
 
@@ -129,6 +276,19 @@ public abstract class SnmpUtils {
         return results;
     }
 
+    /**
+     * Gets the oid values.
+     *
+     * @param agentConfig
+     *            the agent config
+     * @param name
+     *            the name
+     * @param oid
+     *            the oid
+     * @return the oid values
+     * @throws InterruptedException
+     *             the interrupted exception
+     */
     public static Map<SnmpInstId, SnmpValue> getOidValues(SnmpAgentConfig agentConfig, String name, SnmpObjId oid)
             throws InterruptedException {
 
@@ -147,24 +307,52 @@ public abstract class SnmpUtils {
         return results;
     }
 
+    /**
+     * Sets the config.
+     *
+     * @param config
+     *            the new config
+     */
     public static void setConfig(Properties config) {
         sm_config = config;
     }
 
+    /**
+     * Gets the strategy.
+     *
+     * @return the strategy
+     */
     public static SnmpStrategy getStrategy() {
         return getStrategyResolver().getStrategy();
     }
 
+    /**
+     * Gets the strategy resolver.
+     *
+     * @return the strategy resolver
+     */
     public static StrategyResolver getStrategyResolver() {
         return s_strategyResolver != null ? s_strategyResolver : new DefaultStrategyResolver();
     }
 
+    /**
+     * Sets the strategy resolver.
+     *
+     * @param strategyResolver
+     *            the new strategy resolver
+     */
     public static void setStrategyResolver(StrategyResolver strategyResolver) {
         s_strategyResolver = strategyResolver;
     }
 
+    /**
+     * The Class DefaultStrategyResolver.
+     */
     private static class DefaultStrategyResolver implements StrategyResolver {
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.StrategyResolver#getStrategy()
+         */
         @Override
         public SnmpStrategy getStrategy() {
             String strategyClass = getStrategyClassName();
@@ -177,6 +365,11 @@ public abstract class SnmpUtils {
 
     }
 
+    /**
+     * Gets the strategy class name.
+     *
+     * @return the strategy class name
+     */
     public static String getStrategyClassName() {
         // Use SNMP4J as the default SNMP strategy
         return getConfig().getProperty("org.opennms.snmp.strategyClass",
@@ -185,55 +378,140 @@ public abstract class SnmpUtils {
         // "org.opennms.netmgt.snmp.joesnmp.JoeSnmpStrategy");
     }
 
+    /**
+     * Register for traps.
+     *
+     * @param listener
+     *            the listener
+     * @param processorFactory
+     *            the processor factory
+     * @param address
+     *            the address
+     * @param snmpTrapPort
+     *            the snmp trap port
+     * @param snmpUsers
+     *            the snmp users
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static void registerForTraps(final TrapNotificationListener listener,
             final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort,
             final List<SnmpV3User> snmpUsers) throws IOException {
         getStrategy().registerForTraps(listener, processorFactory, address, snmpTrapPort, snmpUsers);
     }
 
+    /**
+     * Register for traps.
+     *
+     * @param listener
+     *            the listener
+     * @param processorFactory
+     *            the processor factory
+     * @param address
+     *            the address
+     * @param snmpTrapPort
+     *            the snmp trap port
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static void registerForTraps(final TrapNotificationListener listener,
             final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort)
             throws IOException {
         getStrategy().registerForTraps(listener, processorFactory, address, snmpTrapPort);
     }
 
+    /**
+     * Unregister for traps.
+     *
+     * @param listener
+     *            the listener
+     * @param address
+     *            the address
+     * @param snmpTrapPort
+     *            the snmp trap port
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public static void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address,
             final int snmpTrapPort) throws IOException {
         getStrategy().unregisterForTraps(listener, snmpTrapPort);
     }
 
+    /**
+     * Gets the value factory.
+     *
+     * @return the value factory
+     */
     public static SnmpValueFactory getValueFactory() {
         return getStrategy().getValueFactory();
     }
 
+    /**
+     * Gets the v1 trap builder.
+     *
+     * @return the v1 trap builder
+     */
     public static SnmpV1TrapBuilder getV1TrapBuilder() {
         return getStrategy().getV1TrapBuilder();
     }
 
+    /**
+     * Gets the v2 trap builder.
+     *
+     * @return the v2 trap builder
+     */
     public static SnmpTrapBuilder getV2TrapBuilder() {
         return getStrategy().getV2TrapBuilder();
     }
 
+    /**
+     * Gets the v3 trap builder.
+     *
+     * @return the v3 trap builder
+     */
     public static SnmpV3TrapBuilder getV3TrapBuilder() {
         return getStrategy().getV3TrapBuilder();
     }
 
+    /**
+     * Gets the v2 inform builder.
+     *
+     * @return the v2 inform builder
+     */
     public static SnmpV2TrapBuilder getV2InformBuilder() {
         return getStrategy().getV2InformBuilder();
     }
 
+    /**
+     * Gets the v3 inform builder.
+     *
+     * @return the v3 inform builder
+     */
     public static SnmpV3TrapBuilder getV3InformBuilder() {
         return getStrategy().getV3InformBuilder();
     }
 
+    /**
+     * Gets the local engine id.
+     *
+     * @return the local engine id
+     */
     public static String getLocalEngineID() {
         return getHexString(getStrategy().getLocalEngineID());
     }
 
+    /** The Constant HEX_CHAR_TABLE. */
     static final byte[] HEX_CHAR_TABLE = { (byte) '0', (byte) '1', (byte) '2', (byte) '3', (byte) '4', (byte) '5',
             (byte) '6', (byte) '7', (byte) '8', (byte) '9', (byte) 'a', (byte) 'b', (byte) 'c', (byte) 'd', (byte) 'e',
             (byte) 'f' };
 
+    /**
+     * Gets the hex string.
+     *
+     * @param raw
+     *            the raw
+     * @return the hex string
+     */
     public static String getHexString(byte[] raw) {
         byte[] hex = new byte[2 * raw.length];
         int index = 0;
@@ -252,6 +530,13 @@ public abstract class SnmpUtils {
         }
     }
 
+    /**
+     * Gets the proto counter64 value.
+     *
+     * @param value
+     *            the value
+     * @return the proto counter64 value
+     */
     public static Long getProtoCounter64Value(SnmpValue value) {
         byte[] valBytes = value.getBytes();
         if (valBytes.length != 8) {

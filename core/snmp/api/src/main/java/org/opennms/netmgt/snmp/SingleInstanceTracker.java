@@ -31,24 +31,57 @@ package org.opennms.netmgt.snmp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class SingleInstanceTracker.
+ */
 public class SingleInstanceTracker extends CollectionTracker {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(SingleInstanceTracker.class);
 
+    /** The m_base. */
     private SnmpObjId m_base;
 
+    /** The m_inst. */
     private SnmpInstId m_inst;
 
+    /** The m_oid. */
     private SnmpObjId m_oid;
 
+    /**
+     * Instantiates a new single instance tracker.
+     *
+     * @param base
+     *            the base
+     * @param inst
+     *            the inst
+     */
     public SingleInstanceTracker(SnmpObjId base, SnmpInstId inst) {
         this(base, inst, null);
     }
 
+    /**
+     * Instantiates a new single instance tracker.
+     *
+     * @param baseOid
+     *            the base oid
+     * @param instId
+     *            the inst id
+     */
     public SingleInstanceTracker(String baseOid, String instId) {
         this(SnmpObjId.get(baseOid), new SnmpInstId(instId));
     }
 
+    /**
+     * Instantiates a new single instance tracker.
+     *
+     * @param base
+     *            the base
+     * @param inst
+     *            the inst
+     * @param parent
+     *            the parent
+     */
     public SingleInstanceTracker(SnmpObjId base, SnmpInstId inst, CollectionTracker parent) {
         super(parent);
         m_base = base;
@@ -56,11 +89,17 @@ public class SingleInstanceTracker extends CollectionTracker {
         m_oid = SnmpObjId.get(m_base, m_inst);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#setMaxRepetitions(int)
+     */
     @Override
     public void setMaxRepetitions(int maxRepititions) {
         // do nothing since we are not a repeater
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.CollectionTracker#buildNextPdu(org.opennms.netmgt.snmp.PduBuilder)
+     */
     @Override
     public ResponseProcessor buildNextPdu(PduBuilder pduBuilder) {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
@@ -118,10 +157,16 @@ public class SingleInstanceTracker extends CollectionTracker {
 
     }
 
+    /**
+     * Error occurred.
+     */
     protected void errorOccurred() {
         setFinished(true);
     }
 
+    /**
+     * Received end of mib.
+     */
     protected void receivedEndOfMib() {
         setFinished(true);
     }

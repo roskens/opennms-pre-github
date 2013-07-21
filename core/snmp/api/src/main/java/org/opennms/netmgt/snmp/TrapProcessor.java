@@ -30,20 +30,67 @@ package org.opennms.netmgt.snmp;
 
 import java.net.InetAddress;
 
+/**
+ * The Interface TrapProcessor.
+ */
 public interface TrapProcessor {
 
+    /**
+     * Sets the community.
+     *
+     * @param community
+     *            the new community
+     */
     void setCommunity(String community);
 
+    /**
+     * Sets the time stamp.
+     *
+     * @param timeStamp
+     *            the new time stamp
+     */
     void setTimeStamp(long timeStamp);
 
+    /**
+     * Sets the version.
+     *
+     * @param version
+     *            the new version
+     */
     void setVersion(String version);
 
+    /**
+     * Sets the agent address.
+     *
+     * @param agentAddress
+     *            the new agent address
+     */
     void setAgentAddress(InetAddress agentAddress);
 
+    /**
+     * Process var bind.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
     void processVarBind(SnmpObjId name, SnmpValue value);
 
+    /**
+     * Sets the trap address.
+     *
+     * @param trapAddress
+     *            the new trap address
+     */
     void setTrapAddress(InetAddress trapAddress);
 
+    /**
+     * Sets the trap identity.
+     *
+     * @param trapIdentity
+     *            the new trap identity
+     */
     void setTrapIdentity(TrapIdentity trapIdentity);
 
 }

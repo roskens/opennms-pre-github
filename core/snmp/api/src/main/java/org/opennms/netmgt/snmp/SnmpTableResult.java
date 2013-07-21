@@ -35,26 +35,52 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * The Class SnmpTableResult.
+ *
  * @author brozow
  */
 public class SnmpTableResult implements RowResultFactory {
 
+    /** The m_callback. */
     private final RowCallback m_callback;
 
+    /** The m_columns. */
     private final SnmpObjId[] m_columns;
 
+    /** The m_row result factory. */
     private final RowResultFactory m_rowResultFactory;
 
+    /** The m_finished columns. */
     private final List<SnmpObjId> m_finishedColumns;
 
+    /** The m_pending data. */
     private final Map<SnmpInstId, SnmpRowResult> m_pendingData;
 
+    /** The m_finished. */
     private volatile boolean m_finished = false;
 
+    /**
+     * Instantiates a new snmp table result.
+     *
+     * @param callback
+     *            the callback
+     * @param columns
+     *            the columns
+     */
     public SnmpTableResult(RowCallback callback, SnmpObjId... columns) {
         this(callback, null, columns);
     }
 
+    /**
+     * Instantiates a new snmp table result.
+     *
+     * @param callback
+     *            the callback
+     * @param rowResultFactory
+     *            the row result factory
+     * @param columns
+     *            the columns
+     */
     public SnmpTableResult(RowCallback callback, RowResultFactory rowResultFactory, SnmpObjId... columns) {
         m_callback = callback;
         m_columns = columns;
@@ -64,12 +90,20 @@ public class SnmpTableResult implements RowResultFactory {
         m_pendingData = new TreeMap<SnmpInstId, SnmpRowResult>();
     }
 
+    /**
+     * Gets the column count.
+     *
+     * @return the column count
+     */
     private int getColumnCount() {
         return m_columns.length;
     }
 
     /**
+     * Store result.
+     *
      * @param result
+     *            the result
      */
     void storeResult(SnmpResult result) {
         SnmpInstId instId = result.getInstance();
@@ -82,14 +116,28 @@ public class SnmpTableResult implements RowResultFactory {
         handleCompleteRows();
     }
 
+    /**
+     * Sets the finished.
+     *
+     * @param finished
+     *            the new finished
+     */
     public void setFinished(boolean finished) {
         m_finished = finished;
     }
 
+    /**
+     * Checks if is finished.
+     *
+     * @return true, if is finished
+     */
     public boolean isFinished() {
         return m_finished;
     }
 
+    /**
+     * Handle complete rows.
+     */
     void handleCompleteRows() {
         SnmpInstId lastInstance = null;
 
@@ -112,19 +160,28 @@ public class SnmpTableResult implements RowResultFactory {
         }
     }
 
+    /**
+     * Table finished.
+     */
     void tableFinished() {
         setFinished(true);
         handleCompleteRows();
     }
 
     /**
-     * @param base
+     * Column finished.
+     *
+     * @param columnId
+     *            the column id
      */
     public void columnFinished(SnmpObjId columnId) {
         m_finishedColumns.add(columnId);
         handleCompleteRows();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.RowResultFactory#createRowResult(int, org.opennms.netmgt.snmp.SnmpInstId)
+     */
     @Override
     public SnmpRowResult createRowResult(int columnCount, SnmpInstId instance) {
         return new SnmpRowResult(columnCount, instance);

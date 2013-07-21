@@ -34,24 +34,27 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class TrapIdentity.
+ */
 public class TrapIdentity {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(TrapIdentity.class);
 
+    /** The m_generic. */
     private int m_generic;
 
+    /** The m_specific. */
     private int m_specific;
 
+    /** The m_enterprise id. */
     private String m_enterpriseId;
 
-    /**
-     * The standard traps list
-     */
+    /** The standard traps list. */
     private static final List<SnmpObjId> GENERIC_TRAPS;
 
-    /**
-     * The dot separator in an OID
-     */
+    /** The dot separator in an OID. */
     private static final char DOT_CHAR = '.';
 
     /**
@@ -81,6 +84,16 @@ public class TrapIdentity {
         GENERIC_TRAPS.add(new SnmpObjId("1.3.6.1.6.3.1.1.5.6")); // egpNeighborLoss
     }
 
+    /**
+     * Instantiates a new trap identity.
+     *
+     * @param snmpTrapOid
+     *            the snmp trap oid
+     * @param lastVarBindOid
+     *            the last var bind oid
+     * @param lastVarBindValue
+     *            the last var bind value
+     */
     public TrapIdentity(SnmpObjId snmpTrapOid, SnmpObjId lastVarBindOid, SnmpValue lastVarBindValue) {
         String snmpTrapOidValue = snmpTrapOid.toString();
 
@@ -138,36 +151,82 @@ public class TrapIdentity {
         }
     }
 
+    /**
+     * Instantiates a new trap identity.
+     *
+     * @param entId
+     *            the ent id
+     * @param generic
+     *            the generic
+     * @param specific
+     *            the specific
+     */
     public TrapIdentity(SnmpObjId entId, int generic, int specific) {
         m_enterpriseId = entId.toString();
         m_generic = generic;
         m_specific = specific;
     }
 
+    /**
+     * Gets the generic.
+     *
+     * @return the generic
+     */
     public int getGeneric() {
         return m_generic;
     }
 
+    /**
+     * Sets the generic.
+     *
+     * @param generic
+     *            the new generic
+     */
     private void setGeneric(int generic) {
         m_generic = generic;
     }
 
+    /**
+     * Gets the specific.
+     *
+     * @return the specific
+     */
     public int getSpecific() {
         return m_specific;
     }
 
+    /**
+     * Sets the specific.
+     *
+     * @param specific
+     *            the new specific
+     */
     private void setSpecific(int specific) {
         m_specific = specific;
     }
 
+    /**
+     * Gets the enterprise id.
+     *
+     * @return the enterprise id
+     */
     public String getEnterpriseId() {
         return m_enterpriseId;
     }
 
+    /**
+     * Sets the enterprise id.
+     *
+     * @param enterpriseId
+     *            the new enterprise id
+     */
     private void setEnterpriseId(String enterpriseId) {
         m_enterpriseId = enterpriseId;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "[Generic=" + getGeneric() + ", Specific=" + getSpecific() + ", EnterpriseId=" + getEnterpriseId() + "]";

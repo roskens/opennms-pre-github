@@ -30,17 +30,46 @@ package org.opennms.netmgt.snmp;
 
 import java.net.InetAddress;
 
+/**
+ * The Interface SnmpV1TrapBuilder.
+ */
 public interface SnmpV1TrapBuilder extends SnmpTrapBuilder {
 
+    /**
+     * Sets the enterprise.
+     *
+     * @param enterpriseId
+     *            the new enterprise
+     */
     void setEnterprise(SnmpObjId enterpriseId);
 
+    /**
+     * Sets the agent address.
+     *
+     * @param agentAddress
+     *            the new agent address
+     */
     void setAgentAddress(InetAddress agentAddress);
 
+    /**
+     * Sets the generic.
+     *
+     * @param generic
+     *            the new generic
+     */
     void setGeneric(int generic);
 
+    /**
+     * Sets the specific.
+     *
+     * @param specific
+     *            the new specific
+     */
     void setSpecific(int specific);
 
     /**
+     * Sets the time stamp.
+     *
      * @param timeStamp
      *            A timestamp value, in TimeTicks (centiseconds), not to exceed
      *            2^32-1

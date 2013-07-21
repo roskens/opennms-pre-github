@@ -32,11 +32,16 @@ import java.net.InetAddress;
 
 import org.opennms.netmgt.snmp.SnmpAgentConfig;
 
+/**
+ * A factory for creating SnmpAgentConfig objects.
+ */
 public interface SnmpAgentConfigFactory {
+
     /**
      * <p>
      * getAgentConfig
      * </p>
+     * .
      *
      * @param address
      *            a {@link java.net.InetAddress} object.
