@@ -28,9 +28,20 @@
 
 package org.opennms.netmgt.reporting.service;
 
+/**
+ * The Class ReportDeliveryException.
+ */
 public class ReportDeliveryException extends Exception {
+
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -112774880741334404L;
 
+    /**
+     * Instantiates a new report delivery exception.
+     *
+     * @param message
+     *            the message
+     */
     public ReportDeliveryException(String message) {
         super(message);
     }

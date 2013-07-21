@@ -59,28 +59,34 @@ import org.springframework.util.StringUtils;
  */
 public class ReportScheduler implements InitializingBean, DisposableBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(ReportScheduler.class);
 
-    /** Constant <code>JOB_GROUP="Reportd"</code> */
+    /** Constant <code>JOB_GROUP="Reportd"</code>. */
     protected static final String JOB_GROUP = "Reportd";
 
+    /** The m_config dao. */
     @Autowired
     private ReportdConfigurationDao m_configDao;
 
+    /** The m_scheduler. */
     @Autowired
     private Scheduler m_scheduler;
 
+    /** The m_report job factory. */
     private JobFactory m_reportJobFactory;
 
+    /** The m_lock. */
     private Object m_lock = new Object();
 
     /**
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -93,6 +99,12 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
         }
     }
 
+    /**
+     * Instantiates a new report scheduler.
+     *
+     * @param sched
+     *            the sched
+     */
     ReportScheduler(Scheduler sched) {
         m_scheduler = sched;
     }
@@ -101,6 +113,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * rebuildReportSchedule
      * </p>
+     * .
      */
     public void rebuildReportSchedule() {
 
@@ -132,6 +145,9 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
 
     }
 
+    /**
+     * Prints the current schedule.
+     */
     private void printCurrentSchedule() {
         try {
 
@@ -173,6 +189,9 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
 
     }
 
+    /**
+     * Builds the report schedule.
+     */
     private void buildReportSchedule() {
 
         synchronized (m_lock) {
@@ -197,6 +216,9 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
         }
     }
 
+    /**
+     * Removes the current jobs from schedule.
+     */
     private void removeCurrentJobsFromSchedule() {
         synchronized (m_lock) {
             try {
@@ -218,6 +240,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * getConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
      *         object.
@@ -230,6 +253,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * setConfigDao
      * </p>
+     * .
      *
      * @param configDao
      *            a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
@@ -243,6 +267,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * getScheduler
      * </p>
+     * .
      *
      * @return a {@link org.quartz.Scheduler} object.
      */
@@ -254,6 +279,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * setScheduler
      * </p>
+     * .
      *
      * @param scheduler
      *            a {@link org.quartz.Scheduler} object.
@@ -266,6 +292,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * setReportJobFactory
      * </p>
+     * .
      *
      * @param reportJobFactory
      *            a {@link org.quartz.spi.JobFactory} object.
@@ -278,6 +305,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * getReportJobFactory
      * </p>
+     * .
      *
      * @return a {@link org.quartz.spi.JobFactory} object.
      */
@@ -289,9 +317,10 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     public void start() throws SchedulerException {
         getScheduler().start();
@@ -303,9 +332,10 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>
      * destroy
      * </p>
+     * .
      *
-     * @throws org.quartz.SchedulerException
-     *             if any.
+     * @throws SchedulerException
+     *             the scheduler exception
      */
     @Override
     public void destroy() throws SchedulerException {

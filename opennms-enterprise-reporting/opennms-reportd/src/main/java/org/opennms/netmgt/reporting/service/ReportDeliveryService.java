@@ -44,12 +44,14 @@ public interface ReportDeliveryService {
      * <p>
      * deliverReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.config.reportd.Report} object.
      * @param fileName
      *            a {@link java.lang.String} object.
      * @throws ReportDeliveryException
+     *             the report delivery exception
      */
     public void deliverReport(Report report, String fileName) throws ReportDeliveryException;
 

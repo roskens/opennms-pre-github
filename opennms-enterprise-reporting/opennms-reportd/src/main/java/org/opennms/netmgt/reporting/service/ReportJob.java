@@ -43,9 +43,10 @@ import org.quartz.JobExecutionException;
  */
 public class ReportJob implements Job {
 
-    /** Constant <code>KEY="report"</code> */
+    /** Constant <code>KEY="report"</code>. */
     protected static final String KEY = "report";
 
+    /** The m_reportd. */
     private Reportd m_reportd;
 
     /** {@inheritDoc} */
@@ -58,6 +59,7 @@ public class ReportJob implements Job {
      * <p>
      * getReportd
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.reporting.service.Reportd} object.
      */
@@ -69,6 +71,7 @@ public class ReportJob implements Job {
      * <p>
      * setReportd
      * </p>
+     * .
      *
      * @param reportd
      *            a {@link org.opennms.netmgt.reporting.service.Reportd} object.

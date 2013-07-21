@@ -44,6 +44,7 @@ import org.quartz.spi.TriggerFiredBundle;
  */
 public class ReportJobFactory implements JobFactory {
 
+    /** The m_reportd. */
     private Reportd m_reportd;
 
     /** {@inheritDoc} */
@@ -66,6 +67,13 @@ public class ReportJobFactory implements JobFactory {
         }
     }
 
+    /**
+     * Gets the job class.
+     *
+     * @param jobDetail
+     *            the job detail
+     * @return the job class
+     */
     @SuppressWarnings("unchecked")
     private Class<ReportJob> getJobClass(JobDetail jobDetail) {
         return (Class<ReportJob>) jobDetail.getJobClass();
@@ -75,6 +83,7 @@ public class ReportJobFactory implements JobFactory {
      * <p>
      * setReportd
      * </p>
+     * .
      *
      * @param reportd
      *            a {@link org.opennms.netmgt.reporting.service.Reportd} object.
@@ -83,6 +92,11 @@ public class ReportJobFactory implements JobFactory {
         m_reportd = reportd;
     }
 
+    /**
+     * Gets the reportd.
+     *
+     * @return the reportd
+     */
     private Reportd getReportd() {
         return m_reportd;
     }

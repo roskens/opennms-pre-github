@@ -51,8 +51,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  */
 public class JavaMailDeliveryService implements ReportDeliveryService {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailDeliveryService.class);
 
+    /** The Javamail config dao. */
     JavaMailConfigurationDao m_JavamailConfigDao;
 
     /**
@@ -101,6 +103,7 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
      * <p>
      * getJavamailConfigDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}
      *         object.
@@ -113,6 +116,7 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
      * <p>
      * setJavamailConfigDao
      * </p>
+     * .
      *
      * @param javamailConfigDao
      *            a {@link org.opennms.netmgt.dao.api.JavaMailConfigurationDao}

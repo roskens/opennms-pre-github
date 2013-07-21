@@ -73,12 +73,27 @@ import org.springframework.util.Assert;
  */
 public class DefaultReportService implements ReportService, InitializingBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(DefaultReportService.class);
 
+    /**
+     * The Enum Format.
+     */
     private enum Format {
-        pdf, html, xml, xls, csv
+
+        /** The pdf. */
+        pdf,
+ /** The html. */
+ html,
+ /** The xml. */
+ xml,
+ /** The xls. */
+ xls,
+ /** The csv. */
+ csv
     };
 
+    /** The m_report catalog dao. */
     private ReportCatalogDao m_reportCatalogDao;
 
     /**
@@ -111,6 +126,7 @@ public class DefaultReportService implements ReportService, InitializingBean {
      * <p>
      * getReportCatalogDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
      */
@@ -122,6 +138,7 @@ public class DefaultReportService implements ReportService, InitializingBean {
      * <p>
      * setReportCatalogDao
      * </p>
+     * .
      *
      * @param reportCatalogDao
      *            a {@link org.opennms.netmgt.dao.api.ReportCatalogDao} object.
@@ -130,11 +147,26 @@ public class DefaultReportService implements ReportService, InitializingBean {
         this.m_reportCatalogDao = reportCatalogDao;
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_reportCatalogDao, "No Report Catalog DAO set");
     }
 
+    /**
+     * Creates the report catalog entry.
+     *
+     * @param jasperPrint
+     *            the jasper print
+     * @param report
+     *            the report
+     * @param fileName
+     *            the file name
+     * @throws ReportRunException
+     *             the report run exception
+     */
     private void createReportCatalogEntry(JasperPrint jasperPrint, Report report, String fileName)
             throws ReportRunException {
         ReportCatalogEntry catalogEntry = new ReportCatalogEntry();
@@ -153,12 +185,38 @@ public class DefaultReportService implements ReportService, InitializingBean {
         }
     }
 
+    /**
+     * Generate report name.
+     *
+     * @param reportDirectory
+     *            the report directory
+     * @param reportName
+     *            the report name
+     * @param reportFormat
+     *            the report format
+     * @return the string
+     */
     private String generateReportName(String reportDirectory, String reportName, String reportFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat();
         sdf.applyPattern("yyyyMMddHHmmss");
         return reportDirectory + reportName + sdf.format(new Date()) + "." + reportFormat;
     }
 
+    /**
+     * Save report.
+     *
+     * @param jasperPrint
+     *            the jasper print
+     * @param report
+     *            the report
+     * @param destFileName
+     *            the dest file name
+     * @return the string
+     * @throws JRException
+     *             the jR exception
+     * @throws Exception
+     *             the exception
+     */
     private String saveReport(JasperPrint jasperPrint, Report report, String destFileName) throws JRException,
             Exception {
         createReportCatalogEntry(jasperPrint, report, destFileName);
@@ -191,6 +249,17 @@ public class DefaultReportService implements ReportService, InitializingBean {
 
     }
 
+    /**
+     * Run and render.
+     *
+     * @param report
+     *            the report
+     * @return the jasper print
+     * @throws Exception
+     *             the exception
+     * @throws JRException
+     *             the jR exception
+     */
     private JasperPrint runAndRender(Report report) throws Exception, JRException {
         JasperPrint jasperPrint = new JasperPrint();
 
@@ -217,6 +286,13 @@ public class DefaultReportService implements ReportService, InitializingBean {
 
     }
 
+    /**
+     * Creates the zip.
+     *
+     * @param baseFileName
+     *            the base file name
+     * @return the string
+     */
     private String createZip(String baseFileName) {
         File reportResourceDirectory = new File(baseFileName + "_files");
         String zipFile = baseFileName + ".zip";
@@ -242,6 +318,18 @@ public class DefaultReportService implements ReportService, InitializingBean {
         return zipFile;
     }
 
+    /**
+     * Adds the file to archive.
+     *
+     * @param reportArchive
+     *            the report archive
+     * @param file
+     *            the file
+     * @throws FileNotFoundException
+     *             the file not found exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     private void addFileToArchive(ZipOutputStream reportArchive, String file) throws FileNotFoundException, IOException {
         FileInputStream asf = new FileInputStream(file);
         reportArchive.putNextEntry(new ZipEntry(file));
@@ -255,6 +343,13 @@ public class DefaultReportService implements ReportService, InitializingBean {
         reportArchive.closeEntry();
     }
 
+    /**
+     * Param list to map.
+     *
+     * @param parameters
+     *            the parameters
+     * @return the map
+     */
     private Map<String, String> paramListToMap(List<Parameter> parameters) {
         Map<String, String> parmMap = new HashMap<String, String>();
 

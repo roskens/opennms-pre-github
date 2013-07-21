@@ -56,30 +56,39 @@ import org.springframework.util.Assert;
  */
 @EventListener(name = "Reportd:EventListener", logPrefix = "reportd")
 public class Reportd implements SpringServiceDaemon {
+
+    /** The Constant LOG. */
     private static final Logger LOG = LoggerFactory.getLogger(Reportd.class);
 
-    /** Constant <code>NAME="Reportd"</code> */
+    /** Constant <code>NAME="Reportd"</code>. */
     public static final String NAME = "reportd";
 
+    /** The m_event forwarder. */
     private volatile EventForwarder m_eventForwarder;
 
+    /** The m_report scheduler. */
     private ReportScheduler m_reportScheduler;
 
+    /** The m_report service. */
     private ReportService m_reportService;
 
+    /** The m_report delivery service. */
     private ReportDeliveryService m_reportDeliveryService;
 
+    /** The m_report configuration dao. */
     private ReportdConfigurationDao m_reportConfigurationDao;
 
+    /** The report directory. */
     private String reportDirectory;
 
     /**
      * <p>
      * start
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void start() throws Exception {
@@ -92,6 +101,10 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * destroy
      * </p>
+     * .
+     *
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void destroy() throws Exception {
@@ -102,9 +115,10 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * afterPropertiesSet
      * </p>
+     * .
      *
-     * @throws java.lang.Exception
-     *             if any.
+     * @throws Exception
+     *             the exception
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -119,6 +133,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * runReport
      * </p>
+     * .
      *
      * @param reportName
      *            a {@link java.lang.String} object.
@@ -132,6 +147,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * runReport
      * </p>
+     * .
      *
      * @param report
      *            a {@link org.opennms.netmgt.config.reportd.Report} object.
@@ -162,7 +178,7 @@ public class Reportd implements SpringServiceDaemon {
 
     /**
      * <p>
-     * createAndSendReportingEvent
+     * createAndSendReportingEvent.
      *
      * @param uei
      *            the UEI of the event to send
@@ -184,6 +200,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * handleRunReportEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -215,6 +232,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * handleReloadConfigEvent
      * </p>
+     * .
      *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
@@ -256,6 +274,13 @@ public class Reportd implements SpringServiceDaemon {
 
     }
 
+    /**
+     * Checks if is reload config event target.
+     *
+     * @param event
+     *            the event
+     * @return true, if is reload config event target
+     */
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
 
@@ -277,6 +302,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * setEventForwarder
      * </p>
+     * .
      *
      * @param eventForwarder
      *            a {@link org.opennms.netmgt.model.events.EventForwarder}
@@ -290,6 +316,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * getEventForwarder
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.model.events.EventForwarder} object.
      */
@@ -301,6 +328,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * setReportScheduler
      * </p>
+     * .
      *
      * @param reportScheduler
      *            a {@link org.opennms.netmgt.reporting.service.ReportScheduler}
@@ -314,6 +342,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * getReportScheduler
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.reporting.service.ReportScheduler}
      *         object.
@@ -326,6 +355,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * getReportService
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.reporting.service.ReportService}
      *         object.
@@ -338,6 +368,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * setReportService
      * </p>
+     * .
      *
      * @param reportService
      *            a {@link org.opennms.netmgt.reporting.service.ReportService}
@@ -351,6 +382,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * getReportDeliveryService
      * </p>
+     * .
      *
      * @return a
      *         {@link org.opennms.netmgt.reporting.service.ReportDeliveryService}
@@ -364,6 +396,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * setReportDeliveryService
      * </p>
+     * .
      *
      * @param reportDeliveryService
      *            a
@@ -378,6 +411,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * getReportdConfigurationDao
      * </p>
+     * .
      *
      * @return a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
      *         object.
@@ -390,6 +424,7 @@ public class Reportd implements SpringServiceDaemon {
      * <p>
      * setReportdConfigurationDao
      * </p>
+     * .
      *
      * @param reportConfigurationDao
      *            a {@link org.opennms.netmgt.dao.api.ReportdConfigurationDao}
