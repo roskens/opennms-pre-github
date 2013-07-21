@@ -33,41 +33,77 @@ import org.opennms.netmgt.collectd.CollectionAgent;
 import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
+/**
+ * The Class VmwareCimCollectionResource.
+ */
 public abstract class VmwareCimCollectionResource extends AbstractCollectionResource {
 
+    /** The m_node id. */
     private int m_nodeId;
 
+    /**
+     * Instantiates a new vmware cim collection resource.
+     *
+     * @param agent
+     *            the agent
+     */
     public VmwareCimCollectionResource(CollectionAgent agent) {
         super(agent);
         m_nodeId = agent.getNodeId();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getType()
+     */
     @Override
     public int getType() {
         return -1; // Is this right?
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#rescanNeeded()
+     */
     @Override
     public boolean rescanNeeded() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#shouldPersist(org.opennms.netmgt.config.collector.ServiceParameters)
+     */
     @Override
     public boolean shouldPersist(final ServiceParameters params) {
         return true;
     }
 
+    /**
+     * Sets the attribute value.
+     *
+     * @param type
+     *            the type
+     * @param value
+     *            the value
+     */
     public void setAttributeValue(final CollectionAttributeType type, final String value) {
         final VmwareCimCollectionAttribute attr = new VmwareCimCollectionAttribute(this, type, type.getName(), value);
         addAttribute(attr);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getResourceTypeName()
+     */
     @Override
     public abstract String getResourceTypeName();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getInstance()
+     */
     @Override
     public abstract String getInstance();
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionResource#getParent()
+     */
     @Override
     public String getParent() {
         return Integer.toString(m_nodeId);

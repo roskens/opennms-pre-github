@@ -39,7 +39,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * A grouping of VMware related RRD parms and performance counter
- * groups
+ * groups.
  *
  * @version $Revision$ $Date$
  */
@@ -54,19 +54,18 @@ public class VmwareCimCollection implements java.io.Serializable {
     @XmlAttribute(name = "name")
     private java.lang.String _name;
 
-    /**
-     * RRD parms
-     */
+    /** RRD parms. */
     @XmlElement(name = "rrd")
     private org.opennms.netmgt.config.vmware.cim.Rrd _rrd;
 
-    /**
-     * VMware Cim object groups
-     */
+    /** VMware Cim object groups. */
     @XmlElementWrapper(name = "vmware-cim-groups")
     @XmlElement(name = "vmware-cim-group")
     private java.util.List<org.opennms.netmgt.config.vmware.cim.VmwareCimGroup> _vmwareCimGroupList;
 
+    /**
+     * Instantiates a new vmware cim collection.
+     */
     public VmwareCimCollection() {
         super();
         this._vmwareCimGroupList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.cim.VmwareCimGroup>();
@@ -76,6 +75,7 @@ public class VmwareCimCollection implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -108,10 +108,12 @@ public class VmwareCimCollection implements java.io.Serializable {
     }
 
     /**
+     * Adds the vmware cim group.
+     *
      * @param vVmwareCimGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCimGroup(final org.opennms.netmgt.config.vmware.cim.VmwareCimGroup vVmwareCimGroup)
             throws java.lang.IndexOutOfBoundsException {
@@ -119,11 +121,14 @@ public class VmwareCimCollection implements java.io.Serializable {
     }
 
     /**
+     * Adds the vmware cim group.
+     *
      * @param index
+     *            the index
      * @param vVmwareCimGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCimGroup(final int index,
             final org.opennms.netmgt.config.vmware.cim.VmwareCimGroup vVmwareCimGroup)
@@ -166,12 +171,12 @@ public class VmwareCimCollection implements java.io.Serializable {
      * Method getVmwareCimGroup.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.cim.VmwareCimGroup at the
      *         given index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.cim.VmwareCimGroup getVmwareCimGroup(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -231,6 +236,7 @@ public class VmwareCimCollection implements java.io.Serializable {
     }
 
     /**
+     * Removes the all vmware cim group.
      */
     public void removeAllVmwareCimGroup() {
         this._vmwareCimGroupList.clear();
@@ -240,6 +246,7 @@ public class VmwareCimCollection implements java.io.Serializable {
      * Method removeVmwareCimGroup.
      *
      * @param vVmwareCimGroup
+     *            the v vmware cim group
      * @return true if the object was removed from the collection.
      */
     public boolean removeVmwareCimGroup(final org.opennms.netmgt.config.vmware.cim.VmwareCimGroup vVmwareCimGroup) {
@@ -251,6 +258,7 @@ public class VmwareCimCollection implements java.io.Serializable {
      * Method removeVmwareCimGroupAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.cim.VmwareCimGroup removeVmwareCimGroupAt(final int index) {
@@ -259,11 +267,14 @@ public class VmwareCimCollection implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware cim group.
+     *
      * @param index
+     *            the index
      * @param vVmwareCimGroup
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim group
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setVmwareCimGroup(final int index,
             final org.opennms.netmgt.config.vmware.cim.VmwareCimGroup vVmwareCimGroup)
@@ -278,7 +289,10 @@ public class VmwareCimCollection implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware cim group.
+     *
      * @param vVmwareCimGroupArray
+     *            the new vmware cim group
      */
     public void setVmwareCimGroup(final org.opennms.netmgt.config.vmware.cim.VmwareCimGroup[] vVmwareCimGroupArray) {
         // -- copy array

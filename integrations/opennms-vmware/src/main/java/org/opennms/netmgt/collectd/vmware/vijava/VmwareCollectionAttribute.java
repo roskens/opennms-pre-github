@@ -34,15 +34,35 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
+/**
+ * The Class VmwareCollectionAttribute.
+ */
 public class VmwareCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
+
+    /** The m_alias. */
     private String m_alias;
 
+    /** The m_value. */
     private String m_value;
 
+    /** The m_resource. */
     private VmwareCollectionResource m_resource;
 
+    /** The m_attrib type. */
     private CollectionAttributeType m_attribType;
 
+    /**
+     * Instantiates a new vmware collection attribute.
+     *
+     * @param resource
+     *            the resource
+     * @param attribType
+     *            the attrib type
+     * @param alias
+     *            the alias
+     * @param value
+     *            the value
+     */
     public VmwareCollectionAttribute(final VmwareCollectionResource resource, final CollectionAttributeType attribType,
             final String alias, final String value) {
         m_resource = resource;
@@ -51,31 +71,49 @@ public class VmwareCollectionAttribute extends AbstractCollectionAttribute imple
         m_value = value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getAttributeType()
+     */
     @Override
     public CollectionAttributeType getAttributeType() {
         return m_attribType;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getName()
+     */
     @Override
     public String getName() {
         return m_alias;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getMetricIdentifier()
+     */
     @Override
     public String getMetricIdentifier() {
         return "Vmware_" + m_attribType.getName();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
+     */
     @Override
     public String getNumericValue() {
         return m_value;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getResource()
+     */
     @Override
     public CollectionResource getResource() {
         return m_resource;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getStringValue()
+     */
     @Override
     public String getStringValue() {
         return m_value; // Should this be null instead?
@@ -89,11 +127,17 @@ public class VmwareCollectionAttribute extends AbstractCollectionAttribute imple
         return true;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttribute#getType()
+     */
     @Override
     public String getType() {
         return m_attribType.getType();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "VmwareCollectionAttribute " + m_alias + "=" + m_value;

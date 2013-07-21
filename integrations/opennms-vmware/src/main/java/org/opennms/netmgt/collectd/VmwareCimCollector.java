@@ -78,31 +78,24 @@ import com.vmware.vim25.HostRuntimeInfo;
 import com.vmware.vim25.HostSystemPowerState;
 import com.vmware.vim25.mo.HostSystem;
 
+/**
+ * The Class VmwareCimCollector.
+ */
 public class VmwareCimCollector implements ServiceCollector {
 
-    /**
-     * logging for VMware CIM data collection
-     */
+    /** logging for VMware CIM data collection. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCimCollector.class.getName());
 
-    /**
-     * the attribute groups
-     */
+    /** the attribute groups. */
     private Map<String, AttributeGroupType> m_groupTypeList = new HashMap<String, AttributeGroupType>();
 
-    /**
-     * the attribute types
-     */
+    /** the attribute types. */
     private Map<String, VmwareCimCollectionAttributeType> m_attribTypeList = new HashMap<String, VmwareCimCollectionAttributeType>();
 
-    /**
-     * the node dao object for retrieving assets
-     */
+    /** the node dao object for retrieving assets. */
     private NodeDao m_nodeDao = null;
 
-    /**
-     * the config dao
-     */
+    /** the config dao. */
     VmwareCimDatacollectionConfigDao m_vmwareCimDatacollectionConfigDao;
 
     /**
@@ -111,6 +104,7 @@ public class VmwareCimCollector implements ServiceCollector {
      * @param parameters
      *            the parameter map to use
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
@@ -207,6 +201,7 @@ public class VmwareCimCollector implements ServiceCollector {
      * @param parameters
      *            the parameter map
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     @Override
     public void initialize(CollectionAgent agent, Map<String, Object> parameters)
@@ -251,6 +246,7 @@ public class VmwareCimCollector implements ServiceCollector {
      *            the parameters map
      * @return the generated collection set
      * @throws CollectionException
+     *             the collection exception
      */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)

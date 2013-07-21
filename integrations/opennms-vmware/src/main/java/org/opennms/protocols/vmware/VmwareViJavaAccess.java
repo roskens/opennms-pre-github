@@ -107,30 +107,34 @@ import com.vmware.vim25.ws.WSClient;
  */
 public class VmwareViJavaAccess {
 
-    /**
-     * logging for VMware library VI Java
-     */
+    /** logging for VMware library VI Java. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareViJavaAccess.class.getName());
 
-    /**
-     * the config dao
-     */
+    /** the config dao. */
     private VmwareConfigDao m_vmwareConfigDao = null;
 
+    /** The m_hostname. */
     private String m_hostname = null;
 
+    /** The m_username. */
     private String m_username = null;
 
+    /** The m_password. */
     private String m_password = null;
 
+    /** The m_service instance. */
     private ServiceInstance m_serviceInstance = null;
 
+    /** The m_performance manager. */
     private PerformanceManager m_performanceManager = null;
 
+    /** The m_perf counter info map. */
     private Map<Integer, PerfCounterInfo> m_perfCounterInfoMap = null;
 
+    /** The m_host service tickets. */
     private Map<HostSystem, HostServiceTicket> m_hostServiceTickets = new HashMap<HostSystem, HostServiceTicket>();
 
+    /** The m_host system cim urls. */
     private Map<HostSystem, String> m_hostSystemCimUrls = new HashMap<HostSystem, String>();
 
     /**
@@ -157,8 +161,11 @@ public class VmwareViJavaAccess {
      * @param hostname
      *            the vCenter's hostname
      * @throws MarshalException
+     *             the marshal exception
      * @throws ValidationException
+     *             the validation exception
      * @throws IOException
+     *             Signals that an I/O exception has occurred.
      */
     public VmwareViJavaAccess(String hostname) throws MarshalException, ValidationException, IOException {
         if (m_vmwareConfigDao == null) {
@@ -200,7 +207,9 @@ public class VmwareViJavaAccess {
      * Connects to the server.
      *
      * @throws MalformedURLException
+     *             the malformed url exception
      * @throws RemoteException
+     *             the remote exception
      */
     public void connect() throws MalformedURLException, RemoteException {
         relax();
@@ -408,6 +417,7 @@ public class VmwareViJavaAccess {
      *            the managed entity to query
      * @return the perfomance values
      * @throws RemoteException
+     *             the remote exception
      */
     public VmwarePerformanceValues queryPerformanceValues(ManagedEntity managedEntity) throws RemoteException {
 
@@ -463,7 +473,9 @@ public class VmwareViJavaAccess {
      *            the Ip address to use
      * @return the list of Cim objects
      * @throws RemoteException
+     *             the remote exception
      * @throws CIMException
+     *             the cIM exception
      */
     public List<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass, String primaryIpAddress)
             throws RemoteException, CIMException {
@@ -525,31 +537,35 @@ public class VmwareViJavaAccess {
      *            the class of Cim objects to retrieve
      * @return the list of Cim objects
      * @throws RemoteException
+     *             the remote exception
      * @throws CIMException
+     *             the cIM exception
      */
     public List<CIMObject> queryCimObjects(HostSystem hostSystem, String cimClass) throws RemoteException, CIMException {
         return queryCimObjects(hostSystem, cimClass, null);
     }
 
     /**
-     * Searches for the primary ip address of a host system
+     * Searches for the primary ip address of a host system.
      *
      * @param hostSystem
      *            the host system to query
      * @return the primary ip address
      * @throws RemoteException
+     *             the remote exception
      */
     public String getPrimaryHostSystemIpAddress(HostSystem hostSystem) throws RemoteException {
         return getHostSystemIpAddresses(hostSystem).first();
     }
 
     /**
-     * Searches for all ip addresses of a host system
+     * Searches for all ip addresses of a host system.
      *
      * @param hostSystem
      *            the host system to query
      * @return the ip addresses of the host system, the first one is the primary
      * @throws RemoteException
+     *             the remote exception
      */
     public TreeSet<String> getHostSystemIpAddresses(HostSystem hostSystem) throws RemoteException {
         TreeSet<String> ipAddresses = new TreeSet<String>();
@@ -583,13 +599,14 @@ public class VmwareViJavaAccess {
      *            the type string to search for
      * @return the list of managed entities found
      * @throws RemoteException
+     *             the remote exception
      */
     public ManagedEntity[] searchManagedEntities(String type) throws RemoteException {
         return (new InventoryNavigator(m_serviceInstance.getRootFolder())).searchManagedEntities(type);
     }
 
     /**
-     * Return the major API version for this management server
+     * Return the major API version for this management server.
      *
      * @return the major API version
      */

@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
- * An Attribute Object
+ * An Attribute Object.
  */
 @XmlRootElement(name = "attrib")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -61,6 +61,9 @@ public class Attrib implements java.io.Serializable {
     @XmlAttribute(name = "type")
     private java.lang.String _type;
 
+    /**
+     * Instantiates a new attrib.
+     */
     public Attrib() {
         super();
     }
@@ -69,6 +72,7 @@ public class Attrib implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

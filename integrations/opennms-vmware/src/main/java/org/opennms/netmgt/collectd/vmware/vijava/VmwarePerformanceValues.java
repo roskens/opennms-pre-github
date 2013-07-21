@@ -32,14 +32,33 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * The Class VmwarePerformanceValues.
+ */
 public class VmwarePerformanceValues {
+
+    /** The multi values. */
     private Map<String, Map<String, Long>> multiValues = new HashMap<String, Map<String, Long>>();
 
+    /** The single values. */
     private Map<String, Long> singleValues = new HashMap<String, Long>();
 
+    /**
+     * Instantiates a new vmware performance values.
+     */
     public VmwarePerformanceValues() {
     }
 
+    /**
+     * Adds the value.
+     *
+     * @param name
+     *            the name
+     * @param instance
+     *            the instance
+     * @param value
+     *            the value
+     */
     public void addValue(String name, String instance, long value) {
         if (!multiValues.containsKey(name)) {
             multiValues.put(name, new HashMap<String, Long>());
@@ -50,18 +69,47 @@ public class VmwarePerformanceValues {
         map.put(instance, Long.valueOf(value));
     }
 
+    /**
+     * Adds the value.
+     *
+     * @param name
+     *            the name
+     * @param value
+     *            the value
+     */
     public void addValue(String name, long value) {
         singleValues.put(name, Long.valueOf(value));
     }
 
+    /**
+     * Checks for instances.
+     *
+     * @param name
+     *            the name
+     * @return true, if successful
+     */
     public boolean hasInstances(String name) {
         return (multiValues.containsKey(name));
     }
 
+    /**
+     * Checks for single value.
+     *
+     * @param name
+     *            the name
+     * @return true, if successful
+     */
     public boolean hasSingleValue(String name) {
         return (singleValues.containsKey(name));
     }
 
+    /**
+     * Gets the instances.
+     *
+     * @param name
+     *            the name
+     * @return the instances
+     */
     public Set<String> getInstances(String name) {
         if (multiValues.containsKey(name)) {
             return multiValues.get(name).keySet();
@@ -70,10 +118,26 @@ public class VmwarePerformanceValues {
         }
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param name
+     *            the name
+     * @return the value
+     */
     public Long getValue(String name) {
         return singleValues.get(name);
     }
 
+    /**
+     * Gets the value.
+     *
+     * @param name
+     *            the name
+     * @param instance
+     *            the instance
+     * @return the value
+     */
     public Long getValue(String name, String instance) {
         if (multiValues.containsKey(name)) {
             return multiValues.get(name).get(instance);

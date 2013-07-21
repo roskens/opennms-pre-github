@@ -55,30 +55,28 @@ import com.vmware.vim25.mo.VirtualMachine;
 /**
  * The Class VmwareMonitor
  * <p/>
- * This class represents a monitor for Vmware related queries
+ * This class represents a monitor for Vmware related queries.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareMonitor extends AbstractServiceMonitor {
 
-    /**
-     * logging for VMware monitor
-     */
+    /** logging for VMware monitor. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareMonitor.class.getName());
 
-    /**
-     * the node dao object for retrieving assets
-     */
+    /** the node dao object for retrieving assets. */
     private NodeDao m_nodeDao = null;
 
     /*
      * default retries
      */
+    /** The Constant DEFAULT_RETRY. */
     private static final int DEFAULT_RETRY = 0;
 
     /*
      * default timeout
      */
+    /** The Constant DEFAULT_TIMEOUT. */
     private static final int DEFAULT_TIMEOUT = 3000;
 
     /**

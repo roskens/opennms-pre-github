@@ -43,22 +43,25 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 @SuppressWarnings("all")
 public class VmwareConfig implements java.io.Serializable {
 
-    /**
-     * A VMware Server entry
-     */
+    /** A VMware Server entry. */
     @XmlElement(name = "vmware-server")
     private java.util.List<org.opennms.netmgt.config.vmware.VmwareServer> _vmwareServerList;
 
+    /**
+     * Instantiates a new vmware config.
+     */
     public VmwareConfig() {
         super();
         this._vmwareServerList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.VmwareServer>();
     }
 
     /**
+     * Adds the vmware server.
+     *
      * @param vVmwareServer
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware server
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareServer(final org.opennms.netmgt.config.vmware.VmwareServer vVmwareServer)
             throws java.lang.IndexOutOfBoundsException {
@@ -66,11 +69,14 @@ public class VmwareConfig implements java.io.Serializable {
     }
 
     /**
+     * Adds the vmware server.
+     *
      * @param index
+     *            the index
      * @param vVmwareServer
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware server
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareServer(final int index, final org.opennms.netmgt.config.vmware.VmwareServer vVmwareServer)
             throws java.lang.IndexOutOfBoundsException {
@@ -91,6 +97,7 @@ public class VmwareConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -106,12 +113,12 @@ public class VmwareConfig implements java.io.Serializable {
      * Method getVmwareServer.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.VmwareServer at the given
      *         index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.VmwareServer getVmwareServer(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -171,6 +178,7 @@ public class VmwareConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all vmware server.
      */
     public void removeAllVmwareServer() {
         this._vmwareServerList.clear();
@@ -180,6 +188,7 @@ public class VmwareConfig implements java.io.Serializable {
      * Method removeVmwareServer.
      *
      * @param vVmwareServer
+     *            the v vmware server
      * @return true if the object was removed from the collection.
      */
     public boolean removeVmwareServer(final org.opennms.netmgt.config.vmware.VmwareServer vVmwareServer) {
@@ -191,6 +200,7 @@ public class VmwareConfig implements java.io.Serializable {
      * Method removeVmwareServerAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.VmwareServer removeVmwareServerAt(final int index) {
@@ -199,11 +209,14 @@ public class VmwareConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware server.
+     *
      * @param index
+     *            the index
      * @param vVmwareServer
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware server
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setVmwareServer(final int index, final org.opennms.netmgt.config.vmware.VmwareServer vVmwareServer)
             throws java.lang.IndexOutOfBoundsException {
@@ -217,7 +230,10 @@ public class VmwareConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware server.
+     *
      * @param vVmwareServerArray
+     *            the new vmware server
      */
     public void setVmwareServer(final org.opennms.netmgt.config.vmware.VmwareServer[] vVmwareServerArray) {
         // -- copy array

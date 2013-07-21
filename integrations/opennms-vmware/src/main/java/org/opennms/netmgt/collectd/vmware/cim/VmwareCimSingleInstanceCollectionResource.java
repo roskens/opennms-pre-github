@@ -30,21 +30,40 @@ package org.opennms.netmgt.collectd.vmware.cim;
 
 import org.opennms.netmgt.collectd.CollectionAgent;
 
+/**
+ * The Class VmwareCimSingleInstanceCollectionResource.
+ */
 public class VmwareCimSingleInstanceCollectionResource extends VmwareCimCollectionResource {
+
+    /**
+     * Instantiates a new vmware cim single instance collection resource.
+     *
+     * @param agent
+     *            the agent
+     */
     public VmwareCimSingleInstanceCollectionResource(final CollectionAgent agent) {
         super(agent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionResource#getResourceTypeName()
+     */
     @Override
     public String getResourceTypeName() {
         return "node";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionResource#getInstance()
+     */
     @Override
     public String getInstance() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Node[" + m_agent.getNodeId() + "]/type[node]";

@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
- * An VMware Cim Object Group
+ * An VMware Cim Object Group.
  */
 
 @XmlRootElement(name = "vmware-cim-group")
@@ -45,33 +45,23 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 @SuppressWarnings("all")
 public class VmwareCimGroup implements java.io.Serializable {
 
-    /**
-     * The name of the Cmi class to query
-     */
+    /** The name of the Cmi class to query. */
     @XmlAttribute(name = "cimClass")
     private java.lang.String _cimClass;
 
-    /**
-     * The name of this group, for user id purposes
-     */
+    /** The name of this group, for user id purposes. */
     @XmlAttribute(name = "name")
     private java.lang.String _name;
 
-    /**
-     * The attibute with name Key will be checked against Value
-     */
+    /** The attibute with name Key will be checked against Value. */
     @XmlAttribute(name = "key")
     private java.lang.String _key;
 
-    /**
-     * The attibute with name Key will be checked against Value
-     */
+    /** The attibute with name Key will be checked against Value. */
     @XmlAttribute(name = "value")
     private java.lang.String _value;
 
-    /**
-     * The instance attribute of this group
-     */
+    /** The instance attribute of this group. */
     @XmlAttribute(name = "instance")
     private java.lang.String _instance;
 
@@ -88,22 +78,25 @@ public class VmwareCimGroup implements java.io.Serializable {
     @XmlAttribute(name = "resourceType")
     private java.lang.String _resourceType;
 
-    /**
-     * An VMware Cim Object
-     */
+    /** An VMware Cim Object. */
     @XmlElement(name = "attrib")
     private java.util.List<org.opennms.netmgt.config.vmware.cim.Attrib> _attribList;
 
+    /**
+     * Instantiates a new vmware cim group.
+     */
     public VmwareCimGroup() {
         super();
         this._attribList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.cim.Attrib>();
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -111,11 +104,14 @@ public class VmwareCimGroup implements java.io.Serializable {
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final int index, final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -136,6 +132,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -156,11 +153,11 @@ public class VmwareCimGroup implements java.io.Serializable {
      * Method getAttrib.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.cim.Attrib at the given inde
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.cim.Attrib getAttrib(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -292,6 +289,7 @@ public class VmwareCimGroup implements java.io.Serializable {
     }
 
     /**
+     * Removes the all attrib.
      */
     public void removeAllAttrib() {
         this._attribList.clear();
@@ -301,6 +299,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * Method removeAttrib.
      *
      * @param vAttrib
+     *            the v attrib
      * @return true if the object was removed from the collection.
      */
     public boolean removeAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib) {
@@ -312,6 +311,7 @@ public class VmwareCimGroup implements java.io.Serializable {
      * Method removeAttribAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.cim.Attrib removeAttribAt(final int index) {
@@ -320,11 +320,14 @@ public class VmwareCimGroup implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setAttrib(final int index, final org.opennms.netmgt.config.vmware.cim.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -338,7 +341,10 @@ public class VmwareCimGroup implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param vAttribArray
+     *            the new attrib
      */
     public void setAttrib(final org.opennms.netmgt.config.vmware.cim.Attrib[] vAttribArray) {
         // -- copy array

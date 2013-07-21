@@ -36,31 +36,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
- * A VMware Server entry
+ * A VMware Server entry.
  */
 @XmlRootElement(name = "vmware-server")
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("all")
 public class VmwareServer implements java.io.Serializable {
 
-    /**
-     * The hostname of IP address of this server
-     */
+    /** The hostname of IP address of this server. */
     @XmlAttribute(name = "hostname")
     private java.lang.String _hostname;
 
-    /**
-     * The username of the read-only user
-     */
+    /** The username of the read-only user. */
     @XmlAttribute(name = "username")
     private java.lang.String _username;
 
-    /**
-     * The password of the read-only user
-     */
+    /** The password of the read-only user. */
     @XmlAttribute(name = "password")
     private java.lang.String _password;
 
+    /**
+     * Instantiates a new vmware server.
+     */
     public VmwareServer() {
         super();
     }
@@ -73,6 +70,7 @@ public class VmwareServer implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()

@@ -1,3 +1,30 @@
+/*******************************************************************************
+ * This file is part of OpenNMS(R).
+ *
+ * Copyright (C) 2012 The OpenNMS Group, Inc.
+ * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
+ *
+ * OpenNMS(R) is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * OpenNMS(R) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OpenNMS(R).  If not, see:
+ *      http://www.gnu.org/licenses/
+ *
+ * For more information contact:
+ *     OpenNMS(R) Licensing <license@opennms.org>
+ *     http://www.opennms.org/
+ *     http://www.opennms.com/
+ *******************************************************************************/
 package org.opennms.protocols.vmware;
 
 import java.io.PrintWriter;
@@ -17,7 +44,12 @@ import org.sblim.wbem.cim.CIMObject;
 import com.vmware.vim25.mo.HostSystem;
 import com.vmware.vim25.mo.ManagedEntity;
 
+/**
+ * The Class VmwareCimQuery.
+ */
 public class VmwareCimQuery {
+
+    /** The m_health states. */
     public static HashMap<Integer, String> m_healthStates;
 
     static {
@@ -32,6 +64,16 @@ public class VmwareCimQuery {
         m_healthStates.put(30, "Non-recoverable error");
     }
 
+    /**
+     * Cim query.
+     *
+     * @param hostname
+     *            the hostname
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     */
     private static void cimQuery(String hostname, String username, String password) {
 
         System.out.print("Trying to connect to " + hostname + "... ");
@@ -147,6 +189,18 @@ public class VmwareCimQuery {
         vmwareViJavaAccess.disconnect();
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     * @param error
+     *            the error
+     * @param e
+     *            the e
+     */
     private static void usage(final Options options, final CommandLine cmd, final String error, final Exception e) {
         final HelpFormatter formatter = new HelpFormatter();
         final PrintWriter pw = new PrintWriter(System.out);
@@ -164,10 +218,26 @@ public class VmwareCimQuery {
         pw.close();
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     */
     private static void usage(final Options options, final CommandLine cmd) {
         usage(options, cmd, null, null);
     }
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws ParseException
+     *             the parse exception
+     */
     public static void main(String[] args) throws ParseException {
         String hostname, username, password;
 

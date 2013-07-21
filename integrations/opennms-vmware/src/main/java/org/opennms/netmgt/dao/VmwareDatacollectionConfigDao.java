@@ -36,7 +36,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * The Interface VmwareDatacollectionConfigDao
  * <p/>
  * This class is used for defining the methods for accessing the configuration
- * data for the Vmware Data Collection
+ * data for the Vmware Data Collection.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */

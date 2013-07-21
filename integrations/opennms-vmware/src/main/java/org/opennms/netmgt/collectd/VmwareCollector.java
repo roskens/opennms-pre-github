@@ -75,19 +75,13 @@ import com.vmware.vim25.mo.ManagedEntity;
  */
 public class VmwareCollector implements ServiceCollector {
 
-    /**
-     * logging for VMware data collection
-     */
+    /** logging for VMware data collection. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware." + VmwareCollector.class.getName());
 
-    /**
-     * the node dao object for retrieving assets
-     */
+    /** the node dao object for retrieving assets. */
     private NodeDao m_nodeDao = null;
 
-    /**
-     * the config dao
-     */
+    /** the config dao. */
     private VmwareDatacollectionConfigDao m_vmwareDatacollectionConfigDao;
 
     /**
@@ -96,6 +90,7 @@ public class VmwareCollector implements ServiceCollector {
      * @param parameters
      *            the parameter map to use
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {
@@ -163,6 +158,7 @@ public class VmwareCollector implements ServiceCollector {
      * @param parameters
      *            the parameter map
      * @throws CollectionInitializationException
+     *             the collection initialization exception
      */
     @Override
     public void initialize(CollectionAgent agent, Map<String, Object> parameters)
@@ -207,6 +203,7 @@ public class VmwareCollector implements ServiceCollector {
      *            the parameters map
      * @return the generated collection set
      * @throws CollectionException
+     *             the collection exception
      */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters)

@@ -41,7 +41,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * The Class VmwareCimDatacollectionConfigDaoJaxb
  * <p/>
  * This class is used for accessing the Vmware Cim Data Collection configuration
- * file
+ * file.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
@@ -50,7 +50,7 @@ public class VmwareCimDatacollectionConfigDaoJaxb extends
         VmwareCimDatacollectionConfigDao {
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public VmwareCimDatacollectionConfigDaoJaxb() {
         super(VmwareCimDatacollectionConfig.class, "Vmware Cim Data Collection Configuration");

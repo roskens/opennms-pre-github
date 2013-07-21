@@ -37,16 +37,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
- * An VMware Object Group
+ * An VMware Object Group.
  */
 @XmlRootElement(name = "vmware-group")
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("all")
 public class VmwareGroup implements java.io.Serializable {
 
-    /**
-     * The name of this group, for user id purposes
-     */
+    /** The name of this group, for user id purposes. */
     @XmlAttribute(name = "name")
     private java.lang.String _name;
 
@@ -63,22 +61,25 @@ public class VmwareGroup implements java.io.Serializable {
     @XmlAttribute(name = "resourceType")
     private java.lang.String _resourceType;
 
-    /**
-     * An VMware Object
-     */
+    /** An VMware Object. */
     @XmlElement(name = "attrib")
     private java.util.List<org.opennms.netmgt.config.vmware.vijava.Attrib> _attribList;
 
+    /**
+     * Instantiates a new vmware group.
+     */
     public VmwareGroup() {
         super();
         this._attribList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.vijava.Attrib>();
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -86,11 +87,14 @@ public class VmwareGroup implements java.io.Serializable {
     }
 
     /**
+     * Adds the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addAttrib(final int index, final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -111,6 +115,7 @@ public class VmwareGroup implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -128,12 +133,12 @@ public class VmwareGroup implements java.io.Serializable {
      * Method getAttrib.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.vijava.Attrib at the given
      *         index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.vijava.Attrib getAttrib(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -221,6 +226,7 @@ public class VmwareGroup implements java.io.Serializable {
     }
 
     /**
+     * Removes the all attrib.
      */
     public void removeAllAttrib() {
         this._attribList.clear();
@@ -230,6 +236,7 @@ public class VmwareGroup implements java.io.Serializable {
      * Method removeAttrib.
      *
      * @param vAttrib
+     *            the v attrib
      * @return true if the object was removed from the collection.
      */
     public boolean removeAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib) {
@@ -241,6 +248,7 @@ public class VmwareGroup implements java.io.Serializable {
      * Method removeAttribAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.vijava.Attrib removeAttribAt(final int index) {
@@ -249,11 +257,14 @@ public class VmwareGroup implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param index
+     *            the index
      * @param vAttrib
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v attrib
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setAttrib(final int index, final org.opennms.netmgt.config.vmware.vijava.Attrib vAttrib)
             throws java.lang.IndexOutOfBoundsException {
@@ -267,7 +278,10 @@ public class VmwareGroup implements java.io.Serializable {
     }
 
     /**
+     * Sets the attrib.
+     *
      * @param vAttribArray
+     *            the new attrib
      */
     public void setAttrib(final org.opennms.netmgt.config.vmware.vijava.Attrib[] vAttribArray) {
         // -- copy array

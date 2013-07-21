@@ -103,49 +103,77 @@ import com.vmware.vim25.mo.VirtualMachine;
 import com.vmware.vim25.mo.util.MorUtil;
 import com.vmware.vim25.ws.WSClient;
 
+/**
+ * The Class VmwareViJavaAccessTest.
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ ServiceInstance.class, PerformanceManager.class, VmwareViJavaAccess.class, MorUtil.class,
         PerfProviderSummary.class, HostSystem.class, HostNetworkSystem.class, CIMClient.class })
 public class VmwareViJavaAccessTest {
 
+    /** The vmware vi java access. */
     private VmwareViJavaAccess vmwareViJavaAccess;
 
+    /** The mock performance manager. */
     private PerformanceManager mockPerformanceManager;
 
+    /** The mock service instance. */
     private ServiceInstance mockServiceInstance;
 
+    /** The mock server connection. */
     private ServerConnection mockServerConnection;
 
+    /** The mock about info. */
     private AboutInfo mockAboutInfo;
 
+    /** The mock perf provider summary. */
     private PerfProviderSummary mockPerfProviderSummary;
 
+    /** The mock host network system. */
     private HostNetworkSystem mockHostNetworkSystem;
 
+    /** The mock host system. */
     private HostSystem mockHostSystem;
 
+    /** The mock cim client. */
     private CIMClient mockCIMClient;
 
+    /** The managed object reference virtual machine. */
     private ManagedObjectReference managedObjectReferenceVirtualMachine;
 
+    /** The managed object reference host system. */
     private ManagedObjectReference managedObjectReferenceHostSystem;
 
+    /** The managed object reference managed entity. */
     private ManagedObjectReference managedObjectReferenceManagedEntity;
 
+    /** The virtual machine. */
     private VirtualMachine virtualMachine;
 
+    /** The host system. */
     private HostSystem hostSystem;
 
+    /** The managed entity. */
     private ManagedEntity managedEntity;
 
+    /** The perf entity metric bases. */
     private PerfEntityMetricBase[] perfEntityMetricBases;
 
+    /** The perf counter infos. */
     private PerfCounterInfo[] perfCounterInfos;
 
+    /** The perf query spec. */
     private PerfQuerySpec perfQuerySpec;
 
+    /** The cim objects. */
     private List<CIMObject> cimObjects;
 
+    /**
+     * Sets the up.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Before
     public void setUp() throws Exception {
         // setup required objects
@@ -337,6 +365,9 @@ public class VmwareViJavaAccessTest {
         expect(mockCIMClient.enumerateInstances(new CIMObjectPath("cimClass"))).andReturn(Collections.enumeration(cimObjects)).anyTimes();
     }
 
+    /**
+     * Test get perf counter info map.
+     */
     @Test
     public void testGetPerfCounterInfoMap() {
 
@@ -361,6 +392,9 @@ public class VmwareViJavaAccessTest {
         verify(mockPerformanceManager, mockServiceInstance, ServiceInstance.class);
     }
 
+    /**
+     * Test get managed entity by managed object id.
+     */
     @Test
     public void testGetManagedEntityByManagedObjectId() {
         replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
@@ -381,6 +415,12 @@ public class VmwareViJavaAccessTest {
         verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
     }
 
+    /**
+     * Test get virtual machine by managed object id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetVirtualMachineByManagedObjectId() throws Exception {
         replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
@@ -401,6 +441,12 @@ public class VmwareViJavaAccessTest {
         verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
     }
 
+    /**
+     * Test get host system by managed object id.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetHostSystemByManagedObjectId() throws Exception {
         replay(mockServiceInstance, MorUtil.class, ServiceInstance.class);
@@ -421,6 +467,9 @@ public class VmwareViJavaAccessTest {
         verify(mockServiceInstance, MorUtil.class, ServiceInstance.class);
     }
 
+    /**
+     * Test query performance values.
+     */
     @Test
     public void testQueryPerformanceValues() {
         replay(mockPerformanceManager, mockPerfProviderSummary, mockServiceInstance, ServiceInstance.class);
@@ -463,6 +512,9 @@ public class VmwareViJavaAccessTest {
         verify(mockPerformanceManager, mockPerfProviderSummary, mockServiceInstance, ServiceInstance.class);
     }
 
+    /**
+     * Test query cim objects.
+     */
     @Test
     public void testQueryCimObjects() {
         replay(mockPerformanceManager, mockHostSystem, mockHostNetworkSystem, mockCIMClient, CIMClient.class,
@@ -496,11 +548,23 @@ public class VmwareViJavaAccessTest {
                mockServiceInstance, ServiceInstance.class);
     }
 
+    /**
+     * Test search managed entities.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testSearchManagedEntities() throws Exception {
         // noop
     }
 
+    /**
+     * Test get property of cim object.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetPropertyOfCimObject() throws Exception {
 
@@ -528,6 +592,12 @@ public class VmwareViJavaAccessTest {
         Assert.assertNull(vmwareViJavaAccess.getPropertyOfCimObject(obj3, "theKey"));
     }
 
+    /**
+     * Test get major api version.
+     *
+     * @throws Exception
+     *             the exception
+     */
     @Test
     public void testGetMajorApiVersion() throws Exception {
         replay(mockAboutInfo, mockServiceInstance, ServiceInstance.class);

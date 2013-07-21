@@ -50,23 +50,25 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
     @XmlAttribute(name = "rrdRepository")
     private java.lang.String _rrdRepository;
 
-    /**
-     * A grouping of VMware related RRD parms and performance
-     * counter groups
-     */
+    /** A grouping of VMware related RRD parms and performance counter groups. */
     @XmlElement(name = "vmware-cim-collection")
     private java.util.List<org.opennms.netmgt.config.vmware.cim.VmwareCimCollection> _vmwareCimCollectionList;
 
+    /**
+     * Instantiates a new vmware cim datacollection config.
+     */
     public VmwareCimDatacollectionConfig() {
         super();
         this._vmwareCimCollectionList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.cim.VmwareCimCollection>();
     }
 
     /**
+     * Adds the vmware cim collection.
+     *
      * @param vVmwareCimCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCimCollection(
             final org.opennms.netmgt.config.vmware.cim.VmwareCimCollection vVmwareCimCollection)
@@ -75,11 +77,14 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Adds the vmware cim collection.
+     *
      * @param index
+     *            the index
      * @param vVmwareCimCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCimCollection(final int index,
             final org.opennms.netmgt.config.vmware.cim.VmwareCimCollection vVmwareCimCollection)
@@ -101,6 +106,7 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -126,12 +132,12 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
      * Method getVmwareCimCollection.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.cim.VmwareCimCollection at
      *         the given index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.cim.VmwareCimCollection getVmwareCimCollection(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -191,6 +197,7 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all vmware cim collection.
      */
     public void removeAllVmwareCimCollection() {
         this._vmwareCimCollectionList.clear();
@@ -200,6 +207,7 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
      * Method removeVmwareCimCollection.
      *
      * @param vVmwareCimCollection
+     *            the v vmware cim collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeVmwareCimCollection(
@@ -212,6 +220,7 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
      * Method removeVmwareCimCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.cim.VmwareCimCollection removeVmwareCimCollectionAt(final int index) {
@@ -230,11 +239,14 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware cim collection.
+     *
      * @param index
+     *            the index
      * @param vVmwareCimCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware cim collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setVmwareCimCollection(final int index,
             final org.opennms.netmgt.config.vmware.cim.VmwareCimCollection vVmwareCimCollection)
@@ -249,7 +261,10 @@ public class VmwareCimDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware cim collection.
+     *
      * @param vVmwareCimCollectionArray
+     *            the new vmware cim collection
      */
     public void setVmwareCimCollection(
             final org.opennms.netmgt.config.vmware.cim.VmwareCimCollection[] vVmwareCimCollectionArray) {

@@ -35,18 +35,31 @@ import org.opennms.netmgt.model.RrdRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The Class VmwareCimMultiInstanceCollectionResource.
+ */
 public class VmwareCimMultiInstanceCollectionResource extends VmwareCimCollectionResource {
 
-    /**
-     * logging for VMware data collection
-     */
+    /** logging for VMware data collection. */
     private final Logger logger = LoggerFactory.getLogger("OpenNMS.VMware."
             + VmwareCimMultiInstanceCollectionResource.class.getName());
 
+    /** The m_inst. */
     private String m_inst;
 
+    /** The m_name. */
     private String m_name;
 
+    /**
+     * Instantiates a new vmware cim multi instance collection resource.
+     *
+     * @param agent
+     *            the agent
+     * @param instance
+     *            the instance
+     * @param name
+     *            the name
+     */
     public VmwareCimMultiInstanceCollectionResource(final CollectionAgent agent, final String instance,
             final String name) {
         super(agent);
@@ -54,6 +67,9 @@ public class VmwareCimMultiInstanceCollectionResource extends VmwareCimCollectio
         m_name = name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.AbstractCollectionResource#getResourceDir(org.opennms.netmgt.model.RrdRepository)
+     */
     @Override
     public File getResourceDir(RrdRepository repository) {
         final File rrdBaseDir = repository.getRrdBaseDir();
@@ -68,16 +84,25 @@ public class VmwareCimMultiInstanceCollectionResource extends VmwareCimCollectio
         return instDir;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionResource#getResourceTypeName()
+     */
     @Override
     public String getResourceTypeName() {
         return m_name;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.cim.VmwareCimCollectionResource#getInstance()
+     */
     @Override
     public String getInstance() {
         return m_inst;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Node[" + m_agent.getNodeId() + "]/type[" + m_name + "]/instance[" + m_inst + "]";

@@ -41,7 +41,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * The Class DefaultVmwareDatacollectionConfigDao
  * <p/>
  * This class is used for accessing the Vmware Data Collection configuration
- * file
+ * file.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
@@ -50,7 +50,7 @@ public class VmwareDatacollectionConfigDaoJaxb extends
         VmwareDatacollectionConfigDao {
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public VmwareDatacollectionConfigDaoJaxb() {
         super(VmwareDatacollectionConfig.class, "Vmware Data Collection Configuration");

@@ -30,22 +30,40 @@ package org.opennms.netmgt.collectd.vmware.vijava;
 
 import org.opennms.netmgt.collectd.CollectionAgent;
 
+/**
+ * The Class VmwareSingleInstanceCollectionResource.
+ */
 public class VmwareSingleInstanceCollectionResource extends VmwareCollectionResource {
 
+    /**
+     * Instantiates a new vmware single instance collection resource.
+     *
+     * @param agent
+     *            the agent
+     */
     public VmwareSingleInstanceCollectionResource(final CollectionAgent agent) {
         super(agent);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.vijava.VmwareCollectionResource#getResourceTypeName()
+     */
     @Override
     public String getResourceTypeName() {
         return "node";
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.collectd.vmware.vijava.VmwareCollectionResource#getInstance()
+     */
     @Override
     public String getInstance() {
         return null;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return "Node[" + m_agent.getNodeId() + "]/type[node]";

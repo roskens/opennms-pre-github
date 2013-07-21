@@ -38,27 +38,52 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.CollectionSet;
 import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
+/**
+ * The Class VmwareCimCollectionSet.
+ */
 public class VmwareCimCollectionSet implements CollectionSet {
+
+    /** The m_status. */
     private int m_status;
 
+    /** The m_collection resources. */
     private List<VmwareCimCollectionResource> m_collectionResources;
 
+    /** The m_timestamp. */
     private Date m_timestamp;
 
+    /**
+     * Instantiates a new vmware cim collection set.
+     *
+     * @param agent
+     *            the agent
+     */
     public VmwareCimCollectionSet(final CollectionAgent agent) {
         m_status = ServiceCollector.COLLECTION_FAILED;
         m_collectionResources = new ArrayList<VmwareCimCollectionResource>();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getStatus()
+     */
     @Override
     public int getStatus() {
         return m_status;
     }
 
+    /**
+     * Sets the status.
+     *
+     * @param status
+     *            the new status
+     */
     public void setStatus(final int status) {
         m_status = status;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#visit(org.opennms.netmgt.config.collector.CollectionSetVisitor)
+     */
     @Override
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitCollectionSet(this);
@@ -70,20 +95,37 @@ public class VmwareCimCollectionSet implements CollectionSet {
         visitor.completeCollectionSet(this);
     }
 
+    /**
+     * Gets the resources.
+     *
+     * @return the resources
+     */
     public List<VmwareCimCollectionResource> getResources() {
         return m_collectionResources;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#ignorePersist()
+     */
     @Override
     public boolean ignorePersist() {
         return false;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionSet#getCollectionTimestamp()
+     */
     @Override
     public Date getCollectionTimestamp() {
         return m_timestamp;
     }
 
+    /**
+     * Sets the collection timestamp.
+     *
+     * @param timestamp
+     *            the new collection timestamp
+     */
     public void setCollectionTimestamp(Date timestamp) {
         this.m_timestamp = timestamp;
     }

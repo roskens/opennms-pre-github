@@ -37,46 +37,50 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
- * RRD parms
+ * RRD parms.
  */
 @XmlRootElement(name = "rrd")
 @XmlAccessorType(XmlAccessType.FIELD)
 @SuppressWarnings("all")
 public class Rrd implements java.io.Serializable {
 
-    /**
-     * step size for the RRD
-     */
+    /** step size for the RRD. */
     @XmlAttribute(name = "step")
     private Integer _step = null;
 
-    /**
-     * Round Robin Archive definitions
-     */
+    /** Round Robin Archive definitions. */
     @XmlElement(name = "rra")
     private java.util.List<java.lang.String> _rraList;
 
+    /**
+     * Instantiates a new rrd.
+     */
     public Rrd() {
         super();
         this._rraList = new java.util.ArrayList<java.lang.String>();
     }
 
     /**
+     * Adds the rra.
+     *
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRra(final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(vRra);
     }
 
     /**
+     * Adds the rra.
+     *
      * @param index
+     *            the index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         this._rraList.add(index, vRra);
@@ -96,6 +100,7 @@ public class Rrd implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -111,10 +116,10 @@ public class Rrd implements java.io.Serializable {
      * Method getRra.
      *
      * @param index
+     *            the index
      * @return the value of the java.lang.String at the given index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public java.lang.String getRra(final int index) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -183,6 +188,7 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Removes the all rra.
      */
     public void removeAllRra() {
         this._rraList.clear();
@@ -192,6 +198,7 @@ public class Rrd implements java.io.Serializable {
      * Method removeRra.
      *
      * @param vRra
+     *            the v rra
      * @return true if the object was removed from the collection.
      */
     public boolean removeRra(final java.lang.String vRra) {
@@ -203,6 +210,7 @@ public class Rrd implements java.io.Serializable {
      * Method removeRraAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public java.lang.String removeRraAt(final int index) {
@@ -211,11 +219,14 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param index
+     *            the index
      * @param vRra
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v rra
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setRra(final int index, final java.lang.String vRra) throws java.lang.IndexOutOfBoundsException {
         // check bounds for index
@@ -228,7 +239,10 @@ public class Rrd implements java.io.Serializable {
     }
 
     /**
+     * Sets the rra.
+     *
      * @param vRraArray
+     *            the new rra
      */
     public void setRra(final java.lang.String[] vRraArray) {
         // -- copy array

@@ -67,15 +67,39 @@ import com.vmware.vim25.mo.ServiceInstance;
 import com.vmware.vim25.mo.VirtualMachine;
 import com.vmware.vim25.mo.util.MorUtil;
 
+/**
+ * The Class VmwareConfigBuilder.
+ */
 public class VmwareConfigBuilder {
 
+    /**
+     * The Class VMwareConfigMetric.
+     */
     private static class VMwareConfigMetric implements Comparable<VMwareConfigMetric> {
+
+        /** The group name. */
         private String humanReadableName, aliasName, groupName;
 
+        /** The perf counter info. */
         private PerfCounterInfo perfCounterInfo;
 
+        /** The multi instance. */
         private boolean multiInstance = false;
 
+        /**
+         * Instantiates a new v mware config metric.
+         *
+         * @param perfCounterInfo
+         *            the perf counter info
+         * @param humanReadableName
+         *            the human readable name
+         * @param aliasName
+         *            the alias name
+         * @param multiInstance
+         *            the multi instance
+         * @param groupName
+         *            the group name
+         */
         public VMwareConfigMetric(PerfCounterInfo perfCounterInfo, String humanReadableName, String aliasName,
                 boolean multiInstance, String groupName) {
             this.perfCounterInfo = perfCounterInfo;
@@ -85,10 +109,22 @@ public class VmwareConfigBuilder {
             this.groupName = groupName;
         }
 
+        /**
+         * Gets the datacollection entry.
+         *
+         * @return the datacollection entry
+         */
         public String getDatacollectionEntry() {
             return "        <attrib name=\"" + humanReadableName + "\" alias=\"" + aliasName + "\" type=\"Gauge\"/>\n";
         }
 
+        /**
+         * Gets the graph definition.
+         *
+         * @param apiVersion
+         *            the api version
+         * @return the graph definition
+         */
         public String getGraphDefinition(String apiVersion) {
             String resourceType = (multiInstance ? "vmware" + apiVersion + groupName : "nodeSnmp");
 
@@ -111,64 +147,127 @@ public class VmwareConfigBuilder {
             return def;
         }
 
+        /**
+         * Gets the include.
+         *
+         * @param apiVersion
+         *            the api version
+         * @return the include
+         */
         public String getInclude(String apiVersion) {
             return "vmware" + apiVersion + "." + getAliasName() + ", \\\n";
         }
 
+        /**
+         * Gets the human readable name.
+         *
+         * @return the human readable name
+         */
         public String getHumanReadableName() {
             return humanReadableName;
         }
 
+        /**
+         * Gets the alias name.
+         *
+         * @return the alias name
+         */
         public String getAliasName() {
             return aliasName;
         }
 
+        /**
+         * Gets the perf counter info.
+         *
+         * @return the perf counter info
+         */
         public PerfCounterInfo getPerfCounterInfo() {
             return perfCounterInfo;
         }
 
+        /**
+         * Checks if is multi instance.
+         *
+         * @return true, if is multi instance
+         */
         public boolean isMultiInstance() {
             return multiInstance;
         }
 
+        /* (non-Javadoc)
+         * @see java.lang.Comparable#compareTo(java.lang.Object)
+         */
         @Override
         public int compareTo(VMwareConfigMetric o) {
             return getAliasName().compareTo(o.getAliasName());
         }
     }
 
+    /** The password. */
     private String hostname, username, password;
 
+    /** The service instance. */
     private ServiceInstance serviceInstance;
 
+    /** The performance manager. */
     private PerformanceManager performanceManager;
 
+    /** The collections. */
     private Map<String, Map<String, TreeSet<VMwareConfigMetric>>> collections = new HashMap<String, Map<String, TreeSet<VMwareConfigMetric>>>();
 
+    /** The perf counter info map. */
     private Map<Integer, PerfCounterInfo> perfCounterInfoMap = new HashMap<Integer, PerfCounterInfo>();
 
+    /** The api version. */
     private String versionInformation = "", apiVersion = "";
 
+    /**
+     * The Class TrustAllManager.
+     */
     private static class TrustAllManager implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager {
+
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#getAcceptedIssuers()
+         */
         @Override
         public java.security.cert.X509Certificate[] getAcceptedIssuers() {
             return null;
         }
 
+        /**
+         * Checks if is server trusted.
+         *
+         * @param certs
+         *            the certs
+         * @return true, if is server trusted
+         */
         public boolean isServerTrusted(java.security.cert.X509Certificate[] certs) {
             return true;
         }
 
+        /**
+         * Checks if is client trusted.
+         *
+         * @param certs
+         *            the certs
+         * @return true, if is client trusted
+         */
         public boolean isClientTrusted(java.security.cert.X509Certificate[] certs) {
             return true;
         }
 
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkServerTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType)
                 throws java.security.cert.CertificateException {
             return;
         }
 
+        /* (non-Javadoc)
+         * @see javax.net.ssl.X509TrustManager#checkClientTrusted(java.security.cert.X509Certificate[], java.lang.String)
+         */
         @Override
         public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType)
                 throws java.security.cert.CertificateException {
@@ -176,21 +275,52 @@ public class VmwareConfigBuilder {
         }
     }
 
+    /**
+     * Instantiates a new vmware config builder.
+     *
+     * @param hostname
+     *            the hostname
+     * @param username
+     *            the username
+     * @param password
+     *            the password
+     */
     public VmwareConfigBuilder(String hostname, String username, String password) {
         this.hostname = hostname;
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Gets the human readable name.
+     *
+     * @param perfCounterInfo
+     *            the perf counter info
+     * @return the human readable name
+     */
     private String getHumanReadableName(PerfCounterInfo perfCounterInfo) {
         return perfCounterInfo.getGroupInfo().getKey() + "." + perfCounterInfo.getNameInfo().getKey() + "."
                 + perfCounterInfo.getRollupType().toString();
     }
 
+    /**
+     * Normalize name.
+     *
+     * @param name
+     *            the name
+     * @return the string
+     */
     private String normalizeName(String name) {
         return name.substring(0, 1).toUpperCase() + name.substring(1);
     }
 
+    /**
+     * Normalize group name.
+     *
+     * @param groupName
+     *            the group name
+     * @return the string
+     */
     private String normalizeGroupName(String groupName) {
         String modifiedGroupName = groupName;
         String[] groupChunks = { "sys", "rescpu", "cpu", "net", "disk", "mem", "managementAgent", "virtualDisk",
@@ -204,6 +334,15 @@ public class VmwareConfigBuilder {
         return modifiedGroupName;
     }
 
+    /**
+     * Condense name.
+     *
+     * @param text
+     *            the text
+     * @param chunk
+     *            the chunk
+     * @return the string
+     */
     private String condenseName(String text, String chunk) {
         String ignoreCaseChunk = "[" + chunk.substring(0, 1) + chunk.substring(0, 1).toUpperCase() + "]"
                 + chunk.substring(1);
@@ -211,6 +350,13 @@ public class VmwareConfigBuilder {
         return text.replaceAll(ignoreCaseChunk, replacement);
     }
 
+    /**
+     * Gets the alias name.
+     *
+     * @param perfCounterInfo
+     *            the perf counter info
+     * @return the alias name
+     */
     private String getAliasName(PerfCounterInfo perfCounterInfo) {
 
         String group = perfCounterInfo.getGroupInfo().getKey();
@@ -249,6 +395,16 @@ public class VmwareConfigBuilder {
         return full;
     }
 
+    /**
+     * Lookup metrics.
+     *
+     * @param collectionName
+     *            the collection name
+     * @param managedObjectId
+     *            the managed object id
+     * @throws Exception
+     *             the exception
+     */
     private void lookupMetrics(String collectionName, String managedObjectId) throws Exception {
         ManagedObjectReference managedObjectReference = new ManagedObjectReference();
 
@@ -324,6 +480,14 @@ public class VmwareConfigBuilder {
         collections.put(collectionName, groupMap);
     }
 
+    /**
+     * Generate data.
+     *
+     * @param rrdRepository
+     *            the rrd repository
+     * @throws Exception
+     *             the exception
+     */
     private void generateData(String rrdRepository) throws Exception {
         serviceInstance = new ServiceInstance(new URL("https://" + hostname + "/sdk"), username, password);
 
@@ -395,6 +559,9 @@ public class VmwareConfigBuilder {
         saveVMwareGraphProperties();
     }
 
+    /**
+     * Save v mware graph properties.
+     */
     private void saveVMwareGraphProperties() {
         StringBuffer buffer = new StringBuffer();
         StringBuffer include = new StringBuffer();
@@ -420,6 +587,14 @@ public class VmwareConfigBuilder {
                  "reports=" + include.toString() + "\n\n" + buffer.toString());
     }
 
+    /**
+     * Save file.
+     *
+     * @param filename
+     *            the filename
+     * @param contents
+     *            the contents
+     */
     private void saveFile(String filename, String contents) {
         System.out.println("Saving file '" + filename + "'...");
         try {
@@ -431,6 +606,9 @@ public class VmwareConfigBuilder {
         }
     }
 
+    /**
+     * Save v mware datacollection include.
+     */
     private void saveVMwareDatacollectionInclude() {
         StringBuffer buffer = new StringBuffer();
 
@@ -465,6 +643,12 @@ public class VmwareConfigBuilder {
         saveFile("vmware" + apiVersion + ".xml", buffer.toString());
     }
 
+    /**
+     * Save v mware datacollection config.
+     *
+     * @param rrdRepository
+     *            the rrd repository
+     */
     private void saveVMwareDatacollectionConfig(String rrdRepository) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<?xml version=\"1.0\"?>\n");
@@ -509,6 +693,18 @@ public class VmwareConfigBuilder {
         saveFile("vmware" + apiVersion + "-datacollection-config.xml", buffer.toString());
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     * @param error
+     *            the error
+     * @param e
+     *            the e
+     */
     private static void usage(final Options options, final CommandLine cmd, final String error, final Exception e) {
         final HelpFormatter formatter = new HelpFormatter();
         final PrintWriter pw = new PrintWriter(System.out);
@@ -526,10 +722,26 @@ public class VmwareConfigBuilder {
         pw.close();
     }
 
+    /**
+     * Usage.
+     *
+     * @param options
+     *            the options
+     * @param cmd
+     *            the cmd
+     */
     private static void usage(final Options options, final CommandLine cmd) {
         usage(options, cmd, null, null);
     }
 
+    /**
+     * The main method.
+     *
+     * @param args
+     *            the arguments
+     * @throws ParseException
+     *             the parse exception
+     */
     public static void main(String[] args) throws ParseException {
         String hostname = null;
         String username = null;

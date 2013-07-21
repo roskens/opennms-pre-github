@@ -39,13 +39,14 @@ import org.opennms.netmgt.dao.VmwareConfigDao;
 /**
  * The Class VmwareConfigDaoJaxb
  * <p/>
- * This class is used for accessing the Vmware Account configuration file
+ * This class is used for accessing the Vmware Account configuration file.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareConfigDaoJaxb extends AbstractJaxbConfigDao<VmwareConfig, VmwareConfig> implements VmwareConfigDao {
+
     /**
-     * Default constructor
+     * Default constructor.
      */
     public VmwareConfigDaoJaxb() {
         super(VmwareConfig.class, "Vmware Configuration");

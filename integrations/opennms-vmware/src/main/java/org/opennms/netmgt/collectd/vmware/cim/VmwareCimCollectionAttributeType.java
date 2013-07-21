@@ -34,16 +34,33 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.Persister;
 import org.opennms.netmgt.config.vmware.cim.Attrib;
 
+/**
+ * The Class VmwareCimCollectionAttributeType.
+ */
 public class VmwareCimCollectionAttributeType implements CollectionAttributeType {
+
+    /** The m_attribute. */
     private Attrib m_attribute;
 
+    /** The m_group type. */
     private AttributeGroupType m_groupType;
 
+    /**
+     * Instantiates a new vmware cim collection attribute type.
+     *
+     * @param attribute
+     *            the attribute
+     * @param groupType
+     *            the group type
+     */
     public VmwareCimCollectionAttributeType(final Attrib attribute, final AttributeGroupType groupType) {
         m_groupType = groupType;
         m_attribute = attribute;
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.CollectionAttributeType#getGroupType()
+     */
     @Override
     public AttributeGroupType getGroupType() {
         return m_groupType;
@@ -61,11 +78,17 @@ public class VmwareCimCollectionAttributeType implements CollectionAttributeType
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.AttributeDefinition#getName()
+     */
     @Override
     public String getName() {
         return m_attribute.getAlias();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.config.collector.AttributeDefinition#getType()
+     */
     @Override
     public String getType() {
         return m_attribute.getType();

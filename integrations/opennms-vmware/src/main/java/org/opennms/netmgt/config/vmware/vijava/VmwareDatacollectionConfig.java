@@ -50,23 +50,25 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     @XmlAttribute(name = "rrdRepository")
     private java.lang.String _rrdRepository;
 
-    /**
-     * A grouping of VMware related RRD parms and performance
-     * counter groups
-     */
+    /** A grouping of VMware related RRD parms and performance counter groups. */
     @XmlElement(name = "vmware-collection")
     private java.util.List<org.opennms.netmgt.config.vmware.vijava.VmwareCollection> _vmwareCollectionList;
 
+    /**
+     * Instantiates a new vmware datacollection config.
+     */
     public VmwareDatacollectionConfig() {
         super();
         this._vmwareCollectionList = new java.util.ArrayList<org.opennms.netmgt.config.vmware.vijava.VmwareCollection>();
     }
 
     /**
+     * Adds the vmware collection.
+     *
      * @param vVmwareCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCollection(final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
             throws java.lang.IndexOutOfBoundsException {
@@ -74,11 +76,14 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Adds the vmware collection.
+     *
      * @param index
+     *            the index
      * @param vVmwareCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void addVmwareCollection(final int index,
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
@@ -100,6 +105,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * Overrides the java.lang.Object.equals method.
      *
      * @param obj
+     *            the obj
      * @return true if the objects are equal.
      */
     @Override()
@@ -125,12 +131,12 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * Method getVmwareCollection.
      *
      * @param index
+     *            the index
      * @return the value of the
      *         org.opennms.netmgt.config.vmware.vijava.VmwareCollection at
      *         the given index
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public org.opennms.netmgt.config.vmware.vijava.VmwareCollection getVmwareCollection(final int index)
             throws java.lang.IndexOutOfBoundsException {
@@ -190,6 +196,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Removes the all vmware collection.
      */
     public void removeAllVmwareCollection() {
         this._vmwareCollectionList.clear();
@@ -199,6 +206,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * Method removeVmwareCollection.
      *
      * @param vVmwareCollection
+     *            the v vmware collection
      * @return true if the object was removed from the collection.
      */
     public boolean removeVmwareCollection(
@@ -211,6 +219,7 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
      * Method removeVmwareCollectionAt.
      *
      * @param index
+     *            the index
      * @return the element removed from the collection
      */
     public org.opennms.netmgt.config.vmware.vijava.VmwareCollection removeVmwareCollectionAt(final int index) {
@@ -229,11 +238,14 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware collection.
+     *
      * @param index
+     *            the index
      * @param vVmwareCollection
-     * @throws java.lang.IndexOutOfBoundsException
-     *             if the index
-     *             given is outside the bounds of the collection
+     *            the v vmware collection
+     * @throws IndexOutOfBoundsException
+     *             the index out of bounds exception
      */
     public void setVmwareCollection(final int index,
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection vVmwareCollection)
@@ -248,7 +260,10 @@ public class VmwareDatacollectionConfig implements java.io.Serializable {
     }
 
     /**
+     * Sets the vmware collection.
+     *
      * @param vVmwareCollectionArray
+     *            the new vmware collection
      */
     public void setVmwareCollection(
             final org.opennms.netmgt.config.vmware.vijava.VmwareCollection[] vVmwareCollectionArray) {

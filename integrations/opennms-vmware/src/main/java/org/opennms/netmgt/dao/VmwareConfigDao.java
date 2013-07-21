@@ -37,7 +37,7 @@ import org.opennms.netmgt.config.vmware.VmwareServer;
  * The Interface VmwareConfigDao
  * <p/>
  * This class is used for defining the methods for accessing the configuration
- * data for the Vmware Accounts
+ * data for the Vmware Accounts.
  *
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */

@@ -88,55 +88,66 @@ import com.vmware.vim25.mo.VirtualMachine;
  * @author Christian Pape <Christian.Pape@informatik.hs-fulda.de>
  */
 public class VmwareRequisitionUrlConnection extends GenericURLConnection {
-    /**
-     * the logger
-     */
+
+    /** the logger. */
     private Logger logger = LoggerFactory.getLogger(VmwareRequisitionUrlConnection.class);
 
+    /** The Constant VMWARE_HOSTSYSTEM_SERVICES. */
     private static final String VMWARE_HOSTSYSTEM_SERVICES = "hostSystemServices";
 
+    /** The Constant VMWARE_VIRTUALMACHINE_SERVICES. */
     private static final String VMWARE_VIRTUALMACHINE_SERVICES = "virtualMachineServices";
 
+    /** The m_host system services. */
     private String[] m_hostSystemServices;
 
+    /** The m_virtual machine services. */
     private String[] m_virtualMachineServices;
 
+    /** The m_hostname. */
     private String m_hostname = null;
 
+    /** The m_username. */
     private String m_username = null;
 
+    /** The m_password. */
     private String m_password = null;
 
+    /** The m_foreign source. */
     private String m_foreignSource = null;
 
+    /** The m_import vm powered on. */
     private boolean m_importVMPoweredOn = true;
 
+    /** The m_import vm powered off. */
     private boolean m_importVMPoweredOff = false;
 
+    /** The m_import vm suspended. */
     private boolean m_importVMSuspended = false;
 
+    /** The m_import host powered on. */
     private boolean m_importHostPoweredOn = true;
 
+    /** The m_import host powered off. */
     private boolean m_importHostPoweredOff = false;
 
+    /** The m_import host stand by. */
     private boolean m_importHostStandBy = false;
 
+    /** The m_import host unknown. */
     private boolean m_importHostUnknown = false;
 
     /*
      * Host system managedObjectId to name mapping
      */
 
+    /** The m_host system map. */
     private Map<String, String> m_hostSystemMap = new HashMap<String, String>();
 
-    /**
-     * the query args
-     */
+    /** the query args. */
     private Map<String, String> m_args = null;
 
-    /**
-     * requisition object
-     */
+    /** requisition object. */
     private Requisition m_requisition = null;
 
     /**
@@ -145,7 +156,9 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @param url
      *            the URL to use
      * @throws MalformedURLException
+     *             the malformed url exception
      * @throws RemoteException
+     *             the remote exception
      */
     public VmwareRequisitionUrlConnection(URL url) throws MalformedURLException, RemoteException {
         super(url);
@@ -199,8 +212,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     }
 
     /**
-     * Determine services for host systems to be provisioned from URL
+     * Determine services for host systems to be provisioned from URL.
      *
+     * @param apiVersion
+     *            the api version
      * @return a String[] of opennms service names
      */
     private String[] getHostSystemServices(int apiVersion) {
@@ -213,8 +228,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
     }
 
     /**
-     * Determine services for virtual machines to be provisioned from URL
+     * Determine services for virtual machines to be provisioned from URL.
      *
+     * @param apiVersion
+     *            the api version
      * @return a String[] of opennms service names
      */
     private String[] getVirtualMachineServices(int apiVersion) {
@@ -245,12 +262,26 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.net.URLConnection#connect()
+     */
     @Override
     public void connect() throws IOException {
         // To change body of implemented methods use File | Settings | File
         // Templates.
     }
 
+    /**
+     * Reachable cim service.
+     *
+     * @param vmwareViJavaAccess
+     *            the vmware vi java access
+     * @param hostSystem
+     *            the host system
+     * @param ipAddress
+     *            the ip address
+     * @return true, if successful
+     */
     private boolean reachableCimService(VmwareViJavaAccess vmwareViJavaAccess, HostSystem hostSystem, String ipAddress) {
         if (!vmwareViJavaAccess.setTimeout(3000)) {
             logger.warn("Error setting connection timeout");
@@ -275,6 +306,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *            the set of Ip addresses
      * @param managedEntity
      *            the managed entity
+     * @param apiVersion
+     *            the api version
+     * @param vmwareViJavaAccess
+     *            the vmware vi java access
      * @return the generated requisition node
      */
     private RequisitionNode createRequisitionNode(Set<String> ipAddresses, ManagedEntity managedEntity, int apiVersion,
@@ -696,7 +731,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *
      * @param vmwareViJavaAccess
      *            the access/connection to use
+     * @param apiVersion
+     *            the api version
      * @throws RemoteException
+     *             the remote exception
      */
     private void iterateHostSystems(VmwareViJavaAccess vmwareViJavaAccess, int apiVersion) throws RemoteException {
         ManagedEntity[] hostSystems;
@@ -738,7 +776,10 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *
      * @param vmwareViJavaAccess
      *            the access/connection to use
+     * @param apiVersion
+     *            the api version
      * @throws RemoteException
+     *             the remote exception
      */
     private void iterateVirtualMachines(VmwareViJavaAccess vmwareViJavaAccess, int apiVersion) throws RemoteException {
         ManagedEntity[] virtualMachines;
@@ -802,6 +843,7 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      *            the managed entity to check
      * @return true if present and value is equal, false otherwise
      * @throws RemoteException
+     *             the remote exception
      */
     private boolean checkForAttribute(ManagedEntity managedEntity) throws RemoteException {
         String key = m_args.get("key");
@@ -868,7 +910,8 @@ public class VmwareRequisitionUrlConnection extends GenericURLConnection {
      * @param r
      *            the requisition object
      * @return a String of XML encoding the Requisition class
-     * @throws javax.xml.bind.JAXBException
+     * @throws JAXBException
+     *             the jAXB exception
      */
     private String jaxBMarshal(Requisition r) throws JAXBException {
         return JaxbUtils.marshal(r);
