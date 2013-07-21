@@ -25,16 +25,34 @@ import javax.servlet.ServletContextListener;
 import org.apache.karaf.main.Main;
 import org.osgi.framework.BundleContext;
 
+/**
+ * The listener interface for receiving webApp events.
+ * The class that is interested in processing a webApp
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addWebAppListener<code> method. When
+ * the webApp event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see WebAppEvent
+ */
 public class WebAppListener implements ServletContextListener {
 
+    /** The main. */
     private Main main;
 
+    /** The m_servlet context. */
     private ServletContext m_servletContext;
 
+    /** The m_framework. */
     private BundleContext m_framework;
 
+    /** The m_bridge. */
     private OnmsOSGiBridgeActivator m_bridge = new OnmsOSGiBridgeActivator();
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+     */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
@@ -95,6 +113,9 @@ public class WebAppListener implements ServletContextListener {
         }
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+     */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         try {

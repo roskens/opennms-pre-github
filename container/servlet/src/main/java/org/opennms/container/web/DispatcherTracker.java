@@ -25,23 +25,50 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
 
+/**
+ * The Class DispatcherTracker.
+ */
 public final class DispatcherTracker extends ServiceTracker<Object, Object> {
+
+    /** The Constant DEFAULT_FILTER. */
     static final String DEFAULT_FILTER = "(http.felix.dispatcher=*)";
 
+    /** The config. */
     private final FilterConfig config;
 
+    /** The dispatcher. */
     private javax.servlet.Filter dispatcher;
 
+    /**
+     * Instantiates a new dispatcher tracker.
+     *
+     * @param context
+     *            the context
+     * @param filter
+     *            the filter
+     * @param config
+     *            the config
+     * @throws Exception
+     *             the exception
+     */
     public DispatcherTracker(final BundleContext context, final String filter, final FilterConfig config)
             throws Exception {
         super(context, createFilter(context, filter, config.getServletContext()), null);
         this.config = config;
     }
 
+    /**
+     * Gets the dispatcher.
+     *
+     * @return the dispatcher
+     */
     public javax.servlet.Filter getDispatcher() {
         return this.dispatcher;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.util.tracker.ServiceTracker#addingService(org.osgi.framework.ServiceReference)
+     */
     @Override
     public Object addingService(ServiceReference<Object> ref) {
         Object service = super.addingService(ref);
@@ -52,6 +79,9 @@ public final class DispatcherTracker extends ServiceTracker<Object, Object> {
         return service;
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.util.tracker.ServiceTracker#removedService(org.osgi.framework.ServiceReference, java.lang.Object)
+     */
     @Override
     public void removedService(ServiceReference<Object> ref, Object service) {
         if (service instanceof javax.servlet.Filter) {
@@ -61,16 +91,33 @@ public final class DispatcherTracker extends ServiceTracker<Object, Object> {
         super.removedService(ref, service);
     }
 
+    /**
+     * Log.
+     *
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause
+     */
     private void log(String message, Throwable cause) {
         this.config.getServletContext().log(message, cause);
     }
 
+    /**
+     * Sets the dispatcher.
+     *
+     * @param dispatcher
+     *            the new dispatcher
+     */
     private void setDispatcher(javax.servlet.Filter dispatcher) {
         destroyDispatcher();
         this.dispatcher = dispatcher;
         initDispatcher();
     }
 
+    /**
+     * Destroy dispatcher.
+     */
     private void destroyDispatcher() {
         if (this.dispatcher == null) {
             return;
@@ -80,6 +127,9 @@ public final class DispatcherTracker extends ServiceTracker<Object, Object> {
         this.dispatcher = null;
     }
 
+    /**
+     * Inits the dispatcher.
+     */
     private void initDispatcher() {
         if (this.dispatcher == null) {
             return;
@@ -92,6 +142,19 @@ public final class DispatcherTracker extends ServiceTracker<Object, Object> {
         }
     }
 
+    /**
+     * Creates the filter.
+     *
+     * @param context
+     *            the context
+     * @param filter
+     *            the filter
+     * @param servletContext
+     *            the servlet context
+     * @return the filter
+     * @throws Exception
+     *             the exception
+     */
     private static Filter createFilter(BundleContext context, String filter, ServletContext servletContext)
             throws Exception {
         StringBuffer str = new StringBuffer();

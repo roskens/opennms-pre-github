@@ -28,16 +28,28 @@ import javax.servlet.ServletResponse;
 
 import org.osgi.framework.BundleContext;
 
+/**
+ * The Class ProxyFilter.
+ */
 public final class ProxyFilter implements Filter {
+
+    /** The m_dispatcher tracker. */
     private DispatcherTracker m_dispatcherTracker;
 
+    /** The m_filter config. */
     private FilterConfig m_filterConfig;
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#destroy()
+     */
     @Override
     public void destroy() {
         this.m_dispatcherTracker.close();
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+     */
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
         m_filterConfig = filterConfig;
@@ -53,6 +65,9 @@ public final class ProxyFilter implements Filter {
         this.m_dispatcherTracker.open();
     }
 
+    /* (non-Javadoc)
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
             throws IOException, ServletException {
@@ -64,6 +79,15 @@ public final class ProxyFilter implements Filter {
         }
     }
 
+    /**
+     * Gets the bundle context.
+     *
+     * @param servletContext
+     *            the servlet context
+     * @return the bundle context
+     * @throws ServletException
+     *             the servlet exception
+     */
     private BundleContext getBundleContext(final ServletContext servletContext) throws ServletException {
         final Object context = servletContext.getAttribute(BundleContext.class.getName());
         if (context instanceof BundleContext) {

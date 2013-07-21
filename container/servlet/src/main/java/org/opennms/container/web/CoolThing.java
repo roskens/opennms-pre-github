@@ -28,6 +28,13 @@
 
 package org.opennms.container.web;
 
+/**
+ * The Interface CoolThing.
+ */
 public interface CoolThing {
+
+    /**
+     * Do a cool thing.
+     */
     public void doACoolThing();
 }

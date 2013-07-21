@@ -28,8 +28,14 @@
 
 package org.opennms.container.web;
 
+/**
+ * The Class CoolThingImpl.
+ */
 public class CoolThingImpl implements CoolThing {
 
+    /* (non-Javadoc)
+     * @see org.opennms.container.web.CoolThing#doACoolThing()
+     */
     @Override
     public void doACoolThing() {
         System.err.println("Man, isn't this cool?");

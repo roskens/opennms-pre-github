@@ -54,22 +54,33 @@ import org.osgi.framework.ServiceRegistration;
  */
 public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListener, BundleActivator {
 
+    /** The m_bundle context. */
     private BundleContext m_bundleContext;
 
+    /** The Constant ONMS_SOURCE. */
     private static final String ONMS_SOURCE = "onms";
 
+    /** The Constant OSGI_SOURCE. */
     private static final String OSGI_SOURCE = "osgi";
 
+    /** The Constant REGISTRATION_EXPORT. */
     private static final String REGISTRATION_EXPORT = "registration.export";
 
+    /** The Constant REGISTRATION_SOURCE. */
     private static final String REGISTRATION_SOURCE = "registration.source";
 
+    /** The m_registry. */
     private ServiceRegistry m_registry = DefaultServiceRegistry.INSTANCE;
 
+    /** The m_onms registration2osgi registration map. */
     private Map<Registration, ServiceRegistration<?>> m_onmsRegistration2osgiRegistrationMap = new HashMap<Registration, ServiceRegistration<?>>();
 
+    /** The m_osgi reference2onms registration map. */
     private Map<ServiceReference<?>, Registration> m_osgiReference2onmsRegistrationMap = new HashMap<ServiceReference<?>, Registration>();
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
+     */
     @Override
     public void start(BundleContext bundleContext) throws InvalidSyntaxException {
         m_bundleContext = bundleContext;
@@ -94,6 +105,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
     @Override
     public void stop(BundleContext bundleContext) {
         m_bundleContext = null;
@@ -101,6 +115,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         // stops
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.RegistrationHook#registrationAdded(org.opennms.core.soa.Registration)
+     */
     @Override
     public void registrationAdded(Registration onmsRegistration) {
 
@@ -127,6 +144,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         m_onmsRegistration2osgiRegistrationMap.put(onmsRegistration, osgiRegistration);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.core.soa.RegistrationHook#registrationRemoved(org.opennms.core.soa.Registration)
+     */
     @Override
     public void registrationRemoved(Registration onmsRegistration) {
         ServiceRegistration<?> osgiRegistration = m_onmsRegistration2osgiRegistrationMap.remove(onmsRegistration);
@@ -135,6 +155,9 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         osgiRegistration.unregister();
     }
 
+    /* (non-Javadoc)
+     * @see org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.ServiceEvent)
+     */
     @Override
     public void serviceChanged(ServiceEvent serviceEvent) {
         switch (serviceEvent.getType()) {
@@ -153,6 +176,12 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         }
     }
 
+    /**
+     * Register with onms registry.
+     *
+     * @param reference
+     *            the reference
+     */
     private void registerWithOnmsRegistry(ServiceReference<?> reference) {
         System.err.println("registerWithOnmsRegistry: " + reference.getBundle());
 
@@ -208,14 +237,37 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
         }
     }
 
+    /**
+     * Checks if is onms exported.
+     *
+     * @param reference
+     *            the reference
+     * @return true, if is onms exported
+     */
     private boolean isOnmsExported(ServiceReference<?> reference) {
         return Arrays.asList(reference.getPropertyKeys()).contains(REGISTRATION_EXPORT);
     }
 
+    /**
+     * Checks if is onms source.
+     *
+     * @param reference
+     *            the reference
+     * @return true, if is onms source
+     */
     private boolean isOnmsSource(ServiceReference<?> reference) {
         return ONMS_SOURCE.equals(reference.getProperty(REGISTRATION_SOURCE));
     }
 
+    /**
+     * Find classes.
+     *
+     * @param classNames
+     *            the class names
+     * @return the class[]
+     * @throws ClassNotFoundException
+     *             the class not found exception
+     */
     private Class<?>[] findClasses(String[] classNames) throws ClassNotFoundException {
         Class<?>[] providerInterfaces = new Class<?>[classNames.length];
 
@@ -227,6 +279,12 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
 
     }
 
+    /**
+     * Unregister with onms registry.
+     *
+     * @param reference
+     *            the reference
+     */
     private void unregisterWithOnmsRegistry(ServiceReference<?> reference) {
 
         Registration onmsRegistration = m_osgiReference2onmsRegistrationMap.remove(reference);
@@ -238,6 +296,11 @@ public class OnmsOSGiBridgeActivator implements RegistrationHook, ServiceListene
 
     }
 
+    /**
+     * Gets the registry.
+     *
+     * @return the registry
+     */
     private ServiceRegistry getRegistry() {
         return m_registry;
     }
