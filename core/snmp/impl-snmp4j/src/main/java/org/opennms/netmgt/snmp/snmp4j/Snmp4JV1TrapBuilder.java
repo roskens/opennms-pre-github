@@ -36,36 +36,65 @@ import org.snmp4j.PDUv1;
 import org.snmp4j.smi.IpAddress;
 import org.snmp4j.smi.OID;
 
+/**
+ * The Class Snmp4JV1TrapBuilder.
+ */
 public class Snmp4JV1TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV1TrapBuilder {
 
+    /**
+     * Instantiates a new snmp4 j v1 trap builder.
+     *
+     * @param strategy
+     *            the strategy
+     */
     protected Snmp4JV1TrapBuilder(Snmp4JStrategy strategy) {
         super(strategy, new PDUv1(), PDUv1.V1TRAP);
     }
 
+    /**
+     * Gets the pD uv1.
+     *
+     * @return the pD uv1
+     */
     protected PDUv1 getPDUv1() {
         return (PDUv1) getPDU();
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setEnterprise(org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public void setEnterprise(SnmpObjId enterpriseId) {
         getPDUv1().setEnterprise(new OID(enterpriseId.getIds()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setAgentAddress(java.net.InetAddress)
+     */
     @Override
     public void setAgentAddress(InetAddress agentAddress) {
         getPDUv1().setAgentAddress(new IpAddress(agentAddress));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setGeneric(int)
+     */
     @Override
     public void setGeneric(int generic) {
         getPDUv1().setGenericTrap(generic);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setSpecific(int)
+     */
     @Override
     public void setSpecific(int specific) {
         getPDUv1().setSpecificTrap(specific);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpV1TrapBuilder#setTimeStamp(long)
+     */
     @Override
     public void setTimeStamp(long timeStamp) {
         getPDUv1().setTimestamp(timeStamp);

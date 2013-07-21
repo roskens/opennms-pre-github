@@ -32,12 +32,24 @@ import org.opennms.netmgt.snmp.SnmpConfiguration;
 import org.opennms.netmgt.snmp.SnmpV3TrapBuilder;
 import org.snmp4j.ScopedPDU;
 
+/**
+ * The Class Snmp4JV3TrapBuilder.
+ */
 public class Snmp4JV3TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV3TrapBuilder {
 
+    /**
+     * Instantiates a new snmp4 j v3 trap builder.
+     *
+     * @param strategy
+     *            the strategy
+     */
     protected Snmp4JV3TrapBuilder(Snmp4JStrategy strategy) {
         super(strategy, new ScopedPDU(), ScopedPDU.TRAP);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.snmp4j.Snmp4JV2TrapBuilder#send(java.lang.String, int, java.lang.String)
+     */
     @Override
     public void send(String destAddr, int destPort, String community) throws Exception {
         super.send(destAddr, destPort, SnmpConfiguration.NOAUTH_NOPRIV, community,

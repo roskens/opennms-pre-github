@@ -38,6 +38,8 @@ import org.snmp4j.asn1.BERInputStream;
 import org.snmp4j.smi.IpAddress;
 
 /**
+ * The Class IpAddressNetSnmp64bitBugAware.
+ *
  * @author Jeff Gehlbach <jeffg@opennms.org>
  *         This class exists solely to work around a bug in the Net-SNMP BER
  *         library
@@ -65,25 +67,42 @@ import org.snmp4j.smi.IpAddress;
  */
 public class IpAddressNetSnmp64bitBugAware extends IpAddress {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(IpAddressNetSnmp64bitBugAware.class);
 
-    /**
-	 *
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5736688810851346588L;
 
+    /**
+     * Instantiates a new ip address net snmp64bit bug aware.
+     */
     public IpAddressNetSnmp64bitBugAware() {
         super();
     }
 
+    /**
+     * Instantiates a new ip address net snmp64bit bug aware.
+     *
+     * @param address
+     *            the address
+     */
     public IpAddressNetSnmp64bitBugAware(InetAddress address) {
         super(address);
     }
 
+    /**
+     * Instantiates a new ip address net snmp64bit bug aware.
+     *
+     * @param address
+     *            the address
+     */
     public IpAddressNetSnmp64bitBugAware(String address) {
         super(address);
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.smi.IpAddress#decodeBER(org.snmp4j.asn1.BERInputStream)
+     */
     @Override
     public void decodeBER(BERInputStream inputStream) throws java.io.IOException {
         BER.MutableByte type = new BER.MutableByte();

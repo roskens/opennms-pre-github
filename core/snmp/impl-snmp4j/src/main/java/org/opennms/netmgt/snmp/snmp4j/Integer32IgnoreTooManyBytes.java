@@ -39,8 +39,10 @@ import org.snmp4j.smi.Integer32;
  */
 public class Integer32IgnoreTooManyBytes extends Integer32 implements AssignableFromInteger, AssignableFromString {
 
+    /** The Constant LOG. */
     private static final transient Logger LOG = LoggerFactory.getLogger(Integer32IgnoreTooManyBytes.class);
 
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 5046132399890132416L;
 
     /**
@@ -59,6 +61,9 @@ public class Integer32IgnoreTooManyBytes extends Integer32 implements Assignable
         setValue(value);
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.smi.Integer32#decodeBER(org.snmp4j.asn1.BERInputStream)
+     */
     @Override
     public void decodeBER(BERInputStream inputStream) throws java.io.IOException {
         BER.MutableByte type = new BER.MutableByte();
@@ -95,6 +100,9 @@ public class Integer32IgnoreTooManyBytes extends Integer32 implements Assignable
         setValue(newValue);
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.smi.Integer32#clone()
+     */
     @Override
     public Object clone() {
         return new Integer32IgnoreTooManyBytes(getValue());

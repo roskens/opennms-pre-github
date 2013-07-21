@@ -54,58 +54,113 @@ import org.snmp4j.smi.TimeTicks;
 import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 
+/**
+ * The Class Snmp4JTrapNotifier.
+ */
 public class Snmp4JTrapNotifier implements CommandResponder {
 
+    /** The Constant LOG. */
     public static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JTrapNotifier.class);
 
+    /** The m_trap processor factory. */
     private TrapProcessorFactory m_trapProcessorFactory;
 
+    /** The m_listener. */
     private TrapNotificationListener m_listener;
 
+    /**
+     * Instantiates a new snmp4 j trap notifier.
+     *
+     * @param listener
+     *            the listener
+     * @param processorFactory
+     *            the processor factory
+     */
     public Snmp4JTrapNotifier(TrapNotificationListener listener, TrapProcessorFactory processorFactory) {
         m_listener = listener;
         m_trapProcessorFactory = processorFactory;
     }
 
+    /**
+     * The Class Snmp4JV1TrapInformation.
+     */
     public static class Snmp4JV1TrapInformation extends TrapInformation {
 
+        /** The m_pdu. */
         private PDUv1 m_pdu;
 
+        /**
+         * Instantiates a new snmp4 j v1 trap information.
+         *
+         * @param agent
+         *            the agent
+         * @param community
+         *            the community
+         * @param pdu
+         *            the pdu
+         * @param trapProcessor
+         *            the trap processor
+         */
         protected Snmp4JV1TrapInformation(InetAddress agent, String community, PDUv1 pdu, TrapProcessor trapProcessor) {
             super(agent, community, trapProcessor);
             m_pdu = pdu;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTrapAddress()
+         */
         @Override
         protected InetAddress getTrapAddress() {
             return m_pdu.getAgentAddress().getInetAddress();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getVersion()
+         */
         @Override
         protected String getVersion() {
             return "v1";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getPduLength()
+         */
         @Override
         protected int getPduLength() {
             return m_pdu.getVariableBindings().size();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTimeStamp()
+         */
         @Override
         protected long getTimeStamp() {
             return m_pdu.getTimestamp();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTrapIdentity()
+         */
         @Override
         protected TrapIdentity getTrapIdentity() {
             return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getValue()), m_pdu.getGenericTrap(),
                                     m_pdu.getSpecificTrap());
         }
 
+        /**
+         * Gets the var bind at.
+         *
+         * @param i
+         *            the i
+         * @return the var bind at
+         */
         protected VariableBinding getVarBindAt(int i) {
             return m_pdu.get(i);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#processVarBindAt(int)
+         */
         @Override
         protected void processVarBindAt(int i) {
             SnmpObjId name = SnmpObjId.get(getVarBindAt(i).getOid().getValue());
@@ -114,42 +169,33 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         }
     }
 
+    /**
+     * The Class Snmp4JV2TrapInformation.
+     */
     public static class Snmp4JV2TrapInformation extends TrapInformation {
-        /**
-         * The received PDU
-         */
+
+        /** The received PDU. */
         private PDU m_pdu;
 
-        /**
-         * The name of the PDU's type
-         */
+        /** The name of the PDU's type. */
         private String m_pduTypeString;
 
-        /**
-         * The snmp sysUpTime OID is the first varbind
-         */
+        /** The snmp sysUpTime OID is the first varbind. */
         static final int SNMP_SYSUPTIME_OID_INDEX = 0;
 
-        /**
-         * The snmp trap OID is the second varbind
-         */
+        /** The snmp trap OID is the second varbind. */
         static final int SNMP_TRAP_OID_INDEX = 1;
 
-        /**
-         * The sysUpTimeOID, which should be the first varbind in a V2 trap
-         */
+        /** The sysUpTimeOID, which should be the first varbind in a V2 trap. */
         static final OID SNMP_SYSUPTIME_OID = new OID(".1.3.6.1.2.1.1.3.0");
 
         /**
          * The sysUpTimeOID, which should be the first varbind in a V2 trap, but
-         * in
-         * the case of Extreme Networks only mostly
+         * in the case of Extreme Networks only mostly.
          */
         static final OID EXTREME_SNMP_SYSUPTIME_OID = new OID(".1.3.6.1.2.1.1.3");
 
-        /**
-         * The snmpTrapOID, which should be the second varbind in a V2 trap
-         */
+        /** The snmpTrapOID, which should be the second varbind in a V2 trap. */
         static final OID SNMP_TRAP_OID = new OID(".1.3.6.1.6.3.1.1.4.1.0");
 
         /**
@@ -173,17 +219,25 @@ public class Snmp4JTrapNotifier implements CommandResponder {
 
         /**
          * Returns the Protocol Data Unit that was encapsulated within the SNMP
-         * Trap message
+         * Trap message.
+         *
+         * @return the pdu
          */
         private PDU getPdu() {
             return m_pdu;
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getPduLength()
+         */
         @Override
         protected int getPduLength() {
             return getPdu().size();
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTimeStamp()
+         */
         @Override
         protected long getTimeStamp() {
 
@@ -202,6 +256,9 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTrapIdentity()
+         */
         @Override
         protected TrapIdentity getTrapIdentity() {
             OID snmpTrapOid = (OID) getVarBindAt(SNMP_TRAP_OID_INDEX).getVariable();
@@ -211,20 +268,36 @@ public class Snmp4JTrapNotifier implements CommandResponder {
                                     new Snmp4JValue(lastVarBindValue));
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getTrapAddress()
+         */
         @Override
         public InetAddress getTrapAddress() {
             return getAgentAddress();
         }
 
+        /**
+         * Gets the var bind at.
+         *
+         * @param index
+         *            the index
+         * @return the var bind at
+         */
         protected VariableBinding getVarBindAt(int index) {
             return getPdu().get(index);
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#getVersion()
+         */
         @Override
         protected String getVersion() {
             return "v2";
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#validate()
+         */
         @Override
         protected void validate() {
             int pduType = getPdu().getType();
@@ -269,6 +342,9 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             }
         }
 
+        /* (non-Javadoc)
+         * @see org.opennms.netmgt.snmp.TrapInformation#processVarBindAt(int)
+         */
         @Override
         protected void processVarBindAt(int i) {
             if (i == 0) {
@@ -285,6 +361,9 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         }
     }
 
+    /* (non-Javadoc)
+     * @see org.snmp4j.CommandResponder#processPdu(org.snmp4j.CommandResponderEvent)
+     */
     @Override
     public void processPdu(CommandResponderEvent e) {
         PDU command = new PDU(e.getPDU());

@@ -58,67 +58,136 @@ import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.UdpAddress;
 import org.snmp4j.transport.DefaultUdpTransportMapping;
 
+/**
+ * The Class Snmp4JAgentConfig.
+ */
 public class Snmp4JAgentConfig {
 
+    /** The m_config. */
     private SnmpAgentConfig m_config;
 
+    /**
+     * Instantiates a new snmp4 j agent config.
+     *
+     * @param config
+     *            the config
+     */
     public Snmp4JAgentConfig(SnmpAgentConfig config) {
         m_config = config;
     }
 
+    /**
+     * Gets the inet address.
+     *
+     * @return the inet address
+     */
     public InetAddress getInetAddress() {
         return m_config.getAddress();
     }
 
+    /**
+     * Gets the auth pass phrase.
+     *
+     * @return the auth pass phrase
+     */
     public OctetString getAuthPassPhrase() {
         return createOctetString(m_config.getAuthPassPhrase());
     }
 
+    /**
+     * Gets the auth protocol.
+     *
+     * @return the auth protocol
+     */
     public OID getAuthProtocol() {
         return convertAuthProtocol(m_config.getAuthProtocol());
     }
 
+    /**
+     * Gets the max request size.
+     *
+     * @return the max request size
+     */
     public int getMaxRequestSize() {
         return m_config.getMaxRequestSize();
     }
 
+    /**
+     * Gets the max vars per pdu.
+     *
+     * @return the max vars per pdu
+     */
     public int getMaxVarsPerPdu() {
         return m_config.getMaxVarsPerPdu();
     }
 
+    /**
+     * Gets the max repetitions.
+     *
+     * @return the max repetitions
+     */
     public int getMaxRepetitions() {
         return m_config.getMaxRepetitions();
     }
 
+    /**
+     * Gets the port.
+     *
+     * @return the port
+     */
     public int getPort() {
         return m_config.getPort();
     }
 
+    /**
+     * Gets the retries.
+     *
+     * @return the retries
+     */
     public int getRetries() {
         return m_config.getRetries();
     }
 
+    /**
+     * Gets the security level.
+     *
+     * @return the security level
+     */
     public int getSecurityLevel() {
         return convertSecurityLevel(m_config.getSecurityLevel());
     }
 
+    /**
+     * Gets the security name.
+     *
+     * @return the security name
+     */
     public OctetString getSecurityName() {
         return convertSecurityName(m_config.getSecurityName());
     }
 
+    /**
+     * Gets the timeout.
+     *
+     * @return the timeout
+     */
     public int getTimeout() {
         return m_config.getTimeout();
     }
 
+    /**
+     * Gets the version.
+     *
+     * @return the version
+     */
     public int getVersion() {
         return convertVersion(m_config.getVersion());
     }
 
     /**
-     * Returns a string representation of the SNMP4J version constant
+     * Returns a string representation of the SNMP4J version constant.
      *
-     * @param version
-     * @return
+     * @return the version string
      */
     public String getVersionString() {
         switch (getVersion()) {
@@ -133,10 +202,18 @@ public class Snmp4JAgentConfig {
         }
     }
 
+    /**
+     * Gets the write community.
+     *
+     * @return the write community
+     */
     public String getWriteCommunity() {
         return m_config.getWriteCommunity();
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return m_config.toString();
@@ -149,6 +226,12 @@ public class Snmp4JAgentConfig {
      * TODO: This needs to be updated when the protocol flag is added to the
      * SNMP Config
      * so that UDP or TCP can be used in v3 operations.
+     *
+     * @param address
+     *            the address
+     * @param port
+     *            the port
+     * @return the address
      */
     private Address convertAddress(InetAddress address, int port) {
         String transportAddress = address.getHostAddress();
@@ -162,7 +245,8 @@ public class Snmp4JAgentConfig {
      * to SNMP4J defined constants.
      *
      * @param version
-     * @return
+     *            the version
+     * @return the int
      */
     private int convertVersion(int version) {
         switch (version) {
@@ -175,6 +259,13 @@ public class Snmp4JAgentConfig {
         }
     }
 
+    /**
+     * Creates the octet string.
+     *
+     * @param s
+     *            the s
+     * @return the octet string
+     */
     private OctetString createOctetString(String s) {
 
         if (s == null) {
@@ -192,15 +283,23 @@ public class Snmp4JAgentConfig {
 
     /**
      * Adapts the OpenNMS SNMPv3 security name to an SNMP4J compatible
-     * security name (String -> OctetString)
+     * security name (String -> OctetString).
      *
      * @param securityName
-     * @return
+     *            the security name
+     * @return the octet string
      */
     private OctetString convertSecurityName(String securityName) {
         return new OctetString(securityName);
     }
 
+    /**
+     * Convert priv protocol.
+     *
+     * @param privProtocol
+     *            the priv protocol
+     * @return the oid
+     */
     private OID convertPrivProtocol(String privProtocol) {
         /*
          * Returning null here is okay because the SNMP4J library supports
@@ -226,15 +325,23 @@ public class Snmp4JAgentConfig {
 
     /**
      * Adapts the OpenNMS SNMPv3 community name to an SNMP4J compatible
-     * community name (String -> OctetString)
+     * community name (String -> OctetString).
      *
-     * @param agentConfig
-     * @return
+     * @param community
+     *            the community
+     * @return the octet string
      */
     private OctetString convertCommunity(String community) {
         return new OctetString(community);
     }
 
+    /**
+     * Convert auth protocol.
+     *
+     * @param authProtocol
+     *            the auth protocol
+     * @return the oid
+     */
     private OID convertAuthProtocol(String authProtocol) {
         /*
          * Returning null here is okay because the SNMP4J library supports
@@ -253,6 +360,11 @@ public class Snmp4JAgentConfig {
         }
     }
 
+    /**
+     * Gets the target.
+     *
+     * @return the target
+     */
     protected Target getTarget() {
         Target target = createTarget();
         target.setVersion(getVersion());
@@ -264,20 +376,40 @@ public class Snmp4JAgentConfig {
         return target;
     }
 
+    /**
+     * Creates the target.
+     *
+     * @return the target
+     */
     private Target createTarget() {
         return (isSnmpV3() ? createUserTarget() : createCommunityTarget());
     }
 
+    /**
+     * Checks if is snmp v3.
+     *
+     * @return true, if is snmp v3
+     */
     boolean isSnmpV3() {
         return m_config.getVersion() == SnmpConstants.version3;
     }
 
+    /**
+     * Creates the community target.
+     *
+     * @return the target
+     */
     private Target createCommunityTarget() {
         CommunityTarget target = new CommunityTarget();
         target.setCommunity(getReadCommunity());
         return target;
     }
 
+    /**
+     * Creates the user target.
+     *
+     * @return the target
+     */
     private Target createUserTarget() {
         UserTarget target = new UserTarget();
         target.setSecurityLevel(getSecurityLevel());
@@ -285,18 +417,38 @@ public class Snmp4JAgentConfig {
         return target;
     }
 
+    /**
+     * Gets the read community.
+     *
+     * @return the read community
+     */
     private OctetString getReadCommunity() {
         return convertCommunity(m_config.getReadCommunity());
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return the address
+     */
     private Address getAddress() {
         return convertAddress(getInetAddress(), getPort());
     }
 
+    /**
+     * Gets the priv protocol.
+     *
+     * @return the priv protocol
+     */
     public OID getPrivProtocol() {
         return convertPrivProtocol(m_config.getPrivProtocol());
     }
 
+    /**
+     * Gets the priv pass phrase.
+     *
+     * @return the priv pass phrase
+     */
     public OctetString getPrivPassPhrase() {
         return createOctetString(m_config.getPrivPassPhrase());
     }
@@ -306,7 +458,8 @@ public class Snmp4JAgentConfig {
      * to SNMP4J defined constants.
      *
      * @param securityLevel
-     * @return
+     *            the security level
+     * @return the int
      */
     private int convertSecurityLevel(int securityLevel) {
         switch (securityLevel) {
@@ -326,6 +479,13 @@ public class Snmp4JAgentConfig {
         return securityLevel;
     }
 
+    /**
+     * Creates the snmp session.
+     *
+     * @return the snmp
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
     public Snmp createSnmpSession() throws IOException {
         TransportMapping transport = new DefaultUdpTransportMapping();
         Snmp session = new Snmp(transport);
@@ -357,7 +517,8 @@ public class Snmp4JAgentConfig {
      * A v3 request requires a ScopedPDU.
      *
      * @param type
-     * @return
+     *            the type
+     * @return the pdu
      */
     public PDU createPdu(int type) {
         PDU pdu = getVersion() == SnmpConstants.version3 ? new ScopedPDU() : new PDU();

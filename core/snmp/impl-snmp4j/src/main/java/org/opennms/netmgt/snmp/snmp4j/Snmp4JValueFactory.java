@@ -45,58 +45,94 @@ import org.snmp4j.smi.OctetString;
 import org.snmp4j.smi.Opaque;
 import org.snmp4j.smi.TimeTicks;
 
+/**
+ * A factory for creating Snmp4JValue objects.
+ */
 public class Snmp4JValueFactory implements SnmpValueFactory {
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getOctetString(byte[])
+     */
     @Override
     public SnmpValue getOctetString(byte[] bytes) {
         return new Snmp4JValue(new OctetString(bytes));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getCounter32(long)
+     */
     @Override
     public SnmpValue getCounter32(long val) {
         return new Snmp4JValue(new Counter32(val));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getCounter64(java.math.BigInteger)
+     */
     @Override
     public SnmpValue getCounter64(BigInteger bigInt) {
         return new Snmp4JValue(new Counter64(bigInt.longValue()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getGauge32(long)
+     */
     @Override
     public SnmpValue getGauge32(long val) {
         return new Snmp4JValue(new Gauge32(val));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getInt32(int)
+     */
     @Override
     public SnmpValue getInt32(int val) {
         return new Snmp4JValue(new Integer32(val));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getIpAddress(java.net.InetAddress)
+     */
     @Override
     public SnmpValue getIpAddress(InetAddress val) {
         return new Snmp4JValue(new IpAddress(val));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getObjectId(org.opennms.netmgt.snmp.SnmpObjId)
+     */
     @Override
     public SnmpValue getObjectId(SnmpObjId objId) {
         return new Snmp4JValue(new OID(objId.getIds()));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getTimeTicks(long)
+     */
     @Override
     public SnmpValue getTimeTicks(long val) {
         return new Snmp4JValue(new TimeTicks(val));
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getNull()
+     */
     @Override
     public SnmpValue getNull() {
         return new Snmp4JValue(new Null());
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getValue(int, byte[])
+     */
     @Override
     public SnmpValue getValue(int type, byte[] bytes) {
         return new Snmp4JValue(type, bytes);
     }
 
+    /* (non-Javadoc)
+     * @see org.opennms.netmgt.snmp.SnmpValueFactory#getOpaque(byte[])
+     */
     @Override
     public SnmpValue getOpaque(byte[] bs) {
         return new Snmp4JValue(new Opaque(bs));
