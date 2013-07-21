@@ -49,13 +49,18 @@ import org.springframework.jms.listener.AbstractMessageListenerContainer;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
 /**
- * Java class as Spring configuration
+ * Java class as Spring configuration.
  *
  * @author Markus Neumann
  */
 @Configuration
 public class AppConfig {
 
+    /**
+     * Connection factory.
+     *
+     * @return the caching connection factory
+     */
     @Bean(name = "connectionFactory")
     public CachingConnectionFactory connectionFactory() {
         CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory();
@@ -66,11 +71,21 @@ public class AppConfig {
         return cachingConnectionFactory;
     }
 
+    /**
+     * Jms exception listener.
+     *
+     * @return the exception listener
+     */
     @Bean(name = "jmsExceptionListener")
     public ExceptionListener jmsExceptionListener() {
         return new JmsExceptionListener();
     }
 
+    /**
+     * Amq connection factory.
+     *
+     * @return the connection factory
+     */
     @Bean(name = "amqConnectionFactory")
     public ConnectionFactory amqConnectionFactory() {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
@@ -84,6 +99,11 @@ public class AppConfig {
     //
     // JMS Template
     //
+    /**
+     * Jms template.
+     *
+     * @return the jms template
+     */
     @Bean(name = "JmsTemplate")
     public JmsTemplate jmsTemplate() {
         return new JmsTemplate(connectionFactory());
@@ -92,6 +112,11 @@ public class AppConfig {
     //
     // JMS DLMC
     //
+    /**
+     * Listener container.
+     *
+     * @return the abstract message listener container
+     */
     @Bean(name = "listenerContainer")
     public AbstractMessageListenerContainer listenerContainer() {
         CollectionJobListener collectionJobListener = new CollectionJobListener(jmsTemplate());
@@ -105,6 +130,11 @@ public class AppConfig {
         return listenerContainer;
     }
 
+    /**
+     * Collector jms dlmc.
+     *
+     * @return the nrt collector
+     */
     @Bean(name = "nrtCollector")
     public NrtCollector collectorJmsDLMC() {
         NrtCollectorJMSDLMC collector = new NrtCollectorJMSDLMC();
@@ -112,11 +142,21 @@ public class AppConfig {
         return collector;
     }
 
+    /**
+     * Snmp strategy.
+     *
+     * @return the snmp strategy
+     */
     @Bean(name = "snmpStrategy")
     public SnmpStrategy snmpStrategy() {
         return new Snmp4JStrategy();
     }
 
+    /**
+     * Snmp collector.
+     *
+     * @return the snmp protocol collector
+     */
     @Bean(name = "snmpCollector")
     public SnmpProtocolCollector snmpCollector() {
         SnmpProtocolCollector snmpCollector = new SnmpProtocolCollector();
@@ -124,6 +164,11 @@ public class AppConfig {
         return snmpCollector;
     }
 
+    /**
+     * Protocol collector registry.
+     *
+     * @return the protocol collector registry
+     */
     @Bean(name = "protocolCollectorRegistry")
     public ProtocolCollectorRegistry protocolCollectorRegistry() {
         ProtocolCollectorRegistryImpl registry = new ProtocolCollectorRegistryImpl();
